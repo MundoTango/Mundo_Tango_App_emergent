@@ -15,7 +15,7 @@ console.log('[ESA 61x21] Memory allocation: 4GB');
 console.log('[ESA 61x21] Environment:', process.env.NODE_ENV || 'development');
 
 // Launch the actual TypeScript server using tsx (Vite-free version)
-const serverPath = path.join(__dirname, 'index-novite.ts');
+const serverPath = join(__dirname, 'index-novite.ts');
 const child = spawn('npx', ['tsx', serverPath], {
   stdio: 'inherit',
   cwd: process.cwd(),
