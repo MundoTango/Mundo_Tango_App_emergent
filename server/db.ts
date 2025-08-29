@@ -10,9 +10,10 @@ const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://demo:demo@localho
 // 40x20s Framework - Layer 21: Production Resilience Engineering
 // Use standard PostgreSQL connection to avoid Neon WebSocket issues
 console.log('🔄 Initializing database connection...');
+console.log('🎭 [DEMO] Using demo database configuration');
 
 const pool = new Pool({ 
-  connectionString: process.env.DATABASE_URL,
+  connectionString: DATABASE_URL,
   // ESA LIFE CEO 56x21 Optimized Connection Pool Settings
   max: 100, // Increased for high concurrency uploads
   min: 20, // Higher minimum for better performance
