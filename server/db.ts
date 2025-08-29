@@ -4,14 +4,8 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
-// Check if we're running in demo mode
-if (process.env.DEMO_MODE === 'true' || !process.env.DATABASE_URL) {
-  console.log('🎭 [DEMO MODE] Using mock database...');
-  // Re-export from demo database
-  export * from './db-demo';
-} else {
-  // Continue with normal database setup
-}
+// For demo purposes, we'll provide a mock DATABASE_URL
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://demo:demo@localhost:5432/lifeceo_demo';
 
 // 40x20s Framework - Layer 21: Production Resilience Engineering
 // Use standard PostgreSQL connection to avoid Neon WebSocket issues
