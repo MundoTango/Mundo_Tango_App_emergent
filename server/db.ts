@@ -4,10 +4,13 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+// Check if we're running in demo mode
+if (process.env.DEMO_MODE === 'true' || !process.env.DATABASE_URL) {
+  console.log('🎭 [DEMO MODE] Using mock database...');
+  // Re-export from demo database
+  export * from './db-demo';
+} else {
+  // Continue with normal database setup
 }
 
 // 40x20s Framework - Layer 21: Production Resilience Engineering
