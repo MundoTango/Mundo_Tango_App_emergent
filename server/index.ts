@@ -1,14 +1,18 @@
 /**
- * ESA LIFE CEO 56x21 - Server Bootstrap
- * This JavaScript file launches the TypeScript server without ES module issues
+ * ESA LIFE CEO 61x21 - Server Bootstrap (ESM Compatible)
+ * This TypeScript file launches the TypeScript server with ES module support
  */
 
-const { spawn } = require('child_process');
-const path = require('path');
+import { spawn } from 'child_process';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-console.log('[ESA 56x21] Server bootstrap starting...');
-console.log('[ESA 56x21] Memory allocation: 4GB');
-console.log('[ESA 56x21] Environment:', process.env.NODE_ENV || 'development');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+console.log('[ESA 61x21] Server bootstrap starting...');
+console.log('[ESA 61x21] Memory allocation: 4GB');
+console.log('[ESA 61x21] Environment:', process.env.NODE_ENV || 'development');
 
 // Launch the actual TypeScript server using tsx (Vite-free version)
 const serverPath = path.join(__dirname, 'index-novite.ts');
