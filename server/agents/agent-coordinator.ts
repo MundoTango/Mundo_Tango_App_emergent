@@ -131,6 +131,13 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(27, new Layer27GamificationAgent() as any);
       this.agents.set(28, new Layer28MarketplaceAgent() as any);
       
+      // Register new Business Logic + Intelligence Infrastructure agents (Batch 5)
+      this.agents.set(29, new Layer29BookingSystemAgent() as any);
+      this.agents.set(30, new Layer30SupportSystemAgent() as any);
+      this.agents.set(36, new Layer36MemorySystemsAgent() as any);
+      this.agents.set(37, new Layer37LearningSystemsAgent() as any);
+      this.agents.set(38, new Layer38PredictionEngineAgent() as any);
+      
       this.agents.set(11, layer11Agent as any);
       this.agents.set(13, layer13Agent as any);
       this.agents.set(21, layer21Agent as any);
