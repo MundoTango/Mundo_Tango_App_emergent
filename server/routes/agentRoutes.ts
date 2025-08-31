@@ -41,6 +41,11 @@ import { supportSystemRoutes } from '../agents/layer30-support-system-agent';
 import { memorySystemsRoutes } from '../agents/layer36-memory-systems-agent';
 import { learningSystemsRoutes } from '../agents/layer37-learning-systems-agent';
 import { predictionEngineRoutes } from '../agents/layer38-prediction-engine-agent';
+import { decisionSupportRoutes } from '../agents/layer39-decision-support-agent';
+import { naturalLanguageRoutes } from '../agents/layer40-natural-language-agent';
+import { visionProcessingRoutes } from '../agents/layer41-vision-processing-agent';
+import { voiceProcessingRoutes } from '../agents/layer42-voice-processing-agent';
+import { sentimentAnalysisRoutes } from '../agents/layer43-sentiment-analysis-agent';
 
 // Foundation Infrastructure Agent Routes (Layers 5-9)
 router.get('/agents/layer05/audit', authorizationSystemRoutes.audit);
