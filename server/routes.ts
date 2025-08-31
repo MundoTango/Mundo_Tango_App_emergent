@@ -108,6 +108,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(cityGroupsStatsRoutes); // ESA LIFE CEO 56x21 - City groups statistics for world map
   app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
+  app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   // ESA Layer 58: Cloudinary routes removed per user request
   
   // Import Life CEO learnings routes
