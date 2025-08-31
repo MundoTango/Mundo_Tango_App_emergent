@@ -434,23 +434,27 @@ class ESABackendTester:
         readiness_result = self.test_readiness_check()
         self.results.append(readiness_result)
         
-        # Test 3: ESA Agent System
+        # Test 3: ESA Framework Batch 1 - Foundation Infrastructure Agents (Layers 5-9)
+        batch1_results = self.test_batch1_foundation_agents()
+        self.results.extend(batch1_results)
+        
+        # Test 4: ESA Agent System (Other Agents)
         agent_results = self.test_esa_agent_system()
         self.results.extend(agent_results)
         
-        # Test 4: ESA Services
+        # Test 5: ESA Services
         esa_results = self.test_esa_services()
         self.results.extend(esa_results)
         
-        # Test 5: Service Integration
+        # Test 6: Service Integration
         integration_results = self.test_service_integration()
         self.results.extend(integration_results)
         
-        # Test 6: Framework Coverage Analysis
+        # Test 7: Framework Coverage Analysis
         coverage_result = self.test_framework_coverage_analysis()
         self.results.append(coverage_result)
         
-        # Test 7: Agent System Performance
+        # Test 8: Agent System Performance
         performance_result = self.test_agent_system_performance()
         self.results.append(performance_result)
         
