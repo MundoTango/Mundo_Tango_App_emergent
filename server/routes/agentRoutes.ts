@@ -99,7 +99,7 @@ router.get('/agents/coordinator/status', async (req, res) => {
     // This will be handled by the coordinator once fully implemented
     res.json({
       message: 'Agent Coordinator Status',
-      totalAgentsRegistered: 29, // Updated count with new batch
+      totalAgentsRegistered: 34, // Updated count with new batch
       status: 'operational'
     });
   } catch (error) {
