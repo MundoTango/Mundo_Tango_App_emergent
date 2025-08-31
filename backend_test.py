@@ -284,11 +284,15 @@ class ESABackendTester:
         readiness_result = self.test_readiness_check()
         self.results.append(readiness_result)
         
-        # Test 3: ESA Services
+        # Test 3: ESA Agent System
+        agent_results = self.test_esa_agent_system()
+        self.results.extend(agent_results)
+        
+        # Test 4: ESA Services
         esa_results = self.test_esa_services()
         self.results.extend(esa_results)
         
-        # Test 4: Service Integration
+        # Test 5: Service Integration
         integration_results = self.test_service_integration()
         self.results.extend(integration_results)
         
