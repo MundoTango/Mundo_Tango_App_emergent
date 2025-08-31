@@ -328,6 +328,46 @@ class ESABackendTester:
             
         return results
     
+    def test_batch5_business_logic_intelligence_agents(self) -> List[TestResult]:
+        """Test ESA Framework Batch 5 - Business Logic + Intelligence Infrastructure Agents (Layers 29-30, 36-38)"""
+        self.log("Testing ESA Framework Batch 5 - Business Logic + Intelligence Infrastructure Agents...")
+        
+        batch5_tests = [
+            # Layer 29: Booking System Agent
+            ("/api/agents/layer29/status", "Layer 29: Booking System Agent - Status"),
+            ("/api/agents/layer29/audit", "Layer 29: Booking System Agent - Audit"),
+            ("/api/agents/layer29/report", "Layer 29: Booking System Agent - Report"),
+            
+            # Layer 30: Support System Agent
+            ("/api/agents/layer30/status", "Layer 30: Support System Agent - Status"),
+            ("/api/agents/layer30/audit", "Layer 30: Support System Agent - Audit"),
+            ("/api/agents/layer30/report", "Layer 30: Support System Agent - Report"),
+            
+            # Layer 36: Memory Systems Agent
+            ("/api/agents/layer36/status", "Layer 36: Memory Systems Agent - Status"),
+            ("/api/agents/layer36/audit", "Layer 36: Memory Systems Agent - Audit"),
+            ("/api/agents/layer36/report", "Layer 36: Memory Systems Agent - Report"),
+            
+            # Layer 37: Learning Systems Agent
+            ("/api/agents/layer37/status", "Layer 37: Learning Systems Agent - Status"),
+            ("/api/agents/layer37/audit", "Layer 37: Learning Systems Agent - Audit"),
+            ("/api/agents/layer37/report", "Layer 37: Learning Systems Agent - Report"),
+            
+            # Layer 38: Prediction Engine Agent
+            ("/api/agents/layer38/status", "Layer 38: Prediction Engine Agent - Status"),
+            ("/api/agents/layer38/audit", "Layer 38: Prediction Engine Agent - Audit"),
+            ("/api/agents/layer38/report", "Layer 38: Prediction Engine Agent - Report"),
+        ]
+        
+        results = []
+        for endpoint, agent_name in batch5_tests:
+            self.log(f"Testing {agent_name}...")
+            result = self.test_api_endpoint(endpoint)
+            result.name = agent_name
+            results.append(result)
+            
+        return results
+    
     def test_esa_agent_system(self) -> List[TestResult]:
         """Test ESA LIFE CEO 61x21 Framework Agent System"""
         self.log("Testing ESA Agent System...")
