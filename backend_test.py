@@ -522,23 +522,31 @@ class ESABackendTester:
         batch1_results = self.test_batch1_foundation_agents()
         self.results.extend(batch1_results)
         
-        # Test 4: ESA Agent System (Other Agents)
+        # Test 4: ESA Framework Batch 2 - Core Functionality Agents (Layers 10, 12, 14-16)
+        batch2_results = self.test_batch2_core_functionality_agents()
+        self.results.extend(batch2_results)
+        
+        # Test 5: Agent Coordinator Count Verification (should show 29 total agents)
+        coordinator_count_result = self.test_agent_coordinator_count()
+        self.results.append(coordinator_count_result)
+        
+        # Test 6: ESA Agent System (Other Agents)
         agent_results = self.test_esa_agent_system()
         self.results.extend(agent_results)
         
-        # Test 5: ESA Services
+        # Test 7: ESA Services
         esa_results = self.test_esa_services()
         self.results.extend(esa_results)
         
-        # Test 6: Service Integration
+        # Test 8: Service Integration
         integration_results = self.test_service_integration()
         self.results.extend(integration_results)
         
-        # Test 7: Framework Coverage Analysis
+        # Test 9: Framework Coverage Analysis
         coverage_result = self.test_framework_coverage_analysis()
         self.results.append(coverage_result)
         
-        # Test 8: Agent System Performance
+        # Test 10: Agent System Performance
         performance_result = self.test_agent_system_performance()
         self.results.append(performance_result)
         
