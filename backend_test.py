@@ -178,10 +178,28 @@ class ESABackendTester:
             ("/api/agents/coordinator/audit", "Agent Coordinator Full Audit"),
             ("/api/agents/coordinator/report", "Agent Coordinator Report"),
             
-            # Individual Layer Agents - All 15 Specialized Agents
+            # Individual Layer Agents - All Specialized Agents
             ("/api/agents/layer/01/status", "Layer 01: Architecture Foundation Agent"),
             ("/api/agents/layer/02/status", "Layer 02: API Structure Agent"),
             ("/api/agents/layer/03/status", "Layer 03: Server Framework Agent"),
+            
+            # NEW BATCH 1: Foundation Infrastructure Agents (Layers 5-9)
+            ("/api/agents/layer05/status", "Layer 05: Authorization System Agent Status"),
+            ("/api/agents/layer05/audit", "Layer 05: Authorization System Agent Audit"),
+            ("/api/agents/layer05/report", "Layer 05: Authorization System Agent Report"),
+            ("/api/agents/layer06/status", "Layer 06: Data Validation Agent Status"),
+            ("/api/agents/layer06/audit", "Layer 06: Data Validation Agent Audit"),
+            ("/api/agents/layer06/report", "Layer 06: Data Validation Agent Report"),
+            ("/api/agents/layer07/status", "Layer 07: State Management Agent Status"),
+            ("/api/agents/layer07/audit", "Layer 07: State Management Agent Audit"),
+            ("/api/agents/layer07/report", "Layer 07: State Management Agent Report"),
+            ("/api/agents/layer08/status", "Layer 08: Client Framework Agent Status"),
+            ("/api/agents/layer08/audit", "Layer 08: Client Framework Agent Audit"),
+            ("/api/agents/layer08/report", "Layer 08: Client Framework Agent Report"),
+            ("/api/agents/layer09/status", "Layer 09: UI Framework Agent Status"),
+            ("/api/agents/layer09/audit", "Layer 09: UI Framework Agent Audit"),
+            ("/api/agents/layer09/report", "Layer 09: UI Framework Agent Report"),
+            
             ("/api/agents/layer/22/status", "Layer 22: Group Management Agent"),
             ("/api/agents/layer/31/status", "Layer 31: AI Infrastructure Agent"),
             ("/api/agents/layer/32/status", "Layer 32: Prompt Engineering Agent"),
