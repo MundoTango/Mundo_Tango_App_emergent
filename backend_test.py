@@ -603,7 +603,11 @@ class ESABackendTester:
         batch2_results = self.test_batch2_core_functionality_agents()
         self.results.extend(batch2_results)
         
-        # Test 5: Agent Coordinator Count Verification (should show 29 total agents)
+        # Test 4.5: ESA Framework Batch 3 - Core Functionality + Business Logic Agents (Layers 17-20, 23)
+        batch3_results = self.test_batch3_core_business_logic_agents()
+        self.results.extend(batch3_results)
+        
+        # Test 5: Agent Coordinator Count Verification (should show 34 total agents)
         coordinator_count_result = self.test_agent_coordinator_count()
         self.results.append(coordinator_count_result)
         
