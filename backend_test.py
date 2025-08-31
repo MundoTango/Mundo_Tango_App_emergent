@@ -178,11 +178,17 @@ class ESABackendTester:
             ("/api/agents/coordinator/audit", "Agent Coordinator Full Audit"),
             ("/api/agents/coordinator/report", "Agent Coordinator Report"),
             
-            # Individual Layer Agents
+            # Individual Layer Agents - All 15 Specialized Agents
             ("/api/agents/layer/01/status", "Layer 01: Architecture Foundation Agent"),
+            ("/api/agents/layer/02/status", "Layer 02: API Structure Agent"),
+            ("/api/agents/layer/03/status", "Layer 03: Server Framework Agent"),
             ("/api/agents/layer/22/status", "Layer 22: Group Management Agent"),
             ("/api/agents/layer/31/status", "Layer 31: AI Infrastructure Agent"),
             ("/api/agents/layer/32/status", "Layer 32: Prompt Engineering Agent"),
+            ("/api/agents/layer/33/status", "Layer 33: Context Management Agent"),
+            ("/api/agents/layer/34/status", "Layer 34: Response Generation Agent"),
+            ("/api/agents/layer/35/status", "Layer 35: AI Agent Management Agent"),
+            ("/api/agents/layer/48/status", "Layer 48: Performance Monitoring Agent"),
             ("/api/agents/layer/57/status", "Layer 57: Automation Management Agent"),
             ("/api/agents/layer/58/status", "Layer 58: Integration Tracking Agent"),
             ("/api/agents/layer/59/status", "Layer 59: Open Source Management Agent"),
