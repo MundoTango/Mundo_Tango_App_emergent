@@ -22,6 +22,13 @@ import { dataProcessingRoutes } from '../agents/layer12-data-processing-agent';
 import { cachingStrategyRoutes } from '../agents/layer14-caching-strategy-agent';
 import { searchDiscoveryRoutes } from '../agents/layer15-search-discovery-agent';
 import { notificationSystemRoutes } from '../agents/layer16-notification-system-agent';
+import { paymentProcessingRoutes } from '../agents/layer17-payment-processing-agent';
+import { reportingAnalyticsRoutes } from '../agents/layer18-reporting-analytics-agent';
+import { contentManagementRoutes } from '../agents/layer19-content-management-agent';
+import { workflowEngineRoutes } from '../agents/layer20-workflow-engine-agent';
+
+// Business Logic (Layers 21-30)
+import { eventManagementRoutes } from '../agents/layer23-event-management-agent';
 
 // Foundation Infrastructure Agent Routes (Layers 5-9)
 router.get('/agents/layer05/audit', authorizationSystemRoutes.audit);
