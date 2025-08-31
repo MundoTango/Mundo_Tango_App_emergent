@@ -45,10 +45,18 @@ class AgentCoordinator extends EventEmitter {
       const { layer31Agent } = await import('./layer31-ai-infrastructure-agent');
       const { layer32Agent } = await import('./layer32-prompt-engineering-agent');
       const { layer57Agent } = await import('./layer57-automation-management-agent');
+      const { layer58Agent } = await import('./layer58-integration-tracking-agent');
+      const { layer59Agent } = await import('./layer59-opensource-management-agent');
+      const { layer60Agent } = await import('./layer60-github-expertise-agent');
+      const { layer61Agent } = await import('./layer61-supabase-expertise-agent');
 
       this.agents.set(31, layer31Agent as any);
       this.agents.set(32, layer32Agent as any);
       this.agents.set(57, layer57Agent as any);
+      this.agents.set(58, layer58Agent as any);
+      this.agents.set(59, layer59Agent as any);
+      this.agents.set(60, layer60Agent as any);
+      this.agents.set(61, layer61Agent as any);
 
       console.log(`[ESA Agent Coordinator] Registered ${this.agents.size} specialized layer agents`);
       
