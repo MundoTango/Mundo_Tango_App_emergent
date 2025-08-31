@@ -152,6 +152,26 @@ router.get('/agents/layer38/audit', predictionEngineRoutes.audit);
 router.get('/agents/layer38/status', predictionEngineRoutes.status);
 router.get('/agents/layer38/report', predictionEngineRoutes.report);
 
+router.get('/agents/layer39/audit', decisionSupportRoutes.audit);
+router.get('/agents/layer39/status', decisionSupportRoutes.status);
+router.get('/agents/layer39/report', decisionSupportRoutes.report);
+
+router.get('/agents/layer40/audit', naturalLanguageRoutes.audit);
+router.get('/agents/layer40/status', naturalLanguageRoutes.status);
+router.get('/agents/layer40/report', naturalLanguageRoutes.report);
+
+router.get('/agents/layer41/audit', visionProcessingRoutes.audit);
+router.get('/agents/layer41/status', visionProcessingRoutes.status);
+router.get('/agents/layer41/report', visionProcessingRoutes.report);
+
+router.get('/agents/layer42/audit', voiceProcessingRoutes.audit);
+router.get('/agents/layer42/status', voiceProcessingRoutes.status);
+router.get('/agents/layer42/report', voiceProcessingRoutes.report);
+
+router.get('/agents/layer43/audit', sentimentAnalysisRoutes.audit);
+router.get('/agents/layer43/status', sentimentAnalysisRoutes.status);
+router.get('/agents/layer43/report', sentimentAnalysisRoutes.report);
+
 // Coordinator routes (main agent system endpoints)
 router.get('/agents/coordinator/status', async (req, res) => {
   try {
