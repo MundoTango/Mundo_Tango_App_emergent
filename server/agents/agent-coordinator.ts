@@ -46,6 +46,14 @@ class AgentCoordinator extends EventEmitter {
       const { layer02Agent } = await import('./layer02-api-structure-agent');
       const { layer03Agent } = await import('./layer03-server-framework-agent');
       const { layer04Agent } = await import('./layer04-authentication-system-agent');
+      
+      // NEW Foundation Infrastructure agents (Batch 1)
+      const { Layer05AuthorizationSystemAgent } = await import('./layer05-authorization-system-agent');
+      const { Layer06DataValidationAgent } = await import('./layer06-data-validation-agent');
+      const { Layer07StateManagementAgent } = await import('./layer07-state-management-agent');
+      const { Layer08ClientFrameworkAgent } = await import('./layer08-client-framework-agent');
+      const { Layer09UIFrameworkAgent } = await import('./layer09-ui-framework-agent');
+      
       const { layer11Agent } = await import('./layer11-realtime-features-agent');
       const { layer13Agent } = await import('./layer13-file-management-agent');
       const { layer21Agent } = await import('./layer21-user-management-agent');
