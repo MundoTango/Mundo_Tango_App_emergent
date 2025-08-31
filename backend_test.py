@@ -403,7 +403,51 @@ class ESABackendTester:
                 message=f"Framework coverage analysis failed: {str(e)}"
             )
     
-    def test_agent_system_performance(self) -> TestResult:
+    def test_agent_coordinator_count(self) -> TestResult:
+        """Test Agent Coordinator to verify total agent count is 29"""
+        self.log("Testing Agent Coordinator Count...")
+        
+        try:
+            start_time = time.time()
+            response = self.session.get(f"{self.base_url}/api/agents/coordinator/status")
+            response_time = time.time() - start_time
+            
+            if response.status_code == 200:
+                data = response.json()
+                total_agents = data.get('total_agents', 0)
+                implemented_agents = data.get('implemented_agents', 0)
+                
+                if total_agents == 29:
+                    return TestResult(
+                        name="Agent Coordinator Count Verification",
+                        passed=True,
+                        message=f"Coordinator shows correct count: {total_agents} total agents, {implemented_agents} implemented",
+                        response_time=response_time,
+                        status_code=response.status_code
+                    )
+                else:
+                    return TestResult(
+                        name="Agent Coordinator Count Verification",
+                        passed=False,
+                        message=f"Expected 29 total agents, but coordinator shows {total_agents} total agents",
+                        response_time=response_time,
+                        status_code=response.status_code
+                    )
+            else:
+                return TestResult(
+                    name="Agent Coordinator Count Verification",
+                    passed=False,
+                    message=f"Coordinator status check failed with status: {response.status_code}",
+                    response_time=response_time,
+                    status_code=response.status_code
+                )
+                
+        except Exception as e:
+            return TestResult(
+                name="Agent Coordinator Count Verification",
+                passed=False,
+                message=f"Coordinator count check failed: {str(e)}"
+            )
         """Test overall agent system health and coordination performance"""
         self.log("Testing Agent System Performance...")
         
