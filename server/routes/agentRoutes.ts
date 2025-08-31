@@ -34,6 +34,13 @@ import { messagingSystemRoutes } from '../agents/layer25-messaging-system-agent'
 import { recommendationEngineRoutes } from '../agents/layer26-recommendation-engine-agent';
 import { gamificationRoutes } from '../agents/layer27-gamification-agent';
 import { marketplaceRoutes } from '../agents/layer28-marketplace-agent';
+import { bookingSystemRoutes } from '../agents/layer29-booking-system-agent';
+import { supportSystemRoutes } from '../agents/layer30-support-system-agent';
+
+// Intelligence Infrastructure (Layers 31-46)
+import { memorySystemsRoutes } from '../agents/layer36-memory-systems-agent';
+import { learningSystemsRoutes } from '../agents/layer37-learning-systems-agent';
+import { predictionEngineRoutes } from '../agents/layer38-prediction-engine-agent';
 
 // Foundation Infrastructure Agent Routes (Layers 5-9)
 router.get('/agents/layer05/audit', authorizationSystemRoutes.audit);
