@@ -208,6 +208,46 @@ class ESABackendTester:
             
         return results
     
+    def test_batch2_core_functionality_agents(self) -> List[TestResult]:
+        """Test ESA Framework Batch 2 - Core Functionality Agents (Layers 10, 12, 14-16)"""
+        self.log("Testing ESA Framework Batch 2 - Core Functionality Agents...")
+        
+        batch2_tests = [
+            # Layer 10: Component Library Agent
+            ("/api/agents/layer10/status", "Layer 10: Component Library Agent - Status"),
+            ("/api/agents/layer10/audit", "Layer 10: Component Library Agent - Audit"),
+            ("/api/agents/layer10/report", "Layer 10: Component Library Agent - Report"),
+            
+            # Layer 12: Data Processing Agent
+            ("/api/agents/layer12/status", "Layer 12: Data Processing Agent - Status"),
+            ("/api/agents/layer12/audit", "Layer 12: Data Processing Agent - Audit"),
+            ("/api/agents/layer12/report", "Layer 12: Data Processing Agent - Report"),
+            
+            # Layer 14: Caching Strategy Agent
+            ("/api/agents/layer14/status", "Layer 14: Caching Strategy Agent - Status"),
+            ("/api/agents/layer14/audit", "Layer 14: Caching Strategy Agent - Audit"),
+            ("/api/agents/layer14/report", "Layer 14: Caching Strategy Agent - Report"),
+            
+            # Layer 15: Search & Discovery Agent
+            ("/api/agents/layer15/status", "Layer 15: Search & Discovery Agent - Status"),
+            ("/api/agents/layer15/audit", "Layer 15: Search & Discovery Agent - Audit"),
+            ("/api/agents/layer15/report", "Layer 15: Search & Discovery Agent - Report"),
+            
+            # Layer 16: Notification System Agent
+            ("/api/agents/layer16/status", "Layer 16: Notification System Agent - Status"),
+            ("/api/agents/layer16/audit", "Layer 16: Notification System Agent - Audit"),
+            ("/api/agents/layer16/report", "Layer 16: Notification System Agent - Report"),
+        ]
+        
+        results = []
+        for endpoint, agent_name in batch2_tests:
+            self.log(f"Testing {agent_name}...")
+            result = self.test_api_endpoint(endpoint)
+            result.name = agent_name
+            results.append(result)
+            
+        return results
+    
     def test_esa_agent_system(self) -> List[TestResult]:
         """Test ESA LIFE CEO 61x21 Framework Agent System"""
         self.log("Testing ESA Agent System...")
