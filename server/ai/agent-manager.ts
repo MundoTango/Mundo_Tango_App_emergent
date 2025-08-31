@@ -4,12 +4,10 @@ import { agents, semanticMemories, decisions, intents, contexts } from '@shared/
 import { eq, and, desc } from 'drizzle-orm';
 import OpenAI from 'openai';
 
-// Initialize OpenAI client (will use environment variable)
-const openai = process.env.DISABLE_AI_AGENTS === 'true' 
-  ? null 
-  : new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY || 'demo-key',
-    });
+// Initialize OpenAI client with real API key
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 // 16 Life CEO Agents Definition
 export const LIFE_CEO_AGENTS = {
