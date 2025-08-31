@@ -82,6 +82,13 @@ class AgentCoordinator extends EventEmitter {
       const { Layer37LearningSystemsAgent } = await import('./layer37-learning-systems-agent');
       const { Layer38PredictionEngineAgent } = await import('./layer38-prediction-engine-agent');
       
+      // NEW Intelligence Infrastructure agents (Batch 6)
+      const { Layer39DecisionSupportAgent } = await import('./layer39-decision-support-agent');
+      const { Layer40NaturalLanguageAgent } = await import('./layer40-natural-language-agent');
+      const { Layer41VisionProcessingAgent } = await import('./layer41-vision-processing-agent');
+      const { Layer42VoiceProcessingAgent } = await import('./layer42-voice-processing-agent');
+      const { Layer43SentimentAnalysisAgent } = await import('./layer43-sentiment-analysis-agent');
+      
       const { layer11Agent } = await import('./layer11-realtime-features-agent');
       const { layer13Agent } = await import('./layer13-file-management-agent');
       const { layer21Agent } = await import('./layer21-user-management-agent');
