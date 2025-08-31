@@ -43,9 +43,15 @@ class AgentCoordinator extends EventEmitter {
     try {
       // Register implemented agents
       const { layer01Agent } = await import('./layer01-architecture-foundation-agent');
+      const { layer02Agent } = await import('./layer02-api-structure-agent');
+      const { layer03Agent } = await import('./layer03-server-framework-agent');
       const { layer22Agent } = await import('./layer22-group-management-agent');
       const { layer31Agent } = await import('./layer31-ai-infrastructure-agent');
       const { layer32Agent } = await import('./layer32-prompt-engineering-agent');
+      const { layer33Agent } = await import('./layer33-context-management-agent');
+      const { layer34Agent } = await import('./layer34-response-generation-agent');
+      const { layer35Agent } = await import('./layer35-ai-agent-management-agent');
+      const { layer48Agent } = await import('./layer48-performance-monitoring-agent');
       const { layer57Agent } = await import('./layer57-automation-management-agent');
       const { layer58Agent } = await import('./layer58-integration-tracking-agent');
       const { layer59Agent } = await import('./layer59-opensource-management-agent');
@@ -53,9 +59,15 @@ class AgentCoordinator extends EventEmitter {
       const { layer61Agent } = await import('./layer61-supabase-expertise-agent');
 
       this.agents.set(1, layer01Agent as any);
+      this.agents.set(2, layer02Agent as any);
+      this.agents.set(3, layer03Agent as any);
       this.agents.set(22, layer22Agent as any);
       this.agents.set(31, layer31Agent as any);
       this.agents.set(32, layer32Agent as any);
+      this.agents.set(33, layer33Agent as any);
+      this.agents.set(34, layer34Agent as any);
+      this.agents.set(35, layer35Agent as any);
+      this.agents.set(48, layer48Agent as any);
       this.agents.set(57, layer57Agent as any);
       this.agents.set(58, layer58Agent as any);
       this.agents.set(59, layer59Agent as any);
