@@ -168,6 +168,43 @@ class ESABackendTester:
                 message=f"API endpoint failed: {str(e)}"
             )
     
+    def test_esa_agent_system(self) -> List[TestResult]:
+        """Test ESA LIFE CEO 61x21 Framework Agent System"""
+        self.log("Testing ESA Agent System...")
+        
+        agent_tests = [
+            # Agent Coordinator
+            ("/api/agents/coordinator/status", "Agent Coordinator Status"),
+            ("/api/agents/coordinator/audit", "Agent Coordinator Full Audit"),
+            ("/api/agents/coordinator/report", "Agent Coordinator Report"),
+            
+            # Individual Layer Agents
+            ("/api/agents/layer/01/status", "Layer 01: Architecture Foundation Agent"),
+            ("/api/agents/layer/22/status", "Layer 22: Group Management Agent"),
+            ("/api/agents/layer/31/status", "Layer 31: AI Infrastructure Agent"),
+            ("/api/agents/layer/32/status", "Layer 32: Prompt Engineering Agent"),
+            ("/api/agents/layer/57/status", "Layer 57: Automation Management Agent"),
+            ("/api/agents/layer/58/status", "Layer 58: Integration Tracking Agent"),
+            ("/api/agents/layer/59/status", "Layer 59: Open Source Management Agent"),
+            ("/api/agents/layer/60/status", "Layer 60: GitHub Expertise Agent"),
+            ("/api/agents/layer/61/status", "Layer 61: Supabase Expertise Agent"),
+            
+            # Agent Reports
+            ("/api/agents/layer/01/report", "Layer 01 Agent Report"),
+            ("/api/agents/layer/22/report", "Layer 22 Agent Report"),
+            ("/api/agents/layer/31/report", "Layer 31 Agent Report"),
+            ("/api/agents/layer/32/report", "Layer 32 Agent Report"),
+        ]
+        
+        results = []
+        for endpoint, agent_name in agent_tests:
+            self.log(f"Testing {agent_name}...")
+            result = self.test_api_endpoint(endpoint)
+            result.name = agent_name
+            results.append(result)
+            
+        return results
+    
     def test_esa_services(self) -> List[TestResult]:
         """Test ESA Layer services for basic accessibility"""
         self.log("Testing ESA Layer Services...")
