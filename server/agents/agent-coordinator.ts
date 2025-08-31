@@ -61,6 +61,13 @@ class AgentCoordinator extends EventEmitter {
       const { Layer15SearchDiscoveryAgent } = await import('./layer15-search-discovery-agent');
       const { Layer16NotificationSystemAgent } = await import('./layer16-notification-system-agent');
       
+      // NEW Core Functionality + Business Logic agents (Batch 3)
+      const { Layer17PaymentProcessingAgent } = await import('./layer17-payment-processing-agent');
+      const { Layer18ReportingAnalyticsAgent } = await import('./layer18-reporting-analytics-agent');
+      const { Layer19ContentManagementAgent } = await import('./layer19-content-management-agent');
+      const { Layer20WorkflowEngineAgent } = await import('./layer20-workflow-engine-agent');
+      const { Layer23EventManagementAgent } = await import('./layer23-event-management-agent');
+      
       const { layer11Agent } = await import('./layer11-realtime-features-agent');
       const { layer13Agent } = await import('./layer13-file-management-agent');
       const { layer21Agent } = await import('./layer21-user-management-agent');
