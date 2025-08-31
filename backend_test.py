@@ -267,7 +267,81 @@ class ESABackendTester:
             
         return results
     
-    def test_service_integration(self) -> List[TestResult]:
+    def test_framework_coverage_analysis(self) -> TestResult:
+        """Test Framework Coverage Analysis - assess 61x21 framework compliance"""
+        self.log("Testing Framework Coverage Analysis...")
+        
+        try:
+            start_time = time.time()
+            response = self.session.get(f"{self.base_url}/api/agents/coordinator/framework-coverage")
+            response_time = time.time() - start_time
+            
+            if response.status_code == 200:
+                data = response.json()
+                coverage_percentage = data.get('coverage_percentage', 0)
+                implemented_layers = data.get('implemented_layers', 0)
+                total_layers = data.get('total_layers', 61)
+                
+                return TestResult(
+                    name="Framework Coverage Analysis",
+                    passed=True,
+                    message=f"Framework coverage: {coverage_percentage}% ({implemented_layers}/{total_layers} layers implemented)",
+                    response_time=response_time,
+                    status_code=response.status_code
+                )
+            else:
+                return TestResult(
+                    name="Framework Coverage Analysis",
+                    passed=False,
+                    message=f"Framework coverage analysis failed with status: {response.status_code}",
+                    response_time=response_time,
+                    status_code=response.status_code
+                )
+                
+        except Exception as e:
+            return TestResult(
+                name="Framework Coverage Analysis",
+                passed=False,
+                message=f"Framework coverage analysis failed: {str(e)}"
+            )
+    
+    def test_agent_system_performance(self) -> TestResult:
+        """Test overall agent system health and coordination performance"""
+        self.log("Testing Agent System Performance...")
+        
+        try:
+            start_time = time.time()
+            response = self.session.get(f"{self.base_url}/api/agents/coordinator/performance")
+            response_time = time.time() - start_time
+            
+            if response.status_code == 200:
+                data = response.json()
+                system_health = data.get('system_health', 'unknown')
+                avg_response_time = data.get('average_response_time', 0)
+                
+                return TestResult(
+                    name="Agent System Performance",
+                    passed=True,
+                    message=f"System health: {system_health}, Avg response time: {avg_response_time}ms",
+                    response_time=response_time,
+                    status_code=response.status_code
+                )
+            else:
+                return TestResult(
+                    name="Agent System Performance",
+                    passed=False,
+                    message=f"Performance check failed with status: {response.status_code}",
+                    response_time=response_time,
+                    status_code=response.status_code
+                )
+                
+        except Exception as e:
+            return TestResult(
+                name="Agent System Performance",
+                passed=False,
+                message=f"Performance check failed: {str(e)}"
+            )
+    
         """Test basic service integration endpoints"""
         self.log("Testing Service Integration...")
         
