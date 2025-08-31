@@ -387,6 +387,14 @@ class ESABackendTester:
         integration_results = self.test_service_integration()
         self.results.extend(integration_results)
         
+        # Test 6: Framework Coverage Analysis
+        coverage_result = self.test_framework_coverage_analysis()
+        self.results.append(coverage_result)
+        
+        # Test 7: Agent System Performance
+        performance_result = self.test_agent_system_performance()
+        self.results.append(performance_result)
+        
         # Calculate summary
         total_tests = len(self.results)
         passed_tests = sum(1 for r in self.results if r.passed)
