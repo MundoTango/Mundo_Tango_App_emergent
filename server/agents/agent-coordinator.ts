@@ -42,6 +42,8 @@ class AgentCoordinator extends EventEmitter {
   private async registerAgents(): Promise<void> {
     try {
       // Register implemented agents
+      const { layer01Agent } = await import('./layer01-architecture-foundation-agent');
+      const { layer22Agent } = await import('./layer22-group-management-agent');
       const { layer31Agent } = await import('./layer31-ai-infrastructure-agent');
       const { layer32Agent } = await import('./layer32-prompt-engineering-agent');
       const { layer57Agent } = await import('./layer57-automation-management-agent');
@@ -50,6 +52,8 @@ class AgentCoordinator extends EventEmitter {
       const { layer60Agent } = await import('./layer60-github-expertise-agent');
       const { layer61Agent } = await import('./layer61-supabase-expertise-agent');
 
+      this.agents.set(1, layer01Agent as any);
+      this.agents.set(22, layer22Agent as any);
       this.agents.set(31, layer31Agent as any);
       this.agents.set(32, layer32Agent as any);
       this.agents.set(57, layer57Agent as any);
