@@ -191,7 +191,7 @@ router.get('/agents/coordinator/audit', async (req, res) => {
     res.json({
       message: 'Full ESA Framework Audit',
       layers: 61,
-      implemented: 44, // Updated count
+      implemented: 49, // Updated count
       status: 'in_progress'
     });
   } catch (error) {
