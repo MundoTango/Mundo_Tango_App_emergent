@@ -44,6 +44,27 @@ router.get('/agents/layer09/audit', uiFrameworkRoutes.audit);
 router.get('/agents/layer09/status', uiFrameworkRoutes.status);
 router.get('/agents/layer09/report', uiFrameworkRoutes.report);
 
+router.get('/agents/layer10/audit', componentLibraryRoutes.audit);
+router.get('/agents/layer10/status', componentLibraryRoutes.status);
+router.get('/agents/layer10/report', componentLibraryRoutes.report);
+
+// Core Functionality Agent Routes (Layers 12, 14-16)
+router.get('/agents/layer12/audit', dataProcessingRoutes.audit);
+router.get('/agents/layer12/status', dataProcessingRoutes.status);
+router.get('/agents/layer12/report', dataProcessingRoutes.report);
+
+router.get('/agents/layer14/audit', cachingStrategyRoutes.audit);
+router.get('/agents/layer14/status', cachingStrategyRoutes.status);
+router.get('/agents/layer14/report', cachingStrategyRoutes.report);
+
+router.get('/agents/layer15/audit', searchDiscoveryRoutes.audit);
+router.get('/agents/layer15/status', searchDiscoveryRoutes.status);
+router.get('/agents/layer15/report', searchDiscoveryRoutes.report);
+
+router.get('/agents/layer16/audit', notificationSystemRoutes.audit);
+router.get('/agents/layer16/status', notificationSystemRoutes.status);
+router.get('/agents/layer16/report', notificationSystemRoutes.report);
+
 // Coordinator routes (main agent system endpoints)
 router.get('/agents/coordinator/status', async (req, res) => {
   try {
