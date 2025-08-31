@@ -248,6 +248,46 @@ class ESABackendTester:
             
         return results
     
+    def test_batch3_core_business_logic_agents(self) -> List[TestResult]:
+        """Test ESA Framework Batch 3 - Core Functionality + Business Logic Agents (Layers 17-20, 23)"""
+        self.log("Testing ESA Framework Batch 3 - Core Functionality + Business Logic Agents...")
+        
+        batch3_tests = [
+            # Layer 17: Payment Processing Agent
+            ("/api/agents/layer17/status", "Layer 17: Payment Processing Agent - Status"),
+            ("/api/agents/layer17/audit", "Layer 17: Payment Processing Agent - Audit"),
+            ("/api/agents/layer17/report", "Layer 17: Payment Processing Agent - Report"),
+            
+            # Layer 18: Reporting & Analytics Agent
+            ("/api/agents/layer18/status", "Layer 18: Reporting & Analytics Agent - Status"),
+            ("/api/agents/layer18/audit", "Layer 18: Reporting & Analytics Agent - Audit"),
+            ("/api/agents/layer18/report", "Layer 18: Reporting & Analytics Agent - Report"),
+            
+            # Layer 19: Content Management Agent
+            ("/api/agents/layer19/status", "Layer 19: Content Management Agent - Status"),
+            ("/api/agents/layer19/audit", "Layer 19: Content Management Agent - Audit"),
+            ("/api/agents/layer19/report", "Layer 19: Content Management Agent - Report"),
+            
+            # Layer 20: Workflow Engine Agent
+            ("/api/agents/layer20/status", "Layer 20: Workflow Engine Agent - Status"),
+            ("/api/agents/layer20/audit", "Layer 20: Workflow Engine Agent - Audit"),
+            ("/api/agents/layer20/report", "Layer 20: Workflow Engine Agent - Report"),
+            
+            # Layer 23: Event Management Agent
+            ("/api/agents/layer23/status", "Layer 23: Event Management Agent - Status"),
+            ("/api/agents/layer23/audit", "Layer 23: Event Management Agent - Audit"),
+            ("/api/agents/layer23/report", "Layer 23: Event Management Agent - Report"),
+        ]
+        
+        results = []
+        for endpoint, agent_name in batch3_tests:
+            self.log(f"Testing {agent_name}...")
+            result = self.test_api_endpoint(endpoint)
+            result.name = agent_name
+            results.append(result)
+            
+        return results
+    
     def test_esa_agent_system(self) -> List[TestResult]:
         """Test ESA LIFE CEO 61x21 Framework Agent System"""
         self.log("Testing ESA Agent System...")
