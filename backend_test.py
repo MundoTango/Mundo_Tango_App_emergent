@@ -342,6 +342,7 @@ class ESABackendTester:
                 message=f"Performance check failed: {str(e)}"
             )
     
+    def test_service_integration(self) -> List[TestResult]:
         """Test basic service integration endpoints"""
         self.log("Testing Service Integration...")
         
