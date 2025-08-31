@@ -126,6 +126,27 @@ router.get('/agents/layer28/audit', marketplaceRoutes.audit);
 router.get('/agents/layer28/status', marketplaceRoutes.status);
 router.get('/agents/layer28/report', marketplaceRoutes.report);
 
+router.get('/agents/layer29/audit', bookingSystemRoutes.audit);
+router.get('/agents/layer29/status', bookingSystemRoutes.status);
+router.get('/agents/layer29/report', bookingSystemRoutes.report);
+
+router.get('/agents/layer30/audit', supportSystemRoutes.audit);
+router.get('/agents/layer30/status', supportSystemRoutes.status);
+router.get('/agents/layer30/report', supportSystemRoutes.report);
+
+// Intelligence Infrastructure Agent Routes (Layers 36-38)
+router.get('/agents/layer36/audit', memorySystemsRoutes.audit);
+router.get('/agents/layer36/status', memorySystemsRoutes.status);
+router.get('/agents/layer36/report', memorySystemsRoutes.report);
+
+router.get('/agents/layer37/audit', learningSystemsRoutes.audit);
+router.get('/agents/layer37/status', learningSystemsRoutes.status);
+router.get('/agents/layer37/report', learningSystemsRoutes.report);
+
+router.get('/agents/layer38/audit', predictionEngineRoutes.audit);
+router.get('/agents/layer38/status', predictionEngineRoutes.status);
+router.get('/agents/layer38/report', predictionEngineRoutes.report);
+
 // Coordinator routes (main agent system endpoints)
 router.get('/agents/coordinator/status', async (req, res) => {
   try {
