@@ -45,6 +45,10 @@ class AgentCoordinator extends EventEmitter {
       const { layer01Agent } = await import('./layer01-architecture-foundation-agent');
       const { layer02Agent } = await import('./layer02-api-structure-agent');
       const { layer03Agent } = await import('./layer03-server-framework-agent');
+      const { layer04Agent } = await import('./layer04-authentication-system-agent');
+      const { layer11Agent } = await import('./layer11-realtime-features-agent');
+      const { layer13Agent } = await import('./layer13-file-management-agent');
+      const { layer21Agent } = await import('./layer21-user-management-agent');
       const { layer22Agent } = await import('./layer22-group-management-agent');
       const { layer31Agent } = await import('./layer31-ai-infrastructure-agent');
       const { layer32Agent } = await import('./layer32-prompt-engineering-agent');
@@ -61,6 +65,10 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(1, layer01Agent as any);
       this.agents.set(2, layer02Agent as any);
       this.agents.set(3, layer03Agent as any);
+      this.agents.set(4, layer04Agent as any);
+      this.agents.set(11, layer11Agent as any);
+      this.agents.set(13, layer13Agent as any);
+      this.agents.set(21, layer21Agent as any);
       this.agents.set(22, layer22Agent as any);
       this.agents.set(31, layer31Agent as any);
       this.agents.set(32, layer32Agent as any);
