@@ -89,6 +89,13 @@ class AgentCoordinator extends EventEmitter {
       this.agents.set(8, new Layer08ClientFrameworkAgent() as any);
       this.agents.set(9, new Layer09UIFrameworkAgent() as any);
       
+      // Register new Core Functionality agents (Batch 2)
+      this.agents.set(10, new Layer10ComponentLibraryAgent() as any);
+      this.agents.set(12, new Layer12DataProcessingAgent() as any);
+      this.agents.set(14, new Layer14CachingStrategyAgent() as any);
+      this.agents.set(15, new Layer15SearchDiscoveryAgent() as any);
+      this.agents.set(16, new Layer16NotificationSystemAgent() as any);
+      
       this.agents.set(11, layer11Agent as any);
       this.agents.set(13, layer13Agent as any);
       this.agents.set(21, layer21Agent as any);
