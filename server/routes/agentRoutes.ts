@@ -15,6 +15,13 @@ import { dataValidationRoutes } from '../agents/layer06-data-validation-agent';
 import { stateManagementRoutes } from '../agents/layer07-state-management-agent';
 import { clientFrameworkRoutes } from '../agents/layer08-client-framework-agent';
 import { uiFrameworkRoutes } from '../agents/layer09-ui-framework-agent';
+import { componentLibraryRoutes } from '../agents/layer10-component-library-agent';
+
+// Core Functionality (Layers 11-20)
+import { dataProcessingRoutes } from '../agents/layer12-data-processing-agent';
+import { cachingStrategyRoutes } from '../agents/layer14-caching-strategy-agent';
+import { searchDiscoveryRoutes } from '../agents/layer15-search-discovery-agent';
+import { notificationSystemRoutes } from '../agents/layer16-notification-system-agent';
 
 // Foundation Infrastructure Agent Routes (Layers 5-9)
 router.get('/agents/layer05/audit', authorizationSystemRoutes.audit);
