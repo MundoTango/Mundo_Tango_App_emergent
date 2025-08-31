@@ -29,6 +29,11 @@ import { workflowEngineRoutes } from '../agents/layer20-workflow-engine-agent';
 
 // Business Logic (Layers 21-30)
 import { eventManagementRoutes } from '../agents/layer23-event-management-agent';
+import { socialFeaturesRoutes } from '../agents/layer24-social-features-agent';
+import { messagingSystemRoutes } from '../agents/layer25-messaging-system-agent';
+import { recommendationEngineRoutes } from '../agents/layer26-recommendation-engine-agent';
+import { gamificationRoutes } from '../agents/layer27-gamification-agent';
+import { marketplaceRoutes } from '../agents/layer28-marketplace-agent';
 
 // Foundation Infrastructure Agent Routes (Layers 5-9)
 router.get('/agents/layer05/audit', authorizationSystemRoutes.audit);
