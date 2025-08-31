@@ -51,6 +51,7 @@ import followsRoutes from "./routes/followsRoutes"; // ESA LIFE CEO 61x21 - Foll
 import commentsRoutes from "./routes/commentsRoutes"; // ESA LIFE CEO 61x21 - Comments API routes
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
+import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
