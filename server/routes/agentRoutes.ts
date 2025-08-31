@@ -72,6 +72,27 @@ router.get('/agents/layer16/audit', notificationSystemRoutes.audit);
 router.get('/agents/layer16/status', notificationSystemRoutes.status);
 router.get('/agents/layer16/report', notificationSystemRoutes.report);
 
+router.get('/agents/layer17/audit', paymentProcessingRoutes.audit);
+router.get('/agents/layer17/status', paymentProcessingRoutes.status);
+router.get('/agents/layer17/report', paymentProcessingRoutes.report);
+
+router.get('/agents/layer18/audit', reportingAnalyticsRoutes.audit);
+router.get('/agents/layer18/status', reportingAnalyticsRoutes.status);
+router.get('/agents/layer18/report', reportingAnalyticsRoutes.report);
+
+router.get('/agents/layer19/audit', contentManagementRoutes.audit);
+router.get('/agents/layer19/status', contentManagementRoutes.status);
+router.get('/agents/layer19/report', contentManagementRoutes.report);
+
+router.get('/agents/layer20/audit', workflowEngineRoutes.audit);
+router.get('/agents/layer20/status', workflowEngineRoutes.status);
+router.get('/agents/layer20/report', workflowEngineRoutes.report);
+
+// Business Logic Agent Routes (Layer 23)
+router.get('/agents/layer23/audit', eventManagementRoutes.audit);
+router.get('/agents/layer23/status', eventManagementRoutes.status);
+router.get('/agents/layer23/report', eventManagementRoutes.report);
+
 // Coordinator routes (main agent system endpoints)
 router.get('/agents/coordinator/status', async (req, res) => {
   try {
