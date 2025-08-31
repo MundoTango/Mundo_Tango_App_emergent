@@ -195,11 +195,22 @@ class ESABackendTester:
             ("/api/agents/layer/60/status", "Layer 60: GitHub Expertise Agent"),
             ("/api/agents/layer/61/status", "Layer 61: Supabase Expertise Agent"),
             
-            # Agent Reports
+            # Agent Reports - Extended Coverage
             ("/api/agents/layer/01/report", "Layer 01 Agent Report"),
+            ("/api/agents/layer/02/report", "Layer 02 Agent Report"),
+            ("/api/agents/layer/03/report", "Layer 03 Agent Report"),
             ("/api/agents/layer/22/report", "Layer 22 Agent Report"),
             ("/api/agents/layer/31/report", "Layer 31 Agent Report"),
             ("/api/agents/layer/32/report", "Layer 32 Agent Report"),
+            ("/api/agents/layer/33/report", "Layer 33 Agent Report"),
+            ("/api/agents/layer/34/report", "Layer 34 Agent Report"),
+            ("/api/agents/layer/35/report", "Layer 35 Agent Report"),
+            ("/api/agents/layer/48/report", "Layer 48 Agent Report"),
+            ("/api/agents/layer/57/report", "Layer 57 Agent Report"),
+            ("/api/agents/layer/58/report", "Layer 58 Agent Report"),
+            ("/api/agents/layer/59/report", "Layer 59 Agent Report"),
+            ("/api/agents/layer/60/report", "Layer 60 Agent Report"),
+            ("/api/agents/layer/61/report", "Layer 61 Agent Report"),
         ]
         
         results = []
