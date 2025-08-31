@@ -98,6 +98,27 @@ router.get('/agents/layer23/audit', eventManagementRoutes.audit);
 router.get('/agents/layer23/status', eventManagementRoutes.status);
 router.get('/agents/layer23/report', eventManagementRoutes.report);
 
+// Business Logic Agent Routes (Layers 24-28)
+router.get('/agents/layer24/audit', socialFeaturesRoutes.audit);
+router.get('/agents/layer24/status', socialFeaturesRoutes.status);
+router.get('/agents/layer24/report', socialFeaturesRoutes.report);
+
+router.get('/agents/layer25/audit', messagingSystemRoutes.audit);
+router.get('/agents/layer25/status', messagingSystemRoutes.status);
+router.get('/agents/layer25/report', messagingSystemRoutes.report);
+
+router.get('/agents/layer26/audit', recommendationEngineRoutes.audit);
+router.get('/agents/layer26/status', recommendationEngineRoutes.status);
+router.get('/agents/layer26/report', recommendationEngineRoutes.report);
+
+router.get('/agents/layer27/audit', gamificationRoutes.audit);
+router.get('/agents/layer27/status', gamificationRoutes.status);
+router.get('/agents/layer27/report', gamificationRoutes.report);
+
+router.get('/agents/layer28/audit', marketplaceRoutes.audit);
+router.get('/agents/layer28/status', marketplaceRoutes.status);
+router.get('/agents/layer28/report', marketplaceRoutes.report);
+
 // Coordinator routes (main agent system endpoints)
 router.get('/agents/coordinator/status', async (req, res) => {
   try {
