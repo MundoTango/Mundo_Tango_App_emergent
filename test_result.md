@@ -335,7 +335,16 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Health Check Endpoint"
+    - "ESA Agent System Integration"
+    - "Layer 01: Architecture Foundation Agent"
+    - "Layer 22: Group Management Agent"
+    - "Layer 31: AI Infrastructure Agent"
+    - "Layer 32: Prompt Engineering Agent"
+    - "Layer 57: Automation Management Agent"
+    - "Layer 58: Integration Tracking Agent"
+    - "Layer 59: Open Source Management Agent"
+    - "Layer 60: GitHub Expertise Agent"
+    - "Layer 61: Supabase Expertise Agent"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
