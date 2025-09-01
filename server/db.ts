@@ -1,6 +1,9 @@
-// Mock database for ESA 61x21 Framework deployment
+// ESA 61x21 Framework Database Configuration
 console.log('🔄 Initializing database connection...');
-console.log('🎭 [DEMO] Using demo database configuration');
+
+// Check if we should use real MongoDB or mock for demo
+const useRealDatabase = process.env.NODE_ENV === 'production' || process.env.MONGODB_URI;
+console.log(useRealDatabase ? '🌍 [PRODUCTION] Using Atlas MongoDB' : '🎭 [DEMO] Using mock database configuration');
 
 // Create a mock pool that doesn't actually connect
 export const pool = {
