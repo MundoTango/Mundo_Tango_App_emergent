@@ -174,29 +174,29 @@ class ESABackendTester:
         
         batch1_tests = [
             # Layer 5: Authorization System Agent
-            ("/api/agents/layer05/status", "Layer 05: Authorization System Agent - Status"),
-            ("/api/agents/layer05/audit", "Layer 05: Authorization System Agent - Audit"),
-            ("/api/agents/layer05/report", "Layer 05: Authorization System Agent - Report"),
+            ("/api/agents/agents/layer05/status", "Layer 05: Authorization System Agent - Status"),
+            ("/api/agents/agents/layer05/audit", "Layer 05: Authorization System Agent - Audit"),
+            ("/api/agents/agents/layer05/report", "Layer 05: Authorization System Agent - Report"),
             
             # Layer 6: Data Validation Agent
-            ("/api/agents/layer06/status", "Layer 06: Data Validation Agent - Status"),
-            ("/api/agents/layer06/audit", "Layer 06: Data Validation Agent - Audit"),
-            ("/api/agents/layer06/report", "Layer 06: Data Validation Agent - Report"),
+            ("/api/agents/agents/layer06/status", "Layer 06: Data Validation Agent - Status"),
+            ("/api/agents/agents/layer06/audit", "Layer 06: Data Validation Agent - Audit"),
+            ("/api/agents/agents/layer06/report", "Layer 06: Data Validation Agent - Report"),
             
             # Layer 7: State Management Agent
-            ("/api/agents/layer07/status", "Layer 07: State Management Agent - Status"),
-            ("/api/agents/layer07/audit", "Layer 07: State Management Agent - Audit"),
-            ("/api/agents/layer07/report", "Layer 07: State Management Agent - Report"),
+            ("/api/agents/agents/layer07/status", "Layer 07: State Management Agent - Status"),
+            ("/api/agents/agents/layer07/audit", "Layer 07: State Management Agent - Audit"),
+            ("/api/agents/agents/layer07/report", "Layer 07: State Management Agent - Report"),
             
             # Layer 8: Client Framework Agent
-            ("/api/agents/layer08/status", "Layer 08: Client Framework Agent - Status"),
-            ("/api/agents/layer08/audit", "Layer 08: Client Framework Agent - Audit"),
-            ("/api/agents/layer08/report", "Layer 08: Client Framework Agent - Report"),
+            ("/api/agents/agents/layer08/status", "Layer 08: Client Framework Agent - Status"),
+            ("/api/agents/agents/layer08/audit", "Layer 08: Client Framework Agent - Audit"),
+            ("/api/agents/agents/layer08/report", "Layer 08: Client Framework Agent - Report"),
             
             # Layer 9: UI Framework Agent
-            ("/api/agents/layer09/status", "Layer 09: UI Framework Agent - Status"),
-            ("/api/agents/layer09/audit", "Layer 09: UI Framework Agent - Audit"),
-            ("/api/agents/layer09/report", "Layer 09: UI Framework Agent - Report"),
+            ("/api/agents/agents/layer09/status", "Layer 09: UI Framework Agent - Status"),
+            ("/api/agents/agents/layer09/audit", "Layer 09: UI Framework Agent - Audit"),
+            ("/api/agents/agents/layer09/report", "Layer 09: UI Framework Agent - Report"),
         ]
         
         results = []
