@@ -521,10 +521,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "ESA Agent System Integration"
+    - "Final Deployment Verification Complete"
   stuck_tasks: []
-  test_all: false
-  test_priority: "high_first"
+  test_all: true
+  test_priority: "deployment_verification_complete"
 
 agent_communication:
   - agent: "testing"
