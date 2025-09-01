@@ -694,7 +694,7 @@ class AdvancedAIService extends EventEmitter {
           suggestedActions.push('update_profile', 'join_local_groups', 'attend_beginner_friendly_events');
           confidence = 0.85;
         } else {
-          response = 'Welcome to the Mundo Tango community! I'm here to help you connect with other dancers, find events, and make the most of your tango journey. How can I assist you today?';
+          response = "Welcome to the Mundo Tango community! I'm here to help you connect with other dancers, find events, and make the most of your tango journey. How can I assist you today?";
           suggestedActions.push('complete_profile', 'explore_community');
         }
         break;
