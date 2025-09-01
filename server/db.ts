@@ -45,14 +45,26 @@ export const db = {
     }),
     values: (data: any) => Promise.resolve({ insertId: 1 })
   }),
-  update: () => ({
-    set: () => ({
-      where: () => Promise.resolve({ rowCount: 1 })
+  update: (table: any) => ({
+    set: (data: any) => ({
+      where: (condition: any) => ({
+        execute: () => Promise.resolve({ rowCount: 1 }),
+        then: (callback: any) => Promise.resolve({ rowCount: 1 }).then(callback)
+      }),
+      execute: () => Promise.resolve({ rowCount: 1 }),
+      then: (callback: any) => Promise.resolve({ rowCount: 1 }).then(callback)
     })
   }),
-  delete: () => ({
-    from: () => ({
-      where: () => Promise.resolve({ rowCount: 1 })
+  delete: (table: any) => ({
+    from: (table: any) => ({
+      where: (condition: any) => ({
+        execute: () => Promise.resolve({ rowCount: 1 }),
+        then: (callback: any) => Promise.resolve({ rowCount: 1 }).then(callback)
+      })
+    }),
+    where: (condition: any) => ({
+      execute: () => Promise.resolve({ rowCount: 1 }),
+      then: (callback: any) => Promise.resolve({ rowCount: 1 }).then(callback)
     })
   }),
   query: {
