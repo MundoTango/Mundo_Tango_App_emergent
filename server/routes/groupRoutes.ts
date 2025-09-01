@@ -275,4 +275,91 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
   }
 });
 
-export default router;
+// Join group by slug
+router.post('/user/join-group/:slug', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const groupSlug = req.params.slug;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Find group by slug
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.slug, groupSlug));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
+    // Check if already member
+    const [existingMember] = await db.select()
+      .from(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, group.id),
+        eq(groupMembers.userId, user.id)
+      ));
+    
+    if (existingMember) {
+      return res.status(400).json({ error: 'Already a member' });
+    }
+    
+    await db.insert(groupMembers).values({
+      groupId: group.id,
+      userId: user.id,
+      role: 'member',
+      status: 'active'
+    });
+    
+    // Update member count
+    await db.update(groups)
+      .set({ memberCount: sql`${groups.memberCount} + 1` })
+      .where(eq(groups.id, group.id));
+    
+    res.json({ success: true, message: 'Joined group successfully' });
+  } catch (error) {
+    console.error('Error joining group:', error);
+    res.status(500).json({ error: 'Failed to join group' });
+  }
+});
+
+// Leave group by slug
+router.post('/user/leave-group/:slug', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const groupSlug = req.params.slug;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Find group by slug
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.slug, groupSlug));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
+    await db.delete(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, group.id),
+        eq(groupMembers.userId, user.id)
+      ));
+    
+    // Update member count
+    await db.update(groups)
+      .set({ memberCount: sql`GREATEST(${groups.memberCount} - 1, 0)` })
+      .where(eq(groups.id, group.id));
+    
+    res.json({ success: true, message: 'Left group successfully' });
+  } catch (error) {
+    console.error('Error leaving group:', error);
+    res.status(500).json({ error: 'Failed to leave group' });
+  }
+});
