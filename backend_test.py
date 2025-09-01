@@ -564,7 +564,7 @@ class ESABackendTester:
             )
     
     def test_agent_coordinator_count(self) -> TestResult:
-        """Test Agent Coordinator to verify total agent count is 44"""
+        """Test Agent Coordinator to verify total agent count is 49 (after Batch 6)"""
         self.log("Testing Agent Coordinator Count...")
         
         try:
@@ -577,7 +577,7 @@ class ESABackendTester:
                 total_agents = data.get('total_agents', 0)
                 implemented_agents = data.get('implemented_agents', 0)
                 
-                if total_agents == 44:
+                if total_agents == 49:
                     return TestResult(
                         name="Agent Coordinator Count Verification",
                         passed=True,
@@ -589,7 +589,7 @@ class ESABackendTester:
                     return TestResult(
                         name="Agent Coordinator Count Verification",
                         passed=False,
-                        message=f"Expected 44 total agents, but coordinator shows {total_agents} total agents",
+                        message=f"Expected 49 total agents (after Batch 6), but coordinator shows {total_agents} total agents",
                         response_time=response_time,
                         status_code=response.status_code
                     )
