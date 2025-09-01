@@ -57,7 +57,7 @@ async def proxy_all(request: Request, path: str):
             )
             
         except Exception as e:
-            return {"error": f"Backend proxy error: {str(e)}", "node_server": NODE_SERVER_URL}
+            return {"error": f"Backend proxy error: {str(e)}", "node_server": NODE_SERVER_URL, "path": path}
 
 @app.get("/")
 async def root_health_check():
