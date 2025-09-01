@@ -130,9 +130,9 @@ class ESABackendTester:
             start_time = time.time()
             
             if method.upper() == "GET":
-                response = self.session.get(f"{self.base_url}/api{endpoint}")
+                response = self.session.get(f"{self.base_url}{endpoint}")
             elif method.upper() == "POST":
-                response = self.session.post(f"{self.base_url}/api{endpoint}", json=data)
+                response = self.session.post(f"{self.base_url}{endpoint}", json=data)
             else:
                 return TestResult(
                     name=f"API {endpoint}",
