@@ -94,6 +94,7 @@ const SubscriptionAnalytics = lazy(() => import("./pages/SubscriptionAnalytics")
 const PromoCodesAdmin = lazy(() => import("./pages/PromoCodesAdmin"));
 const ProjectTracker = lazy(() => import("@/pages/ProjectTracker"));
 const MediaUploadTest = lazy(() => import("@/pages/MediaUploadTest"));
+const AgentFrameworkDashboard = lazy(() => import("@/pages/AgentFrameworkDashboard"));
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
