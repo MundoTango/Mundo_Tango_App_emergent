@@ -89,6 +89,22 @@ class AgentCoordinator extends EventEmitter {
       const { Layer42VoiceProcessingAgent } = await import('./layer42-voice-processing-agent');
       const { Layer43SentimentAnalysisAgent } = await import('./layer43-sentiment-analysis-agent');
       
+      // NEW Intelligence Infrastructure agents (Batch 7) - COMPLETED 61x21 FRAMEWORK
+      const { Layer44KnowledgeGraphAgent } = await import('./layer44-knowledge-graph-agent');
+      const { Layer45ReasoningEngineAgent } = await import('./layer45-reasoning-engine-agent');
+      const { Layer46IntegrationLayerAgent } = await import('./layer46-integration-layer-agent');
+      
+      // NEW Platform Enhancement agents (Batch 8) - COMPLETED 61x21 FRAMEWORK
+      const { Layer47MobileOptimizationAgent } = await import('./layer47-mobile-optimization-agent');
+      const { Layer49SecurityHardeningAgent } = await import('./layer49-security-hardening-agent');
+      const { Layer50DevOpsAutomationAgent } = await import('./layer50-devops-automation-agent');
+      const { Layer51TestingFrameworkAgent } = await import('./layer51-testing-framework-agent');
+      const { Layer52DocumentationSystemAgent } = await import('./layer52-documentation-system-agent');
+      const { Layer53InternationalizationAgent } = await import('./layer53-internationalization-agent');
+      const { Layer54AccessibilityAgent } = await import('./layer54-accessibility-agent');
+      const { Layer55SEOOptimizationAgent } = await import('./layer55-seo-optimization-agent');
+      const { Layer56ComplianceFrameworkAgent } = await import('./layer56-compliance-framework-agent');
+      
       const { layer11Agent } = await import('./layer11-realtime-features-agent');
       const { layer13Agent } = await import('./layer13-file-management-agent');
       const { layer21Agent } = await import('./layer21-user-management-agent');
