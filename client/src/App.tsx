@@ -336,6 +336,12 @@ function Router() {
               <MediaUploadTest />
             </Suspense>
           </Route>
+
+          <Route path="/agent-framework">
+            <Suspense fallback={<LoadingFallback message="Loading Agent Framework Dashboard..." />}>
+              <AgentFrameworkDashboard />
+            </Suspense>
+          </Route>
           
           <Route path="/events">
             <Suspense fallback={<LoadingFallback message="Loading events..." />}>
