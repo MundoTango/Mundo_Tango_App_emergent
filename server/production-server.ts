@@ -215,7 +215,7 @@ async function startProductionServer() {
     console.log('🔑 OpenAI API:', process.env.OPENAI_API_KEY ? 'Configured' : 'Missing');
     
     // Start listening
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 8001;
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`✅ ESA LIFE CEO 61x21 Production Server running on port ${PORT}`);
       console.log(`📡 Agent endpoints: http://localhost:${PORT}/api/agents/agents/layerXX/{status,audit,report}`);
