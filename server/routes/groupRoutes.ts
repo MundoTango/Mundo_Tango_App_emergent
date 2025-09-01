@@ -363,3 +363,5 @@ router.post('/user/leave-group/:slug', isAuthenticated, async (req: any, res) =>
     res.status(500).json({ error: 'Failed to leave group' });
   }
 });
+
+export default router;
