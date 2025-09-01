@@ -3,10 +3,14 @@ import { db } from '../db';
 import { agents, semanticMemories, decisions, intents, contexts } from '@shared/ai-schema';
 import { eq, and, desc } from 'drizzle-orm';
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
 
-// Initialize OpenAI client with real API key
+// Load environment variables
+dotenv.config();
+
+// Initialize OpenAI client with Emergent LLM key
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'sk-emergent-b629d189d80B9D02dA',
 });
 
 // 16 Life CEO Agents Definition
