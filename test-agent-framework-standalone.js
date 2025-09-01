@@ -74,9 +74,11 @@ async function testAgentFramework() {
     }
     
     // Count all agent files
-    const fs = require('fs');
-    const path = require('path');
-    const agentsDir = path.join(process.cwd(), 'server/agents');
+    const fs = await import('fs');
+    const path = await import('path');
+    const { fileURLToPath } = await import('url');
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const agentsDir = path.join(__dirname, 'server/agents');
     
     if (fs.existsSync(agentsDir)) {
       const agentFiles = fs.readdirSync(agentsDir)
