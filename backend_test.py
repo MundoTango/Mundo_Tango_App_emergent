@@ -368,6 +368,46 @@ class ESABackendTester:
             
         return results
     
+    def test_batch6_intelligence_infrastructure_agents(self) -> List[TestResult]:
+        """Test ESA Framework Batch 6 - Intelligence Infrastructure Agents (Layers 39-43)"""
+        self.log("Testing ESA Framework Batch 6 - Intelligence Infrastructure Agents...")
+        
+        batch6_tests = [
+            # Layer 39: Decision Support Agent
+            ("/api/agents/layer39/status", "Layer 39: Decision Support Agent - Status"),
+            ("/api/agents/layer39/audit", "Layer 39: Decision Support Agent - Audit"),
+            ("/api/agents/layer39/report", "Layer 39: Decision Support Agent - Report"),
+            
+            # Layer 40: Natural Language Processing Agent
+            ("/api/agents/layer40/status", "Layer 40: Natural Language Processing Agent - Status"),
+            ("/api/agents/layer40/audit", "Layer 40: Natural Language Processing Agent - Audit"),
+            ("/api/agents/layer40/report", "Layer 40: Natural Language Processing Agent - Report"),
+            
+            # Layer 41: Vision Processing Agent
+            ("/api/agents/layer41/status", "Layer 41: Vision Processing Agent - Status"),
+            ("/api/agents/layer41/audit", "Layer 41: Vision Processing Agent - Audit"),
+            ("/api/agents/layer41/report", "Layer 41: Vision Processing Agent - Report"),
+            
+            # Layer 42: Voice Processing Agent
+            ("/api/agents/layer42/status", "Layer 42: Voice Processing Agent - Status"),
+            ("/api/agents/layer42/audit", "Layer 42: Voice Processing Agent - Audit"),
+            ("/api/agents/layer42/report", "Layer 42: Voice Processing Agent - Report"),
+            
+            # Layer 43: Sentiment Analysis Agent
+            ("/api/agents/layer43/status", "Layer 43: Sentiment Analysis Agent - Status"),
+            ("/api/agents/layer43/audit", "Layer 43: Sentiment Analysis Agent - Audit"),
+            ("/api/agents/layer43/report", "Layer 43: Sentiment Analysis Agent - Report"),
+        ]
+        
+        results = []
+        for endpoint, agent_name in batch6_tests:
+            self.log(f"Testing {agent_name}...")
+            result = self.test_api_endpoint(endpoint)
+            result.name = agent_name
+            results.append(result)
+            
+        return results
+    
     def test_esa_agent_system(self) -> List[TestResult]:
         """Test ESA LIFE CEO 61x21 Framework Agent System"""
         self.log("Testing ESA Agent System...")
