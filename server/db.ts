@@ -5,13 +5,19 @@ console.log('🔄 Initializing database connection...');
 const mongoUrl = process.env.MONGO_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/lifeceo_production';
 console.log(`🌍 [PRODUCTION] Connecting to MongoDB: ${mongoUrl}`);
 
-// Database connection configuration
+// Real MongoDB connection for production
 let pool: any;
 
-if (useRealDatabase && process.env.MONGODB_URI) {
-  // Use real MongoDB connection for production
+try {
   const { MongoClient } = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI);
+  const client = new MongoClient(mongoUrl);
+  
+  // Test connection
+  client.connect().then(() => {
+    console.log('✅ MongoDB connection established successfully');
+  }).catch((error: any) => {
+    console.error('❌ MongoDB connection failed:', error.message);
+  });
   
   pool = {
     query: async (query: string) => {
@@ -42,8 +48,9 @@ if (useRealDatabase && process.env.MONGODB_URI) {
     idleCount: 0,
     waitingCount: 0
   };
-} else {
-  // Mock pool for demo/development
+} catch (error) {
+  console.error('❌ Failed to initialize MongoDB client:', error);
+  // Fallback to mock for development
   pool = {
     query: async () => ({ rows: [], rowCount: 0 }),
     connect: async () => ({ 
