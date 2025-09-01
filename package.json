@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development node --max-old-space-size=4096 --expose-gc -r tsx/cjs server/index.ts",
-    "build": "vite build && esbuild server/index-novite.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-    "start": "node dist/index.js",
+    "build": "vite build",
+    "start": "npx tsx server/minimal-server.ts",
+    "start:full": "npx tsx server/index-novite.ts",
     "check": "tsc",
     "db:push": "drizzle-kit push"
   },
