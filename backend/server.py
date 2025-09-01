@@ -12,7 +12,7 @@ import os
 
 app = FastAPI(title="Life CEO Backend Proxy")
 
-NODE_SERVER_URL = "http://localhost:5000"
+NODE_SERVER_URL = os.environ.get('NODE_SERVER_URL', 'http://localhost:5000')
 
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 async def proxy_all(request: Request, path: str):
