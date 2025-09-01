@@ -306,6 +306,7 @@ router.post('/user/join-group/:slug', isAuthenticated, async (req: any, res) => 
     if (existingMember) {
       return res.status(400).json({ error: 'Already a member' });
     }
+export default router;
     
     await db.insert(groupMembers).values({
       groupId: group.id,
