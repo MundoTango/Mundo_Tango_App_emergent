@@ -147,6 +147,7 @@
     "dotenv": "^17.0.0",
     "drizzle-orm": "^0.39.1",
     "drizzle-zod": "^0.7.0",
+    "mongodb": "^6.10.0",
     "embla-carousel-react": "^8.6.0",
     "emoji-picker-react": "^4.12.3",
     "exif-js": "^2.3.0",
