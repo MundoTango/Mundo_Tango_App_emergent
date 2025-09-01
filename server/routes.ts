@@ -444,7 +444,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.error('Warning: Life CEO Performance Service initialization failed:', error);
   }
 
-  // Initialize Phase 4: Intelligent Performance Monitor
+  // Initialize Phase 4: Intelligent Performance Monitor - DISABLED FOR DEPLOYMENT
+  /*
   try {
     const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor');
     await intelligentMonitor.startMonitoring();
@@ -452,6 +453,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('Warning: Intelligent Performance Monitor initialization failed:', error);
   }
+  */
+  console.log('🧠 Life CEO Intelligent Performance Monitor - DISABLED FOR DEPLOYMENT');
 
   // Initialize Enhanced Life CEO Service with 41x21s framework
   try {
