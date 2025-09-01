@@ -31,11 +31,19 @@ export const db = {
     limit: () => Promise.resolve([]),
     offset: () => Promise.resolve([])
   }),
-  insert: () => ({
-    into: () => ({
-      values: () => Promise.resolve({ insertId: 1 }),
-      onConflictDoUpdate: () => Promise.resolve({ insertId: 1 })
-    })
+  insert: (table: any) => ({
+    into: (table: any) => ({
+      values: (data: any) => ({
+        execute: () => Promise.resolve({ insertId: 1 }),
+        onConflictDoUpdate: (data: any) => ({
+          execute: () => Promise.resolve({ insertId: 1 })
+        }),
+        then: (callback: any) => Promise.resolve({ insertId: 1 }).then(callback)
+      }),
+      values: (data: any) => Promise.resolve({ insertId: 1 }),
+      onConflictDoUpdate: (data: any) => Promise.resolve({ insertId: 1 })
+    }),
+    values: (data: any) => Promise.resolve({ insertId: 1 })
   }),
   update: () => ({
     set: () => ({
