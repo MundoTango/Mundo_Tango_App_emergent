@@ -711,7 +711,7 @@ class AdvancedAIService extends EventEmitter {
         break;
 
       case 'mentor':
-        response = 'I'm here to support your tango journey and personal growth. Let\'s work together to set meaningful goals and track your progress. What aspects of tango or life would you like to develop?';
+        response = "I'm here to support your tango journey and personal growth. Let's work together to set meaningful goals and track your progress. What aspects of tango or life would you like to develop?";
         suggestedActions.push('set_goals', 'track_progress', 'create_learning_plan');
         confidence = 0.8;
         break;
