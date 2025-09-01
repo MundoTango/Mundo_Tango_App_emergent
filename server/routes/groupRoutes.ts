@@ -36,10 +36,17 @@ router.get('/community/city-groups', async (req, res) => {
   }
 });
 
-// Get all groups
-router.get('/groups', setUserContext, async (req, res) => {
+// Get all groups with membership status
+router.get('/groups', isAuthenticated, async (req: any, res) => {
   try {
     const { search, city } = req.query;
+    const userId = req.user?.claims?.sub;
+    
+    // Get user ID for membership check
+    let currentUser = null;
+    if (userId) {
+      currentUser = await storage.getUserByReplitId(userId);
+    }
     
     let query = db.select().from(groups);
     
@@ -58,7 +65,40 @@ router.get('/groups', setUserContext, async (req, res) => {
     
     const allGroups = await query.orderBy(desc(groups.createdAt));
     
-    res.json(allGroups);
+    // Add membership status for each group
+    const groupsWithMembership = await Promise.all(
+      allGroups.map(async (group) => {
+        let membershipStatus = null;
+        let isMember = false;
+        
+        if (currentUser) {
+          // Check if user is a member of this group
+          const membership = await db.select()
+            .from(groupMembers)
+            .where(and(
+              eq(groupMembers.groupId, group.id),
+              eq(groupMembers.userId, currentUser.id)
+            ))
+            .limit(1);
+          
+          if (membership.length > 0) {
+            membershipStatus = membership[0].status === 'active' ? 'member' : membership[0].status;
+            isMember = membership[0].status === 'active';
+          }
+        }
+        
+        return {
+          ...group,
+          membershipStatus,
+          isMember,
+          image_url: group.imageUrl || null,
+          member_count: group.memberCount || 0
+        };
+      })
+    );
+    
+    console.log('🔄 GROUPS API - Returning:', groupsWithMembership.length, 'groups');
+    res.json(groupsWithMembership);
   } catch (error) {
     console.error('Error fetching groups:', error);
     res.status(500).json({ error: 'Failed to fetch groups' });
