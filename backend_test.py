@@ -801,8 +801,8 @@ def main():
     print("ESA LIFE CEO 61x21 Framework - Backend Testing Suite")
     print("=" * 60)
     
-    # Initialize tester with backend URL
-    backend_url = "http://localhost:8001"  # FastAPI proxy server
+    # Initialize tester with production backend URL
+    backend_url = "https://agent-framework-1.preview.emergentagent.com"  # Production deployment
     tester = ESABackendTester(backend_url)
     
     try:
