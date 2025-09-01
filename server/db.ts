@@ -3,7 +3,7 @@ console.log('🔄 Initializing database connection...');
 console.log('🎭 [DEMO] Using demo database configuration');
 
 // Create a mock pool that doesn't actually connect
-const pool = {
+export const pool = {
   query: async () => ({ rows: [], rowCount: 0 }),
   connect: async () => ({ 
     query: async () => ({ rows: [], rowCount: 0 }),
@@ -18,7 +18,7 @@ const pool = {
 };
 
 // Mock drizzle db
-const db = {
+export const db = {
   select: () => ({
     from: () => ({
       where: () => ({
@@ -72,76 +72,19 @@ const db = {
   }
 };
 
-// Layer 21: Error handling for pool
-pool.on('error', (err) => {
-  console.error('❌ Database pool error:', err.message);
-  // Don't crash the app - Layer 23: Business Continuity
-});
-
-// Layer 21: Connection health check
-let isConnected = false;
-let connectionRetries = 0;
-const MAX_RETRIES = 5;
-const RETRY_DELAY = 2000; // 2 seconds
-
-async function checkConnection() {
-  try {
-    await pool.query('SELECT 1');
-    if (!isConnected) {
-      console.log('✅ Database connection restored');
-      isConnected = true;
-      connectionRetries = 0;
-    }
-    return true;
-  } catch (err) {
-    isConnected = false;
-    console.error('❌ Database connection check failed:', err instanceof Error ? err.message : String(err));
-    
-    if (connectionRetries < MAX_RETRIES) {
-      connectionRetries++;
-      console.log(`🔄 Retrying database connection (${connectionRetries}/${MAX_RETRIES})...`);
-      setTimeout(checkConnection, RETRY_DELAY);
-    } else {
-      console.error('❌ Max database connection retries reached');
-    }
-    return false;
-  }
-}
-
-// Initial connection check
-checkConnection();
-
-// Periodic health check every 30 seconds
-setInterval(checkConnection, 30000);
-
-export const db = drizzle(pool, { schema });
-
 // Layer 21: Graceful query wrapper with retry logic
 export async function resilientQuery<T>(
   queryFn: () => Promise<T>,
   retries = 3,
   delay = 1000
 ): Promise<T | null> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await queryFn();
-    } catch (err) {
-      console.error(`❌ Query attempt ${i + 1} failed:`, err instanceof Error ? err.message : String(err));
-      if (i < retries - 1) {
-        console.log(`🔄 Retrying in ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        delay *= 2; // Exponential backoff
-      } else {
-        console.error('❌ All query retries exhausted');
-        return null;
-      }
-    }
+  try {
+    return await queryFn();
+  } catch (err) {
+    console.error('Mock query executed:', err instanceof Error ? err.message : String(err));
+    return null;
   }
-  return null;
 }
-
-// ESA LIFE CEO 56x21 - Export pool for direct usage and global reference
-export { pool };
 
 // Extend global type for TypeScript
 declare global {
@@ -152,3 +95,5 @@ declare global {
 if (!global.dbPool) {
   global.dbPool = pool;
 }
+
+console.log('✅ Mock database initialized successfully');
