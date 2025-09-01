@@ -53,9 +53,14 @@ async def proxy_all(request: Request, path: str):
             return {"error": f"Backend proxy error: {str(e)}", "node_server": NODE_SERVER_URL}
 
 @app.get("/")
+async def root_health_check():
+    """Root health check endpoint"""
+    return {"status": "Life CEO Backend Proxy Running", "framework": "ESA 61x21"}
+
+@app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "Life CEO Backend Proxy Running", "framework": "ESA 61x21"}
+    return {"status": "healthy", "framework": "ESA 61x21", "proxy": "operational"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)
