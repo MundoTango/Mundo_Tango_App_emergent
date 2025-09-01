@@ -802,7 +802,7 @@ def main():
     print("=" * 60)
     
     # Initialize tester with production backend URL
-    backend_url = "https://agent-framework-1.preview.emergentagent.com"  # Production deployment
+    backend_url = "https://agent-framework-1.preview.emergentagent.com/api"  # Production deployment with API prefix
     tester = ESABackendTester(backend_url)
     
     try:
