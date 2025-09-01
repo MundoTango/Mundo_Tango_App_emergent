@@ -522,8 +522,7 @@ metadata:
 test_plan:
   current_focus:
     - "ESA Agent System Integration"
-  stuck_tasks:
-    - "Health Check Endpoint"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
