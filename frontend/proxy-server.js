@@ -12,7 +12,7 @@ const PORT = 3000;
 const MAIN_APP_PORT = 5000;
 
 // Serve static files from the built client
-const clientDistPath = path.join(__dirname, '../client/dist');
+const clientDistPath = path.join(__dirname, '../client');
 console.log(`[ESA 61x21] Serving static files from: ${clientDistPath}`);
 
 app.use(express.static(clientDistPath));
