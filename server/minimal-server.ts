@@ -40,9 +40,9 @@ app.get('/api/health', (req, res) => {
 // Import and register agent routes only
 async function registerAgentRoutes() {
   try {
-    // Import agent routes
+    // Import agent routes with .js extension for proper module resolution
     console.log('🤖 Loading ESA 61x21 Agent System...');
-    const { default: agentRoutes } = await import('./routes/agentRoutes');
+    const { default: agentRoutes } = await import('./routes/agentRoutes.js');
     
     // Mount agent routes
     app.use('/api/agents', agentRoutes);
@@ -50,7 +50,8 @@ async function registerAgentRoutes() {
     
     return true;
   } catch (error) {
-    console.error('❌ Failed to load agent system:', error);
+    console.error('❌ Failed to load agent system:', error.message);
+    console.error('Error details:', error);
     
     // Fallback mock agent endpoint
     app.get('/api/agents/:layer/:action', (req, res) => {
@@ -59,7 +60,8 @@ async function registerAgentRoutes() {
         action: req.params.action,
         status: 'agent_system_loading',
         framework: 'ESA 61x21',
-        message: 'Agent system initializing...'
+        message: 'Agent system initializing...',
+        error: 'Routes failed to load'
       });
     });
     
