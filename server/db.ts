@@ -1,9 +1,9 @@
 // ESA 61x21 Framework Database Configuration
 console.log('🔄 Initializing database connection...');
 
-// Check if we should use real MongoDB or mock for demo
-const useRealDatabase = process.env.NODE_ENV === 'production' || process.env.MONGODB_URI;
-console.log(useRealDatabase ? '🌍 [PRODUCTION] Using Atlas MongoDB' : '🎭 [DEMO] Using mock database configuration');
+// Always use real MongoDB for proper deployment
+const mongoUrl = process.env.MONGO_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/lifeceo_production';
+console.log(`🌍 [PRODUCTION] Connecting to MongoDB: ${mongoUrl}`);
 
 // Database connection configuration
 let pool: any;
