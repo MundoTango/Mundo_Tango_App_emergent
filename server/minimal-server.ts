@@ -78,7 +78,7 @@ async function startMinimalServer() {
     await registerAgentRoutes();
     
     // Start listening
-    const PORT = 5000;
+    const PORT = process.env.PORT || 8001;
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`✅ ESA LIFE CEO 61x21 Minimal Server running on port ${PORT}`);
       console.log(`📡 Agent endpoints: http://localhost:${PORT}/api/agents/layerXX/{status,audit,report}`);
