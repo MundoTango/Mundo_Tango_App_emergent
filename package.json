@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "npx tsx server/minimal-server.ts",
     "start:full": "npx tsx server/index-novite.ts",
-    "check": "tsc",
+    "check": "NODE_OPTIONS=\"--max-old-space-size=8192\" tsc --noEmit --skipLibCheck",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
