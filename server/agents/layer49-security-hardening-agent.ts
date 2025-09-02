@@ -160,7 +160,7 @@ class Layer49SecurityHardeningAgent extends EventEmitter {
       monitoring: {
         securityLogging: false,
         auditTrails: false,
-        intrusion Detection: false,
+        intrusionDetection: false,
         vulnerabilityScanning: false,
         securityAlerts: false,
         incidentResponse: false,
