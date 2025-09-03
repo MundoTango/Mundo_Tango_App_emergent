@@ -91,15 +91,18 @@ backend:
 
   - task: "ESA Framework Batch 6 - Intelligence Infrastructure Agents (Layers 39-43)"
     implemented: true
-    working: "NA"
+    working: false
     file: "server/agents/"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Created 5 new Intelligence Infrastructure agents: Decision Support (Layer 39), Natural Language Processing (Layer 40), Vision Processing (Layer 41), Voice Processing (Layer 42), Sentiment Analysis (Layer 43). Advanced AI capabilities with multi-modal processing, emotion detection, computer vision, speech recognition, and intelligent decision making. Updated agent coordinator and routes. Ready for testing."
+      - working: false
+        agent: "testing"
+        comment: "Backend agents not accessible due to Node.js server on port 5000 connectivity issues. Curl tests to /api/agents/layer39/audit and /api/agents/layer40/audit return 'Backend proxy error: All connection attempts failed'. This is consistent with previous backend testing results showing missing OPENAI_API_KEY and database connection issues preventing Node.js server startup. Backend proxy on port 8001 functional but cannot connect to application server."
 
   - task: "Layer 12: Data Processing Service"
     implemented: true
