@@ -152,4 +152,7 @@ bundle-analyzer-report.html
 *.tsbuildinfo
 
 # Sentry
-.sentryclirc
+.sentryclirc-e 
+# Environment files
+*.env
+*.env.*
