@@ -192,7 +192,7 @@ const startServer = async () => {
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
     console.log(`🌐 Starting server on port ${PORT}`);
     
-    httpServer.listen(PORT, '0.0.0.0', (error) => {
+    httpServer.listen(PORT, '0.0.0.0', (error?: Error) => {
       if (error) {
         console.error('❌ Failed to bind to port:', error);
         throw error;
