@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development node --max-old-space-size=4096 --expose-gc -r tsx/cjs server/index.ts",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "start": "npx tsx server/minimal-server.ts",
     "start:full": "npx tsx server/index-novite.ts",
     "check": "NODE_OPTIONS=\"--max-old-space-size=8192\" tsc --noEmit --skipLibCheck",
