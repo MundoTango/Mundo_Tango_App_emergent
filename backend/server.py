@@ -35,6 +35,26 @@ async def health_check():
     except Exception as e:
         return {"status": "unhealthy", "error": str(e)}
 
+@app.get("/api/auth/user")
+async def get_current_user():
+    """Get current authenticated user"""
+    # Return admin user for now since auth system needs to be set up
+    return {
+        "success": True,
+        "data": {
+            "id": 1,
+            "email": "admin@mundotango.life",
+            "name": "Admin User",
+            "profileImage": None,
+            "tangoRoles": ["admin", "dancer"]
+        }
+    }
+
+@app.post("/api/auth/logout")
+async def logout_user():
+    """Logout current user"""
+    return {"success": True, "message": "Logged out successfully"}
+
 @app.get("/api/posts/feed")
 async def get_posts_feed():
     """Get posts feed"""
