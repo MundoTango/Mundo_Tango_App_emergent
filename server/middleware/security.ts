@@ -218,7 +218,7 @@ export const validatePasswordStrength = (password: string): { valid: boolean; er
 
 // Session security configuration
 export const sessionSecurityConfig = {
-  secret: process.env.SESSION_SECRET || randomBytes(64).toString('hex'),
+  secret: process.env.JWT_SECRET || process.env.SESSION_SECRET || randomBytes(64).toString('hex'),
   resave: false,
   saveUninitialized: false,
   cookie: {
