@@ -81,7 +81,7 @@ export default function LifeCEO() {
   const processVoiceCommand = async (command: string) => {
     setIsProcessing(true);
     try {
-      const response = await fetch('http://localhost:4001/api/voice/command', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || ''}/api/voice/command`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
