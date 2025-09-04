@@ -244,6 +244,158 @@ async def create_post_with_media(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create post: {str(e)}")
 
+@app.post("/api/posts/{post_id}/like")
+async def like_post(post_id: int):
+    """Like/unlike a post"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Check if already liked
+        cur.execute("SELECT id FROM reactions WHERE post_id = %s AND user_id = 1 AND reaction_type = 'like'", (post_id,))
+        existing = cur.fetchone()
+        
+        if existing:
+            # Unlike - remove reaction
+            cur.execute("DELETE FROM reactions WHERE post_id = %s AND user_id = 1", (post_id,))
+            liked = False
+        else:
+            # Like - add reaction
+            cur.execute("INSERT INTO reactions (post_id, user_id, reaction_type) VALUES (%s, 1, 'like')", (post_id,))
+            liked = True
+        
+        # Get updated count
+        cur.execute("SELECT COUNT(*) FROM reactions WHERE post_id = %s AND reaction_type = 'like'", (post_id,))
+        like_count = cur.fetchone()[0]
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {"success": True, "liked": liked, "likeCount": like_count}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to like post: {str(e)}")
+
+@app.post("/api/posts/{post_id}/reactions")
+async def add_reaction(post_id: int, request: Request):
+    """Add reaction to post"""
+    try:
+        data = await request.json()
+        reaction_type = data.get("type", "like")
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Insert or update reaction
+        cur.execute("""
+            INSERT INTO reactions (post_id, user_id, reaction_type) 
+            VALUES (%s, 1, %s)
+            ON CONFLICT (post_id, user_id) 
+            DO UPDATE SET reaction_type = %s
+        """, (post_id, reaction_type, reaction_type))
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {"success": True, "reaction": reaction_type}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to add reaction: {str(e)}")
+
+@app.post("/api/posts/{post_id}/comments")
+async def create_comment(post_id: int, request: Request):
+    """Create comment on post"""
+    try:
+        data = await request.json()
+        content = data.get("content", "")
+        
+        if not content.strip():
+            raise HTTPException(status_code=422, detail="Comment content required")
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("""
+            INSERT INTO comments (post_id, user_id, content, created_at)
+            VALUES (%s, 1, %s, NOW())
+            RETURNING id, created_at
+        """, (post_id, content))
+        
+        result = cur.fetchone()
+        comment_id, created_at = result
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {
+            "success": True,
+            "data": {
+                "id": comment_id,
+                "content": content,
+                "createdAt": created_at.isoformat(),
+                "user": {"id": 1, "name": "Admin User", "email": "admin@mundotango.life"}
+            }
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create comment: {str(e)}")
+
+@app.get("/api/posts/{post_id}/comments")
+async def get_comments(post_id: int):
+    """Get comments for post"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("""
+            SELECT c.id, c.content, c.created_at, u.id, u.name, u.email
+            FROM comments c
+            JOIN users u ON c.user_id = u.id
+            WHERE c.post_id = %s
+            ORDER BY c.created_at ASC
+        """, (post_id,))
+        
+        comments = []
+        for row in cur.fetchall():
+            comments.append({
+                "id": row[0],
+                "content": row[1],
+                "createdAt": row[2].isoformat(),
+                "user": {"id": row[3], "name": row[4], "email": row[5]}
+            })
+        
+        cur.close()
+        conn.close()
+        return {"success": True, "data": comments}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get comments: {str(e)}")
+
+@app.post("/api/posts/{post_id}/share")
+async def share_post(post_id: int):
+    """Share a post"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("INSERT INTO shares (post_id, user_id) VALUES (%s, 1)", (post_id,))
+        
+        # Get updated share count
+        cur.execute("SELECT COUNT(*) FROM shares WHERE post_id = %s", (post_id,))
+        share_count = cur.fetchone()[0]
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {"success": True, "shareCount": share_count}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to share post: {str(e)}")
+
 # Fallback proxy for other endpoints
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 async def proxy_fallback(request: Request, path: str):
