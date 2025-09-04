@@ -23,17 +23,17 @@ const child = spawn('npx', ['tsx', serverPath], {
     ...process.env,
     NODE_ENV: process.env.NODE_ENV || 'development',
     NODE_OPTIONS: '--max-old-space-size=4096 --expose-gc',
-    PORT: process.env.PORT || 5000,
+    PORT: process.env.PORT || '5000',
     DISABLE_REDIS: 'true'
   }
 });
 
-child.on('error', (err) => {
+child.on('error', (err: Error) => {
   console.error('[ESA 56x21] Failed to start server:', err.message);
   process.exit(1);
 });
 
-child.on('exit', (code, signal) => {
+child.on('exit', (code: number | null, signal: NodeJS.Signals | null) => {
   if (signal) {
     console.log(`[ESA 56x21] Server terminated by signal ${signal}`);
   } else if (code !== 0) {
@@ -43,7 +43,7 @@ child.on('exit', (code, signal) => {
 });
 
 // Forward termination signals
-['SIGTERM', 'SIGINT', 'SIGHUP'].forEach(signal => {
+(['SIGTERM', 'SIGINT', 'SIGHUP'] as NodeJS.Signals[]).forEach(signal => {
   process.on(signal, () => {
     console.log(`[ESA 56x21] Forwarding ${signal} to server...`);
     child.kill(signal);

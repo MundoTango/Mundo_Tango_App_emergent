@@ -155,7 +155,7 @@ app.get('/api/videos/:filename', (req, res) => {
     return res.status(400).json({ error: 'Invalid video file' });
   }
   
-  streamVideo(filePath, req, res);
+  streamVideo(req, res, filePath);
 });
 
 // Mount upload routes
@@ -178,6 +178,7 @@ const startServer = async () => {
   try {
     console.log('🔄 Initializing database connection...');
     const httpServer = await registerRoutes(app);
+    console.log('✅ Routes registered successfully');
     
     // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
     app.use(express.static(clientPath));
@@ -189,8 +190,13 @@ const startServer = async () => {
     
     // Use port 80 for production deployments (Replit requirement)
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
+    console.log(`🌐 Starting server on port ${PORT}`);
     
-    httpServer.listen(PORT, '0.0.0.0', () => {
+    httpServer.listen(PORT, '0.0.0.0', (error) => {
+      if (error) {
+        console.error('❌ Failed to bind to port:', error);
+        throw error;
+      }
       const heapSize = Math.round(process.memoryUsage().heapTotal / 1024 / 1024 / 1024 * 100) / 100;
       console.log(`✅ ESA LIFE CEO 56x21 Server running on port ${PORT}`);
       console.log(`  Heap Limit: ${heapSize} GB`);
@@ -200,7 +206,16 @@ const startServer = async () => {
       console.log(`  All core features: ✅ Operational`);
       console.log(`[server] listening on ${PORT}`);
     });
+
+    // Add error handler for the server
+    httpServer.on('error', (error) => {
+      console.error('❌ HTTP Server error:', error);
+      logger.fatal('HTTP Server error:', error);
+      throw error;
+    });
+
   } catch (error) {
+    console.error('❌ Server startup error:', error);
     logger.fatal('Failed to start server:', error);
     process.exit(1);
   }
