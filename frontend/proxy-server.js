@@ -9,7 +9,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
-const MAIN_APP_PORT = 5000;
+const MAIN_APP_PORT = 8001;
 
 // Serve static files from the built client
 const clientDistPath = path.join(__dirname, '../client/dist');
