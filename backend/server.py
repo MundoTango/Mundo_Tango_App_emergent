@@ -22,51 +22,6 @@ DATABASE_URL = "postgresql://mundotango:mundotango@localhost:5432/mundotango"
 def get_db_connection():
     return psycopg2.connect(DATABASE_URL)
 
-def init_database_tables():
-    """Initialize required database tables"""
-    conn = get_db_connection()
-    cur = conn.cursor()
-    
-    # Create reactions table
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS reactions (
-            id SERIAL PRIMARY KEY,
-            post_id INTEGER REFERENCES posts(id),
-            user_id INTEGER REFERENCES users(id),
-            reaction_type VARCHAR(20),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE(post_id, user_id)
-        );
-    """)
-    
-    # Create comments table
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS comments (
-            id SERIAL PRIMARY KEY,
-            post_id INTEGER REFERENCES posts(id),
-            user_id INTEGER REFERENCES users(id),
-            content TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-    """)
-    
-    # Create shares table
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS shares (
-            id SERIAL PRIMARY KEY,
-            post_id INTEGER REFERENCES posts(id),
-            user_id INTEGER REFERENCES users(id),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-    """)
-    
-    conn.commit()
-    cur.close()
-    conn.close()
-
-# Initialize tables on startup
-init_database_tables()
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
