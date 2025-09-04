@@ -101,7 +101,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const automationRoutes = require('./routes/automationRoutes');
     app.use(automationRoutes);
     console.log('✅ Layer 57: Automation routes registered');
-  } catch (error) {
+  } catch (error: any) {
     console.warn('⚠️ Layer 57: Automation routes not available:', error.message);
   }
   app.use(chunkedUploadRoutes); // ESA LIFE CEO 56x21 - Register chunked upload routes
@@ -344,8 +344,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const results = await validationService.runPhase2Validation();
       
       res.json({
-        success: true,
-        ...results
+        ...results,
+        success: true
       });
     } catch (error) {
       console.error('Phase 2 validation error:', error);
@@ -368,8 +368,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const results = await loadTestingService.runLoadTests();
       
       res.json({
-        success: true,
-        ...results
+        ...results,
+        success: true
       });
     } catch (error) {
       console.error('Phase 3 load testing error:', error);
@@ -518,7 +518,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/supabase/test-connection', testSupabaseConnection);
   app.post('/api/supabase/test-large-body', (req, res, next) => {
     // Bypass CSRF for this test endpoint
-    req.skipCsrf = true;
+    (req as any).skipCsrf = true;
     next();
   }, testLargeBodyHandling);
   app.get('/api/supabase/test-realtime', testSupabaseRealtime);
@@ -529,7 +529,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.post('/api/ai/chat', (req, res, next) => {
     // Bypass CSRF for AI chat - critical for functionality
-    req.skipCsrf = true;
+    (req as any).skipCsrf = true;
     next();
   }, handleAiChatDirect);
   
@@ -694,9 +694,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Check if user has admin permissions
       const userRoleResults = await db
-        .select({ role_name: userRoles.role_name })
+        .select({ role_name: userRoles.roleName })
         .from(userRoles)
-        .where(eq(userRoles.user_id, user.id));
+        .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
       
@@ -783,9 +783,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Check if user has admin permissions
       const userRoleResults = await db
-        .select({ role_name: userRoles.role_name })
+        .select({ role_name: userRoles.roleName })
         .from(userRoles)
-        .where(eq(userRoles.user_id, user.id));
+        .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
       
@@ -847,9 +847,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Check if user has admin permissions
       const userRoleResults = await db
-        .select({ role_name: userRoles.role_name })
+        .select({ role_name: userRoles.roleName })
         .from(userRoles)
-        .where(eq(userRoles.user_id, user.id));
+        .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
       
@@ -960,9 +960,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Check if user has admin permissions
       const userRoleResults = await db
-        .select({ role_name: userRoles.role_name })
+        .select({ role_name: userRoles.roleName })
         .from(userRoles)
-        .where(eq(userRoles.user_id, user.id));
+        .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
       
