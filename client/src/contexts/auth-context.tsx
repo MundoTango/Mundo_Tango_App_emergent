@@ -16,13 +16,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing token and validate user
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      validateToken(token);
-    } else {
-      setIsLoading(false);
-    }
+    // Auto-login as admin@mundotango.life for demo/testing
+    const autoLogin = async () => {
+      try {
+        const response = await fetch('/api/auth/user', {
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data) {
+            setUser(data.data);
+            localStorage.setItem('auth_token', 'demo_admin_token');
+            console.log('Auto-logged in as:', data.data.email);
+          }
+        }
+      } catch (error) {
+        console.error('Auto-login failed:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    autoLogin();
   }, []);
 
   const validateToken = async (token: string) => {
