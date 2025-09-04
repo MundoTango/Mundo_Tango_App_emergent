@@ -58,3 +58,7 @@ tmp/
 *.avi
 *.MP4
 *.MOV
+-e 
+# Environment files
+*.env
+*.env.*
