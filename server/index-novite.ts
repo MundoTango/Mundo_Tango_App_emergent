@@ -171,7 +171,7 @@ app.use(chunkedUploadRoutes);
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
 // Define client path early
-const clientPath = pathModule.join(process.cwd(), 'dist', 'public');
+const clientPath = pathModule.join(process.cwd(), 'client', 'dist');
 
 // API routes
 const startServer = async () => {
