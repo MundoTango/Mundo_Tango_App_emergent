@@ -96,12 +96,30 @@ async def get_posts_feed():
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 @app.post("/api/posts")
-async def create_post(
-    content: str = Form(...),
-    isPublic: str = Form(default="true")
-):
-    """Create a new post"""
+async def create_post(request: Request):
+    """Create a new post - handle both JSON and FormData"""
     try:
+        content_type = request.headers.get("content-type", "")
+        
+        if "application/json" in content_type:
+            # Handle JSON request
+            data = await request.json()
+            content = data.get("content", "")
+            is_public = data.get("visibility", "public") == "public"
+            location = data.get("location", "")
+            tags = data.get("tags", [])
+            
+        else:
+            # Handle FormData request
+            form = await request.form()
+            content = form.get("content", "")
+            is_public = form.get("isPublic", "true").lower() == "true"
+            location = form.get("location", "")
+            tags = []
+        
+        if not content.strip():
+            raise HTTPException(status_code=422, detail="Content is required")
+        
         conn = get_db_connection()
         cur = conn.cursor()
         
@@ -110,7 +128,7 @@ async def create_post(
             INSERT INTO posts (user_id, content, is_public, created_at)
             VALUES (1, %s, %s, NOW())
             RETURNING id, created_at
-        """, (content, isPublic.lower() == "true"))
+        """, (content, is_public))
         
         result = cur.fetchone()
         post_id, created_at = result
@@ -124,7 +142,55 @@ async def create_post(
             "data": {
                 "id": post_id,
                 "content": content,
-                "isPublic": isPublic.lower() == "true",
+                "isPublic": is_public,
+                "createdAt": created_at.isoformat(),
+                "user": {"id": 1, "name": "Admin User", "email": "admin@mundotango.life"},
+                "likesCount": 0,
+                "commentsCount": 0,
+                "sharesCount": 0,
+                "hashtags": tags
+            }
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create post: {str(e)}")
+
+@app.post("/api/posts/direct")
+async def create_post_with_media(request: Request):
+    """Create post with media URLs"""
+    try:
+        data = await request.json()
+        content = data.get("content", "")
+        is_public = data.get("visibility", "public") == "public"
+        media_urls = data.get("mediaUrls", [])
+        
+        if not content.strip() and not media_urls:
+            raise HTTPException(status_code=422, detail="Content or media is required")
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Insert new post with media
+        cur.execute("""
+            INSERT INTO posts (user_id, content, is_public, image_url, created_at)
+            VALUES (1, %s, %s, %s, NOW())
+            RETURNING id, created_at
+        """, (content, is_public, media_urls[0] if media_urls else None))
+        
+        result = cur.fetchone()
+        post_id, created_at = result
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {
+            "success": True,
+            "data": {
+                "id": post_id,
+                "content": content,
+                "isPublic": is_public,
+                "imageUrl": media_urls[0] if media_urls else None,
                 "createdAt": created_at.isoformat(),
                 "user": {"id": 1, "name": "Admin User", "email": "admin@mundotango.life"}
             }
