@@ -105,9 +105,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(data.data.user);
   };
 
-  const logout = () => {
-    localStorage.removeItem('auth_token');
-    setUser(null);
+  const logout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      localStorage.removeItem('auth_token');
+      setUser(null);
+      // Don't redirect, just update state
+      console.log('User logged out successfully');
+    }
   };
 
   return (
