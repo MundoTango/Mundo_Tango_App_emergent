@@ -35,6 +35,23 @@ async def health_check():
     except Exception as e:
         return {"status": "unhealthy", "error": str(e)}
 
+@app.get("/api/user/profile")
+async def get_user_profile():
+    """Get user profile (for auth validation)"""
+    return {
+        "success": True,
+        "data": {
+            "user": {
+                "id": 1,
+                "email": "admin@mundotango.life",
+                "name": "Admin User",
+                "username": "admin",
+                "profileImage": None,
+                "tangoRoles": ["admin", "dancer"]
+            }
+        }
+    }
+
 @app.get("/api/auth/user")
 async def get_current_user():
     """Get current authenticated user"""
