@@ -102,15 +102,34 @@ async def logout_user():
 
 @app.get("/api/posts/feed")
 async def get_posts_feed():
-    """Get posts feed"""
+    """Get posts feed with reaction and comment counts"""
     try:
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("""
             SELECT p.id, p.content, p.image_url, p.is_public, p.created_at,
-                   u.id as user_id, u.name as user_name, u.email as user_email
+                   u.id as user_id, u.name as user_name, u.email as user_email,
+                   COALESCE(like_counts.like_count, 0) as likes_count,
+                   COALESCE(comment_counts.comment_count, 0) as comments_count,
+                   COALESCE(share_counts.share_count, 0) as shares_count
             FROM posts p 
             JOIN users u ON p.user_id = u.id 
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) as like_count 
+                FROM reactions 
+                WHERE reaction_type = 'like' 
+                GROUP BY post_id
+            ) like_counts ON p.id = like_counts.post_id
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) as comment_count 
+                FROM comments 
+                GROUP BY post_id
+            ) comment_counts ON p.id = comment_counts.post_id
+            LEFT JOIN (
+                SELECT post_id, COUNT(*) as share_count 
+                FROM shares 
+                GROUP BY post_id
+            ) share_counts ON p.id = share_counts.post_id
             ORDER BY p.created_at DESC
         """)
         
@@ -125,12 +144,15 @@ async def get_posts_feed():
                 "user": {
                     "id": row[5],
                     "name": row[6],
-                    "email": row[7]
+                    "email": row[7],
+                    "profileImage": None,
+                    "tangoRoles": ["admin", "dancer"] if row[5] == 1 else ["dancer"]
                 },
-                "likesCount": 0,
-                "commentsCount": 0,
-                "sharesCount": 0,
-                "hashtags": []
+                "likesCount": row[8],
+                "commentsCount": row[9],
+                "sharesCount": row[10],
+                "hashtags": [],
+                "isLiked": False  # TODO: Check if current user liked this post
             })
         
         cur.close()
