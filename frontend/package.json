@@ -1,8 +1,10 @@
 {
   "name": "life-ceo-frontend-proxy",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "ESA Life CEO 61x21 Framework - Frontend Proxy",
   "scripts": {
+    "build": "cd .. && npm run build",
     "start": "node proxy-server.js"
   },
   "dependencies": {
