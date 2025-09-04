@@ -108,7 +108,8 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     try {
       // Always use OpenStreetMap for manual verification to avoid Google Maps issues
       const fullAddress = `${data.address}, ${data.city}, ${data.state || ''}, ${data.country}`.trim();
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1`);
+      const geocodingUrl = import.meta.env.VITE_GEOCODING_API_URL || 'https://nominatim.openstreetmap.org/search';
+      const response = await fetch(`${geocodingUrl}?format=json&q=${encodeURIComponent(fullAddress)}&limit=1`);
       const results = await response.json();
 
       if (results && results.length > 0) {
