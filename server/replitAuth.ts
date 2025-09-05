@@ -111,6 +111,13 @@ export async function setupAuth(app: Express) {
   passport.deserializeUser((user: Express.User, cb) => cb(null, user));
 
   app.get("/api/login", (req, res, next) => {
+    // Clear logout flag for development mode
+    if (process.env.NODE_ENV === 'development' && global.devLoggedOut) {
+      global.devLoggedOut = false;
+      console.log('🔐 Development login - clearing logout flag');
+      return res.redirect('/moments');
+    }
+    
     const domains = process.env.REPLIT_DOMAINS!.split(",");
     const strategyName = `replitauth:${domains[0]}`;
     passport.authenticate(strategyName, {
@@ -128,7 +135,22 @@ export async function setupAuth(app: Express) {
     })(req, res, next);
   });
 
+  // Enhanced logout for development mode
   app.get("/api/logout", (req, res) => {
+    // Set logout flag for development mode
+    if (process.env.NODE_ENV === 'development') {
+      // Use global variable as fallback when sessions don't work
+      global.devLoggedOut = true;
+      console.log('🔓 Development logout - setting logout flag');
+      
+      // Clear session and redirect to a logout landing page
+      req.logout(() => {
+        res.redirect('/?logout=true');
+      });
+      return;
+    }
+    
+    // Production Replit OAuth logout
     req.logout(() => {
       res.redirect(
         client.buildEndSessionUrl(config, {
@@ -143,6 +165,12 @@ export async function setupAuth(app: Express) {
 export const isAuthenticated: RequestHandler = async (req, res, next) => {
   // Auth bypass for development and Life CEO testing
   if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+    // Check if user has explicitly logged out
+    if (global.devLoggedOut) {
+      console.log('🔓 Development mode: User is logged out');
+      return res.status(401).json({ message: "Logged out in development mode" });
+    }
+    
     console.log('🔧 Auth bypass - using default user for Life CEO testing');
     
     // Set default user for development - CRITICAL FIX: Use Scott's actual Replit ID
