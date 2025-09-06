@@ -133,7 +133,7 @@ export default function TangoCommunities() {
     name: group.name,
     description: group.description || `Welcome to the ${group.name} tango community!`,
     location: group.name, // Use name as location since it includes city name
-    memberCount: group.memberCount || 0,
+    memberCount: group.memberCount || group.member_count || 0,
     eventCount: group.eventCount || Math.floor(Math.random() * 30) + 5,
     category: group.type === 'city' ? 'city' : 
               group.roleType === 'teacher' || group.roleType === 'organizer' || group.roleType === 'performer' ? 'professional' :
