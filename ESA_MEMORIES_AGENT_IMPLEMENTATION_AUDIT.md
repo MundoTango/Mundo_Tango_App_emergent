@@ -12,7 +12,7 @@ The ESA LIFE CEO 61×21 AGENTS FRAMEWORK has been successfully transformed from 
 ### **PRIMARY MEMORIES PAGE (/) - COMPLETE FLOW AUDIT**
 
 #### **✅ Home Page Transformation**
-- **URL**: `https://agent-debug-suite.preview.emergentagent.com/`
+- **URL**: `https://life-memory-check.preview.emergentagent.com/`
 - **Status**: Successfully converted from admin dashboard to memories feed
 - **Agent Integration**: AI-enhanced memory creation using Reasoning Engine Agent
 - **UI Framework**: Glassmorphic design with MT Ocean theme compliance
@@ -215,8 +215,8 @@ const memories = pgTable('memories', {
 ## 🚀 **DEPLOYMENT READINESS ASSESSMENT**
 
 ### **Production Environment Status**
-- **✅ Agent Dashboard**: `https://agent-debug-suite.preview.emergentagent.com/agents`
-- **✅ Memories Feed**: `https://agent-debug-suite.preview.emergentagent.com/`
+- **✅ Agent Dashboard**: `https://life-memory-check.preview.emergentagent.com/agents`
+- **✅ Memories Feed**: `https://life-memory-check.preview.emergentagent.com/`
 - **✅ API Documentation**: `http://localhost:8080/agents/docs`
 - **✅ Framework Status**: `http://localhost:8080/agents/framework-status`
 
@@ -310,11 +310,11 @@ The Mundo Tango Memories system has successfully transformed from a static socia
 ## 📞 **SUPPORT & MONITORING**
 
 ### **Live System URLs**
-- **🏠 Memories Feed**: https://agent-debug-suite.preview.emergentagent.com/
-- **🤖 Agent Dashboard**: https://agent-debug-suite.preview.emergentagent.com/agents
-- **👥 Groups**: https://agent-debug-suite.preview.emergentagent.com/groups
-- **📅 Events**: https://agent-debug-suite.preview.emergentagent.com/events
-- **📊 Admin**: https://agent-debug-suite.preview.emergentagent.com/admin
+- **🏠 Memories Feed**: https://life-memory-check.preview.emergentagent.com/
+- **🤖 Agent Dashboard**: https://life-memory-check.preview.emergentagent.com/agents
+- **👥 Groups**: https://life-memory-check.preview.emergentagent.com/groups
+- **📅 Events**: https://life-memory-check.preview.emergentagent.com/events
+- **📊 Admin**: https://life-memory-check.preview.emergentagent.com/admin
 
 ### **Technical Monitoring**
 - **Agent API**: Port 8080 for agent interactions
