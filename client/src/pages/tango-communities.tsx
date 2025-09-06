@@ -31,6 +31,7 @@ interface TangoCommunity {
   rating?: number;
   coverImage?: string;
   createdAt?: string;
+  slug?: string;
 }
 
 export default function TangoCommunities() {
@@ -141,7 +142,8 @@ export default function TangoCommunities() {
               group.type || 'city',
     isJoined: group.isMember || false,
     rating: 4.5 + Math.random() * 0.5,
-    coverImage: group.coverImage || group.imageUrl
+    coverImage: group.coverImage || group.imageUrl,
+    slug: group.slug // Add slug to community data
   })) : mockCommunities;
 
   // Filter communities based on search and category
@@ -326,7 +328,11 @@ export default function TangoCommunities() {
                   >
                     {community.isJoined ? 'Leave' : 'Join'} Community
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => window.open(`/groups/${community.slug || community.id}`, '_blank')}
+                  >
                     View Details
                   </Button>
                 </div>
