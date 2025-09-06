@@ -91,14 +91,25 @@ router.get('/groups/my', isAuthenticated, async (req: any, res) => {
   }
 });
 
-// Get single group
-router.get('/groups/:groupId', setUserContext, async (req, res) => {
+// Get single group (by ID or slug)
+router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
   try {
-    const groupId = parseInt(req.params.groupId);
+    const identifier = req.params.groupIdentifier;
+    let group;
     
-    const [group] = await db.select()
-      .from(groups)
-      .where(eq(groups.id, groupId));
+    // Check if identifier is numeric (ID) or string (slug)
+    if (/^\d+$/.test(identifier)) {
+      // It's a numeric ID
+      const groupId = parseInt(identifier);
+      [group] = await db.select()
+        .from(groups)
+        .where(eq(groups.id, groupId));
+    } else {
+      // It's a slug
+      [group] = await db.select()
+        .from(groups)
+        .where(eq(groups.slug, identifier));
+    }
     
     if (!group) {
       return res.status(404).json({ error: 'Group not found' });
@@ -107,7 +118,7 @@ router.get('/groups/:groupId', setUserContext, async (req, res) => {
     // Get member count
     const members = await db.select()
       .from(groupMembers)
-      .where(eq(groupMembers.groupId, groupId));
+      .where(eq(groupMembers.groupId, group.id));
     
     res.json({
       ...group,
