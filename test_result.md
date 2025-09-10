@@ -545,7 +545,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Phase 4: Internationalization & Language Audit"
+    - "Missing Core Features for Phases 4-6 Enterprise Validation"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
