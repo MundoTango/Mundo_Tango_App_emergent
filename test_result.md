@@ -530,7 +530,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "ESA Framework Batch 6 - Intelligence Infrastructure Agents (Layers 39-43)"
+    - "Phase 4: Internationalization & Language Audit"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
