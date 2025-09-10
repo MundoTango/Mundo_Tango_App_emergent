@@ -13,8 +13,8 @@ import sys
 from datetime import datetime
 import random
 import string
-import websocket
-import ssl
+# import websocket  # Not needed for basic testing
+# import ssl
 from urllib.parse import urljoin
 
 class MundoTangoProductionHardeningTester:
