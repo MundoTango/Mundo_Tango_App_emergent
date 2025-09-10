@@ -213,7 +213,7 @@ export default function ModernMemoriesPage() {
                   </p>
                   <button
                     onClick={() => setShowComposer(true)}
-                    className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 
+                    className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200"
                   >
