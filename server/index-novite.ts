@@ -3,7 +3,9 @@
  * All core functionality intact: video uploads, memory management, API endpoints
  */
 
-import express, { type Request, Response, NextFunction } from "express";
+/// <reference types="node" />
+
+import express, { type Request, type Response, type NextFunction } from "express";
 import * as pathModule from "path";
 import compression from "compression";
 import bytes from 'bytes';
@@ -11,6 +13,11 @@ import { Server as SocketServer } from 'socket.io';
 import { createServer as createHttpServer } from 'http';
 import dotenv from "dotenv";
 dotenv.config();
+
+// Ensure Node.js types are available
+declare const global: typeof globalThis & { gc?: () => void };
+declare const process: NodeJS.Process;
+declare const console: Console;
 
 // Memory optimization for large uploads
 if (global.gc) {
@@ -88,7 +95,7 @@ app.use(express.urlencoded({
 }));
 
 // Request size middleware
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   const contentLength = req.headers['content-length'];
   if (contentLength) {
     const sizeInBytes = parseInt(contentLength);
@@ -111,16 +118,16 @@ initializeFeatureFlags().catch(error => {
 });
 
 // Health check endpoints
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
 // Simple health check for deployment
-app.get('/healthz', (_req, res) => {
+app.get('/healthz', (_req: Request, res: Response) => {
   res.status(200).send('ok');
 });
 
-app.get('/ready', async (req, res) => {
+app.get('/ready', async (req: Request, res: Response) => {
   try {
     const { db } = await import('./db');
     await db.execute('SELECT 1');
@@ -132,7 +139,7 @@ app.get('/ready', async (req, res) => {
 });
 
 // Metrics endpoint
-app.get('/metrics', async (req, res) => {
+app.get('/metrics', async (req: Request, res: Response) => {
   try {
     const metrics = await register.metrics();
     res.set('Content-Type', register.contentType);
@@ -147,7 +154,7 @@ app.get('/metrics', async (req, res) => {
 setupSwagger(app);
 
 // Video streaming route
-app.get('/api/videos/:filename', (req, res) => {
+app.get('/api/videos/:filename', (req: Request, res: Response) => {
   const filename = req.params.filename;
   const filePath = pathModule.join(process.cwd(), 'uploads', filename);
   
@@ -184,7 +191,7 @@ const startServer = async () => {
     app.use(express.static(clientPath));
     
     // Fallback route for client-side routing
-    app.get('*', (req, res) => {
+    app.get('*', (req: Request, res: Response) => {
       res.sendFile(pathModule.join(clientPath, 'index.html'));
     });
     
@@ -192,7 +199,7 @@ const startServer = async () => {
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
     console.log(`🌐 Starting server on port ${PORT}`);
     
-    httpServer.listen(PORT, '0.0.0.0', (error?: Error) => {
+    httpServer.listen(PORT, '0.0.0.0', (error?: any) => {
       if (error) {
         console.error('❌ Failed to bind to port:', error);
         throw error;
@@ -208,7 +215,7 @@ const startServer = async () => {
     });
 
     // Add error handler for the server
-    httpServer.on('error', (error) => {
+    httpServer.on('error', (error: any) => {
       console.error('❌ HTTP Server error:', error);
       logger.fatal('HTTP Server error:', error);
       throw error;
