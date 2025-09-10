@@ -149,7 +149,9 @@ export default function ModernMemoriesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
+        backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
+      }}>
       {/* Header */}
       <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
 
