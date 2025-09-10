@@ -55,7 +55,7 @@ export interface DocumentationSystemStatus {
     changelog: boolean;
     score: number;
   };
-  documentation Maintenance: {
+  documentationMaintenance: {
     versionControl: boolean;
     automatedUpdates: boolean;
     reviewProcess: boolean;
@@ -70,7 +70,7 @@ export interface DocumentationSystemStatus {
     highContrast: boolean;
     searchFunctionality: boolean;
     mobileOptimized: boolean;
-    offline Access: boolean;
+    offlineAccess: boolean;
     score: number;
   };
   analytics: {
