@@ -8,8 +8,8 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "ci", "&&", "NODE_OPTIONS=--max-old-space-size=1024", "npm", "run", "build", "&&", "npm", "prune", "--production", "&&", "npm", "cache", "clean", "--force"]
-run = ["NODE_OPTIONS=--max-old-space-size=1024", "npm", "start"]
+build = ["npm", "run", "build:production"]
+run = ["npm", "start"]
 
 [[ports]]
 localPort = 5000
