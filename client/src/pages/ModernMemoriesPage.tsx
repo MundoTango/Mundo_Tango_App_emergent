@@ -76,7 +76,7 @@ export default function ModernMemoriesPage() {
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast.success('Memory shared successfully!', {
         style: {
-          background: 'linear-gradient(135deg, #f97316 0%, #ec4899 100%)',
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
           color: 'white',
           borderRadius: '16px',
           padding: '16px',
@@ -87,7 +87,7 @@ export default function ModernMemoriesPage() {
     onError: () => {
       toast.error('Failed to share memory', {
         style: {
-          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
           color: 'white',
           borderRadius: '16px',
           padding: '16px',
@@ -140,14 +140,18 @@ export default function ModernMemoriesPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
+        backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
+      }}>
         <ModernLoadingState message="Loading your memories..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
+        backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
+      }}>
       {/* Header */}
       <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
 
@@ -209,7 +213,7 @@ export default function ModernMemoriesPage() {
                   </p>
                   <button
                     onClick={() => setShowComposer(true)}
-                    className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 
+                    className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200"
                   >

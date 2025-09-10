@@ -105,49 +105,9 @@ router.post("/auth/reset-password", async (req, res) => {
   }
 });
 
-// Legacy CSRF endpoint - kept for compatibility
+// CSRF token endpoint
 router.get("/auth/csrf", (req, res) => {
-  // Skip if AUTH_BYPASS is enabled
-  if (process.env.AUTH_BYPASS?.toLowerCase() === 'true') {
-    return res.json({ csrfToken: 'bypass-mode' });
-  }
-  
-  const session = req.session as any;
-  if (!session) {
-    return res.json({ csrfToken: 'no-session' });
-  }
-  
-  if (!session.csrfToken) {
-    session.csrfToken = randomBytes(32).toString('hex');
-  }
-  
-  res.json({ csrfToken: session.csrfToken });
-});
-
-// CSRF token endpoint for frontend security
-router.get("/auth/csrf-token", (req, res) => {
-  try {
-    const session = req.session as any;
-    
-    // Skip if AUTH_BYPASS is enabled
-    if (process.env.AUTH_BYPASS?.toLowerCase() === 'true') {
-      return res.json({ csrfToken: 'bypass-mode' });
-    }
-    
-    if (!session) {
-      return res.status(401).json({ error: 'No session available' });
-    }
-    
-    // Generate CSRF token if not exists
-    if (!session.csrfToken) {
-      session.csrfToken = randomBytes(32).toString('hex');
-    }
-    
-    res.json({ csrfToken: session.csrfToken });
-  } catch (error) {
-    console.error('Error generating CSRF token:', error);
-    res.status(500).json({ error: 'Failed to generate CSRF token' });
-  }
+  res.json({ csrfToken: req.csrfToken ? req.csrfToken() : null });
 });
 
 export default router;
