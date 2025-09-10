@@ -87,7 +87,7 @@ export default function ModernMemoriesPage() {
     onError: () => {
       toast.error('Failed to share memory', {
         style: {
-          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
           color: 'white',
           borderRadius: '16px',
           padding: '16px',
