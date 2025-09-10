@@ -524,22 +524,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "ESA Agent System Integration"
-    - "Layer 01: Architecture Foundation Agent"
-    - "Layer 02: API Structure Agent"
-    - "Layer 03: Server Framework Agent"
-    - "Layer 22: Group Management Agent"
-    - "Layer 31: AI Infrastructure Agent"
-    - "Layer 32: Prompt Engineering Agent"
-    - "Layer 33: Context Management Agent"
-    - "Layer 34: Response Generation Agent"
-    - "Layer 35: AI Agent Management Agent"
-    - "Layer 48: Performance Monitoring Agent"
-    - "Layer 57: Automation Management Agent"
-    - "Layer 58: Integration Tracking Agent"
-    - "Layer 59: Open Source Management Agent"
-    - "Layer 60: GitHub Expertise Agent"
-    - "Layer 61: Supabase Expertise Agent"
+    - "ESA Framework Batch 6 - Intelligence Infrastructure Agents (Layers 39-43)"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
