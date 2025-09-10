@@ -76,7 +76,7 @@ export default function ModernMemoriesPage() {
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast.success('Memory shared successfully!', {
         style: {
-          background: 'linear-gradient(135deg, #f97316 0%, #ec4899 100%)',
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
           color: 'white',
           borderRadius: '16px',
           padding: '16px',
