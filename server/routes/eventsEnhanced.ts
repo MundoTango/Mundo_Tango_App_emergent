@@ -316,15 +316,15 @@ router.post('/api/events/:eventId/waitlist', async (req: Request, res: Response)
         notificationsSent: false
       });
 
-      // Emit socket event
-      const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
-      io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_WAITLIST, {
-        eventId,
-        userId,
-        username: user?.name || 'Unknown',
-        action: 'joined',
-        waitlistPosition: waitlistCount + 1
-      });
+      // TODO: Emit socket event when io instance is available
+      // const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+      // io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_WAITLIST, {
+      //   eventId,
+      //   userId,
+      //   username: user?.name || 'Unknown',
+      //   action: 'joined',
+      //   waitlistPosition: waitlistCount + 1
+      // });
 
       res.json({ 
         success: true, 
