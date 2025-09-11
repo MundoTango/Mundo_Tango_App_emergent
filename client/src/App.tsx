@@ -350,6 +350,12 @@ function Router() {
             </Suspense>
           </Route>
           
+          <Route path="/events-comprehensive">
+            <Suspense fallback={<LoadingFallback message="Loading comprehensive events..." />}>
+              <EventsComprehensive />
+            </Suspense>
+          </Route>
+          
           <Route path="/events/:id">
             <Suspense fallback={<LoadingFallback message="Loading event details..." />}>
               <EventDetail />
