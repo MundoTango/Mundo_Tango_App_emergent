@@ -493,7 +493,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     
-    // AI Enhancement endpoint
+    // AI Enhancement endpoint with real GPT-4o integration
     if (path === '/api/memories/enhance' && req.method === 'POST') {
       const body = await parseBody(req);
       const { content, options = {} } = body;
@@ -506,18 +506,72 @@ const server = http.createServer(async (req, res) => {
         return;
       }
       
+      // Check for OpenAI API key
+      const openaiKey = process.env.OPENAI_API_KEY;
+      if (openaiKey && openaiKey !== 'test-openai-key') {
+        try {
+          // Real OpenAI integration
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${openaiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o',
+              messages: [
+                {
+                  role: 'system',
+                  content: 'You are a tango community expert. Enhance user memories about tango experiences, adding emotional depth and cultural context while preserving the original voice. Keep enhancements under 50 words additional.'
+                },
+                {
+                  role: 'user', 
+                  content: `Enhance this tango memory: "${content}"`
+                }
+              ],
+              max_tokens: 200,
+              temperature: 0.7
+            })
+          });
+          
+          if (response.ok) {
+            const aiResult = await response.json();
+            const enhancedContent = aiResult.choices[0]?.message?.content || content;
+            
+            sendJSON(res, 200, {
+              success: true,
+              data: {
+                originalContent: content,
+                enhancedContent: enhancedContent,
+                tags: options.generateTags ? generateTags(content) : [],
+                sentiment: options.analyzeSentiment ? analyzeSentiment(content) : 'neutral',
+                suggestions: options.optimizeEngagement ? generateSuggestions(content) : [],
+                aiProvider: 'OpenAI GPT-4o',
+                enhanced: true
+              },
+              timestamp: new Date().toISOString()
+            });
+            return;
+          }
+        } catch (error) {
+          console.error('OpenAI API error:', error);
+        }
+      }
+      
+      // Fallback to mock enhancement if no API key or error
       const enhancementResult = {
         originalContent: content,
         enhancedContent: options.enhanceContent ? enhanceContent(content) : content,
         tags: options.generateTags ? generateTags(content) : [],
         sentiment: options.analyzeSentiment ? analyzeSentiment(content) : 'neutral',
-        suggestions: options.optimizeEngagement ? generateSuggestions(content) : []
+        suggestions: options.optimizeEngagement ? generateSuggestions(content) : [],
+        aiProvider: openaiKey ? 'OpenAI GPT-4o (Fallback)' : 'Mock AI (No API Key)',
+        enhanced: false
       };
       
       sendJSON(res, 200, {
         success: true,
         data: enhancementResult,
-        aiProvider: 'Mock AI (Emergent LLM simulation)',
         timestamp: new Date().toISOString()
       });
       return;
