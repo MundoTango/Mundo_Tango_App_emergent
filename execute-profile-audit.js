@@ -1,8 +1,6 @@
 
-#!/usr/bin/env node
-
-const { chromium } = require('playwright');
-const fs = require('fs');
+import { chromium } from 'playwright';
+import fs from 'fs';
 
 /**
  * ESA PROFILE AGENT IMPLEMENTATION AUDIT
@@ -733,18 +731,16 @@ class ProfileAuditExecutor {
 }
 
 // Execute the audit
-if (require.main === module) {
-  const audit = new ProfileAuditExecutor();
-  audit.execute()
-    .then(report => {
-      console.log('\n✅ Profile audit completed successfully');
-      console.log('📄 Full report saved to: PROFILE_AUDIT_REPORT.json');
-      process.exit(report.productionReady ? 0 : 1);
-    })
-    .catch(error => {
-      console.error('💥 Profile audit failed:', error);
-      process.exit(1);
-    });
-}
+const audit = new ProfileAuditExecutor();
+audit.execute()
+  .then(report => {
+    console.log('\n✅ Profile audit completed successfully');
+    console.log('📄 Full report saved to: PROFILE_AUDIT_REPORT.json');
+    process.exit(report.productionReady ? 0 : 1);
+  })
+  .catch(error => {
+    console.error('💥 Profile audit failed:', error);
+    process.exit(1);
+  });
 
-module.exports = ProfileAuditExecutor;
+export default ProfileAuditExecutor;
