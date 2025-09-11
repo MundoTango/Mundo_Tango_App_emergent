@@ -32,7 +32,7 @@ import CreateEventDialog from '@/components/events/CreateEventDialog';
 import EventsCalendar from '@/components/events/EventsCalendar';
 import EventMap from '@/components/EventMap';
 import { apiRequest } from '@/lib/queryClient';
-import type { ApiResponse } from '@/shared/apiTypes';
+import type { ApiResponse } from '../../../shared/apiTypes';
 
 interface Event {
   id: number;
