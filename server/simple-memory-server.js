@@ -143,6 +143,79 @@ function sendJSON(res, statusCode, data) {
 
 const PORT = process.env.PORT || 5000;
 
+// Initialize Socket.io server
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+  },
+  transports: ['websocket', 'polling']
+});
+
+// Socket.io event handlers for real-time features
+io.on('connection', (socket) => {
+  console.log(`✅ Socket.io user connected: ${socket.id}`);
+  
+  // Join user to personal room
+  socket.on('join:user', (userId) => {
+    socket.join(`user:${userId}`);
+    console.log(`User ${userId} joined personal room`);
+  });
+
+  // Join memory room for real-time updates
+  socket.on('join:memory', (memoryId) => {
+    socket.join(`memory:${memoryId}`);
+    console.log(`User joined memory room: ${memoryId}`);
+  });
+
+  // Handle real-time likes
+  socket.on('memory:like', (data) => {
+    console.log(`📍 Real-time like event:`, data);
+    socket.to(`memory:${data.memoryId}`).emit('memory:liked', {
+      memoryId: data.memoryId,
+      userId: data.userId,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // Handle real-time comments
+  socket.on('memory:comment', (data) => {
+    console.log(`💬 Real-time comment event:`, data);
+    socket.to(`memory:${data.memoryId}`).emit('memory:commented', {
+      memoryId: data.memoryId,
+      userId: data.userId,
+      comment: data.comment,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  // Handle typing indicators
+  socket.on('memory:typing', (data) => {
+    socket.to(`memory:${data.memoryId}`).emit('memory:user_typing', {
+      memoryId: data.memoryId,
+      userId: data.userId,
+      isTyping: data.isTyping
+    });
+  });
+
+  // Handle new memory broadcasts
+  socket.on('memory:created', (data) => {
+    console.log(`✨ Broadcasting new memory:`, data);
+    socket.broadcast.emit('memory:new', {
+      memoryId: data.memoryId,
+      userId: data.userId,
+      content: data.content,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`❌ Socket.io user disconnected: ${socket.id}, reason: ${reason}`);
+  });
+});
+
 const server = http.createServer(async (req, res) => {
   addCorsHeaders(res);
   
