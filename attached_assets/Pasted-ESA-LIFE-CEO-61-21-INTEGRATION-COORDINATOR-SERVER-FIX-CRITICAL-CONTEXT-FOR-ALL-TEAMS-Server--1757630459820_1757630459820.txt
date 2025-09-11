@@ -1,0 +1,59 @@
+ESA LIFE CEO 61×21 - INTEGRATION COORDINATOR & SERVER FIX
+
+CRITICAL CONTEXT FOR ALL TEAMS:
+- Server currently FAILED: "server is not defined" at server/index-novite.ts:187
+- Assistant completed: Socket.io (port 5000) + AI enhancement endpoints
+- 17 posts in PostgreSQL working
+- UnifiedMemories.tsx at /unified-memories route active
+- MT Ocean theme: #5EEAD4→#155E75 gradients
+
+YOUR IMMEDIATE TASKS:
+1. FIX server error at server/index-novite.ts:187 (change 'server' to 'httpServer')
+2. VERIFY Assistant's work is integrated properly
+3. COORDINATE with other platforms
+
+SHARE WITH OTHER PLATFORMS:
+- Server runs on port 5000
+- WebSocket mount point: server/index.ts or server/index-novite.ts
+- Database: PostgreSQL with Drizzle ORM
+- Auth: JWT with dev bypass when NODE_ENV=development
+- Media uploads: Multer to /uploads/posts/{userId}/
+- Current routes: /api/posts/*, /api/posts/:id/enhance
+
+FILES MODIFIED BY ASSISTANT:
+- client/src/hooks/useSocket.ts (port 8001→5000)
+- server/routes/postsRoutes.ts (AI endpoints added)
+- client/src/components/universal/BeautifulPostCreator.tsx (AI UI)
+- server/index-novite.ts (Socket.io mount - HAS ERROR)
+
+EMERGENT INTEGRATION POINTS:
+- Events will use same Socket.io instance (port 5000)
+- Events will share PostgreSQL database
+- Events will use same auth system
+- Events should emit to same WebSocket rooms
+
+UPDATE replit.md after fix with all integration details
+
+// Add to shared/schema.ts
+export const events = pgTable('events', {
+  id: serial('id').primaryKey(), // Use serial to match posts table
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date'),
+  location: json('location'), // {address, lat, lng, venue}
+  organizerId: integer('organizer_id').references(() => users.id),
+  category: varchar('category'), // milonga, practica, workshop, festival
+  price: integer('price'), // in cents
+  maxAttendees: integer('max_attendees'),
+  createdAt: timestamp('created_at').defaultNow()
+});
+
+export const eventAttendees = pgTable('event_attendees', {
+  eventId: integer('event_id').references(() => events.id),
+  userId: integer('user_id').references(() => users.id),
+  rsvpStatus: varchar('rsvp_status'), // attending, maybe, not_attending
+  ticketType: varchar('ticket_type'), // general, vip, student
+  paidAmount: integer('paid_amount'),
+  createdAt: timestamp('created_at').defaultNow()
+});
