@@ -22,14 +22,15 @@ test.describe('Memory Authentication and Visibility', () => {
     // Wait for memories to load
     await page.waitForTimeout(5000);
     
-    // Check if memories are displayed (should show 5 memories from backend)
-    // First check if any memory content is visible
-    await expect(page.locator('text="Had an amazing tango class today"')).toBeVisible({ timeout: 15000 });
-    await expect(page.locator('text="Practicing my ocho cortado"')).toBeVisible();
+    // Scroll down to see the memory feed (below creation form)
+    await page.mouse.wheel(0, 1000);
+    await page.waitForTimeout(2000);
     
-    // Check for memory card elements - adjust selectors based on actual HTML structure
-    const memoryContent = page.locator('text="Had an amazing tango class", text="Practicing my ocho", text="Confitería Ideal"');
-    await expect(memoryContent.first()).toBeVisible();
+    // Check if memories are displayed (should show 5 memories from backend)
+    // Use partial text match since content might be truncated
+    await expect(page.locator('text*="Had an amazing tango class"')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text*="Practicing my ocho"')).toBeVisible();
+    await expect(page.locator('text*="Confitería Ideal"')).toBeVisible();
   });
 
   test('should show privacy controls for memory creation', async ({ page }) => {
