@@ -141,6 +141,8 @@ function sendJSON(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+const PORT = process.env.PORT || 5000;
+
 const server = http.createServer(async (req, res) => {
   addCorsHeaders(res);
   
