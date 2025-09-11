@@ -593,7 +593,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Memory System Assessment in Profile Page"
+    - "Comprehensive Memory System End-to-End Testing"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
