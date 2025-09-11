@@ -9,6 +9,7 @@ import compression from "compression";
 import bytes from 'bytes';
 import { Server as SocketServer } from 'socket.io';
 import { createServer as createHttpServer } from 'http';
+import { setupSocketIO } from './socket-enhanced';
 import dotenv from "dotenv";
 dotenv.config();
 
