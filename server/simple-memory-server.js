@@ -424,6 +424,11 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log('📱 Memory API endpoints ready:');
   console.log('  GET  /api/health');
   console.log('  GET  /api/posts/feed');
+  console.log('  GET  /api/user');
+  console.log('  GET  /api/user/posts');
+  console.log('  GET  /api/user/stats');
+  console.log('  GET  /api/guest-profiles');
+  console.log('  PUT  /api/user/profile');
   console.log('  POST /api/posts');
   console.log('  POST /api/posts/:id/like');
   console.log('  POST /api/memories/enhance');
