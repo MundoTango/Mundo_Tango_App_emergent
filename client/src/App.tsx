@@ -374,10 +374,10 @@ function Router() {
             </Suspense>
           </Route>
           
-          {/* ESA-44x21s Fix: Add missing memories route */}
+          {/* Enhanced Memories Page Route */}
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <EnhancedTimelineV2 />
+              <Memories />
             </Suspense>
           </Route>
           
