@@ -15,7 +15,7 @@ export function useSocket(userId?: string): SocketContextType {
 
   useEffect(() => {
     // Get backend URL from environment or default
-    const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+    const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
     
     console.log('🔌 Connecting to Socket.io server:', backendUrl);
     

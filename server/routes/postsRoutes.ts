@@ -6,6 +6,7 @@
 import { Router } from 'express';
 import { storage } from '../storage';
 import { getUserId } from '../utils/authHelper';
+import { openaiService } from '../services/openaiService';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -500,6 +501,171 @@ router.post('/api/posts/:id/like', async (req: any, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to toggle like',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * AI Enhancement endpoint for posts
+ */
+router.post('/api/posts/:id/enhance', async (req: any, res) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    // Check if post exists and user owns it
+    const post = await storage.getPostById(postId);
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: 'Post not found'
+      });
+    }
+    
+    if (post.userId !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized to enhance this post'
+      });
+    }
+    
+    // Check if OpenAI API key is available
+    if (!process.env.OPENAI_API_KEY) {
+      return res.json({
+        success: true,
+        enhanced: false,
+        message: 'AI enhancement not available - no API key configured',
+        original: post.content,
+        enhanced: post.content
+      });
+    }
+    
+    try {
+      // Use OpenAI service to enhance content
+      const enhancementPrompt = [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant that enhances social media posts for a tango community platform. Make the content more engaging, add relevant emojis, and improve readability while keeping the original meaning. Keep it authentic and not overly promotional.'
+        },
+        {
+          role: 'user',
+          content: `Please enhance this tango community post: "${post.content}"`
+        }
+      ];
+      
+      const completion = await openaiService.createCompletion(enhancementPrompt);
+      const enhancedContent = completion.choices[0]?.message?.content || post.content;
+      
+      res.json({
+        success: true,
+        enhanced: true,
+        message: 'Content enhanced successfully',
+        original: post.content,
+        enhanced: enhancedContent.trim()
+      });
+      
+    } catch (aiError: any) {
+      console.error('AI enhancement error:', aiError);
+      res.json({
+        success: true,
+        enhanced: false,
+        message: 'AI enhancement temporarily unavailable',
+        original: post.content,
+        enhanced: post.content,
+        error: aiError.message
+      });
+    }
+    
+  } catch (error: any) {
+    console.error('Error enhancing post:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to enhance post',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * AI Enhancement for new content (before posting)
+ */
+router.post('/api/posts/enhance-content', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    const { content } = req.body;
+    if (!content || content.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Content is required for enhancement'
+      });
+    }
+    
+    // Check if OpenAI API key is available
+    if (!process.env.OPENAI_API_KEY) {
+      return res.json({
+        success: true,
+        enhanced: false,
+        message: 'AI enhancement not available - no API key configured',
+        original: content,
+        enhanced: content
+      });
+    }
+    
+    try {
+      // Use OpenAI service to enhance content
+      const enhancementPrompt = [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant that enhances social media posts for a tango community platform called Mundo Tango. Make the content more engaging, add relevant emojis, and improve readability while keeping the original meaning. Focus on tango culture, community, and passion. Keep it authentic and not overly promotional.'
+        },
+        {
+          role: 'user',
+          content: `Please enhance this tango community post: "${content}"`
+        }
+      ];
+      
+      const completion = await openaiService.createCompletion(enhancementPrompt);
+      const enhancedContent = completion.choices[0]?.message?.content || content;
+      
+      res.json({
+        success: true,
+        enhanced: true,
+        message: 'Content enhanced successfully',
+        original: content,
+        enhanced: enhancedContent.trim()
+      });
+      
+    } catch (aiError: any) {
+      console.error('AI enhancement error:', aiError);
+      res.json({
+        success: true,
+        enhanced: false,
+        message: 'AI enhancement temporarily unavailable',
+        original: content,
+        enhanced: content,
+        error: aiError.message
+      });
+    }
+    
+  } catch (error: any) {
+    console.error('Error enhancing content:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to enhance content',
       error: error.message
     });
   }
