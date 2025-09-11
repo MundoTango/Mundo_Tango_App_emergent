@@ -48,9 +48,9 @@ test.describe('Memory Media and Features', () => {
     const uploadButton = page.locator('button:has-text("Upload"), [data-testid*="upload"]');
     await expect(uploadButton).toBeVisible();
     
-    // Verify upload specifications are mentioned
-    await expect(page.locator('text*="500MB"')).toBeVisible();
-    await expect(page.locator('text*="30 files"')).toBeVisible();
+    // Verify upload specifications are mentioned using correct Playwright syntax
+    await expect(page.getByText('500MB', { exact: false })).toBeVisible();
+    await expect(page.getByText('30 files', { exact: false })).toBeVisible();
   });
 
   test('should have share memory functionality', async ({ page }) => {
