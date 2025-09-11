@@ -1,0 +1,19 @@
+Error: Cannot find module 'json:test-reports-20250911-153506/Authentication/results.json'
+Require stack:
+- /home/runner/workspace/node_modules/playwright/lib/program.js
+- /home/runner/workspace/node_modules/@playwright/test/cli.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Function.resolve (node:internal/modules/helpers:193:19)
+    at resolveReporter (/home/runner/workspace/node_modules/playwright/lib/program.js:340:18)
+    at /home/runner/workspace/node_modules/playwright/lib/program.js:312:42
+    at Array.map (<anonymous>)
+    at resolveReporterOption (/home/runner/workspace/node_modules/playwright/lib/program.js:312:30)
+    at overridesFromOptions (/home/runner/workspace/node_modules/playwright/lib/program.js:274:15)
+    at runTests (/home/runner/workspace/node_modules/playwright/lib/program.js:165:24)
+    at async i.<anonymous> (/home/runner/workspace/node_modules/playwright/lib/program.js:65:7) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/runner/workspace/node_modules/playwright/lib/program.js',
+    '/home/runner/workspace/node_modules/@playwright/test/cli.js'
+  ]
+}
