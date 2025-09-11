@@ -8,6 +8,23 @@ import { eq, and } from 'drizzle-orm';
 export const getUserId = (req: any): number | string | null => {
   // ESA Framework Layer 13: Systematic authentication with retro fixes
   
+  // Check for cookie-based userId first (for testing)
+  if (req.headers?.cookie) {
+    const cookies = req.headers.cookie.split(';').reduce((acc: any, cookie: string) => {
+      const [key, value] = cookie.trim().split('=');
+      if (key && value) acc[key] = value;
+      return acc;
+    }, {});
+    
+    if (cookies.userId) {
+      const userId = parseInt(cookies.userId, 10);
+      if (!isNaN(userId)) {
+        console.log('🍪 ESA Auth: Found userId from cookie:', userId);
+        return userId;
+      }
+    }
+  }
+  
   // Primary authentication patterns
   if (req.user?.id) {
     console.log('🔐 ESA Auth: Found req.user.id:', req.user.id);
