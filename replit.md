@@ -49,6 +49,42 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md document as the authoritative framework guide.
 For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment readiness checklist.
 
+## Integration Status (January 2025)
+
+### Completed Features
+- **Phase 1**: ✅ UnifiedMemories page combining best UI components
+- **Phase 2**: ✅ Socket.io real-time features (port 5000)
+- **Phase 3**: ✅ AI enhancement with OpenAI service
+
+### Platform Integration Points
+- **Server**: Running on port 5000 (fixed server startup error)
+- **WebSocket**: Socket.io mounted at server/index-novite.ts
+- **Database**: PostgreSQL with Drizzle ORM (17 posts working)
+- **Authentication**: JWT with dev bypass when NODE_ENV=development
+- **Media Uploads**: Multer to /uploads/posts/{userId}/
+- **API Response Format**: { success: boolean, data: any }
+
+### Current Routes
+- `/api/posts/*` - CRUD operations for posts
+- `/api/posts/:id/enhance` - AI enhancement for existing posts
+- `/api/posts/enhance-content` - AI enhancement for new content
+- `/api/posts/:id/comments` - Comments system
+- `/unified-memories` - Unified UI page
+
+### Modified Files (Assistant's Work)
+- `client/src/hooks/useSocket.ts` - Port corrected to 5000
+- `server/routes/postsRoutes.ts` - AI endpoints added
+- `client/src/components/universal/BeautifulPostCreator.tsx` - AI UI added
+- `server/index-novite.ts` - Socket.io mounted (server error fixed)
+
+### Events Agent Requirements (For Emergent)
+- Use existing Socket.io on port 5000
+- Share PostgreSQL database with Drizzle ORM
+- Follow { success, data } API response format
+- Use existing auth middleware
+- Emit to WebSocket rooms: user:{id}, city:{name}
+- MT Ocean theme: #5EEAD4→#155E75
+
 ## System Architecture
 
 The platform employs a decoupled, microservices-oriented architecture, separating Life CEO, Community Platforms, and an Integration Layer.

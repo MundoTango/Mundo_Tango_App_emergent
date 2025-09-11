@@ -1,0 +1,79 @@
+EVENTS AGENT REQUIREMENTS:
+
+DATABASE SCHEMA TO ADD:
+
+// Add to shared/schema.ts
+export const events = pgTable('events', {
+  id: serial('id').primaryKey(), // Use serial to match posts table
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date'),
+  location: json('location'), // {address, lat, lng, venue}
+  organizerId: integer('organizer_id').references(() => users.id),
+  category: varchar('category'), // milonga, practica, workshop, festival
+  price: integer('price'), // in cents
+  maxAttendees: integer('max_attendees'),
+  createdAt: timestamp('created_at').defaultNow()
+});
+export const eventAttendees = pgTable('event_attendees', {
+  eventId: integer('event_id').references(() => events.id),
+  userId: integer('user_id').references(() => users.id),
+  rsvpStatus: varchar('rsvp_status'), // attending, maybe, not_attending
+  ticketType: varchar('ticket_type'), // general, vip, student
+  paidAmount: integer('paid_amount'),
+  createdAt: timestamp('created_at').defaultNow()
+});
+API ENDPOINTS (follow existing patterns):
+
+// Match existing response format
+router.get('/api/events/upcoming', async (req, res) => {
+  // Return: { success: true, data: events[] }
+});
+router.post('/api/events', authenticateUser, upload.array('images', 3), async (req, res) => {
+  // Use same auth and upload patterns as posts
+  // Emit Socket.io event: io.emit('event:created', eventData)
+});
+SOCKET.IO EVENTS (coordinate with existing):
+
+event:created (new event)
+event:updated (event modified)
+event:cancelled (event cancelled)
+rsvp:new (user RSVPs)
+Use existing rooms: user:{id}, city:{name}
+FRONTEND COMPONENTS:
+
+Use existing UI patterns from UnifiedMemories.tsx
+Import BeautifulPostCreator patterns for EventCreator
+Use same loading/error states
+Connect to existing React Query setup
+INTEGRATION CHECKLIST:
+
+ Uses port 5000 Socket.io instance
+ Follows { success, data } API format
+ Uses existing auth middleware
+ Adds to shared/schema.ts
+ Emits Socket.io events
+ Uses MT Ocean theme
+ Integrates with existing navigation
+DELIVER AS:
+GitHub repo that can be cloned into existing project structure
+
+## **CONTINUOUS SYNCHRONIZATION PROTOCOL**
+### **Information Flow:**
+AGENT (Coordinator) ← → ASSISTANT (Technical) ← → EMERGENT (Features)
+↓ ↓ ↓
+Updates replit.md Documents patterns Exports modules
+↓ ↓ ↓
+All changes visible to all teams
+
+### **Shared State Management:**
+1. **replit.md** - Single source of truth for platform state
+2. **shared/schema.ts** - All database types
+3. **shared/socketEvents.ts** - WebSocket event definitions
+4. **shared/apiTypes.ts** - API response interfaces
+### **Integration Checkpoints:**
+- Every 30 minutes: Share progress in replit.md
+- Before major changes: Check for conflicts
+- After features complete: Test integration
+This ensures all platforms have complete visibility and maintain a fully integrated system.
