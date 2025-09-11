@@ -6,6 +6,7 @@
 
 const http = require('http');
 const url = require('url');
+const { Server } = require('socket.io');
 
 // Enhanced memory data for production testing
 let memories = [
