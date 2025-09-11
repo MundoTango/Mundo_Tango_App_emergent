@@ -1044,5 +1044,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
   
+  // 🎉 ESA LIFE CEO 61×21 - Enhanced Socket.io for Events Agent
+  const { setupSocketIO } = await import('./socket-enhanced');
+  const io = setupSocketIO(server);
+  
   return server;
 }
