@@ -254,17 +254,17 @@ router.post('/api/events/:eventId/rsvp', async (req: Request, res: Response) => 
         .where(eq(events.id, eventId));
     }
 
-    // Get user info for socket event
-    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+    // TODO: Get user info for socket event when io instance is available
+    // const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
 
-    // Emit socket event
-    io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_RSVP, {
-      eventId,
-      userId,
-      username: user?.name || 'Unknown',
-      status,
-      profileImage: user?.profileImage
-    });
+    // TODO: Emit socket event when io instance is available
+    // io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_RSVP, {
+    //   eventId,
+    //   userId,
+    //   username: user?.name || 'Unknown',
+    //   status,
+    //   profileImage: user?.profileImage
+    // });
 
     res.json({ success: true, data: { status } });
   } catch (error: any) {
