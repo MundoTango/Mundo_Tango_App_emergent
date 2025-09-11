@@ -566,7 +566,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Missing Core Features for Phases 4-6 Enterprise Validation"
+    - "Profile Page Comprehensive End-to-End Testing"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
