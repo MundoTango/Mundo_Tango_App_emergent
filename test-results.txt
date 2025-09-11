@@ -1,0 +1,21 @@
+
+Running 1351 tests using 4 workers
+
+  ✘     1 [chromium] › tests/e2e/admin-moderation.spec.ts:42:7 › Admin & Moderation › Happy: Admin role management (12.7s)
+  ✘     4 [chromium] › tests/e2e/admin-moderation.spec.ts:89:7 › Admin & Moderation › Happy: Content moderation - hide/delete posts (13.7s)
+  ✘     3 [chromium] › tests/e2e/admin-moderation.spec.ts:144:7 › Admin & Moderation › Happy: User ban/unban flow (13.8s)
+  ✘     2 [chromium] › tests/e2e/admin-moderation.spec.ts:207:7 › Admin & Moderation › Happy: Feature flag management (14.9s)
+  ✘     5 [chromium] › tests/e2e/admin-moderation.spec.ts:240:7 › Admin & Moderation › Happy: System announcements (15.5s)
+  ✘     7 [chromium] › tests/e2e/admin-moderation.spec.ts:289:7 › Admin & Moderation › Edge: Moderator permissions limitations (14.3s)
+  ✘     6 [chromium] › tests/e2e/admin-moderation.spec.ts:320:7 › Admin & Moderation › Failure: Non-admin access attempt (15.8s)
+  ✘     8 [chromium] › tests/e2e/admin-moderation.spec.ts:340:7 › Admin & Moderation › Happy: Dashboard statistics and monitoring (14.8s)
+  ✘    11 [chromium] › tests/e2e/admin.e2e.test.ts:50:7 › Admin E2E Tests › should manage users (1.9s)
+  ✘    12 [chromium] › tests/e2e/admin.e2e.test.ts:33:7 › Admin E2E Tests › should view platform statistics (2.1s)
+  ✘    10 [chromium] › tests/e2e/admin.e2e.test.ts:19:7 › Admin E2E Tests › should access admin dashboard (3.2s)
+  ✘    15 [chromium] › tests/e2e/admin.e2e.test.ts:96:7 › Admin E2E Tests › should manage events (1.5s)
+  ✘    13 [chromium] › tests/e2e/admin.e2e.test.ts:73:7 › Admin E2E Tests › should moderate content (1.6s)
+  ✘    14 [chromium] › tests/e2e/admin.e2e.test.ts:114:7 › Admin E2E Tests › should handle user bans (1.9s)
+  ✘    18 [chromium] › tests/e2e/admin.e2e.test.ts:180:7 › Admin E2E Tests › should send platform announcements (2.0s)
+  ✘    17 [chromium] › tests/e2e/admin.e2e.test.ts:140:7 › Admin E2E Tests › should manage platform settings (2.0s)
+  ✘    16 [chromium] › tests/e2e/admin.e2e.test.ts:155:7 › Admin E2E Tests › should export platform data (1.8s)
+  ✘     9 [chromium] › tests/e2e/admin-moderation.spec.ts:380:7 › Admin & Moderation › Happy: Review and respond to user reports (14.6s)

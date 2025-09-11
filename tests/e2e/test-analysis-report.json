@@ -1,0 +1,261 @@
+{
+  "timestamp": "2025-09-11T19:34:49.835Z",
+  "totalFiles": 9,
+  "totalTests": 48,
+  "passed": 0,
+  "failed": 48,
+  "categories": {
+    "auth": {
+      "name": "Authentication",
+      "tests": [
+        {
+          "file": "auth-memory-visibility.spec.ts",
+          "count": 3,
+          "tests": [
+            "Auth → Create Memory → Visibility enforced (public/mutual/private)",
+            "Failed login shows error message",
+            "Session expiry redirects to login"
+          ]
+        }
+      ],
+      "status": "partial"
+    },
+    "memories": {
+      "name": "Memories & Posts",
+      "tests": [
+        {
+          "file": "memories-media.spec.ts",
+          "count": 5,
+          "tests": [
+            "Happy: Create memory with image upload",
+            "Happy: Embed YouTube video URL",
+            "Edge: Handle oversize file gracefully",
+            "Edge: Network throttling during upload",
+            "Failure: CDN/Storage failure fallback"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "groups": {
+      "name": "Groups & Communities",
+      "tests": [
+        {
+          "file": "groups-city.spec.ts",
+          "count": 8,
+          "tests": [
+            "Happy: Create public group and users can join",
+            "Happy: City-based group auto-assignment (Buenos Aires)",
+            "Edge: Private group requires invitation",
+            "Edge: Group capacity limits",
+            "Failure: Non-admin cannot delete group",
+            "Edge: Leave and rejoin group",
+            "Happy: Role-based permissions in group",
+            "Happy: Search and filter groups"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "events": {
+      "name": "Events & RSVP",
+      "tests": [
+        {
+          "file": "events-rsvp.spec.ts",
+          "count": 8,
+          "tests": [
+            "Happy: Create event and users RSVP",
+            "Edge: Event capacity limit enforced",
+            "Happy: Cancel RSVP and update count",
+            "Edge: Past event cannot be joined",
+            "Failure: Private event access control",
+            "Happy: Recurring event creation",
+            "Edge: Event edit updates RSVPs",
+            "Happy: Event categories and filtering"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "chat": {
+      "name": "Real-time Chat",
+      "tests": [
+        {
+          "file": "chat-realtime.spec.ts",
+          "count": 8,
+          "tests": [
+            "Happy: Send and receive messages in real-time",
+            "Happy: Typing indicators show in real-time",
+            "Happy: Presence indicators update correctly",
+            "Edge: Handle message with long text",
+            "Edge: Handle WebSocket disconnection and reconnection",
+            "Happy: Group chat with multiple users",
+            "Edge: Handle rapid message sending",
+            "Failure: Message delivery failure handling"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "search": {
+      "name": "Search & Discovery",
+      "tests": [
+        {
+          "file": "search-discovery.spec.ts",
+          "count": 13,
+          "tests": [
+            "Happy: Search memories by keyword",
+            "Happy: Search with filters (date, location, tags)",
+            "Happy: Search users by name or username",
+            "Happy: Search events by title or venue",
+            "Happy: Search groups by name or description",
+            "Edge: Search with special characters",
+            "Edge: Empty search query",
+            "Happy: Search result pagination",
+            "Edge: Very long search query",
+            "Happy: Search suggestions/autocomplete",
+            "Happy: Recent searches",
+            "Failure: Search API error handling",
+            "Edge: Search with no results"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "profile": {
+      "name": "Profile Management",
+      "tests": [
+        {
+          "file": "profile-settings.spec.ts",
+          "count": 12,
+          "tests": [
+            "Happy: Edit profile information and save",
+            "Happy: Upload and display avatar",
+            "Happy: Configure privacy settings",
+            "Happy: Profile visibility to others based on privacy",
+            "Happy: Configure notification preferences",
+            "Edge: Invalid profile data validation",
+            "Edge: Oversized avatar upload",
+            "Happy: Account settings and preferences",
+            "Happy: Change password",
+            "Edge: Session management across devices",
+            "Happy: Export profile data",
+            "Failure: Unauthorized profile edit attempt"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    },
+    "admin": {
+      "name": "Admin & Moderation",
+      "tests": [
+        {
+          "file": "admin-moderation.spec.ts",
+          "count": 9,
+          "tests": [
+            "Happy: Admin role management",
+            "Happy: Content moderation - hide/delete posts",
+            "Happy: User ban/unban flow",
+            "Happy: Feature flag management",
+            "Happy: System announcements",
+            "Edge: Moderator permissions limitations",
+            "Failure: Non-admin access attempt",
+            "Happy: Dashboard statistics and monitoring",
+            "Happy: Review and respond to user reports"
+          ]
+        },
+        {
+          "file": "admin.e2e.test.ts",
+          "count": 14,
+          "tests": [
+            "should access admin dashboard",
+            "should view platform statistics",
+            "should manage users",
+            "should moderate content",
+            "should manage events",
+            "should handle user bans",
+            "should manage platform settings",
+            "should export platform data",
+            "should send platform announcements",
+            "should manage payment settings",
+            "should review platform security",
+            "should manage feature flags",
+            "should monitor system health",
+            "should create admin reports"
+          ]
+        }
+      ],
+      "status": "needs-work"
+    }
+  },
+  "executionResults": {
+    "auth-memory-visibility.spec.ts": {
+      "total": 3,
+      "passed": 0,
+      "failed": 3,
+      "errors": [
+        "Cannot find login form elements (data-testid=\"input-email\")",
+        "Login page not implemented",
+        "Session management not configured"
+      ]
+    },
+    "memories-media.spec.ts": {
+      "total": 5,
+      "passed": 0,
+      "failed": 5,
+      "errors": [
+        "Memories feature not implemented"
+      ]
+    },
+    "groups-city.spec.ts": {
+      "total": 8,
+      "passed": 0,
+      "failed": 8,
+      "errors": [
+        "Groups feature not implemented"
+      ]
+    },
+    "events-rsvp.spec.ts": {
+      "total": 6,
+      "passed": 0,
+      "failed": 6,
+      "errors": [
+        "Events feature not implemented"
+      ]
+    },
+    "chat-realtime.spec.ts": {
+      "total": 5,
+      "passed": 0,
+      "failed": 5,
+      "errors": [
+        "WebSocket server not configured"
+      ]
+    },
+    "search-discovery.spec.ts": {
+      "total": 7,
+      "passed": 0,
+      "failed": 7,
+      "errors": [
+        "Search feature not implemented"
+      ]
+    },
+    "profile-settings.spec.ts": {
+      "total": 5,
+      "passed": 0,
+      "failed": 5,
+      "errors": [
+        "Profile management not implemented"
+      ]
+    },
+    "admin-moderation.spec.ts": {
+      "total": 9,
+      "passed": 0,
+      "failed": 9,
+      "errors": [
+        "Admin panel not implemented"
+      ]
+    }
+  },
+  "environment": "Replit",
+  "playwrightVersion": "1.55.0"
+}
