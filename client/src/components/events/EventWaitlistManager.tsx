@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import type { EventWaitlist, ApiResponse } from '@/shared/apiTypes';
+import type { EventWaitlist, ApiResponse } from '../../../shared/apiTypes';
 
 interface EventWaitlistManagerProps {
   eventId: number;
