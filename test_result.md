@@ -563,7 +563,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Phase 7: Internationalization & Language Testing"
+    - "Phase 8: Performance & Analytics Testing"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
