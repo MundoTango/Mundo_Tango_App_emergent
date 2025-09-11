@@ -734,8 +734,6 @@ function extractHashtags(content) {
   return hashtags ? hashtags.map(tag => tag.substring(1).toLowerCase()) : [];
 }
 
-const PORT = process.env.PORT || 5000;
-
 server.listen(PORT, '0.0.0.0', () => {
   console.log('🚀 Simple Mundo Tango Memory Server Started');
   console.log(`📡 Server running on http://localhost:${PORT}`);
