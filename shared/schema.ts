@@ -17,6 +17,34 @@ import { relations, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// Sessions table for express-session with connect-pg-simple
+export const sessions = pgTable("sessions", {
+  sid: varchar("sid", { length: 255 }).primaryKey(),
+  sess: jsonb("sess").notNull(),
+  expire: timestamp("expire", { precision: 6, mode: 'date' }).notNull(),
+}, (table) => [
+  index("idx_sessions_expire").on(table.expire),
+]);
+
+// Agents table for AI agent system (ESA LIFE CEO 61×21)
+export const agents = pgTable("agents", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  type: varchar("type", { length: 100 }).notNull(), // orchestrator, specialist, validator, monitor
+  status: varchar("status", { length: 50 }).default('active'), // active, inactive, busy, error
+  configuration: jsonb("configuration").default({}).notNull(),
+  capabilities: text("capabilities").array(),
+  layer: integer("layer"), // ESA Framework layer assignment
+  lastActive: timestamp("last_active"),
+  metrics: jsonb("metrics").default({}), // Performance metrics
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_agents_type").on(table.type),
+  index("idx_agents_status").on(table.status),
+  index("idx_agents_layer").on(table.layer),
+]);
+
 // Users table
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -163,6 +191,20 @@ export const projectActivity = pgTable("project_activity", {
   index("idx_project_activity_user_id").on(table.userId),
   index("idx_project_activity_timestamp").on(table.timestamp),
 ]);
+
+// Export TypeScript types for Sessions (ESA LIFE CEO 61x21 Critical Fix)
+export const insertSessionSchema = createInsertSchema(sessions);
+export type InsertSession = z.infer<typeof insertSessionSchema>;
+export type Session = typeof sessions.$inferSelect;
+
+// Export TypeScript types for Agents (ESA LIFE CEO 61x21 AI System)
+export const insertAgentSchema = createInsertSchema(agents).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertAgent = z.infer<typeof insertAgentSchema>;
+export type Agent = typeof agents.$inferSelect;
 
 // Export TypeScript types for Projects (ESA Layer 1: Database Architecture)
 export const insertProjectSchema = createInsertSchema(projects).omit({
