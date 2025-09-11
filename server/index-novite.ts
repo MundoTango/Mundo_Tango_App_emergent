@@ -166,6 +166,10 @@ app.use('/api/upload', uploadRoutes);
 app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
 
+// Mount integration helper routes for Events Agent coordination
+import integrationHelpers from './routes/integrationHelpers';
+app.use('/api/integration', integrationHelpers);
+
 // ESA LIFE CEO 56x21 - Add chunked upload routes for large videos
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
 app.use(chunkedUploadRoutes);

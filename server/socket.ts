@@ -125,6 +125,87 @@ export function setupSocketIO(httpServer: HTTPServer) {
       });
     });
 
+    // Handle event RSVP updates (for Events Agent)
+    socket.on('event:rsvp', (data: any) => {
+      console.log(`🎫 Event RSVP:`, data);
+      
+      // Broadcast to all event viewers
+      socket.to(`event:${data.eventId}`).emit('event:rsvp_updated', {
+        eventId: data.eventId,
+        userId: data.userId,
+        timestamp: new Date().toISOString(),
+        type: 'rsvp',
+        data: data.data
+      });
+      
+      // Notify event organizer
+      socket.to(`user:${data.data?.eventOwnerId}`).emit('notification:new', {
+        type: 'event_rsvp',
+        eventId: data.eventId,
+        fromUserId: data.userId,
+        message: `${data.data?.username} RSVPed ${data.data?.rsvpStatus} to your event`
+      });
+    });
+
+    // Handle event updates (for Events Agent)
+    socket.on('event:update', (data: any) => {
+      console.log(`📝 Event update:`, data);
+      
+      socket.to(`event:${data.eventId}`).emit('event:updated', {
+        eventId: data.eventId,
+        userId: data.userId,
+        timestamp: new Date().toISOString(),
+        type: 'update',
+        data: data.data
+      });
+    });
+
+    // Handle event comments (for Events Agent)
+    socket.on('event:comment', (data: any) => {
+      console.log(`💬 Event comment:`, data);
+      
+      socket.to(`event:${data.eventId}`).emit('event:commented', {
+        eventId: data.eventId,
+        userId: data.userId,
+        timestamp: new Date().toISOString(),
+        data: data.data
+      });
+      
+      // Notify event owner if not self-commenting
+      if (data.userId !== data.data?.eventOwnerId) {
+        socket.to(`user:${data.data?.eventOwnerId}`).emit('notification:new', {
+          type: 'event_comment',
+          eventId: data.eventId,
+          fromUserId: data.userId,
+          message: `${data.data?.username} commented on your event`
+        });
+      }
+    });
+
+    // Handle event typing indicators (for Events Agent)
+    socket.on('event:typing', (data: any) => {
+      console.log(`⌨️ Event typing:`, data);
+      
+      socket.to(`event:${data.targetId}`).emit('event:user_typing', {
+        eventId: data.targetId,
+        userId: data.userId,
+        username: data.username,
+        isTyping: data.isTyping,
+        timestamp: new Date().toISOString()
+      });
+    });
+
+    // Handle joining event rooms (for Events Agent)
+    socket.on('join:event', (eventId: string) => {
+      socket.join(`event:${eventId}`);
+      console.log(`User joined event room: ${eventId}`);
+    });
+
+    socket.on('leave:event', (eventId: string) => {
+      socket.leave(`event:${eventId}`);
+      console.log(`User left event room: ${eventId}`);
+    });
+
     // Handle new memory creation broadcasts
     socket.on('memory:created', (data: any) => {
       console.log(`✨ New memory created:`, data);
