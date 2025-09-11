@@ -184,7 +184,7 @@ const startServer = async () => {
     console.log('✅ Routes registered successfully');
 
     // Initialize Socket.io real-time features
-    const io = setupSocketIO(server);
+    const io = setupSocketIO(httpServer);
     console.log('✅ Socket.io real-time features initialized on port 5000');
 
     // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
