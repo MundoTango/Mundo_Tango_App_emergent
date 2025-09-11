@@ -567,6 +567,14 @@ const server = http.createServer(async (req, res) => {
       
       memory.likesCount += 1;
       
+      // Broadcast like event via Socket.io for real-time updates
+      io.to(`memory:${memory.id}`).emit('memory:liked', {
+        memoryId: memory.id,
+        userId: 999, // Current user ID
+        newLikeCount: memory.likesCount,
+        timestamp: new Date().toISOString()
+      });
+      
       sendJSON(res, 200, {
         success: true,
         data: {
