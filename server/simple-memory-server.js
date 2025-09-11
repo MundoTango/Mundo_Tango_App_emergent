@@ -7,16 +7,17 @@
 const http = require('http');
 const url = require('url');
 
-// Mock memory data
+// Enhanced memory data for production testing
 let memories = [
   {
     id: 1,
     userId: 1,
-    content: "Had an amazing tango class today! The connection with my partner was incredible. ✨",
-    likesCount: 5,
-    commentsCount: 2,
-    sharesCount: 1,
-    hashtags: ["tango", "class", "connection"],
+    content: "Had an amazing tango class today! The connection with my partner was incredible. ✨ The abrazo felt perfect and the music by D'Arienzo just carried us across the floor. #tango #class #connection #darienzo",
+    likesCount: 15,
+    commentsCount: 4,
+    sharesCount: 2,
+    hashtags: ["tango", "class", "connection", "darienzo"],
+    location: "La Viruta, Buenos Aires",
     isPublic: true,
     createdAt: new Date().toISOString(),
     user: {
@@ -26,16 +27,18 @@ let memories = [
       profileImage: null
     },
     aiEnhanced: true,
-    sentiment: "positive"
+    sentiment: "positive",
+    mediaEmbeds: []
   },
   {
     id: 2,
     userId: 2,
-    content: "Practicing my ocho cortado technique. Still working on the precision but getting better! 💃",
-    likesCount: 8,
-    commentsCount: 3,
-    sharesCount: 0,
-    hashtags: ["technique", "ocho", "practice"],
+    content: "Practicing my ocho cortado technique. Still working on the precision but getting better! 💃 The key is in the dissociation and timing with the music. #technique #ocho #practice #milonga",
+    likesCount: 12,
+    commentsCount: 6,
+    sharesCount: 1,
+    hashtags: ["technique", "ocho", "practice", "milonga"],
+    location: "Salon Canning, Buenos Aires",
     isPublic: true,
     createdAt: new Date(Date.now() - 3600000).toISOString(),
     user: {
@@ -44,7 +47,68 @@ let memories = [
       username: "carlos_dance",
       profileImage: null
     },
-    sentiment: "positive"
+    sentiment: "positive",
+    mediaEmbeds: []
+  },
+  {
+    id: 3,
+    userId: 1,
+    content: "First time at Confitería Ideal and I'm speechless! 😍 The history in these walls, the incredible architecture, and the most authentic milonga atmosphere. Every step felt like dancing with the ghosts of tango legends. #confiteriaideal #milonga #authentic #tangohistory",
+    likesCount: 28,
+    commentsCount: 8,
+    sharesCount: 5,
+    hashtags: ["confiteriaideal", "milonga", "authentic", "tangohistory"],
+    location: "Confitería Ideal, Buenos Aires",
+    isPublic: true,
+    createdAt: new Date(Date.now() - 7200000).toISOString(),
+    user: {
+      id: 1,
+      name: "John Smith",
+      username: "johnsmith_tango",
+      profileImage: null
+    },
+    sentiment: "positive",
+    mediaEmbeds: []
+  },
+  {
+    id: 4,
+    userId: 3,
+    content: "Teaching my first workshop this weekend! 🎓 So excited to share the secrets of the perfect giro and how to find your axis. Remember: it's not about the steps, it's about the connection to the ground and your partner. #teaching #workshop #giro #technique",
+    likesCount: 22,
+    commentsCount: 12,
+    sharesCount: 3,
+    hashtags: ["teaching", "workshop", "giro", "technique"],
+    location: "Academia de Tango Moreno, Buenos Aires",
+    isPublic: true,
+    createdAt: new Date(Date.now() - 10800000).toISOString(),
+    user: {
+      id: 3,
+      name: "Isabella Martinez",
+      username: "isa_tango_teacher",
+      profileImage: null
+    },
+    sentiment: "positive",
+    mediaEmbeds: []
+  },
+  {
+    id: 5,
+    userId: 4,
+    content: "Last night at El Querandí was pure magic! 🎭 The orchestra, the dancers, the atmosphere... This is why I fell in love with Buenos Aires. Every couple told a story with their dance. #elquerandi #tango #show #buenosaires #magic",
+    likesCount: 35,
+    commentsCount: 15,
+    sharesCount: 8,
+    hashtags: ["elquerandi", "tango", "show", "buenosaires", "magic"],
+    location: "El Querandí, Buenos Aires",
+    isPublic: true,
+    createdAt: new Date(Date.now() - 14400000).toISOString(),
+    user: {
+      id: 4,
+      name: "Sophie Laurent",
+      username: "sophie_paris_tango",
+      profileImage: null
+    },
+    sentiment: "positive",
+    mediaEmbeds: []
   }
 ];
 
