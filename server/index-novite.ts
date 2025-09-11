@@ -12,6 +12,9 @@ import { createServer as createHttpServer } from 'http';
 import dotenv from "dotenv";
 dotenv.config();
 
+// Import setupSocketIO for Socket.io integration
+import { setupSocketIO } from './socket';
+
 // Memory optimization for large uploads
 if (global.gc) {
   console.log('🧹 Garbage collection exposed, enabling aggressive memory management');
@@ -150,11 +153,11 @@ setupSwagger(app);
 app.get('/api/videos/:filename', (req, res) => {
   const filename = req.params.filename;
   const filePath = pathModule.join(process.cwd(), 'uploads', filename);
-  
+
   if (!isVideoFile(filename)) {
     return res.status(400).json({ error: 'Invalid video file' });
   }
-  
+
   streamVideo(req, res, filePath);
 });
 
@@ -179,19 +182,23 @@ const startServer = async () => {
     console.log('🔄 Initializing database connection...');
     const httpServer = await registerRoutes(app);
     console.log('✅ Routes registered successfully');
-    
+
+    // Initialize Socket.io real-time features
+    const io = setupSocketIO(server);
+    console.log('✅ Socket.io real-time features initialized on port 5000');
+
     // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
     app.use(express.static(clientPath));
-    
+
     // Fallback route for client-side routing
     app.get('*', (req, res) => {
       res.sendFile(pathModule.join(clientPath, 'index.html'));
     });
-    
+
     // Use port 80 for production deployments (Replit requirement)
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
     console.log(`🌐 Starting server on port ${PORT}`);
-    
+
     httpServer.listen(PORT, '0.0.0.0', (error?: Error) => {
       if (error) {
         console.error('❌ Failed to bind to port:', error);

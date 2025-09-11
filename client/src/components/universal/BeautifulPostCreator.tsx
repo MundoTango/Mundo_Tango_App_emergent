@@ -97,7 +97,10 @@ export default function BeautifulPostCreator({
   const [priceRange, setPriceRange] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  
+  const [isEnhancing, setIsEnhancing] = useState(false);
+  const [enhancedContent, setEnhancedContent] = useState('');
+  const [showEnhancement, setShowEnhancement] = useState(false);
+
   // Location states
   const [location, setLocation] = useState('');
   const [locationLoading, setLocationLoading] = useState(false);
@@ -109,12 +112,12 @@ export default function BeautifulPostCreator({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
-  
+
   // ESA LIFE CEO 61x21 - @mention functionality
   const [showMentions, setShowMentions] = useState(false);
   const [mentionSearch, setMentionSearch] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
-  
+
   // Fetch users for @mention autocomplete
   const { data: users = [] } = useQuery({
     queryKey: ['/api/users/search', mentionSearch],
@@ -154,13 +157,13 @@ export default function BeautifulPostCreator({
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        
+
         try {
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
           );
           const data = await response.json();
-          
+
           if (data && data.display_name) {
             setLocation(data.display_name);
             toast({
@@ -172,7 +175,7 @@ export default function BeautifulPostCreator({
           console.error('Reverse geocoding error:', error);
           setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
         }
-        
+
         setLocationLoading(false);
       },
       (error) => {
@@ -246,7 +249,7 @@ export default function BeautifulPostCreator({
     const validFiles = files.filter(file => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/');
       const isValidSize = file.size <= 500 * 1024 * 1024; // 500MB for videos
-      
+
       if (!isValidType) {
         toast({
           title: "Invalid file type",
@@ -255,7 +258,7 @@ export default function BeautifulPostCreator({
         });
         return false;
       }
-      
+
       if (!isValidSize) {
         toast({
           title: "File too large",
@@ -264,7 +267,7 @@ export default function BeautifulPostCreator({
         });
         return false;
       }
-      
+
       return true;
     });
 
@@ -295,13 +298,13 @@ export default function BeautifulPostCreator({
         setMediaPreviews(prev => [...prev, videoUrl]);
       }
     });
-    
+
     // Show success message
     toast({
       title: "Media added! 📸",
       description: `${validFiles.length} file(s) ready to upload`,
     });
-    
+
     // Reset the file input to allow re-selecting the same file
     fileInputRef.current!.value = '';
   };
@@ -313,7 +316,7 @@ export default function BeautifulPostCreator({
       console.log('📦 Post data received:', postData);
       console.log('🏠 Internal media URLs:', internalMediaUrls.length);
       console.log('📸 Legacy media files:', mediaFiles.length);
-      
+
       // ESA Layer 13: Internal URLs only - single reliable upload solution
       if (internalMediaUrls.length > 0) {
         // Use internal URLs directly - no file upload needed!
@@ -329,13 +332,13 @@ export default function BeautifulPostCreator({
             mediaType: 'internal'
           })
         });
-        
+
         if (!response.ok) {
           const errorText = await response.text();
           console.error('❌ Server response error:', response.status, errorText);
           throw new Error(`Failed to create post: ${response.status} - ${errorText}`);
         }
-        
+
         const result = await response.json();
         console.log('✅ Post created successfully:', result);
         return result;
@@ -344,23 +347,23 @@ export default function BeautifulPostCreator({
       else if (mediaFiles.length > 0) {
         console.error('❌ ESA LIFE CEO 61x21: SERVER UPLOAD BLOCKED!');
         console.error('Files detected:', mediaFiles);
-        
+
         // Clear the files immediately
         setMediaFiles([]);
         setMediaPreviews([]);
-        
+
         toast({
           title: "❌ Server Upload Blocked!",
           description: "Please use the 'Upload Media Files' button for ALL media. Direct file uploads are disabled.",
           variant: "destructive"
         });
-        
+
         setIsUploading(false);
         setUploadProgress(0);
-        
+
         // Force stop any ongoing uploads
         throw new Error('ESA LIFE CEO 61x21: Server uploads are completely disabled. Use Internal Upload only.');
-        
+
         /* DISABLED - DO NOT USE SERVER UPLOADS
         const formData = new FormData();
         formData.append('content', postData.content);
@@ -373,55 +376,55 @@ export default function BeautifulPostCreator({
         formData.append('isRecommendation', String(postData.isRecommendation));
         if (postData.recommendationType) formData.append('recommendationType', postData.recommendationType);
         if (postData.priceRange) formData.append('priceRange', postData.priceRange);
-        
+
         // ESA LIFE CEO 61x21 - Append each media file with debug logging
         mediaFiles.forEach((file, index) => {
           // Appending file to upload
           formData.append('media', file);
         });
         */
-        
+
         // ESA LIFE CEO 61x21 - FormData logging disabled (server uploads blocked)
-        
+
         // ESA LIFE CEO 61x21 FIX - Use /api/memories for memories feed
         const uploadEndpoint = context.type === 'memory' || context.type === 'feed' ? '/api/memories' : '/api/posts';
         console.log(`📤 Sending FormData to ${uploadEndpoint} with progress tracking`);
-        
+
         // Use XMLHttpRequest for REAL progress tracking only (no simulation)
         return new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
-          
+
           // Calculate total size for progress estimation
           const totalSize = mediaFiles.reduce((sum, file) => sum + file.size, 0);
           console.log(`📦 Total upload size: ${(totalSize / 1024 / 1024).toFixed(2)} MB`);
-          
+
           // FIXED upload progress tracking
           let lastProgress = 0;
           let progressInterval: NodeJS.Timeout;
           console.log('🚀 Initializing upload progress tracking');
-          
+
           // Start progress immediately when upload begins
           setIsUploading(true);
           setUploadProgress(1);
-          
+
           // ESA LIFE CEO 61x21 FIX: Simulate progress based on file size and estimated upload speed
           const startTime = Date.now();
           const estimatedBytesPerSecond = 1024 * 1024 * 2; // Estimate 2MB/s upload speed
           const estimatedDuration = (totalSize / estimatedBytesPerSecond) * 1000; // in milliseconds
-          
+
           // Update progress smoothly every 100ms
           progressInterval = setInterval(() => {
             const elapsed = Date.now() - startTime;
             // ESA LIFE CEO 61x21 FIX - Allow progress to reach 100%
             const estimatedProgress = Math.min(100, Math.round((elapsed / estimatedDuration) * 100));
-            
+
             if (estimatedProgress > lastProgress) {
               lastProgress = estimatedProgress;
               setUploadProgress(estimatedProgress);
               console.log(`📊 Upload progress: ${estimatedProgress}%`);
             }
           }, 100);
-          
+
           xhr.upload.addEventListener('progress', (e) => {
             console.log(`📡 Progress Event:`, {
               loaded: e.loaded,
@@ -429,7 +432,7 @@ export default function BeautifulPostCreator({
               computable: e.lengthComputable,
               percentage: e.total > 0 ? Math.round((e.loaded / e.total) * 100) : 0
             });
-            
+
             if (e.lengthComputable && e.total > 0) {
               // If we get real progress, use it instead
               clearInterval(progressInterval);
@@ -440,7 +443,7 @@ export default function BeautifulPostCreator({
                 const mbTotal = (e.total / 1024 / 1024).toFixed(2);
                 console.log(`📊 REAL Progress: ${percentComplete}% (${mbLoaded}MB / ${mbTotal}MB)`);
                 setUploadProgress(percentComplete);
-                
+
                 // Ensure we show 100% when bytes are complete
                 if (e.loaded >= e.total && percentComplete >= 99) {
                   console.log('✅ Upload bytes complete, forcing 100%');
@@ -449,33 +452,33 @@ export default function BeautifulPostCreator({
               }
             }
           }, false);
-          
+
           // Monitor upload start
           xhr.upload.addEventListener('loadstart', () => {
             console.log('📤 Upload started');
             setUploadProgress(1); // Show minimal progress to indicate start
           });
-          
+
           xhr.addEventListener('load', () => {
             clearInterval(progressInterval); // Clear the progress interval
             // XHR load event triggered
-            
+
             if (xhr.status >= 200 && xhr.status < 300) {
               // Success - show 100% progress
               setUploadProgress(100);
               // Debug log removed
-              
+
               try {
                 const response = JSON.parse(xhr.responseText);
                 // Debug log removed
-                
+
                 // Give user time to see 100% before resetting
                 setTimeout(() => {
                   setIsUploading(false);
                   setUploadProgress(0);
                   // Debug log removed
                 }, 1500);
-                
+
                 resolve(response);
               } catch (e) {
                 // Error log removed
@@ -490,7 +493,7 @@ export default function BeautifulPostCreator({
               reject(new Error(`Failed to create post: ${xhr.status}`));
             }
           });
-          
+
           xhr.addEventListener('error', () => {
             clearInterval(progressInterval); // Clear the progress interval
             setIsUploading(false);
@@ -498,7 +501,7 @@ export default function BeautifulPostCreator({
             // Error log removed
             reject(new Error('Network error during upload'));
           });
-          
+
           xhr.addEventListener('abort', () => {
             clearInterval(progressInterval); // Clear the progress interval
             setIsUploading(false);
@@ -506,21 +509,21 @@ export default function BeautifulPostCreator({
             // Debug log removed
             reject(new Error('Upload cancelled'));
           });
-          
+
           // ESA LIFE CEO 61x21 FIX - Use /api/posts endpoint for all posts
           const endpoint = '/api/posts';
           // Debug log removed
           xhr.open('POST', endpoint);
           xhr.withCredentials = true;
           xhr.timeout = 0; // ESA LIFE CEO 61x21 - Disable client timeout, let server handle it
-          
+
           // ESA LIFE CEO 61x21 - Removed client timeout handler since we disabled timeout
-          
+
           // Log xhr state changes for debugging
           xhr.onreadystatechange = () => {
             console.log(`🔄 XHR State: ${xhr.readyState} - Status: ${xhr.status}`);
           };
-          
+
           // Create FormData for server upload (legacy path - blocked)
           const serverFormData = new FormData();
           xhr.send(serverFormData);
@@ -536,13 +539,13 @@ export default function BeautifulPostCreator({
           credentials: 'include',
           body: JSON.stringify(postData)
         });
-        
+
         if (!response.ok) {
           const errorData = await response.text();
           console.error('❌ API Error:', response.status, errorData);
           throw new Error(`Failed to create post: ${response.status} - ${errorData}`);
         }
-        
+
         const result = await response.json();
         console.log('✅ Text-only post created successfully:', result);
         return result;
@@ -568,6 +571,8 @@ export default function BeautifulPostCreator({
       setIsRecommendation(false);
       setUploadProgress(0);
       setIsUploading(false);
+      setEnhancedContent('');
+      setShowEnhancement(false);
 
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] }); // Keep both for compatibility
@@ -584,30 +589,87 @@ export default function BeautifulPostCreator({
     }
   });
 
-  const handleSubmit = () => {
-    console.log('🎯 ESA Layer 13: handleSubmit called!');
-    console.log('📝 Content:', content);
-    console.log('📍 Location:', location);
-    console.log('📸 Media files:', mediaFiles.length);
-    console.log('🏷️ Tags:', selectedTags);
-    console.log('👁️ Visibility:', visibility);
-    console.log('💡 Is recommendation:', isRecommendation);
-    console.log('🔄 onSubmit prop exists?', !!onSubmit);
-    
+  const handleEnhanceContent = async () => {
+    if (!content.trim()) {
+      toast({
+        title: "No content to enhance",
+        description: 'Please add some content to enhance',
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsEnhancing(true);
+    try {
+      // Note: API endpoint and token retrieval might need adjustment based on your setup
+      // const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+      const response = await fetch('/api/posts/:id/enhance', { // Placeholder for actual endpoint
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}` // Include token if required
+        },
+        body: JSON.stringify({ content })
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.enhanced) {
+        setEnhancedContent(result.enhanced);
+        setShowEnhancement(true);
+        toast({
+          title: "Content enhanced with AI! ✨",
+        });
+      } else {
+        toast({
+          title: "AI enhancement unavailable",
+          description: result.message || 'Could not enhance content',
+          variant: "info"
+        });
+      }
+    } catch (error) {
+      console.error('Enhancement error:', error);
+      toast({
+        title: "Failed to enhance content",
+        description: 'An error occurred. Please try again later.',
+        variant: "destructive"
+      });
+    } finally {
+      setIsEnhancing(false);
+    }
+  };
+
+  const useEnhancedContent = () => {
+    setContent(enhancedContent);
+    setShowEnhancement(false);
+    setEnhancedContent(''); // Clear enhanced content after use
+    toast({
+      title: "Enhanced content applied!",
+    });
+  };
+
+  const dismissEnhancement = () => {
+    setShowEnhancement(false);
+    setEnhancedContent(''); // Clear enhanced content on dismiss
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0) {
+      toast({
+        title: "Please add content",
+        description: "Your post can't be empty.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     // Don't allow submission while uploading
     if (isUploading) {
       toast({
         title: "Upload in progress",
         description: "Please wait for the upload to complete",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    if (!content.trim() && mediaFiles.length === 0 && cloudMediaUrls.length === 0) {
-      toast({
-        title: "Add some content",
-        description: "Write something or add a photo",
         variant: "destructive"
       });
       return;
@@ -639,16 +701,18 @@ export default function BeautifulPostCreator({
       setIsRecommendation(false);
       setRecommendationType('');
       setPriceRange('');
-      
+      setEnhancedContent('');
+      setShowEnhancement(false);
+
       // Show success notification
       toast({
         title: "Memory created! 🎉",
         description: "Your moment has been shared",
       });
-      
+
       // Trigger confetti
       // createConfetti(); // Temporarily disabled for performance
-      
+
       onPostCreated?.();
       return;
     }
@@ -677,6 +741,45 @@ export default function BeautifulPostCreator({
     // createTypingParticle(e); // Temporarily disabled for performance
   };
 
+  // Handle file selection and preview generation
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    const validFiles = files.filter(file => {
+      const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/');
+      const isValidSize = file.size <= 500 * 1024 * 1024; // 500MB limit
+
+      if (!isValidType) {
+        toast({ title: "Invalid file type", description: "Please upload images or videos only.", variant: "destructive" });
+        return false;
+      }
+      if (!isValidSize) {
+        toast({ title: "File too large", description: `${file.name} exceeds 500MB limit.`, variant: "destructive" });
+        return false;
+      }
+      return true;
+    });
+
+    if (validFiles.length === 0) return;
+
+    setMediaFiles(prev => [...prev, ...validFiles]);
+
+    validFiles.forEach(file => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onloadend = () => setMediaPreviews(prev => [...prev, reader.result as string]);
+        reader.readAsDataURL(file);
+      } else if (file.type.startsWith('video/')) {
+        const videoUrl = URL.createObjectURL(file);
+        setMediaPreviews(prev => [...prev, videoUrl]);
+      }
+    });
+
+    toast({ title: "Media added!", description: `${validFiles.length} file(s) ready.` });
+    e.target.value = ''; // Reset input
+  };
+
   return (
     <div className="w-full">
       <Card className="relative overflow-hidden border-0 glassmorphic-card beautiful-hover shadow-2xl">
@@ -687,7 +790,7 @@ export default function BeautifulPostCreator({
           <div className="absolute top-0 left-0 w-96 h-96 bg-turquoise-300/20 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed" />
         </div>
-        
+
         <div className="relative z-10 p-8">
           {/* Enhanced Header with better styling */}
           <div className="flex items-start space-x-4 mb-6">
@@ -702,7 +805,7 @@ export default function BeautifulPostCreator({
               </div>
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
             </div>
-            
+
             <div className="flex-1">
               <h3 className="font-bold text-gray-900 text-lg">{user?.name}</h3>
               <p className="text-sm text-gray-500">@{user?.username}</p>
@@ -737,7 +840,7 @@ export default function BeautifulPostCreator({
                   const cursorPos = e.target.selectionStart || 0;
                   setContent(value);
                   setCursorPosition(cursorPos);
-                  
+
                   // ESA LIFE CEO 61x21 - Detect @mention
                   const lastAtIndex = value.lastIndexOf('@', cursorPos - 1);
                   if (lastAtIndex !== -1 && cursorPos > lastAtIndex) {
@@ -765,7 +868,7 @@ export default function BeautifulPostCreator({
               <div className="absolute bottom-3 right-3 text-xs text-gray-400">
                 {content.length > 0 && `${content.length} characters`}
               </div>
-              
+
               {/* ESA LIFE CEO 61x21 - @Mention Dropdown */}
               {showMentions && users.length > 0 && (
                 <div className="absolute z-50 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-48 overflow-y-auto">
@@ -810,7 +913,7 @@ export default function BeautifulPostCreator({
                   const isInternalUrl = internalMediaUrls.includes(preview) || preview.includes('/uploads/');
                   const file = !isInternalUrl ? mediaFiles[index] : null;
                   const isVideo = isInternalUrl ? preview.includes('.mp4') || preview.includes('.mov') || preview.includes('.webm') : file?.type?.startsWith('video/');
-                  
+
                   return (
                     <div key={index} className="relative group rounded-lg overflow-hidden bg-gray-100">
                       {isVideo ? (
@@ -834,7 +937,7 @@ export default function BeautifulPostCreator({
                         onClick={() => {
                           // Handle removal for internal and local media
                           const isInternalUrl = internalMediaUrls.includes(preview) || preview.includes('/uploads/');
-                          
+
                           if (isInternalUrl) {
                             // Remove from internal URLs
                             setInternalMediaUrls(prev => prev.filter(url => url !== preview));
@@ -842,7 +945,7 @@ export default function BeautifulPostCreator({
                             // Remove from local files
                             setMediaFiles(prev => prev.filter((_, i) => i !== index));
                           }
-                          
+
                           setMediaPreviews(prev => {
                             // Clean up object URLs for videos to prevent memory leaks
                             if (!isInternalUrl && isVideo && preview.startsWith('blob:')) {
@@ -958,25 +1061,25 @@ export default function BeautifulPostCreator({
                       // Debug log removed
                       // Debug log removed
                       // Debug log removed
-                      
+
                       // Update location state with full value
                       setLocation(value);
-                      
+
                       // ESA LIFE CEO 61x21 - Store location details for recommendations
                       if (details && details.type === 'business') {
                         // For businesses, store the full address for better recommendations
                         const fullLocation = `${details.display}${details.address ? ', ' + details.address : ''}`;
                         // Debug log removed
                       }
-                      
+
                       // Log state update
                       // Debug log removed
-                      
+
                       if (details) {
                         // Enhanced location data from LocationAutocomplete
                         // Debug log removed
                       }
-                      
+
                       // Verify state update after next render
                       setTimeout(() => {
                         // Debug log removed
@@ -1106,14 +1209,26 @@ export default function BeautifulPostCreator({
                     </div>
                   </button>
                 </div>
-
+                
+                {/* AI Enhancement Button */}
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleEnhanceContent}
+                  disabled={isEnhancing || !content.trim()}
+                  className="text-purple-600 hover:bg-purple-50"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  {isEnhancing ? 'Enhancing...' : 'AI Enhance'}
+                </Button>
 
               </div>
 
               <button
                 onClick={(e) => {
                   // createRipple(e); // Temporarily disabled for performance
-                  handleSubmit();
+                  handleSubmit(e);
                 }}
                 // onMouseMove={magneticButton} // Temporarily disabled for performance
                 // onMouseLeave={resetMagneticButton} // Temporarily disabled for performance
@@ -1173,8 +1288,64 @@ export default function BeautifulPostCreator({
               </div>
             </div>
           )}
+
+          {/* AI Enhancement Preview Modal */}
+          {showEnhancement && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <Card className="w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold flex items-center">
+                      <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
+                      AI Enhanced Content
+                    </h3>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={dismissEnhancement}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-600 mb-2">Original:</h4>
+                      <div className="p-3 bg-gray-50 rounded-lg text-sm">
+                        {content}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-600 mb-2">Enhanced:</h4>
+                      <div className="p-3 bg-purple-50 rounded-lg text-sm">
+                        {enhancedContent}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-3 mt-6">
+                    <Button
+                      onClick={useEnhancedContent}
+                      className="flex-1 bg-purple-600 hover:bg-purple-700"
+                    >
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      Use Enhanced Version
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={dismissEnhancement}
+                      className="flex-1"
+                    >
+                      Keep Original
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </Card>
     </div>
   );
-}// ESA LIFE CEO 61x21 - Cache bust: Tue Aug 12 02:47:58 PM UTC 2025
+}
