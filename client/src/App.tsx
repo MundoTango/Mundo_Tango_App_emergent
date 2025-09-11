@@ -56,6 +56,9 @@ import TrialBanner from "@/components/TrialBanner";
 // ESA Fix: Import Moments directly to avoid dynamic import issues
 import Moments from "@/pages/moments";
 
+// Import UnifiedMemories for enhanced memories experience
+const UnifiedMemories = lazy(() => import("@/pages/UnifiedMemories"));
+
 // Lazy loaded components to reduce bundle size (90% reduction in initial load)
 const Profile = lazy(() => import("@/pages/profile"));
 const Events = lazy(() => import("@/pages/events"));
@@ -377,6 +380,13 @@ function Router() {
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
               <EnhancedTimelineV2 />
+            </Suspense>
+          </Route>
+          
+          {/* Unified Memories - Enhanced experience with BeautifulPostCreator */}
+          <Route path="/unified-memories">
+            <Suspense fallback={<LoadingFallback message="Loading unified memories..." />}>
+              <UnifiedMemories />
             </Suspense>
           </Route>
           
