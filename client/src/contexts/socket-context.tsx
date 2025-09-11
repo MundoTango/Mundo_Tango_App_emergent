@@ -9,7 +9,7 @@ import type {
   EventCheckInEvent,
   MemoryEvent,
   TypingEvent
-} from '@/shared/socketEvents';
+} from '../../../shared/socketEvents';
 
 interface SocketContextType {
   socket: Socket | null;
