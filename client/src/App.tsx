@@ -60,6 +60,7 @@ import Moments from "@/pages/moments";
 const Profile = lazy(() => import("@/pages/profile"));
 const Events = lazy(() => import("@/pages/events"));
 const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
+const EventsComprehensive = lazy(() => import("@/pages/EventsComprehensive"));
 const EventDetail = lazy(() => import("@/pages/event-detail"));
 const Messages = lazy(() => import("@/pages/Messages"));
 const Community = lazy(() => import("@/pages/community"));
