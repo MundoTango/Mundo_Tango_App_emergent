@@ -37,7 +37,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { format } from 'date-fns';
-import type { EventCheckIn, ApiResponse } from '@/shared/apiTypes';
+import type { EventCheckIn, ApiResponse } from '../../../shared/apiTypes';
 
 const PARTICIPANT_ROLES = [
   { value: 'attendee', label: 'Attendee', icon: Users },
