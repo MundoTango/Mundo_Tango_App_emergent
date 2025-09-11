@@ -32,7 +32,6 @@ function UnifiedMemories() {
   
   // State management
   const [refreshKey, setRefreshKey] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState({
     filterType: 'all' as 'all' | 'following' | 'nearby',
     tags: [] as string[],
@@ -89,10 +88,10 @@ function UnifiedMemories() {
         }
       }
 
-      // Add media files
+      // Add media files (backend expects 'images' field)
       if (postData.media && postData.media.length > 0) {
         postData.media.forEach((file) => {
-          formData.append('media', file);
+          formData.append('images', file);
         });
       }
 
@@ -230,10 +229,13 @@ function UnifiedMemories() {
                   </div>
                 )}
                 
-                <EnhancedPostFeedSimple 
-                  key={refreshKey} 
-                  filters={filters}
-                />
+                {/* Loading indicator for initial load */}
+                {filters && !createPostMutation.isPending && (
+                  <EnhancedPostFeedSimple 
+                    key={refreshKey} 
+                    filters={filters}
+                  />
+                )}
               </div>
             </div>
             

@@ -15,7 +15,11 @@ const router = Router();
 // Configure multer for handling file uploads
 const uploadStorage = multer.diskStorage({
   destination: async (req, file, cb) => {
-    const userId = await getUserId(req) || 7; // Default user for development
+    // Get user ID from request, reject if not authenticated
+    const userId = await getUserId(req);
+    if (!userId) {
+      return cb(new Error('Authentication required'), '');
+    }
     const uploadDir = path.join('uploads', 'posts', String(userId));
     
     // Ensure upload directory exists
@@ -72,13 +76,13 @@ router.get('/api/posts', async (req: any, res) => {
     
     res.json({
       success: true,
-      posts: posts || []
+      data: posts || []
     });
   } catch (error) {
     console.error('Error fetching posts:', error);
     res.json({
       success: false,
-      posts: []
+      data: []
     });
   }
 });
@@ -231,11 +235,27 @@ router.get('/api/posts/:id', async (req: any, res) => {
 });
 
 /**
+ * Authentication middleware for file uploads
+ */
+const requireAuth = async (req: any, res: any, next: any) => {
+  const userId = await getUserId(req);
+  if (!userId) {
+    return res.status(401).json({
+      success: false,
+      message: 'Authentication required'
+    });
+  }
+  req.userId = userId;
+  next();
+};
+
+/**
  * Create new post with media upload support
  */
-router.post('/api/posts', upload.array('images', 3), async (req: any, res) => {
+router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: any, res) => {
   try {
-    const userId = await getUserId(req);
+    // Use userId from requireAuth middleware
+    const userId = req.userId || await getUserId(req);
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -304,9 +324,10 @@ router.post('/api/posts', upload.array('images', 3), async (req: any, res) => {
 /**
  * Create new post (alternative endpoint for single image)
  */
-router.post('/api/posts/with-image', upload.single('image'), async (req: any, res) => {
+router.post('/api/posts/with-image', requireAuth, upload.single('image'), async (req: any, res) => {
   try {
-    const userId = await getUserId(req);
+    // Use userId from requireAuth middleware
+    const userId = req.userId || await getUserId(req);
     if (!userId) {
       return res.status(401).json({
         success: false,
