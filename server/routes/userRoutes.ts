@@ -14,19 +14,19 @@ const upload = setupUpload();
 const calculateProfileCompletion = (userData: any): number => {
   if (!userData) return 0;
   
-  // These are the actual database field names
+  // These are the actual database field names (snake_case as per schema)
   const requiredFields = ['username', 'name', 'email'];
   const optionalFields = [
     'bio', 
     'city', 
     'country', 
-    'profileImage',  // Changed from profile_image
-    'backgroundImage',  // Changed from background_image
-    'tangoRoles', 
-    'yearsOfDancing', 
+    'profile_image',  // Use actual database column name
+    'background_image',  // Use actual database column name
+    'tango_roles',  // Use actual database column name
+    'years_of_dancing',  // Use actual database column name
     'occupation', 
-    'firstName', 
-    'lastName'
+    'first_name',  // Use actual database column name
+    'last_name'  // Use actual database column name
   ];
   
   let completedRequired = 0;
@@ -84,6 +84,8 @@ const filterUserDataByPrivacy = (userData: any, isOwnProfile: boolean, privacySe
   
   // IMPORTANT: Always include username - it's public information
   // Never remove username as it's needed for profile display
+  // Ensure username is ALWAYS preserved
+  const username = userData.username; // Save username before any deletions
   
   // Remove sensitive data based on privacy settings
   if (!privacySettings?.showEmail) delete filtered.email;
@@ -100,6 +102,11 @@ const filterUserDataByPrivacy = (userData: any, isOwnProfile: boolean, privacySe
   delete filtered.deviceToken;
   delete filtered.stripeCustomerId;
   delete filtered.stripeSubscriptionId;
+  
+  // Restore username if it was accidentally deleted
+  if (username && !filtered.username) {
+    filtered.username = username;
+  }
   
   return filtered;
 };
@@ -411,20 +418,20 @@ router.put('/user/profile', setUserContext, async (req: any, res) => {
     if (req.body.country !== undefined) updateData.country = req.body.country;
     if (req.body.state !== undefined) updateData.state = req.body.state;
     if (req.body.occupation !== undefined) updateData.occupation = req.body.occupation;
-    if (req.body.firstName !== undefined) updateData.firstName = req.body.firstName;
-    if (req.body.lastName !== undefined) updateData.lastName = req.body.lastName;
-    if (req.body.tangoRoles !== undefined) updateData.tangoRoles = req.body.tangoRoles;
-    if (req.body.yearsOfDancing !== undefined) updateData.yearsOfDancing = parseInt(req.body.yearsOfDancing) || 0;
-    if (req.body.leaderLevel !== undefined) updateData.leaderLevel = parseInt(req.body.leaderLevel) || 0;
-    if (req.body.followerLevel !== undefined) updateData.followerLevel = parseInt(req.body.followerLevel) || 0;
+    if (req.body.firstName !== undefined) updateData.first_name = req.body.firstName;
+    if (req.body.lastName !== undefined) updateData.last_name = req.body.lastName;
+    if (req.body.tangoRoles !== undefined) updateData.tango_roles = req.body.tangoRoles;
+    if (req.body.yearsOfDancing !== undefined) updateData.years_of_dancing = parseInt(req.body.yearsOfDancing) || 0;
+    if (req.body.leaderLevel !== undefined) updateData.leader_level = parseInt(req.body.leaderLevel) || 0;
+    if (req.body.followerLevel !== undefined) updateData.follower_level = parseInt(req.body.followerLevel) || 0;
     if (req.body.languages !== undefined) updateData.languages = req.body.languages;
-    if (req.body.profileImage !== undefined) updateData.profileImage = req.body.profileImage;
-    if (req.body.backgroundImage !== undefined) updateData.backgroundImage = req.body.backgroundImage;
+    if (req.body.profileImage !== undefined) updateData.profile_image = req.body.profileImage;
+    if (req.body.backgroundImage !== undefined) updateData.background_image = req.body.backgroundImage;
     
     // Handle social links - store in user table directly for now
     if (req.body.instagram !== undefined) updateData.instagram = req.body.instagram;
-    if (req.body.facebook !== undefined) updateData.facebookUrl = req.body.facebook;
-    if (req.body.facebookUrl !== undefined) updateData.facebookUrl = req.body.facebookUrl;
+    if (req.body.facebook !== undefined) updateData.facebook_url = req.body.facebook;
+    if (req.body.facebookUrl !== undefined) updateData.facebook_url = req.body.facebookUrl;
     if (req.body.twitter !== undefined) updateData.twitter = req.body.twitter;
     if (req.body.website !== undefined) updateData.website = req.body.website;
     
