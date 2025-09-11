@@ -254,6 +254,77 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     
+    // Authentication check endpoint
+    if (path === '/api/auth/me' && req.method === 'GET') {
+      const mockUser = {
+        id: 1,
+        name: "John Smith",
+        username: "johnsmith_tango",
+        email: "john.smith@example.com",
+        profileImage: null,
+        backgroundImage: null,
+        bio: "Passionate tango dancer from Buenos Aires. I love the connection and artistry of tango - it's not just a dance, it's a conversation between souls. Teaching and sharing the beauty of tango with the world. ¡Vamos a bailar! 💃🕺",
+        city: "Buenos Aires",
+        country: "Argentina",
+        tangoRoles: ["leader", "teacher", "organizer"],
+        yearsOfDancing: 8,
+        leaderLevel: 4,
+        followerLevel: 2,
+        languages: ["Spanish", "English", "Portuguese"],
+        socialLinks: {
+          instagram: "@johnsmith_tango",
+          facebook: "facebook.com/johnsmith.tango",
+          website: "https://johnsmithtango.com"
+        },
+        createdAt: "2020-03-15T10:30:00.000Z",
+        isOnline: true,
+        lastSeen: new Date().toISOString()
+      };
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: mockUser,
+        authenticated: true,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
+    // Alternative auth endpoint patterns that frontend might expect
+    if (path === '/api/me' && req.method === 'GET') {
+      const mockUser = {
+        id: 1,
+        name: "John Smith",
+        username: "johnsmith_tango",
+        email: "john.smith@example.com",
+        profileImage: null,
+        backgroundImage: null,
+        bio: "Passionate tango dancer from Buenos Aires. I love the connection and artistry of tango - it's not just a dance, it's a conversation between souls. Teaching and sharing the beauty of tango with the world. ¡Vamos a bailar! 💃🕺",
+        city: "Buenos Aires",
+        country: "Argentina",
+        tangoRoles: ["leader", "teacher", "organizer"],
+        yearsOfDancing: 8,
+        leaderLevel: 4,
+        followerLevel: 2,
+        languages: ["Spanish", "English", "Portuguese"],
+        socialLinks: {
+          instagram: "@johnsmith_tango",
+          facebook: "facebook.com/johnsmith.tango",
+          website: "https://johnsmithtango.com"
+        },
+        createdAt: "2020-03-15T10:30:00.000Z",
+        isOnline: true,
+        lastSeen: new Date().toISOString()
+      };
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: mockUser,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
     // Create new memory
     if (path === '/api/posts' && req.method === 'POST') {
       const body = await parseBody(req);
