@@ -593,7 +593,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Phase 8: Performance & Analytics Testing"
+    - "Memory System Assessment in Profile Page"
   stuck_tasks:
     - "Health Check Endpoint"
   test_all: false
