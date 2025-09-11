@@ -65,8 +65,13 @@ show_progress() {
     local current=$1
     local total=$2
     local text=$3
-    local percent=$((current * 100 / total))
-    local filled=$((percent / 5))  # 20 segments in progress bar
+    local percent=0
+    local filled=0
+    
+    if [ $total -gt 0 ]; then
+        percent=$((current * 100 / total))
+        filled=$((percent / 5))  # 20 segments in progress bar
+    fi
     
     printf "${CLEAR_LINE}"
     printf "${CYAN}["
@@ -186,7 +191,10 @@ run_test_suite() {
     
     # Update overall progress
     COMPLETED_SUITES=$((SUITE_NUMBER - 1))
-    local OVERALL_PERCENT=$((COMPLETED_SUITES * 100 / TOTAL_SUITES))
+    local OVERALL_PERCENT=0
+    if [ $TOTAL_SUITES -gt 0 ]; then
+        OVERALL_PERCENT=$((COMPLETED_SUITES * 100 / TOTAL_SUITES))
+    fi
     
     echo -e "${CYAN}╔════════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${CYAN}║  Progress: [■■■■□□□□□□] ${OVERALL_PERCENT}% - Suite ${SUITE_NUMBER}/${TOTAL_SUITES}                  ║${NC}"
@@ -235,9 +243,26 @@ run_test_suite() {
     
     # Parse test results from output
     if [ -f "$TEST_OUTPUT" ]; then
-        local SUITE_PASSED=$(grep -c "✓\|passed" "$TEST_OUTPUT" 2>/dev/null || echo "0")
-        local SUITE_FAILED=$(grep -c "✘\|×\|failed" "$TEST_OUTPUT" 2>/dev/null || echo "0")
-        local SUITE_SKIPPED=$(grep -c "↓\|skipped" "$TEST_OUTPUT" 2>/dev/null || echo "0")
+        local SUITE_PASSED=0
+        local SUITE_FAILED=0
+        local SUITE_SKIPPED=0
+        
+        # Count test results safely
+        if grep -q "✓\|passed" "$TEST_OUTPUT" 2>/dev/null; then
+            SUITE_PASSED=$(grep -c "✓\|passed" "$TEST_OUTPUT" 2>/dev/null || echo "0")
+        fi
+        if grep -q "✘\|×\|failed" "$TEST_OUTPUT" 2>/dev/null; then
+            SUITE_FAILED=$(grep -c "✘\|×\|failed" "$TEST_OUTPUT" 2>/dev/null || echo "0")
+        fi
+        if grep -q "↓\|skipped" "$TEST_OUTPUT" 2>/dev/null; then
+            SUITE_SKIPPED=$(grep -c "↓\|skipped" "$TEST_OUTPUT" 2>/dev/null || echo "0")
+        fi
+        
+        # Ensure variables are integers
+        SUITE_PASSED=${SUITE_PASSED:-0}
+        SUITE_FAILED=${SUITE_FAILED:-0}
+        SUITE_SKIPPED=${SUITE_SKIPPED:-0}
+        
         local SUITE_TOTAL=$((SUITE_PASSED + SUITE_FAILED + SUITE_SKIPPED))
         
         # If no tests found, set defaults
@@ -384,6 +409,9 @@ generate_final_report() {
     local SUCCESS_RATE=0
     if [ $TOTAL_TESTS -gt 0 ]; then
         SUCCESS_RATE=$(( (PASSED_TESTS * 100) / TOTAL_TESTS ))
+    else
+        # If no tests were run, set to 0
+        SUCCESS_RATE=0
     fi
     
     # Overall status
