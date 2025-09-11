@@ -499,6 +499,8 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log('  GET  /api/user/posts');
   console.log('  GET  /api/user/stats');
   console.log('  GET  /api/guest-profiles');
+  console.log('  GET  /api/auth/me');
+  console.log('  GET  /api/me');
   console.log('  PUT  /api/user/profile');
   console.log('  POST /api/posts');
   console.log('  POST /api/posts/:id/like');
