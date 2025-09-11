@@ -114,8 +114,21 @@ export default function MemoriesPage() {
           }}
         />
         
+        {/* Debug: Show API Status */}
+        <Card className="glassmorphic-card">
+          <CardContent className="p-4">
+            <h3 className="text-lg font-semibold mb-2">Debug: Memory Feed Status</h3>
+            <p>API Endpoint: /api/posts/feed</p>
+            <p>Expected Memories: 5</p>
+            <p>Feed Component: EnhancedPostFeed</p>
+          </CardContent>
+        </Card>
+        
         {/* Memory Feed */}
-        <EnhancedPostFeed key={refreshKey} />
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold text-gray-900">Recent Memories</h2>
+          <EnhancedPostFeed key={refreshKey} />
+        </div>
       </div>
     </DashboardLayout>
   );
