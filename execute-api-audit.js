@@ -339,9 +339,10 @@ class ProfileAPIAudit {
       });
       // Verify in database
       const sql = `SELECT bio FROM users WHERE id = 13`;
-      const result = this.executeSQL(sql);
-      if (!result || !result.includes('Sync test')) {
-        throw new Error('Profile not synced');
+      const result = await this.executeSQL(sql);
+      // executeSQL returns a string, check if it contains the text
+      if (!result || (typeof result === 'string' && !result.includes('Sync test'))) {
+        throw new Error(`Profile not synced: ${result}`);
       }
     });
     this.results.phase6.tests.push(test1);
