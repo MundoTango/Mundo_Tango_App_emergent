@@ -1,13 +1,57 @@
 /**
- * ESA LIFE CEO 56x21 - Fixed Posts Routes
- * Ensures media is properly returned with posts
+ * ESA LIFE CEO 61x21 - Fixed Posts Routes
+ * Ensures media is properly returned with posts and handles file uploads
  */
 
 import { Router } from 'express';
 import { storage } from '../storage';
 import { getUserId } from '../utils/authHelper';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 
 const router = Router();
+
+// Configure multer for handling file uploads
+const uploadStorage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    const userId = await getUserId(req) || 7; // Default user for development
+    const uploadDir = path.join('uploads', 'posts', String(userId));
+    
+    // Ensure upload directory exists
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    const ext = path.extname(file.originalname);
+    const sanitizedName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9-_]/g, '_');
+    cb(null, `${sanitizedName}_${uniqueSuffix}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage: uploadStorage,
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB limit
+    files: 3 // Max 3 files per upload
+  },
+  fileFilter: (req, file, cb) => {
+    // Accept images and videos
+    const allowedTypes = /jpeg|jpg|png|gif|webp|mp4|mov|avi|webm/;
+    const ext = path.extname(file.originalname).toLowerCase();
+    const isValid = allowedTypes.test(ext);
+    
+    if (isValid) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only images and videos are allowed.'));
+    }
+  }
+});
 
 /**
  * Get all posts - main endpoint
@@ -187,9 +231,9 @@ router.get('/api/posts/:id', async (req: any, res) => {
 });
 
 /**
- * Create new post
+ * Create new post with media upload support
  */
-router.post('/api/posts', async (req: any, res) => {
+router.post('/api/posts', upload.array('images', 3), async (req: any, res) => {
   try {
     const userId = await getUserId(req);
     if (!userId) {
@@ -199,9 +243,42 @@ router.post('/api/posts', async (req: any, res) => {
       });
     }
     
+    // Handle file uploads if present
+    const mediaUrls: string[] = [];
+    let imageUrl: string | null = null;
+    let videoUrl: string | null = null;
+    
+    if (req.files && Array.isArray(req.files)) {
+      for (const file of req.files) {
+        // Generate relative URL for the uploaded file
+        const relativeUrl = `/uploads/posts/${userId}/${file.filename}`;
+        mediaUrls.push(relativeUrl);
+        
+        // Set imageUrl for the first image, videoUrl for the first video
+        const ext = path.extname(file.filename).toLowerCase();
+        if (!imageUrl && /\.(jpg|jpeg|png|gif|webp)$/i.test(ext)) {
+          imageUrl = relativeUrl;
+        } else if (!videoUrl && /\.(mp4|mov|avi|webm)$/i.test(ext)) {
+          videoUrl = relativeUrl;
+        }
+      }
+    }
+    
+    // Handle single file upload from 'image' field for backward compatibility
+    if (req.file) {
+      const relativeUrl = `/uploads/posts/${userId}/${req.file.filename}`;
+      mediaUrls.push(relativeUrl);
+      imageUrl = relativeUrl;
+    }
+    
     const postData = {
-      ...req.body,
+      content: req.body.content || '',
       userId,
+      imageUrl,
+      videoUrl,
+      mediaEmbeds: mediaUrls,
+      isPublic: req.body.isPublic === 'true' || req.body.isPublic === true,
+      hashtags: req.body.hashtags ? (Array.isArray(req.body.hashtags) ? req.body.hashtags : [req.body.hashtags]) : [],
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
@@ -216,6 +293,58 @@ router.post('/api/posts', async (req: any, res) => {
     });
   } catch (error: any) {
     console.error('Error creating post:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create post',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Create new post (alternative endpoint for single image)
+ */
+router.post('/api/posts/with-image', upload.single('image'), async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    // Handle single file upload
+    let imageUrl: string | null = null;
+    const mediaUrls: string[] = [];
+    
+    if (req.file) {
+      const relativeUrl = `/uploads/posts/${userId}/${req.file.filename}`;
+      mediaUrls.push(relativeUrl);
+      imageUrl = relativeUrl;
+    }
+    
+    const postData = {
+      content: req.body.content || '',
+      userId,
+      imageUrl,
+      mediaEmbeds: mediaUrls,
+      isPublic: req.body.isPublic === 'true' || req.body.isPublic === true,
+      hashtags: req.body.hashtags ? (Array.isArray(req.body.hashtags) ? req.body.hashtags : [req.body.hashtags]) : [],
+      createdAt: new Date(),
+      likesCount: 0,
+      commentsCount: 0,
+      sharesCount: 0
+    };
+    
+    const newPost = await storage.createPost(postData);
+    
+    res.json({
+      success: true,
+      data: newPost
+    });
+  } catch (error: any) {
+    console.error('Error creating post with image:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to create post',

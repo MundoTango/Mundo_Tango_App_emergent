@@ -13,16 +13,36 @@ router.get('/api/posts/:postId/comments', async (req: Request, res: Response) =>
     const postId = parseInt(req.params.postId);
     
     const comments = await db
-      .select()
+      .select({
+        id: postComments.id,
+        postId: postComments.postId,
+        userId: postComments.userId,
+        content: postComments.content,
+        createdAt: postComments.createdAt,
+        updatedAt: postComments.updatedAt,
+        isEdited: postComments.isEdited,
+        user: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        }
+      })
       .from(postComments)
       .leftJoin(users, eq(postComments.userId, users.id))
       .where(eq(postComments.postId, postId))
       .orderBy(desc(postComments.createdAt));
     
-    res.json(comments || []);
+    res.json({ 
+      success: true, 
+      data: comments || [] 
+    });
   } catch (error) {
     console.error('Error fetching comments:', error);
-    res.json([]); // Return empty array on error to unblock platform
+    res.json({ 
+      success: false, 
+      data: [] 
+    });
   }
 });
 

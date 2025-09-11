@@ -1248,17 +1248,7 @@ export class DatabaseStorage implements IStorage {
     return result[0]?.count || 0;
   }
 
-  async getUserPosts(userId: number, limit: number = 10, offset: number = 0): Promise<Post[]> {
-    const result = await db
-      .select()
-      .from(posts)
-      .where(eq(posts.userId, userId))
-      .orderBy(desc(posts.createdAt))
-      .limit(limit)
-      .offset(offset);
-    return result;
-  }
-
+  // Use the main getUserPosts function defined earlier (line 895)
   async getUserPostsByUserId(userId: number, limit: number = 10, offset: number = 0): Promise<Post[]> {
     return this.getUserPosts(userId, limit, offset);
   }
