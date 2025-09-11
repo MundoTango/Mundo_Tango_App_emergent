@@ -1,0 +1,262 @@
+
+Running 105 tests using 4 workers
+
+[1A[2K[1/105] [chromium] › tests/e2e/auth.e2e.test.ts:64:7 › Authentication E2E Tests › should show error with invalid credentials
+[1A[2K  1) [chromium] › tests/e2e/auth.e2e.test.ts:64:7 › Authentication E2E Tests › should show error with invalid credentials 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[2/105] [chromium] › tests/e2e/auth.e2e.test.ts:32:7 › Authentication E2E Tests › should register a new user
+[1A[2K[3/105] [chromium] › tests/e2e/auth.e2e.test.ts:77:7 › Authentication E2E Tests › should logout successfully
+[1A[2K[4/105] [chromium] › tests/e2e/auth.e2e.test.ts:56:7 › Authentication E2E Tests › should login with valid credentials
+[1A[2K  2) [chromium] › tests/e2e/auth.e2e.test.ts:32:7 › Authentication E2E Tests › should register a new user 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  3) [chromium] › tests/e2e/auth.e2e.test.ts:77:7 › Authentication E2E Tests › should logout successfully 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  4) [chromium] › tests/e2e/auth.e2e.test.ts:56:7 › Authentication E2E Tests › should login with valid credentials 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[5/105] [chromium] › tests/e2e/auth.e2e.test.ts:91:7 › Authentication E2E Tests › should redirect to login when accessing protected route
+[1A[2K[6/105] [chromium] › tests/e2e/auth.e2e.test.ts:102:7 › Authentication E2E Tests › should remember user after page refresh
+[1A[2K[7/105] [chromium] › tests/e2e/auth.e2e.test.ts:112:7 › Authentication E2E Tests › should handle password reset flow
+[1A[2K  5) [chromium] › tests/e2e/auth.e2e.test.ts:91:7 › Authentication E2E Tests › should redirect to login when accessing protected route 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  6) [chromium] › tests/e2e/auth.e2e.test.ts:112:7 › Authentication E2E Tests › should handle password reset flow 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  7) [chromium] › tests/e2e/auth.e2e.test.ts:102:7 › Authentication E2E Tests › should remember user after page refresh 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[8/105] [chromium] › tests/e2e/auth.e2e.test.ts:127:7 › Authentication E2E Tests › should enforce password requirements
+[1A[2K  8) [chromium] › tests/e2e/auth.e2e.test.ts:127:7 › Authentication E2E Tests › should enforce password requirements 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[9/105] [chromium] › tests/e2e/auth.e2e.test.ts:140:7 › Authentication E2E Tests › should handle session expiration
+[1A[2K  9) [chromium] › tests/e2e/auth.e2e.test.ts:140:7 › Authentication E2E Tests › should handle session expiration 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[10/105] [chromium] › tests/e2e/auth.e2e.test.ts:173:7 › Authentication E2E Tests › should handle social login
+[1A[2K[11/105] [chromium] › tests/e2e/auth.e2e.test.ts:154:7 › Authentication E2E Tests › should handle concurrent sessions
+[1A[2K  10) [chromium] › tests/e2e/auth.e2e.test.ts:154:7 › Authentication E2E Tests › should handle concurrent sessions 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  11) [chromium] › tests/e2e/auth.e2e.test.ts:173:7 › Authentication E2E Tests › should handle social login 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[12/105] [chromium] › tests/e2e/auth.e2e.test.ts:191:7 › Authentication E2E Tests › should enforce rate limiting on login attempts
+[1A[2K  12) [chromium] › tests/e2e/auth.e2e.test.ts:191:7 › Authentication E2E Tests › should enforce rate limiting on login attempts 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[13/105] [chromium] › tests/e2e/auth.e2e.test.ts:211:7 › Authentication E2E Tests › should validate email format
+[1A[2K  13) [chromium] › tests/e2e/auth.e2e.test.ts:211:7 › Authentication E2E Tests › should validate email format 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[14/105] [chromium] › tests/e2e/auth.e2e.test.ts:225:7 › Authentication E2E Tests › should handle account activation
+[1A[2K[15/105] [chromium] › tests/e2e/auth.e2e.test.ts:238:7 › Authentication E2E Tests › should update user profile after login
+[1A[2K[16/105] [firefox] › tests/e2e/auth.e2e.test.ts:32:7 › Authentication E2E Tests › should register a new user
+[1A[2K  14) [chromium] › tests/e2e/auth.e2e.test.ts:225:7 › Authentication E2E Tests › should handle account activation 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K  15) [chromium] › tests/e2e/auth.e2e.test.ts:238:7 › Authentication E2E Tests › should update user profile after login 
+
+    Error: browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+[1A[2K[17/105] [firefox] › tests/e2e/auth.e2e.test.ts:56:7 › Authentication E2E Tests › should login with valid credentials
+[1A[2K[18/105] [firefox] › tests/e2e/auth.e2e.test.ts:64:7 › Authentication E2E Tests › should show error with invalid credentials
+[1A[2K[19/105] [firefox] › tests/e2e/auth.e2e.test.ts:77:7 › Authentication E2E Tests › should logout successfully
