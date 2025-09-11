@@ -11,8 +11,8 @@ test.describe('Memory Authentication and Visibility', () => {
     // Check if memories page loads
     await expect(page.locator('h1:has-text("Memories")')).toBeVisible({ timeout: 10000 });
     
-    // Check if user is authenticated (John Smith) - use more specific selector
-    await expect(page.locator('h3:has-text("John Smith")')).toBeVisible();
+    // Check if user is authenticated (John Smith) - use first occurrence to avoid strict mode
+    await expect(page.getByText('John Smith').first()).toBeVisible();
     
     // Verify memory creation interface is available
     await expect(page.locator('textarea[placeholder*="Share your tango moment"]')).toBeVisible();
