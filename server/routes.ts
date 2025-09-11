@@ -91,6 +91,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(postRoutes);
   app.use(postsRoutes); // ESA LIFE CEO 61x21 - Main posts GET endpoints
   app.use(eventsRoutes); // ESA LIFE CEO 61x21 - Events API routes
+  
+  // ESA Events Agent - Comprehensive event management with waitlists and check-ins
+  app.use(eventsEnhancedRoutes);
   app.use(messagesRoutes); // ESA LIFE CEO 61x21 - Messages API routes
   app.use(friendsRoutes); // ESA LIFE CEO 61x21 - Friends API routes
   app.use(storiesRoutes); // ESA LIFE CEO 61x21 - Stories API routes
