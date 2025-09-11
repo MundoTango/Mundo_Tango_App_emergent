@@ -146,6 +146,13 @@ export interface IStorage {
   updateUser(id: number, updates: Partial<User>): Promise<User>;
   updateUserApiToken(id: number, token: string): Promise<void>;
   
+  // User stats operations (ESA Performance)
+  getUserPostsCount(userId: number): Promise<number>;
+  getFollowersCount(userId: number): Promise<number>;
+  getFollowingCount(userId: number): Promise<number>;
+  getUserEventsCount(userId: number): Promise<number>;
+  getUserPosts(userId: number, limit: number, offset: number): Promise<Post[]>;
+  
   // Role operations
   getAllRoles(): Promise<any[]>;
   getCommunityRoles(): Promise<any[]>;
@@ -158,6 +165,7 @@ export interface IStorage {
   createPost(post: InsertPost): Promise<Post>;
   getPostById(id: number | string): Promise<Post | undefined>;
   deletePost(id: number): Promise<void>; // ESA LIFE CEO 56x21 - Added delete functionality
+  getUserPostsByUserId(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPosts(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPhotos(userId: number): Promise<any[]>;
   getUserVideos(userId: number): Promise<any[]>;
@@ -1193,6 +1201,54 @@ export class DatabaseStorage implements IStorage {
       .where(eq(follows.followerId, userId));
     
     return result.map(r => r.users);
+  }
+
+  // ESA Performance optimized methods for stats
+  async getUserPostsCount(userId: number): Promise<number> {
+    const result = await db
+      .select({ count: count() })
+      .from(posts)
+      .where(eq(posts.userId, userId));
+    return result[0]?.count || 0;
+  }
+
+  async getFollowersCount(userId: number): Promise<number> {
+    const result = await db
+      .select({ count: count() })
+      .from(follows)
+      .where(eq(follows.followingId, userId));
+    return result[0]?.count || 0;
+  }
+
+  async getFollowingCount(userId: number): Promise<number> {
+    const result = await db
+      .select({ count: count() })
+      .from(follows)
+      .where(eq(follows.followerId, userId));
+    return result[0]?.count || 0;
+  }
+
+  async getUserEventsCount(userId: number): Promise<number> {
+    const result = await db
+      .select({ count: count() })
+      .from(eventRsvps)
+      .where(eq(eventRsvps.userId, userId));
+    return result[0]?.count || 0;
+  }
+
+  async getUserPosts(userId: number, limit: number = 10, offset: number = 0): Promise<Post[]> {
+    const result = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.userId, userId))
+      .orderBy(desc(posts.createdAt))
+      .limit(limit)
+      .offset(offset);
+    return result;
+  }
+
+  async getUserPostsByUserId(userId: number, limit: number = 10, offset: number = 0): Promise<Post[]> {
+    return this.getUserPosts(userId, limit, offset);
   }
 
   async isFollowing(followerId: number, followingId: number): Promise<boolean> {

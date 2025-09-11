@@ -47,7 +47,7 @@ export const agents = pgTable("agents", {
   index("idx_agents_layer").on(table.layer),
 ]);
 
-// Users table
+// Users table with performance indexes for ESA requirements
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -93,7 +93,14 @@ export const users = pgTable("users", {
   subscriptionTier: varchar("subscription_tier", { length: 50 }).default('free'), // free, basic, enthusiast, professional, enterprise
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}, (table) => [
+  // Performance indexes for ESA requirements (<200ms API response)
+  index("idx_users_email").on(table.email),
+  index("idx_users_replitid").on(table.replitId),
+  index("idx_users_city_country").on(table.city, table.country),
+  index("idx_users_created_at").on(table.createdAt),
+  index("idx_users_is_active").on(table.isActive),
+]);
 
 // Roles table for comprehensive role management
 export const roles = pgTable("roles", {
