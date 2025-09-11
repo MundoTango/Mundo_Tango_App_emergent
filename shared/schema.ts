@@ -1619,6 +1619,16 @@ export type InsertUserFollowedCity = typeof userFollowedCities.$inferInsert;
 export type EventSeries = typeof eventSeries.$inferSelect;
 export type InsertEventSeries = typeof eventSeries.$inferInsert;
 
+// Event Waitlist and Check-in types
+export type EventWaitlist = typeof eventWaitlist.$inferSelect;
+export type InsertEventWaitlist = typeof eventWaitlist.$inferInsert;
+export type EventCheckIn = typeof eventCheckIns.$inferSelect;
+export type InsertEventCheckIn = typeof eventCheckIns.$inferInsert;
+export type EventRecurringSchedule = typeof eventRecurringSchedule.$inferSelect;
+export type InsertEventRecurringSchedule = typeof eventRecurringSchedule.$inferInsert;
+export type EventAnalytics = typeof eventAnalytics.$inferSelect;
+export type InsertEventAnalytics = typeof eventAnalytics.$inferInsert;
+
 // Event Page system types
 export type EventPageAdmin = typeof eventPageAdmins.$inferSelect;
 export type InsertEventPageAdmin = typeof eventPageAdmins.$inferInsert;
