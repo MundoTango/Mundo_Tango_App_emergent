@@ -10,6 +10,50 @@ import { apiCache, cacheKeys, CACHE_TTL, cacheMiddleware } from '../utils/cache'
 const router = Router();
 const upload = setupUpload();
 
+// Calculate profile completion percentage - Fixed for database field names
+const calculateProfileCompletion = (userData: any): number => {
+  if (!userData) return 0;
+  
+  // These are the actual database field names
+  const requiredFields = ['username', 'name', 'email'];
+  const optionalFields = [
+    'bio', 
+    'city', 
+    'country', 
+    'profileImage',  // Changed from profile_image
+    'backgroundImage',  // Changed from background_image
+    'tangoRoles', 
+    'yearsOfDancing', 
+    'occupation', 
+    'firstName', 
+    'lastName'
+  ];
+  
+  let completedRequired = 0;
+  let completedOptional = 0;
+  
+  requiredFields.forEach(field => {
+    if (userData[field]) completedRequired++;
+  });
+  
+  optionalFields.forEach(field => {
+    const value = userData[field];
+    if (value !== null && value !== undefined && value !== '') {
+      if (Array.isArray(value)) {
+        if (value.length > 0) completedOptional++;
+      } else {
+        completedOptional++;
+      }
+    }
+  });
+  
+  // Required fields are worth 60%, optional fields worth 40%
+  const requiredPercentage = (completedRequired / requiredFields.length) * 60;
+  const optionalPercentage = (completedOptional / optionalFields.length) * 40;
+  
+  return Math.round(requiredPercentage + optionalPercentage);
+};
+
 // Privacy enforcement helper
 const enforcePrivacy = async (requesterId: number, targetUserId: number, userSettings: any) => {
   // If same user, allow full access
@@ -30,9 +74,16 @@ const enforcePrivacy = async (requesterId: number, targetUserId: number, userSet
 
 // Filter user data based on privacy settings
 const filterUserDataByPrivacy = (userData: any, isOwnProfile: boolean, privacySettings: any) => {
-  if (isOwnProfile) return userData;
+  if (isOwnProfile) {
+    // For own profile, return everything except password
+    const { password, ...safeData } = userData;
+    return safeData;
+  }
   
   const filtered = { ...userData };
+  
+  // IMPORTANT: Always include username - it's public information
+  // Never remove username as it's needed for profile display
   
   // Remove sensitive data based on privacy settings
   if (!privacySettings?.showEmail) delete filtered.email;
@@ -73,10 +124,16 @@ router.get('/user',
       });
     }
 
+    // Add profile completion to user data
+    const userWithCompletion = {
+      ...user,
+      profileCompletion: calculateProfileCompletion(user)
+    };
+    
     res.json({
       code: 200,
       message: 'Record fetched successfully.',
-      data: user
+      data: userWithCompletion
     });
   } catch (error: any) {
     console.error('Error fetching user profile:', error);
@@ -256,12 +313,18 @@ router.get('/user/:userId',
     }
     
     // Filter data based on privacy settings
-    const isOwnProfile = requesterId === targetUserId;
+    const isOwnProfile = Number(requesterId) === targetUserId;
     const filteredData = filterUserDataByPrivacy(targetUser, isOwnProfile, userSettings?.privacy);
+    
+    // Add profile completion to the response
+    const dataWithCompletion = {
+      ...filteredData,
+      profileCompletion: calculateProfileCompletion(targetUser)
+    };
     
     res.json({
       success: true,
-      data: filteredData
+      data: dataWithCompletion
     });
   } catch (error: any) {
     console.error('Error fetching user profile:', error);
@@ -272,52 +335,132 @@ router.get('/user/:userId',
   }
 });
 
-// Update user profile (for EditProfileModal)
+// Update user profile (for EditProfileModal) - Fixed for production
 router.put('/user/profile', setUserContext, async (req: any, res) => {
   try {
+    // Get current user ID with proper error handling
     const userId = getUserId(req);
-    // Invalidate cache on profile update
-    if (userId) {
-      apiCache.delete(cacheKeys.userProfile(userId));
-      apiCache.delete(cacheKeys.userPosts(userId));
-      apiCache.delete(cacheKeys.userStats(userId));
-    }
     if (!userId) {
-      return res.status(401).json({ error: "Unauthorized" });
+      console.error('PUT /api/user/profile - No userId found in request');
+      return res.status(401).json({ 
+        error: "Unauthorized",
+        message: "User not authenticated",
+        code: 401 
+      });
     }
-
+    
+    // Convert userId to number for consistency
+    const numericUserId = typeof userId === 'string' ? parseInt(userId, 10) : userId;
+    if (isNaN(numericUserId)) {
+      console.error('PUT /api/user/profile - Invalid userId format:', userId);
+      return res.status(400).json({ 
+        error: "Invalid user ID",
+        message: "User ID must be a valid number",
+        code: 400 
+      });
+    }
+    
+    // Get current user to check permissions
+    const currentUser = await storage.getUser(numericUserId);
+    if (!currentUser) {
+      console.error('PUT /api/user/profile - User not found:', numericUserId);
+      return res.status(404).json({ 
+        error: "User not found",
+        message: "Current user does not exist",
+        code: 404 
+      });
+    }
+    
+    // Check if user is admin (can edit any profile)
+    const isAdmin = currentUser.email === 'admin@mundotango.life' || 
+                    await storage.userHasRole(numericUserId, 'super_admin') ||
+                    await storage.userHasRole(numericUserId, 'admin');
+    
+    // Determine which profile to update
+    let targetUserId = numericUserId;
+    if (req.body.userId && req.body.userId !== numericUserId.toString()) {
+      // Trying to edit another user's profile
+      targetUserId = parseInt(req.body.userId, 10);
+      if (isNaN(targetUserId)) {
+        return res.status(400).json({ 
+          error: "Invalid target user ID",
+          message: "Target user ID must be a valid number",
+          code: 400 
+        });
+      }
+      
+      // Only admins can edit other users' profiles
+      if (!isAdmin) {
+        console.error('PUT /api/user/profile - Non-admin trying to edit another profile');
+        return res.status(403).json({ 
+          error: "Forbidden",
+          message: "You can only edit your own profile",
+          code: 403 
+        });
+      }
+    }
+    
+    // Build update data object with all possible fields
     const updateData: any = {};
     
     // Handle all profile fields from EditProfileModal
     if (req.body.name !== undefined) updateData.name = req.body.name;
+    if (req.body.username !== undefined) updateData.username = req.body.username;
     if (req.body.bio !== undefined) updateData.bio = req.body.bio;
     if (req.body.city !== undefined) updateData.city = req.body.city;
     if (req.body.country !== undefined) updateData.country = req.body.country;
+    if (req.body.state !== undefined) updateData.state = req.body.state;
+    if (req.body.occupation !== undefined) updateData.occupation = req.body.occupation;
+    if (req.body.firstName !== undefined) updateData.firstName = req.body.firstName;
+    if (req.body.lastName !== undefined) updateData.lastName = req.body.lastName;
     if (req.body.tangoRoles !== undefined) updateData.tangoRoles = req.body.tangoRoles;
     if (req.body.yearsOfDancing !== undefined) updateData.yearsOfDancing = parseInt(req.body.yearsOfDancing) || 0;
     if (req.body.leaderLevel !== undefined) updateData.leaderLevel = parseInt(req.body.leaderLevel) || 0;
     if (req.body.followerLevel !== undefined) updateData.followerLevel = parseInt(req.body.followerLevel) || 0;
     if (req.body.languages !== undefined) updateData.languages = req.body.languages;
+    if (req.body.profileImage !== undefined) updateData.profileImage = req.body.profileImage;
+    if (req.body.backgroundImage !== undefined) updateData.backgroundImage = req.body.backgroundImage;
     
     // Handle social links - store in user table directly for now
     if (req.body.instagram !== undefined) updateData.instagram = req.body.instagram;
     if (req.body.facebook !== undefined) updateData.facebookUrl = req.body.facebook;
+    if (req.body.facebookUrl !== undefined) updateData.facebookUrl = req.body.facebookUrl;
     if (req.body.twitter !== undefined) updateData.twitter = req.body.twitter;
     if (req.body.website !== undefined) updateData.website = req.body.website;
+    
+    // Log the update for debugging
+    console.log(`PUT /api/user/profile - Updating user ${targetUserId} with:`, Object.keys(updateData));
 
     // Update user in database
-    const updatedUser = await storage.updateUser(Number(userId), updateData);
+    const updatedUser = await storage.updateUser(targetUserId, updateData);
+    
+    // Add profile completion to response
+    const userWithCompletion = {
+      ...updatedUser,
+      profileCompletion: calculateProfileCompletion(updatedUser)
+    };
+    
+    // Invalidate cache after successful update
+    apiCache.delete(cacheKeys.userProfile(targetUserId.toString()));
+    apiCache.delete(cacheKeys.userPosts(targetUserId.toString()));
+    apiCache.delete(cacheKeys.userStats(targetUserId.toString()));
+    if (targetUserId !== numericUserId) {
+      // Also invalidate admin's cache if they edited someone else
+      apiCache.delete(cacheKeys.userProfile(numericUserId.toString()));
+    }
 
     res.json({
       success: true,
       message: "Profile updated successfully",
-      data: updatedUser
+      data: userWithCompletion,
+      code: 200
     });
   } catch (error: any) {
-    console.error('Error updating user profile:', error);
+    console.error('PUT /api/user/profile - Error:', error);
     res.status(500).json({ 
       error: 'Failed to update profile',
-      message: error.message
+      message: error.message || 'Internal server error',
+      code: 500
     });
   }
 });
