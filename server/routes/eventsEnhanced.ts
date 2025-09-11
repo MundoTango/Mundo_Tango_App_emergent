@@ -407,17 +407,17 @@ router.post('/api/events/:eventId/checkin', async (req: Request, res: Response) 
       notes: notes || null
     });
 
-    // Get user info for socket event
-    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+    // TODO: Get user info for socket event when io instance is available
+    // const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
 
-    // Emit socket event
-    io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_CHECKIN, {
-      eventId,
-      userId,
-      username: user?.name || 'Unknown',
-      checkInTime,
-      role
-    });
+    // TODO: Emit socket event when io instance is available
+    // io.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_CHECKIN, {
+    //   eventId,
+    //   userId,
+    //   username: user?.name || 'Unknown',
+    //   checkInTime,
+    //   role
+    // });
 
     res.json({ 
       success: true, 
