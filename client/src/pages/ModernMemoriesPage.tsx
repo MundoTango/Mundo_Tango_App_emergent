@@ -99,8 +99,10 @@ export default function ModernMemoriesPageV2() {
         credentials: 'include'
       });
       if (response.ok) {
-        const comments = await response.json();
-        setPostComments(prev => ({ ...prev, [postId]: comments }));
+        const result = await response.json();
+        // Handle both direct array and {data: [...]} response formats
+        const comments = result.data || result;
+        setPostComments(prev => ({ ...prev, [postId]: Array.isArray(comments) ? comments : [] }));
       }
     } catch (error) {
       console.error('Error fetching comments:', error);
