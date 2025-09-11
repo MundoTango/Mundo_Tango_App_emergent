@@ -55,6 +55,7 @@ import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent Sy
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
+import userStatsRoutes from "./routes/userStatsRoutes"; // ESA Performance optimized stats routes
 import authRoutes from "./routes/authRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
@@ -81,6 +82,7 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 export async function registerRoutes(app: Express): Promise<Server> {
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
   app.use('/api', userRoutes);    // User profile and settings routes
+  app.use('/api', userStatsRoutes); // ESA Performance optimized stats routes
   app.use('/api', authRoutes);    // Authentication routes
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes

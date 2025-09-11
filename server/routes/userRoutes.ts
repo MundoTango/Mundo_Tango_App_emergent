@@ -5,6 +5,7 @@ import { setUserContext } from '../middleware/tenantMiddleware';
 import { setupUpload } from '../middleware/upload';
 import { z } from 'zod';
 import { getUserId } from '../utils/authHelper';
+import { apiCache, cacheKeys, CACHE_TTL, cacheMiddleware } from '../utils/cache';
 
 const router = Router();
 const upload = setupUpload();
@@ -52,8 +53,14 @@ const filterUserDataByPrivacy = (userData: any, isOwnProfile: boolean, privacySe
   return filtered;
 };
 
-// Get current user profile
-router.get('/user', isAuthenticated, async (req: any, res) => {
+// Get current user profile with caching
+router.get('/user', 
+  isAuthenticated,
+  cacheMiddleware(
+    (req: any) => cacheKeys.userProfile(req.user.claims.sub),
+    CACHE_TTL.USER_PROFILE
+  ),
+  async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
@@ -127,8 +134,14 @@ router.patch('/user', isAuthenticated, upload.any(), async (req: any, res) => {
   }
 });
 
-// User Settings Routes
-router.get("/user/settings", setUserContext, async (req, res) => {
+// User Settings Routes with caching
+router.get("/user/settings", 
+  setUserContext,
+  cacheMiddleware(
+    (req: any) => cacheKeys.userSettings(getUserId(req) || 'anonymous'),
+    CACHE_TTL.USER_SETTINGS
+  ),
+  async (req, res) => {
   try {
     const userId = getUserId(req);
     if (!userId) {
@@ -183,6 +196,11 @@ router.get("/user/settings", setUserContext, async (req, res) => {
 router.put("/user/settings", setUserContext, async (req, res) => {
   try {
     const userId = getUserId(req);
+    // Invalidate settings cache on update
+    if (userId) {
+      apiCache.delete(cacheKeys.userSettings(userId));
+      apiCache.delete(cacheKeys.userProfile(userId));
+    }
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -203,8 +221,14 @@ router.put("/user/settings", setUserContext, async (req, res) => {
   }
 });
 
-// Get user profile by ID (with privacy enforcement)
-router.get('/user/:userId', setUserContext, async (req: any, res) => {
+// Get user profile by ID (with privacy enforcement and caching)
+router.get('/user/:userId', 
+  setUserContext,
+  cacheMiddleware(
+    (req: any) => cacheKeys.userProfile(req.params.userId),
+    CACHE_TTL.USER_PROFILE
+  ),
+  async (req: any, res) => {
   try {
     const requesterId = getUserId(req);
     const targetUserId = parseInt(req.params.userId);
@@ -252,6 +276,12 @@ router.get('/user/:userId', setUserContext, async (req: any, res) => {
 router.put('/user/profile', setUserContext, async (req: any, res) => {
   try {
     const userId = getUserId(req);
+    // Invalidate cache on profile update
+    if (userId) {
+      apiCache.delete(cacheKeys.userProfile(userId));
+      apiCache.delete(cacheKeys.userPosts(userId));
+      apiCache.delete(cacheKeys.userStats(userId));
+    }
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }

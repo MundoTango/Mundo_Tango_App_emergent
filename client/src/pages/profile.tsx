@@ -14,17 +14,26 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { GuestProfileDisplay } from '@/components/GuestProfile/GuestProfileDisplay';
 import { Camera, Video, Users, Calendar, Star, UserCheck, Globe, PenLine, UserCircle, Sparkles, MapPin, Eye, GraduationCap, Music, Heart, MoreHorizontal, Plus, Edit2, Flame, Share2, MessageCircle, UserPlus } from 'lucide-react';
-import { TravelDetailsComponent } from '@/components/profile/TravelDetailsComponent';
 import { ProfileMemoryPostModal } from '@/components/profile/ProfileMemoryPostModal';
-import { UserPhotosGallery } from '@/components/profile/UserPhotosGallery';
-import { UserVideosGallery } from '@/components/profile/UserVideosGallery';
-import { UserFriendsList } from '@/components/profile/UserFriendsList';
-import { UserEventsList } from '@/components/profile/UserEventsList';
 import { ProfileAboutSection } from '@/components/profile/ProfileAboutSection';
 import { ProfileEngagementFeatures } from '@/components/profile/ProfileEngagementFeaturesSimplified';
 import EditProfileModal from '@/components/profile/EditProfileModal';
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
-import EnhancedPostFeed from '@/components/moments/EnhancedPostFeed';
+
+// ESA Performance: Import optimized lazy-loaded components
+import {
+  LazyUserPhotosGallery,
+  LazyUserVideosGallery,
+  LazyUserFriendsList,
+  LazyUserEventsList,
+  LazyEnhancedPostFeed,
+  LazyTravelDetailsComponent,
+  LazyGuestProfileDisplay,
+  GalleryFallback,
+  ListFallback,
+  PostFeedFallback
+} from '@/components/profile/OptimizedProfileComponents';
+import { Suspense } from 'react';
 
 // Phase 5: Production Hardening imports
 import ProfileErrorBoundary from '@/components/profile/ProfileErrorBoundary';

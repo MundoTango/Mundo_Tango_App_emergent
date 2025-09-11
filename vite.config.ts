@@ -28,14 +28,43 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     chunkSizeWarningLimit: 1000,
+    // ESA Performance optimizations
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu']
-        }
+          // Split vendor libraries for better caching
+          vendor: ['react', 'react-dom', 'react-router-dom', 'wouter'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
+          tanstack: ['@tanstack/react-query'],
+          utils: ['lodash', 'date-fns', 'zod']
+        },
+        // Optimize asset names for caching
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js'
       }
-    }
+    },
+    // Optimize dependencies
+    assetsInlineLimit: 4096, // Inline assets < 4kb
+    reportCompressedSize: false // Faster builds
+  },
+  // ESA Performance: Optimize dependency pre-bundling
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      '@tanstack/react-query',
+      'wouter',
+      'lucide-react'
+    ],
+    exclude: ['@replit/vite-plugin-cartographer']
   },
   server: {
     fs: {
