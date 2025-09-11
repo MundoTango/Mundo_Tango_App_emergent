@@ -6,7 +6,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Calendar, Home, MapPin, Star, Users, Layers, Navigation, Download, Expand, Search, RefreshCw, Info, Eye, EyeOff, Maximize2, Minimize2, ZoomIn, ZoomOut } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { CSVLink } from 'react-csv';
-import { Tooltip } from 'react-tooltip';
+// import { Tooltip } from 'react-tooltip';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useInView } from 'react-intersection-observer';
 import { FixedSizeList as List } from 'react-window';
