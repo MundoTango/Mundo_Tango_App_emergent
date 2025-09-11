@@ -24,7 +24,8 @@ import {
   Map,
   HelpCircle,
   Mail,
-  BarChart3
+  BarChart3,
+  Sparkles
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
@@ -54,6 +55,11 @@ export default function DashboardSidebar({ isOpen, onClose }: DashboardSidebarPr
       label: 'Timeline',
       path: '/enhanced-timeline',
       icon: Heart,
+    },
+    {
+      label: 'Unified Memories',
+      path: '/unified-memories',
+      icon: Sparkles,
     },
     {
       label: 'Events',
