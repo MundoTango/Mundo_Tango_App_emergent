@@ -9,7 +9,11 @@
     "build:production": "npm ci && NODE_OPTIONS=\"--max-old-space-size=1024\" npm run build && npm cache clean --force",
     "start": "NODE_OPTIONS=\"--max-old-space-size=1024\" node dist/index.js",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "test:e2e": "playwright test --config=tests/e2e/playwright.config.ts",
+    "test:e2e:ui": "playwright test --config=tests/e2e/playwright.config.ts --ui",
+    "test:e2e:debug": "playwright test --config=tests/e2e/playwright.config.ts --debug",
+    "test:install": "playwright install"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.2",
