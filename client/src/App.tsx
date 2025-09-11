@@ -420,11 +420,13 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TenantProvider>
-          <TrialBanner />
-          <Router />
-          <Toaster />
-        </TenantProvider>
+        <SocketProvider>
+          <TenantProvider>
+            <TrialBanner />
+            <Router />
+            <Toaster />
+          </TenantProvider>
+        </SocketProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
