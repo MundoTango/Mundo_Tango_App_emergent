@@ -139,11 +139,13 @@ export default function ModernMemoriesPage() {
   };
 
   if (!user) {
+    // Redirect to login if not authenticated
+    window.location.href = '/login';
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
         backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
       }}>
-        <ModernLoadingState message="Loading your memories..." />
+        <ModernLoadingState message="Redirecting to login..." />
       </div>
     );
   }
@@ -177,19 +179,20 @@ export default function ModernMemoriesPage() {
         />
 
         {/* Posts Feed */}
-        <div className="space-y-8">
+        <div className="space-y-8" data-testid="list-memories-feed">
           {isLoading ? (
             <ModernLoadingState type="posts" />
           ) : posts && posts.length > 0 ? (
             posts.map((post: Post) => (
-              <ModernPostCard
-                key={post.id}
-                post={post}
-                onLike={handleLike}
-                onComment={handleComment}
-                onShare={handleShare}
-                onBookmark={handleBookmark}
-              />
+              <div key={post.id} data-testid={`card-memory-${post.id}`}>
+                <ModernPostCard
+                  post={post}
+                  onLike={handleLike}
+                  onComment={handleComment}
+                  onShare={handleShare}
+                  onBookmark={handleBookmark}
+                />
+              </div>
             ))
           ) : (
             <div className="text-center py-16">
@@ -213,6 +216,7 @@ export default function ModernMemoriesPage() {
                   </p>
                   <button
                     onClick={() => setShowComposer(true)}
+                    data-testid="button-create-memory"
                     className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200"
