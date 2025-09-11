@@ -74,6 +74,7 @@ export default function Login() {
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
                 placeholder="Enter your email"
                 required
+                data-testid="input-email"
               />
             </div>
 
@@ -88,6 +89,7 @@ export default function Login() {
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
                 placeholder="Enter your password"
                 required
+                data-testid="input-password"
               />
             </div>
 
@@ -95,6 +97,7 @@ export default function Login() {
               type="submit"
               className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white shadow-lg"
               disabled={isLoading}
+              data-testid="button-submit"
             >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>

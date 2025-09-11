@@ -14,7 +14,13 @@ const router = Router();
  */
 router.get('/api/posts', async (req: any, res) => {
   try {
-    const userId = await getUserId(req) || 7;
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     
@@ -40,8 +46,14 @@ router.get('/api/posts/feed', async (req: any, res) => {
   try {
     // Posts feed requested
     
-    // Get user from session or use test user
-    const userId = await getUserId(req) || 7; // Default to Scott's user ID for testing
+    // Get user from session - require authentication
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
@@ -179,7 +191,13 @@ router.get('/api/posts/:id', async (req: any, res) => {
  */
 router.post('/api/posts', async (req: any, res) => {
   try {
-    const userId = await getUserId(req) || 7;
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     
     const postData = {
       ...req.body,
@@ -212,7 +230,13 @@ router.post('/api/posts', async (req: any, res) => {
 router.put('/api/posts/:id', async (req: any, res) => {
   try {
     const postId = req.params.id;
-    const userId = await getUserId(req) || 7;
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     
     // Verify ownership
     const post = await storage.getPostById(postId);
@@ -245,7 +269,13 @@ router.put('/api/posts/:id', async (req: any, res) => {
 router.delete('/api/posts/:id', async (req: any, res) => {
   try {
     const postId = req.params.id;
-    const userId = await getUserId(req) || 7;
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
     
     // Verify ownership
     const post = await storage.getPostById(postId);
