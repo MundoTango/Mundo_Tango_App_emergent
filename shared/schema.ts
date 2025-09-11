@@ -31,6 +31,8 @@ export const agents = pgTable("agents", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   type: varchar("type", { length: 100 }).notNull(), // orchestrator, specialist, validator, monitor
+  category: varchar("category", { length: 100 }), // Agent category for organization
+  description: text("description"), // Agent description
   status: varchar("status", { length: 50 }).default('active'), // active, inactive, busy, error
   configuration: jsonb("configuration").default({}).notNull(),
   capabilities: text("capabilities").array(),
