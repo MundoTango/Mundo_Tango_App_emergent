@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import { createServer, type Server } from "http";
 import { ParsedQs } from "qs";
 import eventsRoutes from './routes/eventsRoutes';
+import eventsEnhancedRoutes from './routes/eventsEnhanced';
 import * as path from 'path';
 import * as fs from 'fs';
 import { setupVite, serveStatic, log } from "./vite";
