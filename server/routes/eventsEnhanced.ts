@@ -10,7 +10,7 @@ import {
 } from '../../shared/schema';
 import { eq, and, sql, desc, count, inArray } from 'drizzle-orm';
 import { getUserId } from '../utils/authHelper';
-import { io } from '../socket';
+// Socket.io instance will be provided by the main server
 import { SOCKET_EVENTS } from '../../shared/socketEvents';
 import type { 
   CreateEventRequest,
