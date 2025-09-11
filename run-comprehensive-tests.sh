@@ -223,7 +223,6 @@ run_test_suite() {
     timeout $TEST_TIMEOUT npx playwright test "$TEST_DIR/$TEST_FILE" \
         --config="$TEST_DIR/playwright.config.ts" \
         --reporter=line \
-        --reporter=json:"$SUITE_REPORT_DIR/results.json" \
         2>&1 | tee "$TEST_OUTPUT" | while IFS= read -r line; do
             # Parse and display test progress
             if echo "$line" | grep -q "Running.*test"; then
