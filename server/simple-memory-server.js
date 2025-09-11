@@ -127,6 +127,133 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     
+    // Get current user profile data
+    if (path === '/api/user' && req.method === 'GET') {
+      const mockUser = {
+        id: 1,
+        name: "John Smith",
+        username: "johnsmith_tango",
+        email: "john.smith@example.com",
+        profileImage: null,
+        backgroundImage: null,
+        bio: "Passionate tango dancer from Buenos Aires. I love the connection and artistry of tango - it's not just a dance, it's a conversation between souls. Teaching and sharing the beauty of tango with the world. ¡Vamos a bailar! 💃🕺",
+        city: "Buenos Aires",
+        country: "Argentina",
+        tangoRoles: ["leader", "teacher", "organizer"],
+        yearsOfDancing: 8,
+        leaderLevel: 4,
+        followerLevel: 2,
+        languages: ["Spanish", "English", "Portuguese"],
+        socialLinks: {
+          instagram: "@johnsmith_tango",
+          facebook: "facebook.com/johnsmith.tango",
+          website: "https://johnsmithtango.com"
+        },
+        createdAt: "2020-03-15T10:30:00.000Z",
+        isOnline: true,
+        lastSeen: new Date().toISOString()
+      };
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: mockUser,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
+    // Get user's own posts
+    if (path === '/api/user/posts' && req.method === 'GET') {
+      const userMemories = memories.filter(memory => memory.userId === 1); // Mock user's posts
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: userMemories,
+        total: userMemories.length,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
+    // Get user statistics
+    if (path === '/api/user/stats' && req.method === 'GET') {
+      const mockStats = {
+        postsCount: memories.length,
+        friendsCount: 42,
+        eventsCount: 8,
+        eventsAttended: 15,
+        hostingCount: 3,
+        attendedCount: 12,
+        rolesAccepted: 6,
+        likesReceived: 156,
+        commentsReceived: 89,
+        sharesReceived: 23,
+        profileViews: 234,
+        followersCount: 67,
+        followingCount: 89
+      };
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: mockStats,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
+    // Get guest profile data  
+    if (path === '/api/guest-profiles' && req.method === 'GET') {
+      const mockGuestProfile = {
+        id: 1,
+        userId: 1,
+        isVerified: true,
+        verificationDate: "2024-01-15T10:30:00.000Z",
+        hostingPreferences: {
+          petFriendly: false,
+          smokingAllowed: false,
+          maxGuests: 2,
+          availableDates: ["2025-02-01", "2025-02-15", "2025-03-01"]
+        },
+        guestPreferences: {
+          dietary: ["vegetarian"],
+          accessibility: [],
+          languages: ["Spanish", "English"]
+        },
+        reviews: {
+          averageRating: 4.8,
+          totalReviews: 12,
+          asHost: 8,
+          asGuest: 4
+        },
+        status: "active"
+      };
+      
+      sendJSON(res, 200, {
+        success: true,
+        data: mockGuestProfile,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
+    // Update user profile
+    if (path === '/api/user/profile' && req.method === 'PUT') {
+      const body = await parseBody(req);
+      
+      // Mock successful update
+      sendJSON(res, 200, {
+        success: true,
+        message: "Profile updated successfully",
+        data: {
+          id: 1,
+          ...body,
+          updatedAt: new Date().toISOString()
+        },
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+    
     // Create new memory
     if (path === '/api/posts' && req.method === 'POST') {
       const body = await parseBody(req);
