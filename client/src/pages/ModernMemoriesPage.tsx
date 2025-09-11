@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/auth-context';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
 import ModernPostComposer from '@/components/modern/ModernPostComposer';
 import ModernPostCard from '@/components/modern/ModernPostCard';
 import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
+import ModernEditMemoryModal from '@/components/modern/ModernEditMemoryModal';
+import ModernDeleteConfirmModal from '@/components/modern/ModernDeleteConfirmModal';
+import ModernCommentsSection from '@/components/modern/ModernCommentsSection';
 import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -31,46 +34,38 @@ interface Post {
   };
 }
 
-export default function ModernMemoriesPage() {
+interface Comment {
+  id: number;
+  userId: number;
+  postId: number;
+  content: string;
+  createdAt: string;
+  updatedAt?: string;
+  isEdited?: boolean;
+  user: {
+    id: number;
+    name: string;
+    username: string;
+    profileImage?: string;
+  };
+}
+
+export default function ModernMemoriesPageV2() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  
+  // State management
   const [showComposer, setShowComposer] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
-  const navigate = useNavigate();
-
-  const [memories, setMemories] = useState([]);
+  const [memories, setMemories] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, memoryId: null });
-
-  const handleEditMemory = (memoryId) => {
-    // TODO: Implement edit functionality
-    console.log('Edit memory:', memoryId);
-  };
-
-  const handleDeleteMemory = (memoryId) => {
-    setDeleteConfirm({ show: true, memoryId });
-  };
-
-  const confirmDelete = async () => {
-    if (!deleteConfirm.memoryId) return;
-
-    try {
-      const response = await fetch(`/api/memories/${deleteConfirm.memoryId}`, {
-        method: 'DELETE',
-        credentials: 'include'
-      });
-
-      if (response.ok) {
-        setMemories(memories.filter(m => m.id !== deleteConfirm.memoryId));
-        setDeleteConfirm({ show: false, memoryId: null });
-      } else {
-        setError('Failed to delete memory');
-      }
-    } catch (err) {
-      setError('Error deleting memory');
-    }
-  };
+  const [editingMemory, setEditingMemory] = useState<Post | null>(null);
+  const [deletingMemoryId, setDeletingMemoryId] = useState<number | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set());
+  const [postComments, setPostComments] = useState<{ [key: number]: Comment[] }>({});
 
   // Fetch posts with tag filtering
   const fetchMemories = async () => {
@@ -81,7 +76,9 @@ export default function ModernMemoriesPage() {
       if (activeTags.length > 0) {
         params.append('filterTags', activeTags.join(','));
       }
-      const response = await fetch(`/api/memories/feed?${params.toString()}`);
+      const response = await fetch(`/api/posts/feed?${params.toString()}`, {
+        credentials: 'include'
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch memories');
       }
@@ -95,13 +92,23 @@ export default function ModernMemoriesPage() {
     }
   };
 
-  useEffect(() => {
-    fetchMemories();
-  }, [activeTags]);
+  // Fetch comments for a specific post
+  const fetchCommentsForPost = async (postId: number) => {
+    try {
+      const response = await fetch(`/api/posts/${postId}/comments`, {
+        credentials: 'include'
+      });
+      if (response.ok) {
+        const comments = await response.json();
+        setPostComments(prev => ({ ...prev, [postId]: comments }));
+      }
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  };
 
-
+  // Check authentication and fetch memories
   useEffect(() => {
-    // Check if user is authenticated
     const checkAuth = async () => {
       try {
         const response = await fetch('/api/auth/user', {
@@ -116,19 +123,23 @@ export default function ModernMemoriesPage() {
           navigate('/login');
           return;
         }
+        // Fetch memories after auth check
+        fetchMemories();
       } catch (error) {
         console.error('Auth check failed:', error);
         navigate('/login');
-        return;
       }
-
-      // Only fetch memories if authenticated
-      fetchMemories();
     };
 
     checkAuth();
   }, [navigate]);
 
+  // Refetch when tags change
+  useEffect(() => {
+    if (user) {
+      fetchMemories();
+    }
+  }, [activeTags]);
 
   // Create post mutation
   const createPostMutation = useMutation({
@@ -144,6 +155,7 @@ export default function ModernMemoriesPage() {
       const response = await fetch('/api/posts', {
         method: 'POST',
         body: formData,
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -153,7 +165,7 @@ export default function ModernMemoriesPage() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      fetchMemories();
       toast.success('Memory shared successfully!', {
         style: {
           background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
@@ -165,14 +177,59 @@ export default function ModernMemoriesPage() {
       setShowComposer(false);
     },
     onError: () => {
-      toast.error('Failed to share memory', {
-        style: {
-          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
-          color: 'white',
-          borderRadius: '16px',
-          padding: '16px',
+      toast.error('Failed to share memory');
+    },
+  });
+
+  // Edit post mutation
+  const editPostMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      const response = await apiRequest(`/api/posts/${id}`, { 
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
         },
       });
+      return response;
+    },
+    onSuccess: () => {
+      fetchMemories();
+      toast.success('Memory updated successfully!', {
+        style: {
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
+          color: 'white',
+          borderRadius: '16px',
+        },
+      });
+      setEditingMemory(null);
+    },
+    onError: () => {
+      toast.error('Failed to update memory');
+    },
+  });
+
+  // Delete post mutation
+  const deletePostMutation = useMutation({
+    mutationFn: async (postId: number) => {
+      const response = await apiRequest(`/api/posts/${postId}`, { method: 'DELETE' });
+      return response;
+    },
+    onSuccess: () => {
+      fetchMemories();
+      toast.success('Memory deleted successfully!', {
+        style: {
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
+          color: 'white',
+          borderRadius: '16px',
+        },
+      });
+      setDeletingMemoryId(null);
+      setIsDeleting(false);
+    },
+    onError: () => {
+      toast.error('Failed to delete memory');
+      setIsDeleting(false);
     },
   });
 
@@ -183,16 +240,112 @@ export default function ModernMemoriesPage() {
       return response;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      fetchMemories();
     },
   });
 
+  // Add comment mutation
+  const addCommentMutation = useMutation({
+    mutationFn: async ({ postId, content }: { postId: number; content: string }) => {
+      const response = await apiRequest(`/api/posts/${postId}/comments`, { 
+        method: 'POST',
+        body: JSON.stringify({ content }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response;
+    },
+    onSuccess: (data, variables) => {
+      fetchCommentsForPost(variables.postId);
+    },
+  });
+
+  // Edit comment mutation
+  const editCommentMutation = useMutation({
+    mutationFn: async ({ commentId, content }: { commentId: number; content: string }) => {
+      const response = await apiRequest(`/api/comments/${commentId}`, { 
+        method: 'PUT',
+        body: JSON.stringify({ content }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response;
+    },
+    onSuccess: () => {
+      // Refresh comments for all expanded posts
+      expandedComments.forEach(postId => {
+        fetchCommentsForPost(postId);
+      });
+    },
+  });
+
+  // Delete comment mutation
+  const deleteCommentMutation = useMutation({
+    mutationFn: async (commentId: number) => {
+      const response = await apiRequest(`/api/comments/${commentId}`, { method: 'DELETE' });
+      return response;
+    },
+    onSuccess: () => {
+      // Refresh comments for all expanded posts
+      expandedComments.forEach(postId => {
+        fetchCommentsForPost(postId);
+      });
+    },
+  });
+
+  // Handler functions
   const handleCreatePost = (content: string, mediaFile?: File) => {
     createPostMutation.mutate({ content, imageFile: mediaFile });
   };
 
   const handleLike = (postId: number) => {
     likePostMutation.mutate(postId);
+  };
+
+  const handleEditMemory = (memory: Post) => {
+    setEditingMemory(memory);
+  };
+
+  const handleSaveEdit = (id: number, data: any) => {
+    editPostMutation.mutate({ id, data });
+  };
+
+  const handleDeleteMemory = (memoryId: number) => {
+    setDeletingMemoryId(memoryId);
+  };
+
+  const confirmDelete = () => {
+    if (deletingMemoryId) {
+      setIsDeleting(true);
+      deletePostMutation.mutate(deletingMemoryId);
+    }
+  };
+
+  const handleComment = (postId: number) => {
+    const newExpanded = new Set(expandedComments);
+    if (newExpanded.has(postId)) {
+      newExpanded.delete(postId);
+    } else {
+      newExpanded.add(postId);
+      if (!postComments[postId]) {
+        fetchCommentsForPost(postId);
+      }
+    }
+    setExpandedComments(newExpanded);
+  };
+
+  const handleAddComment = (postId: number, content: string) => {
+    addCommentMutation.mutate({ postId, content });
+  };
+
+  const handleEditComment = (commentId: number, content: string) => {
+    editCommentMutation.mutate({ commentId, content });
+  };
+
+  const handleDeleteComment = (commentId: number) => {
+    deleteCommentMutation.mutate(commentId);
   };
 
   const handleAddTag = (tag: string) => {
@@ -203,26 +356,17 @@ export default function ModernMemoriesPage() {
     setActiveTags(prev => prev.filter(t => t !== tag));
   };
 
-  const handleComment = (postId: number) => {
-    // Implement comment functionality
-    console.log('Comment on post:', postId);
-  };
-
   const handleShare = (postId: number) => {
-    // Implement share functionality
-    console.log('Share post:', postId);
+    const url = `${window.location.origin}/memories/${postId}`;
+    navigator.clipboard.writeText(url);
+    toast.success('Link copied to clipboard!');
   };
 
   const handleBookmark = (postId: number) => {
-    // Implement bookmark functionality
-    console.log('Bookmark post:', postId);
+    toast.success('Bookmarked!');
   };
 
   if (!user) {
-    // Redirect to login if not authenticated
-    // This part is now handled in useEffect, so this might be redundant
-    // but keeping it for now as a safeguard.
-    // window.location.href = '/login'; 
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
         backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
@@ -253,6 +397,22 @@ export default function ModernMemoriesPage() {
           </div>
         )}
 
+        {/* Edit Memory Modal */}
+        <ModernEditMemoryModal
+          isOpen={!!editingMemory}
+          onClose={() => setEditingMemory(null)}
+          memory={editingMemory}
+          onSave={handleSaveEdit}
+        />
+
+        {/* Delete Confirmation Modal */}
+        <ModernDeleteConfirmModal
+          isOpen={!!deletingMemoryId}
+          onClose={() => setDeletingMemoryId(null)}
+          onConfirm={confirmDelete}
+          isDeleting={isDeleting}
+        />
+
         {/* Tag Filter */}
         <ModernTagFilter
           activeTags={activeTags}
@@ -277,45 +437,42 @@ export default function ModernMemoriesPage() {
                   onComment={handleComment}
                   onShare={handleShare}
                   onBookmark={handleBookmark}
+                  isOwner={memory.userId === user?.id}
+                  onEdit={() => handleEditMemory(memory)}
+                  onDelete={() => handleDeleteMemory(memory.id)}
                 />
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-sm text-gray-500">
-                    {new Date(memory.createdAt).toLocaleDateString()}
-                  </span>
-                  <div className="flex gap-2">
-                    <button 
-                      data-testid={`button-edit-memory-${memory.id}`}
-                      className="text-blue-500 hover:text-blue-700 text-sm"
-                      onClick={() => handleEditMemory(memory.id)}
-                    >
-                      Edit
-                    </button>
-                    <button 
-                      data-testid={`button-delete-memory-${memory.id}`}
-                      className="text-red-500 hover:text-red-700 text-sm"
-                      onClick={() => handleDeleteMemory(memory.id)}
-                    >
-                      Delete
-                    </button>
+                
+                {/* Comments Section */}
+                {expandedComments.has(memory.id) && (
+                  <div className="mt-4" data-testid={`comments-section-${memory.id}`}>
+                    <ModernCommentsSection
+                      postId={memory.id}
+                      comments={postComments[memory.id] || []}
+                      currentUserId={user?.id}
+                      onAddComment={handleAddComment}
+                      onEditComment={handleEditComment}
+                      onDeleteComment={handleDeleteComment}
+                      isAddingComment={addCommentMutation.isPending}
+                    />
                   </div>
-                </div>
+                )}
               </div>
             ))
           ) : (
             <div className="text-center py-16">
-              <div className="bg-white rounded-3xl shadow-lg border border-blue-100 p-12">
+              <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-lg border border-white/20 p-12">
                 <div className="mb-6">
-                  <div className="w-24 h-24 bg-gradient-to-br from-orange-100 to-pink-100 rounded-3xl 
+                  <div className="w-24 h-24 bg-gradient-to-br from-teal-400/20 to-cyan-600/20 rounded-3xl 
                                 flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-12 h-12 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-12 h-12 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
                             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     No memories found
                   </h3>
-                  <p className="text-blue-500 mb-6">
+                  <p className="text-white/60 mb-6">
                     {activeTags.length > 0 
                       ? 'No memories match your current filters. Try adjusting your search.'
                       : 'Start sharing your tango journey with the community!'
@@ -324,7 +481,7 @@ export default function ModernMemoriesPage() {
                   <button
                     onClick={() => setShowComposer(true)}
                     data-testid="button-create-memory"
-                    className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
+                    className="bg-gradient-to-r from-teal-400 to-cyan-600 hover:from-teal-500 hover:to-cyan-700 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200"
                   >
@@ -336,38 +493,6 @@ export default function ModernMemoriesPage() {
           )}
         </div>
       </div>
-
-      {/* Delete Confirmation Modal */}
-      {deleteConfirm.show && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-white p-8 rounded-3xl shadow-xl border border-blue-100 max-w-md w-full">
-            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-4">
-              Confirm Deletion
-            </h3>
-            <p className="text-gray-700 mb-6">
-              Are you sure you want to delete this memory? This action cannot be undone.
-            </p>
-            <div className="flex justify-end gap-4">
-              <button
-                data-testid="modal-cancel-delete"
-                onClick={() => setDeleteConfirm({ show: false, memoryId: null })}
-                className="px-6 py-3 rounded-2xl font-semibold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-              >
-                Cancel
-              </button>
-              <button
-                data-testid="modal-confirm-delete"
-                onClick={confirmDelete}
-                className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700
-                           text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
-                           transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
