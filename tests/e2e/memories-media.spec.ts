@@ -54,12 +54,11 @@ test.describe('Memory Media and Features', () => {
   });
 
   test('should have share memory functionality', async ({ page }) => {
-    // Check for share memory button
-    const shareButton = page.locator('button:has-text("Share Memory"), button:has-text("Share")');
+    // Check for share memory button (use specific selector to avoid strict mode violation)
+    const shareButton = page.getByRole('button', { name: /Share Memory/ });
     await expect(shareButton).toBeVisible();
     
     // Verify button is initially disabled (no content)
-    const isDisabled = await shareButton.isDisabled();
-    expect(isDisabled).toBeTruthy();
+    await expect(shareButton).toBeDisabled();
   });
 });
