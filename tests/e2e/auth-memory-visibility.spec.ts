@@ -26,11 +26,10 @@ test.describe('Memory Authentication and Visibility', () => {
     await page.mouse.wheel(0, 1000);
     await page.waitForTimeout(2000);
     
-    // Check if memories are displayed (should show 5 memories from backend)
-    // Use partial text match since content might be truncated
-    await expect(page.locator('text*="Had an amazing tango class"')).toBeVisible({ timeout: 15000 });
-    await expect(page.locator('text*="Practicing my ocho"')).toBeVisible();
-    await expect(page.locator('text*="Confitería Ideal"')).toBeVisible();
+    // Check if memories are displayed using proper Playwright syntax
+    await expect(page.getByText('Had an amazing tango class', { exact: false })).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText('Practicing my ocho', { exact: false })).toBeVisible();
+    await expect(page.getByText('Confitería Ideal', { exact: false })).toBeVisible();
   });
 
   test('should show privacy controls for memory creation', async ({ page }) => {
