@@ -535,6 +535,15 @@ const server = http.createServer(async (req, res) => {
       
       memories.unshift(newMemory);
       
+      // Broadcast new memory via Socket.io for real-time updates
+      io.emit('memory:new', {
+        memoryId: newMemory.id,
+        userId: newMemory.userId,
+        content: newMemory.content,
+        user: newMemory.user,
+        timestamp: newMemory.createdAt
+      });
+      
       sendJSON(res, 201, {
         success: true,
         data: newMemory,
