@@ -71,6 +71,7 @@ const Onboarding = lazy(() => import("@/pages/onboarding"));
 const CodeOfConduct = lazy(() => import("@/pages/code-of-conduct"));
 const AdminCenter = lazy(() => import("@/pages/AdminCenter"));
 const LifeCEOEnhanced = lazy(() => import("@/pages/LifeCEOEnhanced"));
+const Memories = lazy(() => import("@/pages/memories"));
 const EnhancedTimelineV2 = lazy(() => import("@/pages/enhanced-timeline-v2"));
 const GroupDetailPage = lazy(() => import("@/pages/GroupDetailPageMT"));
 const CommunityWorldMap = lazy(() => import("@/pages/community-world-map"));
