@@ -45,7 +45,7 @@ Following the EMERGENCE_INSTRUCTIONS.md and Enhanced ESA_LIFE_CEO_61x21_AGENTS_F
 
 ### 🌐 **AGENT DASHBOARD DEPLOYED:**
 
-**New URL Available**: `https://esa-audit-report.preview.emergentagent.com/agents`
+**New URL Available**: `https://mt-memory-system.preview.emergentagent.com/agents`
 
 **Dashboard Features**:
 - 📊 **Real-time framework statistics** (2/61 agents active, 3.28% complete)
@@ -79,11 +79,11 @@ The Mundo Tango platform is now powered by **functional AI agents** that:
 
 ### 📍 **DEPLOYMENT READY URLS:**
 
-- **🏠 Home/Memories**: `https://esa-audit-report.preview.emergentagent.com/`
-- **🤖 AI Agents Dashboard**: `https://esa-audit-report.preview.emergentagent.com/agents`
-- **👥 Groups**: `https://esa-audit-report.preview.emergentagent.com/groups`
-- **📅 Events**: `https://esa-audit-report.preview.emergentagent.com/events`
-- **📊 Admin**: `https://esa-audit-report.preview.emergentagent.com/admin`
+- **🏠 Home/Memories**: `https://mt-memory-system.preview.emergentagent.com/`
+- **🤖 AI Agents Dashboard**: `https://mt-memory-system.preview.emergentagent.com/agents`
+- **👥 Groups**: `https://mt-memory-system.preview.emergentagent.com/groups`
+- **📅 Events**: `https://mt-memory-system.preview.emergentagent.com/events`
+- **📊 Admin**: `https://mt-memory-system.preview.emergentagent.com/admin`
 
 **Status: 🟢 EMERGENCE COMPLETE - The world's first functional 61-agent AI workforce is now operational on Mundo Tango!**
 
