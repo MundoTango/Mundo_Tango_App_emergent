@@ -99,7 +99,7 @@ router.get('/memories/suggestions', isAuthenticated, async (req: any, res) => {
 });
 
 // Update memory
-router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res) => {
+router.patch('/:memoryId', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
@@ -118,8 +118,8 @@ router.patch('/memories/:memoryId', isAuthenticated, async (req: any, res) => {
   }
 });
 
-// Delete memory
-router.delete('/memories/:memoryId', isAuthenticated, async (req: any, res) => {
+// Delete memory  
+router.delete('/:memoryId', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/auth-context';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
@@ -8,6 +8,7 @@ import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
 import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Post {
   id: number;
@@ -35,20 +36,99 @@ export default function ModernMemoriesPage() {
   const queryClient = useQueryClient();
   const [showComposer, setShowComposer] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
+  const navigate = useNavigate();
+
+  const [memories, setMemories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, memoryId: null });
+
+  const handleEditMemory = (memoryId) => {
+    // TODO: Implement edit functionality
+    console.log('Edit memory:', memoryId);
+  };
+
+  const handleDeleteMemory = (memoryId) => {
+    setDeleteConfirm({ show: true, memoryId });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteConfirm.memoryId) return;
+
+    try {
+      const response = await fetch(`/api/memories/${deleteConfirm.memoryId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        setMemories(memories.filter(m => m.id !== deleteConfirm.memoryId));
+        setDeleteConfirm({ show: false, memoryId: null });
+      } else {
+        setError('Failed to delete memory');
+      }
+    } catch (err) {
+      setError('Error deleting memory');
+    }
+  };
 
   // Fetch posts with tag filtering
-  const { data: posts, isLoading } = useQuery({
-    queryKey: ['/api/posts/feed', { filterTags: activeTags }],
-    queryFn: async () => {
+  const fetchMemories = async () => {
+    setLoading(true);
+    setError('');
+    try {
       const params = new URLSearchParams();
       if (activeTags.length > 0) {
         params.append('filterTags', activeTags.join(','));
       }
-      const response = await fetch(`/api/posts/feed?${params.toString()}`);
+      const response = await fetch(`/api/memories/feed?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch memories');
+      }
       const result = await response.json();
-      return result.data || [];
-    },
-  });
+      setMemories(result.data || []);
+    } catch (err) {
+      setError('Could not load memories. Please try again later.');
+      console.error('Error fetching memories:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMemories();
+  }, [activeTags]);
+
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/user', {
+          credentials: 'include'
+        });
+        if (!response.ok) {
+          navigate('/login');
+          return;
+        }
+        const userData = await response.json();
+        if (!userData || !userData.id) {
+          navigate('/login');
+          return;
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        navigate('/login');
+        return;
+      }
+
+      // Only fetch memories if authenticated
+      fetchMemories();
+    };
+
+    checkAuth();
+  }, [navigate]);
+
 
   // Create post mutation
   const createPostMutation = useMutation({
@@ -56,7 +136,7 @@ export default function ModernMemoriesPage() {
       const formData = new FormData();
       formData.append('content', content);
       formData.append('isPublic', 'true');
-      
+
       if (imageFile) {
         formData.append('image', imageFile);
       }
@@ -65,11 +145,11 @@ export default function ModernMemoriesPage() {
         method: 'POST',
         body: formData,
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to create post');
       }
-      
+
       return response.json();
     },
     onSuccess: () => {
@@ -140,7 +220,9 @@ export default function ModernMemoriesPage() {
 
   if (!user) {
     // Redirect to login if not authenticated
-    window.location.href = '/login';
+    // This part is now handled in useEffect, so this might be redundant
+    // but keeping it for now as a safeguard.
+    // window.location.href = '/login'; 
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50" style={{
         backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
@@ -180,18 +262,43 @@ export default function ModernMemoriesPage() {
 
         {/* Posts Feed */}
         <div className="space-y-8" data-testid="list-memories-feed">
-          {isLoading ? (
+          {loading ? (
             <ModernLoadingState type="posts" />
-          ) : posts && posts.length > 0 ? (
-            posts.map((post: Post) => (
-              <div key={post.id} data-testid={`card-memory-${post.id}`}>
+          ) : error ? (
+            <div className="text-center py-16 text-red-500">
+              {error}
+            </div>
+          ) : memories && memories.length > 0 ? (
+            memories.map((memory: Post) => (
+              <div key={memory.id} data-testid={`card-memory-${memory.id}`}>
                 <ModernPostCard
-                  post={post}
+                  post={memory}
                   onLike={handleLike}
                   onComment={handleComment}
                   onShare={handleShare}
                   onBookmark={handleBookmark}
                 />
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-sm text-gray-500">
+                    {new Date(memory.createdAt).toLocaleDateString()}
+                  </span>
+                  <div className="flex gap-2">
+                    <button 
+                      data-testid={`button-edit-memory-${memory.id}`}
+                      className="text-blue-500 hover:text-blue-700 text-sm"
+                      onClick={() => handleEditMemory(memory.id)}
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      data-testid={`button-delete-memory-${memory.id}`}
+                      className="text-red-500 hover:text-red-700 text-sm"
+                      onClick={() => handleDeleteMemory(memory.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             ))
           ) : (
@@ -229,6 +336,38 @@ export default function ModernMemoriesPage() {
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm.show && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+          <div className="bg-white p-8 rounded-3xl shadow-xl border border-blue-100 max-w-md w-full">
+            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-4">
+              Confirm Deletion
+            </h3>
+            <p className="text-gray-700 mb-6">
+              Are you sure you want to delete this memory? This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-4">
+              <button
+                data-testid="modal-cancel-delete"
+                onClick={() => setDeleteConfirm({ show: false, memoryId: null })}
+                className="px-6 py-3 rounded-2xl font-semibold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+              >
+                Cancel
+              </button>
+              <button
+                data-testid="modal-confirm-delete"
+                onClick={confirmDelete}
+                className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700
+                           text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
+                           transform hover:-translate-y-0.5 transition-all duration-200"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
