@@ -1372,6 +1372,114 @@ export const insertHostHomeSchema = createInsertSchema(hostHomes).omit({
   updatedAt: true,
 });
 
+// Event Waitlist table for capacity management
+export const eventWaitlist = pgTable("event_waitlist", {
+  id: serial("id").primaryKey(),
+  eventId: integer("event_id").references(() => events.id, { onDelete: "cascade" }).notNull(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  position: integer("position").notNull(), // Position in waitlist queue
+  joinedAt: timestamp("joined_at").defaultNow(),
+  notificationsSent: boolean("notifications_sent").default(false), // Track if spot available notification sent
+  promotedAt: timestamp("promoted_at"), // When promoted from waitlist to attendee
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  unique().on(table.eventId, table.userId), // User can only be on waitlist once per event
+  index("idx_event_waitlist_event").on(table.eventId),
+  index("idx_event_waitlist_user").on(table.userId),
+  index("idx_event_waitlist_position").on(table.eventId, table.position),
+]);
+
+// Event Check-ins table for event day management
+export const eventCheckIns = pgTable("event_checkins", {
+  id: serial("id").primaryKey(),
+  eventId: integer("event_id").references(() => events.id, { onDelete: "cascade" }).notNull(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  checkInTime: timestamp("checkin_time").defaultNow(),
+  checkOutTime: timestamp("checkout_time"), // Optional check-out for workshops/classes
+  role: varchar("role", { length: 50 }), // DJ, teacher, organizer, attendee, etc.
+  notes: text("notes"), // Optional notes from organizer
+  qrCodeUsed: boolean("qr_code_used").default(false), // Track if QR code was used for check-in
+  locationCheckedIn: jsonb("location_checked_in"), // GPS coordinates for verification
+  checkedInBy: integer("checked_in_by").references(() => users.id), // Who checked them in (for manual check-ins)
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  unique().on(table.eventId, table.userId), // User can only check in once per event
+  index("idx_event_checkins_event").on(table.eventId),
+  index("idx_event_checkins_user").on(table.userId),
+  index("idx_event_checkins_time").on(table.checkInTime),
+  index("idx_event_checkins_role").on(table.role),
+]);
+
+// Event Recurring Schedule table for advanced recurring event management
+export const eventRecurringSchedule = pgTable("event_recurring_schedule", {
+  id: serial("id").primaryKey(),
+  seriesId: varchar("series_id", { length: 255 }).notNull(), // Groups related recurring events
+  masterEventId: integer("master_event_id").references(() => events.id).notNull(),
+  eventId: integer("event_id").references(() => events.id, { onDelete: "cascade" }).notNull(),
+  recurringRule: text("recurring_rule"), // RRule string for complex patterns
+  instanceDate: timestamp("instance_date").notNull(), // Specific date for this instance
+  isException: boolean("is_exception").default(false), // True if this instance was modified
+  exceptionReason: text("exception_reason"), // Why this instance is different
+  status: varchar("status", { length: 20 }).default("scheduled"), // scheduled, cancelled, modified
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_recurring_schedule_series").on(table.seriesId),
+  index("idx_recurring_schedule_master").on(table.masterEventId),
+  index("idx_recurring_schedule_date").on(table.instanceDate),
+  index("idx_recurring_schedule_status").on(table.status),
+]);
+
+// Event Analytics table for tracking engagement
+export const eventAnalytics = pgTable("event_analytics", {
+  id: serial("id").primaryKey(),
+  eventId: integer("event_id").references(() => events.id, { onDelete: "cascade" }).notNull(),
+  date: timestamp("date").notNull(), // Date for this analytics record
+  totalViews: integer("total_views").default(0),
+  uniqueViews: integer("unique_views").default(0),
+  rsvpCount: integer("rsvp_count").default(0),
+  waitlistCount: integer("waitlist_count").default(0),
+  checkInCount: integer("checkin_count").default(0),
+  noShowCount: integer("no_show_count").default(0),
+  cancellationCount: integer("cancellation_count").default(0),
+  shareCount: integer("share_count").default(0),
+  popularHours: jsonb("popular_hours").default({}), // Peak activity times
+  conversionRate: numeric("conversion_rate", { precision: 5, scale: 2 }).default("0"), // Interested to Going rate
+  attendanceRate: numeric("attendance_rate", { precision: 5, scale: 2 }).default("0"), // Check-in rate
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  unique().on(table.eventId, table.date), // One analytics record per event per date
+  index("idx_event_analytics_event").on(table.eventId),
+  index("idx_event_analytics_date").on(table.date),
+]);
+
+// Event Waitlist Relations
+export const eventWaitlistRelations = relations(eventWaitlist, ({ one }) => ({
+  event: one(events, { fields: [eventWaitlist.eventId], references: [events.id] }),
+  user: one(users, { fields: [eventWaitlist.userId], references: [users.id] }),
+}));
+
+// Event Check-ins Relations
+export const eventCheckInsRelations = relations(eventCheckIns, ({ one }) => ({
+  event: one(events, { fields: [eventCheckIns.eventId], references: [events.id] }),
+  user: one(users, { fields: [eventCheckIns.userId], references: [users.id] }),
+  checkedInBy: one(users, { fields: [eventCheckIns.checkedInBy], references: [users.id] }),
+}));
+
+// Event Analytics Relations
+export const eventAnalyticsRelations = relations(eventAnalytics, ({ one }) => ({
+  event: one(events, { fields: [eventAnalytics.eventId], references: [events.id] }),
+}));
+
+// Event Recurring Schedule Relations
+export const eventRecurringScheduleRelations = relations(eventRecurringSchedule, ({ one }) => ({
+  masterEvent: one(events, { fields: [eventRecurringSchedule.masterEventId], references: [events.id] }),
+  event: one(events, { fields: [eventRecurringSchedule.eventId], references: [events.id] }),
+}));
+
 // Guest Bookings table
 export const guestBookings = pgTable("guest_bookings", {
   id: serial("id").primaryKey(),
