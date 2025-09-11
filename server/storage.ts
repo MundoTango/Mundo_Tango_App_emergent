@@ -164,6 +164,7 @@ export interface IStorage {
   // Posts operations
   createPost(post: InsertPost): Promise<Post>;
   getPostById(id: number | string): Promise<Post | undefined>;
+  updatePost(id: number | string, updates: Partial<Post>): Promise<Post>; // ESA LIFE CEO 61x21 - Added update functionality
   deletePost(id: number): Promise<void>; // ESA LIFE CEO 56x21 - Added delete functionality
   getUserPostsByUserId(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPosts(userId: number, limit?: number, offset?: number): Promise<Post[]>;
@@ -173,6 +174,7 @@ export interface IStorage {
   getFeedPosts(userId: number, limit?: number, offset?: number, filterTags?: string[]): Promise<Post[]>;
   likePost(postId: number, userId: number): Promise<void>;
   unlikePost(postId: number, userId: number): Promise<void>;
+  checkPostLike(postId: number, userId: number): Promise<boolean>; // ESA LIFE CEO 61x21 - Check if user liked post
   commentOnPost(postId: number, userId: number, content: string): Promise<PostComment>;
   getPostComments(postId: number): Promise<PostComment[]>;
   searchPosts(query: string, limit?: number): Promise<Post[]>;
@@ -1028,6 +1030,16 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(postLikes)
       .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)));
+  }
+
+  // ESA LIFE CEO 61x21 - Check if user liked a post
+  async checkPostLike(postId: number, userId: number): Promise<boolean> {
+    const result = await db
+      .select()
+      .from(postLikes)
+      .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+      .limit(1);
+    return result.length > 0;
   }
 
   async commentOnPost(postId: number, userId: number, content: string): Promise<PostComment> {

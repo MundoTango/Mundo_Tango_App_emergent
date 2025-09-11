@@ -302,4 +302,57 @@ router.delete('/api/posts/:id', async (req: any, res) => {
   }
 });
 
+/**
+ * Like/Unlike post toggle
+ */
+router.post('/api/posts/:id/like', async (req: any, res) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    // Check if post exists
+    const post = await storage.getPostById(postId);
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: 'Post not found'
+      });
+    }
+    
+    // Check if user already liked the post
+    const existingLike = await storage.checkPostLike(postId, userId);
+    
+    if (existingLike) {
+      // Unlike the post
+      await storage.unlikePost(postId, userId);
+      res.json({
+        success: true,
+        liked: false,
+        message: 'Post unliked successfully'
+      });
+    } else {
+      // Like the post
+      await storage.likePost(postId, userId);
+      res.json({
+        success: true,
+        liked: true,
+        message: 'Post liked successfully'
+      });
+    }
+  } catch (error: any) {
+    console.error('Error toggling like:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to toggle like',
+      error: error.message
+    });
+  }
+});
+
 export default router;

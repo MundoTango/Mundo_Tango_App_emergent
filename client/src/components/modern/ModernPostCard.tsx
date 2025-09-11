@@ -25,6 +25,9 @@ interface ModernPostCardProps {
   onComment?: (postId: number) => void;
   onShare?: (postId: number) => void;
   onBookmark?: (postId: number) => void;
+  isOwner?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 export default function ModernPostCard({ 
@@ -32,7 +35,10 @@ export default function ModernPostCard({
   onLike, 
   onComment, 
   onShare, 
-  onBookmark 
+  onBookmark,
+  isOwner = false,
+  onEdit,
+  onDelete
 }: ModernPostCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -106,7 +112,31 @@ export default function ModernPostCard({
             </div>
           </div>
           
-          <PostActionsMenu postId={post.id} />
+          <div className="flex items-center gap-2">
+            {isOwner && (
+              <>
+                {onEdit && (
+                  <button
+                    onClick={onEdit}
+                    className="px-3 py-1.5 text-sm font-medium text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
+                    data-testid={`button-edit-post-${post.id}`}
+                  >
+                    Edit
+                  </button>
+                )}
+                {onDelete && (
+                  <button
+                    onClick={onDelete}
+                    className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    data-testid={`button-delete-post-${post.id}`}
+                  >
+                    Delete
+                  </button>
+                )}
+              </>
+            )}
+            <PostActionsMenu postId={post.id} />
+          </div>
         </div>
       </div>
 
