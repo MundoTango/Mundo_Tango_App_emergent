@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Users, UserCheck, UserX, Clock, MessageSquare } from 'lucide-react';
 import { createApiRequest } from '@/lib/apiClient';
-import { useCsrf } from '@/contexts/CsrfContext';
+import { useCsrfToken } from '@/contexts/CsrfContext';
 import { useSocket } from '@/hooks/useSocket';
 import { toast } from '@/hooks/use-toast';
 
@@ -46,7 +46,7 @@ export const EventRSVPSystem: React.FC<EventRSVPSystemProps> = ({
   const [submitting, setSubmitting] = useState(false);
   const [guestCount, setGuestCount] = useState(currentUserRsvp?.guestCount || 0);
   const [notes, setNotes] = useState(currentUserRsvp?.notes || '');
-  const { csrfToken } = useCsrf();
+  const { csrfToken } = useCsrfToken();
   const api = createApiRequest(csrfToken);
   const { socket, isConnected } = useSocket();
 

@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Users, Clock, ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { LocationAutocomplete } from '@/components/ui/LocationAutocomplete';
 import { createApiRequest } from '@/lib/apiClient';
-import { useCsrf } from '@/contexts/CsrfContext';
+import { useCsrfToken } from '@/contexts/CsrfContext';
 import { toast } from '@/hooks/use-toast';
 
 const eventSchema = z.object({
@@ -56,7 +56,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { csrfToken } = useCsrf();
+  const { csrfToken } = useCsrfToken();
   const api = createApiRequest(csrfToken);
 
   const form = useForm<EventFormData>({
