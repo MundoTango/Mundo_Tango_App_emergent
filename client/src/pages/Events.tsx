@@ -1,290 +1,160 @@
 
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Badge } from '../components/ui/badge';
-import { EnhancedEventCard } from '../components/events/EnhancedEventCard';
-import { EventCreationWizard } from '../components/events/EventCreationWizard';
-import { useSocket } from '../hooks/useSocket';
-import { useAuth } from '../hooks/useAuth';
-import { Plus, Search, Filter, Calendar, Grid } from 'lucide-react';
-
-interface Event {
-  id: string;
-  title: string;
-  description?: string;
-  startDate: string;
-  endDate?: string;
-  location: string;
-  imageUrl?: string;
-  tags: string[];
-  organizer: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    avatarUrl?: string;
-  };
-  rsvpCounts: {
-    attending: number;
-    maybe: number;
-    total: number;
-  };
-}
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Plus, Calendar, List, Settings } from 'lucide-react';
+import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
+import EventCreationWizard from '@/components/events/EventCreationWizard';
+import RecurringEventManager from '@/components/events/RecurringEventManager';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from '@/hooks/use-toast';
 
 const Events: React.FC = () => {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'calendar'>('grid');
-  
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showRecurringManager, setShowRecurringManager] = useState(false);
   const { user } = useAuth();
-  const socket = useSocket();
-  const queryClient = useQueryClient();
 
-  // Fetch events
-  const { data: eventsResponse, isLoading } = useQuery({
-    queryKey: ['events', 'feed', searchQuery, selectedTags],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        page: '1',
-        limit: '20'
-      });
-      
-      if (searchQuery) params.append('search', searchQuery);
-      if (selectedTags.length > 0) params.append('tags', selectedTags.join(','));
-
-      const response = await fetch(`/api/events/feed?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch events');
-      return response.json();
-    }
-  });
-
-  const events: Event[] = eventsResponse?.data || [];
-
-  // Create event mutation
-  const createEventMutation = useMutation({
-    mutationFn: async (eventData: any) => {
-      const response = await fetch('/api/events', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // TODO: Add CSRF token when main Agent fixes it
-        },
-        body: JSON.stringify(eventData)
-      });
-      
-      if (!response.ok) throw new Error('Failed to create event');
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    }
-  });
-
-  // RSVP mutation
-  const rsvpMutation = useMutation({
-    mutationFn: async ({ eventId, status }: { eventId: string; status: string }) => {
-      const response = await fetch(`/api/events/${eventId}/rsvp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status })
-      });
-      
-      if (!response.ok) throw new Error('Failed to RSVP');
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    }
-  });
-
-  // Socket event listeners
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleEventCreated = (data: any) => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    };
-
-    const handleRsvpChange = (data: any) => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-    };
-
-    socket.on('event:created', handleEventCreated);
-    socket.on('event:rsvp_change', handleRsvpChange);
-
-    return () => {
-      socket.off('event:created', handleEventCreated);
-      socket.off('event:rsvp_change', handleRsvpChange);
-    };
-  }, [socket, queryClient]);
-
-  const handleCreateEvent = async (eventData: any) => {
-    await createEventMutation.mutateAsync(eventData);
-    setIsCreateModalOpen(false);
+  const handleEventCreated = (eventData: any) => {
+    setShowCreateDialog(false);
+    toast({
+      title: 'Event Created Successfully',
+      description: `"${eventData.title}" has been created and published.`,
+    });
   };
 
-  const handleRsvp = async (eventId: string, status: string) => {
-    await rsvpMutation.mutateAsync({ eventId, status });
+  const handleRecurringComplete = () => {
+    setShowRecurringManager(false);
+    toast({
+      title: 'Recurring Events Set Up',
+      description: 'Your recurring event series has been configured.',
+    });
   };
-
-  const handleViewDetails = (eventId: string) => {
-    // TODO: Navigate to event details page
-    console.log('View event details:', eventId);
-  };
-
-  const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
-  };
-
-  // Get all available tags from events
-  const availableTags = Array.from(
-    new Set(events.flatMap(event => event.tags))
-  ).slice(0, 10); // Show top 10 tags
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-md border-b border-white/20 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                Events
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Discover and join amazing events in your community
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {/* View Toggle */}
-              <div className="flex bg-white/50 rounded-lg p-1 border border-white/30">
-                <Button
-                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('grid')}
-                  className="h-8"
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={viewMode === 'calendar' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('calendar')}
-                  className="h-8"
-                >
-                  <Calendar className="w-4 h-4" />
-                </Button>
-              </div>
-
-              {user && (
-                <Button
-                  onClick={() => setIsCreateModalOpen(true)}
-                  className="bg-teal-600 hover:bg-teal-700 text-white shadow-lg"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Event
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Filters */}
-        <div className="mb-8 space-y-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-white/70 backdrop-blur-sm border-white/30"
-            />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-turquoise-50">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
+              Events
+            </h1>
+            <p className="text-gray-600 mt-1">Discover and manage tango events</p>
           </div>
 
-          {/* Tag Filters */}
-          {availableTags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              <span className="text-sm text-gray-600 self-center">Filter by tags:</span>
-              {availableTags.map(tag => (
-                <Badge
-                  key={tag}
-                  variant={selectedTags.includes(tag) ? 'default' : 'outline'}
-                  className={`cursor-pointer transition-colors ${
-                    selectedTags.includes(tag)
-                      ? 'bg-teal-600 text-white'
-                      : 'bg-white/50 text-gray-700 hover:bg-teal-100'
-                  }`}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
-        </div>
+          <div className="flex gap-3">
+            {user && (
+              <>
+                <Dialog open={showRecurringManager} onOpenChange={setShowRecurringManager}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="bg-white/50 border-white/30">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Recurring Events
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                    <RecurringEventManager onComplete={handleRecurringComplete} />
+                  </DialogContent>
+                </Dialog>
 
-        {/* Events Grid */}
-        {viewMode === 'grid' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isLoading ? (
-              // Loading skeletons
-              Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-white/50 backdrop-blur-sm rounded-lg h-96 animate-pulse" />
-              ))
-            ) : events.length > 0 ? (
-              events.map(event => (
-                <EnhancedEventCard
-                  key={event.id}
-                  event={event}
-                  onRsvp={handleRsvp}
-                  onViewDetails={handleViewDetails}
-                />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">No events found</h3>
-                <p className="text-gray-500">
-                  {searchQuery || selectedTags.length > 0 
-                    ? 'Try adjusting your search or filters'
-                    : 'Be the first to create an event!'
-                  }
-                </p>
-              </div>
+                <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Event
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                    <EventCreationWizard
+                      onComplete={handleEventCreated}
+                      onCancel={() => setShowCreateDialog(false)}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </>
             )}
           </div>
-        )}
+        </div>
 
-        {/* Calendar View */}
-        {viewMode === 'calendar' && (
-          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border border-white/30">
-            <div className="text-center py-12">
-              <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">Calendar View</h3>
-              <p className="text-gray-500">Calendar integration coming soon!</p>
-            </div>
-          </div>
-        )}
+        {/* Main Content */}
+        <Tabs defaultValue="discover" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3 bg-white/50 backdrop-blur-xl border border-white/20">
+            <TabsTrigger 
+              value="discover" 
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-600 data-[state=active]:text-white"
+            >
+              <List className="h-4 w-4 mr-2" />
+              Discover
+            </TabsTrigger>
+            <TabsTrigger 
+              value="calendar"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-600 data-[state=active]:text-white"
+            >
+              <Calendar className="h-4 w-4 mr-2" />
+              Calendar
+            </TabsTrigger>
+            <TabsTrigger 
+              value="my-events"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-600 data-[state=active]:text-white"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              My Events
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="discover" className="space-y-6">
+            <EventDiscoveryFeed />
+          </TabsContent>
+
+          <TabsContent value="calendar" className="space-y-6">
+            <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-turquoise-500" />
+                  Event Calendar
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-center h-64 text-gray-500">
+                  Calendar view coming soon...
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="my-events" className="space-y-6">
+            {user ? (
+              <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5 text-turquoise-500" />
+                    My Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-center h-64 text-gray-500">
+                    Your organized events will appear here...
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <h3 className="text-lg font-semibold text-gray-600 mb-2">Sign in Required</h3>
+                  <p className="text-gray-500 text-center mb-4">
+                    Please sign in to manage your events
+                  </p>
+                  <Button onClick={() => window.location.href = '/auth/login'}>
+                    Sign In
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
-
-      {/* Create Event Modal */}
-      <EventCreationWizard
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        onSubmit={handleCreateEvent}
-      />
     </div>
   );
 };
