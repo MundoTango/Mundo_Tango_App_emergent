@@ -5,7 +5,7 @@ class LocationService {
   constructor() {
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
-    this.apiEndpoint = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+    this.apiEndpoint = '';
   }
 
   // Get locations with pagination and search
@@ -128,6 +128,73 @@ class LocationService {
     }
   }
 
+  // Get cities list
+  async getCities() {
+    const cacheKey = 'cities';
+    
+    if (this.cache.has(cacheKey)) {
+      const cached = this.cache.get(cacheKey);
+      if (Date.now() - cached.timestamp < this.cacheTimeout * 10) { // Cache cities longer
+        return cached.data;
+      }
+    }
+
+    try {
+      const response = await fetch(`${this.apiEndpoint}/api/locations/cities`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      this.cache.set(cacheKey, {
+        data,
+        timestamp: Date.now()
+      });
+
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch cities:', error);
+      return this.getFallbackLocations().locations;
+    }
+  }
+
+  // Get businesses with search
+  async getBusinesses(search = '', types = 'restaurant,bar,cafe,club,store') {
+    const cacheKey = `businesses_${search}_${types}`;
+    
+    if (this.cache.has(cacheKey)) {
+      const cached = this.cache.get(cacheKey);
+      if (Date.now() - cached.timestamp < this.cacheTimeout) {
+        return cached.data;
+      }
+    }
+
+    try {
+      const params = new URLSearchParams({
+        q: search,
+        types: types
+      });
+
+      const response = await fetch(`${this.apiEndpoint}/api/search/businesses?${params}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      this.cache.set(cacheKey, {
+        data,
+        timestamp: Date.now()
+      });
+
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch businesses:', error);
+      return [];
+    }
+  }
+
   // Get countries list
   async getCountries() {
     const cacheKey = 'countries';
@@ -194,8 +261,8 @@ class LocationService {
   async preloadEssentials() {
     try {
       await Promise.all([
-        this.getCountries(),
-        this.getLocations({ limit: 20 }) // Load first 20 popular locations
+        this.getCities(),
+        this.getBusinesses('', 'restaurant,bar,cafe') // Load some businesses
       ]);
     } catch (error) {
       console.warn('Failed to preload essential location data:', error);
