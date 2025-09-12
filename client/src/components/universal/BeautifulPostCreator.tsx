@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { LocationAutocomplete } from '@/components/ui/LocationAutocomplete';
 import { Progress } from '@/components/ui/progress';
@@ -635,7 +635,7 @@ export default function BeautifulPostCreator({
         toast({
           title: "AI enhancement unavailable",
           description: result.message || 'Could not enhance content',
-          variant: "info"
+          variant: "default"
         });
       }
     } catch (error) {
