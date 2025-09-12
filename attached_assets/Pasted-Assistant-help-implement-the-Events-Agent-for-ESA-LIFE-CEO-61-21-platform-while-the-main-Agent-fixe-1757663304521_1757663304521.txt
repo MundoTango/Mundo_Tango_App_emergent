@@ -1,0 +1,53 @@
+Assistant, help implement the Events Agent for ESA LIFE CEO 61×21 platform while the main Agent fixes critical infrastructure:
+
+CONTEXT:
+- Platform: ESA LIFE CEO 61×21 (AI-powered life management + Mundo Tango community)
+- Current State: UnifiedMemories page working but CSRF/location issues need fixing
+- Your Focus: Build the Events Agent feature in parallel
+
+BUILD EVENTS AGENT:
+
+1. Frontend Components (client/src/components/events/):
+   - EnhancedEventCard.tsx with glassmorphic design
+   - EventCreationWizard.tsx with date/time/location pickers
+   - EventRSVPSystem.tsx with attendance tracking
+   - EventDiscoveryFeed.tsx with filtering/search
+   - RecurringEventManager.tsx for weekly milongas
+
+2. Backend API (server/routes/eventsRoutes.ts):
+   - POST /api/events - Create event with validation
+   - GET /api/events/feed - Paginated discovery feed
+   - POST /api/events/:id/rsvp - RSVP management
+   - GET /api/events/calendar - Calendar view data
+   - WebSocket: event_update, rsvp_change events
+
+3. Database Schema (shared/schema.ts):
+   - events table: id, title, description, date, location, organizerId
+   - event_rsvps table: eventId, userId, status, timestamp
+   - recurring_events table: pattern, parentEventId
+
+4. Integration Requirements:
+   - Use MT Ocean theme (#5EEAD4→#155E75 gradients)
+   - Glassmorphic cards with backdrop-blur
+   - Socket.io on port 5000 for real-time
+   - React Query for state management
+   - Include proper TypeScript types
+
+5. Testing:
+   - Unit tests for event validation
+   - Integration tests for RSVP flow
+   - E2E test for event creation
+
+IMPORTANT NOTES:
+- Main Agent is fixing CSRF tokens - include placeholder headers for now
+- Location autocomplete being fixed - use text input temporarily
+- Follow ESA 61×21 framework patterns
+- Ensure mobile-responsive design
+- Add loading states and error handling
+
+DELIVERABLES:
+1. Working Events page at /events route
+2. Event creation and RSVP functionality
+3. Real-time updates via WebSocket
+4. Calendar integration
+5. Comprehensive TypeScript types
