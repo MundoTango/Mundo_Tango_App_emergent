@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
+import { CsrfProvider } from "@/contexts/CsrfContext";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -429,11 +430,13 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TenantProvider>
-          <TrialBanner />
-          <Router />
-          <Toaster />
-        </TenantProvider>
+        <CsrfProvider>
+          <TenantProvider>
+            <TrialBanner />
+            <Router />
+            <Toaster />
+          </TenantProvider>
+        </CsrfProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

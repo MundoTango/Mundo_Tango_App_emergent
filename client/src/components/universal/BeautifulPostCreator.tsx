@@ -39,6 +39,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import EmojiPicker from 'emoji-picker-react';
+import { useCsrfToken } from '@/contexts/CsrfContext';
 // Temporarily disabled microInteractions to fix performance issue
 // import { 
 //   createTypingParticle, 
@@ -112,6 +113,9 @@ export default function BeautifulPostCreator({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  
+  // ESA LIFE CEO 61x21 - CSRF Token for secure API requests
+  const { csrfToken } = useCsrfToken();
 
   // ESA LIFE CEO 61x21 - @mention functionality
   const [showMentions, setShowMentions] = useState(false);
@@ -322,9 +326,16 @@ export default function BeautifulPostCreator({
         // Use internal URLs directly - no file upload needed!
         console.log('🏠 Using Internal URLs - reliable local upload!');
         const endpoint = '/api/posts/direct'; // Direct endpoint that accepts URLs only
+        
+        // ESA LIFE CEO 61x21 - Build headers with CSRF token
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+        if (csrfToken) {
+          headers['x-csrf-token'] = csrfToken;
+        }
+        
         const response = await fetch(endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           credentials: 'include',
           body: JSON.stringify({
             ...postData,

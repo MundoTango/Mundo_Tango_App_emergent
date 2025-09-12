@@ -80,6 +80,24 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ESA LIFE CEO 61x21 - CSRF Token endpoint (Must be before other routes for session initialization)
+  app.get('/api/security/csrf-token', (req, res) => {
+    // Ensure session exists
+    if (!req.session) {
+      req.session = {} as any;
+    }
+    
+    const session = req.session as any;
+    
+    // Generate CSRF token if not exists
+    if (!session.csrfToken) {
+      session.csrfToken = randomBytes(32).toString('hex');
+    }
+    
+    // Return token to client
+    res.json({ token: session.csrfToken });
+  });
+  
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', userStatsRoutes); // ESA Performance optimized stats routes
@@ -1035,6 +1053,153 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false,
         message: 'Failed to save post'
+      });
+    }
+  });
+
+  // ESA LIFE CEO 61x21 - Location Cities Endpoint
+  app.get('/api/locations/cities', async (req: any, res) => {
+    try {
+      const cities = [
+        { id: 1, name: 'Buenos Aires', country: 'Argentina', lat: -34.6037, lon: -58.3816 },
+        { id: 2, name: 'Paris', country: 'France', lat: 48.8566, lon: 2.3522 },
+        { id: 3, name: 'Istanbul', country: 'Turkey', lat: 41.0082, lon: 28.9784 },
+        { id: 4, name: 'Berlin', country: 'Germany', lat: 52.5200, lon: 13.4050 },
+        { id: 5, name: 'New York City', country: 'USA', lat: 40.7128, lon: -74.0060 },
+        { id: 6, name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964 },
+        { id: 7, name: 'Barcelona', country: 'Spain', lat: 41.3851, lon: 2.1734 },
+        { id: 8, name: 'Tokyo', country: 'Japan', lat: 35.6762, lon: 139.6503 },
+        { id: 9, name: 'San Francisco', country: 'USA', lat: 37.7749, lon: -122.4194 },
+        { id: 10, name: 'London', country: 'UK', lat: 51.5074, lon: -0.1278 },
+        { id: 11, name: 'Montevideo', country: 'Uruguay', lat: -34.9011, lon: -56.1645 },
+        { id: 12, name: 'São Paulo', country: 'Brazil', lat: -23.5505, lon: -46.6333 },
+        { id: 13, name: 'Mexico City', country: 'Mexico', lat: 19.4326, lon: -99.1332 },
+        { id: 14, name: 'Belgrade', country: 'Serbia', lat: 44.7866, lon: 20.4489 },
+        { id: 15, name: 'Kolasin', country: 'Montenegro', lat: 42.8229, lon: 19.5171 }
+      ];
+      
+      console.log('📍 Location API: Returning', cities.length, 'cities');
+      res.json(cities);
+    } catch (error: any) {
+      console.error('Error fetching cities:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch cities',
+        message: error.message 
+      });
+    }
+  });
+
+  // ESA LIFE CEO 61x21 - Location Businesses Endpoint
+  app.get('/api/locations/businesses', async (req: any, res) => {
+    try {
+      const searchTerm = parseQueryParam(req.query.search || req.query.q, '').toLowerCase();
+      const businessType = parseQueryParam(req.query.type || req.query.types, '');
+      
+      console.log('🏢 Business search params:', { searchTerm, businessType });
+      
+      // Sample businesses for each city
+      const allBusinesses = [
+        // Buenos Aires restaurants
+        { id: 1, name: 'La Cabrera', type: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', country: 'Argentina', rating: 4.5 },
+        { id: 2, name: 'Don Julio', type: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', country: 'Argentina', rating: 4.7 },
+        { id: 3, name: 'Café Tortoni', type: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', country: 'Argentina', rating: 4.3 },
+        
+        // Buenos Aires bars
+        { id: 4, name: 'Milonga Bar', type: 'bar', address: 'Defensa 963', city: 'Buenos Aires', country: 'Argentina', rating: 4.4 },
+        { id: 5, name: 'Tango Sur', type: 'bar', address: 'San Telmo', city: 'Buenos Aires', country: 'Argentina', rating: 4.2 },
+        { id: 6, name: 'El Querandí', type: 'bar', address: 'Peru 302', city: 'Buenos Aires', country: 'Argentina', rating: 4.6 },
+        
+        // Buenos Aires dance venues
+        { id: 7, name: 'Salon Canning', type: 'club', address: 'Av. Raúl Scalabrini Ortiz 1331', city: 'Buenos Aires', country: 'Argentina', rating: 4.8 },
+        { id: 8, name: 'La Viruta', type: 'club', address: 'Armenia 1366', city: 'Buenos Aires', country: 'Argentina', rating: 4.5 },
+        { id: 9, name: 'El Beso', type: 'club', address: 'Riobamba 416', city: 'Buenos Aires', country: 'Argentina', rating: 4.7 },
+        
+        // Paris venues
+        { id: 10, name: 'Le Comptoir', type: 'restaurant', address: '9 Carrefour de l\'Odéon', city: 'Paris', country: 'France', rating: 4.6 },
+        { id: 11, name: 'Tango de Soie', type: 'club', address: '13 Rue au Maire', city: 'Paris', country: 'France', rating: 4.4 },
+        { id: 12, name: 'Café de Flore', type: 'cafe', address: '172 Boulevard Saint-Germain', city: 'Paris', country: 'France', rating: 4.3 },
+        
+        // NYC venues
+        { id: 13, name: 'Tango Porteño NYC', type: 'club', address: '348 W 46th St', city: 'New York City', country: 'USA', rating: 4.5 },
+        { id: 14, name: 'Rizzuto\'s', type: 'restaurant', address: '192 E 2nd St', city: 'New York City', country: 'USA', rating: 4.3 },
+        { id: 15, name: 'DanceSport', type: 'club', address: '22 W 34th St', city: 'New York City', country: 'USA', rating: 4.6 },
+        
+        // Additional venues for variety
+        { id: 16, name: 'Tango Barcelona', type: 'club', address: 'Carrer de l\'Arc del Teatre', city: 'Barcelona', country: 'Spain', rating: 4.5 },
+        { id: 17, name: 'Berlin Tango', type: 'club', address: 'Prenzlauer Berg', city: 'Berlin', country: 'Germany', rating: 4.4 },
+        { id: 18, name: 'Tokyo Milonga', type: 'club', address: 'Shibuya', city: 'Tokyo', country: 'Japan', rating: 4.6 }
+      ];
+      
+      // Filter businesses based on search term and type
+      let filteredBusinesses = allBusinesses;
+      
+      if (searchTerm) {
+        filteredBusinesses = filteredBusinesses.filter(b => 
+          b.name.toLowerCase().includes(searchTerm) ||
+          b.city.toLowerCase().includes(searchTerm) ||
+          b.address.toLowerCase().includes(searchTerm) ||
+          b.type.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      if (businessType) {
+        const types = businessType.split(',').map(t => t.trim().toLowerCase());
+        filteredBusinesses = filteredBusinesses.filter(b => 
+          types.includes(b.type.toLowerCase())
+        );
+      }
+      
+      // Limit results to 10
+      const results = filteredBusinesses.slice(0, 10);
+      
+      console.log(`🏢 Business search results: ${results.length} businesses found`);
+      res.json(results);
+    } catch (error: any) {
+      console.error('Error fetching businesses:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch businesses',
+        message: error.message 
+      });
+    }
+  });
+
+  // ESA LIFE CEO 61x21 - Business Search Endpoint (for LocationAutocomplete)
+  app.get('/api/search/businesses', async (req: any, res) => {
+    try {
+      const searchTerm = parseQueryParam(req.query.q, '').toLowerCase();
+      const businessTypes = parseQueryParam(req.query.types, 'restaurant,bar,cafe,club,store');
+      const limit = parseIntQueryParam(req.query.limit, 4);
+      
+      console.log('🔍 Business search API called:', { searchTerm, businessTypes, limit });
+      
+      // Sample businesses matching the search
+      const businesses = [
+        { id: 1, name: 'La Cabrera Steakhouse', businessType: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
+        { id: 2, name: 'Don Julio Restaurant', businessType: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
+        { id: 3, name: 'Café Tortoni', businessType: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
+        { id: 4, name: 'Milonga Tango Bar', businessType: 'bar', address: 'Defensa 963', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
+        { id: 5, name: 'Salon Canning', businessType: 'club', address: 'Av. Scalabrini Ortiz 1331', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
+        { id: 6, name: 'La Viruta Tango Club', businessType: 'club', address: 'Armenia 1366', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 }
+      ];
+      
+      // Filter by search term
+      const filtered = searchTerm 
+        ? businesses.filter(b => 
+            b.name.toLowerCase().includes(searchTerm) ||
+            b.businessType.toLowerCase().includes(searchTerm) ||
+            b.city.toLowerCase().includes(searchTerm)
+          )
+        : businesses;
+      
+      const results = filtered.slice(0, limit);
+      
+      console.log(`🎯 Returning ${results.length} business results`);
+      res.json(results);
+    } catch (error: any) {
+      console.error('Error searching businesses:', error);
+      res.status(500).json({ 
+        error: 'Failed to search businesses',
+        message: error.message 
       });
     }
   });

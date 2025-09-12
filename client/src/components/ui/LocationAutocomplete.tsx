@@ -120,9 +120,9 @@ export function LocationAutocomplete({
               if (businessData && businessData.length > 0) {
                 businessResults = businessData.map((business: any) => ({
                   id: `business-${business.id}`,
-                  display: business.name || business.display,
+                  display: `${business.name} - ${business.address}, ${business.city}`,
                   city: business.city,
-                  state: business.state,
+                  state: business.state || '',
                   country: business.country,
                   type: 'business' as const,
                   businessType: business.businessType || business.type,
