@@ -1568,15 +1568,6 @@ export type InsertEventPageAdmin = typeof eventPageAdmins.$inferInsert;
 export type EventPagePost = typeof eventPagePosts.$inferSelect;
 export type InsertEventPagePost = z.infer<typeof insertEventPagePostSchema>;
 
-// Recurring Events schema and types
-export const insertRecurringEventSchema = createInsertSchema(recurringEvents).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export type RecurringEvent = typeof recurringEvents.$inferSelect;
-export type InsertRecurringEvent = z.infer<typeof insertRecurringEventSchema>;
 
 // Event Page insert schemas
 export const insertEventPageAdminSchema = createInsertSchema(eventPageAdmins).omit({
@@ -2157,57 +2148,6 @@ export { homeAmenities, homePhotos } from './schema/hostHomes';
 // Export from travelDetails module
 export { travelDetails } from './travelDetails';
 
-// Export language-related tables and types from languageSchema
-export {
-  languages,
-  userLanguagePreferences,
-  translations,
-  contentTranslations,
-  translationVotes,
-  languageAnalytics,
-  lunfardoDictionary,
-  type Language,
-  type InsertLanguage,
-  type UserLanguagePreference,
-  type InsertUserLanguagePreference,
-  type Translation,
-  type InsertTranslation,
-  type ContentTranslation,
-  type InsertContentTranslation,
-  type TranslationVote,
-  type InsertTranslationVote,
-  type LanguageAnalytics,
-  type InsertLanguageAnalytics,
-  type LunfardoDictionary,
-  type InsertLunfardoDictionary
-} from './languageSchema';
-
-// TestSprite test results table
-export const testResults = pgTable("test_results", {
-  id: serial("id").primaryKey(),
-  testId: text("test_id").notNull().unique(),
-  eventType: text("event_type"),
-  status: text("status").notNull(), // passed, failed, running
-  testSuite: text("test_suite"),
-  passed: integer("passed").default(0),
-  failed: integer("failed").default(0),
-  skipped: integer("skipped").default(0),
-  duration: text("duration"),
-  errorDetails: jsonb("error_details"),
-  testTimestamp: timestamp("test_timestamp"),
-  receivedAt: timestamp("received_at").defaultNow(),
-  createdAt: timestamp("created_at").defaultNow()
-});
-
-export type TestResult = typeof testResults.$inferSelect;
-export type InsertTestResult = typeof testResults.$inferInsert;
-
-// Export from hostHomes module
-export { homeAmenities, homePhotos } from './schema/hostHomes';
-
-// Export from travelDetails module
-export { travelDetails } from './travelDetails';
-
 // Subscriptions table (matching existing database)
 export const subscriptions = pgTable("subscriptions", {
   id: serial("id").primaryKey(),
@@ -2323,48 +2263,3 @@ export type SubscriptionFeature = typeof subscriptionFeatures.$inferSelect;
 export type InsertSubscriptionFeature = z.infer<typeof insertSubscriptionFeatureSchema>;
 export type WebhookEvent = typeof webhookEvents.$inferSelect;
 export type InsertWebhookEvent = z.infer<typeof insertWebhookEventSchema>;
-
-// Export language-related tables and types from languageSchema
-export {
-  languages,
-  userLanguagePreferences,
-  translations,
-  contentTranslations,
-  translationVotes,
-  languageAnalytics,
-  lunfardoDictionary,
-  type Language,
-  type InsertLanguage,
-  type UserLanguagePreference,
-  type InsertUserLanguagePreference,
-  type Translation,
-  type InsertTranslation,
-  type ContentTranslation,
-  type InsertContentTranslation,
-  type TranslationVote,
-  type InsertTranslationVote,
-  type LanguageAnalytics,
-  type InsertLanguageAnalytics,
-  type LunfardoDictionary,
-  type InsertLunfardoDictionary
-} from './languageSchema';
-
-// TestSprite test results table
-export const testResults = pgTable("test_results", {
-  id: serial("id").primaryKey(),
-  testId: text("test_id").notNull().unique(),
-  eventType: text("event_type"),
-  status: text("status").notNull(), // passed, failed, running
-  testSuite: text("test_suite"),
-  passed: integer("passed").default(0),
-  failed: integer("failed").default(0),
-  skipped: integer("skipped").default(0),
-  duration: text("duration"),
-  errorDetails: jsonb("error_details"),
-  testTimestamp: timestamp("test_timestamp"),
-  receivedAt: timestamp("received_at").defaultNow(),
-  createdAt: timestamp("created_at").defaultNow()
-});
-
-export type TestResult = typeof testResults.$inferSelect;
-export type InsertTestResult = typeof testResults.$inferInsert;
