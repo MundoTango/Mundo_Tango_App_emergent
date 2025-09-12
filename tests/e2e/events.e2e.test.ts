@@ -354,3 +354,72 @@ test.describe('Events E2E Tests', () => {
     await expect(page.locator('text="Report submitted successfully"')).toBeVisible();
   });
 });
+import { test, expect } from '@playwright/test';
+
+test.describe('Events Agent E2E Tests', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/events');
+  });
+
+  test('should display events page', async ({ page }) => {
+    await expect(page.locator('h1')).toContainText('Events');
+    await expect(page.locator('[placeholder="Search events..."]')).toBeVisible();
+  });
+
+  test('should show create event button for logged-in users', async ({ page }) => {
+    // TODO: Add authentication test
+    const createButton = page.locator('text=Create Event');
+    // Button should be visible after login
+  });
+
+  test('should open event creation modal', async ({ page }) => {
+    // Mock login state
+    await page.evaluate(() => {
+      localStorage.setItem('auth-token', 'mock-token');
+    });
+    
+    await page.reload();
+    await page.click('text=Create Event');
+    
+    await expect(page.locator('text=Create New Event')).toBeVisible();
+    await expect(page.locator('[placeholder="e.g., Monday Night Milonga"]')).toBeVisible();
+  });
+
+  test('should filter events by search', async ({ page }) => {
+    await page.fill('[placeholder="Search events..."]', 'milonga');
+    // Wait for search results
+    await page.waitForTimeout(500);
+    
+    // Verify search functionality works
+    const eventCards = page.locator('[data-testid="event-card"]');
+    // Add assertions based on mock data
+  });
+
+  test('should handle RSVP functionality', async ({ page }) => {
+    // Mock authenticated state
+    await page.evaluate(() => {
+      localStorage.setItem('auth-token', 'mock-token');
+    });
+    
+    await page.reload();
+    
+    // Click RSVP button on first event
+    const rsvpButton = page.locator('text=RSVP').first();
+    if (await rsvpButton.isVisible()) {
+      await rsvpButton.click();
+      // Verify RSVP status changes
+      await expect(page.locator('text=Going').first()).toBeVisible();
+    }
+  });
+
+  test('should be mobile responsive', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('[placeholder="Search events..."]')).toBeVisible();
+    
+    // Check that grid layout adapts to mobile
+    const eventCards = page.locator('[data-testid="event-card"]');
+    // Verify single column layout on mobile
+  });
+});

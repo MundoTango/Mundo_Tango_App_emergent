@@ -8,8 +8,8 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "ci", "&&", "npm", "run", "build"]
-run = ["npm", "run", "start"]
+build = ["bash", "-c", "npm ci && NODE_OPTIONS=\"--max-old-space-size=1024\" npm run build"]
+run = ["node", "server/start-production.js"]
 
 [[ports]]
 localPort = 5000
@@ -18,6 +18,10 @@ externalPort = 80
 [[ports]]
 localPort = 40725
 externalPort = 3000
+
+[[ports]]
+localPort = 44789
+externalPort = 3001
 
 [workflows]
 runButton = "Project"

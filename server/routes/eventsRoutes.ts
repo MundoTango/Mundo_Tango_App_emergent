@@ -1,342 +1,322 @@
-import { Router, Request, Response } from 'express';
+
+import express from 'express';
+import { z } from 'zod';
 import { db } from '../db';
-import { events, eventAdmins, eventRsvps, users } from '../../shared/schema';
-import { eq, and, sql, inArray } from 'drizzle-orm';
-import { getUserId } from '../utils/authHelper';
-import RRule from 'rrule';
-import { emailService } from '../services/emailService';
+import { events, eventRsvps, recurringEvents, users } from '../../shared/schema';
+import { eq, and, gte, desc, like, or } from 'drizzle-orm';
+import { authMiddleware } from '../middleware/auth';
+import { socketService } from '../services/socketService';
 
-const router = Router();
+const router = express.Router();
 
-// Get all events
-router.get('/api/events', async (req: Request, res: Response) => {
-  try {
-    const allEvents = await db
-      .select()
-      .from(events);
-    
-    res.json(allEvents || []);
-  } catch (error) {
-    console.error('Error fetching events:', error);
-    res.status(500).json({ error: 'Failed to fetch events' });
-  }
+// Validation schemas
+const createEventSchema = z.object({
+  title: z.string().min(1).max(255),
+  description: z.string().optional(),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime().optional(),
+  location: z.string().min(1),
+  groupId: z.string().uuid().optional(),
+  maxAttendees: z.number().positive().optional(),
+  imageUrl: z.string().url().optional(),
+  tags: z.array(z.string()).default([]),
+  visibility: z.enum(['public', 'private', 'group']).default('public'),
+  recurringPattern: z.object({
+    frequency: z.enum(['daily', 'weekly', 'monthly']),
+    interval: z.number().positive(),
+    dayOfWeek: z.string().optional(),
+    endDate: z.string().datetime().optional()
+  }).optional()
 });
 
-// Create recurring events
-router.post('/api/events/recurring', async (req: Request, res: Response) => {
-  try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
-
-    const {
-      title,
-      description,
-      location,
-      startDate,
-      startTime,
-      endTime,
-      recurrenceType,
-      recurrenceEndDate,
-      eventType,
-      maxAttendees,
-      price,
-      isEventPage,
-      allowEventPagePosts,
-      eventPageAdmins
-    } = req.body;
-
-    // Create RRule based on recurrence type
-    let freq;
-    let interval = 1;
-    
-    switch (recurrenceType) {
-      case 'daily':
-        freq = RRule.DAILY;
-        break;
-      case 'weekly':
-        freq = RRule.WEEKLY;
-        break;
-      case 'biweekly':
-        freq = RRule.WEEKLY;
-        interval = 2;
-        break;
-      case 'monthly':
-        freq = RRule.MONTHLY;
-        break;
-      default:
-        return res.status(400).json({ error: 'Invalid recurrence type' });
-    }
-
-    const rule = new RRule({
-      freq,
-      interval,
-      dtstart: new Date(startDate),
-      until: new Date(recurrenceEndDate)
-    });
-
-    const dates = rule.all();
-    const createdEvents = [];
-
-    // Create each event instance
-    for (const date of dates) {
-      const eventStart = new Date(date);
-      const [hours, minutes] = startTime.split(':');
-      eventStart.setHours(parseInt(hours), parseInt(minutes));
-
-      const eventEnd = new Date(date);
-      const [endHours, endMinutes] = endTime.split(':');
-      eventEnd.setHours(parseInt(endHours), parseInt(endMinutes));
-
-      const [event] = await db.insert(events).values({
-        title,
-        description,
-        location,
-        startDate: eventStart,
-        endDate: eventEnd,
-        eventType,
-        maxAttendees,
-        price,
-        userId,
-        isEventPage,
-        allowEventPagePosts,
-        currentAttendees: 0,
-        country: req.user?.country,
-        state: req.user?.state,
-        city: req.user?.city
-      }).returning();
-
-      // Add event owner as admin
-      await db.insert(eventAdmins).values({
-        eventId: event.id,
-        userId,
-        role: 'owner',
-        permissions: {
-          canEditEvent: true,
-          canDeleteEvent: true,
-          canManageAdmins: true,
-          canModerateContent: true,
-          canSendNotifications: true
-        }
-      });
-
-      // Add additional admins if specified
-      if (eventPageAdmins && eventPageAdmins.length > 0) {
-        for (const adminUserId of eventPageAdmins) {
-          await db.insert(eventAdmins).values({
-            eventId: event.id,
-            userId: adminUserId,
-            role: 'admin',
-            permissions: {
-              canEditEvent: true,
-              canDeleteEvent: false,
-              canManageAdmins: false,
-              canModerateContent: true,
-              canSendNotifications: true
-            }
-          });
-
-          // Send delegation email
-          const adminUser = await db.select().from(users).where(eq(users.id, adminUserId)).limit(1);
-          if (adminUser[0]) {
-            await emailService.sendEventDelegationInvite(event, adminUser[0], 'admin');
-          }
-        }
-      }
-
-      createdEvents.push(event);
-    }
-
-    res.json({ 
-      success: true, 
-      eventsCreated: createdEvents.length,
-      events: createdEvents 
-    });
-  } catch (error: any) {
-    console.error('Error creating recurring events:', error);
-    res.status(500).json({ error: error.message });
-  }
+const rsvpSchema = z.object({
+  status: z.enum(['attending', 'maybe', 'not_attending']),
+  guestCount: z.number().min(0).default(0),
+  notes: z.string().optional()
 });
 
-// Get event admins
-router.get('/api/events/:eventId/admins', async (req: Request, res: Response) => {
+// Create event
+router.post('/api/events', authMiddleware, async (req, res) => {
   try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+    const validatedData = createEventSchema.parse(req.body);
+    const userId = req.user?.id;
 
-    const eventId = parseInt(req.params.eventId);
-
-    // Check if user is event owner
-    const event = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
-    if (!event[0] || event[0].userId !== userId) {
-      return res.status(403).json({ error: 'Only event owners can view admins' });
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
-    const admins = await db.select({
-      id: eventAdmins.id,
-      userId: eventAdmins.userId,
-      eventId: eventAdmins.eventId,
-      role: eventAdmins.role,
-      permissions: eventAdmins.permissions,
-      addedAt: eventAdmins.addedAt,
-      user: {
-        id: users.id,
-        name: users.name,
-        username: users.username,
-        profileImage: users.profileImage
-      }
-    })
-    .from(eventAdmins)
-    .innerJoin(users, eq(users.id, eventAdmins.userId))
-    .where(eq(eventAdmins.eventId, eventId));
-
-    res.json(admins);
-  } catch (error: any) {
-    console.error('Error fetching event admins:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Add event admin
-router.post('/api/events/:eventId/admins', async (req: Request, res: Response) => {
-  try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
-
-    const eventId = parseInt(req.params.eventId);
-    const { userId: newAdminId, role } = req.body;
-
-    // Check if user is event owner
-    const event = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
-    if (!event[0] || event[0].userId !== userId) {
-      return res.status(403).json({ error: 'Only event owners can add admins' });
-    }
-
-    // Check if admin already exists
-    const existingAdmin = await db.select()
-      .from(eventAdmins)
-      .where(and(
-        eq(eventAdmins.eventId, eventId),
-        eq(eventAdmins.userId, newAdminId)
-      ))
-      .limit(1);
-
-    if (existingAdmin[0]) {
-      return res.status(400).json({ error: 'User is already an admin for this event' });
-    }
-
-    // Add new admin
-    const permissions = role === 'admin' ? {
-      canEditEvent: true,
-      canDeleteEvent: false,
-      canManageAdmins: false,
-      canModerateContent: true,
-      canSendNotifications: true
-    } : {
-      canEditEvent: false,
-      canDeleteEvent: false,
-      canManageAdmins: false,
-      canModerateContent: true,
-      canSendNotifications: false
-    };
-
-    const [newAdmin] = await db.insert(eventAdmins).values({
-      eventId,
-      userId: newAdminId,
-      role,
-      permissions
+    const [newEvent] = await db.insert(events).values({
+      ...validatedData,
+      organizerId: userId,
+      startDate: new Date(validatedData.startDate),
+      endDate: validatedData.endDate ? new Date(validatedData.endDate) : null
     }).returning();
 
-    // Send delegation email
-    const adminUser = await db.select().from(users).where(eq(users.id, newAdminId)).limit(1);
-    if (adminUser[0]) {
-      await emailService.sendEventDelegationInvite(event[0], adminUser[0], role);
+    // Handle recurring events
+    if (validatedData.recurringPattern) {
+      await db.insert(recurringEvents).values({
+        parentEventId: newEvent.id,
+        pattern: validatedData.recurringPattern,
+        nextOccurrence: new Date(validatedData.startDate)
+      });
     }
 
-    res.json({ success: true, admin: newAdmin });
-  } catch (error: any) {
-    console.error('Error adding event admin:', error);
-    res.status(500).json({ error: error.message });
+    // Broadcast event creation
+    socketService.broadcastToRoom('global', 'event:created', {
+      event: newEvent,
+      organizer: { id: userId }
+    });
+
+    res.json({ success: true, data: newEvent });
+  } catch (error) {
+    console.error('Error creating event:', error);
+    res.status(400).json({ success: false, error: 'Failed to create event' });
   }
 });
 
-// Remove event admin
-router.delete('/api/events/:eventId/admins/:adminId', async (req: Request, res: Response) => {
+// Get events feed with filters
+router.get('/api/events/feed', async (req, res) => {
   try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+    const {
+      page = '1',
+      limit = '10',
+      search,
+      location,
+      tags,
+      startDate,
+      endDate,
+      visibility = 'public'
+    } = req.query;
 
-    const eventId = parseInt(req.params.eventId);
-    const adminId = parseInt(req.params.adminId);
-
-    // Check if user is event owner
-    const event = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
-    if (!event[0] || event[0].userId !== userId) {
-      return res.status(403).json({ error: 'Only event owners can remove admins' });
-    }
-
-    // Cannot remove owner
-    const admin = await db.select().from(eventAdmins).where(eq(eventAdmins.id, adminId)).limit(1);
-    if (!admin[0] || admin[0].role === 'owner') {
-      return res.status(400).json({ error: 'Cannot remove event owner' });
-    }
-
-    await db.delete(eventAdmins).where(eq(eventAdmins.id, adminId));
-
-    res.json({ success: true });
-  } catch (error: any) {
-    console.error('Error removing event admin:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Update admin permissions
-router.put('/api/events/:eventId/admins/:adminId/permissions', async (req: Request, res: Response) => {
-  try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
-
-    const eventId = parseInt(req.params.eventId);
-    const adminId = parseInt(req.params.adminId);
-    const { permissions } = req.body;
-
-    // Check if user is event owner
-    const event = await db.select().from(events).where(eq(events.id, eventId)).limit(1);
-    if (!event[0] || event[0].userId !== userId) {
-      return res.status(403).json({ error: 'Only event owners can update permissions' });
-    }
-
-    // Cannot update owner permissions
-    const admin = await db.select().from(eventAdmins).where(eq(eventAdmins.id, adminId)).limit(1);
-    if (!admin[0] || admin[0].role === 'owner') {
-      return res.status(400).json({ error: 'Cannot modify owner permissions' });
-    }
-
-    await db.update(eventAdmins)
-      .set({ permissions })
-      .where(eq(eventAdmins.id, adminId));
-
-    res.json({ success: true });
-  } catch (error: any) {
-    console.error('Error updating admin permissions:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get user's events
-router.get('/api/events/my-events', async (req: Request, res: Response) => {
-  try {
-    const userId = getUserId(req);
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
-
-    const myEvents = await db.select()
+    const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+    let query = db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        startDate: events.startDate,
+        endDate: events.endDate,
+        location: events.location,
+        organizerId: events.organizerId,
+        groupId: events.groupId,
+        maxAttendees: events.maxAttendees,
+        imageUrl: events.imageUrl,
+        tags: events.tags,
+        visibility: events.visibility,
+        createdAt: events.createdAt,
+        organizer: {
+          id: users.id,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          avatarUrl: users.avatarUrl
+        }
+      })
       .from(events)
-      .where(eq(events.userId, userId))
-      .orderBy(sql`${events.startDate} DESC`);
+      .leftJoin(users, eq(events.organizerId, users.id))
+      .where(eq(events.visibility, visibility as string))
+      .orderBy(desc(events.startDate))
+      .limit(parseInt(limit as string))
+      .offset(offset);
 
-    res.json(myEvents);
-  } catch (error: any) {
-    console.error('Error fetching user events:', error);
-    res.status(500).json({ error: error.message });
+    // Add search filters
+    if (search) {
+      query = query.where(
+        or(
+          like(events.title, `%${search}%`),
+          like(events.description, `%${search}%`)
+        )
+      );
+    }
+
+    if (startDate) {
+      query = query.where(gte(events.startDate, new Date(startDate as string)));
+    }
+
+    const eventsData = await query;
+
+    // Get RSVP counts for each event
+    const eventsWithRsvps = await Promise.all(
+      eventsData.map(async (event) => {
+        const rsvpCounts = await db
+          .select({
+            status: eventRsvps.status,
+            count: eventRsvps.id
+          })
+          .from(eventRsvps)
+          .where(eq(eventRsvps.eventId, event.id));
+
+        const attendingCount = rsvpCounts.filter(r => r.status === 'attending').length;
+        const maybeCount = rsvpCounts.filter(r => r.status === 'maybe').length;
+
+        return {
+          ...event,
+          rsvpCounts: {
+            attending: attendingCount,
+            maybe: maybeCount,
+            total: rsvpCounts.length
+          }
+        };
+      })
+    );
+
+    res.json({ success: true, data: eventsWithRsvps });
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch events' });
+  }
+});
+
+// RSVP to event
+router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
+  try {
+    const { id: eventId } = req.params;
+    const userId = req.user?.id;
+    const validatedData = rsvpSchema.parse(req.body);
+
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    // Check if RSVP already exists
+    const existingRsvp = await db
+      .select()
+      .from(eventRsvps)
+      .where(and(eq(eventRsvps.eventId, eventId), eq(eventRsvps.userId, userId)))
+      .limit(1);
+
+    let rsvp;
+    if (existingRsvp.length > 0) {
+      // Update existing RSVP
+      [rsvp] = await db
+        .update(eventRsvps)
+        .set({ ...validatedData, updatedAt: new Date() })
+        .where(eq(eventRsvps.id, existingRsvp[0].id))
+        .returning();
+    } else {
+      // Create new RSVP
+      [rsvp] = await db
+        .insert(eventRsvps)
+        .values({
+          eventId,
+          userId,
+          ...validatedData
+        })
+        .returning();
+    }
+
+    // Broadcast RSVP change
+    socketService.broadcastToRoom(`event:${eventId}`, 'event:rsvp_change', {
+      eventId,
+      userId,
+      status: validatedData.status,
+      rsvp
+    });
+
+    res.json({ success: true, data: rsvp });
+  } catch (error) {
+    console.error('Error creating/updating RSVP:', error);
+    res.status(400).json({ success: false, error: 'Failed to process RSVP' });
+  }
+});
+
+// Get calendar view data
+router.get('/api/events/calendar', async (req, res) => {
+  try {
+    const { month, year } = req.query;
+    
+    const startOfMonth = new Date(parseInt(year as string), parseInt(month as string) - 1, 1);
+    const endOfMonth = new Date(parseInt(year as string), parseInt(month as string), 0);
+
+    const calendarEvents = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        startDate: events.startDate,
+        endDate: events.endDate,
+        location: events.location
+      })
+      .from(events)
+      .where(
+        and(
+          gte(events.startDate, startOfMonth),
+          gte(endOfMonth, events.startDate),
+          eq(events.visibility, 'public')
+        )
+      )
+      .orderBy(events.startDate);
+
+    res.json({ success: true, data: calendarEvents });
+  } catch (error) {
+    console.error('Error fetching calendar events:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch calendar data' });
+  }
+});
+
+// Get event details
+router.get('/api/events/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [event] = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        startDate: events.startDate,
+        endDate: events.endDate,
+        location: events.location,
+        organizerId: events.organizerId,
+        groupId: events.groupId,
+        maxAttendees: events.maxAttendees,
+        imageUrl: events.imageUrl,
+        tags: events.tags,
+        visibility: events.visibility,
+        createdAt: events.createdAt,
+        organizer: {
+          id: users.id,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          avatarUrl: users.avatarUrl
+        }
+      })
+      .from(events)
+      .leftJoin(users, eq(events.organizerId, users.id))
+      .where(eq(events.id, id))
+      .limit(1);
+
+    if (!event) {
+      return res.status(404).json({ success: false, error: 'Event not found' });
+    }
+
+    // Get RSVPs
+    const rsvps = await db
+      .select({
+        id: eventRsvps.id,
+        status: eventRsvps.status,
+        guestCount: eventRsvps.guestCount,
+        notes: eventRsvps.notes,
+        createdAt: eventRsvps.createdAt,
+        user: {
+          id: users.id,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          avatarUrl: users.avatarUrl
+        }
+      })
+      .from(eventRsvps)
+      .leftJoin(users, eq(eventRsvps.userId, users.id))
+      .where(eq(eventRsvps.eventId, id));
+
+    res.json({
+      success: true,
+      data: {
+        ...event,
+        rsvps
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch event details' });
   }
 });
 

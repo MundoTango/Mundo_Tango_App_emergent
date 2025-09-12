@@ -1,4 +1,3 @@
-
 /**
  * ESA LIFE CEO 61×21 - Shared Socket.io Event Types
  * For coordination between Memories, Events, and Groups agents
@@ -55,7 +54,7 @@ export interface TypingEvent extends BaseSocketEvent {
 }
 
 // WebSocket Room Structure
-export type SocketRoom = 
+export type SocketRoom =
   | `user:${string}`      // Personal notifications
   | `memory:${string}`    // Memory-specific updates
   | `event:${string}`     // Event-specific updates (for Events Agent)
@@ -67,7 +66,7 @@ export type SocketRoom =
 export interface ClientToServerEvents {
   // Authentication
   'join:user': (userId: string) => void;
-  
+
   // Room management
   'join:memory': (memoryId: string) => void;
   'leave:memory': (memoryId: string) => void;
@@ -75,19 +74,19 @@ export interface ClientToServerEvents {
   'leave:event': (eventId: string) => void;
   'join:group': (groupId: string) => void;
   'leave:group': (groupId: string) => void;
-  
+
   // Memory interactions
   'memory:like': (data: MemoryEvent) => void;
   'memory:comment': (data: MemoryEvent) => void;
   'memory:share': (data: MemoryEvent) => void;
   'memory:typing': (data: TypingEvent) => void;
-  
+
   // Event interactions (for Events Agent)
   'event:rsvp': (data: EventSocketEvent) => void;
   'event:update': (data: EventSocketEvent) => void;
   'event:comment': (data: EventSocketEvent) => void;
   'event:typing': (data: TypingEvent) => void;
-  
+
   // Group interactions
   'group:message': (data: GroupSocketEvent) => void;
   'group:typing': (data: TypingEvent) => void;
@@ -101,18 +100,18 @@ export interface ServerToClientEvents {
   'memory:shared': (data: MemoryEvent) => void;
   'memory:new': (data: MemoryEvent) => void;
   'memory:user_typing': (data: TypingEvent) => void;
-  
+
   // Event broadcasts (for Events Agent)
   'event:rsvp_updated': (data: EventSocketEvent) => void;
   'event:updated': (data: EventSocketEvent) => void;
   'event:commented': (data: EventSocketEvent) => void;
   'event:new': (data: EventSocketEvent) => void;
   'event:user_typing': (data: TypingEvent) => void;
-  
+
   // Group broadcasts
   'group:message_received': (data: GroupSocketEvent) => void;
   'group:user_typing': (data: TypingEvent) => void;
-  
+
   // Notifications
   'notification:new': (data: {
     type: string;
@@ -120,7 +119,7 @@ export interface ServerToClientEvents {
     targetId?: string;
     fromUserId: string;
   }) => void;
-  
+
   // User presence
   'user:presence': (data: {
     userId: string;
@@ -157,4 +156,13 @@ export interface EventSocketHookReturn extends SocketHookReturn {
   emitUpdate: (data: Omit<EventSocketEvent, 'userId' | 'timestamp' | 'type'>) => void;
   emitComment: (data: Omit<EventSocketEvent, 'userId' | 'timestamp' | 'type'>) => void;
   emitTyping: (isTyping: boolean, targetId: string) => void;
+}
+
+// Socket.io Event Types for Emergent Integration
+export interface SocketEvents {
+  // Events Agent events
+  'event:created': (data: { event: any; organizer: { id: string } }) => void;
+  'event:updated': (data: { eventId: string; changes: any }) => void;
+  'event:rsvp_change': (data: { eventId: string; userId: string; status: string; rsvp: any }) => void;
+  'event:cancelled': (data: { eventId: string; reason?: string }) => void;
 }
