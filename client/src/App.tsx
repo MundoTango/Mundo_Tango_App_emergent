@@ -61,7 +61,7 @@ const UnifiedMemories = lazy(() => import("@/pages/UnifiedMemories"));
 
 // Lazy loaded components to reduce bundle size (90% reduction in initial load)
 const Profile = lazy(() => import("@/pages/profile"));
-const Events = lazy(() => import("@/pages/events"));
+const Events = lazy(() => import("@/pages/Events"));
 const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
 const EventDetail = lazy(() => import("@/pages/event-detail"));
 const Messages = lazy(() => import("@/pages/Messages"));
