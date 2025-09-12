@@ -42,13 +42,6 @@
 
 /* Mundo Tango Design System v2.0 - Turquoise Ocean Theme */
 :root {
-  /* LAYER 9 - MT Ocean Theme Gradient Variables */
-  --gradient-start: #5EEAD4;
-  --gradient-end: #155E75;
-  --gradient-mt-ocean: linear-gradient(135deg, #5EEAD4 0%, #155E75 100%);
-  --gradient-mt-ocean-hover: linear-gradient(135deg, #4FD1C5 0%, #0C4A60 100%);
-  --gradient-mt-ocean-text: linear-gradient(90deg, #5EEAD4 0%, #155E75 100%);
-  
   /* Primary Colors - Turquoise to Blue Gradient */
   --color-turquoise-50: #e6fffa;
   --color-turquoise-100: #b2f5ea;
@@ -85,9 +78,9 @@
   --color-purple-800: #6b21a8;
   --color-purple-900: #581c87;
 
-  /* Gradients - LAYER 9 Enhanced MT Ocean Theme */
-  --gradient-primary: var(--gradient-mt-ocean);
-  --gradient-primary-hover: var(--gradient-mt-ocean-hover);
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #38b2ac 0%, #3182ce 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #319795 0%, #2b6cb0 100%);
   --gradient-primary-subtle: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);
   --gradient-secondary: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
   --gradient-secondary-hover: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
@@ -1044,7 +1037,7 @@ body {
   --destructive-foreground: hsl(60, 9.1%, 97.8%);
   --ring: hsl(20, 14.3%, 4.1%);
   --radius: 0.5rem;
-  
+
   /* Tango-specific colors */
   --tango-red: hsl(348, 71%, 31%);
   --tango-gold: hsl(45, 65%, 55%);
@@ -1072,7 +1065,7 @@ body {
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
   --ring: hsl(240, 4.9%, 83.9%);
-  
+
   /* Tango-specific colors for dark mode */
   --tango-red: hsl(348, 71%, 45%);
   --tango-gold: hsl(45, 65%, 65%);
@@ -1099,31 +1092,31 @@ body {
   .tango-red {
     color: var(--tango-red);
   }
-  
+
   .bg-tango-red {
     background-color: var(--tango-red);
   }
-  
+
   .tango-gold {
     color: var(--tango-gold);
   }
-  
+
   .bg-tango-gold {
     background-color: var(--tango-gold);
   }
-  
+
   .tango-black {
     color: var(--tango-black);
   }
-  
+
   .bg-tango-black {
     background-color: var(--tango-black);
   }
-  
+
   .tango-gray {
     color: var(--tango-gray);
   }
-  
+
   .bg-tango-gray {
     background-color: var(--tango-gray);
   }
@@ -1160,31 +1153,31 @@ body {
   .text-tango-red {
     color: var(--tango-red);
   }
-  
+
   .text-tango-gold {
     color: var(--tango-gold);
   }
-  
+
   .text-tango-black {
     color: var(--tango-black);
   }
-  
+
   .text-tango-gray {
     color: var(--tango-gray);
   }
-  
+
   .border-tango-red {
     border-color: var(--tango-red);
   }
-  
+
   .hover\:bg-tango-red:hover {
     background-color: var(--tango-red);
   }
-  
+
   .hover\:text-tango-red:hover {
     color: var(--tango-red);
   }
-  
+
   .focus\:ring-tango-red:focus {
     --tw-ring-color: var(--tango-red);
   }
@@ -1757,5 +1750,21 @@ body {
 .animate-slideDown {
   animation: slideDown 0.3s ease-out forwards;
   overflow: hidden;
+}
+/* MT Ocean Theme Enhancement */
+:root {
+  --mt-ocean-primary: #5EEAD4;
+  --mt-ocean-secondary: #155E75;
+  --mt-ocean-gradient: linear-gradient(135deg, #5EEAD4 0%, #155E75 100%);
+}
+
+.glassmorphic {
+  background: rgba(94, 234, 212, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(94, 234, 212, 0.2);
+}
+
+.ocean-gradient {
+  background: var(--mt-ocean-gradient);
 }
 /* Force browser cache refresh Tue Aug  5 06:54:23 PM UTC 2025 */

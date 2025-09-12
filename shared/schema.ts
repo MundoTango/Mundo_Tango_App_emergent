@@ -2142,11 +2142,9 @@ export const testResults = pgTable("test_results", {
 export type TestResult = typeof testResults.$inferSelect;
 export type InsertTestResult = typeof testResults.$inferInsert;
 
-// Export from hostHomes module
-export { homeAmenities, homePhotos } from './schema/hostHomes';
-
-// Export from travelDetails module
-export { travelDetails } from './travelDetails';
+// Note: homeAmenities and homePhotos are available from ./schema/hostHomes module
+// Note: travelDetails is available from ./travelDetails module
+// These are not re-exported here to avoid duplicate export conflicts
 
 // Subscriptions table (matching existing database)
 export const subscriptions = pgTable("subscriptions", {

@@ -47,8 +47,9 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
     const user = await storage.getUser(decoded.userId);
 
-    if (!user) {
-      return res.status(401).json({ message: "Invalid token" });
+    // Production authentication required
+    if (!user || !user.id) {
+      throw new Error('Authentication required');
     }
 
     req.user = {
