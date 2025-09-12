@@ -1,0 +1,43 @@
+Fix critical issues identified in ESA LIFE CEO platform audit according to 61×21 AGENTS Framework layers.
+
+## LAYER 4 - Authentication Agent (Priority 1)
+Fix 401 Unauthorized errors on protected routes:
+- Implement auth middleware that checks Replit OAuth session before API calls
+- Add public/private route distinction in server/routes.ts
+- Return proper auth status (not 401) for unauthenticated users on public pages
+- Add client-side auth check before making authenticated API requests
+- Ensure /events, /groups, /friends, /community handle anonymous users gracefully
+
+## LAYER 9 - UI Framework Agent (Priority 2)
+Strengthen MT Ocean theme visibility (#5EEAD4→#155E75):
+- Add prominent gradient to main header: bg-gradient-to-r from-turquoise-400 to-cyan-600
+- Apply gradient accent to all primary buttons and CTAs
+- Add gradient text to all h1 headings using bg-clip-text text-transparent
+- Ensure at least 5 gradient elements visible on homepage
+- Add CSS variables: --gradient-start: #5EEAD4, --gradient-end: #155E75
+
+## LAYER 47 - Mobile Optimization Agent (Priority 3)
+Implement responsive navigation:
+- Add hamburger menu component for screens < 768px
+- Create slide-out mobile nav drawer with all 7 sidebar items
+- Add touch-optimized buttons (min 44x44px tap targets)
+- Implement viewport meta tag with proper scaling
+- Test navigation on 375px, 768px, and 1024px breakpoints
+
+## LAYER 11 - Real-time Features Agent (Priority 4)
+Initialize WebSocket connections properly:
+- Add Socket.io client initialization in client/src/App.tsx
+- Establish connection on app mount with auto-reconnect
+- Implement connection status indicator (green/red dot)
+- Add event listeners for: user_online, event_update, new_message
+- Ensure socket disconnects properly on unmount
+
+## LAYER 58 - Third-Party Integration Agent (Priority 5)
+Complete Replit OAuth integration:
+- Remove legacy CSRF token endpoints (not needed with Replit auth)
+- Use Replit's built-in authentication throughout
+- Add user context provider using Replit user data
+- Update API client to use Replit session cookies
+- Document auth flow in comments for future reference
+
+Success criteria: All Playwright tests pass with 0 failures, no 401 errors on public pages, visible gradients, working mobile nav.
