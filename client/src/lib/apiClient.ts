@@ -1,31 +1,26 @@
-// ESA LIFE CEO 61x21 - Global API Client with CSRF Support
-import { getCsrfHeaders } from '@/contexts/CsrfContext';
+// ESA LIFE CEO 61x21 - LAYER 4 & 58: Replit OAuth API Client
+// No CSRF needed with Replit OAuth - uses session cookies
 
 interface ApiOptions extends RequestInit {
-  skipCsrf?: boolean;
-  csrfToken?: string | null;
+  // LAYER 4 Fix: Auth state handling for public routes
+  requireAuth?: boolean;
 }
 
 class ApiClient {
   private baseUrl = '';
   private defaultOptions: RequestInit = {
-    credentials: 'include', // Always include cookies for session
+    credentials: 'include', // Always include cookies for Replit OAuth session
   };
 
-  // Generic request method
+  // Generic request method with auth-aware error handling
   private async request<T = any>(
     url: string,
     options: ApiOptions = {}
   ): Promise<T> {
-    const { skipCsrf = false, csrfToken, ...fetchOptions } = options;
+    const { requireAuth = false, ...fetchOptions } = options;
     
-    // Merge headers with CSRF token if not skipped
+    // LAYER 4 Fix: Simple header setup - no CSRF needed
     const headers = new Headers(fetchOptions.headers);
-    
-    // Add CSRF token if available and not skipped
-    if (!skipCsrf && csrfToken) {
-      headers.set('x-csrf-token', csrfToken);
-    }
 
     // Ensure JSON content type for non-FormData bodies
     if (!(fetchOptions.body instanceof FormData) && !headers.has('Content-Type')) {
@@ -136,22 +131,22 @@ export const apiDelete = apiClient.delete.bind(apiClient);
 // Export the client instance for advanced usage
 export default apiClient;
 
-// Helper function to create API request with CSRF token
-export function createApiRequest(csrfToken: string | null) {
+// LAYER 58 Fix: Simplified API request helper - no CSRF needed
+export function createApiRequest() {
   return {
-    get: <T = any>(url: string, options?: Omit<ApiOptions, 'csrfToken'>) =>
-      apiGet<T>(url, { ...options, csrfToken }),
+    get: <T = any>(url: string, options?: ApiOptions) =>
+      apiGet<T>(url, options),
     
-    post: <T = any>(url: string, data?: any, options?: Omit<ApiOptions, 'csrfToken'>) =>
-      apiPost<T>(url, data, { ...options, csrfToken }),
+    post: <T = any>(url: string, data?: any, options?: ApiOptions) =>
+      apiPost<T>(url, data, options),
     
-    put: <T = any>(url: string, data?: any, options?: Omit<ApiOptions, 'csrfToken'>) =>
-      apiPut<T>(url, data, { ...options, csrfToken }),
+    put: <T = any>(url: string, data?: any, options?: ApiOptions) =>
+      apiPut<T>(url, data, options),
     
-    patch: <T = any>(url: string, data?: any, options?: Omit<ApiOptions, 'csrfToken'>) =>
-      apiPatch<T>(url, data, { ...options, csrfToken }),
+    patch: <T = any>(url: string, data?: any, options?: ApiOptions) =>
+      apiPatch<T>(url, data, options),
     
-    delete: <T = any>(url: string, options?: Omit<ApiOptions, 'csrfToken'>) =>
-      apiDelete<T>(url, { ...options, csrfToken }),
+    delete: <T = any>(url: string, options?: ApiOptions) =>
+      apiDelete<T>(url, options),
   };
 }

@@ -5,7 +5,8 @@ import eventsRoutes from './routes/eventsRoutes';
 import * as path from 'path';
 import * as fs from 'fs';
 import { setupVite, serveStatic, log } from "./vite";
-import { authMiddleware } from "./middleware/auth";
+// ESA LIFE CEO 61x21 - LAYER 4 Authentication Agent Fix
+import { authMiddleware as legacyAuthMiddleware } from "./middleware/auth";
 import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
@@ -16,6 +17,9 @@ import { z } from "zod";
 import { SocketService } from "./services/socketService";
 import { WebSocketServer } from "ws";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+
+// LAYER 4 Fix: Use Replit auth as primary authentication middleware
+const authMiddleware = isAuthenticated;
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomBytes } from "crypto";
