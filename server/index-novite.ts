@@ -15,6 +15,11 @@ dotenv.config();
 // Import setupSocketIO for Socket.io integration
 import { setupSocketIO } from './socket';
 
+// Import route handlers
+import postsRoutes from './routes/postsRoutes';
+import eventsRoutes from './routes/eventsRoutes';
+import integrationHelpers from './routes/integrationHelpers';
+
 // Memory optimization for large uploads
 if (global.gc) {
   console.log('🧹 Garbage collection exposed, enabling aggressive memory management');
@@ -167,8 +172,7 @@ app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
 
 // Mount integration helper routes for Events Agent coordination
-import integrationHelpers from './routes/integrationHelpers';
-app.use('/api/integration', integrationHelpers);
+// app.use('/api/integration', integrationHelpers); // Original line commented out
 
 // ESA LIFE CEO 56x21 - Add chunked upload routes for large videos
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
@@ -198,6 +202,11 @@ const startServer = async () => {
     app.get('*', (req, res) => {
       res.sendFile(pathModule.join(clientPath, 'index.html'));
     });
+
+    // Mount routes
+    app.use(postsRoutes);
+    app.use(eventsRoutes);
+    app.use(integrationHelpers);
 
     // Use port 80 for production deployments (Replit requirement)
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);

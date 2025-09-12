@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
-import { CsrfProvider } from "@/contexts/CsrfContext";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -30,12 +29,12 @@ const queryClient = new QueryClient({
         const res = await fetch(queryKey[0] as string, {
           credentials: "include",
         });
-        
+
         if (!res.ok) {
           const text = (await res.text()) || res.statusText;
           throw new Error(`${res.status}: ${text}`);
         }
-        
+
         return await res.json();
       },
       refetchInterval: false,
@@ -156,10 +155,10 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 function Router() {
   // ESA Fix: Simplified router without auth hooks to prevent hook errors
   // Router loaded
-  
+
   const currentPath = window.location.pathname;
   console.log("🔍 Current path:", currentPath);
-  
+
   return (
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
@@ -168,7 +167,7 @@ function Router() {
           <Route path="/">
             <Moments />
           </Route>
-          
+
 
           <Route path="/life-ceo">
             <Suspense fallback={<LoadingFallback message="Loading Life CEO..." />}>
@@ -182,147 +181,147 @@ function Router() {
             </Suspense>
           </Route>
           <Route path="/register">{() => <Redirect to="/" />}</Route>
-          
+
           {/* Heavy components - lazy loaded with individual fallbacks */}
           <Route path="/moments">
             <Suspense fallback={<LoadingFallback message="Loading moments..." />}>
               <Moments />
             </Suspense>
           </Route>
-          
+
           <Route path="/community">
             <Suspense fallback={<LoadingFallback message="Loading community..." />}>
               <Community />
             </Suspense>
           </Route>
-          
+
           <Route path="/community-world-map">
             <Suspense fallback={<LoadingFallback message="Loading world map..." />}>
               <CommunityWorldMap />
             </Suspense>
           </Route>
-          
+
           <Route path="/friends">
             <Suspense fallback={<LoadingFallback message="Loading friends..." />}>
               <EnhancedFriends />
             </Suspense>
           </Route>
-          
+
           <Route path="/friendship/:friendId">
             <Suspense fallback={<LoadingFallback message="Loading friendship details..." />}>
               <FriendshipPage />
             </Suspense>
           </Route>
-          
+
           <Route path="/groups">
             <Suspense fallback={<LoadingFallback message="Loading groups..." />}>
               <Groups />
             </Suspense>
           </Route>
-          
+
           <Route path="/groups/:slug">
             <Suspense fallback={<LoadingFallback message="Loading group..." />}>
               <GroupDetailPage />
             </Suspense>
           </Route>
-          
+
           <Route path="/create-community">
             <Suspense fallback={<LoadingFallback message="Loading community creator..." />}>
               <CreateCommunity />
             </Suspense>
           </Route>
-          
+
           <Route path="/tango-stories">
             <Suspense fallback={<LoadingFallback message="Loading stories..." />}>
               <TangoStories />
             </Suspense>
           </Route>
-          
+
           {/* ESA LIFE CEO 56x21 - Add missing TangoCommunities route */}
           <Route path="/tango-communities">
             <Suspense fallback={<LoadingFallback message="Loading communities..." />}>
               <TangoCommunities />
             </Suspense>
           </Route>
-          
+
           <Route path="/invitations">
             <Suspense fallback={<LoadingFallback message="Loading invitations..." />}>
               <RoleInvitations />
             </Suspense>
           </Route>
-          
+
           <Route path="/error">
             <Suspense fallback={<LoadingFallback message="Loading..." />}>
               <ErrorBoundaryPage />
             </Suspense>
           </Route>
-          
+
           <Route path="/mobile-dashboard">
             <Suspense fallback={<LoadingFallback message="Loading mobile dashboard..." />}>
               <MobileAppDashboard />
             </Suspense>
           </Route>
-          
+
           <Route path="/travel-planner">
             <Suspense fallback={<LoadingFallback message="Loading travel planner..." />}>
               <TravelPlanner />
             </Suspense>
           </Route>
-          
+
           <Route path="/analytics">
             <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
               <AnalyticsDashboard />
             </Suspense>
           </Route>
-          
+
           <Route path="/profile">
             <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
               <Profile />
             </Suspense>
           </Route>
-          
+
           <Route path="/settings">
             <Suspense fallback={<LoadingFallback message="Loading settings..." />}>
               <UserSettings />
             </Suspense>
           </Route>
-          
+
           <Route path="/subscribe">
             <Suspense fallback={<LoadingFallback message="Loading subscription plans..." />}>
               <Subscribe />
             </Suspense>
           </Route>
-          
+
           <Route path="/settings/billing">
             <Suspense fallback={<LoadingFallback message="Loading billing..." />}>
               <BillingDashboard />
             </Suspense>
           </Route>
-          
+
           <Route path="/checkout/:tier">
             <Suspense fallback={<LoadingFallback message="Loading checkout..." />}>
               <Checkout />
             </Suspense>
           </Route>
-          
+
           <Route path="/payment-methods">
             <Suspense fallback={<LoadingFallback message="Loading payment methods..." />}>
               <PaymentMethods />
             </Suspense>
           </Route>
-          
+
           <Route path="/invoices">
             <Suspense fallback={<LoadingFallback message="Loading invoices..." />}>
               <Invoices />
             </Suspense>
           </Route>
-          
+
           <Route path="/admin/subscription-analytics">
             <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
               <SubscriptionAnalytics />
             </Suspense>
           </Route>
-          
+
           <Route path="/admin/promo-codes">
             <Suspense fallback={<LoadingFallback message="Loading promo codes..." />}>
               <PromoCodesAdmin />
@@ -346,75 +345,75 @@ function Router() {
               <AgentFrameworkDashboard />
             </Suspense>
           </Route>
-          
+
           <Route path="/events">
             <Suspense fallback={<LoadingFallback message="Loading events..." />}>
               <EnhancedEvents />
             </Suspense>
           </Route>
-          
+
           <Route path="/events/:id">
             <Suspense fallback={<LoadingFallback message="Loading event details..." />}>
               <EventDetail />
             </Suspense>
           </Route>
-          
+
           <Route path="/messages">
             <Suspense fallback={<LoadingFallback message="Loading messages..." />}>
               <Messages />
             </Suspense>
           </Route>
-          
+
           <Route path="/admin">
             <Suspense fallback={<LoadingFallback message="Loading admin..." />}>
               <AdminCenter />
             </Suspense>
           </Route>
-          
+
           <Route path="/life-ceo">
             <Suspense fallback={<LoadingFallback message="Loading Life CEO..." />}>
               <LifeCEOEnhanced />
             </Suspense>
           </Route>
-          
+
           {/* ESA-44x21s Fix: Add missing memories route */}
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
               <EnhancedTimelineV2 />
             </Suspense>
           </Route>
-          
+
           {/* Unified Memories - Enhanced experience with BeautifulPostCreator */}
           <Route path="/unified-memories">
             <Suspense fallback={<LoadingFallback message="Loading unified memories..." />}>
               <UnifiedMemories />
             </Suspense>
           </Route>
-          
+
           <Route path="/enhanced-timeline">
             <Suspense fallback={<LoadingFallback message="Loading timeline..." />}>
               <EnhancedTimelineV2 />
             </Suspense>
           </Route>
-          
+
           <Route path="/onboarding">
             <Suspense fallback={<LoadingFallback message="Loading onboarding..." />}>
               <Onboarding />
             </Suspense>
           </Route>
-          
+
           <Route path="/code-of-conduct">
             <Suspense fallback={<LoadingFallback message="Loading terms..." />}>
               <CodeOfConduct />
             </Suspense>
           </Route>
-          
+
           <Route path="/test-grouped-roles">
             <Suspense fallback={<LoadingFallback message="Loading test..." />}>
               <TestGroupedRoleSelector />
             </Suspense>
           </Route>
-          
+
           {/* Fallback */}
           <Route component={NotFound} />
         </Switch>
@@ -426,17 +425,15 @@ function Router() {
 export default function App() {
   // Life CEO 44x21s Layer 25 - Add TenantProvider to fix useTenant context error
   console.log('Life CEO 44x21s - Adding required context providers');
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <CsrfProvider>
-          <TenantProvider>
-            <TrialBanner />
-            <Router />
-            <Toaster />
-          </TenantProvider>
-        </CsrfProvider>
+        <TenantProvider>
+          <TrialBanner />
+          <Router />
+          <Toaster />
+        </TenantProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
