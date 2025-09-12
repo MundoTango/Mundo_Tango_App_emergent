@@ -1,185 +1,203 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Calendar, MapPin, Users, Clock } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, MapPin, Users, Clock, User } from 'lucide-react';
 import { format } from 'date-fns';
 
-interface EventCardProps {
+interface EnhancedEventCardProps {
   event: {
-    id: string;
+    id: number;
     title: string;
     description?: string;
-    startDate: string;
-    endDate?: string;
+    startDate: Date;
+    endDate?: Date;
     location: string;
+    organizerId: number;
+    maxAttendees?: number;
     imageUrl?: string;
-    tags: string[];
-    organizer: {
-      id: string;
-      firstName: string;
-      lastName: string;
+    tags?: string[];
+    visibility: string;
+    organizer?: {
+      id: number;
+      firstName?: string;
+      lastName?: string;
       avatarUrl?: string;
     };
-    rsvpCounts: {
+    rsvpCounts?: {
       attending: number;
       maybe: number;
       total: number;
     };
   };
-  userRsvpStatus?: 'attending' | 'maybe' | 'not_attending' | null;
-  onRsvp: (eventId: string, status: 'attending' | 'maybe' | 'not_attending') => void;
-  onViewDetails: (eventId: string) => void;
+  onRSVP?: (eventId: number, status: 'attending' | 'maybe' | 'not_attending') => void;
+  onViewDetails?: (eventId: number) => void;
+  userRsvpStatus?: string;
 }
 
-export const EnhancedEventCard: React.FC<EventCardProps> = ({
+export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
   event,
-  userRsvpStatus,
-  onRsvp,
-  onViewDetails
+  onRSVP,
+  onViewDetails,
+  userRsvpStatus
 }) => {
-  const formatDate = (dateString: string) => {
-    return format(new Date(dateString), 'PPP');
-  };
-
-  const formatTime = (dateString: string) => {
-    return format(new Date(dateString), 'p');
-  };
-
-  const getRsvpButtonText = () => {
-    switch (userRsvpStatus) {
-      case 'attending': return 'Going';
-      case 'maybe': return 'Maybe';
-      case 'not_attending': return 'Not Going';
-      default: return 'RSVP';
+  const formatEventDate = (startDate: Date, endDate?: Date) => {
+    const start = format(startDate, 'MMM dd, yyyy • HH:mm');
+    if (endDate && endDate.getTime() !== startDate.getTime()) {
+      const end = format(endDate, 'HH:mm');
+      return `${start} - ${end}`;
     }
+    return start;
   };
 
-  const getRsvpButtonVariant = () => {
-    switch (userRsvpStatus) {
-      case 'attending': return 'default';
-      case 'maybe': return 'secondary';
-      case 'not_attending': return 'outline';
-      default: return 'outline';
+  const getAttendanceText = () => {
+    if (!event.rsvpCounts) return '0 attending';
+    const { attending, maybe } = event.rsvpCounts;
+    if (maybe > 0) {
+      return `${attending} attending • ${maybe} maybe`;
     }
+    return `${attending} attending`;
   };
 
   return (
-    <Card className="relative overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 group hover:scale-[1.02]">
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-400/10 via-cyan-300/5 to-blue-600/10 opacity-50" />
-      
+    <Card className="group relative overflow-hidden bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
       {/* Event Image */}
       {event.imageUrl && (
         <div className="relative h-48 overflow-hidden">
-          <img
-            src={event.imageUrl}
+          <img 
+            src={event.imageUrl} 
             alt={event.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          
+          {/* Event Type Badge */}
+          <Badge 
+            variant="secondary" 
+            className="absolute top-3 left-3 bg-turquoise-500/90 text-white border-0"
+          >
+            {event.tags?.[0] || 'Event'}
+          </Badge>
         </div>
       )}
 
-      <CardHeader className="relative">
+      <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-teal-700 transition-colors">
+            <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-turquoise-600 transition-colors">
               {event.title}
-            </CardTitle>
+            </h3>
             
-            {/* Date and Time */}
-            <div className="flex items-center gap-2 mt-2 text-gray-600">
-              <Calendar className="w-4 h-4" />
-              <span className="text-sm">
-                {formatDate(event.startDate)} at {formatTime(event.startDate)}
-              </span>
-            </div>
-
-            {/* Location */}
-            <div className="flex items-center gap-2 mt-1 text-gray-600">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm">{event.location}</span>
-            </div>
+            {/* Organizer */}
+            {event.organizer && (
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                <User className="h-4 w-4" />
+                <span>
+                  {event.organizer.firstName} {event.organizer.lastName}
+                </span>
+              </div>
+            )}
           </div>
-
-          {/* Organizer Avatar */}
-          <Avatar className="ring-2 ring-white/20">
-            <AvatarImage src={event.organizer.avatarUrl} />
-            <AvatarFallback className="bg-teal-100 text-teal-700">
-              {event.organizer.firstName[0]}{event.organizer.lastName[0]}
-            </AvatarFallback>
-          </Avatar>
+          
+          {/* RSVP Status Badge */}
+          {userRsvpStatus && (
+            <Badge 
+              variant={userRsvpStatus === 'attending' ? 'default' : 'secondary'}
+              className="ml-2"
+            >
+              {userRsvpStatus === 'attending' ? 'Going' : 
+               userRsvpStatus === 'maybe' ? 'Maybe' : 'Not Going'}
+            </Badge>
+          )}
         </div>
       </CardHeader>
 
-      <CardContent className="relative space-y-4">
+      <CardContent className="pt-0 space-y-4">
+        {/* Event Details */}
+        <div className="space-y-2">
+          {/* Date & Time */}
+          <div className="flex items-center gap-2 text-gray-700">
+            <Calendar className="h-4 w-4 text-turquoise-500 flex-shrink-0" />
+            <span className="text-sm font-medium">
+              {formatEventDate(event.startDate, event.endDate)}
+            </span>
+          </div>
+
+          {/* Location */}
+          <div className="flex items-start gap-2 text-gray-700">
+            <MapPin className="h-4 w-4 text-turquoise-500 flex-shrink-0 mt-0.5" />
+            <span className="text-sm font-medium line-clamp-2">
+              {event.location}
+            </span>
+          </div>
+
+          {/* Attendance */}
+          <div className="flex items-center gap-2 text-gray-700">
+            <Users className="h-4 w-4 text-turquoise-500 flex-shrink-0" />
+            <span className="text-sm font-medium">
+              {getAttendanceText()}
+              {event.maxAttendees && ` • ${event.maxAttendees} max`}
+            </span>
+          </div>
+        </div>
+
         {/* Description */}
         {event.description && (
-          <p className="text-gray-700 text-sm line-clamp-2">
+          <p className="text-sm text-gray-600 line-clamp-3">
             {event.description}
           </p>
         )}
 
         {/* Tags */}
-        {event.tags.length > 0 && (
+        {event.tags && event.tags.length > 1 && (
           <div className="flex flex-wrap gap-1">
-            {event.tags.slice(0, 3).map((tag, index) => (
-              <Badge 
-                key={index} 
-                variant="secondary" 
-                className="bg-teal-100/50 text-teal-700 text-xs"
-              >
+            {event.tags.slice(1).map((tag, index) => (
+              <Badge key={index} variant="outline" className="text-xs">
                 {tag}
               </Badge>
             ))}
-            {event.tags.length > 3 && (
-              <Badge variant="outline" className="text-xs">
-                +{event.tags.length - 3} more
-              </Badge>
-            )}
           </div>
         )}
 
-        {/* RSVP Stats */}
-        <div className="flex items-center gap-4 text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <Users className="w-4 h-4" />
-            <span>{event.rsvpCounts.attending} going</span>
-          </div>
-          {event.rsvpCounts.maybe > 0 && (
-            <span>{event.rsvpCounts.maybe} maybe</span>
-          )}
-        </div>
-
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2">
-          <Button
-            onClick={() => onViewDetails(event.id)}
-            variant="outline"
-            className="flex-1 bg-white/50 hover:bg-white/70 border-teal-200 text-teal-700 hover:text-teal-800"
+        <div className="flex gap-2 pt-2 border-t border-gray-200/50">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => onViewDetails?.(event.id)}
+            className="flex-1 bg-white/50 hover:bg-white/80 border-white/30"
           >
             View Details
           </Button>
           
-          <div className="relative">
-            <Button
-              onClick={() => {
-                const nextStatus = userRsvpStatus === 'attending' 
-                  ? 'not_attending' 
-                  : 'attending';
-                onRsvp(event.id, nextStatus);
-              }}
-              variant={getRsvpButtonVariant() as any}
-              className="bg-teal-600 hover:bg-teal-700 text-white"
-            >
-              {getRsvpButtonText()}
-            </Button>
-          </div>
+          {onRSVP && (
+            <div className="flex gap-1">
+              <Button 
+                size="sm"
+                onClick={() => onRSVP(event.id, 'attending')}
+                className={`bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 ${
+                  userRsvpStatus === 'attending' ? 'ring-2 ring-turquoise-300' : ''
+                }`}
+              >
+                Going
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => onRSVP(event.id, 'maybe')}
+                className={`bg-white/50 hover:bg-white/80 border-white/30 ${
+                  userRsvpStatus === 'maybe' ? 'ring-2 ring-gray-300' : ''
+                }`}
+              >
+                Maybe
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
   );
 };
+
+export default EnhancedEventCard;

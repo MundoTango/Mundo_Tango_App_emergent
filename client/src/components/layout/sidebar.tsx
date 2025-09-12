@@ -1,14 +1,15 @@
-import { 
-  Home, 
-  Calendar, 
-  MessageCircle, 
-  User, 
-  Users, 
+import {
+  Home,
+  Calendar,
+  MessageCircle,
+  User,
+  Users,
   Settings,
   Menu,
   Heart,
   MapPin,
-  Trophy
+  Trophy,
+  CalendarDays
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -35,13 +36,13 @@ const SIDEBAR_ROUTES = [
     link: "/memories",
   },
   {
-    title: "Profile", 
+    title: "Profile",
     icon: <User className="w-5 h-5" />,
     link: "/profile",
   },
   {
     title: "Events",
-    icon: <Calendar className="w-5 h-5" />,
+    icon: <CalendarDays className="w-5 h-5" />,
     link: "/events",
   },
   {
@@ -77,7 +78,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
       count: mundoTangoDetails.dancer_count,
     },
     {
-      title: "Events around world", 
+      title: "Events around world",
       count: mundoTangoDetails.events_count,
     },
     {
@@ -147,7 +148,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
               <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
                 <Avatar className="h-10 w-10">
                   {/* ESA LIFE CEO 56x21 - Fixed profile image with fallback */}
-                  <AvatarImage 
+                  <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
                     className="object-cover"
                   />

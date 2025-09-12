@@ -61,7 +61,7 @@ const UnifiedMemories = lazy(() => import("@/pages/UnifiedMemories"));
 
 // Lazy loaded components to reduce bundle size (90% reduction in initial load)
 const Profile = lazy(() => import("@/pages/profile"));
-const Events = lazy(() => import("@/pages/Events"));
+const Events = lazy(() => import("@/pages/events"));
 const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
 const EventDetail = lazy(() => import("@/pages/event-detail"));
 const Messages = lazy(() => import("@/pages/Messages"));
@@ -98,6 +98,8 @@ const PromoCodesAdmin = lazy(() => import("./pages/PromoCodesAdmin"));
 const ProjectTracker = lazy(() => import("@/pages/ProjectTracker"));
 const MediaUploadTest = lazy(() => import("@/pages/MediaUploadTest"));
 const AgentFrameworkDashboard = lazy(() => import("@/pages/AgentFrameworkDashboard"));
+import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
+
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
@@ -355,6 +357,12 @@ function Router() {
           <Route path="/events/:id">
             <Suspense fallback={<LoadingFallback message="Loading event details..." />}>
               <EventDetail />
+            </Suspense>
+          </Route>
+
+          <Route path="/events/discover">
+            <Suspense fallback={<LoadingFallback message="Loading event discovery..." />}>
+              <EventDiscoveryFeed />
             </Suspense>
           </Route>
 
