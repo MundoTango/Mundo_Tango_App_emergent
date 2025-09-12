@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, Filter, Calendar, MapPin, SlidersHorizontal } from 'lucide-react';
 import { EnhancedEventCard } from './EnhancedEventCard';
 import { createApiRequest } from '@/lib/apiClient';
-import { useCsrf } from '@/contexts/CsrfContext';
+import { useCsrfToken } from '@/contexts/CsrfContext';
 import { useDebounce } from '@/hooks/useDebounce';
 import { toast } from '@/hooks/use-toast';
 
@@ -64,7 +64,7 @@ export const EventDiscoveryFeed: React.FC = () => {
     visibility: 'public',
   });
 
-  const { csrfToken } = useCsrf();
+  const { csrfToken } = useCsrfToken();
   const api = createApiRequest(csrfToken);
   const debouncedSearch = useDebounce(filters.search, 300);
 
