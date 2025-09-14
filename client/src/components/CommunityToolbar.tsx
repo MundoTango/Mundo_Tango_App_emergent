@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
+import { MTCard, MTButton, MTBadge } from '@/components/ui-library';
 import { 
   Home, 
   MapPin, 
@@ -74,7 +73,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
       {/* Header with Role-Based Actions */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-300 to-blue-900 bg-clip-text text-transparent">
             {city || 'Community'} Hub
           </h2>
           <p className="text-gray-600 mt-1">
@@ -85,38 +84,38 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
         {/* Context-based buttons */}
         <div className="flex gap-2">
           {userContext?.isLocal && !userContext.hasHostProfile && (
-            <Button 
+            <MTButton 
               onClick={() => setLocation('/host-onboarding')}
-              className="bg-gradient-to-br from-pink-500 to-purple-600 text-white"
+              variant="gradient"
+              icon={<Home className="h-4 w-4" />}
             >
-              <Home className="h-4 w-4 mr-2" />
               Become a Host
-            </Button>
+            </MTButton>
           )}
           {userContext?.privileges.canSeeVisitors && (
-            <Button 
-              variant="outline"
+            <MTButton 
+              variant="glass"
               onClick={() => setShowFilters(!showFilters)}
+              icon={<Users className="h-4 w-4" />}
             >
-              <Users className="h-4 w-4 mr-2" />
               View Incoming Visitors
-            </Button>
+            </MTButton>
           )}
           {userContext?.isVisitor && userContext.privileges.canRequestStay && (
-            <Button 
-              variant="outline"
+            <MTButton 
+              variant="glass"
               onClick={() => setLocation('/housing-marketplace')}
+              icon={<Home className="h-4 w-4" />}
             >
-              <Home className="h-4 w-4 mr-2" />
               Request a Stay
-            </Button>
+            </MTButton>
           )}
         </div>
       </div>
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6">
+        <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 shadow-lg">
           <TabsTrigger value="map" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Interactive Map
@@ -134,18 +133,18 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
         {/* Map Tab with All Layers */}
         <TabsContent value="map" className="space-y-4">
           {/* Layer Controls */}
-          <Card className="p-4">
+          <MTCard padding="md" variant="glass">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Map Layers</h3>
-              <Button
-                variant="outline"
+              <h3 className="font-semibold bg-gradient-to-r from-teal-600 to-blue-800 bg-clip-text text-transparent">Map Layers</h3>
+              <MTButton
+                variant="glass"
                 size="sm"
                 onClick={() => setShowFilters(!showFilters)}
+                icon={<Filter className="h-4 w-4" />}
               >
-                <Filter className="h-4 w-4 mr-2" />
                 Filters
-                <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-              </Button>
+                <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+              </MTButton>
             </div>
             
             {/* Layer Toggles */}
@@ -157,7 +156,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   onChange={(e) => setMapLayers({ ...mapLayers, events: e.target.checked })}
                   className="rounded"
                 />
-                <Calendar className="h-4 w-4 text-blue-500" />
+                <Calendar className="h-4 w-4 text-teal-500" />
                 Events
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
@@ -177,7 +176,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   onChange={(e) => setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
                   className="rounded"
                 />
-                <Star className="h-4 w-4 text-yellow-500" />
+                <Star className="h-4 w-4 text-blue-600" />
                 Recommendations
               </label>
             </div>
@@ -211,7 +210,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.category}
                         onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
-                        className="rounded-md border px-3 py-2"
+                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">All Categories</option>
                         <option value="milonga">Milonga</option>
@@ -222,7 +221,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.priceRange}
                         onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
-                        className="rounded-md border px-3 py-2"
+                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">Any Price</option>
                         <option value="free">Free</option>
@@ -233,7 +232,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                         value={eventFilters.timeOfDay}
                         onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
-                        className="rounded-md border px-3 py-2"
+                        className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                       >
                         <option value="all">Any Time</option>
                         <option value="morning">Morning</option>
@@ -252,7 +251,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                       value={friendFilter}
                       onChange={(e) => setFriendFilter(e.target.value as any)}
-                      className="w-full rounded-md border px-3 py-2"
+                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                     >
                       <option value="all">All Users</option>
                       <option value="direct">Direct Friends Only</option>
@@ -269,7 +268,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                       value={recommendationType}
                       onChange={(e) => setRecommendationType(e.target.value as any)}
-                      className="w-full rounded-md border px-3 py-2"
+                      className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
                     >
                       <option value="all">All Recommendations</option>
                       <option value="local">From Locals (e.g., best steaks)</option>
@@ -279,7 +278,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 )}
               </div>
             )}
-          </Card>
+          </MTCard>
           
           {/* Enhanced Map Component */}
           <div className="h-[600px] rounded-lg overflow-hidden border">
