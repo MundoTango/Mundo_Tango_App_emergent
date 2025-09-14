@@ -95,12 +95,14 @@ const Groups = lazy(() => import("@/pages/groups"));
 const GroupDetailPage = lazy(() => import("@/pages/GroupDetailPageMT"));
 const RoleInvitations = lazy(() => import("@/pages/RoleInvitations"));
 
-// ========== Community Pages (6) ==========
+// ========== Community Pages (8) ==========
 const Community = lazy(() => import("@/pages/community"));
 const CommunityWorldMap = lazy(() => import("@/pages/community-world-map"));
 const CreateCommunity = lazy(() => import("@/pages/CreateCommunity"));
 const TangoCommunities = lazy(() => import("@/pages/tango-communities"));
 const TangoStories = lazy(() => import("@/pages/TangoStories"));
+const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: Live Streaming
+const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
 
 // ========== Content & Timeline Pages (8) ==========
 const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
@@ -410,6 +412,18 @@ function Router() {
           <Route path="/tango-stories">
             <Suspense fallback={<LoadingFallback message="Loading stories..." />}>
               <TangoStories />
+            </Suspense>
+          </Route>
+
+          <Route path="/live-streaming">
+            <Suspense fallback={<LoadingFallback message="Loading streaming..." />}>
+              <LiveStreaming />
+            </Suspense>
+          </Route>
+
+          <Route path="/gamification">
+            <Suspense fallback={<LoadingFallback message="Loading gamification..." />}>
+              <Gamification />
             </Suspense>
           </Route>
 

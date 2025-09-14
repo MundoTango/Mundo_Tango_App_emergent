@@ -208,6 +208,295 @@ export const projectActivity = pgTable("project_activity", {
   index("idx_project_activity_timestamp").on(table.timestamp),
 ]);
 
+// ============ PHASE 20: COMMUNITY FEATURES SCHEMA ============
+// ESA LIFE CEO 61×21 - Live Streaming, Video Calls, Gamification
+
+// Live Streams table for WebRTC streaming
+export const streams = pgTable("streams", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  hostId: integer("host_id").references(() => users.id).notNull(),
+  eventId: integer("event_id").references(() => events.id),
+  category: varchar("category", { length: 50 }), // lesson, performance, milonga, social
+  status: varchar("status", { length: 20 }).default("scheduled"), // scheduled, live, ended, cancelled
+  streamKey: varchar("stream_key", { length: 100 }).unique(),
+  rtmpUrl: text("rtmp_url"),
+  hlsUrl: text("hls_url"),
+  webrtcSignaling: jsonb("webrtc_signaling").default({}),
+  viewerCount: integer("viewer_count").default(0),
+  peakViewers: integer("peak_viewers").default(0),
+  likes: integer("likes").default(0),
+  chatEnabled: boolean("chat_enabled").default(true),
+  recordingEnabled: boolean("recording_enabled").default(false),
+  recordingUrl: text("recording_url"),
+  thumbnailUrl: text("thumbnail_url"),
+  scheduledAt: timestamp("scheduled_at"),
+  startedAt: timestamp("started_at"),
+  endedAt: timestamp("ended_at"),
+  duration: integer("duration"), // in seconds
+  quality: varchar("quality", { length: 20 }).default("auto"), // auto, 1080p, 720p, 480p
+  isPrivate: boolean("is_private").default(false),
+  password: text("password"),
+  allowedUsers: integer("allowed_users").array(),
+  metadata: jsonb("metadata").default({}),
+  analytics: jsonb("analytics").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_streams_host").on(table.hostId),
+  index("idx_streams_status").on(table.status),
+  index("idx_streams_scheduled").on(table.scheduledAt),
+  index("idx_streams_category").on(table.category),
+]);
+
+// Video Calls table for event video rooms
+export const videoCalls = pgTable("video_calls", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  roomId: varchar("room_id", { length: 100 }).unique().notNull(),
+  eventId: integer("event_id").references(() => events.id),
+  hostId: integer("host_id").references(() => users.id).notNull(),
+  type: varchar("type", { length: 20 }).default("group"), // one-on-one, group, webinar
+  status: varchar("status", { length: 20 }).default("waiting"), // waiting, active, ended
+  maxParticipants: integer("max_participants").default(8),
+  currentParticipants: integer("current_participants").default(0),
+  participantList: jsonb("participant_list").default([]),
+  settings: jsonb("settings").default({
+    allowScreenShare: true,
+    allowRecording: false,
+    virtualBackground: true,
+    noiseSuppression: true,
+    waitingRoom: true,
+    autoMuteOnJoin: false,
+  }),
+  iceServers: jsonb("ice_servers").default([]),
+  breakoutRooms: jsonb("breakout_rooms").default([]),
+  recordingUrl: text("recording_url"),
+  startedAt: timestamp("started_at"),
+  endedAt: timestamp("ended_at"),
+  duration: integer("duration"),
+  quality: jsonb("quality").default({}), // connection quality metrics
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_video_calls_event").on(table.eventId),
+  index("idx_video_calls_host").on(table.hostId),
+  index("idx_video_calls_status").on(table.status),
+]);
+
+// Gamification Points table
+export const userPoints = pgTable("user_points", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  totalPoints: integer("total_points").default(0),
+  currentLevel: integer("current_level").default(1),
+  levelProgress: integer("level_progress").default(0), // points toward next level
+  weeklyPoints: integer("weekly_points").default(0),
+  monthlyPoints: integer("monthly_points").default(0),
+  allTimeRank: integer("all_time_rank"),
+  weeklyRank: integer("weekly_rank"),
+  monthlyRank: integer("monthly_rank"),
+  streakDays: integer("streak_days").default(0),
+  lastActiveDate: timestamp("last_active_date"),
+  statistics: jsonb("statistics").default({
+    postsCreated: 0,
+    eventsAttended: 0,
+    streamsHosted: 0,
+    videosWatched: 0,
+    helpfulVotes: 0,
+    achievementsUnlocked: 0,
+  }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_user_points_user").on(table.userId),
+  index("idx_user_points_total").on(table.totalPoints),
+  index("idx_user_points_level").on(table.currentLevel),
+  unique("unique_user_points").on(table.userId),
+]);
+
+// Achievements table
+export const achievements = pgTable("achievements", {
+  id: varchar("id", { length: 100 }).primaryKey(), // e.g., "tango_master", "event_organizer"
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  category: varchar("category", { length: 50 }).notNull(), // skill, community, event, special
+  tier: varchar("tier", { length: 20 }).default("bronze"), // bronze, silver, gold, platinum
+  iconUrl: text("icon_url"),
+  points: integer("points").default(100),
+  requirements: jsonb("requirements").notNull(), // criteria to unlock
+  isSecret: boolean("is_secret").default(false),
+  isActive: boolean("is_active").default(true),
+  customCreated: boolean("custom_created").default(false),
+  createdBy: integer("created_by").references(() => users.id),
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_achievements_category").on(table.category),
+  index("idx_achievements_tier").on(table.tier),
+]);
+
+// User Achievements (many-to-many)
+export const userAchievements = pgTable("user_achievements", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  achievementId: varchar("achievement_id", { length: 100 }).references(() => achievements.id).notNull(),
+  unlockedAt: timestamp("unlocked_at").defaultNow(),
+  progress: integer("progress").default(100), // percentage for progressive achievements
+  showcased: boolean("showcased").default(false), // displayed on profile
+  notified: boolean("notified").default(false),
+}, (table) => [
+  index("idx_user_achievements_user").on(table.userId),
+  index("idx_user_achievements_achievement").on(table.achievementId),
+  unique("unique_user_achievement").on(table.userId, table.achievementId),
+]);
+
+// Challenges table
+export const challenges = pgTable("challenges", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  type: varchar("type", { length: 50 }).notNull(), // daily, weekly, seasonal, special
+  category: varchar("category", { length: 50 }), // dance, social, learning, community
+  status: varchar("status", { length: 20 }).default("active"), // active, completed, expired
+  requirements: jsonb("requirements").notNull(),
+  rewards: jsonb("rewards").default({
+    points: 0,
+    badges: [],
+    items: [],
+  }),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  maxParticipants: integer("max_participants"),
+  currentParticipants: integer("current_participants").default(0),
+  completedBy: integer("completed_by").array(),
+  iconUrl: text("icon_url"),
+  isRecurring: boolean("is_recurring").default(false),
+  recurringSchedule: jsonb("recurring_schedule"),
+  createdBy: integer("created_by").references(() => users.id),
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_challenges_type").on(table.type),
+  index("idx_challenges_status").on(table.status),
+  index("idx_challenges_dates").on(table.startDate, table.endDate),
+]);
+
+// User Challenge Progress
+export const userChallenges = pgTable("user_challenges", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  challengeId: uuid("challenge_id").references(() => challenges.id).notNull(),
+  progress: jsonb("progress").default({}),
+  progressPercentage: integer("progress_percentage").default(0),
+  completed: boolean("completed").default(false),
+  completedAt: timestamp("completed_at"),
+  rewardsClaimed: boolean("rewards_claimed").default(false),
+  joinedAt: timestamp("joined_at").defaultNow(),
+}, (table) => [
+  index("idx_user_challenges_user").on(table.userId),
+  index("idx_user_challenges_challenge").on(table.challengeId),
+  unique("unique_user_challenge").on(table.userId, table.challengeId),
+]);
+
+// Leaderboards table
+export const leaderboards = pgTable("leaderboards", {
+  id: serial("id").primaryKey(),
+  type: varchar("type", { length: 50 }).notNull(), // global, city, event, challenge
+  period: varchar("period", { length: 20 }).notNull(), // daily, weekly, monthly, all-time
+  category: varchar("category", { length: 50 }), // points, streams, events, achievements
+  scopeId: varchar("scope_id", { length: 100 }), // city name, event id, etc.
+  rankings: jsonb("rankings").default([]), // array of {userId, rank, score, change}
+  lastUpdated: timestamp("last_updated").defaultNow(),
+  metadata: jsonb("metadata").default({}),
+}, (table) => [
+  index("idx_leaderboards_type_period").on(table.type, table.period),
+  unique("unique_leaderboard").on(table.type, table.period, table.category, table.scopeId),
+]);
+
+// Point Transactions log
+export const pointTransactions = pgTable("point_transactions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  points: integer("points").notNull(), // positive or negative
+  action: varchar("action", { length: 100 }).notNull(), // post_created, event_attended, etc.
+  referenceType: varchar("reference_type", { length: 50 }), // post, event, stream, etc.
+  referenceId: varchar("reference_id", { length: 100 }),
+  description: text("description"),
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_point_transactions_user").on(table.userId),
+  index("idx_point_transactions_created").on(table.createdAt),
+]);
+
+// Export TypeScript types for Phase 20: Community Features
+// Streaming types
+export const insertStreamSchema = createInsertSchema(streams).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertStream = z.infer<typeof insertStreamSchema>;
+export type Stream = typeof streams.$inferSelect;
+
+// Video Call types
+export const insertVideoCallSchema = createInsertSchema(videoCalls).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertVideoCall = z.infer<typeof insertVideoCallSchema>;
+export type VideoCall = typeof videoCalls.$inferSelect;
+
+// Gamification types
+export const insertUserPointsSchema = createInsertSchema(userPoints).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertUserPoints = z.infer<typeof insertUserPointsSchema>;
+export type UserPoints = typeof userPoints.$inferSelect;
+
+export const insertAchievementSchema = createInsertSchema(achievements).omit({
+  createdAt: true,
+});
+export type InsertAchievement = z.infer<typeof insertAchievementSchema>;
+export type Achievement = typeof achievements.$inferSelect;
+
+export const insertUserAchievementSchema = createInsertSchema(userAchievements).omit({
+  id: true,
+  unlockedAt: true,
+});
+export type InsertUserAchievement = z.infer<typeof insertUserAchievementSchema>;
+export type UserAchievement = typeof userAchievements.$inferSelect;
+
+export const insertChallengeSchema = createInsertSchema(challenges).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertChallenge = z.infer<typeof insertChallengeSchema>;
+export type Challenge = typeof challenges.$inferSelect;
+
+export const insertUserChallengeSchema = createInsertSchema(userChallenges).omit({
+  id: true,
+  joinedAt: true,
+});
+export type InsertUserChallenge = z.infer<typeof insertUserChallengeSchema>;
+export type UserChallenge = typeof userChallenges.$inferSelect;
+
+export const insertLeaderboardSchema = createInsertSchema(leaderboards).omit({
+  id: true,
+  lastUpdated: true,
+});
+export type InsertLeaderboard = z.infer<typeof insertLeaderboardSchema>;
+export type Leaderboard = typeof leaderboards.$inferSelect;
+
+export const insertPointTransactionSchema = createInsertSchema(pointTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertPointTransaction = z.infer<typeof insertPointTransactionSchema>;
+export type PointTransaction = typeof pointTransactions.$inferSelect;
+
 // Export TypeScript types for Sessions (ESA LIFE CEO 61x21 Critical Fix)
 export const insertSessionSchema = createInsertSchema(sessions);
 export type InsertSession = z.infer<typeof insertSessionSchema>;
