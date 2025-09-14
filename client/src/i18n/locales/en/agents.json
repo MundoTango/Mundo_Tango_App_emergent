@@ -1,0 +1,151 @@
+{
+  "title": "AI Agents",
+  "aiAssistants": "AI Assistants",
+  "lifeCeo": "Life CEO",
+  "description": "61 Specialized Agent System for Mundo Tango",
+  "layers": {
+    "orchestration": "Orchestration",
+    "social": "Social",
+    "events": "Events",
+    "community": "Community",
+    "content": "Content",
+    "analytics": "Analytics",
+    "security": "Security",
+    "support": "Support"
+  },
+  "agents": {
+    "orchestrator": {
+      "name": "Master Orchestrator",
+      "description": "Coordinates all system agents",
+      "greeting": "Hello, I'm your Master Orchestrator. How can I help you today?"
+    },
+    "events": {
+      "name": "Events Agent",
+      "description": "Manages events, milongas and festivals",
+      "greeting": "Hello! I can help you find or create tango events."
+    },
+    "social": {
+      "name": "Social Agent",
+      "description": "Manages connections and friendships",
+      "greeting": "Welcome! I'll help you connect with the tango community."
+    },
+    "community": {
+      "name": "Community Agent",
+      "description": "Manages groups and local communities",
+      "greeting": "Hello! I'm here to help you with tango communities."
+    },
+    "content": {
+      "name": "Content Agent",
+      "description": "Creates and moderates content",
+      "greeting": "Hello! I can help you create amazing tango content."
+    },
+    "memory": {
+      "name": "Memory Agent",
+      "description": "Preserves and organizes tango memories",
+      "greeting": "Hello! Let's capture your best tango moments."
+    },
+    "travel": {
+      "name": "Travel Agent",
+      "description": "Plans tango trips around the world",
+      "greeting": "Hello traveler! I'll help you plan your next tango adventure."
+    },
+    "teacher": {
+      "name": "Teacher Agent",
+      "description": "Manages classes and workshops",
+      "greeting": "Hello! I'm here to help you with tango teaching."
+    },
+    "student": {
+      "name": "Student Agent",
+      "description": "Guides tango learning",
+      "greeting": "Welcome! I'll help you on your tango learning journey."
+    },
+    "dj": {
+      "name": "DJ Agent",
+      "description": "Manages playlists and music",
+      "greeting": "Hello! Let's create the perfect tanda for your milonga."
+    },
+    "organizer": {
+      "name": "Organizer Agent",
+      "description": "Helps organize successful events",
+      "greeting": "Hello organizer! I'll help you create memorable events."
+    },
+    "analytics": {
+      "name": "Analytics Agent",
+      "description": "Provides insights and statistics",
+      "greeting": "Hello, I have interesting data to share with you."
+    },
+    "support": {
+      "name": "Support Agent",
+      "description": "Provides help and assistance",
+      "greeting": "Hello! I'm here to help with any questions."
+    },
+    "security": {
+      "name": "Security Agent",
+      "description": "Protects your privacy and data",
+      "greeting": "Your security is my priority. How can I protect you?"
+    }
+  },
+  "capabilities": {
+    "understand": "Understand",
+    "analyze": "Analyze",
+    "create": "Create",
+    "recommend": "Recommend",
+    "automate": "Automate",
+    "optimize": "Optimize",
+    "predict": "Predict",
+    "personalize": "Personalize",
+    "translate": "Translate",
+    "moderate": "Moderate"
+  },
+  "status": {
+    "active": "Active",
+    "busy": "Busy",
+    "thinking": "Thinking",
+    "processing": "Processing",
+    "waiting": "Waiting",
+    "error": "Error",
+    "offline": "Offline",
+    "learning": "Learning",
+    "updating": "Updating"
+  },
+  "actions": {
+    "start": "Start",
+    "stop": "Stop",
+    "pause": "Pause",
+    "resume": "Resume",
+    "reset": "Reset",
+    "configure": "Configure",
+    "train": "Train",
+    "test": "Test",
+    "deploy": "Deploy",
+    "monitor": "Monitor"
+  },
+  "responses": {
+    "working": "I'm working on that...",
+    "completed": "Task completed!",
+    "error": "Sorry, I encountered an error.",
+    "needMoreInfo": "I need more information to continue.",
+    "suggestion": "I have a suggestion for you.",
+    "found": "Here's what I found:",
+    "created": "I've created the following:",
+    "updated": "Update completed.",
+    "deleted": "Successfully deleted.",
+    "confirmed": "Confirmed.",
+    "thinking": "Let me think...",
+    "analyzing": "Analyzing the data...",
+    "searching": "Searching...",
+    "processing": "Processing your request..."
+  },
+  "metrics": {
+    "performance": "Performance",
+    "accuracy": "Accuracy",
+    "speed": "Speed",
+    "reliability": "Reliability",
+    "satisfaction": "Satisfaction",
+    "usage": "Usage",
+    "errors": "Errors",
+    "successRate": "Success Rate",
+    "responseTime": "Response Time",
+    "availability": "Availability"
+  }
+}
