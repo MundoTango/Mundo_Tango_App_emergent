@@ -151,6 +151,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   // ESA Layer 58: Cloudinary routes removed per user request
   
+  // ESA LIFE CEO 61x21 - Phase 21: Health and monitoring routes
+  import('./routes/healthRoutes').then(module => {
+    app.use(module.default);
+    console.log('✅ Phase 21: Health monitoring routes registered');
+  }).catch(err => {
+    console.error('Failed to load health routes:', err);
+  });
+  
   // Import Life CEO learnings routes
   import('./routes/lifeCeoLearnings').then(module => {
     app.use(module.default);
