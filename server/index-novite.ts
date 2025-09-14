@@ -227,13 +227,44 @@ const startServer = async () => {
     const io = setupSocketIO(httpServer);
     console.log('✅ Socket.io real-time features initialized on port 5000');
 
-    // IMPORTANT: Static file serving AFTER API routes to prevent HTML responses for API calls
-    app.use(express.static(clientPath));
-
-    // Fallback route for client-side routing
-    app.get('*', (req, res) => {
-      res.sendFile(pathModule.join(clientPath, 'index.html'));
-    });
+    // IMPORTANT: Serve frontend based on environment
+    if (process.env.NODE_ENV === 'development') {
+      // In development, serve the client HTML directly and let Vite handle the rest
+      const htmlPath = pathModule.join(process.cwd(), 'client', 'index.html');
+      
+      // Set up Vite integration for development
+      const { createServer: createViteServer } = await import('vite');
+      const vite = await createViteServer({
+        server: { 
+          middlewareMode: true,
+          hmr: { port: 5173 }
+        },
+        appType: 'spa'
+      });
+      
+      app.use(vite.middlewares);
+      
+      app.get('*', async (req, res, next) => {
+        try {
+          if (req.url.startsWith('/api')) {
+            return next();
+          }
+          
+          let html = await fs.promises.readFile(htmlPath, 'utf-8');
+          html = await vite.transformIndexHtml(req.url, html);
+          res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+        } catch (e) {
+          vite.ssrFixStacktrace(e as Error);
+          next(e);
+        }
+      });
+    } else {
+      // Production mode - serve built files
+      app.use(express.static(clientPath));
+      app.get('*', (req, res) => {
+        res.sendFile(pathModule.join(clientPath, 'index.html'));
+      });
+    }
 
     // Mount routes
     app.use(postsRoutes);
