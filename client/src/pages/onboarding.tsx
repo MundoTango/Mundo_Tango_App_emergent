@@ -17,7 +17,7 @@ import { LocationPicker } from "@/components/onboarding/LocationPicker";
 import GoogleMapsLocationPicker from "@/components/onboarding/GoogleMapsLocationPicker";
 import GroupedRoleSelector from "@/components/profile/GroupedRoleSelector";
 import SimpleRoleSelector from "@/components/debugging/SimpleRoleSelector";
-import ErrorBoundary from "@/components/debugging/ErrorBoundary";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { Heart, Sparkles, Globe, Users, Music, Calendar, ArrowLeft, CheckCircle, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";

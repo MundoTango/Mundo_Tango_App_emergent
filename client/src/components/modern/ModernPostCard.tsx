@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Share2, Bookmark, MoreHorizontal, Clock, Sparkles, Users } from 'lucide-react';
 import { format } from 'date-fns';
-import PostActionsMenu from './PostActionsMenu';
+import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
 import ShareModal from './ShareModal';
 
 interface ModernPostCardProps {

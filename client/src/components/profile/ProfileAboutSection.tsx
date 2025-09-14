@@ -17,7 +17,7 @@ import { ComprehensiveRoleSelector } from "@/components/profile/ComprehensiveRol
 import GoogleMapsLocationPicker from "@/components/onboarding/GoogleMapsLocationPicker";
 import RoleSelector from "@/components/onboarding/RoleSelector";
 import SimpleRoleSelector from "@/components/debugging/SimpleRoleSelector";
-import ErrorBoundary from "@/components/debugging/ErrorBoundary";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { 
   Edit2, 
   Save, 

@@ -1,4 +1,4 @@
-import { BeautifulPostCreator } from '@/components/universal/BeautifulPostCreator';
+import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 

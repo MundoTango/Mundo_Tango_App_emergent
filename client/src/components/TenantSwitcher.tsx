@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTenant } from '../contexts/TenantContext';
 import { useAuth } from '@/hooks/useAuth';
-import { defineAbilitiesFor } from '@/utils/abilities';
+import { defineAbilitiesFor } from '@/lib/casl/abilities';
 import { ChevronDown, Building2, Check, Settings, Globe, Users } from 'lucide-react';
 import {
   DropdownMenu,
@@ -58,8 +58,8 @@ const TenantSwitcher = () => {
   };
 
   // Check if user has permission to switch tenants
-  const abilities = defineAbilitiesFor(user);
-  if (!abilities.can('switch', 'Tenant')) {
+  const abilities = defineAbilitiesFor(user || null);
+  if (!abilities.can('manage', 'all')) {
     return null; // Don't show tenant switcher if user doesn't have permission
   }
 
@@ -208,7 +208,7 @@ const TenantSwitcher = () => {
         {/* Admin Options */}
         {currentTenant && userTenants.find(t => t.id === currentTenant.id)?.membership.is_admin && (
           <DropdownMenuItem
-            onClick={() => navigate({ to: `/communities/${currentTenant.slug}/settings` })}
+            onClick={() => setLocation(`/communities/${currentTenant.slug}/settings`)}
           >
             <Settings className="w-4 h-4 mr-2" />
             Community Settings

@@ -5,8 +5,20 @@ import eventsRoutes from './routes/eventsRoutes';
 import * as path from 'path';
 import * as fs from 'fs';
 import { setupVite, serveStatic, log } from "./vite";
-// ESA LIFE CEO 61x21 - LAYER 4 Authentication Agent Fix
+// ESA LIFE CEO 61x21 - Phase 2: Secure Authentication
 import { authMiddleware as legacyAuthMiddleware } from "./middleware/auth";
+import { 
+  authenticateUser,
+  requireAuth,
+  optionalAuth,
+  requireRole as requireRoleSecure,
+  requireAdmin as requireAdminSecure,
+  requireModerator,
+  requireOrganizer,
+  requireAbility,
+  checkPageAccess,
+  setupSecureAuth
+} from "./middleware/secureAuth";
 import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
@@ -18,8 +30,10 @@ import { SocketService } from "./services/socketService";
 import { WebSocketServer } from "ws";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 
-// LAYER 4 Fix: Use Replit auth as primary authentication middleware
-const authMiddleware = isAuthenticated;
+// Phase 2: Use secure auth middleware (with dev bypass support)
+const authMiddleware = process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true' 
+  ? isAuthenticated // Use legacy in dev with bypass
+  : requireAuth; // Use secure in production
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomBytes } from "crypto";
@@ -199,7 +213,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(sanitizeInput); // ESA LIFE CEO 61x21 - Security restored
   
   // Set up Replit Auth middleware
-  await setupAuth(app);
+  // ESA LIFE CEO 61x21 - Phase 2: Setup secure authentication
+  // Use legacy auth in dev with bypass, secure auth in production
+  if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
+    console.log('🔧 [DEV ONLY] Using legacy auth with bypass');
+    await setupAuth(app);
+  } else {
+    console.log('🔒 Using secure authentication middleware');
+    setupSecureAuth(app);
+  }
   
   // Apply CSRF protection after session is initialized
   app.use(csrfProtection); // ESA LIFE CEO 61x21 - Security restored

@@ -38,7 +38,7 @@ import { debounce, useMemoryCleanup, measureComponentPerformance } from '../lib/
 import '../styles/enhanced-memories.css';
 
 // Import only essential components directly
-import RoleEmojiDisplay from '../components/profile/RoleEmojiDisplay';
+import { RoleEmojiDisplay } from '../components/ui/RoleEmojiDisplay';
 import BeautifulPostCreator from '../components/universal/BeautifulPostCreator';
 import VideoMemoryCard from '../components/moments/VideoMemoryCard';
 
