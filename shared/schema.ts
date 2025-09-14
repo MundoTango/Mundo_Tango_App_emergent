@@ -89,6 +89,10 @@ export const users = pgTable("users", {
   codeOfConductAccepted: boolean("code_of_conduct_accepted").default(false),
   occupation: varchar("occupation", { length: 255 }), // Adding missing occupation field
   termsAccepted: boolean("terms_accepted").default(false), // Adding missing terms accepted field
+  // Security fields
+  twoFactorEnabled: boolean("two_factor_enabled").default(false),
+  lastLoginAt: timestamp("last_login_at"),
+  lastLoginIp: varchar("last_login_ip", { length: 45 }),
   // Stripe integration fields
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }).unique(),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
@@ -2336,3 +2340,209 @@ export type SubscriptionFeature = typeof subscriptionFeatures.$inferSelect;
 export type InsertSubscriptionFeature = z.infer<typeof insertSubscriptionFeatureSchema>;
 export type WebhookEvent = typeof webhookEvents.$inferSelect;
 export type InsertWebhookEvent = z.infer<typeof insertWebhookEventSchema>;
+
+// ============================================
+// ESA LIFE CEO 61x21 - Phase 13: Security Tables
+// ============================================
+
+// OAuth providers table
+export const oauthProviders = pgTable("oauth_providers", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  provider: varchar("provider", { length: 50 }).notNull(), // google, github, etc.
+  providerId: varchar("provider_id", { length: 255 }).notNull(),
+  accessToken: text("access_token").notNull(),
+  refreshToken: text("refresh_token"),
+  expiresAt: timestamp("expires_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  unique().on(table.provider, table.providerId),
+  index("idx_oauth_providers_user_id").on(table.userId),
+  index("idx_oauth_providers_provider").on(table.provider),
+]);
+
+// Two-factor authentication table
+export const twoFactorAuth = pgTable("two_factor_auth", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull().unique(),
+  secret: text("secret"),
+  tempSecret: text("temp_secret"),
+  enabled: boolean("enabled").default(false),
+  enabledAt: timestamp("enabled_at"),
+  lastUsedAt: timestamp("last_used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_two_factor_auth_user_id").on(table.userId),
+]);
+
+// Two-factor backup codes table
+export const twoFactorBackupCodes = pgTable("two_factor_backup_codes", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  code: text("code").notNull(),
+  used: boolean("used").default(false),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_two_factor_backup_codes_user_id").on(table.userId),
+  index("idx_two_factor_backup_codes_code").on(table.code),
+]);
+
+// API keys table
+export const apiKeys = pgTable("api_keys", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  key: varchar("key", { length: 255 }).unique().notNull(),
+  secret: text("secret").notNull(),
+  scopes: text("scopes").notNull(), // Comma-separated list
+  expiresAt: timestamp("expires_at"),
+  lastUsedAt: timestamp("last_used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_api_keys_user_id").on(table.userId),
+  index("idx_api_keys_key").on(table.key),
+]);
+
+// API key usage tracking
+export const apiKeyUsage = pgTable("api_key_usage", {
+  id: serial("id").primaryKey(),
+  apiKeyId: integer("api_key_id").references(() => apiKeys.id).notNull(),
+  action: varchar("action", { length: 100 }).notNull(),
+  metadata: jsonb("metadata"),
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_api_key_usage_api_key_id").on(table.apiKeyId),
+  index("idx_api_key_usage_timestamp").on(table.timestamp),
+]);
+
+// Audit logs table
+export const auditLogs = pgTable("audit_logs", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  eventType: varchar("event_type", { length: 100 }).notNull(),
+  level: varchar("level", { length: 20 }).notNull(), // info, warning, error, critical, security
+  message: text("message").notNull(),
+  metadata: jsonb("metadata"),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  requestId: varchar("request_id", { length: 100 }),
+  sessionId: varchar("session_id", { length: 255 }),
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_audit_logs_user_id").on(table.userId),
+  index("idx_audit_logs_event_type").on(table.eventType),
+  index("idx_audit_logs_level").on(table.level),
+  index("idx_audit_logs_timestamp").on(table.timestamp),
+  index("idx_audit_logs_ip_address").on(table.ipAddress),
+]);
+
+// Security events table
+export const securityEvents = pgTable("security_events", {
+  id: serial("id").primaryKey(),
+  eventType: varchar("event_type", { length: 100 }).notNull(),
+  severity: varchar("severity", { length: 20 }).notNull(), // low, medium, high, critical
+  description: text("description").notNull(),
+  source: varchar("source", { length: 255 }).notNull(),
+  userId: integer("user_id").references(() => users.id),
+  metadata: jsonb("metadata"),
+  resolved: boolean("resolved").default(false),
+  resolvedAt: timestamp("resolved_at"),
+  resolvedBy: integer("resolved_by").references(() => users.id),
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_security_events_event_type").on(table.eventType),
+  index("idx_security_events_severity").on(table.severity),
+  index("idx_security_events_resolved").on(table.resolved),
+  index("idx_security_events_timestamp").on(table.timestamp),
+]);
+
+// Suspicious activities table
+export const suspiciousActivities = pgTable("suspicious_activities", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  activityType: varchar("activity_type", { length: 100 }).notNull(),
+  description: text("description").notNull(),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  metadata: jsonb("metadata"),
+  severity: varchar("severity", { length: 20 }).notNull(),
+  investigated: boolean("investigated").default(false),
+  investigatedAt: timestamp("investigated_at"),
+  investigatedBy: integer("investigated_by").references(() => users.id),
+  notes: text("notes"),
+  timestamp: timestamp("timestamp").defaultNow(),
+}, (table) => [
+  index("idx_suspicious_activities_user_id").on(table.userId),
+  index("idx_suspicious_activities_activity_type").on(table.activityType),
+  index("idx_suspicious_activities_severity").on(table.severity),
+  index("idx_suspicious_activities_timestamp").on(table.timestamp),
+]);
+
+// Update users table to include 2FA field (if not already present)
+// Note: This would be done via migration in production
+
+// Insert schemas for security tables
+export const insertOAuthProviderSchema = createInsertSchema(oauthProviders).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTwoFactorAuthSchema = createInsertSchema(twoFactorAuth).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTwoFactorBackupCodeSchema = createInsertSchema(twoFactorBackupCodes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAPIKeySchema = createInsertSchema(apiKeys).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAPIKeyUsageSchema = createInsertSchema(apiKeyUsage).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertSecurityEventSchema = createInsertSchema(securityEvents).omit({
+  id: true,
+  timestamp: true,
+});
+
+export const insertSuspiciousActivitySchema = createInsertSchema(suspiciousActivities).omit({
+  id: true,
+  timestamp: true,
+});
+
+// Types for security tables
+export type OAuthProvider = typeof oauthProviders.$inferSelect;
+export type InsertOAuthProvider = z.infer<typeof insertOAuthProviderSchema>;
+export type TwoFactorAuth = typeof twoFactorAuth.$inferSelect;
+export type InsertTwoFactorAuth = z.infer<typeof insertTwoFactorAuthSchema>;
+export type TwoFactorBackupCode = typeof twoFactorBackupCodes.$inferSelect;
+export type InsertTwoFactorBackupCode = z.infer<typeof insertTwoFactorBackupCodeSchema>;
+export type APIKey = typeof apiKeys.$inferSelect;
+export type InsertAPIKey = z.infer<typeof insertAPIKeySchema>;
+export type APIKeyUsage = typeof apiKeyUsage.$inferSelect;
+export type InsertAPIKeyUsage = z.infer<typeof insertAPIKeyUsageSchema>;
+export type AuditLog = typeof auditLogs.$inferSelect;
+export type InsertAuditLog = z.infer<typeof insertAuditLogSchema>;
+export type SecurityEvent = typeof securityEvents.$inferSelect;
+export type InsertSecurityEvent = z.infer<typeof insertSecurityEventSchema>;
+export type SuspiciousActivity = typeof suspiciousActivities.$inferSelect;
+export type InsertSuspiciousActivity = z.infer<typeof insertSuspiciousActivitySchema>;
