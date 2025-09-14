@@ -15,8 +15,15 @@ import { z } from 'zod';
 
 const router = Router();
 
-// Initialize agents on server start
-AgentManager.initializeAgents();
+// Initialize agents on server start (ESA LIFE CEO 61x21)
+(async () => {
+  try {
+    await AgentManager.initializeAgents();
+    console.log('✅ AI agents initialization started');
+  } catch (error) {
+    console.error('⚠️ AI agents initialization failed but server continues:', error);
+  }
+})();
 
 // Chat with Life CEO Agent
 router.post('/chat', async (req, res) => {
