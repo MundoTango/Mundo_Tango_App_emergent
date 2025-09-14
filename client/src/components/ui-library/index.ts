@@ -70,6 +70,59 @@ export type { MTPopoverProps } from './modals/MTPopover';
 export { default as MTBadge } from './badges/MTBadge';
 export type { MTBadgeProps } from './badges/MTBadge';
 
+// Tables - Phase 10 Complete Component Suite
+export { default as MTTable } from './tables/MTTable';
+export type { MTTableProps, MTTableColumn } from './tables/MTTable';
+
+export { default as MTDataTable } from './tables/MTDataTable';
+export type { MTDataTableProps } from './tables/MTDataTable';
+
+export { default as MTTableHeader } from './tables/MTTableHeader';
+export type { MTTableHeaderProps } from './tables/MTTableHeader';
+
+export { default as MTTableRow } from './tables/MTTableRow';
+export type { MTTableRowProps } from './tables/MTTableRow';
+
+export { default as MTTableCell } from './tables/MTTableCell';
+export type { MTTableCellProps } from './tables/MTTableCell';
+
+export { default as MTTablePagination } from './tables/MTTablePagination';
+export type { MTTablePaginationProps } from './tables/MTTablePagination';
+
+export { default as MTTableFilter } from './tables/MTTableFilter';
+export type { MTTableFilterProps } from './tables/MTTableFilter';
+
+export { default as MTTableActions } from './tables/MTTableActions';
+export type { MTTableActionsProps } from './tables/MTTableActions';
+
+// Lists - Phase 10 Complete Component Suite
+export { default as MTList } from './lists/MTList';
+export type { MTListProps, MTListItem } from './lists/MTList';
+
+export { default as MTListItem } from './lists/MTListItem';
+export type { MTListItemProps } from './lists/MTListItem';
+
+export { default as MTVirtualList, VirtualListItem, useDynamicHeights } from './lists/MTVirtualList';
+export type { MTVirtualListProps } from './lists/MTVirtualList';
+
+export { default as MTInfiniteList, useInfiniteListState } from './lists/MTInfiniteList';
+export type { MTInfiniteListProps } from './lists/MTInfiniteList';
+
+export { default as MTGridList } from './lists/MTGridList';
+export type { MTGridListProps, MTGridListItem } from './lists/MTGridList';
+
+export { default as MTTimelineList } from './lists/MTTimelineList';
+export type { MTTimelineListProps, MTTimelineItem } from './lists/MTTimelineList';
+
+export { default as MTAccordionList, MTAccordionGroup } from './lists/MTAccordionList';
+export type { MTAccordionListProps, MTAccordionItem, MTAccordionGroupProps } from './lists/MTAccordionList';
+
+export { default as MTKanbanBoard } from './lists/MTKanbanBoard';
+export type { MTKanbanBoardProps, MTKanbanCard, MTKanbanColumn } from './lists/MTKanbanBoard';
+
+// Table & List Utilities
+export * from '@/lib/table-utils';
+
 // Modal Management System
 export { 
   useModalStore, 
