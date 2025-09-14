@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Share2, Bookmark, MoreHorizontal, Clock, Sparkles, Users } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Bookmark, Clock, Sparkles, Users } from 'lucide-react';
 import { format } from 'date-fns';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
 import ShareModal from './ShareModal';
+import { MTCard, MTBadge, MTButton } from '@/components/ui-library';
 
 interface ModernPostCardProps {
   post: {
@@ -67,16 +68,20 @@ export default function ModernPostCard({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl hover:shadow-coral-500/10 
-                    transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]
-                    border-2 border-blue-100/50 overflow-hidden group relative">
+    <MTCard 
+      variant="glass"
+      hover={true}
+      glow={true}
+      rounded="3xl"
+      padding="none"
+      className="overflow-hidden group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50"
+    >
       
       {/* Floating engagement indicator */}
-      <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <div className="bg-gradient-to-r from-coral-400 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-          <Sparkles className="w-3 h-3" />
+      <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+        <MTBadge variant="gradient" size="sm" icon={<Sparkles className="w-3 h-3" />} glow={true}>
           Hot
-        </div>
+        </MTBadge>
       </div>
 
       {/* Header */}
@@ -87,27 +92,26 @@ export default function ModernPostCard({
               <img
                 src={post.user.profileImage || '/api/placeholder/48/48'}
                 alt={post.user.name}
-                className="w-14 h-14 rounded-2xl object-cover border-3 border-gradient-to-br from-coral-200 to-pink-200 shadow-lg
+                className="w-14 h-14 rounded-2xl object-cover border-2 border-teal-300 dark:border-teal-600 shadow-lg
                          group-hover/avatar:scale-110 transition-transform duration-300"
               />
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-green-400 to-emerald-500 
-                            rounded-full border-3 border-white shadow-lg animate-pulse"></div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-teal-400 to-blue-600 
+                            rounded-full border-2 border-white shadow-lg animate-pulse"></div>
             </div>
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="font-bold text-blue-900 hover:text-teal-600 cursor-pointer transition-colors text-lg">
+                <h3 className="font-bold bg-gradient-to-r from-teal-600 to-blue-800 dark:from-teal-400 dark:to-blue-600 bg-clip-text text-transparent hover:from-teal-500 hover:to-blue-700 cursor-pointer transition-all text-lg">
                   {post.user.name}
                 </h3>
-                <span className="text-blue-500 font-semibold">@{post.user.username}</span>
+                <span className="text-teal-600 dark:text-teal-400 font-semibold">@{post.user.username}</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-blue-600/70">
+              <div className="flex items-center space-x-2 text-sm text-teal-600/70 dark:text-teal-400/70">
                 <Clock className="w-4 h-4" />
                 <span className="font-medium">{formatDate(post.createdAt)}</span>
                 <span>•</span>
-                <div className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  <span>Public</span>
-                </div>
+                <MTBadge variant="glass" size="sm" icon={<Users className="w-3 h-3" />}>
+                  Public
+                </MTBadge>
               </div>
             </div>
           </div>
@@ -116,22 +120,26 @@ export default function ModernPostCard({
             {isOwner && (
               <>
                 {onEdit && (
-                  <button
+                  <MTButton
                     onClick={onEdit}
-                    className="px-3 py-1.5 text-sm font-medium text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
+                    variant="ghost"
+                    size="sm"
+                    className="text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20"
                     data-testid={`button-edit-post-${post.id}`}
                   >
                     Edit
-                  </button>
+                  </MTButton>
                 )}
                 {onDelete && (
-                  <button
+                  <MTButton
                     onClick={onDelete}
-                    className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    variant="ghost"
+                    size="sm"
+                    className="text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                     data-testid={`button-delete-post-${post.id}`}
                   >
                     Delete
-                  </button>
+                  </MTButton>
                 )}
               </>
             )}
@@ -151,13 +159,13 @@ export default function ModernPostCard({
 
       {/* Content */}
       <div className="px-8 pb-6">
-        <p className="text-blue-900 leading-relaxed text-lg font-medium">{post.content}</p>
+        <p className="text-gray-800 dark:text-gray-200 leading-relaxed text-lg font-medium">{post.content}</p>
       </div>
 
       {/* Media */}
       {post.imageUrl && (
         <div className="px-8 pb-6">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-teal-50 shadow-xl">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20 shadow-xl">
             <img
               src={post.imageUrl}
               alt="Memory"
@@ -177,69 +185,62 @@ export default function ModernPostCard({
       )}
 
       {/* Actions */}
-      <div className="px-8 py-6 border-t-2 border-blue-50/50 bg-gradient-to-r from-blue-50/20 to-teal-50/20">
+      <div className="px-8 py-6 border-t-2 border-teal-100/50 dark:border-teal-800/50 bg-gradient-to-r from-teal-50/20 to-blue-50/20 dark:from-teal-900/10 dark:to-blue-900/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <button
+            <MTButton
               onClick={handleLike}
-              className={`flex items-center space-x-3 px-5 py-3 rounded-2xl font-bold text-lg transition-all duration-300 
-                        transform hover:scale-105 shadow-lg hover:shadow-xl ${
-                isLiked
-                  ? 'text-pink-600 bg-gradient-to-r from-pink-50 to-rose-50 border-2 border-pink-200'
-                  : 'text-blue-600 hover:text-pink-600 bg-white hover:bg-gradient-to-r hover:from-pink-50 hover:to-rose-50 border-2 border-blue-200 hover:border-pink-200'
-              }`}
+              variant={isLiked ? "gradient" : "glass"}
+              size="md"
+              icon={<Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />}
+              className={`font-bold ${isLiked ? 'text-white' : ''}`}
             >
-              <Heart className={`w-6 h-6 ${isLiked ? 'fill-current animate-pulse' : ''}`} />
-              <span>{post.likesCount}</span>
-            </button>
+              {post.likesCount}
+            </MTButton>
             
-            <button
+            <MTButton
               onClick={() => onComment?.(post.id)}
-              className="flex items-center space-x-3 px-5 py-3 rounded-2xl text-blue-600 
-                       hover:text-teal-600 bg-white hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 
-                       font-bold text-lg transition-all duration-300 transform hover:scale-105 
-                       shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-teal-200"
+              variant="glass"
+              size="md"
+              icon={<MessageCircle className="w-5 h-5" />}
+              className="font-bold"
             >
-              <MessageCircle className="w-6 h-6" />
-              <span>{post.commentsCount}</span>
-            </button>
+              {post.commentsCount}
+            </MTButton>
             
-            <button
+            <MTButton
               onClick={() => setShowShareModal(true)}
-              className="flex items-center space-x-3 px-5 py-3 rounded-2xl text-blue-600 
-                       hover:text-coral-600 bg-white hover:bg-gradient-to-r hover:from-coral-50 hover:to-orange-50 
-                       font-bold text-lg transition-all duration-300 transform hover:scale-105 
-                       shadow-lg hover:shadow-xl border-2 border-blue-200 hover:border-coral-200"
+              variant="glass"
+              size="md"
+              icon={<Share2 className="w-5 h-5" />}
+              className="font-bold"
             >
-              <Share2 className="w-6 h-6" />
-              <span>{post.sharesCount}</span>
-            </button>
+              {post.sharesCount}
+            </MTButton>
           </div>
           
-          <button
+          <MTButton
             onClick={handleBookmark}
-            className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl ${
-              isBookmarked
-                ? 'text-coral-600 bg-gradient-to-r from-coral-50 to-orange-50 border-2 border-coral-200'
-                : 'text-blue-500 hover:text-coral-600 bg-white hover:bg-gradient-to-r hover:from-coral-50 hover:to-orange-50 border-2 border-blue-200 hover:border-coral-200'
-            }`}
+            variant={isBookmarked ? "gradient" : "glass"}
+            size="sm"
+            className="p-3"
           >
-            <Bookmark className={`w-6 h-6 ${isBookmarked ? 'fill-current' : ''}`} />
-          </button>
+            <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current text-white' : 'text-teal-600'}`} />
+          </MTButton>
         </div>
 
         {/* Engagement stats */}
-        <div className="mt-4 pt-4 border-t border-blue-100/50">
-          <div className="flex items-center justify-between text-sm text-blue-600/70">
-            <span className="font-medium">
+        <div className="mt-4 pt-4 border-t border-teal-100/50 dark:border-teal-800/50">
+          <div className="flex items-center justify-between text-sm">
+            <MTBadge variant="gradient" size="sm">
               {post.likesCount + post.commentsCount + post.sharesCount} total engagements
-            </span>
-            <button className="text-teal-600 hover:text-teal-700 font-semibold hover:underline transition-colors">
+            </MTBadge>
+            <button className="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-semibold hover:underline transition-colors">
               See Friendship
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </MTCard>
   );
 }
