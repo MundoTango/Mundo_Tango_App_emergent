@@ -420,6 +420,57 @@ export const eventRsvps = pgTable("event_rsvps", {
   index("idx_event_rsvps_user_id").on(table.userId),
 ]);
 
+// Event Attendees table (alias for eventRsvps for test compatibility)
+export const eventAttendees = pgTable("event_attendees", {
+  id: serial("id").primaryKey(),
+  eventId: integer("event_id").references(() => events.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  status: varchar("status", { length: 20 }).notNull().default('attending'), // attending, waitlisted, cancelled, declined
+  role: varchar("role", { length: 50 }), // Optional: attendee, speaker, organizer, volunteer
+  checkedIn: boolean("checked_in").default(false),
+  checkedInAt: timestamp("checked_in_at"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  unique().on(table.eventId, table.userId),
+  index("idx_event_attendees_event_id").on(table.eventId),
+  index("idx_event_attendees_user_id").on(table.userId),
+  index("idx_event_attendees_status").on(table.status),
+]);
+
+// Media table for storing uploaded files and media
+export const media = pgTable("media", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  postId: integer("post_id").references(() => posts.id),
+  eventId: integer("event_id").references(() => events.id),
+  memoryId: integer("memory_id"), // Legacy reference
+  url: text("url").notNull(),
+  thumbnailUrl: text("thumbnail_url"),
+  type: varchar("type", { length: 50 }).notNull(), // image, video, audio, document
+  mimeType: varchar("mime_type", { length: 100 }),
+  size: integer("size"), // Size in bytes
+  width: integer("width"), // For images/videos
+  height: integer("height"), // For images/videos
+  duration: integer("duration"), // For videos/audio in seconds
+  cloudinaryPublicId: text("cloudinary_public_id"),
+  blurhash: text("blurhash"), // For image placeholders
+  metadata: jsonb("metadata").default({}),
+  caption: text("caption"),
+  altText: text("alt_text"),
+  isPublic: boolean("is_public").default(true),
+  views: integer("views").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_media_user_id").on(table.userId),
+  index("idx_media_post_id").on(table.postId),
+  index("idx_media_event_id").on(table.eventId),
+  index("idx_media_type").on(table.type),
+  index("idx_media_created_at").on(table.createdAt),
+]);
+
 // Event Invitations table
 export const eventInvitations = pgTable("event_invitations", {
   id: serial("id").primaryKey(),
