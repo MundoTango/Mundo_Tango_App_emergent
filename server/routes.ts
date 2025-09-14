@@ -70,6 +70,7 @@ import commentsRoutes from "./routes/commentsRoutes"; // ESA LIFE CEO 61x21 - Co
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
+import paymentRoutes from "./routes/paymentRoutes"; // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -147,6 +148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
+  app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   // ESA Layer 58: Cloudinary routes removed per user request
   
   // Import Life CEO learnings routes
