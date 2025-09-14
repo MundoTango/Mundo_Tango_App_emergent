@@ -1,6 +1,7 @@
 // ESA LIFE CEO 56x21 - Agent Manager (Layer 35: Agent Framework Core)
 import { db } from '../db';
-import { agents, semanticMemories, decisions, intents, contexts } from '@shared/ai-schema';
+import { agents } from '@shared/schema'; // Use the correct agents table with 'type' field
+import { semanticMemories, decisions, intents, contexts } from '@shared/ai-schema';
 import { eq, and, desc } from 'drizzle-orm';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
@@ -229,40 +230,58 @@ export class AgentManager {
   // Initialize all agents in the database
   static async initializeAgents() {
     try {
+      console.log('🔄 Initializing Life CEO Agents...');
+      
       for (const agent of Object.values(LIFE_CEO_AGENTS)) {
+        // Ensure all required fields are present
+        const agentData = {
+          id: agent.id,
+          name: agent.name,
+          type: 'specialist' as const, // ESA LIFE CEO 61x21 - All Life CEO agents are specialists
+          category: agent.category || 'general',
+          description: agent.description || '',
+          status: 'active' as const,
+          configuration: {
+            model: 'gpt-4o',
+            temperature: 0.7,
+            maxTokens: 2000
+          },
+          capabilities: agent.capabilities || [],
+          personality: agent.personality || {},
+          systemPrompt: agent.systemPrompt || '',
+          version: '1.0.0',
+          layer: 35, // ESA Layer 35: Agent Framework Core
+          metrics: {},
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+        
+        console.log(`📌 Initializing agent: ${agent.id} with type: ${agentData.type}`);
+        
         await db.insert(agents)
-          .values({
-            id: agent.id,
-            name: agent.name,
-            category: agent.category,
-            description: agent.description,
-            capabilities: agent.capabilities,
-            personality: agent.personality,
-            systemPrompt: agent.systemPrompt,
-            configuration: {
-              model: 'gpt-4o',
-              temperature: 0.7,
-              maxTokens: 2000
-            },
-            status: 'active',
-            version: '1.0.0'
-          })
+          .values(agentData)
           .onConflictDoUpdate({
             target: agents.id,
             set: {
-              name: agent.name,
-              category: agent.category,
-              description: agent.description,
-              capabilities: agent.capabilities,
-              personality: agent.personality,
-              systemPrompt: agent.systemPrompt,
+              name: agentData.name,
+              type: agentData.type,
+              category: agentData.category,
+              description: agentData.description,
+              capabilities: agentData.capabilities,
+              personality: agentData.personality,
+              systemPrompt: agentData.systemPrompt,
+              layer: agentData.layer,
+              status: agentData.status,
+              version: agentData.version,
               updatedAt: new Date()
             }
           });
       }
-      console.log('✅ Life CEO Agents initialized');
+      console.log('✅ Life CEO Agents initialized successfully');
+      return true;
     } catch (error) {
-      console.error('Failed to initialize agents:', error);
+      console.error('❌ Failed to initialize agents:', error);
+      throw error; // Re-throw to handle at caller level
     }
   }
 
