@@ -40,7 +40,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
   const [showFilters, setShowFilters] = useState(false);
   
   // Role-based check for super admin
-  const isSuperAdmin = user?.roles?.includes('super_admin') || user?.isSuperAdmin;
+  const isSuperAdmin = user?.roles?.includes('super_admin');
   
   // Map layer toggles
   const [mapLayers, setMapLayers] = useState({
@@ -285,7 +285,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
             <CommunityMapWithLayers
               city={city}
               groupSlug={groupSlug}
-              layers={mapLayers}
+              mapLayers={mapLayers}
               dateFilter={dateFilter}
               eventFilters={eventFilters}
               friendFilter={friendFilter}

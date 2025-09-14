@@ -122,4 +122,5 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
 
 MTBadge.displayName = 'MTBadge';
 
+export { MTBadge };
 export default MTBadge;

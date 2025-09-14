@@ -60,7 +60,7 @@ const TenantSwitcher = () => {
   };
 
   // Check if user has permission to switch tenants
-  const abilities = defineAbilitiesFor(user || null);
+  const abilities = defineAbilitiesFor(user ? { ...user, roles: user.roles || [] } : null);
   if (!abilities.can('manage', 'all')) {
     return null; // Don't show tenant switcher if user doesn't have permission
   }

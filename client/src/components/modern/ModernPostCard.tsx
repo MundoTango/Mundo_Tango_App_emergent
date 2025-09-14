@@ -109,7 +109,7 @@ export default function ModernPostCard({
                 <Clock className="w-4 h-4" />
                 <span className="font-medium">{formatDate(post.createdAt)}</span>
                 <span>•</span>
-                <MTBadge variant="glass" size="sm" icon={<Users className="w-3 h-3" />}>
+                <MTBadge variant="default" size="sm" icon={<Users className="w-3 h-3" />}>
                   Public
                 </MTBadge>
               </div>
@@ -143,7 +143,7 @@ export default function ModernPostCard({
                 )}
               </>
             )}
-            <PostActionsMenu postId={post.id} />
+            <PostActionsMenu post={post} />
           </div>
         </div>
       </div>
