@@ -121,6 +121,10 @@ const SubscriptionAnalytics = lazy(() => import("./pages/SubscriptionAnalytics")
 
 // ========== Admin & Analytics Pages (11) ==========
 const AdminCenter = lazy(() => import("@/pages/AdminCenter"));
+const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
+const AdminUsers = lazy(() => import("@/pages/admin/users"));
+const AdminModeration = lazy(() => import("@/pages/admin/moderation"));
+const AdminAnalytics = lazy(() => import("@/pages/admin/analytics"));
 const PromoCodesAdmin = lazy(() => import("./pages/PromoCodesAdmin"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const AgentFrameworkDashboard = lazy(() => import("@/pages/AgentFrameworkDashboard"));
@@ -495,7 +499,31 @@ function Router() {
 
           {/* ========== Admin & Analytics Routes (11) ========== */}
           <Route path="/admin">
-            <Suspense fallback={<LoadingFallback message="Loading admin..." />}>
+            <Suspense fallback={<LoadingFallback message="Loading admin dashboard..." />}>
+              <AdminDashboard />
+            </Suspense>
+          </Route>
+          
+          <Route path="/admin/users">
+            <Suspense fallback={<LoadingFallback message="Loading user management..." />}>
+              <AdminUsers />
+            </Suspense>
+          </Route>
+          
+          <Route path="/admin/moderation">
+            <Suspense fallback={<LoadingFallback message="Loading moderation queue..." />}>
+              <AdminModeration />
+            </Suspense>
+          </Route>
+          
+          <Route path="/admin/analytics">
+            <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
+              <AdminAnalytics />
+            </Suspense>
+          </Route>
+          
+          <Route path="/admin-legacy">
+            <Suspense fallback={<LoadingFallback message="Loading admin center..." />}>
               <AdminCenter />
             </Suspense>
           </Route>

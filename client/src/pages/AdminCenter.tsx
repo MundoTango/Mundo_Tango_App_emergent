@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { useDebounce, LazyLoad, withPerformance } from '@/lib/performance';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { queryClient } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { toast } from 'react-hot-toast';
+import { useToast } from '@/hooks/use-toast';
 import TrangoTechSidebar from '@/components/TrangoTechSidebar';
 import ProjectTrackerDashboard from '@/components/admin/ProjectTrackerDashboard';
 import EnhancedHierarchicalTreeView from '@/components/admin/EnhancedHierarchicalTreeView';
@@ -65,6 +67,7 @@ import { Layers, CreditCard } from 'lucide-react';
 import SubscriptionManagement from '@/components/admin/SubscriptionManagement';
 import { TestSpriteIntegration } from '@/components/admin/TestSpriteIntegration';
 
+// ESA LIFE CEO 61x21 - Phase 19: Admin Dashboard Types
 interface AdminStats {
   // User Management
   totalUsers: number;
@@ -73,6 +76,8 @@ interface AdminStats {
   completedOnboarding: number;
   suspendedUsers: number;
   pendingApproval: number;
+  newUsersToday: number;
+  newUsersThisWeek: number;
   
   // Content & Engagement
   totalPosts: number;
@@ -83,6 +88,7 @@ interface AdminStats {
   pendingReports: number;
   autoModerated: number;
   appeals: number;
+  contentRemoved: number;
   
   // Events
   totalEvents: number;
@@ -90,17 +96,30 @@ interface AdminStats {
   totalRsvps: number;
   eventCategories: Record<string, number>;
   featuredEvents: number;
+  upcomingEvents: number;
   
   // Community
   totalGroups: number;
   totalGroupMembers: number;
   totalFollows: number;
+  activeGroups: number;
   
   // Analytics
   dailyActiveUsers: number;
+  weeklyActiveUsers: number;
+  monthlyActiveUsers: number;
   pageViews: number;
   engagementRate: number;
   topLocations: Array<{ location: string; userCount: number }>;
+  userGrowthRate: number;
+  
+  // Revenue & Subscriptions
+  totalRevenue: number;
+  monthlyRecurringRevenue: number;
+  annualRecurringRevenue: number;
+  subscriptionsByTier: Record<string, number>;
+  churnRate: number;
+  averageRevenuePerUser: number;
   
   // System Health & Performance
   systemHealth: number;
@@ -112,6 +131,7 @@ interface AdminStats {
   securityEvents: number;
   apiRequests: number;
   warnings: number;
+  agentPerformance: Record<string, number>;
 }
 
 interface ComplianceMetrics {
