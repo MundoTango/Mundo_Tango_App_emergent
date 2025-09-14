@@ -28,14 +28,17 @@ export const sessions = pgTable("sessions", {
 
 // Agents table for AI agent system (ESA LIFE CEO 61×21)
 export const agents = pgTable("agents", {
-  id: serial("id").primaryKey(),
+  id: varchar("id", { length: 100 }).primaryKey(), // Changed to varchar to match agent-manager IDs
   name: varchar("name", { length: 255 }).notNull(),
   type: varchar("type", { length: 100 }).notNull(), // orchestrator, specialist, validator, monitor
   category: varchar("category", { length: 100 }), // Agent category for organization
   description: text("description"), // Agent description
   status: varchar("status", { length: 50 }).default('active'), // active, inactive, busy, error
   configuration: jsonb("configuration").default({}).notNull(),
-  capabilities: text("capabilities").array(),
+  capabilities: jsonb("capabilities").default([]), // Changed to jsonb for compatibility
+  personality: jsonb("personality"), // Agent personality configuration (tone, style, approach)
+  systemPrompt: text("system_prompt"), // System prompt for the agent
+  version: varchar("version", { length: 50 }).default('1.0.0'), // Agent version
   layer: integer("layer"), // ESA Framework layer assignment
   lastActive: timestamp("last_active"),
   metrics: jsonb("metrics").default({}), // Performance metrics
@@ -208,9 +211,9 @@ export type Session = typeof sessions.$inferSelect;
 
 // Export TypeScript types for Agents (ESA LIFE CEO 61x21 AI System)
 export const insertAgentSchema = createInsertSchema(agents).omit({
-  id: true,
   createdAt: true,
   updatedAt: true,
+  lastActive: true,
 });
 export type InsertAgent = z.infer<typeof insertAgentSchema>;
 export type Agent = typeof agents.$inferSelect;
@@ -229,6 +232,7 @@ export const insertProjectActivitySchema = createInsertSchema(projectActivity).o
 });
 export type InsertProjectActivity = z.infer<typeof insertProjectActivitySchema>;
 export type ProjectActivity = typeof projectActivity.$inferSelect;
+
 
 // User Profiles table for role-based authentication (enhanced)
 export const userProfiles = pgTable("user_profiles", {
@@ -345,9 +349,12 @@ export const attachments = pgTable("attachments", {
 export const events = pgTable("events", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id).notNull(),
+  organizerId: integer("organizer_id").references(() => users.id), // Added for eventsRoutes compatibility
+  groupId: uuid("group_id"), // Added for group association
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
   imageUrl: text("image_url"),
+  visibility: varchar("visibility", { length: 20 }).default("public"), // Added for visibility control
   eventType: varchar("event_type", { length: 50 }).default("milonga"), // practica, milonga, marathon, encuentro, festival, competition, workshop, clase, social
   startDate: timestamp("start_date").notNull(),
   endDate: timestamp("end_date"),
@@ -424,6 +431,21 @@ export const eventInvitations = pgTable("event_invitations", {
   sentAt: timestamp("sent_at").defaultNow(),
   respondedAt: timestamp("responded_at"),
 });
+
+// Recurring Events table for event patterns (ESA LIFE CEO 61x21)
+export const recurringEvents = pgTable("recurring_events", {
+  id: serial("id").primaryKey(),
+  parentEventId: integer("parent_event_id").references(() => events.id).notNull(),
+  pattern: jsonb("pattern").notNull(), // frequency, interval, dayOfWeek, endDate
+  nextOccurrence: timestamp("next_occurrence"),
+  lastGenerated: timestamp("last_generated"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_recurring_events_parent").on(table.parentEventId),
+  index("idx_recurring_events_active").on(table.isActive),
+]);
 
 // Event Page Admins table for RBAC/ABAC controls and delegation
 export const eventPageAdmins = pgTable("event_page_admins", {
@@ -1557,6 +1579,8 @@ export type InsertEventParticipant = z.infer<typeof insertEventParticipantSchema
 // Additional event-related types
 export type EventInvitation = typeof eventInvitations.$inferSelect;
 export type InsertEventInvitation = typeof eventInvitations.$inferInsert;
+export type RecurringEvent = typeof recurringEvents.$inferSelect;
+export type InsertRecurringEvent = typeof recurringEvents.$inferInsert;
 export type UserFollowedCity = typeof userFollowedCities.$inferSelect;
 export type InsertUserFollowedCity = typeof userFollowedCities.$inferInsert;
 export type EventSeries = typeof eventSeries.$inferSelect;
