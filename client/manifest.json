@@ -1,30 +1,180 @@
 {
-  "name": "Life CEO Assistant",
-  "short_name": "Life CEO",
-  "description": "AI-powered life management assistant with voice capabilities",
-  "start_url": "/life-ceo",
+  "name": "ESA LIFE CEO - Mundo Tango",
+  "short_name": "Mundo Tango",
+  "description": "The global tango community platform with Life CEO AI assistant, events, housing, and social features",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "theme_color": "#7c3aed",
-  "background_color": "#f3f4f6",
+  "orientation": "portrait-primary",
+  "theme_color": "#5EEAD4",
+  "background_color": "#155E75",
   "icons": [
+    {
+      "src": "/icons/icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
     {
       "src": "/life-ceo-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/life-ceo-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
-  "categories": ["productivity", "lifestyle"],
+  "categories": ["social", "lifestyle", "entertainment"],
   "prefer_related_applications": false,
   "related_applications": [],
   "scope": "/",
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Events",
+      "short_name": "Events",
+      "description": "Browse tango events",
+      "url": "/events",
+      "icons": [{
+        "src": "/icons/icon-96x96.png",
+        "sizes": "96x96"
+      }]
+    },
+    {
+      "name": "Community",
+      "short_name": "Community",
+      "description": "Tango community map",
+      "url": "/community",
+      "icons": [{
+        "src": "/icons/icon-96x96.png",
+        "sizes": "96x96"
+      }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Messages",
+      "description": "Chat with dancers",
+      "url": "/messages",
+      "icons": [{
+        "src": "/icons/icon-96x96.png",
+        "sizes": "96x96"
+      }]
+    },
+    {
+      "name": "Life CEO",
+      "short_name": "Life CEO",
+      "description": "AI Assistant",
+      "url": "/life-ceo",
+      "icons": [{
+        "src": "/icons/icon-96x96.png",
+        "sizes": "96x96"
+      }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/mobile-events.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/mobile-community.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [{
+        "name": "media[]",
+        "accept": ["image/*", "video/*"]
+      }]
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+tango",
+      "url": "/?action=%s"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "handle_links": "preferred",
+  "iarc_rating_id": "e84b072d-71b3-4d9e-866f-31992d430d2f"
 }
