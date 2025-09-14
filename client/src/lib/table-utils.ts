@@ -194,18 +194,16 @@ export function exportToCSV<T extends Record<string, any>>(
 
   // Create CSV header
   const headers = columns
-    .filter(col => !col.hidden)
     .map(col => `"${col.header}"`);
   
   // Create CSV rows
   const rows = data.map(item => {
     return columns
-      .filter(col => !col.hidden)
       .map(col => {
         let value = col.accessor ? getNestedValue(item, col.accessor as string) : '';
         
-        if (col.cell) {
-          const cellResult = col.cell(value, item, 0);
+        if (col.render) {
+          const cellResult = col.render(value, item, 0);
           value = typeof cellResult === 'string' ? cellResult : String(value);
         }
         
@@ -264,15 +262,17 @@ export function applyColumnConfig<T>(
   config: Record<string, ColumnConfig<T>>
 ): MTTableColumn<T>[] {
   return columns
+    .filter(column => {
+      const colConfig = config[column.id];
+      return !colConfig || colConfig.visible;
+    })
     .map(column => {
       const colConfig = config[column.id];
       if (!colConfig) return column;
 
       return {
         ...column,
-        hidden: !colConfig.visible,
-        width: colConfig.width,
-        pinned: colConfig.pinned
+        width: colConfig.width
       };
     })
     .sort((a, b) => {
@@ -316,7 +316,7 @@ export function executeBulkAction<T>(
 }
 
 // Utility Functions
-function getNestedValue(obj: any, path: string): any {
+export function getNestedValue(obj: any, path: string): any {
   const keys = path.split('.');
   let value = obj;
   

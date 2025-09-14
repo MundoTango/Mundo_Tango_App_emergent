@@ -9,9 +9,9 @@ import dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
-// Initialize OpenAI client with Emergent LLM key
+// Initialize OpenAI client with environment variable only
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'sk-emergent-b629d189d80B9D02dA',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // 16 Life CEO Agents Definition
