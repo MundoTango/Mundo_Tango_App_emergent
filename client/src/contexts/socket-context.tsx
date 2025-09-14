@@ -94,17 +94,9 @@ export function SocketProvider({ children }: { children: ReactNode }) {
       };
 
       setSocket(ws);
-
-      return () => {
-        if (reconnectTimeoutRef.current) {
-          clearTimeout(reconnectTimeoutRef.current);
-        }
-        ws.close();
-      };
+      
+      return ws;
     };
-    
-    return ws;
-  };
 
   useEffect(() => {
     const ws = connectWebSocket();
