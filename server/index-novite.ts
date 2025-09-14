@@ -51,6 +51,14 @@ import {
   sessionSecurityConfig 
 } from "./middleware/security";
 
+// ESA LIFE CEO 61x21 - Phase 13: Security Hardening Imports
+import { configureSecurityHeaders, configureCORS } from './security/security-headers';
+import { csrfProtection as enhancedCSRF, setupCSRFEndpoint } from './security/csrf-protection';
+import { sanitizeRequest } from './security/input-sanitizer';
+import { auditMiddleware, AuditEventType, AuditLevel } from './security/audit-logger';
+import securityRoutes from './routes/securityRoutes';
+import { initializeOAuth } from './security/oauth-config';
+
 const app = express();
 
 // Process-level error handlers
@@ -113,6 +121,27 @@ app.use((req, res, next) => {
 app.use(securityHeaders);
 app.use(sanitizeInput);
 
+// ESA LIFE CEO 61x21 - Phase 13: Enhanced Security Configuration
+configureSecurityHeaders(app);
+configureCORS(app);
+
+// Enhanced CSRF protection
+app.use(enhancedCSRF({
+  skipPaths: ['/api/webhook', '/api/stripe/webhook', '/api/upload', '/uploads'],
+}));
+setupCSRFEndpoint(app);
+
+// Input sanitization middleware
+app.use(sanitizeRequest);
+
+// Initialize OAuth providers
+initializeOAuth();
+
+// Audit logging for critical endpoints
+app.use('/api/auth/*', auditMiddleware(AuditEventType.LOGIN_SUCCESS));
+app.use('/api/admin/*', auditMiddleware(AuditEventType.ADMIN_ACTION, AuditLevel.INFO));
+app.use('/api/users/*', auditMiddleware(AuditEventType.DATA_UPDATED, AuditLevel.INFO));
+
 // Initialize feature flags
 initializeFeatureFlags().catch(error => {
   logger.error('Failed to initialize feature flags:', error);
@@ -170,6 +199,9 @@ app.get('/api/videos/:filename', (req, res) => {
 app.use('/api/upload', uploadRoutes);
 app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
+
+// ESA LIFE CEO 61x21 - Mount security routes (OAuth, 2FA, API keys)
+app.use('/api', securityRoutes);
 
 // Mount integration helper routes for Events Agent coordination
 // app.use('/api/integration', integrationHelpers); // Original line commented out
