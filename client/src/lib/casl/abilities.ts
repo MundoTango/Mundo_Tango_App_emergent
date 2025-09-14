@@ -68,7 +68,7 @@ export interface User {
 }
 
 export function defineAbilitiesFor(user: User | null): AppAbility {
-  const { can, cannot, build } = new AbilityBuilder<AppAbility>(MongoAbility);
+  const { can, cannot, build } = new AbilityBuilder<AppAbility>(PureAbility);
 
   // Handle guest/unauthenticated users
   if (!user) {
