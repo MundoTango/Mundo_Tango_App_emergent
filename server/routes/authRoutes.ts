@@ -10,10 +10,23 @@ import { randomBytes } from 'crypto';
 
 const router = Router();
 
-// LAYER 4 Authentication Agent Fix: Handle anonymous users gracefully
-// User authentication status check - NO AUTH REQUIRED for public pages
+// ESA LIFE CEO 61x21 - Phase 2: Secure user authentication check
+// User authentication status check - returns user if authenticated, null if not
 router.get("/auth/user", async (req: any, res) => {
   try {
+    // Development bypass - ONLY in development mode
+    if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
+      console.log('🔧 [DEV ONLY] Auth bypass for /auth/user endpoint');
+      const defaultUser = await storage.getUser(7); // Scott Boddye's admin user
+      if (defaultUser) {
+        const userWithRole = await authService.getUserWithRole(defaultUser.id);
+        return res.json({
+          ...defaultUser,
+          role: userWithRole?.role || 'admin'
+        });
+      }
+    }
+
     // Check if user is authenticated (Replit OAuth)
     if (req.user?.claims?.sub) {
       const userId = req.user.claims.sub;
@@ -29,14 +42,24 @@ router.get("/auth/user", async (req: any, res) => {
           password: 'oauth-user', // Required field
           profileImage: req.user.claims.profile_image_url || '/images/default-avatar.svg'
         });
-        return res.json(newUser);
+        
+        // Get role information
+        const userWithRole = await authService.getUserWithRole(newUser.id);
+        return res.json({
+          ...newUser,
+          role: userWithRole?.role || 'user'
+        });
       }
       
-      return res.json(user);
+      // Get role information for existing user
+      const userWithRole = await authService.getUserWithRole(user.id);
+      return res.json({
+        ...user,
+        role: userWithRole?.role || 'user'
+      });
     }
     
-    // LAYER 4 Fix: Return null for anonymous users instead of 401
-    // This allows public pages to work without authentication
+    // Return null for anonymous users (allows public pages to work)
     return res.json(null);
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -115,9 +138,20 @@ router.post("/auth/reset-password", async (req, res) => {
   }
 });
 
-// LAYER 58 Third-Party Integration Fix: CSRF not needed with Replit OAuth
+// ESA LIFE CEO 61x21 - Phase 2: CSRF Token Generation
 router.get("/auth/csrf", (req, res) => {
-  res.json({ csrfToken: 'not-required-with-replit-oauth' });
+  // Development bypass
+  if (process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true') {
+    return res.json({ csrfToken: 'dev-token-only' });
+  }
+  
+  // Generate or retrieve CSRF token from session
+  const session = req.session as any;
+  if (!session.csrfToken) {
+    session.csrfToken = randomBytes(32).toString('hex');
+  }
+  
+  res.json({ csrfToken: session.csrfToken });
 });
 
 export default router;

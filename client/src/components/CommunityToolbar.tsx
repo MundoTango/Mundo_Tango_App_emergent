@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import HostHomesList from './Housing/HostHomesList';
 import RecommendationsList from './Recommendations/RecommendationsList';
-import CommunityMapWithLayers from './CommunityMapWithLayers';
+import CommunityMapWithLayers from './Community/CommunityMapWithLayers';
 
 import { CityAccessContext } from '@/services/cityRbacService';
 
