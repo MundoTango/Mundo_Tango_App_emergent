@@ -1,0 +1,478 @@
+{
+  "dashboard": {
+    "title": "ESA LIFE CEO 61x21 - System Monitoring",
+    "tags": ["esa", "life-ceo", "61x21", "monitoring"],
+    "timezone": "browser",
+    "refresh": "10s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "HTTP Request Rate",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(esa_http_requests_total[5m])",
+            "legendFormat": "{{method}} {{route}} - {{status_code}}"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "HTTP Response Time (p95)",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(esa_http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95 Response Time"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Active HTTP Requests",
+        "type": "stat",
+        "gridPos": { "x": 0, "y": 8, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "esa_http_active_requests",
+            "legendFormat": "Active Requests"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Memory Usage",
+        "type": "graph",
+        "gridPos": { "x": 6, "y": 8, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "esa_memory_usage_bytes",
+            "legendFormat": "{{type}}"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Database Query Performance",
+        "type": "graph",
+        "gridPos": { "x": 18, "y": 8, "w": 6, "h": 8 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(esa_db_query_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{operation}} - {{table}}"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Agent Request Rate by Layer",
+        "type": "heatmap",
+        "gridPos": { "x": 0, "y": 16, "w": 24, "h": 10 },
+        "targets": [
+          {
+            "expr": "rate(esa_agent_requests_total[5m])",
+            "legendFormat": "Layer {{layer}} - {{agent_id}}"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Agent Layer Health Status",
+        "type": "table",
+        "gridPos": { "x": 0, "y": 26, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "esa_agent_layer_health",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {
+                "layer": 0,
+                "agent_type": 1,
+                "Value": 2
+              },
+              "renameByName": {
+                "Value": "Status",
+                "layer": "Layer",
+                "agent_type": "Agent Type"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Agent Token Usage",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 26, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(esa_agent_token_usage_total[1h])",
+            "legendFormat": "{{agent_id}} - {{model}}"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "WebSocket Connections",
+        "type": "stat",
+        "gridPos": { "x": 0, "y": 34, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "esa_realtime_connections",
+            "legendFormat": "{{namespace}}"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Cache Hit Rate",
+        "type": "gauge",
+        "gridPos": { "x": 6, "y": 34, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "(sum(rate(esa_cache_metrics{operation=\"hit\"}[5m])) / (sum(rate(esa_cache_metrics{operation=\"hit\"}[5m])) + sum(rate(esa_cache_metrics{operation=\"miss\"}[5m])))) * 100",
+            "legendFormat": "Cache Hit Rate %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": 0 },
+                { "color": "yellow", "value": 60 },
+                { "color": "green", "value": 80 }
+              ]
+            },
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 11,
+        "title": "User Activity",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 34, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(esa_user_activity_total[5m])",
+            "legendFormat": "{{action}} - {{role}}"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Web Vitals Performance",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 42, "w": 24, "h": 8 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.75, rate(esa_web_vitals_seconds_bucket[5m]))",
+            "legendFormat": "{{metric}} - p75"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Alerts Triggered",
+        "type": "stat",
+        "gridPos": { "x": 0, "y": 50, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "sum(increase(esa_alerts_triggered_total[24h]))",
+            "legendFormat": "Total Alerts (24h)"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Event Loop Lag",
+        "type": "gauge",
+        "gridPos": { "x": 6, "y": 50, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "esa_event_loop_lag_milliseconds",
+            "legendFormat": "Event Loop Lag"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 },
+                { "color": "yellow", "value": 50 },
+                { "color": "red", "value": 100 }
+              ]
+            },
+            "unit": "ms",
+            "min": 0,
+            "max": 200
+          }
+        }
+      },
+      {
+        "id": 15,
+        "title": "Content Creation Rate",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 50, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(esa_content_created_total[1h])",
+            "legendFormat": "{{type}}"
+          }
+        ]
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "name": "datasource",
+          "type": "datasource",
+          "query": "prometheus",
+          "current": {
+            "text": "Prometheus",
+            "value": "prometheus"
+          }
+        },
+        {
+          "name": "refresh",
+          "type": "interval",
+          "options": [
+            { "text": "5s", "value": "5s" },
+            { "text": "10s", "value": "10s" },
+            { "text": "30s", "value": "30s" },
+            { "text": "1m", "value": "1m" },
+            { "text": "5m", "value": "5m" }
+          ],
+          "current": {
+            "text": "10s",
+            "value": "10s"
+          }
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "datasource": "prometheus",
+          "enable": true,
+          "expr": "increase(esa_alerts_triggered_total[1m]) > 0",
+          "name": "Alerts",
+          "tagKeys": "severity,category",
+          "titleFormat": "Alert: {{category}}",
+          "textFormat": "{{severity}} alert triggered"
+        }
+      ]
+    },
+    "version": 1,
+    "uid": "esa-life-ceo-61x21",
+    "links": [
+      {
+        "title": "ESA Documentation",
+        "url": "https://mundo-tango.replit.dev/docs",
+        "type": "link",
+        "icon": "doc",
+        "targetBlank": true
+      },
+      {
+        "title": "Agent Analytics",
+        "url": "https://mundo-tango.replit.dev/admin/agents",
+        "type": "link",
+        "icon": "dashboard",
+        "targetBlank": true
+      }
+    ]
+  },
+  "agent_dashboard": {
+    "title": "ESA 61 Layer Agent Analytics",
+    "tags": ["esa", "agents", "ai", "monitoring"],
+    "panels": [
+      {
+        "id": 1,
+        "title": "Agent Response Time Distribution",
+        "type": "histogram",
+        "gridPos": { "x": 0, "y": 0, "w": 24, "h": 10 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.5, rate(esa_agent_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p50 - {{agent_id}}"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(esa_agent_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95 - {{agent_id}}"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(esa_agent_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "p99 - {{agent_id}}"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Top 10 Most Active Agents",
+        "type": "bargauge",
+        "gridPos": { "x": 0, "y": 10, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "topk(10, sum by(agent_id) (rate(esa_agent_requests_total[1h])))",
+            "legendFormat": "{{agent_id}}"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Agent Success Rate",
+        "type": "bargauge",
+        "gridPos": { "x": 12, "y": 10, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "(sum by(agent_id) (rate(esa_agent_requests_total{status=\"success\"}[1h])) / sum by(agent_id) (rate(esa_agent_requests_total[1h]))) * 100",
+            "legendFormat": "{{agent_id}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": 0 },
+                { "color": "yellow", "value": 80 },
+                { "color": "green", "value": 95 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Token Usage by Agent",
+        "type": "piechart",
+        "gridPos": { "x": 0, "y": 18, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "sum by(agent_id) (increase(esa_agent_token_usage_total[24h]))",
+            "legendFormat": "{{agent_id}}"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Agent Cost Analysis (24h)",
+        "type": "table",
+        "gridPos": { "x": 12, "y": 18, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "sum by(agent_id) (increase(esa_agent_token_usage_total[24h])) * 0.00003",
+            "format": "table",
+            "instant": true
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "renameByName": {
+                "agent_id": "Agent",
+                "Value": "Cost ($)"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Agent Layer Activity Heatmap",
+        "type": "heatmap",
+        "gridPos": { "x": 0, "y": 26, "w": 24, "h": 10 },
+        "targets": [
+          {
+            "expr": "sum by(layer, agent_id) (rate(esa_agent_requests_total[5m]))",
+            "format": "heatmap"
+          }
+        ]
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "uid": "high-error-rate",
+      "title": "High Error Rate",
+      "condition": "rate(esa_http_requests_total{status_code=~\"5..\"}[5m]) > 0.05",
+      "annotations": {
+        "summary": "High error rate detected (> 5%)",
+        "description": "Error rate is {{ $value | humanizePercentage }} in the last 5 minutes"
+      },
+      "labels": {
+        "severity": "critical",
+        "category": "http"
+      }
+    },
+    {
+      "uid": "high-response-time",
+      "title": "High Response Time",
+      "condition": "histogram_quantile(0.95, rate(esa_http_request_duration_seconds_bucket[5m])) > 2",
+      "annotations": {
+        "summary": "P95 response time > 2 seconds",
+        "description": "Response time is {{ $value | humanizeDuration }}"
+      },
+      "labels": {
+        "severity": "warning",
+        "category": "performance"
+      }
+    },
+    {
+      "uid": "memory-pressure",
+      "title": "Memory Pressure",
+      "condition": "esa_memory_usage_bytes{type=\"heap_used\"} / esa_memory_usage_bytes{type=\"heap_total\"} > 0.9",
+      "annotations": {
+        "summary": "High memory usage (> 90%)",
+        "description": "Memory usage is at {{ $value | humanizePercentage }}"
+      },
+      "labels": {
+        "severity": "critical",
+        "category": "resources"
+      }
+    },
+    {
+      "uid": "agent-failure",
+      "title": "Agent High Failure Rate",
+      "condition": "(sum by(agent_id) (rate(esa_agent_requests_total{status=\"failure\"}[5m])) / sum by(agent_id) (rate(esa_agent_requests_total[5m]))) > 0.1",
+      "annotations": {
+        "summary": "Agent {{ $labels.agent_id }} has high failure rate",
+        "description": "Failure rate is {{ $value | humanizePercentage }}"
+      },
+      "labels": {
+        "severity": "warning",
+        "category": "agents"
+      }
+    },
+    {
+      "uid": "cache-miss-rate",
+      "title": "Low Cache Hit Rate",
+      "condition": "(sum(rate(esa_cache_metrics{operation=\"hit\"}[5m])) / (sum(rate(esa_cache_metrics{operation=\"hit\"}[5m])) + sum(rate(esa_cache_metrics{operation=\"miss\"}[5m])))) < 0.5",
+      "annotations": {
+        "summary": "Cache hit rate below 50%",
+        "description": "Cache hit rate is {{ $value | humanizePercentage }}"
+      },
+      "labels": {
+        "severity": "warning",
+        "category": "cache"
+      }
+    }
+  ]
+}
