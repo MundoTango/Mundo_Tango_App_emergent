@@ -38,13 +38,58 @@ export type { MTFormFileUploadProps } from './forms/MTFormFileUpload';
 export { default as MTInput } from './forms/MTInput';
 export type { MTInputProps } from './forms/MTInput';
 
-// Modals
+// Modals & Overlays - Phase 9 Complete Component Suite
 export { default as MTModal } from './modals/MTModal';
 export type { MTModalProps } from './modals/MTModal';
+
+export { default as MTModalBase } from './modals/MTModalBase';
+export type { MTModalBaseProps } from './modals/MTModalBase';
+
+export { default as MTConfirmModal, useConfirmModal } from './modals/MTConfirmModal';
+export type { MTConfirmModalProps } from './modals/MTConfirmModal';
+
+export { default as MTAlertModal, useAlertStack } from './modals/MTAlertModal';
+export type { MTAlertModalProps } from './modals/MTAlertModal';
+
+export { default as MTFormModal, MTValidatedFormModal } from './modals/MTFormModal';
+export type { MTFormModalProps } from './modals/MTFormModal';
+
+export { default as MTImageModal } from './modals/MTImageModal';
+export type { MTImageModalProps } from './modals/MTImageModal';
+
+export { default as MTDrawer, useDrawerStack } from './modals/MTDrawer';
+export type { MTDrawerProps } from './modals/MTDrawer';
+
+export { default as MTTooltip, TooltipProvider, QuickTooltip } from './modals/MTTooltip';
+export type { MTTooltipProps } from './modals/MTTooltip';
+
+export { default as MTPopover, MTPopoverMenu } from './modals/MTPopover';
+export type { MTPopoverProps } from './modals/MTPopover';
 
 // Badges
 export { default as MTBadge } from './badges/MTBadge';
 export type { MTBadgeProps } from './badges/MTBadge';
+
+// Modal Management System
+export { 
+  useModalStore, 
+  modalManager,
+  modalUtils as modalManagerUtils,
+  type ModalConfig 
+} from '@/lib/modal-manager';
+
+export { 
+  useModal,
+  useToast,
+  useConfirm,
+  useFocusTrap,
+  useScrollLock,
+  useClickOutside,
+  modalAnimations,
+  modalUtils,
+  zIndexManager,
+  useToastStore 
+} from '@/lib/modal-utils';
 
 // Re-export theme utilities
 export * from '@/styles/mt-ocean-theme';

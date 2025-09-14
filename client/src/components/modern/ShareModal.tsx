@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Share2, MessageSquare, Link, X } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { Share2, MessageSquare, Link } from 'lucide-react';
+import { MTModalBase, MTButton } from '@/components/ui-library';
 import { useToast } from '@/hooks/use-toast';
 
 interface ShareModalProps {
@@ -79,56 +78,71 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Share2 className="w-5 h-5" />
+    <MTModalBase
+      isOpen={isOpen}
+      onClose={onClose}
+      size="sm"
+      variant="ocean"
+      animationType="scale"
+      data-testid="share-modal"
+    >
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-4">
+          <Share2 className="w-6 h-6 text-teal-500" />
+          <h2 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
             Share Post
-          </DialogTitle>
-        </DialogHeader>
+          </h2>
+        </div>
         
+        {/* Content */}
         <div className="space-y-4">
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-700 line-clamp-3">
+          <div className="bg-gradient-to-br from-teal-50/50 to-blue-50/50 dark:from-teal-900/20 dark:to-blue-900/20 p-4 rounded-lg backdrop-blur-sm border border-teal-200/30 dark:border-teal-700/30">
+            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
               {post.content}
             </p>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               by {post.user.name}
             </p>
           </div>
 
+          {/* Actions */}
           <div className="space-y-3">
-            <Button
+            <MTButton
               onClick={handleShareToTimeline}
               disabled={isSharing}
-              className="w-full flex items-center gap-3 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+              loading={isSharing}
+              variant="primary"
+              fullWidth
+              icon={Share2}
+              data-testid="share-timeline"
             >
-              <Share2 className="w-5 h-5" />
               Share to Timeline
-            </Button>
+            </MTButton>
 
-            <Button
+            <MTButton
               onClick={handleShareWithComment}
               disabled={isSharing}
               variant="outline"
-              className="w-full flex items-center gap-3 h-12"
+              fullWidth
+              icon={MessageSquare}
+              data-testid="share-comment"
             >
-              <MessageSquare className="w-5 h-5" />
               Share with Comment
-            </Button>
+            </MTButton>
 
-            <Button
+            <MTButton
               onClick={handleCopyLink}
               variant="outline"
-              className="w-full flex items-center gap-3 h-12"
+              fullWidth
+              icon={Link}
+              data-testid="share-copy-link"
             >
-              <Link className="w-5 h-5" />
               Copy Link
-            </Button>
+            </MTButton>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </MTModalBase>
   );
 }
