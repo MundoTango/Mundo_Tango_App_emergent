@@ -21,6 +21,9 @@ import * as Sentry from "@sentry/react";
 import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
+// ESA Life CEO 61x21 - Monitoring Services
+import { MonitoringProvider } from "@/components/MonitoringProvider";
+import { useMonitoring } from "@/hooks/useMonitoring";
 
 // Create queryClient inside App component to avoid initialization issues
 const queryClient = new QueryClient({
@@ -138,8 +141,9 @@ const HierarchyDashboard = lazy(() => import("@/pages/HierarchyDashboard"));
 const LifeCEOEnhanced = lazy(() => import("@/pages/LifeCEOEnhanced"));
 const LifeCeoPerformance = lazy(() => import("@/pages/LifeCeoPerformance"));
 
-// ========== Testing & Development Pages (5) ==========
+// ========== Testing & Development Pages (6) ==========
 const MediaUploadTest = lazy(() => import("@/pages/MediaUploadTest"));
+const MonitoringDashboard = lazy(() => import("@/pages/MonitoringDashboard"));
 const TestGroupedRoleSelector = lazy(() => import("@/components/test/TestGroupedRoleSelector"));
 const TTfilesDemo = lazy(() => import("@/pages/TTfilesDemo"));
 const FeatureNavigation = lazy(() => import("@/pages/feature-navigation"));
@@ -609,7 +613,13 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Testing & Development Routes (5) ========== */}
+          {/* ========== Testing & Development Routes (6) ========== */}
+          <Route path="/monitoring">
+            <Suspense fallback={<LoadingFallback message="Loading monitoring dashboard..." />}>
+              <MonitoringDashboard />
+            </Suspense>
+          </Route>
+
           <Route path="/media-upload-test">
             <Suspense fallback={<LoadingFallback message="Loading media upload test..." />}>
               <MediaUploadTest />
@@ -711,9 +721,11 @@ export default function App() {
       <AuthProvider>
         <CsrfProvider>
           <TenantProvider>
-            <TrialBanner />
-            <Router />
-            <Toaster />
+            <MonitoringProvider>
+              <TrialBanner />
+              <Router />
+              <Toaster />
+            </MonitoringProvider>
           </TenantProvider>
         </CsrfProvider>
       </AuthProvider>
