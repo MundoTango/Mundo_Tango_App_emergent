@@ -60,6 +60,7 @@
     "@novu/node": "^2.6.6",
     "@novu/react": "^3.5.0",
     "@percy/playwright": "^1.0.9",
+    "@percy/sdk-utils": "^1.31.2",
     "@playwright/test": "^1.55.0",
     "@radix-ui/react-accordion": "^1.2.4",
     "@radix-ui/react-alert-dialog": "^1.1.7",
