@@ -88,6 +88,7 @@ export function GuestOnboardingEntrance() {
               onClick={() => navigate('/guest-onboarding')}
               size="lg"
               className="bg-gradient-to-r from-turquoise-500 to-blue-500 hover:from-turquoise-600 hover:to-blue-600 text-white"
+              data-testid="button-start-onboarding"
             >
               Get Started - It only takes 2 minutes
             </Button>
@@ -96,6 +97,7 @@ export function GuestOnboardingEntrance() {
               size="lg"
               variant="outline"
               className="border-gray-300"
+              data-testid="button-skip-onboarding"
             >
               Maybe Later
             </Button>
