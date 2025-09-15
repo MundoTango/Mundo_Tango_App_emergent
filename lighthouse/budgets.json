@@ -1,0 +1,167 @@
+[
+  {
+    "path": "/*",
+    "resourceSizes": [
+      {
+        "resourceType": "script",
+        "budget": 200
+      },
+      {
+        "resourceType": "stylesheet",
+        "budget": 50
+      },
+      {
+        "resourceType": "image",
+        "budget": 500
+      },
+      {
+        "resourceType": "font",
+        "budget": 100
+      },
+      {
+        "resourceType": "third-party",
+        "budget": 150
+      },
+      {
+        "resourceType": "total",
+        "budget": 1024
+      }
+    ],
+    "resourceCounts": [
+      {
+        "resourceType": "script",
+        "budget": 10
+      },
+      {
+        "resourceType": "stylesheet",
+        "budget": 5
+      },
+      {
+        "resourceType": "image",
+        "budget": 20
+      },
+      {
+        "resourceType": "font",
+        "budget": 5
+      },
+      {
+        "resourceType": "third-party",
+        "budget": 10
+      },
+      {
+        "resourceType": "total",
+        "budget": 50
+      }
+    ],
+    "timings": [
+      {
+        "metric": "first-contentful-paint",
+        "budget": 1800
+      },
+      {
+        "metric": "largest-contentful-paint",
+        "budget": 2500
+      },
+      {
+        "metric": "cumulative-layout-shift",
+        "budget": 0.1
+      },
+      {
+        "metric": "total-blocking-time",
+        "budget": 300
+      },
+      {
+        "metric": "interactive",
+        "budget": 3800
+      },
+      {
+        "metric": "speed-index",
+        "budget": 3400
+      },
+      {
+        "metric": "max-potential-fid",
+        "budget": 130
+      }
+    ]
+  },
+  {
+    "path": "/auth/*",
+    "timings": [
+      {
+        "metric": "first-contentful-paint",
+        "budget": 1500
+      },
+      {
+        "metric": "interactive",
+        "budget": 3000
+      }
+    ]
+  },
+  {
+    "path": "/guest-onboarding/*",
+    "timings": [
+      {
+        "metric": "first-contentful-paint",
+        "budget": 1500
+      },
+      {
+        "metric": "interactive",
+        "budget": 3500
+      }
+    ]
+  },
+  {
+    "path": "/events",
+    "resourceSizes": [
+      {
+        "resourceType": "image",
+        "budget": 800
+      }
+    ],
+    "timings": [
+      {
+        "metric": "largest-contentful-paint",
+        "budget": 3000
+      }
+    ]
+  },
+  {
+    "path": "/timeline",
+    "resourceSizes": [
+      {
+        "resourceType": "script",
+        "budget": 250
+      }
+    ],
+    "timings": [
+      {
+        "metric": "interactive",
+        "budget": 4000
+      }
+    ]
+  },
+  {
+    "path": "/community",
+    "resourceSizes": [
+      {
+        "resourceType": "image",
+        "budget": 600
+      }
+    ]
+  },
+  {
+    "path": "/profile",
+    "resourceSizes": [
+      {
+        "resourceType": "image",
+        "budget": 400
+      }
+    ],
+    "timings": [
+      {
+        "metric": "largest-contentful-paint",
+        "budget": 2000
+      }
+    ]
+  }
+]
