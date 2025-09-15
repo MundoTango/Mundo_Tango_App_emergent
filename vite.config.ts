@@ -70,6 +70,10 @@ export default defineConfig({
       exclude: ['@replit/vite-plugin-cartographer']
     },
     server: {
+      hmr: {
+        clientPort: 443
+      },
+      allowedHosts: true, // Critical for Replit dynamic hosts
       fs: {
         strict: true,
         deny: ["**/.*"],
