@@ -11,6 +11,11 @@ export const generateCSRFToken = (): string => {
 };
 
 export const validateCSRFToken = (req: Request, res: Response, next: NextFunction) => {
+  // Skip CSRF in development mode
+  if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+    return next();
+  }
+  
   // Skip CSRF for webhook endpoints that use signature verification
   if (req.path.includes('/webhooks/')) {
     return next();

@@ -88,6 +88,11 @@ export const csrfProtection = (options?: {
   };
   
   return (req: Request, res: Response, next: NextFunction) => {
+    // Skip CSRF in development mode
+    if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+      return next();
+    }
+    
     // Skip CSRF for safe methods
     if (SAFE_METHODS.includes(req.method)) {
       // Generate token for GET requests if not exists
