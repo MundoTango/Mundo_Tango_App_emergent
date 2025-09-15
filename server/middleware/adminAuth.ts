@@ -1,19 +1,14 @@
 // ESA LIFE CEO 61x21 - Phase 19: Admin Authentication Middleware
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../db';
-import { users, userRoles, roles, auditLogs } from '../../shared/schema';
+import { users, userRoles, roles } from '../../shared/schema';
 import { eq, and } from 'drizzle-orm';
+import { logAuditEvent, AuditEventType, AuditLevel } from '../security/audit-logger';
 
-// Extend Express Request type to include user
+// Extend Express Request type to include adminAction
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        id: number;
-        email: string;
-        name: string;
-        roles: string[];
-      };
       adminAction?: string;
     }
   }
@@ -27,19 +22,20 @@ export const requireAdmin = async (req: Request, res: Response, next: NextFuncti
     }
 
     // Check if user has admin or super_admin role
-    const hasAdminRole = req.user.roles?.some(role => 
-      role === 'admin' || role === 'super_admin' || role === 'platform_admin'
-    );
+    // Using role field from the standard auth middleware user type
+    const userRole = (req.user as any).role || 'user';
+    const hasAdminRole = userRole === 'admin' || userRole === 'super_admin' || userRole === 'platform_admin';
 
     if (!hasAdminRole) {
       // Log unauthorized access attempt
       await logAuditEvent({
         userId: req.user.id,
-        action: 'unauthorized_admin_access',
-        resource: req.path,
+        eventType: AuditEventType.UNAUTHORIZED_ACCESS,
+        level: AuditLevel.WARNING,
+        message: `Unauthorized admin access attempt to ${req.path}`,
+        metadata: { resource: req.path, requiredRole: 'admin' },
         ipAddress: req.ip,
-        userAgent: req.get('user-agent'),
-        status: 'failed'
+        userAgent: req.get('user-agent')
       });
 
       return res.status(403).json({ error: 'Admin access required' });
@@ -60,19 +56,19 @@ export const requireModerator = async (req: Request, res: Response, next: NextFu
     }
 
     // Check if user has moderator, admin, or super_admin role
-    const hasModeratorRole = req.user.roles?.some(role => 
-      role === 'moderator' || role === 'admin' || role === 'super_admin' || role === 'platform_admin'
-    );
+    const userRole = (req.user as any).role || 'user';
+    const hasModeratorRole = userRole === 'moderator' || userRole === 'admin' || userRole === 'super_admin' || userRole === 'platform_admin';
 
     if (!hasModeratorRole) {
       // Log unauthorized access attempt
       await logAuditEvent({
         userId: req.user.id,
-        action: 'unauthorized_moderator_access',
-        resource: req.path,
+        eventType: AuditEventType.UNAUTHORIZED_ACCESS,
+        level: AuditLevel.WARNING,
+        message: `Unauthorized moderator access attempt to ${req.path}`,
+        metadata: { resource: req.path, requiredRole: 'moderator' },
         ipAddress: req.ip,
-        userAgent: req.get('user-agent'),
-        status: 'failed'
+        userAgent: req.get('user-agent')
       });
 
       return res.status(403).json({ error: 'Moderator access required' });
@@ -93,19 +89,19 @@ export const requireSuperAdmin = async (req: Request, res: Response, next: NextF
     }
 
     // Check if user has super_admin role
-    const hasSuperAdminRole = req.user.roles?.some(role => 
-      role === 'super_admin' || role === 'platform_admin'
-    );
+    const userRole = (req.user as any).role || 'user';
+    const hasSuperAdminRole = userRole === 'super_admin' || userRole === 'platform_admin';
 
     if (!hasSuperAdminRole) {
       // Log unauthorized access attempt
       await logAuditEvent({
         userId: req.user.id,
-        action: 'unauthorized_super_admin_access',
-        resource: req.path,
+        eventType: AuditEventType.UNAUTHORIZED_ACCESS,
+        level: AuditLevel.WARNING,
+        message: `Unauthorized super admin access attempt to ${req.path}`,
+        metadata: { resource: req.path, requiredRole: 'super_admin' },
         ipAddress: req.ip,
-        userAgent: req.get('user-agent'),
-        status: 'failed'
+        userAgent: req.get('user-agent')
       });
 
       return res.status(403).json({ error: 'Super admin access required' });
@@ -129,14 +125,18 @@ export const auditLog = (action: string) => {
       if (req.user) {
         await logAuditEvent({
           userId: req.user.id,
-          action: action,
-          resource: req.path,
-          method: req.method,
-          requestBody: JSON.stringify(req.body),
-          responseStatus: res.statusCode,
+          eventType: AuditEventType.ADMIN_ACTION,
+          level: res.statusCode < 400 ? AuditLevel.INFO : AuditLevel.ERROR,
+          message: `Admin action: ${action} on ${req.path}`,
+          metadata: {
+            action: action,
+            resource: req.path,
+            method: req.method,
+            requestBody: req.body,
+            responseStatus: res.statusCode
+          },
           ipAddress: req.ip,
-          userAgent: req.get('user-agent'),
-          status: res.statusCode < 400 ? 'success' : 'failed'
+          userAgent: req.get('user-agent')
         });
       }
     });
@@ -145,36 +145,7 @@ export const auditLog = (action: string) => {
   };
 };
 
-// Helper function to log audit events
-async function logAuditEvent(event: {
-  userId: number;
-  action: string;
-  resource?: string;
-  method?: string;
-  requestBody?: string;
-  responseStatus?: number;
-  ipAddress?: string;
-  userAgent?: string;
-  status: 'success' | 'failed';
-}) {
-  try {
-    await db.insert(auditLogs).values({
-      userId: event.userId,
-      action: event.action,
-      resource: event.resource || '',
-      method: event.method || '',
-      requestBody: event.requestBody,
-      responseStatus: event.responseStatus,
-      ipAddress: event.ipAddress || '',
-      userAgent: event.userAgent || '',
-      status: event.status,
-      timestamp: new Date()
-    });
-  } catch (error) {
-    console.error('Failed to log audit event:', error);
-    // Don't throw - audit logging failure shouldn't break the request
-  }
-}
+// Helper function removed - using the correct one from audit-logger.ts
 
 // IP restriction middleware
 export const restrictIP = (allowedIPs: string[]) => {
@@ -238,7 +209,8 @@ export const requirePermission = (permission: string) => {
     }
     
     // Super admins have all permissions
-    if (req.user.roles?.includes('super_admin')) {
+    const userRole = (req.user as any).role || 'user';
+    if (userRole === 'super_admin' || userRole === 'platform_admin') {
       return next();
     }
     
@@ -249,11 +221,12 @@ export const requirePermission = (permission: string) => {
     if (!hasPermission) {
       await logAuditEvent({
         userId: req.user.id,
-        action: `unauthorized_permission_${permission}`,
-        resource: req.path,
+        eventType: AuditEventType.UNAUTHORIZED_ACCESS,
+        level: AuditLevel.WARNING,
+        message: `Unauthorized permission access: ${permission} on ${req.path}`,
+        metadata: { permission: permission, resource: req.path },
         ipAddress: req.ip,
-        userAgent: req.get('user-agent'),
-        status: 'failed'
+        userAgent: req.get('user-agent')
       });
       
       return res.status(403).json({ error: `Permission required: ${permission}` });

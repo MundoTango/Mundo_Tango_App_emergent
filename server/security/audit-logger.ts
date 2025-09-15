@@ -7,6 +7,7 @@ import { Request } from 'express';
 import { createHash } from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
+import { and, gte, lte, eq, desc } from 'drizzle-orm';
 
 // Audit log levels
 export enum AuditLevel {
@@ -35,6 +36,8 @@ export enum AuditEventType {
   ROLE_CHANGED = 'role_changed',
   ACCESS_GRANTED = 'access_granted',
   ACCESS_REVOKED = 'access_revoked',
+  UNAUTHORIZED_ACCESS = 'unauthorized_access',
+  ADMIN_ACTION = 'admin_action',
   
   // Data events
   DATA_CREATED = 'data_created',
@@ -60,7 +63,6 @@ export enum AuditEventType {
   CSRF_ATTEMPT = 'csrf_attempt',
   
   // Admin events
-  ADMIN_ACTION = 'admin_action',
   CONFIG_CHANGED = 'config_changed',
   USER_BANNED = 'user_banned',
   USER_UNBANNED = 'user_unbanned',
@@ -466,7 +468,10 @@ export async function generateAuditReport(startDate: Date, endDate: Date) {
   const suspicious = await db
     .select()
     .from(suspiciousActivities)
-    .where('timestamp >= ? AND timestamp <= ?', startDate, endDate)
+    .where(and(
+      gte(suspiciousActivities.timestamp, startDate),
+      lte(suspiciousActivities.timestamp, endDate)
+    ))
     .limit(100);
   
   report.suspiciousActivities = suspicious;
