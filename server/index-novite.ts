@@ -227,44 +227,33 @@ const startServer = async () => {
     const io = setupSocketIO(httpServer);
     console.log('✅ Socket.io real-time features initialized on port 5000');
 
-    // IMPORTANT: Serve frontend based on environment
-    if (process.env.NODE_ENV === 'development') {
-      // In development, serve the client HTML directly and let Vite handle the rest
-      const htmlPath = pathModule.join(process.cwd(), 'client', 'index.html');
-      
-      // Set up Vite integration for development
-      const { createServer: createViteServer } = await import('vite');
-      const vite = await createViteServer({
-        server: { 
-          middlewareMode: true,
-          hmr: { port: 5173 }
-        },
-        appType: 'spa'
-      });
-      
-      app.use(vite.middlewares);
-      
-      app.get('*', async (req, res, next) => {
-        try {
-          if (req.url.startsWith('/api')) {
-            return next();
-          }
-          
-          let html = await fs.promises.readFile(htmlPath, 'utf-8');
-          html = await vite.transformIndexHtml(req.url, html);
-          res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-        } catch (e) {
-          vite.ssrFixStacktrace(e as Error);
-          next(e);
+    // IMPORTANT: Serve frontend files (both dev and prod use built files)
+    // Serve static files from client/dist directory
+    app.use(express.static(clientPath, {
+      maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
+      etag: true,
+      lastModified: true,
+      setHeaders: (res, path) => {
+        if (path.endsWith('.js')) {
+          res.setHeader('Content-Type', 'application/javascript');
+        } else if (path.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css');
+        } else if (path.endsWith('.html')) {
+          res.setHeader('Content-Type', 'text/html');
         }
-      });
-    } else {
-      // Production mode - serve built files
-      app.use(express.static(clientPath));
-      app.get('*', (req, res) => {
-        res.sendFile(pathModule.join(clientPath, 'index.html'));
-      });
-    }
+      }
+    }));
+    
+    // Catch-all route for SPA client-side routing (must be AFTER static files)
+    app.get('*', (req, res, next) => {
+      // Skip API routes
+      if (req.url.startsWith('/api') || req.url.startsWith('/uploads')) {
+        return next();
+      }
+      
+      // Serve index.html for all other routes
+      res.sendFile(pathModule.join(clientPath, 'index.html'));
+    });
 
     // Mount routes
     app.use(postsRoutes);
