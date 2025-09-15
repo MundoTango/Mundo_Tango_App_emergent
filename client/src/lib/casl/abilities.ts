@@ -79,7 +79,11 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
     can('read', 'Community', { isPublic: true });
     can('read', 'Memory', { isPublic: true });
     can('view', 'UserProfile'); // Can view public profiles
-    return build();
+    return build({
+      conditionsMatcher: (condition: any) => (subject: any) => {
+        return Object.keys(condition).every(key => subject[key] === condition[key]);
+      }
+    });
   }
 
   // Determine primary role (for backward compatibility)
@@ -245,7 +249,34 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
     can('read', 'Memory', { trustLevel: { $lte: 2 } });
   }
 
-  return build();
+  return build({
+    conditionsMatcher: (condition: any) => (subject: any) => {
+      // Handle special conditions like $or, $in, $lte, etc.
+      if (condition.$or) {
+        return condition.$or.some((cond: any) => 
+          Object.keys(cond).every(key => subject[key] === cond[key])
+        );
+      }
+      if (condition.$in) {
+        const key = Object.keys(condition)[0];
+        return condition.$in.includes(subject[key]);
+      }
+      // Handle other MongoDB-like operators
+      return Object.keys(condition).every(key => {
+        if (key === '$lte') {
+          const field = Object.keys(condition)[0];
+          return subject[field] <= condition[key];
+        }
+        if (typeof condition[key] === 'object' && condition[key].$in) {
+          return condition[key].$in.includes(subject[key]);
+        }
+        if (typeof condition[key] === 'object' && condition[key].$lte) {
+          return subject[key] <= condition[key].$lte;
+        }
+        return subject[key] === condition[key];
+      });
+    }
+  });
 }
 
 // React hook for abilities
