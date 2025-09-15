@@ -145,23 +145,25 @@ export function GuestOnboardingFlow() {
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-accommodation">
             <div className="text-center space-y-2">
               <Home className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Accommodation Preferences</h3>
-              <p className="text-gray-600">What type of place are you looking for?</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-accommodation">Accommodation Preferences</h3>
+              <p className="text-gray-600" data-testid="step-description-accommodation">What type of place are you looking for?</p>
             </div>
             
             <div className="space-y-4">
-              <div>
+              <div data-testid="section-property-types">
                 <Label>Property Types</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   {propertyTypes.map(type => (
                     <div key={type} className="flex items-center space-x-2">
                       <Checkbox
                         id={type}
+                        data-testid={`checkbox-property-${type.toLowerCase()}`}
                         checked={profileData.accommodationPreferences.propertyTypes.includes(type)}
                         onCheckedChange={(checked) => handleCheckboxChange('propertyTypes', type, checked as boolean)}
+                        aria-label={type}
                       />
                       <Label htmlFor={type} className="font-normal cursor-pointer">{type}</Label>
                     </div>
@@ -169,13 +171,14 @@ export function GuestOnboardingFlow() {
                 </div>
               </div>
 
-              <div>
+              <div data-testid="section-room-types">
                 <Label>Room Types</Label>
                 <div className="space-y-2 mt-2">
                   {roomTypes.map(type => (
                     <div key={type} className="flex items-center space-x-2">
                       <Checkbox
                         id={type}
+                        data-testid={`checkbox-room-${type.toLowerCase().replace(' ', '-')}`}
                         checked={profileData.accommodationPreferences.roomTypes.includes(type)}
                         onCheckedChange={(checked) => handleCheckboxChange('roomTypes', type, checked as boolean)}
                       />
@@ -185,19 +188,23 @@ export function GuestOnboardingFlow() {
                 </div>
               </div>
 
-              <div>
+              <div data-testid="section-amenities">
                 <Label>Must-Have Amenities</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
-                  {amenities.map(amenity => (
-                    <div key={amenity} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={amenity}
-                        checked={profileData.accommodationPreferences.amenities.includes(amenity)}
-                        onCheckedChange={(checked) => handleCheckboxChange('amenities', amenity, checked as boolean)}
-                      />
-                      <Label htmlFor={amenity} className="font-normal cursor-pointer">{amenity}</Label>
-                    </div>
-                  ))}
+                  {amenities.map(amenity => {
+                    const amenityId = amenity.toLowerCase().replace(/\s+/g, '-').replace('air conditioning', 'ac');
+                    return (
+                      <div key={amenity} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={amenity}
+                          data-testid={`checkbox-amenity-${amenityId}`}
+                          checked={profileData.accommodationPreferences.amenities.includes(amenity)}
+                          onCheckedChange={(checked) => handleCheckboxChange('amenities', amenity, checked as boolean)}
+                        />
+                        <Label htmlFor={amenity} className="font-normal cursor-pointer">{amenity}</Label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -206,18 +213,19 @@ export function GuestOnboardingFlow() {
 
       case 2:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-dietary">
             <div className="text-center space-y-2">
               <Utensils className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Dietary Preferences</h3>
-              <p className="text-gray-600">Let us know about any dietary restrictions or preferences</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-dietary">Dietary Preferences</h3>
+              <p className="text-gray-600" data-testid="step-description-dietary">Let us know about any dietary restrictions or preferences</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3" data-testid="section-dietary-restrictions">
               {dietaryOptions.map(diet => (
                 <div key={diet} className="flex items-center space-x-2">
                   <Checkbox
                     id={diet}
+                    data-testid={`checkbox-dietary-${diet.toLowerCase().replace(/\s+/g, '-')}`}
                     checked={profileData.dietaryRestrictions.includes(diet)}
                     onCheckedChange={(checked) => handleCheckboxChange('dietaryRestrictions', diet, checked as boolean)}
                   />
@@ -230,6 +238,7 @@ export function GuestOnboardingFlow() {
               <Label htmlFor="specialNeeds">Any special needs or additional requirements?</Label>
               <Textarea
                 id="specialNeeds"
+                data-testid="textarea-special-needs"
                 placeholder="E.g., wheelchair accessibility, medical conditions, etc."
                 value={profileData.specialNeeds}
                 onChange={(e) => setProfileData(prev => ({ ...prev, specialNeeds: e.target.value }))}
@@ -241,20 +250,21 @@ export function GuestOnboardingFlow() {
 
       case 3:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-languages">
             <div className="text-center space-y-2">
               <Globe className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Languages & Interests</h3>
-              <p className="text-gray-600">Help us connect you with the right people and experiences</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-languages-interests">Languages & Interests</h3>
+              <p className="text-gray-600" data-testid="step-description-languages-interests">Help us connect you with the right people and experiences</p>
             </div>
             
-            <div>
+            <div data-testid="section-languages">
               <Label>Languages You Speak</Label>
               <div className="grid grid-cols-2 gap-3 mt-2">
                 {languages.map(lang => (
                   <div key={lang} className="flex items-center space-x-2">
                     <Checkbox
                       id={lang}
+                      data-testid={`checkbox-language-${lang.toLowerCase()}`}
                       checked={profileData.languagesSpoken.includes(lang)}
                       onCheckedChange={(checked) => handleCheckboxChange('languagesSpoken', lang, checked as boolean)}
                     />
@@ -264,13 +274,14 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <div>
+            <div data-testid="section-interests">
               <Label>Your Interests</Label>
               <div className="grid grid-cols-2 gap-3 mt-2">
                 {interests.map(interest => (
                   <div key={interest} className="flex items-center space-x-2">
                     <Checkbox
                       id={interest}
+                      data-testid={`checkbox-interest-${interest.toLowerCase().replace(/\s+/g, '-')}`}
                       checked={profileData.travelInterests.includes(interest)}
                       onCheckedChange={(checked) => handleCheckboxChange('travelInterests', interest, checked as boolean)}
                     />
@@ -284,14 +295,14 @@ export function GuestOnboardingFlow() {
 
       case 4:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-location">
             <div className="text-center space-y-2">
               <MapPin className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Location & Duration</h3>
-              <p className="text-gray-600">Where do you want to stay and for how long?</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-location">Location & Duration</h3>
+              <p className="text-gray-600" data-testid="step-description-location">Where do you want to stay and for how long?</p>
             </div>
             
-            <div>
+            <div data-testid="section-neighborhoods">
               <Label>Preferred Neighborhoods</Label>
               <p className="text-sm text-gray-600 mb-2">Select neighborhoods you're interested in</p>
               <div className="grid grid-cols-2 gap-3">
@@ -299,6 +310,7 @@ export function GuestOnboardingFlow() {
                   <div key={hood} className="flex items-center space-x-2">
                     <Checkbox
                       id={hood}
+                      data-testid={`checkbox-neighborhood-${hood.toLowerCase().replace(/\s+/g, '-')}`}
                       checked={profileData.preferredNeighborhoods.includes(hood)}
                       onCheckedChange={(checked) => handleCheckboxChange('preferredNeighborhoods', hood, checked as boolean)}
                     />
@@ -314,14 +326,14 @@ export function GuestOnboardingFlow() {
                 value={profileData.stayDurationPreference}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, stayDurationPreference: value }))}
               >
-                <SelectTrigger className="mt-2">
+                <SelectTrigger className="mt-2" data-testid="select-stay-duration">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="short">Few days (1-7 days)</SelectItem>
-                  <SelectItem value="medium">Few weeks (1-4 weeks)</SelectItem>
-                  <SelectItem value="long">Month or more (1-3 months)</SelectItem>
-                  <SelectItem value="extended">Extended stay (3+ months)</SelectItem>
+                  <SelectItem value="short" data-testid="option-duration-short">Few days (1-7 days)</SelectItem>
+                  <SelectItem value="medium" data-testid="option-duration-medium">Few weeks (1-4 weeks)</SelectItem>
+                  <SelectItem value="long" data-testid="option-duration-long">Month or more (1-3 months)</SelectItem>
+                  <SelectItem value="extended" data-testid="option-duration-extended">Extended stay (3+ months)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -330,11 +342,11 @@ export function GuestOnboardingFlow() {
 
       case 5:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-budget">
             <div className="text-center space-y-2">
               <DollarSign className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Budget Range</h3>
-              <p className="text-gray-600">Help us find options within your budget</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-budget">Budget Range</h3>
+              <p className="text-gray-600" data-testid="step-description-budget">Help us find options within your budget</p>
             </div>
             
             <div className="space-y-4">
@@ -347,14 +359,14 @@ export function GuestOnboardingFlow() {
                     budgetRange: { ...prev.budgetRange, currency: value }
                   }))}
                 >
-                  <SelectTrigger className="mt-2">
+                  <SelectTrigger className="mt-2" data-testid="select-currency">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="USD">USD - US Dollar</SelectItem>
-                    <SelectItem value="EUR">EUR - Euro</SelectItem>
-                    <SelectItem value="ARS">ARS - Argentine Peso</SelectItem>
-                    <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                    <SelectItem value="USD" data-testid="option-currency-USD">USD - US Dollar</SelectItem>
+                    <SelectItem value="EUR" data-testid="option-currency-EUR">EUR - Euro</SelectItem>
+                    <SelectItem value="ARS" data-testid="option-currency-ARS">ARS - Argentine Peso</SelectItem>
+                    <SelectItem value="GBP" data-testid="option-currency-GBP">GBP - British Pound</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -363,6 +375,7 @@ export function GuestOnboardingFlow() {
                 <Label htmlFor="minBudget">Minimum Budget (per night)</Label>
                 <Input
                   id="minBudget"
+                  data-testid="input-min-budget"
                   type="number"
                   placeholder="0"
                   value={profileData.budgetRange.min || ''}
@@ -378,6 +391,7 @@ export function GuestOnboardingFlow() {
                 <Label htmlFor="maxBudget">Maximum Budget (per night)</Label>
                 <Input
                   id="maxBudget"
+                  data-testid="input-max-budget"
                   type="number"
                   placeholder="0"
                   value={profileData.budgetRange.max || ''}
@@ -394,11 +408,11 @@ export function GuestOnboardingFlow() {
 
       case 6:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6" data-testid="guest-onboarding-emergency">
             <div className="text-center space-y-2">
               <Phone className="w-12 h-12 text-turquoise-500 mx-auto" />
-              <h3 className="text-xl font-semibold">Emergency Contact</h3>
-              <p className="text-gray-600">For your safety, please provide an emergency contact</p>
+              <h3 className="text-xl font-semibold" data-testid="step-title-emergency">Emergency Contact</h3>
+              <p className="text-gray-600" data-testid="step-description-emergency">For your safety, please provide an emergency contact</p>
             </div>
             
             <div className="space-y-4">
@@ -406,6 +420,7 @@ export function GuestOnboardingFlow() {
                 <Label htmlFor="contactName">Contact Name</Label>
                 <Input
                   id="contactName"
+                  data-testid="input-emergency-name"
                   placeholder="Full name"
                   value={profileData.emergencyContact.name}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -420,6 +435,7 @@ export function GuestOnboardingFlow() {
                 <Label htmlFor="contactPhone">Contact Phone</Label>
                 <Input
                   id="contactPhone"
+                  data-testid="input-emergency-phone"
                   placeholder="+1 234 567 8900"
                   value={profileData.emergencyContact.phone}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -434,6 +450,7 @@ export function GuestOnboardingFlow() {
                 <Label htmlFor="contactRelationship">Relationship</Label>
                 <Input
                   id="contactRelationship"
+                  data-testid="input-emergency-relationship"
                   placeholder="E.g., Spouse, Parent, Friend"
                   value={profileData.emergencyContact.relationship}
                   onChange={(e) => setProfileData(prev => ({ 
@@ -445,7 +462,7 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <div className="bg-blue-50 p-4 rounded-lg">
+            <div className="bg-blue-50 p-4 rounded-lg" data-testid="privacy-notice-emergency">
               <p className="text-sm text-blue-800">
                 <strong>Privacy Note:</strong> This information is kept strictly confidential and will only be used in case of emergency.
               </p>
@@ -459,12 +476,19 @@ export function GuestOnboardingFlow() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <div className="container mx-auto px-4 py-8 max-w-2xl" data-testid="guest-onboarding-container">
       <Card>
         <CardHeader>
-          <Progress value={(currentStep / totalSteps) * 100} className="mb-4" />
+          <Progress 
+            value={(currentStep / totalSteps) * 100} 
+            className="mb-4" 
+            data-testid="progress-bar"
+            aria-valuenow={(currentStep / totalSteps) * 100}
+            aria-label={`Step ${currentStep} of ${totalSteps}`}
+            role="progressbar"
+          />
           <CardTitle>Complete Your Guest Profile</CardTitle>
-          <CardDescription>
+          <CardDescription data-testid="step-indicator">
             Step {currentStep} of {totalSteps}
           </CardDescription>
         </CardHeader>
@@ -477,13 +501,19 @@ export function GuestOnboardingFlow() {
               variant="outline"
               onClick={handlePrevious}
               disabled={currentStep === 1}
+              data-testid={`button-back-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
+              aria-label="Go back to previous step"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Previous
             </Button>
 
             {currentStep < totalSteps ? (
-              <Button onClick={handleNext}>
+              <Button 
+                onClick={handleNext}
+                data-testid={`button-continue-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
+                aria-label="Continue to next step"
+              >
                 Next
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
@@ -491,6 +521,7 @@ export function GuestOnboardingFlow() {
               <Button 
                 onClick={handleSubmit}
                 disabled={isSubmitting}
+                data-testid="button-complete-onboarding"
                 className="bg-gradient-to-r from-turquoise-500 to-blue-500 hover:from-turquoise-600 hover:to-blue-600"
               >
                 {isSubmitting ? 'Saving...' : 'Complete Profile'}
