@@ -57,7 +57,13 @@ const CSP_DIRECTIVES = {
   ],
   workerSrc: ["'self'", 'blob:'],
   formAction: ["'self'"],
-  frameAncestors: ["'self'"],
+  frameAncestors: [
+    "'self'",
+    'https://*.replit.com',
+    'https://*.repl.co',
+    'https://*.replit.dev',
+    'https://*.replit.app'
+  ],
   baseUri: ["'self'"],
   manifestSrc: ["'self'"],
   upgradeInsecureRequests: [],
@@ -65,6 +71,17 @@ const CSP_DIRECTIVES = {
 
 // Security headers configuration
 export function configureSecurityHeaders(app: any) {
+  // Skip security headers in development for Replit preview
+  if (process.env.NODE_ENV === 'development') {
+    // Use minimal security headers in development
+    app.use((req: Request, res: Response, next: NextFunction) => {
+      // Allow Replit preview iframe
+      res.setHeader('X-Frame-Options', 'ALLOWALL');
+      next();
+    });
+    return;
+  }
+  
   // Basic Helmet configuration
   app.use(helmet({
     contentSecurityPolicy: {

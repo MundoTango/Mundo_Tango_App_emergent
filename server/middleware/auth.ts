@@ -37,6 +37,34 @@ declare global {
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Development bypass
+    if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+      const defaultUser = await storage.getUser(7); // Scott Boddye's admin user ID
+      if (defaultUser) {
+        req.user = {
+          id: defaultUser.id,
+          email: defaultUser.email,
+          username: defaultUser.username,
+          name: defaultUser.name,
+          bio: defaultUser.bio,
+          firstName: defaultUser.firstName,
+          lastName: defaultUser.lastName,
+          mobileNo: defaultUser.mobileNo,
+          profileImage: defaultUser.profileImage,
+          backgroundImage: defaultUser.backgroundImage,
+          country: defaultUser.country,
+          city: defaultUser.city,
+          facebookUrl: defaultUser.facebookUrl,
+          isVerified: defaultUser.isVerified,
+          isActive: defaultUser.isActive,
+          apiToken: defaultUser.apiToken,
+          createdAt: defaultUser.createdAt,
+          updatedAt: defaultUser.updatedAt,
+        };
+        return next();
+      }
+    }
+
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(' ')[1]; // Bearer token
 
