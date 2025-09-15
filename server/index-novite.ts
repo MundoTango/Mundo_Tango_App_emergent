@@ -216,6 +216,22 @@ app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 // Define client path early
 const clientPath = pathModule.join(process.cwd(), 'client', 'dist');
 
+// CRITICAL: Serve static files BEFORE routes to fix preview
+app.use(express.static(clientPath, {
+  maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js') || path.endsWith('.mjs')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=UTF-8');
+    } else if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=UTF-8');
+    } else if (path.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+    }
+  }
+}));
+
 // API routes
 const startServer = async () => {
   try {
@@ -227,24 +243,12 @@ const startServer = async () => {
     const io = setupSocketIO(httpServer);
     console.log('✅ Socket.io real-time features initialized on port 5000');
 
-    // IMPORTANT: Serve frontend files (both dev and prod use built files)
-    // Serve static files from client/dist directory
-    app.use(express.static(clientPath, {
-      maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
-      etag: true,
-      lastModified: true,
-      setHeaders: (res, path) => {
-        if (path.endsWith('.js')) {
-          res.setHeader('Content-Type', 'application/javascript');
-        } else if (path.endsWith('.css')) {
-          res.setHeader('Content-Type', 'text/css');
-        } else if (path.endsWith('.html')) {
-          res.setHeader('Content-Type', 'text/html');
-        }
-      }
-    }));
-    
-    // Catch-all route for SPA client-side routing (must be AFTER static files)
+    // Mount API routes
+    app.use(postsRoutes);
+    app.use(eventsRoutes);
+    app.use(integrationHelpers);
+
+    // Catch-all route for SPA client-side routing (must be LAST after all routes)
     app.get('*', (req, res, next) => {
       // Skip API routes
       if (req.url.startsWith('/api') || req.url.startsWith('/uploads')) {
@@ -254,11 +258,6 @@ const startServer = async () => {
       // Serve index.html for all other routes
       res.sendFile(pathModule.join(clientPath, 'index.html'));
     });
-
-    // Mount routes
-    app.use(postsRoutes);
-    app.use(eventsRoutes);
-    app.use(integrationHelpers);
 
     // Use port 80 for production deployments (Replit requirement)
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
