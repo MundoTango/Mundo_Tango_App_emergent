@@ -8,8 +8,8 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "ci", "&&", "NODE_OPTIONS='--max-old-space-size=1024'", "npm", "run", "build", "&&", "npm", "prune", "--production"]
-run = ["node", "--max-old-space-size=1024", "server/index-novite.ts"]
+build = ["npm", "run", "build"]
+run = ["node", "--max-old-space-size=1024", "server/index-deploy.js"]
 
 [[ports]]
 localPort = 5000
@@ -30,6 +30,10 @@ externalPort = 8080
 [[ports]]
 localPort = 35261
 externalPort = 8000
+
+[[ports]]
+localPort = 36113
+externalPort = 8081
 
 [[ports]]
 localPort = 36251
