@@ -1,6 +1,13 @@
 import { Page, expect, Locator } from '@playwright/test';
-import percySnapshot from '@percy/playwright';
 import { VisualRegressionOptions } from './types';
+
+// Make Percy optional - only load if available
+let percySnapshot: any;
+try {
+  percySnapshot = require('@percy/playwright').default;
+} catch (e) {
+  console.warn('Percy not installed, visual regression tests will be skipped');
+}
 
 /**
  * Visual regression testing helpers for Mundo Tango
@@ -20,9 +27,9 @@ export async function takePercySnapshot(
     scope?: string;
   }
 ): Promise<void> {
-  // Skip if Percy token not available
-  if (!process.env.PERCY_TOKEN) {
-    console.warn('Percy token not found, skipping visual regression test');
+  // Skip if Percy not available or token not available
+  if (!percySnapshot || !process.env.PERCY_TOKEN) {
+    console.warn('Percy not available or token not found, skipping visual regression test');
     return;
   }
   
