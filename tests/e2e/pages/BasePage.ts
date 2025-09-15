@@ -183,6 +183,80 @@ export class BasePage {
     const { assertNoA11yViolations } = await import('../helpers/accessibility');
     await assertNoA11yViolations(this.page);
   }
+
+  /**
+   * Take visual regression snapshot
+   */
+  async takeVisualSnapshot(name: string, options?: {
+    fullPage?: boolean;
+    clip?: { x: number; y: number; width: number; height: number };
+    mask?: Locator[];
+    maxDiffPixels?: number;
+    maxDiffPixelRatio?: number;
+    threshold?: number;
+  }): Promise<void> {
+    await expect(this.page).toHaveScreenshot(`${name}.png`, {
+      fullPage: options?.fullPage ?? true,
+      clip: options?.clip,
+      mask: options?.mask,
+      maxDiffPixels: options?.maxDiffPixels ?? 100,
+      maxDiffPixelRatio: options?.maxDiffPixelRatio ?? 0.01,
+      threshold: options?.threshold ?? 0.2,
+      animations: 'disabled',
+    });
+  }
+
+  /**
+   * Take element snapshot for visual regression
+   */
+  async takeElementSnapshot(selector: string, name: string, options?: {
+    mask?: Locator[];
+    maxDiffPixels?: number;
+    maxDiffPixelRatio?: number;
+    threshold?: number;
+  }): Promise<void> {
+    const element = this.page.locator(selector);
+    await expect(element).toHaveScreenshot(`${name}-element.png`, {
+      mask: options?.mask,
+      maxDiffPixels: options?.maxDiffPixels ?? 50,
+      maxDiffPixelRatio: options?.maxDiffPixelRatio ?? 0.01,
+      threshold: options?.threshold ?? 0.2,
+      animations: 'disabled',
+    });
+  }
+
+  /**
+   * Verify page structure and content
+   */
+  async verifyPageStructure(expectedElements: string[]): Promise<void> {
+    for (const selector of expectedElements) {
+      await expect(this.page.locator(selector)).toBeVisible();
+    }
+  }
+
+  /**
+   * Check for broken links on page
+   */
+  async checkForBrokenLinks(): Promise<{ url: string; status: number }[]> {
+    const links = await this.page.locator('a[href]').all();
+    const brokenLinks: { url: string; status: number }[] = [];
+
+    for (const link of links) {
+      const href = await link.getAttribute('href');
+      if (href && href.startsWith('http')) {
+        try {
+          const response = await this.page.request.head(href);
+          if (response.status() >= 400) {
+            brokenLinks.push({ url: href, status: response.status() });
+          }
+        } catch (error) {
+          brokenLinks.push({ url: href || '', status: 0 });
+        }
+      }
+    }
+
+    return brokenLinks;
+  }
   
   /**
    * Wait for API response
