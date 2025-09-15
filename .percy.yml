@@ -1,0 +1,55 @@
+version: 2
+snapshot:
+  # Percy visual snapshot settings for Mundo Tango Ocean theme
+  widths: [375, 768, 1280, 1920]
+  min-height: 1024
+  enable-javascript: true
+  percy-css: |
+    /* Hide dynamic content that changes between snapshots */
+    .timestamp, .relative-time, .loading-skeleton {
+      visibility: hidden !important;
+    }
+    /* Stabilize animations */
+    *, *::before, *::after {
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+    }
+    /* Ensure Ocean theme colors are rendered */
+    :root {
+      --ocean-primary: hsl(180, 71%, 39%);
+      --ocean-secondary: hsl(214, 100%, 59%);
+    }
+  disable-shadow-dom: false
+  scope-selector: '#root'
+
+# Discovery settings for finding tests
+discovery:
+  allowed-hostnames: ['localhost', '127.0.0.1']
+  network-idle-timeout: 500
+  disable-cache: true
+
+# Static snapshots configuration
+static:
+  base-url: 'http://localhost:5000'
+  files: 'client/dist/**/*.{html,css,js}'
+  ignore-files: '**/*.map'
+
+# Browser configuration
+browsers:
+  - chrome
+  - firefox
+  - edge
+  - safari
+
+# Responsive design testing
+responsive:
+  breakpoints:
+    mobile: 375
+    tablet: 768
+    desktop: 1280
+    wide: 1920
+
+# Visual diff thresholds
+diff:
+  threshold: 0.01  # 1% difference threshold
+  diff-only-threshold: 0.05

@@ -1,0 +1,167 @@
+{
+  "id": "mundo_tango_visual_regression",
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "label": "tablet",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "label": "desktop",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "label": "wide",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "onBeforeScript": "tests/visual/puppet/onBefore.js",
+  "onReadyScript": "tests/visual/puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "Homepage",
+      "url": "http://localhost:5000",
+      "referenceUrl": "",
+      "readyEvent": "",
+      "readySelector": ".hero-section",
+      "delay": 1000,
+      "hideSelectors": [".timestamp", ".loading-skeleton"],
+      "removeSelectors": [],
+      "hoverSelector": "",
+      "clickSelector": "",
+      "postInteractionWait": 0,
+      "selectors": [],
+      "selectorExpansion": true,
+      "expect": 0,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": true
+    },
+    {
+      "label": "Registration Page",
+      "url": "http://localhost:5000/auth/register",
+      "readySelector": "#registration-form",
+      "delay": 500,
+      "hideSelectors": [".timestamp"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Guest Onboarding - Step 1",
+      "url": "http://localhost:5000/guest-onboarding",
+      "readySelector": ".onboarding-container",
+      "delay": 500,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Guest Onboarding - Profile Setup",
+      "url": "http://localhost:5000/guest-onboarding",
+      "readySelector": ".onboarding-container",
+      "clickSelector": "[data-testid='button-continue']",
+      "postInteractionWait": 500,
+      "delay": 1000,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Events Page",
+      "url": "http://localhost:5000/events",
+      "readySelector": ".events-grid",
+      "delay": 1000,
+      "hideSelectors": [".event-date", ".timestamp"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Profile Page",
+      "url": "http://localhost:5000/profile",
+      "readySelector": ".profile-container",
+      "delay": 1000,
+      "hideSelectors": [".timestamp", ".last-seen"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Community Page",
+      "url": "http://localhost:5000/community",
+      "readySelector": ".community-grid",
+      "delay": 1000,
+      "hideSelectors": [".member-count", ".timestamp"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Timeline Page",
+      "url": "http://localhost:5000/timeline",
+      "readySelector": ".timeline-container",
+      "delay": 1000,
+      "hideSelectors": [".post-timestamp", ".relative-time"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Dark Mode - Homepage",
+      "url": "http://localhost:5000?theme=dark",
+      "readySelector": ".hero-section",
+      "onBeforeScript": "tests/visual/puppet/setDarkMode.js",
+      "delay": 1000,
+      "hideSelectors": [".timestamp"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Dark Mode - Profile",
+      "url": "http://localhost:5000/profile?theme=dark",
+      "readySelector": ".profile-container",
+      "onBeforeScript": "tests/visual/puppet/setDarkMode.js",
+      "delay": 1000,
+      "hideSelectors": [".timestamp"],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Mobile Menu",
+      "url": "http://localhost:5000",
+      "viewports": [
+        {
+          "label": "phone",
+          "width": 375,
+          "height": 812
+        }
+      ],
+      "clickSelector": "[data-testid='button-mobile-menu']",
+      "postInteractionWait": 500,
+      "readySelector": ".mobile-menu-open",
+      "delay": 500,
+      "misMatchThreshold": 0.1
+    },
+    {
+      "label": "Form Validation States",
+      "url": "http://localhost:5000/auth/register",
+      "readySelector": "#registration-form",
+      "clickSelector": "[data-testid='button-submit']",
+      "postInteractionWait": 500,
+      "delay": 1000,
+      "selectors": [".error-message", ".field-error"],
+      "misMatchThreshold": 0.1
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "tests/visual/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser", "CI"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "headless": true,
+    "ignoreHTTPSErrors": true
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false,
+  "archiveReport": true,
+  "scenarioLogsInReports": true
+}

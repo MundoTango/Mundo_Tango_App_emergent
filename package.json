@@ -21,7 +21,17 @@
     "test:e2e:debug": "NODE_ENV=test DATABASE_URL=$TEST_DATABASE_URL playwright test --config=tests/e2e/playwright.config.ts --debug",
     "test:e2e:isolated": "npm run test:setup && NODE_ENV=test DATABASE_URL=$TEST_DATABASE_URL playwright test --config=tests/e2e/playwright.config.ts; npm run test:teardown",
     "test:install": "playwright install",
-    "test:comprehensive": "./run-comprehensive-tests.sh"
+    "test:comprehensive": "./run-comprehensive-tests.sh",
+    "test:visual": "npm run test:visual:backstop && npm run test:visual:percy",
+    "test:visual:backstop": "backstop test",
+    "test:visual:backstop:reference": "backstop reference",
+    "test:visual:backstop:approve": "backstop approve",
+    "test:visual:percy": "percy exec -- playwright test tests/visual/percy/percy-snapshots.spec.ts",
+    "test:visual:baseline": "node tests/visual/capture-baseline.js",
+    "test:visual:baseline:clean": "node tests/visual/capture-baseline.js --clean",
+    "test:visual:a11y": "playwright test tests/visual/accessibility-visual.spec.ts",
+    "test:lighthouse": "lhci autorun --config=lighthouserc.json",
+    "test:lighthouse:view": "lhci open"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.10.2",
