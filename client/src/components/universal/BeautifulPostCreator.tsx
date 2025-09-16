@@ -612,13 +612,12 @@ export default function BeautifulPostCreator({
 
     setIsEnhancing(true);
     try {
-      // Note: API endpoint and token retrieval might need adjustment based on your setup
-      // const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
-      const response = await fetch('/api/posts/:id/enhance', { // Placeholder for actual endpoint
+      // ESA Layer 31-35 Fix: Use correct AI enhancement endpoint
+      const response = await fetch('/api/posts/enhance-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}` // Include token if required
+          ...(csrfToken && { 'X-CSRF-Token': csrfToken })
         },
         body: JSON.stringify({ content })
       });
