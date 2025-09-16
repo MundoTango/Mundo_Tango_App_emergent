@@ -1,0 +1,67 @@
+sw.js:51 Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Request scheme 'chrome-extension' is unsupported
+    at sw.js:51:21
+(index):45 [Report Only] Refused to load the script 'https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(index):45 Refused to load the script 'https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(anonymous) @ (index):45
+(index):1 [Report Only] Refused to load the script 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(index):1 Refused to load the script 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(index):1 [Report Only] Refused to load the script 'https://upload-widget.cloudinary.com/global/all.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(index):1 Refused to load the script 'https://upload-widget.cloudinary.com/global/all.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+sw.js:51 Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Request scheme 'chrome-extension' is unsupported
+    at sw.js:51:21
+(anonymous) @ sw.js:51
+Promise.then
+(anonymous) @ sw.js:50
+Promise.then
+(anonymous) @ sw.js:46
+(index):1 [Report Only] Refused to load the script 'https://replit.com/public/js/replit-dev-banner.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval'". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+(index):1 Refused to load the script 'https://replit.com/public/js/replit-dev-banner.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+index-BxF8ZW_i.js:21 Service Worker registered
+(index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+(index):1 Error while trying to use the following icon from the Manifest: https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/icons/icon-144x144.png (Download error or resource isn't a valid image)
+stats:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+csrf-token:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+count:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+vendor-BIrXHuAT.js:10 [Violation] 'setTimeout' handler took 170ms
+(index):1 [Report Only] Refused to load the image 'https://youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+sw.js:81 [Report Only] Refused to connect to 'https://youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+sw.js:81 [Report Only] Refused to connect to 'https://youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Violation] Forced reflow while executing JavaScript took 31ms
+[Report Only] Refused to connect to 'https://www.youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+index-BxF8ZW_i.js:21  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/admin/stats 401 (Unauthorized)
+queryFn @ index-BxF8ZW_i.js:21
+fetchFn @ tanstack-DxaWRCJ-.js:1
+d @ tanstack-DxaWRCJ-.js:1
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+Promise.then
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+index-BxF8ZW_i.js:21  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/friends/requests/count 404 (Not Found)
+queryFn @ index-BxF8ZW_i.js:21
+fetchFn @ tanstack-DxaWRCJ-.js:1
+d @ tanstack-DxaWRCJ-.js:1
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+Promise.then
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+index-BxF8ZW_i.js:21  GET https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/api/notifications/count 404 (Not Found)
+queryFn @ index-BxF8ZW_i.js:21
+fetchFn @ tanstack-DxaWRCJ-.js:1
+d @ tanstack-DxaWRCJ-.js:1
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+Promise.then
+(anonymous) @ tanstack-DxaWRCJ-.js:1
+sw.js:7 Uncaught SyntaxError: Unexpected token 'const' (at sw.js:7:9)
+(index):1 [Report Only] Refused to load the image 'https://www.youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback.
+
