@@ -376,6 +376,87 @@ router.post('/api/posts/with-image', requireAuth, upload.single('image'), async 
 });
 
 /**
+ * ESA Layer 13 Fix: Create post with direct media URLs (no file upload)
+ * This endpoint accepts cloud media URLs directly without processing files
+ */
+router.post('/api/posts/direct', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+    
+    const { 
+      content, 
+      mediaUrls = [], 
+      cloudMediaUrls = [],
+      isPublic = true,
+      hashtags = [],
+      mentions = [],
+      location,
+      visibility = 'public',
+      isRecommendation = false,
+      recommendationType,
+      priceRange 
+    } = req.body;
+    
+    // Combine all media URLs
+    const allMediaUrls = [...mediaUrls, ...cloudMediaUrls];
+    
+    // Extract first image and video URL for backward compatibility
+    let imageUrl: string | null = null;
+    let videoUrl: string | null = null;
+    
+    for (const url of allMediaUrls) {
+      const ext = path.extname(url).toLowerCase();
+      if (!imageUrl && /\.(jpg|jpeg|png|gif|webp)$/i.test(ext)) {
+        imageUrl = url;
+      } else if (!videoUrl && /\.(mp4|mov|avi|webm)$/i.test(ext)) {
+        videoUrl = url;
+      }
+    }
+    
+    const postData = {
+      content: content || '',
+      userId,
+      imageUrl,
+      videoUrl,
+      mediaEmbeds: allMediaUrls,
+      isPublic: visibility === 'public' || isPublic,
+      hashtags: Array.isArray(hashtags) ? hashtags : [],
+      mentions: Array.isArray(mentions) ? mentions : [],
+      location,
+      isRecommendation,
+      recommendationType,
+      priceRange,
+      createdAt: new Date(),
+      likesCount: 0,
+      commentsCount: 0,
+      sharesCount: 0
+    };
+    
+    const newPost = await storage.createPost(postData);
+    
+    console.log('✅ Post created successfully via /api/posts/direct');
+    
+    res.json({
+      success: true,
+      data: newPost
+    });
+  } catch (error: any) {
+    console.error('❌ Error creating post via direct endpoint:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create post',
+      error: error.message
+    });
+  }
+});
+
+/**
  * Update post
  */
 router.put('/api/posts/:id', async (req: any, res) => {
