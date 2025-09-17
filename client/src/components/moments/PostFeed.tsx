@@ -5,6 +5,7 @@ import { Heart, Search, X, Tag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import PostItem from './PostItem';
+import ShareModal from '../modern/ShareModal';
 
 interface Post {
   id: number;
@@ -34,6 +35,8 @@ export default function PostFeed() {
   const [filterBy, setFilterBy] = useState<'all' | 'following' | 'nearby'>('all');
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   // Fetch posts
   const { data: posts, isLoading } = useQuery({
@@ -93,19 +96,8 @@ export default function PostFeed() {
   };
 
   const handleSharePost = (post: Post) => {
-    if (navigator.share) {
-      navigator.share({
-        title: `${post.user.name}'s tango moment`,
-        text: post.content,
-        url: window.location.origin + `/posts/${post.id}`,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.origin + `/posts/${post.id}`);
-      toast({
-        title: "Link copied",
-        description: "Post link has been copied to clipboard.",
-      });
-    }
+    setSelectedPost(post);
+    setShowShareModal(true);
   };
 
   if (isLoading) {
@@ -245,6 +237,18 @@ export default function PostFeed() {
           </div>
         ))}
       </div>
+
+      {/* Share Modal */}
+      {showShareModal && selectedPost && (
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => {
+            setShowShareModal(false);
+            setSelectedPost(null);
+          }}
+          post={selectedPost}
+        />
+      )}
     </div>
   );
 }

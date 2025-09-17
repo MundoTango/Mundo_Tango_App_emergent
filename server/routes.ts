@@ -945,6 +945,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Platform functionality endpoints - Save posts
+  app.post("/api/saved-posts", authMiddleware, async (req, res) => {
+    try {
+      const { postId } = req.body;
+      const userId = req.user?.id;
+      
+      if (!userId || !postId) {
+        return res.status(400).json({ success: false, error: "Missing required fields" });
+      }
+      
+      await storage.savePost(userId, postId);
+      res.json({ success: true, message: "Post saved successfully" });
+    } catch (error) {
+      console.error("Error saving post:", error);
+      res.status(500).json({ success: false, error: "Failed to save post" });
+    }
+  });
+
+  // Platform functionality endpoints - Submit reports
+  app.post("/api/reports", authMiddleware, async (req, res) => {
+    try {
+      const { type, targetId, reason, description } = req.body;
+      const userId = req.user?.id;
+      
+      if (!userId || !type || !targetId || !reason) {
+        return res.status(400).json({ success: false, error: "Missing required fields" });
+      }
+      
+      await storage.createReport({
+        type,
+        targetId,
+        reason,
+        description: description || '',
+        reporterId: userId,
+        createdAt: new Date()
+      });
+      
+      res.json({ success: true, message: "Report submitted successfully" });
+    } catch (error) {
+      console.error("Error creating report:", error);
+      res.status(500).json({ success: false, error: "Failed to submit report" });
+    }
+  });
+
+  // Platform functionality endpoints - Get city groups
+  app.get("/api/city-groups", async (req, res) => {
+    try {
+      const cityGroups = await storage.getCityGroups();
+      res.json({ success: true, data: cityGroups });
+    } catch (error) {
+      console.error("Error fetching city groups:", error);
+      res.status(500).json({ success: false, error: "Failed to fetch city groups" });
+    }
+  });
+
   // ESA LIFE CEO 61x21 - Block user endpoint
   app.post('/api/users/:userId/block', setUserContext, async (req: any, res) => {
     try {
