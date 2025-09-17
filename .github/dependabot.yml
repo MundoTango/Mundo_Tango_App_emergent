@@ -1,0 +1,80 @@
+version: 2
+updates:
+  # JavaScript dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "ESA Layer 59"
+      - "automated"
+    reviewers:
+      - "mundotango/esa-team"
+    assignees:
+      - "esa-bot"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    ignore:
+      # Ignore major versions for critical dependencies
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Group all minor and patch updates together
+      development-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "@types/*"
+          - "*eslint*"
+          - "*prettier*"
+        update-types:
+          - "minor"
+          - "patch"
+      production-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@types/*"
+          - "*eslint*"
+          - "*prettier*"
+        update-types:
+          - "patch"
+  
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ESA Layer 50"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+  
+  # Docker dependencies (if applicable)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "ESA Layer 52"
+    commit-message:
+      prefix: "build"
+      include: "scope"
