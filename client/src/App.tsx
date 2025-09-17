@@ -7,6 +7,8 @@ import { SocketProvider } from "@/contexts/socket-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TenantProvider } from "@/contexts/TenantContext";
 import { CsrfProvider } from "@/contexts/CsrfContext";
+import { OpenReplayProvider } from "@/components/OpenReplayProvider";
+import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -721,11 +723,14 @@ export default function App() {
       <AuthProvider>
         <CsrfProvider>
           <TenantProvider>
-            <MonitoringProvider>
-              <TrialBanner />
-              <Router />
-              <Toaster />
-            </MonitoringProvider>
+            <OpenReplayProvider>
+              <MonitoringProvider>
+                <TrialBanner />
+                <SessionRecordingNotice />
+                <Router />
+                <Toaster />
+              </MonitoringProvider>
+            </OpenReplayProvider>
           </TenantProvider>
         </CsrfProvider>
       </AuthProvider>
