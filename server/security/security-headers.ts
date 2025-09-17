@@ -71,12 +71,31 @@ const CSP_DIRECTIVES = {
 
 // Security headers configuration
 export function configureSecurityHeaders(app: any) {
-  // Skip security headers in development for Replit preview
+  // Development mode: Permissive headers for Replit preview
   if (process.env.NODE_ENV === 'development') {
-    // Use minimal security headers in development
     app.use((req: Request, res: Response, next: NextFunction) => {
-      // Allow Replit preview iframe
-      res.setHeader('X-Frame-Options', 'ALLOWALL');
+      // Allow iframe embedding for Replit preview
+      res.removeHeader('X-Frame-Options');
+      
+      // Basic security headers
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.setHeader('X-XSS-Protection', '1; mode=block');
+      res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+      
+      // Permissive CSP for development
+      res.setHeader('Content-Security-Policy',
+        "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; " +
+        "script-src * 'unsafe-inline' 'unsafe-eval'; " +
+        "connect-src * wss: ws:; " +
+        "img-src * data: blob:; " +
+        "frame-src *; " +
+        "style-src * 'unsafe-inline'; " +
+        "font-src * data:; " +
+        "media-src * blob:; " +
+        "worker-src * blob:; " +
+        "frame-ancestors *;"
+      );
+      
       next();
     });
     return;
@@ -189,7 +208,7 @@ export function configureCORS(app: any) {
         return callback(null, true);
       }
       
-      if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+      if (allowedOrigins.some(allowed => allowed && origin.startsWith(allowed))) {
         callback(null, true);
       } else {
         console.warn(`CORS blocked origin: ${origin}`);

@@ -1,0 +1,933 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+MundoTangoAppemergent:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+MundoTangoAppemergent:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+MundoTangoAppemergent:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-c0616a3118f130ef.js:38 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-c0616a3118f130ef.js:38 [LaunchDarkly] LaunchDarkly client initialized
+web-client-content-script.js:2 Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.
+    at HTMLIFrameElement.<anonymous> (web-client-content-script.js:2:535495)
+MundoTangoAppemergent:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+WARNING: Too many active WebGL contexts. Oldest context will be lost.
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+WebGL: INVALID_OPERATION: delete: object does not belong to this context
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+attached_assets/image_1758026143133.png:1  Failed to load resource: the server responded with a status of 404 ()
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+stallwart.build.js:1 stallwart: failed ping 1
+framework-d09a187271094b93.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'battery'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-d09a187271094b93.js:1
+framework-d09a187271094b93.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-d09a187271094b93.js:1
+Refused to frame 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/' because an ancestor violates the following Content Security Policy directive: "frame-ancestors 'self'".
+
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+region1.analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je59f0v9135634466za200&_p=1758057199421&gcd=13l3lPl2l2l1&npa=0&dma_cps=syphamo&dma=1&ul=en-us&sr=1512x982&cid=1698203577.1754839129&ecid=695369555&ir=1&uaa=arm&uab=64&uafvl=Chromium%3B140.0.7339.133%7CNot%253DA%253FBrand%3B24.0.0.0%7CGoogle%2520Chrome%3B140.0.7339.133&uamb=0&uam=&uap=macOS&uapv=15.6.1&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&tag_exp=101509157~103116026~103200004~103233427~104527907~104528500~104630779~104630781~104684208~104684211~104948813~105367987~105367989~105426769~105426771~115480710~115688283~115688285&dl=https%3A%2F%2Freplit.com%2F%40admin3304%2FMundoTangoAppemergent&dp=%2F%40admin3304%2FMundoTangoAppemergent&dt=replEnvironmentDesktop&sid=1758057201&sct=71&seg=1&_tu=wAQ&_s=6&tfd=73872:1  Failed to load resource: net::ERR_CONNECTION_CLOSED
+stallwart.build.js:1 stallwart: failed ping 1
+framework-d09a187271094b93.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-d09a187271094b93.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Aruq%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+Refused to frame 'https://30590b1f-f13e-4679-9ae4-c1e95fc9d219-00-893q9uv9jr1b.kirk.replit.dev/' because an ancestor violates the following Content Security Policy directive: "frame-ancestors 'self'".
+
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextlost event received
+_app-c0616a3118f130ef.js:38 webglcontextrestored event received
+(anonymous) @ _app-c0616a3118f130ef.js:38
+_app-c0616a3118f130ef.js:38 webgl context not restored; firing onContextLoss
+(anonymous) @ _app-c0616a3118f130ef.js:38
+sw.js:51 Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Request scheme 'chrome-extension' is unsupported
+    at sw.js:51:21
+sw.js:81 [Report Only] Refused to connect to 'https://youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+sw.js:81 [Report Only] Refused to connect to 'https://youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+[Report Only] Refused to connect to 'https://www.youtube.com/watch?v=test123' because it violates the following Content Security Policy directive: "default-src 'self'". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback.
+
+_app-c0616a3118f130ef.js:38 [Violation] 'requestAnimationFrame' handler took 52ms
+[Violation] Forced reflow while executing JavaScript took 52ms
