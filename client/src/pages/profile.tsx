@@ -467,7 +467,9 @@ export default function Profile() {
                     />
                     
                     {/* Enhanced Post Feed - Same as Main Memories Feed */}
-                    <EnhancedPostFeed key={refreshKey} />
+                    <Suspense fallback={<PostFeedFallback />}>
+                      <LazyEnhancedPostFeed key={refreshKey} />
+                    </Suspense>
                   </div>
                 </div>
               </TabsContent>
@@ -537,10 +539,12 @@ export default function Profile() {
               </TabsContent>
 
               <TabsContent value="travel" className="space-y-4">
-                <TravelDetailsComponent 
-                  userId={user?.id || 0} 
-                  isOwnProfile={true} 
-                />
+                <Suspense fallback={<TravelDetailsFallback />}>
+                  <LazyTravelDetailsComponent 
+                    userId={user?.id || 0} 
+                    isOwnProfile={true} 
+                  />
+                </Suspense>
               </TabsContent>
 
               <TabsContent value="photos" className="space-y-4">
@@ -676,7 +680,9 @@ export default function Profile() {
               </TabsContent>
 
               <TabsContent value="friends" className="space-y-4">
-                <UserFriendsList userId={user?.id || 0} isOwnProfile={true} />
+                <Suspense fallback={<FriendsFallback />}>
+                  <LazyUserFriendsList userId={user?.id || 0} isOwnProfile={true} />
+                </Suspense>
               </TabsContent>
 
               <TabsContent value="experience" className="space-y-4">
