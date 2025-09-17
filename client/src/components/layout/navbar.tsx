@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useState } from "react";
 
 interface NavbarProps {
@@ -74,7 +74,10 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 <div>
                   <h3 className="font-semibold text-sm text-gray-700 mb-2">Friends</h3>
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                    <div 
+                      className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer"
+                      onClick={() => window.location.href = '/profile/1'}
+                    >
                       <img src="/api/placeholder/32/32" className="w-8 h-8 rounded-full object-cover" />
                       <span className="text-sm">Maria Rodriguez</span>
                     </div>

@@ -125,7 +125,6 @@ export default function UpcomingEventsSidebar() {
         <div className="text-center py-8">
           <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm mb-2">No upcoming events found</p>
-          <p className="text-gray-400 text-xs">Debug: {JSON.stringify(eventsData?.data || {})}</p>
           <p className="text-gray-400 text-xs">Check back later for new events</p>
         </div>
       )}

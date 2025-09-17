@@ -523,6 +523,12 @@ export interface IStorage {
   getUserSettings(userId: number): Promise<any>;
   updateUserSettings(userId: number, settings: any): Promise<void>;
   
+  // Additional platform functionality
+  savePost(userId: number, postId: number): Promise<void>;
+  createReport(report: { type: string; targetId: number; reason: string; description: string; reporterId: number; createdAt: Date }): Promise<void>;
+  blockUser(userId: number, blockedUserId: number): Promise<void>;
+  getCityGroups(): Promise<any[]>;
+  
   // Database access for admin queries
   db: any;
   
@@ -5432,6 +5438,83 @@ export class DatabaseStorage implements IStorage {
         recommendationCount: 7
       };
     }
+  }
+
+  // Additional platform functionality methods
+  async savePost(userId: number, postId: number): Promise<void> {
+    // For now, store in database later - just log
+    console.log(`User ${userId} saved post ${postId}`);
+  }
+
+  async createReport(report: { type: string; targetId: number; reason: string; description: string; reporterId: number; createdAt: Date }): Promise<void> {
+    // For now, log the report - can be saved to database later
+    console.log('Report created:', report);
+  }
+
+  async blockUser(userId: number, blockedUserId: number): Promise<void> {
+    // For now, log the block action - can be saved to database later
+    console.log(`User ${userId} blocked user ${blockedUserId}`);
+  }
+
+  async getCityGroups(): Promise<any[]> {
+    // Return city groups data for display
+    return [
+      {
+        id: 1,
+        name: 'Buenos Aires',
+        slug: 'buenos-aires',
+        country: 'Argentina',
+        memberCount: 1234,
+        eventCount: 45,
+        coverImage: '/images/cities/buenos-aires.jpg',
+        description: 'The birthplace of tango',
+        isFollowing: true
+      },
+      {
+        id: 2,
+        name: 'Paris',
+        slug: 'paris',
+        country: 'France',
+        memberCount: 890,
+        eventCount: 32,
+        coverImage: '/images/cities/paris.jpg',
+        description: 'City of lights and tango nights',
+        isFollowing: false
+      },
+      {
+        id: 3,
+        name: 'New York',
+        slug: 'new-york',
+        country: 'USA',
+        memberCount: 756,
+        eventCount: 28,
+        coverImage: '/images/cities/new-york.jpg',
+        description: 'Tango in the Big Apple',
+        isFollowing: true
+      },
+      {
+        id: 4,
+        name: 'Berlin',
+        slug: 'berlin',
+        country: 'Germany',
+        memberCount: 543,
+        eventCount: 19,
+        coverImage: '/images/cities/berlin.jpg',
+        description: 'Modern tango fusion',
+        isFollowing: false
+      },
+      {
+        id: 5,
+        name: 'Tokyo',
+        slug: 'tokyo',
+        country: 'Japan',
+        memberCount: 432,
+        eventCount: 22,
+        coverImage: '/images/cities/tokyo.jpg',
+        description: 'Tango meets Eastern culture',
+        isFollowing: false
+      }
+    ];
   }
 }
 

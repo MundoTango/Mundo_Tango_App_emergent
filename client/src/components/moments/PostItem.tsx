@@ -8,6 +8,7 @@ import {
   Expand
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { Link } from 'wouter';
 import PostDetailModal from './PostDetailModal';
 import { renderWithMentions } from '@/utils/renderWithMentions';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
@@ -84,9 +85,11 @@ const PostItem = React.memo(({ post, onLike, onShare }: PostItemProps) => {
             {/* Author Info */}
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h4 className="font-semibold text-lg text-gray-900 hover:text-[#8E142E] cursor-pointer transition-colors">
-                  {post.user?.name || 'Anonymous'}
-                </h4>
+                <Link href={`/profile/${post.user?.id}`}>
+                  <h4 className="font-semibold text-lg text-gray-900 hover:text-[#8E142E] cursor-pointer transition-colors">
+                    {post.user?.name || 'Anonymous'}
+                  </h4>
+                </Link>
                 <span className="text-gray-500 text-base">@{post.user?.username || 'anonymous'}</span>
               </div>
               
