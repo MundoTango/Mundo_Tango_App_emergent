@@ -157,6 +157,20 @@ TECHNICAL IMPLEMENTATION:
 Use the same MT Ocean design system and integrate with existing authentication.
 ```
 
+## 📚 Platform Documentation Reference
+
+The complete platform documentation index is maintained at:
+`docs/pages/DOCUMENTATION-INDEX.md`
+
+This index serves as the orchestration guide for all 72 pages with:
+- Route mappings and page purposes (2 auth, 8 user management, 6 events, 3 housing, 7 social, 6 community, 8 content, 7 billing, 11 admin, 3 Life CEO, 6 testing, 3 legal, 2 integration pages)
+- Feature lists per page with complete UI/UX specifications
+- Test coverage status (currently 15% - 11/72 pages tested)
+- Agent layer assignments for each feature
+- Performance metrics and optimization targets
+
+All agents should reference this index when implementing or testing features.
+
 #### **For Events Management System**
 ```
 Build comprehensive event management with dual interfaces:
@@ -323,14 +337,22 @@ interface LayerAgent {
 10. **Component Library Agent** - shadcn/ui, Radix UI, custom components
 
 ### Core Functionality Agents (Layers 11-20)
-11. **Real-time Features Agent** - WebSocket, Socket.io, live updates management
+11. **Real-time Features Agent (Enhanced)** - WebSocket, Socket.io, live updates management
+    - **Session Recording**: OpenReplay for debugging and user behavior analysis
+    - **WebSocket Integration**: Correlates with Socket.io events
+    - **Privacy**: Respects user preferences and data protection laws
+    - **Use Case**: Production debugging and UX optimization
 12. **Data Processing Agent** - Batch operations, transformations intelligence
 13. **File Management Agent** - Uploads, Cloudinary, compression optimization
 14. **Caching Strategy Agent** - Redis, in-memory cache, CDN intelligence
 15. **Search & Discovery Agent** - Elasticsearch, fuzzy matching, AI-powered search
 16. **Notification System Agent** - Email, push, in-app notifications orchestration
 17. **Payment Processing Agent** - Stripe integration, subscriptions management
-18. **Reporting & Analytics Agent** - Metrics, dashboards, insights generation
+18. **Reporting & Analytics Agent (Enhanced)** - Metrics, dashboards, insights generation
+    - **Primary Tool**: PostHog for product analytics
+    - **Tracking**: User journeys across all 72 pages
+    - **Privacy**: GDPR-compliant event collection
+    - **Integration**: Automatic pageview and custom event tracking
 19. **Content Management Agent** - Rich text, media, moderation automation
 20. **Workflow Engine Agent** - Business processes, automation flows intelligence
 
@@ -366,7 +388,11 @@ interface LayerAgent {
 
 ### Platform Enhancement Agents (Layers 47-56)
 47. **Mobile Optimization Agent** - PWA, responsive design, touch intelligence
-48. **Performance Monitoring Agent** - Metrics, profiling, optimization automation
+48. **Performance Monitoring Agent (Enhanced)** - Metrics, profiling, optimization automation
+    - **Primary Tool**: Lighthouse CI for automated performance audits
+    - **Metrics**: Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1)
+    - **Budget**: Every page must load < 3 seconds, bundles < 100KB per route
+    - **Integration**: Runs on every deployment
     ```typescript
     const performanceExpertise = {
       lighthouseCI: {
@@ -401,7 +427,15 @@ interface LayerAgent {
     ```
 49. **Security Hardening Agent** - Vulnerability scanning, patches intelligence
 50. **DevOps Automation Agent** - CI/CD, deployment, monitoring management
-51. **Testing Framework Agent** - Unit, integration, E2E tests automation
+51. **Testing Framework Agent (Enhanced)** - Unit, integration, E2E tests automation
+    - **Primary Tools**: 
+      - Playwright for E2E testing
+      - Jest for frontend unit tests
+      - Vitest for backend tests
+      - **NEW: Percy/BackstopJS** for visual regression testing
+    - **Coverage Target**: 80% across all 72 pages documented in DOCUMENTATION-INDEX.md
+    - **Visual Regression**: Automated MT Ocean theme consistency validation
+    - **Test Matrix**: Comprehensive feature testing for each page category
     ```typescript
     const testingExpertise = {
       playwright: {
@@ -441,7 +475,11 @@ interface LayerAgent {
     ```
 52. **Documentation System Agent** - API docs, user guides intelligence
 53. **Internationalization Agent** - i18n, localization, translations management
-54. **Accessibility Agent** - WCAG compliance, screen readers optimization
+54. **Accessibility Agent (Enhanced)** - WCAG compliance, screen readers optimization
+    - **Primary Tool**: axe-core for automated WCAG AA compliance
+    - **Integration**: Runs on every page test automatically
+    - **MT Ocean Theme**: Validates contrast ratios (#5EEAD4→#155E75 gradients)
+    - **Coverage**: All 72 pages must pass accessibility standards
     ```typescript
     const accessibilityExpertise = {
       axeCore: {
