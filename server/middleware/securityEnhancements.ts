@@ -190,9 +190,7 @@ export const ssrfPrevention = (req: Request, res: Response, next: NextFunction) 
 export const enhancedXssProtection = (req: Request, res: Response, next: NextFunction) => {
   // Set additional security headers
   res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('Content-Security-Policy-Report-Only', 
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
-  );
+  // CSP header is already set in securityMiddleware.ts - removing duplicate to avoid conflicts
   
   // Sanitize common XSS vectors in request
   const sanitizeXss = (obj: any): any => {

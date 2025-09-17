@@ -135,89 +135,11 @@ export const sanitizeError = (error: any): { message: string, code?: string } =>
 };
 
 // ESA LIFE CEO 61×21 - Layer 49: Security Hardening Agent
-// Coordinated with Layer 3 (Server Framework) and Layer 58 (Third-Party Integration)
+// CSP is now handled by Helmet in server/security/security-headers.ts
+// This middleware only sets basic headers not covered by Helmet
 export const securityHeaders = (req: Request, res: Response, next: NextFunction) => {
-  // Development mode: Permissive headers for Replit preview iframe compatibility
-  if (process.env.NODE_ENV === 'development') {
-    // Allow iframe embedding for Replit preview
-    res.setHeader('X-Frame-Options', 'ALLOWALL');
-    
-    // Basic security headers even in development
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    
-    // Permissive CSP for development - allows all required services
-    res.setHeader('Content-Security-Policy', 
-      "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; " +
-      "script-src * 'unsafe-inline' 'unsafe-eval'; " +
-      "connect-src * wss: ws:; " +
-      "img-src * data: blob:; " +
-      "frame-src *; " +
-      "style-src * 'unsafe-inline'; " +
-      "font-src * data:; " +
-      "media-src * blob:; " +
-      "worker-src * blob:;"
-    );
-  } else {
-    // Production mode: Strict security with all required domains
-    res.setHeader('X-Frame-Options', 'DENY');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    
-    // Production CSP with all necessary external services
-    res.setHeader('Content-Security-Policy', 
-      "default-src 'self'; " +
-      // Scripts: Stripe, Google Maps, Cloudinary, Plausible, CDNs
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' " +
-      "https://js.stripe.com " +
-      "https://maps.googleapis.com " +
-      "https://upload-widget.cloudinary.com " +
-      "https://plausible.io " +
-      "https://cdn.jsdelivr.net " +
-      "https://unpkg.com " +
-      "https://replit.com; " +
-      // Styles
-      "style-src 'self' 'unsafe-inline' " +
-      "https://fonts.googleapis.com " +
-      "https://cdn.jsdelivr.net; " +
-      // Images: Cloudinary, OpenStreetMap, avatars
-      "img-src 'self' data: blob: https: " +
-      "https://*.cloudinary.com " +
-      "https://tile.openstreetmap.org " +
-      "https://*.googleusercontent.com " +
-      "https://*.githubusercontent.com; " +
-      // Connections: APIs, WebSockets
-      "connect-src 'self' " +
-      "https://api.stripe.com " +
-      "https://api.cloudinary.com " +
-      "https://plausible.io " +
-      "https://nominatim.openstreetmap.org " +
-      "https://maps.googleapis.com " +
-      "https://*.supabase.co " +
-      "wss://*.supabase.co " +
-      "wss://*.replit.dev " +
-      "https://*.replit.dev " +
-      "ws://localhost:* " +
-      "wss://localhost:*; " +
-      // Frames: Stripe, YouTube, Vimeo
-      "frame-src 'self' " +
-      "https://js.stripe.com " +
-      "https://hooks.stripe.com " +
-      "https://www.youtube.com " +
-      "https://player.vimeo.com; " +
-      // Fonts
-      "font-src 'self' data: " +
-      "https://fonts.gstatic.com; " +
-      // Media
-      "media-src 'self' blob: " +
-      "https://*.cloudinary.com; " +
-      // Workers
-      "worker-src 'self' blob:;"
-    );
-  }
-  
+  // Only set headers not handled by Helmet
+  // CSP is managed by configureSecurityHeaders in security-headers.ts
   next();
 };
 
