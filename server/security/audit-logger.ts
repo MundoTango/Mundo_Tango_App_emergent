@@ -100,6 +100,7 @@ export async function logAuditEvent(entry: AuditLogEntry): Promise<void> {
       userId: entry.userId || null,
       eventType: entry.eventType,
       level: entry.level,
+      action: entry.eventType || 'unknown_action', // Ensure action is never null
       message: entry.message,
       metadata: entry.metadata ? JSON.stringify(entry.metadata) : null,
       ipAddress: entry.ipAddress || null,

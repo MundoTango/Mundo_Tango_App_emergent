@@ -25,17 +25,8 @@ interface EventsResponse {
 }
 
 export default function UpcomingEventsSidebar() {
-  console.log('🔥 COMPONENT RENDERED: UpcomingEventsSidebar called!');
-  
   const { data: eventsData, isLoading, error } = useQuery<EventsResponse>({
     queryKey: ['/api/events/feed'],
-  });
-
-  console.log('🎯 ESA Events Debug:', { 
-    eventsData, 
-    isLoading, 
-    error, 
-    hasData: !!eventsData?.data 
   });
 
   // Combine all events and sort by date
@@ -44,14 +35,6 @@ export default function UpcomingEventsSidebar() {
     ...(eventsData?.data?.city_events || []),
     ...(eventsData?.data?.followed_events || [])
   ].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-
-  console.log('🎯 ESA Events Combined:', { 
-    totalEvents: allEvents.length,
-    upcomingEvents: eventsData?.data?.upcoming_events?.length || 0,
-    cityEvents: eventsData?.data?.city_events?.length || 0,
-    followedEvents: eventsData?.data?.followed_events?.length || 0,
-    allEvents: allEvents.slice(0, 3)
-  });
 
 
 
@@ -62,9 +45,6 @@ export default function UpcomingEventsSidebar() {
         <h2 className="text-xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Upcoming Events
         </h2>
-        <div className="text-xs bg-red-100 px-2 py-1 rounded">
-          RENDERED
-        </div>
       </div>
 
       {isLoading ? (
