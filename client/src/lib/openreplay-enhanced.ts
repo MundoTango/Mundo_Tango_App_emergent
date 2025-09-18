@@ -100,27 +100,31 @@ class OpenReplayEnhanced {
   
   private async setupPlugins(config: OpenReplayConfig) {
     try {
+      // Note: OpenReplay plugins are not available at this time
+      // This functionality is disabled until the packages are available
+      console.log('🎥 OpenReplay: Plugins currently disabled');
+      
       // Conditionally load plugins based on privacy mode
-      if (config.privacyMode !== 'strict') {
-        const { default: trackerAssist } = await import('@openreplay/tracker-assist').catch(() => ({ default: null }));
-        if (trackerAssist && this.tracker) {
-          this.tracker.use(trackerAssist());
-        }
-      }
+      // if (config.privacyMode !== 'strict') {
+      //   const { default: trackerAssist } = await import('@openreplay/tracker-assist').catch(() => ({ default: null }));
+      //   if (trackerAssist && this.tracker) {
+      //     this.tracker.use(trackerAssist());
+      //   }
+      // }
       
       // Always load performance plugin for ESA Layer 48
-      const { default: trackerPerformance } = await import('@openreplay/tracker-performance').catch(() => ({ default: null }));
-      if (trackerPerformance && this.tracker) {
-        this.tracker.use(trackerPerformance());
-      }
+      // const { default: trackerPerformance } = await import('@openreplay/tracker-performance').catch(() => ({ default: null }));
+      // if (trackerPerformance && this.tracker) {
+      //   this.tracker.use(trackerPerformance());
+      // }
       
       // Load fetch plugin for network tracking
-      const { default: trackerFetch } = await import('@openreplay/tracker-fetch').catch(() => ({ default: null }));
-      if (trackerFetch && this.tracker) {
-        this.tracker.use(trackerFetch({
-          sanitiser: this.sanitizeNetworkData.bind(this)
-        }));
-      }
+      // const { default: trackerFetch } = await import('@openreplay/tracker-fetch').catch(() => ({ default: null }));
+      // if (trackerFetch && this.tracker) {
+      //   this.tracker.use(trackerFetch({
+      //     sanitiser: this.sanitizeNetworkData.bind(this)
+      //   }));
+      // }
     } catch (error) {
       console.log('🎥 OpenReplay: Plugin setup failed', error);
     }
