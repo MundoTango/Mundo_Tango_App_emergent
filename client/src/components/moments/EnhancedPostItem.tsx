@@ -13,6 +13,7 @@ import {
   ThumbsUp
 } from 'lucide-react';
 import { formatDistanceToNow, differenceInDays } from 'date-fns';
+import { Link } from 'wouter';
 
 import { renderWithMentions } from '@/utils/renderWithMentions';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
@@ -470,12 +471,14 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
             {/* User Info with enhanced typography */}
             <div className="flex-1">
               <div className="flex flex-col gap-1 mb-1">
-                <h3 
-                  className="font-bold text-xl text-gray-900 hover:text-indigo-600 cursor-pointer transition-colors"
-                  title={post.user?.fullName || post.user?.name || 'Anonymous'}
-                >
-                  {post.user?.name || 'Anonymous'}
-                </h3>
+                <Link href={`/profile/${post.user?.id || post.userId}`}>
+                  <h3 
+                    className="font-bold text-xl text-gray-900 hover:text-indigo-600 cursor-pointer transition-colors"
+                    title={post.user?.fullName || post.user?.name || 'Anonymous'}
+                  >
+                    {post.user?.name || 'Anonymous'}
+                  </h3>
+                </Link>
                 <div className="text-gray-500 text-sm">
                   {formatUserLocation({ 
                     city: post.user?.city, 

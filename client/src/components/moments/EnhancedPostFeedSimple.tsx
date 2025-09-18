@@ -3,13 +3,14 @@
  * Simplified version that works with the new MemoryFilters component
  */
 
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Sparkles, Heart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import EnhancedPostItem from './EnhancedPostItem';
+import ShareModal from '@/components/modern/ShareModal';
 
 interface Post {
   id: number;
@@ -69,6 +70,8 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [shareModalPost, setShareModalPost] = useState<Post | null>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // ESA LIFE CEO 61x21 - Fetch posts with filters applied (FIXED: was using /api/memories/feed)
   const { data: posts, isLoading } = useQuery({
@@ -145,26 +148,16 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
     likeMutation.mutate({ postId, isLiked });
   }, [likeMutation]);
 
-  // Share functionality
-  const handleShare = useCallback(async (post: Post) => {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: `Memory by ${post.user.name}`,
-          text: post.content,
-          url: window.location.href,
-        });
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        toast({
-          title: "Copied!",
-          description: "Link copied to clipboard",
-        });
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-    }
-  }, [toast]);
+  // Share functionality - open ShareModal
+  const handleShare = useCallback((post: Post) => {
+    setShareModalPost(post);
+    setIsShareModalOpen(true);
+  }, []);
+
+  const handleCloseShareModal = useCallback(() => {
+    setIsShareModalOpen(false);
+    setShareModalPost(null);
+  }, []);
 
   // Loading state
   if (isLoading) {
@@ -254,6 +247,15 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
           </div>
         )}
       </section>
+
+      {/* ShareModal */}
+      {shareModalPost && (
+        <ShareModal
+          isOpen={isShareModalOpen}
+          onClose={handleCloseShareModal}
+          post={shareModalPost}
+        />
+      )}
     </div>
   );
 });

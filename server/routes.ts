@@ -117,6 +117,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ token: session.csrfToken });
   });
   
+  // Version endpoint - helps verify which code is actually running
+  app.get('/api/__version', (req, res) => {
+    res.json({ 
+      version: '1.0.0',
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      message: 'ESA LIFE CEO 61x21 - Version endpoint active'
+    });
+  });
+  
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', userStatsRoutes); // ESA Performance optimized stats routes
