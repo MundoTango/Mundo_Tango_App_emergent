@@ -78,9 +78,10 @@ interface PostItemProps {
   post: Post;
   onLike: (postId: number) => void;
   onShare: (post: Post) => void;
+  onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
 }
 
-function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
+function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -476,7 +477,7 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
             {/* ESA LIFE CEO 61x21 - Post Actions Menu with Edit/Delete */}
             <PostActionsMenu
               post={post}
-              onEdit={undefined} // Edit should be handled by parent component
+              onEdit={onEdit} // ESA Layer 7: Pass edit to parent's unified composer
               onShare={onShare}
             />
           </div>
