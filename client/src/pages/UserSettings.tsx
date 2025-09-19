@@ -787,6 +787,92 @@ const UserSettings: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Privacy & Analytics - Platform Monitoring */}
+              <div className="space-y-4 border-t pt-6">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <BarChart className="w-5 h-5 text-turquoise-600" />
+                  Privacy & Analytics
+                </h3>
+                
+                <Alert className="border-blue-200 bg-blue-50 dark:bg-blue-900/20">
+                  <Shield className="h-4 w-4" />
+                  <AlertDescription>
+                    Help us improve your experience. Your data is encrypted and never sold. 
+                    You can change these settings anytime.
+                  </AlertDescription>
+                </Alert>
+
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                    <div className="flex items-start space-x-3">
+                      <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <div className="space-y-1 flex-1">
+                        <Label htmlFor="product-analytics" className="text-sm font-medium cursor-pointer">
+                          Product Analytics
+                        </Label>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Understand how you use our features to improve the platform
+                        </p>
+                      </div>
+                    </div>
+                    <Switch
+                      id="product-analytics"
+                      checked={privacy.shareAnalytics}
+                      onCheckedChange={(checked) => handlePrivacyChange('shareAnalytics', checked)}
+                      className="mt-switch"
+                      data-testid="switch-analytics"
+                    />
+                  </div>
+
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                    <div className="flex items-start space-x-3">
+                      <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <div className="space-y-1 flex-1">
+                        <Label htmlFor="session-recording" className="text-sm font-medium cursor-pointer">
+                          Session Recording
+                        </Label>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Help us identify and fix user experience issues
+                        </p>
+                      </div>
+                    </div>
+                    <Switch
+                      id="session-recording"
+                      checked={privacy.dataExportEnabled}
+                      onCheckedChange={(checked) => handlePrivacyChange('dataExportEnabled', checked)}
+                      className="mt-switch"
+                      data-testid="switch-session"
+                    />
+                  </div>
+
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                    <div className="flex items-start space-x-3">
+                      <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <div className="space-y-1 flex-1">
+                        <Label htmlFor="error-tracking" className="text-sm font-medium cursor-pointer">
+                          Error Tracking
+                        </Label>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Automatically report technical issues for faster resolution
+                        </p>
+                      </div>
+                    </div>
+                    <Switch
+                      id="error-tracking"
+                      checked={privacy.thirdPartySharing}
+                      onCheckedChange={(checked) => handlePrivacyChange('thirdPartySharing', checked)}
+                      className="mt-switch"
+                      data-testid="switch-errors"
+                    />
+                  </div>
+
+                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <Lock className="w-3 h-3 inline mr-1" />
+                    Your data is encrypted and never sold. You can change these settings anytime in your privacy preferences.
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

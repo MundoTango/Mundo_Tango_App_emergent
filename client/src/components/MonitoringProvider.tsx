@@ -63,16 +63,8 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
         setIsInitialized(true);
         console.log('[MonitoringProvider] Monitoring initialized with existing consent');
       } else {
-        // No existing consent, check if we should show modal
-        const consentState = consentManager.getConsentState();
-        
-        if (!consentState) {
-          // First time user, show consent modal after a delay
-          setTimeout(() => setShowConsentModal(true), 2000);
-        } else {
-          // User previously rejected, show banner after longer delay
-          setTimeout(() => setShowConsentBanner(true), 5000);
-        }
+        // No existing consent - user must enable in settings
+        console.log('[MonitoringProvider] No consent - user can enable analytics in Settings > Privacy');
       }
     } catch (error) {
       console.error('[MonitoringProvider] Failed to check consent:', error);
@@ -163,18 +155,11 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
     }}>
       {children}
 
-      {/* Consent Modal - Shows for first-time users */}
-      {showConsentModal && (
-        <ConsentModal
-          onAccept={(analytics, sessionRecording, errorTracking) => 
-            handleConsentDecision(analytics, sessionRecording, errorTracking)
-          }
-          onReject={() => handleConsentDecision(false, false, false)}
-        />
-      )}
+      {/* Privacy settings moved to Settings > Privacy page - no automatic popups */}
+      {/* showConsentModal removed - users manage privacy in settings */}
 
-      {/* Consent Banner - Shows for returning users who previously rejected */}
-      {showConsentBanner && !hasConsent && (
+      {/* Consent Banner - Disabled - users manage privacy in settings */}
+      {false && showConsentBanner && !hasConsent && (
         <div className="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-500" data-testid="consent-banner">
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4">
             <div className="flex items-start space-x-3">
