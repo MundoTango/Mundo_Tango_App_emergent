@@ -6,22 +6,16 @@ import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// ESA Layer 7: Input/Textarea handled by BeautifulPostCreator
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import WhatsOnYourMind from "@/components/feed/WhatsOnYourMind";
 import PostLikeComment from "@/components/feed/PostLikeComment";
 import NewFeedEvents from "@/components/feed/NewFeedEvents";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
-import { 
-  ImageIcon, 
-  MapPin, 
-  Star,
-  Upload,
-  X,
-  Loader2
-} from "lucide-react";
+import BeautifulPostCreator from "@/components/universal/BeautifulPostCreator";
+import { PostEditCreatorDialog } from "@/components/ui/PostEditCreatorDialog";
+// ESA Layer 7: Icons for post types handled by BeautifulPostCreator
 import DashboardLayout from "@/layouts/DashboardLayout";
 
 interface Post {
@@ -60,11 +54,8 @@ const EnhancedTimeline = () => {
   
   const [visibility, setVisibility] = useState("Public");
   const [createPostModal, setCreatePostModal] = useState(false);
-  const [createPostType, setCreatePostType] = useState("");
-  const [postContent, setPostContent] = useState("");
-  const [postImages, setPostImages] = useState<File[]>([]);
-  const [postLocation, setPostLocation] = useState("");
   const [editingPost, setEditingPost] = useState<Post | null>(null);
+  // ESA Layer 7: Post content state handled by BeautifulPostCreator
 
   // Fetch posts with visibility filter
   const { data: postsData, isLoading: postsLoading } = useQuery({
@@ -274,14 +265,21 @@ const EnhancedTimeline = () => {
         </div>
       </div>
 
-      {/* Create/Edit Post Modal */}
-      <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>
-              {editingPost ? "Edit Post" : "Create Post"}
-            </DialogTitle>
-          </DialogHeader>
+      {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using BeautifulPostCreator */}
+      {editingPost ? (
+        <PostEditCreatorDialog
+          open={createPostModal}
+          onOpenChange={setCreatePostModal}
+          post={editingPost}
+          user={user || undefined}
+        />
+      ) : (
+        <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
+            <BeautifulPostCreator
+              context={{ type: 'feed' }}
+              user={user}
+            />
           
           <div className="space-y-4">
             {/* User info */}
@@ -425,9 +423,9 @@ const EnhancedTimeline = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
       </div>
     </DashboardLayout>
   );
