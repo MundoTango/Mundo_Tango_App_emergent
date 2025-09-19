@@ -184,15 +184,37 @@ export default function ModernMemoriesPageV2() {
     },
   });
 
-  // Edit post mutation
+  // Edit post mutation - ESA Layer 7: Support media updates with FormData
   const editPostMutation = useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      let body: any;
+      let headers: any = {};
+      
+      // Use FormData if media is being updated
+      if (data.imageFile || data.removeMedia) {
+        const formData = new FormData();
+        formData.append('content', data.content || '');
+        formData.append('isPublic', String(data.isPublic !== undefined ? data.isPublic : true));
+        
+        if (data.imageFile) {
+          formData.append('image', data.imageFile);
+        }
+        if (data.removeMedia) {
+          formData.append('removeMedia', 'true');
+        }
+        
+        body = formData;
+        // Don't set Content-Type for FormData - let browser set it with boundary
+      } else {
+        // Use JSON for text-only updates
+        body = JSON.stringify(data);
+        headers['Content-Type'] = 'application/json';
+      }
+      
       const response = await apiRequest(`/api/posts/${id}`, { 
         method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: body,
+        headers: headers,
       });
       return response;
     },
