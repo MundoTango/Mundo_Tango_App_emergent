@@ -152,8 +152,9 @@ const TTfilesDemo = lazy(() => import("@/pages/TTfilesDemo"));
 const FeatureNavigation = lazy(() => import("@/pages/feature-navigation"));
 const DatabaseSecurity = lazy(() => import("@/pages/database-security"));
 
-// ========== Legal & Compliance Pages (3) ==========
+// ========== Legal & Compliance Pages (4) ==========
 const CodeOfConduct = lazy(() => import("@/pages/code-of-conduct"));
+const PrivacyAnalytics = lazy(() => import("@/pages/PrivacyAnalytics"));
 
 // ========== Additional Platform Pages (5) ==========
 const TravelPlanner = lazy(() => import("@/pages/TravelPlanner"));
@@ -659,7 +660,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Legal & Compliance Routes (3) ========== */}
+          {/* ========== Legal & Compliance Routes (4) ========== */}
           <Route path="/code-of-conduct">
             <Suspense fallback={<LoadingFallback message="Loading terms..." />}>
               <CodeOfConduct />
@@ -675,6 +676,12 @@ function Router() {
           <Route path="/privacy-policy">
             <Suspense fallback={<LoadingFallback message="Loading privacy policy..." />}>
               <CodeOfConduct />
+            </Suspense>
+          </Route>
+
+          <Route path="/privacy-analytics">
+            <Suspense fallback={<LoadingFallback message="Loading privacy settings..." />}>
+              <PrivacyAnalytics />
             </Suspense>
           </Route>
 
