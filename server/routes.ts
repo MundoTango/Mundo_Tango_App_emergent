@@ -1265,38 +1265,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Business Search Endpoint (for LocationAutocomplete)
+  // ESA LIFE CEO 61x21 - Business Search Endpoint (Google Maps Places API)
   app.get('/api/search/businesses', async (req: any, res) => {
     try {
       const searchTerm = parseQueryParam(req.query.q, '').toLowerCase();
       const businessTypes = parseQueryParam(req.query.types, 'restaurant,bar,cafe,club,store');
-      const limit = parseIntQueryParam(req.query.limit, 4);
+      const limit = parseIntQueryParam(req.query.limit, 10);
       
       console.log('🔍 Business search API called:', { searchTerm, businessTypes, limit });
       
-      // Sample businesses matching the search
-      const businesses = [
-        { id: 1, name: 'La Cabrera Steakhouse', businessType: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
-        { id: 2, name: 'Don Julio Restaurant', businessType: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
-        { id: 3, name: 'Café Tortoni', businessType: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
-        { id: 4, name: 'Milonga Tango Bar', businessType: 'bar', address: 'Defensa 963', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
-        { id: 5, name: 'Salon Canning', businessType: 'club', address: 'Av. Scalabrini Ortiz 1331', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
-        { id: 6, name: 'La Viruta Tango Club', businessType: 'club', address: 'Armenia 1366', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 }
-      ];
+      // Use Google Maps API key from environment
+      const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
       
-      // Filter by search term
-      const filtered = searchTerm 
-        ? businesses.filter(b => 
-            b.name.toLowerCase().includes(searchTerm) ||
-            b.businessType.toLowerCase().includes(searchTerm) ||
-            b.city.toLowerCase().includes(searchTerm)
-          )
-        : businesses;
+      if (!apiKey) {
+        console.log('⚠️ Google Maps API key not configured, using fallback data');
+        // Fallback to expanded hardcoded list with popular Buenos Aires tango venues
+        const businesses = [
+          // Famous tango venues
+          { id: 1, name: 'El Beso (La Rioja 1180)', businessType: 'club', address: 'La Rioja 1180', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
+          { id: 2, name: 'El Beso Milonga', businessType: 'club', address: 'Riobamba 416', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
+          { id: 3, name: 'Salon Canning', businessType: 'club', address: 'Av. Raúl Scalabrini Ortiz 1331', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
+          { id: 4, name: 'La Viruta Tango Club', businessType: 'club', address: 'Armenia 1366', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
+          { id: 5, name: 'Milonga del Indio', businessType: 'club', address: 'Aráoz 2424', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.6 },
+          { id: 6, name: 'La Catedral', businessType: 'club', address: 'Sarmiento 4006', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
+          { id: 7, name: 'Maldita Milonga', businessType: 'club', address: 'Perú 571', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
+          { id: 8, name: 'Confitería Ideal', businessType: 'club', address: 'Suipacha 384', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
+          
+          // Restaurants
+          { id: 9, name: 'La Cabrera', businessType: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
+          { id: 10, name: 'Don Julio', businessType: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
+          { id: 11, name: 'El Querandí', businessType: 'restaurant', address: 'Perú 302', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
+          
+          // Cafes
+          { id: 12, name: 'Café Tortoni', businessType: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
+          { id: 13, name: 'Las Violetas', businessType: 'cafe', address: 'Av. Rivadavia 3899', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
+          { id: 14, name: 'Café San Bernardo', businessType: 'cafe', address: 'Av. Corrientes 1603', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.2 },
+          
+          // Bars
+          { id: 15, name: 'Bar Sur', businessType: 'bar', address: 'Estados Unidos 299', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
+          { id: 16, name: 'La Poesía', businessType: 'bar', address: 'Chile 502', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
+          { id: 17, name: 'El Federal', businessType: 'bar', address: 'Carlos Calvo 595', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.2 }
+        ];
+        
+        // Filter by search term
+        const filtered = searchTerm 
+          ? businesses.filter(b => 
+              b.name.toLowerCase().includes(searchTerm) ||
+              b.businessType.toLowerCase().includes(searchTerm) ||
+              b.address.toLowerCase().includes(searchTerm) ||
+              b.city.toLowerCase().includes(searchTerm)
+            )
+          : businesses;
+        
+        const results = filtered.slice(0, limit);
+        
+        console.log(`🎯 Returning ${results.length} business results from fallback data`);
+        res.json(results);
+        return;
+      }
       
-      const results = filtered.slice(0, limit);
+      // Import Google Maps client
+      const { Client } = require('@googlemaps/google-maps-services-js');
+      const client = new Client({});
       
-      console.log(`🎯 Returning ${results.length} business results`);
-      res.json(results);
+      // Perform text search using Places API
+      const response = await client.placesNearby({
+        params: {
+          key: apiKey,
+          location: { lat: -34.6037, lng: -58.3816 }, // Buenos Aires center
+          radius: 15000, // 15km radius
+          keyword: searchTerm,
+          type: businessTypes.split(',')[0], // Use first type
+        },
+        timeout: 5000
+      }).catch(async (err: any) => {
+        // If nearby search fails, try text search
+        return client.textSearch({
+          params: {
+            key: apiKey,
+            query: searchTerm + ' Buenos Aires',
+          },
+          timeout: 5000
+        });
+      });
+      
+      if (!response || !response.data || !response.data.results) {
+        console.log('⚠️ No results from Google Maps API');
+        res.json([]);
+        return;
+      }
+      
+      // Format Google Maps results to match our structure
+      const businesses = response.data.results.slice(0, limit).map((place: any, index: number) => ({
+        id: place.place_id || index,
+        name: place.name,
+        businessType: place.types && place.types[0] ? place.types[0].replace(/_/g, ' ') : 'venue',
+        address: place.vicinity || place.formatted_address || '',
+        city: 'Buenos Aires',
+        state: '',
+        country: 'Argentina',
+        rating: place.rating || 0
+      }));
+      
+      console.log(`🎯 Returning ${businesses.length} business results from Google Maps`);
+      res.json(businesses);
+      
     } catch (error: any) {
       console.error('Error searching businesses:', error);
       res.status(500).json({ 
