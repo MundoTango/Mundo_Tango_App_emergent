@@ -2,21 +2,64 @@ import React, { useState } from 'react';
 import { Image, Video, MapPin, Smile, X, Send, Globe, Users, Lock, Camera, FileImage } from 'lucide-react';
 
 interface ModernPostComposerProps {
-  onSubmit: (content: string, media?: File) => void;
+  onSubmit?: (content: string, media?: File) => void;
+  onUpdate?: (id: number, data: any) => void;
   onClose?: () => void;
+  editMode?: boolean;
+  existingPost?: {
+    id: number;
+    content: string;
+    imageUrl?: string | null;
+    videoUrl?: string | null;
+    isPublic?: boolean | null;
+    visibility?: string;
+  };
 }
 
-export default function ModernPostComposer({ onSubmit, onClose }: ModernPostComposerProps) {
-  const [content, setContent] = useState('');
+export default function ModernPostComposer({ 
+  onSubmit, 
+  onUpdate,
+  onClose, 
+  editMode = false,
+  existingPost 
+}: ModernPostComposerProps) {
+  const [content, setContent] = useState(existingPost?.content || '');
   const [selectedMedia, setSelectedMedia] = useState<File | null>(null);
-  const [visibility, setVisibility] = useState('public');
+  const [existingMediaUrl, setExistingMediaUrl] = useState<string | null>(
+    existingPost?.imageUrl || existingPost?.videoUrl || null
+  );
+  const [visibility, setVisibility] = useState(
+    existingPost?.visibility || (existingPost?.isPublic === false ? 'private' : 'public')
+  );
   const [isExpanded, setIsExpanded] = useState(true);
 
   const handleSubmit = () => {
     if (content.trim()) {
-      onSubmit(content, selectedMedia || undefined);
+      if (editMode && existingPost && onUpdate) {
+        // Edit mode: prepare update data
+        const updateData: any = {
+          content,
+          isPublic: visibility === 'public'
+        };
+        
+        // Only include media if changed
+        if (selectedMedia) {
+          updateData.imageFile = selectedMedia;
+        } else if (existingMediaUrl === null && (existingPost.imageUrl || existingPost.videoUrl)) {
+          // Media was removed
+          updateData.removeMedia = true;
+        }
+        
+        onUpdate(existingPost.id, updateData);
+      } else if (onSubmit) {
+        // Create mode
+        onSubmit(content, selectedMedia || undefined);
+      }
+      
+      // Reset form and close
       setContent('');
       setSelectedMedia(null);
+      setExistingMediaUrl(null);
       setIsExpanded(false);
       onClose?.();
     }
@@ -46,9 +89,11 @@ export default function ModernPostComposer({ onSubmit, onClose }: ModernPostComp
             </div>
             <div>
               <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                What's on your mind?
+                {editMode ? 'Edit your memory' : "What's on your mind?"}
               </h3>
-              <p className="text-blue-600/70 text-sm">Share your tango moment with the community</p>
+              <p className="text-blue-600/70 text-sm">
+                {editMode ? 'Update your tango moment' : 'Share your tango moment with the community'}
+              </p>
             </div>
           </div>
           {onClose && (
@@ -117,27 +162,34 @@ export default function ModernPostComposer({ onSubmit, onClose }: ModernPostComp
           />
         </div>
 
-        {/* Selected Media Preview */}
-        {selectedMedia && (
+        {/* Selected Media Preview or Existing Media */}
+        {(selectedMedia || existingMediaUrl) && (
           <div className="mb-6 p-5 bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl border-2 border-blue-200/50">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-coral-400 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  {selectedMedia.type.startsWith('image/') ? (
+                  {(selectedMedia?.type?.startsWith('image/') || existingMediaUrl?.includes('image')) ? (
                     <FileImage className="w-7 h-7 text-white" />
                   ) : (
                     <Video className="w-7 h-7 text-white" />
                   )}
                 </div>
                 <div>
-                  <p className="font-bold text-blue-900 text-lg">{selectedMedia.name}</p>
-                  <p className="text-blue-600 font-medium">
-                    {(selectedMedia.size / 1024 / 1024).toFixed(2)} MB
+                  <p className="font-bold text-blue-900 text-lg">
+                    {selectedMedia ? selectedMedia.name : 'Existing media'}
                   </p>
+                  {selectedMedia && (
+                    <p className="text-blue-600 font-medium">
+                      {(selectedMedia.size / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  )}
                 </div>
               </div>
               <button
-                onClick={() => setSelectedMedia(null)}
+                onClick={() => {
+                  setSelectedMedia(null);
+                  setExistingMediaUrl(null);
+                }}
                 className="p-3 rounded-2xl text-blue-400 hover:text-red-500 hover:bg-red-50 
                          transition-all duration-300 hover:scale-110"
               >
@@ -183,7 +235,7 @@ export default function ModernPostComposer({ onSubmit, onClose }: ModernPostComp
                      flex items-center space-x-3 group"
           >
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            <span>Post</span>
+            <span>{editMode ? 'Save' : 'Post'}</span>
           </button>
         </div>
       </div>
