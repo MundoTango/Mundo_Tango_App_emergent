@@ -96,6 +96,13 @@ function parseIntQueryParam(value: any, defaultValue: number = 0): number {
   return isNaN(parsed) ? defaultValue : parsed;
 }
 
+function parseFloatQueryParam(value: any, defaultValue: number | null = null): number | null {
+  const stringValue = parseQueryParam(value);
+  if (!stringValue) return defaultValue;
+  const parsed = parseFloat(stringValue);
+  return isNaN(parsed) ? defaultValue : parsed;
+}
+
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
