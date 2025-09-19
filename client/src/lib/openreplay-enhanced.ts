@@ -1,3 +1,6 @@
+// Feature flag check - disable by default
+const OPENREPLAY_ENABLED = import.meta.env.VITE_ENABLE_OPENREPLAY === 'true';
+
 interface OpenReplayConfig {
   projectKey?: string;
   ingestPoint?: string;
@@ -9,12 +12,20 @@ class OpenReplayEnhanced {
   private initialized = false;
   private tracker: any = null;
   private sessionMetadata: Record<string, any> = {};
+  private enabled = false;
   
   async init(config: OpenReplayConfig) {
     if (this.initialized) return;
     
+    // Check feature flag first
+    if (!OPENREPLAY_ENABLED) {
+      console.log('🎥 OpenReplay disabled via VITE_ENABLE_OPENREPLAY');
+      this.enabled = false;
+      return;
+    }
+    
     // Only load in production or if explicitly enabled
-    if (process.env.NODE_ENV === 'development' && !import.meta.env.VITE_ENABLE_OPENREPLAY) {
+    if (process.env.NODE_ENV === 'development' && !OPENREPLAY_ENABLED) {
       console.log('🎥 OpenReplay disabled in development');
       return;
     }
@@ -24,17 +35,29 @@ class OpenReplayEnhanced {
     
     if (!projectKey) {
       console.log('🎥 OpenReplay: Missing project key');
+      this.enabled = false;
       return;
     }
     
     try {
       // Dynamically import OpenReplay to reduce initial bundle size
-      const { default: OpenReplay } = await import('@openreplay/tracker').catch(() => {
-        console.log('🎥 OpenReplay: Package not installed, session recording disabled');
-        return { default: null };
-      });
+      let OpenReplay: any = null;
       
-      if (!OpenReplay) return;
+      try {
+        // Use dynamic import with proper error handling
+        const module = await import('@openreplay/tracker');
+        OpenReplay = module.default;
+      } catch (importError) {
+        console.log('🎥 OpenReplay: Package not available, session recording disabled');
+        this.enabled = false;
+        return;
+      }
+      
+      if (!OpenReplay) {
+        console.log('🎥 OpenReplay: Module not found');
+        this.enabled = false;
+        return;
+      }
       
       this.tracker = new OpenReplay({
         projectKey,
@@ -92,9 +115,11 @@ class OpenReplayEnhanced {
       }
       
       this.initialized = true;
+      this.enabled = true;
       console.log('🎥 OpenReplay session recording started');
     } catch (error) {
       console.log('🎥 OpenReplay: Failed to initialize', error);
+      this.enabled = false;
     }
   }
   
@@ -153,6 +178,8 @@ class OpenReplayEnhanced {
   }
   
   private setupThemeTracking() {
+    if (!this.enabled) return;
+    
     // Track MT Ocean theme interactions
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -174,6 +201,8 @@ class OpenReplayEnhanced {
   }
   
   private setupErrorBoundary() {
+    if (!this.enabled) return;
+    
     // Global error handler integration
     window.addEventListener('error', (event) => {
       this.handleError(event.error, {
@@ -193,6 +222,8 @@ class OpenReplayEnhanced {
   }
   
   private trackESALayers() {
+    if (!this.enabled) return;
+    
     // Track active ESA layers based on page context
     const path = window.location.pathname;
     const activeLayer = this.getActiveESALayer(path);
@@ -242,7 +273,7 @@ class OpenReplayEnhanced {
   
   // Public API methods
   identify(userId: string, userInfo?: any) {
-    if (!this.tracker) return;
+    if (!this.enabled || !this.tracker) return;
     
     this.tracker.setUserID(userId);
     
@@ -252,20 +283,20 @@ class OpenReplayEnhanced {
   }
   
   setMetadata(key: string, value: any) {
-    if (!this.tracker) return;
+    if (!this.enabled || !this.tracker) return;
     
     this.sessionMetadata[key] = value;
     this.tracker.setMetadata(key, String(value));
   }
   
   event(name: string, props?: any) {
-    if (!this.tracker) return;
+    if (!this.enabled || !this.tracker) return;
     
     this.tracker.event(name, props);
   }
   
   handleError(error: Error | null, context?: any) {
-    if (!this.tracker || !error) return;
+    if (!this.enabled || !this.tracker || !error) return;
     
     console.error('OpenReplay captured error:', error);
     
@@ -278,7 +309,7 @@ class OpenReplayEnhanced {
   }
   
   startTransaction(name: string) {
-    if (!this.tracker) return null;
+    if (!this.enabled || !this.tracker) return null;
     
     const startTime = performance.now();
     
@@ -295,20 +326,21 @@ class OpenReplayEnhanced {
   }
   
   isActive(): boolean {
-    return this.initialized && this.tracker !== null;
+    return this.enabled && this.initialized && this.tracker !== null;
   }
   
   getSessionURL(): string | null {
-    if (!this.tracker) return null;
+    if (!this.enabled || !this.tracker) return null;
     
     return this.tracker.getSessionURL();
   }
   
   stop() {
-    if (!this.tracker) return;
+    if (!this.enabled || !this.tracker) return;
     
     this.tracker.stop();
     this.initialized = false;
+    this.enabled = false;
     this.tracker = null;
   }
 }
