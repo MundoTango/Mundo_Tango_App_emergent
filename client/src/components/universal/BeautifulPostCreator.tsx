@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import GoogleMapsLocationInput from './GoogleMapsLocationInput';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
-// ESA Layer 58: Cloudinary removed per user request - single upload option only
+// ESA Layer 13: Advanced media processing with universal format support
+import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
 import { extractMentions } from '@/utils/mentionUtils';
 // VideoURLInput removed per user request
 import {
@@ -693,43 +694,92 @@ export default function BeautifulPostCreator({
     // createTypingParticle(e); // Temporarily disabled for performance
   };
 
-  // Handle file selection and preview generation
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle file selection with universal format support
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    const validFiles = files.filter(file => {
-      const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/');
-      const isValidSize = file.size <= 500 * 1024 * 1024; // 500MB limit
+    // ESA Layer 13: Accept ANY file format - we'll convert if needed
+    setIsUploading(true);
+    setUploadProgress(0);
 
-      if (!isValidType) {
-        toast({ title: "Invalid file type", description: "Please upload images or videos only.", variant: "destructive" });
-        return false;
-      }
-      if (!isValidSize) {
-        toast({ title: "File too large", description: `${file.name} exceeds 500MB limit.`, variant: "destructive" });
-        return false;
-      }
-      return true;
+    // Check for HEIC/HEIF and other special formats
+    const fileTypes = files.map(f => {
+      const name = f.name.toLowerCase();
+      if (name.endsWith('.heic') || name.endsWith('.heif')) return 'HEIC/HEIF (iPhone)';
+      if (name.endsWith('.mov')) return 'MOV (iPhone Video)';
+      if (f.type.startsWith('image/')) return 'Image';
+      if (f.type.startsWith('video/')) return 'Video';
+      return 'Unknown';
     });
 
-    if (validFiles.length === 0) return;
-
-    setMediaFiles(prev => [...prev, ...validFiles]);
-
-    validFiles.forEach(file => {
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onloadend = () => setMediaPreviews(prev => [...prev, reader.result as string]);
-        reader.readAsDataURL(file);
-      } else if (file.type.startsWith('video/')) {
-        const videoUrl = URL.createObjectURL(file);
-        setMediaPreviews(prev => [...prev, videoUrl]);
-      }
+    toast({
+      title: "🎬 Processing media...",
+      description: `Converting ${fileTypes.join(', ')} for optimal upload`
     });
 
-    toast({ title: "Media added!", description: `${validFiles.length} file(s) ready.` });
-    e.target.value = ''; // Reset input
+    try {
+      // Process all files with the advanced processor
+      const processedFiles = await processMultipleMedia(
+        files,
+        (current, total, status) => {
+          const progress = (current / total) * 100;
+          setUploadProgress(progress);
+          console.log(`📸 Processing ${current}/${total}: ${status}`);
+        }
+      );
+
+      // Check upload strategy for each file
+      processedFiles.forEach(file => {
+        const strategy = getUploadStrategy(file);
+        console.log(`📁 ${file.name}: ${strategy.method} - ${strategy.reason}`);
+      });
+
+      setMediaFiles(prev => [...prev, ...processedFiles]);
+
+      // Generate previews for processed files
+      for (const file of processedFiles) {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onloadend = () => setMediaPreviews(prev => [...prev, reader.result as string]);
+          reader.readAsDataURL(file);
+        } else if (file.type.startsWith('video/')) {
+          const videoUrl = URL.createObjectURL(file);
+          setMediaPreviews(prev => [...prev, videoUrl]);
+        }
+      }
+
+      // Calculate size reduction
+      const originalSize = files.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
+      const processedSize = processedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
+      const reduction = ((1 - processedSize / originalSize) * 100).toFixed(0);
+
+      toast({
+        title: "✅ Media optimized!",
+        description: `${processedFiles.length} file(s) ready (${reduction}% smaller)`
+      });
+
+    } catch (error) {
+      console.error('Media processing failed:', error);
+      toast({
+        title: "⚠️ Processing issue",
+        description: "Some formats couldn't be converted, using originals",
+        variant: "destructive"
+      });
+      
+      // Fallback to original files if processing fails
+      setMediaFiles(prev => [...prev, ...files]);
+      files.forEach(file => {
+        if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+          const url = URL.createObjectURL(file);
+          setMediaPreviews(prev => [...prev, url]);
+        }
+      });
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(0);
+      if (e.target) e.target.value = ''; // Reset input
+    }
   };
 
   return (
