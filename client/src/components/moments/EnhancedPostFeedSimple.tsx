@@ -64,9 +64,10 @@ interface EnhancedPostFeedProps {
     visibility: 'all' | 'public' | 'friends' | 'private';
     location?: { lat: number; lng: number; radius: number };
   };
+  onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
 }
 
-const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
+const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -221,6 +222,7 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
                   post={post}
                   onLike={handleLike}
                   onShare={handleShare}
+                  onEdit={onEdit}
                 />
               ))}
             </div>
