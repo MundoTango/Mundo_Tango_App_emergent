@@ -21,7 +21,7 @@ import { formatUserLocation } from '@/utils/locationUtils';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-import { PostEditCreatorDialog } from '@/components/ui/PostEditCreatorDialog';
+// ESA Layer 7: Removed PostEditCreatorDialog - edit should use parent's unified composer
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -96,9 +96,8 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
   const [currentUserReaction, setCurrentUserReaction] = useState(post.currentUserReaction);
 
   const [comments, setComments] = useState(post.comments || []);
-  // ESA Layer 7 & 23: Using unified PostEditCreatorDialog for editing
-  const [showEditDialog, setShowEditDialog] = useState(false);
-  const [editingPost, setEditingPost] = useState<Post | null>(null);
+  // ESA Layer 7 & 23: Edit functionality delegated to parent's unified composer
+  // Removed local edit state - parent should handle edit modals
 
   // All posts in memories feed are treated as posts in the API
   const apiBasePath = `/api/posts`;
@@ -477,10 +476,7 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
             {/* ESA LIFE CEO 61x21 - Post Actions Menu with Edit/Delete */}
             <PostActionsMenu
               post={post}
-              onEdit={(postToEdit) => {
-                setEditingPost(postToEdit);
-                setShowEditDialog(true);
-              }}
+              onEdit={undefined} // Edit should be handled by parent component
               onShare={onShare}
             />
           </div>
@@ -941,18 +937,7 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
         )}
       </div>
 
-      {/* Edit Dialog - ESA Layer 7 & 23: Using BeautifulPostCreator for consistent UI */}
-      {editingPost && (
-        <PostEditCreatorDialog
-          open={showEditDialog}
-          onOpenChange={(open) => {
-            setShowEditDialog(open);
-            if (!open) setEditingPost(null);
-          }}
-          post={editingPost}
-          user={user || undefined}
-        />
-      )}
+      {/* ESA Layer 7 & 23: Edit handled by parent component's unified composer */}
     </article>
   );
 }
