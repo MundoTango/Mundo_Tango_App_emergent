@@ -1265,62 +1265,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA LIFE CEO 61x21 - Business Search Endpoint (Google Maps Places API)
+  // ESA LIFE CEO 61x21 - Business Search Endpoint (Google Maps Places API - Live Data Only)
   app.get('/api/search/businesses', async (req: any, res) => {
     try {
-      const searchTerm = parseQueryParam(req.query.q, '').toLowerCase();
-      const businessTypes = parseQueryParam(req.query.types, 'restaurant,bar,cafe,club,store');
+      const searchTerm = parseQueryParam(req.query.q, '');
+      const businessTypes = parseQueryParam(req.query.types, 'restaurant,bar,cafe,club,store,hotel,venue');
       const limit = parseIntQueryParam(req.query.limit, 10);
+      const latitude = parseFloatQueryParam(req.query.lat, null);
+      const longitude = parseFloatQueryParam(req.query.lng, null);
+      const city = parseQueryParam(req.query.city, '');
+      const country = parseQueryParam(req.query.country, '');
       
-      console.log('🔍 Business search API called:', { searchTerm, businessTypes, limit });
+      console.log('🔍 Business search API called:', { 
+        searchTerm, 
+        businessTypes, 
+        limit,
+        latitude,
+        longitude,
+        city,
+        country 
+      });
       
       // Use Google Maps API key from environment
       const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
       
       if (!apiKey) {
-        console.log('⚠️ Google Maps API key not configured, using fallback data');
-        // Fallback to expanded hardcoded list with popular Buenos Aires tango venues
-        const businesses = [
-          // Famous tango venues
-          { id: 1, name: 'El Beso (La Rioja 1180)', businessType: 'club', address: 'La Rioja 1180', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
-          { id: 2, name: 'El Beso Milonga', businessType: 'club', address: 'Riobamba 416', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
-          { id: 3, name: 'Salon Canning', businessType: 'club', address: 'Av. Raúl Scalabrini Ortiz 1331', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.8 },
-          { id: 4, name: 'La Viruta Tango Club', businessType: 'club', address: 'Armenia 1366', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
-          { id: 5, name: 'Milonga del Indio', businessType: 'club', address: 'Aráoz 2424', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.6 },
-          { id: 6, name: 'La Catedral', businessType: 'club', address: 'Sarmiento 4006', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
-          { id: 7, name: 'Maldita Milonga', businessType: 'club', address: 'Perú 571', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
-          { id: 8, name: 'Confitería Ideal', businessType: 'club', address: 'Suipacha 384', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
-          
-          // Restaurants
-          { id: 9, name: 'La Cabrera', businessType: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
-          { id: 10, name: 'Don Julio', businessType: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.7 },
-          { id: 11, name: 'El Querandí', businessType: 'restaurant', address: 'Perú 302', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
-          
-          // Cafes
-          { id: 12, name: 'Café Tortoni', businessType: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
-          { id: 13, name: 'Las Violetas', businessType: 'cafe', address: 'Av. Rivadavia 3899', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.5 },
-          { id: 14, name: 'Café San Bernardo', businessType: 'cafe', address: 'Av. Corrientes 1603', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.2 },
-          
-          // Bars
-          { id: 15, name: 'Bar Sur', businessType: 'bar', address: 'Estados Unidos 299', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.4 },
-          { id: 16, name: 'La Poesía', businessType: 'bar', address: 'Chile 502', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.3 },
-          { id: 17, name: 'El Federal', businessType: 'bar', address: 'Carlos Calvo 595', city: 'Buenos Aires', state: '', country: 'Argentina', rating: 4.2 }
-        ];
-        
-        // Filter by search term
-        const filtered = searchTerm 
-          ? businesses.filter(b => 
-              b.name.toLowerCase().includes(searchTerm) ||
-              b.businessType.toLowerCase().includes(searchTerm) ||
-              b.address.toLowerCase().includes(searchTerm) ||
-              b.city.toLowerCase().includes(searchTerm)
-            )
-          : businesses;
-        
-        const results = filtered.slice(0, limit);
-        
-        console.log(`🎯 Returning ${results.length} business results from fallback data`);
-        res.json(results);
+        console.error('❌ Google Maps API key not configured');
+        res.status(503).json({ 
+          error: 'Google Maps API not configured',
+          message: 'Please configure Google Maps API key to enable location search' 
+        });
         return;
       }
       
@@ -1328,26 +1302,77 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { Client } = require('@googlemaps/google-maps-services-js');
       const client = new Client({});
       
-      // Perform text search using Places API
-      const response = await client.placesNearby({
-        params: {
-          key: apiKey,
-          location: { lat: -34.6037, lng: -58.3816 }, // Buenos Aires center
-          radius: 15000, // 15km radius
-          keyword: searchTerm,
-          type: businessTypes.split(',')[0], // Use first type
-        },
-        timeout: 5000
-      }).catch(async (err: any) => {
-        // If nearby search fails, try text search
-        return client.textSearch({
-          params: {
-            key: apiKey,
-            query: searchTerm + ' Buenos Aires',
-          },
-          timeout: 5000
-        });
-      });
+      let response;
+      
+      try {
+        if (latitude && longitude) {
+          // If coordinates provided, search near that location
+          console.log(`📍 Searching near coordinates: ${latitude}, ${longitude}`);
+          response = await client.placesNearby({
+            params: {
+              key: apiKey,
+              location: { lat: latitude, lng: longitude },
+              radius: 5000, // 5km radius
+              keyword: searchTerm || undefined,
+              type: businessTypes.split(',')[0] || undefined,
+            },
+            timeout: 5000
+          });
+        } else {
+          // Build search query with location context
+          let searchQuery = searchTerm || '';
+          if (city) searchQuery += ` ${city}`;
+          if (country) searchQuery += ` ${country}`;
+          
+          if (!searchQuery.trim()) {
+            // If no search term or location, return empty
+            res.json([]);
+            return;
+          }
+          
+          console.log(`🔎 Text search query: "${searchQuery}"`);
+          
+          // Use text search for worldwide search
+          response = await client.textSearch({
+            params: {
+              key: apiKey,
+              query: searchQuery,
+              type: businessTypes.split(',')[0] || undefined,
+            },
+            timeout: 5000
+          });
+        }
+      } catch (apiError: any) {
+        console.error('❌ Google Maps API error:', apiError.response?.data || apiError.message);
+        
+        // Check for specific API errors
+        if (apiError.response?.data?.error_message) {
+          const errorMsg = apiError.response.data.error_message;
+          
+          if (errorMsg.includes('API key')) {
+            res.status(403).json({ 
+              error: 'Invalid API key',
+              message: 'Google Maps API key is invalid or doesn\'t have Places API enabled' 
+            });
+          } else if (errorMsg.includes('quota')) {
+            res.status(429).json({ 
+              error: 'API quota exceeded',
+              message: 'Google Maps API quota has been exceeded. Please try again later.' 
+            });
+          } else {
+            res.status(502).json({ 
+              error: 'Google Maps API error',
+              message: errorMsg 
+            });
+          }
+        } else {
+          res.status(502).json({ 
+            error: 'Failed to connect to Google Maps',
+            message: 'Could not retrieve location data. Please try again.' 
+          });
+        }
+        return;
+      }
       
       if (!response || !response.data || !response.data.results) {
         console.log('⚠️ No results from Google Maps API');
@@ -1356,18 +1381,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Format Google Maps results to match our structure
-      const businesses = response.data.results.slice(0, limit).map((place: any, index: number) => ({
-        id: place.place_id || index,
-        name: place.name,
-        businessType: place.types && place.types[0] ? place.types[0].replace(/_/g, ' ') : 'venue',
-        address: place.vicinity || place.formatted_address || '',
-        city: 'Buenos Aires',
-        state: '',
-        country: 'Argentina',
-        rating: place.rating || 0
-      }));
+      const businesses = response.data.results.slice(0, limit).map((place: any) => {
+        // Extract city and country from formatted address
+        const addressComponents = place.address_components || [];
+        const cityComponent = addressComponents.find((c: any) => 
+          c.types.includes('locality') || c.types.includes('administrative_area_level_1')
+        );
+        const countryComponent = addressComponents.find((c: any) => 
+          c.types.includes('country')
+        );
+        
+        // Extract business type from Google's types
+        let businessType = 'venue';
+        const placeTypes = place.types || [];
+        if (placeTypes.includes('restaurant')) businessType = 'restaurant';
+        else if (placeTypes.includes('bar')) businessType = 'bar';
+        else if (placeTypes.includes('cafe')) businessType = 'cafe';
+        else if (placeTypes.includes('night_club')) businessType = 'club';
+        else if (placeTypes.includes('store')) businessType = 'store';
+        else if (placeTypes.includes('lodging')) businessType = 'hotel';
+        else if (placeTypes[0]) businessType = placeTypes[0].replace(/_/g, ' ');
+        
+        return {
+          id: place.place_id,
+          name: place.name,
+          businessType: businessType,
+          address: place.vicinity || place.formatted_address || '',
+          city: cityComponent?.long_name || city || '',
+          state: '',
+          country: countryComponent?.long_name || country || '',
+          rating: place.rating || 0,
+          // Additional useful data
+          lat: place.geometry?.location?.lat,
+          lng: place.geometry?.location?.lng,
+          priceLevel: place.price_level,
+          openNow: place.opening_hours?.open_now
+        };
+      });
       
-      console.log(`🎯 Returning ${businesses.length} business results from Google Maps`);
+      console.log(`🎯 Returning ${businesses.length} live business results from Google Maps`);
       res.json(businesses);
       
     } catch (error: any) {
