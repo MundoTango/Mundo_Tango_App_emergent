@@ -231,7 +231,13 @@ node scripts/update-esa-imports.js $AGENT_NAME
 # 5. Run integration tests
 npm run test:agent-integration $AGENT_NAME
 
-# 6. Deploy if tests pass
+# 6. Update platform documentation
+echo "Updating documentation-index.md with new features..."
+node scripts/update-documentation-index.js $AGENT_NAME
+git add docs/pages/DOCUMENTATION-INDEX.md
+git commit -m "docs: Update documentation index with $AGENT_NAME features"
+
+# 7. Deploy if tests pass
 if [ $? -eq 0 ]; then
   echo "Integration successful - ready for deployment"
   npm run deploy:with-agent $AGENT_NAME
@@ -607,7 +613,7 @@ interface LayerAgent {
 12. **Integration Development Agent** - Third-party services, APIs optimization
 13. **Mobile Development Agent** - PWA, responsive, native intelligence
 14. **Testing Development Agent** - Test suites, automation optimization
-15. **Documentation Agent** - Code docs, API docs, user guides
+15. **Documentation Agent** - Code docs, API docs, user guides, DOCUMENTATION-INDEX.md updates
 
 ### Deployment & Operations Phases (16-21) - **Operations Agents**
 16. **Security Review Agent** - Vulnerability assessment, fixes automation
