@@ -146,6 +146,7 @@ const LifeCeoPerformance = lazy(() => import("@/pages/LifeCeoPerformance"));
 // ========== Testing & Development Pages (6) ==========
 const MediaUploadTest = lazy(() => import("@/pages/MediaUploadTest"));
 const MonitoringDashboard = lazy(() => import("@/pages/MonitoringDashboard"));
+const MonitoringTest = lazy(() => import("@/pages/MonitoringTest"));
 const TestGroupedRoleSelector = lazy(() => import("@/components/test/TestGroupedRoleSelector"));
 const TTfilesDemo = lazy(() => import("@/pages/TTfilesDemo"));
 const FeatureNavigation = lazy(() => import("@/pages/feature-navigation"));
@@ -619,6 +620,12 @@ function Router() {
           <Route path="/monitoring">
             <Suspense fallback={<LoadingFallback message="Loading monitoring dashboard..." />}>
               <MonitoringDashboard />
+            </Suspense>
+          </Route>
+
+          <Route path="/monitoring-test">
+            <Suspense fallback={<LoadingFallback message="Loading monitoring test..." />}>
+              <MonitoringTest />
             </Suspense>
           </Route>
 

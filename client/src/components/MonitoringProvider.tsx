@@ -3,18 +3,21 @@
  * Provides monitoring context and consent management UI
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { monitoring } from '@/services/monitoring';
+import { ConsentModal } from './ConsentModal';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Shield, Eye, BarChart, X } from 'lucide-react';
 
 interface MonitoringContextValue {
   hasConsent: boolean;
+  isInitialized: boolean;
   requestConsent: () => Promise<void>;
   revokeConsent: () => void;
   showPrivacySettings: boolean;
   setShowPrivacySettings: (show: boolean) => void;
+  updateConsent: (analytics: boolean, sessionRecording: boolean, errorTracking: boolean) => void;
 }
 
 const MonitoringContext = createContext<MonitoringContextValue | undefined>(undefined);
@@ -33,58 +36,144 @@ interface MonitoringProviderProps {
 
 export function MonitoringProvider({ children }: MonitoringProviderProps) {
   const [hasConsent, setHasConsent] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [showPrivacySettings, setShowPrivacySettings] = useState(false);
+  const [showConsentModal, setShowConsentModal] = useState(false);
   const [showConsentBanner, setShowConsentBanner] = useState(false);
+  const [isCheckingConsent, setIsCheckingConsent] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
     // Check initial consent status
-    checkConsent();
+    checkInitialConsent();
   }, []);
 
-  const checkConsent = async () => {
-    const consentGiven = await monitoring.requestConsent();
-    setHasConsent(consentGiven);
-    
-    if (!consentGiven) {
-      // Show consent banner after a delay
-      setTimeout(() => setShowConsentBanner(true), 3000);
+  const checkInitialConsent = async () => {
+    try {
+      // Get the consent manager from monitoring service
+      const consentManager = (monitoring as any).consentManager;
+      
+      // Check if user has already given consent
+      const existingConsent = await consentManager.checkConsent();
+      
+      if (existingConsent) {
+        // User already gave consent, initialize monitoring
+        await monitoring.initialize();
+        setHasConsent(true);
+        setIsInitialized(true);
+        console.log('[MonitoringProvider] Monitoring initialized with existing consent');
+      } else {
+        // No existing consent, check if we should show modal
+        const consentState = consentManager.getConsentState();
+        
+        if (!consentState) {
+          // First time user, show consent modal after a delay
+          setTimeout(() => setShowConsentModal(true), 2000);
+        } else {
+          // User previously rejected, show banner after longer delay
+          setTimeout(() => setShowConsentBanner(true), 5000);
+        }
+      }
+    } catch (error) {
+      console.error('[MonitoringProvider] Failed to check consent:', error);
+    } finally {
+      setIsCheckingConsent(false);
+    }
+  };
+
+  const handleConsentDecision = async (analytics: boolean, sessionRecording: boolean, errorTracking: boolean) => {
+    try {
+      const consentManager = (monitoring as any).consentManager;
+      
+      // Update consent state in consent manager
+      consentManager.updateConsent({
+        analytics,
+        sessionRecording,
+        errorTracking,
+      });
+
+      if (analytics || sessionRecording || errorTracking) {
+        // Initialize monitoring with new consent
+        await monitoring.initialize();
+        setHasConsent(true);
+        setIsInitialized(true);
+        
+        toast({
+          title: "Privacy Settings Updated",
+          description: "Thank you for helping us improve your experience",
+        });
+        
+        console.log('[MonitoringProvider] Monitoring initialized with user consent');
+      } else {
+        // User rejected all tracking
+        setHasConsent(false);
+        
+        toast({
+          title: "Privacy Settings Updated",
+          description: "All tracking has been disabled",
+        });
+        
+        console.log('[MonitoringProvider] User rejected all tracking');
+      }
+      
+      setShowConsentModal(false);
+      setShowConsentBanner(false);
+    } catch (error) {
+      console.error('[MonitoringProvider] Failed to handle consent decision:', error);
     }
   };
 
   const requestConsent = async () => {
-    const consentGiven = await monitoring.requestConsent();
-    setHasConsent(consentGiven);
-    setShowConsentBanner(false);
-    
-    if (consentGiven) {
-      toast({
-        title: "Privacy Settings Updated",
-        description: "Thank you for helping us improve your experience",
-      });
-    }
+    setShowConsentModal(true);
   };
 
   const revokeConsent = () => {
     monitoring.revokeConsent();
     setHasConsent(false);
+    setIsInitialized(false);
+    
     toast({
       title: "Privacy Settings Updated",
       description: "Analytics and monitoring have been disabled",
     });
   };
 
+  const updateConsent = (analytics: boolean, sessionRecording: boolean, errorTracking: boolean) => {
+    handleConsentDecision(analytics, sessionRecording, errorTracking);
+  };
+
+  // Don't render children until we've checked consent
+  if (isCheckingConsent) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+      </div>
+    );
+  }
+
   return (
     <MonitoringContext.Provider value={{
       hasConsent,
+      isInitialized,
       requestConsent,
       revokeConsent,
       showPrivacySettings,
-      setShowPrivacySettings
+      setShowPrivacySettings,
+      updateConsent,
     }}>
       {children}
 
-      {/* Consent Banner */}
+      {/* Consent Modal - Shows for first-time users */}
+      {showConsentModal && (
+        <ConsentModal
+          onAccept={(analytics, sessionRecording, errorTracking) => 
+            handleConsentDecision(analytics, sessionRecording, errorTracking)
+          }
+          onReject={() => handleConsentDecision(false, false, false)}
+        />
+      )}
+
+      {/* Consent Banner - Shows for returning users who previously rejected */}
       {showConsentBanner && !hasConsent && (
         <div className="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-500" data-testid="consent-banner">
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4">
@@ -111,7 +200,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   </Button>
                   <Button
                     size="sm"
-                    onClick={requestConsent}
+                    onClick={() => setShowConsentModal(true)}
                     className="text-xs bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
                     data-testid="button-enable"
                   >
@@ -151,7 +240,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 <div className="flex items-center space-x-3">
                   <BarChart className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Analytics</p>
+                    <p className="font-medium text-gray-900 dark:text-white">Analytics (PostHog)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Product usage and feature adoption</p>
                   </div>
                 </div>
@@ -164,7 +253,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 <div className="flex items-center space-x-3">
                   <Eye className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Session Recording</p>
+                    <p className="font-medium text-gray-900 dark:text-white">Session Recording (OpenReplay)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Help us identify UX issues</p>
                   </div>
                 </div>
@@ -177,7 +266,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 <div className="flex items-center space-x-3">
                   <Shield className="w-5 h-5 text-teal-500" />
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Error Tracking</p>
+                    <p className="font-medium text-gray-900 dark:text-white">Error Tracking (Sentry)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Automatic error reporting</p>
                   </div>
                 </div>
@@ -199,17 +288,22 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 </Button>
               ) : (
                 <Button
-                  onClick={requestConsent}
+                  onClick={() => setShowConsentModal(true)}
                   className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
                   data-testid="button-enable-all"
                 >
-                  Enable Analytics
+                  Configure Analytics
                 </Button>
               )}
             </div>
 
             <p className="text-xs text-center text-gray-500 dark:text-gray-400">
               Your privacy is important to us. Data is encrypted and never sold to third parties.
+              {isInitialized && (
+                <span className="block mt-1 text-teal-600 dark:text-teal-400 font-medium">
+                  ✓ Monitoring services active
+                </span>
+              )}
             </p>
           </div>
         </div>
