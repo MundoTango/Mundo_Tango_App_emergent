@@ -1,10 +1,11 @@
 /**
  * ESA Life CEO 61x21 - Unified Monitoring Service
- * Integrates OpenReplay and PostHog for comprehensive monitoring
+ * Integrates Sentry, OpenReplay and PostHog for comprehensive monitoring
  */
 
 import { OpenReplayService } from './openreplay';
 import { PostHogService } from './posthog';
+import { SentryService } from './sentry';
 import { ConsentManager } from './consent';
 import { PrivacyConfig } from './types';
 
@@ -12,6 +13,7 @@ export class MonitoringService {
   private static instance: MonitoringService;
   private openReplay: OpenReplayService;
   private postHog: PostHogService;
+  private sentry: SentryService;
   private consentManager: ConsentManager;
   private initialized = false;
 
@@ -19,6 +21,7 @@ export class MonitoringService {
     this.consentManager = new ConsentManager();
     this.openReplay = new OpenReplayService(this.consentManager);
     this.postHog = new PostHogService(this.consentManager);
+    this.sentry = new SentryService(this.consentManager);
   }
 
   static getInstance(): MonitoringService {
@@ -40,16 +43,21 @@ export class MonitoringService {
     const hasConsent = await this.consentManager.checkConsent();
     
     if (hasConsent) {
+      // Initialize Sentry for error tracking
+      await this.sentry.initialize({
+        privacy: config
+      });
+
       // Initialize OpenReplay for session recording
       await this.openReplay.initialize({
-        projectKey: import.meta.env.VITE_OPENREPLAY_PROJECT_KEY || 'mt-ocean-prod',
-        ingestPoint: import.meta.env.VITE_OPENREPLAY_INGEST_POINT || 'https://openreplay.mundotango.life',
+        projectKey: import.meta.env.VITE_OPENREPLAY_PROJECT_KEY,
+        ingestPoint: import.meta.env.VITE_OPENREPLAY_INGEST_POINT,
         privacy: config
       });
 
       // Initialize PostHog for analytics
       await this.postHog.initialize({
-        apiKey: import.meta.env.VITE_POSTHOG_API_KEY || 'phc_mundotango_prod',
+        apiKey: import.meta.env.VITE_POSTHOG_API_KEY,
         apiHost: import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com',
         privacy: config
       });
@@ -60,10 +68,11 @@ export class MonitoringService {
     this.initialized = true;
   }
 
-  // User identification for both services
+  // User identification for all services
   identifyUser(userId: string, traits?: Record<string, any>): void {
     if (!this.consentManager.hasConsent()) return;
     
+    this.sentry.identifyUser(userId, traits);
     this.openReplay.identifyUser(userId, traits);
     this.postHog.identifyUser(userId, traits);
   }
@@ -126,6 +135,7 @@ export class MonitoringService {
   captureException(error: Error, context?: Record<string, any>): void {
     if (!this.consentManager.hasConsent()) return;
     
+    this.sentry.captureException(error, context);
     this.openReplay.captureException(error, context);
     this.postHog.captureException(error, context);
   }
@@ -137,4 +147,5 @@ export const monitoring = MonitoringService.getInstance();
 export * from './types';
 export { OpenReplayService } from './openreplay';
 export { PostHogService } from './posthog';
+export { SentryService } from './sentry';
 export { ConsentManager } from './consent';
