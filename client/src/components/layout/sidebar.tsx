@@ -49,7 +49,7 @@ const SIDEBAR_SECTIONS = [
   {
     title: "Main",
     routes: [
-      { title: "Feed", icon: <Home className="w-5 h-5" />, link: "/" },
+      { title: "Feed", icon: <Home className="w-5 h-5" />, link: "/memories" },
       { title: "Profile", icon: <User className="w-5 h-5" />, link: "/profile" },
       { title: "Search", icon: <Search className="w-5 h-5" />, link: "/search" },
       { title: "Settings", icon: <Settings className="w-5 h-5" />, link: "/settings" },
