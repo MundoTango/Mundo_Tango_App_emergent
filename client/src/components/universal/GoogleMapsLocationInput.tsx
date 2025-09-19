@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { MapPin, Loader } from 'lucide-react';
+import { MapPin, Loader, Link, Edit3 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card } from '@/components/ui/card';
 
 interface LocationDetails {
   name: string;
@@ -21,6 +25,35 @@ interface LocationInputProps {
   biasToLocation?: { lat: number; lng: number }; // For Buenos Aires bias
   searchTypes?: string[]; // Custom search types
   showBusinessDetails?: boolean; // Show ratings, price level etc
+  allowManualEntry?: boolean; // Allow manual venue entry for places not in Google's index
+  allowGoogleMapsUrl?: boolean; // Allow pasting Google Maps URLs
+}
+
+// Helper function to extract Place ID from Google Maps URL
+function extractPlaceIdFromUrl(url: string): string | null {
+  try {
+    // Handle various Google Maps URL formats
+    // Format 1: https://maps.app.goo.gl/... (short URL)
+    // Format 2: https://www.google.com/maps/place/...
+    // Format 3: Contains place ID in URL parameters
+    
+    // For now, we'll need to make an API call to resolve short URLs
+    // or parse the place data from the URL
+    
+    // Check if it's a maps URL
+    if (url.includes('maps.app.goo.gl') || url.includes('google.com/maps')) {
+      // Extract any visible place ID patterns
+      const placeIdMatch = url.match(/[A-Za-z0-9_-]{27,}/);;
+      if (placeIdMatch) {
+        return placeIdMatch[0];
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error extracting place ID:', error);
+    return null;
+  }
 }
 
 // Google Maps Places API Script Loader
@@ -56,12 +89,19 @@ export default function GoogleMapsLocationInput({
   className = "",
   biasToLocation = { lat: -34.6037, lng: -58.3816 }, // Buenos Aires default
   searchTypes = [], // Will search all establishment types by default
-  showBusinessDetails = true
+  showBusinessDetails = true,
+  allowManualEntry = true,
+  allowGoogleMapsUrl = true
 }: LocationInputProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [manualVenue, setManualVenue] = useState<LocationDetails>({
+    name: '',
+    address: ''
+  });
   
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteServiceRef = useRef<any>(null);
@@ -87,8 +127,46 @@ export default function GoogleMapsLocationInput({
       });
   }, [toast]);
 
+  // Check if input is a Google Maps URL and fetch place details
+  const handleGoogleMapsUrl = useCallback(async (url: string) => {
+    if (!allowGoogleMapsUrl) return;
+    
+    // Check if it's a Google Maps URL
+    if (url.includes('maps.app.goo.gl') || url.includes('google.com/maps')) {
+      setIsLoading(true);
+      
+      try {
+        // Try to extract place ID from URL
+        // Note: For short URLs, we'd need server-side resolution
+        // For now, we'll prompt user to enter manually if we can't extract
+        
+        toast({
+          title: "Google Maps URL detected",
+          description: "Searching for this place...",
+        });
+        
+        // If we can't extract Place ID, offer manual entry
+        setShowManualEntry(true);
+        toast({
+          title: "Place not found in search index",
+          description: "You can enter the venue details manually",
+        });
+      } catch (error) {
+        console.error('Error processing Google Maps URL:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, [allowGoogleMapsUrl, toast]);
+
   // Search for places
   const searchPlaces = useCallback(async (query: string) => {
+    // Check if it's a Google Maps URL first
+    if (query.includes('maps.app.goo.gl') || query.includes('google.com/maps')) {
+      handleGoogleMapsUrl(query);
+      return;
+    }
+    
     if (!query || query.length < 3 || !autocompleteServiceRef.current) {
       setSuggestions([]);
       return;
@@ -253,6 +331,107 @@ export default function GoogleMapsLocationInput({
         )}
       </div>
       
+      {/* Manual Entry Options */}
+      {allowManualEntry && !showSuggestions && (
+        <div className="flex items-center gap-2 mt-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setShowManualEntry(!showManualEntry)}
+            className="text-xs flex items-center gap-1"
+          >
+            <Edit3 className="w-3 h-3" />
+            {showManualEntry ? 'Cancel Manual Entry' : "Can't find your venue? Enter manually"}
+          </Button>
+          {allowGoogleMapsUrl && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="text-xs flex items-center gap-1"
+              onClick={() => {
+                toast({
+                  title: "Paste Google Maps URL",
+                  description: "You can paste a Google Maps link in the search box",
+                });
+              }}
+            >
+              <Link className="w-3 h-3" />
+              Have a Google Maps link?
+            </Button>
+          )}
+        </div>
+      )}
+
+      {/* Manual Entry Form */}
+      {showManualEntry && (
+        <Card className="mt-4 p-4 border-2 border-turquoise-200 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50">
+          <h4 className="font-semibold text-sm mb-3 text-gray-700">Enter Venue Details Manually</h4>
+          <div className="space-y-3">
+            <div>
+              <label className="text-xs text-gray-600 mb-1 block">Venue Name *</label>
+              <Input
+                value={manualVenue.name}
+                onChange={(e) => setManualVenue(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="e.g., El Beso - La Casa de la Milonga Permanente"
+                className="text-sm"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-gray-600 mb-1 block">Address *</label>
+              <Textarea
+                value={manualVenue.address}
+                onChange={(e) => setManualVenue(prev => ({ ...prev, address: e.target.value }))}
+                placeholder="e.g., Riobamba 416, Buenos Aires, Argentina"
+                className="text-sm min-h-[60px]"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => {
+                  if (manualVenue.name && manualVenue.address) {
+                    onChange(manualVenue.name, undefined, {
+                      name: manualVenue.name,
+                      address: manualVenue.address,
+                      coordinates: manualVenue.coordinates
+                    });
+                    setShowManualEntry(false);
+                    setManualVenue({ name: '', address: '' });
+                    toast({
+                      title: "Venue added manually! ✅",
+                      description: `${manualVenue.name} has been added`,
+                    });
+                  } else {
+                    toast({
+                      title: "Missing information",
+                      description: "Please enter both name and address",
+                      variant: "destructive"
+                    });
+                  }
+                }}
+                className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
+              >
+                Add Venue
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setShowManualEntry(false);
+                  setManualVenue({ name: '', address: '' });
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
       {/* Suggestions dropdown */}
       {showSuggestions && suggestions.length > 0 && (
         <div className="absolute z-50 w-full mt-1 bg-white rounded-xl shadow-lg border border-gray-200 max-h-60 overflow-y-auto">

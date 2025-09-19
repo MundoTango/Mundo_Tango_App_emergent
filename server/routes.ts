@@ -1272,6 +1272,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ESA LIFE CEO 61x21 - Place ID Search Endpoint (Direct Google Maps Place lookup)
+  app.get('/api/places/:placeId', async (req: any, res) => {
+    try {
+      const placeId = req.params.placeId;
+      
+      console.log('📍 Fetching place details for ID:', placeId);
+      
+      // Use Google Maps API key from environment
+      const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
+      
+      if (!apiKey) {
+        console.error('❌ Google Maps API key not configured');
+        res.status(503).json({ 
+          error: 'Google Maps API not configured',
+          message: 'Please configure Google Maps API key' 
+        });
+        return;
+      }
+      
+      // Import Google Maps client
+      const { Client } = require('@googlemaps/google-maps-services-js');
+      const client = new Client({});
+      
+      try {
+        // Get place details directly by Place ID
+        const response = await client.placeDetails({
+          params: {
+            key: apiKey,
+            place_id: placeId,
+            fields: ['name', 'formatted_address', 'geometry', 'rating', 'price_level', 
+                    'types', 'opening_hours', 'photos', 'website', 'formatted_phone_number']
+          },
+          timeout: 5000
+        });
+        
+        if (response.data.result) {
+          const place = response.data.result;
+          const formattedResult = {
+            id: placeId,
+            name: place.name || 'Unknown',
+            address: place.formatted_address || '',
+            city: '', // Extract from address if needed
+            state: '',
+            country: '',
+            lat: place.geometry?.location?.lat || null,
+            lng: place.geometry?.location?.lng || null,
+            rating: place.rating || null,
+            priceLevel: place.price_level || null,
+            types: place.types || [],
+            openNow: place.opening_hours?.open_now || null,
+            website: place.website || null,
+            phone: place.formatted_phone_number || null
+          };
+          
+          console.log('✅ Place found:', formattedResult.name);
+          res.json(formattedResult);
+        } else {
+          console.log('❌ Place not found for ID:', placeId);
+          res.status(404).json({ 
+            error: 'Place not found',
+            message: 'No place found with this ID' 
+          });
+        }
+      } catch (apiError: any) {
+        console.error('❌ Google Maps API error:', apiError.response?.data || apiError.message);
+        res.status(500).json({ 
+          error: 'Google Maps API error',
+          message: apiError.response?.data?.error_message || apiError.message
+        });
+      }
+    } catch (error: any) {
+      console.error('Error fetching place:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch place details',
+        message: error.message 
+      });
+    }
+  });
+
   // ESA LIFE CEO 61x21 - Business Search Endpoint (Google Maps Places API - Live Data Only)
   app.get('/api/search/businesses', async (req: any, res) => {
     try {
