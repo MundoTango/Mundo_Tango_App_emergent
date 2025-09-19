@@ -2,11 +2,25 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapPin, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface LocationDetails {
+  name: string;
+  address: string;
+  coordinates?: { lat: number; lng: number };
+  placeId?: string;
+  types?: string[];
+  rating?: number;
+  priceLevel?: number;
+  businessStatus?: string;
+}
+
 interface LocationInputProps {
   value: string;
-  onChange: (location: string, coordinates?: { lat: number; lng: number }) => void;
+  onChange: (location: string, coordinates?: { lat: number; lng: number }, details?: LocationDetails) => void;
   placeholder?: string;
   className?: string;
+  biasToLocation?: { lat: number; lng: number }; // For Buenos Aires bias
+  searchTypes?: string[]; // Custom search types
+  showBusinessDetails?: boolean; // Show ratings, price level etc
 }
 
 // Google Maps Places API Script Loader
@@ -38,16 +52,19 @@ const loadGoogleMapsScript = () => {
 export default function GoogleMapsLocationInput({ 
   value, 
   onChange, 
-  placeholder = "Search for a place...",
-  className = ""
+  placeholder = "Search for venues, restaurants, milongas...",
+  className = "",
+  biasToLocation = { lat: -34.6037, lng: -58.3816 }, // Buenos Aires default
+  searchTypes = [], // Will search all establishment types by default
+  showBusinessDetails = true
 }: LocationInputProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<google.maps.places.AutocompletePrediction[]>([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
   const inputRef = useRef<HTMLInputElement>(null);
-  const autocompleteServiceRef = useRef<google.maps.places.AutocompleteService | null>(null);
+  const autocompleteServiceRef = useRef<any>(null);
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const { toast } = useToast();
 
@@ -55,7 +72,7 @@ export default function GoogleMapsLocationInput({
   useEffect(() => {
     loadGoogleMapsScript()
       .then(() => {
-        autocompleteServiceRef.current = new google.maps.places.AutocompleteService();
+        autocompleteServiceRef.current = new (window as any).google.maps.places.AutocompleteService();
         // Create a dummy div for PlacesService
         const div = document.createElement('div');
         placesServiceRef.current = new google.maps.places.PlacesService(div);
@@ -79,16 +96,25 @@ export default function GoogleMapsLocationInput({
 
     setIsLoading(true);
     
-    autocompleteServiceRef.current.getPlacePredictions(
-      {
-        input: query,
-        // Bias results towards establishments (businesses)
-        types: ['establishment']
+    const request: any = {
+      input: query,
+      // Search for all types of establishments if no specific types provided
+      types: searchTypes.length > 0 ? searchTypes : ['establishment'],
+      // Bias results to Buenos Aires or provided location
+      locationBias: {
+        center: new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng),
+        radius: 50000 // 50km radius
       },
-      (predictions, status) => {
+      // Support Spanish and English
+      language: 'es-AR'
+    };
+
+    autocompleteServiceRef.current.getPlacePredictions(
+      request,
+      (predictions: any, status: any) => {
         setIsLoading(false);
         
-        if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+        if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
           setSuggestions(predictions);
           setShowSuggestions(true);
         } else {
@@ -106,35 +132,61 @@ export default function GoogleMapsLocationInput({
   };
 
   // Select a place from suggestions
-  const selectPlace = (prediction: google.maps.places.AutocompletePrediction) => {
+  const selectPlace = (prediction: any) => {
     if (!placesServiceRef.current) return;
 
     setIsLoading(true);
     
-    // Get place details for coordinates
+    // Get comprehensive place details
+    const fields = showBusinessDetails 
+      ? ['geometry', 'name', 'formatted_address', 'rating', 'price_level', 'types', 'business_status', 'user_ratings_total']
+      : ['geometry', 'name', 'formatted_address', 'types'];
+    
     placesServiceRef.current.getDetails(
       {
         placeId: prediction.place_id,
-        fields: ['geometry', 'name', 'formatted_address']
+        fields: fields
       },
       (place, status) => {
         setIsLoading(false);
         
-        if (status === google.maps.places.PlacesServiceStatus.OK && place && place.geometry?.location) {
+        if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && place && place.geometry?.location) {
           const coordinates = {
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng()
           };
           
-          // Use the primary text (business name) as the location
-          onChange(prediction.structured_formatting.main_text, coordinates);
+          // Build comprehensive location details
+          const locationDetails: LocationDetails = {
+            name: place.name || prediction.structured_formatting.main_text,
+            address: place.formatted_address || prediction.structured_formatting.secondary_text || '',
+            coordinates: coordinates,
+            placeId: prediction.place_id,
+            types: place.types || [],
+            rating: (place as any).rating,
+            priceLevel: (place as any).price_level,
+            businessStatus: (place as any).business_status
+          };
+          
+          // Use the business name as the primary location
+          const displayName = place.name || prediction.structured_formatting.main_text;
+          onChange(displayName, coordinates, locationDetails);
           
           setSuggestions([]);
           setShowSuggestions(false);
           
+          // Show enhanced toast with business details
+          let toastDescription = prediction.structured_formatting.secondary_text || '';
+          if (showBusinessDetails && (place as any).rating) {
+            toastDescription += `\n⭐ ${(place as any).rating}/5`;
+            if ((place as any).user_ratings_total) {
+              toastDescription += ` (${(place as any).user_ratings_total} reviews)`;
+            }
+          }
+          
           toast({
             title: "Location selected! 📍",
-            description: prediction.structured_formatting.secondary_text,
+            description: toastDescription,
           });
         }
       }
@@ -224,6 +276,14 @@ export default function GoogleMapsLocationInput({
                   <div className="text-sm text-gray-500">
                     {suggestion.structured_formatting.secondary_text}
                   </div>
+                  {/* Show place types if available */}
+                  {suggestion.types && suggestion.types.length > 0 && (
+                    <div className="text-xs text-gray-400 mt-1">
+                      {suggestion.types.slice(0, 3).map((type: string) => 
+                        type.replace(/_/g, ' ')
+                      ).join(' • ')}
+                    </div>
+                  )}
                 </div>
               </div>
             </button>
