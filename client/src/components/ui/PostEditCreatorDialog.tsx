@@ -41,7 +41,8 @@ export function PostEditCreatorDialog({
     // ESA Layer 7: Invalidate cache to refresh feed with updated post
     queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
     queryClient.invalidateQueries({ queryKey: ["/api/posts"] });
-    queryClient.invalidateQueries({ queryKey: [`/api/post/${post.id}`] });
+    queryClient.invalidateQueries({ queryKey: [`/api/posts/${post.id}`] });
+    queryClient.invalidateQueries({ queryKey: ['/api/posts', post.id] });
     onOpenChange(false);
   };
 
