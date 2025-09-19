@@ -64,8 +64,19 @@ export function sanitizeHTML(input: string, options?: any): string {
 // Sanitize user input
 export function sanitizeInput(input: any): any {
   if (typeof input === 'string') {
-    // Remove HTML tags for non-HTML fields
-    let sanitized = validator.escape(input);
+    // ESA Layer 13 Fix: Don't escape legitimate file paths and URLs
+    // Check if this is a file path (starts with /uploads/) or a URL
+    const isFilePath = input.startsWith('/uploads/') || input.startsWith('uploads/');
+    const isURL = input.startsWith('http://') || input.startsWith('https://') || 
+                  input.startsWith('youtube.com') || input.startsWith('vimeo.com');
+    
+    let sanitized = input;
+    
+    // Only escape if not a file path or URL
+    if (!isFilePath && !isURL) {
+      // Remove HTML tags for non-HTML fields
+      sanitized = validator.escape(input);
+    }
     
     // Check for SQL injection
     for (const pattern of SQL_INJECTION_PATTERNS) {
