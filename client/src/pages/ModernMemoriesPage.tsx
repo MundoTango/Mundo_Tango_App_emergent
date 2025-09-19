@@ -230,8 +230,9 @@ export default function ModernMemoriesPageV2() {
       setDeletingMemoryId(null);
       setIsDeleting(false);
     },
-    onError: () => {
-      toast.error('Failed to delete memory');
+    onError: (error: any) => {
+      console.error('Delete error:', error);
+      toast.error(error?.message || 'Failed to delete memory');
       setIsDeleting(false);
     },
   });
