@@ -5,7 +5,7 @@
  * moments.tsx and ModernMemoriesPage.tsx implementations.
  * 
  * Features:
- * - BeautifulPostCreator for post creation
+ * - ModernPostComposer for unified post creation and editing (ESA Layer 7 compliant)
  * - EnhancedPostFeedSimple for feed display
  * - MemoryFilters for filtering functionality
  * - UpcomingEventsSidebar for events display
@@ -15,14 +15,17 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import ModernPostComposer from '@/components/modern/ModernPostComposer';
 import EnhancedPostFeedSimple from '@/components/moments/EnhancedPostFeedSimple';
 import { MemoryFilters } from '@/components/memories/MemoryFilters';
 import UpcomingEventsSidebar from '@/components/events/UpcomingEventsSidebar';
-import { Sparkles, Heart, Camera, Users, Globe } from 'lucide-react';
+import { Sparkles, Heart, Camera, Users, Globe, Plus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import toast from 'react-hot-toast';
+import { apiRequest } from '@/lib/queryClient';
 
 function UnifiedMemories() {
   // Authentication and hooks
@@ -37,6 +40,11 @@ function UnifiedMemories() {
     tags: [] as string[],
     visibility: 'all' as 'all' | 'public' | 'friends' | 'private'
   });
+  
+  // ESA Layer 7: Unified composer state management
+  const [showComposer, setShowComposer] = useState(false);
+  const [composerMode, setComposerMode] = useState<'create' | 'edit'>('create');
+  const [editingPost, setEditingPost] = useState<any>(null);
 
   // Create post mutation with real API endpoint
   const createPostMutation = useMutation({
@@ -95,47 +103,91 @@ function UnifiedMemories() {
         });
       }
 
-      const response = await fetch('/api/posts', {
+      const response = await apiRequest('/api/posts', { 
         method: 'POST',
         body: formData,
-        credentials: 'include'
       });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create post');
-      }
-
-      return response.json();
+      return response;
     },
-    onSuccess: (data) => {
-      // Show success toast
-      toast({
-        title: "Success! 🎉",
-        description: "Your memory has been shared with the community",
-        className: "bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white border-none",
+    onSuccess: () => {
+      handlePostCreated();
+      toast.success('Memory created successfully!', {
+        style: {
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
+          color: 'white',
+          borderRadius: '16px',
+        },
       });
-
-      // Refresh the feed
-      setRefreshKey(prev => prev + 1);
-      
-      // Invalidate queries to refresh data
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
     },
-    onError: (error: Error) => {
-      // Show error toast
-      toast({
-        title: "Error",
-        description: error.message || "Failed to create post. Please try again.",
-        variant: "destructive",
-      });
-    }
+    onError: () => {
+      toast.error('Failed to create memory');
+    },
   });
 
+  // Edit post mutation - ESA Layer 7: Support media updates with FormData
+  const editPostMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      let body: any;
+      let headers: any = {};
+      
+      // Use FormData if media is being updated
+      if (data.imageFile || data.removeMedia) {
+        const formData = new FormData();
+        formData.append('content', data.content || '');
+        formData.append('isPublic', String(data.isPublic !== undefined ? data.isPublic : true));
+        
+        if (data.imageFile) {
+          formData.append('image', data.imageFile);
+        }
+        if (data.removeMedia) {
+          formData.append('removeMedia', 'true');
+        }
+        
+        body = formData;
+        // Don't set Content-Type for FormData - let browser set it with boundary
+      } else {
+        // Use JSON for text-only updates
+        body = JSON.stringify(data);
+        headers['Content-Type'] = 'application/json';
+      }
+      
+      const response = await apiRequest(`/api/posts/${id}`, { 
+        method: 'PUT',
+        body: body,
+        headers: headers,
+      });
+      return response;
+    },
+    onSuccess: () => {
+      handlePostCreated();
+      toast.success('Memory updated successfully!', {
+        style: {
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
+          color: 'white',
+          borderRadius: '16px',
+        },
+      });
+    },
+    onError: () => {
+      toast.error('Failed to update memory');
+    }
+
   // Handle post creation
-  const handlePostCreated = useCallback((postData: any) => {
-    createPostMutation.mutate(postData);
-  }, [createPostMutation]);
+  const handlePostCreated = useCallback(() => {
+    // Refresh the feed after successful post creation
+    setRefreshKey(prev => prev + 1);
+    setShowComposer(false);
+    setEditingPost(null);
+    setComposerMode('create');
+    queryClient.invalidateQueries({ queryKey: ['posts'] });
+  }, [queryClient]);
+  
+  // Handle edit from child components
+  const handleEdit = useCallback((post: any) => {
+    setEditingPost(post);
+    setComposerMode('edit');
+    setShowComposer(true);
+  }, []);
 
   // Handle filter changes
   const handleFiltersChange = useCallback((newFilters: typeof filters) => {
@@ -201,14 +253,46 @@ function UnifiedMemories() {
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* LEFT COLUMN - Main Feed Area */}
             <div className="flex-1 lg:max-w-[60%] space-y-6">
-              {/* Post Creator Card */}
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100/50 p-1">
-                <BeautifulPostCreator 
-                  context={{ type: 'feed' }}
-                  user={user || undefined}
-                  onSubmit={handlePostCreated}
-                />
-              </div>
+              {/* ESA Layer 7: Unified ModernPostComposer for create and edit */}
+              {!showComposer ? (
+                <Button
+                  onClick={() => {
+                    setShowComposer(true);
+                    setComposerMode('create');
+                    setEditingPost(null);
+                  }}
+                  className="w-full py-6 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white font-semibold rounded-2xl shadow-lg transform transition-all hover:scale-[1.02] hover:shadow-xl"
+                >
+                  <Plus className="mr-2 h-5 w-5" />
+                  What's on your mind?
+                </Button>
+              ) : (
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100/50 p-1">
+                  <ModernPostComposer
+                    onSubmit={async (postData) => {
+                      const formData = new FormData();
+                      formData.append('content', postData.content);
+                      formData.append('isPublic', String(postData.isPublic));
+                      if (postData.imageFile) {
+                        formData.append('image', postData.imageFile);
+                      }
+                      await createPostMutation.mutateAsync(formData);
+                    }}
+                    onUpdate={async (postData) => {
+                      if (editingPost) {
+                        await editPostMutation.mutateAsync({ id: editingPost.id, data: postData });
+                      }
+                    }}
+                    onClose={() => {
+                      setShowComposer(false);
+                      setEditingPost(null);
+                      setComposerMode('create');
+                    }}
+                    editMode={composerMode === 'edit'}
+                    existingPost={editingPost}
+                  />
+                </div>
+              )}
               
               {/* Memory Filters Card */}
               <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100/50">
@@ -234,6 +318,7 @@ function UnifiedMemories() {
                   <EnhancedPostFeedSimple 
                     key={refreshKey} 
                     filters={filters}
+                    onEdit={handleEdit}
                   />
                 )}
               </div>
