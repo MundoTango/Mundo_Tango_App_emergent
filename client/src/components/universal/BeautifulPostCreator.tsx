@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LocationAutocomplete } from '@/components/ui/LocationAutocomplete';
+import GoogleMapsLocationInput from './GoogleMapsLocationInput';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 // ESA Layer 58: Cloudinary removed per user request - single upload option only
@@ -26,7 +26,6 @@ import {
   Lock,
   Users,
   Loader,
-  AlertCircle,
   Lightbulb,
   Camera,
   Mic,
@@ -102,13 +101,10 @@ export default function BeautifulPostCreator({
   const [enhancedContent, setEnhancedContent] = useState('');
   const [showEnhancement, setShowEnhancement] = useState(false);
 
-  // Location states
+  // Location states - simplified for Google Maps
   const [location, setLocation] = useState('');
-  const [locationLoading, setLocationLoading] = useState(false);
-  const [locationError, setLocationError] = useState('');
-  const [locationSuggestions, setLocationSuggestions] = useState<any[]>([]);
-  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
-  const locationTimeoutRef = useRef<NodeJS.Timeout>();
+  const [locationCoordinates, setLocationCoordinates] = useState<{ lat: number; lng: number } | undefined>();
+  const [locationDetails, setLocationDetails] = useState<any>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
@@ -147,94 +143,34 @@ export default function BeautifulPostCreator({
     { value: 'fashion', label: 'Fashion', emoji: '👗' }
   ];
 
-  // Get user's location using browser API
-  const getCurrentLocation = useCallback(() => {
-    setLocationLoading(true);
-    setLocationError('');
-
-    if (!navigator.geolocation) {
-      setLocationError('Geolocation is not supported');
-      setLocationLoading(false);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await response.json();
-
-          if (data && data.display_name) {
-            setLocation(data.display_name);
-            toast({
-              title: "Location found! 📍",
-              description: data.display_name.split(',').slice(0, 2).join(','),
-            });
-          }
-        } catch (error) {
-          console.error('Reverse geocoding error:', error);
-          setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
-        }
-
-        setLocationLoading(false);
-      },
-      (error) => {
-        setLocationError('Unable to get location');
-        setLocationLoading(false);
-        toast({
-          title: "Location access denied",
-          description: "Please enable location services",
-          variant: "destructive"
+  // Handle location selection from Google Maps
+  const handleLocationChange = useCallback(
+    (locationName: string, coordinates?: { lat: number; lng: number }, details?: any) => {
+      setLocation(locationName);
+      setLocationCoordinates(coordinates);
+      setLocationDetails(details);
+      
+      // Log the location details for debugging
+      if (details) {
+        console.log('📍 Location selected:', {
+          name: details.name,
+          address: details.address,
+          rating: details.rating,
+          types: details.types,
+          coordinates: coordinates
         });
+        
+        // Show enhanced toast if business has rating
+        if (details.rating) {
+          toast({
+            title: `${details.name} selected! 📍`,
+            description: `⭐ ${details.rating}/5 • ${details.address}`,
+          });
+        }
       }
-    );
-  }, [toast]);
-
-  // Search locations with debounce
-  const searchLocations = useCallback(async (query: string) => {
-    if (query.length < 3) {
-      setLocationSuggestions([]);
-      setShowLocationSuggestions(false);
-      return;
-    }
-
-    // Clear previous timeout
-    if (locationTimeoutRef.current) {
-      clearTimeout(locationTimeoutRef.current);
-    }
-
-    // Set new timeout for debounce
-    locationTimeoutRef.current = setTimeout(async () => {
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`
-        );
-        const data = await response.json();
-        setLocationSuggestions(data);
-        setShowLocationSuggestions(true);
-      } catch (error) {
-        console.error('Location search error:', error);
-      }
-    }, 500); // 500ms debounce
-  }, []);
-
-  // Handle location input change
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setLocation(value);
-    searchLocations(value);
-  };
-
-  // Select location from suggestions
-  const selectLocation = (suggestion: any) => {
-    setLocation(suggestion.display_name);
-    setLocationSuggestions([]);
-    setShowLocationSuggestions(false);
-  };
+    },
+    [toast]
+  );
 
   // Handle media upload
   const handleMediaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -734,6 +670,8 @@ export default function BeautifulPostCreator({
       visibility,
       tags: selectedTags,
       location: location || undefined,
+      locationCoordinates: locationCoordinates || undefined,
+      locationDetails: locationDetails || undefined,
       contextType: context.type,
       contextId: context.id,
       isRecommendation,
@@ -1061,68 +999,17 @@ export default function BeautifulPostCreator({
               )}
             </div>
 
-            {/* Location input using LocationAutocomplete */}
+            {/* Location input using Google Maps Places API */}
             <div className="relative">
-              <div className="flex items-center space-x-2">
-                <div className="flex-1">
-                  <LocationAutocomplete
-                    value={location}
-                    onChange={(value, details) => {
-                      // Debug log removed
-                      // Debug log removed
-                      // Debug log removed
-
-                      // Update location state with full value
-                      setLocation(value);
-
-                      // ESA LIFE CEO 61x21 - Store location details for recommendations
-                      if (details && details.type === 'business') {
-                        // For businesses, store the full address for better recommendations
-                        const fullLocation = `${details.display}${details.address ? ', ' + details.address : ''}`;
-                        // Debug log removed
-                      }
-
-                      // Log state update
-                      // Debug log removed
-
-                      if (details) {
-                        // Enhanced location data from LocationAutocomplete
-                        // Debug log removed
-                      }
-
-                      // Verify state update after next render
-                      setTimeout(() => {
-                        // Debug log removed
-                      }, 100);
-                    }}
-                    placeholder="Add location or business (restaurants, bars, cafes...)"
-                    className="w-full glassmorphic-input"
-                    includeBusinesses={true}
-                    businessTypes={['restaurant', 'bar', 'cafe', 'club', 'store', 'hotel', 'venue']}
-                  />
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={getCurrentLocation}
-                  disabled={locationLoading}
-                  className="shrink-0 border-gray-200"
-                >
-                  {locationLoading ? (
-                    <Loader className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <MapPin className="h-4 w-4" />
-                  )}
-                </Button>
-              </div>
-
-              {locationError && (
-                <p className="mt-1 text-xs text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  {locationError}
-                </p>
-              )}
+              <GoogleMapsLocationInput
+                value={location}
+                onChange={handleLocationChange}
+                placeholder="Search for venues, restaurants, milongas..."
+                className="w-full"
+                biasToLocation={{ lat: -34.6037, lng: -58.3816 }} // Buenos Aires
+                searchTypes={[]} // Search all establishment types
+                showBusinessDetails={true}
+              />
             </div>
 
             {/* Enhanced Tags with better styling */}
