@@ -59,8 +59,7 @@ const SIDEBAR_SECTIONS = [
   {
     title: "Content & Timeline",
     routes: [
-      { title: "Moments", icon: <Camera className="w-5 h-5" />, link: "/moments" },
-      { title: "Memories", icon: <Calendar className="w-5 h-5" />, link: "/memories" },
+      { title: "Memories", icon: <Camera className="w-5 h-5" />, link: "/memories" },
       { title: "Timeline", icon: <Calendar className="w-5 h-5" />, link: "/enhanced-timeline" },
       { title: "Explore", icon: <Compass className="w-5 h-5" />, link: "/explore" },
       { title: "Trending", icon: <TrendingUp className="w-5 h-5" />, link: "/trending" },

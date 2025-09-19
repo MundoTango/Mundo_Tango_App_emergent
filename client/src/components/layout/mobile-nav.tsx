@@ -23,10 +23,10 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 z-40 shadow-2xl">
       <div className="grid grid-cols-5 gap-1">
-        <Link href="/moments">
+        <Link href="/memories">
           <Button 
             variant="ghost" 
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/moments' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/memories' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
           >
             <Home className="h-6 w-6" />
             <span className="text-xs mt-1 font-medium">Home</span>
