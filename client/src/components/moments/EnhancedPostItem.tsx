@@ -1004,7 +1004,7 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
         open={showEditDialog}
         onOpenChange={setShowEditDialog}
         post={post}
-        user={user}
+        user={user || undefined}
       />
     </article>
   );
