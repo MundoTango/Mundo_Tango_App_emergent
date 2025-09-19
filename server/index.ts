@@ -23,8 +23,7 @@ const child = spawn('npx', ['tsx', serverPath], {
     ...process.env,
     NODE_ENV: process.env.NODE_ENV || 'development',
     NODE_OPTIONS: '--max-old-space-size=4096 --expose-gc',
-    PORT: process.env.PORT || '5000',
-    DISABLE_REDIS: 'true'
+    PORT: process.env.PORT || '5000'
   }
 });
 
