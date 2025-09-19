@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { PostEditCreatorDialog } from '@/components/ui/PostEditCreatorDialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -653,33 +654,16 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
         )}
       </article>
 
-      {/* Edit Dialog */}
-      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Post</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Textarea
-              value={editContent}
-              onChange={(e) => setEditContent(e.target.value)}
-              placeholder="What's on your mind?"
-              className="min-h-[100px]"
-            />
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setShowEditDialog(false)}>
-                Cancel
-              </Button>
-              <Button 
-                onClick={handleEditPost}
-                disabled={!editContent.trim() || editMutation.isPending}
-              >
-                Update Post
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* ESA Layer 7 & 23: Edit Dialog using BeautifulPostCreator for UI consistency */}
+      <PostEditCreatorDialog
+        open={showEditDialog}
+        onOpenChange={setShowEditDialog}
+        post={{
+          ...post,
+          content: editContent // Pass current edit content
+        }}
+        user={user || undefined}
+      />
 
       {/* Report Dialog */}
       <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
