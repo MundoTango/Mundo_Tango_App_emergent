@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Shield, Eye, BarChart, Bug, Download, Trash2, Lock, CheckCircle2, XCircle, Info, ChevronRight, AlertTriangle } from 'lucide-react';
+import { Shield, Eye, BarChart, Bug, Download, Trash2, Lock, CheckCircle2, XCircle, Info, ChevronRight, AlertTriangle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
