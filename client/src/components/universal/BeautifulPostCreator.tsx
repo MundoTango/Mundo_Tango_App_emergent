@@ -75,19 +75,34 @@ interface PostCreatorProps {
     recommendationType?: string;
     priceRange?: string;
   }) => void;
+  // ESA Layer 7 & 23: Edit mode support for unified UI/UX
+  editMode?: boolean;
+  existingPost?: {
+    id: number;
+    content: string;
+    location?: string;
+    visibility?: 'public' | 'friends' | 'private';
+    hashtags?: string[];
+    media?: Array<{ url: string; type: string; }>;
+  };
+  onEditComplete?: () => void;
 }
 
 export default function BeautifulPostCreator({ 
   context = { type: 'feed' }, 
   user,
   onPostCreated,
-  onSubmit 
+  onSubmit,
+  editMode = false,
+  existingPost,
+  onEditComplete 
 }: PostCreatorProps) {
-  const [content, setContent] = useState('');
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  // ESA Layer 7 & 23: Initialize with existing post data in edit mode
+  const [content, setContent] = useState(existingPost?.content || '');
+  const [showAdvanced, setShowAdvanced] = useState(editMode); // Show advanced in edit mode
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [visibility, setVisibility] = useState('public');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
+  const [selectedTags, setSelectedTags] = useState<string[]>(existingPost?.hashtags || []);
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
   const [mediaPreviews, setMediaPreviews] = useState<string[]>([]);
   // ESA Layer 13: Internal-only media URLs system
@@ -103,7 +118,7 @@ export default function BeautifulPostCreator({
   const [showEnhancement, setShowEnhancement] = useState(false);
 
   // Location states - simplified for Google Maps
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(existingPost?.location || '');
   const [locationCoordinates, setLocationCoordinates] = useState<{ lat: number; lng: number } | undefined>();
   const [locationDetails, setLocationDetails] = useState<any>(null);
 
@@ -250,9 +265,38 @@ export default function BeautifulPostCreator({
     fileInputRef.current!.value = '';
   };
 
-  // Create post mutation - now handles cloud URLs instead of file uploads
+  // ESA Layer 7 & 23: Unified post mutation for create and edit modes
   const createPostMutation = useMutation({
     mutationFn: async (postData: any) => {
+      // Handle edit mode
+      if (editMode && existingPost?.id) {
+        console.log('📝 Editing post:', existingPost.id);
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+        if (csrfToken) {
+          headers['x-csrf-token'] = csrfToken;
+        }
+        
+        const response = await fetch(`/api/posts/${existingPost.id}`, {
+          method: 'PATCH',
+          headers,
+          credentials: 'include',
+          body: JSON.stringify({
+            content: postData.content,
+            location: postData.location,
+            visibility: postData.visibility,
+            hashtags: postData.tags,
+            // Include any new media URLs if added
+            mediaUrls: internalMediaUrls.length > 0 ? internalMediaUrls : undefined
+          })
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Failed to update post: ${response.status} - ${errorText}`);
+        }
+
+        return await response.json();
+      }
       // Starting post creation
       console.log('📦 Post data received:', postData);
       console.log('🏠 Internal media URLs:', internalMediaUrls.length);
@@ -502,8 +546,8 @@ export default function BeautifulPostCreator({
     onSuccess: (response) => {
       console.log('✅ ESA Layer 13: Post mutation success!', response);
       toast({
-        title: "Post created! 🎉", 
-        description: "Your memory has been shared",
+        title: editMode ? "Post updated! ✏️" : "Post created! 🎉", 
+        description: editMode ? "Your changes have been saved" : "Your memory has been shared",
       });
 
       // Trigger confetti celebration
@@ -528,7 +572,13 @@ export default function BeautifulPostCreator({
       queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
       // Force immediate refetch
       queryClient.refetchQueries({ queryKey: ['/api/posts'] });
-      onPostCreated?.();
+      
+      // Call appropriate callback
+      if (editMode) {
+        onEditComplete?.();
+      } else {
+        onPostCreated?.();
+      }
     },
     onError: (error: any) => {
       setIsUploading(false);
@@ -858,7 +908,7 @@ export default function BeautifulPostCreator({
                   }
                 }}
                 onKeyDown={handleTyping}
-                placeholder="✨ Share your tango moment..."
+                placeholder={editMode ? "✏️ Edit your post..." : "✨ Share your tango moment..."}
                 className="w-full min-h-[120px] p-5 rounded-2xl resize-none focus:outline-none focus:ring-4 focus:ring-turquoise-400/30 focus:border-transparent transition-all placeholder:text-gray-400 placeholder:text-lg glassmorphic-input-enhanced text-lg leading-relaxed font-medium text-gray-800"
                 style={{
                   background: 'rgba(255, 255, 255, 0.95)',
@@ -1201,7 +1251,7 @@ export default function BeautifulPostCreator({
                   ) : (
                     <>
                       <Sparkles className="h-4 w-4" />
-                      <span>📝 Share Memory</span>
+                      <span>{editMode ? '💾 Save Changes' : '📝 Share Memory'}</span>
                     </>
                   )}
                 </span>
