@@ -53,7 +53,8 @@ import {
   Cloud,
   AlertTriangle,
   RotateCcw,
-  CheckCircle2
+  CheckCircle2,
+  BarChart
 } from 'lucide-react';
 
 interface NotificationSettings {
