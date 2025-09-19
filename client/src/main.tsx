@@ -4,32 +4,11 @@ import App from "./App";
 import "./index.css";
 // Initialize console security - hides framework references
 import "./utils/console-cleanup";
-// ESA Life CEO 61x21 - Initialize monitoring services
-import { monitoring } from "./services/monitoring";
+// ESA Life CEO 61x21 - Monitoring is managed by MonitoringProvider
+// Users can enable analytics via Settings → Privacy tab
+// No automatic initialization to respect user privacy
 
 console.log('Starting React app...');
-
-// Initialize monitoring services before app starts
-const initializeMonitoring = async () => {
-  try {
-    await monitoring.initialize({
-      maskTextContent: false,
-      maskInputContent: true,
-      maskEmails: true,
-      maskPhoneNumbers: true,
-      blockClass: 'no-monitor',
-      ignoreClass: 'monitor-ignore',
-      maskTextClass: 'monitor-mask',
-      captureNetwork: true,
-      captureConsole: true
-    });
-    console.log('[ESA Monitoring] Services initialized successfully');
-  } catch (error) {
-    console.error('[ESA Monitoring] Failed to initialize:', error);
-  }
-};
-
-initializeMonitoring();
 
 const rootElement = document.getElementById("root");
 
