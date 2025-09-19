@@ -57,7 +57,12 @@ export default function ModernEditMemoryModal({ isOpen, onClose, memory, onSave 
           editMode={true}
           existingPost={existingPost}
           onEditComplete={handleEditComplete}
-          user={user || undefined}
+          user={user ? {
+            id: user.id,
+            name: user.name,
+            username: user.username,
+            profileImage: user.profileImage || undefined
+          } : undefined}
           context={{ type: 'memory' }}
         />
       </DialogContent>
