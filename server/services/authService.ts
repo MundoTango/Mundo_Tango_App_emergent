@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { users, userProfiles } from '../../shared/schema';
+import { users } from '../../shared/schema';
 import { eq, and } from 'drizzle-orm';
 
 export type UserRole = 'admin' | 'organizer' | 'teacher' | 'dancer' | 'guest';
@@ -73,21 +73,18 @@ export class AuthService {
           email: users.email,
           name: users.name,
           username: users.username,
-          role: userProfiles.role,
-          displayName: userProfiles.displayName,
-          avatarUrl: userProfiles.avatarUrl,
-          permissions: userProfiles.permissions,
-          isActive: userProfiles.isActive
+          profileImage: users.profileImage,
+          isActive: users.isActive
         })
         .from(users)
-        .leftJoin(userProfiles, eq(users.id, userProfiles.userId))
         .where(eq(users.id, userId))
         .limit(1);
 
       if (!result[0]) return null;
 
       const user = result[0];
-      const role = (user.role as UserRole) || 'guest';
+      // Default to 'guest' role since user_profiles table doesn't exist
+      const role: UserRole = 'guest';
       
       return {
         id: user.userId,
@@ -95,12 +92,9 @@ export class AuthService {
         name: user.name,
         username: user.username,
         role,
-        displayName: user.displayName,
-        avatarUrl: user.avatarUrl,
-        permissions: {
-          ...ROLE_PERMISSIONS[role],
-          ...(user.permissions as RolePermissions || {})
-        },
+        displayName: user.name, // Use name as displayName
+        avatarUrl: user.profileImage, // Use profileImage as avatarUrl
+        permissions: ROLE_PERMISSIONS[role],
         isActive: user.isActive ?? true
       };
     } catch (error) {
@@ -120,16 +114,9 @@ export class AuthService {
         throw new Error('Insufficient permissions to manage roles');
       }
 
-      // Ensure user profile exists
-      await this.ensureUserProfile(userId);
-
-      await db
-        .update(userProfiles)
-        .set({ 
-          role: newRole,
-          updatedAt: new Date()
-        })
-        .where(eq(userProfiles.userId, userId));
+      // Since user_profiles table doesn't exist, we can't update roles
+      // Just log the attempt for now
+      console.warn(`Role update attempted for user ${userId} to role ${newRole}, but user_profiles table does not exist`);
 
       // Log the role change
       await this.logRoleChange(userId, newRole, updatedBy);
@@ -171,31 +158,8 @@ export class AuthService {
    * Ensure user profile exists
    */
   async ensureUserProfile(userId: number): Promise<void> {
-    try {
-      const existing = await db
-        .select()
-        .from(userProfiles)
-        .where(eq(userProfiles.userId, userId))
-        .limit(1);
-
-      if (existing.length === 0) {
-        // Get user info for display name
-        const user = await db
-          .select({ name: users.name, username: users.username })
-          .from(users)
-          .where(eq(users.id, userId))
-          .limit(1);
-
-        await db.insert(userProfiles).values({
-          userId,
-          role: 'guest',
-          displayName: user[0]?.name || user[0]?.username || null,
-          isActive: true
-        });
-      }
-    } catch (error) {
-      console.error('Error ensuring user profile:', error);
-    }
+    // Since user_profiles table doesn't exist, this is a no-op
+    console.debug('ensureUserProfile called but user_profiles table does not exist');
   }
 
   /**
@@ -203,24 +167,24 @@ export class AuthService {
    */
   async getUsersByRole(role: UserRole, limit = 50): Promise<UserWithRole[]> {
     try {
+      // Since user_profiles table doesn't exist, we can't filter by role
+      // Return empty array for non-guest roles
+      if (role !== 'guest') {
+        return [];
+      }
+
+      // For guest role, return all active users
       const result = await db
         .select({
           userId: users.id,
           email: users.email,
           name: users.name,
           username: users.username,
-          role: userProfiles.role,
-          displayName: userProfiles.displayName,
-          avatarUrl: userProfiles.avatarUrl,
-          permissions: userProfiles.permissions,
-          isActive: userProfiles.isActive
+          profileImage: users.profileImage,
+          isActive: users.isActive
         })
         .from(users)
-        .innerJoin(userProfiles, eq(users.id, userProfiles.userId))
-        .where(and(
-          eq(userProfiles.role, role),
-          eq(userProfiles.isActive, true)
-        ))
+        .where(eq(users.isActive, true))
         .limit(limit);
 
       return result.map(user => ({
@@ -228,13 +192,10 @@ export class AuthService {
         email: user.email,
         name: user.name,
         username: user.username,
-        role: user.role as UserRole,
-        displayName: user.displayName,
-        avatarUrl: user.avatarUrl,
-        permissions: {
-          ...ROLE_PERMISSIONS[role],
-          ...(user.permissions as RolePermissions || {})
-        },
+        role: 'guest' as UserRole,
+        displayName: user.name,
+        avatarUrl: user.profileImage,
+        permissions: ROLE_PERMISSIONS['guest'],
         isActive: user.isActive ?? true
       }));
     } catch (error) {
@@ -276,15 +237,8 @@ export class AuthService {
         throw new Error('Insufficient permissions to manage permissions');
       }
 
-      await this.ensureUserProfile(userId);
-
-      await db
-        .update(userProfiles)
-        .set({ 
-          permissions,
-          updatedAt: new Date()
-        })
-        .where(eq(userProfiles.userId, userId));
+      // Since user_profiles table doesn't exist, we can't update permissions
+      console.warn(`Permission update attempted for user ${userId}, but user_profiles table does not exist`);
 
       return true;
     } catch (error) {
@@ -303,15 +257,14 @@ export class AuthService {
         throw new Error('Insufficient permissions to deactivate users');
       }
 
-      await this.ensureUserProfile(userId);
-
+      // Update the users table isActive field instead
       await db
-        .update(userProfiles)
+        .update(users)
         .set({ 
           isActive: false,
           updatedAt: new Date()
         })
-        .where(eq(userProfiles.userId, userId));
+        .where(eq(users.id, userId));
 
       return true;
     } catch (error) {

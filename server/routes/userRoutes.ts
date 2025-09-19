@@ -297,6 +297,14 @@ router.get('/user/:userId',
     const requesterId = getUserId(req);
     const targetUserId = parseInt(req.params.userId);
     
+    // Validate targetUserId is a valid number
+    if (isNaN(targetUserId) || targetUserId < 1) {
+      return res.status(400).json({ 
+        error: "Invalid user ID",
+        message: "User ID must be a valid positive number"
+      });
+    }
+    
     if (!requesterId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
