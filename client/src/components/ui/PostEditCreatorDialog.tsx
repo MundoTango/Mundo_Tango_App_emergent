@@ -9,6 +9,7 @@ import {
   DialogContent,
 } from '@/components/ui/dialog';
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import { queryClient } from '@lib/queryClient';
 
 interface PostEditCreatorDialogProps {
   open: boolean;
@@ -37,6 +38,10 @@ export function PostEditCreatorDialog({
 }: PostEditCreatorDialogProps) {
   
   const handleEditComplete = () => {
+    // ESA Layer 7: Invalidate cache to refresh feed with updated post
+    queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
+    queryClient.invalidateQueries({ queryKey: ["/api/posts"] });
+    queryClient.invalidateQueries({ queryKey: [`/api/post/${post.id}`] });
     onOpenChange(false);
   };
 
