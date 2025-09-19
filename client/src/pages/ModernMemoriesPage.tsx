@@ -6,7 +6,7 @@ import ModernPostComposer from '@/components/modern/ModernPostComposer';
 import ModernPostCard from '@/components/modern/ModernPostCard';
 import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
-import ModernEditMemoryModal from '@/components/modern/ModernEditMemoryModal';
+// ESA Layer 7: Removed ModernEditMemoryModal - using ModernPostComposer for both create and edit
 import ModernDeleteConfirmModal from '@/components/modern/ModernDeleteConfirmModal';
 import ModernCommentsSection from '@/components/modern/ModernCommentsSection';
 import { apiRequest } from '@/lib/queryClient';
@@ -57,6 +57,7 @@ export default function ModernMemoriesPageV2() {
   
   // State management
   const [showComposer, setShowComposer] = useState(false);
+  const [composerMode, setComposerMode] = useState<'create' | 'edit'>('create');
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [memories, setMemories] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -308,6 +309,8 @@ export default function ModernMemoriesPageV2() {
 
   const handleEditMemory = (memory: Post) => {
     setEditingMemory(memory);
+    setComposerMode('edit');
+    setShowComposer(true);
   };
 
   const handleSaveEdit = (id: number, data: any) => {
@@ -383,29 +386,32 @@ export default function ModernMemoriesPageV2() {
         backgroundImage: 'linear-gradient(135deg, #5EEAD4 0%, #E0F2FE 50%, #155E75 100%)'
       }}>
       {/* Header */}
-      <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
+      <ModernMemoriesHeader onCreatePost={() => {
+        setComposerMode('create');
+        setEditingMemory(null);
+        setShowComposer(true);
+      }} />
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-6 py-8">
-        {/* Post Composer Modal */}
+        {/* Unified Post Composer Modal - ESA Layer 7 Compliance */}
         {showComposer && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
             <div className="max-w-2xl w-full max-h-[90vh] overflow-auto">
               <ModernPostComposer 
-                onSubmit={handleCreatePost}
-                onClose={() => setShowComposer(false)}
+                editMode={composerMode === 'edit'}
+                existingPost={composerMode === 'edit' ? editingMemory : undefined}
+                onSubmit={composerMode === 'create' ? handleCreatePost : undefined}
+                onUpdate={composerMode === 'edit' ? handleSaveEdit : undefined}
+                onClose={() => {
+                  setShowComposer(false);
+                  setEditingMemory(null);
+                  setComposerMode('create');
+                }}
               />
             </div>
           </div>
         )}
-
-        {/* Edit Memory Modal */}
-        <ModernEditMemoryModal
-          isOpen={!!editingMemory}
-          onClose={() => setEditingMemory(null)}
-          memory={editingMemory}
-          onSave={handleSaveEdit}
-        />
 
         {/* Delete Confirmation Modal */}
         <ModernDeleteConfirmModal
@@ -481,7 +487,11 @@ export default function ModernMemoriesPageV2() {
                     }
                   </p>
                   <button
-                    onClick={() => setShowComposer(true)}
+                    onClick={() => {
+                    setComposerMode('create');
+                    setEditingMemory(null);
+                    setShowComposer(true);
+                  }}
                     data-testid="button-create-memory"
                     className="bg-gradient-to-r from-teal-400 to-cyan-600 hover:from-teal-500 hover:to-cyan-700 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
