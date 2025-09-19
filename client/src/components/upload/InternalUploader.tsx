@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Camera, Video, X, CheckCircle, AlertCircle } from 'lucide-react';
+import { processMultipleMedia } from '@/utils/advancedMediaProcessor';
 
 interface UploadedFile {
   id: string;
@@ -27,7 +28,7 @@ export function InternalUploader({
   onUploadComplete,
   maxFiles = 30,
   maxFileSize = 500,
-  accept = "image/*,video/*",
+  accept = "image/*,video/*,.heic,.heif,.mov,.mp4,.webm,.avi,.mkv,.flv,.wmv,.m4v,.3gp,.3g2",
   multiple = true,
   className = ""
 }: InternalUploaderProps) {
@@ -57,27 +58,57 @@ export function InternalUploader({
       return;
     }
 
-    // Validate file sizes
-    const oversizedFiles = files.filter(file => file.size > maxFileSize * 1024 * 1024);
-    if (oversizedFiles.length > 0) {
-      toast({
-        title: "Files too large",
-        description: `Maximum file size is ${maxFileSize}MB`,
-        variant: "destructive"
-      });
-      return;
-    }
-
     setIsUploading(true);
     setUploadProgress(0);
 
+    // Check for special formats (HEIC, MOV, etc)
+    const fileTypes = files.map(f => {
+      const name = f.name.toLowerCase();
+      if (name.endsWith('.heic') || name.endsWith('.heif')) return 'HEIC (iPhone)';
+      if (name.endsWith('.mov')) return 'MOV (iPhone Video)';
+      return f.type.split('/')[0] || 'file';
+    });
+
+    toast({
+      title: "🎬 Processing media...",
+      description: `Optimizing ${fileTypes.join(', ')} for upload`
+    });
+
     try {
+      // Process files with advanced media processor (Facebook/Instagram style)
+      const processedFiles = await processMultipleMedia(
+        files,
+        (current, total, status) => {
+          const progress = Math.min((current / total) * 50, 50); // First 50% for processing
+          setUploadProgress(progress);
+          console.log(`[Processing] ${current}/${total}: ${status}`);
+        }
+      );
+
+      // Check if files are now within size limits after processing
+      const oversizedFiles = processedFiles.filter(file => file.size > maxFileSize * 1024 * 1024);
+      if (oversizedFiles.length > 0) {
+        toast({
+          title: "Files still too large",
+          description: `Even after compression, some files exceed ${maxFileSize}MB`,
+          variant: "destructive"
+        });
+        // Continue with the files that are within limits
+        const validFiles = processedFiles.filter(file => file.size <= maxFileSize * 1024 * 1024);
+        if (validFiles.length === 0) {
+          setIsUploading(false);
+          return;
+        }
+      }
+
       const formData = new FormData();
-      files.forEach(file => {
+      processedFiles.forEach(file => {
         formData.append('files', file);
       });
 
-      console.log(`[Internal Upload] Starting upload of ${files.length} files`);
+      const originalSize = files.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
+      const processedSize = processedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
+      console.log(`[Internal Upload] Compressed ${originalSize.toFixed(1)}MB → ${processedSize.toFixed(1)}MB`);
 
       const xhr = new XMLHttpRequest();
       
