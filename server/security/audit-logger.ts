@@ -72,9 +72,9 @@ export enum AuditEventType {
 // Audit log entry interface
 interface AuditLogEntry {
   userId?: number;
-  eventType: AuditEventType;
-  level: AuditLevel;
-  message: string;
+  eventType?: AuditEventType;  // Made optional to handle undefined cases
+  level?: AuditLevel;  // Made optional to handle undefined cases
+  message?: string;  // Made optional to handle undefined cases
   metadata?: any;
   ipAddress?: string;
   userAgent?: string;
@@ -96,54 +96,111 @@ const activityTracker = new Map<string, { count: number; firstSeen: number; last
 // Log audit event
 export async function logAuditEvent(entry: AuditLogEntry): Promise<void> {
   try {
+    // Ensure all NOT NULL columns have values
+    const eventType = entry.eventType || AuditEventType.API_REQUEST;
+    const level = entry.level || AuditLevel.INFO;
+    const message = entry.message || 'Audit event logged';
+    
+    // Derive action from eventType (required NOT NULL column in database)
+    // action is REQUIRED and must NEVER be null
+    const action = eventType || AuditEventType.API_REQUEST;
+    
+    // Sanitize metadata to remove sensitive data before storing
+    const sanitizedMetadata = entry.metadata ? sanitizeForLogging(entry.metadata) : null;
+    
     await db.insert(auditLogs).values({
       userId: entry.userId || null,
-      eventType: entry.eventType,
-      level: entry.level,
-      action: entry.eventType || 'unknown_action', // Ensure action is never null
-      message: entry.message,
-      metadata: entry.metadata ? JSON.stringify(entry.metadata) : null,
+      action: action, // NOT NULL column in actual database
+      resource: null, // Optional column
+      resourceId: null, // Optional column  
+      details: sanitizedMetadata, // JSON column for details
       ipAddress: entry.ipAddress || null,
       userAgent: entry.userAgent || null,
+      timestamp: new Date(),
+      success: level !== AuditLevel.ERROR, // Set based on level
+      errorMessage: level === AuditLevel.ERROR ? message : null,
+      eventType: eventType, // Store event type as well
+      level: level,
+      message: message,
+      metadata: sanitizedMetadata,
       requestId: entry.requestId || null,
       sessionId: entry.sessionId || null,
-      timestamp: new Date(),
     });
     
     // Check for security events
-    if (entry.level === AuditLevel.SECURITY || entry.level === AuditLevel.CRITICAL) {
-      await logSecurityEvent(entry);
+    if (level === AuditLevel.SECURITY || level === AuditLevel.CRITICAL) {
+      await logSecurityEvent({
+        ...entry,
+        eventType,
+        level,
+        message
+      });
     }
     
     // Check for suspicious patterns
-    await detectSuspiciousActivity(entry);
+    await detectSuspiciousActivity({
+      ...entry,
+      eventType,
+      level,
+      message
+    });
     
     // Write to file for backup
-    await writeToAuditFile(entry);
+    await writeToAuditFile({
+      ...entry,
+      eventType,
+      level,
+      message
+    });
   } catch (error) {
-    console.error('Error logging audit event:', error);
-    // Fallback to file logging
-    await writeToAuditFile(entry);
+    // Log the error but don't throw - fail silently to prevent request crashes
+    console.warn('Audit logging failed (non-critical):', {
+      error: error instanceof Error ? error.message : error,
+      eventType: entry.eventType,
+      level: entry.level,
+    });
+    
+    // Always try to write to file as fallback
+    try {
+      await writeToAuditFile({
+        ...entry,
+        eventType: entry.eventType || AuditEventType.API_REQUEST,
+        level: entry.level || AuditLevel.INFO,
+        message: entry.message || 'Audit event logged'
+      });
+    } catch (fileError) {
+      console.warn('File audit logging also failed:', fileError instanceof Error ? fileError.message : fileError);
+    }
   }
 }
 
 // Log security event
 async function logSecurityEvent(entry: AuditLogEntry): Promise<void> {
   try {
+    // Ensure required fields have values
+    const eventType = entry.eventType || AuditEventType.SUSPICIOUS_ACTIVITY;
+    const level = entry.level || AuditLevel.SECURITY;
+    const message = entry.message || 'Security event logged';
+    
     await db.insert(securityEvents).values({
-      eventType: entry.eventType,
-      severity: mapLevelToSeverity(entry.level),
-      description: entry.message,
+      eventType: eventType,
+      severity: mapLevelToSeverity(level),
+      description: message,
       source: entry.ipAddress || 'unknown',
-      userId: entry.userId,
+      userId: entry.userId || null,
       metadata: entry.metadata ? JSON.stringify(entry.metadata) : null,
       resolved: false,
       timestamp: new Date(),
     });
     
     // Send alerts for critical events
-    if (entry.level === AuditLevel.CRITICAL) {
-      await sendSecurityAlert(entry);
+    if (level === AuditLevel.CRITICAL) {
+      await sendSecurityAlert({
+        ...entry,
+        eventType,
+        level,
+        message
+      });
     }
   } catch (error) {
     console.error('Error logging security event:', error);
@@ -152,7 +209,9 @@ async function logSecurityEvent(entry: AuditLogEntry): Promise<void> {
 
 // Detect suspicious activity
 async function detectSuspiciousActivity(entry: AuditLogEntry): Promise<void> {
-  const key = `${entry.userId || entry.ipAddress}:${entry.eventType}`;
+  // Ensure eventType has a value for key generation
+  const eventType = entry.eventType || AuditEventType.SUSPICIOUS_ACTIVITY;
+  const key = `${entry.userId || entry.ipAddress}:${eventType}`;
   const now = Date.now();
   
   // Track activity
@@ -165,7 +224,7 @@ async function detectSuspiciousActivity(entry: AuditLogEntry): Promise<void> {
   let isSuspicious = false;
   let reason = '';
   
-  switch (entry.eventType) {
+  switch (eventType) {
     case AuditEventType.LOGIN_FAILED:
       if (activity.count >= SECURITY_THRESHOLDS.failedLogins.count &&
           now - activity.firstSeen <= SECURITY_THRESHOLDS.failedLogins.window) {
@@ -194,11 +253,11 @@ async function detectSuspiciousActivity(entry: AuditLogEntry): Promise<void> {
   // Log suspicious activity
   if (isSuspicious) {
     await db.insert(suspiciousActivities).values({
-      userId: entry.userId,
-      activityType: entry.eventType,
+      userId: entry.userId || null,
+      activityType: eventType, // Use correct column name (not eventType)
       description: reason,
-      ipAddress: entry.ipAddress,
-      userAgent: entry.userAgent,
+      ipAddress: entry.ipAddress || null,
+      userAgent: entry.userAgent || null,
       metadata: JSON.stringify({
         count: activity.count,
         window: now - activity.firstSeen,
@@ -215,6 +274,7 @@ async function detectSuspiciousActivity(entry: AuditLogEntry): Promise<void> {
     // Send alert
     await sendSecurityAlert({
       ...entry,
+      eventType,
       level: AuditLevel.SECURITY,
       message: `Suspicious activity detected: ${reason}`,
     });
@@ -237,7 +297,7 @@ function cleanupActivityTracker(): void {
 }
 
 // Map audit level to severity
-function mapLevelToSeverity(level: AuditLevel): string {
+function mapLevelToSeverity(level: AuditLevel | undefined): string {
   switch (level) {
     case AuditLevel.CRITICAL:
       return 'critical';
@@ -254,10 +314,15 @@ function mapLevelToSeverity(level: AuditLevel): string {
 
 // Send security alert
 async function sendSecurityAlert(entry: AuditLogEntry): Promise<void> {
+  // Ensure required fields
+  const message = entry.message || 'Security alert';
+  const eventType = entry.eventType || AuditEventType.SUSPICIOUS_ACTIVITY;
+  const level = entry.level || AuditLevel.SECURITY;
+  
   // In production, this would send emails, Slack messages, etc.
-  console.error(`🚨 SECURITY ALERT: ${entry.message}`, {
-    eventType: entry.eventType,
-    level: entry.level,
+  console.error(`🚨 SECURITY ALERT: ${message}`, {
+    eventType: eventType,
+    level: level,
     userId: entry.userId,
     ipAddress: entry.ipAddress,
     metadata: entry.metadata,
@@ -265,8 +330,8 @@ async function sendSecurityAlert(entry: AuditLogEntry): Promise<void> {
   
   // Log to special security file
   const securityLogPath = path.join(process.cwd(), 'logs', 'security.log');
-  const logEntry = `[${new Date().toISOString()}] ${entry.level.toUpperCase()}: ${entry.message}\n` +
-                   `  Event: ${entry.eventType}\n` +
+  const logEntry = `[${new Date().toISOString()}] ${level.toUpperCase()}: ${message}\n` +
+                   `  Event: ${eventType}\n` +
                    `  User: ${entry.userId || 'anonymous'}\n` +
                    `  IP: ${entry.ipAddress || 'unknown'}\n` +
                    `  Metadata: ${JSON.stringify(entry.metadata)}\n\n`;
@@ -290,8 +355,13 @@ async function writeToAuditFile(entry: AuditLogEntry): Promise<void> {
     console.error('Error creating logs directory:', error);
   }
   
-  const logEntry = `[${new Date().toISOString()}] ${entry.level.toUpperCase()}: ${entry.message}\n` +
-                   `  Event: ${entry.eventType}\n` +
+  // Ensure required fields have values
+  const level = entry.level || AuditLevel.INFO;
+  const message = entry.message || 'Audit event';
+  const eventType = entry.eventType || AuditEventType.API_REQUEST;
+  
+  const logEntry = `[${new Date().toISOString()}] ${level.toUpperCase()}: ${message}\n` +
+                   `  Event: ${eventType}\n` +
                    `  User: ${entry.userId || 'anonymous'}\n` +
                    `  IP: ${entry.ipAddress || 'unknown'}\n` +
                    `  Session: ${entry.sessionId || 'none'}\n` +
@@ -314,23 +384,28 @@ export const auditMiddleware = (eventType: AuditEventType, level: AuditLevel = A
     const requestId = generateRequestId();
     (req as any).requestId = requestId;
     
-    // Log request
-    await logAuditEvent({
-      userId: (req as any).user?.id,
-      eventType,
-      level,
-      message: `${req.method} ${req.path}`,
-      metadata: {
-        method: req.method,
-        path: req.path,
-        query: req.query,
-        body: sanitizeForLogging(req.body),
-      },
-      ipAddress: req.ip || req.connection.remoteAddress,
-      userAgent: req.headers['user-agent'] as string,
-      requestId,
-      sessionId: (req.session as any)?.id,
-    });
+    // Log request with proper error handling
+    try {
+      await logAuditEvent({
+        userId: (req as any).user?.id,
+        eventType: eventType || AuditEventType.API_REQUEST,
+        level: level || AuditLevel.INFO,
+        message: `${req.method} ${req.path}`,
+        metadata: {
+          method: req.method,
+          path: req.path,
+          query: sanitizeForLogging(req.query),
+          body: sanitizeForLogging(req.body),
+        },
+        ipAddress: req.ip || req.connection.remoteAddress,
+        userAgent: req.headers['user-agent'] as string,
+        requestId,
+        sessionId: (req.session as any)?.id,
+      });
+    } catch (error) {
+      // Don't let audit logging errors break the request
+      console.warn('Failed to log request audit:', error instanceof Error ? error.message : error);
+    }
     
     // Capture response
     const originalSend = res.send;
@@ -338,10 +413,11 @@ export const auditMiddleware = (eventType: AuditEventType, level: AuditLevel = A
       const responseTime = Date.now() - startTime;
       
       // Log response
+      const responseLevel = res.statusCode >= 400 ? AuditLevel.ERROR : AuditLevel.INFO;
       logAuditEvent({
         userId: (req as any).user?.id,
         eventType: AuditEventType.API_REQUEST,
-        level: res.statusCode >= 400 ? AuditLevel.ERROR : AuditLevel.INFO,
+        level: responseLevel,
         message: `Response: ${res.statusCode} in ${responseTime}ms`,
         metadata: {
           statusCode: res.statusCode,
@@ -352,7 +428,10 @@ export const auditMiddleware = (eventType: AuditEventType, level: AuditLevel = A
         userAgent: req.headers['user-agent'] as string,
         requestId,
         sessionId: (req.session as any)?.id,
-      }).catch(console.error);
+      }).catch((error) => {
+        // Silent fail for response logging
+        console.warn('Failed to log response audit:', error instanceof Error ? error.message : error);
+      });
       
       originalSend.call(this, data);
     };
@@ -370,9 +449,30 @@ function generateRequestId(): string {
 function sanitizeForLogging(data: any): any {
   if (!data) return data;
   
-  const sensitiveFields = ['password', 'token', 'secret', 'apiKey', 'creditCard', 'ssn'];
+  // Extended list of sensitive fields to redact
+  const sensitiveFields = [
+    'password', 'passwd', 'pwd',
+    'token', 'accesstoken', 'refreshtoken', 'authtoken',
+    'secret', 'secretkey', 'privatekey',
+    'apikey', 'api_key', 'apitoken',
+    'creditcard', 'credit_card', 'card_number', 'cardnumber',
+    'ssn', 'socialsecuritynumber',
+    'cvv', 'cvc', 'securitycode',
+    'accountnumber', 'account_number',
+    'bankaccount', 'bank_account',
+    'routingnumber', 'routing_number',
+    'pin', 'passcode',
+    'email', 'emailaddress', // Consider redacting emails for privacy
+    'phone', 'phonenumber', 'mobile',
+    'stripetoken', 'stripe_token',
+    'paymentmethod', 'payment_method'
+  ];
   
   if (typeof data === 'string') {
+    // Check if the string looks like a sensitive token (e.g., Bearer token)
+    if (data.match(/^Bearer\s+/i) || data.match(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/)) {
+      return '***REDACTED***';
+    }
     return data;
   }
   
@@ -383,7 +483,8 @@ function sanitizeForLogging(data: any): any {
   if (typeof data === 'object') {
     const sanitized: any = {};
     for (const key in data) {
-      if (sensitiveFields.some(field => key.toLowerCase().includes(field))) {
+      const lowerKey = key.toLowerCase().replace(/[_-]/g, '');
+      if (sensitiveFields.some(field => lowerKey.includes(field))) {
         sanitized[key] = '***REDACTED***';
       } else {
         sanitized[key] = sanitizeForLogging(data[key]);
@@ -449,18 +550,20 @@ export async function generateAuditReport(startDate: Date, endDate: Date) {
   
   // Analyze logs
   for (const log of logs) {
-    // Count by level
-    report.summary.byLevel[log.level] = (report.summary.byLevel[log.level] || 0) + 1;
+    // Count by level (handle undefined level)
+    const logLevel = log.level || 'unknown';
+    report.summary.byLevel[logLevel] = (report.summary.byLevel[logLevel] || 0) + 1;
     
-    // Count by event type
-    report.summary.byEventType[log.eventType] = (report.summary.byEventType[log.eventType] || 0) + 1;
+    // Count by event type (handle undefined eventType)
+    const logEventType = log.eventType || 'unknown';
+    report.summary.byEventType[logEventType] = (report.summary.byEventType[logEventType] || 0) + 1;
     
     // Track unique users and IPs
     if (log.userId) report.summary.uniqueUsers.add(log.userId);
     if (log.ipAddress) report.summary.uniqueIPs.add(log.ipAddress);
     
-    // Collect critical events
-    if (log.level === AuditLevel.CRITICAL || log.level === AuditLevel.SECURITY) {
+    // Collect critical events (handle undefined level)
+    if (log.level && (log.level === AuditLevel.CRITICAL || log.level === AuditLevel.SECURITY)) {
       report.criticalEvents.push(log);
     }
   }

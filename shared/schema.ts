@@ -2708,25 +2708,30 @@ export const apiKeyUsage = pgTable("api_key_usage", {
   index("idx_api_key_usage_timestamp").on(table.timestamp),
 ]);
 
-// Audit logs table
+// Audit logs table (matches actual database structure)
 export const auditLogs = pgTable("audit_logs", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
-  eventType: varchar("event_type", { length: 100 }).notNull(),
-  level: varchar("level", { length: 20 }).notNull(), // info, warning, error, critical, security
-  message: text("message").notNull(),
-  metadata: jsonb("metadata"),
+  action: varchar("action", { length: 255 }).notNull(), // Required NOT NULL column in actual database
+  resource: varchar("resource", { length: 255 }),
+  resourceId: varchar("resource_id", { length: 255 }),
+  details: jsonb("details"),
   ipAddress: varchar("ip_address", { length: 45 }),
   userAgent: text("user_agent"),
+  timestamp: timestamp("timestamp").defaultNow(),
+  success: boolean("success").default(true),
+  errorMessage: text("error_message"),
+  eventType: varchar("event_type", { length: 100 }), // Optional in actual database
+  level: varchar("level", { length: 20 }).default('INFO'), // Has default in actual database
+  message: text("message"),
+  metadata: jsonb("metadata"),
   requestId: varchar("request_id", { length: 100 }),
   sessionId: varchar("session_id", { length: 255 }),
-  timestamp: timestamp("timestamp").defaultNow(),
 }, (table) => [
   index("idx_audit_logs_user_id").on(table.userId),
-  index("idx_audit_logs_event_type").on(table.eventType),
-  index("idx_audit_logs_level").on(table.level),
   index("idx_audit_logs_timestamp").on(table.timestamp),
   index("idx_audit_logs_ip_address").on(table.ipAddress),
+  index("idx_audit_logs_action").on(table.action),
 ]);
 
 // Security events table
