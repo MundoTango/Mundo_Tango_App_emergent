@@ -21,7 +21,7 @@ import { formatUserLocation } from '@/utils/locationUtils';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-import { PostEditDialog } from '@/components/ui/PostEditDialog';
+import { PostEditCreatorDialog } from '@/components/ui/PostEditCreatorDialog';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -999,11 +999,12 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
         )}
       </div>
 
-      {/* Edit Dialog */}
-      <PostEditDialog
+      {/* Edit Dialog - ESA Layer 7 & 23: Using BeautifulPostCreator for consistent UI */}
+      <PostEditCreatorDialog
         open={showEditDialog}
         onOpenChange={setShowEditDialog}
         post={post}
+        user={user}
       />
     </article>
   );
