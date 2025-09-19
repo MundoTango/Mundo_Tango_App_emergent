@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { PostEditCreatorDialog } from '@/components/ui/PostEditCreatorDialog';
+// ESA Layer 7: Removed PostEditCreatorDialog - parent should handle edit with ModernPostComposer
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
