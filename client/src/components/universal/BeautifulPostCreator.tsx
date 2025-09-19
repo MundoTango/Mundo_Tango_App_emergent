@@ -104,7 +104,10 @@ export default function BeautifulPostCreator({
   const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
   const [selectedTags, setSelectedTags] = useState<string[]>(existingPost?.hashtags || []);
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
-  const [mediaPreviews, setMediaPreviews] = useState<string[]>([]);
+  // Load existing media previews in edit mode
+  const [mediaPreviews, setMediaPreviews] = useState<string[]>(
+    editMode && existingPost?.media ? existingPost.media.map(m => m.url) : []
+  );
   // ESA Layer 13: Internal-only media URLs system
   const [internalMediaUrls, setInternalMediaUrls] = useState<string[]>([]);
   const [cloudMediaUrls, setCloudMediaUrls] = useState<string[]>([]);
@@ -295,7 +298,22 @@ export default function BeautifulPostCreator({
           throw new Error(`Failed to update post: ${response.status} - ${errorText}`);
         }
 
-        return await response.json();
+        const result = await response.json();
+        
+        // ESA Layer 7 & 23: Ensure proper cache invalidation and callbacks for edit mode
+        if (editMode) {
+          // Invalidate caches immediately
+          queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
+          
+          // Call the edit complete callback to close dialog
+          if (onEditComplete) {
+            onEditComplete();
+          }
+        }
+        
+        return result;
       }
       // Starting post creation
       console.log('📦 Post data received:', postData);
