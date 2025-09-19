@@ -96,8 +96,7 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
   const [currentUserReaction, setCurrentUserReaction] = useState(post.currentUserReaction);
 
   const [comments, setComments] = useState(post.comments || []);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(post.content);
+  // ESA Layer 7 & 23: Using unified PostEditCreatorDialog for editing
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   // All posts in memories feed are treated as posts in the API
@@ -282,47 +281,12 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
     commentMutation.mutate({ postId: post.id, content, mentions });
   };
 
+  // ESA Layer 7 & 23: Edit handled by PostEditCreatorDialog
   const handleEdit = () => {
-    setIsEditing(true);
-    setEditedContent(post.content);
+    setShowEditDialog(true);
   };
 
-  const handleSaveEdit = async () => {
-    try {
-      const response = await fetch(`/api/posts/${post.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ content: editedContent })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update post');
-      }
-
-      toast({
-        title: "Post updated",
-        description: "Your post has been successfully updated."
-      });
-      
-      setIsEditing(false);
-      // Refresh the feed to show updated content
-      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-    } catch (error) {
-      console.error('Edit error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update post. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setEditedContent(post.content);
-  };
+  // Legacy inline edit removed - using PostEditCreatorDialog instead
 
   // ESA LIFE CEO 61x21 - Enhanced delete handler
   const handleDelete = async () => {
@@ -573,37 +537,11 @@ function EnhancedPostItem({ post, onLike, onShare }: PostItemProps) {
           </section>
         )}
 
-        {/* Enhanced Content Section */}
+        {/* Enhanced Content Section - ESA Layer 7 & 23: Content display only, edit via PostEditCreatorDialog */}
         <section className="prose prose-lg max-w-none">
-          {isEditing ? (
-            <div className="space-y-4">
-              <textarea
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
-                className="w-full p-4 border-2 border-indigo-200 rounded-xl focus:border-indigo-400 focus:outline-none resize-none text-gray-800 text-lg"
-                rows={5}
-                autoFocus
-              />
-              <div className="flex gap-3">
-                <button
-                  onClick={handleSaveEdit}
-                  className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors font-medium"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={handleCancelEdit}
-                  className="px-5 py-2 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="text-gray-800 leading-relaxed text-lg">
-              {renderWithMentions ? renderWithMentions(post.content) : post.content}
-            </div>
-          )}
+          <div className="text-gray-800 leading-relaxed text-lg">
+            {renderWithMentions ? renderWithMentions(post.content) : post.content}
+          </div>
 
           {/* ESA LIFE CEO 61x21 - FIXED media display with ALL fields */}
           {(() => {
