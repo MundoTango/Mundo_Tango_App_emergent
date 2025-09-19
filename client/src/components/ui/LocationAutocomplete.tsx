@@ -94,7 +94,17 @@ export function LocationAutocomplete({
               console.log(`🔍 Frontend searching for businesses: "${value}"`);
               
               // Use fetch directly instead of apiRequest to debug
-              const url = `/api/search/businesses?q=${encodeURIComponent(value)}&types=${businessTypes.join(',')}&limit=4`;
+              // Add location context for worldwide results - default to Buenos Aires but search globally
+              const locationParams = new URLSearchParams();
+              locationParams.append('q', value);
+              locationParams.append('types', businessTypes.join(','));
+              locationParams.append('limit', '10');
+              // Search worldwide - no location restrictions
+              // If you want to bias to a specific location, you can add:
+              // locationParams.append('lat', '-34.6037');
+              // locationParams.append('lng', '-58.3816');
+              
+              const url = `/api/search/businesses?${locationParams.toString()}`;
               console.log('🔗 Frontend making request to:', url);
               
               const response = await fetch(url, {
