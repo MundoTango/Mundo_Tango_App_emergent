@@ -144,6 +144,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(storiesRoutes); // ESA LIFE CEO 61x21 - Stories API routes
   app.use(followsRoutes); // ESA LIFE CEO 61x21 - Follows API routes
   app.use(commentsRoutes); // ESA LIFE CEO 61x21 - Comments API routes
+  app.use(searchRouter); // ESA LIFE CEO 61x21 - Layer 15: Search & Discovery routes
   
   // ESA LIFE CEO 61x21 - Layer 57: City Group Creation Automation
   try {
