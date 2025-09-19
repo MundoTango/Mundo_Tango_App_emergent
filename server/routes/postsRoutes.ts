@@ -75,6 +75,16 @@ router.get('/api/posts', async (req: any, res) => {
     
     const posts = await storage.getFeedPosts(userId, limit, offset);
     
+    // ESA LIFE CEO 61x21 - Debug media fields
+    if (posts && posts.length > 0) {
+      console.log('🔍 ESA Layer 13: Posts fetched with media fields:');
+      posts.forEach((post: any, index: number) => {
+        if (post.mediaEmbeds || post.imageUrl || post.videoUrl) {
+          console.log(`  Post ${post.id}: mediaEmbeds=${JSON.stringify(post.mediaEmbeds)}, imageUrl=${post.imageUrl}, videoUrl=${post.videoUrl}`);
+        }
+      });
+    }
+    
     res.json({
       success: true,
       data: posts || []

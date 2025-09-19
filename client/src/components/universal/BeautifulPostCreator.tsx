@@ -521,8 +521,12 @@ export default function BeautifulPostCreator({
       setEnhancedContent('');
       setShowEnhancement(false);
 
+      // ESA LIFE CEO 61x21 - Layer 13: Complete cache invalidation for media display
+      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] }); // Keep both for compatibility
+      queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
+      // Force immediate refetch
+      queryClient.refetchQueries({ queryKey: ['/api/posts'] });
       onPostCreated?.();
     },
     onError: (error: any) => {
