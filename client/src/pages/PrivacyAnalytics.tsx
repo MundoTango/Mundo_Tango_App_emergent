@@ -15,6 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { monitoring } from '@/services/monitoring';
+import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface ConsentState {
@@ -37,6 +38,7 @@ interface ServiceStatus {
 
 export default function PrivacyAnalytics() {
   const { toast } = useToast();
+  const { updateConsent: updateMonitoringConsent, revokeConsent } = useMonitoringContext();
   const [consentState, setConsentState] = useState<ConsentState>({
     analytics: false,
     sessionRecording: false,
@@ -77,22 +79,22 @@ export default function PrivacyAnalytics() {
         timestamp: new Date()
       };
       
-      // Update in consent manager
-      const consentManager = (monitoring as any).consentManager;
-      consentManager.updateConsent(newState);
-      
+      // ESA Layer 49: Use centralized consent management from MonitoringProvider
       setConsentState(newState);
       
-      // Reinitialize monitoring if any service is enabled
       if (enabled || newState.analytics || newState.sessionRecording || newState.errorTracking) {
-        await monitoring.initialize();
+        updateMonitoringConsent(
+          newState.analytics || false,
+          newState.sessionRecording || false,
+          newState.errorTracking || false
+        );
         toast({
           title: "Privacy Settings Updated",
           description: `${service === 'analytics' ? 'Analytics' : service === 'sessionRecording' ? 'Session Recording' : 'Error Tracking'} has been ${enabled ? 'enabled' : 'disabled'}`,
         });
       } else {
         // All services disabled
-        monitoring.revokeConsent();
+        revokeConsent();
         toast({
           title: "All Tracking Disabled",
           description: "Your privacy settings have been updated",
@@ -120,11 +122,10 @@ export default function PrivacyAnalytics() {
         timestamp: new Date()
       };
       
-      const consentManager = (monitoring as any).consentManager;
-      consentManager.updateConsent(newState);
-      
       setConsentState(newState);
-      await monitoring.initialize();
+      
+      // ESA Layer 49: Use centralized consent management
+      updateMonitoringConsent(true, true, true);
       
       toast({
         title: "All Services Enabled",
@@ -145,7 +146,8 @@ export default function PrivacyAnalytics() {
   const handleRejectAll = () => {
     setLoading(true);
     try {
-      monitoring.revokeConsent();
+      // ESA Layer 49: Use centralized consent management
+      revokeConsent();
       const newState = {
         analytics: false,
         sessionRecording: false,
