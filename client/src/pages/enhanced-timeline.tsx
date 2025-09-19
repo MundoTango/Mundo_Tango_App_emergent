@@ -25,7 +25,8 @@ import {
 import DashboardLayout from "@/layouts/DashboardLayout";
 
 interface Post {
-  id: string; // Changed from number to string
+  id: number; // Must be number to work with EnhancedPostItem
+  userId: number; // Required field for EnhancedPostItem
   content: string;
   imageUrl?: string;
   videoUrl?: string;
@@ -38,6 +39,7 @@ interface Post {
   likes: number;
   isLiked: boolean;
   comments: number;
+  commentsCount?: number; // EnhancedPostItem uses commentsCount
   shares: number;
   createdAt: string;
   visibility: string;
