@@ -72,6 +72,13 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 - **Phase 2**: ✅ Socket.io real-time features (port 5000)
 - **Phase 3**: ✅ AI enhancement with OpenAI service
 
+### Fixed Issues (September 19, 2025)
+- **Media Upload Bug**: ✅ RESOLVED - HTML entity encoding in sanitizer
+  - Root Cause: `validator.escape()` was encoding file paths (`/` → `&#x2F;`)
+  - Solution: Modified input-sanitizer.ts to exclude `/uploads/` paths from HTML escaping
+  - Database: Cleaned 5 posts with encoded URLs using SQL UPDATE
+  - Result: Images now display correctly with clean URLs
+
 ### Platform Integration Points
 - **Server**: Running on port 5000 (fixed server startup error)
 - **WebSocket**: Socket.io mounted at server/index-novite.ts
