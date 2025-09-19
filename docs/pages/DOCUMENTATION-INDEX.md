@@ -1,15 +1,17 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 73 pages  
+**Total Pages Documented:** 89 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 
 ## 📚 Documentation Organization
 
-### 🔐 Authentication (2 pages)
-- [Login](/docs/pages/auth/login.md) - `/auth/login`
-- [Register](/docs/pages/auth/register.md) - `/auth/register`
+### 🔐 Authentication (4 pages)
+- [Login](/docs/pages/auth/login.md) - `/login` - Primary login route
+- [Login (Auth)](/docs/pages/auth/login.md) - `/auth/login` - Authentication namespace route  
+- [Register](/docs/pages/auth/register.md) - `/register` - Primary register route
+- [Register (Auth)](/docs/pages/auth/register.md) - `/auth/register` - Authentication namespace route
 
 ### 👤 User Management (8 pages)
 - [Profile](/docs/pages/user/profile.md) - `/profile`
@@ -43,16 +45,19 @@
 - [Group Detail](/docs/pages/social/GroupDetailPageMT.md) - `/groups/:slug`
 - [Invitations](/docs/pages/social/invitations.md) - `/invitations`
 
-### 🌍 Community (6 pages)
+### 🌍 Community (8 pages)
 - [Community Hub](/docs/pages/community/community.md) - `/community`
 - [Community World Map](/docs/pages/community/community-world-map.md) - `/community-world-map`
 - [Create Community](/docs/pages/community/CreateCommunity.md) - `/create-community`
 - [Tango Communities](/docs/pages/community/tango-communities.md) - `/tango-communities`
 - [Tango Stories](/docs/pages/community/TangoStories.md) - `/tango-stories`
 - [Role Invitations](/docs/pages/community/RoleInvitations.md) - `/invitations`
+- [Live Streaming](/docs/pages/community/LiveStreaming.md) - `/live-streaming` - Live video streaming for events and classes
+- [Gamification](/docs/pages/community/Gamification.md) - `/gamification` - Points, badges, and rewards system
 
-### 📝 Content & Timeline (8 pages)
-- [Moments Feed](/docs/pages/content/moments.md) - `/` (home)
+### 📝 Content & Timeline (9 pages)
+- [Moments Feed (Root)](/docs/pages/content/moments.md) - `/` - Homepage/root path
+- [Moments Feed](/docs/pages/content/moments.md) - `/moments` - Direct moments route
 - [Modern Memories](/docs/pages/content/ModernMemoriesPage.md) - `/memories`
 - [Unified Memories](/docs/pages/content/UnifiedMemories.md) - `/unified-memories`
 - [Enhanced Timeline v2](/docs/pages/content/enhanced-timeline-v2.md) - `/enhanced-timeline`
@@ -61,31 +66,37 @@
 - [Posting Demo](/docs/pages/content/PostingDemo.md) - `/posting-demo`
 - [Timeline Minimal](/docs/pages/content/timeline-minimal.md) - `/timeline-minimal`
 
-### 💰 Billing & Subscriptions (7 pages)
+### 💰 Billing & Subscriptions (6 pages)
 - [Subscribe](/docs/pages/billing/Subscribe.md) - `/subscribe`
 - [Billing Dashboard](/docs/pages/billing/BillingDashboard.md) - `/settings/billing`
 - [Checkout](/docs/pages/billing/Checkout.md) - `/checkout/:tier`
 - [Payment Methods](/docs/pages/billing/PaymentMethods.md) - `/payment-methods`
 - [Invoices](/docs/pages/billing/Invoices.md) - `/invoices`
 - [Subscription](/docs/pages/billing/Subscription.md) - `/subscription`
-- [Subscription Analytics](/docs/pages/billing/SubscriptionAnalytics.md) - `/admin/subscription-analytics`
 
-### 🔧 Admin & Analytics (11 pages)
-- [Admin Center](/docs/pages/admin/AdminCenter.md) - `/admin`
+### 🔧 Admin & Analytics (17 pages)
+- [Admin Dashboard](/docs/pages/admin/AdminDashboard.md) - `/admin` - New unified admin dashboard
+- [Admin Center (Legacy)](/docs/pages/admin/AdminCenter.md) - `/admin-legacy` - Original admin center
+- [Admin Users](/docs/pages/admin/AdminUsers.md) - `/admin/users` - User management interface
+- [Admin Moderation](/docs/pages/admin/AdminModeration.md) - `/admin/moderation` - Content moderation tools
+- [Admin Analytics](/docs/pages/admin/AdminAnalytics.md) - `/admin/analytics` - Detailed platform analytics
 - [Promo Codes Admin](/docs/pages/admin/PromoCodesAdmin.md) - `/admin/promo-codes`
 - [Analytics Dashboard](/docs/pages/admin/AnalyticsDashboard.md) - `/analytics`
 - [Agent Framework Dashboard](/docs/pages/admin/AgentFrameworkDashboard.md) - `/agent-framework`
 - [Project Tracker](/docs/pages/admin/ProjectTracker.md) - `/project-tracker`
 - [Mobile App Dashboard](/docs/pages/admin/MobileAppDashboard.md) - `/mobile-dashboard`
-- [Hierarchy Dashboard](/docs/pages/admin/HierarchyDashboard.md) - `/hierarchy-dashboard`
-- [Live Global Statistics](/docs/pages/admin/LiveGlobalStatistics.md) - `/live-global-statistics`
-- [Global Statistics](/docs/pages/admin/global-statistics.md) - `/global-statistics`
+- [Hierarchy Dashboard](/docs/pages/admin/HierarchyDashboard.md) - `/hierarchy` - Organization structure visualization
+- [Live Global Statistics](/docs/pages/admin/LiveGlobalStatistics.md) - `/stats` and `/global-statistics`
 - [Database Security](/docs/pages/admin/database-security.md) - `/database-security`
 - [Feature Navigation](/docs/pages/admin/feature-navigation.md) - `/feature-navigation`
+- [Monitoring Dashboard](/docs/pages/admin/MonitoringDashboard.md) - `/monitoring` - System health monitoring
+- [Monitoring Test](/docs/pages/admin/MonitoringTest.md) - `/monitoring-test` - Monitoring system testing
+- [Subscription Analytics](/docs/pages/admin/SubscriptionAnalytics.md) - `/admin/subscription-analytics`
 
-### 🤖 Life CEO System (3 pages)
+### 🤖 Life CEO System (4 pages)
 - [Life CEO](/docs/pages/lifeceo/LifeCEO.md) - `/life-ceo`
 - [Life CEO Enhanced](/docs/pages/lifeceo/LifeCEOEnhanced.md) - `/life-ceo` (enhanced)
+- [Life CEO (Alternative Route)](/docs/pages/lifeceo/LifeCEO.md) - `/lifeceo` - Alternate routing to Life CEO
 - [Life CEO Performance](/docs/pages/lifeceo/LifeCeoPerformance.md) - `/life-ceo-performance`
 
 ### 🧪 Testing & Development (6 pages)
@@ -99,14 +110,21 @@
 ### 🔒 Privacy & Security (1 page)
 - [Privacy & Analytics](/docs/pages/privacy/PrivacyAnalytics.md) - `/privacy-analytics` - GDPR-compliant privacy settings management
 
-### 📄 Legal & Support (3 pages)
+### 📄 Legal & Support (5 pages)
 - [Code of Conduct](/docs/pages/legal/code-of-conduct.md) - `/code-of-conduct`
+- [Terms of Service](/docs/pages/legal/terms.md) - `/terms` - Platform terms and conditions
+- [Privacy Policy](/docs/pages/legal/privacy-policy.md) - `/privacy-policy` - Data protection policies
 - [404 Not Found](/docs/pages/legal/not-found.md) - 404 page
-- [Travel Planner](/docs/pages/legal/TravelPlanner.md) - `/travel-planner`
+- [Travel Planner](/docs/pages/support/TravelPlanner.md) - `/travel-planner`
 
 ### 🔌 Integrations (2 pages)
-- [Notion Home Page](/docs/pages/integration/NotionHomePage.md) - `/notion-home`
-- [Notion Entry Page](/docs/pages/integration/NotionEntryPage.md) - `/notion-entry`
+- [Notion Home Page](/docs/pages/integration/NotionHomePage.md) - `/notion-home` - Notion workspace integration
+- [Notion Entry Page](/docs/pages/integration/NotionEntryPage.md) - `/notion-entry` - Notion data entry interface
+
+### 🎬 Real-Time Features (3 pages)
+- [Video Calls](/docs/pages/realtime/VideoCallPage.md) - Video calling functionality integrated across events and messaging
+- [Voice Chat](/docs/pages/realtime/VoiceChat.md) - Real-time voice communication for groups and events
+- [WebSocket Manager](/docs/pages/realtime/WebSocketManager.md) - Real-time updates and notifications system
 
 ## 📊 Documentation Standards
 
