@@ -39,7 +39,7 @@ const loadGoogleMapsScript = () => {
       return;
     }
 
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=es&region=AR`;
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();
@@ -100,13 +100,11 @@ export default function GoogleMapsLocationInput({
       input: query,
       // Search for all types of establishments if no specific types provided
       types: searchTypes.length > 0 ? searchTypes : ['establishment'],
-      // Bias results to Buenos Aires or provided location
-      locationBias: {
-        center: new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng),
-        radius: 50000 // 50km radius
-      },
-      // Support Spanish and English
-      language: 'es-AR'
+      // Properly bias results to location using valid Google Maps parameters
+      location: new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng),
+      radius: 50000, // 50km radius
+      // Optional: restrict to specific countries (remove for worldwide)
+      // componentRestrictions: { country: ['ar', 'us', 'gb', 'fr', 'es', 'it', 'br', 'mx'] }
     };
 
     autocompleteServiceRef.current.getPlacePredictions(
