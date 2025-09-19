@@ -15,6 +15,10 @@ dotenv.config();
 // Import setupSocketIO for Socket.io integration
 import { setupSocketIO } from './socket';
 
+// ESA Layer 14: Import cache services
+import { cacheService } from './services/cache';
+import { cacheWarmer } from './services/cache-warmer';
+
 // Import route handlers
 import postsRoutes from './routes/postsRoutes';
 import eventsRoutes from './routes/eventsRoutes';
@@ -77,6 +81,21 @@ process.on('unhandledRejection', (reason, promise) => {
   };
   logger.fatal(errorDetails, 'Unhandled Rejection');
   console.error('Unhandled Promise Rejection:', reason);
+});
+
+// ESA Layer 14: Graceful shutdown for cache service
+process.on('SIGTERM', async () => {
+  console.log('🛑 ESA Layer 14: Shutting down cache services...');
+  cacheWarmer.stop();
+  await cacheService.close();
+  process.exit(0);
+});
+
+process.on('SIGINT', async () => {
+  console.log('🛑 ESA Layer 14: Shutting down cache services...');
+  cacheWarmer.stop();
+  await cacheService.close();
+  process.exit(0);
 });
 
 // Enable compression
@@ -238,6 +257,18 @@ const startServer = async () => {
     console.log('🔄 Initializing database connection...');
     const httpServer = await registerRoutes(app);
     console.log('✅ Routes registered successfully');
+
+    // ESA Layer 14: Initialize cache service
+    console.log('🔄 ESA Layer 14: Initializing cache service...');
+    await cacheService.get('test'); // Test cache connection
+    const cacheStatus = cacheService.getStatus();
+    console.log(`✅ ESA Layer 14: Cache service initialized`);
+    console.log(`  - Redis: ${cacheStatus.redis ? '✅ Connected' : '❌ Not available (using memory cache)'}`);
+    console.log(`  - Memory Cache: ✅ Active`);
+    
+    // ESA Layer 14: Start cache warming service
+    cacheWarmer.start();
+    console.log('✅ ESA Layer 14: Cache warming service started');
 
     // Initialize Socket.io real-time features
     const io = setupSocketIO(httpServer);
