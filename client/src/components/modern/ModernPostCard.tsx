@@ -117,33 +117,16 @@ export default function ModernPostCard({
           </div>
           
           <div className="flex items-center gap-2">
-            {isOwner && (
-              <>
-                {onEdit && (
-                  <MTButton
-                    onClick={onEdit}
-                    variant="ghost"
-                    size="sm"
-                    className="text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20"
-                    data-testid={`button-edit-post-${post.id}`}
-                  >
-                    Edit
-                  </MTButton>
-                )}
-                {onDelete && (
-                  <MTButton
-                    onClick={onDelete}
-                    variant="ghost"
-                    size="sm"
-                    className="text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
-                    data-testid={`button-delete-post-${post.id}`}
-                  >
-                    Delete
-                  </MTButton>
-                )}
-              </>
-            )}
-            <PostActionsMenu post={post} />
+            {/* ESA Layer 7 & 23: PostActionsMenu now handles edit/delete through three dots menu */}
+            <PostActionsMenu 
+              post={{
+                ...post,
+                userId: post.user.id,
+                visibility: 'public' as const
+              }} 
+              onEdit={isOwner && onEdit ? () => onEdit() : undefined}
+              onShare={onShare ? () => onShare(post.id) : undefined}
+            />
           </div>
         </div>
       </div>
