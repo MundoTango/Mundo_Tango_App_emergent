@@ -9,7 +9,7 @@ import {
   DialogContent,
 } from '@/components/ui/dialog';
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
-import { queryClient } from '@lib/queryClient';
+import { queryClient } from '@/lib/queryClient';
 
 interface PostEditCreatorDialogProps {
   open: boolean;
