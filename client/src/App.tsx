@@ -59,8 +59,7 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
-// ESA Fix: Import Moments directly to avoid dynamic import issues
-import Moments from "@/pages/moments";
+// ESA Fix: Removed duplicate Moments component - using single /memories page
 
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
@@ -111,7 +110,7 @@ const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Ga
 
 // ========== Content & Timeline Pages (8) ==========
 const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
-const UnifiedMemories = lazy(() => import("@/pages/UnifiedMemories"));
+// Removed UnifiedMemories - consolidated into single /memories page
 const EnhancedTimelineV2 = lazy(() => import("@/pages/enhanced-timeline-v2"));
 const Search = lazy(() => import("@/pages/search"));
 const PostingDemo = lazy(() => import("@/pages/PostingDemo"));
@@ -226,9 +225,9 @@ function Router() {
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
-          {/* Homepage - Direct to Memories feed */}
+          {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
-            <Moments />
+            <Redirect to="/memories" />
           </Route>
 
           {/* ========== Authentication Routes (2) ========== */}
@@ -436,11 +435,7 @@ function Router() {
           </Route>
 
           {/* ========== Content & Timeline Routes (8) ========== */}
-          <Route path="/moments">
-            <Suspense fallback={<LoadingFallback message="Loading moments..." />}>
-              <Moments />
-            </Suspense>
-          </Route>
+          {/* /moments removed - consolidated into /memories */}
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
@@ -448,11 +443,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          <Route path="/unified-memories">
-            <Suspense fallback={<LoadingFallback message="Loading unified memories..." />}>
-              <UnifiedMemories />
-            </Suspense>
-          </Route>
+          {/* /unified-memories removed - consolidated into /memories */}
 
           <Route path="/enhanced-timeline">
             <Suspense fallback={<LoadingFallback message="Loading timeline..." />}>
