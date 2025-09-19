@@ -980,6 +980,7 @@ export class DatabaseStorage implements IStorage {
       
       return result.map(row => ({
         ...row.posts,
+        mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 61x21 - Always include mediaEmbeds
         user: row.users ? {
           id: row.users.id,
           name: row.users.name,
