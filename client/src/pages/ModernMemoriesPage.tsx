@@ -331,6 +331,7 @@ export default function ModernMemoriesPageV2() {
   };
 
   const handleEditMemory = (memory: Post) => {
+    console.log('[ESA Framework] Edit memory triggered with data:', memory);
     setEditingMemory(memory);
     setComposerMode('edit');
     setShowComposer(true);
