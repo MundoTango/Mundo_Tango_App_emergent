@@ -78,12 +78,12 @@
   --color-purple-800: #6b21a8;
   --color-purple-900: #581c87;
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #38b2ac 0%, #3182ce 100%);
-  --gradient-primary-hover: linear-gradient(135deg, #319795 0%, #2b6cb0 100%);
-  --gradient-primary-subtle: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);
-  --gradient-secondary: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
-  --gradient-secondary-hover: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  /* ESA MT Ocean Theme Gradients - #5EEAD4→#155E75 */
+  --gradient-primary: linear-gradient(135deg, #5EEAD4 0%, #155E75 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #4EDAD4 0%, #0D4E65 100%);
+  --gradient-primary-subtle: linear-gradient(135deg, #E6FFFA 0%, #D4F7FF 100%);
+  --gradient-secondary: linear-gradient(135deg, #5EEAD4 0%, #3182CE 100%);
+  --gradient-secondary-hover: linear-gradient(135deg, #4EDAD4 0%, #2563EB 100%);
 
   /* Semantic Colors */
   --color-success: #10b981;
