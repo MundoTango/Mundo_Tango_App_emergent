@@ -121,8 +121,9 @@ export default function ModernPostCard({
             <PostActionsMenu 
               post={{
                 ...post,
-                userId: post.user.id,
-                visibility: 'public' as const
+                userId: (post as any).userId || post.user.id, // Preserve existing userId if it exists
+                visibility: 'public' as const,
+                user: post.user // Pass the user object as is
               }} 
               onEdit={isOwner && onEdit ? () => onEdit() : undefined}
               onShare={onShare ? () => onShare(post.id) : undefined}
