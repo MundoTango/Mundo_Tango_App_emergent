@@ -14,7 +14,8 @@ import WhatsOnYourMind from "@/components/feed/WhatsOnYourMind";
 import PostLikeComment from "@/components/feed/PostLikeComment";
 import NewFeedEvents from "@/components/feed/NewFeedEvents";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
-import BeautifulPostCreator from "@/components/universal/BeautifulPostCreator";
+// ESA Layer 7: Import full-featured EnhancedPostComposer with ReactQuill rich text editor
+import EnhancedPostComposer from "@/components/moments/EnhancedPostComposer";
 // ESA Layer 7: Edit functionality handled by BeautifulPostCreator in edit mode
 // ESA Layer 7: Icons handled by BeautifulPostCreator internally
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -182,34 +183,45 @@ const EnhancedTimeline = () => {
         </div>
       </div>
 
-      {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using BeautifulPostCreator */}
+      {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using EnhancedPostComposer with full features */}
       <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
-          <BeautifulPostCreator
-            context={{ type: 'feed' }}
-            user={user}
-            editMode={!!editingPost}
-            existingPost={editingPost ? {
-              id: editingPost.id,
-              content: editingPost.content,
-              location: editingPost.location,
-              visibility: editingPost.visibility as 'public' | 'friends' | 'private',
-              media: [
-                ...(editingPost.imageUrl ? [{ url: editingPost.imageUrl, type: 'image' }] : []),
-                ...(editingPost.videoUrl ? [{ url: editingPost.videoUrl, type: 'video' }] : [])
-              ]
-            } : undefined}
-            onEditComplete={() => {
-              setCreatePostModal(false);
-              setEditingPost(null);
-              queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
-            }}
-            onPostCreated={() => {
-              setCreatePostModal(false);
-              setEditingPost(null);
-              queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
-            }}
-          />
+          <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl">
+            <EnhancedPostComposer 
+              editMode={!!editingPost}
+              existingPost={editingPost ? {
+                id: editingPost.id,
+                content: editingPost.content,
+                location: editingPost.location,
+                // ESA: Normalize visibility to lowercase for EnhancedPostComposer
+                visibility: (editingPost.visibility || 'public').toLowerCase() as 'public' | 'friends' | 'private',
+                imageUrl: editingPost.imageUrl,
+                videoUrl: editingPost.videoUrl
+              } : undefined}
+              onPostCreated={() => {
+                setCreatePostModal(false);
+                setEditingPost(null);
+                queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
+                toast({
+                  title: "Success",
+                  description: "Your post has been created!"
+                });
+              }}
+              onPostUpdated={(id: number) => {
+                setCreatePostModal(false);
+                setEditingPost(null);
+                queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
+                toast({
+                  title: "Success", 
+                  description: "Your post has been updated!"
+                });
+              }}
+              onClose={() => {
+                setCreatePostModal(false);
+                setEditingPost(null);
+              }}
+            />
+          </div>
         </DialogContent>
       </Dialog>
       </div>
