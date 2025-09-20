@@ -237,11 +237,6 @@ function Router() {
             </Suspense>
           </Route>
           
-          <Route path="/auth/login">
-            <Suspense fallback={<LoadingFallback message="Loading login..." />}>
-              <Login />
-            </Suspense>
-          </Route>
 
           <Route path="/register">
             <Suspense fallback={<LoadingFallback message="Loading registration..." />}>
@@ -249,11 +244,6 @@ function Router() {
             </Suspense>
           </Route>
           
-          <Route path="/auth/register">
-            <Suspense fallback={<LoadingFallback message="Loading registration..." />}>
-              <Register />
-            </Suspense>
-          </Route>
 
           {/* ========== User Management Routes (8) ========== */}
           <Route path="/home">
@@ -577,11 +567,6 @@ function Router() {
             </Suspense>
           </Route>
 
-          <Route path="/global-statistics">
-            <Suspense fallback={<LoadingFallback message="Loading statistics..." />}>
-              <LiveGlobalStatistics />
-            </Suspense>
-          </Route>
 
           <Route path="/hierarchy">
             <Suspense fallback={<LoadingFallback message="Loading hierarchy..." />}>
