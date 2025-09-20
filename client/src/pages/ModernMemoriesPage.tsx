@@ -338,9 +338,15 @@ export default function ModernMemoriesPageV2() {
       hasVideoUrl: !!memory.videoUrl,
       fullMemory: memory
     });
+    
+    // ESA Layer 7 & 23: Set editing state with full memory data
     setEditingMemory(memory);
     setComposerMode('edit');
     setShowComposer(true);
+    
+    // Add toast for debugging visibility
+    toast.success(`Opening editor for memory ${memory.id}`);
+    
     console.log('[ESA DEBUG] State after handleEditMemory:', {
       composerMode: 'edit',
       showComposer: true,
@@ -434,20 +440,31 @@ export default function ModernMemoriesPageV2() {
         {showComposer && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
             <div className="max-w-4xl w-full max-h-[90vh] overflow-auto">
+              {/* ESA Layer 7 & 23: Use EnhancedPostComposer for both create and edit with full features */}
               <EnhancedPostComposer 
                 editMode={composerMode === 'edit'}
-                existingPost={composerMode === 'edit' ? editingMemory : undefined}
+                existingPost={composerMode === 'edit' && editingMemory ? {
+                  id: editingMemory.id,
+                  content: editingMemory.content || '',
+                  location: editingMemory.location,
+                  visibility: editingMemory.isPublic ? 'public' : 'private',
+                  imageUrl: editingMemory.imageUrl,
+                  videoUrl: editingMemory.videoUrl
+                } : undefined}
+                initialContent={composerMode === 'create' ? '' : editingMemory?.content || ''}
                 onPostCreated={composerMode === 'create' ? () => {
                   fetchMemories();
                   setShowComposer(false);
                   setComposerMode('create');
                   setEditingMemory(null);
+                  toast.success('Memory created successfully!');
                 } : undefined}
                 onPostUpdated={composerMode === 'edit' ? (id: number, data: any) => {
                   fetchMemories();
                   setShowComposer(false);
                   setEditingMemory(null);
                   setComposerMode('create');
+                  toast.success('Memory updated successfully!');
                 } : undefined}
                 onClose={() => {
                   setShowComposer(false);

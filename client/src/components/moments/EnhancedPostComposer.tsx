@@ -69,7 +69,9 @@ export default function EnhancedPostComposer({
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
   
-  const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost);
+  // ESA Layer 7 & 23: ALWAYS show expanded view when editing or when existingPost is provided
+  // This ensures the full rich text editor is visible for editing
+  const [showExpandedComposer, setShowExpandedComposer] = useState(true); // Always start expanded for unified experience
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post
@@ -373,7 +375,9 @@ export default function EnhancedPostComposer({
     );
   };
 
-  if (!showExpandedComposer) {
+  // ESA Layer 7: Skip collapsed view when editing or creating - always show full composer
+  // Per ESA framework requirement for unified full-featured interface
+  if (!showExpandedComposer && !editMode && !existingPost) {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
         <div className="flex items-center space-x-3">
@@ -430,7 +434,14 @@ export default function EnhancedPostComposer({
           </div>
         </div>
         <button
-          onClick={() => setShowExpandedComposer(false)}
+          onClick={() => {
+            // ESA Layer 7: In edit mode or when modal is used, close the modal entirely
+            if (editMode || existingPost || onClose) {
+              onClose?.();
+            } else {
+              setShowExpandedComposer(false);
+            }
+          }}
           className="text-gray-400 hover:text-gray-600"
         >
           <X className="h-5 w-5" />
