@@ -14,6 +14,8 @@ This project is a comprehensive digital ecosystem consisting of a personal AI-po
 - **Visibility Model Compatibility**: Added handling for both visibility string ('public'|'friends'|'private') and isPublic boolean to ensure backward compatibility
 - **User ID Flow Fix**: Preserved original post.userId in ModernPostCard to prevent overriding with nested user.id, fixing delete authorization issues
 - **ESA Framework Compliance**: Implementation follows ESA LIFE CEO 61×21 AGENTS Framework requirement for single unified interface - same full-featured posting module for both create and edit operations
+- **PostActionsMenu Fix**: Removed isOwner gate when passing onEdit callback - PostActionsMenu internally handles authorship checks
+- **Auto-expand in Edit Mode**: EnhancedPostComposer now automatically expands to show full editor when editing existing posts
 
 ## User Preferences
 
