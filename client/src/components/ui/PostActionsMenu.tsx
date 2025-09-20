@@ -225,7 +225,15 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             // Author actions
             <>
               <DropdownMenuLabel>Post Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => onEdit?.(post)}>
+              <DropdownMenuItem onClick={() => {
+                console.log('[ESA DEBUG] Edit clicked in PostActionsMenu', {
+                  postId: post.id,
+                  postContent: post.content?.substring(0, 50),
+                  hasOnEdit: !!onEdit,
+                  onEditType: typeof onEdit
+                });
+                onEdit?.(post);
+              }}>
                 <Edit3 className="mr-2 h-4 w-4" />
                 Edit post
               </DropdownMenuItem>

@@ -69,7 +69,7 @@ export default function EnhancedPostComposer({
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
   
-  const [showExpandedComposer, setShowExpandedComposer] = useState(false);
+  const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost);
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post

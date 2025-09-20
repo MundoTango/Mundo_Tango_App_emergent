@@ -125,7 +125,14 @@ export default function ModernPostCard({
                 visibility: 'public' as const,
                 user: post.user // Pass the user object as is
               }} 
-              onEdit={isOwner && onEdit ? onEdit : undefined}
+              onEdit={onEdit ? (postToEdit: any) => {
+                console.log('[ESA DEBUG] ModernPostCard onEdit called:', {
+                  postId: postToEdit.id,
+                  hasOnEdit: !!onEdit,
+                  willCallOnEdit: true
+                });
+                onEdit(postToEdit);
+              } : undefined}
               onShare={onShare ? () => onShare(post.id) : undefined}
             />
           </div>
