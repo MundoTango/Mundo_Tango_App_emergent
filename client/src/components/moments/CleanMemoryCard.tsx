@@ -19,9 +19,11 @@ interface MemoryCardProps {
   onLike?: () => void;
   onComment?: () => void;
   onShare?: () => void;
+  onEdit?: (post: any) => void;  // ESA Framework: Parent handles edit with EnhancedPostComposer
+  onDelete?: (postId: number) => void;  // ESA Framework: Parent handles delete
 }
 
-export default function CleanMemoryCard({ post, onLike, onComment, onShare }: MemoryCardProps) {
+export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEdit, onDelete }: MemoryCardProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -35,8 +37,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   const [reportReason, setReportReason] = useState('');
   const [reportDescription, setReportDescription] = useState('');
   const [showMenu, setShowMenu] = useState(false);
-  const [showEditDialog, setShowEditDialog] = useState(false);
-  const [editContent, setEditContent] = useState(post.content || '');
+  // ESA Framework: No local edit dialog - parent handles with EnhancedPostComposer
 
   // Reactions array - Fixed spacing
   const reactions = ['❤️', '🔥', '😍', '🎉', '👏'];
@@ -324,7 +325,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
                     <>
                       <button
                         onClick={() => {
-                          setShowEditDialog(true);
+                          onEdit?.(post);  // ESA Framework: Trigger parent edit handler
                           setShowMenu(false);
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
@@ -335,7 +336,11 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
                       <button
                         onClick={() => {
                           if (confirm('Are you sure you want to delete this memory? This action cannot be undone.')) {
-                            deleteMutation.mutate();
+                            if (onDelete) {
+                              onDelete(post.id);  // ESA Framework: Use parent delete handler
+                            } else {
+                              deleteMutation.mutate();  // Fallback to local mutation
+                            }
                           }
                           setShowMenu(false);
                         }}
@@ -654,16 +659,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
         )}
       </article>
 
-      {/* ESA Layer 7 & 23: Edit Dialog using BeautifulPostCreator for UI consistency */}
-      <PostEditCreatorDialog
-        open={showEditDialog}
-        onOpenChange={setShowEditDialog}
-        post={{
-          ...post,
-          content: editContent // Pass current edit content
-        }}
-        user={user || undefined}
-      />
+      {/* ESA Framework: Edit handled by parent with EnhancedPostComposer (react-quill) - no local dialog */}
 
       {/* Report Dialog */}
       <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
