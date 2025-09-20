@@ -370,12 +370,16 @@ export default function ModernMemoriesPageV2() {
     addCommentMutation.mutate({ postId, content });
   };
 
-  const handleEditComment = (commentId: number, content: string) => {
-    editCommentMutation.mutate({ commentId, content });
+  const handleEditComment = (commentId: string | number, content: string) => {
+    // Convert to number for API call
+    const numericId = typeof commentId === 'string' ? parseInt(commentId, 10) : commentId;
+    editCommentMutation.mutate({ commentId: numericId, content });
   };
 
-  const handleDeleteComment = (commentId: number) => {
-    deleteCommentMutation.mutate(commentId);
+  const handleDeleteComment = (commentId: string | number) => {
+    // Convert to number for API call
+    const numericId = typeof commentId === 'string' ? parseInt(commentId, 10) : commentId;
+    deleteCommentMutation.mutate(numericId);
   };
 
   const handleAddTag = (tag: string) => {
@@ -442,7 +446,7 @@ export default function ModernMemoriesPageV2() {
                 existingPost={composerMode === 'edit' && editingMemory ? {
                   id: editingMemory.id,
                   content: editingMemory.content || '',
-                  location: editingMemory.location,
+                  location: undefined,  // ESA Framework: Post type doesn't have location field
                   visibility: editingMemory.isPublic ? 'public' : 'private',
                   imageUrl: editingMemory.imageUrl,
                   videoUrl: editingMemory.videoUrl
