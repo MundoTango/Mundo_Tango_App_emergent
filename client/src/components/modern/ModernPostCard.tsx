@@ -125,7 +125,7 @@ export default function ModernPostCard({
                 visibility: 'public' as const,
                 user: post.user // Pass the user object as is
               }} 
-              onEdit={isOwner && onEdit ? () => onEdit(post) : undefined}
+              onEdit={isOwner && onEdit ? onEdit : undefined}
               onShare={onShare ? () => onShare(post.id) : undefined}
             />
           </div>

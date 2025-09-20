@@ -490,7 +490,7 @@ export default function ModernMemoriesPageV2() {
                   onShare={handleShare}
                   onBookmark={handleBookmark}
                   isOwner={memory.userId === user?.id}
-                  onEdit={() => handleEditMemory(memory)}
+                  onEdit={handleEditMemory}
                   onDelete={() => handleDeleteMemory(memory.id)}
                 />
                 
