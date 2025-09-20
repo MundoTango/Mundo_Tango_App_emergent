@@ -108,11 +108,9 @@ const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Ga
 
 // ========== Content & Timeline Pages (8) ==========
 const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
-// Removed UnifiedMemories - consolidated into single /memories page
-const EnhancedTimelineV2 = lazy(() => import("@/pages/enhanced-timeline-v2"));
+// ESA Framework: Single unified /memories interface - no competing timeline implementations
 const Search = lazy(() => import("@/pages/search"));
 const PostingDemo = lazy(() => import("@/pages/PostingDemo"));
-const TimelineMinimal = lazy(() => import("@/pages/timeline-minimal"));
 
 // ========== Billing & Subscriptions Pages (7) ==========
 const Subscribe = lazy(() => import("@/pages/Subscribe"));
@@ -422,18 +420,11 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Content & Timeline Routes (6) ========== */}
+          {/* ========== ESA Unified Memories Interface - Single Route ========== */}
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
               <ModernMemoriesPage />
-            </Suspense>
-          </Route>
-
-
-          <Route path="/enhanced-timeline">
-            <Suspense fallback={<LoadingFallback message="Loading timeline..." />}>
-              <EnhancedTimelineV2 />
             </Suspense>
           </Route>
 
@@ -446,12 +437,6 @@ function Router() {
           <Route path="/posting-demo">
             <Suspense fallback={<LoadingFallback message="Loading posting demo..." />}>
               <PostingDemo />
-            </Suspense>
-          </Route>
-
-          <Route path="/timeline-minimal">
-            <Suspense fallback={<LoadingFallback message="Loading minimal timeline..." />}>
-              <TimelineMinimal />
             </Suspense>
           </Route>
 
