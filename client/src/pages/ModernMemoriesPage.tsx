@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth-context';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
 import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import ModernPostCard from '@/components/modern/ModernPostCard';
-import ModernTagFilter from '@/components/modern/ModernTagFilter';
+import EnhancedTagSystem from '@/components/modern/EnhancedTagSystem';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
 // ESA Layer 7: Removed ModernEditMemoryModal - using ModernPostComposer for both create and edit
 import ModernDeleteConfirmModal from '@/components/modern/ModernDeleteConfirmModal';
@@ -508,10 +508,11 @@ export default function ModernMemoriesPageV2() {
         />
 
         {/* Tag Filter */}
-        <ModernTagFilter
+        <EnhancedTagSystem
           activeTags={activeTags}
           onAddTag={handleAddTag}
           onRemoveTag={handleRemoveTag}
+          onClearAll={() => setActiveTags([])}
         />
 
         {/* Posts Feed */}
