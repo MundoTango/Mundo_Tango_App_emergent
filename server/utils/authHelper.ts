@@ -8,6 +8,13 @@ import { eq, and } from 'drizzle-orm';
 export const getUserId = (req: any): number | string | null => {
   // ESA Framework Layer 13: Systematic authentication with retro fixes
   
+  // Development fallback FIRST - check this before other auth methods for consistent testing
+  if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+    // Always use consistent user ID in development for testing
+    console.log('🔧 ESA Layer 13: Auth bypass - using default admin user');
+    return 7; // Scott Boddye's admin user ID
+  }
+  
   // Check for cookie-based userId first (for testing)
   if (req.headers?.cookie) {
     const cookies = req.headers.cookie.split(';').reduce((acc: any, cookie: string) => {
@@ -45,12 +52,6 @@ export const getUserId = (req: any): number | string | null => {
   if (req.session?.passport?.user?.claims?.sub) {
     console.log('🔐 ESA Auth: Found session claims sub:', req.session.passport.user.claims.sub);
     return req.session.passport.user.claims.sub;
-  }
-  
-  // Development fallback with enhanced logging
-  if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
-    console.log('🔧 ESA Layer 13: Auth bypass - using default admin user');
-    return 7; // Scott Boddye's admin user ID
   }
   
   console.log('❌ ESA Layer 13: No valid authentication found');
