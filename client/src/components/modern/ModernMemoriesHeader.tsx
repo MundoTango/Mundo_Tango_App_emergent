@@ -7,7 +7,7 @@ interface ModernMemoriesHeaderProps {
 
 export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHeaderProps) {
   return (
-    <div className="bg-gradient-to-br from-white via-blue-50/50 to-teal-50/80 border-b border-blue-100/60">
+    <div className="mt-ocean-gradient border-b border-blue-100/60">
       <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
@@ -21,9 +21,8 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
                             rounded-full animate-ping"></div>
             </div>
             <div>
-              <h1 className="text-4xl lg:text-5xl font-black bg-gradient-to-r from-blue-600 via-teal-500 to-cyan-500 
-                           bg-clip-text text-transparent drop-shadow-sm">
-                New Feeds
+              <h1 className="text-4xl lg:text-5xl font-black mt-ocean-text drop-shadow-sm">
+                Memories Feed
               </h1>
               <p className="text-blue-600/80 mt-2 text-lg font-medium">
                 Share your tango journey with the world ✨
@@ -40,8 +39,8 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
             
             <button
               onClick={onCreatePost}
-              className="bg-gradient-to-r from-coral-400 to-pink-500 hover:from-coral-500 hover:to-pink-600 
-                       text-white px-8 py-4 rounded-2xl font-bold shadow-2xl hover:shadow-coral-500/30 
+              className="mt-ocean-gradient hover:opacity-90 
+                       text-white px-8 py-4 rounded-2xl font-bold shadow-2xl hover:shadow-cyan-500/30 
                        transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 
                        flex items-center space-x-3 group"
             >

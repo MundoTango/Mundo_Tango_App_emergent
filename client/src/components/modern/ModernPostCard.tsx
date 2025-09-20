@@ -74,7 +74,7 @@ export default function ModernPostCard({
       glow={true}
       rounded="3xl"
       padding="none"
-      className="overflow-hidden group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50"
+      className="glassmorphic glassmorphic-hover overflow-hidden group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50"
     >
       
       {/* Floating engagement indicator */}
