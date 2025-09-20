@@ -58,6 +58,13 @@ export default function EnhancedPostComposer({
   editMode = false,
   existingPost 
 }: EnhancedPostComposerProps) {
+  console.log('[ESA Framework] EnhancedPostComposer loaded:', {
+    editMode,
+    existingPost,
+    hasImageUrl: existingPost?.imageUrl,
+    hasVideoUrl: existingPost?.videoUrl
+  });
+  
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
