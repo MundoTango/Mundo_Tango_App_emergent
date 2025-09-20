@@ -226,13 +226,23 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             <>
               <DropdownMenuLabel>Post Actions</DropdownMenuLabel>
               <DropdownMenuItem onClick={() => {
-                console.log('[ESA DEBUG] Edit clicked in PostActionsMenu', {
+                console.log('[ESA FRAMEWORK] Edit post clicked in PostActionsMenu', {
+                  timestamp: new Date().toISOString(),
                   postId: post.id,
                   postContent: post.content?.substring(0, 50),
                   hasOnEdit: !!onEdit,
-                  onEditType: typeof onEdit
+                  onEditType: typeof onEdit,
+                  onEditFunction: onEdit?.toString()?.substring(0, 100)
                 });
-                onEdit?.(post);
+                console.log('[ESA FRAMEWORK] About to call onEdit callback...');
+                if (onEdit) {
+                  console.log('[ESA FRAMEWORK] Calling onEdit with post:', post);
+                  onEdit(post);
+                  console.log('[ESA FRAMEWORK] onEdit callback called successfully');
+                } else {
+                  console.error('[ESA FRAMEWORK ERROR] No onEdit callback provided to PostActionsMenu!');
+                  alert('ESA Framework Violation: Edit functionality not properly configured. The rich text editor (react-quill) must be used for all edit operations.');
+                }
               }}>
                 <Edit3 className="mr-2 h-4 w-4" />
                 Edit post
