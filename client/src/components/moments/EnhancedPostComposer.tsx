@@ -1,7 +1,12 @@
-import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
+
+// ESA Framework Line 87: Dynamic import of ReactQuill to avoid SSR issues
+let ReactQuill: any = null;
+if (typeof window !== 'undefined') {
+  ReactQuill = require('react-quill');
+}
 import { 
   Camera, Video, MapPin, Globe, Users, Lock, X, 
   ImageIcon, Smile, AtSign, Hash, Link, 
@@ -66,7 +71,10 @@ export default function EnhancedPostComposer({
     existingPostId: existingPost?.id,
     existingPostContent: existingPost?.content?.substring(0, 50),
     initialContent: initialContent?.substring(0, 50),
-    ESARequirement: 'Must use react-quill rich text editor for ALL posting operations'
+    ReactQuillLoaded: !!ReactQuill,
+    ReactQuillType: typeof ReactQuill,
+    windowAvailable: typeof window !== 'undefined',
+    ESARequirement: 'Must use react-quill rich text editor for ALL posting operations (Line 87)'
   });
   
   const { user } = useAuth();
@@ -468,18 +476,29 @@ export default function EnhancedPostComposer({
         </button>
       </div>
 
-      {/* Rich Text Editor */}
+      {/* Rich Text Editor - ESA Framework Line 87 Requirement */}
       <div className="mb-4">
-        <ReactQuill
-          ref={quillRef}
-          theme="snow"
-          value={content}
-          onChange={setContent}
-          modules={modules}
-          formats={formats}
-          placeholder="What's happening in your tango world?"
-          className="bg-white"
-        />
+        {ReactQuill ? (
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            value={content}
+            onChange={setContent}
+            modules={modules}
+            formats={formats}
+            placeholder="What's happening in your tango world?"
+            className="bg-white"
+          />
+        ) : (
+          // Fallback if ReactQuill is not available
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="What's happening in your tango world?"
+            className="w-full min-h-[200px] p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-y"
+            rows={6}
+          />
+        )}
       </div>
 
       {/* Emoji Picker */}
