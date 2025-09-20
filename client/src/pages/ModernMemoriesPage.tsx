@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/auth-context';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
-import ModernPostComposer from '@/components/modern/ModernPostComposer';
+import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import ModernPostCard from '@/components/modern/ModernPostCard';
 import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
@@ -420,12 +420,22 @@ export default function ModernMemoriesPageV2() {
         {/* Unified Post Composer Modal - ESA Layer 7 Compliance */}
         {showComposer && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-            <div className="max-w-2xl w-full max-h-[90vh] overflow-auto">
-              <ModernPostComposer 
+            <div className="max-w-4xl w-full max-h-[90vh] overflow-auto">
+              <EnhancedPostComposer 
                 editMode={composerMode === 'edit'}
                 existingPost={composerMode === 'edit' ? editingMemory : undefined}
-                onSubmit={composerMode === 'create' ? handleCreatePost : undefined}
-                onUpdate={composerMode === 'edit' ? handleSaveEdit : undefined}
+                onPostCreated={composerMode === 'create' ? () => {
+                  fetchMemories();
+                  setShowComposer(false);
+                  setComposerMode('create');
+                  setEditingMemory(null);
+                } : undefined}
+                onPostUpdated={composerMode === 'edit' ? (id: number, data: any) => {
+                  fetchMemories();
+                  setShowComposer(false);
+                  setEditingMemory(null);
+                  setComposerMode('create');
+                } : undefined}
                 onClose={() => {
                   setShowComposer(false);
                   setEditingMemory(null);

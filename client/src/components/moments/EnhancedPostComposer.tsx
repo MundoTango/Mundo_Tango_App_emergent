@@ -20,8 +20,19 @@ import { useAuth } from '@/hooks/useAuth';
 
 interface EnhancedPostComposerProps {
   onPostCreated?: () => void;
+  onPostUpdated?: (id: number, data: any) => void;
+  onClose?: () => void;
   initialContent?: string;
   replyToPostId?: number;
+  editMode?: boolean;
+  existingPost?: {
+    id: number;
+    content: string;
+    location?: string;
+    visibility?: 'public' | 'friends' | 'private';
+    imageUrl?: string | null;
+    videoUrl?: string | null;
+  };
 }
 
 interface MediaEmbed {
@@ -38,20 +49,24 @@ interface Mention {
 }
 
 export default function EnhancedPostComposer({ 
-  onPostCreated, 
+  onPostCreated,
+  onPostUpdated, 
+  onClose,
   initialContent = '',
-  replyToPostId 
+  replyToPostId,
+  editMode = false,
+  existingPost 
 }: EnhancedPostComposerProps) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
   
   const [showExpandedComposer, setShowExpandedComposer] = useState(false);
-  const [content, setContent] = useState(initialContent);
+  const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>([]);
   const [embedUrl, setEmbedUrl] = useState('');
-  const [location, setLocation] = useState('');
-  const [visibility, setVisibility] = useState<'public' | 'friends' | 'private'>('public');
+  const [location, setLocation] = useState(existingPost?.location || '');
+  const [visibility, setVisibility] = useState<'public' | 'friends' | 'private'>(existingPost?.visibility || 'public');
   const [mentions, setMentions] = useState<Mention[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -202,6 +217,7 @@ export default function EnhancedPostComposer({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       setContent('');
       setMediaEmbeds([]);
       setLocation('');
@@ -217,6 +233,43 @@ export default function EnhancedPostComposer({
       toast({
         title: "Error",
         description: "Failed to create post. Please try again.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Update post mutation for edit mode
+  const updatePostMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      const response = await fetch(`/api/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to update post');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      onPostUpdated?.(existingPost!.id, {});
+      onClose?.();
+      toast({
+        title: "Post Updated",
+        description: "Your tango moment has been updated successfully!",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update post. Please try again.",
         variant: "destructive"
       });
     }
@@ -246,11 +299,15 @@ export default function EnhancedPostComposer({
     };
 
     try {
-      await createPostMutation.mutateAsync(postData);
+      if (editMode && existingPost) {
+        await updatePostMutation.mutateAsync({ id: existingPost.id, data: postData });
+      } else {
+        await createPostMutation.mutateAsync(postData);
+      }
     } finally {
       setIsSubmitting(false);
     }
-  }, [content, mediaEmbeds, location, visibility, mentions, replyToPostId, createPostMutation]);
+  }, [content, mediaEmbeds, location, visibility, mentions, replyToPostId, editMode, existingPost, createPostMutation, updatePostMutation]);
 
   // Extract hashtags from content
   const extractHashtags = (text: string): string[] => {
@@ -462,7 +519,7 @@ export default function EnhancedPostComposer({
             disabled={isSubmitting || (!content.trim() && mediaEmbeds.length === 0)}
             className="px-6 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg hover:from-pink-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all"
           >
-            {isSubmitting ? 'Sharing...' : 'Share'}
+            {isSubmitting ? (editMode ? 'Updating...' : 'Sharing...') : (editMode ? 'Update' : 'Share')}
           </button>
         </div>
       </div>
