@@ -201,7 +201,7 @@ export default function LifeCEOEnhanced() {
   useEffect(() => {
     if (!isSuperAdmin) {
       toast.error('Access denied. Life CEO is only available for super administrators.');
-      setLocation('/moments');
+      setLocation('/memories');
       return;
     }
 

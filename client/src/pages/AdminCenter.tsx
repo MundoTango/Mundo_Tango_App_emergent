@@ -2944,7 +2944,7 @@ const AdminCenter = memo(() => {
                 <div className="flex items-center gap-2 sm:gap-3 justify-end w-full sm:w-auto">
                   {/* Mobile-Optimized Back Button */}
                   <button 
-                    onClick={() => window.location.href = '/moments'}
+                    onClick={() => window.location.href = '/memories'}
                     className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-white transition-all duration-200 shadow-lg group min-h-[44px]"
                   >
                     <ArrowLeft className="w-4 h-4 text-gray-700 group-hover:text-turquoise-600 transition-colors" />

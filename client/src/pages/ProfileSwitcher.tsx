@@ -19,7 +19,7 @@ export default function ProfileSwitcher() {
       description: 'Global tango community platform',
       icon: '🌎',
       color: 'from-pink-500 to-blue-500',
-      route: '/moments',
+      route: '/memories',
       active: true
     },
     ...(isSuperAdmin ? [{
@@ -125,7 +125,7 @@ export default function ProfileSwitcher() {
             </button>
           )}
           <button
-            onClick={() => setLocation('/moments')}
+            onClick={() => setLocation('/memories')}
             className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
           >
             <Globe className="h-5 w-5 text-blue-500" />

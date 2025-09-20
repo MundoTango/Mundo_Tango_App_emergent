@@ -61,7 +61,7 @@ export default function CommunityPage() {
 
             {/* ESA LIFE CEO 56x21 - Removed duplicate community link since World Map already shows communities */}
 
-            <Link href="/moments">
+            <Link href="/memories">
               <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
