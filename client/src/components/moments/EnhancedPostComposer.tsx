@@ -66,7 +66,7 @@ export default function EnhancedPostComposer({
   
   // ESA LIFE CEO 61×21 AGENTS Framework - Layer 7: Social Features
   // Unified posting module requirement: ALWAYS show full composer for edit mode
-  const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost || true); // ESA Framework: Unified experience
+  const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost); // ESA Framework: Unified experience for edit mode
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post
