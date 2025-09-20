@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Heart, MessageCircle, Share2, Bookmark, Clock, Sparkles, Users } from 'lucide-react';
 import { format } from 'date-fns';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-import ShareModal from './ShareModal';
+import EnhancedShareModal from './EnhancedShareModal';
 import { MTCard, MTBadge, MTButton } from '@/components/ui-library';
 
 interface ModernPostCardProps {
@@ -141,7 +141,7 @@ export default function ModernPostCard({
 
       {/* Share Modal */}
       {showShareModal && (
-        <ShareModal 
+        <EnhancedShareModal 
           isOpen={showShareModal}
           onClose={() => setShowShareModal(false)}
           post={post}
