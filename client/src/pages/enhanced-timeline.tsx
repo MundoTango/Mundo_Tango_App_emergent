@@ -14,7 +14,7 @@ import PostLikeComment from "@/components/feed/PostLikeComment";
 import NewFeedEvents from "@/components/feed/NewFeedEvents";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
 import BeautifulPostCreator from "@/components/universal/BeautifulPostCreator";
-import { PostEditCreatorDialog } from "@/components/ui/PostEditCreatorDialog";
+// ESA Layer 7: Edit functionality handled by BeautifulPostCreator in edit mode
 // ESA Layer 7: Icons handled by BeautifulPostCreator internally
 import DashboardLayout from "@/layouts/DashboardLayout";
 
@@ -163,6 +163,7 @@ const EnhancedTimeline = () => {
                         post={post}
                         onLike={() => handleLikePost(post.id)}
                         onShare={() => handleSharePost(post.id)}
+                        onEdit={handleEditPost}
                       />
                     ))}
                   </>
@@ -181,27 +182,35 @@ const EnhancedTimeline = () => {
       </div>
 
       {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using BeautifulPostCreator */}
-      {editingPost ? (
-        <PostEditCreatorDialog
-          open={createPostModal}
-          onOpenChange={setCreatePostModal}
-          post={editingPost}
-          user={user || undefined}
-        />
-      ) : (
-        <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
-            <BeautifulPostCreator
-              context={{ type: 'feed' }}
-              user={user}
-              onCreateComplete={() => {
-                setCreatePostModal(false);
-                queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
-              }}
-            />
-          </DialogContent>
-        </Dialog>
-      )}
+      <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
+          <BeautifulPostCreator
+            context={{ type: 'feed' }}
+            user={user}
+            editMode={!!editingPost}
+            existingPost={editingPost ? {
+              id: editingPost.id,
+              content: editingPost.content,
+              location: editingPost.location,
+              visibility: editingPost.visibility as 'public' | 'friends' | 'private',
+              media: [
+                ...(editingPost.imageUrl ? [{ url: editingPost.imageUrl, type: 'image' }] : []),
+                ...(editingPost.videoUrl ? [{ url: editingPost.videoUrl, type: 'video' }] : [])
+              ]
+            } : undefined}
+            onEditComplete={() => {
+              setCreatePostModal(false);
+              setEditingPost(null);
+              queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
+            }}
+            onPostCreated={() => {
+              setCreatePostModal(false);
+              setEditingPost(null);
+              queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
+            }}
+          />
+        </DialogContent>
+      </Dialog>
       </div>
     </DashboardLayout>
   );
