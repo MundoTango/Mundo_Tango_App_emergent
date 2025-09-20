@@ -13,8 +13,8 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
           <div className="flex items-center space-x-6">
             <div className="relative">
-              <div className="bg-gradient-to-br from-coral-400 to-pink-500 p-4 rounded-3xl shadow-2xl 
-                            hover:shadow-coral-500/25 transform hover:scale-105 hover:rotate-3 transition-all duration-500">
+              <div className="mt-ocean-gradient p-4 rounded-3xl shadow-2xl 
+                            hover:shadow-cyan-500/25 transform hover:scale-105 hover:rotate-3 transition-all duration-500">
                 <Sparkles className="w-8 h-8 text-white drop-shadow-lg" />
               </div>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-400 
@@ -54,12 +54,12 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1 relative group">
             <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-blue-400 w-6 h-6 
-                            group-focus-within:text-coral-500 transition-colors duration-200" />
+                            group-focus-within:text-cyan-500 transition-colors duration-200" />
             <input
               type="text"
               placeholder="Search events, people, memories..."
               className="w-full pl-14 pr-6 py-5 bg-white/90 backdrop-blur-md border-2 border-blue-200/50 
-                       rounded-2xl focus:outline-none focus:ring-4 focus:ring-coral-200/50 focus:border-coral-300
+                       rounded-2xl focus:outline-none focus:ring-4 focus:ring-cyan-200/50 focus:border-cyan-300
                        text-blue-900 placeholder-blue-400/70 font-medium text-lg shadow-xl
                        hover:shadow-2xl transition-all duration-300"
             />

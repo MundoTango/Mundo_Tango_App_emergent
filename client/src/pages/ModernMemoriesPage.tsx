@@ -8,7 +8,7 @@ import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
 // ESA Layer 7: Removed ModernEditMemoryModal - using ModernPostComposer for both create and edit
 import ModernDeleteConfirmModal from '@/components/modern/ModernDeleteConfirmModal';
-import ModernCommentsSection from '@/components/modern/ModernCommentsSection';
+import ThreadedCommentsSection from '@/components/modern/ThreadedCommentsSection';
 import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { useLocation } from 'wouter';
@@ -539,7 +539,7 @@ export default function ModernMemoriesPageV2() {
                 {/* Comments Section */}
                 {expandedComments.has(memory.id) && (
                   <div className="mt-4" data-testid={`comments-section-${memory.id}`}>
-                    <ModernCommentsSection
+                    <ThreadedCommentsSection
                       postId={memory.id}
                       comments={postComments[memory.id] || []}
                       currentUserId={user?.id}
