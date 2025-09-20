@@ -30,6 +30,7 @@ interface EnhancedPostComposerProps {
     content: string;
     location?: string;
     visibility?: 'public' | 'friends' | 'private';
+    isPublic?: boolean;
     imageUrl?: string | null;
     videoUrl?: string | null;
   };
@@ -63,10 +64,27 @@ export default function EnhancedPostComposer({
   
   const [showExpandedComposer, setShowExpandedComposer] = useState(false);
   const [content, setContent] = useState(existingPost?.content || initialContent);
-  const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>([]);
+  const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
+    // Initialize media from existing post
+    const embeds: MediaEmbed[] = [];
+    if (existingPost?.imageUrl) {
+      embeds.push({ type: 'image', url: existingPost.imageUrl });
+    }
+    if (existingPost?.videoUrl) {
+      embeds.push({ type: 'video', url: existingPost.videoUrl });
+    }
+    return embeds;
+  });
   const [embedUrl, setEmbedUrl] = useState('');
   const [location, setLocation] = useState(existingPost?.location || '');
-  const [visibility, setVisibility] = useState<'public' | 'friends' | 'private'>(existingPost?.visibility || 'public');
+  const [visibility, setVisibility] = useState<'public' | 'friends' | 'private'>(() => {
+    // Handle both visibility string and isPublic boolean
+    if (existingPost?.visibility) {
+      return existingPost.visibility;
+    }
+    return existingPost && 'isPublic' in existingPost ? 
+      (existingPost.isPublic ? 'public' : 'private') : 'public';
+  });
   const [mentions, setMentions] = useState<Mention[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
