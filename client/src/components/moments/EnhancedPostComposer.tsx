@@ -58,40 +58,15 @@ export default function EnhancedPostComposer({
   editMode = false,
   existingPost 
 }: EnhancedPostComposerProps) {
-  console.log('[ESA FIX] EnhancedPostComposer rendered:', {
-    editMode,
-    hasExistingPost: !!existingPost,
-    existingPostId: existingPost?.id,
-    existingContent: existingPost?.content?.substring(0, 50)
-  });
   
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
   
-  // ESA FIX: Debug when component mounts/unmounts
-  useEffect(() => {
-    console.log('[ESA FIX] EnhancedPostComposer MOUNTED', {
-      editMode,
-      existingPostId: existingPost?.id,
-      initialContent: initialContent?.substring(0, 50),
-      existingContent: existingPost?.content?.substring(0, 50)
-    });
-    
-    // Check if ReactQuill is available
-    setTimeout(() => {
-      const quillEditor = document.querySelector('.ql-editor');
-      console.log('[ESA FIX] ReactQuill editor found:', !!quillEditor);
-    }, 100);
-    
-    return () => {
-      console.log('[ESA FIX] EnhancedPostComposer UNMOUNTING');
-    };
-  }, [editMode, existingPost?.id]);
   
-  // ESA Layer 7 & 23: ALWAYS show expanded view when editing or when existingPost is provided
-  // This ensures the full rich text editor is visible for editing
-  const [showExpandedComposer, setShowExpandedComposer] = useState(true); // Always start expanded for unified experience
+  // ESA LIFE CEO 61×21 AGENTS Framework - Layer 7: Social Features
+  // Unified posting module requirement: ALWAYS show full composer for edit mode
+  const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost || true); // ESA Framework: Unified experience
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post
@@ -306,7 +281,16 @@ export default function EnhancedPostComposer({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      onPostUpdated?.(existingPost!.id, {});
+      // ESA Framework: Pass complete updated data to parent
+      const updatedData = {
+        content: content.trim(),
+        location: location.trim(),
+        visibility,
+        mediaEmbeds,
+        hashtags: extractHashtags(content),
+        isPublic: visibility === 'public'
+      };
+      onPostUpdated?.(existingPost!.id, updatedData);
       onClose?.();
       toast({
         title: "Post Updated",
@@ -395,8 +379,8 @@ export default function EnhancedPostComposer({
     );
   };
 
-  // ESA Layer 7: Skip collapsed view when editing or creating - always show full composer
-  // Per ESA framework requirement for unified full-featured interface
+  // ESA LIFE CEO 61×21 Framework - Never show collapsed view for edit mode
+  // Skip collapsed view entirely when editing to ensure rich text editor is always available
   if (!showExpandedComposer && !editMode && !existingPost) {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">

@@ -221,4 +221,60 @@ const updatePostHandler = async (req: any, res: any) => {
 router.patch('/api/posts/:id', isAuthenticated, updatePostHandler);
 router.put('/api/posts/:id', isAuthenticated, updatePostHandler);
 
+// ESA LIFE CEO 61×21 Framework - Bookmark/Save functionality
+router.post('/api/posts/:id/bookmark', isAuthenticated, async (req: any, res: any) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const userId = req.user.id;
+    
+    // Check if bookmark exists
+    const existingBookmark = await db
+      .select()
+      .from(postLikes) // Using likes table as bookmarks for now
+      .where(and(
+        eq(postLikes.postId, postId),
+        eq(postLikes.userId, userId),
+        eq(postLikes.type, 'bookmark')
+      ))
+      .limit(1);
+    
+    if (existingBookmark.length > 0) {
+      // Remove bookmark
+      await db
+        .delete(postLikes)
+        .where(and(
+          eq(postLikes.postId, postId),
+          eq(postLikes.userId, userId),
+          eq(postLikes.type, 'bookmark')
+        ));
+      
+      return res.json({ 
+        success: true, 
+        bookmarked: false,
+        message: 'Bookmark removed' 
+      });
+    } else {
+      // Add bookmark
+      await db.insert(postLikes).values({
+        postId,
+        userId,
+        type: 'bookmark'
+      });
+      
+      return res.json({ 
+        success: true, 
+        bookmarked: true,
+        message: 'Post bookmarked' 
+      });
+    }
+  } catch (error: any) {
+    console.error('Bookmark error:', error);
+    return res.status(500).json({ 
+      success: false,
+      message: 'Failed to bookmark post',
+      error: error.message 
+    });
+  }
+});
+
 export default router;
