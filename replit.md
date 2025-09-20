@@ -6,7 +6,7 @@ This project is a comprehensive digital ecosystem consisting of a personal AI-po
 
 ## Recent Updates (September 20, 2025)
 
-### Memories Feed Edit/Delete Functionality - COMPLETE REBUILD ✅
+### Memories Feed Edit/Delete Functionality - COMPLETE ✅
 - **Critical Data Flow Fix**: Fixed ModernPostCard onEdit callback to properly pass post object - this was the root cause preventing the full-featured composer from loading with edit data
 - **Unified Composer Implementation**: EnhancedPostComposer is now used for both create AND edit operations, following ESA Layer 7 (Social) and Layer 23 (UX) requirements for unified interface
 - **Full Feature Set in Edit Mode**: Rich text editor (react-quill), media uploads, location tagging, social media embeds, visibility controls - all features available when editing
@@ -15,7 +15,9 @@ This project is a comprehensive digital ecosystem consisting of a personal AI-po
 - **User ID Flow Fix**: Preserved original post.userId in ModernPostCard to prevent overriding with nested user.id, fixing delete authorization issues
 - **ESA Framework Compliance**: Implementation follows ESA LIFE CEO 61×21 AGENTS Framework requirement for single unified interface - same full-featured posting module for both create and edit operations
 - **PostActionsMenu Fix**: Removed isOwner gate when passing onEdit callback - PostActionsMenu internally handles authorship checks
-- **Auto-expand in Edit Mode**: EnhancedPostComposer now automatically expands to show full editor when editing existing posts
+- **Auto-expand in Edit Mode**: EnhancedPostComposer now ALWAYS starts in expanded mode to ensure full rich text editor is visible (fixed showExpandedComposer state initialization)
+- **Modal Close Fix**: Updated close button behavior to properly close modal in edit mode rather than just collapsing the composer
+- **Edit Data Flow Improvement**: Enhanced data passing from ModernMemoriesPage to EnhancedPostComposer with proper structure mapping including all media and visibility properties
 
 ## User Preferences
 
