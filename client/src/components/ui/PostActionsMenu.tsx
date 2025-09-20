@@ -67,6 +67,19 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
   const [reportReason, setReportReason] = useState('');
 
   const isAuthor = user?.id === post.userId;
+  
+  // ESA Debug: Log ownership check details
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[ESA PostActionsMenu] Ownership check:', {
+      currentUserId: user?.id,
+      postUserId: post.userId,
+      postUserId_alt: post.user?.id,
+      isAuthor,
+      postId: post.id,
+      userName: user?.name,
+      postAuthorName: post.user?.name
+    });
+  }
 
   // Delete post mutation
   const deleteMutation = useMutation({
