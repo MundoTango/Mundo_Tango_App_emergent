@@ -66,7 +66,9 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [reportReason, setReportReason] = useState('');
 
-  const isAuthor = user?.id === post.userId;
+  // ESA Layer 7: Handle both post.userId and post.user.id for ownership check
+  const postOwnerId = post.userId || post.user?.id;
+  const isAuthor = user?.id && postOwnerId && user.id === postOwnerId;
   
   // ESA Debug: Log ownership check details
   if (process.env.NODE_ENV === 'development') {
