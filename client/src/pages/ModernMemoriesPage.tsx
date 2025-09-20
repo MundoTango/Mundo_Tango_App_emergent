@@ -11,7 +11,7 @@ import ModernDeleteConfirmModal from '@/components/modern/ModernDeleteConfirmMod
 import ModernCommentsSection from '@/components/modern/ModernCommentsSection';
 import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'wouter';
 
 interface Post {
   id: number;
@@ -53,7 +53,7 @@ interface Comment {
 export default function ModernMemoriesPageV2() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
   
   // State management
   const [showComposer, setShowComposer] = useState(false);
@@ -118,24 +118,24 @@ export default function ModernMemoriesPageV2() {
           credentials: 'include'
         });
         if (!response.ok) {
-          navigate('/login');
+          setLocation('/login');
           return;
         }
         const userData = await response.json();
         if (!userData || !userData.id) {
-          navigate('/login');
+          setLocation('/login');
           return;
         }
         // Fetch memories after auth check
         fetchMemories();
       } catch (error) {
         console.error('Auth check failed:', error);
-        navigate('/login');
+        setLocation('/login');
       }
     };
 
     checkAuth();
-  }, [navigate]);
+  }, [setLocation]);
 
   // Refetch when tags change
   useEffect(() => {

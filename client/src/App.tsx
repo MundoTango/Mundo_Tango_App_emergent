@@ -226,6 +226,17 @@ function Router() {
             <Redirect to="/memories" />
           </Route>
 
+          {/* ESA Framework: Redirect legacy timeline routes to unified /memories interface */}
+          <Route path="/timeline">
+            <Redirect to="/memories" />
+          </Route>
+          <Route path="/enhanced-timeline">
+            <Redirect to="/memories" />
+          </Route>
+          <Route path="/timeline-minimal">
+            <Redirect to="/memories" />
+          </Route>
+
           {/* ========== Authentication Routes (2) ========== */}
           <Route path="/login">
             <Suspense fallback={<LoadingFallback message="Loading login..." />}>
