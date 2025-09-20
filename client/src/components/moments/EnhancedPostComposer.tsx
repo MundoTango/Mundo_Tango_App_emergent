@@ -58,6 +58,13 @@ export default function EnhancedPostComposer({
   editMode = false,
   existingPost 
 }: EnhancedPostComposerProps) {
+  console.log('[ESA DEBUG] EnhancedPostComposer rendered:', {
+    editMode,
+    hasExistingPost: !!existingPost,
+    existingPostId: existingPost?.id,
+    existingContent: existingPost?.content?.substring(0, 50)
+  });
+  
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);

@@ -331,9 +331,20 @@ export default function ModernMemoriesPageV2() {
   };
 
   const handleEditMemory = (memory: Post) => {
+    console.log('[ESA DEBUG] handleEditMemory called with:', {
+      memoryId: memory.id,
+      memoryContent: memory.content?.substring(0, 50),
+      hasImageUrl: !!memory.imageUrl,
+      hasVideoUrl: !!memory.videoUrl
+    });
     setEditingMemory(memory);
     setComposerMode('edit');
     setShowComposer(true);
+    console.log('[ESA DEBUG] State after handleEditMemory:', {
+      composerMode: 'edit',
+      showComposer: true,
+      editingMemory: memory
+    });
   };
 
   const handleSaveEdit = (id: number, data: any) => {
