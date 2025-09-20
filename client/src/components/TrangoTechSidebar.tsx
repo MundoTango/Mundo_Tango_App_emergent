@@ -37,7 +37,7 @@ const TrangoTechSidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     {
       icon: <Heart className="w-5 h-5" />,
       title: "Memories",
-      link: "/moments",
+      link: "/memories",
     },
     {
       icon: <UsersRound className="w-5 h-5" />,
