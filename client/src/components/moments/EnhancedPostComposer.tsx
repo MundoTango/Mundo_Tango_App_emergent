@@ -16,7 +16,7 @@ import {
   FacebookEmbed 
 } from 'react-social-media-embed';
 // import { Mention, MentionsInput } from 'react-mentions';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/auth-context';
 
 interface EnhancedPostComposerProps {
   onPostCreated?: () => void;
