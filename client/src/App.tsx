@@ -78,8 +78,7 @@ const PublicProfilePage = lazy(() => import("@/pages/PublicProfilePage"));
 const ProfileSwitcher = lazy(() => import("@/pages/ProfileSwitcher"));
 const Home = lazy(() => import("@/pages/home"));
 
-// ========== Events System Pages (6) ==========
-const Events = lazy(() => import("@/pages/Events"));
+// ========== Events System Pages (5) ==========
 const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
 const EventDetail = lazy(() => import("@/pages/event-detail"));
 const TeacherDashboard = lazy(() => import("@/pages/teacher"));
@@ -90,8 +89,7 @@ const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
-// ========== Social Features Pages (7) ==========
-const Friends = lazy(() => import("@/pages/Friends"));
+// ========== Social Features Pages (6) ==========
 const EnhancedFriends = lazy(() => import("@/pages/EnhancedFriends"));
 const FriendshipPage = lazy(() => import("@/pages/FriendshipPage"));
 const Messages = lazy(() => import("@/pages/Messages"));
@@ -138,7 +136,7 @@ const ProjectTracker = lazy(() => import("@/pages/ProjectTracker"));
 const LiveGlobalStatistics = lazy(() => import("@/pages/LiveGlobalStatistics"));
 const HierarchyDashboard = lazy(() => import("@/pages/HierarchyDashboard"));
 
-// ========== LifeCEO Pages (3) ==========
+// ========== LifeCEO Pages (2) ==========
 const LifeCEOEnhanced = lazy(() => import("@/pages/LifeCEOEnhanced"));
 const LifeCeoPerformance = lazy(() => import("@/pages/LifeCeoPerformance"));
 
