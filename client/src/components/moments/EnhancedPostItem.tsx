@@ -21,7 +21,7 @@ import { formatUserLocation } from '@/utils/locationUtils';
 import { SimpleLikeButton } from '@/components/ui/SimpleLikeButton';
 import { SimpleCommentEditor } from '@/components/ui/SimpleCommentEditor';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-// ESA Layer 7: Removed PostEditCreatorDialog - edit should use parent's unified composer
+// ESA Layer 7: Edit functionality delegated to parent's unified composer (EnhancedPostComposer)
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -282,12 +282,21 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
     commentMutation.mutate({ postId: post.id, content, mentions });
   };
 
-  // ESA Layer 7 & 23: Edit handled by PostEditCreatorDialog
+  // ESA Layer 7 & 23: Edit handled by parent's unified composer
   const handleEdit = () => {
-    setShowEditDialog(true);
+    // Pass edit request to parent component which will show EnhancedPostComposer
+    if (onEdit) {
+      console.log('[ESA DEBUG] EnhancedPostItem handleEdit: Calling parent onEdit with post:', post.id);
+      onEdit(post);
+    } else {
+      console.warn('[ESA DEBUG] EnhancedPostItem: No onEdit handler provided by parent');
+      toast({
+        title: "Edit not available",
+        description: "Please use the Memories page to edit posts",
+        variant: "destructive"
+      });
+    }
   };
-
-  // Legacy inline edit removed - using PostEditCreatorDialog instead
 
   // ESA LIFE CEO 61x21 - Enhanced delete handler
   const handleDelete = async () => {
