@@ -1,12 +1,11 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type ReactQuillType from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
-// ESA Framework Line 87: Dynamic import of ReactQuill to avoid SSR issues
-let ReactQuill: any = null;
-if (typeof window !== 'undefined') {
-  ReactQuill = require('react-quill');
-}
+// ESA Framework Line 87: Memory posting with rich text editor (react-quill integration)
+// Use React.lazy for proper dynamic import in React 18 applications
+const ReactQuill = lazy(() => import('react-quill'))
 import { 
   Camera, Video, MapPin, Globe, Users, Lock, X, 
   ImageIcon, Smile, AtSign, Hash, Link, 
@@ -71,15 +70,12 @@ export default function EnhancedPostComposer({
     existingPostId: existingPost?.id,
     existingPostContent: existingPost?.content?.substring(0, 50),
     initialContent: initialContent?.substring(0, 50),
-    ReactQuillLoaded: !!ReactQuill,
-    ReactQuillType: typeof ReactQuill,
-    windowAvailable: typeof window !== 'undefined',
-    ESARequirement: 'Must use react-quill rich text editor for ALL posting operations (Line 87)'
+    ESARequirement: 'Line 87: Memory posting with rich text editor (react-quill integration)'
   });
   
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const quillRef = useRef<ReactQuill>(null);
+  const quillRef = useRef<ReactQuillType>(null);
   
   
   // ESA LIFE CEO 61×21 AGENTS Framework - Layer 7: Social Features
@@ -204,12 +200,15 @@ export default function EnhancedPostComposer({
   const commonEmojis = ['😀', '😍', '🥰', '😎', '🤩', '😂', '🤣', '😊', '😉', '😋', '💃', '🕺', '❤️', '🔥', '👏', '🎉', '💯', '🌟', '✨', '🎵', '🎶', '🌹', '🥳', '😘', '🤗'];
   
   const addEmoji = useCallback((emoji: string) => {
-    if (quillRef.current) {
+    if (quillRef.current && typeof quillRef.current.getEditor === 'function') {
       const quill = quillRef.current.getEditor();
       const range = quill.getSelection();
       const position = range ? range.index : quill.getLength();
       quill.insertText(position, emoji);
       setContent(quill.root.innerHTML);
+    } else {
+      // Fallback: append emoji to content if editor not available
+      setContent(prevContent => prevContent + emoji);
     }
     setShowEmojiPicker(false);
   }, []);
@@ -478,7 +477,17 @@ export default function EnhancedPostComposer({
 
       {/* Rich Text Editor - ESA Framework Line 87 Requirement */}
       <div className="mb-4">
-        {ReactQuill ? (
+        <Suspense fallback={
+          <div className="w-full">
+            <div className="animate-pulse bg-gray-100 rounded-lg p-4 min-h-[200px]">
+              <div className="h-8 bg-gray-200 rounded mb-2"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              </div>
+            </div>
+          </div>
+        }>
           <ReactQuill
             ref={quillRef}
             theme="snow"
@@ -489,16 +498,7 @@ export default function EnhancedPostComposer({
             placeholder="What's happening in your tango world?"
             className="bg-white"
           />
-        ) : (
-          // Fallback if ReactQuill is not available
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="What's happening in your tango world?"
-            className="w-full min-h-[200px] p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-y"
-            rows={6}
-          />
-        )}
+        </Suspense>
       </div>
 
       {/* Emoji Picker */}
