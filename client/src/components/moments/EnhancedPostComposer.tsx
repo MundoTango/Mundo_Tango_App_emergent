@@ -59,6 +59,16 @@ export default function EnhancedPostComposer({
   existingPost 
 }: EnhancedPostComposerProps) {
   
+  console.log('[ESA FRAMEWORK] EnhancedPostComposer initialized with:', {
+    timestamp: new Date().toISOString(),
+    editMode,
+    hasExistingPost: !!existingPost,
+    existingPostId: existingPost?.id,
+    existingPostContent: existingPost?.content?.substring(0, 50),
+    initialContent: initialContent?.substring(0, 50),
+    ESARequirement: 'Must use react-quill rich text editor for ALL posting operations'
+  });
+  
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const quillRef = useRef<ReactQuill>(null);
@@ -67,6 +77,12 @@ export default function EnhancedPostComposer({
   // ESA LIFE CEO 61×21 AGENTS Framework - Layer 7: Social Features
   // Unified posting module requirement: ALWAYS show full composer for edit mode
   const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost); // ESA Framework: Unified experience for edit mode
+  
+  console.log('[ESA FRAMEWORK] Composer state:', { 
+    showExpandedComposer,
+    editMode,
+    message: (editMode || !!existingPost) ? 'Rich text editor (react-quill) WILL BE VISIBLE' : 'Composer may start collapsed'
+  });
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post

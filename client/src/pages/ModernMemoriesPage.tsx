@@ -333,9 +333,22 @@ export default function ModernMemoriesPageV2() {
 
   const handleEditMemory = (memory: Post) => {
     // ESA LIFE CEO 61×21 Framework - Set editing state with full memory data
+    console.log('[ESA FRAMEWORK] Edit memory triggered in ModernMemoriesPage', {
+      timestamp: new Date().toISOString(),
+      memoryId: memory.id,
+      memoryContent: memory.content?.substring(0, 50),
+      hasImageUrl: !!memory.imageUrl,
+      hasVideoUrl: !!memory.videoUrl,
+      willShowComposer: true,
+      willSetMode: 'edit'
+    });
+    console.log('[ESA FRAMEWORK] Setting editingMemory to:', memory);
     setEditingMemory(memory);
+    console.log('[ESA FRAMEWORK] Setting composerMode to: edit');
     setComposerMode('edit');
+    console.log('[ESA FRAMEWORK] Setting showComposer to: true');
     setShowComposer(true);
+    console.log('[ESA FRAMEWORK] EnhancedPostComposer with react-quill rich text editor should now open!');
   };
 
   const handleSaveEdit = (id: number, data: any) => {
