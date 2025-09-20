@@ -422,8 +422,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Content & Timeline Routes (8) ========== */}
-          {/* /moments removed - consolidated into /memories */}
+          {/* ========== Content & Timeline Routes (6) ========== */}
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
@@ -431,7 +430,6 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* /unified-memories removed - consolidated into /memories */}
 
           <Route path="/enhanced-timeline">
             <Suspense fallback={<LoadingFallback message="Loading timeline..." />}>
