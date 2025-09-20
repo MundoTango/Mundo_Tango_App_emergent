@@ -18,6 +18,7 @@ This project is a comprehensive digital ecosystem consisting of a personal AI-po
 - **Auto-expand in Edit Mode**: EnhancedPostComposer now ALWAYS starts in expanded mode to ensure full rich text editor is visible (fixed showExpandedComposer state initialization)
 - **Modal Close Fix**: Updated close button behavior to properly close modal in edit mode rather than just collapsing the composer
 - **Edit Data Flow Improvement**: Enhanced data passing from ModernMemoriesPage to EnhancedPostComposer with proper structure mapping including all media and visibility properties
+- **Timeline Edit Fix**: Replaced BeautifulPostCreator (simple textarea) with EnhancedPostComposer (full ReactQuill editor) in enhanced-timeline.tsx to ensure all edit interfaces have rich text editing capabilities per ESA framework requirements
 
 ## User Preferences
 
