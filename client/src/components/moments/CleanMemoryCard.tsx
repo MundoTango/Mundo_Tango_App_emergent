@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/auth-context';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -62,10 +62,10 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
 
   // Load comments - CRITICAL FIX: Use correct API endpoint based on post type
   const commentsQuery = useQuery({
-    queryKey: [`/api/memories/${post.id}/comments`],
+    queryKey: [`/api/posts/${post.id}/comments`],
     queryFn: async () => {
-      // Always use memories endpoint for memory posts 
-      const endpoint = `/api/memories/${post.id}/comments`;
+      // Use unified posts endpoint for all posts
+      const endpoint = `/api/posts/${post.id}/comments`;
       console.log(`🔍 Fetching comments from: ${endpoint}`);
       
       const response = await fetch(endpoint, {
@@ -96,7 +96,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   // Like/Reaction mutation
   const reactionMutation = useMutation({
     mutationFn: async (reaction: string) => {
-      const response = await fetch(`/api/memories/${post.id}/reactions`, {
+      const response = await fetch(`/api/posts/${post.id}/reactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -112,8 +112,8 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   // Comment mutation - CRITICAL FIX: Use correct API endpoint for memory comments
   const commentMutation = useMutation({
     mutationFn: async (content: string) => {
-      // Always use memories endpoint for memory posts
-      const endpoint = `/api/memories/${post.id}/comments`;
+      // Use unified posts endpoint for all posts
+      const endpoint = `/api/posts/${post.id}/comments`;
       console.log(`🔍 Posting comment to: ${endpoint}`);
       console.log(`📝 Comment content:`, content);
       
@@ -144,7 +144,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
       // Also refetch the comments to ensure sync
       await commentsQuery.refetch();
       // Invalidate related queries
-      queryClient.invalidateQueries({ queryKey: [`/api/memories/${post.id}/comments`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/posts/${post.id}/comments`] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast({ title: "Comment posted!" });
     },
@@ -160,8 +160,8 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   // Edit mutation - Fixed to use correct endpoint
   const editMutation = useMutation({
     mutationFn: async (content: string) => {
-      const response = await fetch(`/api/memories/${post.id}/edit`, {
-        method: 'PUT',
+      const response = await fetch(`/api/posts/${post.id}`, {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ content })
@@ -192,7 +192,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async () => {
-      const response = await fetch(`/api/memories/${post.id}`, {
+      const response = await fetch(`/api/posts/${post.id}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -210,7 +210,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare }: Me
   // Report mutation
   const reportMutation = useMutation({
     mutationFn: async ({ reason, description }: { reason: string; description: string }) => {
-      const response = await fetch(`/api/memories/${post.id}/reports`, {
+      const response = await fetch(`/api/posts/${post.id}/reports`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

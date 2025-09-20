@@ -51,14 +51,13 @@ router.delete('/api/posts/:id', isAuthenticated, async (req: any, res) => {
       });
     }
     
-    // Check ownership or admin status
+    // Check ownership - only the post owner can delete
     const isOwner = post.userId === user.id;
-    const isAdmin = user.username === 'admin' || user.email?.includes('admin');
     
-    if (!isOwner && !isAdmin) {
+    if (!isOwner) {
       return res.status(403).json({ 
         success: false,
-        message: 'You do not have permission to delete this post' 
+        message: 'You can only delete your own posts' 
       });
     }
     
