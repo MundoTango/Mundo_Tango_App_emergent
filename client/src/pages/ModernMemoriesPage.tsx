@@ -335,7 +335,8 @@ export default function ModernMemoriesPageV2() {
       memoryId: memory.id,
       memoryContent: memory.content?.substring(0, 50),
       hasImageUrl: !!memory.imageUrl,
-      hasVideoUrl: !!memory.videoUrl
+      hasVideoUrl: !!memory.videoUrl,
+      fullMemory: memory
     });
     setEditingMemory(memory);
     setComposerMode('edit');
@@ -343,7 +344,8 @@ export default function ModernMemoriesPageV2() {
     console.log('[ESA DEBUG] State after handleEditMemory:', {
       composerMode: 'edit',
       showComposer: true,
-      editingMemory: memory
+      editingMemory: memory,
+      willUseEnhancedComposer: true
     });
   };
 
