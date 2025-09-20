@@ -158,37 +158,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
     }
   });
 
-  // Edit mutation - Fixed to use correct endpoint
-  const editMutation = useMutation({
-    mutationFn: async (content: string) => {
-      const response = await fetch(`/api/posts/${post.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ content })
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to edit memory: ${response.statusText}`);
-      }
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      setShowEditDialog(false);
-      setEditContent('');
-      toast({ 
-        title: "Success",
-        description: "Memory updated successfully!" 
-      });
-    },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: "Failed to update memory. Please try again.",
-        variant: "destructive",
-      });
-    }
-  });
+  // ESA Framework: Edit handled by parent component with EnhancedPostComposer - no local edit mutation
 
   // Delete mutation
   const deleteMutation = useMutation({
@@ -249,11 +219,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
     }
   };
 
-  const handleEditPost = () => {
-    if (editContent.trim()) {
-      editMutation.mutate(editContent);
-    }
-  };
+  // ESA Framework: Edit logic removed - parent handles with rich text editor
 
   const isOwner = post.userId === user?.id;
 
