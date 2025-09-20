@@ -166,6 +166,7 @@ export interface IStorage {
   getPostById(id: number | string): Promise<Post | undefined>;
   updatePost(id: number | string, updates: Partial<Post>): Promise<Post>; // ESA LIFE CEO 61x21 - Added update functionality
   deletePost(id: number): Promise<void>; // ESA LIFE CEO 56x21 - Added delete functionality
+  getAllPosts(): Promise<Post[]>; // ESA LIFE CEO 61x21 - Get all posts for tag analysis
   getUserPostsByUserId(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPosts(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPhotos(userId: number): Promise<any[]>;
