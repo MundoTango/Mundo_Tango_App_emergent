@@ -45,7 +45,7 @@ import { cn } from '@/lib/utils';
 
 // Import the BeautifulPostCreator for advanced features
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
-import { AdvancedMediaUploader } from '@/components/media/AdvancedMediaUploader';
+// TODO: AdvancedMediaUploader to be implemented as per ESA framework
 
 // Enhanced Post Creator with Life CEO 44x21s Methodology
 // Re-export BeautifulPostCreator with wrapper for compatibility
@@ -65,24 +65,15 @@ export const EnhancedPostCreator: React.FC<{
         }}
       />
       
-      {/* ESA LIFE CEO 61x21 - Advanced Media Uploader Test */}
+      {/* ESA LIFE CEO 61x21 - Advanced Media Uploader to be implemented
       <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
         <h3 className="text-lg font-semibold text-blue-800 mb-3">
-          🚀 NEW: 30-File Batch Upload Test
+          🚀 Media Upload System
         </h3>
-        <AdvancedMediaUploader
-          onUploadComplete={(uploadResults) => {
-            console.log('Test uploader success:', uploadResults);
-            alert(`✅ Successfully uploaded ${uploadResults.length} files!`);
-          }}
-          maxFiles={30}
-          maxSizeMB={500}
-          className="w-full"
-        />
         <p className="text-sm text-blue-600 mt-2">
-          This is the new media upload system supporting 30 files at once with 500MB max per file and auto-compression.
+          Advanced media upload system with batch support coming soon.
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

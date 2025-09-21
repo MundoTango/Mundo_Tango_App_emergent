@@ -34,12 +34,24 @@ interface Post {
   };
   likes: number;
   isLiked: boolean;
-  comments: number;
+  comments: {
+    id: number;
+    content: string;
+    userId: number;
+    user: {
+      id: number;
+      name: string;
+      profileImage?: string;
+    };
+    createdAt: string;
+    mentions?: string[];
+  }[];
   commentsCount?: number; // EnhancedPostItem uses commentsCount
   shares: number;
   createdAt: string;
   visibility: string;
   isSaved?: boolean;
+  location?: string;
 }
 
 const EnhancedTimeline = () => {
@@ -163,8 +175,8 @@ const EnhancedTimeline = () => {
                       <EnhancedPostItem
                         key={post.id}
                         post={post}
-                        onLike={() => handleLikePost(post.id)}
-                        onShare={() => handleSharePost(post.id)}
+                        onLike={() => handleLikePost(String(post.id))}
+                        onShare={() => handleSharePost(String(post.id))}
                         onEdit={handleEditPost}
                       />
                     ))}

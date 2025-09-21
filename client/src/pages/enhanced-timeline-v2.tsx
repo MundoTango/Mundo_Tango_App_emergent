@@ -280,7 +280,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 )}
                 
                 <RoleEmojiDisplay
-                  roles={memory.user?.tangoRoles || []}
+                  tangoRoles={memory.user?.tangoRoles || []}
                   size="sm"
                   className="inline-flex"
                 />
