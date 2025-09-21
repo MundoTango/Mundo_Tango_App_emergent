@@ -31,10 +31,16 @@ interface Post {
     name: string;
     username: string;
     profileImage?: string;
+    tangoRoles?: string[];
+    leaderLevel?: number;
+    followerLevel?: number;
+    city?: string;
+    state?: string;
+    country?: string;
   };
-  likes: number;
-  isLiked: boolean;
-  comments: {
+  likes?: number;
+  isLiked?: boolean;
+  comments?: {
     id: number;
     content: string;
     userId: number;
@@ -46,12 +52,21 @@ interface Post {
     createdAt: string;
     mentions?: string[];
   }[];
-  commentsCount?: number; // EnhancedPostItem uses commentsCount
-  shares: number;
+  commentsCount?: number;
   createdAt: string;
-  visibility: string;
   isSaved?: boolean;
   location?: string;
+  hashtags?: string[];
+  mentions?: Array<{
+    type: 'user' | 'event' | 'group';
+    id: string;
+    display: string;
+  }>;
+  emotionTags?: string[];
+  reactions?: { [key: string]: number };
+  currentUserReaction?: string;
+  visibility?: string; // Made optional for compatibility
+  shares?: number; // Made optional for compatibility
 }
 
 const EnhancedTimeline = () => {
@@ -116,8 +131,8 @@ const EnhancedTimeline = () => {
     likePostMutation.mutate(postId);
   };
 
-  const handleSharePost = (postId: string) => {
-    const postUrl = `${window.location.origin}/posts/${postId}`;
+  const handleSharePost = (post: Post) => {
+    const postUrl = `${window.location.origin}/posts/${post.id}`;
     
     if (navigator.share) {
       navigator.share({
@@ -176,7 +191,7 @@ const EnhancedTimeline = () => {
                         key={post.id}
                         post={post}
                         onLike={() => handleLikePost(String(post.id))}
-                        onShare={() => handleSharePost(String(post.id))}
+                        onShare={() => handleSharePost(post)}
                         onEdit={handleEditPost}
                       />
                     ))}
