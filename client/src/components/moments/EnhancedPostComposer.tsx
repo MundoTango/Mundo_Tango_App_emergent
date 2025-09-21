@@ -1,11 +1,7 @@
-import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type ReactQuillType from 'react-quill';
-import 'quill/dist/quill.snow.css';
-
-// ESA Framework Line 87: Memory posting with rich text editor (react-quill integration)
-// Use React.lazy for proper dynamic import in React 18 applications
-const ReactQuill = lazy(() => import('react-quill'))
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { 
   Camera, Video, MapPin, Globe, Users, Lock, X, 
   ImageIcon, Smile, AtSign, Hash, Link, 
@@ -63,30 +59,14 @@ export default function EnhancedPostComposer({
   existingPost 
 }: EnhancedPostComposerProps) {
   
-  console.log('[ESA FRAMEWORK] EnhancedPostComposer initialized with:', {
-    timestamp: new Date().toISOString(),
-    editMode,
-    hasExistingPost: !!existingPost,
-    existingPostId: existingPost?.id,
-    existingPostContent: existingPost?.content?.substring(0, 50),
-    initialContent: initialContent?.substring(0, 50),
-    ESARequirement: 'Line 87: Memory posting with rich text editor (react-quill integration)'
-  });
-  
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const quillRef = useRef<ReactQuillType>(null);
+  const quillRef = useRef<ReactQuill>(null);
   
   
   // ESA LIFE CEO 61×21 AGENTS Framework - Layer 7: Social Features
   // Unified posting module requirement: ALWAYS show full composer for edit mode
   const [showExpandedComposer, setShowExpandedComposer] = useState(editMode || !!existingPost); // ESA Framework: Unified experience for edit mode
-  
-  console.log('[ESA FRAMEWORK] Composer state:', { 
-    showExpandedComposer,
-    editMode,
-    message: (editMode || !!existingPost) ? 'Rich text editor (react-quill) WILL BE VISIBLE' : 'Composer may start collapsed'
-  });
   const [content, setContent] = useState(existingPost?.content || initialContent);
   const [mediaEmbeds, setMediaEmbeds] = useState<MediaEmbed[]>(() => {
     // Initialize media from existing post
@@ -200,15 +180,12 @@ export default function EnhancedPostComposer({
   const commonEmojis = ['😀', '😍', '🥰', '😎', '🤩', '😂', '🤣', '😊', '😉', '😋', '💃', '🕺', '❤️', '🔥', '👏', '🎉', '💯', '🌟', '✨', '🎵', '🎶', '🌹', '🥳', '😘', '🤗'];
   
   const addEmoji = useCallback((emoji: string) => {
-    if (quillRef.current && typeof quillRef.current.getEditor === 'function') {
+    if (quillRef.current) {
       const quill = quillRef.current.getEditor();
       const range = quill.getSelection();
       const position = range ? range.index : quill.getLength();
       quill.insertText(position, emoji);
       setContent(quill.root.innerHTML);
-    } else {
-      // Fallback: append emoji to content if editor not available
-      setContent(prevContent => prevContent + emoji);
     }
     setShowEmojiPicker(false);
   }, []);
@@ -475,30 +452,18 @@ export default function EnhancedPostComposer({
         </button>
       </div>
 
-      {/* Rich Text Editor - ESA Framework Line 87 Requirement */}
+      {/* Rich Text Editor */}
       <div className="mb-4">
-        <Suspense fallback={
-          <div className="w-full">
-            <div className="animate-pulse bg-gray-100 rounded-lg p-4 min-h-[200px]">
-              <div className="h-8 bg-gray-200 rounded mb-2"></div>
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-              </div>
-            </div>
-          </div>
-        }>
-          <ReactQuill
-            ref={quillRef}
-            theme="snow"
-            value={content}
-            onChange={setContent}
-            modules={modules}
-            formats={formats}
-            placeholder="What's happening in your tango world?"
-            className="bg-white"
-          />
-        </Suspense>
+        <ReactQuill
+          ref={quillRef}
+          theme="snow"
+          value={content}
+          onChange={setContent}
+          modules={modules}
+          formats={formats}
+          placeholder="What's happening in your tango world?"
+          className="bg-white"
+        />
       </div>
 
       {/* Emoji Picker */}

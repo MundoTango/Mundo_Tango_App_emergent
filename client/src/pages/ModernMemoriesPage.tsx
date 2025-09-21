@@ -113,22 +113,36 @@ export default function ModernMemoriesPageV2() {
 
   // Check authentication and fetch memories
   useEffect(() => {
-    // Use the auth context user instead of making a separate auth check
-    // The auth context already handles authentication
-    if (user && user.id) {
-      fetchMemories();
-    } else {
-      // In development, create a default user for testing
-      setLoading(false);
-      // For now, just fetch memories anyway - the server has auth bypass
-      fetchMemories();
-    }
-  }, []);
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/user', {
+          credentials: 'include'
+        });
+        if (!response.ok) {
+          setLocation('/login');
+          return;
+        }
+        const userData = await response.json();
+        if (!userData || !userData.id) {
+          setLocation('/login');
+          return;
+        }
+        // Fetch memories after auth check
+        fetchMemories();
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setLocation('/login');
+      }
+    };
+
+    checkAuth();
+  }, [setLocation]);
 
   // Refetch when tags change
   useEffect(() => {
-    // Always fetch memories when tags change since we have auth bypass
-    fetchMemories();
+    if (user) {
+      fetchMemories();
+    }
   }, [activeTags]);
 
   // Create post mutation
@@ -319,22 +333,9 @@ export default function ModernMemoriesPageV2() {
 
   const handleEditMemory = (memory: Post) => {
     // ESA LIFE CEO 61×21 Framework - Set editing state with full memory data
-    console.log('[ESA FRAMEWORK] Edit memory triggered in ModernMemoriesPage', {
-      timestamp: new Date().toISOString(),
-      memoryId: memory.id,
-      memoryContent: memory.content?.substring(0, 50),
-      hasImageUrl: !!memory.imageUrl,
-      hasVideoUrl: !!memory.videoUrl,
-      willShowComposer: true,
-      willSetMode: 'edit'
-    });
-    console.log('[ESA FRAMEWORK] Setting editingMemory to:', memory);
     setEditingMemory(memory);
-    console.log('[ESA FRAMEWORK] Setting composerMode to: edit');
     setComposerMode('edit');
-    console.log('[ESA FRAMEWORK] Setting showComposer to: true');
     setShowComposer(true);
-    console.log('[ESA FRAMEWORK] EnhancedPostComposer with react-quill rich text editor should now open!');
   };
 
   const handleSaveEdit = (id: number, data: any) => {
