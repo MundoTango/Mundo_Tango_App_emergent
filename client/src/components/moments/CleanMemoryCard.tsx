@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -19,11 +19,9 @@ interface MemoryCardProps {
   onLike?: () => void;
   onComment?: () => void;
   onShare?: () => void;
-  onEdit?: (post: any) => void;  // ESA Framework: Parent handles edit with EnhancedPostComposer
-  onDelete?: (postId: number) => void;  // ESA Framework: Parent handles delete
 }
 
-export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEdit, onDelete }: MemoryCardProps) {
+export default function CleanMemoryCard({ post, onLike, onComment, onShare }: MemoryCardProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -37,7 +35,8 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
   const [reportReason, setReportReason] = useState('');
   const [reportDescription, setReportDescription] = useState('');
   const [showMenu, setShowMenu] = useState(false);
-  // ESA Framework: No local edit dialog - parent handles with EnhancedPostComposer
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [editContent, setEditContent] = useState(post.content || '');
 
   // Reactions array - Fixed spacing
   const reactions = ['❤️', '🔥', '😍', '🎉', '👏'];
@@ -63,10 +62,10 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
 
   // Load comments - CRITICAL FIX: Use correct API endpoint based on post type
   const commentsQuery = useQuery({
-    queryKey: [`/api/posts/${post.id}/comments`],
+    queryKey: [`/api/memories/${post.id}/comments`],
     queryFn: async () => {
-      // Use unified posts endpoint for all posts
-      const endpoint = `/api/posts/${post.id}/comments`;
+      // Always use memories endpoint for memory posts 
+      const endpoint = `/api/memories/${post.id}/comments`;
       console.log(`🔍 Fetching comments from: ${endpoint}`);
       
       const response = await fetch(endpoint, {
@@ -97,7 +96,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
   // Like/Reaction mutation
   const reactionMutation = useMutation({
     mutationFn: async (reaction: string) => {
-      const response = await fetch(`/api/posts/${post.id}/reactions`, {
+      const response = await fetch(`/api/memories/${post.id}/reactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -113,8 +112,8 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
   // Comment mutation - CRITICAL FIX: Use correct API endpoint for memory comments
   const commentMutation = useMutation({
     mutationFn: async (content: string) => {
-      // Use unified posts endpoint for all posts
-      const endpoint = `/api/posts/${post.id}/comments`;
+      // Always use memories endpoint for memory posts
+      const endpoint = `/api/memories/${post.id}/comments`;
       console.log(`🔍 Posting comment to: ${endpoint}`);
       console.log(`📝 Comment content:`, content);
       
@@ -145,7 +144,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
       // Also refetch the comments to ensure sync
       await commentsQuery.refetch();
       // Invalidate related queries
-      queryClient.invalidateQueries({ queryKey: [`/api/posts/${post.id}/comments`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/memories/${post.id}/comments`] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast({ title: "Comment posted!" });
     },
@@ -158,12 +157,42 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
     }
   });
 
-  // ESA Framework: Edit handled by parent component with EnhancedPostComposer - no local edit mutation
+  // Edit mutation - Fixed to use correct endpoint
+  const editMutation = useMutation({
+    mutationFn: async (content: string) => {
+      const response = await fetch(`/api/memories/${post.id}/edit`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ content })
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to edit memory: ${response.statusText}`);
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      setShowEditDialog(false);
+      setEditContent('');
+      toast({ 
+        title: "Success",
+        description: "Memory updated successfully!" 
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update memory. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
 
   // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async () => {
-      const response = await fetch(`/api/posts/${post.id}`, {
+      const response = await fetch(`/api/memories/${post.id}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -181,7 +210,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
   // Report mutation
   const reportMutation = useMutation({
     mutationFn: async ({ reason, description }: { reason: string; description: string }) => {
-      const response = await fetch(`/api/posts/${post.id}/reports`, {
+      const response = await fetch(`/api/memories/${post.id}/reports`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -219,7 +248,11 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
     }
   };
 
-  // ESA Framework: Edit logic removed - parent handles with rich text editor
+  const handleEditPost = () => {
+    if (editContent.trim()) {
+      editMutation.mutate(editContent);
+    }
+  };
 
   const isOwner = post.userId === user?.id;
 
@@ -291,7 +324,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                     <>
                       <button
                         onClick={() => {
-                          onEdit?.(post);  // ESA Framework: Trigger parent edit handler
+                          setShowEditDialog(true);
                           setShowMenu(false);
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
@@ -302,11 +335,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                       <button
                         onClick={() => {
                           if (confirm('Are you sure you want to delete this memory? This action cannot be undone.')) {
-                            if (onDelete) {
-                              onDelete(post.id);  // ESA Framework: Use parent delete handler
-                            } else {
-                              deleteMutation.mutate();  // Fallback to local mutation
-                            }
+                            deleteMutation.mutate();
                           }
                           setShowMenu(false);
                         }}
@@ -625,7 +654,16 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
         )}
       </article>
 
-      {/* ESA Framework: Edit handled by parent with EnhancedPostComposer (react-quill) - no local dialog */}
+      {/* ESA Layer 7 & 23: Edit Dialog using BeautifulPostCreator for UI consistency */}
+      <PostEditCreatorDialog
+        open={showEditDialog}
+        onOpenChange={setShowEditDialog}
+        post={{
+          ...post,
+          content: editContent // Pass current edit content
+        }}
+        user={user || undefined}
+      />
 
       {/* Report Dialog */}
       <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
