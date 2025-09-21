@@ -67,7 +67,6 @@ import friendsRoutes from "./routes/friendsRoutes"; // ESA LIFE CEO 61x21 - Frie
 import storiesRoutes from "./routes/storiesRoutes"; // ESA LIFE CEO 61x21 - Stories API routes
 import followsRoutes from "./routes/followsRoutes"; // ESA LIFE CEO 61x21 - Follows API routes
 import commentsRoutes from "./routes/commentsRoutes"; // ESA LIFE CEO 61x21 - Comments API routes
-import tagRoutes from "./routes/tagRoutes"; // ESA LIFE CEO 61x21 - Tag management routes
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
@@ -152,7 +151,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(storiesRoutes); // ESA LIFE CEO 61x21 - Stories API routes
   app.use(followsRoutes); // ESA LIFE CEO 61x21 - Follows API routes
   app.use(commentsRoutes); // ESA LIFE CEO 61x21 - Comments API routes
-  app.use(tagRoutes); // ESA LIFE CEO 61x21 - Tag management routes
   app.use(searchRouter); // ESA LIFE CEO 61x21 - Layer 15: Search & Discovery routes
   
   // ESA LIFE CEO 61x21 - Layer 57: City Group Creation Automation

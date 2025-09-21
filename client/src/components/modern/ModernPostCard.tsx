@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Heart, MessageCircle, Share2, Bookmark, Clock, Sparkles, Users } from 'lucide-react';
 import { format } from 'date-fns';
 import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
-import EnhancedShareModal from './EnhancedShareModal';
+import ShareModal from './ShareModal';
 import { MTCard, MTBadge, MTButton } from '@/components/ui-library';
 
 interface ModernPostCardProps {
@@ -74,7 +74,7 @@ export default function ModernPostCard({
       glow={true}
       rounded="3xl"
       padding="none"
-      className="glassmorphic glassmorphic-hover overflow-hidden group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50"
+      className="overflow-hidden group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50"
     >
       
       {/* Floating engagement indicator */}
@@ -141,7 +141,7 @@ export default function ModernPostCard({
 
       {/* Share Modal */}
       {showShareModal && (
-        <EnhancedShareModal 
+        <ShareModal 
           isOpen={showShareModal}
           onClose={() => setShowShareModal(false)}
           post={post}
