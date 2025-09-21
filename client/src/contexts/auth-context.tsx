@@ -17,13 +17,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check for existing token and validate user
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      validateToken(token);
-    } else {
+    // In development, also try auth bypass endpoint
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = async () => {
+    try {
+      // First try the auth bypass endpoint (for development)
+      const authResponse = await fetch('/api/auth/user', {
+        credentials: 'include'
+      });
+      
+      if (authResponse.ok) {
+        const userData = await authResponse.json();
+        if (userData && userData.id) {
+          setUser(userData);
+          console.log('User authenticated via auth bypass:', userData);
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      // Otherwise check for token
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        await validateToken(token);
+      } else {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error('Authentication check failed:', error);
       setIsLoading(false);
     }
-  }, []);
+  };
 
   const validateToken = async (token: string) => {
     try {

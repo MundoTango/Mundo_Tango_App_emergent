@@ -166,6 +166,7 @@ export interface IStorage {
   getPostById(id: number | string): Promise<Post | undefined>;
   updatePost(id: number | string, updates: Partial<Post>): Promise<Post>; // ESA LIFE CEO 61x21 - Added update functionality
   deletePost(id: number): Promise<void>; // ESA LIFE CEO 56x21 - Added delete functionality
+  getAllPosts(): Promise<Post[]>; // ESA LIFE CEO 61x21 - Get all posts for tag analysis
   getUserPostsByUserId(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPosts(userId: number, limit?: number, offset?: number): Promise<Post[]>;
   getUserPhotos(userId: number): Promise<any[]>;
@@ -896,6 +897,37 @@ export class DatabaseStorage implements IStorage {
   // ESA LIFE CEO 56x21 - Delete post implementation
   async deletePost(id: number): Promise<void> {
     await db.delete(posts).where(eq(posts.id, id));
+  }
+
+  // ESA LIFE CEO 61x21 - Get all posts for tag analysis
+  async getAllPosts(): Promise<Post[]> {
+    const result = await db
+      .select()
+      .from(posts)
+      .leftJoin(users, eq(posts.userId, users.id))
+      .orderBy(desc(posts.createdAt));
+
+    return result.map(row => ({
+      ...row.posts,
+      mediaEmbeds: row.posts?.mediaEmbeds || [],
+      user: row.users ? {
+        id: row.users.id,
+        name: row.users.name,
+        username: row.users.username,
+        profileImage: row.users.profileImage,
+        tangoRoles: row.users.tangoRoles,
+        leaderLevel: row.users.leaderLevel,
+        followerLevel: row.users.followerLevel,
+        city: row.users.city,
+        state: row.users.state,
+        country: row.users.country
+      } : null
+    }));
+  }
+
+  async getUserPostsByUserId(userId: number, limit = 20, offset = 0): Promise<Post[]> {
+    // ESA LIFE CEO 61x21 - Alias for getUserPosts for compatibility
+    return this.getUserPosts(userId, limit, offset);
   }
 
   async getUserPosts(userId: number, limit = 20, offset = 0): Promise<Post[]> {
