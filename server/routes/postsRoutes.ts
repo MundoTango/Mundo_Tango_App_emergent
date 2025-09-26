@@ -136,7 +136,13 @@ router.get('/api/posts/feed', async (req: any, res) => {
           id: post.userId,
           name: post.userName || 'Unknown',
           username: post.userUsername || 'unknown',
-          profileImage: post.userProfileImage
+          profileImage: post.userProfileImage,
+          // ESA LIFE CEO 61×21 - Layer 2: Include friendship data for "See Friendship" button
+          friendshipStatus: post.user?.friendshipStatus || 'none',
+          connectionType: post.user?.connectionType,
+          tangoRoles: post.user?.tangoRoles,
+          leaderLevel: post.user?.leaderLevel,
+          followerLevel: post.user?.followerLevel
         }
       };
 
