@@ -761,18 +761,37 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
             </button>
 
             {/* ESA LIFE CEO 61×21 - See Friendship button (Layer 24: Social Features Agent) */}
-            {post.user?.friendshipStatus === 'accepted' && post.user?.id !== parseInt(currentUserId || '0') && (
-              <Link href={`/friendship/${post.user.id}`}>
-                <button
-                  data-testid={`button-see-friendship-${post.user.id}`}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-turquoise-500/10 to-cyan-600/10 text-turquoise-600 hover:from-turquoise-500/20 hover:to-cyan-600/20 hover:text-turquoise-700 transition-all duration-200 border border-turquoise-200/30 hover:border-turquoise-300/50"
-                  title={`View friendship details with ${post.user?.name}`}
-                >
-                  <Users className="h-5 w-5" />
-                  <span>See Friendship</span>
-                </button>
-              </Link>
-            )}
+            {(() => {
+              // ESA Debug: Log all post user data
+              if (post.user && (post.user.id === 1 || post.user.id === 5)) {
+                console.log('[ESA UI] Post user data:', {
+                  postId: post.id,
+                  user: post.user,
+                  hasFS: 'friendshipStatus' in (post.user || {}),
+                  fStatus: post.user?.friendshipStatus,
+                  currentUserId: currentUserId,
+                  parsedCurrent: parseInt(currentUserId || '0')
+                });
+              }
+              
+              // Show button only for accepted friendships (not for own posts)
+              if (post.user?.friendshipStatus === 'accepted' && 
+                  post.user?.id !== parseInt(currentUserId || '0')) {
+                return (
+                  <Link to={`/friendship/${post.user.id}`}>
+                    <button
+                      data-testid={`button-see-friendship-${post.user.id}`}
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200 border border-teal-200/30 hover:border-teal-300/50"
+                      title={`View friendship details with ${post.user?.name}`}
+                    >
+                      <Users className="h-5 w-5" />
+                      <span>See Friendship</span>
+                    </button>
+                  </Link>
+                );
+              }
+              return null;
+            })()}
           </div>
 
           <div className="flex items-center gap-2">
