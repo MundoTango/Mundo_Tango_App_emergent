@@ -1002,6 +1002,9 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getFeedPosts(userId: number, limit = 20, offset = 0, filterTags: string[] = []): Promise<Post[]> {
+    // ESA Layer 22: Enhanced debugging
+    console.log(`🔍 [ESA Storage] getFeedPosts called with userId: ${userId}, limit: ${limit}, offset: ${offset}`);
+    
     if (filterTags.length === 0) {
       const result = await db
         .select({
@@ -1018,7 +1021,9 @@ export class DatabaseStorage implements IStorage {
               // Check both directions of friendship
               and(eq(friends.userId, userId), eq(friends.friendId, posts.userId)),
               and(eq(friends.userId, posts.userId), eq(friends.friendId, userId))
-            )
+            ),
+            // ESA Fix: Also check that friendship status is 'accepted'
+            eq(friends.status, 'accepted')
           )
         )
         .orderBy(desc(posts.createdAt))
