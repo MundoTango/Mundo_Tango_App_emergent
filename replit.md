@@ -14,10 +14,12 @@ This project is a comprehensive digital ecosystem comprising an AI-powered life 
 
 - **See Friendship Button Implementation**: Complete feature now working:
   - **Position**: Button appears inline with engagement buttons (Like, Comment, Share, See Friendship)
-  - **Visibility**: Only shows for friends with `friendshipStatus === 'accepted'` or `connectionType === 'friend'`
+  - **Visibility**: Only shows for friends with `friendshipStatus === 'accepted'` (not on current user's own posts)
   - **Styling**: MT Ocean theme with gradient `from-teal-500/10 to-cyan-600/10`
   - **Location**: Implemented in EnhancedPostItem.tsx component
   - **Target**: Links to `/friendship/${userId}` for detailed friendship page
+  - **Type Safety**: Fixed string/number comparison for currentUserId to prevent type mismatches
+  - **Component Hierarchy**: ESAMemoryFeed → UnifiedPostFeed → EnhancedPostItem with proper prop passing
 
 - **Unified Feed Architecture Implementation**: Following ESA LIFE CEO 61×21 AGENTS FRAMEWORK for antifragile architecture:
   - **Component Consolidation**: Created UnifiedPostFeed component replacing 3 separate implementations (EnhancedPostFeed, 2x EnhancedPostFeedSimple)
