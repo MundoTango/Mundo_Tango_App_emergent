@@ -206,6 +206,16 @@ function ESAMemoryFeedCore() {
   // RESILIENCE: Safe extraction with fallback to cached posts
   const posts = useMemo(() => {
     if (feedResponse?.posts && Array.isArray(feedResponse.posts)) {
+      // ESA Layer 2: API Structure - Log full data contract
+      console.log('[ESA MemoryFeed] Processing feed response:', {
+        postsCount: feedResponse.posts.length,
+        firstPost: feedResponse.posts[0],
+        friendshipStatuses: feedResponse.posts.slice(0, 3).map((p: any) => ({
+          userId: p.user?.id,
+          userName: p.user?.name,
+          friendshipStatus: p.user?.friendshipStatus
+        }))
+      });
       return feedResponse.posts;
     }
     // Fallback to accumulated posts if response is invalid
