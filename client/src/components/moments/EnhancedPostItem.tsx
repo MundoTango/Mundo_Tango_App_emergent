@@ -779,7 +779,7 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
                   post.user?.id !== parseInt(currentUserId || '0')) {
                 return (
                   <Link 
-                    to={`/friendship/${post.user.id}`}
+                    href={`/friendship/${post.user.id}`}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200 border border-teal-200/30 hover:border-teal-300/50"
                     data-testid={`button-see-friendship-${post.user.id}`}
                     title={`View friendship details with ${post.user?.name}`}
