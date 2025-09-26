@@ -79,12 +79,13 @@ interface Post {
 
 interface PostItemProps {
   post: Post;
+  currentUserId?: string; // ESA Framework Layer 4: Current authenticated user ID
   onLike: (postId: number) => void;
   onShare: (post: Post) => void;
   onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
 }
 
-function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
+function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: PostItemProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -759,9 +760,10 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
               <Share2 className="h-5 w-5" />
             </button>
 
-            {/* ESA LIFE CEO 61×21 - See Friendship button only for friends */}
-            {(post.user?.friendshipStatus === 'accepted' || 
-              post.user?.connectionType === 'friend') && (
+            {/* ESA LIFE CEO 61×21 - See Friendship button only for accepted friends */}
+            {post.user?.id && 
+             String(post.user.id) !== (currentUserId || user?.id?.toString() || '') && 
+             post.user?.friendshipStatus === 'accepted' && (
               <Link href={`/friendship/${post.user.id}`}>
                 <button
                   data-testid={`button-see-friendship-${post.user.id}`}

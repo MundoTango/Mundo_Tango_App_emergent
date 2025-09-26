@@ -407,6 +407,7 @@ const UnifiedPostFeed = React.memo(({
           <EnhancedPostItem
             key={post.id}
             post={post}
+            currentUserId={currentUserId || user?.id?.toString()} // ESA Framework Layer 4: Pass authenticated user ID
             onLike={handleLike}
             onShare={handleShare}
             onEdit={onEdit}
