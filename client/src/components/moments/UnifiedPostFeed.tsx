@@ -167,8 +167,15 @@ const UnifiedPostFeed = React.memo(({
       const data = await response.json();
       console.log('[ESA UnifiedFeed] Fetched posts with friendship data:', {
         count: data.data?.length,
-        sampleFriendship: data.data?.[0]?.user?.friendshipStatus
+        sampleFriendship: data.data?.[0]?.user?.friendshipStatus,
+        fullFirstPost: data.data?.[0]
       });
+      console.log('[ESA UnifiedFeed] Posts with friendships:', data.data?.map((p: any) => ({
+        postId: p.id,
+        userId: p.user?.id,
+        userName: p.user?.name,
+        friendshipStatus: p.user?.friendshipStatus
+      })));
       
       return data.data || [];
     },
@@ -178,6 +185,18 @@ const UnifiedPostFeed = React.memo(({
 
   // Use provided posts or fetched posts
   const posts = propsPosts || fetchedPosts || [];
+  
+  // Debug log posts data
+  useEffect(() => {
+    if (posts && posts.length > 0) {
+      console.log('[ESA UnifiedFeed] Current posts with friendship status:', posts.slice(0, 3).map((p: Post) => ({
+        postId: p.id,
+        userName: p.user?.name,
+        userId: p.user?.id,
+        friendshipStatus: p.user?.friendshipStatus
+      })));
+    }
+  }, [posts]);
   
   // Filter posts locally if search is active without filters
   const filteredPosts = useMemo(() => {
