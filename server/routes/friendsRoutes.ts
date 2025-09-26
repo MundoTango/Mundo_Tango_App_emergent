@@ -25,30 +25,30 @@ router.get('/friendship/:friendId', authMiddleware, async (req, res) => {
         u.bio as user_bio,
         (
           SELECT COUNT(*) FROM posts p 
-          WHERE (p.user_id = ? AND p.id IN (
-            SELECT post_id FROM post_likes WHERE user_id = ?
-          )) OR (p.user_id = ? AND p.id IN (
-            SELECT post_id FROM post_likes WHERE user_id = ?
+          WHERE (p.user_id = $1 AND p.id IN (
+            SELECT post_id FROM post_likes WHERE user_id = $2
+          )) OR (p.user_id = $3 AND p.id IN (
+            SELECT post_id FROM post_likes WHERE user_id = $4
           ))
         ) as total_dances,
         (
           SELECT COUNT(*) FROM event_rsvps er1
           JOIN event_rsvps er2 ON er1.event_id = er2.event_id
-          WHERE er1.user_id = ? AND er2.user_id = ?
+          WHERE er1.user_id = $5 AND er2.user_id = $6
         ) as shared_events,
         (
           SELECT COUNT(*) FROM group_members gm1
           JOIN group_members gm2 ON gm1.group_id = gm2.group_id
-          WHERE gm1.user_id = ? AND gm2.user_id = ?
+          WHERE gm1.user_id = $7 AND gm2.user_id = $8
         ) as shared_groups,
         COALESCE(
           (SELECT (COUNT(*) * 100 / 10) FROM posts p 
-           WHERE p.user_id IN (?, ?) AND p.created_at > DATE_SUB(NOW(), INTERVAL 30 DAY)
+           WHERE p.user_id IN ($9, $10) AND p.created_at > NOW() - INTERVAL '30 days'
           ), 75
         ) as closeness_score
       FROM friends f
-      JOIN users u ON u.id = ?
-      WHERE f.user_id = ? AND f.friend_id = ? AND f.status = 'accepted'
+      JOIN users u ON u.id = $11
+      WHERE f.user_id = $12 AND f.friend_id = $13 AND f.status = 'accepted'
       LIMIT 1
     `;
 
@@ -61,11 +61,11 @@ router.get('/friendship/:friendId', authMiddleware, async (req, res) => {
       userId, friendId // friendship where
     ]);
 
-    if (!friendshipResult.length) {
+    if (!friendshipResult.rows || friendshipResult.rows.length === 0) {
       return res.status(404).json({ error: 'Friendship not found' });
     }
 
-    const friendshipData = friendshipResult[0];
+    const friendshipData = friendshipResult.rows[0];
     
     res.json({
       id: friendshipData.id,
@@ -109,11 +109,11 @@ router.get('/friendship/:friendId/mutual-friends', authMiddleware, async (req, r
       FROM friends f1
       JOIN friends f2 ON f1.friend_id = f2.friend_id
       JOIN users u ON u.id = f1.friend_id
-      WHERE f1.user_id = ? 
-        AND f2.user_id = ?
+      WHERE f1.user_id = $1 
+        AND f2.user_id = $2
         AND f1.status = 'accepted'
         AND f2.status = 'accepted'
-        AND f1.friend_id NOT IN (?, ?)
+        AND f1.friend_id NOT IN ($3, $4)
       LIMIT 20
     `;
 
@@ -121,7 +121,7 @@ router.get('/friendship/:friendId/mutual-friends', authMiddleware, async (req, r
       userId, friendId, userId, friendId
     ]);
 
-    res.json(mutualFriends);
+    res.json(mutualFriends.rows || []);
 
   } catch (error) {
     console.error('Error fetching mutual friends:', error);
