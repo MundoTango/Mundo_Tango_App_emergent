@@ -124,6 +124,17 @@ router.get('/api/posts/feed', async (req: any, res) => {
     
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
+      // ESA LIFE CEO 61×21 - Debug friendship data flow
+      if (post.user && (post.user.id === 1 || post.user.id === 5)) {
+        console.log('🔍 [ESA API Layer 2] Friend post data:', {
+          postId: post.id,
+          userId: post.user.id,
+          userName: post.user.name,
+          friendshipStatus: post.user.friendshipStatus,
+          connectionType: post.user.connectionType
+        });
+      }
+      
       const formattedPost: any = {
         ...post,
         id: post.id || post.memoryId,

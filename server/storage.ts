@@ -1025,25 +1025,40 @@ export class DatabaseStorage implements IStorage {
         .limit(limit)
         .offset(offset);
       
-      return result.map(row => ({
-        ...row.posts,
-        mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 61x21 - Always include mediaEmbeds
-        user: row.users ? {
-          id: row.users.id,
-          name: row.users.name,
-          username: row.users.username,
-          profileImage: row.users.profileImage,
-          tangoRoles: row.users.tangoRoles,
-          leaderLevel: row.users.leaderLevel,
-          followerLevel: row.users.followerLevel,
-          city: row.users.city,
-          state: row.users.state,
-          country: row.users.country,
-          // ESA Layer 22: Include proper friendship status
-          friendshipStatus: row.friendship?.status || 'none', // 'accepted' | 'pending' | 'blocked' | 'none'
-          connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
-        } : null
-      }));
+      const mappedPosts = result.map(row => {
+        // ESA Layer 22: Debug friendship data
+        if (row.users && (row.users.id === 1 || row.users.id === 5)) {
+          console.log('🔍 [ESA Storage Layer 22] Friend data retrieved:', {
+            userId: row.users.id,
+            userName: row.users.name,
+            friendshipStatus: row.friendship?.status,
+            friendshipExists: !!row.friendship
+          });
+        }
+        
+        return {
+          ...row.posts,
+          mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 61x21 - Always include mediaEmbeds
+          user: row.users ? {
+            id: row.users.id,
+            name: row.users.name,
+            username: row.users.username,
+            profileImage: row.users.profileImage,
+            tangoRoles: row.users.tangoRoles,
+            leaderLevel: row.users.leaderLevel,
+            followerLevel: row.users.followerLevel,
+            city: row.users.city,
+            state: row.users.state,
+            country: row.users.country,
+            // ESA Layer 22: Include proper friendship status
+            friendshipStatus: row.friendship?.status || 'none', // 'accepted' | 'pending' | 'blocked' | 'none'
+            connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
+          } : null
+        };
+      });
+      
+      console.log(`📊 [ESA Storage] Returning ${mappedPosts.length} posts with friendship data`);
+      return mappedPosts;
     }
 
     // Complex filtering with tag support
