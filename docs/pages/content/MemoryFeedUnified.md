@@ -85,21 +85,142 @@ interface Post {
 
 ---
 
-## 3. Friendship Integration
+## 3. "See Friendship" Button Implementation - Complete
 
-### "See Friendship" Button
-The button appears when:
-- `user.friendshipStatus === 'accepted'`
-- `user.friendshipStatus === 'following'`
-- `user.connectionType === 'friend'`
+### Overview
+The "See Friendship" button is a social feature that allows users to navigate directly from a post to view their friendship details with the post author. This implementation follows the ESA LIFE CEO 61×21 AGENTS FRAMEWORK specifications.
 
-Links to: `/friends/${userId}`
+### Location
+- **Component:** `EnhancedPostItem` component 
+- **Route:** Memories feed (`/` route)
+- **File Path:** `client/src/components/moments/EnhancedPostItem.tsx` (lines 763-793)
+- **Position:** Inline with engagement buttons (Like, Comment, Share, See Friendship)
 
-### Data Flow
-1. **Backend API** returns posts with friendship data in user object
-2. **UnifiedPostFeed** receives posts with proper typing
-3. **EnhancedPostItem** displays "See Friendship" button conditionally
-4. **User clicks** → navigates to friendship page
+### Visibility Logic
+The button displays conditionally based on friendship status:
+```typescript
+// Show button only for accepted friendships (not for own posts)
+if (post.user?.friendshipStatus === 'accepted' && 
+    post.user?.id !== parseInt(currentUserId || '0')) {
+  // Render button
+}
+```
+- **Only shows for:** Posts from users with `friendshipStatus === 'accepted'`
+- **Excludes:** Current user's own posts
+- **Required conditions:** Both friendship acceptance and different user ID
+
+### Navigation
+- **Target Route:** `/friendship/${userId}`
+- **Implementation:** Uses wouter's `Link` component with `href` attribute (not `to`)
+- **Example:**
+```tsx
+<Link 
+  href={`/friendship/${post.user.id}`}
+  className="..."
+  data-testid={`button-see-friendship-${post.user.id}`}
+  title={`View friendship details with ${post.user?.name}`}
+>
+  <Users className="h-5 w-5" />
+  <span>See Friendship</span>
+</Link>
+```
+
+### Styling (MT Ocean Theme)
+The button follows the MT Ocean theme with glassmorphic effects:
+```css
+className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium 
+  bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 
+  hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 
+  transition-all duration-200 
+  border border-teal-200/30 hover:border-teal-300/50"
+```
+- **Gradient:** Teal-cyan gradient (`from-teal-500/10 to-cyan-600/10`)
+- **Hover Effects:** Intensified gradient on hover with glassmorphic transitions
+- **Border:** Semi-transparent teal border with hover state
+- **Icon:** Users icon from lucide-react
+
+### Data Flow Architecture
+
+#### Backend Data Enrichment (Layer 22: Group Management)
+1. **Storage Layer (`server/storage.ts`):**
+   - `getFeedPosts` method enriches posts with friendship data
+   - Uses LEFT JOIN on friends table to include friendship status
+   ```sql
+   LEFT JOIN friends f ON 
+     (f.userId = $1 AND f.friendId = u.id) OR 
+     (f.friendId = $1 AND f.userId = u.id)
+   ```
+   - Returns `friendshipStatus: 'accepted'` for connected users
+
+2. **API Layer (Layer 2: API Structure):**
+   - Routes in `/api/posts/feed` preserve complete user data
+   - Maintains friendship status through response chain
+   - Debug logs confirm data flow:
+   ```javascript
+   console.log('[ESA API Layer 2] Friend post data:', {
+     postId: post.id,
+     userId: post.user.id,
+     userName: post.user.name,
+     friendshipStatus: post.user.friendshipStatus,
+     connectionType: 'friend'
+   });
+   ```
+
+#### Frontend Implementation (Layer 9: UI Framework)
+1. **UnifiedPostFeed Component:**
+   - Passes `currentUserId` prop to EnhancedPostItem
+   - Maintains user authentication context
+   
+2. **EnhancedPostItem Component:**
+   - Dynamically checks `post.user?.friendshipStatus === 'accepted'`
+   - Uses authenticated user ID from props (not hardcoded)
+   - Conditional rendering based on friendship status
+
+3. **Authentication Context (Layer 4):**
+   - Uses `currentUserId` from auth context dynamically
+   - Prevents showing button on own posts
+
+### Friendship Page Enhancement
+After clicking the "See Friendship" button:
+1. **Navigation:** User is routed to `/friendship/${userId}`
+2. **Layout:** FriendshipPage now wrapped with `DashboardLayout`
+3. **Consistency:** Same sidebar navigation as memories page
+4. **Features:** Shows friendship timeline, analytics, dance history tabs
+
+### Bug Fixes Applied
+1. **wouter Link Component:**
+   - **Issue:** Used incorrect `to` attribute
+   - **Fix:** Changed to `href` attribute (wouter standard)
+   
+2. **PostgreSQL Syntax:**
+   - **Issue:** Used `?` placeholders (MySQL/SQLite syntax)
+   - **Fix:** Changed to `$1, $2` format (PostgreSQL standard)
+   
+3. **Missing Import:**
+   - **Issue:** ESAMemoryFeed.tsx missing useQuery import
+   - **Fix:** Added `import { useQuery } from '@tanstack/react-query'`
+
+4. **Dynamic User ID:**
+   - **Issue:** Hardcoded currentUserId in component
+   - **Fix:** Uses dynamic prop from authenticated user context
+
+### ESA Framework Compliance
+The implementation follows multiple ESA LIFE CEO 61×21 framework layers:
+- **Layer 2 (API Structure):** Complete data contracts with friendship enrichment
+- **Layer 4 (Authentication):** Dynamic user context integration
+- **Layer 9 (UI Framework):** Component follows single responsibility principle
+- **Layer 22 (Group Management):** Proper friendship data flow through storage
+- **Layer 24 (Social Features Agent):** Core social interaction feature
+- **Layer 48 (Performance Monitoring):** Debug logs for monitoring data flow
+- **Layer 60 (Deployment):** Production-ready with all fixes applied
+
+### Database Verification
+Confirmed friendship records exist in database:
+```sql
+-- Bidirectional friendship records
+Pierre Dubois (ID: 7) ↔ Elena Rodriguez (ID: 1) - Status: 'accepted'
+Pierre Dubois (ID: 7) ↔ Sofia Chen (ID: 5) - Status: 'accepted'
+```
 
 ---
 
