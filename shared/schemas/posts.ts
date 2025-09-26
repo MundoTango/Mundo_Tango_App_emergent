@@ -1,11 +1,22 @@
 import { z } from 'zod';
 
-// User schema for posts
+// User schema for posts - ESA LIFE CEO 61×21 Layer 22 (Group Management)
 export const PostUserSchema = z.object({
   id: z.union([z.string(), z.number()]).transform(String),
   name: z.string().nullable().optional(),
   username: z.string().nullable().optional(),
-  avatar: z.string().nullable().optional()
+  avatar: z.string().nullable().optional(),
+  profileImage: z.string().nullable().optional(),
+  // ESA Framework Layer 22: Friendship data for "See Friendship" button
+  friendshipStatus: z.enum(['accepted', 'pending', 'blocked', 'none']).nullable().optional(),
+  connectionType: z.string().nullable().optional(),
+  // Additional user fields from backend
+  tangoRoles: z.array(z.string()).nullable().optional(),
+  leaderLevel: z.string().nullable().optional(),
+  followerLevel: z.string().nullable().optional(),
+  city: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+  country: z.string().nullable().optional()
 }).nullable();
 
 // Media schema for posts
