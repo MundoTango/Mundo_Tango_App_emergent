@@ -8,6 +8,22 @@
 
 ## Latest Architecture Updates (September 26, 2025)
 
+### "See Friendship" Button Implementation - Complete
+- **Location:** EnhancedPostItem component in memories feed (`/` route)
+- **Visibility Logic:** Only displays for posts from users with `friendshipStatus === 'accepted'` (excludes current user's own posts)
+- **Navigation:** Links to `/friendship/${userId}` using wouter's Link component with `href` attribute
+- **Styling:** MT Ocean theme with teal-cyan gradient (`from-teal-500/10 to-cyan-600/10`), glassmorphic effects
+- **Data Flow:** 
+  - Backend enriches posts with friendship status via LEFT JOIN in `getFeedPosts` (Layer 22: Group Management)
+  - API preserves complete user data with friendship status (Layer 2: API Structure)
+  - Frontend checks `post.user?.friendshipStatus === 'accepted'` dynamically
+- **Friendship Page Enhancement:** Added DashboardLayout wrapper for consistent navigation with sidebar menu
+- **Bug Fixes:** 
+  - Fixed wouter Link component to use `href` instead of `to`
+  - Fixed PostgreSQL syntax from `?` placeholders to `$1, $2` format
+  - Added missing useQuery import to ESAMemoryFeed.tsx
+- **ESA Framework Compliance:** Layers 2, 4, 9, 22, 24, 48, 60
+
 ### Component Consolidation - UnifiedPostFeed
 - **Consolidated:** 3 separate feed components (EnhancedPostFeed, 2x EnhancedPostFeedSimple) → 1 UnifiedPostFeed component
 - **Dual Modes:** `simple` (lightweight) and `full` (feature-rich) modes in single component
