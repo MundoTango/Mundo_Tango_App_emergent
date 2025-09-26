@@ -158,10 +158,14 @@ const updatePostHandler = async (req: any, res: any) => {
       updateData.isPublic = isPublic;
     }
     
-    // Handle mediaEmbeds - extract image and video URLs
+    // ESA Framework Layer 13: Handle mediaEmbeds - store ALL media
     if (mediaEmbeds && Array.isArray(mediaEmbeds)) {
-      const images = mediaEmbeds.filter(m => m.type === 'image');
-      const videos = mediaEmbeds.filter(m => m.type === 'video');
+      // Store the complete mediaEmbeds array
+      updateData.mediaEmbeds = mediaEmbeds;
+      
+      // Also update imageUrl and videoUrl for backwards compatibility
+      const images = mediaEmbeds.filter((m: any) => m.type === 'image');
+      const videos = mediaEmbeds.filter((m: any) => m.type === 'video');
       if (images.length > 0) updateData.imageUrl = images[0].url;
       if (videos.length > 0) updateData.videoUrl = videos[0].url;
     }
@@ -173,13 +177,14 @@ const updatePostHandler = async (req: any, res: any) => {
       .where(eq(posts.id, postId))
       .returning();
     
-    // Get updated post with user info for response
+    // Get updated post with user info for response - including mediaEmbeds
     const [fullPost] = await db
       .select({
         id: posts.id,
         content: posts.content,
         imageUrl: posts.imageUrl,
         videoUrl: posts.videoUrl,
+        mediaEmbeds: posts.mediaEmbeds, // ESA Layer 13: Include all media
         location: posts.location,
         hashtags: posts.hashtags,
         isPublic: posts.isPublic,

@@ -23,6 +23,78 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuthentication = async () => {
     try {
+      // ESA Framework: Auto-login as admin@mundotango.life for testing
+      // This sets Pierre Dubois as the default admin user
+      const isDevEnvironment = window.location.hostname === 'localhost' || 
+                               window.location.hostname.includes('replit') ||
+                               window.location.hostname.includes('192.168') ||
+                               window.location.hostname.includes('127.0.0.1');
+                               
+      if (isDevEnvironment) {
+        const adminUser: any = {
+          id: 1,
+          name: 'Pierre Dubois',
+          username: 'pierre_dancer',
+          email: 'admin@mundotango.life',
+          password: '', // Not exposed
+          mobileNo: null,
+          profileImage: null,
+          backgroundImage: null,
+          bio: 'Tango enthusiast and community leader',
+          firstName: 'Pierre',
+          lastName: 'Dubois',
+          dateOfBirth: null,
+          gender: null,
+          city: 'Buenos Aires',
+          state: null,
+          country: 'Argentina',
+          location: 'Buenos Aires, Argentina',
+          interests: null,
+          profileVisibility: 'public',
+          notificationPreferences: null,
+          languagePreference: 'en',
+          timezone: 'America/Argentina/Buenos_Aires',
+          lastLoginAt: null,
+          createdAt: new Date('2024-01-01'),
+          updatedAt: new Date(),
+          isActive: true,
+          emailVerified: true,
+          phoneVerified: false,
+          twoFactorEnabled: false,
+          socialLinks: null,
+          occupation: 'Professional Tango Dancer',
+          company: 'Mundo Tango',
+          education: null,
+          skills: null,
+          website: 'https://mundotango.life',
+          achievements: null,
+          privacySettings: null,
+          // Additional fields to satisfy User type
+          facebookUrl: null,
+          isVerified: true,
+          suspended: false,
+          deviceType: 'web',
+          deviceId: null,
+          ipAddress: null,
+          loginCount: 1,
+          referralCode: null,
+          referredBy: null,
+          subscription: null,
+          stripeCustomerId: null,
+          membershipType: 'premium',
+          membershipExpiry: null,
+          credits: 0,
+          lastActiveAt: new Date(),
+          deactivatedAt: null,
+          deletedAt: null
+        };
+        
+        setUser(adminUser);
+        console.log('🔑 ESA Auto-login: Pierre Dubois (admin@mundotango.life) authenticated');
+        setIsLoading(false);
+        return;
+      }
+      
       // First try the auth bypass endpoint (for development)
       const authResponse = await fetch('/api/auth/user', {
         credentials: 'include'

@@ -32,6 +32,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
 import { apiRequest } from '@/lib/queryClient';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -309,7 +310,7 @@ export default function EventDetailPage() {
               <div className="flex items-center gap-4 text-white/90">
                 <div className="flex items-center">
                   <Calendar className="mr-2 h-4 w-4" />
-                  {format(new Date(event.startDate), 'EEEE, MMMM d, yyyy')}
+                  {safeFormatDate(event.startDate, 'EEEE, MMMM d, yyyy', 'Date TBA')}
                 </div>
                 {event.location && (
                   <div className="flex items-center">
@@ -338,11 +339,11 @@ export default function EventDetailPage() {
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Date & Time</p>
                   <p className="font-medium">
-                    {format(new Date(event.startDate), 'MMM d, yyyy • h:mm a')}
+                    {safeFormatDate(event.startDate, 'MMM d, yyyy', 'Date TBA')} • {safeFormatTime(event.startDate, '20:00')}
                   </p>
                   {event.endDate && (
                     <p className="text-sm text-gray-600">
-                      to {format(new Date(event.endDate), 'h:mm a')}
+                      to {safeFormatTime(event.endDate, 'Time TBA')}
                     </p>
                   )}
                 </div>

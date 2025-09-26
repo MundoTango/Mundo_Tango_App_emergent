@@ -1,9 +1,11 @@
-// LAYER 11 - Real-time Features Agent: Enhanced WebSocket with auto-reconnect
+// ESA LIFE CEO 61×21 AGENTS FRAMEWORK
+// LAYER 11 - Real-time Features Agent: Socket.io implementation per ESA specifications
 import { createContext, useContext, useEffect, useState, useRef, ReactNode } from "react";
+import { io, Socket } from "socket.io-client";
 import { useAuth } from "@/hooks/useAuth";
 
 interface SocketContextType {
-  socket: WebSocket | null;
+  socket: Socket | null;
   isConnected: boolean;
   sendMessage: (type: string, data: any) => void;
   connectionStatus: 'connecting' | 'connected' | 'disconnected' | 'error';
@@ -12,113 +14,111 @@ interface SocketContextType {
 export const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'error'>('disconnected');
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
-  const reconnectAttempts = useRef(0);
   const { user } = useAuth();
 
-  // LAYER 11: Auto-reconnect WebSocket connection
-  const connectWebSocket = () => {
-    if (!user) return;
-    
-    setConnectionStatus('connecting');
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/api/ws`;
-    const ws = new WebSocket(wsUrl);
+  useEffect(() => {
+    if (!user) {
+      console.log('⏸️ Socket connection deferred - no user');
+      return;
+    }
 
-    ws.onopen = () => {
-      console.log('✅ WebSocket connected');
+    setConnectionStatus('connecting');
+    
+    // ESA Framework: Connect to Socket.io server
+    const socketInstance = io('/', {
+      path: '/socket.io/',
+      transports: ['websocket', 'polling'],
+      withCredentials: true,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 30000,
+      timeout: 20000
+    });
+
+    socketInstance.on('connect', () => {
+      console.log('✅ Socket.io connected');
       setIsConnected(true);
       setConnectionStatus('connected');
-      reconnectAttempts.current = 0;
       
-      // LAYER 11: Send user context for real-time features
-      ws.send(JSON.stringify({ 
-        type: 'auth', 
-        userId: user.id,
-        username: user.username 
-      }));
-    };
+      // Send user authentication
+      socketInstance.emit('auth', {
+        userId: user.id || user.username,
+        username: user.username || user.name,
+        avatar: (user as any).avatar || (user as any).profilePicture
+      });
+    });
 
-      ws.onmessage = (event) => {
-        try {
-          const message = JSON.parse(event.data);
-          console.log('WebSocket message received:', message);
-          
-          // Handle different message types
-          switch (message.type) {
-            case 'auth_success':
-              console.log('Socket authentication successful');
-              break;
-            case 'auth_error':
-              console.error('Socket authentication failed:', message.message);
-              break;
-            case 'new_message':
-              // Handle new chat messages
-              window.dispatchEvent(new CustomEvent('newChatMessage', { detail: message.data }));
-              break;
-            case 'new_post':
-              // Handle new posts
-              window.dispatchEvent(new CustomEvent('newPost', { detail: message.data }));
-              break;
-            default:
-              console.log('Unknown message type:', message.type);
-          }
-        } catch (error) {
-          console.error('Error parsing WebSocket message:', error);
-        }
-      };
+    socketInstance.on('disconnect', (reason) => {
+      console.log('⚠️ Socket.io disconnected:', reason);
+      setIsConnected(false);
+      setConnectionStatus('disconnected');
+    });
 
-      ws.onclose = () => {
-        console.log('⚠️ WebSocket disconnected');
-        setIsConnected(false);
-        setConnectionStatus('disconnected');
-        
-        // LAYER 11: Auto-reconnect with exponential backoff
-        if (reconnectAttempts.current < 5) {
-          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts.current), 30000);
-          console.log(`🔄 Reconnecting in ${delay}ms...`);
-          reconnectTimeoutRef.current = setTimeout(() => {
-            reconnectAttempts.current++;
-            connectWebSocket();
-          }, delay);
-        }
-      };
+    socketInstance.on('connect_error', (error) => {
+      console.error('❌ Socket.io connection error:', error.message);
+      setConnectionStatus('error');
+    });
 
-      ws.onerror = (error) => {
-        console.error('❌ WebSocket error:', error);
-        setIsConnected(false);
-        setConnectionStatus('error');
-      };
+    // ESA Framework: Handle real-time events
+    socketInstance.on('auth_success', () => {
+      console.log('Socket authentication successful');
+    });
 
-      setSocket(ws);
-      
-      return ws;
-    };
+    socketInstance.on('auth_error', (error) => {
+      console.error('Socket authentication failed:', error);
+    });
 
-  useEffect(() => {
-    const ws = connectWebSocket();
-    
+    socketInstance.on('new_message', (data) => {
+      window.dispatchEvent(new CustomEvent('newChatMessage', { detail: data }));
+    });
+
+    socketInstance.on('new_post', (data) => {
+      window.dispatchEvent(new CustomEvent('newPost', { detail: data }));
+    });
+
+    socketInstance.on('user:typing', (data) => {
+      window.dispatchEvent(new CustomEvent('userTyping', { detail: data }));
+    });
+
+    socketInstance.on('user:stopped-typing', (data) => {
+      window.dispatchEvent(new CustomEvent('userStoppedTyping', { detail: data }));
+    });
+
+    socketInstance.on('user:online', (data) => {
+      window.dispatchEvent(new CustomEvent('userOnline', { detail: data }));
+    });
+
+    socketInstance.on('user:offline', (data) => {
+      window.dispatchEvent(new CustomEvent('userOffline', { detail: data }));
+    });
+
+    setSocket(socketInstance);
+
     return () => {
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-      if (ws) {
-        ws.close();
-      }
+      console.log('🔌 Cleaning up Socket.io connection');
+      socketInstance.disconnect();
     };
   }, [user]);
 
   const sendMessage = (type: string, data: any) => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify({ type, data }));
+    if (socket && socket.connected) {
+      socket.emit(type, data);
+    } else {
+      console.warn('Socket not connected, message not sent:', type, data);
     }
   };
 
   return (
-    <SocketContext.Provider value={{ socket, isConnected, sendMessage, connectionStatus }}>
+    <SocketContext.Provider value={{ 
+      socket, 
+      isConnected, 
+      sendMessage, 
+      connectionStatus 
+    }}>
       {children}
     </SocketContext.Provider>
   );

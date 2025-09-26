@@ -232,24 +232,30 @@ app.use(chunkedUploadRoutes);
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
-// Define client path early
+// Define client path for fallbacks
 const clientPath = pathModule.join(process.cwd(), 'client', 'dist');
 
-// CRITICAL: Serve static files BEFORE routes to fix preview
-app.use(express.static(clientPath, {
-  maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
-  etag: true,
-  lastModified: true,
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js') || path.endsWith('.mjs')) {
-      res.setHeader('Content-Type', 'application/javascript; charset=UTF-8');
-    } else if (path.endsWith('.css')) {
-      res.setHeader('Content-Type', 'text/css; charset=UTF-8');
-    } else if (path.endsWith('.html')) {
-      res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+// ESA FIX: Use Vite for development, static files for production
+if (process.env.NODE_ENV === 'development') {
+  // Development: Vite will be set up later in startServer
+  console.log('🔧 [DEV] Will use Vite middleware for client assets');
+} else {
+  // Production: Serve static files from dist
+  app.use(express.static(clientPath, {
+    maxAge: '1y',
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, path) => {
+      if (path.endsWith('.js') || path.endsWith('.mjs')) {
+        res.setHeader('Content-Type', 'application/javascript; charset=UTF-8');
+      } else if (path.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css; charset=UTF-8');
+      } else if (path.endsWith('.html')) {
+        res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+      }
     }
-  }
-}));
+  }));
+}
 
 // API routes
 const startServer = async () => {
@@ -279,18 +285,39 @@ const startServer = async () => {
     app.use(eventsRoutes);
     app.use(integrationHelpers);
 
-    // Catch-all route for SPA client-side routing (must be LAST after all routes)
-    app.get('*', (req, res, next) => {
-      // Skip API routes
-      if (req.url.startsWith('/api') || req.url.startsWith('/uploads')) {
-        return next();
+    // ESA FIX: Setup Vite in development mode BEFORE catch-all route
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔧 [DEV] Setting up Vite development server...');
+      try {
+        const { setupVite } = await import('./vite');
+        await setupVite(app, httpServer);
+        console.log('✅ [DEV] Vite middleware configured');
+      } catch (viteError) {
+        console.error('⚠️ [DEV] Failed to setup Vite, falling back to static files:', viteError);
+        // Fallback to static files if Vite fails
+        app.use(express.static(clientPath));
+        
+        // Add catch-all for fallback mode
+        app.get('*', (req, res, next) => {
+          if (req.url.startsWith('/api') || req.url.startsWith('/uploads')) {
+            return next();
+          }
+          res.sendFile(pathModule.join(clientPath, 'index.html'));
+        });
       }
-      
-      // Serve index.html for all other routes
-      res.sendFile(pathModule.join(clientPath, 'index.html'));
-    });
+    } else {
+      // Production: Add catch-all route for SPA client-side routing
+      app.get('*', (req, res, next) => {
+        // Skip API routes
+        if (req.url.startsWith('/api') || req.url.startsWith('/uploads')) {
+          return next();
+        }
+        
+        // Serve index.html for all other routes
+        res.sendFile(pathModule.join(clientPath, 'index.html'));
+      });
+    }
 
-    // Use port 80 for production deployments (Replit requirement)
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
     console.log(`🌐 Starting server on port ${PORT}`);
 

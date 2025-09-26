@@ -31,10 +31,12 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
     const items: {url: string, isVideo: boolean}[] = [];
     const seenUrls = new Set<string>();
     
-    // Helper to detect video files
-    const isVideoFile = (url: string): boolean => {
+    // ESA Framework Layer 13: Type-safe video file detection
+    const isVideoFile = (url: string | any): boolean => {
       if (!url) return false;
-      const lower = url.toLowerCase();
+      const urlString = typeof url === 'string' ? url : String(url || '');
+      if (!urlString) return false;
+      const lower = urlString.toLowerCase();
       return lower.includes('.mp4') || lower.includes('.mov') || 
              lower.includes('.webm') || lower.includes('.avi') ||
              lower.includes('.m4v') || lower.includes('.mkv');

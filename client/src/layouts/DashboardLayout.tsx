@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
@@ -14,20 +14,21 @@ import {
   Search, 
   Bell, 
   MessageCircle, 
-  Users, 
+  Heart, 
   ChevronDown, 
   Menu,
   LogOut,
   Settings,
   Shield,
   HelpCircle,
-  Brain
+  Brain,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import TrangoTechSidebar from '@/components/TrangoTechSidebar';
-import ProjectSwitcher from '@/components/ProjectSwitcher';
 import { useQuery } from '@tanstack/react-query';
 
 interface DashboardLayoutProps {
@@ -41,23 +42,39 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    // Get initial theme from localStorage or default to light
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'light';
+  });
+
+  // Toggle theme function
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    // Update document class for Tailwind dark mode
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  // Initialize theme on mount
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
 
   // Fetch notifications count
   const { data: notifications } = useQuery({
     queryKey: ['/api/notifications/count'],
     queryFn: async () => {
       const response = await fetch('/api/notifications/count', {
-        credentials: 'include'
-      });
-      return response.json();
-    }
-  });
-
-  // Fetch friend requests count
-  const { data: friendRequests } = useQuery({
-    queryKey: ['/api/friends/requests/count'],
-    queryFn: async () => {
-      const response = await fetch('/api/friends/requests/count', {
         credentials: 'include'
       });
       return response.json();
@@ -240,22 +257,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Friend Requests */}
+              {/* Heart Icon - Favorites/Likes - Always visible */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="relative text-gray-700 hover:bg-gray-100"
-                onClick={() => setLocation('/friends/requests')}
+                className="text-gray-700 hover:bg-gray-100"
+                onClick={() => setLocation('/favorites')}
+                data-testid="button-favorites"
               >
-                <Users className="h-5 w-5" />
-                {friendRequests?.count > 0 && (
-                  <Badge 
-                    variant="destructive" 
-                    className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs"
-                  >
-                    {friendRequests.count}
-                  </Badge>
-                )}
+                <Heart className="h-5 w-5" />
               </Button>
 
               {/* Messages */}
@@ -286,8 +296,38 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 )}
               </Button>
 
-              {/* Project Switcher */}
-              <ProjectSwitcher />
+              {/* Settings Icon */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-700 hover:bg-gray-100"
+                onClick={() => setLocation('/settings')}
+                data-testid="button-settings"
+              >
+                <Settings className="h-5 w-5" />
+              </Button>
+
+              {/* Help Icon */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-700 hover:bg-gray-100"
+                onClick={() => setLocation('/help')}
+                data-testid="button-help"
+              >
+                <HelpCircle className="h-5 w-5" />
+              </Button>
+
+              {/* Dark Mode Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-700 hover:bg-gray-100"
+                onClick={toggleTheme}
+                data-testid="theme-toggle"
+              >
+                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
 
               {/* Profile Menu */}
               <DropdownMenu>
@@ -337,7 +377,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => setLocation('/profile')}>
-                    <Settings className="mr-2 h-4 w-4" />
                     View Profile
                   </DropdownMenuItem>
                   {/* Admin Center - RBAC/ABAC secured per ESA Framework */}
@@ -347,14 +386,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                       Admin Center
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem onClick={() => setLocation('/settings')}>
-                    <Settings className="mr-2 h-4 w-4" />
-                    Settings
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setLocation('/help')}>
-                    <HelpCircle className="mr-2 h-4 w-4" />
-                    Help & Support
-                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="text-red-600">
                     <LogOut className="mr-2 h-4 w-4" />

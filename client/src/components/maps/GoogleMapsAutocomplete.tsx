@@ -72,8 +72,8 @@ export default function GoogleMapsAutocomplete({
 
     try {
       const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
-        types: ['(cities)'],
-        fields: ['place_id', 'formatted_address', 'name', 'geometry', 'address_components']
+        types: ['establishment', 'geocode'],
+        fields: ['place_id', 'formatted_address', 'name', 'geometry', 'address_components', 'rating', 'price_level']
       });
 
       autocompleteRef.current = autocomplete;
@@ -103,8 +103,13 @@ export default function GoogleMapsAutocomplete({
     }
 
     return () => {
-      if (autocompleteRef.current) {
-        google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      if (autocompleteRef.current && window.google && window.google.maps) {
+        // Clear the autocomplete listeners
+        const listeners = autocompleteRef.current as any;
+        if (listeners) {
+          // Use the global google object to clear listeners
+          (window as any).google.maps.event.clearInstanceListeners(listeners);
+        }
       }
     };
   }, [isLoaded, onLocationSelect, showMap]);
@@ -116,10 +121,9 @@ export default function GoogleMapsAutocomplete({
     try {
       const map = new google.maps.Map(mapRef.current, {
         zoom: 13,
-        center: { lat: -34.6037, lng: -58.3816 }, // Default to Buenos Aires
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false
+        center: new google.maps.LatLng(-34.6037, -58.3816), // Default to Buenos Aires
+        disableDefaultUI: false,
+        zoomControl: true
       });
 
       mapInstanceRef.current = map;
@@ -150,13 +154,13 @@ export default function GoogleMapsAutocomplete({
   }, [isLoaded, showMap, onLocationSelect]);
 
   // Extract structured location data from Google Places result
-  const extractLocationData = (place: google.maps.places.PlaceResult | google.maps.GeocoderResult): LocationData => {
+  const extractLocationData = (place: google.maps.places.PlaceResult | any): LocationData => {
     const components = place.address_components || [];
     let city = '';
     let state = '';
     let country = '';
 
-    components.forEach(component => {
+    components.forEach((component: any) => {
       const types = component.types;
       if (types.includes('locality')) {
         city = component.long_name;
@@ -187,7 +191,7 @@ export default function GoogleMapsAutocomplete({
   const updateMap = (location: LocationData) => {
     if (!mapInstanceRef.current) return;
 
-    const position = { lat: location.latitude, lng: location.longitude };
+    const position = new google.maps.LatLng(location.latitude, location.longitude);
     
     // Update map center
     mapInstanceRef.current.setCenter(position);

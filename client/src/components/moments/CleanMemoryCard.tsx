@@ -417,16 +417,19 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                   'grid-cols-2'
                 }`}>
                   {mediaToDisplay.map((url, index) => {
-                    // ESA LIFE CEO 61x21 - Enhanced video detection
-                    const lowerUrl = url.toLowerCase();
-                    const isVideo = lowerUrl.includes('.mp4') || 
+                    // ESA Framework Layer 13: Type-safe video detection
+                    const urlString = typeof url === 'string' ? url : String(url || '');
+                    const lowerUrl = urlString.toLowerCase();
+                    const isVideo = urlString && (
+                      lowerUrl.includes('.mp4') || 
                       lowerUrl.includes('.mov') || 
                       lowerUrl.includes('.webm') ||
                       lowerUrl.includes('.avi') ||
                       lowerUrl.includes('.m4v') ||
                       lowerUrl.includes('.mkv') ||
                       lowerUrl.includes('.flv') ||
-                      lowerUrl.includes('.wmv');
+                      lowerUrl.includes('.wmv')
+                    );
                     
                     // Ensure absolute URL
                     const fullUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`;

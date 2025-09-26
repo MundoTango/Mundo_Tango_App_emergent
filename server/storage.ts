@@ -1003,9 +1003,23 @@ export class DatabaseStorage implements IStorage {
   async getFeedPosts(userId: number, limit = 20, offset = 0, filterTags: string[] = []): Promise<Post[]> {
     if (filterTags.length === 0) {
       const result = await db
-        .select()
+        .select({
+          posts: posts,
+          users: users,
+          friendship: friends
+        })
         .from(posts)
         .leftJoin(users, eq(posts.userId, users.id))
+        .leftJoin(
+          friends, 
+          and(
+            or(
+              // Check both directions of friendship
+              and(eq(friends.userId, userId), eq(friends.friendId, posts.userId)),
+              and(eq(friends.userId, posts.userId), eq(friends.friendId, userId))
+            )
+          )
+        )
         .orderBy(desc(posts.createdAt))
         .limit(limit)
         .offset(offset);
@@ -1023,16 +1037,33 @@ export class DatabaseStorage implements IStorage {
           followerLevel: row.users.followerLevel,
           city: row.users.city,
           state: row.users.state,
-          country: row.users.country
+          country: row.users.country,
+          // ESA Layer 22: Include proper friendship status
+          friendshipStatus: row.friendship?.status || 'none', // 'accepted' | 'pending' | 'blocked' | 'none'
+          connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
         } : null
       }));
     }
 
     // Complex filtering with tag support
     const result = await db
-      .select()
+      .select({
+        posts: posts,
+        users: users,
+        friendship: friends
+      })
       .from(posts)
       .leftJoin(users, eq(posts.userId, users.id))
+      .leftJoin(
+        friends, 
+        and(
+          or(
+            // Check both directions of friendship
+            and(eq(friends.userId, userId), eq(friends.friendId, posts.userId)),
+            and(eq(friends.userId, posts.userId), eq(friends.friendId, userId))
+          )
+        )
+      )
       .where(
         and(
           ...filterTags.map(tag => sql`${posts.hashtags} @> ARRAY[${tag}]`)
@@ -1055,7 +1086,10 @@ export class DatabaseStorage implements IStorage {
         followerLevel: row.users.followerLevel,
         city: row.users.city,
         state: row.users.state,
-        country: row.users.country
+        country: row.users.country,
+        // ESA Layer 22: Include proper friendship status
+        friendshipStatus: row.friendship?.status || 'none', // 'accepted' | 'pending' | 'blocked' | 'none'
+        connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
       } : null
     }));
   }

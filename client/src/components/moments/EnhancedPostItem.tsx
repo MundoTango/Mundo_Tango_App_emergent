@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow, differenceInDays } from 'date-fns';
 import { Link } from 'wouter';
+import { MTCard, MTButton, MTBadge } from '@/components/ui-library';
 
 import { renderWithMentions } from '@/utils/renderWithMentions';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
@@ -45,6 +46,8 @@ interface Post {
     city?: string;
     state?: string;
     country?: string;
+    friendshipStatus?: 'accepted' | 'pending' | 'none' | 'following'; // ESA Framework: Friendship status
+    connectionType?: string; // ESA Framework: Connection type (friend, follower, etc)
   };
   likes?: number;
   commentsCount?: number;
@@ -402,15 +405,22 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
     : '';
 
   return (
-    <article 
-      className={`
-        relative bg-white/95 backdrop-blur-sm rounded-3xl border border-gray-100/50 
-        hover:scale-[1.01] hover:shadow-2xl hover:shadow-indigo-100/30
-        transition-all duration-300 ease-out
-        ${consentGlowClass}
-      `}
+    <MTCard 
+      variant="glass"
+      hover={true}
+      glow={true}
+      rounded="3xl"
+      padding="none"
+      className={`glassmorphic glassmorphic-hover overflow-hidden mb-4 group relative transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] border-2 border-teal-200/50 dark:border-teal-700/50 ${consentGlowClass}`}
       style={{ opacity: postAge }}
     >
+      {/* ESA Framework: Floating engagement indicator from MT Ocean theme */}
+      <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+        <MTBadge variant="gradient" size="sm" icon={<Sparkles className="w-3 h-3" />} glow={true}>
+          Hot
+        </MTBadge>
+      </div>
+      
       {/* Consent indicator glow effect */}
       {post.hasConsent && (
         <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-200 to-teal-200 rounded-3xl opacity-30 blur-sm animate-pulse"></div>
@@ -571,10 +581,12 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
             const allMedia: Array<{url: string, type: 'image' | 'video'}> = [];
             const processedUrls = new Set<string>();
             
-            // Helper function to detect video files
-            const isVideoFile = (url: string): boolean => {
+            // ESA Framework Layer 13: Type-safe video file detection
+            const isVideoFile = (url: string | any): boolean => {
               if (!url) return false;
-              const lower = url.toLowerCase();
+              const urlString = typeof url === 'string' ? url : String(url || '');
+              if (!urlString) return false;
+              const lower = urlString.toLowerCase();
               return lower.includes('.mp4') || lower.includes('.mov') || 
                      lower.includes('.webm') || lower.includes('.avi') ||
                      lower.includes('.m4v') || lower.includes('.mkv');
@@ -746,10 +758,24 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
             >
               <Share2 className="h-5 w-5" />
             </button>
+
+            {/* ESA LIFE CEO 61×21 - See Friendship button only for friends */}
+            {(post.user?.friendshipStatus === 'accepted' || 
+              post.user?.connectionType === 'friend') && (
+              <Link href={`/friendship/${post.user.id}`}>
+                <button
+                  data-testid={`button-see-friendship-${post.user.id}`}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200"
+                >
+                  <Users className="h-5 w-5" />
+                  <span>See Friendship</span>
+                </button>
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Post Actions Menu is already shown in header - no need to duplicate here */}
+            {/* Right side actions if needed */}
           </div>
         </footer>
 
@@ -948,7 +974,7 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
       </div>
 
       {/* ESA Layer 7 & 23: Edit handled by parent component's unified composer */}
-    </article>
+    </MTCard>
   );
 }
 
