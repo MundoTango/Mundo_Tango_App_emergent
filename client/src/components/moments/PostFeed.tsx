@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Heart, Search, X, Tag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import PostItem from './PostItem';
+import EnhancedPostItem from './EnhancedPostItem';
 import ShareModal from '../modern/ShareModal';
 
 interface Post {
@@ -229,7 +229,7 @@ export default function PostFeed() {
       <div className="space-y-12 lg:space-y-16">
         {posts.map((post: Post) => (
           <div key={post.id} className="transform transition-all duration-300 hover:scale-[1.01]">
-            <PostItem
+            <EnhancedPostItem
               post={post}
               onLike={handleLikePost}
               onShare={handleSharePost}

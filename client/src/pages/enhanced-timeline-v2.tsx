@@ -242,12 +242,12 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                animation: 'float 4s ease-in-out infinite'
              }} />
       </div>
-      
+
       <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
         {/* Ocean accent decoration */}
         <div className="absolute -top-2 -right-2 w-24 h-24 bg-gradient-to-br from-turquoise-200 to-cyan-200 rounded-full blur-2xl opacity-30" />
         <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-full blur-2xl opacity-25" />
-        
+
         {/* Enhanced Header with consistent layout */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
@@ -261,7 +261,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
               {/* Online indicator */}
               <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full animate-pulse" />
             </div>
-          
+
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-lg text-gray-900 group-hover:text-turquoise-700 transition-colors">
@@ -269,7 +269,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 </h3>
                 <span className="text-sm text-gray-500">@{memory.userUsername || memory.user?.username || 'user'}</span>
               </div>
-              
+
               {/* Location and roles in same line for consistency */}
               <div className="flex items-center gap-3 mt-1">
                 {memory.user && formatUserLocation(memory.user) && (
@@ -278,9 +278,9 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                     <span>{formatUserLocation(memory.user)}</span>
                   </div>
                 )}
-                
+
                 <RoleEmojiDisplay
-                  tangoRoles={memory.user?.tangoRoles || []}
+                  roles={memory.user?.tangoRoles || []}
                   size="sm"
                   className="inline-flex"
                 />
@@ -311,7 +311,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
               </div>
             </div>
           )}
-          
+
           {memory.hashtags && memory.hashtags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {memory.hashtags.map((tag, i) => (
@@ -437,7 +437,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             onSubmit={handleComment}
             placeholder="Write a comment..."
           />
-          
+
           {comments.length > 0 && (
             <div className="space-y-3">
               {comments.map((comment: any) => (
@@ -476,7 +476,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 <p className="font-medium">Share to Timeline</p>
                 <p className="text-sm text-gray-600">Share this memory on your timeline</p>
               </button>
-              
+
               <button
                 onClick={() => {
                   const comment = prompt("Add a comment to your share:");
@@ -487,7 +487,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 <p className="font-medium">Share with Comment</p>
                 <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
               </button>
-              
+
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(`${window.location.origin}/memories/${memory.id}`);
@@ -521,369 +521,14 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
          prevProps.memory.comments?.length === nextProps.memory.comments?.length;
 });
 
-// Life CEO 44x21s: Memory Card with Backend Interactions
-const MemoryCardWithInteractions: React.FC<{
-  memory: Memory;
-  user: any;
-}> = ({ memory, user }) => {
-  const { toast } = useToast();
-  const [showCommentBox, setShowCommentBox] = useState(false);
-  const [commentText, setCommentText] = useState('');
-  const [showShareDialog, setShowShareDialog] = useState(false);
-  const [showReportDialog, setShowReportDialog] = useState(false);
-  const [reportReason, setReportReason] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
-  
-  // Reaction mutation
-  const reactionMutation = useMutation({
-    mutationFn: async ({ emoji }: { emoji: string }) => {
-      return apiRequest('/api/posts/' + memory.id + '/reactions', {
-        method: 'POST',
-        body: JSON.stringify({ reaction: emoji })
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      toast({
-        title: "Reaction added! 💃",
-        description: "Your reaction has been added to the memory",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to add reaction",
-        description: error.message || "Please try again",
-        variant: "destructive"
-      });
-    }
-  });
-
-  // Comment mutation
-  const commentMutation = useMutation({
-    mutationFn: async ({ content }: { content: string }) => {
-      return apiRequest('/api/posts/' + memory.id + '/comments', {
-        method: 'POST',
-        body: { content }
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      toast({
-        title: "Comment posted! 💬",
-        description: "Your comment has been added",
-      });
-      setCommentText('');
-      setShowCommentBox(false);
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to post comment",
-        description: error.message || "Please try again",
-        variant: "destructive"
-      });
-    }
-  });
-
-  // Share mutation
-  const shareMutation = useMutation({
-    mutationFn: async ({ comment }: { comment?: string }) => {
-      return apiRequest('/api/posts/' + memory.id + '/share', {
-        method: 'POST',
-        body: { comment }
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      toast({
-        title: "Memory shared! 🎉",
-        description: "Memory has been shared to your timeline",
-      });
-      setShowShareDialog(false);
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to share",
-        description: error.message || "Please try again",
-        variant: "destructive"
-      });
-    }
-  });
-
-  // Save mutation (using bookmark/save endpoint)
-  const saveMutation = useMutation({
-    mutationFn: async () => {
-      return apiRequest('/api/posts/' + memory.id + '/save', {
-        method: 'POST',
-        body: {}
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Memory saved! 📌",
-        description: "Memory has been saved to your collection",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to save",
-        description: error.message || "Please try again",
-        variant: "destructive"
-      });
-    }
-  });
-
-  // Report mutation - Life CEO 44x21s methodology
-  const reportMutation = useMutation({
-    mutationFn: async ({ reason, description }: { reason: string; description?: string }) => {
-      return apiRequest('/api/posts/' + memory.id + '/report', {
-        method: 'POST',
-        body: { 
-          reportType: reason,
-          description: description || '',
-          memoryId: memory.id
-        }
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Report submitted 🔍",
-        description: "Thank you for helping keep our community safe. An admin will review this shortly.",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to submit report",
-        description: error.message || "Please try again",
-        variant: "destructive"
-      });
-    }
-  });
-
-  const handleInteraction = (type: string, data?: any) => {
-    console.log('Memory interaction:', type, data);
-    
-    switch (type) {
-      case 'reaction':
-        if (data?.emoji) {
-          reactionMutation.mutate({ emoji: data.emoji });
-        }
-        break;
-      case 'comment':
-        setShowCommentBox(true);
-        break;
-      case 'share':
-        setShowShareDialog(true);
-        break;
-      case 'save':
-        saveMutation.mutate();
-        break;
-      case 'report':
-        // Show report dialog
-        setShowReportDialog(true);
-        break;
-      case 'edit':
-        // Handle edit if user owns the post
-        if (memory.userId === user?.id) {
-          toast({ title: "Edit feature coming soon!" });
-        }
-        break;
-      case 'delete':
-        // Handle delete if user owns the post
-        if (memory.userId === user?.id) {
-          toast({ title: "Delete feature coming soon!" });
-        }
-        break;
-    }
-  };
-
-  return (
-    <>
-      <VideoMemoryCard 
-        post={memory}
-      />
-      
-      {/* Comment Box */}
-      {showCommentBox && (
-        <div className="mt-2 p-4 glassmorphic-card rounded-xl animate-fadeIn">
-          <div className="flex gap-2">
-            <Textarea
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              placeholder="Write a comment..."
-              className="flex-1 min-h-[60px] glassmorphic-input"
-              disabled={commentMutation.isPending}
-            />
-            <div className="flex flex-col gap-2">
-              <Button
-                onClick={() => {
-                  if (commentText.trim()) {
-                    commentMutation.mutate({ content: commentText });
-                  }
-                }}
-                disabled={!commentText.trim() || commentMutation.isPending}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:from-turquoise-600 hover:to-cyan-700"
-              >
-                {commentMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Post'}
-              </Button>
-              <Button
-                onClick={() => {
-                  setShowCommentBox(false);
-                  setCommentText('');
-                }}
-                variant="ghost"
-                size="sm"
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Report Dialog */}
-      {showReportDialog && (
-        <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
-          <DialogContent className="glassmorphic-card">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-700">
-                Report Memory
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 mt-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700">Reason for reporting</label>
-                <select 
-                  value={reportReason}
-                  onChange={(e) => setReportReason(e.target.value)}
-                  className="w-full mt-1 p-2 glassmorphic-input rounded-lg"
-                >
-                  <option value="">Select a reason</option>
-                  <option value="inappropriate">Inappropriate Content</option>
-                  <option value="spam">Spam</option>
-                  <option value="harassment">Harassment</option>
-                  <option value="misinformation">Misinformation</option>
-                  <option value="copyright">Copyright Violation</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              
-              <div>
-                <label className="text-sm font-medium text-gray-700">Additional details (optional)</label>
-                <Textarea
-                  value={reportDescription}
-                  onChange={(e) => setReportDescription(e.target.value)}
-                  placeholder="Please provide more context..."
-                  className="w-full mt-1 glassmorphic-input"
-                  rows={3}
-                />
-              </div>
-              
-              <div className="flex gap-2 justify-end">
-                <Button
-                  onClick={() => {
-                    setShowReportDialog(false);
-                    setReportReason('');
-                    setReportDescription('');
-                  }}
-                  variant="ghost"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={() => {
-                    if (reportReason) {
-                      reportMutation.mutate({ 
-                        reason: reportReason, 
-                        description: reportDescription 
-                      });
-                      setShowReportDialog(false);
-                      setReportReason('');
-                      setReportDescription('');
-                    }
-                  }}
-                  disabled={!reportReason || reportMutation.isPending}
-                  className="bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700"
-                >
-                  {reportMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Submit Report'}
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
-
-      {/* Share Dialog */}
-      {showShareDialog && (
-        <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
-          <DialogContent className="glassmorphic-card">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-700">
-                Share Memory
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-3 mt-4">
-              <Button
-                onClick={() => shareMutation.mutate({})}
-                disabled={shareMutation.isPending}
-                className="w-full justify-start hover:bg-turquoise-50 transition-colors"
-                variant="ghost"
-              >
-                <Share2 className="w-4 h-4 mr-2 text-turquoise-600" />
-                <div className="text-left">
-                  <p className="font-medium">Share to Timeline</p>
-                  <p className="text-sm text-gray-600">Share this memory on your timeline</p>
-                </div>
-              </Button>
-              
-              <Button
-                onClick={() => {
-                  const comment = prompt("Add a comment to your share:");
-                  if (comment !== null) {
-                    shareMutation.mutate({ comment });
-                  }
-                }}
-                disabled={shareMutation.isPending}
-                className="w-full justify-start hover:bg-turquoise-50 transition-colors"
-                variant="ghost"
-              >
-                <MessageCircle className="w-4 h-4 mr-2 text-turquoise-600" />
-                <div className="text-left">
-                  <p className="font-medium">Share with Comment</p>
-                  <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
-                </div>
-              </Button>
-              
-              <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/memories/${memory.id}`);
-                  toast({ title: "Link copied! 📋" });
-                  setShowShareDialog(false);
-                }}
-                className="w-full justify-start hover:bg-turquoise-50 transition-colors"
-                variant="ghost"
-              >
-                <X className="w-4 h-4 mr-2 text-turquoise-600" />
-                <div className="text-left">
-                  <p className="font-medium">Copy Link</p>
-                  <p className="text-sm text-gray-600">Copy memory link to clipboard</p>
-                </div>
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
-    </>
-  );
-};
-
 export default function EnhancedTimelineV2() {
   const { toast } = useToast();
   const { user } = useAuth();
-  
+
   // Performance monitoring
   const cleanup = measureComponentPerformance('EnhancedTimelineV2');
   useMemoryCleanup([]);
-  
+
   console.log('EnhancedTimelineV2 component loaded!', { user });
 
   // Create memory mutation - using Life CEO 44x21s methodology
@@ -895,7 +540,7 @@ export default function EnhancedTimelineV2() {
       formData.append('richContent', data.content || '');
       formData.append('visibility', data.visibility || 'public');
       formData.append('location', data.location || '');
-      
+
       // Add hashtags, mentions, and emotions
       if (data.hashtags?.length) {
         formData.append('hashtags', JSON.stringify(data.hashtags));
@@ -906,7 +551,7 @@ export default function EnhancedTimelineV2() {
       if (data.emotionTags?.length) {
         formData.append('emotionTags', JSON.stringify(data.emotionTags));
       }
-      
+
       // Add media files directly
       if (data.media?.length) {
         data.media.forEach((item: any) => {
@@ -918,7 +563,7 @@ export default function EnhancedTimelineV2() {
           }
         });
       }
-      
+
       // Use the enhanced posts endpoint that exists
       const response = await apiRequest('/api/posts/enhanced', {
         method: 'POST',
@@ -958,20 +603,20 @@ export default function EnhancedTimelineV2() {
     networkMode: 'offlineFirst', // Use cached data first
     structuralSharing: false // Disable structural sharing to prevent re-renders
   });
-  
+
   // ESA Debug: Log when data changes
   React.useEffect(() => {
     if (feedData) {
       // Feed data updated
     }
   }, [feedData, isRefetching]);
-  
+
   // ESA-44x21 Fix: Extract posts array from response
   let posts: Memory[] = [];
-  
+
   // Debug the raw feedData
   // Initial feedData check
-  
+
   // Simple direct extraction - the API returns {success: true, data: [...]}
   if (feedData && typeof feedData === 'object' && 'data' in feedData) {
     const data = (feedData as any).data;
@@ -987,15 +632,15 @@ export default function EnhancedTimelineV2() {
   } else {
     // Unable to extract posts from feedData
   }
-  
+
   // Debug - Posts data processed
-  
+
   // Debug feed data structure
   if (feedData && typeof feedData === 'object') {
     const typedFeedData = feedData as any;
     // Feed structure validated
   }
-  
+
   // Debug each post
   posts.forEach((post, index) => {
     console.log(`Post ${index}:`, {
@@ -1006,7 +651,7 @@ export default function EnhancedTimelineV2() {
       userName: post.user?.name
     });
   });
-  
+
   // Cleanup performance monitoring on unmount
   useEffect(() => {
     return cleanup;
@@ -1075,7 +720,7 @@ export default function EnhancedTimelineV2() {
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-r from-turquoise-400/10 via-blue-400/10 to-cyan-400/10 rounded-3xl blur-xl opacity-50 animate-pulse" />
-                      
+
                       <Card className="relative glassmorphic-card p-6 space-y-4 rounded-3xl border-white/50">
                         {/* Header Skeleton */}
                         <div className="flex items-start justify-between">
@@ -1149,7 +794,6 @@ export default function EnhancedTimelineV2() {
           </div>
         </div>
       </div>
-    </div>
     </DashboardLayout>
   );
 }

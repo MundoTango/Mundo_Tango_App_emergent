@@ -29,6 +29,11 @@ export default function UpcomingEventsSidebar() {
     queryKey: ['/api/events/feed'],
   });
 
+  // Navigation handler for events - ESA Framework Layer 7: Use native navigation for stability
+  const handleEventClick = (eventId: number) => {
+    window.location.href = `/events/${eventId}`;
+  };
+
   // Combine all events and sort by date
   const allEvents = [
     ...(eventsData?.data?.upcoming_events || []),
@@ -59,7 +64,11 @@ export default function UpcomingEventsSidebar() {
       ) : allEvents.length > 0 ? (
         <div className="space-y-4">
           {allEvents.slice(0, 5).map((event) => (
-            <Card key={event.id} className="p-4 hover:shadow-md transition-shadow border-l-4 border-l-turquoise-400">
+            <Card 
+              key={event.id} 
+              className="p-4 hover:shadow-md transition-all cursor-pointer border-l-4 border-l-turquoise-400 hover:bg-turquoise-50/20"
+              onClick={() => handleEventClick(event.id)}
+            >
               <div className="space-y-2">
                 <div className="flex items-start justify-between">
                   <h3 className="font-semibold text-sm text-gray-800 line-clamp-2">
@@ -87,7 +96,15 @@ export default function UpcomingEventsSidebar() {
                     <Users className="w-3 h-3" />
                     {event.attendeesCount} attending
                   </div>
-                  <Button size="sm" variant="outline" className="text-xs h-6 px-2">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="text-xs h-6 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEventClick(event.id);
+                    }}
+                  >
                     View
                   </Button>
                 </div>
@@ -95,17 +112,38 @@ export default function UpcomingEventsSidebar() {
             </Card>
           ))}
           
-          {allEvents.length > 5 && (
-            <Button variant="ghost" className="w-full text-sm">
-              View All Events ({allEvents.length})
-            </Button>
-          )}
+          <Button 
+            variant="default" 
+            className="w-full text-sm bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('Navigating to /events page');
+              setLocation('/events');
+            }}
+          >
+            View All Events {allEvents.length > 0 && `(${allEvents.length})`}
+          </Button>
         </div>
       ) : (
-        <div className="text-center py-8">
-          <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 text-sm mb-2">No upcoming events found</p>
-          <p className="text-gray-400 text-xs">Check back later for new events</p>
+        <div className="space-y-4">
+          <div className="text-center py-8">
+            <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 text-sm mb-2">No upcoming events found</p>
+            <p className="text-gray-400 text-xs mb-4">Check back later for new events</p>
+          </div>
+          <Button 
+            variant="default" 
+            className="w-full text-sm bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('Navigating to /events page from empty state');
+              setLocation('/events');
+            }}
+          >
+            Browse All Events
+          </Button>
         </div>
       )}
     </div>

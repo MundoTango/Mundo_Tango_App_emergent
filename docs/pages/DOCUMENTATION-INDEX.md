@@ -1,10 +1,20 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 92 pages  
+**Total Pages Documented:** 88 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
-**Google Maps API:** ✅ Integrated (worldwide business search)  
+**Google Maps API:** ✅ Integrated (worldwide business search)
+
+## Latest Architecture Updates (September 26, 2025)
+
+### Component Consolidation - UnifiedPostFeed
+- **Consolidated:** 3 separate feed components (EnhancedPostFeed, 2x EnhancedPostFeedSimple) → 1 UnifiedPostFeed component
+- **Dual Modes:** `simple` (lightweight) and `full` (feature-rich) modes in single component
+- **Friendship Integration:** Fixed "See Friendship" button with proper data flow (accepted/pending/none/following)
+- **MT Ocean Theme:** Consistent glassmorphic design with teal-cyan gradients
+- **ESA Compliance:** Follows Layer 9 (UI Framework) and Layer 2 (API Structure) principles
+- **Benefits:** Reduced code duplication, consistent behavior, easier maintenance  
 
 ## 📚 Documentation Organization
 
@@ -56,16 +66,12 @@
 - [Live Streaming](/docs/pages/community/LiveStreaming.md) - `/live-streaming` - Live video streaming for events and classes
 - [Gamification](/docs/pages/community/Gamification.md) - `/gamification` - Points, badges, and rewards system
 
-### 📝 Content & Timeline (9 pages)
-- [Moments Feed (Root)](/docs/pages/content/moments.md) - `/` - Homepage/root path
-- [Moments Feed](/docs/pages/content/moments.md) - `/moments` - Direct moments route
-- [Modern Memories](/docs/pages/content/ModernMemoriesPage.md) - `/memories`
-- [Unified Memories](/docs/pages/content/UnifiedMemories.md) - `/unified-memories`
-- [Enhanced Timeline v2](/docs/pages/content/enhanced-timeline-v2.md) - `/enhanced-timeline`
+### 📝 Content & Timeline (5 pages)
+- [Memory Feed (Unified)](/docs/pages/content/MemoryFeedUnified.md) - `/memories` - Unified memory feed implementation with consolidated UnifiedPostFeed component (Sept 26, 2025)
 - [Landing Page](/docs/pages/content/landing.md) - `/landing`
 - [Search](/docs/pages/content/search.md) - `/search`
 - [Posting Demo](/docs/pages/content/PostingDemo.md) - `/posting-demo`
-- [Timeline Minimal](/docs/pages/content/timeline-minimal.md) - `/timeline-minimal`
+- [Archive Reference](/docs/pages/content/archive-reference/) - Historical documentation for reference only
 
 ### 💰 Billing & Subscriptions (6 pages)
 - [Subscribe](/docs/pages/billing/Subscribe.md) - `/subscribe`

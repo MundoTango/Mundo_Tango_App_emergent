@@ -22,10 +22,10 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
             </div>
             <div>
               <h1 className="text-4xl lg:text-5xl font-black mt-ocean-text drop-shadow-sm">
-                Memories Feed
+                WRONG COMPONENT - THIS SHOULD NOT SHOW
               </h1>
               <p className="text-blue-600/80 mt-2 text-lg font-medium">
-                Share your tango journey with the world ✨
+                THIS IS THE WRONG COMPONENT - NOT PIERRE DUBOIS
               </p>
             </div>
           </div>

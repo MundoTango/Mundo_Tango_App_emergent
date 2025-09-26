@@ -6,6 +6,8 @@ interface User {
   username: string;
   email: string;
   profileImage?: string;
+  profilePicture?: string; // ESA Framework: Additional field for profile picture
+  avatar?: string; // ESA Framework: Avatar field for real-time features
   // Additional fields for onboarding and role management
   formStatus?: number;
   isOnboardingComplete?: boolean;

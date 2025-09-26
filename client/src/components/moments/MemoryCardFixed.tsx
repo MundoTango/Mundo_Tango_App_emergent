@@ -89,8 +89,10 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
                 mediaUrls.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
               }`}>
                 {mediaUrls.map((url, index) => {
-                  const isVideo = url.toLowerCase().match(/\.(mp4|mov|webm|avi|m4v)/);
-                  const fullUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`;
+                  // ESA Framework Layer 13: Type-safe media processing
+                  const urlString = typeof url === 'string' ? url : String(url || '');
+                  const isVideo = urlString && urlString.toLowerCase().match(/\.(mp4|mov|webm|avi|m4v)/);
+                  const fullUrl = urlString.startsWith('http') ? urlString : `${window.location.origin}${urlString}`;
                   const key = `${post.id}-media-${index}`;
                   
                   // Rendering media item

@@ -118,7 +118,9 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const offset = parseInt(req.query.offset as string) || 0;
     
     // ESA LIFE CEO 56x21 - Get posts from database using correct method
+    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}`);
     const posts = await storage.getFeedPosts(userId, limit, offset);
+    console.log(`✅ Found ${posts.length} posts in database`);
     
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
@@ -141,10 +143,19 @@ router.get('/api/posts/feed', async (req: any, res) => {
       // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
       // First check mediaEmbeds (where we store all media URLs)
       if (post.mediaEmbeds && Array.isArray(post.mediaEmbeds) && post.mediaEmbeds.length > 0) {
-        // Use mediaEmbeds as the source for all media URLs
-        formattedPost.mediaUrls = post.mediaEmbeds.map((url: string) => 
-          url.startsWith('/') ? url : `/${url}`
-        );
+        // ESA Layer 13: Handle both string and object formats in mediaEmbeds
+        formattedPost.mediaUrls = post.mediaEmbeds.map((media: any) => {
+          // If it's an object with url property (new format)
+          if (typeof media === 'object' && media.url) {
+            const url = media.url;
+            return url.startsWith('/') ? url : `/${url}`;
+          }
+          // If it's a string (old format)
+          else if (typeof media === 'string') {
+            return media.startsWith('/') ? media : `/${media}`;
+          }
+          return null;
+        }).filter(Boolean); // Remove any null values
         // Set imageUrl/videoUrl from mediaUrls for backward compatibility
         if (!formattedPost.imageUrl && formattedPost.mediaUrls.length > 0) {
           formattedPost.imageUrl = formattedPost.mediaUrls[0];
@@ -304,6 +315,8 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     
     const postData = {
       content: req.body.content || '',
+      richContent: req.body.richContent || null,
+      plainText: req.body.content || '', // ESA Layer 9: Plain text for search
       userId,
       imageUrl,
       videoUrl,
@@ -358,6 +371,8 @@ router.post('/api/posts/with-image', requireAuth, upload.single('image'), async 
     
     const postData = {
       content: req.body.content || '',
+      richContent: req.body.richContent || null,
+      plainText: req.body.content || '', // ESA Layer 9: Plain text for search
       userId,
       imageUrl,
       mediaEmbeds: mediaUrls,
@@ -400,7 +415,8 @@ router.post('/api/posts/direct', async (req: any, res) => {
     }
     
     const { 
-      content, 
+      content,
+      richContent, 
       mediaUrls = [], 
       cloudMediaUrls = [],
       isPublic = true,
@@ -431,6 +447,8 @@ router.post('/api/posts/direct', async (req: any, res) => {
     
     const postData = {
       content: content || '',
+      richContent: richContent || null,
+      plainText: content || '', // ESA Layer 9: Plain text for search
       userId,
       imageUrl,
       videoUrl,

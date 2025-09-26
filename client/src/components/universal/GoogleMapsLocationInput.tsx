@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { MapPin, Loader, Link, Edit3 } from 'lucide-react';
+import { MapPin, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
 
 interface LocationDetails {
   name: string;
@@ -97,11 +93,6 @@ export default function GoogleMapsLocationInput({
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [showManualEntry, setShowManualEntry] = useState(false);
-  const [manualVenue, setManualVenue] = useState<LocationDetails>({
-    name: '',
-    address: ''
-  });
   
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteServiceRef = useRef<any>(null);
@@ -145,11 +136,10 @@ export default function GoogleMapsLocationInput({
           description: "Searching for this place...",
         });
         
-        // If we can't extract Place ID, offer manual entry
-        setShowManualEntry(true);
+        // If we can't extract Place ID, show notification
         toast({
-          title: "Place not found in search index",
-          description: "You can enter the venue details manually",
+          title: "Place not found",
+          description: "Please try searching for the venue name instead",
         });
       } catch (error) {
         console.error('Error processing Google Maps URL:', error);
@@ -331,106 +321,6 @@ export default function GoogleMapsLocationInput({
         )}
       </div>
       
-      {/* Manual Entry Options */}
-      {allowManualEntry && !showSuggestions && (
-        <div className="flex items-center gap-2 mt-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => setShowManualEntry(!showManualEntry)}
-            className="text-xs flex items-center gap-1"
-          >
-            <Edit3 className="w-3 h-3" />
-            {showManualEntry ? 'Cancel Manual Entry' : "Can't find your venue? Enter manually"}
-          </Button>
-          {allowGoogleMapsUrl && (
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="text-xs flex items-center gap-1"
-              onClick={() => {
-                toast({
-                  title: "Paste Google Maps URL",
-                  description: "You can paste a Google Maps link in the search box",
-                });
-              }}
-            >
-              <Link className="w-3 h-3" />
-              Have a Google Maps link?
-            </Button>
-          )}
-        </div>
-      )}
-
-      {/* Manual Entry Form */}
-      {showManualEntry && (
-        <Card className="mt-4 p-4 border-2 border-turquoise-200 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50">
-          <h4 className="font-semibold text-sm mb-3 text-gray-700">Enter Venue Details Manually</h4>
-          <div className="space-y-3">
-            <div>
-              <label className="text-xs text-gray-600 mb-1 block">Venue Name *</label>
-              <Input
-                value={manualVenue.name}
-                onChange={(e) => setManualVenue(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="e.g., El Beso - La Casa de la Milonga Permanente"
-                className="text-sm"
-              />
-            </div>
-            <div>
-              <label className="text-xs text-gray-600 mb-1 block">Address *</label>
-              <Textarea
-                value={manualVenue.address}
-                onChange={(e) => setManualVenue(prev => ({ ...prev, address: e.target.value }))}
-                placeholder="e.g., Riobamba 416, Buenos Aires, Argentina"
-                className="text-sm min-h-[60px]"
-              />
-            </div>
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                size="sm"
-                onClick={() => {
-                  if (manualVenue.name && manualVenue.address) {
-                    onChange(manualVenue.name, undefined, {
-                      name: manualVenue.name,
-                      address: manualVenue.address,
-                      coordinates: manualVenue.coordinates
-                    });
-                    setShowManualEntry(false);
-                    setManualVenue({ name: '', address: '' });
-                    toast({
-                      title: "Venue added manually! ✅",
-                      description: `${manualVenue.name} has been added`,
-                    });
-                  } else {
-                    toast({
-                      title: "Missing information",
-                      description: "Please enter both name and address",
-                      variant: "destructive"
-                    });
-                  }
-                }}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
-              >
-                Add Venue
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setShowManualEntry(false);
-                  setManualVenue({ name: '', address: '' });
-                }}
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </Card>
-      )}
 
       {/* Suggestions dropdown */}
       {showSuggestions && suggestions.length > 0 && (

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import GoogleMapsLocationInput from './GoogleMapsLocationInput';
@@ -65,6 +65,7 @@ interface PostCreatorProps {
   // Custom submit handler for memories feed integration
   onSubmit?: (data: {
     content: string;
+    richContent?: string;
     emotions?: string[];
     location?: string;
     tags: string[];
@@ -80,6 +81,7 @@ interface PostCreatorProps {
   existingPost?: {
     id: number;
     content: string;
+    richContent?: string;
     location?: string;
     visibility?: 'public' | 'friends' | 'private';
     hashtags?: string[];
@@ -98,7 +100,10 @@ export default function BeautifulPostCreator({
   onEditComplete 
 }: PostCreatorProps) {
   // ESA Layer 7 & 23: Initialize with existing post data in edit mode
+  // ESA Layer 9: Rich text editing implementation
   const [content, setContent] = useState(existingPost?.content || '');
+  const [richContent, setRichContent] = useState(existingPost?.richContent || existingPost?.content || '');
+  const editorRef = useRef<HTMLDivElement>(null);
   const [showAdvanced, setShowAdvanced] = useState(editMode); // Show advanced in edit mode
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
@@ -109,7 +114,10 @@ export default function BeautifulPostCreator({
     editMode && existingPost?.media ? existingPost.media.map(m => m.url) : []
   );
   // ESA Layer 13: Internal-only media URLs system
-  const [internalMediaUrls, setInternalMediaUrls] = useState<string[]>([]);
+  // In edit mode, initialize with existing media URLs
+  const [internalMediaUrls, setInternalMediaUrls] = useState<string[]>(
+    editMode && existingPost?.media ? existingPost.media.map(m => m.url) : []
+  );
   const [cloudMediaUrls, setCloudMediaUrls] = useState<string[]>([]);
   const [isRecommendation, setIsRecommendation] = useState(false);
   const [recommendationType, setRecommendationType] = useState('');
@@ -279,17 +287,24 @@ export default function BeautifulPostCreator({
           headers['x-csrf-token'] = csrfToken;
         }
         
+        // ESA Layer 13: Format media as mediaEmbeds with type detection
+        const mediaEmbeds = internalMediaUrls.map(url => ({
+          url,
+          type: url.match(/\.(mp4|webm|mov|avi)$/i) ? 'video' : 'image'
+        }));
+
         const response = await fetch(`/api/posts/${existingPost.id}`, {
           method: 'PATCH',
           headers,
           credentials: 'include',
           body: JSON.stringify({
             content: postData.content,
+            richContent: richContent,
             location: postData.location,
             visibility: postData.visibility,
             hashtags: postData.tags,
-            // Include any new media URLs if added
-            mediaUrls: internalMediaUrls.length > 0 ? internalMediaUrls : undefined
+            // ESA Framework: Send media as properly formatted mediaEmbeds
+            mediaEmbeds: mediaEmbeds.length > 0 ? mediaEmbeds : undefined
           })
         });
 
@@ -338,6 +353,7 @@ export default function BeautifulPostCreator({
           credentials: 'include',
           body: JSON.stringify({
             ...postData,
+            richContent: richContent,
             mediaUrls: internalMediaUrls, // Send internal URLs directly
             mediaType: 'internal'
           })
@@ -573,6 +589,7 @@ export default function BeautifulPostCreator({
 
       // Reset form
       setContent('');
+      setRichContent('');
       setLocation('');
       setSelectedTags([]);
       setMediaFiles([]);
@@ -660,6 +677,7 @@ export default function BeautifulPostCreator({
 
   const useEnhancedContent = () => {
     setContent(enhancedContent);
+    setRichContent(enhancedContent);
     setShowEnhancement(false);
     setEnhancedContent(''); // Clear enhanced content after use
     toast({
@@ -712,6 +730,7 @@ export default function BeautifulPostCreator({
 
       // Reset form after submission
       setContent('');
+      setRichContent('');
       setLocation('');
       setSelectedTags([]);
       setMediaFiles([]);
@@ -740,6 +759,7 @@ export default function BeautifulPostCreator({
     console.log('✅ ESA Layer 13: Using default mutation path!');
     const postData = {
       content,
+      richContent,
       visibility,
       tags: selectedTags,
       location: location || undefined,
@@ -760,6 +780,43 @@ export default function BeautifulPostCreator({
   // Handle typing with particle effects
   const handleTyping = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // createTypingParticle(e); // Temporarily disabled for performance
+  };
+  
+  // ESA Layer 9: Initialize editor content
+  useEffect(() => {
+    if (editorRef.current && richContent && !editorRef.current.innerHTML) {
+      // Only set initial content if editor is empty
+      editorRef.current.innerHTML = richContent;
+    }
+  }, []); // Only run once on mount
+  
+  // ESA Layer 9: Apply text formatting
+  const applyFormatting = (format: string) => {
+    if (!editorRef.current) return;
+    
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+    
+    const range = selection.getRangeAt(0);
+    const selectedText = range.toString();
+    
+    if (selectedText) {
+      document.execCommand(format, false);
+      const html = editorRef.current.innerHTML;
+      setRichContent(html);
+    }
+  };
+  
+  // Insert emoji at cursor position
+  const insertEmoji = (emoji: string) => {
+    if (!editorRef.current) return;
+    
+    editorRef.current.focus();
+    document.execCommand('insertText', false, emoji);
+    const text = editorRef.current.innerText;
+    const html = editorRef.current.innerHTML;
+    setContent(text);
+    setRichContent(html);
   };
 
   // Handle file selection with universal format support
@@ -901,7 +958,7 @@ export default function BeautifulPostCreator({
               </div>
             </div>
 
-            {/* Enhanced Text input with animated placeholder */}
+            {/* ESA Layer 9: Rich Text Editor - Simplified for stability */}
             <div className="relative">
               <textarea
                 value={content}
@@ -909,6 +966,7 @@ export default function BeautifulPostCreator({
                   const value = e.target.value;
                   const cursorPos = e.target.selectionStart || 0;
                   setContent(value);
+                  setRichContent(value); // For now, keep them in sync
                   setCursorPosition(cursorPos);
 
                   // ESA LIFE CEO 61x21 - Detect @mention
@@ -948,13 +1006,14 @@ export default function BeautifulPostCreator({
                       type="button"
                       className="w-full px-4 py-2 text-left hover:bg-turquoise-50 flex items-center gap-2 transition-colors"
                       onClick={() => {
-                        const lastAtIndex = content.lastIndexOf('@', cursorPosition - 1);
-                        if (lastAtIndex !== -1) {
-                          const newContent = 
-                            content.substring(0, lastAtIndex) +
-                            `@${user.username} ` +
-                            content.substring(cursorPosition);
-                          setContent(newContent);
+                        // Insert mention into rich text editor
+                        const plainTextIndex = content.lastIndexOf('@', content.length);
+                        if (plainTextIndex !== -1) {
+                          const beforeMention = richContent.substring(0, richContent.lastIndexOf('@'));
+                          const afterMention = '';
+                          const mentionHtml = `${beforeMention}<strong>@${user.username}</strong>&nbsp;${afterMention}`;
+                          setRichContent(mentionHtml);
+                          setContent(content.replace(/@[^\s]*$/, `@${user.username} `));
                           setShowMentions(false);
                           setMentionSearch('');
                         }
@@ -1300,6 +1359,7 @@ export default function BeautifulPostCreator({
                 <EmojiPicker
                   onEmojiClick={(emojiData) => {
                     setContent(prev => prev + emojiData.emoji);
+                    setRichContent(prev => prev + emojiData.emoji);
                     setShowEmojiPicker(false);
                   }}
                   lazyLoadEmojis

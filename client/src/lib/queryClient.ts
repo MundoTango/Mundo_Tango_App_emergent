@@ -6,7 +6,8 @@ let csrfToken: string | null = null;
 // Fetch CSRF token
 async function fetchCsrfToken() {
   try {
-    const response = await fetch('/api/auth/csrf-token', {
+    // ESA Framework Layer 3: Use correct security endpoint
+    const response = await fetch('/api/security/csrf-token', {
       credentials: 'include'
     });
     if (response.ok) {

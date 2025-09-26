@@ -4,7 +4,7 @@ import { useAuthContext } from '../../auth/useAuthContext';
 import { useMemorySocket, useMemoryRealtimeEvents } from '../../hooks/useSocket';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
 import ModernPostComposer from '@/components/modern/ModernPostComposer';
-import ModernPostCard from '@/components/modern/ModernPostCard';
+import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
 import ModernTagFilter from '@/components/modern/ModernTagFilter';
 import ModernLoadingState from '@/components/modern/ModernLoadingState';
 import { apiRequest } from '@/lib/queryClient';
@@ -415,7 +415,7 @@ export default function EnhancedMemoriesRealtime() {
           ) : posts && posts.length > 0 ? (
             posts.map((post: Post) => (
               <div key={post.id} className="relative">
-                <ModernPostCard
+                <EnhancedPostItem
                   post={post}
                   onLike={handleLike}
                   onComment={handleComment}

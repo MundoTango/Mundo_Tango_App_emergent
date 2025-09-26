@@ -1800,3 +1800,83 @@ body {
   background: var(--mt-ocean-gradient);
 }
 /* Force browser cache refresh Tue Aug  5 06:54:23 PM UTC 2025 */
+/* ESA Layer 9: ReactQuill Rich Text Editor Styling */
+.esa-rich-text-editor .ql-container {
+  font-size: 1rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  color: rgb(31 41 55);
+  font-family: inherit;
+  min-height: 120px;
+}
+
+.esa-rich-text-editor .ql-editor {
+  min-height: 120px;
+  padding: 1.25rem;
+}
+
+.esa-rich-text-editor .ql-editor.ql-blank::before {
+  color: rgb(156 163 175);
+  font-size: 1.125rem;
+  font-style: normal;
+  left: 1.25rem;
+}
+
+.esa-rich-text-editor .ql-toolbar {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-bottom: 1px solid rgb(229 231 235);
+  padding: 0.75rem;
+}
+
+.esa-rich-text-editor .ql-toolbar button:hover {
+  background: rgb(94 234 212 / 0.1);
+}
+
+.esa-rich-text-editor .ql-toolbar button.ql-active {
+  background: rgb(94 234 212 / 0.2);
+  color: rgb(20 184 166);
+}
+
+.esa-rich-text-editor .ql-snow .ql-stroke {
+  stroke: rgb(107 114 128);
+}
+
+.esa-rich-text-editor .ql-snow .ql-fill {
+  fill: rgb(107 114 128);
+}
+
+.esa-rich-text-editor .ql-toolbar.ql-snow .ql-stroke.ql-active {
+  stroke: rgb(20 184 166);
+}
+
+.esa-rich-text-editor .ql-toolbar.ql-snow .ql-fill.ql-active {
+  fill: rgb(20 184 166);
+}
+
+.esa-rich-text-editor .ql-container.ql-snow {
+  border: none;
+}
+
+.rich-text-editor-wrapper {
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.rich-text-editor-wrapper:focus-within {
+  border-color: rgb(94 234 212 / 0.5);
+  box-shadow: 0 0 0 4px rgb(94 234 212 / 0.15), inset 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* ESA Layer 9: ContentEditable Editor Styles */
+.esa-content-editor:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  font-style: italic;
+  pointer-events: none;
+  display: block;
+}
+
+.esa-content-editor:focus {
+  outline: none;
+}

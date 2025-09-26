@@ -6,7 +6,7 @@
 /// <reference lib="webworker" />
 declare const self: ServiceWorkerGlobalScope;
 
-const CACHE_VERSION = 'v2.0.0';
+const CACHE_VERSION = 'v2.0.1-memories-fix';
 const CACHE_NAMES = {
   STATIC: `static-${CACHE_VERSION}`,
   DYNAMIC: `dynamic-${CACHE_VERSION}`,

@@ -25,6 +25,13 @@ interface Post {
     username: string;
     profileImage?: string;
     tangoRoles?: string[];
+    leaderLevel?: number;
+    followerLevel?: number;
+    city?: string;
+    state?: string;
+    country?: string;
+    friendshipStatus?: 'accepted' | 'pending' | 'none' | 'following'; // ESA Framework: Friendship status
+    connectionType?: string; // ESA Framework: Connection type
   };
   likes?: number;
   comments?: Array<{
@@ -145,9 +152,12 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
     },
   });
 
-  const handleLike = useCallback((postId: number, isLiked: boolean) => {
+  const handleLike = useCallback((postId: number) => {
+    // Find the post to get its current liked state
+    const post = posts?.find((p: Post) => p.id === postId);
+    const isLiked = post?.isLiked || false;
     likeMutation.mutate({ postId, isLiked });
-  }, [likeMutation]);
+  }, [likeMutation, posts]);
 
   // Share functionality - open ShareModal
   const handleShare = useCallback((post: Post) => {

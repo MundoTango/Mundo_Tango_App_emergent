@@ -188,3 +188,84 @@ bundle-analyzer-report.html
 # Environment files
 *.env
 *.env.*
+# ESA LIFE CEO 61×21 - Repository Performance Optimization
+
+# Large asset files that shouldn't be in Git
+attached_assets/
+uploads/
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.avi
+*.mkv
+*.webm
+
+# Large image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.svg
+
+# Exception: Keep small icons and essential images
+!client/public/icons/
+!client/public/*.png
+!client/public/*.svg
+!tests/assets/test-image.png
+!tests/fixtures/*.jpg
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Git backups
+.git.backup.*
+
+# Performance logs
+performance-*.log
+lighthouse-*.json
+test-reports-*/
+
+# Node modules and build artifacts
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+
+# Environment files
+.env.local
+.env.production.local
+.env.development.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large test reports
+playwright-report/
+test-results/
+coverage/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+attached_assets/

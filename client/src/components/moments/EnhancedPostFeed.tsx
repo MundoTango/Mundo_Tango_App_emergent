@@ -20,6 +20,8 @@ interface Post {
     username: string;
     profileImage?: string;
     tangoRoles?: string[];
+    friendshipStatus?: "accepted" | "pending" | "none" | "following";
+    connectionType?: string;
   };
   likes?: number;
   comments?: Array<{
@@ -53,15 +55,18 @@ interface Post {
 
 interface EnhancedPostFeedProps {
   className?: string;
+  posts?: Post[]; // ESA Framework: Accept posts from parent component
+  currentUserId?: string; // ESA Framework Layer 4: Current user ID
   filters?: {
     filterType: 'all' | 'following' | 'nearby';
     tags: string[];
     visibility: 'all' | 'public' | 'friends' | 'private';
     location?: { lat: number; lng: number; radius: number };
   };
+  onEdit?: (post: any) => void; // ESA Layer 9: Edit handler with rich text editor
 }
 
-const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
+const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters, onEdit }: EnhancedPostFeedProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -71,9 +76,10 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
 
-  // ESA LIFE CEO 61x21 - Fetch memories with filters applied
-  const { data: posts, isLoading } = useQuery({
+  // ESA LIFE CEO 61x21 - Use passed posts or fetch memories with filters applied
+  const { data: fetchedPosts, isLoading, error } = useQuery({
     queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
+    enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
     queryFn: async () => {
       const params = new URLSearchParams();
       
@@ -120,7 +126,8 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
         // CRITICAL FIX: Check mediaEmbeds FIRST (primary source)
         if (memory.mediaEmbeds && memory.mediaEmbeds.length > 0) {
           const firstMedia = memory.mediaEmbeds[0];
-          const isVideo = firstMedia && (
+          // ESA Framework Layer 13: Type-safe media URL processing
+          const isVideo = firstMedia && typeof firstMedia === 'string' && (
             firstMedia.toLowerCase().includes('.mp4') || 
             firstMedia.toLowerCase().includes('.mov') || 
             firstMedia.toLowerCase().includes('.webm') ||
@@ -139,7 +146,8 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
         // Fallback to mediaUrls if no mediaEmbeds
         else if (memory.mediaUrls && memory.mediaUrls.length > 0) {
           const firstMedia = memory.mediaUrls[0];
-          const isVideo = firstMedia && (
+          // ESA Framework Layer 13: Type-safe media URL processing
+          const isVideo = firstMedia && typeof firstMedia === 'string' && (
             firstMedia.toLowerCase().includes('.mp4') || 
             firstMedia.toLowerCase().includes('.mov') || 
             firstMedia.toLowerCase().includes('.webm') ||
@@ -162,6 +170,9 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
       });
     }
   });
+  
+  // ESA Framework: Use passed posts from parent or fetched posts
+  const posts = propsPosts || fetchedPosts || [];
 
   // Like mutation
   const likeMutation = useMutation({
@@ -369,6 +380,7 @@ const EnhancedPostFeed = React.memo(({ filters }: EnhancedPostFeedProps) => {
                   post={post}
                   onLike={handleLike}
                   onShare={handleShare}
+                  onEdit={onEdit} // ESA Layer 9: Pass edit handler
                 />
               ))}
             </div>

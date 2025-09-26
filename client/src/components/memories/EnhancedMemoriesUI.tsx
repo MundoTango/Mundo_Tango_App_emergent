@@ -45,7 +45,7 @@ import { cn } from '@/lib/utils';
 
 // Import the BeautifulPostCreator for advanced features
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
-// TODO: AdvancedMediaUploader to be implemented as per ESA framework
+// import { AdvancedMediaUploader } from '@/components/media/AdvancedMediaUploader';
 
 // Enhanced Post Creator with Life CEO 44x21s Methodology
 // Re-export BeautifulPostCreator with wrapper for compatibility
@@ -65,15 +65,8 @@ export const EnhancedPostCreator: React.FC<{
         }}
       />
       
-      {/* ESA LIFE CEO 61x21 - Advanced Media Uploader to be implemented
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-        <h3 className="text-lg font-semibold text-blue-800 mb-3">
-          🚀 Media Upload System
-        </h3>
-        <p className="text-sm text-blue-600 mt-2">
-          Advanced media upload system with batch support coming soon.
-        </p>
-      </div> */}
+      {/* ESA LIFE CEO 61x21 - Advanced Media Uploader Test 
+          Temporarily disabled until AdvancedMediaUploader is available */}
     </div>
   );
 };
