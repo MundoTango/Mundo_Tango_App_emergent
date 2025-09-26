@@ -1,3 +1,5 @@
+// ESA LIFE CEO 61×21 AGENTS FRAMEWORK
+// Friendship Page - Following Layer 9 (UI Framework)
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
@@ -11,6 +13,9 @@ import { FriendshipTimeline } from '@/components/friendship/FriendshipTimeline';
 import { FriendshipAnalytics } from '@/components/friendship/FriendshipAnalytics';
 import { DanceHistoryForm } from '@/components/friendship/DanceHistoryForm';
 import { apiRequest } from '@/lib/queryClient'; // Import apiRequest
+
+// ESA Layer 9: Add DashboardLayout for consistent navigation with memories page
+import DashboardLayout from '@/layouts/DashboardLayout';
 
 export default function FriendshipPage() {
   const { friendId } = useParams<{ friendId: string }>();
@@ -51,29 +56,34 @@ export default function FriendshipPage() {
 
   if (isLoading || isLoadingMutualFriends || isLoadingSharedMemories) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse space-y-4">
-          <div className="h-64 bg-gray-200 rounded-lg" />
-          <div className="h-32 bg-gray-200 rounded-lg" />
+      <DashboardLayout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="animate-pulse space-y-4">
+            <div className="h-64 bg-gray-200 rounded-lg" />
+            <div className="h-32 bg-gray-200 rounded-lg" />
+          </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   if (error || !friendship) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <Card className="p-8 text-center glassmorphic-card">
-          <p className="text-red-500">
-            {error ? error.message : "Friendship not found or an error occurred."}
-          </p>
-        </Card>
-      </div>
+      <DashboardLayout>
+        <div className="container mx-auto px-4 py-8">
+          <Card className="p-8 text-center glassmorphic-card">
+            <p className="text-red-500">
+              {error ? error.message : "Friendship not found or an error occurred."}
+            </p>
+          </Card>
+        </div>
+      </DashboardLayout>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-6">
+    <DashboardLayout>
+      <div className="container mx-auto px-4 py-8 space-y-6">
       {/* Hero Section */}
       <Card className="relative overflow-hidden glassmorphic-card">
         <div className="absolute inset-0 bg-gradient-to-r from-turquoise-400/20 to-cyan-500/20" />
@@ -247,5 +257,6 @@ export default function FriendshipPage() {
         </div>
       )}
     </div>
+    </DashboardLayout>
   );
 }
