@@ -6,7 +6,7 @@
 // ESA Fix: Import React and hooks together to prevent null reference errors
 import React, { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import io from 'socket.io-client';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { postsAPI } from '@/lib/api/posts';
 import { useToast } from '@/hooks/use-toast';
