@@ -90,6 +90,19 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
+  // ESA Framework Layer 22: Debug friendship data flow
+  console.log('[ESA Debug] EnhancedPostItem received:', {
+    postId: post.id,
+    userId: post.user?.id,
+    userName: post.user?.name,
+    friendshipStatus: post.user?.friendshipStatus,
+    connectionType: post.user?.connectionType,
+    currentUserId: currentUserId || user?.id?.toString(),
+    shouldShowButton: post.user?.id && 
+      String(post.user.id) !== (currentUserId || user?.id?.toString() || '') && 
+      post.user?.friendshipStatus === 'accepted'
+  });
+  
   const [commentText, setCommentText] = useState('');
   const [isCommentFocused, setIsCommentFocused] = useState(false);
   const [showModal, setShowModal] = useState(false);

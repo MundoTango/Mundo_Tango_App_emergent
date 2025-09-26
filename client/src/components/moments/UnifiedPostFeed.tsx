@@ -179,6 +179,19 @@ const UnifiedPostFeed = React.memo(({
   // Use provided posts or fetched posts
   const posts = propsPosts || fetchedPosts || [];
   
+  // ESA Framework Layer 9: Debug posts data
+  console.log('[ESA Debug] UnifiedPostFeed posts:', {
+    totalPosts: posts.length,
+    firstPost: posts[0] ? {
+      id: posts[0].id,
+      userId: posts[0].user?.id,
+      userName: posts[0].user?.name,
+      friendshipStatus: posts[0].user?.friendshipStatus,
+      connectionType: posts[0].user?.connectionType
+    } : null,
+    currentUserId: currentUserId || user?.id?.toString()
+  });
+  
   // Filter posts locally if search is active without filters
   const filteredPosts = useMemo(() => {
     if (!showFilters && debouncedSearch) {

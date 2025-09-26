@@ -206,6 +206,18 @@ function ESAMemoryFeedCore() {
   // RESILIENCE: Safe extraction with fallback to cached posts
   const posts = useMemo(() => {
     if (feedResponse?.posts && Array.isArray(feedResponse.posts)) {
+      // ESA Framework Layer 2: Debug API response data
+      console.log('[ESA Debug] ESAMemoryFeed feedResponse:', {
+        totalPosts: feedResponse.posts.length,
+        firstPost: feedResponse.posts[0] ? {
+          id: feedResponse.posts[0].id,
+          userId: feedResponse.posts[0].user?.id,
+          userName: feedResponse.posts[0].user?.name,
+          friendshipStatus: feedResponse.posts[0].user?.friendshipStatus,
+          connectionType: feedResponse.posts[0].user?.connectionType
+        } : null,
+        currentUserId
+      });
       return feedResponse.posts;
     }
     // Fallback to accumulated posts if response is invalid
@@ -213,24 +225,7 @@ function ESAMemoryFeedCore() {
   }, [feedResponse, allPosts]);
 
 
-  // Transform posts for grid view
-  const memoriesForGrid = posts.map((post: any) => ({
-    id: post.id,
-    content: post.content,
-    media: post.images || [],
-    author: {
-      name: post.user?.name || 'Tango Dancer',
-      avatar: post.user?.avatar,
-      username: post.user?.username || 'dancer'
-    },
-    createdAt: post.createdAt,
-    location: post.location,
-    tags: post.tags || [],
-    likesCount: post.likesCount || 0,
-    commentsCount: post.commentsCount || 0,
-    sharesCount: post.sharesCount || 0,
-    isLiked: post.isLiked || false
-  }));
+  // ESA Framework Layer 9: Removed unused memoriesForGrid transformation - posts passed directly with user data intact
 
   // Create post mutation with FormData support
   const createPostMutation = useMutation({
