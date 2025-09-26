@@ -206,18 +206,6 @@ function ESAMemoryFeedCore() {
   // RESILIENCE: Safe extraction with fallback to cached posts
   const posts = useMemo(() => {
     if (feedResponse?.posts && Array.isArray(feedResponse.posts)) {
-      // ESA Framework Layer 2: Debug API response data
-      console.log('[ESA Debug] ESAMemoryFeed feedResponse:', {
-        totalPosts: feedResponse.posts.length,
-        firstPost: feedResponse.posts[0] ? {
-          id: feedResponse.posts[0].id,
-          userId: feedResponse.posts[0].user?.id,
-          userName: feedResponse.posts[0].user?.name,
-          friendshipStatus: feedResponse.posts[0].user?.friendshipStatus,
-          connectionType: feedResponse.posts[0].user?.connectionType
-        } : null,
-        currentUserId
-      });
       return feedResponse.posts;
     }
     // Fallback to accumulated posts if response is invalid
