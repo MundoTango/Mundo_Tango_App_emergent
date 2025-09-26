@@ -758,21 +758,24 @@ function EnhancedPostItem({ post, onLike, onShare, onEdit }: PostItemProps) {
             >
               <Share2 className="h-5 w-5" />
             </button>
+
+            {/* ESA LIFE CEO 61×21 - See Friendship button only for friends */}
+            {(post.user?.friendshipStatus === 'accepted' || 
+              post.user?.connectionType === 'friend') && (
+              <Link href={`/friendship/${post.user.id}`}>
+                <button
+                  data-testid={`button-see-friendship-${post.user.id}`}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200"
+                >
+                  <Users className="h-5 w-5" />
+                  <span>See Friendship</span>
+                </button>
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
-            {/* ESA LIFE CEO 61×21 - See Friendship button available for all posts */}
-            <Link href={`/friendship/${post.user.id}`}>
-              <MTButton
-                variant="gradient"
-                size="sm"
-                data-testid={`button-see-friendship-${post.user.id}`}
-                className="flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-semibold transition-all duration-300 hover:scale-105"
-              >
-                <Users className="h-4 w-4" />
-                See Friendship
-              </MTButton>
-            </Link>
+            {/* Right side actions if needed */}
           </div>
         </footer>
 

@@ -176,7 +176,7 @@ function ESAMemoryFeedCore() {
     isDegraded,
     hasFallback 
   } = useResilientQuery({
-    endpoint: `/api/posts/feed?page=${page}`,
+    endpoint: `/api/posts/feed?limit=20&offset=${(page - 1) * 20}`,
     schema: PostsFeedResponseSchema,
     queryKey: ['/api/posts/feed', page],
     cacheKey: `posts-feed-page-${page}`,
