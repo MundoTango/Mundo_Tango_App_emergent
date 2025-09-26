@@ -18,9 +18,9 @@ export default function FriendshipPage() {
 
   // ESA Layer 24: Social Features Agent - Friendship data fetching
   const { data: friendship, isLoading, error } = useQuery({
-    queryKey: ['/api/friendship/details', friendId],
+    queryKey: ['/api/friendship', friendId],
     queryFn: async () => {
-      const response = await apiRequest(`/friendship/details/${friendId}`); // Use apiRequest
+      const response = await apiRequest(`/api/friendship/${friendId}`); // Fixed: Added /api prefix
       if (!response.ok) throw new Error('Failed to fetch friendship details');
       return response.json();
     },
@@ -31,7 +31,7 @@ export default function FriendshipPage() {
   const { data: mutualFriends, isLoading: isLoadingMutualFriends } = useQuery({
     queryKey: ['/api/friendship/mutual', friendId],
     queryFn: async () => {
-      const response = await apiRequest(`/friendship/mutual/${friendId}`); // Use apiRequest
+      const response = await apiRequest(`/api/friendship/mutual/${friendId}`); // Fixed: Added /api prefix
       if (!response.ok) throw new Error('Failed to fetch mutual friends');
       return response.json();
     },
@@ -42,7 +42,7 @@ export default function FriendshipPage() {
   const { data: sharedMemories, isLoading: isLoadingSharedMemories } = useQuery({
     queryKey: ['/api/friendship/shared-memories', friendId],
     queryFn: async () => {
-      const response = await apiRequest(`/friendship/shared-memories/${friendId}`); // Use apiRequest
+      const response = await apiRequest(`/api/friendship/shared-memories/${friendId}`); // Fixed: Added /api prefix
       if (!response.ok) throw new Error('Failed to fetch shared memories');
       return response.json();
     },
