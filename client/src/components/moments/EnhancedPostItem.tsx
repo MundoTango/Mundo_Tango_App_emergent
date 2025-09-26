@@ -762,15 +762,16 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
 
             {/* ESA LIFE CEO 61×21 - See Friendship button only for accepted friends */}
             {(() => {
+              const userIdNumber = parseInt(currentUserId || '0');
               console.log('[ESA PostItem] Friendship check:', {
                 postId: post.id,
                 userId: post.user?.id,
                 userName: post.user?.name,
                 friendshipStatus: post.user?.friendshipStatus,
-                currentUserId: 7,
-                showButton: post.user?.friendshipStatus === 'accepted' && post.user?.id !== 7
+                currentUserId: userIdNumber,
+                showButton: post.user?.friendshipStatus === 'accepted' && post.user?.id !== userIdNumber
               });
-              return post.user?.friendshipStatus === 'accepted' && post.user?.id !== 7;
+              return post.user?.friendshipStatus === 'accepted' && post.user?.id !== userIdNumber;
             })() && (
               <Link href={`/friendship/${post.user.id}`}>
                 <button
