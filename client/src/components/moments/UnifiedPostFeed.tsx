@@ -107,7 +107,7 @@ const UnifiedPostFeed = React.memo(({
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   // Internal filter state
   const [filterBy, setFilterBy] = useState<'all' | 'following' | 'nearby'>(
     externalFilters?.filterType || 'all'
@@ -117,11 +117,11 @@ const UnifiedPostFeed = React.memo(({
   const [showExpandedFilters, setShowExpandedFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery, 300);
-  
+
   // Share modal state
   const [shareModalPost, setShareModalPost] = useState<Post | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  
+
   // Merge external and internal filters
   const activeFilters = useMemo(() => ({
     filterType: externalFilters?.filterType || filterBy,
@@ -136,7 +136,7 @@ const UnifiedPostFeed = React.memo(({
     enabled: !propsPosts && (showFilters || showSearch),
     queryFn: async () => {
       const params = new URLSearchParams();
-      
+
       if (activeFilters.filterType !== 'all') {
         params.append('filter', activeFilters.filterType);
       }
@@ -154,16 +154,16 @@ const UnifiedPostFeed = React.memo(({
       if (debouncedSearch) {
         params.append('search', debouncedSearch);
       }
-      
+
       const response = await fetch(`/api/posts/feed?${params.toString()}`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch posts feed');
       }
-      
+
       const data = await response.json();
       console.log('[ESA UnifiedFeed] Fetched posts with friendship data:', {
         count: data.data?.length,
@@ -176,7 +176,7 @@ const UnifiedPostFeed = React.memo(({
         userName: p.user?.name,
         friendshipStatus: p.user?.friendshipStatus
       })));
-      
+
       return data.data || [];
     },
     staleTime: 30000,
@@ -185,7 +185,7 @@ const UnifiedPostFeed = React.memo(({
 
   // Use provided posts or fetched posts
   const posts = propsPosts || fetchedPosts || [];
-  
+
   // Debug log posts data
   useEffect(() => {
     if (posts && posts.length > 0) {
@@ -197,7 +197,7 @@ const UnifiedPostFeed = React.memo(({
       })));
     }
   }, [posts]);
-  
+
   // Filter posts locally if search is active without filters
   const filteredPosts = useMemo(() => {
     if (!showFilters && debouncedSearch) {
@@ -426,7 +426,7 @@ const UnifiedPostFeed = React.memo(({
           <EnhancedPostItem
             key={post.id}
             post={post}
-            currentUserId={currentUserId || user?.id?.toString()} // ESA Framework Layer 4: Pass authenticated user ID
+            currentUserId={user?.id?.toString()} // ESA Framework Layer 4: Pass authenticated user ID
             onLike={handleLike}
             onShare={handleShare}
             onEdit={onEdit}

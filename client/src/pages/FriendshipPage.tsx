@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Users, MessageCircle, Calendar, Music, Heart, MapPin, Award, Camera } from 'lucide-react';
@@ -10,39 +10,46 @@ import { ConnectionDegreeDisplay } from '@/components/friendship/ConnectionDegre
 import { FriendshipTimeline } from '@/components/friendship/FriendshipTimeline';
 import { FriendshipAnalytics } from '@/components/friendship/FriendshipAnalytics';
 import { DanceHistoryForm } from '@/components/friendship/DanceHistoryForm';
+import { apiRequest } from '@/lib/queryClient'; // Import apiRequest
 
 export default function FriendshipPage() {
   const { friendId } = useParams<{ friendId: string }>();
   const [showDanceHistoryForm, setShowDanceHistoryForm] = useState(false);
 
-  const { data: friendship, isLoading } = useQuery({
+  // ESA Layer 24: Social Features Agent - Friendship data fetching
+  const { data: friendship, isLoading, error } = useQuery({
     queryKey: ['/api/friendship/details', friendId],
     queryFn: async () => {
-      const response = await fetch(`/api/friendship/details/${friendId}`);
+      const response = await apiRequest(`/friendship/details/${friendId}`); // Use apiRequest
       if (!response.ok) throw new Error('Failed to fetch friendship details');
       return response.json();
-    }
+    },
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
-  const { data: mutualFriends } = useQuery({
+  // ESA Layer 24: Social Features Agent - Mutual friends fetching
+  const { data: mutualFriends, isLoading: isLoadingMutualFriends } = useQuery({
     queryKey: ['/api/friendship/mutual', friendId],
     queryFn: async () => {
-      const response = await fetch(`/api/friendship/mutual/${friendId}`);
+      const response = await apiRequest(`/friendship/mutual/${friendId}`); // Use apiRequest
       if (!response.ok) throw new Error('Failed to fetch mutual friends');
       return response.json();
-    }
+    },
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
-  const { data: sharedMemories } = useQuery({
+  // ESA Layer 24: Social Features Agent - Shared memories fetching
+  const { data: sharedMemories, isLoading: isLoadingSharedMemories } = useQuery({
     queryKey: ['/api/friendship/shared-memories', friendId],
     queryFn: async () => {
-      const response = await fetch(`/api/friendship/shared-memories/${friendId}`);
+      const response = await apiRequest(`/friendship/shared-memories/${friendId}`); // Use apiRequest
       if (!response.ok) throw new Error('Failed to fetch shared memories');
       return response.json();
-    }
+    },
+    enabled: !!friendId, // Only fetch if friendId is present
   });
 
-  if (isLoading) {
+  if (isLoading || isLoadingMutualFriends || isLoadingSharedMemories) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
@@ -53,11 +60,13 @@ export default function FriendshipPage() {
     );
   }
 
-  if (!friendship) {
+  if (error || !friendship) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card className="p-8 text-center glassmorphic-card">
-          <p className="text-gray-600">Friendship not found</p>
+          <p className="text-red-500">
+            {error ? error.message : "Friendship not found or an error occurred."}
+          </p>
         </Card>
       </div>
     );
@@ -80,7 +89,7 @@ export default function FriendshipPage() {
                   <ConnectionDegreeDisplay degree={friendship.connectionDegree} />
                 </div>
               </div>
-              
+
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {friendship.user.name}
@@ -168,8 +177,8 @@ export default function FriendshipPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {sharedMemories.slice(0, 8).map((memory: any) => (
               <div key={memory.id} className="relative group">
-                <img 
-                  src={memory.photoUrl} 
+                <img
+                  src={memory.photoUrl}
                   alt={memory.description}
                   className="rounded-lg w-full h-40 object-cover group-hover:scale-105 transition-transform"
                 />
@@ -203,7 +212,7 @@ export default function FriendshipPage() {
         </TabsList>
 
         <TabsContent value="timeline">
-          <FriendshipTimeline 
+          <FriendshipTimeline
             friendId={parseInt(friendId!)}
             friendName={friendship.user.name}
             friendImage={friendship.user.profileImage}
@@ -229,7 +238,7 @@ export default function FriendshipPage() {
       {showDanceHistoryForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="max-w-2xl w-full">
-            <DanceHistoryForm 
+            <DanceHistoryForm
               partnerId={parseInt(friendId!)}
               partnerName={friendship.user.name}
               onComplete={() => setShowDanceHistoryForm(false)}

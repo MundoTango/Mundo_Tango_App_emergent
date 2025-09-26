@@ -81,7 +81,9 @@ import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
 
-import { getUserId } from "./utils/authHelper";
+// ESA LIFE CEO 61x21 - Register friendship routes for ESA Layer 24
+import friendsRoutes from './routes/friendsRoutes';
+
 
 // Utility functions to safely parse query parameters from Express ParsedQs
 function parseQueryParam(value: any, defaultValue: string = ''): string {
@@ -113,18 +115,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     if (!req.session) {
       req.session = {} as any;
     }
-    
+
     const session = req.session as any;
-    
+
     // Generate CSRF token if not exists
     if (!session.csrfToken) {
       session.csrfToken = randomBytes(32).toString('hex');
     }
-    
+
     // Return token to client
     res.json({ token: session.csrfToken });
   });
-  
+
   // Version endpoint - helps verify which code is actually running
   app.get('/api/__version', (req, res) => {
     res.json({ 
@@ -134,7 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       message: 'ESA LIFE CEO 61x21 - Version endpoint active'
     });
   });
-  
+
   // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Register domain routes first
   app.use('/api', userRoutes);    // User profile and settings routes
   app.use('/api', userStatsRoutes); // ESA Performance optimized stats routes
@@ -142,19 +144,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
-  
+
   // ESA LIFE CEO 56x21 - Register optimized post routes early to reduce memory load
   app.use(postRoutes);
   app.use(postsRoutes); // ESA LIFE CEO 61x21 - Main posts GET endpoints
   app.use(eventsRoutes); // ESA LIFE CEO 61x21 - Events API routes
   app.use(messagesRoutes); // ESA LIFE CEO 61x21 - Messages API routes
-  app.use(friendsRoutes); // ESA LIFE CEO 61x21 - Friends API routes
+  // Friends routes (ESA Layer 24: Social Features Agent)
+  app.use('/api', friendsRoutes);
   app.use(storiesRoutes); // ESA LIFE CEO 61x21 - Stories API routes
   app.use(followsRoutes); // ESA LIFE CEO 61x21 - Follows API routes
   app.use(commentsRoutes); // ESA LIFE CEO 61x21 - Comments API routes
   app.use(tagRoutes); // ESA LIFE CEO 61x21 - Tag management routes
   app.use(searchRouter); // ESA LIFE CEO 61x21 - Layer 15: Search & Discovery routes
-  
+
   // ESA LIFE CEO 61x21 - Layer 57: City Group Creation Automation
   try {
     const automationRoutes = require('./routes/automationRoutes');
@@ -170,7 +173,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   // ESA Layer 58: Cloudinary routes removed per user request
-  
+
   // ESA LIFE CEO 61x21 - Phase 21: Health and monitoring routes
   import('./routes/healthRoutes').then(module => {
     app.use(module.default);
@@ -178,7 +181,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }).catch(err => {
     console.error('Failed to load health routes:', err);
   });
-  
+
   // Import Life CEO learnings routes
   import('./routes/lifeCeoLearnings').then(module => {
     app.use(module.default);
@@ -196,14 +199,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Add compression middleware for better performance
   const compression = (await import('compression')).default;
   app.use(compression());
-  
+
   // Import security middleware - Life CEO 44x21s Layer 31-40 Replit Fix
   const { 
     securityHeaders, 
     sanitizeInput,
     csrfProtection 
   } = await import('./middleware/security');
-  
+
   // Import rate limiting middleware
   const {
     authEndpointsLimiter,
@@ -217,7 +220,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     eventCreationLimiter,
     contentCreationLimiter
   } = await import('./middleware/rateLimiting');
-  
+
   // Import ESA-44x21s comprehensive security enhancements
   const {
     regexpProtection,
@@ -227,10 +230,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requestTimeoutProtection,
     memoryLeakPrevention
   } = await import('./middleware/securityEnhancements');
-  
+
   // Apply security middleware - Life CEO 44x21s Layer 44 Critical Fix
   app.use(securityHeaders);
-  
+
   // Apply ESA-44x21s Security Enhancements
   app.use(regexpProtection);
   app.use(inputLengthValidation);
@@ -241,7 +244,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // CRITICAL: CSP completely disabled for Replit iframe compatibility
   // app.use(contentSecurityPolicy); // DISABLED for preview
   app.use(sanitizeInput); // ESA LIFE CEO 61x21 - Security restored
-  
+
   // Set up Replit Auth middleware
   // ESA LIFE CEO 61x21 - Phase 2: Setup secure authentication
   // Use legacy auth in dev with bypass, secure auth in production
@@ -252,7 +255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.log('🔒 Using secure authentication middleware');
     setupSecureAuth(app);
   }
-  
+
   // Apply CSRF protection after session is initialized
   app.use(csrfProtection); // ESA LIFE CEO 61x21 - Security restored
 
@@ -276,9 +279,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log('🚀 Life CEO Review endpoint triggered');
       const { framework40x20sService } = await import('./services/framework40x20sService');
-      
+
       const result = await framework40x20sService.performLifeCEOReview();
-      
+
       res.json({ 
         success: true, 
         analysis: result.analysis,
@@ -297,17 +300,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log('📚 Life CEO Learnings endpoint triggered');
       const { LifeCEOSelfImprovementService } = await import('./services/lifeCEOSelfImprovement');
-      
+
       // Create instance of the service
       const service = new LifeCEOSelfImprovementService();
-      
+
       // Apply self-improvements to get latest insights
       const improvements = await service.applySelfImprovements();
       const agentInsights = await service.generateAgentInsights();
-      
+
       // Get learnings from the service (including debugging session learnings)
       const learnings = await service.getLearnings();
-      
+
       res.json({
         success: true,
         data: {
@@ -331,18 +334,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/performance/metrics', setUserContext, async (req: any, res) => {
     try {
       const { pageLoadTime, connectTime, renderTime, url, timestamp } = req.body;
-      
+
       // Track performance metrics
       const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService');
       lifeCeoPerformance.trackResponseTime(url, pageLoadTime);
-      
+
       console.log('📊 Life CEO Performance Metrics:', {
         url,
         pageLoadTime: `${pageLoadTime}ms`,
         connectTime: `${connectTime}ms`,
         renderTime: `${renderTime}ms`
       });
-      
+
       res.json({ success: true, message: 'Metrics recorded' });
     } catch (error) {
       console.error('Performance metrics error:', error);
@@ -355,7 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { lifeCeoPerformance } = await import('./services/lifeCeoPerformanceService');
       const report = await lifeCeoPerformance.getPerformanceReport();
-      
+
       res.json({
         success: true,
         data: report
@@ -382,14 +385,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { layerRange } = req.body;
       const { validationService } = await import('./services/validationService');
-      
+
       // Run tests asynchronously
       validationService.runValidation(layerRange).then(results => {
         console.log(`Validation completed: ${results.length} tests run`);
       }).catch(error => {
         console.error('Validation error:', error);
       });
-      
+
       res.json({ success: true, message: 'Validation started' });
     } catch (error) {
       console.error('Error starting validation:', error);
@@ -413,12 +416,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/validation/phase2', setUserContext, async (req, res) => {
     try {
       console.log('🚀 Starting Phase 2 Validation - Life CEO & 40x20s Framework');
-      
+
       const { Phase2ValidationService } = await import('./services/phase2ValidationService');
       const validationService = new Phase2ValidationService();
-      
+
       const results = await validationService.runPhase2Validation();
-      
+
       res.json({
         ...results,
         success: true
@@ -437,12 +440,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/validation/phase3', setUserContext, async (req, res) => {
     try {
       console.log('🚀 Starting Phase 3 Load Testing - Life CEO & 40x20s Framework');
-      
+
       const { Phase3LoadTestingService } = await import('./services/phase3LoadTestingService');
       const loadTestingService = new Phase3LoadTestingService();
-      
+
       const results = await loadTestingService.runLoadTests();
-      
+
       res.json({
         ...results,
         success: true
@@ -461,12 +464,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/validation/phase4', setUserContext, async (req, res) => {
     try {
       console.log('🧠 Starting Phase 4 Intelligent Optimization Test - Life CEO & 40x20s Framework');
-      
+
       const { intelligentMonitor } = await import('./services/intelligentPerformanceMonitor');
-      
+
       // Get current anomaly summary
       const anomalySummary = await intelligentMonitor.getAnomalySummary();
-      
+
       // Simulate some performance scenarios to test pattern detection
       const testResults = {
         timestamp: new Date(),
@@ -492,11 +495,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           'Integration health checks operational'
         ]
       };
-      
+
       console.log('✅ Phase 4 Intelligent Optimization Test Complete');
       console.log(`📊 Anomalies detected: ${anomalySummary.total}`);
       console.log(`🔧 Auto-fixes applied: ${anomalySummary.autoFixedCount}`);
-      
+
       res.json({
         success: true,
         ...testResults
@@ -590,7 +593,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Supabase integration test endpoints (bypass CSRF for testing)
   const { testSupabaseConnection, testLargeBodyHandling, testSupabaseRealtime } = await import('./routes/supabase-test');
-  
+
   app.get('/api/supabase/test-connection', testSupabaseConnection);
   app.post('/api/supabase/test-large-body', (req, res, next) => {
     // Bypass CSRF for this test endpoint
@@ -602,24 +605,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Chat endpoints (bypass CSRF for AI functionality)
   const { handleAiChat, getConversationHistory } = await import('./routes/ai-chat');
   const { handleAiChatDirect, getConversationHistoryDirect } = await import('./routes/ai-chat-direct');
-  
+
   app.post('/api/ai/chat', (req, res, next) => {
     // Bypass CSRF for AI chat - critical for functionality
     (req as any).skipCsrf = true;
     next();
   }, handleAiChatDirect);
-  
+
   app.get('/api/ai/conversation/:conversationId', getConversationHistoryDirect);
 
   // 🎯 Import rate limiter for 100/100 security score
   const { RateLimiterService } = await import('./middleware/rateLimiter');
-  
+
   // @Mentions API endpoints (Facebook-style)
   app.get('/api/mentions/suggestions', isAuthenticated, RateLimiterService.mentionSuggestionsLimiter, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUserByReplitId(userId);
-      
+
       if (!user) {
         return res.status(401).json({ 
           success: false,
@@ -656,16 +659,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { originalMentionerId, responseType } = req.body;
       const userId = req.user.claims.sub;
       const respondingUser = await storage.getUserByReplitId(userId);
-      
+
       if (!originalMentionerId || !responseType || !respondingUser) {
         return res.status(400).json({ 
           success: false,
           message: 'Missing required fields: originalMentionerId, responseType' 
         });
       }
-      
+
       console.log(`🎯 Processing mention confirmation from user ${respondingUser.id}`);
-      
+
       // Handle the mention confirmation and update friendship algorithm
       const { MentionNotificationService } = await import('./services/mentionNotificationService');
       await MentionNotificationService.handleMentionConfirmation(
@@ -673,7 +676,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         respondingUser.id,
         responseType
       );
-      
+
       res.json({
         success: true,
         message: 'Mention confirmation processed - friendship algorithm updated',
@@ -697,7 +700,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/reports', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.user?.id) {
@@ -706,7 +709,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Default user for testing
         user = await storage.getUserByReplitId('44164221');
       }
-      
+
       if (!user) {
         return res.status(401).json({ 
           success: false,
@@ -715,7 +718,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const { type, targetId, reason, description } = req.body;
-      
+
       if (!type || !targetId || !reason) {
         return res.status(400).json({
           success: false,
@@ -749,7 +752,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/reports', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.session?.passport?.user?.id) {
@@ -775,7 +778,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
-      
+
       if (!isAdmin) {
         return res.status(403).json({
           success: false,
@@ -838,7 +841,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put('/api/reports/:reportId/status', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.session?.passport?.user?.id) {
@@ -864,7 +867,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
-      
+
       if (!isAdmin) {
         return res.status(403).json({
           success: false,
@@ -902,7 +905,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/admin/blocked-users', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.session?.passport?.user?.id) {
@@ -928,7 +931,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
-      
+
       if (!isAdmin) {
         return res.status(403).json({
           success: false,
@@ -970,11 +973,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { postId } = req.body;
       const userId = req.user?.id;
-      
+
       if (!userId || !postId) {
         return res.status(400).json({ success: false, error: "Missing required fields" });
       }
-      
+
       await storage.savePost(userId, postId);
       res.json({ success: true, message: "Post saved successfully" });
     } catch (error) {
@@ -988,11 +991,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { type, targetId, reason, description } = req.body;
       const userId = req.user?.id;
-      
+
       if (!userId || !type || !targetId || !reason) {
         return res.status(400).json({ success: false, error: "Missing required fields" });
       }
-      
+
       await storage.createReport({
         type,
         targetId,
@@ -1001,7 +1004,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         reporterId: userId,
         createdAt: new Date()
       });
-      
+
       res.json({ success: true, message: "Report submitted successfully" });
     } catch (error) {
       console.error("Error creating report:", error);
@@ -1024,7 +1027,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/users/:userId/block', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.user?.id) {
@@ -1033,7 +1036,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Default user for testing
         user = await storage.getUserByReplitId('44164221');
       }
-      
+
       if (!user) {
         return res.status(401).json({ 
           success: false,
@@ -1042,7 +1045,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const userIdToBlock = parseInt(req.params.userId);
-      
+
       if (user.id === userIdToBlock) {
         return res.status(400).json({
           success: false,
@@ -1070,7 +1073,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/users/:userId/unblock', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.session?.passport?.user?.id) {
@@ -1096,7 +1099,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(userRoles.userId, user.id));
 
       const isAdmin = userRoleResults.some(role => ['super_admin', 'admin', 'moderator'].includes(role.role_name));
-      
+
       if (!isAdmin) {
         return res.status(403).json({
           success: false,
@@ -1126,7 +1129,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/saved-posts', setUserContext, async (req: any, res) => {
     try {
       let user: any;
-      
+
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
       } else if (req.user?.id) {
@@ -1135,7 +1138,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Default user for testing
         user = await storage.getUserByReplitId('44164221');
       }
-      
+
       if (!user) {
         return res.status(401).json({ 
           success: false,
@@ -1144,7 +1147,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const { postId } = req.body;
-      
+
       if (!postId) {
         return res.status(400).json({
           success: false,
@@ -1188,7 +1191,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { id: 14, name: 'Belgrade', country: 'Serbia', lat: 44.7866, lon: 20.4489 },
         { id: 15, name: 'Kolasin', country: 'Montenegro', lat: 42.8229, lon: 19.5171 }
       ];
-      
+
       console.log('📍 Location API: Returning', cities.length, 'cities');
       res.json(cities);
     } catch (error: any) {
@@ -1205,45 +1208,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const searchTerm = parseQueryParam(req.query.search || req.query.q, '').toLowerCase();
       const businessType = parseQueryParam(req.query.type || req.query.types, '');
-      
+
       console.log('🏢 Business search params:', { searchTerm, businessType });
-      
+
       // Sample businesses for each city
       const allBusinesses = [
         // Buenos Aires restaurants
         { id: 1, name: 'La Cabrera', type: 'restaurant', address: 'Cabrera 5099', city: 'Buenos Aires', country: 'Argentina', rating: 4.5 },
         { id: 2, name: 'Don Julio', type: 'restaurant', address: 'Guatemala 4691', city: 'Buenos Aires', country: 'Argentina', rating: 4.7 },
         { id: 3, name: 'Café Tortoni', type: 'cafe', address: 'Av. de Mayo 825', city: 'Buenos Aires', country: 'Argentina', rating: 4.3 },
-        
+
         // Buenos Aires bars
         { id: 4, name: 'Milonga Bar', type: 'bar', address: 'Defensa 963', city: 'Buenos Aires', country: 'Argentina', rating: 4.4 },
         { id: 5, name: 'Tango Sur', type: 'bar', address: 'San Telmo', city: 'Buenos Aires', country: 'Argentina', rating: 4.2 },
         { id: 6, name: 'El Querandí', type: 'bar', address: 'Peru 302', city: 'Buenos Aires', country: 'Argentina', rating: 4.6 },
-        
+
         // Buenos Aires dance venues
         { id: 7, name: 'Salon Canning', type: 'club', address: 'Av. Raúl Scalabrini Ortiz 1331', city: 'Buenos Aires', country: 'Argentina', rating: 4.8 },
         { id: 8, name: 'La Viruta', type: 'club', address: 'Armenia 1366', city: 'Buenos Aires', country: 'Argentina', rating: 4.5 },
         { id: 9, name: 'El Beso', type: 'club', address: 'Riobamba 416', city: 'Buenos Aires', country: 'Argentina', rating: 4.7 },
-        
+
         // Paris venues
         { id: 10, name: 'Le Comptoir', type: 'restaurant', address: '9 Carrefour de l\'Odéon', city: 'Paris', country: 'France', rating: 4.6 },
         { id: 11, name: 'Tango de Soie', type: 'club', address: '13 Rue au Maire', city: 'Paris', country: 'France', rating: 4.4 },
         { id: 12, name: 'Café de Flore', type: 'cafe', address: '172 Boulevard Saint-Germain', city: 'Paris', country: 'France', rating: 4.3 },
-        
+
         // NYC venues
         { id: 13, name: 'Tango Porteño NYC', type: 'club', address: '348 W 46th St', city: 'New York City', country: 'USA', rating: 4.5 },
         { id: 14, name: 'Rizzuto\'s', type: 'restaurant', address: '192 E 2nd St', city: 'New York City', country: 'USA', rating: 4.3 },
         { id: 15, name: 'DanceSport', type: 'club', address: '22 W 34th St', city: 'New York City', country: 'USA', rating: 4.6 },
-        
+
         // Additional venues for variety
         { id: 16, name: 'Tango Barcelona', type: 'club', address: 'Carrer de l\'Arc del Teatre', city: 'Barcelona', country: 'Spain', rating: 4.5 },
         { id: 17, name: 'Berlin Tango', type: 'club', address: 'Prenzlauer Berg', city: 'Berlin', country: 'Germany', rating: 4.4 },
         { id: 18, name: 'Tokyo Milonga', type: 'club', address: 'Shibuya', city: 'Tokyo', country: 'Japan', rating: 4.6 }
       ];
-      
+
       // Filter businesses based on search term and type
       let filteredBusinesses = allBusinesses;
-      
+
       if (searchTerm) {
         filteredBusinesses = filteredBusinesses.filter(b => 
           b.name.toLowerCase().includes(searchTerm) ||
@@ -1252,17 +1255,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           b.type.toLowerCase().includes(searchTerm)
         );
       }
-      
+
       if (businessType) {
         const types = businessType.split(',').map(t => t.trim().toLowerCase());
         filteredBusinesses = filteredBusinesses.filter(b => 
           types.includes(b.type.toLowerCase())
         );
       }
-      
+
       // Limit results to 10
       const results = filteredBusinesses.slice(0, 10);
-      
+
       console.log(`🏢 Business search results: ${results.length} businesses found`);
       res.json(results);
     } catch (error: any) {
@@ -1278,12 +1281,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/places/:placeId', async (req: any, res) => {
     try {
       const placeId = req.params.placeId;
-      
+
       console.log('📍 Fetching place details for ID:', placeId);
-      
+
       // Use Google Maps API key from environment
       const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
-      
+
       if (!apiKey) {
         console.error('❌ Google Maps API key not configured');
         res.status(503).json({ 
@@ -1292,11 +1295,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         return;
       }
-      
+
       // Import Google Maps client
       const { Client } = require('@googlemaps/google-maps-services-js');
       const client = new Client({});
-      
+
       try {
         // Get place details directly by Place ID
         const response = await client.placeDetails({
@@ -1308,7 +1311,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           timeout: 5000
         });
-        
+
         if (response.data.result) {
           const place = response.data.result;
           const formattedResult = {
@@ -1327,7 +1330,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             website: place.website || null,
             phone: place.formatted_phone_number || null
           };
-          
+
           console.log('✅ Place found:', formattedResult.name);
           res.json(formattedResult);
         } else {
@@ -1363,7 +1366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const longitude = parseFloatQueryParam(req.query.lng, null);
       const city = parseQueryParam(req.query.city, '');
       const country = parseQueryParam(req.query.country, '');
-      
+
       console.log('🔍 Business search API called:', { 
         searchTerm, 
         businessTypes, 
@@ -1373,10 +1376,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         city,
         country 
       });
-      
+
       // Use Google Maps API key from environment
       const apiKey = process.env.VITE_GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
-      
+
       if (!apiKey) {
         console.error('❌ Google Maps API key not configured');
         res.status(503).json({ 
@@ -1385,13 +1388,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         return;
       }
-      
+
       // Import Google Maps client
       const { Client } = require('@googlemaps/google-maps-services-js');
       const client = new Client({});
-      
+
       let response;
-      
+
       try {
         if (latitude && longitude) {
           // If coordinates provided, search near that location
@@ -1411,15 +1414,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
           let searchQuery = searchTerm || '';
           if (city) searchQuery += ` ${city}`;
           if (country) searchQuery += ` ${country}`;
-          
+
           if (!searchQuery.trim()) {
             // If no search term or location, return empty
             res.json([]);
             return;
           }
-          
+
           console.log(`🔎 Text search query: "${searchQuery}"`);
-          
+
           // Use text search for worldwide search
           response = await client.textSearch({
             params: {
@@ -1432,11 +1435,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } catch (apiError: any) {
         console.error('❌ Google Maps API error:', apiError.response?.data || apiError.message);
-        
+
         // Check for specific API errors
         if (apiError.response?.data?.error_message) {
           const errorMsg = apiError.response.data.error_message;
-          
+
           if (errorMsg.includes('API key')) {
             res.status(403).json({ 
               error: 'Invalid API key',
@@ -1461,13 +1464,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         return;
       }
-      
+
       if (!response || !response.data || !response.data.results) {
         console.log('⚠️ No results from Google Maps API');
         res.json([]);
         return;
       }
-      
+
       // Format Google Maps results to match our structure
       const businesses = response.data.results.slice(0, limit).map((place: any) => {
         // Extract city and country from formatted address
@@ -1478,7 +1481,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const countryComponent = addressComponents.find((c: any) => 
           c.types.includes('country')
         );
-        
+
         // Extract business type from Google's types
         let businessType = 'venue';
         const placeTypes = place.types || [];
@@ -1489,7 +1492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         else if (placeTypes.includes('store')) businessType = 'store';
         else if (placeTypes.includes('lodging')) businessType = 'hotel';
         else if (placeTypes[0]) businessType = placeTypes[0].replace(/_/g, ' ');
-        
+
         return {
           id: place.place_id,
           name: place.name,
@@ -1506,10 +1509,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           openNow: place.opening_hours?.open_now
         };
       });
-      
+
       console.log(`🎯 Returning ${businesses.length} live business results from Google Maps`);
       res.json(businesses);
-      
+
     } catch (error: any) {
       console.error('Error searching businesses:', error);
       res.status(500).json({ 
@@ -1521,10 +1524,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Create HTTP server
   const server = createServer(app);
-  
+
   // 🎯 ESA LIFE CEO 61x21 - Initialize real-time notifications for 100/100 score
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
-  
+
   return server;
 }
