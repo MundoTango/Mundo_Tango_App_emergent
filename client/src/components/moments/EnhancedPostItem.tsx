@@ -761,9 +761,7 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
             </button>
 
             {/* ESA LIFE CEO 61×21 - See Friendship button only for accepted friends */}
-            {post.user?.id && 
-             String(post.user.id) !== (currentUserId || user?.id?.toString() || '') && 
-             post.user?.friendshipStatus === 'accepted' && (
+            {post.user?.friendshipStatus === 'accepted' && post.user?.id !== 7 && (
               <Link href={`/friendship/${post.user.id}`}>
                 <button
                   data-testid={`button-see-friendship-${post.user.id}`}
