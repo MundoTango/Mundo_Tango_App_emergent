@@ -1025,41 +1025,25 @@ export class DatabaseStorage implements IStorage {
         .limit(limit)
         .offset(offset);
       
-      return result.map(row => {
-        const friendshipStatus = row.friendship?.status || 'none';
-        
-        // ESA LIFE CEO 61×21 - Debug friendship data mapping
-        if (row.users?.id === 1 || row.users?.id === 5) { // Elena (1) or Sofia (5)
-          console.log('🔍 ESA Layer 22 - Friendship Debug:', {
-            postUserId: row.users.id,
-            userName: row.users.name,
-            currentUserId: userId,
-            friendshipRow: row.friendship,
-            friendshipStatus: friendshipStatus,
-            queryDirection: row.friendship ? 'Found friendship' : 'No friendship found'
-          });
-        }
-        
-        return {
-          ...row.posts,
-          mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 61x21 - Always include mediaEmbeds
-          user: row.users ? {
-            id: row.users.id,
-            name: row.users.name,
-            username: row.users.username,
-            profileImage: row.users.profileImage,
-            tangoRoles: row.users.tangoRoles,
-            leaderLevel: row.users.leaderLevel,
-            followerLevel: row.users.followerLevel,
-            city: row.users.city,
-            state: row.users.state,
-            country: row.users.country,
-            // ESA Layer 22: Include proper friendship status
-            friendshipStatus: friendshipStatus, // 'accepted' | 'pending' | 'blocked' | 'none'
-            connectionType: friendshipStatus === 'accepted' ? 'friend' : undefined
-          } : null
-        };
-      });
+      return result.map(row => ({
+        ...row.posts,
+        mediaEmbeds: row.posts?.mediaEmbeds || [], // ESA LIFE CEO 61x21 - Always include mediaEmbeds
+        user: row.users ? {
+          id: row.users.id,
+          name: row.users.name,
+          username: row.users.username,
+          profileImage: row.users.profileImage,
+          tangoRoles: row.users.tangoRoles,
+          leaderLevel: row.users.leaderLevel,
+          followerLevel: row.users.followerLevel,
+          city: row.users.city,
+          state: row.users.state,
+          country: row.users.country,
+          // ESA Layer 22: Include proper friendship status
+          friendshipStatus: row.friendship?.status || 'none', // 'accepted' | 'pending' | 'blocked' | 'none'
+          connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
+        } : null
+      }));
     }
 
     // Complex filtering with tag support
