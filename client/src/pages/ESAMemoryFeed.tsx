@@ -167,22 +167,38 @@ function ESAMemoryFeedCore() {
 
 
   // RESILIENT DATA FETCHING - Protected with validation and fallbacks
+  // ESA Fix: Use raw data fetch instead of schema validation that strips friendship data
   const { 
     data: feedResponse, 
     isLoading, 
     isFetching, 
-    error,
-    isOffline,
-    isDegraded,
-    hasFallback 
-  } = useResilientQuery({
-    endpoint: `/api/posts/feed?limit=20&offset=${(page - 1) * 20}`,
-    schema: PostsFeedResponseSchema,
+    error 
+  } = useQuery({
     queryKey: ['/api/posts/feed', page],
-    cacheKey: `posts-feed-page-${page}`,
-    fallback: { posts: [], hasMore: false, total: 0, page },
-    staleTime: 30 * 1000, // 30 seconds - use cached data when fresh
-    retry: true // Enable resilient retry with exponential backoff
+    queryFn: async () => {
+      const response = await fetch(`/api/posts/feed?limit=20&offset=${(page - 1) * 20}`, {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+      }
+      
+      const data = await response.json();
+      
+      // ESA Debug: Log raw API response to verify friendship data
+      console.log('[ESA MemoryFeed] Raw API response:', {
+        hasData: !!data,
+        postsCount: data?.posts?.length,
+        firstPost: data?.posts?.[0],
+        firstUserFriendship: data?.posts?.[0]?.user?.friendshipStatus
+      });
+      
+      return data;
+    },
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000
   });
 
 
