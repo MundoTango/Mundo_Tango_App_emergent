@@ -200,14 +200,21 @@ router.get('/api/posts/feed', async (req: any, res) => {
       return formattedPost;
     });
     
-    // Returning posts with media
-    if (postsWithMedia.length > 0) {
-      // Debug - First post media info logged
-    }
+    // ESA LIFE CEO 61×21 - Layer 2: Complete API data contracts
+    // Calculate pagination metadata
+    const totalPosts = await storage.getTotalPostsCount ? 
+      await storage.getTotalPostsCount(userId) : 
+      100; // Default to 100 if method doesn't exist
+    const currentPage = Math.floor(offset / limit) + 1;
+    // ESA Fix: Correct hasMore calculation - check if there are more posts beyond current offset
+    const hasMore = (offset + postsWithMedia.length) < totalPosts;
     
+    // ESA Layer 2: Return structure matching frontend expectations
     res.json({ 
-      success: true, 
-      data: postsWithMedia 
+      posts: postsWithMedia,
+      hasMore: hasMore,
+      total: totalPosts,
+      page: currentPage
     });
     
   } catch (error: any) {

@@ -173,6 +173,7 @@ export interface IStorage {
   getUserVideos(userId: number): Promise<any[]>;
   getUserFriends(userId: number): Promise<any[]>;
   getFeedPosts(userId: number, limit?: number, offset?: number, filterTags?: string[]): Promise<Post[]>;
+  getTotalPostsCount(userId: number): Promise<number>; // ESA LIFE CEO 61x21 - Total posts count for pagination
   likePost(postId: number, userId: number): Promise<void>;
   unlikePost(postId: number, userId: number): Promise<void>;
   checkPostLike(postId: number, userId: number): Promise<boolean>; // ESA LIFE CEO 61x21 - Check if user liked post
@@ -1092,6 +1093,19 @@ export class DatabaseStorage implements IStorage {
         connectionType: row.friendship?.status === 'accepted' ? 'friend' : undefined
       } : null
     }));
+  }
+
+  async getTotalPostsCount(userId: number): Promise<number> {
+    // ESA LIFE CEO 61x21 - Get total posts count matching getFeedPosts visibility logic
+    // This should count only posts that are visible to the user (public posts for now)
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(posts)
+      // In the future, add visibility filters here to match getFeedPosts logic
+      // For now, count all posts since getFeedPosts returns all posts
+      ;
+    
+    return Number(result[0]?.count || 0);
   }
 
 
