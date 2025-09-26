@@ -3,6 +3,7 @@ import TTEventCard from '@/components/ttfiles/TTEventCard';
 import TTProfileHead from '@/components/ttfiles/TTProfileHead';
 import TTCommunityCard from '@/components/ttfiles/TTCommunityCard';
 import { useLocation } from 'wouter';
+import DashboardLayout from '@/layouts/DashboardLayout';
 import '../styles/ttfiles.css';
 
 const TTfilesDemo = () => {
@@ -54,7 +55,8 @@ const TTfilesDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
@@ -159,8 +161,9 @@ const TTfilesDemo = () => {
             Back to Admin Center
           </button>
         </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

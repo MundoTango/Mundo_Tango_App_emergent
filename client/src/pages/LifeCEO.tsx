@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import DashboardLayout from '@/layouts/DashboardLayout';
 
 export default function LifeCEO() {
   const [, setLocation] = useLocation();
@@ -113,7 +114,8 @@ export default function LifeCEO() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
@@ -269,7 +271,8 @@ export default function LifeCEO() {
             </div>
           </Card>
         </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
