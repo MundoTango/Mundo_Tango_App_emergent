@@ -122,26 +122,6 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const posts = await storage.getFeedPosts(userId, limit, offset);
     console.log(`✅ Found ${posts.length} posts in database`);
     
-    // ESA Framework Layer 2: Debug friendship data in API response
-    if (posts.length > 0) {
-      console.log('[ESA Debug] API Response friendship data:', {
-        userId,
-        firstPost: posts[0] ? {
-          postId: posts[0].id,
-          postUserId: posts[0].user?.id,
-          postUserName: posts[0].user?.name,
-          friendshipStatus: posts[0].user?.friendshipStatus,
-          connectionType: posts[0].user?.connectionType
-        } : null,
-        postWithFriendship: posts.find(p => p.user?.friendshipStatus === 'accepted') ? {
-          postId: posts.find(p => p.user?.friendshipStatus === 'accepted')?.id,
-          userId: posts.find(p => p.user?.friendshipStatus === 'accepted')?.user?.id,
-          userName: posts.find(p => p.user?.friendshipStatus === 'accepted')?.user?.name,
-          friendshipStatus: posts.find(p => p.user?.friendshipStatus === 'accepted')?.user?.friendshipStatus
-        } : null
-      });
-    }
-    
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
       const formattedPost: any = {
