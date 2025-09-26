@@ -760,23 +760,13 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
               <Share2 className="h-5 w-5" />
             </button>
 
-            {/* ESA LIFE CEO 61×21 - See Friendship button only for accepted friends */}
-            {(() => {
-              const userIdNumber = parseInt(currentUserId || '0');
-              console.log('[ESA PostItem] Friendship check:', {
-                postId: post.id,
-                userId: post.user?.id,
-                userName: post.user?.name,
-                friendshipStatus: post.user?.friendshipStatus,
-                currentUserId: userIdNumber,
-                showButton: post.user?.friendshipStatus === 'accepted' && post.user?.id !== userIdNumber
-              });
-              return post.user?.friendshipStatus === 'accepted' && post.user?.id !== userIdNumber;
-            })() && (
+            {/* ESA LIFE CEO 61×21 - See Friendship button (Layer 24: Social Features Agent) */}
+            {post.user?.friendshipStatus === 'accepted' && post.user?.id !== parseInt(currentUserId || '0') && (
               <Link href={`/friendship/${post.user.id}`}>
                 <button
                   data-testid={`button-see-friendship-${post.user.id}`}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-turquoise-500/10 to-cyan-600/10 text-turquoise-600 hover:from-turquoise-500/20 hover:to-cyan-600/20 hover:text-turquoise-700 transition-all duration-200 border border-turquoise-200/30 hover:border-turquoise-300/50"
+                  title={`View friendship details with ${post.user?.name}`}
                 >
                   <Users className="h-5 w-5" />
                   <span>See Friendship</span>
