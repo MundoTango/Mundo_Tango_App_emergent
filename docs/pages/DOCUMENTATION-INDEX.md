@@ -8,6 +8,27 @@
 
 ## Latest Architecture Updates (September 26, 2025)
 
+### TrangoTechSidebar Implementation - Global Navigation (September 26, 2025)
+- **Primary Component:** `client/src/components/TrangoTechSidebar.tsx` - Main navigation sidebar following ESA Framework Layer 9 (UI Framework)
+- **Layout Wrapper:** `DashboardLayout` component includes TrangoTechSidebar for consistent navigation across platform
+- **Coverage:** Now appears on ALL platform pages (88+ pages) including LifeCEO, TTfilesDemo, and all main features
+- **Menu Items:** Memories, Tango Community, Friends, Messages, Groups, Events, Role Invitations
+- **MT Ocean Theme:** Glassmorphic design with teal-cyan gradients (#5EEAD4 → #155E75), magnetic hover effects
+- **Cleanup Actions:** 
+  - Removed `DashboardSidebar.tsx` (255 lines of unused duplicate code)
+  - Removed `events/UpcomingEventsSidebar.tsx` (duplicate of esa version)
+  - Kept `layout/sidebar.tsx` for landing/home pages (different navigation approach)
+- **Page Updates:** Added DashboardLayout wrapper to LifeCEO.tsx and TTfilesDemo.tsx for consistent navigation
+- **Special Pages Without Sidebar:** 
+  - code-of-conduct.tsx (agreement page)
+  - ProfileSwitcher.tsx (utility page)
+  - ErrorBoundaryPage.tsx (error handling)
+  - landing.tsx and home.tsx (use different navbar+sidebar approach)
+- **ESA Framework Compliance:** 
+  - Layer 9 (UI Framework): Single responsibility, no duplication
+  - Layer 60 (GitHub Expertise): Clean codebase without dead code
+  - Follows antifragile architecture principles
+
 ### "See Friendship" Button Implementation - Complete
 - **Location:** EnhancedPostItem component in memories feed (`/` route)
 - **Visibility Logic:** Only displays for posts from users with `friendshipStatus === 'accepted'` (excludes current user's own posts)
