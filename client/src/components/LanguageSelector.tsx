@@ -131,38 +131,47 @@ const LanguageSelector = ({
     // Group languages by region - only include groups that have languages
     const groups: Record<string, Language[]> = {};
     
-    // Popular languages that are available
+    // Define language codes by region (using actual codes from our 73 languages)
+    const europeCodes = ['en', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'fi', 'cs', 'hu', 'ro', 'bg', 'uk', 'hr', 'sr', 'sk', 'sl', 'et', 'lv', 'lt', 'is', 'mk', 'mt', 'cy', 'lb', 'ca', 'gl', 'eu', 'sq', 'be', 'bs'];
+    const americasCodes = ['en', 'es', 'es-ar', 'pt', 'pt-br'];
+    const asiaCodes = ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'tl', 'fil', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'ne', 'si', 'lo', 'my', 'km'];
+    const meaCodes = ['ar', 'he', 'tr', 'fa', 'ur', 'af', 'am', 'hy', 'az', 'ka'];
+    const popularCodes = ['en', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar'];
+    
+    // Popular languages
     const popular = supportedLanguages.filter(lang => 
-      ['en', 'es', 'es-ar', 'pt', 'fr', 'de', 'it', 'ja', 'zh'].includes(lang.code)
+      popularCodes.includes(lang.code)
     );
     if (popular.length > 0) groups['Popular'] = popular;
     
     // European languages
     const europe = supportedLanguages.filter(lang => 
-      ['fr', 'de', 'it', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'pt', 'es', 'en-gb'].includes(lang.code)
+      europeCodes.includes(lang.code)
     );
     if (europe.length > 0) groups['Europe'] = europe;
     
     // American languages  
     const americas = supportedLanguages.filter(lang => 
-      ['en', 'es', 'es-ar', 'pt', 'pt-br', 'fr-ca', 'en-us'].includes(lang.code)
+      americasCodes.includes(lang.code)
     );
     if (americas.length > 0) groups['Americas'] = americas;
     
     // Asian languages
     const asia = supportedLanguages.filter(lang => 
-      ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'tl', 'bn'].includes(lang.code)
+      asiaCodes.includes(lang.code)
     );
     if (asia.length > 0) groups['Asia'] = asia;
     
     // Middle East & Africa languages
     const mea = supportedLanguages.filter(lang => 
-      ['ar', 'he', 'tr', 'fa', 'af', 'sw', 'am', 'ha'].includes(lang.code)
+      meaCodes.includes(lang.code)
     );
     if (mea.length > 0) groups['Middle East & Africa'] = mea;
     
-    // Always include all languages
-    groups['All Languages'] = supportedLanguages;
+    // Always include all languages (if we have any)
+    if (supportedLanguages.length > 0) {
+      groups['All Languages'] = supportedLanguages;
+    }
     
     return groups;
   };
@@ -298,28 +307,38 @@ const LanguageSelector = ({
             
             {/* All languages grouped by region */}
             {Object.entries(languageGroups).map(([region, languages]) => {
-              if (region === 'Popular' || region === 'All Languages') return null;
+              if (region === 'Popular' || region === 'All Languages' || languages.length === 0) return null;
               return (
                 <DropdownMenuSub key={region}>
                   <DropdownMenuSubTrigger className="hover:bg-turquoise-50">
-                    {region}
+                    <span className="flex items-center justify-between w-full">
+                      <span>{region}</span>
+                      <span className="text-xs text-gray-500 ml-2">({languages.length})</span>
+                    </span>
                   </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="glassmorphic-card">
+                  <DropdownMenuSubContent className="glassmorphic-card max-h-96 overflow-y-auto">
                     {languages.map(renderLanguageItem)}
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
               );
             })}
             
-            <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="hover:bg-turquoise-50">
-                {t('settings.allLanguages')}
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent className="glassmorphic-card max-h-96 overflow-y-auto">
-                {supportedLanguages.map(renderLanguageItem)}
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
+            {supportedLanguages.length > 0 && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50">
+                    <span className="flex items-center justify-between w-full">
+                      <span>{t('settings.allLanguages') || 'All Languages'}</span>
+                      <span className="text-xs text-gray-500 ml-2">({supportedLanguages.length})</span>
+                    </span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="glassmorphic-card max-h-96 overflow-y-auto">
+                    {supportedLanguages.map(renderLanguageItem)}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              </>
+            )}
           </>
         ) : (
           <div className="max-h-96 overflow-y-auto">
