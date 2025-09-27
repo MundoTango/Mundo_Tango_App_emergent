@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "ok": "OK",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "finish": "Finalizar",
+    "submit": "Enviar",
+    "language": "Idioma",
+    "popular": "Popular",
+    "preferred": "Preferido",
+    "admin": "Administrador",
+    "direction": "ltr"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "memories": "Recuerdos",
+    "tangoCommunity": "Comunidad de Tango",
+    "friends": "Amigos",
+    "messages": "Mensajes",
+    "groups": "Grupos",
+    "events": "Eventos",
+    "roleInvitations": "Invitaciones de Rol",
+    "notifications": "Notificaciones",
+    "search": "Buscar",
+    "menu": "Menú",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "billing": "Facturación",
+    "adminAccess": "Acceso de Administrador",
+    "logout": "Cerrar sesión"
+  },
+  "memories": {
+    "title": "Recuerdos",
+    "memoryShared": "Recuerdo compartido con éxito",
+    "memorySharedDescription": "Tu recuerdo ha sido compartido con la comunidad"
+  },
+  "community": {
+    "globalDancers": "Bailarines Globales",
+    "activeEvents": "Eventos Activos",
+    "communities": "Comunidades"
+  },
+  "settings": {
+    "languageChanged": "Idioma Cambiado",
+    "languageChangedDesc": "Idioma de la interfaz cambiado a {{language}}",
+    "chooseLanguage": "Elegir Idioma",
+    "selectLanguage": "Seleccionar Idioma",
+    "allLanguages": "Todos los Idiomas"
+  },
+  "errors": {
+    "languageChangeFailed": "Error al cambiar el idioma",
+    "tryAgain": "Por favor, inténtalo de nuevo",
+    "uploadFailed": "Error al cargar"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}

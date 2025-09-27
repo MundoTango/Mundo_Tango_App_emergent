@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "添加",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "confirm": "确认",
+    "yes": "是",
+    "no": "否",
+    "ok": "确定",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一个",
+    "previous": "上一个",
+    "finish": "完成",
+    "submit": "提交",
+    "language": "语言",
+    "popular": "热门",
+    "preferred": "首选",
+    "admin": "管理员",
+    "direction": "ltr"
+  },
+  "navigation": {
+    "home": "首页",
+    "dashboard": "控制面板",
+    "memories": "回忆",
+    "tangoCommunity": "探戈社区",
+    "friends": "朋友",
+    "messages": "消息",
+    "groups": "群组",
+    "events": "活动",
+    "roleInvitations": "角色邀请",
+    "notifications": "通知",
+    "search": "搜索",
+    "menu": "菜单",
+    "profile": "个人资料",
+    "settings": "设置",
+    "billing": "账单",
+    "adminAccess": "管理员访问",
+    "logout": "退出"
+  },
+  "memories": {
+    "title": "回忆",
+    "memoryShared": "回忆分享成功",
+    "memorySharedDescription": "您的回忆已与社区分享"
+  },
+  "community": {
+    "globalDancers": "全球舞者",
+    "activeEvents": "活跃活动",
+    "communities": "社区"
+  },
+  "settings": {
+    "languageChanged": "语言已更改",
+    "languageChangedDesc": "界面语言已更改为{{language}}",
+    "chooseLanguage": "选择语言",
+    "selectLanguage": "选择语言",
+    "allLanguages": "所有语言"
+  },
+  "errors": {
+    "languageChangeFailed": "更改语言失败",
+    "tryAgain": "请重试",
+    "uploadFailed": "上传失败"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}

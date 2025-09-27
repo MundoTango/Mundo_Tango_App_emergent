@@ -27,7 +27,7 @@
     "popular": "Popular",
     "preferred": "Preferred",
     "admin": "Admin",
-    "direction": "ltr"
+    "direction": "rtl"
   },
   "navigation": {
     "home": "Home",
