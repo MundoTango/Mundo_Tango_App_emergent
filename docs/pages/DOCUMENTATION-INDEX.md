@@ -168,27 +168,53 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 
 ## 📝 Documentation Update Instructions
 
-### When asked to "update docs/pages/DOCUMENTATION-INDEX.md":
-This means **update the actual documentation pages** referenced in this index, not just the index itself. Follow these steps:
+### CRITICAL: What "update docs/pages/DOCUMENTATION-INDEX.md" REALLY Means:
+When requested to "update documentation" or "update docs/pages/DOCUMENTATION-INDEX.md", this **DOES NOT mean just edit this index file**. 
 
-1. **Locate the relevant documentation file(s)** from the index
-   - Example: For Sidebar component → `/docs/pages/components/Sidebar.md`
-   - Example: For Events page → `/docs/pages/events/EnhancedEvents.md`
+Instead, you must **UPDATE THE ACTUAL DOCUMENTATION FILES** referenced in this index.
 
-2. **Check if documentation exists**
-   - If it exists: Update the existing file
-   - If it doesn't exist: Create a new file in the appropriate directory
+### Real Example - Navigation System Documentation Update:
+When asked to document navigation improvements, here's what was actually done:
 
-3. **Update multiple files if needed**
-   - When changes affect multiple components/pages, update all relevant documentation files
-   - Example: Navigation refactoring may require updating Sidebar.md, UnifiedTopBar.md, and multiple page docs
+✅ **CORRECT APPROACH - Update Multiple Documentation Files:**
+1. **`docs/pages/components/Sidebar.md`** - Updated with:
+   - Refactoring details (TrangoTechSidebar → Sidebar)
+   - All 7 functional navigation sections documented
+   - Referenced ESA Layers 9, 48, and 60
+   
+2. **`docs/pages/events/EnhancedEvents.md`** - Updated with:
+   - API endpoint fix (`/api/events` → `/api/events/feed`)
+   - Calendar component conflict resolution
+   - Known Issues section updated to show fixed items
+   
+3. **`docs/pages/community/RoleInvitations.md`** - Updated with:
+   - 4 new API endpoints with detailed descriptions
+   - eventParticipants table integration documentation
+   - Referenced ESA Layers 2, 22, and 24
 
-4. **Use the comprehensive 10-section structure** (see below)
+4. **`docs/pages/DOCUMENTATION-INDEX.md`** - Updated ONLY to:
+   - Add these instruction clarifications
+   - Update the summary section if needed
 
-5. **Update this index** only when:
-   - Adding new pages/components to the list
-   - Changing organizational structure
-   - Adding high-level summaries of changes
+### Step-by-Step Process:
+
+1. **Identify affected documentation files**
+   - Find all pages/components mentioned in the update request
+   - Check this index for their documentation paths
+
+2. **Update each documentation file individually**
+   - Navigate to each file (e.g., `/docs/pages/components/Sidebar.md`)
+   - Update with real implementation details
+   - Follow the 10-section structure below
+
+3. **Create new documentation files if needed**
+   - If a component/page has no documentation yet
+   - Create it in the appropriate directory
+   - Add it to this index
+
+4. **This index file (DOCUMENTATION-INDEX.md) is updated LAST**
+   - Only update to add new entries
+   - Or to clarify instructions like this section
 
 ## 📊 Documentation Standards
 
