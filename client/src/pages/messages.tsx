@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAuthToken } from "@/lib/authUtils";
 import { useSocket } from "@/hooks/useSocket";
-import Navbar from "@/components/layout/navbar";
+import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import MobileNav from "@/components/layout/mobile-nav";
 import ChatRoom from "@/components/messaging/chat-room";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,7 +26,22 @@ interface ChatRoomType {
 export default function Messages() {
   const [selectedRoom, setSelectedRoom] = useState<ChatRoomType | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'light';
+  });
   const { sendMessage } = useSocket();
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   // Fetch chat rooms
   const { data: chatRooms = [], isLoading } = useQuery({
@@ -63,7 +78,11 @@ export default function Messages() {
 
   return (
     <div className="min-h-screen bg-tango-gray">
-      <Navbar onOpenChat={() => {}} />
+      <UnifiedTopBar 
+        theme={theme}
+        onThemeToggle={toggleTheme}
+        showMenuButton={false}
+      />
       
       <div className="pt-16 pb-20 lg:pb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

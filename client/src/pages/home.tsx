@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "@/components/layout/navbar";
+import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import CreatePost from "@/components/feed/create-post";
 import PostCard from "@/components/feed/post-card";
@@ -32,6 +32,21 @@ export default function Home() {
   // MT Ocean Theme Restored - July 22, 2025 9:20PM - v4 with service worker update
   // Force cache refresh with service worker update
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'light';
+  });
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
   
   // Check for service worker updates on mount
   useEffect(() => {
@@ -60,7 +75,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50" key="mt-ocean-theme-v2">
-      <Navbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <UnifiedTopBar 
+        onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        theme={theme}
+        onThemeToggle={toggleTheme}
+        showMenuButton={true}
+      />
       
       <div className="flex">
         <Sidebar 
