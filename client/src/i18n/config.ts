@@ -362,19 +362,29 @@ const baseResources = {
 const resources = {
   ...baseResources,
   ...generatedTranslations,
-  // Override with base resources for languages that have custom translations
+  // Properly merge translations with deep merge for existing languages
   en: {
-    ...generatedTranslations.en,
-    ...baseResources.en,
+    translation: {
+      ...(generatedTranslations.en?.translation || {}),
+      ...(baseResources.en?.translation || {}),
+    },
   },
-  es: {
-    ...generatedTranslations.es,
-    ...baseResources.es,
+  es: baseResources.es, // Use base resources for regular Spanish
+  'es-AR-lunfardo': generatedTranslations['es-AR-lunfardo'], // Use generated for Lunfardo
+  it: {
+    translation: {
+      ...(generatedTranslations.it?.translation || {}),
+      ...(baseResources.it?.translation || {}),
+    },
   },
   fr: {
-    ...generatedTranslations.fr,
-    ...baseResources.fr,
+    translation: {
+      ...(generatedTranslations.fr?.translation || {}),
+      ...(baseResources.fr?.translation || {}),
+    },
   },
+  ko: generatedTranslations.ko,
+  zh: generatedTranslations.zh,
 };
 
 // Initialize i18n
