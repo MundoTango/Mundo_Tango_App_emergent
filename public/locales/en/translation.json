@@ -77,7 +77,8 @@
     "info": "Information",
     "danger": "Danger",
     "required": "Required",
-    "optional": "Optional"
+    "optional": "Optional",
+    "admin": "Admin"
   },
   "navigation": {
     "memories": "Memories",
@@ -527,6 +528,7 @@
     "agreeToTerms": "I agree to the terms and conditions",
     "subscribeNewsletter": "Subscribe to newsletter",
     "optional": "Optional",
+    "admin": "Admin",
     "required": "Required",
     "selectOption": "Select an option",
     "enterText": "Enter text",
