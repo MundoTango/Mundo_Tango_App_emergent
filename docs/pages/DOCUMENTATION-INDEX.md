@@ -6,6 +6,46 @@
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 **Google Maps API:** ✅ Integrated (worldwide business search)
 
+## Latest Architecture Updates (September 27, 2025)
+
+### UnifiedTopBar Implementation - Global Navigation Header (September 27, 2025)
+- **Primary Component:** `client/src/components/navigation/UnifiedTopBar.tsx` - Unified top navigation bar following ESA Framework Layer 9 (UI Framework)
+- **Replaced Components:** Consolidated 3 duplicate navbar implementations:
+  - `navbar.tsx` (3 pages - home, landing, messages)
+  - `TopNavigationBar.tsx` (ESA DashboardLayout)
+  - Inline header in main `DashboardLayout.tsx` (35+ pages)
+- **Coverage:** Now used across ALL 88+ platform pages through DashboardLayout and individual page implementations
+- **Core Features:**
+  - **MT Branding:** Purple-pink gradient logo with "Mundo Tango" text
+  - **Global Search:** Real-time search with categorized dropdown (Posts, Events, People, Groups)
+  - **Notification Icons:** Bell and Messages with real-time count badges
+  - **Favorites:** Heart icon for quick access to favorites page
+  - **Language Selector:** EN/ES/FR with cycling functionality
+  - **Theme Toggle:** Light/dark mode switcher with sun/moon icons
+  - **Profile Dropdown:** Comprehensive user menu with profile, settings, billing, admin access, help, and logout
+  - **Mobile Support:** Menu button for sidebar toggle on mobile devices
+- **MT Ocean Theme:** 
+  - Glassmorphic background: `bg-white/95 backdrop-blur-xl`
+  - Teal-cyan gradient overlay: `#5EEAD4 → #155E75`
+  - Sticky positioning with proper z-index management
+  - Responsive hover states and transitions
+- **Implementation Details:**
+  - Props interface: `onMenuToggle`, `theme`, `onThemeToggle`, `showMenuButton`
+  - Real-time data fetching for notifications and messages counts
+  - Global search with debounced API calls
+  - Wouter routing integration for navigation
+  - Theme persistence via localStorage
+- **Migration Impact:**
+  - 66% reduction in navbar code (3 components → 1)
+  - Consistent user experience across entire platform
+  - Improved maintainability and feature parity
+  - Single source of truth for navigation
+- **Note:** Create Post button intentionally excluded per user requirements
+- **ESA Framework Compliance:**
+  - Layer 9 (UI Framework): Single responsibility, no duplication
+  - Layer 48 (Performance): One optimized component vs three separate implementations
+  - Layer 60 (GitHub Expertise): Clean codebase without redundant components
+
 ## Latest Architecture Updates (September 26, 2025)
 
 ### TrangoTechSidebar Implementation - Global Navigation (September 26, 2025)
