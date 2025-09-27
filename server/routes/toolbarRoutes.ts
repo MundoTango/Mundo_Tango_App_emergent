@@ -822,85 +822,26 @@ router.put('/api/languages/preferences', setUserContext, async (req: any, res) =
 router.get('/api/translations/:lng/:ns', async (req, res) => {
   try {
     const { lng, ns } = req.params;
+    const fs = require('fs');
+    const path = require('path');
     
-    // For now, return basic translations
-    // This should be expanded to load from database or translation files
-    const translations: any = {
-      en: {
-        common: {
-          welcome: 'Welcome',
-          login: 'Login',
-          logout: 'Logout',
-          profile: 'Profile',
-          settings: 'Settings',
-          language: 'Language',
-          popular: 'Popular',
-          preferred: 'Preferred'
-        },
-        settings: {
-          languageChanged: 'Language Changed',
-          languageChangedDesc: 'Interface language set to {{language}}',
-          chooseLanguage: 'Choose Language',
-          selectLanguage: 'Select Language',
-          allLanguages: 'All Languages'
-        },
-        errors: {
-          languageChangeFailed: 'Failed to change language',
-          tryAgain: 'Please try again'
-        }
-      },
-      es: {
-        common: {
-          welcome: 'Bienvenido',
-          login: 'Iniciar sesión',
-          logout: 'Cerrar sesión',
-          profile: 'Perfil',
-          settings: 'Configuración',
-          language: 'Idioma',
-          popular: 'Popular',
-          preferred: 'Preferido'
-        },
-        settings: {
-          languageChanged: 'Idioma Cambiado',
-          languageChangedDesc: 'Idioma de interfaz establecido en {{language}}',
-          chooseLanguage: 'Elegir Idioma',
-          selectLanguage: 'Seleccionar Idioma',
-          allLanguages: 'Todos los Idiomas'
-        },
-        errors: {
-          languageChangeFailed: 'Error al cambiar idioma',
-          tryAgain: 'Por favor intenta de nuevo'
-        }
-      },
-      fr: {
-        common: {
-          welcome: 'Bienvenue',
-          login: 'Connexion',
-          logout: 'Déconnexion',
-          profile: 'Profil',
-          settings: 'Paramètres',
-          language: 'Langue',
-          popular: 'Populaire',
-          preferred: 'Préféré'
-        },
-        settings: {
-          languageChanged: 'Langue Changée',
-          languageChangedDesc: 'Langue d\'interface définie sur {{language}}',
-          chooseLanguage: 'Choisir la Langue',
-          selectLanguage: 'Sélectionner la Langue',
-          allLanguages: 'Toutes les Langues'
-        },
-        errors: {
-          languageChangeFailed: 'Échec du changement de langue',
-          tryAgain: 'Veuillez réessayer'
-        }
-      }
-    };
-
-    const languageTranslations = translations[lng] || translations.en;
-    const namespaceTranslations = languageTranslations[ns] || {};
-
-    res.json(namespaceTranslations);
+    // ESA Layer 53: Dynamic translation loading from file system
+    // Supports 73 languages with fallback to English
+    const translationPath = path.join(__dirname, '../../public/locales', lng, `${ns}.json`);
+    const fallbackPath = path.join(__dirname, '../../public/locales/en', `${ns}.json`);
+    
+    // Check if translation file exists
+    if (fs.existsSync(translationPath)) {
+      const translationData = fs.readFileSync(translationPath, 'utf8');
+      res.json(JSON.parse(translationData));
+    } else if (fs.existsSync(fallbackPath)) {
+      // Fallback to English if language not found
+      const fallbackData = fs.readFileSync(fallbackPath, 'utf8');
+      res.json(JSON.parse(fallbackData));
+    } else {
+      // Return empty object if no translations found
+      res.json({});
+    }
   } catch (error: any) {
     console.error('Error fetching translations:', error);
     res.status(500).json({ 

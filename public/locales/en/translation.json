@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "memories": "Memories",
+    "tangoCommunity": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
+    "roleInvitations": "Role Invitations",
+    "search": "Search events, people, memories...",
+    "profile": "Profile",
+    "settings": "Settings",
+    "billing": "Billing",
+    "help": "Help",
+    "logout": "Logout",
+    "adminAccess": "Admin Access"
+  },
+  "memories": {
+    "title": "Memories",
+    "shareYourTango": "Share your tango moment...",
+    "shareRecommendation": "Share a recommendation",
+    "helpOthers": "Help others discover amazing places",
+    "addTags": "Add tags to your memory",
+    "searchVenues": "Search for venues, restaurants, milongas...",
+    "postVisibility": "Post visibility",
+    "public": "Public",
+    "friendsOnly": "Friends Only",
+    "private": "Private"
+  },
+  "community": {
+    "welcome": "Welcome to Mundo Tango",
+    "connectWith": "Connect with tango dancers around the world. Share your passion, find events, and build your tango community.",
+    "followUsers": "Follow some users or join groups to see posts in your feed.",
+    "globalDancers": "Global Dancers",
+    "activeEvents": "Active Events",
+    "communities": "Communities",
+    "onlineNow": "Online Now",
+    "upcomingEvents": "Upcoming Events",
+    "loadingEvents": "Loading events...",
+    "viewAllEvents": "View All Events"
+  },
+  "actions": {
+    "post": "Post",
+    "share": "Share",
+    "like": "Like",
+    "comment": "Comment",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "upload": "Upload",
+    "download": "Download",
+    "refresh": "Refresh",
+    "seeFriendship": "See Friendship"
+  }
+}

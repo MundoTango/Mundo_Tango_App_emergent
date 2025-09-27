@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "memories": "Recuerdos",
+    "tangoCommunity": "Comunidad de Tango",
+    "friends": "Amigos",
+    "messages": "Mensajes",
+    "groups": "Grupos",
+    "events": "Eventos",
+    "roleInvitations": "Invitaciones de Rol",
+    "search": "Buscar eventos, personas, recuerdos...",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "billing": "Facturación",
+    "help": "Ayuda",
+    "logout": "Cerrar Sesión",
+    "adminAccess": "Acceso Admin"
+  },
+  "memories": {
+    "title": "Recuerdos",
+    "shareYourTango": "Comparte tu momento de tango...",
+    "shareRecommendation": "Compartir una recomendación",
+    "helpOthers": "Ayuda a otros a descubrir lugares increíbles",
+    "addTags": "Añade etiquetas a tu recuerdo",
+    "searchVenues": "Buscar lugares, restaurantes, milongas...",
+    "postVisibility": "Visibilidad de publicación",
+    "public": "Público",
+    "friendsOnly": "Solo Amigos",
+    "private": "Privado"
+  },
+  "community": {
+    "welcome": "Bienvenido a Mundo Tango",
+    "connectWith": "Conecta con bailarines de tango de todo el mundo. Comparte tu pasión, encuentra eventos y construye tu comunidad tanguera.",
+    "followUsers": "Sigue a algunos usuarios o únete a grupos para ver publicaciones en tu feed.",
+    "globalDancers": "Bailarines Globales",
+    "activeEvents": "Eventos Activos",
+    "communities": "Comunidades",
+    "onlineNow": "En Línea Ahora",
+    "upcomingEvents": "Próximos Eventos",
+    "loadingEvents": "Cargando eventos...",
+    "viewAllEvents": "Ver Todos los Eventos"
+  },
+  "actions": {
+    "post": "Publicar",
+    "share": "Compartir",
+    "like": "Me Gusta",
+    "comment": "Comentar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "submit": "Enviar",
+    "upload": "Subir",
+    "download": "Descargar",
+    "refresh": "Actualizar",
+    "seeFriendship": "Ver Amistad"
+  }
+}
