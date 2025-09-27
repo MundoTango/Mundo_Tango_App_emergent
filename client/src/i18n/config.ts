@@ -2,6 +2,9 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+// ESA Layer 53: Import generated translations
+import generatedTranslations from './translations.json';
+
 // List of all supported languages from the database
 export const supportedLanguages = [
   { code: 'en', name: 'English', country: 'US' },
@@ -111,8 +114,8 @@ const detectionOptions = {
   cookieDomain: 'mundotango.life',
 };
 
-// ESA Layer 53: Complete translations for all 73 languages
-const resources = {
+// ESA Layer 53: Merge generated translations with base translations
+const baseResources = {
   en: {
     translation: {
       common: {
@@ -353,6 +356,25 @@ const resources = {
   nl: { translation: { navigation: { memories: "Herinneringen", tangoCommunity: "Tango Gemeenschap", friends: "Vrienden" } } },
   pl: { translation: { navigation: { memories: "Wspomnienia", tangoCommunity: "Społeczność Tango", friends: "Przyjaciele" } } },
   sv: { translation: { navigation: { memories: "Minnen", tangoCommunity: "Tango Gemenskap", friends: "Vänner" } } }
+};
+
+// Merge generated translations with base resources
+const resources = {
+  ...baseResources,
+  ...generatedTranslations,
+  // Override with base resources for languages that have custom translations
+  en: {
+    ...generatedTranslations.en,
+    ...baseResources.en,
+  },
+  es: {
+    ...generatedTranslations.es,
+    ...baseResources.es,
+  },
+  fr: {
+    ...generatedTranslations.fr,
+    ...baseResources.fr,
+  },
 };
 
 // Initialize i18n
