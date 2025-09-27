@@ -34,6 +34,7 @@ interface Language {
   country: string;
   isActive: boolean;
   isLunfardo?: boolean;
+  isPrimary?: boolean;
 }
 
 interface UserLanguagePreference {
@@ -64,7 +65,8 @@ const LanguageSelector = ({
     nativeName: lang.name, // Using name as nativeName for simplicity
     country: lang.country || 'GB',
     isActive: true,
-    isLunfardo: lang.code === 'es-ar'
+    isLunfardo: lang.code === 'es-AR-lunfardo',
+    isPrimary: lang.isPrimary || false
   }));
 
   // Default user preferences (can be fetched from API later)
@@ -119,12 +121,18 @@ const LanguageSelector = ({
     
     // Define language codes by region (using all 73 languages from ESA Layer 53)
     const europeCodes = ['en', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'fi', 'cs', 'hu', 'ro', 'bg', 'uk', 'hr', 'sr', 'sk', 'sl', 'et', 'lv', 'lt', 'is', 'mk', 'mt', 'cy', 'lb', 'ca', 'gl', 'eu', 'sq', 'be', 'bs', 'ka'];
-    const americasCodes = ['en', 'es', 'es-ar', 'pt', 'pt-br'];
+    const americasCodes = ['en', 'es-AR-lunfardo', 'es', 'pt', 'pt-br'];
     const asiaCodes = ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'fil', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'ne', 'si', 'lo', 'my'];
     const meaCodes = ['ar', 'he', 'tr', 'fa', 'ur', 'af', 'am', 'ps'];
-    const popularCodes = ['en', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar'];
+    // Primary languages (marked as priority in platform)
+    const primaryLanguages = supportedLanguages.filter(lang => lang.isPrimary || lang.code === 'en');
+    if (primaryLanguages.length > 0) {
+      groups['Primary Languages'] = primaryLanguages;
+    }
     
-    // Popular languages
+    const popularCodes = ['en', 'es-AR-lunfardo', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar', 'ko'];
+    
+    // Popular languages for quick access
     const popular = supportedLanguages.filter(lang => 
       popularCodes.includes(lang.code)
     );
@@ -280,12 +288,12 @@ const LanguageSelector = ({
         
         {groupByRegion ? (
           <>
-            {/* Quick access to popular languages */}
-            {languageGroups['Popular'] && languageGroups['Popular'].length > 0 && (
+            {/* Primary languages for quick access */}
+            {languageGroups['Primary Languages'] && languageGroups['Primary Languages'].length > 0 && (
               <>
                 <div className="px-2 py-1.5">
-                  <p className="text-xs font-medium text-gray-500 mb-1">{t('common.popular')}</p>
-                  {languageGroups['Popular'].slice(0, 5).map(renderLanguageItem)}
+                  <p className="text-xs font-semibold text-turquoise-600 mb-1">✨ Primary Languages</p>
+                  {languageGroups['Primary Languages'].map(renderLanguageItem)}
                 </div>
                 <DropdownMenuSeparator />
               </>
