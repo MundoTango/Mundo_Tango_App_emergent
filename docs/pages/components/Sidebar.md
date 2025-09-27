@@ -1,10 +1,14 @@
 # Sidebar - Global Navigation Sidebar
 
 ## Overview
-- **Component:** `client/src/components/Sidebar.tsx`
+- **Component:** `client/src/components/Sidebar.tsx` *(Refactored Sept 27, 2025)*
+- **Previous Name:** TrangoTechSidebar (renamed for clean codebase)
 - **Route:** Used globally via DashboardLayout wrapper
 - **Purpose:** Main navigation sidebar providing consistent menu structure across platform
-- **ESA Framework Layer:** Layer 9 (UI Framework Agent) - Single responsibility navigation component
+- **ESA Framework Layers:** 
+  - Layer 9 (UI Framework Agent) - Single responsibility navigation component
+  - Layer 60 (Clean Codebase) - Removed legacy branding references
+  - Layer 48 (Debugging Agent) - Fixed navigation issues
 
 ## Technical Implementation
 
@@ -20,14 +24,14 @@
   ```
 
 ### Navigation Structure
-- **Menu Items:**
-  - Memories (/)
-  - Tango Community (/tango-communities)
-  - Friends (/friends)
-  - Messages (/messages)
-  - Groups (/groups)
-  - Events (/events)
-  - Role Invitations (/invitations)
+- **Menu Items (All verified functional Sept 27, 2025):**
+  - 💭 Memories (/) - Personal memory feed
+  - 🎭 Tango Community (/tango-communities) - Social posts and interactions
+  - 👥 Friends (/friends) - Connection management
+  - 💬 Messages (/messages) - Real-time messaging
+  - 👫 Groups (/groups) - Community groups
+  - 📅 Events (/events) - **FIXED:** API endpoint corrected to `/api/events/feed`
+  - 📬 Role Invitations (/invitations) - **FIXED:** Added 4 new API endpoints
 
 ### Coverage & Exceptions
 - **Coverage:** 88+ platform pages through DashboardLayout
