@@ -1,9 +1,13 @@
 # Role Invitations Documentation
 
 ## 1. Overview
-- **Route**: `/invitations` (role-specific)
+- **Route**: `/invitations` (role-specific) *(Fixed Sept 27, 2025)*
 - **Purpose**: Role-based invitation system for dancers seeking partners for events and practices
-- **ESA Framework Layer**: Layer 3 - Partner Matching
+- **ESA Framework Layers**: 
+  - Layer 3 - Partner Matching
+  - Layer 2 (API Structure) - Added 4 missing API endpoints
+  - Layer 22 (Group Management) - Integrated with eventParticipants table
+  - Layer 24 (Role Assignment) - Full role-based access control
 
 ## 2. Technical Implementation
 
@@ -17,14 +21,14 @@
 - `InvitationResponder` - Response interface
 - `MatchNotifications` - Match alerts
 
-### API Endpoints
-- `GET /api/role-invitations` - List invitations
-- `POST /api/role-invitations` - Create invitation
-- `GET /api/role-invitations/matches` - Find matches
-- `POST /api/role-invitations/respond` - Respond
-- `GET /api/role-invitations/calendar` - Availability
-- `PUT /api/role-invitations/:id` - Update invitation
-- `DELETE /api/role-invitations/:id` - Cancel
+### API Endpoints *(Fixed Sept 27, 2025 - Added missing endpoints)*
+- **`GET /api/users/me/event-invitations`** - Fetch user's invitations with filters (status, role)
+- **`GET /api/users/me/events`** - Get user's events for sending invitations
+- **`POST /api/events/invite-participant`** - Send role invitations to participants
+- **`PUT /api/event-participants/:id/status`** - Update invitation status (accept/decline)
+- `GET /api/role-invitations` - List invitations *(legacy)*
+- `POST /api/role-invitations` - Create invitation *(legacy)*
+- `DELETE /api/role-invitations/:id` - Cancel invitation
 
 ### Real-time Features
 - Live match notifications
@@ -34,12 +38,17 @@
 - Live invitation status
 
 ### Database Tables
-- `role_invitations` - Invitation data
+- **`eventParticipants`** - Primary table for role invitations *(Integrated Sept 27, 2025)*
+  - `id`: Unique identifier
+  - `userId`: User receiving invitation
+  - `eventId`: Event for invitation
+  - `status`: 'pending' | 'accepted' | 'declined'
+  - `role`: Participant role (leader/follower)
+  - `invitedBy`: User who sent invitation
+  - `createdAt`: Invitation timestamp
+- `role_invitations` - Legacy invitation data
 - `partner_matches` - Match records
 - `availability_schedules` - Time slots
-- `skill_levels` - Experience data
-- `match_preferences` - User preferences
-- `invitation_responses` - Responses
 
 ## 3. User Permissions
 - **User**: Create/respond to invitations
@@ -135,6 +144,8 @@
 - **Performance Tests**: Large datasets
 
 ## 6. Known Issues
+- ~~Missing API endpoints causing page errors~~ *(Fixed Sept 27, 2025 - Added 4 new endpoints)*
+- ~~Database integration not working~~ *(Fixed Sept 27, 2025 - Integrated with eventParticipants table)*
 - Match algorithm bias detection
 - Calendar sync delays
 - Mobile calendar interface
