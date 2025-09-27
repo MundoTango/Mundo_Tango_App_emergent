@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "保存",
-    "cancel": "取消",
-    "delete": "删除",
-    "edit": "编辑",
-    "add": "添加",
-    "search": "搜索",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "语言",
-    "popular": "热门"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "ltr"
   },
   "navigation": {
-    "home": "主页",
+    "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "记忆",
-    "community": "探戈社区",
-    "friends": "朋友",
-    "messages": "消息",
-    "groups": "群组",
-    "events": "活动",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }

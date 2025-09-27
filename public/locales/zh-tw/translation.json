@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "儲存",
-    "cancel": "取消",
-    "delete": "刪除",
-    "edit": "編輯",
-    "add": "新增",
-    "search": "搜尋",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "語言",
-    "popular": "熱門"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "ltr"
   },
   "navigation": {
-    "home": "首頁",
+    "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "記憶",
-    "community": "探戈社區",
-    "friends": "朋友",
-    "messages": "訊息",
-    "groups": "群組",
-    "events": "活動",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }

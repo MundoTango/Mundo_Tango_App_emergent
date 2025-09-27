@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "保存",
-    "cancel": "キャンセル",
-    "delete": "削除",
-    "edit": "編集",
-    "add": "追加",
-    "search": "検索",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "言語",
-    "popular": "人気"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "ltr"
   },
   "navigation": {
-    "home": "ホーム",
+    "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "思い出",
-    "community": "タンゴコミュニティ",
-    "friends": "友達",
-    "messages": "メッセージ",
-    "groups": "グループ",
-    "events": "イベント",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }

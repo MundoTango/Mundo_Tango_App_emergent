@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "Mentés",
-    "cancel": "Mégse",
-    "delete": "Törlés",
-    "edit": "Szerkesztés",
-    "add": "Hozzáadás",
-    "search": "Keresés",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "Nyelv",
-    "popular": "Népszerű"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "rtl"
   },
   "navigation": {
-    "home": "Kezdőlap",
+    "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "Emlékek",
-    "community": "Tangó Közösség",
-    "friends": "Barátok",
-    "messages": "Üzenetek",
-    "groups": "Csoportok",
-    "events": "Események",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }
