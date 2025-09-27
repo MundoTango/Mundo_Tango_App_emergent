@@ -463,6 +463,13 @@
         "blockedUsers": "Usuarios bloqueados",
         "selectLanguage": "Seleccionar idioma",
         "chooseLanguage": "Elegí el Idioma"
+      },
+      "community": {
+        "globalStatistics": "Estadísticas del Mundo Tanguero",
+        "globalDancers": "Milongueros en el Mundo",
+        "activeEvents": "Milongas Activas",
+        "communities": "Barrios Tangueros",
+        "yourCity": "Tu Barrio"
       }
     }
   },
