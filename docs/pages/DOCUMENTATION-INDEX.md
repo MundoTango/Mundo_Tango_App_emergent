@@ -95,6 +95,12 @@
 
 ## 📚 Documentation Organization
 
+### 🧩 Core Components (4 pages)
+- [UnifiedTopBar](/docs/pages/components/UnifiedTopBar.md) - Global navigation header - Unified top navigation bar across all 88+ pages
+- [TrangoTechSidebar](/docs/pages/components/TrangoTechSidebar.md) - Global navigation sidebar - Main navigation menu for platform
+- [See Friendship Button](/docs/pages/components/SeeFriendshipButton.md) - Social connection feature - Quick navigation to friendship timeline
+- [UnifiedPostFeed](/docs/pages/components/UnifiedPostFeed.md) - Consolidated feed component - Unified post feed replacing 3 duplicate implementations
+
 ### 🔐 Authentication (4 pages)
 - [Login](/docs/pages/auth/login.md) - `/login` - Primary login route
 - [Login (Auth)](/docs/pages/auth/login.md) - `/auth/login` - Authentication namespace route  
