@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "ok": "OK",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "finish": "Terminer",
+    "submit": "Soumettre",
+    "language": "Langue",
+    "popular": "Populaire",
+    "preferred": "Préféré",
+    "admin": "Admin",
+    "direction": "ltr"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "memories": "Souvenirs",
+    "tangoCommunity": "Communauté Tango",
+    "friends": "Amis",
+    "messages": "Messages",
+    "groups": "Groupes",
+    "events": "Événements",
+    "roleInvitations": "Invitations de Rôle",
+    "notifications": "Notifications",
+    "search": "Rechercher",
+    "menu": "Menu",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "billing": "Facturation",
+    "adminAccess": "Accès Admin",
+    "logout": "Déconnexion"
+  },
+  "memories": {
+    "title": "Souvenirs",
+    "memoryShared": "Souvenir partagé avec succès",
+    "memorySharedDescription": "Votre souvenir a été partagé avec la communauté"
+  },
+  "community": {
+    "globalDancers": "Danseurs Globaux",
+    "activeEvents": "Événements Actifs",
+    "communities": "Communautés"
+  },
+  "settings": {
+    "languageChanged": "Langue Changée",
+    "languageChangedDesc": "Langue de l'interface changée en {{language}}",
+    "chooseLanguage": "Choisir la Langue",
+    "selectLanguage": "Sélectionner la Langue",
+    "allLanguages": "Toutes les Langues"
+  },
+  "errors": {
+    "languageChangeFailed": "Échec du changement de langue",
+    "tryAgain": "Veuillez réessayer",
+    "uploadFailed": "Échec du téléchargement"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}

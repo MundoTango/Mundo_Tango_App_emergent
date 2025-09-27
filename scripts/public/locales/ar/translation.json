@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تحرير",
+    "add": "إضافة",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "confirm": "تأكيد",
+    "yes": "نعم",
+    "no": "لا",
+    "ok": "موافق",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "finish": "إنهاء",
+    "submit": "إرسال",
+    "language": "اللغة",
+    "popular": "شائع",
+    "preferred": "مفضل",
+    "admin": "مسؤول",
+    "direction": "rtl"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "memories": "الذكريات",
+    "tangoCommunity": "مجتمع التانغو",
+    "friends": "الأصدقاء",
+    "messages": "الرسائل",
+    "groups": "المجموعات",
+    "events": "الأحداث",
+    "roleInvitations": "دعوات الأدوار",
+    "notifications": "الإشعارات",
+    "search": "بحث",
+    "menu": "القائمة",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "billing": "الفواتير",
+    "adminAccess": "الوصول الإداري",
+    "logout": "تسجيل الخروج"
+  },
+  "memories": {
+    "title": "الذكريات",
+    "memoryShared": "تم مشاركة الذكرى بنجاح",
+    "memorySharedDescription": "تم مشاركة ذكراك مع المجتمع"
+  },
+  "community": {
+    "globalDancers": "الراقصون العالميون",
+    "activeEvents": "الأحداث النشطة",
+    "communities": "المجتمعات"
+  },
+  "settings": {
+    "languageChanged": "تم تغيير اللغة",
+    "languageChangedDesc": "تم تغيير لغة الواجهة إلى {{language}}",
+    "chooseLanguage": "اختر اللغة",
+    "selectLanguage": "حدد اللغة",
+    "allLanguages": "جميع اللغات"
+  },
+  "errors": {
+    "languageChangeFailed": "فشل تغيير اللغة",
+    "tryAgain": "يرجى المحاولة مرة أخرى",
+    "uploadFailed": "فشل التحميل"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}

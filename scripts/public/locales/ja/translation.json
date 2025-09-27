@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並べ替え",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報",
+    "confirm": "確認",
+    "yes": "はい",
+    "no": "いいえ",
+    "ok": "OK",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "finish": "完了",
+    "submit": "送信",
+    "language": "言語",
+    "popular": "人気",
+    "preferred": "優先",
+    "admin": "管理者",
+    "direction": "ltr"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "dashboard": "ダッシュボード",
+    "memories": "思い出",
+    "tangoCommunity": "タンゴコミュニティ",
+    "friends": "友達",
+    "messages": "メッセージ",
+    "groups": "グループ",
+    "events": "イベント",
+    "roleInvitations": "役割の招待",
+    "notifications": "通知",
+    "search": "検索",
+    "menu": "メニュー",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "billing": "請求",
+    "adminAccess": "管理者アクセス",
+    "logout": "ログアウト"
+  },
+  "memories": {
+    "title": "思い出",
+    "memoryShared": "思い出が正常に共有されました",
+    "memorySharedDescription": "あなたの思い出がコミュニティと共有されました"
+  },
+  "community": {
+    "globalDancers": "グローバルダンサー",
+    "activeEvents": "アクティブイベント",
+    "communities": "コミュニティ"
+  },
+  "settings": {
+    "languageChanged": "言語が変更されました",
+    "languageChangedDesc": "インターフェース言語が{{language}}に変更されました",
+    "chooseLanguage": "言語を選択",
+    "selectLanguage": "言語を選択",
+    "allLanguages": "すべての言語"
+  },
+  "errors": {
+    "languageChangeFailed": "言語の変更に失敗しました",
+    "tryAgain": "もう一度お試しください",
+    "uploadFailed": "アップロードに失敗しました"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}

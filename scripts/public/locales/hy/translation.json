@@ -1,0 +1,111 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировка",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успех",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "confirm": "Подтвердить",
+    "yes": "Да",
+    "no": "Нет",
+    "ok": "ОК",
+    "close": "Закрыть",
+    "back": "Назад",
+    "next": "Далее",
+    "previous": "Предыдущий",
+    "finish": "Завершить",
+    "submit": "Отправить",
+    "language": "Язык",
+    "popular": "Популярное",
+    "preferred": "Предпочтительный",
+    "admin": "Админ",
+    "direction": "ltr"
+  },
+  "navigation": {
+    "home": "Главная",
+    "dashboard": "Панель управления",
+    "memories": "Воспоминания",
+    "tangoCommunity": "Танго Сообщество",
+    "friends": "Друзья",
+    "messages": "Сообщения",
+    "groups": "Группы",
+    "events": "События",
+    "roleInvitations": "Приглашения на роли",
+    "notifications": "Уведомления",
+    "search": "Поиск",
+    "menu": "Меню",
+    "profile": "Профиль",
+    "settings": "Настройки",
+    "billing": "Биллинг",
+    "adminAccess": "Админ доступ",
+    "logout": "Выйти"
+  },
+  "memories": {
+    "title": "Воспоминания",
+    "memoryShared": "Воспоминание успешно поделено",
+    "memorySharedDescription": "Ваше воспоминание было поделено с сообществом"
+  },
+  "community": {
+    "globalDancers": "Глобальные танцоры",
+    "activeEvents": "Активные события",
+    "communities": "Сообщества"
+  },
+  "settings": {
+    "languageChanged": "Язык изменен",
+    "languageChangedDesc": "Язык интерфейса изменен на {{language}}",
+    "chooseLanguage": "Выберите язык",
+    "selectLanguage": "Выбрать язык",
+    "allLanguages": "Все языки"
+  },
+  "errors": {
+    "languageChangeFailed": "Не удалось изменить язык",
+    "tryAgain": "Пожалуйста, попробуйте еще раз",
+    "uploadFailed": "Загрузка не удалась"
+  },
+  "tango": {
+    "community": "Tango Community",
+    "milonga": "Milonga",
+    "practica": "Práctica",
+    "workshop": "Workshop",
+    "festival": "Festival",
+    "marathon": "Marathon",
+    "encuentro": "Encuentro",
+    "lesson": "Lesson",
+    "teacher": "Teacher",
+    "student": "Student",
+    "dancer": "Dancer",
+    "leader": "Leader",
+    "follower": "Follower"
+  },
+  "posts": {
+    "createPost": "Create Post",
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "sharePost": "Share Post",
+    "likePost": "Like",
+    "commentPost": "Comment",
+    "visibility": "Visibility",
+    "public": "Public",
+    "friends": "Friends",
+    "private": "Private"
+  },
+  "messages": {
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "compose": "Compose",
+    "reply": "Reply",
+    "forward": "Forward",
+    "delete": "Delete",
+    "noMessages": "No messages",
+    "trash": "Trash"
+  }
+}
