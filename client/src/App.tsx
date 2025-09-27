@@ -98,6 +98,7 @@ const Groups = lazy(() => import("@/pages/groups"));
 const GroupDetailPage = lazy(() => import("@/pages/GroupDetailPageMT"));
 const RoleInvitations = lazy(() => import("@/pages/RoleInvitations"));
 const Favorites = lazy(() => import("@/pages/Favorites"));
+const Notifications = lazy(() => import("@/pages/Notifications"));
 
 // ========== Community Pages (8) ==========
 const Community = lazy(() => import("@/pages/community"));
@@ -361,7 +362,13 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Social Features Routes (8) ========== */}
+          {/* ========== Social Features Routes (9) ========== */}
+          <Route path="/notifications">
+            <Suspense fallback={<LoadingFallback message="Loading notifications..." />}>
+              <Notifications />
+            </Suspense>
+          </Route>
+          
           <Route path="/favorites">
             <Suspense fallback={<LoadingFallback message="Loading favorites..." />}>
               <Favorites />
