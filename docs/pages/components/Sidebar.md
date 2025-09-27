@@ -1,7 +1,7 @@
-# TrangoTechSidebar - Global Navigation Sidebar
+# Sidebar - Global Navigation Sidebar
 
 ## Overview
-- **Component:** `client/src/components/TrangoTechSidebar.tsx`
+- **Component:** `client/src/components/Sidebar.tsx`
 - **Route:** Used globally via DashboardLayout wrapper
 - **Purpose:** Main navigation sidebar providing consistent menu structure across platform
 - **ESA Framework Layer:** Layer 9 (UI Framework Agent) - Single responsibility navigation component
@@ -9,11 +9,11 @@
 ## Technical Implementation
 
 ### Components
-- **Primary Component:** `TrangoTechSidebar.tsx` - Main sidebar navigation
+- **Primary Component:** `Sidebar.tsx` - Main sidebar navigation
 - **Layout Integration:** Wrapped by `DashboardLayout` component
 - **Props Interface:**
   ```typescript
-  interface TrangoTechSidebarProps {
+  interface SidebarProps {
     isOpen: boolean;           // Sidebar visibility state
     setIsOpen: (open: boolean) => void; // Toggle function
   }

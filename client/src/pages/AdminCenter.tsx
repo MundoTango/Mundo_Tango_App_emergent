@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { toast } from 'react-hot-toast';
 import { useToast } from '@/hooks/use-toast';
-import TrangoTechSidebar from '@/components/TrangoTechSidebar';
+import Sidebar from '@/components/Sidebar';
 import ProjectTrackerDashboard from '@/components/admin/ProjectTrackerDashboard';
 import EnhancedHierarchicalTreeView from '@/components/admin/EnhancedHierarchicalTreeView';
 import { PlatformFeatureDeepDive } from '@/components/admin/PlatformFeatureDeepDive';
@@ -2914,7 +2914,7 @@ const AdminCenter = memo(() => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-blue-50 to-cyan-50 flex">
-      <TrangoTechSidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       
       <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : ''}`}>
         <div className="h-full flex flex-col">

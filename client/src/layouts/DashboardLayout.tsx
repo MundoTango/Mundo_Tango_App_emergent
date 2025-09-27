@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import TrangoTechSidebar from '@/components/TrangoTechSidebar';
+import Sidebar from '@/components/Sidebar';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 
 interface DashboardLayoutProps {
@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       <div className="relative flex min-h-screen">
         {/* Fixed Sidebar - No layout impact */}
-        <TrangoTechSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
         {/* Main Content Area - Full width with sidebar offset */}
         <main className="flex-1 bg-gray-50 transition-all duration-300">
