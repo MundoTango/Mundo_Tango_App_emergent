@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "memories": "Souvenirs",
+    "tangoCommunity": "Communauté Tango",
+    "friends": "Amis",
+    "messages": "Messages",
+    "groups": "Groupes",
+    "events": "Événements",
+    "roleInvitations": "Invitations de Rôle",
+    "search": "Rechercher événements, personnes, souvenirs...",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "billing": "Facturation",
+    "help": "Aide",
+    "logout": "Déconnexion",
+    "adminAccess": "Accès Admin"
+  },
+  "memories": {
+    "title": "Souvenirs",
+    "shareYourTango": "Partagez votre moment de tango...",
+    "shareRecommendation": "Partager une recommandation",
+    "helpOthers": "Aidez les autres à découvrir des endroits incroyables",
+    "addTags": "Ajouter des tags à votre souvenir",
+    "searchVenues": "Rechercher lieux, restaurants, milongas...",
+    "postVisibility": "Visibilité de la publication",
+    "public": "Public",
+    "friendsOnly": "Amis Seulement",
+    "private": "Privé"
+  },
+  "community": {
+    "welcome": "Bienvenue à Mundo Tango",
+    "connectWith": "Connectez-vous avec des danseurs de tango du monde entier. Partagez votre passion, trouvez des événements et construisez votre communauté tango.",
+    "followUsers": "Suivez des utilisateurs ou rejoignez des groupes pour voir les publications dans votre fil.",
+    "globalDancers": "Danseurs Mondiaux",
+    "activeEvents": "Événements Actifs",
+    "communities": "Communautés",
+    "onlineNow": "En Ligne Maintenant",
+    "upcomingEvents": "Événements à Venir",
+    "loadingEvents": "Chargement des événements...",
+    "viewAllEvents": "Voir Tous les Événements"
+  },
+  "actions": {
+    "post": "Publier",
+    "share": "Partager",
+    "like": "J'aime",
+    "comment": "Commenter",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "submit": "Soumettre",
+    "upload": "Télécharger",
+    "download": "Télécharger",
+    "refresh": "Actualiser",
+    "seeFriendship": "Voir l'Amitié"
+  }
+}

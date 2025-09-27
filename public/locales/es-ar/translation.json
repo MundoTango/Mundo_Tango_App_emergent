@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "memories": "Recuerdos",
+    "tangoCommunity": "La Yunta Tanguera",
+    "friends": "Amigos",
+    "messages": "Mensajes",
+    "groups": "Grupos",
+    "events": "Milongas",
+    "roleInvitations": "Invitaciones de Rol",
+    "search": "Buscar milongas, milongueros, recuerdos...",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "billing": "Facturación",
+    "help": "Ayuda",
+    "logout": "Salir",
+    "adminAccess": "Acceso Admin"
+  },
+  "memories": {
+    "title": "Recuerdos",
+    "shareYourTango": "Compartí tu firulete...",
+    "shareRecommendation": "Tirá la posta de un lugar",
+    "helpOthers": "Ayudá a otros milongueros a encontrar buenos boliches",
+    "addTags": "Agregá etiquetas a tu recuerdo",
+    "searchVenues": "Buscar milongas, boliches, restaurantes...",
+    "postVisibility": "Visibilidad del posteo",
+    "public": "Público",
+    "friendsOnly": "Solo la Barra",
+    "private": "Privado"
+  },
+  "community": {
+    "welcome": "Bienvenido a Mundo Tango, Che!",
+    "connectWith": "Conectate con milongueros de todo el mundo. Compartí tu pasión por el tango, encontrá milongas y armá tu yunta tanguera.",
+    "followUsers": "Seguí a algunos milongueros o unite a grupos para ver posteos en tu muro.",
+    "globalDancers": "Milongueros del Mundo",
+    "activeEvents": "Milongas Activas",
+    "communities": "La Yunta",
+    "onlineNow": "Conectados Ahora",
+    "upcomingEvents": "Próximas Milongas",
+    "loadingEvents": "Cargando milongas...",
+    "viewAllEvents": "Ver Todas las Milongas"
+  },
+  "actions": {
+    "post": "Mandar",
+    "share": "Compartir",
+    "like": "Me Copa",
+    "comment": "Comentar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Borrar",
+    "cancel": "Cancelar",
+    "confirm": "Dale",
+    "submit": "Mandar",
+    "upload": "Subir",
+    "download": "Bajar",
+    "refresh": "Actualizar",
+    "seeFriendship": "Ver la Yunta"
+  }
+}
