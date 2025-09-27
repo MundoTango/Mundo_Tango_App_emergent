@@ -286,11 +286,15 @@ const LanguageSelector = ({
         {groupByRegion ? (
           <>
             {/* Quick access to popular languages */}
-            <div className="px-2 py-1.5">
-              <p className="text-xs font-medium text-gray-500 mb-1">{t('common.popular')}</p>
-              {languageGroups['Popular'].slice(0, 5).map(renderLanguageItem)}
-            </div>
-            <DropdownMenuSeparator />
+            {languageGroups['Popular'] && languageGroups['Popular'].length > 0 && (
+              <>
+                <div className="px-2 py-1.5">
+                  <p className="text-xs font-medium text-gray-500 mb-1">{t('common.popular')}</p>
+                  {languageGroups['Popular'].slice(0, 5).map(renderLanguageItem)}
+                </div>
+                <DropdownMenuSeparator />
+              </>
+            )}
             
             {/* All languages grouped by region */}
             {Object.entries(languageGroups).map(([region, languages]) => {
