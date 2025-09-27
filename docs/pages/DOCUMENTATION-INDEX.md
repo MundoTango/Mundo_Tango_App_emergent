@@ -6,13 +6,45 @@
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 **Google Maps API:** ✅ Integrated (worldwide business search)
 
+## 🎯 Recent Updates (September 27, 2025)
+
+### Navigation System Complete Refactoring
+Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ Sidebar Component Updates**
+- Renamed TrangoTechSidebar → Sidebar (Layer 60: Clean Codebase)
+- Updated all 88+ page references
+- Migrated documentation to new naming structure
+- All 7 navigation sections fully operational
+
+**✅ Events Page Fix** 
+- Resolved blank page issue (Layer 48: Debugging Agent)
+- Corrected API endpoint: `/api/events` → `/api/events/feed`
+- Fixed calendar component conflicts
+
+**✅ Role Invitations System**
+- Added 4 new API endpoints (Layer 2: API Structure)
+  - `GET /api/users/me/event-invitations` - Fetch user invitations
+  - `GET /api/users/me/events` - Get user's events
+  - `POST /api/events/invite-participant` - Send invitations
+  - `PUT /api/event-participants/:id/status` - Update status
+- Integrated with `eventParticipants` table (Layer 22: Group Management)
+- Full role-based access control (Layer 24: Role Assignment)
+
   
 
 ## 📚 Documentation Organization
 
 ### 🧩 Core Components (4 pages)
-- [UnifiedTopBar](/docs/pages/components/UnifiedTopBar.md) - Global navigation header - Unified top navigation bar across all 88+ pages
-- [Sidebar](/docs/pages/components/Sidebar.md) - Global navigation sidebar - Main navigation menu for platform
+- [UnifiedTopBar](/docs/pages/components/UnifiedTopBar.md) - Global navigation header - Unified top navigation bar across all 88+ pages with MT Ocean theme
+- [Sidebar](/docs/pages/components/Sidebar.md) - **✅ REFACTORED (Sept 27, 2025)** - Main navigation sidebar with 7 functional sections:
+  - 💭 Memories - Personal memory feed
+  - 🎭 Tango Community - Social posts and interactions
+  - 👥 Friends - Connection management
+  - 💬 Messages - Real-time messaging
+  - 👫 Groups - Community groups
+  - 📅 Events - **FIXED**: API endpoint corrected from `/api/events` to `/api/events/feed`
+  - 📬 Role Invitations - **FIXED**: Added 4 new API endpoints for role-based system
 - [See Friendship Button](/docs/pages/components/SeeFriendshipButton.md) - Social connection feature - Quick navigation to friendship timeline
 - [UnifiedPostFeed](/docs/pages/components/UnifiedPostFeed.md) - Consolidated feed component - Unified post feed replacing 3 duplicate implementations
 
