@@ -1,9 +1,12 @@
 # Enhanced Events Page Documentation
 
 ## 1. Overview
-- **Route**: `/events` (enhanced version)
+- **Route**: `/events` (enhanced version) *(Fixed Sept 27, 2025)*
 - **Purpose**: Advanced event management with rich features, analytics, and social integration
-- **ESA Framework Layer**: Layer 4 - Advanced Features
+- **ESA Framework Layers**: 
+  - Layer 4 - Advanced Features
+  - Layer 48 (Debugging Agent) - Fixed blank page issue
+  - Layer 2 (API Structure) - Corrected API endpoint
 
 ## 2. Technical Implementation
 
@@ -18,6 +21,7 @@
 - `QRCodeGenerator` - Check-in codes
 
 ### API Endpoints
+- **`GET /api/events/feed`** - Main events feed *(Fixed Sept 27, 2025 - was incorrectly using `/api/events`)*
 - `GET /api/events/enhanced` - Enhanced event data
 - `GET /api/events/analytics/:id` - Event analytics
 - `POST /api/events/bulk` - Bulk operations
@@ -92,6 +96,8 @@
 - **Security Tests**: Data protection
 
 ## 6. Known Issues
+- ~~Blank page on events route~~ *(Fixed Sept 27, 2025 - API endpoint corrected)*
+- ~~Calendar component conflicts~~ *(Fixed Sept 27, 2025 - Resolved FullCalendar/BigCalendar issues)*
 - BigCalendar memory usage with large datasets
 - Export timeout for events with 1000+ attendees
 - Virtual room WebRTC connectivity
