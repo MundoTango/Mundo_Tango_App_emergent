@@ -25,6 +25,8 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
+import { io, Socket } from 'socket.io-client';
+import { queryClient } from '@/lib/queryClient';
 
 interface UnifiedTopBarProps {
   onMenuToggle?: () => void;
@@ -63,6 +65,58 @@ export default function UnifiedTopBar({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // ESA Layer 11: Real-time Features Agent - WebSocket for live updates
+  useEffect(() => {
+    if (!user) return;
+
+    // Connect to WebSocket server for real-time updates
+    const socket = io({
+      path: '/ws',
+      transports: ['websocket', 'polling'],
+      withCredentials: true
+    });
+
+    socket.on('connect', () => {
+      console.log('🔌 [Toolbar] WebSocket connected for real-time updates');
+      // Authenticate with user ID for notifications
+      socket.emit('authenticate', { userId: user.id });
+    });
+
+    // Listen for notification updates
+    socket.on('notification', (data) => {
+      console.log('🔔 [Toolbar] New notification received');
+      // Invalidate the notification count query to refetch
+      queryClient.invalidateQueries({ queryKey: ['/api/notifications/count'] });
+    });
+
+    // Listen for message updates
+    socket.on('new-message', (data) => {
+      console.log('💬 [Toolbar] New message received');
+      // Invalidate the messages count query to refetch
+      queryClient.invalidateQueries({ queryKey: ['/api/messages/unread-count'] });
+    });
+
+    // Listen for count updates from server
+    socket.on('counts-update', (data) => {
+      console.log('📊 [Toolbar] Counts update:', data);
+      if (data.notifications !== undefined) {
+        queryClient.setQueryData(['/api/notifications/count'], { count: data.notifications });
+      }
+      if (data.messages !== undefined) {
+        queryClient.setQueryData(['/api/messages/unread-count'], { count: data.messages });
+      }
+    });
+
+    socket.on('disconnect', () => {
+      console.log('🔌 [Toolbar] WebSocket disconnected');
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [user]);
 
   // Fetch notifications count
   const { data: notificationCount } = useQuery({
