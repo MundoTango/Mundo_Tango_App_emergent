@@ -316,7 +316,7 @@ const LanguageSelector = ({
                       <span className="text-xs text-gray-500 ml-2">({languages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="glassmorphic-card max-h-96 overflow-y-auto">
+                  <DropdownMenuSubContent className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
                     {languages.map(renderLanguageItem)}
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
@@ -333,7 +333,7 @@ const LanguageSelector = ({
                       <span className="text-xs text-gray-500 ml-2">({supportedLanguages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="glassmorphic-card max-h-96 overflow-y-auto">
+                  <DropdownMenuSubContent className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
                     {supportedLanguages.map(renderLanguageItem)}
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
