@@ -3,13 +3,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Music, Users, Calendar, MapPin, Heart, Star } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import NewFeedEvents from "@/components/feed/NewFeedEvents";
-import Navbar from "@/components/layout/navbar";
+import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState } from "react";
 
 export default function Landing() {
   const { isAuthenticated, isLoading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return (savedTheme as 'light' | 'dark') || 'light';
+  });
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   const handleCloseSidebar = () => {
     setIsSidebarOpen(false);
@@ -19,7 +34,12 @@ export default function Landing() {
   if (isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
-        <Navbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+        <UnifiedTopBar 
+          onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          theme={theme}
+          onThemeToggle={toggleTheme}
+          showMenuButton={true}
+        />
         
         <div className="flex">
           <Sidebar 

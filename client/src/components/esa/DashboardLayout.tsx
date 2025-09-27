@@ -10,7 +10,7 @@ import {
   TrendingUp, Heart, MapPin, Globe, Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import TopNavigationBar from './TopNavigationBar';
+import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 import { useTheme } from '@/contexts/theme-context';
 
 interface DashboardLayoutProps {
@@ -54,8 +54,12 @@ export default function DashboardLayout({
         ? "bg-gradient-to-br from-gray-50 to-white"
         : "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
     )}>
-      {/* Top Navigation Bar */}
-      <TopNavigationBar theme={theme} onThemeToggle={toggleTheme} />
+      {/* Unified Top Navigation Bar */}
+      <UnifiedTopBar 
+        theme={theme} 
+        onThemeToggle={toggleTheme}
+        showMenuButton={false}
+      />
       
       {/* MT Ocean Theme Gradient Overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-[#5EEAD4]/5 via-transparent to-[#155E75]/5 pointer-events-none" />
