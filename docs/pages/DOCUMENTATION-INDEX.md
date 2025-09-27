@@ -59,15 +59,21 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 
 ## 📚 Documentation Organization
 
-### 🧩 Core Components (4 pages)
+### 🧩 Core Components (5 pages)
 - [UnifiedTopBar](/docs/pages/components/UnifiedTopBar.md) - **✅ BACKEND FIXED (Sept 27, 2025)** - Global navigation toolbar with full functionality:
   - 🔔 Notifications - Links to notifications page with real-time count badge
   - 💬 Messages - Shows unread message count across all chats
   - 🔍 Search - Global platform search across users, posts, events, groups
   - ❤️ Favorites - Quick access to saved items
-  - 🌐 Language - Persistent language selector (EN/ES/FR)
+  - 🌐 Language - Persistent language selector with **65 production languages**
   - 🌓 Theme - Light/dark mode toggle
   - 👤 Profile - User menu with admin access, settings, billing, logout
+- [LanguageSelector](/docs/pages/components/LanguageSelector.md) - **✅ NEW (Sept 27, 2025)** - 65-language dropdown component with:
+  - 🌍 Complete translations for all major global languages
+  - 🔄 RTL support for Arabic, Hebrew, Persian, Urdu
+  - 🇦🇷 Argentine Spanish with authentic Lunfardo slang
+  - 💾 LocalStorage persistence and progressive loading
+  - 🤖 OpenAI GPT-4o-mini powered translations
 - [Sidebar](/docs/pages/components/Sidebar.md) - **✅ REFACTORED (Sept 27, 2025)** - Main navigation sidebar with 7 functional sections:
   - 💭 Memories - Personal memory feed
   - 🎭 Tango Community - Social posts and interactions
@@ -263,6 +269,16 @@ Each page documentation must include these 10 sections:
 8. **Agent Responsibilities** - AI agent assignments
 9. **Integration Points** - External service connections
 10. **Performance Metrics** - Load times and optimization
+
+## 🛠️ Tools & Scripts (1 page)
+
+### Translation Scripts
+- [Translation Generation Scripts](/docs/pages/scripts/TRANSLATION-SCRIPTS.md) - **✅ NEW (Sept 27, 2025)** - Automated translation tools:
+  - `generateTranslations.ts` - Generate translations for specific languages
+  - `generateTranslationsBatch.ts` - Process all 65 languages in regional batches
+  - `testLanguageSwitching.ts` - Verify translation completeness
+  - OpenAI GPT-4o-mini integration with rate limiting
+  - Complete command reference and troubleshooting guide
 
 ## 🎯 Test Coverage Summary
 
