@@ -1,16 +1,16 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "add": "Add",
-    "search": "Search",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
     "filter": "Filter",
     "sort": "Sort",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
     "warning": "Warning",
     "info": "Info",
     "confirm": "Confirm",
@@ -25,20 +25,50 @@
     "submit": "Submit",
     "language": "Language",
     "popular": "Popular",
+    "preferred": "Preferred",
+    "admin": "Admin",
     "direction": "ltr"
   },
   "navigation": {
-    "home": "Home",
+    "home": "Accueil",
     "dashboard": "Dashboard",
-    "memories": "Memories",
-    "community": "Tango Community",
-    "friends": "Friends",
+    "memories": "Souvenirs",
+    "tangoCommunity": "Communauté Tango",
+    "friends": "Amis",
     "messages": "Messages",
-    "groups": "Groups",
-    "events": "Events",
+    "groups": "Groupes",
+    "events": "Événements",
+    "roleInvitations": "Invitations de Rôle",
     "notifications": "Notifications",
     "search": "Search",
-    "menu": "Menu"
+    "menu": "Menu",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "billing": "Billing",
+    "adminAccess": "Admin Access",
+    "logout": "Déconnexion"
+  },
+  "memories": {
+    "title": "Souvenirs",
+    "memoryShared": "Memory shared successfully",
+    "memorySharedDescription": "Your memory has been shared with the community"
+  },
+  "community": {
+    "globalDancers": "Danseurs Globaux",
+    "activeEvents": "Événements Actifs",
+    "communities": "Communities"
+  },
+  "settings": {
+    "languageChanged": "Language Changed",
+    "languageChangedDesc": "Interface language changed to {{language}}",
+    "chooseLanguage": "Choose Language",
+    "selectLanguage": "Sélectionner la Langue",
+    "allLanguages": "All Languages"
+  },
+  "errors": {
+    "languageChangeFailed": "Failed to change language",
+    "tryAgain": "Please try again",
+    "uploadFailed": "Upload failed"
   },
   "tango": {
     "community": "Tango Community",
