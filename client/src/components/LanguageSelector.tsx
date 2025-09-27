@@ -11,6 +11,7 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
+  DropdownMenuPortal,
 } from '@/components/ui/dropdown-menu';
 import { Globe2, Check, Sparkles, Languages } from 'lucide-react';
 import { changeLanguage } from '@/i18n/config';
@@ -310,15 +311,21 @@ const LanguageSelector = ({
               if (region === 'Popular' || region === 'All Languages' || languages.length === 0) return null;
               return (
                 <DropdownMenuSub key={region}>
-                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50">
+                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
                       <span>{region}</span>
                       <span className="text-xs text-gray-500 ml-2">({languages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
-                    {languages.map(renderLanguageItem)}
-                  </DropdownMenuSubContent>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent 
+                      className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-[100]" 
+                      sideOffset={2}
+                      alignOffset={-5}
+                    >
+                      {languages.map(renderLanguageItem)}
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
                 </DropdownMenuSub>
               );
             })}
@@ -327,15 +334,21 @@ const LanguageSelector = ({
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50">
+                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
                       <span>{t('settings.allLanguages') || 'All Languages'}</span>
                       <span className="text-xs text-gray-500 ml-2">({supportedLanguages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
-                    {supportedLanguages.map(renderLanguageItem)}
-                  </DropdownMenuSubContent>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent 
+                      className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-[100]" 
+                      sideOffset={2}
+                      alignOffset={-5}
+                    >
+                      {supportedLanguages.map(renderLanguageItem)}
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
                 </DropdownMenuSub>
               </>
             )}
