@@ -1,0 +1,704 @@
+{
+  "timestamp": "2025-09-27T17:39:27.464Z",
+  "framework": "ESA LIFE CEO 61×21",
+  "layer": 53,
+  "layerName": "Internationalization Agent",
+  "totalLanguages": 65,
+  "compliant": 60,
+  "partial": 4,
+  "missing": 1,
+  "compliancePercentage": 92.3076923076923,
+  "reports": [
+    {
+      "language": "en",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": false,
+      "missingKeys": [
+        "common.add",
+        "common.popular",
+        "navigation.community",
+        "tango.community",
+        "tango.workshop",
+        "tango.festival",
+        "Section missing: posts",
+        "messages.delete"
+      ],
+      "coverage": 58.06451612903226,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "es",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": false,
+      "missingKeys": [
+        "common.add",
+        "common.popular",
+        "navigation.home",
+        "navigation.community",
+        "Section missing: tango",
+        "Section missing: posts",
+        "Section missing: messages"
+      ],
+      "coverage": 35.483870967741936,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "es-ar",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "pt",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": false,
+      "missingKeys": [
+        "Section missing: common",
+        "navigation.home",
+        "navigation.community",
+        "Section missing: tango",
+        "Section missing: posts",
+        "Section missing: messages"
+      ],
+      "coverage": 16.129032258064516,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "pt-br",
+      "fileExists": false,
+      "isValid": false,
+      "hasRequiredKeys": false,
+      "missingKeys": [],
+      "coverage": 0,
+      "isRTL": false,
+      "errors": [
+        "Translation file not found: public/locales/pt-br/translation.json"
+      ]
+    },
+    {
+      "language": "fr",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": false,
+      "missingKeys": [
+        "Section missing: common",
+        "navigation.home",
+        "navigation.community",
+        "Section missing: tango",
+        "Section missing: posts",
+        "Section missing: messages"
+      ],
+      "coverage": 16.129032258064516,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "de",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "it",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ru",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ja",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ko",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "zh",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "zh-tw",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ar",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": true,
+      "errors": [
+        "RTL language missing direction indicator"
+      ]
+    },
+    {
+      "language": "he",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": true,
+      "errors": [
+        "RTL language missing direction indicator"
+      ]
+    },
+    {
+      "language": "tr",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "pl",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "nl",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "sv",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "no",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "da",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "fi",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "cs",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "hu",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "el",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ro",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "bg",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "uk",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "hr",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "sr",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "sk",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "sl",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "et",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "lv",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "lt",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "hi",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "bn",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ta",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "te",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "mr",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "gu",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "kn",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ml",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "pa",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ur",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": true,
+      "errors": [
+        "RTL language missing direction indicator"
+      ]
+    },
+    {
+      "language": "fa",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": true,
+      "errors": [
+        "RTL language missing direction indicator"
+      ]
+    },
+    {
+      "language": "th",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "vi",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "id",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ms",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "tl",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "fil",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "af",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "sq",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "am",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "hy",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "az",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "eu",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "be",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "bs",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "my",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "km",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ca",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "gl",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    },
+    {
+      "language": "ka",
+      "fileExists": true,
+      "isValid": true,
+      "hasRequiredKeys": true,
+      "missingKeys": [],
+      "coverage": 100,
+      "isRTL": false,
+      "errors": []
+    }
+  ]
+}
