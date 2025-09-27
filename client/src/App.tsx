@@ -21,7 +21,7 @@ import { setupGlobalErrorHandlers, setupQueryErrorHandling } from "@/lib/global-
 import { MicroInteractionProvider } from "@/components/MicroInteractionProvider";
 import BuildOptimizer from "@/lib/build-optimizations";
 import * as Sentry from "@sentry/react";
-import "@/lib/i18n"; // Initialize i18n
+import "@/i18n/config"; // Initialize i18n with comprehensive configuration
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
 // ESA Life CEO 61x21 - Monitoring Services
