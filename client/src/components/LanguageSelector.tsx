@@ -128,24 +128,42 @@ const LanguageSelector = ({
   };
 
   const getLanguageGroups = () => {
-    const groups: Record<string, Language[]> = {
-      'Popular': supportedLanguages.filter(lang => 
-        ['en', 'es', 'es-ar', 'pt', 'fr', 'de', 'it', 'ja', 'zh'].includes(lang.code)
-      ),
-      'Europe': supportedLanguages.filter(lang => 
-        ['fr', 'de', 'it', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da'].includes(lang.code)
-      ),
-      'Americas': supportedLanguages.filter(lang => 
-        ['en', 'es', 'es-ar', 'pt', 'pt-br'].includes(lang.code)
-      ),
-      'Asia': supportedLanguages.filter(lang => 
-        ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id'].includes(lang.code)
-      ),
-      'Middle East & Africa': supportedLanguages.filter(lang => 
-        ['ar', 'he', 'tr', 'fa', 'af'].includes(lang.code)
-      ),
-      'All Languages': supportedLanguages,
-    };
+    // Group languages by region - only include groups that have languages
+    const groups: Record<string, Language[]> = {};
+    
+    // Popular languages that are available
+    const popular = supportedLanguages.filter(lang => 
+      ['en', 'es', 'es-ar', 'pt', 'fr', 'de', 'it', 'ja', 'zh'].includes(lang.code)
+    );
+    if (popular.length > 0) groups['Popular'] = popular;
+    
+    // European languages
+    const europe = supportedLanguages.filter(lang => 
+      ['fr', 'de', 'it', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'pt', 'es', 'en-gb'].includes(lang.code)
+    );
+    if (europe.length > 0) groups['Europe'] = europe;
+    
+    // American languages  
+    const americas = supportedLanguages.filter(lang => 
+      ['en', 'es', 'es-ar', 'pt', 'pt-br', 'fr-ca', 'en-us'].includes(lang.code)
+    );
+    if (americas.length > 0) groups['Americas'] = americas;
+    
+    // Asian languages
+    const asia = supportedLanguages.filter(lang => 
+      ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'tl', 'bn'].includes(lang.code)
+    );
+    if (asia.length > 0) groups['Asia'] = asia;
+    
+    // Middle East & Africa languages
+    const mea = supportedLanguages.filter(lang => 
+      ['ar', 'he', 'tr', 'fa', 'af', 'sw', 'am', 'ha'].includes(lang.code)
+    );
+    if (mea.length > 0) groups['Middle East & Africa'] = mea;
+    
+    // Always include all languages
+    groups['All Languages'] = supportedLanguages;
+    
     return groups;
   };
 

@@ -1,31 +1,51 @@
 {
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Intentar de nuevo",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "admin": "Admin",
+    "language": "Idioma",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
   "navigation": {
-    "memories": "Recuerdos",
+    "memories": "Memorias",
     "tangoCommunity": "Comunidad de Tango",
     "friends": "Amigos",
     "messages": "Mensajes",
     "groups": "Grupos",
     "events": "Eventos",
     "roleInvitations": "Invitaciones de Rol",
-    "search": "Buscar eventos, personas, recuerdos...",
+    "search": "Buscar eventos, personas, memorias...",
     "profile": "Perfil",
     "settings": "Configuración",
     "billing": "Facturación",
     "help": "Ayuda",
     "logout": "Cerrar Sesión",
-    "adminAccess": "Acceso Admin"
+    "adminAccess": "Centro de Admin"
   },
   "memories": {
-    "title": "Recuerdos",
+    "title": "Memorias",
     "shareYourTango": "Comparte tu momento de tango...",
     "shareRecommendation": "Compartir una recomendación",
     "helpOthers": "Ayuda a otros a descubrir lugares increíbles",
-    "addTags": "Añade etiquetas a tu recuerdo",
+    "addTags": "Añade etiquetas a tu memoria",
     "searchVenues": "Buscar lugares, restaurantes, milongas...",
     "postVisibility": "Visibilidad de publicación",
     "public": "Público",
     "friendsOnly": "Solo Amigos",
-    "private": "Privado"
+    "private": "Privado",
+    "memoryShared": "¡Memoria compartida!",
+    "memorySharedDescription": "Tu momento de tango ha sido publicado exitosamente."
   },
   "community": {
     "welcome": "Bienvenido a Mundo Tango",
@@ -38,6 +58,25 @@
     "upcomingEvents": "Próximos Eventos",
     "loadingEvents": "Cargando eventos...",
     "viewAllEvents": "Ver Todos los Eventos"
+  },
+  "globalStatistics": {
+    "globalDancers": "Bailarines Globales",
+    "activeEvents": "Eventos Activos",
+    "communities": "Comunidades",
+    "onlineNow": "En Línea Ahora"
+  },
+  "notifications": {
+    "newMemory": "¡Nueva memoria compartida!"
+  },
+  "errors": {
+    "general": "Algo salió mal",
+    "uploadFailed": "La carga falló. Por favor intenta de nuevo."
+  },
+  "settings": {
+    "chooseLanguage": "Elige tu idioma",
+    "allLanguages": "Todos los idiomas",
+    "languageChanged": "Idioma cambiado",
+    "languageChangedDesc": "El idioma ha sido cambiado a {{language}}"
   },
   "actions": {
     "post": "Publicar",
