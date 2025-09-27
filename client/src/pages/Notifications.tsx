@@ -16,7 +16,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { io, Socket } from 'socket.io-client';
 import { useAuth } from '@/hooks/useAuth';
-import DashboardLayout from '@/components/layout/DashboardLayout';
+import DashboardLayout from '@/components/esa/DashboardLayout';
 
 interface Notification {
   id: number;

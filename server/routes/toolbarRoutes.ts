@@ -202,6 +202,173 @@ router.get('/api/user/global-search', setUserContext, async (req: any, res) => {
   }
 });
 
+// ESA Layer 16: Notification System Agent
+// GET /api/notifications - Get user's notifications with pagination
+router.get('/api/notifications', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
+    const offset = parseInt(req.query.offset as string) || 0;
+    const unreadOnly = req.query.unread === 'true';
+
+    let query = db
+      .select()
+      .from(notifications)
+      .where(eq(notifications.userId, userId))
+      .$dynamic();
+
+    if (unreadOnly) {
+      query = query.where(eq(notifications.isRead, false));
+    }
+
+    const result = await query
+      .orderBy(desc(notifications.createdAt))
+      .limit(limit)
+      .offset(offset);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error: any) {
+    console.error('Error fetching notifications:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to fetch notifications'
+    });
+  }
+});
+
+// PUT /api/notifications/:id/read - Mark notification as read
+router.put('/api/notifications/:id/read', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    const notificationId = parseInt(req.params.id);
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const [updated] = await db
+      .update(notifications)
+      .set({ isRead: true })
+      .where(
+        and(
+          eq(notifications.id, notificationId),
+          eq(notifications.userId, userId)
+        )
+      )
+      .returning();
+
+    if (!updated) {
+      return res.status(404).json({
+        success: false,
+        message: 'Notification not found'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: updated
+    });
+  } catch (error: any) {
+    console.error('Error marking notification as read:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to mark notification as read'
+    });
+  }
+});
+
+// PUT /api/notifications/mark-all-read - Mark all notifications as read
+router.put('/api/notifications/mark-all-read', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    await db
+      .update(notifications)
+      .set({ isRead: true })
+      .where(
+        and(
+          eq(notifications.userId, userId),
+          eq(notifications.isRead, false)
+        )
+      );
+
+    res.json({
+      success: true,
+      message: 'All notifications marked as read'
+    });
+  } catch (error: any) {
+    console.error('Error marking all notifications as read:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to mark all notifications as read'
+    });
+  }
+});
+
+// DELETE /api/notifications/:id - Delete notification
+router.delete('/api/notifications/:id', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    const notificationId = parseInt(req.params.id);
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const [deleted] = await db
+      .delete(notifications)
+      .where(
+        and(
+          eq(notifications.id, notificationId),
+          eq(notifications.userId, userId)
+        )
+      )
+      .returning();
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: 'Notification not found'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Notification deleted'
+    });
+  } catch (error: any) {
+    console.error('Error deleting notification:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to delete notification'
+    });
+  }
+});
+
 // ESA Layer 21: User Management Agent - Favorites System
 // GET /api/favorites - Get user's favorites
 router.get('/api/favorites', setUserContext, async (req: any, res) => {
