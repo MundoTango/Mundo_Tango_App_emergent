@@ -201,7 +201,7 @@ export default function EnhancedEventsPage() {
 
   // Fetch events with performance optimizations
   const { data: eventsData, isLoading: eventsLoading, refetch } = useQuery<EventApiResponse>({
-    queryKey: ['/api/events', {
+    queryKey: ['/api/events/feed', {
       search: searchQuery,
       category: categoryFilter,
       level: levelFilter,
@@ -259,7 +259,7 @@ export default function EnhancedEventsPage() {
   const exportEventsToCSV = () => {
     const csvConfig = mkConfig({
       fieldSeparator: ',',
-      quoteStrings: '"',
+      quoteStrings: true,
       decimalSeparator: '.',
       showLabels: true,
       showTitle: true,
@@ -735,24 +735,28 @@ export default function EnhancedEventsPage() {
               </div>
             </div>
             <div className="h-[600px]">
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView={calendarView === 'month' ? 'dayGridMonth' : calendarView === 'week' ? 'timeGridWeek' : 'timeGridDay'}
-                events={calendarEvents}
-                eventClick={(info) => {
-                  setSelectedEvent(info.event.extendedProps.resource);
+              <BigCalendar
+                localizer={localizer}
+                events={calendarEvents.map(event => ({
+                  ...event,
+                  resource: event
+                }))}
+                view={calendarView}
+                onView={setCalendarView}
+                onSelectEvent={(event: any) => {
+                  setSelectedEvent(event.resource);
                 }}
-                eventContent={(eventInfo) => (
-                  <div className="p-1 text-xs">
-                    <div className="font-semibold truncate">{eventInfo.event.title}</div>
-                    <div className="text-gray-600">{moment(eventInfo.event.start).format('h:mm A')}</div>
-                  </div>
-                )}
-                height="100%"
-                headerToolbar={{
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: ''
+                views={['month', 'week', 'day']}
+                step={30}
+                showMultiDayTimes
+                style={{ height: '100%' }}
+                components={{
+                  event: ({ event }: any) => (
+                    <div className="p-1 text-xs">
+                      <div className="font-semibold truncate">{event.title}</div>
+                      <div className="text-gray-600">{moment(event.start).format('h:mm A')}</div>
+                    </div>
+                  )
                 }}
               />
             </div>
