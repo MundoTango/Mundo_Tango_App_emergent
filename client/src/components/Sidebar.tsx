@@ -28,7 +28,7 @@ interface SidebarProps {
   setIsOpen: (open: boolean) => void;
 }
 
-const TrangoTechSidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuth();
   const [location, setLocation] = useLocation();
 
@@ -242,4 +242,4 @@ const TrangoTechSidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export default TrangoTechSidebar;
+export default Sidebar;
