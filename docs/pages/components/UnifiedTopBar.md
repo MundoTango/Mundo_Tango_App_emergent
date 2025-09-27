@@ -23,8 +23,10 @@
 ### APIs & Real-time Features
 - **Notifications Count:** `/api/notifications/count` - Fetches unread notification count (30s refresh interval)
 - **Messages Count:** `/api/messages/unread-count` - Fetches unread message count (30s refresh interval)  
-- **Global Search:** `/api/user/global-search` - Real-time search with debounced API calls
-- **Real-time Updates:** Uses React Query with automatic refetching for live count updates
+- **Global Search:** `/api/user/global-search` - Real-time search across users, posts, events, and groups
+- **Favorites Management:** `/api/favorites` - Complete CRUD operations for user favorites
+- **Real-time Updates:** WebSocket integration via Socket.io for live notification/message count updates
+- **Language Persistence:** Saves selection to localStorage for cross-session persistence
 
 ### Component Architecture
 - **Replaced Components:** Consolidated 3 duplicate navbar implementations:
@@ -104,9 +106,7 @@ messages (
 ## Known Issues
 
 ### Current Bugs
-- LSP diagnostic in messages.tsx (1 issue - non-critical)
-- Search results may not clear immediately on route change
-- Language selector state not persisted across sessions
+- None - All toolbar elements fully functional as of September 27, 2025
 
 ### Improvement Areas
 - Add loading states for API calls
@@ -114,6 +114,8 @@ messages (
 - Add keyboard navigation for dropdowns
 - Optimize re-renders with React.memo
 - Add animation transitions for theme changes
+- Add notification sound for new alerts
+- Implement notification grouping by type
 
 ## Agent Responsibilities
 
@@ -128,10 +130,11 @@ messages (
 
 ### External Services
 - **Authentication:** Replit Auth integration for user context
-- **Real-time Updates:** Socket.io for live notification updates
-- **Search Service:** Elasticsearch/Fuse.js for global search
-- **Theme Service:** LocalStorage for theme persistence
+- **Real-time Updates:** Socket.io WebSocket connections for live notification/message updates
+- **Search Service:** PostgreSQL full-text search for global platform search
+- **Theme Service:** LocalStorage for theme and language persistence
 - **Router:** Wouter for client-side navigation
+- **Notification Delivery:** Real-time notification service via WebSocket
 
 ### Internal Integrations
 - **DashboardLayout:** Primary integration point for 35+ pages
