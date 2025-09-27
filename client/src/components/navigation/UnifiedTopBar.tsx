@@ -46,7 +46,11 @@ export default function UnifiedTopBar({
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const [currentLang, setCurrentLang] = useState('EN');
+  // Initialize language from localStorage or default to 'EN'
+  const [currentLang, setCurrentLang] = useState(() => {
+    const savedLang = localStorage.getItem('userLanguage');
+    return savedLang || 'EN';
+  });
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -128,11 +132,27 @@ export default function UnifiedTopBar({
     const langs = ['EN', 'ES', 'FR'];
     const currentIndex = langs.indexOf(currentLang);
     const nextIndex = (currentIndex + 1) % langs.length;
-    setCurrentLang(langs[nextIndex]);
+    const nextLang = langs[nextIndex];
+    
+    // Update state
+    setCurrentLang(nextLang);
+    
+    // Persist to localStorage
+    localStorage.setItem('userLanguage', nextLang);
+    
+    // TODO: Save to user preferences API if logged in
+    // if (user) {
+    //   fetch('/api/user/preferences', {
+    //     method: 'PATCH',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ language: nextLang }),
+    //     credentials: 'include'
+    //   });
+    // }
     
     toast({
       title: "Language Changed",
-      description: `Interface language set to ${langs[nextIndex] === 'EN' ? 'English' : langs[nextIndex] === 'ES' ? 'Español' : 'Français'}`,
+      description: `Interface language set to ${nextLang === 'EN' ? 'English' : nextLang === 'ES' ? 'Español' : 'Français'}`,
     });
   };
 
