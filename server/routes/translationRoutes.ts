@@ -224,6 +224,64 @@ router.get('/cache-stats', (req: Request, res: Response) => {
   });
 });
 
+// Get translations for a specific language (for progressive loading)
+router.get('/language/:languageCode', async (req: Request, res: Response) => {
+  try {
+    const { languageCode } = req.params;
+    const translationsPath = path.join(process.cwd(), 'client/src/i18n/translations.json');
+    
+    // Check if translations file exists
+    const fs = await import('fs/promises');
+    try {
+      await fs.access(translationsPath);
+    } catch {
+      return res.status(404).json({ error: 'Translations not found' });
+    }
+    
+    // Read the translations file
+    const translationsData = await fs.readFile(translationsPath, 'utf-8');
+    const allTranslations = JSON.parse(translationsData);
+    
+    // Check if the requested language exists
+    if (!allTranslations[languageCode]) {
+      // Try to generate translations for this language on the fly
+      console.log(`Generating translations for ${languageCode} on demand...`);
+      
+      // Get base English translations as reference
+      const baseTranslations = allTranslations['en']?.translation || {};
+      
+      // Generate translations for this language
+      const newTranslations: any = { translation: {} };
+      
+      for (const [section, strings] of Object.entries(baseTranslations)) {
+        newTranslations.translation[section] = {};
+        
+        for (const [key, value] of Object.entries(strings as any)) {
+          try {
+            const translated = await translateText(value as string, languageCode, 'en');
+            newTranslations.translation[section][key] = translated;
+          } catch (error) {
+            console.error(`Failed to translate ${key} to ${languageCode}`);
+            newTranslations.translation[section][key] = value; // Fallback to English
+          }
+        }
+      }
+      
+      // Cache the generated translations
+      allTranslations[languageCode] = newTranslations;
+      await fs.writeFile(translationsPath, JSON.stringify(allTranslations, null, 2));
+      
+      return res.json(newTranslations.translation);
+    }
+    
+    // Return the translations for the requested language
+    res.json(allTranslations[languageCode].translation || {});
+  } catch (error) {
+    console.error('Error fetching language translations:', error);
+    res.status(500).json({ error: 'Failed to fetch translations' });
+  }
+});
+
 // Helper function to get language names
 function getLanguageName(code: string): string {
   const names: Record<string, string> = {
