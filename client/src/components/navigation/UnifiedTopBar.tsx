@@ -4,6 +4,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next'; // ESA Layer 53: Internationalization
 import { 
   Search, Bell, MessageSquare,
   ChevronDown, Sun, Moon, User, Settings,
@@ -42,6 +43,7 @@ export default function UnifiedTopBar({
   onThemeToggle,
   showMenuButton = true
 }: UnifiedTopBarProps) {
+  const { t } = useTranslation(); // ESA Layer 53: Translation hook
   const { user } = useAuth();
   const [location, setLocation] = useLocation();
   const { toast } = useToast();
@@ -234,7 +236,7 @@ export default function UnifiedTopBar({
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search events, people, memories..."
+              placeholder={t('navigation.search')}
               className={cn(
                 "w-full pl-12 pr-4 py-2.5 bg-transparent outline-none transition-colors",
                 theme === 'light' 
@@ -511,7 +513,7 @@ export default function UnifiedTopBar({
                 </p>
                 {user?.roles?.includes('admin') && (
                   <Badge className="mt-1 bg-emerald-500/20 text-emerald-600">
-                    Admin
+                    {t('common.admin')}
                   </Badge>
                 )}
               </div>
@@ -520,23 +522,23 @@ export default function UnifiedTopBar({
               <div className="py-2">
                 <DropdownMenuItem onClick={() => setLocation('/profile')}>
                   <User className="mr-3 h-4 w-4" />
-                  <span>Profile</span>
+                  <span>{t('navigation.profile')}</span>
                 </DropdownMenuItem>
                 
                 <DropdownMenuItem onClick={() => setLocation('/settings')}>
                   <Settings className="mr-3 h-4 w-4" />
-                  <span>Settings</span>
+                  <span>{t('navigation.settings')}</span>
                 </DropdownMenuItem>
                 
                 <DropdownMenuItem onClick={() => setLocation('/settings/billing')}>
                   <CreditCard className="mr-3 h-4 w-4" />
-                  <span>Billing</span>
+                  <span>{t('navigation.billing')}</span>
                 </DropdownMenuItem>
 
                 {user?.roles?.includes('admin') && (
                   <DropdownMenuItem onClick={() => setLocation('/admin')}>
                     <Shield className="mr-3 h-4 w-4" />
-                    <span>Admin Center</span>
+                    <span>{t('navigation.adminAccess')}</span>
                   </DropdownMenuItem>
                 )}
               </div>
@@ -574,7 +576,7 @@ export default function UnifiedTopBar({
                   className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
                 >
                   <LogOut className="mr-3 h-4 w-4" />
-                  <span>Logout</span>
+                  <span>{t('navigation.logout')}</span>
                 </DropdownMenuItem>
                 
                 <DropdownMenuItem 
