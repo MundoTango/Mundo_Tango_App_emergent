@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
 
 // List of all supported languages from the database
 export const supportedLanguages = [
@@ -104,32 +103,246 @@ const detectionOptions = {
   cookieDomain: 'mundotango.life',
 };
 
+// ESA Layer 53: Embedded translations for immediate loading
+const resources = {
+  en: {
+    translation: {
+      common: {
+        save: "Save",
+        cancel: "Cancel",
+        delete: "Delete",
+        edit: "Edit",
+        add: "Add",
+        search: "Search",
+        filter: "Filter",
+        sort: "Sort",
+        loading: "Loading...",
+        error: "Error",
+        success: "Success",
+        warning: "Warning",
+        info: "Info",
+        confirm: "Confirm",
+        yes: "Yes",
+        no: "No",
+        ok: "OK",
+        close: "Close",
+        back: "Back",
+        next: "Next",
+        previous: "Previous",
+        finish: "Finish",
+        submit: "Submit",
+        language: "Language",
+        popular: "Popular",
+        preferred: "Preferred",
+        admin: "Admin",
+        direction: "ltr"
+      },
+      navigation: {
+        home: "Home",
+        dashboard: "Dashboard",
+        memories: "Memories",
+        tangoCommunity: "Tango Community",
+        friends: "Friends",
+        messages: "Messages",
+        groups: "Groups",
+        events: "Events",
+        roleInvitations: "Role Invitations",
+        notifications: "Notifications",
+        search: "Search",
+        menu: "Menu",
+        profile: "Profile",
+        settings: "Settings",
+        billing: "Billing",
+        adminAccess: "Admin Access",
+        logout: "Logout"
+      },
+      memories: {
+        title: "Memories",
+        memoryShared: "Memory shared successfully",
+        memorySharedDescription: "Your memory has been shared with the community"
+      },
+      community: {
+        globalDancers: "Global Dancers",
+        activeEvents: "Active Events",
+        communities: "Communities"
+      },
+      settings: {
+        languageChanged: "Language Changed",
+        languageChangedDesc: "Interface language changed to {{language}}",
+        chooseLanguage: "Choose Language",
+        selectLanguage: "Select Language",
+        allLanguages: "All Languages"
+      },
+      errors: {
+        languageChangeFailed: "Failed to change language",
+        tryAgain: "Please try again",
+        uploadFailed: "Upload failed"
+      }
+    }
+  },
+  es: {
+    translation: {
+      common: {
+        save: "Guardar",
+        cancel: "Cancelar",
+        delete: "Eliminar",
+        edit: "Editar",
+        add: "Añadir",
+        search: "Buscar",
+        filter: "Filtrar",
+        sort: "Ordenar",
+        loading: "Cargando...",
+        error: "Error",
+        success: "Éxito",
+        warning: "Advertencia",
+        info: "Información",
+        confirm: "Confirmar",
+        yes: "Sí",
+        no: "No",
+        ok: "OK",
+        close: "Cerrar",
+        back: "Atrás",
+        next: "Siguiente",
+        previous: "Anterior",
+        finish: "Finalizar",
+        submit: "Enviar",
+        language: "Idioma",
+        popular: "Popular",
+        preferred: "Preferido",
+        admin: "Administrador",
+        direction: "ltr"
+      },
+      navigation: {
+        home: "Inicio",
+        dashboard: "Panel",
+        memories: "Recuerdos",
+        tangoCommunity: "Comunidad de Tango",
+        friends: "Amigos",
+        messages: "Mensajes",
+        groups: "Grupos",
+        events: "Eventos",
+        roleInvitations: "Invitaciones de Rol",
+        notifications: "Notificaciones",
+        search: "Buscar",
+        menu: "Menú",
+        profile: "Perfil",
+        settings: "Configuración",
+        billing: "Facturación",
+        adminAccess: "Acceso de Administrador",
+        logout: "Cerrar sesión"
+      },
+      memories: {
+        title: "Recuerdos",
+        memoryShared: "Recuerdo compartido con éxito",
+        memorySharedDescription: "Tu recuerdo ha sido compartido con la comunidad"
+      },
+      community: {
+        globalDancers: "Bailarines Globales",
+        activeEvents: "Eventos Activos",
+        communities: "Comunidades"
+      },
+      settings: {
+        languageChanged: "Idioma Cambiado",
+        languageChangedDesc: "Idioma de la interfaz cambiado a {{language}}",
+        chooseLanguage: "Elegir Idioma",
+        selectLanguage: "Seleccionar Idioma",
+        allLanguages: "Todos los Idiomas"
+      },
+      errors: {
+        languageChangeFailed: "Error al cambiar el idioma",
+        tryAgain: "Por favor, inténtalo de nuevo",
+        uploadFailed: "Error al cargar"
+      }
+    }
+  },
+  fr: {
+    translation: {
+      common: {
+        save: "Enregistrer",
+        cancel: "Annuler",
+        delete: "Supprimer",
+        edit: "Modifier",
+        add: "Ajouter",
+        search: "Rechercher",
+        filter: "Filtrer",
+        sort: "Trier",
+        loading: "Chargement...",
+        error: "Erreur",
+        success: "Succès",
+        warning: "Avertissement",
+        info: "Information",
+        confirm: "Confirmer",
+        yes: "Oui",
+        no: "Non",
+        ok: "OK",
+        close: "Fermer",
+        back: "Retour",
+        next: "Suivant",
+        previous: "Précédent",
+        finish: "Terminer",
+        submit: "Soumettre",
+        language: "Langue",
+        popular: "Populaire",
+        preferred: "Préféré",
+        admin: "Admin",
+        direction: "ltr"
+      },
+      navigation: {
+        home: "Accueil",
+        dashboard: "Tableau de bord",
+        memories: "Souvenirs",
+        tangoCommunity: "Communauté Tango",
+        friends: "Amis",
+        messages: "Messages",
+        groups: "Groupes",
+        events: "Événements",
+        roleInvitations: "Invitations de Rôle",
+        notifications: "Notifications",
+        search: "Rechercher",
+        menu: "Menu",
+        profile: "Profil",
+        settings: "Paramètres",
+        billing: "Facturation",
+        adminAccess: "Accès Admin",
+        logout: "Déconnexion"
+      },
+      memories: {
+        title: "Souvenirs",
+        memoryShared: "Souvenir partagé avec succès",
+        memorySharedDescription: "Votre souvenir a été partagé avec la communauté"
+      },
+      community: {
+        globalDancers: "Danseurs Globaux",
+        activeEvents: "Événements Actifs",
+        communities: "Communautés"
+      },
+      settings: {
+        languageChanged: "Langue Changée",
+        languageChangedDesc: "Langue de l'interface changée en {{language}}",
+        chooseLanguage: "Choisir la Langue",
+        selectLanguage: "Sélectionner la Langue",
+        allLanguages: "Toutes les Langues"
+      },
+      errors: {
+        languageChangeFailed: "Échec du changement de langue",
+        tryAgain: "Veuillez réessayer",
+        uploadFailed: "Échec du téléchargement"
+      }
+    }
+  }
+};
+
 // Initialize i18n
 i18n
-  .use(HttpApi)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    resources,
     supportedLngs: supportedLanguages.map(lang => lang.code),
     fallbackLng: 'en',
     debug: false,
     
     detection: detectionOptions,
-    
-    // Backend configuration for loading translations
-    backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
-      addPath: '/locales/{{lng}}/{{ns}}.json',
-      allowMultiLoading: false,
-      crossDomain: false,
-      withCredentials: true,
-      
-      // Client-side caching
-      requestOptions: {
-        cache: 'default',
-      },
-      
-    },
     
     // Namespaces
     ns: ['translation'],
