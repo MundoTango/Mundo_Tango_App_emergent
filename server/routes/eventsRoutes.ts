@@ -1,7 +1,7 @@
 import express from 'express';
 import { z } from 'zod';
 import { db } from '../db';
-import { events, eventRsvps, recurringEvents, users } from '../../shared/schema';
+import { events, eventRsvps, recurringEvents, users, eventParticipants } from '../../shared/schema';
 import { eq, and, gte, desc, like, or, sql } from 'drizzle-orm';
 import { authMiddleware } from '../middleware/auth';
 import { getWebSocketService } from '../services/websocketService';
@@ -323,6 +323,186 @@ router.get('/api/events/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching event details:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch event details' });
+  }
+});
+
+// Get user's event invitations
+router.get('/api/users/me/event-invitations', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const status = req.query.status as string;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    // Build the where condition based on status
+    const whereCondition = status && status !== 'all' 
+      ? and(
+          eq(eventParticipants.userId, userId),
+          eq(eventParticipants.status, status)
+        )
+      : eq(eventParticipants.userId, userId);
+
+    const invitations = await db
+      .select({
+        id: eventParticipants.id,
+        eventId: eventParticipants.eventId,
+        userId: eventParticipants.userId,
+        role: eventParticipants.role,
+        status: eventParticipants.status,
+        invitedBy: eventParticipants.invitedBy,
+        invitedAt: eventParticipants.invitedAt,
+        eventTitle: events.title,
+        eventStartDate: events.startDate,
+        eventLocation: events.location,
+        inviterName: sql<string>`COALESCE(${users.firstName} || ' ' || ${users.lastName}, ${users.name})`,
+      })
+      .from(eventParticipants)
+      .leftJoin(events, eq(eventParticipants.eventId, events.id))
+      .leftJoin(users, eq(eventParticipants.invitedBy, users.id))
+      .where(whereCondition)
+      .orderBy(desc(eventParticipants.invitedAt));
+    
+    res.json({ success: true, data: invitations });
+  } catch (error) {
+    console.error('Error fetching user invitations:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch invitations' });
+  }
+});
+
+// Get user's events (for sending invitations)
+router.get('/api/users/me/events', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    const userEvents = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        startDate: events.startDate,
+        location: events.location,
+      })
+      .from(events)
+      .where(eq(events.userId, userId))
+      .orderBy(desc(events.startDate));
+    
+    res.json({ success: true, data: userEvents });
+  } catch (error) {
+    console.error('Error fetching user events:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch events' });
+  }
+});
+
+// Send invitation to participant
+router.post('/api/events/invite-participant', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const { username, eventId, role, message } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    // Find user by username
+    const [invitedUser] = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1);
+    
+    if (!invitedUser) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    // Check if user owns the event
+    const [event] = await db
+      .select({ id: events.id, userId: events.userId })
+      .from(events)
+      .where(eq(events.id, parseInt(eventId)))
+      .limit(1);
+    
+    if (!event || event.userId !== userId) {
+      return res.status(403).json({ success: false, error: 'Not authorized to send invitations for this event' });
+    }
+
+    // Check if invitation already exists
+    const existing = await db
+      .select({ id: eventParticipants.id })
+      .from(eventParticipants)
+      .where(and(
+        eq(eventParticipants.eventId, parseInt(eventId)),
+        eq(eventParticipants.userId, invitedUser.id),
+        eq(eventParticipants.role, role)
+      ))
+      .limit(1);
+    
+    if (existing.length > 0) {
+      return res.status(400).json({ success: false, error: 'Invitation already sent' });
+    }
+
+    // Create invitation
+    const [invitation] = await db.insert(eventParticipants).values({
+      eventId: parseInt(eventId),
+      userId: invitedUser.id,
+      role,
+      status: 'pending',
+      invitedBy: userId,
+      invitedAt: new Date(),
+    }).returning();
+    
+    res.json({ success: true, data: invitation });
+  } catch (error) {
+    console.error('Error sending invitation:', error);
+    res.status(500).json({ success: false, error: 'Failed to send invitation' });
+  }
+});
+
+// Update invitation status
+router.put('/api/event-participants/:id/status', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const participantId = parseInt(req.params.id);
+    const { status } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    if (!['accepted', 'declined'].includes(status)) {
+      return res.status(400).json({ success: false, error: 'Invalid status' });
+    }
+
+    // Check if invitation belongs to the user
+    const [invitation] = await db
+      .select({ id: eventParticipants.id, userId: eventParticipants.userId })
+      .from(eventParticipants)
+      .where(eq(eventParticipants.id, participantId))
+      .limit(1);
+    
+    if (!invitation || invitation.userId !== userId) {
+      return res.status(403).json({ success: false, error: 'Not authorized to update this invitation' });
+    }
+
+    // Update invitation status
+    const [updated] = await db
+      .update(eventParticipants)
+      .set({
+        status,
+        respondedAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(eq(eventParticipants.id, participantId))
+      .returning();
+    
+    res.json({ success: true, data: updated });
+  } catch (error) {
+    console.error('Error updating invitation status:', error);
+    res.status(500).json({ success: false, error: 'Failed to update invitation' });
   }
 });
 
