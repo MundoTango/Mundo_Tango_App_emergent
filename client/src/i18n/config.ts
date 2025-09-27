@@ -72,8 +72,8 @@ export const supportedLanguages = [
   { code: 'ka', name: 'Georgian', country: 'GE' },
 ];
 
-// Export changeLanguage function
-export const changeLanguage = async (lng: string) => {
+// Simple language change function
+const changeLanguageSimple = async (lng: string) => {
   try {
     await i18n.changeLanguage(lng);
     // Store preference
@@ -239,7 +239,8 @@ export async function detectLocationFromIP(): Promise<{ country: string; city: s
 
 // Function to change language and update user preferences
 export async function changeLanguage(languageCode: string) {
-  await i18n.changeLanguage(languageCode);
+  // First change language in i18n
+  await changeLanguageSimple(languageCode);
   
   // Update user preferences in the backend
   try {

@@ -641,4 +641,345 @@ router.post('/api/favorites/bulk', setUserContext, async (req: any, res) => {
   }
 });
 
+// ESA Layer 53: Internationalization Agent - Language Management APIs
+// GET /api/languages/supported - Get all supported languages
+router.get('/api/languages/supported', async (req, res) => {
+  try {
+    // Return the full list of 73 supported languages from i18n config
+    const supportedLanguages = [
+      { code: 'en', name: 'English', nativeName: 'English', country: 'US', isActive: true },
+      { code: 'es', name: 'Spanish', nativeName: 'Español', country: 'ES', isActive: true },
+      { code: 'es-ar', name: 'Spanish (Argentina)', nativeName: 'Español (Argentina)', country: 'AR', isActive: true, isLunfardo: true },
+      { code: 'pt', name: 'Portuguese', nativeName: 'Português', country: 'PT', isActive: true },
+      { code: 'pt-br', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', country: 'BR', isActive: true },
+      { code: 'fr', name: 'French', nativeName: 'Français', country: 'FR', isActive: true },
+      { code: 'de', name: 'German', nativeName: 'Deutsch', country: 'DE', isActive: true },
+      { code: 'it', name: 'Italian', nativeName: 'Italiano', country: 'IT', isActive: true },
+      { code: 'ru', name: 'Russian', nativeName: 'Русский', country: 'RU', isActive: true },
+      { code: 'ja', name: 'Japanese', nativeName: '日本語', country: 'JP', isActive: true },
+      { code: 'ko', name: 'Korean', nativeName: '한국어', country: 'KR', isActive: true },
+      { code: 'zh', name: 'Chinese', nativeName: '中文', country: 'CN', isActive: true },
+      { code: 'zh-tw', name: 'Chinese (Traditional)', nativeName: '繁體中文', country: 'TW', isActive: true },
+      { code: 'ar', name: 'Arabic', nativeName: 'العربية', country: 'SA', isActive: true },
+      { code: 'he', name: 'Hebrew', nativeName: 'עברית', country: 'IL', isActive: true },
+      { code: 'tr', name: 'Turkish', nativeName: 'Türkçe', country: 'TR', isActive: true },
+      { code: 'pl', name: 'Polish', nativeName: 'Polski', country: 'PL', isActive: true },
+      { code: 'nl', name: 'Dutch', nativeName: 'Nederlands', country: 'NL', isActive: true },
+      { code: 'sv', name: 'Swedish', nativeName: 'Svenska', country: 'SE', isActive: true },
+      { code: 'no', name: 'Norwegian', nativeName: 'Norsk', country: 'NO', isActive: true },
+      { code: 'da', name: 'Danish', nativeName: 'Dansk', country: 'DK', isActive: true },
+      { code: 'fi', name: 'Finnish', nativeName: 'Suomi', country: 'FI', isActive: true },
+      { code: 'cs', name: 'Czech', nativeName: 'Čeština', country: 'CZ', isActive: true },
+      { code: 'hu', name: 'Hungarian', nativeName: 'Magyar', country: 'HU', isActive: true },
+      { code: 'el', name: 'Greek', nativeName: 'Ελληνικά', country: 'GR', isActive: true },
+      { code: 'ro', name: 'Romanian', nativeName: 'Română', country: 'RO', isActive: true },
+      { code: 'bg', name: 'Bulgarian', nativeName: 'Български', country: 'BG', isActive: true },
+      { code: 'uk', name: 'Ukrainian', nativeName: 'Українська', country: 'UA', isActive: true },
+      { code: 'hr', name: 'Croatian', nativeName: 'Hrvatski', country: 'HR', isActive: true },
+      { code: 'sr', name: 'Serbian', nativeName: 'Српски', country: 'RS', isActive: true },
+      { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', country: 'SK', isActive: true },
+      { code: 'sl', name: 'Slovenian', nativeName: 'Slovenščina', country: 'SI', isActive: true },
+      { code: 'et', name: 'Estonian', nativeName: 'Eesti', country: 'EE', isActive: true },
+      { code: 'lv', name: 'Latvian', nativeName: 'Latviešu', country: 'LV', isActive: true },
+      { code: 'lt', name: 'Lithuanian', nativeName: 'Lietuvių', country: 'LT', isActive: true },
+      { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', country: 'IN', isActive: true },
+      { code: 'bn', name: 'Bengali', nativeName: 'বাংলা', country: 'BD', isActive: true },
+      { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்', country: 'IN', isActive: true },
+      { code: 'te', name: 'Telugu', nativeName: 'తెలుగు', country: 'IN', isActive: true },
+      { code: 'mr', name: 'Marathi', nativeName: 'मराठी', country: 'IN', isActive: true },
+      { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી', country: 'IN', isActive: true },
+      { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ', country: 'IN', isActive: true },
+      { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം', country: 'IN', isActive: true },
+      { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ', country: 'IN', isActive: true },
+      { code: 'ur', name: 'Urdu', nativeName: 'اردو', country: 'PK', isActive: true },
+      { code: 'fa', name: 'Persian', nativeName: 'فارسی', country: 'IR', isActive: true },
+      { code: 'th', name: 'Thai', nativeName: 'ไทย', country: 'TH', isActive: true },
+      { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt', country: 'VN', isActive: true },
+      { code: 'id', name: 'Indonesian', nativeName: 'Bahasa Indonesia', country: 'ID', isActive: true },
+      { code: 'ms', name: 'Malay', nativeName: 'Bahasa Melayu', country: 'MY', isActive: true },
+      { code: 'tl', name: 'Tagalog', nativeName: 'Tagalog', country: 'PH', isActive: true },
+      { code: 'fil', name: 'Filipino', nativeName: 'Filipino', country: 'PH', isActive: true },
+      { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans', country: 'ZA', isActive: true },
+      { code: 'sq', name: 'Albanian', nativeName: 'Shqip', country: 'AL', isActive: true },
+      { code: 'am', name: 'Amharic', nativeName: 'አማርኛ', country: 'ET', isActive: true },
+      { code: 'hy', name: 'Armenian', nativeName: 'Հայերեն', country: 'AM', isActive: true },
+      { code: 'az', name: 'Azerbaijani', nativeName: 'Azərbaycan', country: 'AZ', isActive: true },
+      { code: 'eu', name: 'Basque', nativeName: 'Euskera', country: 'ES', isActive: true },
+      { code: 'be', name: 'Belarusian', nativeName: 'Беларуская', country: 'BY', isActive: true },
+      { code: 'bs', name: 'Bosnian', nativeName: 'Bosanski', country: 'BA', isActive: true },
+      { code: 'my', name: 'Burmese', nativeName: 'မြန်မာဘာသာ', country: 'MM', isActive: true },
+      { code: 'km', name: 'Cambodian', nativeName: 'ភាសាខ្មែរ', country: 'KH', isActive: true },
+      { code: 'ca', name: 'Catalan', nativeName: 'Català', country: 'ES', isActive: true },
+      { code: 'gl', name: 'Galician', nativeName: 'Galego', country: 'ES', isActive: true },
+      { code: 'ka', name: 'Georgian', nativeName: 'ქართული', country: 'GE', isActive: true },
+      { code: 'is', name: 'Icelandic', nativeName: 'Íslenska', country: 'IS', isActive: true },
+      { code: 'ga', name: 'Irish', nativeName: 'Gaeilge', country: 'IE', isActive: true },
+      { code: 'mk', name: 'Macedonian', nativeName: 'Македонски', country: 'MK', isActive: true },
+      { code: 'mt', name: 'Maltese', nativeName: 'Malti', country: 'MT', isActive: true },
+      { code: 'mn', name: 'Mongolian', nativeName: 'Монгол', country: 'MN', isActive: true },
+      { code: 'ne', name: 'Nepali', nativeName: 'नेपाली', country: 'NP', isActive: true },
+      { code: 'si', name: 'Sinhala', nativeName: 'සිංහල', country: 'LK', isActive: true },
+      { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili', country: 'KE', isActive: true }
+    ];
+
+    res.json(supportedLanguages);
+  } catch (error: any) {
+    console.error('Error fetching supported languages:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to fetch supported languages'
+    });
+  }
+});
+
+// GET /api/languages/preferences - Get user language preferences
+router.get('/api/languages/preferences', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required' 
+      });
+    }
+
+    // Get user's language preferences from database
+    const userResult = await db
+      .select({ 
+        id: users.id,
+        languages: users.languages 
+      })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+
+    if (!userResult.length) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'User not found' 
+      });
+    }
+
+    const userLanguages = userResult[0].languages || ['en'];
+
+    // Return preferences in the format LanguageSelector expects
+    res.json({
+      id: userId,
+      userId: userId,
+      primaryLanguage: userLanguages[0] || 'en',
+      additionalLanguages: userLanguages,
+      preferredContentLanguages: userLanguages,
+      autoTranslate: true,
+      showOriginalContent: false,
+      translationQualityThreshold: 0.7
+    });
+  } catch (error: any) {
+    console.error('Error fetching language preferences:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to fetch language preferences'
+    });
+  }
+});
+
+// PUT /api/languages/preferences - Update user language preferences
+router.put('/api/languages/preferences', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required' 
+      });
+    }
+
+    const { primaryLanguage, additionalLanguages } = req.body;
+
+    // Update user's languages in database
+    await db
+      .update(users)
+      .set({ 
+        languages: additionalLanguages || [primaryLanguage] 
+      })
+      .where(eq(users.id, userId));
+
+    res.json({
+      success: true,
+      message: 'Language preferences updated successfully'
+    });
+  } catch (error: any) {
+    console.error('Error updating language preferences:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to update language preferences'
+    });
+  }
+});
+
+// GET /api/translations/:lng/:ns - Get translations for a language and namespace
+router.get('/api/translations/:lng/:ns', async (req, res) => {
+  try {
+    const { lng, ns } = req.params;
+    
+    // For now, return basic translations
+    // This should be expanded to load from database or translation files
+    const translations: any = {
+      en: {
+        common: {
+          welcome: 'Welcome',
+          login: 'Login',
+          logout: 'Logout',
+          profile: 'Profile',
+          settings: 'Settings',
+          language: 'Language',
+          popular: 'Popular',
+          preferred: 'Preferred'
+        },
+        settings: {
+          languageChanged: 'Language Changed',
+          languageChangedDesc: 'Interface language set to {{language}}',
+          chooseLanguage: 'Choose Language',
+          selectLanguage: 'Select Language',
+          allLanguages: 'All Languages'
+        },
+        errors: {
+          languageChangeFailed: 'Failed to change language',
+          tryAgain: 'Please try again'
+        }
+      },
+      es: {
+        common: {
+          welcome: 'Bienvenido',
+          login: 'Iniciar sesión',
+          logout: 'Cerrar sesión',
+          profile: 'Perfil',
+          settings: 'Configuración',
+          language: 'Idioma',
+          popular: 'Popular',
+          preferred: 'Preferido'
+        },
+        settings: {
+          languageChanged: 'Idioma Cambiado',
+          languageChangedDesc: 'Idioma de interfaz establecido en {{language}}',
+          chooseLanguage: 'Elegir Idioma',
+          selectLanguage: 'Seleccionar Idioma',
+          allLanguages: 'Todos los Idiomas'
+        },
+        errors: {
+          languageChangeFailed: 'Error al cambiar idioma',
+          tryAgain: 'Por favor intenta de nuevo'
+        }
+      },
+      fr: {
+        common: {
+          welcome: 'Bienvenue',
+          login: 'Connexion',
+          logout: 'Déconnexion',
+          profile: 'Profil',
+          settings: 'Paramètres',
+          language: 'Langue',
+          popular: 'Populaire',
+          preferred: 'Préféré'
+        },
+        settings: {
+          languageChanged: 'Langue Changée',
+          languageChangedDesc: 'Langue d\'interface définie sur {{language}}',
+          chooseLanguage: 'Choisir la Langue',
+          selectLanguage: 'Sélectionner la Langue',
+          allLanguages: 'Toutes les Langues'
+        },
+        errors: {
+          languageChangeFailed: 'Échec du changement de langue',
+          tryAgain: 'Veuillez réessayer'
+        }
+      }
+    };
+
+    const languageTranslations = translations[lng] || translations.en;
+    const namespaceTranslations = languageTranslations[ns] || {};
+
+    res.json(namespaceTranslations);
+  } catch (error: any) {
+    console.error('Error fetching translations:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to fetch translations'
+    });
+  }
+});
+
+// POST /api/languages/analytics - Track language change analytics
+router.post('/api/languages/analytics', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    const { action, languageCode, metadata } = req.body;
+
+    // Log language change for analytics (can be expanded to save to analytics table)
+    console.log('[Language Analytics]', {
+      userId,
+      action,
+      languageCode,
+      metadata,
+      timestamp: new Date().toISOString()
+    });
+
+    res.json({
+      success: true,
+      message: 'Analytics tracked successfully'
+    });
+  } catch (error: any) {
+    console.error('Error tracking language analytics:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to track analytics'
+    });
+  }
+});
+
+// PUT /api/user/language-preference - Update user language preference (legacy endpoint)
+router.put('/api/user/language-preference', setUserContext, async (req: any, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Authentication required' 
+      });
+    }
+
+    const { languageCode } = req.body;
+
+    // Update user's primary language
+    const currentUser = await db
+      .select({ languages: users.languages })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+
+    const currentLanguages = currentUser[0]?.languages || [];
+    const updatedLanguages = [languageCode, ...currentLanguages.filter(l => l !== languageCode)];
+
+    await db
+      .update(users)
+      .set({ 
+        languages: updatedLanguages 
+      })
+      .where(eq(users.id, userId));
+
+    res.json({
+      success: true,
+      message: 'Language preference updated successfully'
+    });
+  } catch (error: any) {
+    console.error('Error updating language preference:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Failed to update language preference'
+    });
+  }
+});
+
 export default router;
