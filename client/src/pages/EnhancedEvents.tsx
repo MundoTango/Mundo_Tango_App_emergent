@@ -38,7 +38,7 @@ import Countdown from 'react-countdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ReactImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-// import { Tooltip } from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
