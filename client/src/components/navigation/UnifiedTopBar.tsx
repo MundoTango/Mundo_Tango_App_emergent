@@ -5,7 +5,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { 
-  Search, Bell, MessageSquare, Globe, 
+  Search, Bell, MessageSquare,
   ChevronDown, Sun, Moon, User, Settings,
   LogOut, Home, Heart, HelpCircle, Menu,
   CreditCard, Shield, FileText, Trash2, Users
@@ -27,6 +27,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { io, Socket } from 'socket.io-client';
 import { queryClient } from '@/lib/queryClient';
+import LanguageSelector from '@/components/LanguageSelector';
 
 interface UnifiedTopBarProps {
   onMenuToggle?: () => void;
@@ -48,11 +49,6 @@ export default function UnifiedTopBar({
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  // Initialize language from localStorage or default to 'EN'
-  const [currentLang, setCurrentLang] = useState(() => {
-    const savedLang = localStorage.getItem('userLanguage');
-    return savedLang || 'EN';
-  });
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -182,33 +178,6 @@ export default function UnifiedTopBar({
     setShowSearchResults(false);
   };
 
-  const cycleLang = () => {
-    const langs = ['EN', 'ES', 'FR'];
-    const currentIndex = langs.indexOf(currentLang);
-    const nextIndex = (currentIndex + 1) % langs.length;
-    const nextLang = langs[nextIndex];
-    
-    // Update state
-    setCurrentLang(nextLang);
-    
-    // Persist to localStorage
-    localStorage.setItem('userLanguage', nextLang);
-    
-    // TODO: Save to user preferences API if logged in
-    // if (user) {
-    //   fetch('/api/user/preferences', {
-    //     method: 'PATCH',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ language: nextLang }),
-    //     credentials: 'include'
-    //   });
-    // }
-    
-    toast({
-      title: "Language Changed",
-      description: `Interface language set to ${nextLang === 'EN' ? 'English' : nextLang === 'ES' ? 'Español' : 'Français'}`,
-    });
-  };
 
   return (
     <header className={cn(
@@ -475,21 +444,13 @@ export default function UnifiedTopBar({
             </Button>
           )}
 
-          {/* Language Selector */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={cycleLang}
-            className={cn(
-              "hidden sm:flex items-center gap-1 px-3",
-              theme === 'light'
-                ? "hover:bg-gray-100 text-gray-600"
-                : "hover:bg-slate-800 text-slate-400"
-            )}
-          >
-            <Globe className="w-4 h-4" />
-            <span className="text-sm font-medium">{currentLang}</span>
-          </Button>
+          {/* Language Selector - ESA Layer 53: Internationalization Agent */}
+          <LanguageSelector 
+            variant="dropdown" 
+            showFlags={true}
+            groupByRegion={true}
+            className="hidden sm:flex"
+          />
 
           {/* Profile Dropdown */}
           <DropdownMenu open={isProfileOpen} onOpenChange={setIsProfileOpen}>
