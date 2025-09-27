@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,11 +14,11 @@ import {
   DropdownMenuPortal,
 } from '@/components/ui/dropdown-menu';
 import { Globe2, Check, Sparkles, Languages } from 'lucide-react';
-import { changeLanguage } from '@/i18n/config';
+import { changeLanguage, supportedLanguages as supportedLangsConfig } from '@/i18n/config';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { apiRequest, queryClient } from '@/lib/queryClient';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 
 interface LanguageSelectorProps {
   variant?: 'dropdown' | 'list';
@@ -57,33 +57,26 @@ const LanguageSelector = ({
   const { toast } = useToast();
   const [isChanging, setIsChanging] = useState(false);
 
-  // Fetch supported languages from API
-  const { data: supportedLanguages = [] } = useQuery<Language[]>({
-    queryKey: ['/api/languages/supported'],
-    staleTime: 1000 * 60 * 60, // Cache for 1 hour
-  });
+  // Get supported languages from config and transform to expected format
+  const supportedLanguages: Language[] = supportedLangsConfig.map(lang => ({
+    code: lang.code,
+    name: lang.name,
+    nativeName: lang.name, // Using name as nativeName for simplicity
+    country: lang.country || 'GB',
+    isActive: true,
+    isLunfardo: lang.code === 'es-ar'
+  }));
 
-  // Fetch user's language preferences
-  const { data: userPreferences } = useQuery<UserLanguagePreference>({
-    queryKey: ['/api/languages/preferences'],
-  });
-
-  // Update language preferences mutation
-  const updatePreferencesMutation = useMutation({
-    mutationFn: (preferences: Partial<UserLanguagePreference>) =>
-      apiRequest('/api/languages/preferences', { method: 'PUT', body: preferences }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/languages/preferences'] });
-    },
-  });
-
+  // Default user preferences (can be fetched from API later)
+  const userPreferences: UserLanguagePreference | null = null;
+  
   // Track language analytics mutation
   const trackAnalyticsMutation = useMutation({
     mutationFn: (data: { action: string; languageCode: string; metadata?: any }) =>
       apiRequest('/api/languages/analytics', { method: 'POST', body: data }),
   });
 
-  const userLanguages = userPreferences?.additionalLanguages || [];
+  const userLanguages: string[] = [];
 
   const handleLanguageChange = async (languageCode: string) => {
     setIsChanging(true);
@@ -91,25 +84,17 @@ const LanguageSelector = ({
       // Change language in i18n
       await changeLanguage(languageCode);
       
-      // Update user preferences on backend
-      if (userPreferences) {
-        await updatePreferencesMutation.mutateAsync({
-          primaryLanguage: languageCode,
-          additionalLanguages: userLanguages.includes(languageCode) 
-            ? userLanguages 
-            : [...userLanguages, languageCode],
-        });
-      }
+      // Skip updating user preferences for now since API doesn't exist yet
       
-      // Track analytics
-      await trackAnalyticsMutation.mutateAsync({
-        action: 'language_changed',
-        languageCode,
-        metadata: {
-          previousLanguage: i18n.language,
-          source: variant,
-        },
-      });
+      // Analytics tracking disabled - can be re-enabled when backend is available
+      // trackAnalyticsMutation.mutate({
+      //   action: 'language_changed',
+      //   languageCode,
+      //   metadata: {
+      //     previousLanguage: i18n.language,
+      //     source: variant,
+      //   },
+      // });
       
       toast({
         title: t('settings.languageChanged'),
@@ -132,11 +117,11 @@ const LanguageSelector = ({
     // Group languages by region - only include groups that have languages
     const groups: Record<string, Language[]> = {};
     
-    // Define language codes by region (using actual codes from our 73 languages)
-    const europeCodes = ['en', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'fi', 'cs', 'hu', 'ro', 'bg', 'uk', 'hr', 'sr', 'sk', 'sl', 'et', 'lv', 'lt', 'is', 'mk', 'mt', 'cy', 'lb', 'ca', 'gl', 'eu', 'sq', 'be', 'bs'];
+    // Define language codes by region (using all 73 languages from ESA Layer 53)
+    const europeCodes = ['en', 'fr', 'de', 'it', 'es', 'pt', 'nl', 'pl', 'ru', 'el', 'sv', 'no', 'da', 'fi', 'cs', 'hu', 'ro', 'bg', 'uk', 'hr', 'sr', 'sk', 'sl', 'et', 'lv', 'lt', 'is', 'mk', 'mt', 'cy', 'lb', 'ca', 'gl', 'eu', 'sq', 'be', 'bs', 'ka'];
     const americasCodes = ['en', 'es', 'es-ar', 'pt', 'pt-br'];
-    const asiaCodes = ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'tl', 'fil', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'ne', 'si', 'lo', 'my', 'km'];
-    const meaCodes = ['ar', 'he', 'tr', 'fa', 'ur', 'af', 'am', 'hy', 'az', 'ka'];
+    const asiaCodes = ['zh', 'zh-tw', 'ja', 'ko', 'hi', 'th', 'vi', 'id', 'ms', 'fil', 'bn', 'ta', 'te', 'mr', 'gu', 'kn', 'ml', 'pa', 'ne', 'si', 'lo', 'my'];
+    const meaCodes = ['ar', 'he', 'tr', 'fa', 'ur', 'af', 'am', 'ps'];
     const popularCodes = ['en', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar'];
     
     // Popular languages

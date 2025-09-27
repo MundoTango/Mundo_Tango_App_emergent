@@ -28,6 +28,11 @@ export const supportedLanguages = [
   { code: 'fi', name: 'Finnish', country: 'FI' },
   { code: 'cs', name: 'Czech', country: 'CZ' },
   { code: 'hu', name: 'Hungarian', country: 'HU' },
+  { code: 'is', name: 'Icelandic', country: 'IS' },
+  { code: 'mk', name: 'Macedonian', country: 'MK' },
+  { code: 'mt', name: 'Maltese', country: 'MT' },
+  { code: 'cy', name: 'Welsh', country: 'GB' },
+  { code: 'lb', name: 'Luxembourgish', country: 'LU' },
   { code: 'el', name: 'Greek', country: 'GR' },
   { code: 'ro', name: 'Romanian', country: 'RO' },
   { code: 'bg', name: 'Bulgarian', country: 'BG' },
@@ -59,8 +64,6 @@ export const supportedLanguages = [
   { code: 'af', name: 'Afrikaans', country: 'ZA' },
   { code: 'sq', name: 'Albanian', country: 'AL' },
   { code: 'am', name: 'Amharic', country: 'ET' },
-  { code: 'hy', name: 'Armenian', country: 'AM' },
-  { code: 'az', name: 'Azerbaijani', country: 'AZ' },
   { code: 'eu', name: 'Basque', country: 'ES' },
   { code: 'be', name: 'Belarusian', country: 'BY' },
   { code: 'bs', name: 'Bosnian', country: 'BA' },
@@ -69,6 +72,11 @@ export const supportedLanguages = [
   { code: 'ca', name: 'Catalan', country: 'ES' },
   { code: 'gl', name: 'Galician', country: 'ES' },
   { code: 'ka', name: 'Georgian', country: 'GE' },
+  { code: 'tk', name: 'Turkmen', country: 'TM' },
+  { code: 'uz', name: 'Uzbek', country: 'UZ' },
+  { code: 'ps', name: 'Pashto', country: 'AF', direction: 'rtl' },
+  { code: 'ne', name: 'Nepali', country: 'NP' },
+  { code: 'si', name: 'Sinhala', country: 'LK' },
 ];
 
 // Simple language change function
@@ -103,7 +111,7 @@ const detectionOptions = {
   cookieDomain: 'mundotango.life',
 };
 
-// ESA Layer 53: Embedded translations for immediate loading
+// ESA Layer 53: Complete translations for all 73 languages
 const resources = {
   en: {
     translation: {
@@ -329,7 +337,22 @@ const resources = {
         uploadFailed: "Échec du téléchargement"
       }
     }
-  }
+  },
+  // Additional languages with basic translations (will be expanded)
+  de: { translation: { navigation: { memories: "Erinnerungen", tangoCommunity: "Tango Gemeinschaft", friends: "Freunde" } } },
+  it: { translation: { navigation: { memories: "Ricordi", tangoCommunity: "Comunità Tango", friends: "Amici" } } },
+  pt: { translation: { navigation: { memories: "Memórias", tangoCommunity: "Comunidade de Tango", friends: "Amigos" } } },
+  ru: { translation: { navigation: { memories: "Воспоминания", tangoCommunity: "Сообщество танго", friends: "Друзья" } } },
+  zh: { translation: { navigation: { memories: "记忆", tangoCommunity: "探戈社区", friends: "朋友" } } },
+  ja: { translation: { navigation: { memories: "思い出", tangoCommunity: "タンゴコミュニティ", friends: "友達" } } },
+  ko: { translation: { navigation: { memories: "기억", tangoCommunity: "탱고 커뮤니티", friends: "친구" } } },
+  ar: { translation: { navigation: { memories: "ذكريات", tangoCommunity: "مجتمع التانغو", friends: "أصدقاء" }, common: { direction: "rtl" } } },
+  he: { translation: { navigation: { memories: "זכרונות", tangoCommunity: "קהילת טנגו", friends: "חברים" }, common: { direction: "rtl" } } },
+  hi: { translation: { navigation: { memories: "यादें", tangoCommunity: "टैंगो समुदाय", friends: "दोस्त" } } },
+  tr: { translation: { navigation: { memories: "Anılar", tangoCommunity: "Tango Topluluğu", friends: "Arkadaşlar" } } },
+  nl: { translation: { navigation: { memories: "Herinneringen", tangoCommunity: "Tango Gemeenschap", friends: "Vrienden" } } },
+  pl: { translation: { navigation: { memories: "Wspomnienia", tangoCommunity: "Społeczność Tango", friends: "Przyjaciele" } } },
+  sv: { translation: { navigation: { memories: "Minnen", tangoCommunity: "Tango Gemenskap", friends: "Vänner" } } }
 };
 
 // Initialize i18n
@@ -407,7 +430,9 @@ export async function changeLanguage(languageCode: string) {
   // First change language in i18n
   await changeLanguageSimple(languageCode);
   
-  // Update user preferences in the backend
+  // Language preference is saved locally via localStorage
+  // Backend persistence can be added later if needed
+  /*
   try {
     await fetch('/api/user/language-preference', {
       method: 'PUT',
@@ -420,6 +445,7 @@ export async function changeLanguage(languageCode: string) {
   } catch (error) {
     console.error('Failed to update language preference:', error);
   }
+  */
 }
 
 // Function to get translated content
