@@ -166,9 +166,33 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Voice Chat](/docs/pages/realtime/VoiceChat.md) - Real-time voice communication for groups and events
 - [WebSocket Manager](/docs/pages/realtime/WebSocketManager.md) - Real-time updates and notifications system
 
+## 📝 Documentation Update Instructions
+
+### When asked to "update docs/pages/DOCUMENTATION-INDEX.md":
+This means **update the actual documentation pages** referenced in this index, not just the index itself. Follow these steps:
+
+1. **Locate the relevant documentation file(s)** from the index
+   - Example: For Sidebar component → `/docs/pages/components/Sidebar.md`
+   - Example: For Events page → `/docs/pages/events/EnhancedEvents.md`
+
+2. **Check if documentation exists**
+   - If it exists: Update the existing file
+   - If it doesn't exist: Create a new file in the appropriate directory
+
+3. **Update multiple files if needed**
+   - When changes affect multiple components/pages, update all relevant documentation files
+   - Example: Navigation refactoring may require updating Sidebar.md, UnifiedTopBar.md, and multiple page docs
+
+4. **Use the comprehensive 10-section structure** (see below)
+
+5. **Update this index** only when:
+   - Adding new pages/components to the list
+   - Changing organizational structure
+   - Adding high-level summaries of changes
+
 ## 📊 Documentation Standards
 
-Each page documentation includes:
+Each page documentation must include these 10 sections:
 1. **Overview** - Route, purpose, ESA Framework layer
 2. **Technical Implementation** - Components, APIs, real-time features
 3. **Database Schema** - Tables and relationships
