@@ -480,7 +480,7 @@ interface LayerAgent {
     };
     ```
 52. **Documentation System Agent** - API docs, user guides intelligence
-53. **Internationalization Agent** - i18n, localization, translations management
+53. **[Internationalization Agent](./docs/pages/esa-layers/layer-53-internationalization.md)** ✅ - i18n, localization, translations management
 54. **Accessibility Agent (Enhanced)** - WCAG compliance, screen readers optimization
     - **Primary Tool**: axe-core for automated WCAG AA compliance
     - **Integration**: Runs on every page test automatically
