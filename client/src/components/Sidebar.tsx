@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLocation, Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n/config';
 import TenantSwitcher from './TenantSwitcher';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { 
@@ -84,29 +85,45 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
   // Mundo Tango Global Statistics with real data
   const stats = statsData as any;
+  
+  // Function to format numbers with locale-specific formatting
+  const formatStatNumber = (value: number | undefined, defaultValue: string) => {
+    if (!value && value !== 0) return defaultValue;
+    
+    // Get current language from i18n
+    const locale = i18n.language || 'en';
+    
+    // Use Intl.NumberFormat for locale-specific formatting
+    if (value >= 1000) {
+      return new Intl.NumberFormat(locale, {
+        notation: 'compact',
+        compactDisplay: 'short',
+        maximumFractionDigits: 1
+      }).format(value);
+    }
+    
+    return new Intl.NumberFormat(locale).format(value);
+  };
+  
   const globalStats = [
     {
       title: t('community.globalDancers'),
-      count: stats?.totalUsers ? 
-        (stats.totalUsers >= 1000 ? `${(stats.totalUsers / 1000).toFixed(1)}K` : stats.totalUsers.toString()) 
-        : "3.2K",
+      count: formatStatNumber(stats?.totalUsers, "3.2K"),
       icon: <Sparkles className="w-4 h-4" />,
     },
     {
       title: t('community.activeEvents'), 
-      count: stats?.activeEvents?.toString() || "945",
+      count: formatStatNumber(stats?.activeEvents, "945"),
       icon: <Calendar className="w-4 h-4" />,
     },
     {
       title: t('community.communities'),
-      count: stats?.totalGroups ? 
-        (stats.totalGroups >= 1000 ? `${(stats.totalGroups / 1000).toFixed(1)}K` : stats.totalGroups.toString())
-        : "6.8K",
+      count: formatStatNumber(stats?.totalGroups, "6.8K"),
       icon: <UsersRound className="w-4 h-4" />,
     },
     {
-      title: "Your City",
-      count: stats?.userCityMembers?.toString() || "184",
+      title: t('community.yourCity'),
+      count: formatStatNumber(stats?.userCityMembers, "184"),
       icon: <MapPin className="w-4 h-4" />,
     },
   ];
@@ -208,7 +225,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           {/* Global Statistics */}
           <div className="px-4 mb-6">
             <div className="text-xs uppercase font-semibold text-gray-500 tracking-wide mb-3">
-              Global Statistics
+              {t('community.globalStatistics')}
             </div>
             <div className="space-y-2">
               {globalStats.map((item, index) => (

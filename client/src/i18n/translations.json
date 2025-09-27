@@ -226,6 +226,13 @@
         "blockedUsers": "Blocked Users",
         "selectLanguage": "Select Language",
         "chooseLanguage": "Choose Language"
+      },
+      "community": {
+        "globalDancers": "Global Dancers",
+        "activeEvents": "Active Events",
+        "communities": "Communities",
+        "yourCity": "Your City",
+        "globalStatistics": "Global Statistics"
       }
     }
   },
@@ -686,6 +693,13 @@
         "blockedUsers": "Utenti Bloccati",
         "selectLanguage": "Seleziona Lingua",
         "chooseLanguage": "Scegli la lingua"
+      },
+      "community": {
+        "globalDancers": "Ballerini Globali",
+        "activeEvents": "Eventi Attivi",
+        "communities": "Comunità",
+        "yourCity": "La Tua Città",
+        "globalStatistics": "Statistiche Globali"
       }
     }
   },
@@ -916,6 +930,13 @@
         "blockedUsers": "Utilisateurs Bloqués",
         "selectLanguage": "Sélectionner la langue",
         "chooseLanguage": "Choisir la langue"
+      },
+      "community": {
+        "globalDancers": "Danseurs Mondiaux",
+        "activeEvents": "Événements Actifs",
+        "communities": "Communautés",
+        "yourCity": "Votre Ville",
+        "globalStatistics": "Statistiques Mondiales"
       }
     }
   },
@@ -1146,6 +1167,13 @@
         "blockedUsers": "차단된 사용자",
         "selectLanguage": "언어 선택",
         "chooseLanguage": "언어 선택"
+      },
+      "community": {
+        "globalDancers": "글로벌 댄서",
+        "activeEvents": "활성 이벤트",
+        "communities": "커뮤니티",
+        "yourCity": "당신의 도시",
+        "globalStatistics": "글로벌 통계"
       }
     }
   },
@@ -1376,6 +1404,13 @@
         "blockedUsers": "被屏蔽的用户",
         "selectLanguage": "选择语言",
         "chooseLanguage": "选择语言"
+      },
+      "community": {
+        "globalDancers": "全球舞者",
+        "activeEvents": "活跃活动",
+        "communities": "社区",
+        "yourCity": "你的城市",
+        "globalStatistics": "全球统计"
       }
     }
   },
@@ -1418,7 +1453,11 @@
         "myGroups": "Mis Grupos"
       },
       "community": {
-        "globalDancers": "Bailarines Globales"
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
       },
       "settings": {
         "chooseLanguage": "Elegir idioma"
@@ -1465,7 +1504,11 @@
         "myGroups": "Meus Grupos"
       },
       "community": {
-        "globalDancers": "Dançarinos Globais"
+        "globalDancers": "Dançarinos Globais",
+        "activeEvents": "Eventos Ativos",
+        "communities": "Comunidades",
+        "yourCity": "Sua Cidade",
+        "globalStatistics": "Estatísticas Globais"
       },
       "settings": {
         "chooseLanguage": "Escolher Idioma"
@@ -1512,7 +1555,11 @@
         "myGroups": "Meine Gruppen"
       },
       "community": {
-        "globalDancers": "Globale Tänzer"
+        "globalDancers": "Globale Tänzer",
+        "activeEvents": "Aktive Veranstaltungen",
+        "communities": "Gemeinschaften",
+        "yourCity": "Deine Stadt",
+        "globalStatistics": "Globale Statistiken"
       },
       "settings": {
         "chooseLanguage": "Sprache wählen"
@@ -1559,7 +1606,11 @@
         "myGroups": "Мои группы"
       },
       "community": {
-        "globalDancers": "Глобальные танцоры"
+        "globalDancers": "Глобальные танцоры",
+        "activeEvents": "Активные события",
+        "communities": "Сообщества",
+        "yourCity": "Ваш город",
+        "globalStatistics": "Глобальная статистика"
       },
       "settings": {
         "chooseLanguage": "Выберите язык"
@@ -1606,7 +1657,11 @@
         "myGroups": "Moje Grupy"
       },
       "community": {
-        "globalDancers": "Globalni Tancerze"
+        "globalDancers": "Globalni Tancerze",
+        "activeEvents": "Aktywne Wydarzenia",
+        "communities": "Społeczności",
+        "yourCity": "Twoje Miasto",
+        "globalStatistics": "Statystyki Globalne"
       },
       "settings": {
         "chooseLanguage": "Wybierz język"
@@ -1653,7 +1708,11 @@
         "myGroups": "Mijn Groepen"
       },
       "community": {
-        "globalDancers": "Wereldwijde Dansers"
+        "globalDancers": "Wereldwijde Dansers",
+        "activeEvents": "Actieve Evenementen",
+        "communities": "Gemeenschappen",
+        "yourCity": "Jouw Stad",
+        "globalStatistics": "Wereldwijde Statistieken"
       },
       "settings": {
         "chooseLanguage": "Kies Taal"
@@ -1700,7 +1759,11 @@
         "myGroups": "Mina grupper"
       },
       "community": {
-        "globalDancers": "Globala Dansare"
+        "globalDancers": "Globala Dansare",
+        "activeEvents": "Aktiva Evenemang",
+        "communities": "Gemenskaper",
+        "yourCity": "Din Stad",
+        "globalStatistics": "Global Statistik"
       },
       "settings": {
         "chooseLanguage": "Välj språk"
@@ -1747,7 +1810,11 @@
         "myGroups": "Mine Grupper"
       },
       "community": {
-        "globalDancers": "Global Dansere"
+        "globalDancers": "Globale Dansere",
+        "activeEvents": "Aktive Arrangementer",
+        "communities": "Fellesskap",
+        "yourCity": "Din By",
+        "globalStatistics": "Global Statistikk"
       },
       "settings": {
         "chooseLanguage": "Velg språk"
@@ -1794,7 +1861,11 @@
         "myGroups": "Mine Grupper"
       },
       "community": {
-        "globalDancers": "Globale Dansere"
+        "globalDancers": "Globale Dansere",
+        "activeEvents": "Aktive Begivenheder",
+        "communities": "Fællesskaber",
+        "yourCity": "Din By",
+        "globalStatistics": "Global Statistik"
       },
       "settings": {
         "chooseLanguage": "Vælg sprog"
@@ -1841,7 +1912,11 @@
         "myGroups": "Omat ryhmät"
       },
       "community": {
-        "globalDancers": "Globaalit Tanssijat"
+        "globalDancers": "Globaalit Tanssijat",
+        "activeEvents": "Aktiiviset Tapahtumat",
+        "communities": "Yhteisöt",
+        "yourCity": "Sinun Kaupunkisi",
+        "globalStatistics": "Globaalit Tilastot"
       },
       "settings": {
         "chooseLanguage": "Valitse kieli"
@@ -1899,9 +1974,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globální tanečníci  ",
-        "activeEvents": "Aktivní akce  ",
-        "communities": "Komunity"
+        "globalDancers": "Globální tanečníci",
+        "activeEvents": "Aktivní akce",
+        "communities": "Komunity",
+        "yourCity": "Vaše město",
+        "globalStatistics": "Globální statistiky"
       },
       "settings": {
         "chooseLanguage": "Vyberte jazyk  ",
@@ -1959,9 +2036,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globális Táncosok  ",
-        "activeEvents": "Aktív Események  ",
-        "communities": "Közösségek"
+        "globalDancers": "Globális Táncosok",
+        "activeEvents": "Aktív Események",
+        "communities": "Közösségek",
+        "yourCity": "Az Ön városa",
+        "globalStatistics": "Globális Statisztikák"
       },
       "settings": {
         "chooseLanguage": "Nyelv kiválasztása  ",
@@ -2019,9 +2098,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Dansatori Globali  ",
-        "activeEvents": "Evenimente Active  ",
-        "communities": "Comunități"
+        "globalDancers": "Dansatori Globali",
+        "activeEvents": "Evenimente Active",
+        "communities": "Comunități",
+        "yourCity": "Orașul Tău",
+        "globalStatistics": "Statistici Globale"
       },
       "settings": {
         "chooseLanguage": "Alegeți limba  ",
@@ -2079,9 +2160,11 @@
         "practica": "Практика"
       },
       "community": {
-        "globalDancers": "Глобални танцьори  ",
-        "activeEvents": "Активни събития  ",
-        "communities": "Общности"
+        "globalDancers": "Глобални танцьори",
+        "activeEvents": "Активни събития",
+        "communities": "Общности",
+        "yourCity": "Вашият град",
+        "globalStatistics": "Глобална статистика"
       },
       "settings": {
         "chooseLanguage": "Изберете език  ",
@@ -2139,9 +2222,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globalni plesači  ",
-        "activeEvents": "Aktivni događaji  ",
-        "communities": "Zajednice"
+        "globalDancers": "Globalni plesači",
+        "activeEvents": "Aktivni događaji",
+        "communities": "Zajednice",
+        "yourCity": "Vaš grad",
+        "globalStatistics": "Globalne statistike"
       },
       "settings": {
         "chooseLanguage": "Odaberite jezik  ",
@@ -2199,9 +2284,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globalni igrači  ",
-        "activeEvents": "Aktivni događaji  ",
-        "communities": "Zajednice"
+        "globalDancers": "Globalni igrači",
+        "activeEvents": "Aktivni događaji",
+        "communities": "Zajednice",
+        "yourCity": "Vaš grad",
+        "globalStatistics": "Глобална статистика"
       },
       "settings": {
         "chooseLanguage": "Izaberite jezik  ",
@@ -2259,9 +2346,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globálni tanečníci  ",
-        "activeEvents": "Aktívne podujatia  ",
-        "communities": "Komunity"
+        "globalDancers": "Globálni tanečníci",
+        "activeEvents": "Aktívne podujatia",
+        "communities": "Komunity",
+        "yourCity": "Vaše mesto",
+        "globalStatistics": "Globálne štatistiky"
       },
       "settings": {
         "chooseLanguage": "Vyberte jazyk  ",
@@ -2319,9 +2408,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globalni plesalci  ",
-        "activeEvents": "Aktivni dogodki  ",
-        "communities": "Skupnosti"
+        "globalDancers": "Globalni plesalci",
+        "activeEvents": "Aktivni dogodki",
+        "communities": "Skupnosti",
+        "yourCity": "Vaše mesto",
+        "globalStatistics": "Globalna statistika"
       },
       "settings": {
         "chooseLanguage": "Izberi jezik  ",
@@ -2379,9 +2470,11 @@
         "practica": "Πράκτικα"
       },
       "community": {
-        "globalDancers": "Παγκόσμιοι Χορευτές  ",
-        "activeEvents": "Ενεργές Εκδηλώσεις  ",
-        "communities": "Κοινότητες"
+        "globalDancers": "Παγκόσμιοι Χορευτές",
+        "activeEvents": "Ενεργές Εκδηλώσεις",
+        "communities": "Κοινότητες",
+        "yourCity": "Η Πόλη σας",
+        "globalStatistics": "Παγκόσμιες Στατιστικές"
       },
       "settings": {
         "chooseLanguage": "Επιλέξτε Γλώσσα  ",
@@ -2439,9 +2532,11 @@
         "practica": "Практика"
       },
       "community": {
-        "globalDancers": "Глобальні танцюристи  ",
-        "activeEvents": "Активні події  ",
-        "communities": "Спільноти"
+        "globalDancers": "Глобальні танцюристи",
+        "activeEvents": "Активні події",
+        "communities": "Спільноти",
+        "yourCity": "Ваше місто",
+        "globalStatistics": "Глобальна статистика"
       },
       "settings": {
         "chooseLanguage": "Виберіть мову  ",
@@ -2499,9 +2594,11 @@
         "practica": "Практыка"
       },
       "community": {
-        "globalDancers": "Глабальныя танцоры  ",
-        "activeEvents": "Актыўныя падзеі  ",
-        "communities": "Супольнасці"
+        "globalDancers": "Глабальныя танцоры",
+        "activeEvents": "Актыўныя падзеі",
+        "communities": "Супольнасці",
+        "yourCity": "Ваш горад",
+        "globalStatistics": "Глабальная статыстыка"
       },
       "settings": {
         "chooseLanguage": "Выберыце мову  ",
@@ -2559,9 +2656,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Alþjóðlegir dansarar  ",
-        "activeEvents": "Virkar viðburðir  ",
-        "communities": "Samskiptahópar"
+        "globalDancers": "Alþjóðlegir dansarar",
+        "activeEvents": "Virkar viðburðir",
+        "communities": "Samskiptahópar",
+        "yourCity": "Þín borg",
+        "globalStatistics": "Alþjóðlegar tölfræði"
       },
       "settings": {
         "chooseLanguage": "Veldu tungumál  ",
@@ -2619,9 +2718,11 @@
         "practica": "Практика"
       },
       "community": {
-        "globalDancers": "Глобални Танцувачи  ",
-        "activeEvents": "Активни Настани  ",
-        "communities": "Заедници"
+        "globalDancers": "Глобални Танцувачи",
+        "activeEvents": "Активни Настани",
+        "communities": "Заедници",
+        "yourCity": "Вашиот град",
+        "globalStatistics": "Глобална статистика"
       },
       "settings": {
         "chooseLanguage": "Избери Јазик  ",
@@ -2679,9 +2780,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Pasauliniai šokėjai  ",
-        "activeEvents": "Aktyvūs renginiai  ",
-        "communities": "Bendruomenės"
+        "globalDancers": "Pasauliniai šokėjai",
+        "activeEvents": "Aktyvūs renginiai",
+        "communities": "Bendruomenės",
+        "yourCity": "Jūsų miestas",
+        "globalStatistics": "Pasaulinė statistika"
       },
       "settings": {
         "chooseLanguage": "Pasirinkite kalbą  ",
@@ -2739,9 +2842,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globālie dejotāji  ",
-        "activeEvents": "Aktīvās pasākumi  ",
-        "communities": "Kopienas"
+        "globalDancers": "Globālie dejotāji",
+        "activeEvents": "Aktīvās pasākumi",
+        "communities": "Kopienas",
+        "yourCity": "Jūsu pilsēta",
+        "globalStatistics": "Globālā statistika"
       },
       "settings": {
         "chooseLanguage": "Izvēlieties valodu  ",
@@ -2799,9 +2904,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Globaalne Tantsijad  ",
-        "activeEvents": "Aktiivsed Üritused  ",
-        "communities": "Kogukonnad"
+        "globalDancers": "Globaalsed tantsijad",
+        "activeEvents": "Aktiivsed sündmused",
+        "communities": "Kogukonnad",
+        "yourCity": "Teie linn",
+        "globalStatistics": "Globaalne statistika"
       },
       "settings": {
         "chooseLanguage": "Vali keel  ",
@@ -2859,9 +2966,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Dancerët Globalë  ",
-        "activeEvents": "Ngjarjet Aktive  ",
-        "communities": "Bashkësitë"
+        "globalDancers": "Vallëzues Globalë",
+        "activeEvents": "Ngjarje Aktive",
+        "communities": "Komunitetet",
+        "yourCity": "Qyteti juaj",
+        "globalStatistics": "Statistikat Globale"
       },
       "settings": {
         "chooseLanguage": "Zgjidh Gjuha  ",
@@ -2919,9 +3028,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Danzaturi Globali  ",
-        "activeEvents": "Avvenimenti Attivi  ",
-        "communities": "Komunitajiet"
+        "globalDancers": "Żeffiena Globali",
+        "activeEvents": "Avvenimenti Attivi",
+        "communities": "Komunitajiet",
+        "yourCity": "Il-Belt Tiegħek",
+        "globalStatistics": "Statistika Globali"
       },
       "settings": {
         "chooseLanguage": "Agħżel Lingwa  ",
@@ -2979,9 +3090,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Daltaí Domhanda  ",
-        "activeEvents": "Imeachtaí Gníomhacha  ",
-        "communities": "Pobail"
+        "globalDancers": "Rinceoirí Domhanda",
+        "activeEvents": "Imeachtaí Gníomhacha",
+        "communities": "Pobail",
+        "yourCity": "Do Chathair",
+        "globalStatistics": "Staitisticí Domhanda"
       },
       "settings": {
         "chooseLanguage": "Roghnaigh Teanga  ",
@@ -3039,9 +3152,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Dawnswyr Byd-eang  ",
-        "activeEvents": "Digwyddiadau Actif  ",
-        "communities": "Cymunedau"
+        "globalDancers": "Dawnswyr Byd-eang",
+        "activeEvents": "Digwyddiadau Gweithredol",
+        "communities": "Cymunedau",
+        "yourCity": "Eich Dinas",
+        "globalStatistics": "Ystadegau Byd-eang"
       },
       "settings": {
         "chooseLanguage": "Dewiswch Iaith  ",
@@ -3099,9 +3214,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Dantza Globalak  ",
-        "activeEvents": "Ekitaldi Aktiboak  ",
-        "communities": "Komunitateak"
+        "globalDancers": "Dantzari Globalak",
+        "activeEvents": "Ekitaldi Aktiboak",
+        "communities": "Komunitateak",
+        "yourCity": "Zure Hiria",
+        "globalStatistics": "Estatistika Globalak"
       },
       "settings": {
         "chooseLanguage": "Hizkuntza Aukeratu  ",
@@ -3159,9 +3276,11 @@
         "practica": "Pràctica"
       },
       "community": {
-        "globalDancers": "Ballarins Globals  ",
-        "activeEvents": "Esdeveniments Actius  ",
-        "communities": "Comunitats"
+        "globalDancers": "Ballarins Globals",
+        "activeEvents": "Esdeveniments Actius",
+        "communities": "Comunitats",
+        "yourCity": "La Teva Ciutat",
+        "globalStatistics": "Estadístiques Globals"
       },
       "settings": {
         "chooseLanguage": "Trieu idioma  ",
@@ -3219,9 +3338,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Dançarinos Globais  ",
-        "activeEvents": "Eventos Ativos  ",
-        "communities": "Comunidades"
+        "globalDancers": "Dançarinos Globais",
+        "activeEvents": "Eventos Ativos",
+        "communities": "Comunidades",
+        "yourCity": "Sua Cidade",
+        "globalStatistics": "Estatísticas Globais"
       },
       "settings": {
         "chooseLanguage": "Escolha o Idioma  ",
@@ -3279,9 +3400,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Bailarines Globales  ",
-        "activeEvents": "Eventos Activos  ",
-        "communities": "Comunidades"
+        "globalDancers": "Bailarines Globales",
+        "activeEvents": "Eventos Activos",
+        "communities": "Comunidades",
+        "yourCity": "Tu Ciudad",
+        "globalStatistics": "Estadísticas Globales"
       },
       "settings": {
         "chooseLanguage": "Elegir idioma  ",
@@ -3339,9 +3462,11 @@
         "practica": "Práctica"
       },
       "community": {
-        "globalDancers": "Danseurs du monde",
-        "activeEvents": "Événements actifs",
-        "communities": "Communautés"
+        "globalDancers": "Danseurs Mondiaux",
+        "activeEvents": "Événements Actifs",
+        "communities": "Communautés",
+        "yourCity": "Votre Ville",
+        "globalStatistics": "Statistiques Mondiales"
       },
       "settings": {
         "chooseLanguage": "Choisir la langue  ",
@@ -3399,9 +3524,11 @@
         "practica": "プラクティカ"
       },
       "community": {
-        "globalDancers": "グローバルダンサー  ",
-        "activeEvents": "アクティブイベント  ",
-        "communities": "コミュニティ"
+        "globalDancers": "グローバルダンサー",
+        "activeEvents": "アクティブイベント",
+        "communities": "コミュニティ",
+        "yourCity": "あなたの街",
+        "globalStatistics": "グローバル統計"
       },
       "settings": {
         "chooseLanguage": "言語を選択  ",
@@ -3459,9 +3586,11 @@
         "practica": "練習舞會"
       },
       "community": {
-        "globalDancers": "全球舞者  ",
-        "activeEvents": "活躍活動  ",
-        "communities": "社群"
+        "globalDancers": "全球舞者",
+        "activeEvents": "活躍活動",
+        "communities": "社群",
+        "yourCity": "你的城市",
+        "globalStatistics": "全球統計"
       },
       "settings": {
         "chooseLanguage": "選擇語言  ",
@@ -3519,9 +3648,11 @@
         "practica": "प्रैक्टिका"
       },
       "community": {
-        "globalDancers": "वैश्विक नर्तक  ",
-        "activeEvents": "सक्रिय कार्यक्रम  ",
-        "communities": "समुदाय"
+        "globalDancers": "वैश्विक नर्तक",
+        "activeEvents": "सक्रिय कार्यक्रम",
+        "communities": "समुदाय",
+        "yourCity": "आपका शहर",
+        "globalStatistics": "वैश्विक आँकड़े"
       },
       "settings": {
         "chooseLanguage": "भाषा चुनें  ",
@@ -3579,9 +3710,11 @@
         "practica": "প্র্যাকটিকা"
       },
       "community": {
-        "globalDancers": "গ্লোবাল ডান্সারস  ",
-        "activeEvents": "সক্রিয় ইভেন্টস  ",
-        "communities": "কমিউনিটিজ"
+        "globalDancers": "গ্লোবাল ডান্সারস",
+        "activeEvents": "সক্রিয় ইভেন্টস",
+        "communities": "কমিউনিটিজ",
+        "yourCity": "আপনার শহর",
+        "globalStatistics": "বৈশ্বিক পরিসংখ্যান"
       },
       "settings": {
         "chooseLanguage": "ভাষা নির্বাচন করুন  ",
@@ -3639,9 +3772,11 @@
         "practica": "பிராக்டிகா"
       },
       "community": {
-        "globalDancers": "உலகளாவிய நடனக்காரர்கள்  ",
-        "activeEvents": "செயலில் உள்ள நிகழ்வுகள்  ",
-        "communities": "சமூகங்கள்"
+        "globalDancers": "உலகளாவிய நடனக்காரர்கள்",
+        "activeEvents": "செயலில் உள்ள நிகழ்வுகள்",
+        "communities": "சமூகங்கள்",
+        "yourCity": "உங்கள் நகரம்",
+        "globalStatistics": "உலகளாவிய புள்ளிவிவரங்கள்"
       },
       "settings": {
         "chooseLanguage": "மொழியை தேர்வு செய்யவும்  ",
@@ -3699,9 +3834,11 @@
         "practica": "ప్రాక్టికా"
       },
       "community": {
-        "globalDancers": "ప్రపంచ నృత్యకారులు  ",
-        "activeEvents": "సక్రియమైన ఈవెంట్స్  ",
-        "communities": "సమూహాలు"
+        "globalDancers": "ప్రపంచ నృత్యకారులు",
+        "activeEvents": "సక్రియమైన ఈవెంట్స్",
+        "communities": "సమూహాలు",
+        "yourCity": "మీ నగరం",
+        "globalStatistics": "ప్రపంచ గణాంకాలు"
       },
       "settings": {
         "chooseLanguage": "భాషను ఎంచుకోండి  ",
@@ -3759,9 +3896,11 @@
         "practica": "प्रॅक्टिका"
       },
       "community": {
-        "globalDancers": "जागतिक नर्तक  ",
-        "activeEvents": "सक्रिय कार्यक्रम  ",
-        "communities": "समुदाय"
+        "globalDancers": "जागतिक नर्तक",
+        "activeEvents": "सक्रिय कार्यक्रम",
+        "communities": "समुदाय",
+        "yourCity": "तुमचे शहर",
+        "globalStatistics": "जागतिक सांख्यिकी"
       },
       "settings": {
         "chooseLanguage": "भाषा निवडा  ",
@@ -3799,8 +3938,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "ಜಾಗತಿಕ ನರ್ತಕರು",
+        "activeEvents": "ಸಕ್ರಿಯ ಕಾರ್ಯಕ್ರಮಗಳು",
+        "communities": "ಸಮುದಾಯಗಳು",
+        "yourCity": "ನಿಮ್ಮ ನಗರ",
+        "globalStatistics": "ಜಾಗತಿಕ ಅಂಕಿಅಂಶಗಳು"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -3837,8 +3979,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "ആഗോള നർത്തകർ",
+        "activeEvents": "സജീവ ഇവന്റുകൾ",
+        "communities": "സമൂഹങ്ങൾ",
+        "yourCity": "നിങ്ങളുടെ നഗരം",
+        "globalStatistics": "ആഗോള സ്ഥിതിവിവരക്കണക്കുകൾ"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -3875,8 +4020,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "ਗਲੋਬਲ ਡਾਂਸਰ",
+        "activeEvents": "ਸਰਗਰਮ ਸਮਾਗਮ",
+        "communities": "ਭਾਈਚਾਰੇ",
+        "yourCity": "ਤੁਹਾਡਾ ਸ਼ਹਿਰ",
+        "globalStatistics": "ਗਲੋਬਲ ਅੰਕੜੇ"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -3913,8 +4061,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "นักเต้นทั่วโลก",
+        "activeEvents": "กิจกรรมที่กำลังดำเนินอยู่",
+        "communities": "ชุมชน",
+        "yourCity": "เมืองของคุณ",
+        "globalStatistics": "สถิติระดับโลก"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -3951,8 +4102,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Vũ công Toàn cầu",
+        "activeEvents": "Sự kiện Đang diễn ra",
+        "communities": "Cộng đồng",
+        "yourCity": "Thành phố của bạn",
+        "globalStatistics": "Thống kê Toàn cầu"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -3989,8 +4143,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Penari Global",
+        "activeEvents": "Acara Aktif",
+        "communities": "Komunitas",
+        "yourCity": "Kota Anda",
+        "globalStatistics": "Statistik Global"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4027,8 +4184,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Penari Global",
+        "activeEvents": "Acara Aktif",
+        "communities": "Komuniti",
+        "yourCity": "Bandar Anda",
+        "globalStatistics": "Statistik Global"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4065,8 +4225,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Pandaigdigang Mananayaw",
+        "activeEvents": "Aktibong Kaganapan",
+        "communities": "Mga Komunidad",
+        "yourCity": "Iyong Lungsod",
+        "globalStatistics": "Pandaigdigang Estadistika"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4103,8 +4266,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "ကမ္ဘာလုံးဆိုင်ရာ အကသမားများ",
+        "activeEvents": "လှုပ်ရှားနေသော ပွဲများ",
+        "communities": "အသိုင်းအဝိုင်းများ",
+        "yourCity": "သင့်မြို့",
+        "globalStatistics": "ကမ္ဘာလုံးဆိုင်ရာ စာရင်းအင်း"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4141,8 +4307,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "អ្នករាំពិភពលោក",
+        "activeEvents": "ព្រឹត្តិការណ៍សកម្ម",
+        "communities": "សហគមន៍",
+        "yourCity": "ទីក្រុងរបស់អ្នក",
+        "globalStatistics": "ស្ថិតិពិភពលោក"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4180,8 +4349,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "الراقصون العالميون",
+        "activeEvents": "الأحداث النشطة",
+        "communities": "المجتمعات",
+        "yourCity": "مدينتك",
+        "globalStatistics": "الإحصائيات العالمية"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4219,8 +4391,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "רקדנים גלובליים",
+        "activeEvents": "אירועים פעילים",
+        "communities": "קהילות",
+        "yourCity": "העיר שלך",
+        "globalStatistics": "סטטיסטיקה גלובלית"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4257,8 +4432,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Küresel Dansçılar",
+        "activeEvents": "Aktif Etkinlikler",
+        "communities": "Topluluklar",
+        "yourCity": "Şehriniz",
+        "globalStatistics": "Küresel İstatistikler"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4296,8 +4474,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "رقصندگان جهانی",
+        "activeEvents": "رویدادهای فعال",
+        "communities": "جوامع",
+        "yourCity": "شهر شما",
+        "globalStatistics": "آمار جهانی"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4335,8 +4516,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "عالمی رقاص",
+        "activeEvents": "فعال تقریبات",
+        "communities": "برادریاں",
+        "yourCity": "آپ کا شہر",
+        "globalStatistics": "عالمی شماریات"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4373,8 +4557,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "Wachezaji wa Kimataifa",
+        "activeEvents": "Matukio Yanayoendelea",
+        "communities": "Jamii",
+        "yourCity": "Jiji Lako",
+        "globalStatistics": "Takwimu za Kimataifa"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
@@ -4411,8 +4598,11 @@
         "upcomingEvents": "Upcoming Events"
       },
       "community": {
-        "globalDancers": "Global Dancers",
-        "activeEvents": "Active Events"
+        "globalDancers": "ዓለም አቀፍ ዳንሰኞች",
+        "activeEvents": "ንቁ ክስተቶች",
+        "communities": "ማህበረሰቦች",
+        "yourCity": "ከተማዎ",
+        "globalStatistics": "ዓለም አቀፍ ስታቲስቲክስ"
       },
       "settings": {
         "chooseLanguage": "Choose Language"
