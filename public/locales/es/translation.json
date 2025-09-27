@@ -1,16 +1,16 @@
 {
   "common": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "add": "Add",
-    "search": "Search",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "search": "Buscar",
     "filter": "Filter",
     "sort": "Sort",
-    "loading": "Loading...",
+    "loading": "Cargando...",
     "error": "Error",
-    "success": "Success",
+    "success": "Éxito",
     "warning": "Warning",
     "info": "Info",
     "confirm": "Confirm",
@@ -25,20 +25,50 @@
     "submit": "Submit",
     "language": "Language",
     "popular": "Popular",
+    "preferred": "Preferred",
+    "admin": "Administrador",
     "direction": "ltr"
   },
   "navigation": {
-    "home": "Home",
+    "home": "Inicio",
     "dashboard": "Dashboard",
-    "memories": "Memories",
-    "community": "Tango Community",
-    "friends": "Friends",
-    "messages": "Messages",
-    "groups": "Groups",
-    "events": "Events",
+    "memories": "Recuerdos",
+    "tangoCommunity": "Comunidad de Tango",
+    "friends": "Amigos",
+    "messages": "Mensajes",
+    "groups": "Grupos",
+    "events": "Eventos",
+    "roleInvitations": "Invitaciones de Rol",
     "notifications": "Notifications",
     "search": "Search",
-    "menu": "Menu"
+    "menu": "Menu",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "billing": "Billing",
+    "adminAccess": "Admin Access",
+    "logout": "Cerrar sesión"
+  },
+  "memories": {
+    "title": "Recuerdos",
+    "memoryShared": "Memory shared successfully",
+    "memorySharedDescription": "Your memory has been shared with the community"
+  },
+  "community": {
+    "globalDancers": "Bailarines Globales",
+    "activeEvents": "Eventos Activos",
+    "communities": "Communities"
+  },
+  "settings": {
+    "languageChanged": "Language Changed",
+    "languageChangedDesc": "Interface language changed to {{language}}",
+    "chooseLanguage": "Choose Language",
+    "selectLanguage": "Seleccionar Idioma",
+    "allLanguages": "All Languages"
+  },
+  "errors": {
+    "languageChangeFailed": "Failed to change language",
+    "tryAgain": "Please try again",
+    "uploadFailed": "Upload failed"
   },
   "tango": {
     "community": "Tango Community",

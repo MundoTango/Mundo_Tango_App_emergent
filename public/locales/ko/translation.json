@@ -25,20 +25,50 @@
     "submit": "Submit",
     "language": "Language",
     "popular": "Popular",
-    "direction": "ltr"
+    "preferred": "Preferred",
+    "admin": "Admin",
+    "direction": "rtl"
   },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
     "memories": "Memories",
-    "community": "Tango Community",
+    "tangoCommunity": "Tango Community",
     "friends": "Friends",
     "messages": "Messages",
     "groups": "Groups",
     "events": "Events",
+    "roleInvitations": "Role Invitations",
     "notifications": "Notifications",
     "search": "Search",
-    "menu": "Menu"
+    "menu": "Menu",
+    "profile": "Profile",
+    "settings": "Settings",
+    "billing": "Billing",
+    "adminAccess": "Admin Access",
+    "logout": "Logout"
+  },
+  "memories": {
+    "title": "Memories",
+    "memoryShared": "Memory shared successfully",
+    "memorySharedDescription": "Your memory has been shared with the community"
+  },
+  "community": {
+    "globalDancers": "Global Dancers",
+    "activeEvents": "Active Events",
+    "communities": "Communities"
+  },
+  "settings": {
+    "languageChanged": "Language Changed",
+    "languageChangedDesc": "Interface language changed to {{language}}",
+    "chooseLanguage": "Choose Language",
+    "selectLanguage": "Select Language",
+    "allLanguages": "All Languages"
+  },
+  "errors": {
+    "languageChangeFailed": "Failed to change language",
+    "tryAgain": "Please try again",
+    "uploadFailed": "Upload failed"
   },
   "tango": {
     "community": "Tango Community",
