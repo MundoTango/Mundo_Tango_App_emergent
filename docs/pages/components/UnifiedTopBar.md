@@ -34,6 +34,12 @@
   - `TopNavigationBar.tsx` (ESA DashboardLayout)
   - Inline header in main `DashboardLayout.tsx` (35+ pages)
 - **Coverage:** ALL 88+ platform pages through DashboardLayout and individual implementations
+- **Key Components:**
+  - [LanguageSelector](/docs/pages/components/LanguageSelector.md) - 65-language dropdown with RTL support
+  - Search Dropdown - Global platform search
+  - Notifications Badge - Real-time count updates
+  - Messages Badge - Unread message indicators
+  - Profile Menu - User actions and admin access
 
 ## Database Schema
 
@@ -123,7 +129,7 @@ messages (
 - **Layer 9 (UI Framework Agent):** Component architecture and single responsibility
 - **Layer 48 (Performance Monitoring):** Load time optimization, 66% code reduction achieved
 - **Layer 60 (GitHub Expertise):** Clean codebase maintenance, removed duplicate components
-- **Layer 53 (Internationalization):** Language selector implementation (EN/ES/FR)
+- **Layer 53 (Internationalization):** [LanguageSelector](/docs/pages/components/LanguageSelector.md) implementation with 65 production languages
 - **Layer 54 (Accessibility):** ARIA labels and keyboard navigation
 
 ## Integration Points
