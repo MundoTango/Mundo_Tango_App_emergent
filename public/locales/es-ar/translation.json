@@ -24,7 +24,8 @@
     "finish": "Finish",
     "submit": "Submit",
     "language": "Language",
-    "popular": "Popular"
+    "popular": "Popular",
+    "direction": "ltr"
   },
   "navigation": {
     "home": "Home",
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }

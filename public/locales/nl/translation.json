@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "Opslaan",
-    "cancel": "Annuleren",
-    "delete": "Verwijderen",
-    "edit": "Bewerken",
-    "add": "Toevoegen",
-    "search": "Zoeken",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "Taal",
-    "popular": "Populair"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "rtl"
   },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "Herinneringen",
-    "community": "Tango Gemeenschap",
-    "friends": "Vrienden",
-    "messages": "Berichten",
-    "groups": "Groepen",
-    "events": "Evenementen",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }

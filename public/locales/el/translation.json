@@ -1,11 +1,11 @@
 {
   "common": {
-    "save": "Αποθήκευση",
-    "cancel": "Ακύρωση",
-    "delete": "Διαγραφή",
-    "edit": "Επεξεργασία",
-    "add": "Προσθήκη",
-    "search": "Αναζήτηση",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "loading": "Loading...",
@@ -23,18 +23,19 @@
     "previous": "Previous",
     "finish": "Finish",
     "submit": "Submit",
-    "language": "Γλώσσα",
-    "popular": "Δημοφιλή"
+    "language": "Language",
+    "popular": "Popular",
+    "direction": "rtl"
   },
   "navigation": {
-    "home": "Αρχική",
+    "home": "Home",
     "dashboard": "Dashboard",
-    "memories": "Αναμνήσεις",
-    "community": "Κοινότητα Τάνγκο",
-    "friends": "Φίλοι",
-    "messages": "Μηνύματα",
-    "groups": "Ομάδες",
-    "events": "Εκδηλώσεις",
+    "memories": "Memories",
+    "community": "Tango Community",
+    "friends": "Friends",
+    "messages": "Messages",
+    "groups": "Groups",
+    "events": "Events",
     "notifications": "Notifications",
     "search": "Search",
     "menu": "Menu"
@@ -74,6 +75,7 @@
     "reply": "Reply",
     "forward": "Forward",
     "delete": "Delete",
-    "noMessages": "No messages"
+    "noMessages": "No messages",
+    "trash": "Trash"
   }
 }
