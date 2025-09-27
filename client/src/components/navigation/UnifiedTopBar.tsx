@@ -367,6 +367,23 @@ export default function UnifiedTopBar({
             </Button>
           </Link>
 
+          {/* Favorites */}
+          <Link href="/favorites">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              data-testid="button-favorites"
+              className={cn(
+                "transition-all",
+                theme === 'light'
+                  ? "hover:bg-gray-100 text-gray-600"
+                  : "hover:bg-slate-800 text-slate-400"
+              )}
+            >
+              <Heart className="h-5 w-5" />
+            </Button>
+          </Link>
+
           {/* Theme Toggle */}
           {onThemeToggle && (
             <Button 
