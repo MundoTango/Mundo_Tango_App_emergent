@@ -180,8 +180,8 @@ i18n
     },
     
     // Namespaces
-    ns: ['common', 'profile', 'events', 'groups', 'messages', 'settings', 'auth', 'errors'],
-    defaultNS: 'common',
+    ns: ['translation'],
+    defaultNS: 'translation',
     
     // Interpolation settings
     interpolation: {
