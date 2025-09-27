@@ -46,7 +46,11 @@
     "test:a11y": "playwright test tests/e2e/accessibility",
     "test:a11y:report": "node tests/e2e/generate-a11y-report.js || echo 'Accessibility report generated'",
     "test:lighthouse": "lhci autorun --config=lighthouserc.json",
-    "test:lighthouse:view": "lhci open"
+    "test:lighthouse:view": "lhci open",
+    "generate-translations": "tsx server/scripts/generateTranslations.ts",
+    "generate-translations:priority": "tsx server/scripts/generateTranslations.ts --priority",
+    "generate-translations:ui": "tsx server/scripts/generateTranslations.ts --ui-only",
+    "generate-translations:docs": "tsx server/scripts/generateTranslations.ts --docs-only"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.10.2",
