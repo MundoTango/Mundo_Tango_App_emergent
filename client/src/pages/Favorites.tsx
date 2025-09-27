@@ -17,22 +17,15 @@ import { format } from 'date-fns';
 import DashboardLayout from '@/components/esa/DashboardLayout';
 
 interface FavoriteItem {
-  id: string;
-  type: 'post' | 'event' | 'person' | 'group';
+  id: number;
+  userId: number;
+  itemType: 'post' | 'event' | 'user' | 'group' | 'memory';
+  itemId: number;
   title?: string;
-  content?: string;
   description?: string;
-  name?: string;
   imageUrl?: string;
+  metadata?: any;
   createdAt: string;
-  likedAt: string;
-  metadata?: {
-    location?: string;
-    date?: string;
-    attendees?: number;
-    members?: number;
-    author?: string;
-  };
 }
 
 export default function Favorites() {
@@ -41,83 +34,33 @@ export default function Favorites() {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  // Fetch favorites (using mock data for now)
+  // Fetch favorites from real API
   const { data: favorites, isLoading } = useQuery({
     queryKey: ['/api/favorites', activeTab],
     queryFn: async () => {
-      // Return mock data for now
-      const mockFavorites: FavoriteItem[] = [
-        {
-          id: '1',
-          type: 'event',
-          title: 'Milonga at Salon Canning',
-          description: 'Traditional milonga with live orchestra',
-          imageUrl: '/api/placeholder/400/300',
-          createdAt: '2024-12-01',
-          likedAt: '2024-12-10',
-          metadata: {
-            location: 'Buenos Aires',
-            date: 'Dec 15, 2024',
-            attendees: 125
-          }
-        },
-        {
-          id: '2',
-          type: 'person',
-          name: 'Carlos Rodriguez',
-          description: 'Professional tango instructor',
-          imageUrl: '/api/placeholder/400/300',
-          createdAt: '2024-11-20',
-          likedAt: '2024-12-08',
-          metadata: {
-            location: 'Barcelona'
-          }
-        },
-        {
-          id: '3',
-          type: 'post',
-          title: 'Essential Tango Technique Tips',
-          content: 'Master the art of the embrace with these fundamental principles...',
-          createdAt: '2024-12-05',
-          likedAt: '2024-12-06',
-          metadata: {
-            author: 'Maria Fernandez'
-          }
-        },
-        {
-          id: '4',
-          type: 'group',
-          name: 'Paris Tango Community',
-          description: 'Connect with tango dancers in the city of lights',
-          imageUrl: '/api/placeholder/400/300',
-          createdAt: '2024-10-15',
-          likedAt: '2024-12-03',
-          metadata: {
-            members: 342,
-            location: 'Paris, France'
-          }
-        }
-      ];
+      // Map plural tab values to singular API itemType values
+      const typeMap: { [key: string]: string } = {
+        'posts': 'post',
+        'events': 'event', 
+        'people': 'user',
+        'groups': 'group',
+        'memories': 'memory'
+      };
       
-      // Filter by type if needed
-      const filteredItems = activeTab === 'all' 
-        ? mockFavorites 
-        : mockFavorites.filter(item => {
-            if (activeTab === 'posts') return item.type === 'post';
-            if (activeTab === 'events') return item.type === 'event';
-            if (activeTab === 'people') return item.type === 'person';
-            if (activeTab === 'groups') return item.type === 'group';
-            return true;
-          });
-      
-      return { items: filteredItems };
+      const apiType = typeMap[activeTab];
+      const typeParam = activeTab === 'all' ? '' : `?type=${apiType}`;
+      const response = await fetch(`/api/favorites${typeParam}`, {
+        credentials: 'include'
+      });
+      const result = await response.json();
+      return result.data || [];
     }
   });
 
   // Remove from favorites mutation
   const removeFavorite = useMutation({
-    mutationFn: async (itemId: string) => {
-      return apiRequest(`/api/favorites/${itemId}`, {
+    mutationFn: async ({ itemId, itemType }: { itemId: number; itemType: string }) => {
+      return apiRequest(`/api/favorites/${itemId}?type=${itemType}`, {
         method: 'DELETE'
       });
     },
@@ -132,10 +75,11 @@ export default function Favorites() {
 
   // Bulk remove mutation
   const bulkRemove = useMutation({
-    mutationFn: async (itemIds: string[]) => {
+    mutationFn: async (items: Array<{ itemId: number; itemType: string }>) => {
       return apiRequest('/api/favorites/bulk', {
-        method: 'DELETE',
-        body: JSON.stringify({ ids: itemIds })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'remove', items })
       });
     },
     onSuccess: () => {
@@ -156,18 +100,29 @@ export default function Favorites() {
     );
   };
 
+  const getItemLink = (item: FavoriteItem) => {
+    switch(item.itemType) {
+      case 'event': return `/events/${item.itemId}`;
+      case 'user': return `/profile/${item.itemId}`;
+      case 'group': return `/groups/${item.itemId}`;
+      case 'memory': return `/memories/${item.itemId}`;
+      case 'post': return `/posts/${item.itemId}`;
+      default: return '#';
+    }
+  };
+
   const renderFavoriteCard = (item: FavoriteItem) => {
-    const isSelected = selectedItems.includes(item.id);
+    const isSelected = selectedItems.includes(item.id.toString());
     
     return (
       <Card 
-        key={item.id}
+        key={`${item.itemType}-${item.itemId}`}
         className={cn(
           "relative group transition-all hover:shadow-lg cursor-pointer",
           theme === 'dark' ? "bg-slate-900/50 border-slate-700" : "bg-white border-gray-200",
           isSelected && "ring-2 ring-purple-500"
         )}
-        onClick={() => toggleItemSelection(item.id)}
+        onClick={() => toggleItemSelection(item.id.toString())}
         data-testid={`favorite-card-${item.id}`}
       >
         {/* Selection checkbox */}
@@ -177,7 +132,7 @@ export default function Favorites() {
             checked={isSelected}
             onChange={(e) => {
               e.stopPropagation();
-              toggleItemSelection(item.id);
+              toggleItemSelection(item.id.toString());
             }}
             className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
           />
@@ -190,7 +145,7 @@ export default function Favorites() {
           className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={(e) => {
             e.stopPropagation();
-            removeFavorite.mutate(item.id);
+            removeFavorite.mutate({ itemId: item.itemId, itemType: item.itemType });
           }}
         >
           <X className="h-4 w-4" />
@@ -201,7 +156,7 @@ export default function Favorites() {
           <div className="h-48 overflow-hidden rounded-t-lg">
             <img 
               src={item.imageUrl} 
-              alt={item.title || item.name || ''} 
+              alt={item.title || ''} 
               className="w-full h-full object-cover transition-transform group-hover:scale-105"
             />
           </div>
@@ -211,19 +166,20 @@ export default function Favorites() {
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <CardTitle className="text-lg line-clamp-1">
-                {item.title || item.name || 'Untitled'}
+                {item.title || `Untitled ${item.itemType}`}
               </CardTitle>
               <Badge 
                 variant="outline" 
                 className={cn(
                   "mt-1",
-                  item.type === 'post' && "border-blue-500 text-blue-500",
-                  item.type === 'event' && "border-purple-500 text-purple-500",
-                  item.type === 'person' && "border-green-500 text-green-500",
-                  item.type === 'group' && "border-orange-500 text-orange-500"
+                  item.itemType === 'post' && "border-blue-500 text-blue-500",
+                  item.itemType === 'event' && "border-purple-500 text-purple-500",
+                  item.itemType === 'user' && "border-green-500 text-green-500",
+                  item.itemType === 'group' && "border-orange-500 text-orange-500",
+                  item.itemType === 'memory' && "border-pink-500 text-pink-500"
                 )}
               >
-                {item.type}
+                {item.itemType}
               </Badge>
             </div>
             <Heart className="h-5 w-5 text-red-500 fill-red-500 animate-pulse" />
@@ -231,12 +187,12 @@ export default function Favorites() {
         </CardHeader>
         
         <CardContent>
-          {item.content && (
+          {item.description && (
             <p className={cn(
               "text-sm line-clamp-2 mb-3",
               theme === 'dark' ? "text-slate-300" : "text-gray-600"
             )}>
-              {item.content}
+              {item.description}
             </p>
           )}
           
@@ -266,7 +222,7 @@ export default function Favorites() {
             "text-xs mt-2",
             theme === 'dark' ? "text-slate-500" : "text-gray-400"
           )}>
-            Liked {format(new Date(item.likedAt), 'MMM dd, yyyy')}
+            Saved {format(new Date(item.createdAt), 'MMM dd, yyyy')}
           </p>
         </CardContent>
       </Card>
@@ -312,7 +268,11 @@ export default function Favorites() {
               <Button
                 variant="destructive"
                 size="sm"
-                onClick={() => bulkRemove.mutate(selectedItems)}
+                onClick={() => {
+                  const items = favorites?.filter(f => selectedItems.includes(f.id.toString()))
+                    .map(f => ({ itemId: f.itemId, itemType: f.itemType })) || [];
+                  bulkRemove.mutate(items);
+                }}
               >
                 Remove Selected
               </Button>
@@ -323,7 +283,7 @@ export default function Favorites() {
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className={cn(
-            "grid w-full max-w-md grid-cols-5",
+            "grid w-full max-w-md grid-cols-6",
             theme === 'dark' ? "bg-slate-800" : "bg-gray-100"
           )}>
             <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
@@ -331,6 +291,7 @@ export default function Favorites() {
             <TabsTrigger value="events" data-testid="tab-events">Events</TabsTrigger>
             <TabsTrigger value="people" data-testid="tab-people">People</TabsTrigger>
             <TabsTrigger value="groups" data-testid="tab-groups">Groups</TabsTrigger>
+            <TabsTrigger value="memories" data-testid="tab-memories">Memories</TabsTrigger>
           </TabsList>
         </Tabs>
 
@@ -343,9 +304,9 @@ export default function Favorites() {
               </Card>
             ))}
           </div>
-        ) : favorites?.items?.length > 0 ? (
+        ) : favorites?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {favorites.items.map(renderFavoriteCard)}
+            {favorites.map(renderFavoriteCard)}
           </div>
         ) : (
           <Card className={cn(

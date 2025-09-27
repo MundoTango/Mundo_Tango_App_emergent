@@ -1714,6 +1714,24 @@ export const recommendations = pgTable("recommendations", {
   index("idx_recommendations_location").on(table.lat, table.lng),
 ]);
 
+// ESA LIFE CEO 61x21 - Favorites table for toolbar functionality (Layer 2: API Structure)
+export const favorites = pgTable("favorites", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  itemType: varchar("item_type", { length: 50 }).notNull(), // post, event, user, group, memory
+  itemId: integer("item_id").notNull(),
+  title: varchar("title", { length: 255 }),
+  description: text("description"),
+  imageUrl: text("image_url"),
+  metadata: jsonb("metadata").default({}), // Extra data specific to each type
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  unique().on(table.userId, table.itemType, table.itemId),
+  index("idx_favorites_user").on(table.userId),
+  index("idx_favorites_type").on(table.itemType),
+  index("idx_favorites_created").on(table.createdAt),
+]);
+
 // Reaction schema for post and comment reactions  
 export const insertReactionSchema = createInsertSchema(reactions).omit({
   id: true,

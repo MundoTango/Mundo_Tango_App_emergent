@@ -80,9 +80,7 @@ import authRoutes from "./routes/authRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import groupRoutes from "./routes/groupRoutes";
 import memoryRoutes from "./routes/memoryRoutes";
-
-// ESA LIFE CEO 61x21 - Register friendship routes for ESA Layer 24
-import friendsRoutes from './routes/friendsRoutes';
+import toolbarRoutes from "./routes/toolbarRoutes"; // ESA LIFE CEO 61x21 - Toolbar API routes
 
 
 // Utility functions to safely parse query parameters from Express ParsedQs
@@ -144,6 +142,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', adminRoutes);   // Admin management routes
   app.use('/api', groupRoutes);   // Group management routes
   app.use('/api', memoryRoutes);  // Memory/memories routes
+  app.use(toolbarRoutes);          // ESA LIFE CEO 61x21 - Toolbar API routes (notifications, messages, search, favorites)
 
   // ESA LIFE CEO 56x21 - Register optimized post routes early to reduce memory load
   app.use(postRoutes);
