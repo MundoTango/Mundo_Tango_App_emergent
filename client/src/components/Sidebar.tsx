@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation, Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import TenantSwitcher from './TenantSwitcher';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { 
@@ -31,42 +32,43 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuth();
   const [location, setLocation] = useLocation();
+  const { t } = useTranslation();
 
   // ESA Framework Navigation Routes - Cleaned per user requirements
   const sidebarRoutes = [
     {
       icon: <Heart className="w-5 h-5" />,
-      title: "Memories",
+      title: t('navigation.memories'),
       link: "/memories",
     },
     {
       icon: <UsersRound className="w-5 h-5" />,
-      title: "Tango Community", 
+      title: t('navigation.tangoCommunity'), 
       link: "/community-world-map",  // ESA LIFE CEO 56x21 - Direct to world map
     },
     {
       icon: <UserCheck className="w-5 h-5" />,
-      title: "Friends",
+      title: t('navigation.friends'),
       link: "/friends",
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      title: "Messages",
+      title: t('navigation.messages'),
       link: "/messages",
     },
     {
       icon: <Network className="w-5 h-5" />,
-      title: "Groups",
+      title: t('navigation.groups'),
       link: "/groups",
     },
     {
       icon: <Calendar className="w-5 h-5" />,
-      title: "Events",
+      title: t('navigation.events'),
       link: "/events",
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      title: "Role Invitations",
+      title: t('navigation.roleInvitations'),
       link: "/invitations",
     },
   ];
@@ -84,19 +86,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const stats = statsData as any;
   const globalStats = [
     {
-      title: "Global Dancers",
+      title: t('community.globalDancers'),
       count: stats?.totalUsers ? 
         (stats.totalUsers >= 1000 ? `${(stats.totalUsers / 1000).toFixed(1)}K` : stats.totalUsers.toString()) 
         : "3.2K",
       icon: <Sparkles className="w-4 h-4" />,
     },
     {
-      title: "Active Events", 
+      title: t('community.activeEvents'), 
       count: stats?.activeEvents?.toString() || "945",
       icon: <Calendar className="w-4 h-4" />,
     },
     {
-      title: "Communities",
+      title: t('community.communities'),
       count: stats?.totalGroups ? 
         (stats.totalGroups >= 1000 ? `${(stats.totalGroups / 1000).toFixed(1)}K` : stats.totalGroups.toString())
         : "6.8K",
