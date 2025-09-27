@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Sparkles } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { useAuth } from '@/hooks/useAuth'; // ESA Framework Layer 4: Use existing auth
+import { useTranslation } from 'react-i18next'; // ESA Layer 53: Internationalization
 
 // RESILIENCE IMPORTS - Platform-wide protection
 import { useResilientQuery } from '@/hooks/useResilientQuery';
@@ -31,6 +32,7 @@ const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
 
 // Core component without error boundary
 function ESAMemoryFeedCore() {
+  const { t } = useTranslation(); // ESA Layer 53: Translation hook
   const { toast } = useToast();
   const { theme } = useTheme();
   const { user, isAuthenticated } = useAuth(); // ESA Framework Layer 4: Get authenticated user
@@ -246,8 +248,8 @@ function ESAMemoryFeedCore() {
     mutationFn: (formData: FormData) => postsAPI.createPost(formData),
     onSuccess: () => {
       toast({ 
-        title: "Memory shared!",
-        description: "Your tango moment has been posted successfully."
+        title: t('memories.memoryShared'),
+        description: t('memories.memorySharedDescription')
       });
       // Refresh the feed from the beginning
       setPage(1);
@@ -257,8 +259,8 @@ function ESAMemoryFeedCore() {
     },
     onError: (error: any) => {
       toast({ 
-        title: "Error",
-        description: error.message || "Failed to share your memory. Please try again.",
+        title: t('common.error'),
+        description: error.message || t('errors.uploadFailed'),
         variant: "destructive"
       });
     }
@@ -533,7 +535,7 @@ function ESAMemoryFeedCore() {
             <div className="flex items-center mb-4">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-teal-500" />
-                Memories
+                {t('memories.title')}
               </h1>
             </div>
           </div>
