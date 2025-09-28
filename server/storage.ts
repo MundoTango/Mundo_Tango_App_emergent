@@ -136,7 +136,7 @@ import {
   type InsertEventPagePost
 } from '../shared/schema';
 import { db, pool } from './db';
-import { eq, desc, asc, sql, and, or, gte, lte, count, ilike, inArray } from 'drizzle-orm';
+import { eq, desc, asc, sql, and, or, gte, lte, count, ilike, inArray, isNotNull } from 'drizzle-orm';
 
 export interface IStorage {
   // User operations
