@@ -54,6 +54,7 @@ import {
   payments,
   subscriptionFeatures,
   webhookEvents,
+  recommendations,
   type User,
   type InsertUser,
   type UpsertUser,
@@ -576,6 +577,23 @@ export interface IStorage {
   
   updateUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
   updateUserSubscriptionInfo(userId: number, subscriptionId: string, status: string, tier: string): Promise<User>;
+  
+  // Recommendations operations
+  createRecommendation(data: {
+    userId: number;
+    postId?: number;
+    groupId?: number | null;
+    title: string;
+    description: string;
+    type: string;
+    address?: string | null;
+    city: string;
+    state?: string | null;
+    country: string;
+    photos?: string[];
+    tags?: string[];
+    isActive?: boolean;
+  }): Promise<any>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -844,6 +862,46 @@ export class DatabaseStorage implements IStorage {
   async createPost(post: InsertPost): Promise<Post> {
     const [newPost] = await db.insert(posts).values(post).returning();
     return newPost;
+  }
+  
+  async createRecommendation(data: {
+    userId: number;
+    postId?: number;
+    groupId?: number | null;
+    title: string;
+    description: string;
+    type: string;
+    address?: string | null;
+    city: string;
+    state?: string | null;
+    country: string;
+    photos?: string[];
+    tags?: string[];
+    isActive?: boolean;
+  }): Promise<any> {
+    try {
+      const [recommendation] = await db.insert(recommendations).values({
+        userId: data.userId,
+        postId: data.postId || null,
+        groupId: data.groupId || null,
+        title: data.title,
+        description: data.description,
+        type: data.type,
+        address: data.address || null,
+        city: data.city,
+        state: data.state || null,
+        country: data.country,
+        photos: data.photos || [],
+        tags: data.tags || [],
+        isActive: data.isActive !== false
+      }).returning();
+      
+      console.log('✅ Recommendation created:', recommendation);
+      return recommendation;
+    } catch (error) {
+      console.error('❌ Error creating recommendation:', error);
+      throw error;
+    }
   }
 
   async getPostById(id: number | string): Promise<Post | undefined> {

@@ -481,9 +481,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
       hashtags: Array.isArray(hashtags) ? hashtags : [],
       mentions: Array.isArray(mentions) ? mentions : [],
       location,
-      isRecommendation,
-      recommendationType,
-      priceRange,
+      visibility,
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
@@ -491,6 +489,44 @@ router.post('/api/posts/direct', async (req: any, res) => {
     };
     
     const newPost = await storage.createPost(postData);
+    
+    // ESA Fix: Create recommendation in city groups if isRecommendation is true
+    if (isRecommendation && newPost) {
+      try {
+        // Get user's city from their profile
+        const user = await storage.getUserById(userId);
+        if (user && user.city) {
+          // Extract title from content (first line or first 100 chars)
+          const title = content.split('\n')[0].substring(0, 100) || 'Recommendation';
+          
+          // Find the city group
+          const cityGroup = await storage.getGroupBySlug(user.city.toLowerCase().replace(/\s+/g, '-'));
+          
+          // Create recommendation entry
+          const recommendationData = {
+            userId,
+            postId: newPost.id,
+            groupId: cityGroup?.id || null,
+            title,
+            description: content,
+            type: recommendationType || 'general',
+            address: location || null,
+            city: user.city,
+            state: user.state || null,
+            country: user.country || 'Argentina',
+            photos: allMediaUrls,
+            tags: hashtags,
+            isActive: true
+          };
+          
+          await storage.createRecommendation(recommendationData);
+          console.log('✅ Recommendation created for city:', user.city);
+        }
+      } catch (error) {
+        console.error('⚠️ Failed to create recommendation:', error);
+        // Don't fail the post creation if recommendation fails
+      }
+    }
     
     console.log('✅ Post created successfully via /api/posts/direct');
     
