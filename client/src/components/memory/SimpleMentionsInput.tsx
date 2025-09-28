@@ -42,7 +42,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     queryKey: ['/api/search', 'users', currentMention],
     queryFn: async () => {
       const response = await apiRequest(`/api/search?type=users&q=${encodeURIComponent(currentMention)}&limit=10`);
-      return response;
+      return await response.json();
     },
     enabled: currentMention.length >= 1 && showSuggestions,
     staleTime: 30000,
