@@ -7,6 +7,7 @@ import { InternalUploader } from '@/components/upload/InternalUploader';
 // ESA Layer 13: Advanced media processing with universal format support
 import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
 import { extractMentions } from '@/utils/mentionUtils';
+import SimpleMentionsInput from '../memory/SimpleMentionsInput';
 // VideoURLInput removed per user request
 import {
   DropdownMenu,
@@ -960,45 +961,28 @@ export default function BeautifulPostCreator({
 
             {/* ESA Layer 9: Rich Text Editor - Simplified for stability */}
             <div className="relative">
-              <textarea
+              <SimpleMentionsInput
                 value={content}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  const cursorPos = e.target.selectionStart || 0;
+                onChange={(value: string) => {
                   setContent(value);
                   setRichContent(value); // For now, keep them in sync
-                  setCursorPosition(cursorPos);
-
-                  // ESA LIFE CEO 61x21 - Detect @mention
-                  const lastAtIndex = value.lastIndexOf('@', cursorPos - 1);
-                  if (lastAtIndex !== -1 && cursorPos > lastAtIndex) {
-                    const searchText = value.substring(lastAtIndex + 1, cursorPos);
-                    if (!searchText.includes(' ')) {
-                      setMentionSearch(searchText);
-                      setShowMentions(true);
-                    } else {
-                      setShowMentions(false);
-                    }
-                  } else {
-                    setShowMentions(false);
+                  // Extract mentions for the post data
+                  const mentions = extractMentions(value);
+                  if (mentions.length > 0) {
+                    console.log('🎯 Mentions detected:', mentions);
                   }
                 }}
-                onKeyDown={handleTyping}
-                placeholder={editMode ? "✏️ Edit your post..." : "✨ Share your tango moment..."}
-                className="w-full min-h-[120px] p-5 rounded-2xl resize-none focus:outline-none focus:ring-4 focus:ring-turquoise-400/30 focus:border-transparent transition-all placeholder:text-gray-400 placeholder:text-lg glassmorphic-input-enhanced text-lg leading-relaxed font-medium text-gray-800"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.05)'
-                }}
+                placeholder={editMode ? "✏️ Edit your post..." : "✨ Share your tango moment and @mention people..."}
+                className="w-full"
+                disabled={isUploading || createPostMutation.isPending}
+                rows={6}
               />
               <div className="absolute bottom-3 right-3 text-xs text-gray-400">
                 {content.length > 0 && `${content.length} characters`}
               </div>
 
-              {/* ESA LIFE CEO 61x21 - @Mention Dropdown */}
-              {showMentions && users.length > 0 && (
+              {/* ESA LIFE CEO 61x21 - @Mention Dropdown - Now handled by SimpleMentionsInput */}
+              {false && showMentions && users.length > 0 && (
                 <div className="absolute z-50 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-48 overflow-y-auto">
                   {users.map((user: any) => (
                     <button

@@ -473,7 +473,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
       content: content || '',
       richContent: richContent || null,
       plainText: content || '', // ESA Layer 9: Plain text for search
-      userId,
+      userId: Number(userId),
       imageUrl,
       videoUrl,
       mediaEmbeds: allMediaUrls,
@@ -494,7 +494,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
     if (isRecommendation && newPost) {
       try {
         // Get user's city from their profile
-        const user = await storage.getUserById(userId);
+        const user = await storage.getUser(Number(userId));
         if (user && user.city) {
           // Extract title from content (first line or first 100 chars)
           const title = content.split('\n')[0].substring(0, 100) || 'Recommendation';
@@ -504,7 +504,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
           
           // Create recommendation entry
           const recommendationData = {
-            userId,
+            userId: Number(userId),
             postId: newPost.id,
             groupId: cityGroup?.id || null,
             title,

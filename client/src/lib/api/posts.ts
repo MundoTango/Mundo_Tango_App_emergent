@@ -67,10 +67,26 @@ export const postsAPI = {
 
   // Create a new post with media
   async createPost(formData: FormData) {
-    const response = await fetch('/api/posts', {
+    // ESA Fix: Use direct endpoint for recommendation support
+    const response = await fetch('/api/posts/direct', {
       method: 'POST',
       credentials: 'include',
-      body: formData // Send FormData directly, no headers needed
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: formData.get('content'),
+        richContent: formData.get('richContent'),
+        visibility: formData.get('visibility') || 'public',
+        hashtags: formData.getAll('tags'),
+        mentions: formData.getAll('mentions'),
+        location: formData.get('location'),
+        isRecommendation: formData.get('isRecommendation') === 'true',
+        recommendationType: formData.get('recommendationType'),
+        priceRange: formData.get('priceRange'),
+        mediaUrls: [], // TODO: Handle media uploads
+        cloudMediaUrls: []
+      })
     });
     
     if (!response.ok) {
