@@ -1026,6 +1026,19 @@ export class DatabaseStorage implements IStorage {
             eq(friends.status, 'accepted')
           )
         )
+        .where(
+          or(
+            // Public posts - visible to everyone
+            eq(posts.visibility, 'public'),
+            // User's own posts - always visible to creator
+            eq(posts.userId, userId),
+            // Friends posts - only visible if friendship exists
+            and(
+              eq(posts.visibility, 'friends'),
+              isNotNull(friends.id) // Friendship exists in the join
+            )
+          )
+        )
         .orderBy(desc(posts.createdAt))
         .limit(limit)
         .offset(offset);
@@ -1082,12 +1095,27 @@ export class DatabaseStorage implements IStorage {
             // Check both directions of friendship
             and(eq(friends.userId, userId), eq(friends.friendId, posts.userId)),
             and(eq(friends.userId, posts.userId), eq(friends.friendId, userId))
-          )
+          ),
+          // ESA Fix: Also check that friendship status is 'accepted'
+          eq(friends.status, 'accepted')
         )
       )
       .where(
         and(
-          ...filterTags.map(tag => sql`${posts.hashtags} @> ARRAY[${tag}]`)
+          // Filter by tags
+          ...filterTags.map(tag => sql`${posts.hashtags} @> ARRAY[${tag}]`),
+          // Privacy filtering
+          or(
+            // Public posts - visible to everyone
+            eq(posts.visibility, 'public'),
+            // User's own posts - always visible to creator
+            eq(posts.userId, userId),
+            // Friends posts - only visible if friendship exists
+            and(
+              eq(posts.visibility, 'friends'),
+              isNotNull(friends.id) // Friendship exists in the join
+            )
+          )
         )
       )
       .orderBy(desc(posts.createdAt))
