@@ -54,21 +54,25 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     const allSuggestions: MentionData[] = [];
     
-    // The search API returns results in the 'results' field
-    if (searchData.results && Array.isArray(searchData.results)) {
-      searchData.results.forEach((user: any) => {
+    // The search API returns results directly at the root level
+    const results = searchData.results || [];
+    
+    if (Array.isArray(results)) {
+      results.forEach((user: any) => {
         // Extract the correct fields based on the search API response structure
         allSuggestions.push({
           id: user.id?.toString() || user._id,
-          display: user.fullName || user.username || user.name || 'Unknown User',
+          display: user.name || user.username || 'Unknown User',
           type: 'user',
           avatar: user.profileImage || user.avatar
         });
       });
     }
     
+    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions for "${currentMention}"`);
+    
     return allSuggestions;
-  }, [searchData]);
+  }, [searchData, currentMention]);
 
   // Handle text change and detect @ mentions
   const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
