@@ -39,9 +39,9 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Search for mentions when @ is typed
   const { data: searchData, isLoading } = useQuery({
-    queryKey: ['/api/search/mentions', currentMention],
+    queryKey: ['/api/search', 'users', currentMention],
     queryFn: async () => {
-      const response = await apiRequest(`/api/search/mentions?q=${encodeURIComponent(currentMention)}`);
+      const response = await apiRequest(`/api/search?type=users&q=${encodeURIComponent(currentMention)}&limit=10`);
       return response;
     },
     enabled: currentMention.length >= 1 && showSuggestions,
@@ -54,25 +54,15 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     const allSuggestions: MentionData[] = [];
     
-    // Add users
-    if (searchData.users && Array.isArray(searchData.users)) {
-      searchData.users.forEach((user: any) => {
+    // The search API returns results in the 'results' field
+    if (searchData.results && Array.isArray(searchData.results)) {
+      searchData.results.forEach((user: any) => {
+        // Extract the correct fields based on the search API response structure
         allSuggestions.push({
-          id: user.id.toString(),
-          display: user.name || user.username,
+          id: user.id?.toString() || user._id,
+          display: user.fullName || user.username || user.name || 'Unknown User',
           type: 'user',
-          avatar: user.profileImage
-        });
-      });
-    }
-    
-    // Add events
-    if (searchData.events && Array.isArray(searchData.events)) {
-      searchData.events.forEach((event: any) => {
-        allSuggestions.push({
-          id: event.id.toString(),
-          display: event.title,
-          type: 'event'
+          avatar: user.profileImage || user.avatar
         });
       });
     }
