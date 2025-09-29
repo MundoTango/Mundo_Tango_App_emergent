@@ -39,7 +39,10 @@ interface SimpleMentionsInputProps {
 ## API Integration
 
 ### User Search Endpoint
-`GET /api/users/search?q={searchTerm}`
+`GET /api/search?type=users&q={searchTerm}&limit=10`
+
+**Status**: ✅ FIXED (uses correct endpoint as of September 29, 2025)
+
 - Returns array of matching users
 - Searches by username and full name
 - Limited to 10 results for performance
@@ -47,15 +50,20 @@ interface SimpleMentionsInputProps {
 
 ### Response Format
 ```json
-[
-  {
-    "id": 1,
-    "username": "elena_rodriguez",
-    "fullName": "Elena Rodriguez",
-    "profileImage": "/uploads/profile.jpg"
-  }
-]
+{
+  "success": true,
+  "results": [
+    {
+      "id": 1,
+      "username": "elena_rodriguez",
+      "name": "Elena Rodriguez",
+      "profileImage": "/uploads/profile.jpg"
+    }
+  ]
+}
 ```
+
+**Note**: The component was updated to use `/api/search?type=users` instead of the deprecated `/api/users/search` endpoint and properly parses the response with `await response.json()`.
 
 ## Mention Format
 
@@ -139,12 +147,54 @@ function BeautifulPostCreator() {
 
 ## Notification System
 
-When a mention is created:
-1. Parse mentions from post content
-2. Extract user IDs from mention format
-3. Create notifications for mentioned users
-4. Send real-time alerts via WebSocket
-5. Queue email notifications if enabled
+**Status**: ✅ FULLY INTEGRATED (September 29, 2025)
+
+### Integration Architecture
+The mention notification service is now fully connected to the post creation workflow via `server/routes/postsRoutes.ts`:
+
+```typescript
+// ESA LIFE CEO 61x21 - Process @mentions and send notifications
+if (newPost && content) {
+  try {
+    const { MentionNotificationService } = await import('../services/mentionNotificationService');
+    await MentionNotificationService.processMentions(
+      content,
+      Number(userId),
+      'post',
+      newPost.id,
+      `/posts/${newPost.id}`
+    );
+    console.log('✅ @mention notifications processed');
+  } catch (error) {
+    console.error('⚠️ Failed to process @mentions:', error);
+  }
+}
+```
+
+### Notification Flow
+When a mention is created in a post:
+1. **Parse mentions** from post content using regex: `@\[([^\]]+)\]\(user:(\d+)\)`
+2. **Extract user IDs** from mention format
+3. **Create notifications** for each mentioned user via `mentionNotificationService`
+4. **Send real-time alerts** via WebSocket/Socket.io
+5. **Queue email notifications** if user has enabled email preferences
+
+### Service Location
+- **Service**: `server/services/mentionNotificationService.ts`
+- **Integration**: `server/routes/postsRoutes.ts` (lines 534-550)
+- **API Endpoint**: `/api/posts/direct` (automatically processes mentions)
+
+### Notification Data
+```typescript
+{
+  userId: mentionedUserId,
+  type: 'mention',
+  message: `${mentionerName} mentioned you in a post`,
+  actionUrl: `/posts/${postId}`,
+  relatedId: postId,
+  isRead: false
+}
+```
 
 ## Accessibility Features
 - ARIA labels for screen readers
