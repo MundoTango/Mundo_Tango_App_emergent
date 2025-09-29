@@ -25,7 +25,8 @@ import { safe, safeArray } from '@shared/resilience/guards';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
 // ESA LIFE CEO 61×21 - Using unified feed component following Layer 9 UI Framework
-const UnifiedPostFeed = lazy(() => import('@/components/moments/UnifiedPostFeed'));
+// Direct import instead of lazy to fix rendering issue
+import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
 const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEventsSidebar'));
 const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
@@ -178,30 +179,44 @@ function ESAMemoryFeedCore() {
   } = useQuery({
     queryKey: ['/api/posts/feed', page],
     queryFn: async () => {
-      const response = await fetch(`/api/posts/feed?limit=20&offset=${(page - 1) * 20}`, {
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts');
+      console.log('[ESA MemoryFeed] Starting fetch for page:', page);
+      try {
+        const response = await fetch(`/api/posts/feed?limit=20&offset=${(page - 1) * 20}`, {
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        console.log('[ESA MemoryFeed] Fetch response received, status:', response.status);
+        
+        if (!response.ok) {
+          console.error('[ESA MemoryFeed] Response not OK:', response.status, response.statusText);
+          throw new Error('Failed to fetch posts');
+        }
+        
+        const data = await response.json();
+        
+        // ESA Debug: Log raw API response to verify friendship data
+        console.log('[ESA MemoryFeed] Raw API response:', {
+          hasData: !!data,
+          postsCount: data?.posts?.length,
+          firstPost: data?.posts?.[0],
+          firstUserFriendship: data?.posts?.[0]?.user?.friendshipStatus
+        });
+        
+        return data;
+      } catch (err) {
+        console.error('[ESA MemoryFeed] Fetch error:', err);
+        throw err;
       }
-      
-      const data = await response.json();
-      
-      // ESA Debug: Log raw API response to verify friendship data
-      console.log('[ESA MemoryFeed] Raw API response:', {
-        hasData: !!data,
-        postsCount: data?.posts?.length,
-        firstPost: data?.posts?.[0],
-        firstUserFriendship: data?.posts?.[0]?.user?.friendshipStatus
-      });
-      
-      return data;
     },
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000
   });
+  
+  // Log loading state changes
+  useEffect(() => {
+    console.log('[ESA MemoryFeed] Query state changed:', { isLoading, isFetching, hasData: !!feedResponse, error });
+  }, [isLoading, isFetching, feedResponse, error]);
 
 
   // ESA Framework: Process feed response and manage pagination
@@ -586,11 +601,13 @@ function ESAMemoryFeedCore() {
                   )}
                   
                   {/* Posts Display */}
+                  {console.log('[ESA DEBUG ESAMemoryFeed] About to render feed section, isLoading:', isLoading, 'posts:', posts?.length)}
                   <Suspense fallback={
                     <div className="flex justify-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
                     </div>
                   }>
+                    {console.log('[ESA DEBUG ESAMemoryFeed] Inside Suspense')}
                     {/* Posts Feed - Feed Only Mode */}
                     {isLoading ? (
                       <div className="flex justify-center py-8">
