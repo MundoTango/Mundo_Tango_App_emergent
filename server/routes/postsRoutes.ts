@@ -337,6 +337,14 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       imageUrl = relativeUrl;
     }
     
+    // ESA Layer 16: Extract and validate mentions from content
+    const mentions = req.body.mentions ? 
+      (Array.isArray(req.body.mentions) ? req.body.mentions : [req.body.mentions]) : [];
+    
+    // Validate mentioned users exist
+    const validMentions = mentions.length > 0 ? 
+      await storage.validateUserIds(mentions) : [];
+    
     const postData = {
       content: req.body.content || '',
       richContent: req.body.richContent || null,
@@ -347,6 +355,7 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       mediaEmbeds: mediaUrls,
       isPublic: req.body.isPublic === 'true' || req.body.isPublic === true,
       hashtags: req.body.hashtags ? (Array.isArray(req.body.hashtags) ? req.body.hashtags : [req.body.hashtags]) : [],
+      mentions: validMentions.map(id => id.toString()), // ESA Layer 16: Store validated mentions
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
@@ -354,6 +363,22 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     };
     
     const newPost = await storage.createPost(postData);
+    
+    // ESA Layer 16: Create mention notifications for tagged users
+    if (validMentions.length > 0) {
+      const notificationData = validMentions
+        .filter(mentionId => mentionId !== userId) // Don't notify self-mentions
+        .map(mentionedUserId => ({
+          postId: newPost.id,
+          mentionedUserId,
+          mentioningUserId: userId
+        }));
+      
+      if (notificationData.length > 0) {
+        await storage.batchCreateMentionNotifications(notificationData);
+        console.log(`📢 Created ${notificationData.length} mention notifications for post ${newPost.id}`);
+      }
+    }
     
     res.json({
       success: true,
@@ -393,6 +418,12 @@ router.post('/api/posts/with-image', requireAuth, upload.single('image'), async 
       imageUrl = relativeUrl;
     }
     
+    // ESA Layer 16: Extract and validate mentions
+    const mentions = req.body.mentions ? 
+      (Array.isArray(req.body.mentions) ? req.body.mentions : [req.body.mentions]) : [];
+    const validMentions = mentions.length > 0 ? 
+      await storage.validateUserIds(mentions) : [];
+    
     const postData = {
       content: req.body.content || '',
       richContent: req.body.richContent || null,
@@ -402,6 +433,7 @@ router.post('/api/posts/with-image', requireAuth, upload.single('image'), async 
       mediaEmbeds: mediaUrls,
       isPublic: req.body.isPublic === 'true' || req.body.isPublic === true,
       hashtags: req.body.hashtags ? (Array.isArray(req.body.hashtags) ? req.body.hashtags : [req.body.hashtags]) : [],
+      mentions: validMentions.map(id => id.toString()),
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
