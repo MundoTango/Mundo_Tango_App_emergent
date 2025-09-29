@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -229,6 +229,18 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     return spans;
   }, []);
 
+  // Store intended cursor position
+  const intendedCursorPosRef = useRef<number | null>(null);
+
+  // Restore cursor position after React updates
+  useEffect(() => {
+    if (intendedCursorPosRef.current !== null && textareaRef.current) {
+      const pos = intendedCursorPosRef.current;
+      textareaRef.current.setSelectionRange(pos, pos);
+      intendedCursorPosRef.current = null;
+    }
+  }, [value]);
+
   // Handle text change with mention preservation
   const handleTextChangeWithFormat = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDisplayValue = e.target.value;
@@ -274,13 +286,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         const newCanonical = beforeMention + afterMention;
         onChange(newCanonical);
         updateMentionSuggestions(newDisplayValue, cursorPos);
-        
-        // Restore cursor position after deletion
-        setTimeout(() => {
-          if (textareaRef.current) {
-            textareaRef.current.setSelectionRange(cursorPos, cursorPos);
-          }
-        }, 0);
+        intendedCursorPosRef.current = cursorPos;
         return;
       }
     }
@@ -314,13 +320,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const newCanonical = beforeChange + insertedText + afterChange;
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos);
-    
-    // Restore cursor position
-    setTimeout(() => {
-      if (textareaRef.current) {
-        textareaRef.current.setSelectionRange(cursorPos, cursorPos);
-      }
-    }, 0);
+    intendedCursorPosRef.current = cursorPos;
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with blue mentions
