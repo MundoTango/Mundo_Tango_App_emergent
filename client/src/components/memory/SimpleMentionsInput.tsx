@@ -17,6 +17,7 @@ interface MentionData {
 interface SimpleMentionsInputProps {
   value: string;
   onChange: (content: string) => void;
+  onMentionsChange?: (mentionIds: string[]) => void; // ESA Layer 24: Callback for extracted mention IDs
   placeholder?: string;
   className?: string;
   disabled?: boolean;
@@ -26,6 +27,7 @@ interface SimpleMentionsInputProps {
 const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   value,
   onChange,
+  onMentionsChange,
   placeholder = "Share your memory and @mention people or events...",
   className = "",
   disabled = false,
@@ -240,6 +242,26 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       intendedCursorPosRef.current = null;
     }
   }, [value]);
+
+  // ESA Layer 24: Extract mention IDs and notify parent component
+  useEffect(() => {
+    if (onMentionsChange) {
+      const extractMentionIds = (content: string): string[] => {
+        const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+        const ids: string[] = [];
+        let match;
+        
+        while ((match = mentionRegex.exec(content)) !== null) {
+          ids.push(match[2]); // Extract user ID
+        }
+        
+        return [...new Set(ids)]; // Remove duplicates
+      };
+      
+      const mentionIds = extractMentionIds(value);
+      onMentionsChange(mentionIds);
+    }
+  }, [value, onMentionsChange]);
 
   // Handle text change with mention preservation
   const handleTextChangeWithFormat = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {

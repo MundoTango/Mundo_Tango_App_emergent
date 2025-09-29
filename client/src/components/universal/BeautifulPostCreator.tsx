@@ -109,6 +109,7 @@ export default function BeautifulPostCreator({
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
   const [selectedTags, setSelectedTags] = useState<string[]>(existingPost?.hashtags || []);
+  const [mentions, setMentions] = useState<string[]>([]); // ESA Layer 24: Store extracted mention IDs
   const [mediaFiles, setMediaFiles] = useState<File[]>([]);
   // Load existing media previews in edit mode
   const [mediaPreviews, setMediaPreviews] = useState<string[]>(
@@ -721,7 +722,7 @@ export default function BeautifulPostCreator({
         emotions: [], // BeautifulPostCreator doesn't have emotions
         location: location || undefined,
         tags: selectedTags,
-        mentions: extractMentions(content).map(m => m.display), // ESA LIFE CEO 61x21 - Extract mentions
+        mentions: mentions, // ESA Layer 24: Send validated mention IDs to API
         media: mediaFiles,
         visibility,
         isRecommendation,
@@ -763,6 +764,7 @@ export default function BeautifulPostCreator({
       richContent,
       visibility,
       tags: selectedTags,
+      mentions: mentions, // ESA Layer 24: Include mentions in post data
       location: location || undefined,
       locationCoordinates: locationCoordinates || undefined,
       locationDetails: locationDetails || undefined,
@@ -966,11 +968,10 @@ export default function BeautifulPostCreator({
                 onChange={(value: string) => {
                   setContent(value);
                   setRichContent(value); // For now, keep them in sync
-                  // Extract mentions for the post data
-                  const mentions = extractMentions(value);
-                  if (mentions.length > 0) {
-                    console.log('🎯 Mentions detected:', mentions);
-                  }
+                }}
+                onMentionsChange={(mentionIds: string[]) => {
+                  setMentions(mentionIds); // ESA Layer 24: Capture mention IDs
+                  console.log('📌 Mentions extracted:', mentionIds);
                 }}
                 placeholder={editMode ? "✏️ Edit your post..." : "✨ Share your tango moment and @mention people..."}
                 className="w-full"
