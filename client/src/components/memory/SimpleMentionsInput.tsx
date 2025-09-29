@@ -52,23 +52,15 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Get suggestions from search data (users and events)
   const suggestions: MentionData[] = React.useMemo(() => {
-    console.log(`🔍 [SimpleMentionsInput] Raw searchData:`, searchData);
-    
-    if (!searchData) {
-      console.log(`⚠️ [SimpleMentionsInput] No search data`);
-      return [];
-    }
+    if (!searchData) return [];
     
     const allSuggestions: MentionData[] = [];
     
     // Multi-search returns results with type field
     const results = searchData.results || [];
-    console.log(`🔍 [SimpleMentionsInput] Results array:`, results, `(length: ${results.length})`);
     
     if (Array.isArray(results)) {
-      results.forEach((item: any, index: number) => {
-        console.log(`🔍 [SimpleMentionsInput] Processing item ${index}:`, item);
-        
+      results.forEach((item: any) => {
         // Only show users and events in mention suggestions (not posts or communities)
         if (item.type === 'users') {
           allSuggestions.push({
@@ -89,12 +81,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         // Ignore posts and communities - they can't be mentioned
       });
     }
-    
-    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions (users + events) for "${currentMention}"`, {
-      showSuggestions,
-      searchData,
-      results: allSuggestions
-    });
     
     return allSuggestions;
   }, [searchData, currentMention, showSuggestions]);
@@ -132,6 +118,12 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
   }, []);
 
+  // Convert internal format to display format
+  const getDisplayValue = useCallback((text: string) => {
+    // Replace @[Name](user:id) or @[Name](event:id) with just @Name
+    return text.replace(/@\[([^\]]+)\]\((user|event):[^\)]+\)/g, '@$1');
+  }, []);
+
   // Legacy handler for simple text change (no mentions)
   const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
@@ -152,15 +144,20 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     onChange(newValue);
     setShowSuggestions(false);
     
-    // Focus back to textarea
+    // Calculate cursor position in display format
+    // beforeMention might contain other mentions, so we need to convert to display length
+    const beforeMentionDisplay = getDisplayValue(beforeMention);
+    const mentionDisplayLength = `@${suggestion.display}`.length;
+    const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
+    
+    // Focus back to textarea and set cursor in display coordinates
     if (textareaRef.current) {
-      const newCursorPos = beforeMention.length + mentionText.length + 1;
       setTimeout(() => {
         textareaRef.current?.focus();
-        textareaRef.current?.setSelectionRange(newCursorPos, newCursorPos);
+        textareaRef.current?.setSelectionRange(newCursorPosInDisplay, newCursorPosInDisplay);
       }, 0);
     }
-  }, [value, mentionStart, currentMention, onChange]);
+  }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -200,12 +197,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         return 'bg-gray-50 text-gray-700';
     }
   };
-
-  // Convert internal format to display format
-  const getDisplayValue = useCallback((text: string) => {
-    // Replace @[Name](user:id) or @[Name](event:id) with just @Name
-    return text.replace(/@\[([^\]]+)\]\((user|event):[^\)]+\)/g, '@$1');
-  }, []);
 
   // Track previous display value to compute diffs
   const prevDisplayRef = useRef(getDisplayValue(value));
