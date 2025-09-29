@@ -34,28 +34,28 @@ export class MentionNotificationService {
   ) {
     console.log('🔔 Processing @mentions in content:', { contentType, contentId, authorId });
     
-    // Extract all @mentions from content
-    const mentionRegex = /@(\w+)/g;
-    const mentions = [];
+    // Extract all @mentions from content using canonical format: @[Name](user:id)
+    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    const mentionIds: number[] = [];
     let match;
     
     while ((match = mentionRegex.exec(content)) !== null) {
-      mentions.push(match[1].toLowerCase());
+      mentionIds.push(parseInt(match[2])); // Extract user ID from canonical format
     }
     
-    if (mentions.length === 0) {
+    if (mentionIds.length === 0) {
       console.log('No mentions found in content');
       return [];
     }
     
-    console.log(`Found ${mentions.length} mentions:`, mentions);
+    console.log(`Found ${mentionIds.length} mention IDs:`, mentionIds);
     
-    // Find users by username
+    // Find users by ID
     const mentionedUsers = await db
       .select()
       .from(users)
       .where(
-        sql`LOWER(${users.username}) IN (${mentions.map(m => `'${m}'`).join(', ')})`
+        inArray(users.id, mentionIds)
       );
     
     if (mentionedUsers.length === 0) {
