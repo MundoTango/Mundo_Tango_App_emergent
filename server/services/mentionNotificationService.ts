@@ -140,7 +140,7 @@ export class MentionNotificationService {
               : author.username
           },
           content.substring(0, 200), // Preview
-          postId
+          contentId
         );
         console.log(`📨 Real-time notification sent to user ${mentionedUser.id}`);
         
@@ -310,7 +310,7 @@ export class MentionNotificationService {
       .where(eq(userProfiles.userId, mentionedUserId));
     
     // Simplified privacy check - will enhance with actual settings
-    const mentionPrivacy = 'everyone'; // Default to everyone for now
+    const mentionPrivacy: 'everyone' | 'followers' | 'nobody' = 'everyone'; // Default to everyone for now
     
     switch (mentionPrivacy) {
       case 'everyone':
