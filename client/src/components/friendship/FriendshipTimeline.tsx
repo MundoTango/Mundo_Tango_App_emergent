@@ -7,7 +7,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
-import { renderWithMentions } from '@/utils/renderWithMentions';
 
 interface TimelineEvent {
   id: string;
@@ -93,12 +92,12 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="w-16 h-16">
-              <AvatarImage src={friendImage} alt={friendName} />
-              <AvatarFallback>{friendName[0]}</AvatarFallback>
+              <AvatarImage src={friendImage} alt={friendName || 'Friend'} />
+              <AvatarFallback>{friendName?.[0] || 'F'}</AvatarFallback>
             </Avatar>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
-                {friendName}
+                {friendName || 'Friend'}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
                 Friends since {(() => {
@@ -178,9 +177,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                     <EnhancedPostItem 
                       post={event.postData}
                       onLike={() => {}}
-                      onComment={() => {}}
                       onShare={() => {}}
-                      renderWithMentions={renderWithMentions}
                     />
                   </div>
                 );

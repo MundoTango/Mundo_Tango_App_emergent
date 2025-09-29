@@ -67,7 +67,7 @@ export default function FriendshipPage() {
     );
   }
 
-  if (error || !friendship || !friendship.user) {
+  if (error || !friendship || !friendship.user || !friendship.stats) {
     return (
       <DashboardLayout>
         <div className="container mx-auto px-4 py-8">
@@ -104,13 +104,17 @@ export default function FriendshipPage() {
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {friendship.user.name || 'Friend'}
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
-                  <MapPin className="w-4 h-4" />
-                  {friendship.user.city}, {friendship.user.country}
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 mt-1">
-                  Friends since {new Date(friendship.friendsSince).toLocaleDateString()}
-                </p>
+                {(friendship.user.city || friendship.user.country) && (
+                  <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
+                    <MapPin className="w-4 h-4" />
+                    {friendship.user.city}{friendship.user.city && friendship.user.country && ', '}{friendship.user.country}
+                  </p>
+                )}
+                {friendship.friendsSince && (
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">
+                    Friends since {new Date(friendship.friendsSince).toLocaleDateString()}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -132,15 +136,15 @@ export default function FriendshipPage() {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
             <div className="text-center">
-              <div className="text-2xl font-bold text-turquoise-600">{friendship.stats.totalDances}</div>
+              <div className="text-2xl font-bold text-turquoise-600">{friendship.stats?.totalDances || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Dances Together</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-cyan-600">{friendship.stats.sharedEvents}</div>
+              <div className="text-2xl font-bold text-cyan-600">{friendship.stats?.sharedEvents || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Shared Events</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{friendship.stats.sharedGroups}</div>
+              <div className="text-2xl font-bold text-blue-600">{friendship.stats?.sharedGroups || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Groups in Common</div>
             </div>
             <div className="text-center">
@@ -148,7 +152,7 @@ export default function FriendshipPage() {
               <div className="text-sm text-gray-600 dark:text-gray-400">Mutual Friends</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-pink-600">{friendship.stats.closenessScore}%</div>
+              <div className="text-2xl font-bold text-pink-600">{friendship.stats?.closenessScore || 0}%</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Closeness Score</div>
             </div>
           </div>
