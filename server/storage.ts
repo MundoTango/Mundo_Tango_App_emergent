@@ -55,6 +55,7 @@ import {
   subscriptionFeatures,
   webhookEvents,
   recommendations,
+  mentionNotifications,
   type User,
   type InsertUser,
   type UpsertUser,
@@ -594,6 +595,23 @@ export interface IStorage {
     tags?: string[];
     isActive?: boolean;
   }): Promise<any>;
+  
+  // ESA Layer 16: Mention operations
+  getPostsWhereMentioned(userId: number, limit?: number, offset?: number): Promise<Post[]>;
+  getMentionNotifications(userId: number): Promise<any[]>;
+  getUnreadMentionNotificationsCount(userId: number): Promise<number>;
+  createMentionNotification(data: {
+    postId: number;
+    mentionedUserId: number;
+    mentioningUserId: number;
+  }): Promise<any>;
+  batchCreateMentionNotifications(notifications: Array<{
+    postId: number;
+    mentionedUserId: number;
+    mentioningUserId: number;
+  }>): Promise<void>;
+  markMentionAsRead(notificationId: number): Promise<void>;
+  validateUserIds(userIds: string[]): Promise<number[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -902,6 +920,101 @@ export class DatabaseStorage implements IStorage {
       console.error('❌ Error creating recommendation:', error);
       throw error;
     }
+  }
+
+  // ESA Layer 16: Mention operations implementation
+  async getPostsWhereMentioned(userId: number, limit = 20, offset = 0): Promise<Post[]> {
+    const userIdString = userId.toString();
+    const result = await db
+      .select()
+      .from(posts)
+      .where(sql`${userIdString} = ANY(${posts.mentions})`)
+      .orderBy(desc(posts.createdAt))
+      .limit(limit)
+      .offset(offset);
+    return result;
+  }
+
+  async getMentionNotifications(userId: number): Promise<any[]> {
+    const result = await db
+      .select({
+        id: mentionNotifications.id,
+        postId: mentionNotifications.postId,
+        isRead: mentionNotifications.isRead,
+        readAt: mentionNotifications.readAt,
+        createdAt: mentionNotifications.createdAt,
+        mentioningUser: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        },
+        post: {
+          id: posts.id,
+          content: posts.content,
+          imageUrl: posts.imageUrl
+        }
+      })
+      .from(mentionNotifications)
+      .innerJoin(users, eq(mentionNotifications.mentioningUserId, users.id))
+      .innerJoin(posts, eq(mentionNotifications.postId, posts.id))
+      .where(eq(mentionNotifications.mentionedUserId, userId))
+      .orderBy(desc(mentionNotifications.createdAt));
+    return result;
+  }
+
+  async getUnreadMentionNotificationsCount(userId: number): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(mentionNotifications)
+      .where(and(
+        eq(mentionNotifications.mentionedUserId, userId),
+        eq(mentionNotifications.isRead, false)
+      ));
+    return result[0]?.count || 0;
+  }
+
+  async createMentionNotification(data: {
+    postId: number;
+    mentionedUserId: number;
+    mentioningUserId: number;
+  }): Promise<any> {
+    const [notification] = await db
+      .insert(mentionNotifications)
+      .values(data)
+      .returning();
+    return notification;
+  }
+
+  async batchCreateMentionNotifications(notifications: Array<{
+    postId: number;
+    mentionedUserId: number;
+    mentioningUserId: number;
+  }>): Promise<void> {
+    if (notifications.length === 0) return;
+    await db.insert(mentionNotifications).values(notifications);
+  }
+
+  async markMentionAsRead(notificationId: number): Promise<void> {
+    await db
+      .update(mentionNotifications)
+      .set({ 
+        isRead: true,
+        readAt: sql`CURRENT_TIMESTAMP`
+      })
+      .where(eq(mentionNotifications.id, notificationId));
+  }
+
+  async validateUserIds(userIds: string[]): Promise<number[]> {
+    const numericIds = userIds.map(id => parseInt(id)).filter(id => !isNaN(id));
+    if (numericIds.length === 0) return [];
+    
+    const validUsers = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(inArray(users.id, numericIds));
+    
+    return validUsers.map(u => u.id);
   }
 
   async getPostById(id: number | string): Promise<Post | undefined> {
