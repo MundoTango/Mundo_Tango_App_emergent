@@ -7,7 +7,7 @@ import { InternalUploader } from '@/components/upload/InternalUploader';
 // ESA Layer 13: Advanced media processing with universal format support
 import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
 import { extractMentions } from '@/utils/mentionUtils';
-import SimpleMentionsInput from '../memory/SimpleMentionsInputV2';
+import SimpleMentionsInput from '../memory/SimpleMentionsInput';
 // VideoURLInput removed per user request
 import {
   DropdownMenu,
