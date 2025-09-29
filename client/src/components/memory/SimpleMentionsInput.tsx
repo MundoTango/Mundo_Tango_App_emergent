@@ -202,8 +202,33 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   // Render styled text with blue mentions
   const renderStyledContent = () => {
     const displayText = getDisplayValue(value);
-    // Split by @mentions (match @ followed by any characters until space or end)
-    const parts = displayText.split(/(@[^\s]+(?:\s+[^\s]+)*?)(?=\s|$)/g);
+    // Match @mentions - need to capture full names including spaces
+    // Match @ followed by word characters and spaces until we hit punctuation or double space
+    const parts: (string | JSX.Element)[] = [];
+    let lastIndex = 0;
+    const mentionRegex = /@[\w\s]+/g;
+    let match;
+    
+    while ((match = mentionRegex.exec(displayText)) !== null) {
+      // Add text before mention
+      if (match.index > lastIndex) {
+        parts.push(displayText.substring(lastIndex, match.index));
+      }
+      
+      // Add styled mention
+      parts.push(
+        <span key={`mention-${match.index}`} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
+          {match[0].trim()}
+        </span>
+      );
+      
+      lastIndex = match.index + match[0].length;
+    }
+    
+    // Add remaining text
+    if (lastIndex < displayText.length) {
+      parts.push(displayText.substring(lastIndex));
+    }
     
     return (
       <div 
@@ -215,15 +240,10 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         }}
       >
         {parts.map((part, index) => {
-          // Check if this part is a mention
-          if (part.trim().startsWith('@') && part.trim().length > 1) {
-            return (
-              <span key={index} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
-                {part}
-              </span>
-            );
+          if (typeof part === 'string') {
+            return <span key={`text-${index}`}>{part}</span>;
           }
-          return <span key={index}>{part}</span>;
+          return part;
         })}
       </div>
     );

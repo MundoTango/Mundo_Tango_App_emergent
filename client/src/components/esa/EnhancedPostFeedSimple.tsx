@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/theme-context';
+import { renderWithMentions } from '@/utils/renderWithMentions';
 
 interface Post {
   id: string;
@@ -275,7 +276,7 @@ export default function EnhancedPostFeedSimple({
                 theme === 'light' ? "text-gray-900" : "text-white",
                 !isExpanded && post.content.length > 200 && "line-clamp-3"
               )}>
-                {post.content}
+                {renderWithMentions(post.content)}
               </p>
               {post.content.length > 200 && (
                 <button

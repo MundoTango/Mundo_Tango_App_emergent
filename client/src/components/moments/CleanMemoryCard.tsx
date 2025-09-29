@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { renderWithMentions } from '@/utils/renderWithMentions';
 
 interface MemoryCardProps {
   post: any;
@@ -335,7 +336,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
 
           {/* Post Content */}
           <div className="mt-3">
-            <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+            <p className="text-gray-800 whitespace-pre-wrap">{renderWithMentions(post.content)}</p>
             
             {/* Location */}
             {post.location && (
