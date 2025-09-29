@@ -163,25 +163,26 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
   
   // Insert mention
   const insertMention = useCallback((suggestion: MentionData) => {
-    const displayValue = tokensToDisplay(tokens);
-    
-    // Find the @ that triggered this suggestion
-    const beforeMention = displayValue.substring(0, mentionStart);
-    const afterMention = displayValue.substring(mentionStart + currentMention.length + 1);
-    
-    // Remove the @mention text and insert the mention token
-    const textWithoutMention = beforeMention + afterMention;
-    
-    // Parse to tokens (this removes the partial @mention text)
-    let newTokens = parseCanonicalToTokens(tokensToCanonical(tokens));
-    
-    // Apply the deletion of @mention text
-    const deletedTokens = applyEditToTokens(
-      newTokens,
+    console.log('🎯 Insert Mention Called:', {
+      suggestion,
+      currentTokens: tokens,
       mentionStart,
-      mentionStart + currentMention.length + 1,
+      currentMention,
+      displayValue: tokensToDisplay(tokens)
+    });
+    
+    // Delete the @mention trigger text (e.g., "@mila")
+    const deletedTokens = applyEditToTokens(
+      tokens,
+      mentionStart,
+      mentionStart + currentMention.length + 1, // +1 for the @
       ''
     );
+    
+    console.log('🗑️ After deletion:', {
+      deletedTokens,
+      displayValue: tokensToDisplay(deletedTokens)
+    });
     
     // Insert the mention token at the position
     const { tokens: finalTokens, newCursorPos } = insertMentionAtPos(
@@ -194,6 +195,12 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
       }
     );
     
+    console.log('➕ After insertion:', {
+      finalTokens,
+      displayValue: tokensToDisplay(finalTokens),
+      newCursorPos
+    });
+    
     // Add a space after the mention
     const withSpace = applyEditToTokens(
       finalTokens,
@@ -201,6 +208,12 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
       newCursorPos,
       ' '
     );
+    
+    console.log('✅ Final tokens:', {
+      withSpace,
+      displayValue: tokensToDisplay(withSpace),
+      canonical: tokensToCanonical(withSpace)
+    });
     
     setTokens(withSpace);
     const newCanonical = tokensToCanonical(withSpace);
