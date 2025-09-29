@@ -948,7 +948,7 @@ export default function BeautifulPostCreator({
               <div className="relative">
                 <select
                   value={visibility}
-                  onChange={(e) => setVisibility(e.target.value)}
+                  onChange={(e) => setVisibility(e.target.value as 'public' | 'friends' | 'private')}
                   className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-gray-700 hover:border-turquoise-300 focus:outline-none focus:ring-2 focus:ring-turquoise-400/30 focus:border-turquoise-400 transition-all cursor-pointer"
                 >
                   <option value="public">🌍 Public</option>
