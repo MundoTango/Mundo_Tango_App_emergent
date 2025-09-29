@@ -176,52 +176,40 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
   };
 
-  // Format mentions for display with highlighting
-  const formatDisplayText = (text: string) => {
-    // Replace @[Name](user:id) with styled @Name
-    const parts = text.split(/(@\[[^\]]+\]\(user:\d+\))/g);
-    return parts.map((part, index) => {
-      const mentionMatch = part.match(/@\[([^\]]+)\]\(user:(\d+)\)/);
-      if (mentionMatch) {
-        return (
-          <span key={index} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-medium">
-            @{mentionMatch[1]}
-          </span>
-        );
-      }
-      return part;
-    });
-  };
+  // Convert internal format to display format
+  const getDisplayValue = useCallback((text: string) => {
+    // Replace @[Name](user:id) with just @Name
+    return text.replace(/@\[([^\]]+)\]\(user:\d+\)/g, '@$1');
+  }, []);
+
+  // Convert display format back to internal format when needed
+  const [internalValue, setInternalValue] = useState(value);
+
+  React.useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
+
+  // Handle text change with format conversion
+  const handleTextChangeWithFormat = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const displayValue = e.target.value;
+    const cursorPos = e.target.selectionStart;
+    
+    // For now, just pass through - mentions are inserted in proper format by insertMention
+    onChange(displayValue);
+    handleTextChange(e);
+  }, [onChange, handleTextChange]);
 
   return (
     <div className={`relative ${className}`}>
-      {/* Hidden overlay for styled display */}
-      <div 
-        className="absolute inset-0 p-3 pointer-events-none whitespace-pre-wrap break-words text-transparent"
-        style={{
-          font: 'inherit',
-          lineHeight: 'inherit',
-          wordWrap: 'break-word'
-        }}
-      >
-        <div className="text-gray-900">
-          {formatDisplayText(value)}
-        </div>
-      </div>
-      
       <textarea
         ref={textareaRef}
-        value={value}
-        onChange={handleTextChange}
+        value={getDisplayValue(value)}
+        onChange={handleTextChangeWithFormat}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent relative bg-transparent caret-gray-900"
-        style={{
-          color: 'transparent',
-          caretColor: '#111827'
-        }}
+        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
       
       {/* Suggestions dropdown */}
