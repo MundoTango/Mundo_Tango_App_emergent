@@ -302,77 +302,55 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const prevDisplayValue = prevDisplayRef.current;
     const cursorPos = e.target.selectionStart || 0;
     
+    console.log('📝 Text Change:', {
+      prevDisplay: prevDisplayValue,
+      newDisplay: newDisplayValue,
+      currentCanonical: value,
+      cursorPos
+    });
+    
     // Get mention spans in the current canonical value
     const mentionSpans = getMentionSpans(value);
     
+    console.log('🔍 Mention Spans:', mentionSpans);
+    
     // If no mentions, just pass through to simple handler
     if (mentionSpans.length === 0) {
+      console.log('✅ No mentions, passing through');
       handleTextChange(e);
       return;
     }
     
-    // Compute the minimal diff between old and new display values
-    let changeStart = 0;
-    let changeEndOld = prevDisplayValue.length;
-    let changeEndNew = newDisplayValue.length;
+    // For simplicity: rebuild canonical from display by finding each mention
+    let newCanonical = newDisplayValue;
     
-    // Find common prefix
-    while (changeStart < Math.min(prevDisplayValue.length, newDisplayValue.length) && 
-           prevDisplayValue[changeStart] === newDisplayValue[changeStart]) {
-      changeStart++;
-    }
+    // Replace each @Name with its full canonical format
+    // Sort by position to process from end to start (avoid position shifts)
+    const sortedSpans = [...mentionSpans].sort((a, b) => b.displayStart - a.displayStart);
     
-    // Find common suffix
-    while (changeEndOld > changeStart && 
-           changeEndNew > changeStart && 
-           prevDisplayValue[changeEndOld - 1] === newDisplayValue[changeEndNew - 1]) {
-      changeEndOld--;
-      changeEndNew--;
-    }
-    
-    // Check if the change intersects any mention span
-    for (const span of mentionSpans) {
-      if ((changeStart >= span.displayStart && changeStart < span.displayEnd) ||
-          (changeEndOld > span.displayStart && changeEndOld <= span.displayEnd) ||
-          (changeStart < span.displayStart && changeEndOld > span.displayEnd)) {
-        // Change intersects this mention - delete the entire mention
-        const beforeMention = value.substring(0, span.canonicalStart);
-        const afterMention = value.substring(span.canonicalEnd);
-        const newCanonical = beforeMention + afterMention;
-        onChange(newCanonical);
-        updateMentionSuggestions(newDisplayValue, cursorPos);
-        intendedCursorPosRef.current = cursorPos;
-        return;
-      }
-    }
-    
-    // Change is outside all mentions - apply it to canonical format
-    // Map display positions to canonical positions by counting format length differences
-    let canonicalChangeStart = changeStart;
-    let canonicalChangeEnd = changeEndOld;
-    
-    for (const span of mentionSpans) {
-      const displayLen = span.displayEnd - span.displayStart;
-      const canonicalLen = span.canonicalEnd - span.canonicalStart;
-      const formatDiff = canonicalLen - displayLen;
+    for (const span of sortedSpans) {
+      const displayMention = `@${span.name}`;
       
-      // If this mention is completely before the change start, adjust start position
-      if (span.displayEnd <= changeStart) {
-        canonicalChangeStart += formatDiff;
-      }
+      // Find this mention in the new display value
+      const foundIndex = newDisplayValue.indexOf(displayMention);
       
-      // If this mention is completely before the change end, adjust end position
-      if (span.displayEnd <= changeEndOld) {
-        canonicalChangeEnd += formatDiff;
+      console.log(`🔎 Looking for "${displayMention}" in new display:`, {
+        found: foundIndex >= 0,
+        foundIndex,
+        canonical: span.fullMatch
+      });
+      
+      if (foundIndex >= 0) {
+        // Replace display mention with canonical
+        newCanonical = 
+          newCanonical.substring(0, foundIndex) +
+          span.fullMatch +
+          newCanonical.substring(foundIndex + displayMention.length);
       }
     }
     
-    // Apply the change
-    const beforeChange = value.substring(0, canonicalChangeStart);
-    const insertedText = newDisplayValue.substring(changeStart, changeEndNew);
-    const afterChange = value.substring(canonicalChangeEnd);
+    console.log('✅ New Canonical:', newCanonical);
     
-    const newCanonical = beforeChange + insertedText + afterChange;
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos);
     intendedCursorPosRef.current = cursorPos;
