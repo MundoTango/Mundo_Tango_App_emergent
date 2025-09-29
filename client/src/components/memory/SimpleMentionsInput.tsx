@@ -69,10 +69,14 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       });
     }
     
-    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions for "${currentMention}"`);
+    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions for "${currentMention}"`, {
+      showSuggestions,
+      searchData,
+      results: allSuggestions
+    });
     
     return allSuggestions;
-  }, [searchData, currentMention]);
+  }, [searchData, currentMention, showSuggestions]);
 
   // Handle text change and detect @ mentions
   const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -187,10 +191,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       {/* Suggestions dropdown */}
       {showSuggestions && (
         <Card 
-          className="absolute z-50 w-80 max-h-60 overflow-y-auto shadow-lg"
+          className="absolute z-[9999] w-80 max-h-60 overflow-y-auto shadow-2xl border-2 border-blue-500 bg-white"
           style={{
-            top: suggestionPosition.top,
-            left: suggestionPosition.left
+            top: '100%',
+            left: 0,
+            marginTop: '4px'
           }}
         >
           <CardContent className="p-0">
