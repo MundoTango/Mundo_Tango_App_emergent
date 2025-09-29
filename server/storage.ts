@@ -4755,9 +4755,15 @@ export class DatabaseStorage implements IStorage {
             and(eq(posts.userId, userId2), sql`${posts.mentions} @> ARRAY[${userId1.toString()}]::text[]`),
             // Posts by anyone that mention userId2 (shows on userId2's friendship page)
             sql`${posts.mentions} @> ARRAY[${userId2.toString()}]::text[]`,
-            // Posts where content contains @mention format as backup
-            sql`${posts.content} LIKE ${'%@[%](user:' + userId2 + ')%'}`,
-            sql`${posts.content} LIKE ${'%@[%](user:' + userId1 + ')%'}`
+            // Canonical format: @[Name](user:id) - Use PostgreSQL regex for flexible matching
+            sql`${posts.content} ~ ${'@\\[[^\\]]+\\]\\(user:' + userId2 + '\\)'}`,
+            sql`${posts.content} ~ ${'@\\[[^\\]]+\\]\\(user:' + userId1 + '\\)'}`,
+            // Legacy format 1: @(user:id)
+            sql`${posts.content} ~ ${'@\\(user:' + userId2 + '\\)'}`,
+            sql`${posts.content} ~ ${'@\\(user:' + userId1 + '\\)'}`,
+            // Legacy format 2: @(type:user,id:id)
+            sql`${posts.content} ~ ${'@\\(type:user,id:' + userId2 + '\\)'}`,
+            sql`${posts.content} ~ ${'@\\(type:user,id:' + userId1 + '\\)'}`
           ),
           eq(posts.isPublic, true)
         ))

@@ -34,9 +34,9 @@ export default function FriendshipPage() {
 
   // ESA Layer 24: Social Features Agent - Mutual friends fetching
   const { data: mutualFriends, isLoading: isLoadingMutualFriends } = useQuery({
-    queryKey: ['/api/friendship/mutual', friendId],
+    queryKey: ['/api/friendship/mutual-friends', friendId],
     queryFn: async () => {
-      const response = await apiRequest(`/api/friendship/mutual/${friendId}`); // Fixed: Added /api prefix
+      const response = await apiRequest(`/api/friendship/${friendId}/mutual-friends`);
       if (!response.ok) throw new Error('Failed to fetch mutual friends');
       return response.json();
     },

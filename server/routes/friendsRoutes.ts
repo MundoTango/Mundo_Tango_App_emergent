@@ -129,4 +129,28 @@ router.get('/friendship/:friendId/mutual-friends', authMiddleware, async (req, r
   }
 });
 
+// Get shared memories (posts where users are mentioned)
+router.get('/friendship/shared-memories/:friendId', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const friendId = parseInt(req.params.friendId);
+
+    if (!userId || isNaN(friendId)) {
+      return res.status(400).json({ error: 'Invalid parameters' });
+    }
+
+    // Import storage dynamically to avoid circular dependencies
+    const { storage } = await import('../storage');
+    
+    // Get shared memories using the storage method
+    const sharedMemories = await storage.getSharedMemories(userId, friendId);
+    
+    res.json(sharedMemories || []);
+
+  } catch (error) {
+    console.error('Error fetching shared memories:', error);
+    res.status(500).json({ error: 'Failed to fetch shared memories' });
+  }
+});
+
 export default router;
