@@ -39,39 +39,48 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [mentionStart, setMentionStart] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Search for mentions when @ is typed
+  // Search for mentions when @ is typed (both users and events)
   const { data: searchData, isLoading } = useQuery({
-    queryKey: ['/api/search', 'users', currentMention],
+    queryKey: ['/api/search/multi', currentMention],
     queryFn: async () => {
-      const response = await apiRequest(`/api/search?type=users&q=${encodeURIComponent(currentMention)}&limit=10`);
+      const response = await apiRequest(`/api/search/multi?q=${encodeURIComponent(currentMention)}&limit=10`);
       return await response.json();
     },
     enabled: currentMention.length >= 1 && showSuggestions,
     staleTime: 30000,
   });
 
-  // Get suggestions from search data
+  // Get suggestions from search data (users and events)
   const suggestions: MentionData[] = React.useMemo(() => {
     if (!searchData) return [];
     
     const allSuggestions: MentionData[] = [];
     
-    // The search API returns results directly at the root level
+    // Multi-search returns results with type field
     const results = searchData.results || [];
     
     if (Array.isArray(results)) {
-      results.forEach((user: any) => {
-        // Extract the correct fields based on the search API response structure
-        allSuggestions.push({
-          id: user.id?.toString() || user._id,
-          display: user.name || user.username || 'Unknown User',
-          type: 'user',
-          avatar: user.profileImage || user.avatar
-        });
+      results.forEach((item: any) => {
+        if (item.type === 'user') {
+          allSuggestions.push({
+            id: item.id?.toString(),
+            display: item.name || item.username || 'Unknown User',
+            type: 'user',
+            avatar: item.profileImage || item.avatar
+          });
+        } else if (item.type === 'event') {
+          allSuggestions.push({
+            id: item.id?.toString(),
+            display: item.title || item.name || 'Unknown Event',
+            type: 'event',
+            avatar: item.image || item.imageUrl,
+            status: item.startDate ? `📅 ${new Date(item.startDate).toLocaleDateString()}` : undefined
+          });
+        }
       });
     }
     
-    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions for "${currentMention}"`, {
+    console.log(`📝 ESA Mentions: Found ${allSuggestions.length} suggestions (users + events) for "${currentMention}"`, {
       showSuggestions,
       searchData,
       results: allSuggestions
@@ -122,12 +131,12 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     updateMentionSuggestions(newValue, cursorPos);
   }, [onChange, updateMentionSuggestions]);
 
-  // Insert mention into text
+  // Insert mention into text (supports both user and event mentions)
   const insertMention = useCallback((suggestion: MentionData) => {
     const beforeMention = value.substring(0, mentionStart);
     const afterMention = value.substring(mentionStart + currentMention.length + 1);
-    // Fix: Use correct format @[Name](user:id) instead of (type:user,id:id)
-    const mentionText = `@[${suggestion.display}](user:${suggestion.id})`;
+    // Format: @[Name](user:id) or @[Event Name](event:id)
+    const mentionText = `@[${suggestion.display}](${suggestion.type}:${suggestion.id})`;
     
     const newValue = beforeMention + mentionText + ' ' + afterMention;
     onChange(newValue);
@@ -184,8 +193,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Convert internal format to display format
   const getDisplayValue = useCallback((text: string) => {
-    // Replace @[Name](user:id) with just @Name (supports any ID format)
-    return text.replace(/@\[([^\]]+)\]\(user:[^\)]+\)/g, '@$1');
+    // Replace @[Name](user:id) or @[Name](event:id) with just @Name
+    return text.replace(/@\[([^\]]+)\]\((user|event):[^\)]+\)/g, '@$1');
   }, []);
 
   // Track previous display value to compute diffs
@@ -203,9 +212,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     canonicalEnd: number;
     fullMatch: string;
     name: string;
+    type: string;
   }> => {
     const spans: Array<any> = [];
-    const canonicalRegex = /@\[([^\]]+)\]\(user:[^\)]+\)/g;
+    // Match both user and event mentions
+    const canonicalRegex = /@\[([^\]]+)\]\((user|event):([^\)]+)\)/g;
     let match;
     let displayOffset = 0;
     let canonicalOffset = 0;
@@ -221,7 +232,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         canonicalStart: match.index,
         canonicalEnd: match.index + match[0].length,
         fullMatch: match[0],
-        name: match[1]
+        name: match[1],
+        type: match[2] // 'user' or 'event'
       });
       
       displayOffset += displayMention.length;
@@ -243,7 +255,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
   }, [value]);
 
-  // ESA Layer 24: Extract mention IDs and notify parent component
+  // ESA Layer 24: Extract mention IDs and notify parent component (user mentions only for notifications)
   useEffect(() => {
     if (onMentionsChange) {
       const extractMentionIds = (content: string): string[] => {
@@ -252,7 +264,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         let match;
         
         while ((match = mentionRegex.exec(content)) !== null) {
-          ids.push(match[2]); // Extract user ID
+          ids.push(match[2]); // Extract user ID (only users get notified)
         }
         
         return [...new Set(ids)]; // Remove duplicates
@@ -345,18 +357,19 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     intendedCursorPosRef.current = cursorPos;
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
-  // Render styled text with blue mentions
+  // Render styled text with colored mentions (blue for users, green for events)
   const renderStyledContent = () => {
-    // Extract canonical mentions from internal value: @[Name](user:id)
-    const canonicalRegex = /@\[([^\]]+)\]\(user:[^\)]+\)/g;
-    const canonicalMatches: Array<{ start: number; end: number; name: string }> = [];
+    // Extract canonical mentions from internal value: @[Name](user:id) or @[Name](event:id)
+    const canonicalRegex = /@\[([^\]]+)\]\((user|event):([^\)]+)\)/g;
+    const canonicalMatches: Array<{ start: number; end: number; name: string; type: string }> = [];
     let match;
     
     while ((match = canonicalRegex.exec(value)) !== null) {
       canonicalMatches.push({
         start: match.index,
         end: match.index + match[0].length,
-        name: match[1]
+        name: match[1],
+        type: match[2] // 'user' or 'event'
       });
     }
     
@@ -390,10 +403,13 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         displayOffset += beforeText.length;
       }
       
-      // Add the highlighted mention
+      // Add the highlighted mention with color based on type
       const displayMention = `@${canonical.name}`;
+      const mentionClass = canonical.type === 'event' 
+        ? 'text-green-600 bg-green-50 px-1 py-0.5 rounded font-semibold'
+        : 'text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold';
       parts.push(
-        <span key={`mention-${idx}`} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
+        <span key={`mention-${idx}`} className={mentionClass}>
           {displayMention}
         </span>
       );
