@@ -178,8 +178,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Convert internal format to display format
   const getDisplayValue = useCallback((text: string) => {
-    // Replace @[Name](user:id) with just @Name
-    return text.replace(/@\[([^\]]+)\]\(user:\d+\)/g, '@$1');
+    // Replace @[Name](user:id) with just @Name (supports any ID format)
+    return text.replace(/@\[([^\]]+)\]\(user:[^\)]+\)/g, '@$1');
   }, []);
 
   // Convert display format back to internal format when needed
@@ -201,33 +201,64 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Render styled text with blue mentions
   const renderStyledContent = () => {
-    const displayText = getDisplayValue(value);
-    // Match @mentions - need to capture full names including spaces
-    // Match @ followed by word characters and spaces until we hit punctuation or double space
-    const parts: (string | JSX.Element)[] = [];
-    let lastIndex = 0;
-    const mentionRegex = /@[\w\s]+/g;
+    // Extract canonical mentions from internal value: @[Name](user:id)
+    const canonicalRegex = /@\[([^\]]+)\]\(user:[^\)]+\)/g;
+    const canonicalMatches: Array<{ start: number; end: number; name: string }> = [];
     let match;
     
-    while ((match = mentionRegex.exec(displayText)) !== null) {
-      // Add text before mention
-      if (match.index > lastIndex) {
-        parts.push(displayText.substring(lastIndex, match.index));
-      }
-      
-      // Add styled mention
-      parts.push(
-        <span key={`mention-${match.index}`} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
-          {match[0].trim()}
-        </span>
-      );
-      
-      lastIndex = match.index + match[0].length;
+    while ((match = canonicalRegex.exec(value)) !== null) {
+      canonicalMatches.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        name: match[1]
+      });
     }
     
-    // Add remaining text
-    if (lastIndex < displayText.length) {
-      parts.push(displayText.substring(lastIndex));
+    // If no canonical matches, just return plain text (no highlighting)
+    if (canonicalMatches.length === 0) {
+      return (
+        <div 
+          className="absolute inset-0 p-3 pointer-events-none whitespace-pre-wrap break-words overflow-hidden" 
+          style={{ 
+            font: 'inherit',
+            lineHeight: 'inherit',
+            wordBreak: 'break-word'
+          }}
+        >
+          {getDisplayValue(value)}
+        </div>
+      );
+    }
+    
+    // Build display text and track position mapping
+    // @[Name](user:id) becomes @Name in display
+    const parts: (string | JSX.Element)[] = [];
+    let internalIndex = 0;
+    let displayOffset = 0;
+    
+    canonicalMatches.forEach((canonical, idx) => {
+      // Add text before this mention
+      if (canonical.start > internalIndex) {
+        const beforeText = value.substring(internalIndex, canonical.start);
+        parts.push(beforeText);
+        displayOffset += beforeText.length;
+      }
+      
+      // Add the highlighted mention
+      const displayMention = `@${canonical.name}`;
+      parts.push(
+        <span key={`mention-${idx}`} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
+          {displayMention}
+        </span>
+      );
+      displayOffset += displayMention.length;
+      
+      internalIndex = canonical.end;
+    });
+    
+    // Add remaining text after last mention
+    if (internalIndex < value.length) {
+      parts.push(value.substring(internalIndex));
     }
     
     return (
