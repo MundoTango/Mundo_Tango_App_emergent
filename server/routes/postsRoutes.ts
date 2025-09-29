@@ -453,6 +453,19 @@ router.post('/api/posts/direct', async (req: any, res) => {
       priceRange 
     } = req.body;
     
+    // ESA LIFE CEO 61x21 - Extract user IDs from @mentions in content
+    const extractedMentions: string[] = [];
+    if (content) {
+      const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+      let match;
+      while ((match = mentionRegex.exec(content)) !== null) {
+        extractedMentions.push(match[2]); // Extract user ID
+      }
+    }
+    
+    // Combine extracted mentions with any provided mentions
+    const allMentions = [...new Set([...extractedMentions, ...(Array.isArray(mentions) ? mentions : [])])];
+    
     // Combine all media URLs
     const allMediaUrls = [...mediaUrls, ...cloudMediaUrls];
     
@@ -479,7 +492,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
       mediaEmbeds: allMediaUrls,
       isPublic: visibility === 'public' || isPublic,
       hashtags: Array.isArray(hashtags) ? hashtags : [],
-      mentions: Array.isArray(mentions) ? mentions : [],
+      mentions: allMentions,
       location,
       visibility,
       createdAt: new Date(),

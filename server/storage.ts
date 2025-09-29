@@ -4736,7 +4736,9 @@ export class DatabaseStorage implements IStorage {
   
   async getSharedMemories(userId1: number, userId2: number): Promise<any[]> {
     try {
-      // Get shared memories (posts tagged with both users)
+      // ESA LIFE CEO 61x21 - Get shared memories including:
+      // 1. Posts where user1 mentions user2 or vice versa
+      // 2. Posts where either user is tagged (even if not friends)
       const sharedPosts = await db
         .select({
           id: posts.id,
@@ -4747,8 +4749,15 @@ export class DatabaseStorage implements IStorage {
         .from(posts)
         .where(and(
           or(
-            and(eq(posts.userId, userId1), sql`${posts.mentions} @> ARRAY[${userId2}]::text[]`),
-            and(eq(posts.userId, userId2), sql`${posts.mentions} @> ARRAY[${userId1}]::text[]`)
+            // Posts by userId1 that mention userId2
+            and(eq(posts.userId, userId1), sql`${posts.mentions} @> ARRAY[${userId2.toString()}]::text[]`),
+            // Posts by userId2 that mention userId1
+            and(eq(posts.userId, userId2), sql`${posts.mentions} @> ARRAY[${userId1.toString()}]::text[]`),
+            // Posts by anyone that mention userId2 (shows on userId2's friendship page)
+            sql`${posts.mentions} @> ARRAY[${userId2.toString()}]::text[]`,
+            // Posts where content contains @mention format as backup
+            sql`${posts.content} LIKE ${'%@[%](user:' + userId2 + ')%'}`,
+            sql`${posts.content} LIKE ${'%@[%](user:' + userId1 + ')%'}`
           ),
           eq(posts.isPublic, true)
         ))

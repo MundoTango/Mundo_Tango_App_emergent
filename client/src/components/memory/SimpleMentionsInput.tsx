@@ -199,8 +199,41 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     handleTextChange(e);
   }, [onChange, handleTextChange]);
 
+  // Render styled text with blue mentions
+  const renderStyledContent = () => {
+    const displayText = getDisplayValue(value);
+    // Split by @mentions (match @ followed by any characters until space or end)
+    const parts = displayText.split(/(@[^\s]+(?:\s+[^\s]+)*?)(?=\s|$)/g);
+    
+    return (
+      <div 
+        className="absolute inset-0 p-3 pointer-events-none whitespace-pre-wrap break-words overflow-hidden" 
+        style={{ 
+          font: 'inherit',
+          lineHeight: 'inherit',
+          wordBreak: 'break-word'
+        }}
+      >
+        {parts.map((part, index) => {
+          // Check if this part is a mention
+          if (part.trim().startsWith('@') && part.trim().length > 1) {
+            return (
+              <span key={index} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-semibold">
+                {part}
+              </span>
+            );
+          }
+          return <span key={index}>{part}</span>;
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className={`relative ${className}`}>
+      {/* Styled overlay */}
+      {value && renderStyledContent()}
+      
       <textarea
         ref={textareaRef}
         value={getDisplayValue(value)}
@@ -209,7 +242,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent relative bg-transparent"
+        style={{ color: value ? 'transparent' : 'inherit', caretColor: '#111827' }}
       />
       
       {/* Suggestions dropdown */}
