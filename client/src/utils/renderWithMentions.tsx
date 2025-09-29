@@ -17,12 +17,12 @@ export const renderWithMentions = (text: string) => {
   const parts: (string | JSX.Element)[] = [];
   let lastIndex = 0;
   
-  // Combined regex to match all mention formats
+  // Combined regex to match all mention formats (supports numeric and UUID IDs)
   // Format 1: @[Name](user:id) - User mention
   // Format 2: @[Name](event:id) - Event mention
   // Format 3: @(user:id) - Legacy user
   // Format 4: @(type:user,id:id) - Legacy user
-  const mentionRegex = /@(?:\[([^\]]+)\]\((user|event):(\d+)\)|\(user:(\d+)\)|\(type:user,id:(\d+)\))/g;
+  const mentionRegex = /@(?:\[([^\]]+)\]\((user|event):([^\)]+)\)|\(user:([^\)]+)\)|\(type:user,id:([^\)]+)\))/g;
   let match;
 
   // Find all mentions and split text
