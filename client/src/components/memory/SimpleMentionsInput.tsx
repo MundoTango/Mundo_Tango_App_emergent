@@ -120,7 +120,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const insertMention = useCallback((suggestion: MentionData) => {
     const beforeMention = value.substring(0, mentionStart);
     const afterMention = value.substring(mentionStart + currentMention.length + 1);
-    const mentionText = `@[${suggestion.display}](type:${suggestion.type},id:${suggestion.id})`;
+    // Fix: Use correct format @[Name](user:id) instead of (type:user,id:id)
+    const mentionText = `@[${suggestion.display}](user:${suggestion.id})`;
     
     const newValue = beforeMention + mentionText + ' ' + afterMention;
     onChange(newValue);
@@ -175,8 +176,39 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
   };
 
+  // Format mentions for display with highlighting
+  const formatDisplayText = (text: string) => {
+    // Replace @[Name](user:id) with styled @Name
+    const parts = text.split(/(@\[[^\]]+\]\(user:\d+\))/g);
+    return parts.map((part, index) => {
+      const mentionMatch = part.match(/@\[([^\]]+)\]\(user:(\d+)\)/);
+      if (mentionMatch) {
+        return (
+          <span key={index} className="text-blue-600 bg-blue-50 px-1 py-0.5 rounded font-medium">
+            @{mentionMatch[1]}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className={`relative ${className}`}>
+      {/* Hidden overlay for styled display */}
+      <div 
+        className="absolute inset-0 p-3 pointer-events-none whitespace-pre-wrap break-words text-transparent"
+        style={{
+          font: 'inherit',
+          lineHeight: 'inherit',
+          wordWrap: 'break-word'
+        }}
+      >
+        <div className="text-gray-900">
+          {formatDisplayText(value)}
+        </div>
+      </div>
+      
       <textarea
         ref={textareaRef}
         value={value}
@@ -185,7 +217,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent relative bg-transparent caret-gray-900"
+        style={{
+          color: 'transparent',
+          caretColor: '#111827'
+        }}
       />
       
       {/* Suggestions dropdown */}
