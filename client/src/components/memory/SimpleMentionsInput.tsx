@@ -52,23 +52,32 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 
   // Get suggestions from search data (users and events)
   const suggestions: MentionData[] = React.useMemo(() => {
-    if (!searchData) return [];
+    console.log(`🔍 [SimpleMentionsInput] Raw searchData:`, searchData);
+    
+    if (!searchData) {
+      console.log(`⚠️ [SimpleMentionsInput] No search data`);
+      return [];
+    }
     
     const allSuggestions: MentionData[] = [];
     
     // Multi-search returns results with type field
     const results = searchData.results || [];
+    console.log(`🔍 [SimpleMentionsInput] Results array:`, results, `(length: ${results.length})`);
     
     if (Array.isArray(results)) {
-      results.forEach((item: any) => {
-        if (item.type === 'user') {
+      results.forEach((item: any, index: number) => {
+        console.log(`🔍 [SimpleMentionsInput] Processing item ${index}:`, item);
+        
+        // Only show users and events in mention suggestions (not posts or communities)
+        if (item.type === 'users') {
           allSuggestions.push({
             id: item.id?.toString(),
             display: item.name || item.username || 'Unknown User',
             type: 'user',
             avatar: item.profileImage || item.avatar
           });
-        } else if (item.type === 'event') {
+        } else if (item.type === 'events') {
           allSuggestions.push({
             id: item.id?.toString(),
             display: item.title || item.name || 'Unknown Event',
@@ -77,6 +86,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             status: item.startDate ? `📅 ${new Date(item.startDate).toLocaleDateString()}` : undefined
           });
         }
+        // Ignore posts and communities - they can't be mentioned
       });
     }
     
