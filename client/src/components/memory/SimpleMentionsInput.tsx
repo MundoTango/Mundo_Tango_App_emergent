@@ -78,15 +78,10 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     return allSuggestions;
   }, [searchData, currentMention, showSuggestions]);
 
-  // Handle text change and detect @ mentions
-  const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    const cursorPos = e.target.selectionStart;
-    
-    onChange(newValue);
-    
+  // Update @ mention suggestion state based on cursor position
+  const updateMentionSuggestions = useCallback((displayValue: string, cursorPos: number) => {
     // Check if we're in a mention context
-    const textBeforeCursor = newValue.substring(0, cursorPos);
+    const textBeforeCursor = displayValue.substring(0, cursorPos);
     const lastAtIndex = textBeforeCursor.lastIndexOf('@');
     
     if (lastAtIndex !== -1) {
@@ -114,7 +109,16 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     } else {
       setShowSuggestions(false);
     }
-  }, [onChange]);
+  }, []);
+
+  // Legacy handler for simple text change (no mentions)
+  const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    const cursorPos = e.target.selectionStart;
+    
+    onChange(newValue);
+    updateMentionSuggestions(newValue, cursorPos);
+  }, [onChange, updateMentionSuggestions]);
 
   // Insert mention into text
   const insertMention = useCallback((suggestion: MentionData) => {
@@ -182,22 +186,126 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     return text.replace(/@\[([^\]]+)\]\(user:[^\)]+\)/g, '@$1');
   }, []);
 
-  // Convert display format back to internal format when needed
-  const [internalValue, setInternalValue] = useState(value);
+  // Track previous display value to compute diffs
+  const prevDisplayRef = useRef(getDisplayValue(value));
 
   React.useEffect(() => {
-    setInternalValue(value);
-  }, [value]);
+    prevDisplayRef.current = getDisplayValue(value);
+  }, [value, getDisplayValue]);
 
-  // Handle text change with format conversion
-  const handleTextChangeWithFormat = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const displayValue = e.target.value;
-    const cursorPos = e.target.selectionStart;
+  // Build mention span map: positions in display text that correspond to mentions
+  const getMentionSpans = useCallback((canonicalText: string): Array<{
+    displayStart: number;
+    displayEnd: number;
+    canonicalStart: number;
+    canonicalEnd: number;
+    fullMatch: string;
+    name: string;
+  }> => {
+    const spans: Array<any> = [];
+    const canonicalRegex = /@\[([^\]]+)\]\(user:[^\)]+\)/g;
+    let match;
+    let displayOffset = 0;
+    let canonicalOffset = 0;
     
-    // For now, just pass through - mentions are inserted in proper format by insertMention
-    onChange(displayValue);
-    handleTextChange(e);
-  }, [onChange, handleTextChange]);
+    while ((match = canonicalRegex.exec(canonicalText)) !== null) {
+      const beforeMention = canonicalText.substring(canonicalOffset, match.index);
+      displayOffset += beforeMention.length;
+      
+      const displayMention = `@${match[1]}`;
+      spans.push({
+        displayStart: displayOffset,
+        displayEnd: displayOffset + displayMention.length,
+        canonicalStart: match.index,
+        canonicalEnd: match.index + match[0].length,
+        fullMatch: match[0],
+        name: match[1]
+      });
+      
+      displayOffset += displayMention.length;
+      canonicalOffset = match.index + match[0].length;
+    }
+    
+    return spans;
+  }, []);
+
+  // Handle text change with mention preservation
+  const handleTextChangeWithFormat = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newDisplayValue = e.target.value;
+    const prevDisplayValue = prevDisplayRef.current;
+    const cursorPos = e.target.selectionStart || 0;
+    
+    // Get mention spans in the current canonical value
+    const mentionSpans = getMentionSpans(value);
+    
+    // If no mentions, just pass through to simple handler
+    if (mentionSpans.length === 0) {
+      handleTextChange(e);
+      return;
+    }
+    
+    // Compute the minimal diff between old and new display values
+    let changeStart = 0;
+    let changeEndOld = prevDisplayValue.length;
+    let changeEndNew = newDisplayValue.length;
+    
+    // Find common prefix
+    while (changeStart < Math.min(prevDisplayValue.length, newDisplayValue.length) && 
+           prevDisplayValue[changeStart] === newDisplayValue[changeStart]) {
+      changeStart++;
+    }
+    
+    // Find common suffix
+    while (changeEndOld > changeStart && 
+           changeEndNew > changeStart && 
+           prevDisplayValue[changeEndOld - 1] === newDisplayValue[changeEndNew - 1]) {
+      changeEndOld--;
+      changeEndNew--;
+    }
+    
+    // Check if the change intersects any mention span
+    for (const span of mentionSpans) {
+      if ((changeStart >= span.displayStart && changeStart < span.displayEnd) ||
+          (changeEndOld > span.displayStart && changeEndOld <= span.displayEnd) ||
+          (changeStart < span.displayStart && changeEndOld > span.displayEnd)) {
+        // Change intersects this mention - delete the entire mention
+        const beforeMention = value.substring(0, span.canonicalStart);
+        const afterMention = value.substring(span.canonicalEnd);
+        const newCanonical = beforeMention + afterMention;
+        onChange(newCanonical);
+        updateMentionSuggestions(newDisplayValue, cursorPos);
+        return;
+      }
+    }
+    
+    // Change is outside all mentions - apply it to canonical format
+    // Map display positions to canonical positions
+    let canonicalChangeStart = changeStart;
+    let canonicalChangeEnd = changeEndOld;
+    
+    for (const span of mentionSpans) {
+      if (span.displayStart < changeStart) {
+        // This mention is before the change - adjust for length difference
+        const displayLen = span.displayEnd - span.displayStart;
+        const canonicalLen = span.canonicalEnd - span.canonicalStart;
+        canonicalChangeStart += (canonicalLen - displayLen);
+      }
+      if (span.displayStart < changeEndOld) {
+        const displayLen = span.displayEnd - span.displayStart;
+        const canonicalLen = span.canonicalEnd - span.canonicalStart;
+        canonicalChangeEnd += (canonicalLen - displayLen);
+      }
+    }
+    
+    // Apply the change
+    const beforeChange = value.substring(0, canonicalChangeStart);
+    const insertedText = newDisplayValue.substring(changeStart, changeEndNew);
+    const afterChange = value.substring(canonicalChangeEnd);
+    
+    const newCanonical = beforeChange + insertedText + afterChange;
+    onChange(newCanonical);
+    updateMentionSuggestions(newDisplayValue, cursorPos);
+  }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with blue mentions
   const renderStyledContent = () => {
