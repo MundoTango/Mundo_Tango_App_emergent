@@ -448,8 +448,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       
       <textarea
         ref={textareaRef}
-        value={getDisplayValue(value)}
-        onChange={handleTextChangeWithFormat}
+        value={value}
+        onChange={handleTextChange}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         disabled={disabled}
