@@ -86,13 +86,31 @@ export function sanitizeInput(input: any): any {
       }
     }
     
-    // Check for NoSQL injection
+    // ESA Fix: Preserve canonical mention format @[Name](user:id) before NoSQL injection check
+    // Extract and temporarily replace mentions with placeholders
+    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    const mentions: Array<{match: string; placeholder: string}> = [];
+    let mentionIndex = 0;
+    
+    sanitized = sanitized.replace(mentionRegex, (match) => {
+      const placeholder = `__MENTION_${mentionIndex}__`;
+      mentions.push({ match, placeholder });
+      mentionIndex++;
+      return placeholder;
+    });
+    
+    // Check for NoSQL injection (now won't remove mention brackets)
     for (const pattern of NOSQL_INJECTION_PATTERNS) {
       if (pattern.test(sanitized)) {
         console.warn('Potential NoSQL injection detected:', input);
         sanitized = sanitized.replace(pattern, '');
       }
     }
+    
+    // Restore mentions
+    mentions.forEach(({ match, placeholder }) => {
+      sanitized = sanitized.replace(placeholder, match);
+    });
     
     return sanitized.trim();
   }
