@@ -285,14 +285,8 @@ router.put("/user/settings", setUserContext, async (req, res) => {
   }
 });
 
-// Get user profile by ID (with privacy enforcement and caching)
-router.get('/user/:userId', 
-  setUserContext,
-  cacheMiddleware(
-    (req: any) => cacheKeys.userProfile(req.params.userId),
-    CACHE_TTL.USER_PROFILE
-  ),
-  async (req: any, res) => {
+// Handler function for getting user profile by ID
+const getUserProfileHandler = async (req: any, res: any) => {
   try {
     const requesterId = getUserId(req);
     const targetUserId = parseInt(req.params.userId);
@@ -348,7 +342,27 @@ router.get('/user/:userId',
       message: error.message
     });
   }
-});
+};
+
+// Get user profile by ID (with privacy enforcement and caching)
+router.get('/user/:userId', 
+  setUserContext,
+  cacheMiddleware(
+    (req: any) => cacheKeys.userProfile(req.params.userId),
+    CACHE_TTL.USER_PROFILE
+  ),
+  getUserProfileHandler
+);
+
+// Alias route for @mentions - /api/users/:userId (with 's')
+router.get('/users/:userId', 
+  setUserContext,
+  cacheMiddleware(
+    (req: any) => cacheKeys.userProfile(req.params.userId),
+    CACHE_TTL.USER_PROFILE
+  ),
+  getUserProfileHandler
+);
 
 // Update user profile (for EditProfileModal) - Fixed for production
 router.put('/user/profile', setUserContext, async (req: any, res) => {
