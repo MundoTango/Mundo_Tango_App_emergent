@@ -141,8 +141,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const mentionText = `@[${suggestion.display}](${suggestion.type}:${suggestion.id})`;
     
     const newValue = beforeMention + mentionText + ' ' + afterMention;
-    onChange(newValue);
-    setShowSuggestions(false);
     
     // Calculate cursor position in display format
     // beforeMention might contain other mentions, so we need to convert to display length
@@ -150,12 +148,29 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const mentionDisplayLength = `@${suggestion.display}`.length;
     const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
     
-    // Focus back to textarea and set cursor in display coordinates
+    console.log('🎯 Cursor Calculation:', {
+      mentionStart,
+      currentMention,
+      beforeMentionCanonical: beforeMention,
+      beforeMentionDisplay,
+      beforeMentionDisplayLength: beforeMentionDisplay.length,
+      mentionDisplayText: `@${suggestion.display}`,
+      mentionDisplayLength,
+      spacesAdded: 1,
+      calculatedPosition: newCursorPosInDisplay,
+      newValueCanonical: newValue,
+      newValueDisplay: getDisplayValue(newValue)
+    });
+    
+    // Store intended cursor position before calling onChange
+    intendedCursorPosRef.current = newCursorPosInDisplay;
+    
+    onChange(newValue);
+    setShowSuggestions(false);
+    
+    // Focus back to textarea (cursor will be set by useEffect)
     if (textareaRef.current) {
-      setTimeout(() => {
-        textareaRef.current?.focus();
-        textareaRef.current?.setSelectionRange(newCursorPosInDisplay, newCursorPosInDisplay);
-      }, 0);
+      textareaRef.current.focus();
     }
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
@@ -250,9 +265,14 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   // Restore cursor position after React updates
   useEffect(() => {
     if (intendedCursorPosRef.current !== null && textareaRef.current) {
-      const pos = intendedCursorPosRef.current;
-      textareaRef.current.setSelectionRange(pos, pos);
-      intendedCursorPosRef.current = null;
+      // Use RAF to ensure DOM has updated
+      requestAnimationFrame(() => {
+        if (textareaRef.current && intendedCursorPosRef.current !== null) {
+          const pos = intendedCursorPosRef.current;
+          textareaRef.current.setSelectionRange(pos, pos);
+          intendedCursorPosRef.current = null;
+        }
+      });
     }
   }, [value]);
 
