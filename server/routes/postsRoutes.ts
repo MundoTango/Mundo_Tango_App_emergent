@@ -1125,4 +1125,124 @@ router.post('/api/posts/share', async (req: any, res) => {
   }
 });
 
+/**
+ * ESA Layer 2: Get posts where current user is mentioned
+ */
+router.get('/api/mentions', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const limit = parseInt(req.query.limit as string) || 20;
+    const offset = parseInt(req.query.offset as string) || 0;
+
+    const posts = await storage.getPostsWhereMentioned(userId, limit, offset);
+
+    res.json({
+      success: true,
+      data: posts
+    });
+  } catch (error: any) {
+    console.error('Error getting mention posts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get mention posts',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * ESA Layer 16: Get mention notifications for current user
+ */
+router.get('/api/mentions/notifications', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const notifications = await storage.getMentionNotifications(userId);
+
+    res.json({
+      success: true,
+      data: notifications
+    });
+  } catch (error: any) {
+    console.error('Error getting mention notifications:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get mention notifications',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * ESA Layer 16: Get unread mention notifications count
+ */
+router.get('/api/mentions/notifications/count', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const count = await storage.getUnreadMentionNotificationsCount(userId);
+
+    res.json({
+      success: true,
+      data: { count }
+    });
+  } catch (error: any) {
+    console.error('Error getting mention notifications count:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get mention notifications count',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * ESA Layer 16: Mark mention notification as read
+ */
+router.patch('/api/mentions/notifications/:id/read', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const notificationId = parseInt(req.params.id);
+    await storage.markMentionAsRead(notificationId);
+
+    res.json({
+      success: true,
+      message: 'Notification marked as read'
+    });
+  } catch (error: any) {
+    console.error('Error marking notification as read:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to mark notification as read',
+      error: error.message
+    });
+  }
+});
+
 export default router;
