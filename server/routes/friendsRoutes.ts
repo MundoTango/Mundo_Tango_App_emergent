@@ -170,10 +170,16 @@ router.get('/friendship/timeline/:friendId', authMiddleware, async (req, res) =>
     
     // Return full post data for timeline events so EnhancedPostItem can render properly
     const events = sharedMemories.map((post: any) => {
+      // Ensure valid date or use current date as fallback
+      const postDate = post.createdAt || post.date;
+      const validDate = postDate && !isNaN(new Date(postDate).getTime()) 
+        ? postDate 
+        : new Date().toISOString();
+      
       return {
         id: `post-${post.id}`,
         type: 'post',
-        date: post.createdAt || post.date,
+        date: validDate,
         postData: post // Include full post data with all fields
       };
     });
@@ -205,7 +211,11 @@ router.get('/friendship/stats/:friendId', authMiddleware, async (req, res) => {
     `;
     
     const friendshipResult = await pool.query(friendshipQuery, [userId, friendId]);
-    const friendsSince = friendshipResult.rows[0]?.friends_since;
+    // Ensure valid date or use null for "recently"
+    const rawFriendsSince = friendshipResult.rows[0]?.friends_since;
+    const friendsSince = rawFriendsSince && !isNaN(new Date(rawFriendsSince).getTime())
+      ? rawFriendsSince
+      : null;
 
     // Get shared posts count
     const { storage } = await import('../storage');
