@@ -165,22 +165,16 @@ router.get('/friendship/timeline/:friendId', authMiddleware, async (req, res) =>
 
     const { storage } = await import('../storage');
     
-    // Get shared posts (memories)
+    // Get shared posts (memories) - returns full post objects
     const sharedMemories = await storage.getSharedMemories(userId, friendId);
     
-    // Map posts to timeline events
+    // Return full post data for timeline events so EnhancedPostItem can render properly
     const events = sharedMemories.map((post: any) => {
-      const content = post.content || post.description || 'Shared memory';
       return {
         id: `post-${post.id}`,
         type: 'post',
-        title: content.substring(0, 50) + (content.length > 50 ? '...' : ''),
-        description: content,
         date: post.createdAt || post.date,
-        metadata: {
-          postId: post.id,
-          photoUrl: post.photoUrl
-        }
+        postData: post // Include full post data with all fields
       };
     });
 

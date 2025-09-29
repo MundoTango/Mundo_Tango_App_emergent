@@ -6,11 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
+import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
+import { renderWithMentions } from '@/utils/renderWithMentions';
 
 interface TimelineEvent {
   id: string;
   type: 'dance' | 'message' | 'event' | 'post' | 'became_friends' | 'photo' | 'milestone';
-  title: string;
+  title?: string;
   description?: string;
   date: Date;
   location?: string;
@@ -22,8 +24,9 @@ interface TimelineEvent {
     songName?: string;
     milestoneType?: string;
   };
-  icon: React.FC<{ className?: string }>;
-  color: string;
+  postData?: any; // Full post data for rendering with EnhancedPostItem
+  icon?: React.FC<{ className?: string }>;
+  color?: string;
 }
 
 interface FriendshipTimelineProps {
@@ -98,7 +101,16 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                 {friendName}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Friends since {stats?.friendsSince ? format(new Date(stats.friendsSince), 'MMMM yyyy') : 'recently'}
+                Friends since {(() => {
+                  if (!stats?.friendsSince) return 'recently';
+                  try {
+                    const date = new Date(stats.friendsSince);
+                    if (isNaN(date.getTime())) return 'recently';
+                    return format(date, 'MMMM yyyy');
+                  } catch {
+                    return 'recently';
+                  }
+                })()}
               </p>
             </div>
           </div>
@@ -159,8 +171,36 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
             </Card>
           ) : (
             filteredTimeline.map((event: TimelineEvent, index: number) => {
+              // Render full posts using EnhancedPostItem
+              if (event.type === 'post' && event.postData) {
+                return (
+                  <div key={event.id} className="mb-6">
+                    <EnhancedPostItem 
+                      post={event.postData}
+                      onLike={() => {}}
+                      onComment={() => {}}
+                      onShare={() => {}}
+                      renderWithMentions={renderWithMentions}
+                    />
+                  </div>
+                );
+              }
+
+              // Render other event types with timeline card
               const Icon = getEventIcon(event.type);
               const color = getEventColor(event.type);
+              
+              // Safely format date
+              const formatDate = (dateValue: any) => {
+                if (!dateValue) return 'Unknown date';
+                try {
+                  const date = new Date(dateValue);
+                  if (isNaN(date.getTime())) return 'Unknown date';
+                  return format(date, 'MMM d, yyyy');
+                } catch (error) {
+                  return 'Unknown date';
+                }
+              };
               
               return (
                 <div key={event.id} className="relative flex gap-4">
@@ -189,7 +229,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                         )}
                       </div>
                       <time className="text-sm text-gray-500 dark:text-gray-400">
-                        {format(new Date(event.date), 'MMM d, yyyy')}
+                        {formatDate(event.date)}
                       </time>
                     </div>
 
@@ -210,7 +250,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                             }`}
                           />
                         ))}
-                        {event.metadata.songName && (
+                        {event.metadata?.songName && (
                           <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
                             • {event.metadata.songName}
                           </span>
