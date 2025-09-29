@@ -614,6 +614,22 @@ export const posts = pgTable("posts", {
   index("idx_posts_visibility").on(table.visibility),
   index("idx_posts_hashtags").on(table.hashtags),
   index("idx_posts_post_type").on(table.postType),
+  index("idx_posts_mentions").on(table.mentions),
+]);
+
+// ESA Layer 16: Mention Notifications table for @mention functionality
+export const mentionNotifications = pgTable("mention_notifications", {
+  id: serial("id").primaryKey(),
+  postId: integer("post_id").references(() => posts.id, { onDelete: "cascade" }).notNull(),
+  mentionedUserId: integer("mentioned_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  mentioningUserId: integer("mentioning_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  isRead: boolean("is_read").default(false),
+  readAt: timestamp("read_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_mention_notifications_mentioned_user").on(table.mentionedUserId, table.isRead),
+  index("idx_mention_notifications_post").on(table.postId),
+  index("idx_mention_notifications_created").on(table.createdAt),
 ]);
 
 // Activities/Categories table
