@@ -67,7 +67,7 @@ export default function FriendshipPage() {
     );
   }
 
-  if (error || !friendship) {
+  if (error || !friendship || !friendship.user) {
     return (
       <DashboardLayout>
         <div className="container mx-auto px-4 py-8">
@@ -92,8 +92,8 @@ export default function FriendshipPage() {
             <div className="flex items-center gap-6">
               <div className="relative">
                 <Avatar className="w-24 h-24 border-4 border-white shadow-xl">
-                  <AvatarImage src={friendship.user.profileImage} alt={friendship.user.name} />
-                  <AvatarFallback>{friendship.user.name[0]}</AvatarFallback>
+                  <AvatarImage src={friendship.user.profileImage} alt={friendship.user.name || 'Friend'} />
+                  <AvatarFallback>{friendship.user.name?.[0] || 'F'}</AvatarFallback>
                 </Avatar>
                 <div className="absolute -bottom-2 -right-2">
                   <ConnectionDegreeDisplay degree={friendship.connectionDegree} />
@@ -102,7 +102,7 @@ export default function FriendshipPage() {
 
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
-                  {friendship.user.name}
+                  {friendship.user.name || 'Friend'}
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
                   <MapPin className="w-4 h-4" />
@@ -166,11 +166,11 @@ export default function FriendshipPage() {
             {mutualFriends.slice(0, 6).map((friend: any) => (
               <div key={friend.id} className="text-center">
                 <Avatar className="w-16 h-16 mx-auto mb-2">
-                  <AvatarImage src={friend.profileImage} alt={friend.name} />
-                  <AvatarFallback>{friend.name[0]}</AvatarFallback>
+                  <AvatarImage src={friend.profileImage} alt={friend.name || 'Friend'} />
+                  <AvatarFallback>{friend.name?.[0] || 'F'}</AvatarFallback>
                 </Avatar>
-                <p className="text-sm font-medium truncate">{friend.name}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{friend.city}</p>
+                <p className="text-sm font-medium truncate">{friend.name || 'Unknown'}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{friend.city || ''}</p>
               </div>
             ))}
           </div>
@@ -224,7 +224,7 @@ export default function FriendshipPage() {
         <TabsContent value="timeline">
           <FriendshipTimeline
             friendId={parseInt(friendId!)}
-            friendName={friendship.user.name}
+            friendName={friendship.user.name || 'Friend'}
             friendImage={friendship.user.profileImage}
           />
         </TabsContent>
@@ -250,7 +250,7 @@ export default function FriendshipPage() {
           <div className="max-w-2xl w-full">
             <DanceHistoryForm
               partnerId={parseInt(friendId!)}
-              partnerName={friendship.user.name}
+              partnerName={friendship.user.name || 'Friend'}
               onComplete={() => setShowDanceHistoryForm(false)}
             />
           </div>

@@ -130,7 +130,12 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
 
   // Calculate age-based opacity for gradual fade effect
   const postAge = useMemo(() => {
-    const daysSinceCreated = differenceInDays(new Date(), new Date(post.createdAt));
+    // Safely handle date - default to current date if invalid
+    const createdDate = post.createdAt ? new Date(post.createdAt) : new Date();
+    if (isNaN(createdDate.getTime())) {
+      return 1; // Full opacity if date is invalid
+    }
+    const daysSinceCreated = differenceInDays(new Date(), createdDate);
     if (daysSinceCreated <= 1) return 1; // Full opacity for recent posts
     if (daysSinceCreated <= 7) return 0.95; // Slight fade for week-old posts
     if (daysSinceCreated <= 30) return 0.85; // More fade for month-old posts
@@ -490,7 +495,13 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
             <div className="flex items-center gap-2 text-gray-500">
               <Clock className="h-4 w-4" />
               <time className="text-sm font-medium">
-                {formatDistanceToNow(new Date(post.createdAt))} ago
+                {(() => {
+                  const createdDate = post.createdAt ? new Date(post.createdAt) : new Date();
+                  if (isNaN(createdDate.getTime())) {
+                    return 'recently';
+                  }
+                  return `${formatDistanceToNow(createdDate)} ago`;
+                })()}
               </time>
             </div>
             
@@ -795,13 +806,19 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
                     <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                      {getAvatarFallback(comment.user.name)}
+                      {getAvatarFallback(comment.user?.name || 'Anonymous')}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-gray-900">{comment.user.name}</span>
+                        <span className="font-medium text-gray-900">{comment.user?.name || 'Anonymous'}</span>
                         <span className="text-xs text-gray-500">
-                          {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                          {(() => {
+                            const commentDate = comment.createdAt ? new Date(comment.createdAt) : new Date();
+                            if (isNaN(commentDate.getTime())) {
+                              return 'recently';
+                            }
+                            return formatDistanceToNow(commentDate, { addSuffix: true });
+                          })()}
                         </span>
                       </div>
                       <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: comment.content }} />
