@@ -4742,11 +4742,42 @@ export class DatabaseStorage implements IStorage {
       const sharedPosts = await db
         .select({
           id: posts.id,
+          userId: posts.userId,
+          content: posts.content,
+          imageUrl: posts.imageUrl,
+          videoUrl: posts.videoUrl,
+          location: posts.location,
+          visibility: posts.visibility,
+          isPublic: posts.isPublic,
+          isRecommendation: posts.isRecommendation,
+          mentions: posts.mentions,
+          likesCount: posts.likesCount,
+          commentsCount: posts.commentsCount,
+          sharesCount: posts.sharesCount,
+          createdAt: posts.createdAt,
+          updatedAt: posts.updatedAt,
+          // Include user data with proper null handling
+          user: {
+            id: users.id,
+            name: users.name,
+            username: users.username,
+            email: users.email,
+            profileImage: users.profileImage,
+            city: users.city,
+            state: users.state,
+            country: users.country,
+            bio: users.bio,
+            tangoRoles: users.tangoRoles,
+            leaderLevel: users.leaderLevel,
+            followerLevel: users.followerLevel
+          },
+          // Legacy format compatibility
           description: posts.content,
           photoUrl: posts.imageUrl,
           date: posts.createdAt
         })
         .from(posts)
+        .leftJoin(users, eq(posts.userId, users.id))
         .where(and(
           or(
             // Posts by userId1 that mention userId2
