@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import EnhancedPostItem from './EnhancedPostItem';
 import ShareModal from '@/components/modern/ShareModal';
-import { withPerformance, useDebounce } from '@/lib/performance';
+import { useDebounce } from '@/lib/performance';
 
 // ESA Framework: Unified Post interface with proper friendship data
 interface Post {
@@ -104,6 +104,7 @@ const UnifiedPostFeed = React.memo(({
   onLoadMore,
   hasMore = false
 }: UnifiedPostFeedProps) => {
+  console.log('[ESA DEBUG] UnifiedPostFeed component rendering with props:', { propsPosts: propsPosts?.length, showFilters, showSearch });
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -484,5 +485,5 @@ const UnifiedPostFeed = React.memo(({
 
 UnifiedPostFeed.displayName = 'UnifiedPostFeed';
 
-// ESA Framework: Performance optimization
-export default withPerformance(UnifiedPostFeed, 'UnifiedPostFeed');
+// ESA Framework: Direct export without performance wrapper to fix lazy-loading issue
+export default UnifiedPostFeed;
