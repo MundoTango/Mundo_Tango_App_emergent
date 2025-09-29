@@ -279,21 +279,23 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
     
     // Change is outside all mentions - apply it to canonical format
-    // Map display positions to canonical positions
+    // Map display positions to canonical positions by counting format length differences
     let canonicalChangeStart = changeStart;
     let canonicalChangeEnd = changeEndOld;
     
     for (const span of mentionSpans) {
-      if (span.displayStart < changeStart) {
-        // This mention is before the change - adjust for length difference
-        const displayLen = span.displayEnd - span.displayStart;
-        const canonicalLen = span.canonicalEnd - span.canonicalStart;
-        canonicalChangeStart += (canonicalLen - displayLen);
+      const displayLen = span.displayEnd - span.displayStart;
+      const canonicalLen = span.canonicalEnd - span.canonicalStart;
+      const formatDiff = canonicalLen - displayLen;
+      
+      // If this mention is completely before the change start, adjust start position
+      if (span.displayEnd <= changeStart) {
+        canonicalChangeStart += formatDiff;
       }
-      if (span.displayStart < changeEndOld) {
-        const displayLen = span.displayEnd - span.displayStart;
-        const canonicalLen = span.canonicalEnd - span.canonicalStart;
-        canonicalChangeEnd += (canonicalLen - displayLen);
+      
+      // If this mention is completely before the change end, adjust end position
+      if (span.displayEnd <= changeEndOld) {
+        canonicalChangeEnd += formatDiff;
       }
     }
     

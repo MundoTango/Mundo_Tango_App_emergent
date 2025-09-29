@@ -153,4 +153,91 @@ router.get('/friendship/shared-memories/:friendId', authMiddleware, async (req, 
   }
 });
 
+// Get friendship timeline (all activities with friend)
+router.get('/friendship/timeline/:friendId', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const friendId = parseInt(req.params.friendId);
+
+    if (!userId || isNaN(friendId)) {
+      return res.status(400).json({ error: 'Invalid parameters' });
+    }
+
+    const { storage } = await import('../storage');
+    
+    // Get shared posts (memories)
+    const sharedMemories = await storage.getSharedMemories(userId, friendId);
+    
+    // Map posts to timeline events
+    const events = sharedMemories.map((post: any) => {
+      const content = post.content || post.description || 'Shared memory';
+      return {
+        id: `post-${post.id}`,
+        type: 'post',
+        title: content.substring(0, 50) + (content.length > 50 ? '...' : ''),
+        description: content,
+        date: post.createdAt || post.date,
+        metadata: {
+          postId: post.id,
+          photoUrl: post.photoUrl
+        }
+      };
+    });
+
+    res.json({ events });
+
+  } catch (error) {
+    console.error('Error fetching friendship timeline:', error);
+    res.status(500).json({ error: 'Failed to fetch timeline' });
+  }
+});
+
+// Get friendship stats
+router.get('/friendship/stats/:friendId', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const friendId = parseInt(req.params.friendId);
+
+    if (!userId || isNaN(friendId)) {
+      return res.status(400).json({ error: 'Invalid parameters' });
+    }
+
+    // Get friendship date
+    const friendshipQuery = `
+      SELECT created_at as friends_since
+      FROM friends
+      WHERE user_id = $1 AND friend_id = $2 AND status = 'accepted'
+      LIMIT 1
+    `;
+    
+    const friendshipResult = await pool.query(friendshipQuery, [userId, friendId]);
+    const friendsSince = friendshipResult.rows[0]?.friends_since;
+
+    // Get shared posts count
+    const { storage } = await import('../storage');
+    const sharedMemories = await storage.getSharedMemories(userId, friendId);
+
+    // Get shared events count
+    const eventsQuery = `
+      SELECT COUNT(*) as count
+      FROM event_rsvps er1
+      JOIN event_rsvps er2 ON er1.event_id = er2.event_id
+      WHERE er1.user_id = $1 AND er2.user_id = $2
+    `;
+    const eventsResult = await pool.query(eventsQuery, [userId, friendId]);
+    const sharedEvents = parseInt(eventsResult.rows[0]?.count || '0');
+
+    res.json({
+      friendsSince,
+      totalDances: 0, // Placeholder for dance tracking feature
+      sharedEvents,
+      totalInteractions: sharedMemories.length + sharedEvents
+    });
+
+  } catch (error) {
+    console.error('Error fetching friendship stats:', error);
+    res.status(500).json({ error: 'Failed to fetch stats' });
+  }
+});
+
 export default router;
