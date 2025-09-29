@@ -46,18 +46,23 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
   const [currentMention, setCurrentMention] = useState('');
   const [mentionStart, setMentionStart] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const previousDisplayRef = useRef<string>(tokensToDisplay(tokens));
+  const previousDisplayRef = useRef<string>('');
+  const lastCanonicalRef = useRef<string>(value);
   
-  // Update tokens when value prop changes (external update)
+  // Initialize previousDisplayRef
   useEffect(() => {
-    const displayValue = tokensToDisplay(tokens);
-    const canonicalValue = tokensToCanonical(tokens);
-    
-    // Only update if value prop differs from our current canonical
-    if (value !== canonicalValue) {
+    previousDisplayRef.current = tokensToDisplay(tokens);
+  }, []);
+  
+  // Update tokens when value prop changes (external update only)
+  useEffect(() => {
+    // Only update if value prop changed externally (not from our own onChange)
+    if (value !== lastCanonicalRef.current) {
+      console.log('📥 External value change detected:', { oldValue: lastCanonicalRef.current, newValue: value });
       const newTokens = parseCanonicalToTokens(value);
       setTokens(newTokens);
       previousDisplayRef.current = tokensToDisplay(newTokens);
+      lastCanonicalRef.current = value;
     }
   }, [value]);
   
@@ -155,6 +160,7 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
     
     // Emit canonical format
     const newCanonical = tokensToCanonical(newTokens);
+    lastCanonicalRef.current = newCanonical; // Track our own change
     onChange(newCanonical);
     
     // Check for @ mention trigger
@@ -217,6 +223,7 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
     
     setTokens(withSpace);
     const newCanonical = tokensToCanonical(withSpace);
+    lastCanonicalRef.current = newCanonical; // Track our own change
     onChange(newCanonical);
     
     setShowSuggestions(false);
