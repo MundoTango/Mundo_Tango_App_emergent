@@ -274,6 +274,13 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         const newCanonical = beforeMention + afterMention;
         onChange(newCanonical);
         updateMentionSuggestions(newDisplayValue, cursorPos);
+        
+        // Restore cursor position after deletion
+        setTimeout(() => {
+          if (textareaRef.current) {
+            textareaRef.current.setSelectionRange(cursorPos, cursorPos);
+          }
+        }, 0);
         return;
       }
     }
@@ -307,6 +314,13 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const newCanonical = beforeChange + insertedText + afterChange;
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos);
+    
+    // Restore cursor position
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.setSelectionRange(cursorPos, cursorPos);
+      }
+    }, 0);
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with blue mentions

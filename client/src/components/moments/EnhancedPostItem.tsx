@@ -537,26 +537,7 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
           </section>
         )}
 
-        {/* Mentions Section */}
-        {post.mentions && post.mentions.length > 0 && (
-          <section className="bg-gradient-to-r from-purple-50/50 to-pink-50/50 rounded-2xl p-4 border border-purple-100/50">
-            <div className="flex items-center gap-2 mb-2">
-              <Users className="h-4 w-4 text-purple-500" />
-              <span className="text-sm font-medium text-purple-700">Mentioned</span>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {post.mentions.map((mention, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-white/80 border border-purple-200 rounded-full text-sm font-medium text-purple-700 hover:bg-purple-50 transition-colors cursor-pointer"
-                >
-                  {getMentionIcon(mention.type)}
-                  @{mention.display}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* ESA Fix: Removed purple "Mentioned" section per user request - mentions are already clickable in content */}
 
         {/* Enhanced Content Section - ESA Layer 7 & 23: Content display only, edit via PostEditCreatorDialog */}
         <section className="prose prose-lg max-w-none">
