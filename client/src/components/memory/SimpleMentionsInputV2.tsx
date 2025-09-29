@@ -132,6 +132,18 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
     const prevDisplayValue = previousDisplayRef.current;
     const cursorPos = e.target.selectionStart || 0;
     
+    console.log('⌨️ handleChange called:', {
+      newDisplayValue,
+      prevDisplayValue,
+      tokensCount: tokens.length
+    });
+    
+    // Safety check: if display values are identical, skip
+    if (newDisplayValue === prevDisplayValue) {
+      console.log('⏭️ Skipping - no change');
+      return;
+    }
+    
     // Compute the change
     let changeStart = 0;
     let changeEndOld = prevDisplayValue.length;
@@ -154,6 +166,13 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
     // Apply the change to tokens
     const insertedText = newDisplayValue.substring(changeStart, changeEndNew);
     const newTokens = applyEditToTokens(tokens, changeStart, changeEndOld, insertedText);
+    
+    console.log('📝 Applied edit:', {
+      changeStart,
+      changeEndOld,
+      insertedText,
+      newTokens
+    });
     
     setTokens(newTokens);
     previousDisplayRef.current = newDisplayValue;
@@ -221,16 +240,17 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
       canonical: tokensToCanonical(withSpace)
     });
     
-    setTokens(withSpace);
     const newCanonical = tokensToCanonical(withSpace);
-    lastCanonicalRef.current = newCanonical; // Track our own change
-    onChange(newCanonical);
+    const finalDisplay = tokensToDisplay(withSpace);
     
+    // Update ALL refs and state synchronously BEFORE calling onChange
+    lastCanonicalRef.current = newCanonical;
+    previousDisplayRef.current = finalDisplay;
+    setTokens(withSpace);
     setShowSuggestions(false);
     
-    // Update display ref and set cursor
-    const finalDisplay = tokensToDisplay(withSpace);
-    previousDisplayRef.current = finalDisplay;
+    // Now call onChange - parent will re-render but our refs are already set
+    onChange(newCanonical);
     
     // Focus and set cursor
     if (textareaRef.current) {
