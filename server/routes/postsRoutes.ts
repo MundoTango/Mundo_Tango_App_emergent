@@ -528,6 +528,24 @@ router.post('/api/posts/direct', async (req: any, res) => {
       }
     }
     
+    // ESA LIFE CEO 61x21 - Process @mentions and send notifications
+    if (newPost && content) {
+      try {
+        const { MentionNotificationService } = await import('../services/mentionNotificationService');
+        await MentionNotificationService.processMentions(
+          content,
+          Number(userId),
+          'post',
+          newPost.id,
+          `/posts/${newPost.id}` // Action URL for notification click
+        );
+        console.log('✅ @mention notifications processed');
+      } catch (error) {
+        console.error('⚠️ Failed to process @mentions:', error);
+        // Don't fail the post creation if mentions fail
+      }
+    }
+    
     console.log('✅ Post created successfully via /api/posts/direct');
     
     res.json({
