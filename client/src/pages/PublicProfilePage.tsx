@@ -27,14 +27,28 @@ interface PublicUser {
 }
 
 export default function PublicProfilePage() {
-  const [match, params] = useRoute("/u/:username");
-  const username = params?.username;
+  // Support multiple route patterns: /u/:username, /profile/:userId, /public-profile/:userId
+  const [matchUsername, paramsUsername] = useRoute("/u/:username");
+  const [matchUserId, paramsUserId] = useRoute("/profile/:userId");
+  const [matchPublicProfile, paramsPublicProfile] = useRoute("/public-profile/:userId");
+  
+  const username = paramsUsername?.username;
+  const userId = paramsUserId?.userId || paramsPublicProfile?.userId;
+  
+  // Use username if available, otherwise use userId
+  const identifier = username || userId;
+  const isUserId = !username && !!userId;
 
   // Fetch public user profile
   const { data: userData, isLoading: userLoading, error } = useQuery({
-    queryKey: ['/api/public-profile', username],
+    queryKey: ['/api/public-profile', identifier, isUserId],
     queryFn: async () => {
-      const response = await fetch(`/api/public-profile/${username}`, {
+      // If we have a userId, fetch by ID; otherwise by username
+      const endpoint = isUserId 
+        ? `/api/users/${identifier}` 
+        : `/api/public-profile/${identifier}`;
+        
+      const response = await fetch(endpoint, {
         credentials: 'include'
       });
       
@@ -48,14 +62,16 @@ export default function PublicProfilePage() {
       const result = await response.json();
       return result.data as PublicUser;
     },
-    enabled: !!username
+    enabled: !!identifier
   });
 
-  // Fetch user posts
+  // Fetch user posts - use userId if available from userData
   const { data: postsData, isLoading: postsLoading } = useQuery({
-    queryKey: ['/api/user/public-posts', username],
+    queryKey: ['/api/user/posts', userData?.id],
     queryFn: async () => {
-      const response = await fetch(`/api/user/public-posts/${username}`, {
+      if (!userData?.id) return [];
+      
+      const response = await fetch(`/api/users/${userData.id}/posts`, {
         credentials: 'include'
       });
       
@@ -64,14 +80,16 @@ export default function PublicProfilePage() {
       const result = await response.json();
       return result.data || [];
     },
-    enabled: !!username && !!userData
+    enabled: !!userData?.id
   });
 
   // Fetch user stats
   const { data: statsData } = useQuery({
-    queryKey: ['/api/user/public-stats', username],
+    queryKey: ['/api/user/stats', userData?.id],
     queryFn: async () => {
-      const response = await fetch(`/api/user/public-stats/${username}`, {
+      if (!userData?.id) return {};
+      
+      const response = await fetch(`/api/users/${userData.id}/stats`, {
         credentials: 'include'
       });
       
@@ -80,10 +98,10 @@ export default function PublicProfilePage() {
       const result = await response.json();
       return result.data || {};
     },
-    enabled: !!username && !!userData
+    enabled: !!userData?.id
   });
 
-  if (!match) {
+  if (!matchUsername && !matchUserId && !matchPublicProfile) {
     return <div>Page not found</div>;
   }
 

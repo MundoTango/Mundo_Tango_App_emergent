@@ -305,6 +305,13 @@ function Router() {
               <PublicProfilePage />
             </Suspense>
           </Route>
+          
+          {/* Profile route for @mentions */}
+          <Route path="/profile/:userId">
+            <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
+              <PublicProfilePage />
+            </Suspense>
+          </Route>
 
           <Route path="/profile-switcher">
             <Suspense fallback={<LoadingFallback message="Loading profile switcher..." />}>
