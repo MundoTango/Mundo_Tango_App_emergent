@@ -4739,67 +4739,110 @@ export class DatabaseStorage implements IStorage {
       // ESA LIFE CEO 61x21 - Get shared memories including:
       // 1. Posts where user1 mentions user2 or vice versa
       // 2. Posts where either user is tagged (even if not friends)
-      const sharedPosts = await db
-        .select({
-          id: posts.id,
-          userId: posts.userId,
-          content: posts.content,
-          imageUrl: posts.imageUrl,
-          videoUrl: posts.videoUrl,
-          location: posts.location,
-          visibility: posts.visibility,
-          isPublic: posts.isPublic,
-          isRecommendation: posts.isRecommendation,
-          mentions: posts.mentions,
-          likesCount: posts.likesCount,
-          commentsCount: posts.commentsCount,
-          sharesCount: posts.sharesCount,
-          createdAt: posts.createdAt,
-          updatedAt: posts.updatedAt,
-          // Include user data with proper null handling
-          user: {
-            id: users.id,
-            name: users.name,
-            username: users.username,
-            email: users.email,
-            profileImage: users.profileImage,
-            city: users.city,
-            state: users.state,
-            country: users.country,
-            bio: users.bio,
-            tangoRoles: users.tangoRoles,
-            leaderLevel: users.leaderLevel,
-            followerLevel: users.followerLevel
-          },
-          // Legacy format compatibility
-          description: posts.content,
-          photoUrl: posts.imageUrl,
-          date: posts.createdAt
-        })
-        .from(posts)
-        .leftJoin(users, eq(posts.userId, users.id))
-        .where(and(
-          or(
-            // Posts by userId1 that mention userId2
-            and(eq(posts.userId, userId1), sql`${posts.mentions} @> ARRAY[${userId2.toString()}]::text[]`),
-            // Posts by userId2 that mention userId1
-            and(eq(posts.userId, userId2), sql`${posts.mentions} @> ARRAY[${userId1.toString()}]::text[]`),
-            // Posts by anyone that mention userId2 (shows on userId2's friendship page)
-            sql`${posts.mentions} @> ARRAY[${userId2.toString()}]::text[]`,
-            // Canonical format: @[Name](user:id) - Use PostgreSQL regex for flexible matching
-            sql`${posts.content} ~ ${'@\\[[^\\]]+\\]\\(user:' + userId2 + '\\)'}`,
-            sql`${posts.content} ~ ${'@\\[[^\\]]+\\]\\(user:' + userId1 + '\\)'}`,
-            // Legacy format 1: @(user:id)
-            sql`${posts.content} ~ ${'@\\(user:' + userId2 + '\\)'}`,
-            sql`${posts.content} ~ ${'@\\(user:' + userId1 + '\\)'}`,
-            // Legacy format 2: @(type:user,id:id)
-            sql`${posts.content} ~ ${'@\\(type:user,id:' + userId2 + '\\)'}`,
-            sql`${posts.content} ~ ${'@\\(type:user,id:' + userId1 + '\\)'}`
-          ),
-          eq(posts.isPublic, true)
-        ))
-        .orderBy(desc(posts.createdAt))
-        .limit(20);
+      
+      // Use raw SQL to avoid Drizzle ORM issues with nested selects
+      const query = `
+        SELECT 
+          p.id,
+          p.user_id as "userId",
+          p.content,
+          p.image_url as "imageUrl",
+          p.video_url as "videoUrl",
+          p.location,
+          p.visibility,
+          p.is_public as "isPublic",
+          p.mentions,
+          p.likes_count as "likesCount",
+          p.comments_count as "commentsCount",
+          p.shares_count as "sharesCount",
+          p.created_at as "createdAt",
+          p.updated_at as "updatedAt",
+          u.id as "user__id",
+          u.name as "user__name",
+          u.username as "user__username",
+          u.email as "user__email",
+          u.profile_image as "user__profileImage",
+          u.city as "user__city",
+          u.state as "user__state",
+          u.country as "user__country",
+          u.bio as "user__bio",
+          u.tango_roles as "user__tangoRoles",
+          u.leader_level as "user__leaderLevel",
+          u.follower_level as "user__followerLevel"
+        FROM posts p
+        LEFT JOIN users u ON p.user_id = u.id
+        WHERE 
+          (
+            (p.user_id = $1 AND p.mentions @> ARRAY[$4]) OR
+            (p.user_id = $2 AND p.mentions @> ARRAY[$3]) OR
+            p.mentions @> ARRAY[$4] OR
+            p.content ~ $5 OR
+            p.content ~ $6 OR
+            p.content ~ $7 OR
+            p.content ~ $8 OR
+            p.content ~ $9 OR
+            p.content ~ $10
+          )
+          AND p.is_public = true
+        ORDER BY p.created_at DESC
+        LIMIT 20
+      `;
+      
+      const regexUser1 = `@\\[[^\\]]+\\]\\(user:${userId1}\\)`;
+      const regexUser2 = `@\\[[^\\]]+\\]\\(user:${userId2}\\)`;
+      const legacyUser1 = `@\\(user:${userId1}\\)`;
+      const legacyUser2 = `@\\(user:${userId2}\\)`;
+      const legacyTypeUser1 = `@\\(type:user,id:${userId1}\\)`;
+      const legacyTypeUser2 = `@\\(type:user,id:${userId2}\\)`;
+      
+      const result = await pool.query(query, [
+        userId1,  // $1: For p.user_id = userId1 (integer)
+        userId2,  // $2: For p.user_id = userId2 (integer)
+        userId1.toString(),  // $3: For mentions array (text)
+        userId2.toString(),  // $4: For mentions array (text)
+        regexUser2,  // $5
+        regexUser1,  // $6
+        legacyUser2,  // $7
+        legacyUser1,  // $8
+        legacyTypeUser2,  // $9
+        legacyTypeUser1  // $10
+      ]);
+      
+      // Transform rows to nest user object
+      const sharedPosts = result.rows.map((row: any) => ({
+        id: row.id,
+        userId: row.userId,
+        content: row.content,
+        imageUrl: row.imageUrl,
+        videoUrl: row.videoUrl,
+        location: row.location,
+        visibility: row.visibility,
+        isPublic: row.isPublic,
+        mentions: row.mentions,
+        likesCount: row.likesCount,
+        commentsCount: row.commentsCount,
+        sharesCount: row.sharesCount,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+        user: {
+          id: row.user__id,
+          name: row.user__name,
+          username: row.user__username,
+          email: row.user__email,
+          profileImage: row.user__profileImage,
+          city: row.user__city,
+          state: row.user__state,
+          country: row.user__country,
+          bio: row.user__bio,
+          tangoRoles: row.user__tangoRoles,
+          leaderLevel: row.user__leaderLevel,
+          followerLevel: row.user__followerLevel
+        },
+        // Legacy format compatibility
+        description: row.content,
+        photoUrl: row.imageUrl,
+        date: row.createdAt
+      }));
       
       return sharedPosts;
     } catch (error) {
