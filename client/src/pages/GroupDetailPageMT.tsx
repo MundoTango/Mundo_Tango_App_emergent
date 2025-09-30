@@ -64,7 +64,10 @@ interface GroupPost {
 }
 
 export default function GroupDetailPageMT() {
-  const { slug } = useParams();
+  const { slug: rawSlug } = useParams();
+  // Clean slug by decoding URL encoding and removing any query parameters
+  const decodedSlug = rawSlug ? decodeURIComponent(rawSlug) : rawSlug;
+  const slug = decodedSlug?.split('?')[0] || decodedSlug;
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();

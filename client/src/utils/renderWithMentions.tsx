@@ -89,17 +89,32 @@ export const renderWithMentions = (text: string) => {
     }
 
     // Add the mention as a clickable link with MapPin icon for cities
+    // Use regular <a> tag for links with query params to avoid wouter encoding issues
+    const hasQueryParams = href.includes('?');
     parts.push(
-      <Link
-        key={`mention-${type}-${id}-${startIndex}`}
-        href={href}
-        className={className}
-        data-mention-type={type}
-        data-mention-id={id}
-      >
-        {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
-        @{name}
-      </Link>
+      hasQueryParams ? (
+        <a
+          key={`mention-${type}-${id}-${startIndex}`}
+          href={href}
+          className={className}
+          data-mention-type={type}
+          data-mention-id={id}
+        >
+          {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
+          @{name}
+        </a>
+      ) : (
+        <Link
+          key={`mention-${type}-${id}-${startIndex}`}
+          href={href}
+          className={className}
+          data-mention-type={type}
+          data-mention-id={id}
+        >
+          {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
+          @{name}
+        </Link>
+      )
     );
 
     lastIndex = startIndex + fullMatch.length;

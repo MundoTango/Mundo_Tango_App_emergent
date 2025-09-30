@@ -551,7 +551,7 @@ router.get('/api/events/:id/posts', async (req, res) => {
         .where(
           or(
             eq(posts.eventId, eventId),
-            sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+            sql`${posts.content} LIKE ${'%event:' + eventId + '%'}`
           )
         )
         .orderBy(desc(posts.createdAt))
@@ -589,7 +589,7 @@ router.get('/api/events/:id/posts', async (req, res) => {
           and(
             or(
               eq(posts.eventId, eventId),
-              sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+              sql`${posts.content} LIKE ${'%event:' + eventId + '%'}`
             ),
             // Exclude participants
             sql`NOT EXISTS (
@@ -634,7 +634,7 @@ router.get('/api/events/:id/posts', async (req, res) => {
         .where(
           or(
             eq(posts.eventId, eventId),
-            sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+            sql`${posts.content} LIKE ${'%event:' + eventId + '%'}`
           )
         )
         .orderBy(desc(posts.createdAt))
