@@ -79,7 +79,7 @@ export const renderWithMentions = (text: string) => {
         className = 'text-purple-600 hover:text-purple-700 font-medium bg-purple-50 px-1 py-0.5 rounded hover:bg-purple-100 transition-colors inline-block';
         break;
       case 'city':
-        href = `/groups/city/${id}`;
+        href = `/groups/${id}`; // City groups use same route pattern as professional groups
         className = 'text-orange-600 hover:text-orange-700 font-medium bg-orange-50 px-1 py-0.5 rounded hover:bg-orange-100 transition-colors inline-block';
         break;
       default:
