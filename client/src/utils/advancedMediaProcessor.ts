@@ -7,7 +7,8 @@
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL } from '@ffmpeg/util';
 import heic2any from 'heic2any';
-import imageCompression from 'browser-image-compression';
+// import imageCompression from 'browser-image-compression'; // DISABLED - hangs in Replit
+import { compressImageNative } from './nativeImageCompression';
 
 // Singleton FFmpeg instance
 let ffmpegInstance: FFmpeg | null = null;
@@ -355,39 +356,17 @@ async function convertVideoWithFFmpeg(file: File, targetFormat: string = 'mp4'):
  */
 async function compressImageSmart(file: File): Promise<File> {
   const sizeMB = file.size / 1024 / 1024;
-  console.log(`🖼️ [compressImageSmart] SKIPPING compression (library hanging) for ${file.name} (${sizeMB.toFixed(2)}MB)`);
+  console.log(`🖼️ [compressImageSmart] Using native Canvas compression for ${file.name} (${sizeMB.toFixed(2)}MB)`);
   
-  // TEMPORARY FIX: browser-image-compression is hanging even without Web Workers
-  // Skip compression entirely to get uploads working
-  console.log(`✅ [compressImageSmart] Returning original file (compression disabled)`);
-  return file;
-  
-  /* DISABLED - library hangs in Replit environment
-  // Instagram-style settings
-  const options = {
+  // Use native Canvas-based compression (works in Replit, unlike browser-image-compression)
+  const compressed = await compressImageNative(file, {
     maxSizeMB: sizeMB > 10 ? 0.8 : 1.5,
     maxWidthOrHeight: 1080,
-    useWebWorker: false, // Disabled - Vite worker issue causes upload hang
-    fileType: file.type === 'image/png' ? 'image/jpeg' : file.type as any,
-    initialQuality: sizeMB > 5 ? 0.8 : 0.9,
-    alwaysKeepResolution: false
-  };
+    quality: sizeMB > 5 ? 0.8 : 0.9
+  });
   
-  console.log(`⚙️ [compressImageSmart] Compression settings:`, options);
-  
-  try {
-    console.log(`🔄 [compressImageSmart] Calling imageCompression...`);
-    const compressed = await imageCompression(file, options);
-    const newSizeMB = compressed.size / 1024 / 1024;
-    const reduction = ((1 - compressed.size / file.size) * 100).toFixed(1);
-    console.log(`✅ [compressImageSmart] Success! ${file.name} compressed to ${newSizeMB.toFixed(2)}MB (-${reduction}%)`);
-    return compressed;
-  } catch (error) {
-    console.error(`❌ [compressImageSmart] Compression failed for ${file.name}:`, error);
-    console.log(`🔄 [compressImageSmart] Returning original file`);
-    return file;
-  }
-  */
+  console.log(`✅ [compressImageSmart] Native compression complete`);
+  return compressed;
 }
 
 /**
