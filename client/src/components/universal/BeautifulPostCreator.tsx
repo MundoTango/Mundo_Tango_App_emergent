@@ -15,12 +15,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { 
   MapPin, 
   Image, 
   Video, 
   Hash, 
-  Smile, 
   Sparkles,
   X,
   ChevronDown,
@@ -39,7 +44,6 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
-import EmojiPicker from 'emoji-picker-react';
 import { useCsrfToken } from '@/contexts/CsrfContext';
 // Temporarily disabled microInteractions to fix performance issue
 // import { 
@@ -106,7 +110,7 @@ export default function BeautifulPostCreator({
   const [richContent, setRichContent] = useState(existingPost?.richContent || existingPost?.content || '');
   const editorRef = useRef<HTMLDivElement>(null);
   const [showAdvanced, setShowAdvanced] = useState(editMode); // Show advanced in edit mode
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showTags, setShowTags] = useState(false);
   const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
   const [selectedTags, setSelectedTags] = useState<string[]>(existingPost?.hashtags || []);
   const [mentions, setMentions] = useState<string[]>([]); // ESA Layer 24: Store extracted mention IDs
@@ -1079,66 +1083,28 @@ export default function BeautifulPostCreator({
               </div>
             )}
 
-            {/* 🗺️ TREASURE MAP EXPLORER - Enhanced Recommendation with Adventure Theme */}
+            {/* 🗺️ TREASURE MAP EXPLORER - Icon Button */}
             <div className="relative">
-              <button
-                onClick={() => setIsRecommendation(!isRecommendation)}
-                className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all duration-500 group relative overflow-hidden ${
-                  isRecommendation 
-                    ? 'bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 border-2 border-amber-400 shadow-xl transform scale-[1.02]' 
-                    : 'bg-gradient-to-br from-white via-amber-50/30 to-white hover:from-amber-50/50 hover:via-yellow-50/30 hover:to-orange-50/30 border-2 border-amber-200/40 hover:border-amber-300 shadow-md hover:shadow-lg'
-                }`}
-                style={{
-                  backgroundImage: isRecommendation 
-                    ? 'radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%)'
-                    : 'none'
-                }}
-              >
-                {/* Treasure chest icon with animation */}
-                <div className="flex items-center space-x-3">
-                  <div className={`relative p-2.5 rounded-xl transition-all duration-500 ${
-                    isRecommendation 
-                      ? 'bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 text-white shadow-lg animate-pulse' 
-                      : 'bg-gradient-to-br from-amber-100 to-yellow-100 text-amber-700 group-hover:from-amber-200 group-hover:to-yellow-200'
-                  }`}>
-                    {/* Compass Rose Icon */}
-                    <div className={`transform transition-transform duration-700 ${isRecommendation ? 'rotate-0' : 'rotate-180'}`}>
-                      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 2 L12 6 M12 18 L12 22 M2 12 L6 12 M18 12 L22 12"/>
-                        <path d="M12 12 L16 8 M12 12 L8 16" strokeWidth="2.5" strokeLinecap="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="text-left">
-                    <span className={`block font-bold text-base transition-colors ${
-                      isRecommendation ? 'text-amber-900' : 'text-gray-700 group-hover:text-amber-800'
-                    }`}>
-                      🗺️ Discover Hidden Gems
-                    </span>
-                    <span className={`text-xs font-medium ${
-                      isRecommendation ? 'text-amber-700' : 'text-gray-500 group-hover:text-amber-600'
-                    }`}>
-                      Share your treasure map with the community
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Animated chevron */}
-                <div className={`transition-all duration-500 ${
-                  isRecommendation ? 'rotate-180' : 'rotate-0'
-                }`}>
-                  <ChevronDown className={`h-6 w-6 ${
-                    isRecommendation ? 'text-amber-700' : 'text-gray-400 group-hover:text-amber-500'
-                  }`} />
-                </div>
-
-                {/* Decorative corner elements (map edges) */}
-                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-amber-400/40 rounded-tl-sm" />
-                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-amber-400/40 rounded-tr-sm" />
-                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-amber-400/40 rounded-bl-sm" />
-                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-amber-400/40 rounded-br-sm" />
-              </button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setIsRecommendation(!isRecommendation)}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 ${
+                        isRecommendation 
+                          ? 'bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 text-white shadow-xl' 
+                          : 'bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-600 shadow-lg hover:shadow-xl'
+                      }`}
+                    >
+                      <MapPin className="h-6 w-6" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    <p className="font-medium">Discover Hidden Gems</p>
+                    <p className="text-xs text-gray-500">Share your treasure map with the community</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
 
               {/* Treasure Map Unfolding - Content Area */}
               {isRecommendation && (
@@ -1276,39 +1242,57 @@ export default function BeautifulPostCreator({
               )}
             </div>
 
-            {/* Enhanced Tags with better styling */}
+            {/* Tags - Icon Button */}
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
-                <Hash className="h-4 w-4 text-turquoise-500" />
-                <span>Add tags to your memory</span>
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {predefinedTags.map((tag) => (
-                  <button
-                    key={tag.value}
-                    onClick={() => {
-                      setSelectedTags(prev => 
-                        prev.includes(tag.value) 
-                          ? prev.filter(t => t !== tag.value)
-                          : [...prev, tag.value]
-                      );
-                    }}
-                    className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
-                      selectedTags.includes(tag.value)
-                        ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
-                        : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-turquoise-300 shadow-sm hover:shadow-lg'
-                    }`}
-                  >
-                    <span className="relative z-10 flex items-center space-x-2">
-                      <span className="text-lg transform group-hover:rotate-12 transition-transform">{tag.emoji}</span>
-                      <span>{tag.label}</span>
-                    </span>
-                    {selectedTags.includes(tag.value) && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-turquoise-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                    )}
-                  </button>
-                ))}
-              </div>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setShowTags(!showTags)}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 ${
+                        showTags || selectedTags.length > 0
+                          ? 'bg-gradient-to-br from-turquoise-500 to-cyan-600 text-white shadow-xl' 
+                          : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-turquoise-600 shadow-lg hover:shadow-xl'
+                      }`}
+                    >
+                      <Hash className="h-6 w-6" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    <p className="font-medium">#add tags to your memory</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              
+              {showTags && (
+                <div className="flex flex-wrap gap-3 mt-3">
+                  {predefinedTags.map((tag) => (
+                    <button
+                      key={tag.value}
+                      onClick={() => {
+                        setSelectedTags(prev => 
+                          prev.includes(tag.value) 
+                            ? prev.filter(t => t !== tag.value)
+                            : [...prev, tag.value]
+                        );
+                      }}
+                      className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                        selectedTags.includes(tag.value)
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
+                          : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-turquoise-300 shadow-sm hover:shadow-lg'
+                      }`}
+                    >
+                      <span className="relative z-10 flex items-center space-x-2">
+                        <span className="text-lg transform group-hover:rotate-12 transition-transform">{tag.emoji}</span>
+                        <span>{tag.label}</span>
+                      </span>
+                      {selectedTags.includes(tag.value) && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-turquoise-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -1346,30 +1330,30 @@ export default function BeautifulPostCreator({
           <div className="mt-8 pt-6 border-t border-gray-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                {/* ESA Layer 13: Single Internal Upload System - Reliable & Fast */}
-                <InternalUploader
-                  onUploadComplete={(files) => {
-                    const urls = files.map(f => f.url);
-                    setInternalMediaUrls(prev => [...prev, ...urls]);
-                    setMediaPreviews(prev => [...prev, ...urls]);
-                    console.log(`[Internal Upload] ✅ Added ${files.length} files to post`);
-                  }}
-                  maxFiles={30}
-                  maxFileSize={500}
-                  className=""
-                />
-
-                <div className="group relative">
-                  <button
-                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="relative p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-600 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl"
-                  >
-                    <Smile className="h-6 w-6" />
-                    <div className="absolute -top-2 -right-2 px-2 py-1 bg-amber-600 text-white text-xs rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                      Emoji
-                    </div>
-                  </button>
-                </div>
+                {/* ESA Layer 13: Camera Icon Upload Button */}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <InternalUploader
+                          onUploadComplete={(files) => {
+                            const urls = files.map(f => f.url);
+                            setInternalMediaUrls(prev => [...prev, ...urls]);
+                            setMediaPreviews(prev => [...prev, ...urls]);
+                            console.log(`[Internal Upload] ✅ Added ${files.length} files to post`);
+                          }}
+                          maxFiles={30}
+                          maxFileSize={500}
+                          className=""
+                        />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                      <p className="font-medium">Upload Media Files</p>
+                      <p className="text-xs text-gray-500">support images and videos - max 30 files - up to 500mb each</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
                 
                 {/* AI Enhancement Button */}
                 <Button
@@ -1429,27 +1413,6 @@ export default function BeautifulPostCreator({
             className="hidden"
           /> */}
 
-          {/* Emoji picker */}
-          {showEmojiPicker && (
-            <div className="absolute bottom-full right-0 mb-2 z-50">
-              <div className="relative">
-                <button
-                  onClick={() => setShowEmojiPicker(false)}
-                  className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full shadow-lg z-10"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-                <EmojiPicker
-                  onEmojiClick={(emojiData) => {
-                    setContent(prev => prev + emojiData.emoji);
-                    setRichContent(prev => prev + emojiData.emoji);
-                    setShowEmojiPicker(false);
-                  }}
-                  lazyLoadEmojis
-                />
-              </div>
-            </div>
-          )}
 
           {/* AI Enhancement Preview Modal */}
           {showEnhancement && (
