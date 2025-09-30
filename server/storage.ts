@@ -612,6 +612,12 @@ export interface IStorage {
   }>): Promise<void>;
   markMentionAsRead(notificationId: number): Promise<void>;
   validateUserIds(userIds: string[]): Promise<number[]>;
+  
+  // ESA Layer 24: Entity mention filtering
+  getPostsByMention(entityType: 'user' | 'event' | 'group' | 'city', entityId: number): Promise<Post[]>;
+  isUserInCity(userId: number, cityId: number): Promise<boolean>;
+  isUserInGroup(userId: number, groupId: number): Promise<boolean>;
+  isUserEventParticipant(userId: number, eventId: number): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1015,6 +1021,66 @@ export class DatabaseStorage implements IStorage {
       .where(inArray(users.id, numericIds));
     
     return validUsers.map(u => u.id);
+  }
+
+  // ESA Layer 24: Entity mention filtering implementations
+  async getPostsByMention(entityType: 'user' | 'event' | 'group' | 'city', entityId: number): Promise<Post[]> {
+    const mentionPattern = `%${entityType}:${entityId}%`;
+    
+    const results = await db
+      .select()
+      .from(posts)
+      .where(sql`${posts.content} LIKE ${mentionPattern}`)
+      .orderBy(desc(posts.createdAt))
+      .limit(50);
+    
+    return results;
+  }
+
+  async isUserInCity(userId: number, cityId: number): Promise<boolean> {
+    const user = await this.getUser(userId);
+    if (!user) return false;
+    
+    // Get city group to find the city name
+    const cityGroupResult = await db
+      .select()
+      .from(groups)
+      .where(and(
+        eq(groups.id, cityId),
+        eq(groups.type, 'city')
+      ))
+      .limit(1);
+    
+    if (!cityGroupResult[0]) return false;
+    
+    // Check if user's current city matches the city group's city
+    return user.currentCity === cityGroupResult[0].city;
+  }
+
+  async isUserInGroup(userId: number, groupId: number): Promise<boolean> {
+    const membership = await db
+      .select()
+      .from(groupMembers)
+      .where(and(
+        eq(groupMembers.userId, userId),
+        eq(groupMembers.groupId, groupId)
+      ))
+      .limit(1);
+    
+    return membership.length > 0;
+  }
+
+  async isUserEventParticipant(userId: number, eventId: number): Promise<boolean> {
+    const participant = await db
+      .select()
+      .from(eventParticipants)
+      .where(and(
+        eq(eventParticipants.userId, userId),
+        eq(eventParticipants.eventId, eventId)
+      ))
+      .limit(1);
+    
+    return participant.length > 0;
   }
 
   async getPostById(id: number | string): Promise<Post | undefined> {
