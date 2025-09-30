@@ -206,17 +206,40 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       setMentionStart(trigger.start);
       setShowSuggestions(true);
       
-      // Calculate suggestion position
+      // Calculate suggestion position with viewport bounds checking
       if (editorRef.current) {
         const selection = window.getSelection();
         if (selection && selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
-          const rect = range.getBoundingClientRect();
+          const cursorRect = range.getBoundingClientRect();
           const editorRect = editorRef.current.getBoundingClientRect();
           
+          // Dropdown dimensions
+          const dropdownWidth = 320; // 80rem = 320px
+          const dropdownHeight = 256; // max-h-64 = 256px
+          
+          // Calculate initial position (below cursor)
+          let top = cursorRect.bottom - editorRect.top + 5;
+          let left = cursorRect.left - editorRect.left;
+          
+          // Check if dropdown goes off right edge
+          if (cursorRect.left + dropdownWidth > window.innerWidth) {
+            // Align to right edge of viewport
+            left = window.innerWidth - dropdownWidth - editorRect.left - 10;
+          }
+          
+          // Check if dropdown goes off bottom edge
+          if (cursorRect.bottom + dropdownHeight > window.innerHeight) {
+            // Show above cursor instead
+            top = cursorRect.top - editorRect.top - dropdownHeight - 5;
+          }
+          
+          // Ensure left is not negative
+          left = Math.max(0, left);
+          
           setSuggestionPosition({
-            top: rect.bottom - editorRect.top + 5,
-            left: rect.left - editorRect.left
+            top,
+            left
           });
         }
       }
