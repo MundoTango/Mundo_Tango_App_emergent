@@ -497,16 +497,279 @@ describe('File Upload', () => {
 });
 ```
 
+## Upload-to-Post Integration (September 2025)
+
+### Overview
+Complete integration flow from media upload through post creation with proper error handling and state management.
+
+### Architecture
+
+```
+┌─────────────────┐
+│ InternalUploader│
+│   Component     │
+└────────┬────────┘
+         │
+         ├─> Client-side Compression (Native Canvas API)
+         │   - Image: Canvas API with quality settings
+         │   - Video: WebCodecs API (Safari fallback)
+         │   - No Web Workers (Vite compatibility fix)
+         │
+         ├─> XHR Upload with Progress
+         │   - Real-time progress tracking
+         │   - onProgress callbacks
+         │   - Error handling with phase tracking
+         │
+         ├─> Server Storage
+         │   - Files saved to /uploads directory
+         │   - Unique filenames with timestamps
+         │   - MIME type validation (including video/quicktime)
+         │
+         └─> onUploadComplete Callback
+             - Returns array of uploaded URLs
+             - PostCreator updates internalMediaUrls state
+             - Preview thumbnails generated
+```
+
+### PostCreator Integration
+
+**State Management:**
+```typescript
+const [internalMediaUrls, setInternalMediaUrls] = useState<string[]>([]);
+
+// Upload complete handler
+const handleUploadComplete = (files: UploadedFile[]) => {
+  const urls = files.map(f => f.url);
+  setInternalMediaUrls(prev => [...prev, ...urls]);
+};
+
+// Custom onSubmit handler
+onSubmit({
+  content,
+  internalMediaUrls,  // ✅ Critical: Include uploaded URLs
+  // ... other fields
+});
+```
+
+**Submission Flow:**
+```typescript
+// ESAMemoryFeed Integration
+if (data.internalMediaUrls && data.internalMediaUrls.length > 0) {
+  // Use /api/posts/direct endpoint for URL-based media
+  fetch('/api/posts/direct', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      content: data.content,
+      mediaUrls: data.internalMediaUrls,
+      // ... other fields
+    })
+  })
+    .then(async res => {
+      if (!res.ok) {
+        // ✅ Proper error handling
+        throw new Error(`Failed to create post: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(() => {
+      // Success: invalidate cache and show toast
+      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+      toast({ title: "Post created! 🎉" });
+    })
+    .catch(err => {
+      // Error: show toast and keep modal open
+      toast({ 
+        title: "Failed to create post",
+        description: err.message,
+        variant: "destructive"
+      });
+    });
+}
+```
+
+### Critical Fixes (September 2025)
+
+#### 1. Web Worker Compatibility Fix
+**Issue:** `browser-image-compression` with `useWebWorker: true` tried to load worker.js that Vite couldn't find, causing uploads to hang at 25%.
+
+**Solution:**
+```typescript
+// mediaCompression.ts & advancedMediaProcessor.ts
+const options = {
+  maxSizeMB: 10,
+  maxWidthOrHeight: 1920,
+  useWebWorker: false,  // ✅ Disabled for Vite compatibility
+  // ...
+};
+```
+
+#### 2. InternalMediaUrls Integration Fix
+**Issue:** PostCreator sent `media: mediaFiles` (legacy file uploads) but not `internalMediaUrls` (uploaded URLs), causing posts to be created without media.
+
+**Solution:**
+```typescript
+// PostCreator.tsx - Type definition
+onSubmit?: (data: {
+  media: File[];
+  internalMediaUrls?: string[];  // ✅ Added to type
+  // ...
+}) => void;
+
+// PostCreator.tsx - Custom submit handler
+onSubmit({
+  media: mediaFiles,
+  internalMediaUrls,  // ✅ Include uploaded URLs
+  // ...
+});
+
+// State reset after submission
+setInternalMediaUrls([]);  // ✅ Reset uploaded URLs
+```
+
+#### 3. Error Handling Enhancement
+**Issue:** `/api/posts/direct` fetch handler didn't check `res.ok`, causing failed uploads to be treated as successful.
+
+**Solution:**
+```typescript
+.then(async res => {
+  if (!res.ok) {  // ✅ Check response status
+    const errorText = await res.text();
+    throw new Error(`Failed to create post: ${res.status} - ${errorText}`);
+  }
+  return res.json();
+})
+```
+
+### Video Thumbnail Extraction
+
+**Utility:** `client/src/utils/videoThumbnail.ts`
+
+```typescript
+export async function extractVideoThumbnail(file: File): Promise<string> {
+  return new Promise((resolve) => {
+    const video = document.createElement('video');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // 5-second timeout protection
+    const timeout = setTimeout(() => {
+      resolve('/placeholder-video.png');  // Fallback
+    }, 5000);
+    
+    video.onloadeddata = () => {
+      clearTimeout(timeout);
+      video.currentTime = 0.1;  // Extract first frame
+    };
+    
+    video.onseeked = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx?.drawImage(video, 0, 0);
+      resolve(canvas.toDataURL('image/jpeg'));
+    };
+    
+    video.onerror = () => {
+      clearTimeout(timeout);
+      resolve('/placeholder-video.png');  // Graceful fallback
+    };
+    
+    video.src = URL.createObjectURL(file);
+  });
+}
+```
+
+### Backend Integration
+
+**Direct Upload Endpoint:** `/api/posts/direct`
+
+```typescript
+router.post('/api/posts/direct', async (req: any, res) => {
+  const { mediaUrls, content, visibility, ... } = req.body;
+  
+  // Save to mediaEmbeds field (JSONB array)
+  const postData = {
+    content,
+    mediaEmbeds: mediaUrls,  // Stored as JSONB array
+    // ...
+  };
+  
+  const newPost = await storage.createPost(postData);
+  res.json({ success: true, data: newPost });
+});
+```
+
+**Storage Query:**
+```typescript
+// Explicitly include mediaEmbeds in query
+const posts = await db
+  .select({
+    id: posts.id,
+    content: posts.content,
+    mediaEmbeds: posts.mediaEmbeds,  // ✅ Include media
+    // ...
+  })
+  .from(posts);
+```
+
+### Display Pipeline
+
+**EnhancedPostItem Rendering:**
+```typescript
+{post.mediaEmbeds?.map((media, index) => {
+  const isVideo = media.url.match(/\.(mp4|webm|mov|avi)$/i);
+  
+  return isVideo ? (
+    <video src={media.url} controls />
+  ) : (
+    <img src={media.url} alt="Post media" />
+  );
+})}
+```
+
+### Complete Flow
+
+1. **Upload**: User selects media → InternalUploader compresses → XHR upload → Server saves to `/uploads`
+2. **Preview**: Upload complete → URLs added to `internalMediaUrls` state → Thumbnails displayed
+3. **Submit**: User clicks "Post" → `internalMediaUrls` sent to `/api/posts/direct`
+4. **Storage**: Backend saves URLs to `mediaEmbeds` JSONB field
+5. **Display**: Post fetched → `mediaEmbeds` rendered as images/videos
+
+### Testing Checklist
+
+- [x] Image upload and compression
+- [x] Video upload with thumbnail extraction
+- [x] Progress bar display during upload
+- [x] Error handling for failed uploads
+- [x] Post creation with media URLs
+- [x] Media display in feed
+- [x] State reset after submission
+- [x] Error toast notifications
+- [x] Safari/iOS compatibility
+
+### Files Modified
+
+- `client/src/components/upload/InternalUploader.tsx` - Progress callbacks
+- `client/src/components/universal/PostCreator.tsx` - Integration & types
+- `client/src/pages/ESAMemoryFeed.tsx` - Endpoint routing & error handling
+- `client/src/utils/videoThumbnail.ts` - Thumbnail extraction utility
+- `client/src/utils/mediaCompression.ts` - Web Worker fix
+- `client/src/utils/advancedMediaProcessor.ts` - Web Worker fix
+- `server/routes/postsRoutes.ts` - Direct upload endpoint
+- `server/storage.ts` - MediaEmbeds query support
+
 ## Next Steps
 
 - [ ] Implement IPFS integration
 - [ ] Add AI-powered image tagging
 - [ ] Enhanced video streaming
 - [ ] P2P file sharing
+- [ ] Upload resumption for large files
+- [ ] Batch upload optimization
 
 ---
 
-**Status**: 🟢 Operational
-**Dependencies**: Multer, Sharp, FFmpeg, Cloudinary
+**Status**: 🟢 Operational & Production Ready
+**Dependencies**: Multer, Sharp, browser-image-compression, Canvas API, WebCodecs API
 **Owner**: Infrastructure Team
-**Last Updated**: September 2025
+**Last Updated**: September 30, 2025

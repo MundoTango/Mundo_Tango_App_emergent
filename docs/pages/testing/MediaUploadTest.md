@@ -196,6 +196,73 @@ MediaUploadTest
 | iOS camera orientation | Medium | EXIF rotation fix | Resolved |
 | Chunked upload assembly | Low | Server-side optimization | Planned |
 | Progress accuracy | Low | Weighted calculation | Resolved |
+| Web Worker Vite compatibility | High | Disabled useWebWorker | ✅ Resolved (Sept 2025) |
+| Upload-to-Post integration | Critical | Added internalMediaUrls | ✅ Resolved (Sept 2025) |
+| Error handling silent failures | High | Added res.ok checks | ✅ Resolved (Sept 2025) |
+
+### Recent Fixes (September 2025)
+
+#### Web Worker Compatibility Issue
+**Problem**: Uploads hung at 25% progress when `browser-image-compression` tried to load `worker.js` that Vite couldn't find.
+
+**Solution**: Disabled Web Workers in compression libraries:
+```typescript
+// mediaCompression.ts & advancedMediaProcessor.ts
+useWebWorker: false  // Vite compatibility
+```
+
+**Test Cases**:
+- [x] Image upload completes without hanging
+- [x] Video upload progresses smoothly
+- [x] Progress bar updates correctly
+- [x] No worker.js 404 errors in console
+
+#### Upload-to-Post Integration
+**Problem**: PostCreator successfully uploaded media but didn't include URLs in post submission, causing posts to be created without media.
+
+**Solution**: 
+1. Added `internalMediaUrls` to PostCreator type definition
+2. Included `internalMediaUrls` in custom onSubmit handler
+3. Routed to `/api/posts/direct` endpoint for URL-based media
+4. Added proper error handling with `res.ok` checks
+
+**Test Cases**:
+- [x] Upload media → Preview shows thumbnails
+- [x] Submit post → Media URLs included in request
+- [x] Post created → Media saved to `mediaEmbeds` field
+- [x] Post displayed → Media rendered correctly
+- [x] Error handling → Failed uploads show toast notification
+- [x] State management → URLs reset after submission
+- [x] Safari/iOS compatibility → Videos upload successfully
+
+#### Error Handling Enhancement
+**Problem**: Failed post creations were silently treated as successful because fetch handler didn't check `res.ok`.
+
+**Solution**: Added comprehensive error handling:
+```typescript
+.then(async res => {
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Failed: ${res.status} - ${errorText}`);
+  }
+  return res.json();
+})
+.catch(err => {
+  toast({ 
+    title: "Failed to create post",
+    description: err.message,
+    variant: "destructive"
+  });
+});
+```
+
+**Test Cases**:
+- [x] Server error (500) → Error toast displayed
+- [x] Validation error (400) → Error message shown
+- [x] Network error → User notified
+- [x] Success (200) → Success toast displayed
+- [x] Modal persistence → Stays open on error
+- [x] Cache invalidation → Only on success
 
 ## 9. Future Enhancements
 
