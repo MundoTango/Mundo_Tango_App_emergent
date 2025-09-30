@@ -143,10 +143,10 @@ export default function UpcomingEventsSidebar({
   ).slice(0, 3);
 
   const eventTypeColors = {
-    milonga: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30' },
-    workshop: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500/30' },
-    festival: { bg: 'bg-pink-500/20', text: 'text-pink-400', border: 'border-pink-500/30' },
-    practica: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/30' }
+    milonga: { bg: 'bg-[rgba(94,234,212,0.24)]', text: 'text-[#0E7490]', border: 'border-[rgba(94,234,212,0.55)]' },
+    workshop: { bg: 'bg-[rgba(43,178,232,0.24)]', text: 'text-[#0369A1]', border: 'border-[rgba(43,178,232,0.55)]' },
+    festival: { bg: 'bg-[rgba(236,72,153,0.24)]', text: 'text-[#BE185D]', border: 'border-[rgba(236,72,153,0.55)]' },
+    practica: { bg: 'bg-[rgba(16,185,129,0.24)]', text: 'text-[#047857]', border: 'border-[rgba(16,185,129,0.55)]' }
   };
 
   const handleRSVP = (eventId: string, status: 'going' | 'maybe' | 'not_going') => {
@@ -168,12 +168,14 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'going');
               }}
-              className={cn(
-                "p-1.5 rounded-lg transition-all duration-200",
-                event.userRsvpStatus === 'going'
-                  ? "bg-emerald-500/20 text-emerald-600"
-                  : "bg-gray-100 dark:bg-slate-800 text-gray-400 hover:bg-emerald-500/10 hover:text-emerald-500"
-              )}
+              style={{
+                background: event.userRsvpStatus === 'going' 
+                  ? 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
+                  : 'rgba(255,255,255,0.78)',
+                borderColor: 'rgba(94,234,212,0.55)',
+                color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF'
+              }}
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
               data-testid={`rsvp-attending-${event.id}`}
             >
               <Check className="w-4 h-4" />
@@ -192,12 +194,14 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'maybe');
               }}
-              className={cn(
-                "p-1.5 rounded-lg transition-all duration-200",
-                event.userRsvpStatus === 'maybe'
-                  ? "bg-yellow-500/20 text-yellow-600"
-                  : "bg-gray-100 dark:bg-slate-800 text-gray-400 hover:bg-yellow-500/10 hover:text-yellow-500"
-              )}
+              style={{
+                background: event.userRsvpStatus === 'maybe' 
+                  ? 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%)'
+                  : 'rgba(255,255,255,0.78)',
+                borderColor: 'rgba(94,234,212,0.55)',
+                color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF'
+              }}
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
               data-testid={`rsvp-maybe-${event.id}`}
             >
               <HelpCircle className="w-4 h-4" />
@@ -216,12 +220,14 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'not_going');
               }}
-              className={cn(
-                "p-1.5 rounded-lg transition-all duration-200",
-                event.userRsvpStatus === 'not_going'
-                  ? "bg-red-500/20 text-red-600"
-                  : "bg-gray-100 dark:bg-slate-800 text-gray-400 hover:bg-red-500/10 hover:text-red-500"
-              )}
+              style={{
+                background: event.userRsvpStatus === 'not_going' 
+                  ? 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
+                  : 'rgba(255,255,255,0.78)',
+                borderColor: 'rgba(94,234,212,0.55)',
+                color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF'
+              }}
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
               data-testid={`rsvp-not-going-${event.id}`}
             >
               <X className="w-4 h-4" />
@@ -250,23 +256,22 @@ export default function UpcomingEventsSidebar({
         className="w-full text-left group block cursor-pointer"
         data-testid={`event-card-${event.id}`}
       >
-        <div className={cn(
-          "p-3 rounded-xl border transition-all duration-300 backdrop-blur-sm",
-          theme === 'light' 
-            ? "bg-white hover:bg-gray-50"
-            : "bg-slate-900/50 hover:bg-slate-800/50",
-          colors.border,
-          "hover:scale-[1.01] hover:shadow-lg"
-        )}>
+        <div 
+          style={{
+            background: 'rgba(255,255,255,0.78)',
+            borderColor: 'rgba(94,234,212,0.55)'
+          }}
+          className={cn(
+            "p-3 rounded-xl border transition-all duration-300 backdrop-blur-sm",
+            "hover:scale-[1.01] hover:shadow-lg"
+          )}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(222,252,255,0.82)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.78)'}
+        >
           {/* Event Header */}
           <div className="flex items-start justify-between mb-2 gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className={cn(
-                "font-semibold text-sm transition-colors truncate",
-                theme === 'light' 
-                  ? "text-gray-900 group-hover:text-purple-600"
-                  : "text-white group-hover:text-purple-400"
-              )}>
+              <h3 className="font-semibold text-sm transition-colors truncate text-[#0B3C49] group-hover:text-[#5EEAD4]">
                 {event.title}
               </h3>
               <span className={cn(
@@ -278,17 +283,14 @@ export default function UpcomingEventsSidebar({
             </div>
             <div className="flex items-start gap-1 flex-shrink-0">
               {event.isFeatured && (
-                <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse" />
+                <Sparkles className="w-4 h-4 text-[#5EEAD4] animate-pulse" />
               )}
               {renderRSVPIcons(event)}
             </div>
           </div>
 
           {/* Event Details */}
-          <div className={cn(
-            "space-y-1 text-xs",
-            theme === 'light' ? "text-gray-500" : "text-slate-400"
-          )}>
+          <div className="space-y-1 text-xs text-[#3BA0AF]">
             <div className="flex items-center gap-2">
               <Clock className="w-3 h-3 flex-shrink-0" />
               <span className="truncate">
@@ -303,7 +305,10 @@ export default function UpcomingEventsSidebar({
               <Users className="w-3 h-3 flex-shrink-0" />
               <span>{event.attendees} attending</span>
               {event.userRsvpStatus === 'going' && (
-                <span className="px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-xs">
+                <span 
+                  style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
+                  className="px-1.5 py-0.5 rounded text-xs"
+                >
                   You're going
                 </span>
               )}
@@ -326,16 +331,12 @@ export default function UpcomingEventsSidebar({
       <div className="mb-4">
         <button
           onClick={() => toggleSection(sectionKey)}
-          className={cn(
-            "w-full flex items-center justify-between mb-2 px-2 py-1 rounded-lg transition-colors",
-            theme === 'light' 
-              ? "hover:bg-gray-100 text-gray-700"
-              : "hover:bg-slate-800/50 text-slate-300"
-          )}
+          style={{ background: 'rgba(209,250,250,0.65)' }}
+          className="w-full flex items-center justify-between mb-2 px-2 py-1 rounded-lg transition-colors hover:bg-[rgba(94,234,212,0.28)] text-[#0B3C49]"
         >
           <h3 className="text-sm font-semibold">{title}</h3>
           <div className="flex items-center gap-1">
-            <span className="text-xs text-gray-500">{events.length}</span>
+            <span className="text-xs text-[#3BA0AF]">{events.length}</span>
             {expandedSections[sectionKey] ? (
               <ChevronUp className="w-4 h-4" />
             ) : (
@@ -360,39 +361,24 @@ export default function UpcomingEventsSidebar({
         {/* Header */}
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-2">
-            <Calendar className="w-5 h-5 text-cyan-400" />
-            <h2 className={cn(
-              "text-lg font-semibold",
-              theme === 'light' ? "text-gray-900" : "text-white"
-            )}>Upcoming Events</h2>
+            <Calendar className="w-5 h-5 text-[#5EEAD4]" />
+            <h2 className="text-lg font-semibold text-[#0B3C49]">Upcoming Events</h2>
           </div>
           {isLoading ? (
-            <p className={cn(
-              "text-sm",
-              theme === 'light' ? "text-gray-600" : "text-slate-400"
-            )}>
+            <p className="text-sm text-[#146778]">
               Loading events...
             </p>
           ) : allEvents.length === 0 ? (
             <>
-              <p className={cn(
-                "text-sm",
-                theme === 'light' ? "text-gray-600" : "text-slate-400"
-              )}>
+              <p className="text-sm text-[#146778]">
                 No upcoming events found
               </p>
-              <p className={cn(
-                "text-xs mt-1",
-                theme === 'light' ? "text-gray-500" : "text-slate-500"
-              )}>
+              <p className="text-xs mt-1 text-[#3BA0AF]">
                 Check your city or join our community
               </p>
             </>
           ) : (
-            <p className={cn(
-              "text-sm",
-              theme === 'light' ? "text-gray-600" : "text-slate-400"
-            )}>
+            <p className="text-sm text-[#146778]">
               {allEvents.length} upcoming events
             </p>
           )}
@@ -405,16 +391,15 @@ export default function UpcomingEventsSidebar({
         {renderSection("Other Events", otherEvents, 'otherEvents', "No other events found")}
 
         {/* View All Link */}
-        <div className={cn(
-          "mt-6 pt-6 border-t",
-          theme === 'light' ? "border-gray-200" : "border-slate-800/50"
-        )}>
+        <div className="mt-6 pt-6 border-t border-[rgba(94,234,212,0.35)]">
           <button 
             onClick={() => setLocation('/events')}
-            className={cn(
-              "w-full py-2.5 px-4 bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10 hover:from-[#5EEAD4]/20 hover:to-[#155E75]/20 font-medium rounded-lg transition-all duration-200 hover:scale-105",
-              theme === 'light' ? "text-cyan-600" : "text-cyan-400"
-            )}
+            style={{
+              background: 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
+            }}
+            className="w-full py-2.5 px-4 hover:opacity-90 text-white font-medium rounded-lg transition-all duration-200 hover:scale-105"
+            onMouseEnter={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #4FDAD4 0%, #1F9BD6 100%)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'}
             data-testid="button-view-all-events"
           >
             View All Events
