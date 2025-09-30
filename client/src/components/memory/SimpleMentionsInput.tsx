@@ -212,24 +212,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
-    // DIRECT APPROACH: Update textarea value and cursor immediately, THEN sync to React
-    if (textareaRef.current) {
-      // Set display value directly on DOM
-      textareaRef.current.value = finalDisplayValue;
-      
-      // Set cursor position immediately
-      textareaRef.current.setSelectionRange(newCursorPosInDisplay, newCursorPosInDisplay);
-      textareaRef.current.focus();
-      
-      console.log('✅ Set textarea directly:', {
-        displayValue: finalDisplayValue,
-        cursorPosition: newCursorPosInDisplay,
-        actualCursor: [textareaRef.current.selectionStart, textareaRef.current.selectionEnd],
-        textLength: finalDisplayValue.length
-      });
-    }
-    
-    // Mark as internal update to prevent sync effect from overwriting
+    // Mark as internal update FIRST to prevent sync effect from overwriting
     isInternalUpdate.current = true;
     valueRef.current = newValue;
     
@@ -237,10 +220,32 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     onChange(newValue);
     setShowSuggestions(false);
     
-    // Reset flag AFTER useEffect runs (use microtask queue)
-    Promise.resolve().then(() => {
-      isInternalUpdate.current = false;
-    });
+    // Update textarea value and cursor AFTER React has processed the state change
+    // Use double requestAnimationFrame to ensure browser has finished rendering
+    if (textareaRef.current) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (textareaRef.current) {
+            // Set display value directly on DOM
+            textareaRef.current.value = finalDisplayValue;
+            
+            // Set cursor position after browser paint
+            textareaRef.current.setSelectionRange(newCursorPosInDisplay, newCursorPosInDisplay);
+            textareaRef.current.focus();
+            
+            console.log('✅ Set textarea after paint:', {
+              displayValue: finalDisplayValue,
+              cursorPosition: newCursorPosInDisplay,
+              actualCursor: [textareaRef.current.selectionStart, textareaRef.current.selectionEnd],
+              textLength: textareaRef.current.value.length
+            });
+            
+            // Reset flag after everything is complete
+            isInternalUpdate.current = false;
+          }
+        });
+      });
+    }
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
