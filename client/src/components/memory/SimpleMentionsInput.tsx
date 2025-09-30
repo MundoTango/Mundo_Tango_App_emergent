@@ -237,10 +237,10 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     onChange(newValue);
     setShowSuggestions(false);
     
-    // Reset flag after React has processed the update
-    setTimeout(() => {
+    // Reset flag AFTER useEffect runs (use microtask queue)
+    Promise.resolve().then(() => {
       isInternalUpdate.current = false;
-    }, 0);
+    });
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
@@ -446,10 +446,10 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos, newCanonical);
     
-    // Reset flag
-    setTimeout(() => {
+    // Reset flag AFTER useEffect runs
+    Promise.resolve().then(() => {
       isInternalUpdate.current = false;
-    }, 0);
+    });
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with colored mentions (blue for users, green for events)
