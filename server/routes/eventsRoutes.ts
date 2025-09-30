@@ -29,7 +29,7 @@ const createEventSchema = z.object({
 });
 
 const rsvpSchema = z.object({
-  status: z.enum(['going', 'interested', 'maybe', 'not_going'])
+  status: z.enum(['going', 'interested', 'maybe', 'not_going']).nullable()
 });
 
 // Create event
@@ -205,7 +205,20 @@ router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
       .where(and(eq(eventRsvps.eventId, parseInt(eventId)), eq(eventRsvps.userId, userId)))
       .limit(1);
 
-    let rsvp;
+    let rsvp = null;
+    
+    // If status is null, remove the RSVP (toggle off)
+    if (validatedData.status === null) {
+      if (existingRsvp.length > 0) {
+        await db
+          .delete(eventRsvps)
+          .where(eq(eventRsvps.id, existingRsvp[0].id));
+      }
+      // Return null to indicate RSVP was removed
+      return res.json({ success: true, data: { status: null } });
+    }
+
+    // Otherwise, create or update RSVP
     if (existingRsvp.length > 0) {
       // Update existing RSVP - only update status field that exists in schema
       [rsvp] = await db
@@ -277,6 +290,7 @@ router.get('/api/events/calendar', async (req, res) => {
 router.get('/api/events/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = (req as any).user?.id;
 
     const [event] = await db
       .select({
@@ -327,11 +341,25 @@ router.get('/api/events/:id', async (req, res) => {
       .leftJoin(users, eq(eventRsvps.userId, users.id))
       .where(eq(eventRsvps.eventId, parseInt(id)));
 
+    // Get current user's RSVP status if authenticated
+    let userStatus = null;
+    if (userId) {
+      const [userRsvp] = await db
+        .select({ status: eventRsvps.status })
+        .from(eventRsvps)
+        .where(and(eq(eventRsvps.eventId, parseInt(id)), eq(eventRsvps.userId, userId)))
+        .limit(1);
+      
+      userStatus = userRsvp?.status || null;
+    }
+
     res.json({
       success: true,
       data: {
         ...event,
-        rsvps
+        rsvps,
+        userStatus,
+        currentAttendees: rsvps.filter(r => r.status === 'going').length
       }
     });
   } catch (error) {

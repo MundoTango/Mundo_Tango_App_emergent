@@ -60,9 +60,9 @@ export default function UpcomingEventsSidebar({
     }
   });
   
-  // RSVP mutation with optimistic updates (FIXED)
+  // RSVP mutation with optimistic updates and toggle support (FIXED)
   const rsvpMutation = useMutation({
-    mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' }) => {
+    mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
       return await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }  // apiRequest will stringify this
@@ -116,15 +116,22 @@ export default function UpcomingEventsSidebar({
       });
     },
     onSuccess: (data, { status }) => {
-      const statusText = 
-        status === 'going' ? 'attending' : 
-        status === 'interested' ? 'interested' : 
-        status === 'maybe' ? 'maybe attending' : 
-        'not attending';
-      toast({
-        title: "RSVP Updated",
-        description: `You're now marked as ${statusText}`,
-      });
+      if (status === null) {
+        toast({
+          title: "RSVP Removed",
+          description: "Your RSVP has been removed.",
+        });
+      } else {
+        const statusText = 
+          status === 'going' ? 'attending' : 
+          status === 'interested' ? 'interested' : 
+          status === 'maybe' ? 'maybe attending' : 
+          'not attending';
+        toast({
+          title: "RSVP Updated",
+          description: `You're now marked as ${statusText}`,
+        });
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
@@ -173,8 +180,10 @@ export default function UpcomingEventsSidebar({
     practica: { bg: 'bg-[rgba(16,185,129,0.24)]', text: 'text-[#047857]', border: 'border-[rgba(16,185,129,0.55)]' }
   };
 
-  const handleRSVP = (eventId: string, status: 'going' | 'interested' | 'maybe' | 'not_going') => {
-    rsvpMutation.mutate({ eventId, status });
+  const handleRSVP = (eventId: string, status: 'going' | 'interested' | 'maybe' | 'not_going', currentStatus?: string | null) => {
+    // Toggle behavior: if clicking the same status, send null to remove RSVP
+    const newStatus = currentStatus === status ? null : status;
+    rsvpMutation.mutate({ eventId, status: newStatus as any });
   };
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -191,7 +200,7 @@ export default function UpcomingEventsSidebar({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleRSVP(event.id, 'going');
+                handleRSVP(event.id, 'going', event.userRsvpStatus);
               }}
               disabled={rsvpMutation.isPending}
               aria-label="Mark as attending"
@@ -220,7 +229,7 @@ export default function UpcomingEventsSidebar({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleRSVP(event.id, 'interested');
+                handleRSVP(event.id, 'interested', event.userRsvpStatus);
               }}
               disabled={rsvpMutation.isPending}
               aria-label="Mark as interested"
@@ -249,7 +258,7 @@ export default function UpcomingEventsSidebar({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleRSVP(event.id, 'maybe');
+                handleRSVP(event.id, 'maybe', event.userRsvpStatus);
               }}
               disabled={rsvpMutation.isPending}
               aria-label="Mark as maybe"

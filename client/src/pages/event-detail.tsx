@@ -153,23 +153,53 @@ export default function EventDetailPage() {
     }
   });
 
-  // RSVP mutation
+  // RSVP mutation with optimistic updates and toggle behavior
   const rsvpMutation = useMutation({
-    mutationFn: async ({ status }: { status: string }) => {
+    mutationFn: async ({ status }: { status: string | null }) => {
       return apiRequest(`/api/events/${id}/rsvp`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
+        body: { status }
       });
     },
-    onSuccess: () => {
+    onMutate: async ({ status }) => {
+      await queryClient.cancelQueries({ queryKey: [`/api/events/${id}`] });
+      const previousEvent = queryClient.getQueryData([`/api/events/${id}`]);
+      
+      queryClient.setQueryData([`/api/events/${id}`], (old: any) => {
+        if (!old?.data) return old;
+        
+        const currentStatus = old.data.userStatus;
+        const newStatus = status;
+        
+        let attendeeAdjustment = 0;
+        if (currentStatus === 'going' && newStatus !== 'going') attendeeAdjustment = -1;
+        if (currentStatus !== 'going' && newStatus === 'going') attendeeAdjustment = 1;
+        
+        return {
+          ...old,
+          data: {
+            ...old.data,
+            userStatus: newStatus,
+            currentAttendees: (old.data.currentAttendees || 0) + attendeeAdjustment
+          }
+        };
+      });
+      
+      return { previousEvent };
+    },
+    onSuccess: (data, { status }) => {
+      const statusText = status === null ? 'removed' : status;
       toast({
-        title: "RSVP updated",
-        description: "Your response has been recorded.",
+        title: "RSVP Updated",
+        description: status === null 
+          ? "Your RSVP has been removed." 
+          : `You're now marked as ${status}!`,
       });
       queryClient.invalidateQueries({ queryKey: [`/api/events/${id}`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
     },
-    onError: () => {
+    onError: (error, variables, context: any) => {
+      queryClient.setQueryData([`/api/events/${id}`], context?.previousEvent);
       toast({
         title: "Error",
         description: "Failed to update RSVP. Please try again.",
@@ -806,24 +836,36 @@ export default function EventDetailPage() {
                 <div className="space-y-2">
                   <Button
                     variant={event.userStatus === 'going' ? 'default' : 'outline'}
-                    className="w-full"
-                    onClick={() => rsvpMutation.mutate({ status: 'going' })}
+                    className={`w-full ${event.userStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    onClick={() => rsvpMutation.mutate({ 
+                      status: event.userStatus === 'going' ? null : 'going' 
+                    })}
+                    disabled={rsvpMutation.isPending}
+                    data-testid="button-rsvp-going"
                   >
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Going
                   </Button>
                   <Button
                     variant={event.userStatus === 'interested' ? 'default' : 'outline'}
-                    className="w-full"
-                    onClick={() => rsvpMutation.mutate({ status: 'interested' })}
+                    className={`w-full ${event.userStatus === 'interested' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    onClick={() => rsvpMutation.mutate({ 
+                      status: event.userStatus === 'interested' ? null : 'interested' 
+                    })}
+                    disabled={rsvpMutation.isPending}
+                    data-testid="button-rsvp-interested"
                   >
                     <Star className="mr-2 h-4 w-4" />
                     Interested
                   </Button>
                   <Button
                     variant={event.userStatus === 'maybe' ? 'default' : 'outline'}
-                    className="w-full"
-                    onClick={() => rsvpMutation.mutate({ status: 'maybe' })}
+                    className={`w-full ${event.userStatus === 'maybe' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+                    onClick={() => rsvpMutation.mutate({ 
+                      status: event.userStatus === 'maybe' ? null : 'maybe' 
+                    })}
+                    disabled={rsvpMutation.isPending}
+                    data-testid="button-rsvp-maybe"
                   >
                     <AlertCircle className="mr-2 h-4 w-4" />
                     Maybe
