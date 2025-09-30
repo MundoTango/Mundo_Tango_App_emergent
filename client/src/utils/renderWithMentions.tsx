@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'wouter';
+import { MapPin } from 'lucide-react';
 
 /**
  * ESA LIFE CEO 61x21 - Renders text with @mentions converted to clickable links
- * Supports users and events with multiple legacy formats for backward compatibility:
+ * Supports users, events, groups, and cities with multiple legacy formats:
  * - @[Name](user:id) - User mention format
  * - @[Event Name](event:id) - Event mention format
+ * - @[Group Name](group:id) - Professional group mention format
+ * - @[City Name](city:id) - City group mention format
  * - @(user:id) - Legacy user format 1
  * - @(type:user,id:id) - Legacy user format 2
  * @param text - The text content to process
@@ -18,11 +21,10 @@ export const renderWithMentions = (text: string) => {
   let lastIndex = 0;
   
   // Combined regex to match all mention formats (supports numeric and UUID IDs)
-  // Format 1: @[Name](user:id) - User mention
-  // Format 2: @[Name](event:id) - Event mention
-  // Format 3: @(user:id) - Legacy user
-  // Format 4: @(type:user,id:id) - Legacy user
-  const mentionRegex = /@(?:\[([^\]]+)\]\((user|event):([^\)]+)\)|\(user:([^\)]+)\)|\(type:user,id:([^\)]+)\))/g;
+  // Format 1: @[Name](type:id) - Canonical format for all types
+  // Format 2: @(type:id) - Legacy format without display name
+  // Format 3: @(type:type,id:id) - Legacy format with explicit type
+  const mentionRegex = /@(?:\[([^\]]+)\]\((user|event|group|city):([^\)]+)\)|\((user|event|group|city):([^\)]+)\)|\(type:(user|event|group|city),id:([^\)]+)\))/g;
   let match;
 
   // Find all mentions and split text
@@ -32,24 +34,24 @@ export const renderWithMentions = (text: string) => {
     
     // Extract name, type, and id from different format groups
     let name: string;
-    let type: 'user' | 'event';
+    let type: 'user' | 'event' | 'group' | 'city';
     let id: string;
     
     if (match[1] && match[2] && match[3]) {
-      // Format: @[Name](user:id) or @[Name](event:id)
+      // Format: @[Name](type:id) - Canonical with display name
       name = match[1];
-      type = match[2] as 'user' | 'event';
+      type = match[2] as 'user' | 'event' | 'group' | 'city';
       id = match[3];
-    } else if (match[4]) {
-      // Format: @(user:id)
-      name = 'User';
-      type = 'user';
-      id = match[4];
-    } else if (match[5]) {
-      // Format: @(type:user,id:id)
-      name = 'User';
-      type = 'user';
+    } else if (match[4] && match[5]) {
+      // Format: @(type:id) - Legacy without display name
+      name = match[4].charAt(0).toUpperCase() + match[4].slice(1); // Capitalize type as fallback
+      type = match[4] as 'user' | 'event' | 'group' | 'city';
       id = match[5];
+    } else if (match[6] && match[7]) {
+      // Format: @(type:type,id:id) - Legacy with explicit type
+      name = match[6].charAt(0).toUpperCase() + match[6].slice(1); // Capitalize type as fallback
+      type = match[6] as 'user' | 'event' | 'group' | 'city';
+      id = match[7];
     } else {
       continue;
     }
@@ -60,12 +62,32 @@ export const renderWithMentions = (text: string) => {
     }
 
     // Determine link and styling based on type
-    const href = type === 'event' ? `/events/${id}` : `/profile/${id}`;
-    const className = type === 'event'
-      ? 'text-green-600 hover:text-green-700 font-medium bg-green-50 px-1 py-0.5 rounded hover:bg-green-100 transition-colors inline-block'
-      : 'text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-1 py-0.5 rounded hover:bg-blue-100 transition-colors inline-block';
+    let href: string;
+    let className: string;
 
-    // Add the mention as a clickable link
+    switch(type) {
+      case 'user':
+        href = `/profile/${id}`;
+        className = 'text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-1 py-0.5 rounded hover:bg-blue-100 transition-colors inline-block';
+        break;
+      case 'event':
+        href = `/events/${id}`;
+        className = 'text-green-600 hover:text-green-700 font-medium bg-green-50 px-1 py-0.5 rounded hover:bg-green-100 transition-colors inline-block';
+        break;
+      case 'group':
+        href = `/groups/${id}`;
+        className = 'text-purple-600 hover:text-purple-700 font-medium bg-purple-50 px-1 py-0.5 rounded hover:bg-purple-100 transition-colors inline-block';
+        break;
+      case 'city':
+        href = `/groups/city/${id}`;
+        className = 'text-orange-600 hover:text-orange-700 font-medium bg-orange-50 px-1 py-0.5 rounded hover:bg-orange-100 transition-colors inline-block';
+        break;
+      default:
+        href = '#';
+        className = 'text-gray-600 hover:text-gray-700 font-medium bg-gray-50 px-1 py-0.5 rounded hover:bg-gray-100 transition-colors inline-block';
+    }
+
+    // Add the mention as a clickable link with MapPin icon for cities
     parts.push(
       <Link
         key={`mention-${type}-${id}-${startIndex}`}
@@ -74,6 +96,7 @@ export const renderWithMentions = (text: string) => {
         data-mention-type={type}
         data-mention-id={id}
       >
+        {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
         @{name}
       </Link>
     );
