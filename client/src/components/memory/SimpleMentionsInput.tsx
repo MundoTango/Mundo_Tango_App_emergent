@@ -329,29 +329,27 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             status: item.startDate ? `📅 ${new Date(item.startDate).toLocaleDateString()}` : undefined
           });
         } else if (item.type === 'communities' || item.type === 'groups') {
-          // Check if this is a city group (has city and country fields)
-          if (item.city && item.country) {
-            allSuggestions.push({
-              id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
-              display: item.name || item.city || 'Unknown City',
-              type: 'city',
-              status: `📍 ${item.country}`
-            });
-          } else {
-            allSuggestions.push({
-              id: item.id?.toString(),
-              display: item.name || 'Unknown Group',
-              type: 'group',
-              avatar: item.coverImage,
-              status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
-            });
-          }
+          allSuggestions.push({
+            id: item.id?.toString(),
+            display: item.name || 'Unknown Group',
+            type: 'group',
+            avatar: item.coverImage,
+            status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
+          });
         } else if (item.type === 'cities') {
           allSuggestions.push({
             id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
             display: item.name || 'Unknown City',
             type: 'city',
             status: item.country ? `📍 ${item.country}` : undefined
+          });
+        } else if (item.type === 'professional') {
+          allSuggestions.push({
+            id: item.slug || item.id?.toString(),
+            display: item.name || 'Unknown Group',
+            type: 'group',
+            avatar: item.coverImage,
+            status: item.country ? `🌐 ${item.country}` : undefined
           });
         }
       });

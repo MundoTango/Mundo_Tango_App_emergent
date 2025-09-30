@@ -220,9 +220,12 @@ export class SearchService {
       .select({
         id: groups.id,
         name: groups.name,
+        slug: groups.slug,
         description: groups.description,
         coverImage: groups.coverImage,
         type: groups.type,
+        city: groups.city,
+        country: groups.country,
         memberCount: sql<number>`(SELECT COUNT(*) FROM group_members WHERE group_id = ${groups.id})`,
         createdAt: groups.createdAt
       })
@@ -243,7 +246,10 @@ export class SearchService {
       imageUrl: group.coverImage || undefined,
       metadata: { 
         groupType: group.type,
-        memberCount: group.memberCount
+        memberCount: group.memberCount,
+        slug: group.slug,
+        city: group.city,
+        country: group.country
       },
       score: this.calculateScore(query, `${group.name} ${group.description}`),
       createdAt: group.createdAt
@@ -342,16 +348,19 @@ export class SearchService {
       if (types.includes('communities') || types.includes('groups')) {
         const groupResults = await this.searchGroups(searchQuery, limit);
         results.push(...groupResults.map(r => {
-          // Check if this is a city group
+          // Check if this is a city group or professional group
           const isCityGroup = r.metadata?.groupType === 'city';
+          const isProfessionalGroup = r.metadata?.groupType === 'professional';
+          
           return {
             ...r,
-            type: isCityGroup ? 'cities' : 'communities',
+            type: isCityGroup ? 'cities' : (isProfessionalGroup ? 'professional' : 'communities'),
             // Include fields needed for mention display
             name: r.title,
-            slug: r.id, // Groups use slug in URL
-            city: isCityGroup ? r.title : undefined,
-            country: r.description?.includes('•') ? r.description.split('•')[0].trim() : undefined
+            slug: r.metadata?.slug || r.id,
+            city: r.metadata?.city,
+            country: r.metadata?.country,
+            groupType: r.metadata?.groupType
           };
         }));
       }
