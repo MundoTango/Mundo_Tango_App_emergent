@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 // ESA Layer 13: Advanced media processing with universal format support
 import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
+import { extractVideoThumbnail } from '@/utils/videoThumbnail';
 import { extractMentions } from '@/utils/mentionUtils';
 import SimpleMentionsInput from '../memory/SimpleMentionsInput';
 // VideoURLInput removed per user request
@@ -879,8 +880,16 @@ export default function PostCreator({
           reader.onloadend = () => setMediaPreviews(prev => [...prev, reader.result as string]);
           reader.readAsDataURL(file);
         } else if (file.type.startsWith('video/')) {
-          const videoUrl = URL.createObjectURL(file);
-          setMediaPreviews(prev => [...prev, videoUrl]);
+          try {
+            // Extract thumbnail from video for preview
+            const thumbnail = await extractVideoThumbnail(file);
+            setMediaPreviews(prev => [...prev, thumbnail]);
+          } catch (error) {
+            console.error('Failed to extract video thumbnail:', error);
+            // Fallback to video URL if thumbnail extraction fails
+            const videoUrl = URL.createObjectURL(file);
+            setMediaPreviews(prev => [...prev, videoUrl]);
+          }
         }
       }
 
