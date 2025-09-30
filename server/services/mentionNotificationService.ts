@@ -34,13 +34,20 @@ export class MentionNotificationService {
   ) {
     console.log('🔔 Processing @mentions in content:', { contentType, contentId, authorId });
     
-    // Extract all @mentions from content using canonical format: @[Name](user:id)
-    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    // Extract all @mentions from content using canonical format: @[Name](type:id)
+    // Supports: (user:id), (event:id), (city:id/slug), (group:id/slug)
+    const mentionRegex = /@\[([^\]]+)\]\((\w+):([^\)]+)\)/g;
     const mentionIds: number[] = [];
     let match;
     
     while ((match = mentionRegex.exec(content)) !== null) {
-      mentionIds.push(parseInt(match[2])); // Extract user ID from canonical format
+      const mentionType = match[2]; // Extract type (user, event, city, group)
+      const mentionId = match[3];   // Extract ID or slug
+      
+      // Only process user mentions for notifications (events/cities/groups don't get notified)
+      if (mentionType === 'user') {
+        mentionIds.push(parseInt(mentionId));
+      }
     }
     
     if (mentionIds.length === 0) {
