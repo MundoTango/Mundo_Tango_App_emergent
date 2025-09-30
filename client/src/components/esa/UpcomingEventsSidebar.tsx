@@ -19,8 +19,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// VERSION INDICATOR - Updated: Sept 30, 2025 7:00 PM
-const COMPONENT_VERSION = 'v2025-09-30-19:00:00';
 
 interface Event {
   id: string;
@@ -54,10 +52,6 @@ export default function UpcomingEventsSidebar({
     citiesYouFollow: true
   });
   
-  // Log component version on mount to verify correct version is loaded
-  useEffect(() => {
-    console.log(`🔧 UpcomingEventsSidebar loaded - ${COMPONENT_VERSION}`);
-  }, []);
   
   // Fetch real events from database via API
   const { data: eventsData, isLoading } = useQuery({
@@ -67,7 +61,6 @@ export default function UpcomingEventsSidebar({
         credentials: 'include'
       });
       const result = await response.json();
-      console.log('📅 Events feed API response:', result);
       return result.data || [];
     }
   });
@@ -75,26 +68,21 @@ export default function UpcomingEventsSidebar({
   // RSVP mutation with optimistic updates and toggle support
   const rsvpMutation = useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
-      console.log('🚀 Mutation function called:', { eventId, status });
       const result = await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }
       });
-      console.log('✅ Mutation result:', result);
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      console.log('⚡ onMutate called:', { eventId, status });
       // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
       
       // Snapshot previous value
       const previousEvents = queryClient.getQueryData(['/api/events/feed']);
-      console.log('📸 Previous events:', previousEvents);
       
-      // Optimistically update (FIXED: use `old` directly, not `old?.data`)
+      // Optimistically update
       queryClient.setQueryData(['/api/events/feed'], (old: any) => {
-        console.log('🔄 Updating cache, old data:', old);
         if (!old) return old;
         
         const updated = old.map((event: any) => {
@@ -115,12 +103,10 @@ export default function UpcomingEventsSidebar({
               userRsvpStatus: status, 
               current_attendees: Math.max(0, oldAttendees + attendeeChange)
             };
-            console.log('✨ Updated event:', updatedEvent);
             return updatedEvent;
           }
           return event;
         });
-        console.log('📦 All updated events:', updated);
         return updated;
       });
       
@@ -201,13 +187,6 @@ export default function UpcomingEventsSidebar({
     workshop: { bg: 'bg-[rgba(43,178,232,0.24)]', text: 'text-[#0369A1]', border: 'border-[rgba(43,178,232,0.55)]' },
     festival: { bg: 'bg-[rgba(236,72,153,0.24)]', text: 'text-[#BE185D]', border: 'border-[rgba(236,72,153,0.55)]' },
     practica: { bg: 'bg-[rgba(16,185,129,0.24)]', text: 'text-[#047857]', border: 'border-[rgba(16,185,129,0.55)]' }
-  };
-
-  const handleRSVP = (eventId: string, status: 'going' | 'interested' | 'maybe' | 'not_going', currentStatus?: string | null) => {
-    // Toggle behavior: if clicking the same status, send null to remove RSVP
-    const newStatus = currentStatus === status ? null : status;
-    console.log('🎯 RSVP clicked:', { eventId, status, currentStatus, newStatus });
-    rsvpMutation.mutate({ eventId, status: newStatus as any });
   };
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -433,9 +412,6 @@ export default function UpcomingEventsSidebar({
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-5 h-5 text-[#5EEAD4]" />
             <h2 className="text-lg font-semibold text-[#0B3C49]">Upcoming Events</h2>
-            <span className="ml-auto px-2 py-0.5 text-xs font-mono bg-purple-100 text-purple-700 rounded border border-purple-300">
-              {COMPONENT_VERSION}
-            </span>
           </div>
           {isLoading ? (
             <p className="text-sm text-[#146778]">
