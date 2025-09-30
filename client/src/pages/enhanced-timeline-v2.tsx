@@ -39,7 +39,7 @@ import '../styles/enhanced-memories.css';
 
 // Import only essential components directly
 import { RoleEmojiDisplay } from '../components/ui/RoleEmojiDisplay';
-import BeautifulPostCreator from '../components/universal/BeautifulPostCreator';
+import PostCreator from '../components/universal/PostCreator';
 import VideoMemoryCard from '../components/moments/VideoMemoryCard';
 
 // ESA-44x21s Fix - Import missing UI components  
@@ -686,7 +686,7 @@ export default function EnhancedTimelineV2() {
 
             {/* Enhanced Memory Post Creator with Recommendations */}
             <div className="mb-6">
-              <BeautifulPostCreator 
+              <PostCreator 
                 context={{ type: 'memory' }}
                 user={user ? {
                   id: user.id,

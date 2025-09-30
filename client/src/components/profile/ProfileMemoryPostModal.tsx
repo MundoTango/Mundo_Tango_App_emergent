@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import PostCreator from '@/components/universal/PostCreator';
 import { useAuth } from '@/hooks/useAuth';
 import { Sparkles, PenLine, MapPin, Heart, Star } from 'lucide-react';
 
@@ -123,9 +123,9 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
                 </div>
               )}
               
-              <BeautifulPostCreator
+              <PostCreator
                 context={{ type: 'memory' }}
-                user={user}
+                user={user || undefined}
                 onPostCreated={handleMemoryCreated}
               />
 

@@ -18,7 +18,7 @@ const MemoriesDebug: React.FC = () => {
     const components = {
       ModernMemoriesPage: false,
       EnhancedMemoriesRealtime: false,
-      BeautifulPostCreator: false,
+      PostCreator: false,
       EnhancedMemoriesUI: false,
     };
 
@@ -38,10 +38,10 @@ const MemoriesDebug: React.FC = () => {
     }
 
     try {
-      await import('../components/universal/BeautifulPostCreator');
-      components.BeautifulPostCreator = true;
+      await import('../components/universal/PostCreator');
+      components.PostCreator = true;
     } catch (e) {
-      console.error('BeautifulPostCreator import failed:', e);
+      console.error('PostCreator import failed:', e);
     }
 
     try {

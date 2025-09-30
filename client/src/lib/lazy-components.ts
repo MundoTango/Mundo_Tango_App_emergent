@@ -5,8 +5,8 @@ import React from 'react';
 export const LazyEventBoard = React.lazy(() => 
   import('../components/events/EventsBoard').then(module => ({ default: module.default || module.EventsBoard }))
 );
-export const LazyBeautifulPostCreator = React.lazy(() => 
-  import('../components/universal/BeautifulPostCreator').then(module => ({ default: module.default || module.BeautifulPostCreator }))
+export const LazyPostCreator = React.lazy(() => 
+  import('../components/universal/PostCreator').then(module => ({ default: module.default || module.PostCreator }))
 );
 export const LazyFacebookReactionSelector = React.lazy(() => 
   import('../components/ui/FacebookReactionSelector').then(module => ({ default: module.FacebookReactionSelector }))

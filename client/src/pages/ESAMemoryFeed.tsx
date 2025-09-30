@@ -23,7 +23,7 @@ import { safe, safeArray } from '@shared/resilience/guards';
 
 // ESA Framework Canonical Components - Using standard layouts for consistency
 import DashboardLayout from '@/layouts/DashboardLayout';
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import PostCreator from '@/components/universal/PostCreator';
 // ESA LIFE CEO 61×21 - Using unified feed component following Layer 9 UI Framework
 // Direct import instead of lazy to fix rendering issue
 import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
@@ -563,7 +563,7 @@ function ESAMemoryFeedCore() {
                 <div className="space-y-6">
                   {/* Post Creator - Always visible per ESA Framework */}
                   {!showCreateModal && (
-                    <BeautifulPostCreator 
+                    <PostCreator 
                       user={{
                         id: parseInt(currentUserId) || 1,
                         name: 'Pierre Dubois',
@@ -708,7 +708,7 @@ function ESAMemoryFeedCore() {
             </h2>
             
             {/* BeautifulPostCreator with edit mode and react-quill */}
-            <BeautifulPostCreator
+            <PostCreator
               editMode={true}
               existingPost={{
                 id: editingPost.id,
