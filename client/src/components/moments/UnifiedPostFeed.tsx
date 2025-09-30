@@ -296,7 +296,7 @@ const UnifiedPostFeed = React.memo(({
     <div className={`space-y-6 ${className}`}>
       {/* Filters Section - Shown when showFilters or showSearch is true */}
       {(showFilters || showSearch) && (
-        <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200/50 shadow-lg">
+        <div className="relative bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-gray-200/50 shadow-lg">
           {/* Search Bar */}
           {showSearch && (
           <div className="mb-4">
@@ -443,6 +443,11 @@ const UnifiedPostFeed = React.memo(({
               </div>
             </div>
           )}
+          
+          {/* COMING SOON Overlay - Filters/Search Disabled */}
+          <div className="absolute inset-0 bg-gray-900/90 rounded-3xl flex items-center justify-center cursor-not-allowed z-10 pointer-events-auto backdrop-blur-sm">
+            <span className="text-2xl font-bold text-white">COMING SOON</span>
+          </div>
         </div>
       )}
 
