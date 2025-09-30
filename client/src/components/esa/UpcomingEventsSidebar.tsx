@@ -331,15 +331,9 @@ export default function UpcomingEventsSidebar({
     const colors = eventTypeColors[event.type as keyof typeof eventTypeColors] || eventTypeColors.milonga;
     
     return (
-      <a
+      <div 
         key={event.id}
-        href={`/events/${event.id}`}
-        onClick={(e) => {
-          e.preventDefault();
-          setLocation(`/events/${event.id}`);
-          onEventClick?.(event.id);
-        }}
-        className="w-full text-left group block cursor-pointer"
+        className="w-full group"
         data-testid={`event-card-${event.id}`}
       >
         <div 
@@ -354,9 +348,17 @@ export default function UpcomingEventsSidebar({
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(222,252,255,0.82)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.78)'}
         >
-          {/* Event Header */}
+          {/* Event Header with RSVP outside navigation */}
           <div className="flex items-start justify-between mb-2 gap-2">
-            <div className="flex-1 min-w-0">
+            <a
+              href={`/events/${event.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setLocation(`/events/${event.id}`);
+                onEventClick?.(event.id);
+              }}
+              className="flex-1 min-w-0 cursor-pointer text-left"
+            >
               <h3 className="font-semibold text-sm transition-colors truncate text-[#0B3C49] group-hover:text-[#5EEAD4]">
                 {event.title}
               </h3>
@@ -366,14 +368,8 @@ export default function UpcomingEventsSidebar({
               )}>
                 {event.type}
               </span>
-            </div>
-            <div 
-              className="flex items-start gap-1 flex-shrink-0"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            >
+            </a>
+            <div className="flex items-start gap-1 flex-shrink-0">
               {event.isFeatured && (
                 <Sparkles className="w-4 h-4 text-[#5EEAD4] animate-pulse" />
               )}
@@ -381,49 +377,59 @@ export default function UpcomingEventsSidebar({
             </div>
           </div>
 
-          {/* Event Details */}
-          <div className="space-y-1 text-xs text-[#3BA0AF]">
-            <div className="flex items-center gap-2">
-              <Clock className="w-3 h-3 flex-shrink-0" />
-              <span className="truncate">
-                {safeFormatDate(event.date, 'MMM dd', 'Date TBA')} at {event.time}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-3 h-3 flex-shrink-0" />
-              <span className="truncate">{event.location}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="w-3 h-3 flex-shrink-0" />
-              <span>{event.attendees} attending</span>
-              {event.userRsvpStatus === 'going' && (
-                <span 
-                  style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
-                  className="px-1.5 py-0.5 rounded text-xs"
-                >
-                  You're going
+          {/* Event Details - Clickable for navigation */}
+          <a
+            href={`/events/${event.id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              setLocation(`/events/${event.id}`);
+              onEventClick?.(event.id);
+            }}
+            className="block cursor-pointer"
+          >
+            <div className="space-y-1 text-xs text-[#3BA0AF]">
+              <div className="flex items-center gap-2">
+                <Clock className="w-3 h-3 flex-shrink-0" />
+                <span className="truncate">
+                  {safeFormatDate(event.date, 'MMM dd', 'Date TBA')} at {event.time}
                 </span>
-              )}
-              {event.userRsvpStatus === 'interested' && (
-                <span 
-                  style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
-                  className="px-1.5 py-0.5 rounded text-xs"
-                >
-                  Interested
-                </span>
-              )}
-              {event.userRsvpStatus === 'maybe' && (
-                <span 
-                  style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
-                  className="px-1.5 py-0.5 rounded text-xs"
-                >
-                  Maybe
-                </span>
-              )}
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3 h-3 flex-shrink-0" />
+                <span className="truncate">{event.location}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-3 h-3 flex-shrink-0" />
+                <span>{event.attendees} attending</span>
+                {event.userRsvpStatus === 'going' && (
+                  <span 
+                    style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
+                    className="px-1.5 py-0.5 rounded text-xs"
+                  >
+                    You're going
+                  </span>
+                )}
+                {event.userRsvpStatus === 'interested' && (
+                  <span 
+                    style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
+                    className="px-1.5 py-0.5 rounded text-xs"
+                  >
+                    Interested
+                  </span>
+                )}
+                {event.userRsvpStatus === 'maybe' && (
+                  <span 
+                    style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
+                    className="px-1.5 py-0.5 rounded text-xs"
+                  >
+                    Maybe
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          </a>
         </div>
-      </a>
+      </div>
     );
   };
 
