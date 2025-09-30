@@ -195,23 +195,19 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
     
     const finalDisplayValue = getDisplayValue(newValue);
+    const actualMentionDisplay = `@${suggestion.display}`;
     console.log('🎯 Cursor Calculation:', {
-      mentionStart,
-      mentionStartType: 'canonical',
-      currentMention,
-      beforeMentionCanonical: beforeMention,
-      beforeMentionCanonicalLength: beforeMention.length,
-      beforeMentionDisplay,
-      beforeMentionDisplayLength: beforeMentionDisplay.length,
-      mentionDisplayText: `@${suggestion.display}`,
-      mentionDisplayLength,
-      spacesAdded: 1,
-      calculatedDisplayPosition: newCursorPosInDisplay,
-      newValueCanonical: newValue,
-      newValueCanonicalLength: newValue.length,
-      newValueDisplay: finalDisplayValue,
-      newValueDisplayLength: finalDisplayValue.length,
-      expectedCursorAt: `After "${finalDisplayValue.substring(0, newCursorPosInDisplay)}"`
+      step1_mentionStart: mentionStart,
+      step2_currentMention: currentMention,
+      step3_beforeCanonical: beforeMention,
+      step4_beforeDisplay: beforeMentionDisplay,
+      step5_mentionDisplay: actualMentionDisplay,
+      step6_calculation: `${beforeMentionDisplay.length} + ${mentionDisplayLength} + 1 = ${newCursorPosInDisplay}`,
+      step7_finalDisplay: finalDisplayValue,
+      step8_finalDisplayLength: finalDisplayValue.length,
+      step9_charAtCursor: finalDisplayValue[newCursorPosInDisplay] || 'END',
+      step10_textUpToCursor: finalDisplayValue.substring(0, newCursorPosInDisplay),
+      VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
     // Store intended cursor position in DISPLAY coordinates (textarea shows display format)
@@ -328,18 +324,25 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   // Restore cursor position after React updates
   useEffect(() => {
     if (intendedCursorPosRef.current !== null && textareaRef.current) {
-      // Use RAF to ensure DOM has updated
+      // Use double RAF to ensure DOM has fully updated
       requestAnimationFrame(() => {
-        if (textareaRef.current && intendedCursorPosRef.current !== null) {
-          const pos = intendedCursorPosRef.current;
-          console.log('📍 Setting cursor position:', { 
-            pos, 
-            textLength: textareaRef.current.value.length,
-            textValue: textareaRef.current.value 
-          });
-          textareaRef.current.setSelectionRange(pos, pos);
-          intendedCursorPosRef.current = null;
-        }
+        requestAnimationFrame(() => {
+          if (textareaRef.current && intendedCursorPosRef.current !== null) {
+            const pos = intendedCursorPosRef.current;
+            const actualLength = textareaRef.current.value.length;
+            // Ensure position doesn't exceed text length
+            const safePos = Math.min(pos, actualLength);
+            console.log('📍 Setting cursor position:', { 
+              requestedPos: pos,
+              safePos,
+              textLength: actualLength,
+              textValue: textareaRef.current.value 
+            });
+            textareaRef.current.setSelectionRange(safePos, safePos);
+            textareaRef.current.focus();
+            intendedCursorPosRef.current = null;
+          }
+        });
       });
     }
   }, [value]);
