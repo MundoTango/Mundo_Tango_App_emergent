@@ -1,5 +1,8 @@
 {
   "posts": {
+    "title": "Posts",
+    "post": "post",
+    "posts": "posts",
     "createPost": "Create Post",
     "editPost": "Edit Post",
     "deletePost": "Delete Post",

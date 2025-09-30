@@ -13,6 +13,7 @@ import {
   MapPin, MessageCircle, Share2, MoreVertical 
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 import { apiRequest } from '@/lib/queryClient';
 import EnhancedPostItem from './EnhancedPostItem';
 import ShareModal from '@/components/modern/ShareModal';
@@ -107,6 +108,7 @@ const UnifiedPostFeed = React.memo(({
   console.log('[ESA DEBUG] UnifiedPostFeed component rendering with props:', { propsPosts: propsPosts?.length, showFilters, showSearch });
   const { user } = useAuth();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   // Internal filter state
@@ -304,7 +306,7 @@ const UnifiedPostFeed = React.memo(({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search posts..."
+                placeholder={t('memories.feed.searchPlaceholder')}
                 className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
               {searchQuery && (
@@ -326,7 +328,7 @@ const UnifiedPostFeed = React.memo(({
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
-            <span>Filters</span>
+            <span>{t('common.actions.filters')}</span>
           </button>
           )}
 
@@ -344,7 +346,7 @@ const UnifiedPostFeed = React.memo(({
                   }`}
                 >
                   <Globe className="h-4 w-4 inline mr-2" />
-                  All Posts
+                  {t('memories.feed.filters.all')}
                 </button>
                 <button
                   onClick={() => setFilterBy('following')}
@@ -355,7 +357,7 @@ const UnifiedPostFeed = React.memo(({
                   }`}
                 >
                   <Users className="h-4 w-4 inline mr-2" />
-                  Following
+                  {t('memories.feed.filters.following')}
                 </button>
                 <button
                   onClick={() => setFilterBy('nearby')}
@@ -366,7 +368,7 @@ const UnifiedPostFeed = React.memo(({
                   }`}
                 >
                   <MapPin className="h-4 w-4 inline mr-2" />
-                  Nearby
+                  {t('memories.feed.filters.nearby')}
                 </button>
               </div>
 
@@ -374,7 +376,7 @@ const UnifiedPostFeed = React.memo(({
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Tag className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700">Filter by Tags</span>
+                  <span className="text-sm font-medium text-gray-700">{t('common.filters.filterByTags')}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {filterTags.map(tag => (
@@ -396,7 +398,7 @@ const UnifiedPostFeed = React.memo(({
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
-                    placeholder="Add tag..."
+                    placeholder={t('memories.feed.addTag')}
                     className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
@@ -405,11 +407,11 @@ const UnifiedPostFeed = React.memo(({
               {/* Date Range Filter */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-gray-700">Date Range</span>
+                  <span className="text-sm font-medium text-gray-700">{t('common.filters.dateRange')}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block">From</label>
+                    <label className="text-xs text-gray-600 mb-1 block">{t('common.filters.from')}</label>
                     <input
                       type="date"
                       value={startDate}
@@ -418,7 +420,7 @@ const UnifiedPostFeed = React.memo(({
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block">To</label>
+                    <label className="text-xs text-gray-600 mb-1 block">{t('common.filters.to')}</label>
                     <input
                       type="date"
                       value={endDate}
@@ -435,7 +437,7 @@ const UnifiedPostFeed = React.memo(({
                     }}
                     className="mt-2 text-xs text-red-600 hover:text-red-700"
                   >
-                    Clear dates
+                    {t('common.filters.clearDates')}
                   </button>
                 )}
               </div>
@@ -453,14 +455,14 @@ const UnifiedPostFeed = React.memo(({
             </div>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                {activeFilters.filterType === 'following' ? 'Following' : 
-                 activeFilters.filterType === 'nearby' ? 'Nearby' : 'All'} Posts
+                {activeFilters.filterType === 'following' ? t('memories.feed.filters.following') : 
+                 activeFilters.filterType === 'nearby' ? t('memories.feed.filters.nearby') : t('memories.feed.filters.all')} {t('posts.title')}
               </h2>
               <p className="text-gray-600">
-                {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
+                {filteredPosts.length} {filteredPosts.length === 1 ? t('posts.post') : t('posts.posts')}
                 {activeFilters.tags.length > 0 && (
                   <span className="ml-2 text-teal-600">
-                    • Filtered by {activeFilters.tags.length} tag{activeFilters.tags.length !== 1 ? 's' : ''}
+                    • {t('common.filters.filteredBy')} {activeFilters.tags.length} {activeFilters.tags.length !== 1 ? t('common.filters.tags') : t('common.filters.tag')}
                   </span>
                 )}
               </p>
@@ -490,7 +492,7 @@ const UnifiedPostFeed = React.memo(({
             onClick={onLoadMore}
             className="px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
-            Load More
+            {t('memories.feed.loadMore')}
           </button>
         </div>
       )}
@@ -502,7 +504,7 @@ const UnifiedPostFeed = React.memo(({
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">No posts found</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{t('memories.feed.noMemories')}</h3>
             <p className="text-gray-600 leading-relaxed">
               {activeFilters.filterType === 'following' 
                 ? "No posts from people you're following yet. Start following dancers to see their posts here!"
