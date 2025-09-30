@@ -188,25 +188,27 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     const newValue = beforeMention + mentionText + ' ' + afterMention;
     
-    // Calculate cursor position in CANONICAL format
-    // Cursor should be placed after the inserted mention + space in canonical text
-    const newCursorPosInCanonical = beforeMention.length + mentionText.length + 1; // +1 for space
+    // Calculate cursor position in DISPLAY format (since textarea shows display text)
+    // Cursor should be placed after the inserted mention + space in display text
+    const beforeMentionDisplay = getDisplayValue(beforeMention);
+    const mentionDisplayLength = `@${suggestion.display}`.length;
+    const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
     
     console.log('🎯 Cursor Calculation:', {
       mentionStart,
       currentMention,
       beforeMentionCanonical: beforeMention,
-      beforeMentionLength: beforeMention.length,
-      mentionTextCanonical: mentionText,
-      mentionTextLength: mentionText.length,
+      beforeMentionDisplay,
+      mentionDisplayText: `@${suggestion.display}`,
+      mentionDisplayLength,
       spacesAdded: 1,
-      calculatedCanonicalPosition: newCursorPosInCanonical,
+      calculatedDisplayPosition: newCursorPosInDisplay,
       newValueCanonical: newValue,
       newValueDisplay: getDisplayValue(newValue)
     });
     
-    // Store intended cursor position in CANONICAL coordinates before calling onChange
-    intendedCursorPosRef.current = newCursorPosInCanonical;
+    // Store intended cursor position in DISPLAY coordinates (textarea shows display format)
+    intendedCursorPosRef.current = newCursorPosInDisplay;
     
     onChange(newValue);
     setShowSuggestions(false);
@@ -503,8 +505,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       
       <textarea
         ref={textareaRef}
-        value={value}
-        onChange={handleTextChange}
+        value={getDisplayValue(value)}
+        onChange={handleTextChangeWithFormat}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         disabled={disabled}
