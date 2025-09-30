@@ -111,6 +111,7 @@ export default function BeautifulPostCreator({
   const editorRef = useRef<HTMLDivElement>(null);
   const [showAdvanced, setShowAdvanced] = useState(editMode); // Show advanced in edit mode
   const [showTags, setShowTags] = useState(false);
+  const [showVisibility, setShowVisibility] = useState(false);
   const [visibility, setVisibility] = useState(existingPost?.visibility || 'public');
   const [selectedTags, setSelectedTags] = useState<string[]>(existingPost?.hashtags || []);
   const [mentions, setMentions] = useState<string[]>([]); // ESA Layer 24: Store extracted mention IDs
@@ -1191,13 +1192,12 @@ export default function BeautifulPostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => {
-                        const visibilityOptions = ['public', 'friends', 'private'] as const;
-                        const currentIndex = visibilityOptions.indexOf(visibility as any);
-                        const nextIndex = (currentIndex + 1) % visibilityOptions.length;
-                        setVisibility(visibilityOptions[nextIndex]);
-                      }}
-                      className="p-4 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-100 hover:from-green-100 hover:to-emerald-200 text-green-600 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3"
+                      onClick={() => setShowVisibility(!showVisibility)}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                        showVisibility
+                          ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl animate-pulse'
+                          : 'bg-gradient-to-br from-green-50 to-emerald-100 hover:from-green-100 hover:to-emerald-200 text-green-600 shadow-lg hover:shadow-2xl'
+                      }`}
                     >
                       {visibility === 'public' && <Globe className="h-6 w-6" />}
                       {visibility === 'friends' && <Users className="h-6 w-6" />}
@@ -1215,18 +1215,82 @@ export default function BeautifulPostCreator({
                         {visibility === 'private' && '🔒'}
                       </span>
                       <div>
-                        <p className="font-bold text-sm">
-                          {visibility === 'public' && 'Public'}
-                          {visibility === 'friends' && 'Friends Only'}
-                          {visibility === 'private' && 'Private'}
-                        </p>
-                        <p className="text-xs text-green-200">Click to change visibility</p>
+                        <p className="font-bold text-sm">Who can see this?</p>
+                        <p className="text-xs text-green-200">Choose visibility level</p>
                       </div>
                     </div>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
+            
+            {/* Visibility Options Table - Shows when icon is clicked */}
+            {showVisibility && (
+              <div className="grid grid-cols-3 gap-3 mt-3 animate-in slide-in-from-top-2 duration-300">
+                <button
+                  onClick={() => {
+                    setVisibility('public');
+                    setShowVisibility(false);
+                  }}
+                  className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
+                    visibility === 'public'
+                      ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-green-300 shadow-sm hover:shadow-lg'
+                  }`}
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <Globe className={`h-6 w-6 ${visibility === 'public' ? 'text-white' : 'text-green-600'}`} />
+                    <span className="text-sm font-semibold">Public</span>
+                    <span className="text-xs opacity-75">Everyone</span>
+                  </div>
+                  {visibility === 'public' && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  )}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setVisibility('friends');
+                    setShowVisibility(false);
+                  }}
+                  className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
+                    visibility === 'friends'
+                      ? 'bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-xl'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-blue-300 shadow-sm hover:shadow-lg'
+                  }`}
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <Users className={`h-6 w-6 ${visibility === 'friends' ? 'text-white' : 'text-blue-600'}`} />
+                    <span className="text-sm font-semibold">Friends</span>
+                    <span className="text-xs opacity-75">Friends only</span>
+                  </div>
+                  {visibility === 'friends' && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  )}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setVisibility('private');
+                    setShowVisibility(false);
+                  }}
+                  className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
+                    visibility === 'private'
+                      ? 'bg-gradient-to-br from-gray-500 to-gray-700 text-white shadow-xl'
+                      : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-gray-300 shadow-sm hover:shadow-lg'
+                  }`}
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <Lock className={`h-6 w-6 ${visibility === 'private' ? 'text-white' : 'text-gray-600'}`} />
+                    <span className="text-sm font-semibold">Private</span>
+                    <span className="text-xs opacity-75">Only me</span>
+                  </div>
+                  {visibility === 'private' && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  )}
+                </button>
+              </div>
+            )}
 
             {/* Hidden file input from InternalUploader */}
             <div className="hidden">
