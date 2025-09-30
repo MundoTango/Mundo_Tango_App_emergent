@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiRequest } from '@/lib/queryClient';
 import UploadMedia from '@/components/UploadMedia';
-import GoogleMapsAutocomplete from '@/components/maps/GoogleMapsAutocomplete';
+import LocationInput from '@/components/universal/LocationInput';
 import { Calendar, MapPin, DollarSign, Video, RefreshCw, Users, Image, FileText } from 'lucide-react';
 
 const eventSchema = z.object({
@@ -284,11 +284,10 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormItem>
                       <FormLabel>Location</FormLabel>
                       <FormControl>
-                        <GoogleMapsAutocomplete
-                          onPlaceSelect={(place) => {
-                            field.onChange(place.address);
-                          }}
-                          defaultValue={field.value}
+                        <LocationInput
+                          value={field.value || ''}
+                          onChange={(loc) => field.onChange(loc)}
+                          placeholder="Search for event location..."
                         />
                       </FormControl>
                       <FormMessage />

@@ -34,8 +34,9 @@ The platform features a state-of-the-art @mention system supporting **four entit
 - Posts with @mention support for 4 entity types
 - Media attachments with compression
 - Real-time privacy controls (Public, Friends, Private)
-- Recommendation system with city group cross-posting
-- Location tagging via Google Maps
+- **Treasure Map Explorer**: Adventure-themed recommendation system with integrated location search
+- Unified location input system with intelligent Google Maps/fallback architecture
+- Recommendation metadata: type (restaurant/cafe/hotel/venue), price range, location
 
 ### 2. Social Interactions
 - Likes and reactions
@@ -1119,8 +1120,161 @@ describe('Social Features', () => {
 });
 ```
 
+## 🗺️ Treasure Map Explorer - Recommendation System
+
+### Design Theme: Adventure & Discovery
+**Status**: ✅ **COMPLETE** (September 30, 2025)
+
+The recommendation system features a complete adventure-themed design that transforms location sharing into a treasure hunt experience.
+
+#### Visual Design
+**Collapsed State:**
+- Animated compass rose icon that rotates
+- "🗺️ Discover Hidden Gems" title with warm amber/brown gradients
+- Vintage map corner decorations (aged paper aesthetic)
+- Smooth hover effects with treasure chest metaphor
+
+**Expanded "Treasure Map" State:**
+- Vintage yellowed paper background with subtle texture overlay
+- Animated gradient background simulating aged map paper
+- **"MARK YOUR TREASURE"** header with spinning compass animation
+- Decorative corner borders mimicking antique map edges
+
+#### Interactive Elements
+
+1. **💎 Treasure Type Selector**
+   - 🍽️ Dining Hall (restaurant)
+   - ☕ Cozy Tavern (cafe)
+   - 🏨 Inn & Lodge (hotel)
+   - 💃 Grand Ballroom (venue)
+
+2. **💰 Treasure Value**
+   - ⭐ Budget ($)
+   - ⭐⭐ Moderate ($$)
+   - ⭐⭐⭐ Luxury ($$$)
+   - Buttons with gradient highlighting when selected
+
+3. **📍 Location Search (Integrated)**
+   - Uses unified `LocationInput` component
+   - Google Maps Places API with fallback
+   - Treasure-themed placeholder: "🔍 Search for your hidden gem..."
+   - Confirmation message: "Treasure marked: [location]" with bouncing pin icon
+   - Wrapped in amber/yellow gradient border
+
+#### Technical Implementation
+
+**Component**: `BeautifulPostCreator.tsx` (lines 1082-1277)
+
+```typescript
+// Recommendation state
+const [isRecommendation, setIsRecommendation] = useState(false);
+const [recommendationType, setRecommendationType] = useState('');
+const [priceRange, setPriceRange] = useState('');
+const [location, setLocation] = useState('');
+
+// Toggle button with compass rose animation
+<button onClick={() => setIsRecommendation(!isRecommendation)}>
+  <CompassRoseIcon className={isRecommendation ? 'rotate-0' : 'rotate-180'} />
+  Discover Hidden Gems
+</button>
+
+// Expanded treasure map with integrated location
+{isRecommendation && (
+  <div className="treasure-map-container">
+    <LocationInput
+      value={location}
+      onChange={handleLocationChange}
+      placeholder="🔍 Search for your hidden gem..."
+      biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
+      showBusinessDetails={true}
+    />
+  </div>
+)}
+```
+
+#### CSS Animations
+**File**: `client/src/index.css`
+
+```css
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+```
+
+### Location Input Architecture
+
+#### Unified LocationInput Component
+**File**: `client/src/components/universal/LocationInput.tsx`
+
+**Features:**
+- ✅ Intelligent API key detection
+- ✅ Automatic fallback to SimplifiedLocationInput
+- ✅ Consistent interface across implementations
+- ✅ Proper onClear callback forwarding
+- ✅ Loading state during API availability check
+- ✅ Normalized callback signatures
+
+**Implementation:**
+```typescript
+export default function LocationInput(props: LocationInputProps) {
+  const [googleMapsAvailable, setGoogleMapsAvailable] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    setGoogleMapsAvailable(!!apiKey && apiKey.length > 0);
+  }, []);
+
+  // Use Google Maps if available, otherwise fallback
+  return googleMapsAvailable ? (
+    <GoogleMapsLocationInput {...props} />
+  ) : (
+    <SimplifiedLocationInput {...props} />
+  );
+}
+```
+
+**Underlying Components:**
+1. **GoogleMapsLocationInput** (Primary)
+   - Google Maps Places API integration
+   - Business details (ratings, price level)
+   - Autocomplete with bias to location
+   - Place ID and coordinates extraction
+
+2. **SimplifiedLocationInput** (Fallback)
+   - OpenStreetMap Nominatim geocoding
+   - Common locations database
+   - Client-side filtering
+   - Manual location entry
+
+#### Consolidation Status
+**Audit Document**: `docs/LOCATION_INPUT_CONSOLIDATION_AUDIT.md`
+
+**Findings:**
+- ✅ Unified LocationInput wrapper created and approved
+- 🔄 5 files need migration to unified component
+- 🗑️ 2 unused components identified for deletion
+
+**Migration Targets:**
+1. `ProfileLocationEditor.tsx`
+2. `GoogleMapsLocationPicker.tsx` (onboarding)
+3. `ModernPostCreator.tsx`
+4. `MemoryCreationForm.tsx`
+5. `CreateEventDialog.tsx`
+
 ## Next Steps
 
+- [ ] Complete location input migration across 5 components
+- [ ] Delete unused GoogleMapsEventLocationPicker and EnhancedGoogleMapsAutocomplete
 - [ ] Implement Stories feature
 - [ ] Add live streaming support
 - [ ] Enhanced content discovery
@@ -1129,6 +1283,6 @@ describe('Social Features', () => {
 ---
 
 **Status**: 🟢 Operational
-**Dependencies**: Database, WebSockets, Search
+**Dependencies**: Database, WebSockets, Search, Google Maps API
 **Owner**: Social Team
-**Last Updated**: September 2025
+**Last Updated**: September 30, 2025

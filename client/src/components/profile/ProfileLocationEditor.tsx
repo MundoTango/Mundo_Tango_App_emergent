@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import GoogleMapsAutocomplete from '@/components/maps/GoogleMapsAutocomplete';
+import LocationInput from '@/components/universal/LocationInput';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -77,14 +77,21 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
     updateProfileMutation.mutate(data);
   };
 
-  const handleLocationSelect = (locationData: any) => {
-    setSelectedLocation(locationData.formattedAddress);
-    form.setValue('location', locationData.formattedAddress);
-    form.setValue('city', locationData.city);
-    form.setValue('state', locationData.state);
-    form.setValue('country', locationData.country);
-    form.setValue('latitude', locationData.latitude);
-    form.setValue('longitude', locationData.longitude);
+  const handleLocationChange = (location: string, coordinates?: { lat: number; lng: number }, details?: any) => {
+    setSelectedLocation(location);
+    form.setValue('location', location);
+    
+    if (coordinates) {
+      form.setValue('latitude', coordinates.lat);
+      form.setValue('longitude', coordinates.lng);
+    }
+    
+    if (details) {
+      // Extract city, state, country from details if available
+      form.setValue('city', details.name || '');
+      form.setValue('state', details.address?.split(',')[1]?.trim() || '');
+      form.setValue('country', details.address?.split(',').pop()?.trim() || '');
+    }
   };
 
   const clearLocation = () => {
@@ -159,14 +166,14 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
               )}
             />
 
-            {/* Google Maps Location Selection */}
+            {/* Unified Location Input */}
             <div className="space-y-4">
               <FormLabel>Location</FormLabel>
               <div className="space-y-3">
-                <GoogleMapsAutocomplete
+                <LocationInput
                   value={selectedLocation}
                   placeholder="Search for your location..."
-                  onLocationSelect={handleLocationSelect}
+                  onChange={handleLocationChange}
                   onClear={clearLocation}
                   className="w-full"
                 />
