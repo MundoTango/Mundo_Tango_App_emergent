@@ -51,6 +51,7 @@
     "reset": "Reset",
     "apply": "Apply",
     "filter": "Filter",
+    "filters": "Filters",
     "sort": "Sort",
     "view": "View",
     "viewAll": "View All",
@@ -60,6 +61,16 @@
     "collapse": "Collapse",
     "refresh": "Refresh",
     "retry": "Retry"
+  },
+  "filters": {
+    "filterByTags": "Filter by Tags",
+    "dateRange": "Date Range",
+    "from": "From",
+    "to": "To",
+    "clearDates": "Clear dates",
+    "filteredBy": "Filtered by",
+    "tag": "tag",
+    "tags": "tags"
   },
   "status": {
     "online": "Online",
