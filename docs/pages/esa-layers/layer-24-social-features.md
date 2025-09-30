@@ -10,13 +10,13 @@ Layer 24 manages all social interaction features within the platform, including 
 ## 🎯 Key Achievement: Advanced @Mention System
 
 ### Extended Multi-Entity @Mention System ✅
-The platform features a state-of-the-art @mention system supporting **four entity types** with sophisticated contentEditable architecture:
+The platform features a state-of-the-art @mention system supporting **four entity types** with sophisticated contentEditable architecture and **clickable navigation to filtered post views**:
 
 #### Supported Entity Types
-- 🔵 **Users** → Blue badges (`@Elena Rodriguez`)
-- 🟢 **Events** → Green badges (`@Milan Tango Festival 2025`)
-- 🟣 **Groups** → Purple badges (`@Buenos Aires Tango`)
-- 🟠 **Cities** → Orange badges with MapPin icon (`@Madrid Tango Lovers`)
+- 🔵 **Users** → Blue badges (`@Elena Rodriguez`) → Navigate to `/profile/:id`
+- 🟢 **Events** → Green badges (`@Milan Tango Festival 2025`) → Navigate to `/events/:id?tab=posts&filter=all`
+- 🟣 **Groups** → Purple badges (`@Professional Tango Instructors`) → Navigate to `/groups/:slug?tab=posts&filter=all`
+- 🟠 **Cities** → Orange badges with MapPin icon (`@Buenos Aires Tango Community`) → Navigate to `/groups/:slug?tab=posts&filter=all`
 
 #### Technical Highlights
 - **contentEditable Architecture**: Single-layer rendering eliminates multi-layer text alignment issues
@@ -25,6 +25,8 @@ The platform features a state-of-the-art @mention system supporting **four entit
 - **Real-time Search**: Multi-entity API with indexed search across users, events, groups, cities
 - **Notification Integration**: Automatic notification creation for mentioned users
 - **Canonical Format Storage**: `@[Display Name](type:id)` format for reliable parsing
+- **Clickable Navigation**: All mentions are clickable links that navigate to filtered post views
+- **Smart Filtering**: Posts tabs show context-specific filters based on entity type
 
 ## Core Responsibilities
 
@@ -334,6 +336,155 @@ router.post('/direct', async (req, res) => {
 - ❌ **Group mentions** (`@[Group](group:slug)`) → **Display only, no notifications**
 
 **Rationale**: Events, cities, and professional groups are entity references, not user accounts. They are displayed with color-coded badges and clickable navigation but do not receive notification alerts since they cannot be "notified" as users can.
+
+## Entity-Specific Post Navigation ✅
+
+### Overview
+Complete implementation of clickable @mention navigation with entity-specific post filtering based on membership/participation status. Each entity type navigates to a dedicated Posts tab with contextual filtering options.
+
+### Backend API Endpoints
+
+#### Event Posts API
+**Endpoint**: `GET /api/events/:id/posts`  
+**Location**: `server/routes/eventsRoutes.ts`
+
+```typescript
+router.get('/api/events/:id/posts', async (req, res) => {
+  const eventId = parseInt(req.params.id);
+  const { filter = 'all', page = '1', limit = '20' } = req.query;
+
+  // Filter options:
+  // - 'participants': Posts by accepted event participants (organizers, performers, musicians)
+  // - 'guests': Posts by non-participants who mentioned or attended the event
+  // - 'all': All posts mentioning the event
+
+  // Query searches in content column: @[Event Name](event:id)
+  const posts = await db
+    .select({ /* post fields */ })
+    .from(posts)
+    .innerJoin(users, eq(posts.userId, users.id))
+    .where(sql`${posts.content} LIKE ${'%event:' + eventId + '%'}`)
+    .orderBy(desc(posts.createdAt));
+
+  res.json({ success: true, data: posts });
+});
+```
+
+**Filter Logic**:
+- **Participants**: Users in `eventParticipants` table with `status = 'accepted'`
+- **Guests**: Users who mentioned event but not in `eventParticipants`
+- **All**: Union of participants and guests
+
+#### Group Posts API
+**Endpoint**: `GET /api/groups/:groupId/posts`  
+**Location**: `server/routes/groupRoutes.ts`
+
+```typescript
+router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
+  const groupSlugOrId = req.params.groupId;
+  const { filter = 'all', page = '1', limit = '20' } = req.query;
+
+  // Lookup group by slug or numeric ID
+  const parsedId = parseInt(groupSlugOrId);
+  const [group] = await db
+    .select()
+    .from(groups)
+    .where(isNaN(parsedId) ? eq(groups.slug, groupSlugOrId) : eq(groups.id, parsedId));
+
+  // Filter logic adapts based on group.type:
+  // - City groups (type='city'): residents vs visitors
+  // - Professional groups (type='professional'): members vs non-members
+
+  // Query searches in content column: @[Group Name](group:slug) or @[City Name](city:slug)
+  const posts = await db
+    .select({ /* post fields */ })
+    .from(posts)
+    .innerJoin(users, eq(posts.userId, users.id))
+    .where(sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`)
+    .orderBy(desc(posts.createdAt));
+
+  res.json({ success: true, data: posts });
+});
+```
+
+**Filter Logic**:
+
+**City Groups** (`type='city'`):
+- **Residents**: `users.city = group.city` (users living in the city)
+- **Visitors**: `users.city != group.city OR users.city IS NULL` (users from other cities)
+- **All**: All users who mentioned the city
+
+**Professional Groups** (`type='professional'`):
+- **Members**: Users in `groupMembers` table for this group
+- **Non-members**: Users who mentioned group but not in `groupMembers`
+- **All**: Union of members and non-members
+
+### Frontend Implementation
+
+#### Event Detail Posts Tab
+**Location**: `client/src/pages/event-detail.tsx`
+
+Features:
+- **URL Parameter Reading**: Reads `?tab=posts&filter={filter}` on mount
+- **Filter Buttons**: "All Posts", "Participants", "Guests"
+- **Dynamic Post Feed**: Uses `UnifiedPostFeed` component with API integration
+- **ESA MT Ocean Theme**: Turquoise/cyan gradients with glassmorphic effects
+
+#### Group Detail Posts Tab
+**Location**: `client/src/pages/GroupDetailPageMT.tsx`
+
+Features:
+- **Adaptive Filtering**: Buttons change based on `group.type`
+  - **City Groups**: "All Posts", "Residents", "Visitors"
+  - **Professional Groups**: "All Posts", "Members", "Non-members"
+- **URL Parameter Handling**: Properly extracts slug with `decodeURIComponent()` and `.split('?')[0]`
+- **Post Feed with Badges**: Shows "Resident"/"Visitor" or "Member" badges based on user status
+- **Real-time Updates**: TanStack Query cache invalidation on filter change
+
+### Clickable Mention Links
+**Location**: `client/src/utils/renderWithMentions.tsx`
+
+```typescript
+// Uses regular <a> tags for links with query params to avoid wouter encoding issues
+const hasQueryParams = href.includes('?');
+return hasQueryParams ? (
+  <a href={href} className={className}>
+    {type === 'city' && <MapPin />}
+    @{name}
+  </a>
+) : (
+  <Link href={href} className={className}>
+    @{name}
+  </Link>
+);
+```
+
+**Navigation URLs**:
+- Events: `/events/3?tab=posts&filter=all`
+- Groups: `/groups/pro-tango-instructors?tab=posts&filter=all`
+- Cities: `/groups/buenos-aires-tango?tab=posts&filter=all`
+- Users: `/profile/1` (no filtering needed)
+
+### Key Technical Decisions
+
+1. **Content Column Search**: Backend searches `posts.content` (not `posts.mentions` array) because mention strings like `@[Name](type:id)` are stored in content
+2. **Slug Support**: `/api/groups/:groupId/posts` accepts both numeric IDs and slugs for flexibility
+3. **Regular Anchor Tags**: Links with query params use `<a>` instead of wouter's `Link` to avoid URL encoding issues
+4. **URL Decoding**: Frontend decodes `%3F` → `?` using `decodeURIComponent()` before extracting slug
+
+### Testing & Validation
+
+**Playwright Tests**:
+- ✅ All clickable mention links present and functional
+- ✅ Event Posts tab with Participants/Guests filtering verified
+- ✅ City group Residents/Visitors filtering verified
+- ✅ Professional group Members/Non-members filtering verified
+
+**Manual Testing**:
+- ✅ Backend API returns correct posts for all filter types
+- ✅ Posts tab activates correctly from URL query params
+- ✅ Filter buttons update query params and refetch posts
+- ✅ Post badges display correct membership status
 
 ## Open Source Packages
 
