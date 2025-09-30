@@ -78,6 +78,7 @@ interface PostCreatorProps {
     tags: string[];
     mentions?: string[];
     media: File[];
+    internalMediaUrls?: string[]; // ESA Layer 13: Include uploaded media URLs
     visibility: string;
     isRecommendation: boolean;
     recommendationType?: string;
@@ -725,6 +726,7 @@ export default function PostCreator({
     if (onSubmit) {
       console.log('🔄 ESA Layer 13: Using custom onSubmit handler!');
       console.log('🔍 [PostCreator] Content being submitted:', content);
+      console.log('🏠 [PostCreator] Internal media URLs:', internalMediaUrls.length);
       onSubmit({
         content,
         emotions: [], // PostCreator doesn't have emotions
@@ -732,6 +734,7 @@ export default function PostCreator({
         tags: selectedTags,
         mentions: mentions, // ESA Layer 24: Send validated mention IDs to API
         media: mediaFiles,
+        internalMediaUrls, // ESA Layer 13 FIX: Include uploaded media URLs
         visibility,
         isRecommendation,
         recommendationType,
@@ -745,6 +748,7 @@ export default function PostCreator({
       setSelectedTags([]);
       setMediaFiles([]);
       setMediaPreviews([]);
+      setInternalMediaUrls([]); // ESA Layer 13 FIX: Reset uploaded media URLs
       setCloudMediaUrls([]); // Reset cloud URLs
       setIsRecommendation(false);
       setRecommendationType('');
