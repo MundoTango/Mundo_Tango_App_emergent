@@ -54,8 +54,11 @@ export default function UpcomingEventsSidebar({
   const { data: eventsData, isLoading } = useQuery({
     queryKey: ['/api/events/feed'],
     queryFn: async () => {
-      const response = await fetch('/api/events/feed?limit=20&visibility=public');
+      const response = await fetch('/api/events/feed?limit=20&visibility=public', {
+        credentials: 'include'
+      });
       const result = await response.json();
+      console.log('📅 Events feed API response:', result);
       return result.data || [];
     }
   });
@@ -63,23 +66,29 @@ export default function UpcomingEventsSidebar({
   // RSVP mutation with optimistic updates and toggle support
   const rsvpMutation = useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
-      return await apiRequest(`/api/events/${eventId}/rsvp`, {
+      console.log('🚀 Mutation function called:', { eventId, status });
+      const result = await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }
       });
+      console.log('✅ Mutation result:', result);
+      return result;
     },
     onMutate: async ({ eventId, status }) => {
+      console.log('⚡ onMutate called:', { eventId, status });
       // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
       
       // Snapshot previous value
       const previousEvents = queryClient.getQueryData(['/api/events/feed']);
+      console.log('📸 Previous events:', previousEvents);
       
       // Optimistically update (FIXED: use `old` directly, not `old?.data`)
       queryClient.setQueryData(['/api/events/feed'], (old: any) => {
+        console.log('🔄 Updating cache, old data:', old);
         if (!old) return old;
         
-        return old.map((event: any) => {
+        const updated = old.map((event: any) => {
           if (event.id.toString() === eventId) {
             const oldStatus = event.userRsvpStatus;
             const oldAttendees = event.current_attendees || 0;
@@ -92,14 +101,18 @@ export default function UpcomingEventsSidebar({
               attendeeChange = 1; // Increment if changing to going from something else
             }
             
-            return { 
+            const updatedEvent = { 
               ...event, 
               userRsvpStatus: status, 
               current_attendees: Math.max(0, oldAttendees + attendeeChange)
             };
+            console.log('✨ Updated event:', updatedEvent);
+            return updatedEvent;
           }
           return event;
         });
+        console.log('📦 All updated events:', updated);
+        return updated;
       });
       
       return { previousEvents };
@@ -184,6 +197,7 @@ export default function UpcomingEventsSidebar({
   const handleRSVP = (eventId: string, status: 'going' | 'interested' | 'maybe' | 'not_going', currentStatus?: string | null) => {
     // Toggle behavior: if clicking the same status, send null to remove RSVP
     const newStatus = currentStatus === status ? null : status;
+    console.log('🎯 RSVP clicked:', { eventId, status, currentStatus, newStatus });
     rsvpMutation.mutate({ eventId, status: newStatus as any });
   };
 
