@@ -1,5 +1,30 @@
 # Translation Generation Scripts Documentation
 
+## ⚠️ CRITICAL WARNING: INCOMPLETE IMPLEMENTATION
+
+**STATUS: TRANSLATION GENERATION WORKS, BUT UI INTEGRATION BROKEN**
+
+### What Works ✅
+- OpenAI-powered translation generation for 68 languages
+- Automation scripts successfully create translations.json
+- Cultural customization (Lunfardo, RTL languages)
+
+### What's Broken ❌
+1. **UI doesn't update when language changes** - Remains in English
+2. **Raw translation keys appear** - Shows "common.actions.filters" instead of translated text
+3. **Components don't re-render** - Translation changes don't trigger updates
+4. **Translation loading fails** - Generated translations.json not properly loaded into i18n
+
+### Root Causes
+1. Components not properly using `useTranslation()` hook
+2. i18n configuration not loading generated translations
+3. No cache invalidation on language change
+4. Missing E2E tests for language switching
+
+**DO NOT use these scripts and claim the feature works until UI integration is fixed.**
+
+---
+
 ## Overview
 - **Location:** `server/scripts/` directory
 - **Purpose:** Automated translation generation and testing for 65 production languages
