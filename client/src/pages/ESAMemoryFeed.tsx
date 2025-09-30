@@ -577,6 +577,9 @@ function ESAMemoryFeedCore() {
                         formData.append('visibility', data.visibility);
                         if (data.location) formData.append('location', data.location);
                         if (data.tags.length > 0) formData.append('tags', JSON.stringify(data.tags));
+                        if (data.mentions && data.mentions.length > 0) {
+                          formData.append('mentions', JSON.stringify(data.mentions));
+                        }
                         if (data.emotions && data.emotions.length > 0) {
                           formData.append('emotions', JSON.stringify(data.emotions));
                         }
