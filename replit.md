@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a comprehensive digital ecosystem featuring an AI-powered life management system (Life CEO) and independent, data-isolated social community platforms, starting with Mundo Tango. The Life CEO System uses 16 specialized AI agents for personalized life management with a mobile-first, voice-controlled approach. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer facilitates secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform prioritizes security, performance, and user experience, incorporating a global payment system, advanced internationalization, comprehensive administrative controls, and AI-powered performance optimization. It is production-ready with full AI integration, PWA capabilities, and enterprise-grade security.
+This project is a comprehensive digital ecosystem featuring an AI-powered life management system (Life CEO) and independent, data-isolated social community platforms, starting with Mundo Tango. The Life CEO System uses 16 specialized AI agents for personalized life management with a mobile-first, voice-controlled approach. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer facilitates secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform prioritizes security, performance, and user experience, incorporating a global payment system, advanced internationalization, comprehensive administrative controls, and AI-powered performance optimization. It is production-ready with full AI integration, PWA capabilities, and enterprise-grade security, designed for significant market potential and ambitious growth.
 
 ## User Preferences
 
@@ -31,14 +31,14 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **Automation Platform**: n8n integration.
 - **Automated Testing**: TestSprite AI.
 - **Performance**: Lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
-- **Internationalization**: Full 73-language support with OpenAI-powered translations and comprehensive coverage.
+- **Internationalization**: Full 73-language support with OpenAI-powered translations and comprehensive coverage, including cultural customization (e.g., Lunfardo).
 - **Payments**: Full Stripe integration.
 - **Media Upload System**: Hybrid approach with YouTube/Vimeo URLs, Cloudinary uploads, and server uploads with client-side compression.
 
 **Feature Specifications:**
 - **User Profiles**: Comprehensive profiles with community-specific roles, travel details, and engagement systems.
-- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds. Entity-specific post navigation for users, events, groups, and cities.
-- **Community Management**: City-specific groups, event management, housing listings, and recommendations.
+- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds. Entity-specific post navigation.
+- **Community Management**: City-specific groups, event management (with RSVP system), housing listings, and recommendations.
 - **Admin Center**: Dashboard for user management, content moderation, analytics, and system health.
 - **AI Integration**: 16 Life CEO agents with semantic memory and self-learning capabilities; AI-powered analytics.
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
@@ -79,90 +79,4 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **Email Service**: Resend
 - **Analytics**: Plausible Analytics
 - **Project Management**: Atlassian Jira
-## RSVP System - Complete Implementation (Sept 30, 2025)
-
-### Phase 1: Button Click & Backend Auth (Initial Fix)
-Fixed RSVP button highlighting and click handling across event detail pages and sidebar.
-
-**Problems Identified:**
-1. **Backend Auth Missing**: `/api/events/:id` and `/api/events/feed` endpoints lacked authentication, so `userStatus` was always null
-2. **Data Structure Mismatch**: Frontend expected unwrapped data but API returned `{ success, data }` wrapper
-3. **Click Event Hijacking**: Sidebar RSVP buttons weren't clickable because parent `<a>` tag captured click events
-
-**Solutions Implemented:**
-1. **Created `optionalAuth` Middleware** (`server/routes/eventsRoutes.ts`):
-   - Works without requiring authentication (graceful fallback)
-   - Respects `AUTH_BYPASS=true` for development (uses admin user ID 7)
-   - Applied to both `/api/events/:id` and `/api/events/feed` endpoints
-   
-2. **Data Unwrapping** (`client/src/pages/event-detail.tsx`):
-   - Added `select: (data: any) => data.data` to unwrap API response
-   
-3. **Component Pattern Fix** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
-   - Replaced native `button` elements with shadcn `Button` components
-   - Changed onClick handlers to call `rsvpMutation.mutate()` directly instead of using wrapper function
-   - Removed `e.preventDefault()` and `e.stopPropagation()` to match working pattern from event-detail.tsx
-
-**Result:**
-✅ RSVP buttons clickable and mutations fire successfully
-✅ Backend saves RSVP status correctly
-✅ Toast notifications appear confirming updates
-
-### Phase 2: Real-Time UI Updates (Cache Fix)
-Fixed React Query cache invalidation to enable instant UI updates without page refresh.
-
-**Root Cause Analysis:**
-- **React Query Configuration**: `staleTime: Infinity` prevented UI updates even after successful refetch
-- **Structural Sharing**: Query client saw refetched data as "identical" and didn't trigger re-renders
-- **Backend Working**: Mutations succeeded and data persisted, but UI remained stale until manual refresh
-
-**Solutions Implemented:**
-1. **Fixed Query Client Configuration** (`client/src/lib/queryClient.ts`):
-   - Changed `staleTime: Infinity` → `staleTime: 0` to allow immediate cache updates
-   - Enables React Query to recognize data changes and trigger re-renders
-   
-2. **Optimized Mutation Strategy** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
-   - Simplified cache invalidation: use `invalidateQueries` instead of `refetchQueries`
-   - Removed redundant await calls for better performance
-   - Maintained optimistic updates for instant visual feedback
-   
-3. **Applied Same Fix to Post Creation** (`client/src/components/universal/PostCreator.tsx`):
-   - Unified cache invalidation strategy across all mutations
-   - Removed duplicate refetch calls
-   - Consistent real-time behavior for posts, RSVPs, and other mutations
-
-**Technical Details:**
-```typescript
-// Before: staleTime: Infinity prevented updates
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity, // ❌ UI never updates
-    }
-  }
-});
-
-// After: staleTime: 0 enables real-time updates
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0, // ✅ UI updates immediately
-    }
-  }
-});
-```
-
-**Final Result:**
-✅ RSVP buttons show ocean/turquoise gradients immediately when clicked
-✅ Attendee counts update in real-time without page refresh
-✅ Post creation shows new posts instantly in feed
-✅ All mutations provide instant visual feedback
-✅ Optimistic updates with automatic rollback on error
-✅ Toggle behavior works (click same status to remove RSVP)
-✅ Works across event detail pages, sidebar, and all feeds
-
-**Files Modified:**
-- `client/src/lib/queryClient.ts` - Fixed staleTime configuration
-- `client/src/components/esa/UpcomingEventsSidebar.tsx` - Optimized RSVP mutation
-- `client/src/components/universal/PostCreator.tsx` - Unified post creation cache strategy
-- `server/routes/eventsRoutes.ts` - Cleaned up debug logging
+- **Internationalization**: i18next, react-i18next
