@@ -930,15 +930,12 @@ export default function PostCreator({
         <div className="relative z-10 p-8">
           {/* Enhanced Header with better styling */}
           <div className="flex items-start space-x-4 mb-6">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400 to-blue-600 rounded-full blur-md opacity-75 group-hover:opacity-100 transition-opacity" />
-              <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-xl transform transition-transform group-hover:scale-110">
-                {user?.profileImage ? (
-                  <img src={user.profileImage} alt={user.name} className="w-full h-full rounded-full object-cover border-2 border-white/50" />
-                ) : (
-                  user?.name?.charAt(0) || 'U'
-                )}
-              </div>
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-turquoise-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              {user?.profileImage ? (
+                <img src={user.profileImage} alt={user.name} className="w-full h-full rounded-full object-cover" />
+              ) : (
+                user?.name?.charAt(0) || 'U'
+              )}
             </div>
 
             <div className="flex-1">
