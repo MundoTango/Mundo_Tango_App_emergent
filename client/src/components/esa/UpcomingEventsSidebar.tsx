@@ -131,6 +131,8 @@ export default function UpcomingEventsSidebar({
     },
     onSuccess: async (data, { eventId, status }) => {
       console.log('✅ [Sidebar RSVP] onSuccess called', { data, eventId, status });
+      
+      // Show toast notification
       if (status === null) {
         toast({
           title: "RSVP Removed",
@@ -147,10 +149,11 @@ export default function UpcomingEventsSidebar({
           description: `You're now marked as ${statusText}`,
         });
       }
-      // Force immediate refetch to get updated data from backend
-      await queryClient.refetchQueries({ queryKey: ['/api/events/feed'] });
-      await queryClient.refetchQueries({ queryKey: [`/api/events/${eventId}`] });
-      await queryClient.refetchQueries({ queryKey: ['/api/events/upcoming'] });
+      
+      // Invalidate queries to trigger refetch with staleTime: 0 (will force re-render)
+      queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
+      queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
     }
   });
   
