@@ -314,6 +314,107 @@ export class SearchService {
   }
 
   /**
+   * Multi-search across different entity types
+   */
+  static async multiSearch(query: string, types: string[] = []): Promise<any[]> {
+    if (!query || query.trim().length < 2) {
+      return [];
+    }
+
+    const searchQuery = `%${query.toLowerCase()}%`;
+    const results: any[] = [];
+    const limit = 10;
+
+    try {
+      // Search users
+      if (types.includes('users')) {
+        const userResults = await this.searchUsers(searchQuery, limit);
+        results.push(...userResults.map(r => ({ ...r, type: 'users' })));
+      }
+
+      // Search events
+      if (types.includes('events')) {
+        const eventResults = await this.searchEvents(searchQuery, limit);
+        results.push(...eventResults.map(r => ({ ...r, type: 'events' })));
+      }
+
+      // Search communities/groups
+      if (types.includes('communities') || types.includes('groups')) {
+        const groupResults = await this.searchGroups(searchQuery, limit);
+        results.push(...groupResults.map(r => {
+          // Check if this is a city group
+          const isCityGroup = r.metadata?.groupType === 'city';
+          return {
+            ...r,
+            type: isCityGroup ? 'cities' : 'communities',
+            // Include fields needed for mention display
+            name: r.title,
+            slug: r.id, // Groups use slug in URL
+            city: isCityGroup ? r.title : undefined,
+            country: r.description?.includes('•') ? r.description.split('•')[0].trim() : undefined
+          };
+        }));
+      }
+
+      // Search cities specifically
+      if (types.includes('cities')) {
+        const cityResults = await db
+          .select({
+            id: groups.id,
+            name: groups.name,
+            slug: groups.slug,
+            description: groups.description,
+            city: groups.city,
+            country: groups.country,
+            coverImage: groups.coverImage,
+            memberCount: sql<number>`(SELECT COUNT(*) FROM group_members WHERE group_id = ${groups.id})`,
+            createdAt: groups.createdAt
+          })
+          .from(groups)
+          .where(
+            and(
+              eq(groups.type, 'city'),
+              or(
+                sql`LOWER(${groups.name}) LIKE ${searchQuery}`,
+                sql`LOWER(${groups.city}) LIKE ${searchQuery}`,
+                sql`LOWER(${groups.country}) LIKE ${searchQuery}`
+              )
+            )
+          )
+          .limit(limit);
+
+        results.push(...cityResults.map(city => ({
+          id: city.slug || city.id,
+          type: 'cities',
+          title: city.name,
+          name: city.name,
+          slug: city.slug,
+          city: city.city,
+          country: city.country,
+          description: city.description,
+          imageUrl: city.coverImage,
+          metadata: {
+            groupType: 'city',
+            memberCount: city.memberCount
+          },
+          createdAt: city.createdAt
+        })));
+      }
+
+      // Search posts
+      if (types.includes('posts')) {
+        const postResults = await this.searchPosts(searchQuery, limit);
+        results.push(...postResults.map(r => ({ ...r, type: 'posts' })));
+      }
+
+      return results;
+    } catch (error) {
+      console.error('Multi-search error:', error);
+      return [];
+    }
+  }
+
+  /**
    * Get search suggestions for autocomplete
    */
   static async getSuggestions(query: string, limit: number = 10): Promise<string[]> {
