@@ -18,7 +18,7 @@ export async function compressImage(file: File): Promise<File> {
   const options = {
     maxSizeMB: sizeMB > 10 ? 0.5 : 0.8, // Ultra compress large images
     maxWidthOrHeight: 1080, // Instagram max resolution
-    useWebWorker: true, // Don't block UI thread
+    useWebWorker: false, // Disabled - Vite worker issue causes upload hang
     fileType: file.type === 'image/png' ? 'image/jpeg' : file.type as any, // Convert PNG to JPEG
     initialQuality: sizeMB > 5 ? 0.7 : 0.8, // Lower quality for large files
     alwaysKeepResolution: false // Allow aggressive downsizing
