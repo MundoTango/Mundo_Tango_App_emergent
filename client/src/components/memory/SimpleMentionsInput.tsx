@@ -199,6 +199,14 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     lastEmittedCanonical.current = canonical;
     onChange(canonical);
     
+    // Extract and emit mention IDs for user mentions only
+    if (onMentionsChange) {
+      const mentionIds = newTokens
+        .filter((token): token is MentionToken => token.kind === 'mention' && token.type === 'user')
+        .map(token => token.id);
+      onMentionsChange(mentionIds);
+    }
+    
     // Check for mention trigger
     const trigger = findMentionTriggerAtCursor(newTokens, cursorPos);
     if (trigger) {
@@ -276,6 +284,14 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const canonical = tokensToCanonical(newTokens);
     lastEmittedCanonical.current = canonical;
     onChange(canonical);
+    
+    // Extract and emit mention IDs for user mentions only
+    if (onMentionsChange) {
+      const mentionIds = newTokens
+        .filter((token): token is MentionToken => token.kind === 'mention' && token.type === 'user')
+        .map(token => token.id);
+      onMentionsChange(mentionIds);
+    }
     
     setShowSuggestions(false);
     editorRef.current.focus();
