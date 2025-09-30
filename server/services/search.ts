@@ -439,9 +439,23 @@ class SearchService {
       types.map(type => this.search(query, type))
     );
     
-    // Combine and sort by score
-    const combined = results.flat().sort((a, b) => (b.score || 0) - (a.score || 0));
-    return combined;
+    // Combine all results
+    const combined = results.flat();
+    
+    // Deduplicate by ID and type (keep highest score for duplicates)
+    const seen = new Map<string, SearchDocument>();
+    for (const item of combined) {
+      const key = `${item.type}-${item.id}`;
+      const existing = seen.get(key);
+      
+      // Keep the item with the better score, or first one if scores are equal
+      if (!existing || (item.score || 0) > (existing.score || 0)) {
+        seen.set(key, item);
+      }
+    }
+    
+    // Convert back to array and sort by score
+    return Array.from(seen.values()).sort((a, b) => (b.score || 0) - (a.score || 0));
   }
   
   /**
