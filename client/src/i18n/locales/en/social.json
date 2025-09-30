@@ -172,5 +172,136 @@
       "birthday": "It's {{user}}'s birthday",
       "reminder": "Reminder: {{event}} is coming up"
     }
+  },
+  "memories": {
+    "feed": {
+      "title": "Memory Feed",
+      "noMemories": "No memories yet",
+      "loadMore": "Load more memories",
+      "endOfFeed": "You've seen all memories",
+      "searchPlaceholder": "Search posts...",
+      "addTag": "Add tag...",
+      "filters": {
+        "all": "All",
+        "following": "Following",
+        "nearby": "Nearby"
+      }
+    },
+    "creator": {
+      "placeholder": "What's on your mind?",
+      "sharePlaceholder": "Share a tango memory...",
+      "addPhoto": "Add Photo",
+      "addVideo": "Add Video",
+      "addMedia": "Add Media",
+      "addLocation": "Add Location",
+      "addTags": "Add Tags",
+      "selectVisibility": "Who can see this?",
+      "post": "Post",
+      "update": "Update",
+      "cancel": "Cancel",
+      "uploading": "Uploading...",
+      "processing": "Processing media...",
+      "cloudUpload": "Cloud Upload",
+      "serverUpload": "Server Upload",
+      "enhanceWithAI": "Enhance with AI",
+      "recommendation": "Mark as recommendation",
+      "invalidFileType": "Invalid file type",
+      "invalidFileTypeDesc": "Please upload only images or videos",
+      "fileTooLarge": "File too large",
+      "fileTooLargeDesc": "{{filename}} exceeds 500MB limit",
+      "mediaAdded": "Media added!",
+      "mediaAddedDesc": "{{count}} file(s) ready to upload",
+      "uploadBlocked": "Server Upload Blocked!",
+      "uploadBlockedDesc": "Please use the 'Upload Media Files' button for ALL media. Direct file uploads are disabled.",
+      "locationSelected": "{{name}} selected!",
+      "locationDetails": "⭐ {{rating}}/5 • {{address}}",
+      "useCloudUpload": "Use Cloud Upload Instead",
+      "useCloudUploadDesc": "Please use the '☁️ Cloud Upload' button for all media uploads",
+      "noContentToEnhance": "No content to enhance",
+      "noContentToEnhanceDesc": "Please add some content to enhance",
+      "contentEnhanced": "Content enhanced with AI!"
+    },
+    "toasts": {
+      "newPost": "New memory shared!",
+      "newPostDescription": "{{name}} just posted a new tango moment",
+      "memoryShared": "Memory shared!",
+      "memorySharedDescription": "Your memory has been shared",
+      "memoryWithMedia": "Your memory has been shared with media",
+      "postCreated": "Post created!",
+      "postCreatedEmoji": "Post created! 🎉",
+      "postUpdated": "Post updated!",
+      "postUpdatedEmoji": "Post updated! ✏️",
+      "changesSaved": "Your changes have been saved",
+      "postDeleted": "Post deleted",
+      "postDeletedDesc": "Your post has been removed",
+      "postReported": "Post reported",
+      "postReportedDesc": "Thank you for helping keep our community safe",
+      "commentAdded": "Comment added!",
+      "commentAddedDesc": "Your comment has been posted",
+      "reactionFailed": "Failed to update reaction",
+      "commentFailed": "Failed to add comment",
+      "shareFailed": "Could not find post to share",
+      "deleteFailed": "Failed to delete post",
+      "reportFailed": "Failed to report post",
+      "createFailed": "Failed to create post",
+      "createFailedDesc": "Please try again",
+      "uploadFailed": "Upload failed",
+      "someone": "Someone"
+    },
+    "rsvp": {
+      "going": "Going",
+      "interested": "Interested",
+      "maybe": "Maybe",
+      "notGoing": "Not Going",
+      "rsvpUpdated": "RSVP updated",
+      "rsvpFailed": "Failed to update RSVP"
+    }
+  },
+  "reactions": {
+    "like": "Like",
+    "love": "Love",
+    "haha": "Haha",
+    "wow": "Wow",
+    "sad": "Sad",
+    "angry": "Angry",
+    "inspire": "Inspire",
+    "applaud": "Applaud",
+    "think": "Interesting",
+    "support": "Support",
+    "liked": "You liked this",
+    "reacted": "You reacted to this",
+    "peopleReacted": "{{count}} person reacted",
+    "peopleReacted_plural": "{{count}} people reacted"
+  },
+  "share": {
+    "title": "Share Post",
+    "shareToFeed": "Share to your feed",
+    "shareToGroup": "Share to a group",
+    "shareToEvent": "Share to an event",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "cancel": "Cancel",
+    "share": "Share"
+  },
+  "report": {
+    "title": "Report Content",
+    "reason": "Reason for reporting",
+    "description": "Additional details (optional)",
+    "submit": "Submit Report",
+    "cancel": "Cancel",
+    "categories": {
+      "spam": "Spam",
+      "harassment": "Harassment",
+      "hateSpeech": "Hate Speech",
+      "violence": "Violence",
+      "nudity": "Nudity or Sexual Content",
+      "falseInfo": "False Information",
+      "scam": "Scam or Fraud",
+      "other": "Other"
+    }
+  },
+  "friendship": {
+    "seeFriendship": "See Friendship",
+    "viewDetails": "View friendship details with {{name}}"
   }
 }
