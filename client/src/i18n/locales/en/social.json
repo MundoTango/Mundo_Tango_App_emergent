@@ -256,8 +256,29 @@
       "interested": "Interested",
       "maybe": "Maybe",
       "notGoing": "Not Going",
+      "youreGoing": "You're going",
+      "attendeeCount": "{{count}} attending",
+      "attending": "attending",
       "rsvpUpdated": "RSVP updated",
       "rsvpFailed": "Failed to update RSVP"
+    }
+  },
+  "events": {
+    "sidebar": {
+      "upcomingEvents": "Upcoming Events",
+      "loadingEvents": "Loading events...",
+      "noUpcomingEvents": "No upcoming events found",
+      "checkCityOrJoin": "Check your city or join our community",
+      "upcomingEventsCount": "{{count}} upcoming events",
+      "rsvpedEvents": "RSVP'ed Events",
+      "noRsvpedEvents": "No events you've RSVP'd to",
+      "inYourCity": "In Your City",
+      "noEventsInCity": "No events in your city",
+      "eventsYouFollow": "Events You Follow",
+      "noEventsYouFollow": "No events from organizers you follow",
+      "citiesYouFollow": "Cities You Follow",
+      "noEventsInCitiesYouFollow": "No events in cities you follow",
+      "viewAllEvents": "View All Events"
     }
   },
   "reactions": {
