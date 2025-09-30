@@ -717,6 +717,7 @@ export default function BeautifulPostCreator({
     // If custom submit handler is provided (for memories feed), use it
     if (onSubmit) {
       console.log('🔄 ESA Layer 13: Using custom onSubmit handler!');
+      console.log('🔍 [BeautifulPostCreator] Content being submitted:', content);
       onSubmit({
         content,
         emotions: [], // BeautifulPostCreator doesn't have emotions

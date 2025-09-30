@@ -198,6 +198,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     // Emit canonical value
     const canonical = tokensToCanonical(newTokens);
     lastEmittedCanonical.current = canonical;
+    console.log('🔍 [SimpleMentionsInput] Emitting canonical format:', canonical);
     onChange(canonical);
     
     // Extract and emit mention IDs for user mentions only
@@ -284,6 +285,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     // Emit canonical
     const canonical = tokensToCanonical(newTokens);
     lastEmittedCanonical.current = canonical;
+    console.log('🔍 [SimpleMentionsInput] Mention inserted, canonical format:', canonical);
     onChange(canonical);
     
     // Extract and emit mention IDs for user mentions only
