@@ -1075,13 +1075,32 @@ export default function BeautifulPostCreator({
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => setIsRecommendation(!isRecommendation)}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s backwards',
+                      }}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 group ${
                         isRecommendation 
                           ? 'bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 text-white shadow-xl animate-pulse' 
                           : 'bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-600 shadow-lg hover:shadow-2xl'
                       }`}
+                      onMouseEnter={(e) => {
+                        // Ripple to next siblings
+                        const siblings = e.currentTarget.parentElement?.parentElement?.querySelectorAll('button');
+                        if (siblings) {
+                          siblings.forEach((sibling, idx) => {
+                            if (sibling !== e.currentTarget) {
+                              setTimeout(() => {
+                                sibling.style.transform = 'translateY(-4px)';
+                                setTimeout(() => {
+                                  sibling.style.transform = '';
+                                }, 150);
+                              }, idx * 30);
+                            }
+                          });
+                        }
+                      }}
                     >
-                      <MapPin className="h-6 w-6" />
+                      <MapPin className={`h-6 w-6 transition-transform duration-300 ${isRecommendation ? 'animate-bounce-drop' : 'group-hover:animate-pin-drop'}`} />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent 
@@ -1105,13 +1124,16 @@ export default function BeautifulPostCreator({
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => setShowTags(!showTags)}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:-rotate-3 ${
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards',
+                      }}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 group ${
                         showTags || selectedTags.length > 0
                           ? 'bg-gradient-to-br from-turquoise-500 to-cyan-600 text-white shadow-xl animate-pulse' 
                           : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-turquoise-600 shadow-lg hover:shadow-2xl'
                       }`}
                     >
-                      <Hash className="h-6 w-6" />
+                      <Hash className={`h-6 w-6 transition-transform duration-500 ${showTags ? 'rotate-180' : 'group-hover:animate-hash-flip'}`} />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent 
@@ -1135,9 +1157,12 @@ export default function BeautifulPostCreator({
                         const fileInput = document.querySelector('input[type="file"][accept*="image"]') as HTMLInputElement;
                         if (fileInput) fileInput.click();
                       }}
-                      className="p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-100 hover:from-blue-100 hover:to-purple-200 text-blue-600 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3"
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards',
+                      }}
+                      className="p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-100 hover:from-blue-100 hover:to-purple-200 text-blue-600 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 group"
                     >
-                      <Camera className="h-6 w-6" />
+                      <Camera className="h-6 w-6 group-hover:animate-camera-shutter" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent 
@@ -1162,13 +1187,16 @@ export default function BeautifulPostCreator({
                     <button
                       onClick={handleEnhanceContent}
                       disabled={isEnhancing || !content.trim()}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards',
+                      }}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 group ${
                         isEnhancing
                           ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-pink-600 text-white shadow-xl animate-pulse'
                           : 'bg-gradient-to-br from-purple-50 to-pink-100 hover:from-purple-100 hover:to-pink-200 text-purple-600 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed'
                       }`}
                     >
-                      <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : ''}`} />
+                      <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : 'group-hover:animate-sparkle-twinkle'}`} />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent 
@@ -1192,13 +1220,16 @@ export default function BeautifulPostCreator({
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => setShowVisibility(!showVisibility)}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards',
+                      }}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 group ${
                         showVisibility
                           ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl animate-pulse'
                           : 'bg-gradient-to-br from-green-50 to-emerald-100 hover:from-green-100 hover:to-emerald-200 text-green-600 shadow-lg hover:shadow-2xl'
                       }`}
                     >
-                      {visibility === 'public' && <Globe className="h-6 w-6" />}
+                      {visibility === 'public' && <Globe className={`h-6 w-6 ${showVisibility ? 'animate-globe-spin' : 'group-hover:animate-globe-spin'}`} />}
                       {visibility === 'friends' && <Users className="h-6 w-6" />}
                       {visibility === 'private' && <Lock className="h-6 w-6" />}
                     </button>
