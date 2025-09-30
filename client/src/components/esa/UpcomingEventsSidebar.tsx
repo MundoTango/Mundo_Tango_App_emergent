@@ -217,108 +217,68 @@ export default function UpcomingEventsSidebar({
   const renderRSVPIcons = (event: Event) => (
     <div className="flex items-center gap-1 relative z-50">
       {/* Going - Check Mark */}
-      <button
-        onClick={(e) => {
-          console.log('🔥 BUTTON CLICKED - Going button');
-          e.preventDefault();
-          e.stopPropagation();
-          handleRSVP(event.id, 'going', event.userRsvpStatus);
-        }}
+      <Button
+        size="sm"
+        variant={event.userRsvpStatus === 'going' ? 'default' : 'outline'}
+        onClick={() => rsvpMutation.mutate({ 
+          eventId: event.id,
+          status: event.userRsvpStatus === 'going' ? null : 'going' 
+        })}
         disabled={rsvpMutation.isPending}
         title="Mark as attending"
-        aria-label="Mark as attending"
-        style={{
-          background: event.userRsvpStatus === 'going' 
-            ? 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
-            : 'rgba(255,255,255,0.78)',
-          borderColor: 'rgba(94,234,212,0.55)',
-          color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF',
-          position: 'relative',
-          zIndex: 100
-        }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
         data-testid={`rsvp-attending-${event.id}`}
       >
-        <Check className="w-4 h-4 pointer-events-none" />
-      </button>
+        <Check className="w-4 h-4" />
+      </Button>
 
       {/* Interested - Star */}
-      <button
-        onClick={(e) => {
-          console.log('🔥 BUTTON CLICKED - Interested button');
-          e.preventDefault();
-          e.stopPropagation();
-          handleRSVP(event.id, 'interested', event.userRsvpStatus);
-        }}
+      <Button
+        size="sm"
+        variant={event.userRsvpStatus === 'interested' ? 'default' : 'outline'}
+        onClick={() => rsvpMutation.mutate({ 
+          eventId: event.id,
+          status: event.userRsvpStatus === 'interested' ? null : 'interested' 
+        })}
         disabled={rsvpMutation.isPending}
         title="Mark as interested"
-        aria-label="Mark as interested"
-        style={{
-          background: event.userRsvpStatus === 'interested' 
-            ? 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)'
-            : 'rgba(255,255,255,0.78)',
-          borderColor: 'rgba(94,234,212,0.55)',
-          color: event.userRsvpStatus === 'interested' ? '#FFFFFF' : '#3BA0AF',
-          position: 'relative',
-          zIndex: 100
-        }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'interested' ? 'bg-gradient-to-r from-[#FCD34D] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706]' : ''}`}
         data-testid={`rsvp-interested-${event.id}`}
       >
-        <Star className="w-4 h-4 pointer-events-none" />
-      </button>
+        <Star className="w-4 h-4" />
+      </Button>
 
       {/* Maybe - Question Mark */}
-      <button
-        onClick={(e) => {
-          console.log('🔥 BUTTON CLICKED - Maybe button');
-          e.preventDefault();
-          e.stopPropagation();
-          handleRSVP(event.id, 'maybe', event.userRsvpStatus);
-        }}
+      <Button
+        size="sm"
+        variant={event.userRsvpStatus === 'maybe' ? 'default' : 'outline'}
+        onClick={() => rsvpMutation.mutate({ 
+          eventId: event.id,
+          status: event.userRsvpStatus === 'maybe' ? null : 'maybe' 
+        })}
         disabled={rsvpMutation.isPending}
         title="Mark as maybe"
-        aria-label="Mark as maybe"
-        style={{
-          background: event.userRsvpStatus === 'maybe' 
-            ? 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%)'
-            : 'rgba(255,255,255,0.78)',
-          borderColor: 'rgba(94,234,212,0.55)',
-          color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF',
-          position: 'relative',
-          zIndex: 100
-        }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'maybe' ? 'bg-gradient-to-r from-[#A78BFA] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED]' : ''}`}
         data-testid={`rsvp-maybe-${event.id}`}
       >
-        <HelpCircle className="w-4 h-4 pointer-events-none" />
-      </button>
+        <HelpCircle className="w-4 h-4" />
+      </Button>
 
       {/* Not Going - X */}
-      <button
-        onClick={(e) => {
-          console.log('🔥 BUTTON CLICKED - Not going button');
-          e.preventDefault();
-          e.stopPropagation();
-          handleRSVP(event.id, 'not_going');
-        }}
+      <Button
+        size="sm"
+        variant={event.userRsvpStatus === 'not_going' ? 'default' : 'outline'}
+        onClick={() => rsvpMutation.mutate({ 
+          eventId: event.id,
+          status: event.userRsvpStatus === 'not_going' ? null : 'not_going' 
+        })}
         disabled={rsvpMutation.isPending}
         title="Mark as not going"
-        aria-label="Mark as not going"
-        style={{
-          background: event.userRsvpStatus === 'not_going' 
-            ? 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
-            : 'rgba(255,255,255,0.78)',
-          borderColor: 'rgba(94,234,212,0.55)',
-          color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF',
-          position: 'relative',
-          zIndex: 100
-        }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'not_going' ? 'bg-gradient-to-r from-[#F87171] to-[#EF4444] hover:from-[#EF4444] hover:to-[#DC2626]' : ''}`}
         data-testid={`rsvp-not-going-${event.id}`}
       >
-        <X className="w-4 h-4 pointer-events-none" />
-      </button>
+        <X className="w-4 h-4" />
+      </Button>
     </div>
   );
 
