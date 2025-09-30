@@ -81,15 +81,15 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **Project Management**: Atlassian Jira
 ## RSVP System - Complete Implementation (Sept 30, 2025)
 
-### Issue & Resolution
+### Phase 1: Button Click & Backend Auth (Initial Fix)
 Fixed RSVP button highlighting and click handling across event detail pages and sidebar.
 
-### Problems Identified:
+**Problems Identified:**
 1. **Backend Auth Missing**: `/api/events/:id` and `/api/events/feed` endpoints lacked authentication, so `userStatus` was always null
 2. **Data Structure Mismatch**: Frontend expected unwrapped data but API returned `{ success, data }` wrapper
 3. **Click Event Hijacking**: Sidebar RSVP buttons weren't clickable because parent `<a>` tag captured click events
 
-### Solutions Implemented:
+**Solutions Implemented:**
 1. **Created `optionalAuth` Middleware** (`server/routes/eventsRoutes.ts`):
    - Works without requiring authentication (graceful fallback)
    - Respects `AUTH_BYPASS=true` for development (uses admin user ID 7)
@@ -102,11 +102,67 @@ Fixed RSVP button highlighting and click handling across event detail pages and 
    - Replaced native `button` elements with shadcn `Button` components
    - Changed onClick handlers to call `rsvpMutation.mutate()` directly instead of using wrapper function
    - Removed `e.preventDefault()` and `e.stopPropagation()` to match working pattern from event-detail.tsx
-   - Removed unused `handleRSVP` wrapper function
-   - Cleaned up debug console.log statements and version tracking
 
-### Result:
-✅ RSVP statuses display with ocean/turquoise gradients when selected
-✅ Clicking RSVP buttons triggers mutations and updates UI
+**Result:**
+✅ RSVP buttons clickable and mutations fire successfully
+✅ Backend saves RSVP status correctly
+✅ Toast notifications appear confirming updates
+
+### Phase 2: Real-Time UI Updates (Cache Fix)
+Fixed React Query cache invalidation to enable instant UI updates without page refresh.
+
+**Root Cause Analysis:**
+- **React Query Configuration**: `staleTime: Infinity` prevented UI updates even after successful refetch
+- **Structural Sharing**: Query client saw refetched data as "identical" and didn't trigger re-renders
+- **Backend Working**: Mutations succeeded and data persisted, but UI remained stale until manual refresh
+
+**Solutions Implemented:**
+1. **Fixed Query Client Configuration** (`client/src/lib/queryClient.ts`):
+   - Changed `staleTime: Infinity` → `staleTime: 0` to allow immediate cache updates
+   - Enables React Query to recognize data changes and trigger re-renders
+   
+2. **Optimized Mutation Strategy** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
+   - Simplified cache invalidation: use `invalidateQueries` instead of `refetchQueries`
+   - Removed redundant await calls for better performance
+   - Maintained optimistic updates for instant visual feedback
+   
+3. **Applied Same Fix to Post Creation** (`client/src/components/universal/PostCreator.tsx`):
+   - Unified cache invalidation strategy across all mutations
+   - Removed duplicate refetch calls
+   - Consistent real-time behavior for posts, RSVPs, and other mutations
+
+**Technical Details:**
+```typescript
+// Before: staleTime: Infinity prevented updates
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity, // ❌ UI never updates
+    }
+  }
+});
+
+// After: staleTime: 0 enables real-time updates
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0, // ✅ UI updates immediately
+    }
+  }
+});
+```
+
+**Final Result:**
+✅ RSVP buttons show ocean/turquoise gradients immediately when clicked
+✅ Attendee counts update in real-time without page refresh
+✅ Post creation shows new posts instantly in feed
+✅ All mutations provide instant visual feedback
+✅ Optimistic updates with automatic rollback on error
 ✅ Toggle behavior works (click same status to remove RSVP)
-✅ Works on both event detail pages and sidebar upcoming events
+✅ Works across event detail pages, sidebar, and all feeds
+
+**Files Modified:**
+- `client/src/lib/queryClient.ts` - Fixed staleTime configuration
+- `client/src/components/esa/UpcomingEventsSidebar.tsx` - Optimized RSVP mutation
+- `client/src/components/universal/PostCreator.tsx` - Unified post creation cache strategy
+- `server/routes/eventsRoutes.ts` - Cleaned up debug logging

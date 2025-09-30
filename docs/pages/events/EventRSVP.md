@@ -569,9 +569,168 @@ test('complete RSVP flow', async ({ page }) => {
 - [ ] **Smart Suggestions**: AI-powered event recommendations based on RSVP history
 - [ ] **RSVP Analytics Dashboard**: Organizer insights (conversion rates, drop-off analysis)
 
-## 15. Related Documentation
+## 15. Real-Time UI Updates (Sept 30, 2025 Fix)
+
+### Problem: Stale UI After Mutations
+
+Initially, RSVP mutations worked correctly on the backend but required page refresh to see changes. This affected user experience across RSVPs, post creation, and all mutations.
+
+### Root Cause
+
+```typescript
+// ❌ PROBLEM: staleTime: Infinity prevented UI updates
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity // Query never becomes stale
+    }
+  }
+});
+```
+
+**Why it failed:**
+1. React Query marked data as "fresh" forever due to `staleTime: Infinity`
+2. Even after `refetchQueries`, structural sharing made React think data was unchanged
+3. No re-render triggered despite backend having updated data
+4. User saw stale UI until manual page refresh
+
+### Solution: Real-Time Cache Updates
+
+```typescript
+// ✅ SOLUTION: staleTime: 0 enables immediate updates
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0 // Data becomes stale immediately
+    }
+  }
+});
+```
+
+**How it works:**
+1. Mutation completes successfully
+2. `invalidateQueries` marks query as stale
+3. With `staleTime: 0`, React Query immediately refetches
+4. New data triggers re-render
+5. UI updates without page refresh
+
+### Optimized Mutation Pattern
+
+**Before (slow, redundant):**
+```typescript
+onSuccess: async () => {
+  await queryClient.refetchQueries({ queryKey: ['/api/events/feed'] });
+  await queryClient.refetchQueries({ queryKey: [`/api/events/${eventId}`] });
+}
+```
+
+**After (fast, efficient):**
+```typescript
+onSuccess: () => {
+  queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
+  queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
+}
+```
+
+**Benefits:**
+- ✅ No await needed - invalidation is synchronous
+- ✅ React Query handles refetch timing automatically
+- ✅ Batches multiple invalidations efficiently
+- ✅ Works with optimistic updates
+
+### Complete RSVP Mutation (Current)
+
+```typescript
+const rsvpMutation = useMutation({
+  mutationFn: async ({ eventId, status }) => {
+    return await apiRequest(`/api/events/${eventId}/rsvp`, {
+      method: 'POST',
+      body: { status }
+    });
+  },
+  
+  // Optimistic update for instant feedback
+  onMutate: async ({ eventId, status }) => {
+    await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
+    const previousEvents = queryClient.getQueryData(['/api/events/feed']);
+    
+    queryClient.setQueryData(['/api/events/feed'], (old: any) => {
+      if (!old) return old;
+      return old.map((event: any) => {
+        if (event.id.toString() === eventId) {
+          // Calculate attendee change
+          const oldStatus = event.userRsvpStatus;
+          let attendeeChange = 0;
+          if (oldStatus === 'going' && status !== 'going') attendeeChange = -1;
+          else if (oldStatus !== 'going' && status === 'going') attendeeChange = 1;
+          
+          return { 
+            ...event, 
+            userRsvpStatus: status,
+            current_attendees: Math.max(0, (event.current_attendees || 0) + attendeeChange)
+          };
+        }
+        return event;
+      });
+    });
+    
+    return { previousEvents };
+  },
+  
+  // Rollback on error
+  onError: (err, variables, context) => {
+    if (context?.previousEvents) {
+      queryClient.setQueryData(['/api/events/feed'], context.previousEvents);
+    }
+  },
+  
+  // Invalidate for real-time updates
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
+    queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
+  }
+});
+```
+
+### Testing Real-Time Updates
+
+**E2E Test:**
+```typescript
+test('RSVP updates UI immediately without refresh', async ({ page }) => {
+  await page.goto('/events/123');
+  
+  // Initial state
+  await expect(page.locator('[data-testid="rsvp-going"]')).not.toHaveClass(/gradient/);
+  
+  // Click RSVP
+  await page.click('[data-testid="rsvp-going"]');
+  
+  // Verify instant visual update (no page.reload())
+  await expect(page.locator('[data-testid="rsvp-going"]')).toHaveClass(/gradient/);
+  await expect(page.locator('[data-testid="attendee-count"]')).toHaveText('46');
+  
+  // Navigate away and back
+  await page.goto('/events');
+  await page.goto('/events/123');
+  
+  // Verify persistence
+  await expect(page.locator('[data-testid="rsvp-going"]')).toHaveClass(/gradient/);
+});
+```
+
+### Best Practices for Real-Time UX
+
+1. **Always use optimistic updates** for instant feedback
+2. **Invalidate all affected queries** after success
+3. **Never use `staleTime: Infinity`** unless data is truly static
+4. **Prefer `invalidateQueries` over `refetchQueries`** (let React Query decide when to fetch)
+5. **Include rollback logic** in `onError` handler
+6. **Test without page refresh** to ensure real-time behavior
+
+## 16. Related Documentation
 
 - [Upcoming Events Sidebar](./UpcomingEventsSidebar.md) - Quick RSVP widget
 - [Event Detail Page](./event-detail.md) - Full RSVP interface
 - [Events Management](./Events.md) - Event creation and discovery
 - [ESA Layer 26](../esa-layers/layer-26-events-calendar.md) - Events architecture
+- [React Query Patterns](../components/ReactQueryPatterns.md) - Cache management best practices
