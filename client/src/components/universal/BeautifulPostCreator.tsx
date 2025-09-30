@@ -939,7 +939,6 @@ export default function BeautifulPostCreator({
                   user?.name?.charAt(0) || 'U'
                 )}
               </div>
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
             </div>
 
             <div className="flex-1">
