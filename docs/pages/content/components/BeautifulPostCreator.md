@@ -11,17 +11,22 @@ The BeautifulPostCreator is a comprehensive post creation component integrated w
 - **Private**: Posts visible only to the creator
 
 ### @Mention System (Multi-Entity Support)
-- Integrated SimpleMentionsInput component with token-based architecture
-- Real-time search for **users, events, and groups**
+- Integrated SimpleMentionsInput component with **contentEditable architecture**
+- Real-time search for **users, events, groups, and cities**
 - Automatic entity linking and formatting
 - Triggered by typing "@" followed by name
 - **Multiple mentions** supported in single post
-- **Color-coded display**: Users (blue), Events (green), Groups (purple)
+- **Color-coded display**: 
+  - 🔵 **Users** → Blue badges
+  - 🟢 **Events** → Green badges
+  - 🟣 **Groups** → Purple badges
+  - 🟠 **Cities** → Orange badges with MapPin icon
 - **Automatic Notification Creation**: Mentioned users receive instant notifications
 - **Format**: Canonical `@[Display Name](type:id)` format for parsing
-  - Examples: `@[Elena Rodriguez](user:1)`, `@[Milan Tango Festival](event:123)`, `@[Buenos Aires Tango](group:45)`
+  - Examples: `@[Elena Rodriguez](user:1)`, `@[Milan Tango Festival](event:123)`, `@[Buenos Aires Tango](group:45)`, `@[Madrid Tango Lovers](city:7)`
 - **Backend Integration**: Connected to `MentionNotificationService` on post submission
-- **Cursor Positioning**: Token-based system ensures deterministic cursor placement (Sept 30, 2025)
+- **Viewport-Aware Positioning**: Suggestion dropdown stays on screen with z-index 9999
+- **contentEditable Rendering**: Single-layer rendering eliminates text alignment issues (Sept 30, 2025)
 
 ### Recommendation System
 - Toggle to mark posts as recommendations
