@@ -68,13 +68,16 @@ export default function UpcomingEventsSidebar({
   // RSVP mutation with optimistic updates and toggle support
   const rsvpMutation = useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
+      console.log('🚀 [Sidebar RSVP] mutationFn called', { eventId, status });
       const result = await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }
       });
+      console.log('✅ [Sidebar RSVP] API request completed', result);
       return result;
     },
     onMutate: async ({ eventId, status }) => {
+      console.log('🔄 [Sidebar RSVP] onMutate called', { eventId, status });
       // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
       
@@ -113,6 +116,7 @@ export default function UpcomingEventsSidebar({
       return { previousEvents };
     },
     onError: (err, variables, context) => {
+      console.error('❌ [Sidebar RSVP] onError called', err);
       // Rollback on error
       if (context?.previousEvents) {
         queryClient.setQueryData(['/api/events/feed'], context.previousEvents);
@@ -124,6 +128,7 @@ export default function UpcomingEventsSidebar({
       });
     },
     onSuccess: (data, { eventId, status }) => {
+      console.log('✅ [Sidebar RSVP] onSuccess called', { data, eventId, status });
       if (status === null) {
         toast({
           title: "RSVP Removed",
@@ -199,10 +204,17 @@ export default function UpcomingEventsSidebar({
       <Button
         size="sm"
         variant={event.userRsvpStatus === 'going' ? 'default' : 'outline'}
-        onClick={() => rsvpMutation.mutate({ 
-          eventId: event.id,
-          status: event.userRsvpStatus === 'going' ? null : 'going' 
-        })}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log('🔵 [Sidebar RSVP] Going button clicked', { eventId: event.id, currentStatus: event.userRsvpStatus });
+          const newStatus = event.userRsvpStatus === 'going' ? null : 'going';
+          console.log('🔵 [Sidebar RSVP] Calling mutate with:', { eventId: event.id, status: newStatus });
+          rsvpMutation.mutate({ 
+            eventId: event.id,
+            status: newStatus
+          });
+        }}
         disabled={rsvpMutation.isPending}
         title="Mark as attending"
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
@@ -215,10 +227,16 @@ export default function UpcomingEventsSidebar({
       <Button
         size="sm"
         variant={event.userRsvpStatus === 'interested' ? 'default' : 'outline'}
-        onClick={() => rsvpMutation.mutate({ 
-          eventId: event.id,
-          status: event.userRsvpStatus === 'interested' ? null : 'interested' 
-        })}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log('⭐ [Sidebar RSVP] Interested button clicked', { eventId: event.id, currentStatus: event.userRsvpStatus });
+          const newStatus = event.userRsvpStatus === 'interested' ? null : 'interested';
+          rsvpMutation.mutate({ 
+            eventId: event.id,
+            status: newStatus
+          });
+        }}
         disabled={rsvpMutation.isPending}
         title="Mark as interested"
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'interested' ? 'bg-gradient-to-r from-[#FCD34D] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706]' : ''}`}
