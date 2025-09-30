@@ -210,16 +210,28 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
-    // Store intended cursor position in DISPLAY coordinates (textarea shows display format)
-    intendedCursorPosRef.current = newCursorPosInDisplay;
-    
+    // Update state first
     onChange(newValue);
     setShowSuggestions(false);
     
-    // Focus back to textarea (cursor will be set by useEffect)
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
+    // Set cursor position directly after React updates the DOM
+    setTimeout(() => {
+      if (textareaRef.current) {
+        const displayText = getDisplayValue(newValue);
+        console.log('📍 Setting cursor after mention insertion:', {
+          targetPosition: newCursorPosInDisplay,
+          actualTextLength: textareaRef.current.value.length,
+          expectedDisplayText: displayText,
+          actualTextValue: textareaRef.current.value,
+          match: textareaRef.current.value === displayText
+        });
+        
+        // Ensure we're setting position in the actual rendered text
+        const safePos = Math.min(newCursorPosInDisplay, textareaRef.current.value.length);
+        textareaRef.current.setSelectionRange(safePos, safePos);
+        textareaRef.current.focus();
+      }
+    }, 0);
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
@@ -318,34 +330,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     return spans;
   }, []);
 
-  // Store intended cursor position
-  const intendedCursorPosRef = useRef<number | null>(null);
-
-  // Restore cursor position after React updates
-  useEffect(() => {
-    if (intendedCursorPosRef.current !== null && textareaRef.current) {
-      // Use double RAF to ensure DOM has fully updated
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (textareaRef.current && intendedCursorPosRef.current !== null) {
-            const pos = intendedCursorPosRef.current;
-            const actualLength = textareaRef.current.value.length;
-            // Ensure position doesn't exceed text length
-            const safePos = Math.min(pos, actualLength);
-            console.log('📍 Setting cursor position:', { 
-              requestedPos: pos,
-              safePos,
-              textLength: actualLength,
-              textValue: textareaRef.current.value 
-            });
-            textareaRef.current.setSelectionRange(safePos, safePos);
-            textareaRef.current.focus();
-            intendedCursorPosRef.current = null;
-          }
-        });
-      });
-    }
-  }, [value]);
 
   // ESA Layer 24: Extract mention IDs and notify parent component (user mentions only for notifications)
   useEffect(() => {
@@ -424,7 +408,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos, newCanonical);
-    intendedCursorPosRef.current = cursorPos;
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with colored mentions (blue for users, green for events)
