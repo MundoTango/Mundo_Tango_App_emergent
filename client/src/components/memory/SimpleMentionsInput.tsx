@@ -211,6 +211,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
+    // Blur textarea to prevent React from capturing/restoring cursor position
+    if (textareaRef.current) {
+      textareaRef.current.blur();
+    }
+    
     // Update state and mark cursor position to apply after React updates
     pendingDisplaySelection.current = newCursorPosInDisplay;
     onChange(newValue);
@@ -231,28 +236,31 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   // Apply pending cursor position after React updates the textarea
   useLayoutEffect(() => {
     if (pendingDisplaySelection.current !== null && textareaRef.current) {
-      const expectedDisplay = getDisplayValue(value);
-      const actualDisplay = textareaRef.current.value;
+      // Use RAF to run AFTER React's selection restoration
+      const targetPos = pendingDisplaySelection.current;
       
-      // Only apply if the textarea has been updated with the new value
-      if (expectedDisplay === actualDisplay) {
-        const targetPos = pendingDisplaySelection.current;
-        const safePos = Math.min(targetPos, actualDisplay.length);
-        
-        console.log('✅ Applying cursor position in useLayoutEffect:', {
-          targetPos,
-          safePos,
-          textLength: actualDisplay.length,
-          expectedDisplay: expectedDisplay.substring(Math.max(0, safePos - 10), safePos + 10),
-          actualDisplay: actualDisplay.substring(Math.max(0, safePos - 10), safePos + 10)
-        });
-        
-        textareaRef.current.setSelectionRange(safePos, safePos);
-        textareaRef.current.focus();
-        pendingDisplaySelection.current = null;
-      }
+      requestAnimationFrame(() => {
+        if (textareaRef.current) {
+          const actualDisplay = textareaRef.current.value;
+          const safePos = Math.min(targetPos, actualDisplay.length);
+          
+          console.log('✅ Applying cursor position in RAF:', {
+            targetPos,
+            safePos,
+            textLength: actualDisplay.length,
+            valueLength: value.length,
+            textPreview: actualDisplay.substring(Math.max(0, safePos - 15), safePos + 15),
+            currentSelection: [textareaRef.current.selectionStart, textareaRef.current.selectionEnd]
+          });
+          
+          textareaRef.current.setSelectionRange(safePos, safePos);
+          textareaRef.current.focus();
+        }
+      });
+      
+      pendingDisplaySelection.current = null;
     }
-  }, [value, getDisplayValue]);
+  }, [value]);
 
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
