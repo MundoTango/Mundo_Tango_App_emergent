@@ -8,14 +8,21 @@
 
 ## 🎯 Recent Updates
 
-### Token-Based @Mention System Complete Rewrite (September 30, 2025)
+### Extended @Mention System - COMPLETE (September 30, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ Backend Regex Fix - ALL Entity Types Supported**
+- **Critical Fix**: Updated backend mention extraction to support ALL 4 entity types (Layer 24: Social Features)
+- **Regex Updated**: `/@\[([^\]]+)\]\((\w+):([^\)]+)\)/g` now matches user, event, city, group mentions
+- **Files Fixed**: `mentionNotificationService.ts` and `input-sanitizer.ts`
+- **Notification Logic**: Only user mentions trigger notifications (events/cities/groups display but don't notify)
+- **Database Storage**: Complete canonical format `@[Display Name](type:id)` preserved end-to-end
 
 **✅ SimpleMentionsInput Token-Based Architecture**
 - Complete rewrite replacing string manipulation with Token[] state management (Layer 35: AI Agent Management)
 - **Cursor Positioning SOLVED**: Deterministic cursor placement via token utilities - no more jumping!
-- **Multi-Entity Support**: @users, @events, and @groups in single unified system
-- **Color-Coded Mentions**: Visual overlay with blue (users), green (events), purple (groups)
+- **4 Entity Types**: @users (blue), @events (green), @groups (purple), @cities (orange with MapPin)
+- **Color-Coded Mentions**: Visual overlay with entity-specific colors matching framework specs
 - **Atomic Mention Editing**: Backspace deletes entire mention as single unit
 - **15+ Token Utilities**: Complete `mentionTokens.ts` library for token manipulation
 - **React-Friendly**: `useLayoutEffect` for cursor restoration works with React lifecycle
@@ -158,9 +165,9 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 
 ### 📝 Content & Timeline (10 pages)
 - [Memory Feed (Unified)](/docs/pages/content/MemoryFeedUnified.md) - `/memories` - Unified memory feed implementation with consolidated UnifiedPostFeed component (Sept 26, 2025)
-- [BeautifulPostCreator](/docs/pages/content/components/BeautifulPostCreator.md) - **✅ UPDATED (Sept 30, 2025)** - Post creation with multi-entity @mentions (users, events, groups)
-- [SimpleMentionsInput](/docs/pages/content/components/SimpleMentionsInput.md) - **✅ REWRITTEN (Sept 30, 2025)** - Token-based @mention system with deterministic cursor positioning
-- [MentionTokenSystem](/docs/pages/content/components/MentionTokenSystem.md) - **✅ NEW (Sept 30, 2025)** - Technical reference for token-based mention architecture with 15+ utility functions
+- [BeautifulPostCreator](/docs/pages/content/components/BeautifulPostCreator.md) - **✅ COMPLETE (Sept 30, 2025)** - Post creation with 4-entity @mentions (users, events, cities, groups) - Backend regex fixed
+- [SimpleMentionsInput](/docs/pages/content/components/SimpleMentionsInput.md) - **✅ COMPLETE (Sept 30, 2025)** - Token-based @mention system with all entity types, deterministic cursor positioning
+- [MentionTokenSystem](/docs/pages/content/components/MentionTokenSystem.md) - **✅ COMPLETE (Sept 30, 2025)** - Technical reference for token-based mention architecture with 15+ utility functions, canonical format support
 - [ESAMemoryFeed](/docs/pages/content/components/ESAMemoryFeed.md) - Enhanced memory feed with privacy filtering and friend status
 - [Landing Page](/docs/pages/content/landing.md) - `/landing`
 - [Search](/docs/pages/content/search.md) - `/search`

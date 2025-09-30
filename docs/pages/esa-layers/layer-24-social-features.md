@@ -249,8 +249,9 @@ export class MentionNotificationService {
     contentId: number,
     actionUrl: string
   ) {
-    // Extract user IDs from canonical format
-    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    // Extract all mention types from canonical format: @[Name](type:id)
+    // Supports: (user:id), (event:id), (city:slug), (group:slug)
+    const mentionRegex = /@\[([^\]]+)\]\((\w+):([^\)]+)\)/g;
     const matches = [...content.matchAll(mentionRegex)];
     
     console.log(`📢 Creating ${matches.length} mention notifications for ${contentType} ${contentId}`);
@@ -317,6 +318,22 @@ router.post('/direct', async (req, res) => {
   res.json({ success: true, data: newPost });
 });
 ```
+
+### Notification Behavior
+
+**Important**: The mention notification system follows a user-centric model:
+
+- ✅ **User mentions** (`@[Name](user:id)`) → **Trigger notifications**
+  - Creates in-app notification
+  - Sends real-time Socket.io event
+  - Queues email notification (if enabled)
+  - Updates friendship closeness score
+
+- ❌ **Event mentions** (`@[Event](event:id)`) → **Display only, no notifications**
+- ❌ **City mentions** (`@[City](city:slug)`) → **Display only, no notifications**
+- ❌ **Group mentions** (`@[Group](group:slug)`) → **Display only, no notifications**
+
+**Rationale**: Events, cities, and professional groups are entity references, not user accounts. They are displayed with color-coded badges and clickable navigation but do not receive notification alerts since they cannot be "notified" as users can.
 
 ## Open Source Packages
 
