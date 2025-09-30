@@ -206,7 +206,7 @@ export default function UpcomingEventsSidebar({
   };
 
   const renderRSVPIcons = (event: Event) => (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1 relative z-50">
       {/* Going - Check Mark */}
       <button
         onClick={(e) => {
@@ -224,13 +224,13 @@ export default function UpcomingEventsSidebar({
             : 'rgba(255,255,255,0.78)',
           borderColor: 'rgba(94,234,212,0.55)',
           color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF',
-          pointerEvents: 'auto',
-          cursor: 'pointer'
+          position: 'relative',
+          zIndex: 100
         }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         data-testid={`rsvp-attending-${event.id}`}
       >
-        <Check className="w-4 h-4" />
+        <Check className="w-4 h-4 pointer-events-none" />
       </button>
 
       {/* Interested - Star */}
@@ -250,13 +250,13 @@ export default function UpcomingEventsSidebar({
             : 'rgba(255,255,255,0.78)',
           borderColor: 'rgba(94,234,212,0.55)',
           color: event.userRsvpStatus === 'interested' ? '#FFFFFF' : '#3BA0AF',
-          pointerEvents: 'auto',
-          cursor: 'pointer'
+          position: 'relative',
+          zIndex: 100
         }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         data-testid={`rsvp-interested-${event.id}`}
       >
-        <Star className="w-4 h-4" />
+        <Star className="w-4 h-4 pointer-events-none" />
       </button>
 
       {/* Maybe - Question Mark */}
@@ -276,13 +276,13 @@ export default function UpcomingEventsSidebar({
             : 'rgba(255,255,255,0.78)',
           borderColor: 'rgba(94,234,212,0.55)',
           color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF',
-          pointerEvents: 'auto',
-          cursor: 'pointer'
+          position: 'relative',
+          zIndex: 100
         }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         data-testid={`rsvp-maybe-${event.id}`}
       >
-        <HelpCircle className="w-4 h-4" />
+        <HelpCircle className="w-4 h-4 pointer-events-none" />
       </button>
 
       {/* Not Going - X */}
@@ -302,13 +302,13 @@ export default function UpcomingEventsSidebar({
             : 'rgba(255,255,255,0.78)',
           borderColor: 'rgba(94,234,212,0.55)',
           color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF',
-          pointerEvents: 'auto',
-          cursor: 'pointer'
+          position: 'relative',
+          zIndex: 100
         }}
-        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
         data-testid={`rsvp-not-going-${event.id}`}
       >
-        <X className="w-4 h-4" />
+        <X className="w-4 h-4 pointer-events-none" />
       </button>
     </div>
   );
@@ -355,7 +355,7 @@ export default function UpcomingEventsSidebar({
                 {event.type}
               </span>
             </a>
-            <div className="flex items-start gap-1 flex-shrink-0">
+            <div className="flex items-start gap-1 flex-shrink-0 relative z-50">
               {event.isFeatured && (
                 <Sparkles className="w-4 h-4 text-[#5EEAD4] animate-pulse" />
               )}
