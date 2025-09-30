@@ -1102,8 +1102,10 @@ export default function BeautifulPostCreator({
               </div>
             )}
 
-            {/* Icon Buttons Row: Hidden Gems, Tags, Camera, AI Enhance, Visibility */}
-            <div className="flex items-center gap-3">
+            {/* Icon Buttons Row: Hidden Gems, Tags, Camera, AI Enhance, Visibility, Share */}
+            <div className="flex items-center justify-between gap-3">
+              {/* Left Side: Action Icons */}
+              <div className="flex items-center gap-3">
               {/* 🗺️ Hidden Gems */}
               <TooltipProvider>
                 <Tooltip delayDuration={200}>
@@ -1282,6 +1284,60 @@ export default function BeautifulPostCreator({
                       <div>
                         <p className="font-bold text-sm">Who can see this?</p>
                         <p className="text-xs text-green-200">Choose visibility level</p>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              </div>
+
+              {/* Right Side: Share Memory Button (Larger & Prominent) */}
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={(e) => {
+                        handleSubmit(e);
+                      }}
+                      disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
+                      style={{ 
+                        animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards',
+                      }}
+                      className={`relative group p-6 rounded-2xl transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
+                        createPostMutation.isPending || isUploading
+                          ? 'bg-gradient-to-br from-turquoise-400 via-cyan-500 to-blue-500 text-white shadow-2xl animate-pulse'
+                          : 'bg-gradient-to-br from-turquoise-500 via-cyan-500 to-blue-600 hover:from-turquoise-600 hover:via-cyan-600 hover:to-blue-700 text-white shadow-xl hover:shadow-3xl'
+                      }`}
+                    >
+                      {/* Animated gradient overlay */}
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Pulsing glow ring when ready to post */}
+                      {!createPostMutation.isPending && !isUploading && (content.trim() || internalMediaUrls.length > 0) && (
+                        <div className="absolute -inset-1 bg-gradient-to-r from-turquoise-400 via-cyan-400 to-blue-500 rounded-2xl opacity-75 blur animate-pulse" />
+                      )}
+                      
+                      {(createPostMutation.isPending || isUploading) ? (
+                        <Loader className="h-7 w-7 animate-spin relative z-10" />
+                      ) : (
+                        <Send className="h-7 w-7 relative z-10 group-hover:animate-send-fly" />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-turquoise-900 via-cyan-800 to-blue-900 border-2 border-turquoise-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">✨</span>
+                      <div>
+                        <p className="font-bold text-sm">
+                          {createPostMutation.isPending || isUploading ? 'Sharing...' : editMode ? 'Save Changes' : 'Share Memory'}
+                        </p>
+                        <p className="text-xs text-turquoise-200">
+                          {(!content.trim() && internalMediaUrls.length === 0) ? 'Write something first' : 'Share with the community'}
+                        </p>
                       </div>
                     </div>
                   </TooltipContent>
@@ -1572,56 +1628,6 @@ export default function BeautifulPostCreator({
             </div>
           )}
 
-          {/* Enhanced Action bar - Share Button */}
-          <div className="mt-8 pt-6 border-t border-gray-100">
-            <div className="flex items-center justify-end">
-              <TooltipProvider>
-                <Tooltip delayDuration={200}>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={(e) => {
-                        handleSubmit(e);
-                      }}
-                      disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
-                      className={`relative group p-5 rounded-2xl transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                        createPostMutation.isPending || isUploading
-                          ? 'bg-gradient-to-br from-turquoise-400 via-cyan-500 to-blue-500 text-white shadow-2xl animate-pulse'
-                          : 'bg-gradient-to-br from-turquoise-500 via-cyan-500 to-blue-600 hover:from-turquoise-600 hover:via-cyan-600 hover:to-blue-700 text-white shadow-xl hover:shadow-3xl'
-                      }`}
-                      style={{
-                        animation: (!content.trim() && internalMediaUrls.length === 0) ? 'none' : 'share-button-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                      }}
-                    >
-                      {/* Animated gradient overlay */}
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {(createPostMutation.isPending || isUploading) ? (
-                        <Loader className="h-7 w-7 animate-spin relative z-10" />
-                      ) : (
-                        <Send className="h-7 w-7 relative z-10 group-hover:animate-send-fly" />
-                      )}
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent 
-                    side="top"
-                    className="bg-gradient-to-br from-turquoise-900 via-cyan-800 to-blue-900 border-2 border-turquoise-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">✨</span>
-                      <div>
-                        <p className="font-bold text-sm">
-                          {createPostMutation.isPending || isUploading ? 'Sharing...' : editMode ? 'Save Changes' : 'Share Memory'}
-                        </p>
-                        <p className="text-xs text-turquoise-200">
-                          {(!content.trim() && internalMediaUrls.length === 0) ? 'Write something first' : 'Share with the community'}
-                        </p>
-                      </div>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </div>
 
           {/* ESA LIFE CEO 61x21 - OLD FILE INPUT DISABLED - USE CLOUDINARY ONLY */}
           {/* <input
