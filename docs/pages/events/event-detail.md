@@ -20,11 +20,28 @@
 ### API Endpoints
 - `GET /api/events/:id` - Event details
 - `GET /api/events/:id/attendees` - Attendee list
-- `POST /api/events/:id/rsvp` - RSVP to event
+- `POST /api/events/:id/rsvp` - RSVP to event (4 status values)
 - `POST /api/events/:id/comments` - Add comment
 - `GET /api/events/:id/gallery` - Media gallery
 - `POST /api/events/:id/tickets` - Purchase tickets
 - `PUT /api/events/:id` - Update event (owner)
+
+### RSVP Status Values
+
+The event detail page supports 4 distinct RSVP states with visual indicators:
+
+| Status | Icon | Description | Counts Toward Attendance |
+|--------|------|-------------|-------------------------|
+| **Going** | ✅ (turquoise) | User confirmed attendance | Yes |
+| **Interested** | ⭐ (yellow) | User interested but not committed | No |
+| **Maybe** | ❓ (purple) | User tentatively attending | No |
+| **Not Going** | ❌ (red) | User declined | No |
+
+Only the "going" status increments the attendee count displayed on the event.
+
+### Quick RSVP Sidebar Integration
+
+The [UpcomingEventsSidebar](./UpcomingEventsSidebar.md) provides one-click RSVP updates without navigating to the event detail page. This sidebar widget displays upcoming events with inline RSVP buttons for instant status changes.
 
 ### Real-time Features
 - Live attendee count updates
