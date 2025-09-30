@@ -2,7 +2,7 @@
 // Layer 9: UI Framework Agent - UpcomingEventsSidebar Component
 // Event awareness widget for contextual community engagement
 
-import { Calendar, MapPin, Users, Clock, Sparkles, Check, HelpCircle, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, Sparkles, Check, HelpCircle, X, Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/theme-context';
@@ -27,7 +27,7 @@ interface Event {
   location: string;
   city?: string;
   attendees: number;
-  userRsvpStatus?: 'going' | 'maybe' | 'not_going' | null;
+  userRsvpStatus?: 'going' | 'interested' | 'maybe' | 'not_going' | null;
   isFeatured?: boolean;
 }
 
@@ -42,12 +42,12 @@ export default function UpcomingEventsSidebar({
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   
-  // Expanded sections state
+  // Expanded sections state - reordered: RSVP'ed, Your City, Events You Follow, Cities You Follow
   const [expandedSections, setExpandedSections] = useState({
-    yourEvents: true,
-    citiesYouFollow: true,
+    rsvpedEvents: true,
     yourCity: true,
-    otherEvents: true
+    eventsYouFollow: true,
+    citiesYouFollow: true
   });
   
   // Fetch real events from database via API
@@ -60,9 +60,9 @@ export default function UpcomingEventsSidebar({
     }
   });
   
-  // RSVP mutation with optimistic updates
+  // RSVP mutation with optimistic updates (FIXED)
   const rsvpMutation = useMutation({
-    mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'maybe' | 'not_going' }) => {
+    mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' }) => {
       return await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: JSON.stringify({ status }),
@@ -76,17 +76,31 @@ export default function UpcomingEventsSidebar({
       // Snapshot previous value
       const previousEvents = queryClient.getQueryData(['/api/events/feed']);
       
-      // Optimistically update
+      // Optimistically update (FIXED: use `old` directly, not `old?.data`)
       queryClient.setQueryData(['/api/events/feed'], (old: any) => {
-        if (!old?.data) return old;
-        return {
-          ...old,
-          data: old.data.map((event: any) => 
-            event.id.toString() === eventId 
-              ? { ...event, userRsvpStatus: status, current_attendees: (event.current_attendees || 0) + (status === 'going' ? 1 : 0) }
-              : event
-          )
-        };
+        if (!old) return old;
+        
+        return old.map((event: any) => {
+          if (event.id.toString() === eventId) {
+            const oldStatus = event.userRsvpStatus;
+            const oldAttendees = event.current_attendees || 0;
+            
+            // Calculate attendee count change
+            let attendeeChange = 0;
+            if (oldStatus === 'going' && status !== 'going') {
+              attendeeChange = -1; // Decrement if changing from going to something else
+            } else if (oldStatus !== 'going' && status === 'going') {
+              attendeeChange = 1; // Increment if changing to going from something else
+            }
+            
+            return { 
+              ...event, 
+              userRsvpStatus: status, 
+              current_attendees: Math.max(0, oldAttendees + attendeeChange)
+            };
+          }
+          return event;
+        });
       });
       
       return { previousEvents };
@@ -103,7 +117,11 @@ export default function UpcomingEventsSidebar({
       });
     },
     onSuccess: (data, { status }) => {
-      const statusText = status === 'going' ? 'attending' : status === 'maybe' ? 'interested' : 'not attending';
+      const statusText = 
+        status === 'going' ? 'attending' : 
+        status === 'interested' ? 'interested' : 
+        status === 'maybe' ? 'maybe attending' : 
+        'not attending';
       toast({
         title: "RSVP Updated",
         description: `You're now marked as ${statusText}`,
@@ -123,23 +141,30 @@ export default function UpcomingEventsSidebar({
     time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
     location: event.location || event.city || 'Location TBA',
     city: event.city,
-    attendees: event.current_attendees || event.rsvpCounts?.attending || 0,
+    attendees: event.current_attendees || event.rsvpCounts?.going || 0,
     userRsvpStatus: event.userRsvpStatus || null,
     isFeatured: event.is_featured || false
   })) || [];
 
-  // Categorize events
-  const yourEvents = allEvents.filter((e: Event) => e.userRsvpStatus === 'going');
-  const citiesYouFollowEvents = allEvents.filter((e: Event) => 
-    e.userRsvpStatus !== 'going' && e.city && ['Buenos Aires', 'Paris', 'Milan'].includes(e.city)
-  ).slice(0, 3);
+  // Categorize events (NEW ORDER: RSVP'ed → Your City → Events You Follow → Cities You Follow)
+  const rsvpedEvents = allEvents.filter((e: Event) => 
+    e.userRsvpStatus && ['going', 'interested', 'maybe'].includes(e.userRsvpStatus)
+  );
+  
   const yourCityEvents = allEvents.filter((e: Event) => 
-    e.userRsvpStatus !== 'going' && e.city && !['Buenos Aires', 'Paris', 'Milan'].includes(e.city)
+    !rsvpedEvents.includes(e) && e.city && e.city === 'Barcelona' // TODO: Get user's actual city
   ).slice(0, 3);
-  const otherEvents = allEvents.filter((e: Event) => 
-    e.userRsvpStatus !== 'going' && 
-    !citiesYouFollowEvents.includes(e) && 
-    !yourCityEvents.includes(e)
+  
+  const eventsYouFollowEvents = allEvents.filter((e: Event) => 
+    !rsvpedEvents.includes(e) && !yourCityEvents.includes(e)
+    // TODO: Filter by events from groups/organizers user follows
+  ).slice(0, 3);
+  
+  const citiesYouFollowEvents = allEvents.filter((e: Event) => 
+    !rsvpedEvents.includes(e) && 
+    !yourCityEvents.includes(e) && 
+    !eventsYouFollowEvents.includes(e) &&
+    e.city && ['Buenos Aires', 'Paris', 'Milan'].includes(e.city) // TODO: Get user's followed cities
   ).slice(0, 3);
 
   const eventTypeColors = {
@@ -149,7 +174,7 @@ export default function UpcomingEventsSidebar({
     practica: { bg: 'bg-[rgba(16,185,129,0.24)]', text: 'text-[#047857]', border: 'border-[rgba(16,185,129,0.55)]' }
   };
 
-  const handleRSVP = (eventId: string, status: 'going' | 'maybe' | 'not_going') => {
+  const handleRSVP = (eventId: string, status: 'going' | 'interested' | 'maybe' | 'not_going') => {
     rsvpMutation.mutate({ eventId, status });
   };
 
@@ -160,6 +185,7 @@ export default function UpcomingEventsSidebar({
   const renderRSVPIcons = (event: Event) => (
     <TooltipProvider delayDuration={200}>
       <div className="flex items-center gap-1">
+        {/* Going - Check Mark */}
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -168,6 +194,8 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'going');
               }}
+              disabled={rsvpMutation.isPending}
+              aria-label="Mark as attending"
               style={{
                 background: event.userRsvpStatus === 'going' 
                   ? 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
@@ -175,7 +203,7 @@ export default function UpcomingEventsSidebar({
                 borderColor: 'rgba(94,234,212,0.55)',
                 color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF'
               }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
               data-testid={`rsvp-attending-${event.id}`}
             >
               <Check className="w-4 h-4" />
@@ -186,6 +214,36 @@ export default function UpcomingEventsSidebar({
           </TooltipContent>
         </Tooltip>
 
+        {/* Interested - Star */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleRSVP(event.id, 'interested');
+              }}
+              disabled={rsvpMutation.isPending}
+              aria-label="Mark as interested"
+              style={{
+                background: event.userRsvpStatus === 'interested' 
+                  ? 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)'
+                  : 'rgba(255,255,255,0.78)',
+                borderColor: 'rgba(94,234,212,0.55)',
+                color: event.userRsvpStatus === 'interested' ? '#FFFFFF' : '#3BA0AF'
+              }}
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+              data-testid={`rsvp-interested-${event.id}`}
+            >
+              <Star className="w-4 h-4" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Mark as interested</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* Maybe - Question Mark */}
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -194,14 +252,16 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'maybe');
               }}
+              disabled={rsvpMutation.isPending}
+              aria-label="Mark as maybe"
               style={{
                 background: event.userRsvpStatus === 'maybe' 
-                  ? 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%)'
+                  ? 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%)'
                   : 'rgba(255,255,255,0.78)',
                 borderColor: 'rgba(94,234,212,0.55)',
                 color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF'
               }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
               data-testid={`rsvp-maybe-${event.id}`}
             >
               <HelpCircle className="w-4 h-4" />
@@ -212,6 +272,7 @@ export default function UpcomingEventsSidebar({
           </TooltipContent>
         </Tooltip>
 
+        {/* Not Going - X */}
         <Tooltip>
           <TooltipTrigger asChild>
             <button
@@ -220,6 +281,8 @@ export default function UpcomingEventsSidebar({
                 e.stopPropagation();
                 handleRSVP(event.id, 'not_going');
               }}
+              disabled={rsvpMutation.isPending}
+              aria-label="Mark as not going"
               style={{
                 background: event.userRsvpStatus === 'not_going' 
                   ? 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
@@ -227,7 +290,7 @@ export default function UpcomingEventsSidebar({
                 borderColor: 'rgba(94,234,212,0.55)',
                 color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF'
               }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110"
+              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
               data-testid={`rsvp-not-going-${event.id}`}
             >
               <X className="w-4 h-4" />
@@ -312,6 +375,22 @@ export default function UpcomingEventsSidebar({
                   You're going
                 </span>
               )}
+              {event.userRsvpStatus === 'interested' && (
+                <span 
+                  style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
+                  className="px-1.5 py-0.5 rounded text-xs"
+                >
+                  Interested
+                </span>
+              )}
+              {event.userRsvpStatus === 'maybe' && (
+                <span 
+                  style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
+                  className="px-1.5 py-0.5 rounded text-xs"
+                >
+                  Maybe
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -333,6 +412,7 @@ export default function UpcomingEventsSidebar({
           onClick={() => toggleSection(sectionKey)}
           style={{ background: 'rgba(209,250,250,0.65)' }}
           className="w-full flex items-center justify-between mb-2 px-2 py-1 rounded-lg transition-colors hover:bg-[rgba(94,234,212,0.28)] text-[#0B3C49]"
+          aria-label={`Toggle ${title} section`}
         >
           <h3 className="text-sm font-semibold">{title}</h3>
           <div className="flex items-center gap-1">
@@ -384,11 +464,11 @@ export default function UpcomingEventsSidebar({
           )}
         </div>
 
-        {/* Categorized Events */}
-        {renderSection("Your Events", yourEvents, 'yourEvents', "No upcoming events you're attending")}
-        {renderSection("Cities You Follow", citiesYouFollowEvents, 'citiesYouFollow', "No events in cities you follow")}
+        {/* Categorized Events - NEW ORDER */}
+        {renderSection("RSVP'ed Events", rsvpedEvents, 'rsvpedEvents', "No events you've RSVP'd to")}
         {renderSection("In Your City", yourCityEvents, 'yourCity', "No events in your city")}
-        {renderSection("Other Events", otherEvents, 'otherEvents', "No other events found")}
+        {renderSection("Events You Follow", eventsYouFollowEvents, 'eventsYouFollow', "No events from organizers you follow")}
+        {renderSection("Cities You Follow", citiesYouFollowEvents, 'citiesYouFollow', "No events in cities you follow")}
 
         {/* View All Link */}
         <div className="mt-6 pt-6 border-t border-[rgba(94,234,212,0.35)]">
@@ -400,6 +480,7 @@ export default function UpcomingEventsSidebar({
             className="w-full py-2.5 px-4 hover:opacity-90 text-white font-medium rounded-lg transition-all duration-200 hover:scale-105"
             onMouseEnter={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #4FDAD4 0%, #1F9BD6 100%)'}
             onMouseLeave={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'}
+            aria-label="View all upcoming events"
             data-testid="button-view-all-events"
           >
             View All Events
