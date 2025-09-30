@@ -20,17 +20,25 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
   - Root cause: `browser-image-compression` with `useWebWorker: true` tried to load worker.js that Vite couldn't find
   - Changed `useWebWorker: false` in both mediaCompression.ts and advancedMediaProcessor.ts
   - Uploads now complete smoothly without hanging during processing phase
+- **Upload-to-Post Integration Fix** ✅ **CRITICAL BUG FIXED**
+  - **Root Cause**: Custom onSubmit handler in PostCreator sent `media: mediaFiles` but not `internalMediaUrls`
+  - **Fixed**: Added `internalMediaUrls` to onSubmit data object and TypeScript type definition
+  - **State Management**: Added proper state reset for `internalMediaUrls` after submission
+  - **ESAMemoryFeed Integration**: Routes internal URLs to `/api/posts/direct` with proper error handling
+  - **Error Handling**: Added `res.ok` check, user-facing toast notifications, and modal persistence on errors
+  - **Complete Flow**: Upload → Preview → Submit → Post Creation with Media ✅ Working
 - **Media Display Pipeline**: Verified complete data flow from upload → storage → display
   - Backend saves to `mediaEmbeds` field (JSONB array)
   - Storage queries explicitly include `mediaEmbeds`
   - EnhancedPostItem renders all media with proper type detection
 - **Files Modified**:
   - `client/src/components/upload/InternalUploader.tsx` (progress callbacks)
-  - `client/src/components/universal/PostCreator.tsx` (video thumbnail integration)
+  - `client/src/components/universal/PostCreator.tsx` (internalMediaUrls integration, type definitions)
+  - `client/src/pages/ESAMemoryFeed.tsx` (direct endpoint routing, error handling)
   - `client/src/utils/videoThumbnail.ts` (new utility with resilient error handling)
   - `client/src/utils/mediaCompression.ts` (disabled Web Workers)
   - `client/src/utils/advancedMediaProcessor.ts` (disabled Web Workers)
-- **Architect Review**: All fixes approved with comprehensive fallback validation
+- **Architect Review**: All fixes approved with comprehensive validation
 
 **4-State RSVP System with UpcomingEventsSidebar** ✅ **PRODUCTION READY**
 - **Complete RSVP States**: Going (✅), Interested (⭐), Maybe (❓), Not Going (❌)
