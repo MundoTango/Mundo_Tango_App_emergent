@@ -116,10 +116,24 @@ router.get('/api/posts/feed', async (req: any, res) => {
     
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
+    const startDate = req.query.startDate as string;
+    const endDate = req.query.endDate as string;
     
     // ESA LIFE CEO 56x21 - Get posts from database using correct method
-    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}`);
-    const posts = await storage.getFeedPosts(userId, limit, offset);
+    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, startDate: ${startDate}, endDate: ${endDate}`);
+    let posts = await storage.getFeedPosts(userId, limit, offset);
+    
+    // Filter by date range if provided
+    if (startDate || endDate) {
+      posts = posts.filter(post => {
+        if (!post.createdAt) return false;
+        const postDate = new Date(post.createdAt);
+        if (startDate && postDate < new Date(startDate)) return false;
+        if (endDate && postDate > new Date(endDate + 'T23:59:59')) return false;
+        return true;
+      });
+    }
+    
     console.log(`✅ Found ${posts.length} posts in database`);
     
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
