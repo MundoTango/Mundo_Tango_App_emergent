@@ -1,50 +1,81 @@
 # SimpleMentionsInput Component
 
 ## Overview
-The SimpleMentionsInput is a specialized text input component that provides @mention functionality for tagging users in posts, integrated with the ESA LIFE CEO framework.
+The SimpleMentionsInput is a specialized text input component that provides @mention functionality for tagging users, events, and groups in posts. Built on a robust token-based architecture, it delivers deterministic cursor positioning and multi-entity mention support, integrated with the ESA LIFE CEO framework.
+
+**Major Update (September 30, 2025)**: Complete rewrite with token-based architecture replacing string manipulation approach, solving all cursor positioning issues.
 
 ## Features
 
 ### Core Functionality
 - **Trigger Character**: '@' activates mention mode
-- **User Search**: Real-time search as you type
-- **Suggestion Dropdown**: Shows matching users
-- **Keyboard Navigation**: Arrow keys to navigate suggestions
-- **Auto-completion**: Tab/Enter to select user
-- **Visual Highlighting**: Mentioned users appear highlighted
+- **Multi-Entity Search**: Real-time search for users, events, and groups
+- **Suggestion Dropdown**: Shows matching entities with type badges and icons
+- **Keyboard Navigation**: Arrow keys + Enter for selection with visual highlighting
+- **Auto-completion**: Enter to select from dropdown
+- **Visual Highlighting**: Color-coded mentions (users=blue, events=green, groups=purple)
+- **Multiple Mentions**: Support for multiple @mentions in single post
+- **Atomic Editing**: Backspace deletes entire mention as single unit
+
+### Token-Based Architecture (September 30, 2025)
+The component now uses a **Token[] state management** approach instead of string manipulation:
+- **Deterministic cursor positioning** - No more cursor jumping issues
+- **Single source of truth** - Tokens drive all state changes
+- **Works with React** - Leverages useLayoutEffect for cursor restoration
+- **Proper mention boundaries** - Mentions are atomic units, not just text
+- **Edit-safe** - Editing a mention converts it to text automatically
 
 ## Technical Implementation
 
 ### Component Location
 `client/src/components/memory/SimpleMentionsInput.tsx`
 
+### Token Utilities Location
+`client/src/utils/mentionTokens.ts` - Complete token system with 15+ utility functions
+
 ### Props Interface
 ```typescript
 interface SimpleMentionsInputProps {
-  value: string;
-  onChange: (value: string) => void;
+  value: string; // Canonical format from parent
+  onChange: (content: string) => void; // Emits canonical format
+  onMentionsChange?: (mentionIds: string[]) => void; // User IDs for notifications
   placeholder?: string;
   className?: string;
-  maxLength?: number;
+  disabled?: boolean;
+  rows?: number;
 }
 ```
 
-### State Management
-- `showSuggestions`: Boolean for dropdown visibility
-- `suggestions`: Array of matching users
-- `selectedIndex`: Current selection in dropdown
-- `mentionStart`: Position where @ was typed
-- `searchTerm`: Current search query
+### Token-Based State Management
+```typescript
+// Internal state (single source of truth)
+const [tokens, setTokens] = useState<Token[]>(() => parseCanonicalToTokens(value));
+const [displayValue, setDisplayValue] = useState<string>(() => tokensToDisplay(tokens));
+const [cursorPos, setCursorPos] = useState<number>(0);
+
+// Token types
+type TextToken = { kind: 'text'; text: string; };
+type MentionToken = { kind: 'mention'; name: string; type: 'user'|'event'|'group'; id: string; };
+type Token = TextToken | MentionToken;
+```
+
+### State Flow
+1. **Parent value → Tokens**: `parseCanonicalToTokens(value)` on mount/prop changes
+2. **Tokens → Display**: `tokensToDisplay(tokens)` for textarea rendering
+3. **User input → Diff**: Calculate changes between old/new display values
+4. **Diff → Tokens**: `applyEditToTokens(tokens, start, end, insertText)` 
+5. **Tokens → Canonical**: `tokensToCanonical(tokens)` emitted to parent via onChange
+6. **Cursor restoration**: `useLayoutEffect` sets cursor position after render
 
 ## API Integration
 
-### User Search Endpoint
-`GET /api/search?type=users&q={searchTerm}&limit=10`
+### Multi-Entity Search Endpoint
+`GET /api/search/multi?q={searchTerm}&limit=10`
 
-**Status**: ✅ FIXED (uses correct endpoint as of September 29, 2025)
+**Status**: ✅ ACTIVE (supports users, events, and groups)
 
-- Returns array of matching users
-- Searches by username and full name
+- Returns array of matching entities across all types
+- Searches by name, username, title
 - Limited to 10 results for performance
 - Excludes blocked users
 
@@ -55,28 +86,54 @@ interface SimpleMentionsInputProps {
   "results": [
     {
       "id": 1,
-      "username": "elena_rodriguez",
+      "type": "users",
       "name": "Elena Rodriguez",
+      "username": "elena_rodriguez",
       "profileImage": "/uploads/profile.jpg"
+    },
+    {
+      "id": 123,
+      "type": "events",
+      "title": "Milan Tango Festival 2025",
+      "startDate": "2025-08-15",
+      "image": "/uploads/event.jpg"
+    },
+    {
+      "id": 45,
+      "type": "groups",
+      "name": "Buenos Aires Tango",
+      "memberCount": 342
     }
   ]
 }
 ```
 
-**Note**: The component was updated to use `/api/search?type=users` instead of the deprecated `/api/users/search` endpoint and properly parses the response with `await response.json()`.
+### Entity Type Mapping
+Component maps API types to mention types:
+- `type: "users"` → `mention.type = "user"`
+- `type: "events"` → `mention.type = "event"`  
+- `type: "groups"` → `mention.type = "group"`
 
 ## Mention Format
 
-### Storage Format
-Mentions are stored in the database as:
+### Canonical Format (Storage)
+Mentions are stored in the database with entity type prefix:
 ```
-Hello @[Elena Rodriguez](user:1), how are you?
+Hello @[Elena Rodriguez](user:1) and @[Milan Tango Festival 2025](event:123), see you at @[Buenos Aires Tango](group:45)!
 ```
 
-### Display Format
-Rendered in the UI as clickable links:
+### Display Format (Textarea)
+Rendered in the textarea without markup:
+```
+Hello @Elena Rodriguez and @Milan Tango Festival 2025, see you at @Buenos Aires Tango!
+```
+
+### Visual Overlay
+Colored overlay shows mention types:
 ```html
-<span class="mention" data-user-id="1">@Elena Rodriguez</span>
+<span class="text-blue-600 font-semibold">@Elena Rodriguez</span>
+<span class="text-green-600 font-semibold">@Milan Tango Festival 2025</span>
+<span class="text-purple-600 font-semibold">@Buenos Aires Tango</span>
 ```
 
 ## Event Handlers
@@ -232,10 +289,11 @@ The complete @mention notification system was verified end-to-end:
 - Mobile browsers supported
 
 ## Known Limitations
-- Maximum 10 mentions per post
+- Search limited to 10 results per query
 - Cannot mention users who blocked you
 - Mentions in edited posts don't re-notify
-- Search limited to active users only
+- Cursor positioning issue when mention inserted (RESOLVED September 30, 2025)
+- Event and group mentions don't trigger notifications (by design - only users notified)
 
 ## Troubleshooting Guide
 

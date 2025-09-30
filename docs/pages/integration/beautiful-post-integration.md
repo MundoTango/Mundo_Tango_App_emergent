@@ -3,11 +3,15 @@
 ## Overview
 This document provides a complete technical reference for the Beautiful Post Creation Element integration within the ESA LIFE CEO 61x21 framework, covering all components, APIs, and data flows.
 
-**Status**: ✅ COMPLETE - All integrations functional and verified (September 29, 2025)
+**Status**: ✅ COMPLETE - All integrations functional and verified (September 30, 2025)
 
-### Latest Updates
+### Latest Updates (September 30, 2025)
+- ✅ **Token-Based Architecture Rewrite** - Complete SimpleMentionsInput overhaul
+- ✅ **Multi-Entity Mentions** - Users, Events, and Groups support
+- ✅ **Cursor Positioning SOLVED** - Token system eliminates all cursor jumping issues
+- ✅ **Deterministic State Management** - Token[] as single source of truth
 - ✅ @Mention notifications **VERIFIED END-TO-END** - Tested with production API
-- ✅ Canonical format `@[Name](user:id)` correctly parsed and stored
+- ✅ Canonical format `@[Name](type:id)` correctly parsed and stored
 - ✅ Notification creation confirmed: `📢 Created 1 mention notifications for post 88`
 - ✅ MentionNotificationService regex fix applied for proper parsing
 - ✅ Recommendation system validated (no duplication)
@@ -79,11 +83,25 @@ router.get('/feed', async (req, res) => {
 - Form submission with validation
 
 #### SimpleMentionsInput (client/src/components/memory/SimpleMentionsInput.tsx)
-- **Fixed API Call**: Uses `/api/search?type=users` endpoint
-- **Response Parsing**: Added `await response.json()` to parse Response object
-- Triggers on @ character
-- Shows user suggestions dropdown
-- Formats mentions as `@[Name](user:id)`
+**Status**: ✅ **COMPLETE REWRITE** with token-based architecture (September 30, 2025)
+
+**New Architecture**:
+- **Token[] State Management**: Internal state as array of text and mention tokens
+- **Multi-Entity Support**: Users, Events, and Groups
+- **API**: Uses `/api/search/multi?q={query}&limit=10` endpoint
+- **Cursor Positioning**: Deterministic via `useLayoutEffect` + token utilities
+- **Display Rendering**: `tokensToDisplay(tokens)` for textarea
+- **Canonical Export**: `tokensToCanonical(tokens)` for storage
+- **Edit Safety**: Diff-based editing via `applyEditToTokens()`
+- **Mention Insertion**: `replaceTriggerWithMention()` returns tokens + cursor position
+- **Color Coding**: Visual overlay with blue (users), green (events), purple (groups)
+
+**Token Utilities** (`client/src/utils/mentionTokens.ts`):
+- 15+ utility functions for token manipulation
+- Parse, display, canonical conversion
+- Insert, delete, edit operations
+- Cursor position calculations
+- Mention trigger detection
 
 #### @Mention Notification Integration (server/services/mentionNotificationService.ts)
 **Status**: ✅ CONNECTED to post creation (September 29, 2025)

@@ -1,14 +1,34 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 89 pages  
+**Total Pages Documented:** 93 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 **Google Maps API:** ✅ Integrated (worldwide business search)
 
-## 🎯 Recent Updates (September 27, 2025)
+## 🎯 Recent Updates
 
-### Toolbar & Notifications System Complete Implementation
+### Token-Based @Mention System Complete Rewrite (September 30, 2025)
+Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ SimpleMentionsInput Token-Based Architecture**
+- Complete rewrite replacing string manipulation with Token[] state management (Layer 35: AI Agent Management)
+- **Cursor Positioning SOLVED**: Deterministic cursor placement via token utilities - no more jumping!
+- **Multi-Entity Support**: @users, @events, and @groups in single unified system
+- **Color-Coded Mentions**: Visual overlay with blue (users), green (events), purple (groups)
+- **Atomic Mention Editing**: Backspace deletes entire mention as single unit
+- **15+ Token Utilities**: Complete `mentionTokens.ts` library for token manipulation
+- **React-Friendly**: `useLayoutEffect` for cursor restoration works with React lifecycle
+- **Multiple Mentions**: Support for unlimited @mentions in single post
+- **Keyboard Navigation**: Arrow keys + Enter with visual selection highlighting
+
+**✅ New Documentation Created**
+- [MentionTokenSystem](/docs/pages/content/components/MentionTokenSystem.md) - Complete technical reference for token architecture
+- Updated [SimpleMentionsInput](/docs/pages/content/components/SimpleMentionsInput.md) with token-based implementation
+- Updated [BeautifulPostCreator](/docs/pages/content/components/BeautifulPostCreator.md) with multi-entity mention support
+- Updated [Beautiful Post Integration Guide](/docs/pages/integration/beautiful-post-integration.md) with token architecture details
+
+### Toolbar & Notifications System Complete Implementation (September 27, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 
 **✅ UnifiedTopBar Toolbar Backend Implementation**
@@ -136,8 +156,12 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Live Streaming](/docs/pages/community/LiveStreaming.md) - `/live-streaming` - Live video streaming for events and classes
 - [Gamification](/docs/pages/community/Gamification.md) - `/gamification` - Points, badges, and rewards system
 
-### 📝 Content & Timeline (5 pages)
+### 📝 Content & Timeline (10 pages)
 - [Memory Feed (Unified)](/docs/pages/content/MemoryFeedUnified.md) - `/memories` - Unified memory feed implementation with consolidated UnifiedPostFeed component (Sept 26, 2025)
+- [BeautifulPostCreator](/docs/pages/content/components/BeautifulPostCreator.md) - **✅ UPDATED (Sept 30, 2025)** - Post creation with multi-entity @mentions (users, events, groups)
+- [SimpleMentionsInput](/docs/pages/content/components/SimpleMentionsInput.md) - **✅ REWRITTEN (Sept 30, 2025)** - Token-based @mention system with deterministic cursor positioning
+- [MentionTokenSystem](/docs/pages/content/components/MentionTokenSystem.md) - **✅ NEW (Sept 30, 2025)** - Technical reference for token-based mention architecture with 15+ utility functions
+- [ESAMemoryFeed](/docs/pages/content/components/ESAMemoryFeed.md) - Enhanced memory feed with privacy filtering and friend status
 - [Landing Page](/docs/pages/content/landing.md) - `/landing`
 - [Search](/docs/pages/content/search.md) - `/search`
 - [Posting Demo](/docs/pages/content/PostingDemo.md) - `/posting-demo`
