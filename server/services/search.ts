@@ -9,7 +9,7 @@ import { db } from '../db';
 import { users, posts, events, groups, userProfiles as userProfilesTable } from '../../shared/schema';
 import { eq, desc, sql } from 'drizzle-orm';
 
-export type SearchType = 'users' | 'posts' | 'events' | 'communities';
+export type SearchType = 'users' | 'posts' | 'events' | 'communities' | 'cities';
 export type SearchOptions = {
   limit?: number;
   offset?: number;
@@ -179,6 +179,21 @@ class SearchService {
           memberCount: { type: 'integer' },
           createdAt: { type: 'date' }
         }
+      },
+      cities: {
+        properties: {
+          id: { type: 'keyword' },
+          name: { 
+            type: 'text',
+            analyzer: 'standard' 
+          },
+          slug: { type: 'keyword' },
+          city: { type: 'text' },
+          country: { type: 'text' },
+          description: { type: 'text' },
+          memberCount: { type: 'integer' },
+          createdAt: { type: 'date' }
+        }
       }
     };
     
@@ -281,6 +296,17 @@ class SearchService {
         includeScore: true,
         shouldSort: true,
         minMatchCharLength: 2,
+      }));
+      
+      // Load city groups (type = 'city')
+      const cityGroupsData = await db.select().from(groups).where(eq(groups.type, 'city')).limit(1000);
+      this.fuseInstances.set('cities', new Fuse(cityGroupsData, {
+        keys: ['name', 'city', 'country', 'description'],
+        threshold: 0.3,
+        distance: 100,
+        includeScore: true,
+        shouldSort: true,
+        minMatchCharLength: 1, // Allow single char for cities like "NY"
       }));
       
       console.log('✅ ESA Layer 15: Fuse.js data refreshed');
@@ -395,7 +421,7 @@ class SearchService {
   /**
    * Search across multiple indexes
    */
-  async multiSearch(query: string, types: SearchType[] = ['users', 'posts', 'events', 'communities']): Promise<SearchDocument[]> {
+  async multiSearch(query: string, types: SearchType[] = ['users', 'posts', 'events', 'communities', 'cities']): Promise<SearchDocument[]> {
     const results = await Promise.all(
       types.map(type => this.search(query, type))
     );

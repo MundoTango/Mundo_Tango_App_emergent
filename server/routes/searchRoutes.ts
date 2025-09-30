@@ -12,7 +12,7 @@ const router = Router();
 // Validation schemas
 const searchQuerySchema = z.object({
   q: z.string().min(1).max(500),
-  type: z.enum(['users', 'posts', 'events', 'communities']).optional(),
+  type: z.enum(['users', 'posts', 'events', 'communities', 'cities']).optional(),
   limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).optional(),
   offset: z.string().transform(Number).pipe(z.number().min(0)).optional(),
   fuzzy: z.string().transform(val => val === 'true').optional(),
@@ -21,7 +21,7 @@ const searchQuerySchema = z.object({
 
 const suggestQuerySchema = z.object({
   q: z.string().min(1).max(100),
-  type: z.enum(['users', 'posts', 'events', 'communities']),
+  type: z.enum(['users', 'posts', 'events', 'communities', 'cities']),
 });
 
 /**
@@ -98,7 +98,7 @@ router.get('/api/search/multi', async (req, res) => {
     console.log(`🔍 ESA Layer 15: Multi-search query="${q}" fuzzy=${isFuzzy}`);
     
     // Search across all types
-    const results = await searchService.multiSearch(q, ['users', 'posts', 'events', 'communities']);
+    const results = await searchService.multiSearch(q, ['users', 'posts', 'events', 'communities', 'cities']);
     
     // Apply pagination to combined results
     const paginatedResults = results.slice(searchOffset, searchOffset + searchLimit);
@@ -217,9 +217,9 @@ router.post('/api/search/index', async (req, res) => {
     }
     
     // Validate type
-    if (!['users', 'posts', 'events', 'communities'].includes(type)) {
+    if (!['users', 'posts', 'events', 'communities', 'cities'].includes(type)) {
       return res.status(400).json({ 
-        error: 'Invalid type. Must be one of: users, posts, events, communities' 
+        error: 'Invalid type. Must be one of: users, posts, events, communities, cities' 
       });
     }
     
@@ -257,9 +257,9 @@ router.put('/api/search/index', async (req, res) => {
     }
     
     // Validate type
-    if (!['users', 'posts', 'events', 'communities'].includes(type)) {
+    if (!['users', 'posts', 'events', 'communities', 'cities'].includes(type)) {
       return res.status(400).json({ 
-        error: 'Invalid type. Must be one of: users, posts, events, communities' 
+        error: 'Invalid type. Must be one of: users, posts, events, communities, cities' 
       });
     }
     
@@ -297,9 +297,9 @@ router.delete('/api/search/index', async (req, res) => {
     }
     
     // Validate type
-    if (!['users', 'posts', 'events', 'communities'].includes(type)) {
+    if (!['users', 'posts', 'events', 'communities', 'cities'].includes(type)) {
       return res.status(400).json({ 
-        error: 'Invalid type. Must be one of: users, posts, events, communities' 
+        error: 'Invalid type. Must be one of: users, posts, events, communities, cities' 
       });
     }
     
