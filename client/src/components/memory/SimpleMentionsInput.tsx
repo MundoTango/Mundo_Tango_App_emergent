@@ -352,27 +352,12 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       }
     });
     
-    return parts.length > 0 ? parts : <span className="text-gray-400">{placeholder}</span>;
+    return parts;
   };
   
   return (
     <div className="relative w-full">
-      {/* Styled overlay showing colored mentions */}
-      <div
-        className="absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words"
-        style={{
-          padding: '0.75rem',
-          fontSize: 'inherit',
-          lineHeight: 'inherit',
-          color: 'transparent',
-          zIndex: 1
-        }}
-        aria-hidden="true"
-      >
-        {renderStyledContent()}
-      </div>
-      
-      {/* Actual textarea (invisible text) */}
+      {/* Actual textarea */}
       <textarea
         ref={textareaRef}
         value={displayValue}
@@ -381,13 +366,29 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className={`w-full p-3 rounded-lg border-2 border-gray-200 focus:border-emerald-400 focus:outline-none resize-none relative z-10 bg-transparent caret-gray-900 ${className}`}
+        className={`w-full p-3 rounded-lg border-2 border-gray-200 focus:border-emerald-400 focus:outline-none resize-none relative ${className}`}
         style={{
           color: 'transparent',
-          caretColor: '#111827'
+          caretColor: '#111827',
+          zIndex: 1
         }}
         data-testid="input-mention"
       />
+      
+      {/* Styled overlay showing colored mentions (only when content exists) */}
+      {displayValue && (
+        <div
+          className="absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words p-3"
+          style={{
+            fontSize: 'inherit',
+            lineHeight: 'inherit',
+            zIndex: 2
+          }}
+          aria-hidden="true"
+        >
+          {renderStyledContent()}
+        </div>
+      )}
       
       {/* Suggestion dropdown */}
       {showSuggestions && suggestions.length > 0 && (
