@@ -7,6 +7,7 @@ import { Users, Calendar, UsersRound, MapPin } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import {
   Token,
+  MentionToken,
   parseCanonicalToTokens,
   tokensToDisplay,
   tokensToCanonical,
