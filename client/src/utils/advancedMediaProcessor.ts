@@ -361,7 +361,7 @@ async function compressImageSmart(file: File): Promise<File> {
   const options = {
     maxSizeMB: sizeMB > 10 ? 0.8 : 1.5,
     maxWidthOrHeight: 1080,
-    useWebWorker: true,
+    useWebWorker: false, // Disabled - Vite worker issue causes upload hang
     fileType: file.type === 'image/png' ? 'image/jpeg' : file.type as any,
     initialQuality: sizeMB > 5 ? 0.8 : 0.9,
     alwaysKeepResolution: false

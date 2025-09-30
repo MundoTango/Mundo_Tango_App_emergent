@@ -16,6 +16,10 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
   - Comprehensive fallback handling: never rejects, always returns usable preview
   - 5-second timeout protection to prevent hangs
   - Graceful fallbacks for canvas errors, metadata failures, and load errors
+- **Upload Hang Fix (25% issue)**: Disabled Web Workers in image compression
+  - Root cause: `browser-image-compression` with `useWebWorker: true` tried to load worker.js that Vite couldn't find
+  - Changed `useWebWorker: false` in both mediaCompression.ts and advancedMediaProcessor.ts
+  - Uploads now complete smoothly without hanging during processing phase
 - **Media Display Pipeline**: Verified complete data flow from upload → storage → display
   - Backend saves to `mediaEmbeds` field (JSONB array)
   - Storage queries explicitly include `mediaEmbeds`
@@ -24,6 +28,8 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
   - `client/src/components/upload/InternalUploader.tsx` (progress callbacks)
   - `client/src/components/universal/PostCreator.tsx` (video thumbnail integration)
   - `client/src/utils/videoThumbnail.ts` (new utility with resilient error handling)
+  - `client/src/utils/mediaCompression.ts` (disabled Web Workers)
+  - `client/src/utils/advancedMediaProcessor.ts` (disabled Web Workers)
 - **Architect Review**: All fixes approved with comprehensive fallback validation
 
 **4-State RSVP System with UpcomingEventsSidebar** ✅ **PRODUCTION READY**
