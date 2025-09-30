@@ -92,6 +92,7 @@ export default function GroupDetailPageMT() {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [postsPage, setPostsPage] = useState(1);
   const [hasMorePosts, setHasMorePosts] = useState(true);
+  const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members'>('all');
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -130,12 +131,23 @@ export default function GroupDetailPageMT() {
     if (activeTab === 'posts' && slug) {
       fetchPosts();
     }
-  }, [activeTab, slug, postsPage]);
+  }, [activeTab, slug, postsPage, mentionFilter]);
   
   const fetchPosts = async () => {
     setLoadingPosts(true);
     try {
-      const response = await fetch(`/api/groups/${slug}/posts?page=${postsPage}&limit=10`);
+      let response;
+      
+      // Use mention filtering API if filter is active
+      if (mentionFilter !== 'all' && group?.id) {
+        const entityType = group.type === 'city' ? 'city' : 'group';
+        const filterParam = mentionFilter;
+        response = await fetch(`/api/posts/mentions/${entityType}/${group.id}?filter=${filterParam}`);
+      } else {
+        // Use regular group posts API
+        response = await fetch(`/api/groups/${slug}/posts?page=${postsPage}&limit=10`);
+      }
+      
       const data = await response.json();
       
       if (data.success) {
@@ -807,6 +819,75 @@ export default function GroupDetailPageMT() {
             </div>
           </div>
         )}
+  
+        {/* Mention Filter Tabs */}
+        <div className="mt-info-card">
+          <div className="flex items-center gap-2 border-b">
+            <button
+              onClick={() => { setMentionFilter('all'); setPostsPage(1); }}
+              className={`px-4 py-2 font-medium transition-colors ${
+                mentionFilter === 'all' 
+                  ? 'text-pink-600 border-b-2 border-pink-600' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+              data-testid="filter-all-posts"
+            >
+              All Posts
+            </button>
+            
+            {group?.type === 'city' ? (
+              <>
+                <button
+                  onClick={() => { setMentionFilter('residents'); setPostsPage(1); }}
+                  className={`px-4 py-2 font-medium transition-colors ${
+                    mentionFilter === 'residents' 
+                      ? 'text-pink-600 border-b-2 border-pink-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  data-testid="filter-residents"
+                >
+                  Residents Only
+                </button>
+                <button
+                  onClick={() => { setMentionFilter('visitors'); setPostsPage(1); }}
+                  className={`px-4 py-2 font-medium transition-colors ${
+                    mentionFilter === 'visitors' 
+                      ? 'text-pink-600 border-b-2 border-pink-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  data-testid="filter-visitors"
+                >
+                  Visitors Only
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => { setMentionFilter('members'); setPostsPage(1); }}
+                  className={`px-4 py-2 font-medium transition-colors ${
+                    mentionFilter === 'members' 
+                      ? 'text-pink-600 border-b-2 border-pink-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  data-testid="filter-members"
+                >
+                  Members Only
+                </button>
+                <button
+                  onClick={() => { setMentionFilter('non-members'); setPostsPage(1); }}
+                  className={`px-4 py-2 font-medium transition-colors ${
+                    mentionFilter === 'non-members' 
+                      ? 'text-pink-600 border-b-2 border-pink-600' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  data-testid="filter-non-members"
+                >
+                  Non-Members Only
+                </button>
+              </>
+            )}
+          </div>
+        </div>
   
         {/* Posts List */}
         {loadingPosts && postsPage === 1 ? (
