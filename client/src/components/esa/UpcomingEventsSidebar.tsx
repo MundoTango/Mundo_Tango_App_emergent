@@ -61,6 +61,8 @@ export default function UpcomingEventsSidebar({
         credentials: 'include'
       });
       const result = await response.json();
+      console.log('📥 [Sidebar] Raw API response from /api/events/feed:', result);
+      console.log('📥 [Sidebar] First event userRsvpStatus:', result?.data?.[0]?.userRsvpStatus);
       return result.data || [];
     }
   });
@@ -153,18 +155,22 @@ export default function UpcomingEventsSidebar({
   });
   
   // Transform API data to component format
-  const allEvents = eventsData?.map((event: any) => ({
-    id: event.id.toString(),
-    title: event.title,
-    type: event.event_type || 'milonga',
-    date: event.startDate || event.start_date || event.date,
-    time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
-    location: event.location || event.city || 'Location TBA',
-    city: event.city,
-    attendees: event.current_attendees || event.rsvpCounts?.going || 0,
-    userRsvpStatus: event.userRsvpStatus || null,
-    isFeatured: event.is_featured || false
-  })) || [];
+  const allEvents = eventsData?.map((event: any) => {
+    const transformed = {
+      id: event.id.toString(),
+      title: event.title,
+      type: event.event_type || 'milonga',
+      date: event.startDate || event.start_date || event.date,
+      time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
+      location: event.location || event.city || 'Location TBA',
+      city: event.city,
+      attendees: event.current_attendees || event.rsvpCounts?.going || 0,
+      userRsvpStatus: event.userRsvpStatus || null,
+      isFeatured: event.is_featured || false
+    };
+    console.log(`🔄 [Sidebar] Transformed event ${event.id} (${event.title}): userRsvpStatus = ${transformed.userRsvpStatus}`);
+    return transformed;
+  }) || [];
 
   // Categorize events (NEW ORDER: RSVP'ed → Your City → Events You Follow → Cities You Follow)
   const rsvpedEvents = allEvents.filter((e: Event) => 
