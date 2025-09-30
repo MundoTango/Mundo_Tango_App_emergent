@@ -355,7 +355,7 @@ async function convertVideoWithFFmpeg(file: File, targetFormat: string = 'mp4'):
  */
 async function compressImageSmart(file: File): Promise<File> {
   const sizeMB = file.size / 1024 / 1024;
-  console.log(`🖼️ Compressing ${sizeMB.toFixed(2)}MB image`);
+  console.log(`🖼️ [compressImageSmart] Starting compression for ${file.name} (${sizeMB.toFixed(2)}MB)`);
   
   // Instagram-style settings
   const options = {
@@ -367,12 +367,18 @@ async function compressImageSmart(file: File): Promise<File> {
     alwaysKeepResolution: false
   };
   
+  console.log(`⚙️ [compressImageSmart] Compression settings:`, options);
+  
   try {
+    console.log(`🔄 [compressImageSmart] Calling imageCompression...`);
     const compressed = await imageCompression(file, options);
-    console.log(`✅ Compressed to ${(compressed.size / 1024 / 1024).toFixed(2)}MB`);
+    const newSizeMB = compressed.size / 1024 / 1024;
+    const reduction = ((1 - compressed.size / file.size) * 100).toFixed(1);
+    console.log(`✅ [compressImageSmart] Success! ${file.name} compressed to ${newSizeMB.toFixed(2)}MB (-${reduction}%)`);
     return compressed;
   } catch (error) {
-    console.error('Image compression failed:', error);
+    console.error(`❌ [compressImageSmart] Compression failed for ${file.name}:`, error);
+    console.log(`🔄 [compressImageSmart] Returning original file`);
     return file;
   }
 }
@@ -385,13 +391,14 @@ export async function processMediaUniversal(
   onProgress?: (status: string, progress: number) => void
 ): Promise<File> {
   const mediaInfo = detectMediaType(file);
-  console.log(`📁 Processing ${file.name} (${mediaInfo.format})`);
+  console.log(`📁 [processMediaUniversal] ${file.name} detected as: type=${mediaInfo.type}, format=${mediaInfo.format}, needsConversion=${mediaInfo.needsConversion}`);
   
   onProgress?.('Analyzing file...', 10);
   
   try {
     // Handle HEIC/HEIF (iPhone photos)
     if (mediaInfo.format === 'heic') {
+      console.log(`📱 [processMediaUniversal] Path: HEIC conversion`);
       onProgress?.('Converting iPhone photo...', 30);
       const jpegFile = await convertHeicToJpeg(file);
       onProgress?.('Compressing image...', 60);
@@ -402,6 +409,7 @@ export async function processMediaUniversal(
     
     // Handle MOV/ProRes (iPhone videos)
     if (mediaInfo.format === 'mov') {
+      console.log(`📱 [processMediaUniversal] Path: MOV conversion`);
       onProgress?.('Converting iPhone video...', 30);
       const mp4File = await convertVideoWithFFmpeg(file, 'mp4');
       onProgress?.('Compressing video...', 60);
@@ -412,15 +420,18 @@ export async function processMediaUniversal(
     
     // Handle standard images
     if (mediaInfo.type === 'image') {
+      console.log(`🖼️ [processMediaUniversal] Path: Standard image compression`);
       onProgress?.('Compressing image...', 50);
       const compressed = await compressImageSmart(file);
       onProgress?.('Complete!', 100);
+      console.log(`✅ [processMediaUniversal] Image processing complete for ${file.name}`);
       return compressed;
     }
     
     // Handle standard videos
     if (mediaInfo.type === 'video') {
       if (mediaInfo.needsConversion) {
+        console.log(`🎥 [processMediaUniversal] Path: Video conversion + compression`);
         onProgress?.('Converting video format...', 30);
         const converted = await convertVideoWithFFmpeg(file, 'mp4');
         onProgress?.('Compressing video...', 60);
@@ -428,6 +439,7 @@ export async function processMediaUniversal(
         onProgress?.('Complete!', 100);
         return compressed;
       } else {
+        console.log(`🎥 [processMediaUniversal] Path: Video compression only`);
         onProgress?.('Compressing video...', 50);
         const compressed = await compressVideoWebCodecs(file);
         onProgress?.('Complete!', 100);
@@ -437,6 +449,7 @@ export async function processMediaUniversal(
     
     // Unknown format - try FFmpeg conversion
     if (mediaInfo.type === 'unknown') {
+      console.log(`❓ [processMediaUniversal] Path: Unknown format, trying conversion`);
       onProgress?.('Processing unknown format...', 30);
       try {
         // Try as video first
@@ -445,16 +458,17 @@ export async function processMediaUniversal(
         return converted;
       } catch {
         // If video fails, return original
-        console.warn('Unknown format, returning original');
+        console.warn(`⚠️ [processMediaUniversal] Unknown format failed conversion, returning original`);
         onProgress?.('Complete!', 100);
         return file;
       }
     }
     
+    console.log(`🔄 [processMediaUniversal] No processing path matched, returning original file`);
     return file;
     
   } catch (error) {
-    console.error('Processing failed:', error);
+    console.error(`❌ [processMediaUniversal] Processing failed for ${file.name}:`, error);
     onProgress?.('Processing failed, using original', 100);
     return file;
   }
@@ -467,6 +481,7 @@ export async function processMultipleMedia(
   files: File[],
   onProgress?: (current: number, total: number, status: string) => void
 ): Promise<File[]> {
+  console.log(`🎯 [processMultipleMedia] Starting with ${files.length} files`);
   const results: File[] = [];
   let completed = 0;
   
@@ -475,15 +490,23 @@ export async function processMultipleMedia(
   
   for (let i = 0; i < files.length; i += batchSize) {
     const batch = files.slice(i, i + batchSize);
+    console.log(`📦 [processMultipleMedia] Processing batch ${Math.floor(i/batchSize) + 1}, files: ${batch.map(f => f.name).join(', ')}`);
     
     const batchResults = await Promise.all(
-      batch.map(async (file) => {
+      batch.map(async (file, batchIndex) => {
+        const fileNum = i + batchIndex + 1;
+        console.log(`⏰ [File ${fileNum}/${files.length}] Starting: ${file.name} (${(file.size/1024/1024).toFixed(2)}MB)`);
+        const startTime = Date.now();
+        
         const processed = await processMediaUniversal(file, (status, progress) => {
           const overallProgress = ((completed + (progress / 100)) / files.length) * 100;
+          console.log(`📊 [File ${fileNum}/${files.length}] ${status} - ${progress}% (overall: ${overallProgress.toFixed(0)}%)`);
           onProgress?.(completed + 1, files.length, status);
         });
         
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
         completed++;
+        console.log(`✅ [File ${fileNum}/${files.length}] Done in ${elapsed}s: ${processed.name} (${(processed.size/1024/1024).toFixed(2)}MB)`);
         onProgress?.(completed, files.length, `Processed ${file.name}`);
         return processed;
       })
@@ -492,6 +515,7 @@ export async function processMultipleMedia(
     results.push(...batchResults);
   }
   
+  console.log(`🎉 [processMultipleMedia] All ${files.length} files processed successfully`);
   return results;
 }
 
