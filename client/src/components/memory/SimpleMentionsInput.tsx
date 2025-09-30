@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -39,7 +39,6 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [mentionStart, setMentionStart] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0); // Track selected suggestion for keyboard nav
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const pendingDisplaySelection = useRef<number | null>(null);
 
   // Search for mentions when @ is typed (both users and events)
   const { data: searchData, isLoading } = useQuery({
@@ -211,56 +210,32 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
-    // Blur textarea to prevent React from capturing/restoring cursor position
+    // DIRECT APPROACH: Update textarea value and cursor immediately, THEN sync to React
     if (textareaRef.current) {
-      textareaRef.current.blur();
+      // Set display value directly on DOM
+      textareaRef.current.value = finalDisplayValue;
+      
+      // Set cursor position immediately
+      textareaRef.current.setSelectionRange(newCursorPosInDisplay, newCursorPosInDisplay);
+      textareaRef.current.focus();
+      
+      console.log('✅ Set textarea directly:', {
+        displayValue: finalDisplayValue,
+        cursorPosition: newCursorPosInDisplay,
+        actualCursor: [textareaRef.current.selectionStart, textareaRef.current.selectionEnd],
+        textLength: finalDisplayValue.length
+      });
     }
     
-    // Update state and mark cursor position to apply after React updates
-    pendingDisplaySelection.current = newCursorPosInDisplay;
+    // Now sync canonical value to React state
     onChange(newValue);
     setShowSuggestions(false);
-    
-    console.log('📍 Pending cursor position after mention insertion:', {
-      targetPosition: newCursorPosInDisplay,
-      finalDisplayValue,
-      willBeAppliedInLayoutEffect: true
-    });
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
   useEffect(() => {
     setSelectedIndex(0);
   }, [suggestions]);
-
-  // Apply pending cursor position after React updates the textarea
-  useLayoutEffect(() => {
-    if (pendingDisplaySelection.current !== null && textareaRef.current) {
-      // Use RAF to run AFTER React's selection restoration
-      const targetPos = pendingDisplaySelection.current;
-      
-      requestAnimationFrame(() => {
-        if (textareaRef.current) {
-          const actualDisplay = textareaRef.current.value;
-          const safePos = Math.min(targetPos, actualDisplay.length);
-          
-          console.log('✅ Applying cursor position in RAF:', {
-            targetPos,
-            safePos,
-            textLength: actualDisplay.length,
-            valueLength: value.length,
-            textPreview: actualDisplay.substring(Math.max(0, safePos - 15), safePos + 15),
-            currentSelection: [textareaRef.current.selectionStart, textareaRef.current.selectionEnd]
-          });
-          
-          textareaRef.current.setSelectionRange(safePos, safePos);
-          textareaRef.current.focus();
-        }
-      });
-      
-      pendingDisplaySelection.current = null;
-    }
-  }, [value]);
 
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
