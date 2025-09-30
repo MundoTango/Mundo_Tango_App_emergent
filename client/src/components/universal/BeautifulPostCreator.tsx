@@ -1083,28 +1083,111 @@ export default function BeautifulPostCreator({
               </div>
             )}
 
-            {/* 🗺️ TREASURE MAP EXPLORER - Icon Button */}
-            <div className="relative">
+            {/* Icon Buttons Row: Hidden Gems, Tags, Upload */}
+            <div className="flex items-center gap-3">
+              {/* 🗺️ Hidden Gems */}
               <TooltipProvider>
-                <Tooltip>
+                <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => setIsRecommendation(!isRecommendation)}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 ${
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
                         isRecommendation 
-                          ? 'bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 text-white shadow-xl' 
-                          : 'bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-600 shadow-lg hover:shadow-xl'
+                          ? 'bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 text-white shadow-xl animate-pulse' 
+                          : 'bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-600 shadow-lg hover:shadow-2xl'
                       }`}
                     >
                       <MapPin className="h-6 w-6" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p className="font-medium">Discover Hidden Gems</p>
-                    <p className="text-xs text-gray-500">Share your treasure map with the community</p>
+                  <TooltipContent 
+                    side="top" 
+                    className="bg-gradient-to-br from-amber-900 via-amber-800 to-orange-900 border-2 border-amber-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">✨</span>
+                      <div>
+                        <p className="font-bold text-sm">Discover Hidden Gems</p>
+                        <p className="text-xs text-amber-200">Share your treasure map with the community</p>
+                      </div>
+                    </div>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+
+              {/* # Tags */}
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setShowTags(!showTags)}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:-rotate-3 ${
+                        showTags || selectedTags.length > 0
+                          ? 'bg-gradient-to-br from-turquoise-500 to-cyan-600 text-white shadow-xl animate-pulse' 
+                          : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-turquoise-600 shadow-lg hover:shadow-2xl'
+                      }`}
+                    >
+                      <Hash className="h-6 w-6" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-turquoise-900 via-cyan-800 to-blue-900 border-2 border-cyan-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">🏷️</span>
+                      <p className="font-bold text-sm">#add tags to your memory</p>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              {/* 📷 Camera Upload */}
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => {
+                        const fileInput = document.querySelector('input[type="file"][accept*="image"]') as HTMLInputElement;
+                        if (fileInput) fileInput.click();
+                      }}
+                      className="p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-100 hover:from-blue-100 hover:to-purple-200 text-blue-600 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3"
+                    >
+                      <Camera className="h-6 w-6" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900 border-2 border-blue-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">📸</span>
+                      <div>
+                        <p className="font-bold text-sm">Upload Media Files</p>
+                        <p className="text-xs text-blue-200">support images and videos - max 30 files - up to 500mb each</p>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+
+            {/* Hidden file input from InternalUploader */}
+            <div className="hidden">
+              <InternalUploader
+                onUploadComplete={(files) => {
+                  const urls = files.map(f => f.url);
+                  setInternalMediaUrls(prev => [...prev, ...urls]);
+                  setMediaPreviews(prev => [...prev, ...urls]);
+                  console.log(`[Internal Upload] ✅ Added ${files.length} files to post`);
+                }}
+                maxFiles={30}
+                maxFileSize={500}
+                className=""
+              />
+            </div>
+            
+            <div className="relative">
 
               {/* Treasure Map Unfolding - Content Area */}
               {isRecommendation && (
@@ -1242,58 +1325,36 @@ export default function BeautifulPostCreator({
               )}
             </div>
 
-            {/* Tags - Icon Button */}
-            <div className="space-y-3">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => setShowTags(!showTags)}
-                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 ${
-                        showTags || selectedTags.length > 0
-                          ? 'bg-gradient-to-br from-turquoise-500 to-cyan-600 text-white shadow-xl' 
-                          : 'bg-gradient-to-br from-turquoise-50 to-cyan-100 hover:from-turquoise-100 hover:to-cyan-200 text-turquoise-600 shadow-lg hover:shadow-xl'
-                      }`}
-                    >
-                      <Hash className="h-6 w-6" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p className="font-medium">#add tags to your memory</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              
-              {showTags && (
-                <div className="flex flex-wrap gap-3 mt-3">
-                  {predefinedTags.map((tag) => (
-                    <button
-                      key={tag.value}
-                      onClick={() => {
-                        setSelectedTags(prev => 
-                          prev.includes(tag.value) 
-                            ? prev.filter(t => t !== tag.value)
-                            : [...prev, tag.value]
-                        );
-                      }}
-                      className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
-                        selectedTags.includes(tag.value)
-                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
-                          : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-turquoise-300 shadow-sm hover:shadow-lg'
-                      }`}
-                    >
-                      <span className="relative z-10 flex items-center space-x-2">
-                        <span className="text-lg transform group-hover:rotate-12 transition-transform">{tag.emoji}</span>
-                        <span>{tag.label}</span>
-                      </span>
-                      {selectedTags.includes(tag.value) && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-turquoise-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Tags Selection Area - Shows when # icon is clicked */}
+            {showTags && (
+              <div className="flex flex-wrap gap-3 mt-3 animate-in slide-in-from-top-2 duration-300">
+                {predefinedTags.map((tag) => (
+                  <button
+                    key={tag.value}
+                    onClick={() => {
+                      setSelectedTags(prev => 
+                        prev.includes(tag.value) 
+                          ? prev.filter(t => t !== tag.value)
+                          : [...prev, tag.value]
+                      );
+                    }}
+                    className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      selectedTags.includes(tag.value)
+                        ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
+                        : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white border border-gray-200/60 hover:border-turquoise-300 shadow-sm hover:shadow-lg'
+                    }`}
+                  >
+                    <span className="relative z-10 flex items-center space-x-2">
+                      <span className="text-lg transform group-hover:rotate-12 transition-transform">{tag.emoji}</span>
+                      <span>{tag.label}</span>
+                    </span>
+                    {selectedTags.includes(tag.value) && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-turquoise-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* ESA LIFE CEO 61x21 - Enhanced Upload Progress Bar */}
@@ -1330,31 +1391,6 @@ export default function BeautifulPostCreator({
           <div className="mt-8 pt-6 border-t border-gray-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                {/* ESA Layer 13: Camera Icon Upload Button */}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div>
-                        <InternalUploader
-                          onUploadComplete={(files) => {
-                            const urls = files.map(f => f.url);
-                            setInternalMediaUrls(prev => [...prev, ...urls]);
-                            setMediaPreviews(prev => [...prev, ...urls]);
-                            console.log(`[Internal Upload] ✅ Added ${files.length} files to post`);
-                          }}
-                          maxFiles={30}
-                          maxFileSize={500}
-                          className=""
-                        />
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent side="top">
-                      <p className="font-medium">Upload Media Files</p>
-                      <p className="text-xs text-gray-500">support images and videos - max 30 files - up to 500mb each</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                
                 {/* AI Enhancement Button */}
                 <Button
                   type="button"
@@ -1367,7 +1403,6 @@ export default function BeautifulPostCreator({
                   <Sparkles className="w-4 h-4 mr-2" />
                   {isEnhancing ? 'Enhancing...' : 'AI Enhance'}
                 </Button>
-
               </div>
 
               <button
