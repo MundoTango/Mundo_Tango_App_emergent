@@ -8,9 +8,21 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
 
 *This section tracks significant recent modifications to the project*
 
-### September 2025 - Location Input System Consolidation
+### September 2025 - Events System Enhancement
 
-**Unified Location Input Component**
+**Unified UpcomingEventsSidebar with ESA Ocean Theme**
+- Consolidated duplicate event components (NewFeedEvents.tsx archived to _archive/)
+- Implemented quick RSVP functionality with interactive icons (✅ attending, ❓ maybe, ❌ not going)
+- Added smart event categorization: Your Events, Cities You Follow, In Your City, Other Events
+- Applied ESA LIFE CEO 61×21 ocean theme color palette throughout component
+- Glassmorphic event cards with turquoise borders and light backgrounds
+- High-contrast ocean typography: deep ocean titles (#0B3C49), medium ocean secondary (#146778), light ocean meta (#3BA0AF)
+- Turquoise gradient RSVP buttons with hover effects and optimistic updates
+- Collapsible sections with aqua backgrounds and ocean accent hover states
+- Enhanced API endpoint to include user RSVP status and dynamic attendee counts
+- Removed legacy imports from landing.tsx and enhanced-timeline.tsx
+
+**Location Input System Consolidation**
 - Created `LocationInput.tsx` wrapper with intelligent Google Maps API detection
 - Automatic fallback to SimplifiedLocationInput when API unavailable
 - Consolidated 20+ scattered location input implementations into 2 primary components
