@@ -431,7 +431,7 @@ export default function UnifiedTopBar({
 
           {/* Theme Toggle */}
           {onThemeToggle && (
-            <div className="relative">
+            <div className="relative group">
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -446,14 +446,16 @@ export default function UnifiedTopBar({
                 {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               </Button>
               {/* COMING SOON Overlay - Dark Mode Disabled */}
-              <div className="absolute inset-0 bg-gray-900/90 rounded-md flex items-center justify-center cursor-not-allowed z-10">
-                <span className="text-[10px] font-bold text-white whitespace-nowrap">COMING SOON</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/40 to-cyan-600/40 rounded-md cursor-not-allowed z-10 backdrop-blur-[2px]">
+                <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  COMING SOON
+                </span>
               </div>
             </div>
           )}
 
           {/* Language Selector - ESA Layer 53: Internationalization Agent */}
-          <div className="relative hidden sm:flex">
+          <div className="relative hidden sm:flex group">
             <LanguageSelector 
               variant="dropdown" 
               showFlags={true}
@@ -461,8 +463,10 @@ export default function UnifiedTopBar({
               className=""
             />
             {/* COMING SOON Overlay - Language Switching Disabled */}
-            <div className="absolute inset-0 bg-gray-900/90 rounded-md flex items-center justify-center cursor-not-allowed z-10 pointer-events-auto">
-              <span className="text-xs font-bold text-white">COMING SOON</span>
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/40 to-cyan-600/40 rounded-md cursor-not-allowed z-10 pointer-events-auto backdrop-blur-[2px]">
+              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                COMING SOON
+              </span>
             </div>
           </div>
 
