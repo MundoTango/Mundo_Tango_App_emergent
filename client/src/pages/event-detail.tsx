@@ -102,11 +102,25 @@ export default function EventDetailPage() {
     cvv: '',
     name: ''
   });
+  const [mentionFilter, setMentionFilter] = useState<'all' | 'participants' | 'guests'>('all');
 
   // Fetch event details
   const { data: event, isLoading } = useQuery<EventDetail>({
     queryKey: [`/api/events/${id}`],
     enabled: !!id
+  });
+
+  // Fetch event discussion posts with mention filtering
+  const { data: postsResponse, isLoading: postsLoading } = useQuery({
+    queryKey: [`/api/posts/mentions/event/${id}`, mentionFilter],
+    enabled: !!id,
+    queryFn: async () => {
+      const response = await fetch(`/api/posts/mentions/event/${id}?filter=${mentionFilter}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch posts');
+      return response.json();
+    }
   });
 
   // RSVP mutation
@@ -452,20 +466,88 @@ export default function EventDetailPage() {
               </TabsContent>
 
               <TabsContent value="discussion" className="p-6">
-                <div className="space-y-4">
-                  <Textarea
-                    placeholder="Share your thoughts about this event..."
-                    className="w-full"
-                  />
-                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-600">
-                    Post Comment
-                  </Button>
-                  
-                  <div className="pt-4">
-                    <p className="text-gray-500 text-center py-8">
-                      No comments yet. Start the discussion!
-                    </p>
+                <div className="space-y-6">
+                  {/* Mention Filter Tabs */}
+                  <div className="flex items-center gap-2 border-b">
+                    <button
+                      onClick={() => setMentionFilter('all')}
+                      className={`px-4 py-2 font-medium transition-colors ${
+                        mentionFilter === 'all' 
+                          ? 'text-pink-600 border-b-2 border-pink-600' 
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      data-testid="filter-all-posts"
+                    >
+                      All Posts
+                    </button>
+                    <button
+                      onClick={() => setMentionFilter('participants')}
+                      className={`px-4 py-2 font-medium transition-colors ${
+                        mentionFilter === 'participants' 
+                          ? 'text-pink-600 border-b-2 border-pink-600' 
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      data-testid="filter-participants"
+                    >
+                      Participants Only
+                    </button>
+                    <button
+                      onClick={() => setMentionFilter('guests')}
+                      className={`px-4 py-2 font-medium transition-colors ${
+                        mentionFilter === 'guests' 
+                          ? 'text-pink-600 border-b-2 border-pink-600' 
+                          : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      data-testid="filter-guests"
+                    >
+                      Guests Only
+                    </button>
                   </div>
+
+                  {/* Posts List */}
+                  {postsLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-500"></div>
+                    </div>
+                  ) : postsResponse?.success && postsResponse?.data?.length > 0 ? (
+                    <div className="space-y-4">
+                      {postsResponse.data.map((post: any) => (
+                        <Card key={post.id} className="p-4">
+                          <div className="flex items-start gap-3">
+                            <Avatar className="h-10 w-10">
+                              <AvatarImage src={post.user?.profileImage} />
+                              <AvatarFallback>
+                                {post.user?.name?.[0] || post.user?.username?.[0]}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <p className="font-semibold">{post.user?.name || post.user?.username}</p>
+                                <span className="text-sm text-gray-500">
+                                  {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
+                                </span>
+                              </div>
+                              <p className="text-gray-700">{post.content}</p>
+                              {post.imageUrl && (
+                                <img 
+                                  src={post.imageUrl} 
+                                  alt="Post" 
+                                  className="mt-3 rounded-lg max-w-full h-auto"
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <MessageSquare className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+                      <p className="text-gray-500">
+                        No posts yet for this filter. Start the discussion!
+                      </p>
+                    </div>
+                  )}
                 </div>
               </TabsContent>
 
