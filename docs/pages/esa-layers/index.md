@@ -31,10 +31,10 @@
 #### 💼 Business Logic (Layers 21-30)
 21. [User Management Agent](./layer-21-user-management.md) - Profiles, preferences
 22. [Group Management Agent](./layer-22-group-management.md) - Communities
-23. [Event Management Agent](./layer-23-event-management.md) - Calendar, scheduling
+23. [Payment & Subscriptions Agent](./layer-23-payment-subscriptions.md) - Stripe, billing
 24. [**Social Features Agent**](./layer-24-social-features.md) ✅ **COMPLETE** - @Mentions, Posts, Privacy
-25. [Messaging System Agent](./layer-25-messaging-system.md) - Direct messages
-26. [Recommendation Engine Agent](./layer-26-recommendation-engine.md) - Personalization
+25. [Messaging System Agent](./layer-25-messaging-chat.md) - Direct messages
+26. [**Events & Calendar Agent**](./layer-26-events-calendar.md) ✅ **COMPLETE** - Scheduling, **Quick RSVP (✅⭐❓❌)**
 27. [Gamification Agent](./layer-27-gamification.md) - Points, badges
 28. [Marketplace Agent](./layer-28-marketplace.md) - Listings, transactions
 29. [Booking System Agent](./layer-29-booking-system.md) - Reservations

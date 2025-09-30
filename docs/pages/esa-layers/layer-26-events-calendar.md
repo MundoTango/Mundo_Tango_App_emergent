@@ -26,6 +26,24 @@ Layer 26 manages event creation, scheduling, calendar integration, RSVPs, and ev
 - Trending events
 - Event reminders
 
+### 4. Quick RSVP Widget
+
+The **UpcomingEventsSidebar** component provides contextual event discovery with one-click RSVP functionality:
+
+**Features**:
+- Smart categorization by user preferences (RSVP'ed, Your City, Events You Follow, Cities You Follow)
+- 4-state RSVP system: Going (✅), Interested (⭐), Maybe (❓), Not Going (❌)
+- Optimistic updates for instant UI feedback
+- Real-time attendee count tracking
+- ESA ocean theme integration with glassmorphic design
+- Collapsible sections for better space management
+
+**Component Location**: `client/src/components/esa/UpcomingEventsSidebar.tsx`
+
+**API Endpoint**: `POST /api/events/:id/rsvp` with status validation
+
+**Documentation**: [UpcomingEventsSidebar.md](../events/UpcomingEventsSidebar.md) | [EventRSVP.md](../events/EventRSVP.md)
+
 ## Open Source Packages
 
 ```json

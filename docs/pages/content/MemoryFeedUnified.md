@@ -14,7 +14,7 @@ Following the ESA LIFE CEO 61×21 AGENTS FRAMEWORK, we have consolidated multipl
 This page integrates:  
 - **PostCreator** → multi-media post creation with support for text, images, videos, audio, and attachments.  
 - **UnifiedPostFeed** → single consolidated feed component with built-in filtering (simple/full modes) 
-- **UpcomingEventsSidebar** → event awareness widget for contextual community engagement.
+- **UpcomingEventsSidebar** → Smart event discovery with quick RSVP (✅ going, ⭐ interested, ❓ maybe, ❌ not going), categorized by RSVP'ed Events, Your City, Events You Follow, and Cities You Follow. Supports 4 RSVP states with optimistic updates, real-time attendee count tracking, and ESA ocean theme integration.
 
 **Note:** Filtering UI is built directly into UnifiedPostFeed, not a separate component.  
 
