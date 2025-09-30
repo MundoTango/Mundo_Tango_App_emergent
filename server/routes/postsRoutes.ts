@@ -345,6 +345,8 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     const validMentions = mentions.length > 0 ? 
       await storage.validateUserIds(mentions) : [];
     
+    console.log('🔍 [Backend postsRoutes] Received content:', req.body.content);
+    
     const postData = {
       content: req.body.content || '',
       richContent: req.body.richContent || null,

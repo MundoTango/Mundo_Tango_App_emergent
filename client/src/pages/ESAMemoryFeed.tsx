@@ -572,8 +572,10 @@ function ESAMemoryFeedCore() {
                       }}
                       onSubmit={(data) => {
                         // Convert structured data to FormData for API
+                        console.log('🔍 [ESAMemoryFeed] Received data.content:', data.content);
                         const formData = new FormData();
                         formData.append('content', data.content);
+                        console.log('🔍 [ESAMemoryFeed] FormData content appended:', formData.get('content'));
                         formData.append('visibility', data.visibility);
                         if (data.location) formData.append('location', data.location);
                         if (data.tags.length > 0) formData.append('tags', JSON.stringify(data.tags));
