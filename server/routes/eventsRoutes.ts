@@ -236,7 +236,7 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
 });
 
 // RSVP to event
-router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
+router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
   try {
     const { id: eventId } = req.params;
     const userId = req.user?.id;
