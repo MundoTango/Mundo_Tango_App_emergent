@@ -506,4 +506,147 @@ router.put('/api/event-participants/:id/status', authMiddleware, async (req, res
   }
 });
 
+// Get event posts with participant filtering
+router.get('/api/events/:id/posts', async (req, res) => {
+  try {
+    const eventId = parseInt(req.params.id);
+    const { filter = 'all', page = '1', limit = '20' } = req.query;
+    const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+
+    // Import posts table
+    const { posts } = await import('../../shared/schema');
+
+    if (filter === 'participants') {
+      // Get posts by event participants (organizers, musicians, performers, etc.)
+      const participantPosts = await db
+        .select({
+          id: posts.id,
+          userId: posts.userId,
+          eventId: posts.eventId,
+          content: posts.content,
+          imageUrl: posts.imageUrl,
+          videoUrl: posts.videoUrl,
+          mediaEmbeds: posts.mediaEmbeds,
+          mentions: posts.mentions,
+          location: posts.location,
+          visibility: posts.visibility,
+          likesCount: posts.likesCount,
+          commentsCount: posts.commentsCount,
+          createdAt: posts.createdAt,
+          user: {
+            id: users.id,
+            firstName: users.firstName,
+            lastName: users.lastName,
+            profileImage: users.profileImage
+          },
+          participantRole: eventParticipants.role
+        })
+        .from(posts)
+        .innerJoin(users, eq(posts.userId, users.id))
+        .innerJoin(eventParticipants, and(
+          eq(eventParticipants.eventId, eventId),
+          eq(eventParticipants.userId, posts.userId),
+          eq(eventParticipants.status, 'accepted' as any)
+        ))
+        .where(
+          or(
+            eq(posts.eventId, eventId),
+            sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+          )
+        )
+        .orderBy(desc(posts.createdAt))
+        .limit(parseInt(limit as string))
+        .offset(offset);
+
+      return res.json({ success: true, data: participantPosts });
+    } else if (filter === 'guests') {
+      // Get posts by non-participants (guests who mentioned event or RSVPed)
+      const guestPosts = await db
+        .select({
+          id: posts.id,
+          userId: posts.userId,
+          eventId: posts.eventId,
+          content: posts.content,
+          imageUrl: posts.imageUrl,
+          videoUrl: posts.videoUrl,
+          mediaEmbeds: posts.mediaEmbeds,
+          mentions: posts.mentions,
+          location: posts.location,
+          visibility: posts.visibility,
+          likesCount: posts.likesCount,
+          commentsCount: posts.commentsCount,
+          createdAt: posts.createdAt,
+          user: {
+            id: users.id,
+            firstName: users.firstName,
+            lastName: users.lastName,
+            profileImage: users.profileImage
+          }
+        })
+        .from(posts)
+        .innerJoin(users, eq(posts.userId, users.id))
+        .where(
+          and(
+            or(
+              eq(posts.eventId, eventId),
+              sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+            ),
+            // Exclude participants
+            sql`NOT EXISTS (
+              SELECT 1 FROM ${eventParticipants} 
+              WHERE ${eventParticipants.eventId} = ${eventId} 
+              AND ${eventParticipants.userId} = ${posts.userId}
+              AND ${eventParticipants.status} = 'accepted'
+            )`
+          )
+        )
+        .orderBy(desc(posts.createdAt))
+        .limit(parseInt(limit as string))
+        .offset(offset);
+
+      return res.json({ success: true, data: guestPosts });
+    } else {
+      // Get all posts related to the event (both participants and guests)
+      const allPosts = await db
+        .select({
+          id: posts.id,
+          userId: posts.userId,
+          eventId: posts.eventId,
+          content: posts.content,
+          imageUrl: posts.imageUrl,
+          videoUrl: posts.videoUrl,
+          mediaEmbeds: posts.mediaEmbeds,
+          mentions: posts.mentions,
+          location: posts.location,
+          visibility: posts.visibility,
+          likesCount: posts.likesCount,
+          commentsCount: posts.commentsCount,
+          createdAt: posts.createdAt,
+          user: {
+            id: users.id,
+            firstName: users.firstName,
+            lastName: users.lastName,
+            profileImage: users.profileImage
+          }
+        })
+        .from(posts)
+        .innerJoin(users, eq(posts.userId, users.id))
+        .where(
+          or(
+            eq(posts.eventId, eventId),
+            sql`${posts.mentions}::text LIKE ${'%event:' + eventId + '%'}`
+          )
+        )
+        .orderBy(desc(posts.createdAt))
+        .limit(parseInt(limit as string))
+        .offset(offset);
+
+      return res.json({ success: true, data: allPosts });
+    }
+  } catch (error) {
+    console.error('Error fetching event posts:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch event posts' });
+  }
+});
+
 export default router;

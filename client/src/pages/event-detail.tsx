@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/hooks/useAuth';
@@ -29,7 +29,8 @@ import {
   Star,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  FileText
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
@@ -103,6 +104,22 @@ export default function EventDetailPage() {
     name: ''
   });
   const [mentionFilter, setMentionFilter] = useState<'all' | 'participants' | 'guests'>('all');
+  const [postFilter, setPostFilter] = useState<'all' | 'participants' | 'guests'>('all');
+  const [activeTab, setActiveTab] = useState('attendees');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    const filterParam = params.get('filter');
+    
+    if (tabParam === 'posts') {
+      setActiveTab('posts');
+    }
+    
+    if (filterParam && (filterParam === 'all' || filterParam === 'participants' || filterParam === 'guests')) {
+      setPostFilter(filterParam);
+    }
+  }, []);
 
   // Fetch event details
   const { data: event, isLoading } = useQuery<EventDetail>({
@@ -119,6 +136,19 @@ export default function EventDetailPage() {
         credentials: 'include'
       });
       if (!response.ok) throw new Error('Failed to fetch posts');
+      return response.json();
+    }
+  });
+
+  // Fetch event posts for Posts tab
+  const { data: eventPosts, isLoading: eventPostsLoading, error: eventPostsError } = useQuery({
+    queryKey: [`/api/events/${id}/posts`, postFilter],
+    enabled: !!id,
+    queryFn: async () => {
+      const response = await fetch(`/api/events/${id}/posts?filter=${postFilter}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch event posts');
       return response.json();
     }
   });
@@ -418,18 +448,22 @@ export default function EventDetailPage() {
 
           {/* Event Tabs */}
           <Card>
-            <Tabs defaultValue="attendees">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="w-full">
-                <TabsTrigger value="attendees" className="flex-1">
+                <TabsTrigger value="attendees" className="flex-1" data-testid="tab-attendees">
                   <Users className="mr-2 h-4 w-4" />
                   Attendees ({event.currentAttendees || 0})
                 </TabsTrigger>
-                <TabsTrigger value="discussion" className="flex-1">
+                <TabsTrigger value="discussion" className="flex-1" data-testid="tab-discussion">
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Discussion
                 </TabsTrigger>
+                <TabsTrigger value="posts" className="flex-1" data-testid="tab-posts">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Posts
+                </TabsTrigger>
                 {isEventOwner && (
-                  <TabsTrigger value="analytics" className="flex-1">
+                  <TabsTrigger value="analytics" className="flex-1" data-testid="tab-analytics">
                     <BarChart3 className="mr-2 h-4 w-4" />
                     Analytics
                   </TabsTrigger>
@@ -545,6 +579,142 @@ export default function EventDetailPage() {
                       <MessageSquare className="mx-auto h-12 w-12 text-gray-400 mb-3" />
                       <p className="text-gray-500">
                         No posts yet for this filter. Start the discussion!
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="posts" className="p-6">
+                <div className="space-y-6">
+                  {/* Filter Buttons with ESA MT Ocean Theme */}
+                  <div className="flex items-center gap-3 pb-4 border-b border-turquoise-200">
+                    <Button
+                      variant={postFilter === 'all' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPostFilter('all')}
+                      className={`transition-all ${
+                        postFilter === 'all'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                      }`}
+                      data-testid="posts-filter-all"
+                    >
+                      All Posts
+                    </Button>
+                    <Button
+                      variant={postFilter === 'participants' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPostFilter('participants')}
+                      className={`transition-all ${
+                        postFilter === 'participants'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                      }`}
+                      data-testid="posts-filter-participants"
+                    >
+                      Participants
+                    </Button>
+                    <Button
+                      variant={postFilter === 'guests' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setPostFilter('guests')}
+                      className={`transition-all ${
+                        postFilter === 'guests'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                          : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                      }`}
+                      data-testid="posts-filter-guests"
+                    >
+                      Guests
+                    </Button>
+                  </div>
+
+                  {/* Posts Feed */}
+                  {eventPostsLoading ? (
+                    <div className="flex flex-col items-center justify-center py-16">
+                      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
+                      <p className="text-gray-500 text-sm">Loading posts...</p>
+                    </div>
+                  ) : eventPostsError ? (
+                    <div className="text-center py-12">
+                      <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-3" />
+                      <p className="text-red-600 font-medium">Failed to load posts</p>
+                      <p className="text-gray-500 text-sm mt-2">
+                        Please try again later or contact support if the issue persists.
+                      </p>
+                    </div>
+                  ) : eventPosts?.success && eventPosts?.data?.length > 0 ? (
+                    <div className="space-y-4">
+                      {eventPosts.data.map((post: any) => (
+                        <Card 
+                          key={post.id} 
+                          className="overflow-hidden border-turquoise-100 hover:shadow-lg transition-shadow duration-200"
+                          data-testid={`post-card-${post.id}`}
+                        >
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-4">
+                              <Avatar className="h-12 w-12 ring-2 ring-turquoise-200">
+                                <AvatarImage src={post.user?.profileImage} />
+                                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
+                                  {post.user?.firstName?.[0] || post.user?.lastName?.[0] || 'U'}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                  <p className="font-semibold text-gray-900">
+                                    {post.user?.firstName && post.user?.lastName
+                                      ? `${post.user.firstName} ${post.user.lastName}`
+                                      : post.user?.firstName || post.user?.lastName || 'Unknown User'}
+                                  </p>
+                                  <Badge variant="outline" className="text-xs bg-turquoise-50 text-turquoise-700 border-turquoise-200">
+                                    {post.isParticipant ? 'Participant' : 'Guest'}
+                                  </Badge>
+                                  <span className="text-sm text-gray-500">
+                                    {post.createdAt ? format(new Date(post.createdAt), 'MMM d, yyyy • h:mm a') : ''}
+                                  </span>
+                                </div>
+                                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                                  {post.content}
+                                </p>
+                                {post.imageUrl && (
+                                  <div className="mt-4">
+                                    <LazyLoadImage
+                                      src={post.imageUrl}
+                                      alt="Post image"
+                                      effect="blur"
+                                      className="rounded-lg max-w-full h-auto shadow-md"
+                                    />
+                                  </div>
+                                )}
+                                <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                                  <div className="flex items-center gap-1">
+                                    <Heart className="h-4 w-4" />
+                                    <span>{post.likesCount || 0}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <MessageSquare className="h-4 w-4" />
+                                    <span>{post.commentsCount || 0}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-16">
+                      <div className="bg-gradient-to-br from-turquoise-50 to-cyan-50 rounded-full p-6 w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+                        <FileText className="h-12 w-12 text-turquoise-500" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No posts yet</h3>
+                      <p className="text-gray-500 max-w-md mx-auto">
+                        {postFilter === 'all' 
+                          ? 'Be the first to share something about this event!'
+                          : postFilter === 'participants'
+                          ? 'No posts from event participants yet.'
+                          : 'No posts from guests mentioning this event yet.'}
                       </p>
                     </div>
                   )}

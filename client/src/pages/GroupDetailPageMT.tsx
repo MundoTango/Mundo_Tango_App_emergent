@@ -13,6 +13,9 @@ import {
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/hooks/useAuth';
 import EventMap from '@/components/EventMap';
 import { Filter } from 'lucide-react';
@@ -66,6 +69,21 @@ export default function GroupDetailPageMT() {
   const { toast } = useToast();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('about');
+  
+  // Read URL query parameters for tab and filter on mount
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    const filterParam = params.get('filter');
+    
+    if (tabParam === 'posts') {
+      setActiveTab('posts');
+    }
+    
+    if (filterParam && ['all', 'residents', 'visitors', 'members', 'non-members'].includes(filterParam)) {
+      setMentionFilter(filterParam as any);
+    }
+  }, []);
   
   // Member data state
   const [memberData, setMemberData] = useState<any[]>([]);
@@ -831,175 +849,222 @@ export default function GroupDetailPageMT() {
           </div>
         )}
   
-        {/* Mention Filter Tabs */}
-        <div className="mt-info-card">
-          <div className="flex items-center gap-2 border-b">
-            <button
-              onClick={() => { 
-                setPosts([]); // Clear posts immediately to prevent stale data flash
-                setMentionFilter('all'); 
-                setPostsPage(1); 
-              }}
-              className={`px-4 py-2 font-medium transition-colors ${
-                mentionFilter === 'all' 
-                  ? 'text-pink-600 border-b-2 border-pink-600' 
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              data-testid="filter-all-posts"
-            >
-              All Posts
-            </button>
-            
-            {group?.type === 'city' ? (
-              <>
-                <button
-                  onClick={() => { 
-                    setPosts([]); // Clear posts immediately to prevent stale data flash
-                    setMentionFilter('residents'); 
-                    setPostsPage(1); 
-                  }}
-                  className={`px-4 py-2 font-medium transition-colors ${
-                    mentionFilter === 'residents' 
-                      ? 'text-pink-600 border-b-2 border-pink-600' 
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                  data-testid="filter-residents"
-                >
-                  Residents Only
-                </button>
-                <button
-                  onClick={() => { 
-                    setPosts([]); // Clear posts immediately to prevent stale data flash
-                    setMentionFilter('visitors'); 
-                    setPostsPage(1); 
-                  }}
-                  className={`px-4 py-2 font-medium transition-colors ${
-                    mentionFilter === 'visitors' 
-                      ? 'text-pink-600 border-b-2 border-pink-600' 
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                  data-testid="filter-visitors"
-                >
-                  Visitors Only
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => { 
-                    setPosts([]); // Clear posts immediately to prevent stale data flash
-                    setMentionFilter('members'); 
-                    setPostsPage(1); 
-                  }}
-                  className={`px-4 py-2 font-medium transition-colors ${
-                    mentionFilter === 'members' 
-                      ? 'text-pink-600 border-b-2 border-pink-600' 
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                  data-testid="filter-members"
-                >
-                  Members Only
-                </button>
-                <button
-                  onClick={() => { 
-                    setPosts([]); // Clear posts immediately to prevent stale data flash
-                    setMentionFilter('non-members'); 
-                    setPostsPage(1); 
-                  }}
-                  className={`px-4 py-2 font-medium transition-colors ${
-                    mentionFilter === 'non-members' 
-                      ? 'text-pink-600 border-b-2 border-pink-600' 
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                  data-testid="filter-non-members"
-                >
-                  Non-Members Only
-                </button>
-              </>
-            )}
-          </div>
+        {/* Filter Buttons with ESA MT Ocean Theme */}
+        <div className="flex items-center gap-3 pb-4 border-b border-turquoise-200 mb-6">
+          <Button
+            variant={mentionFilter === 'all' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => { 
+              setPosts([]);
+              setMentionFilter('all'); 
+              setPostsPage(1); 
+            }}
+            className={`transition-all ${
+              mentionFilter === 'all'
+                ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+            }`}
+            data-testid="filter-all-posts"
+          >
+            All Posts
+          </Button>
+          
+          {group?.type === 'city' ? (
+            <>
+              <Button
+                variant={mentionFilter === 'residents' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('residents'); 
+                  setPostsPage(1); 
+                }}
+                className={`transition-all ${
+                  mentionFilter === 'residents'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                }`}
+                data-testid="filter-residents"
+              >
+                Residents
+              </Button>
+              <Button
+                variant={mentionFilter === 'visitors' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('visitors'); 
+                  setPostsPage(1); 
+                }}
+                className={`transition-all ${
+                  mentionFilter === 'visitors'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                }`}
+                data-testid="filter-visitors"
+              >
+                Visitors
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant={mentionFilter === 'members' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('members'); 
+                  setPostsPage(1); 
+                }}
+                className={`transition-all ${
+                  mentionFilter === 'members'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                }`}
+                data-testid="filter-members"
+              >
+                Members
+              </Button>
+              <Button
+                variant={mentionFilter === 'non-members' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('non-members'); 
+                  setPostsPage(1); 
+                }}
+                className={`transition-all ${
+                  mentionFilter === 'non-members'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
+                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                }`}
+                data-testid="filter-non-members"
+              >
+                Non-members
+              </Button>
+            </>
+          )}
         </div>
   
-        {/* Posts List */}
+        {/* Posts Feed */}
         {loadingPosts && postsPage === 1 ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-500"></div>
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
+            <p className="text-gray-500 text-sm">Loading posts...</p>
           </div>
         ) : posts.length > 0 ? (
-          <>
+          <div className="space-y-4">
             {posts.map((post) => (
-              <div key={post.id} className="mt-info-card">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="mt-member-avatar cursor-pointer" onClick={() => setLocation(`/u/${post.author.username}`)}>
-                    {post.author.profileImage ? (
-                      <img src={post.author.profileImage} alt={post.author.name} className="w-full h-full rounded-full object-cover" />
-                    ) : (
-                      post.author.name?.charAt(0) || 'U'
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold cursor-pointer hover:underline" onClick={() => setLocation(`/u/${post.author.username}`)}>
-                      {post.author.name}
-                    </h4>
-                    <p className="text-sm text-gray-500">{formatTimeAgo(post.createdAt)}</p>
-                  </div>
-                  <Button variant="ghost" size="sm">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </div>
-                
-                <p className="mb-4 whitespace-pre-wrap">{post.content}</p>
-                
-                {/* Media Assets */}
-                {post.mediaAssets && post.mediaAssets.length > 0 && (
-                  <div className="grid grid-cols-2 gap-2 mb-4">
-                    {post.mediaAssets.map((media: any) => (
-                      <div key={media.id} className="relative rounded-lg overflow-hidden">
-                        {media.fileType === 'image' ? (
-                          <img src={media.fileUrl} alt="" className="w-full h-48 object-cover" />
-                        ) : media.fileType === 'video' ? (
-                          <video src={media.fileUrl} className="w-full h-48 object-cover" controls />
-                        ) : null}
+              <Card 
+                key={post.id} 
+                className="overflow-hidden border-turquoise-100 hover:shadow-lg transition-shadow duration-200"
+                data-testid={`post-card-${post.id}`}
+              >
+                <CardContent className="p-5">
+                  <div className="flex items-start gap-4">
+                    <Avatar 
+                      className="h-12 w-12 ring-2 ring-turquoise-200 cursor-pointer"
+                      onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
+                    >
+                      <AvatarImage src={post.author?.profileImage} />
+                      <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
+                        {post.author?.name?.charAt(0) || post.author?.firstName?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <p 
+                          className="font-semibold text-gray-900 cursor-pointer hover:underline"
+                          onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
+                        >
+                          {post.author?.name || `${post.author?.firstName || ''} ${post.author?.lastName || ''}`.trim() || 'Unknown User'}
+                        </p>
+                        {post.user?.city && (
+                          <Badge 
+                            variant="outline" 
+                            className="text-xs bg-turquoise-50 text-turquoise-700 border-turquoise-200"
+                          >
+                            {post.user.city === group?.city ? 'Resident' : 'Visitor'}
+                          </Badge>
+                        )}
+                        <span className="text-sm text-gray-500">
+                          {formatTimeAgo(post.createdAt)}
+                        </span>
                       </div>
-                    ))}
+                      <p className="text-gray-700 leading-relaxed whitespace-pre-wrap mb-4">
+                        {post.content}
+                      </p>
+                      
+                      {/* Media Assets */}
+                      {post.imageUrl && (
+                        <div className="mt-4">
+                          <img 
+                            src={post.imageUrl} 
+                            alt="Post image" 
+                            className="rounded-lg max-w-full h-auto shadow-md"
+                          />
+                        </div>
+                      )}
+                      {post.mediaAssets && post.mediaAssets.length > 0 && (
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                          {post.mediaAssets.map((media: any, idx: number) => (
+                            <div key={idx} className="relative rounded-lg overflow-hidden">
+                              {media.fileType === 'image' ? (
+                                <img src={media.fileUrl} alt="" className="w-full h-48 object-cover" />
+                              ) : media.fileType === 'video' ? (
+                                <video src={media.fileUrl} className="w-full h-48 object-cover" controls />
+                              ) : null}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                        <button className={`flex items-center gap-1 transition-colors ${post.isLiked ? 'text-pink-500' : 'hover:text-pink-500'}`}>
+                          <Heart className={`h-4 w-4 ${post.isLiked ? 'fill-current' : ''}`} />
+                          <span>{post.likesCount || 0}</span>
+                        </button>
+                        <button className="flex items-center gap-1 hover:text-turquoise-600 transition-colors">
+                          <MessageCircle className="h-4 w-4" />
+                          <span>{post.commentsCount || 0}</span>
+                        </button>
+                        <button className="flex items-center gap-1 hover:text-cyan-600 transition-colors">
+                          <Share2 className="h-4 w-4" />
+                          <span>Share</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                )}
-                
-                <div className="flex items-center gap-6 text-gray-500">
-                  <button className={`flex items-center gap-2 transition-colors ${post.isLiked ? 'text-pink-500' : 'hover:text-pink-500'}`}>
-                    <Heart className={`h-5 w-5 ${post.isLiked ? 'fill-current' : ''}`} />
-                    <span className="text-sm font-medium">{post.likesCount || 0}</span>
-                  </button>
-                  <button className="flex items-center gap-2 hover:text-blue-500 transition-colors">
-                    <MessageCircle className="h-5 w-5" />
-                    <span className="text-sm font-medium">{post.commentsCount || 0}</span>
-                  </button>
-                  <button className="flex items-center gap-2 hover:text-green-500 transition-colors">
-                    <Share2 className="h-5 w-5" />
-                    <span className="text-sm font-medium">Share</span>
-                  </button>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
             
             {/* Load More */}
             {hasMorePosts && (
-              <div className="text-center">
+              <div className="text-center mt-6">
                 <Button
                   onClick={() => setPostsPage(prev => prev + 1)}
                   disabled={loadingPosts}
-                  className="mt-action-button mt-action-button-secondary"
+                  className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600 transition-all shadow-md"
+                  data-testid="button-load-more-posts"
                 >
-                  {loadingPosts ? 'Loading...' : 'Load More Posts'}
+                  {loadingPosts ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
+                      Loading...
+                    </>
+                  ) : (
+                    'Load More Posts'
+                  )}
                 </Button>
               </div>
             )}
-          </>
+          </div>
         ) : (
-          <div className="mt-empty-state">
-            <MessageCircle className="mt-empty-icon" />
-            <h3 className="mt-empty-title">No posts yet</h3>
-            <p className="mt-empty-description">
+          <div className="text-center py-12">
+            <MessageCircle className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No posts yet</h3>
+            <p className="text-gray-500">
               {isMember ? 'Be the first to share something with the group!' : 'Join the group to see and create posts.'}
             </p>
           </div>
