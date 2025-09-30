@@ -40,7 +40,8 @@ import {
   EyeOff,
   Cloud,
   Upload,
-  Link2
+  Link2,
+  Send
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
@@ -919,12 +920,36 @@ export default function BeautifulPostCreator({
   return (
     <div className="w-full">
       <Card className="relative overflow-hidden border-0 glassmorphic-card beautiful-hover shadow-2xl">
-        {/* Enhanced gradient background with animation */}
+        {/* Enhanced gradient background with advanced animations */}
         <div className="absolute inset-0">
+          {/* Primary gradient layers with movement */}
           <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/30 via-cyan-400/20 to-blue-500/30 animate-gradient" />
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/10 via-transparent to-pink-400/10 animate-gradient-reverse" />
+          
+          {/* Floating orbs with blur */}
           <div className="absolute top-0 left-0 w-96 h-96 bg-turquoise-300/20 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-300/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          
+          {/* Mesh gradient overlay for depth */}
+          <div className="absolute inset-0 opacity-30" style={{
+            backgroundImage: `
+              radial-gradient(circle at 20% 50%, rgba(94, 234, 212, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%)
+            `
+          }} />
+          
+          {/* Subtle scan lines for texture */}
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px)'
+          }} />
+          
+          {/* Animated light beams */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-turquoise-400/20 to-transparent animate-beam-slide" />
+            <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent animate-beam-slide" style={{ animationDelay: '1.5s' }} />
+          </div>
         </div>
 
         <div className="relative z-10 p-8">
@@ -951,7 +976,7 @@ export default function BeautifulPostCreator({
           <div className="space-y-5">
 
             {/* ESA Layer 9: Rich Text Editor - Simplified for stability */}
-            <div className="relative">
+            <div className="relative group/textarea">
               <SimpleMentionsInput
                 value={content}
                 onChange={(value: string) => {
@@ -963,12 +988,22 @@ export default function BeautifulPostCreator({
                   console.log('📌 Mentions extracted:', mentionIds);
                 }}
                 placeholder={editMode ? "✏️ Edit your post..." : "✨ Share your tango moment and @mention people..."}
-                className="w-full"
+                className="w-full transition-all duration-300 focus-within:ring-2 focus-within:ring-turquoise-400/50"
                 disabled={isUploading || createPostMutation.isPending}
                 rows={6}
               />
-              <div className="absolute bottom-3 right-3 text-xs text-gray-400">
-                {content.length > 0 && `${content.length} characters`}
+              {/* Magic sparkles that appear when typing */}
+              {content.length > 0 && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-turquoise-400 rounded-full animate-sparkle-float opacity-60" style={{ animationDelay: '0s' }} />
+                  <div className="absolute top-4 right-8 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-sparkle-float opacity-50" style={{ animationDelay: '0.3s' }} />
+                  <div className="absolute top-6 right-4 w-1 h-1 bg-blue-400 rounded-full animate-sparkle-float opacity-40" style={{ animationDelay: '0.6s' }} />
+                </div>
+              )}
+              <div className="absolute bottom-3 right-3 text-xs text-gray-400 transition-all duration-300">
+                {content.length > 0 && (
+                  <span className="animate-fade-in">{content.length} characters</span>
+                )}
               </div>
 
               {/* ESA LIFE CEO 61x21 - @Mention Dropdown - Now handled by SimpleMentionsInput */}
@@ -1540,37 +1575,51 @@ export default function BeautifulPostCreator({
           {/* Enhanced Action bar - Share Button */}
           <div className="mt-8 pt-6 border-t border-gray-100">
             <div className="flex items-center justify-end">
-
-              <button
-                onClick={(e) => {
-                  // createRipple(e); // Temporarily disabled for performance
-                  handleSubmit(e);
-                }}
-                // onMouseMove={magneticButton} // Temporarily disabled for performance
-                // onMouseLeave={resetMagneticButton} // Temporarily disabled for performance
-                disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
-                className="group relative px-5 py-2 overflow-hidden rounded-lg font-medium text-sm shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
-                style={{
-                  background: createPostMutation.isPending || isUploading || (!content.trim() && mediaFiles.length === 0) 
-                    ? 'linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%)'
-                    : 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)'
-                }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-turquoise-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 flex items-center space-x-2 text-white">
-                  {createPostMutation.isPending ? (
-                    <>
-                      <Loader className="h-4 w-4 animate-spin" />
-                      <span>Sharing...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="h-4 w-4" />
-                      <span>{editMode ? '💾 Save Changes' : '📝 Share Memory'}</span>
-                    </>
-                  )}
-                </span>
-              </button>
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={(e) => {
+                        handleSubmit(e);
+                      }}
+                      disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
+                      className={`relative group p-5 rounded-2xl transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
+                        createPostMutation.isPending || isUploading
+                          ? 'bg-gradient-to-br from-turquoise-400 via-cyan-500 to-blue-500 text-white shadow-2xl animate-pulse'
+                          : 'bg-gradient-to-br from-turquoise-500 via-cyan-500 to-blue-600 hover:from-turquoise-600 hover:via-cyan-600 hover:to-blue-700 text-white shadow-xl hover:shadow-3xl'
+                      }`}
+                      style={{
+                        animation: (!content.trim() && internalMediaUrls.length === 0) ? 'none' : 'share-button-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                      }}
+                    >
+                      {/* Animated gradient overlay */}
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {(createPostMutation.isPending || isUploading) ? (
+                        <Loader className="h-7 w-7 animate-spin relative z-10" />
+                      ) : (
+                        <Send className="h-7 w-7 relative z-10 group-hover:animate-send-fly" />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-turquoise-900 via-cyan-800 to-blue-900 border-2 border-turquoise-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">✨</span>
+                      <div>
+                        <p className="font-bold text-sm">
+                          {createPostMutation.isPending || isUploading ? 'Sharing...' : editMode ? 'Save Changes' : 'Share Memory'}
+                        </p>
+                        <p className="text-xs text-turquoise-200">
+                          {(!content.trim() && internalMediaUrls.length === 0) ? 'Write something first' : 'Share with the community'}
+                        </p>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
 
