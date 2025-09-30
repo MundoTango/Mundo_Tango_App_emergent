@@ -11,6 +11,17 @@
 ### Extended @Mention System - COMPLETE (September 30, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 
+**✅ Entity-Specific Post Navigation - NEW**
+- **Clickable @Mentions**: All 4 entity types now navigate to filtered post views (Layer 24: Social Features Agent)
+- **Backend APIs**: `/api/events/:id/posts` and `/api/groups/:groupId/posts` with smart filtering
+- **Contextual Filtering**: 
+  - Events: Participants (organizers, performers) vs Guests
+  - City Groups: Residents (city = group.city) vs Visitors
+  - Professional Groups: Members vs Non-members
+- **URL Parameter Handling**: Fixed decoding issues with `decodeURIComponent()` and `.split('?')[0]`
+- **Posts Tab Integration**: Automatic tab activation from URL query params `?tab=posts&filter=all`
+- **End-to-End Verified**: Complete workflow from @mention click → API query → filtered post display
+
 **✅ Backend Regex Fix - ALL Entity Types Supported**
 - **Critical Fix**: Updated backend mention extraction to support ALL 4 entity types (Layer 24: Social Features)
 - **Regex Updated**: `/@\[([^\]]+)\]\((\w+):([^\)]+)\)/g` now matches user, event, city, group mentions
@@ -29,7 +40,8 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - **Multiple Mentions**: Support for unlimited @mentions in single post
 - **Keyboard Navigation**: Arrow keys + Enter with visual selection highlighting
 
-**✅ New Documentation Created**
+**✅ Comprehensive Documentation**
+- [Layer 24: Social Features Agent](/docs/pages/esa-layers/layer-24-social-features.md) - **COMPLETE** with Entity-Specific Post Navigation section
 - [MentionTokenSystem](/docs/pages/content/components/MentionTokenSystem.md) - Complete technical reference for token architecture
 - Updated [SimpleMentionsInput](/docs/pages/content/components/SimpleMentionsInput.md) with token-based implementation
 - Updated [BeautifulPostCreator](/docs/pages/content/components/BeautifulPostCreator.md) with multi-entity mention support

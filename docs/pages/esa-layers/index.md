@@ -97,10 +97,16 @@
 
 ### Layer 24: Social Features Agent ✅
 - **Completed**: September 30, 2025
-- **Key Achievement**: Advanced @mention system with contentEditable architecture
+- **Key Achievement**: Advanced @mention system with contentEditable architecture + Entity-Specific Post Navigation
 - **Entity Support**: Users, Events, Groups, Cities (4 types)
 - **Technical Innovation**: Single-layer rendering with viewport-aware positioning
-- **Features**: Color-coded badges, real-time notifications, canonical storage format
+- **Features**: 
+  - Color-coded badges (blue/green/purple/orange)
+  - Clickable navigation to filtered post views
+  - Real-time notifications for user mentions
+  - Canonical storage format `@[Name](type:id)`
+  - Context-aware filtering (Participants/Guests, Residents/Visitors, Members/Non-members)
+  - Complete backend APIs: `/api/events/:id/posts` and `/api/groups/:groupId/posts`
 
 ### Layer 53: Internationalization Agent ✅
 - **Completed**: September 27, 2025
