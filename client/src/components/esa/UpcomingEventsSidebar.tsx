@@ -65,8 +65,7 @@ export default function UpcomingEventsSidebar({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' }) => {
       return await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
-        body: JSON.stringify({ status }),
-        headers: { 'Content-Type': 'application/json' }
+        body: { status }  // apiRequest will stringify this
       });
     },
     onMutate: async ({ eventId, status }) => {

@@ -46,6 +46,11 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
   - Optimistic update logic (changed `old?.data` to `old` for proper array handling)
   - Attendee count increment/decrement based on status changes (only "going" counts)
   - Added missing "interested" status with Star icon
+  - **Double-Stringify Bug** ✅ **FIXED** (Sept 30, 2025):
+    - **Issue**: RSVP mutations were double-stringifying JSON body, causing malformed requests
+    - **Root Cause**: `UpcomingEventsSidebar.tsx` called `JSON.stringify({ status })` before passing to `apiRequest`, which also stringified
+    - **Fix**: Changed `body: JSON.stringify({ status })` to `body: { status }` - let apiRequest handle stringification
+    - **Result**: RSVP updates now work correctly, status changes persist to database
 - **Smart Categorization** (reordered as requested):
   1. RSVP'ed Events (events user responded to)
   2. In Your City (user's home city events)
