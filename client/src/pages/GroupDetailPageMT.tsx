@@ -126,6 +126,13 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
+  // Reset page to 1 when mention filter changes
+  React.useEffect(() => {
+    if (mentionFilter !== 'all') {
+      setPostsPage(1);
+    }
+  }, [mentionFilter]);
+  
   // Fetch group posts when posts tab is active
   React.useEffect(() => {
     if (activeTab === 'posts' && slug) {
@@ -138,25 +145,29 @@ export default function GroupDetailPageMT() {
     try {
       let response;
       
-      // Use mention filtering API if filter is active
+      // Use mention filtering API if filter is active (always page 1 for filtered results)
       if (mentionFilter !== 'all' && group?.id) {
         const entityType = group.type === 'city' ? 'city' : 'group';
         const filterParam = mentionFilter;
         response = await fetch(`/api/posts/mentions/${entityType}/${group.id}?filter=${filterParam}`);
-      } else {
-        // Use regular group posts API
-        response = await fetch(`/api/groups/${slug}/posts?page=${postsPage}&limit=10`);
-      }
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        if (postsPage === 1) {
+        // Always replace posts for filtered queries (no pagination on filtered results yet)
+        const data = await response.json();
+        if (data.success) {
           setPosts(data.data || []);
-        } else {
-          setPosts(prev => [...prev, ...(data.data || [])]);
+          setHasMorePosts(false); // Disable pagination for filtered results
         }
-        setHasMorePosts((data.data || []).length === 10);
+      } else {
+        // Use regular group posts API with pagination
+        response = await fetch(`/api/groups/${slug}/posts?page=${postsPage}&limit=10`);
+        const data = await response.json();
+        if (data.success) {
+          if (postsPage === 1) {
+            setPosts(data.data || []);
+          } else {
+            setPosts(prev => [...prev, ...(data.data || [])]);
+          }
+          setHasMorePosts((data.data || []).length === 10);
+        }
       }
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -824,7 +835,11 @@ export default function GroupDetailPageMT() {
         <div className="mt-info-card">
           <div className="flex items-center gap-2 border-b">
             <button
-              onClick={() => { setMentionFilter('all'); setPostsPage(1); }}
+              onClick={() => { 
+                setPosts([]); // Clear posts immediately to prevent stale data flash
+                setMentionFilter('all'); 
+                setPostsPage(1); 
+              }}
               className={`px-4 py-2 font-medium transition-colors ${
                 mentionFilter === 'all' 
                   ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -838,7 +853,11 @@ export default function GroupDetailPageMT() {
             {group?.type === 'city' ? (
               <>
                 <button
-                  onClick={() => { setMentionFilter('residents'); setPostsPage(1); }}
+                  onClick={() => { 
+                    setPosts([]); // Clear posts immediately to prevent stale data flash
+                    setMentionFilter('residents'); 
+                    setPostsPage(1); 
+                  }}
                   className={`px-4 py-2 font-medium transition-colors ${
                     mentionFilter === 'residents' 
                       ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -849,7 +868,11 @@ export default function GroupDetailPageMT() {
                   Residents Only
                 </button>
                 <button
-                  onClick={() => { setMentionFilter('visitors'); setPostsPage(1); }}
+                  onClick={() => { 
+                    setPosts([]); // Clear posts immediately to prevent stale data flash
+                    setMentionFilter('visitors'); 
+                    setPostsPage(1); 
+                  }}
                   className={`px-4 py-2 font-medium transition-colors ${
                     mentionFilter === 'visitors' 
                       ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -863,7 +886,11 @@ export default function GroupDetailPageMT() {
             ) : (
               <>
                 <button
-                  onClick={() => { setMentionFilter('members'); setPostsPage(1); }}
+                  onClick={() => { 
+                    setPosts([]); // Clear posts immediately to prevent stale data flash
+                    setMentionFilter('members'); 
+                    setPostsPage(1); 
+                  }}
                   className={`px-4 py-2 font-medium transition-colors ${
                     mentionFilter === 'members' 
                       ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -874,7 +901,11 @@ export default function GroupDetailPageMT() {
                   Members Only
                 </button>
                 <button
-                  onClick={() => { setMentionFilter('non-members'); setPostsPage(1); }}
+                  onClick={() => { 
+                    setPosts([]); // Clear posts immediately to prevent stale data flash
+                    setMentionFilter('non-members'); 
+                    setPostsPage(1); 
+                  }}
                   className={`px-4 py-2 font-medium transition-colors ${
                     mentionFilter === 'non-members' 
                       ? 'text-pink-600 border-b-2 border-pink-600' 
