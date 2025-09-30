@@ -437,10 +437,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       {/* Suggestion dropdown */}
       {showSuggestions && suggestions.length > 0 && (
         <Card 
-          className="absolute z-50 w-80 max-h-64 overflow-y-auto shadow-xl border-2 border-emerald-200"
+          className="absolute w-80 max-h-64 overflow-y-auto shadow-xl border-2 border-emerald-200"
           style={{
             top: suggestionPosition.top,
-            left: suggestionPosition.left
+            left: suggestionPosition.left,
+            zIndex: 9999
           }}
         >
           <CardContent className="p-2">
