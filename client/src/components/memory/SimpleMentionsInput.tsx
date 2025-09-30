@@ -56,6 +56,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
   
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const styledOverlayRef = useRef<HTMLDivElement>(null);
   const lastEmittedCanonical = useRef<string>(value);
   const prevDisplayValue = useRef<string>(displayValue);
   
@@ -75,6 +76,30 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       textareaRef.current.setSelectionRange(cursorPos, cursorPos);
     }
   }, [displayValue, cursorPos]);
+  
+  // Sync overlay styles with textarea computed styles
+  useLayoutEffect(() => {
+    if (textareaRef.current && styledOverlayRef.current) {
+      const computedStyle = getComputedStyle(textareaRef.current);
+      const overlay = styledOverlayRef.current;
+      
+      overlay.style.fontFamily = computedStyle.fontFamily;
+      overlay.style.fontSize = computedStyle.fontSize;
+      overlay.style.lineHeight = computedStyle.lineHeight;
+      overlay.style.letterSpacing = computedStyle.letterSpacing;
+      overlay.style.padding = computedStyle.padding;
+      overlay.style.border = computedStyle.border;
+      overlay.style.borderRadius = computedStyle.borderRadius;
+    }
+  }, []);
+  
+  // Sync scroll position between textarea and overlay
+  const handleScroll = useCallback((e: React.UIEvent<HTMLTextAreaElement>) => {
+    if (styledOverlayRef.current) {
+      styledOverlayRef.current.scrollTop = e.currentTarget.scrollTop;
+      styledOverlayRef.current.scrollLeft = e.currentTarget.scrollLeft;
+    }
+  }, []);
   
   // Search for mentions when @ is typed
   const { data: searchData } = useQuery({
@@ -317,9 +342,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     tokens.forEach((token, i) => {
       if (token.kind === 'text') {
         if (token.text) {
+          // Preserve whitespace by converting spaces to non-breaking spaces
+          const preservedText = token.text.replace(/ /g, '\u00A0');
           parts.push(
-            <span key={`text-${i}`} className="text-gray-700">
-              {token.text}
+            <span key={`text-${i}`} className="text-gray-700" style={{ whiteSpace: 'pre-wrap' }}>
+              {preservedText}
             </span>
           );
         }
@@ -363,6 +390,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         value={displayValue}
         onChange={handleInput}
         onKeyDown={handleKeyDown}
+        onScroll={handleScroll}
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
@@ -378,10 +406,9 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       {/* Styled overlay showing colored mentions (only when content exists) */}
       {displayValue && (
         <div
-          className="absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words p-3"
+          ref={styledOverlayRef}
+          className="absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words"
           style={{
-            fontSize: 'inherit',
-            lineHeight: 'inherit',
             zIndex: 2
           }}
           aria-hidden="true"
