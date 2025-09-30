@@ -5,6 +5,22 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // ESA Layer 53: Import generated translations
 import generatedTranslations from './translations.json';
 
+// ESA Layer 53: Import locale JSON files with complete translations
+import enCommon from './locales/en/common.json';
+import enSocial from './locales/en/social.json';
+import enEvents from './locales/en/events.json';
+import enAgents from './locales/en/agents.json';
+import enPlaceholders from './locales/en/placeholders.json';
+
+import esCommon from './locales/es/common.json';
+import esSocial from './locales/es/social.json';
+import esEvents from './locales/es/events.json';
+import esAgents from './locales/es/agents.json';
+
+import frCommon from './locales/fr/common.json';
+import itCommon from './locales/it/common.json';
+import ptCommon from './locales/pt/common.json';
+
 // List of all supported languages from the database
 export const supportedLanguages = [
   { code: 'en', name: 'English', country: 'US' },
@@ -350,33 +366,89 @@ const baseResources = {
   sv: { translation: { navigation: { memories: "Minnen", tangoCommunity: "Tango Gemenskap", friends: "Vänner" } } }
 };
 
-// Merge generated translations with base resources
-const resources = {
-  ...baseResources,
-  ...generatedTranslations,
-  // Properly merge translations with deep merge for existing languages
-  en: {
-    translation: {
-      ...(generatedTranslations.en?.translation || {}),
-      ...(baseResources.en?.translation || {}),
-    },
-  },
-  es: baseResources.es, // Use base resources for regular Spanish
-  'es-AR-lunfardo': generatedTranslations['es-AR-lunfardo'], // Use generated for Lunfardo
-  it: {
-    translation: {
-      ...(generatedTranslations.it?.translation || {}),
-      ...(baseResources.it?.translation || {}),
-    },
-  },
-  fr: {
-    translation: {
-      ...(generatedTranslations.fr?.translation || {}),
-      ...(baseResources.fr?.translation || {}),
-    },
-  },
-  ko: generatedTranslations.ko,
-  zh: generatedTranslations.zh,
+// Deep merge helper function
+function deepMerge(target: any, ...sources: any[]): any {
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (typeof target === 'object' && typeof source === 'object') {
+    for (const key in source) {
+      if (typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} });
+        deepMerge(target[key], source[key]);
+      } else {
+        Object.assign(target, { [key]: source[key] });
+      }
+    }
+  }
+
+  return deepMerge(target, ...sources);
+}
+
+// Merge generated translations with base resources and locale files
+// CRITICAL: Start with generated translations, then selectively override with locale files
+// Never spread baseResources at top level - it wipes out generated translations!
+const resources = Object.keys(generatedTranslations).reduce((acc: any, lang: string) => {
+  // Start with generated translation for each language
+  acc[lang] = { ...(generatedTranslations as any)[lang] };
+  return acc;
+}, {} as any);
+
+// Now selectively override languages with locale files (preserving generated translations)
+resources.en = {
+  translation: deepMerge(
+    {},
+    generatedTranslations.en?.translation || {},
+    baseResources.en?.translation || {},
+    enCommon,
+    enSocial,
+    enEvents,
+    enAgents,
+    enPlaceholders
+  ),
+};
+
+resources.es = {
+  translation: deepMerge(
+    {},
+    generatedTranslations.es?.translation || {},
+    baseResources.es?.translation || {},
+    esCommon,
+    esSocial,
+    esEvents,
+    esAgents
+  ),
+};
+
+// Lunfardo: use ONLY generated translations to preserve cultural customizations
+// DO NOT merge with esCommon/esSocial - they override Lunfardo slang variants!
+resources['es-AR-lunfardo'] = generatedTranslations['es-AR-lunfardo'] || { translation: {} };
+
+resources.it = {
+  translation: deepMerge(
+    {},
+    generatedTranslations.it?.translation || {},
+    baseResources.it?.translation || {},
+    itCommon
+  ),
+};
+
+resources.fr = {
+  translation: deepMerge(
+    {},
+    generatedTranslations.fr?.translation || {},
+    baseResources.fr?.translation || {},
+    frCommon
+  ),
+};
+
+resources.pt = {
+  translation: deepMerge(
+    {},
+    generatedTranslations.pt?.translation || {},
+    baseResources.pt?.translation || {},
+    ptCommon
+  ),
 };
 
 // Initialize i18n

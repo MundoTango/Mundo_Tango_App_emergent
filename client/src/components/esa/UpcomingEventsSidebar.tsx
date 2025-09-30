@@ -121,7 +121,7 @@ export default function UpcomingEventsSidebar({
       }
       toast({
         title: t('common.app.error'),
-        description: t('memories.toasts.rsvp.rsvpFailed'),
+        description: t('memories.rsvp.rsvpFailed'),
         variant: "destructive"
       });
     },
@@ -351,13 +351,13 @@ export default function UpcomingEventsSidebar({
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-3 h-3 flex-shrink-0" />
-                <span>{event.attendees} {t('memories.toasts.rsvp.attending')}</span>
+                <span>{event.attendees} {t('memories.rsvp.attending')}</span>
                 {event.userRsvpStatus === 'going' && (
                   <span 
                     style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.toasts.rsvp.youreGoing')}
+                    {t('memories.rsvp.youreGoing')}
                   </span>
                 )}
                 {event.userRsvpStatus === 'interested' && (
@@ -365,7 +365,7 @@ export default function UpcomingEventsSidebar({
                     style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.toasts.rsvp.interested')}
+                    {t('memories.rsvp.interested')}
                   </span>
                 )}
                 {event.userRsvpStatus === 'maybe' && (
@@ -373,7 +373,7 @@ export default function UpcomingEventsSidebar({
                     style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.toasts.rsvp.maybe')}
+                    {t('memories.rsvp.maybe')}
                   </span>
                 )}
               </div>
