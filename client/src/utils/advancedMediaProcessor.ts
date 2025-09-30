@@ -355,8 +355,14 @@ async function convertVideoWithFFmpeg(file: File, targetFormat: string = 'mp4'):
  */
 async function compressImageSmart(file: File): Promise<File> {
   const sizeMB = file.size / 1024 / 1024;
-  console.log(`🖼️ [compressImageSmart] Starting compression for ${file.name} (${sizeMB.toFixed(2)}MB)`);
+  console.log(`🖼️ [compressImageSmart] SKIPPING compression (library hanging) for ${file.name} (${sizeMB.toFixed(2)}MB)`);
   
+  // TEMPORARY FIX: browser-image-compression is hanging even without Web Workers
+  // Skip compression entirely to get uploads working
+  console.log(`✅ [compressImageSmart] Returning original file (compression disabled)`);
+  return file;
+  
+  /* DISABLED - library hangs in Replit environment
   // Instagram-style settings
   const options = {
     maxSizeMB: sizeMB > 10 ? 0.8 : 1.5,
@@ -381,6 +387,7 @@ async function compressImageSmart(file: File): Promise<File> {
     console.log(`🔄 [compressImageSmart] Returning original file`);
     return file;
   }
+  */
 }
 
 /**
