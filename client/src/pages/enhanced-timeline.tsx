@@ -12,7 +12,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import WhatsOnYourMind from "@/components/feed/WhatsOnYourMind";
 import PostLikeComment from "@/components/feed/PostLikeComment";
-import NewFeedEvents from "@/components/feed/NewFeedEvents";
 import EnhancedPostItem from "@/components/moments/EnhancedPostItem";
 // ESA Layer 7: Import full-featured EnhancedPostComposer with ReactQuill rich text editor
 import EnhancedPostComposer from "@/components/moments/EnhancedPostComposer";
@@ -177,7 +176,7 @@ const EnhancedTimeline = () => {
           {/* Right Sidebar - Events */}
           <div className="col-span-12 lg:col-span-3">
             <div className="sticky top-6">
-              <NewFeedEvents />
+              {/* Events sidebar removed - using ESAMemoryFeed's UpcomingEventsSidebar instead */}
             </div>
           </div>
         </div>
