@@ -1391,18 +1391,36 @@ export default function BeautifulPostCreator({
           <div className="mt-8 pt-6 border-t border-gray-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                {/* AI Enhancement Button */}
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleEnhanceContent}
-                  disabled={isEnhancing || !content.trim()}
-                  className="text-purple-600 hover:bg-purple-50"
-                >
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  {isEnhancing ? 'Enhancing...' : 'AI Enhance'}
-                </Button>
+                {/* AI Enhancement Icon Button */}
+                <TooltipProvider>
+                  <Tooltip delayDuration={200}>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={handleEnhanceContent}
+                        disabled={isEnhancing || !content.trim()}
+                        className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                          isEnhancing
+                            ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-pink-600 text-white shadow-xl animate-pulse'
+                            : 'bg-gradient-to-br from-purple-50 to-pink-100 hover:from-purple-100 hover:to-pink-200 text-purple-600 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed'
+                        }`}
+                      >
+                        <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : ''}`} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent 
+                      side="top"
+                      className="bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 border-2 border-purple-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl">✨</span>
+                        <div>
+                          <p className="font-bold text-sm">{isEnhancing ? 'Enhancing...' : 'AI Enhance'}</p>
+                          <p className="text-xs text-purple-200">Make your post more engaging</p>
+                        </div>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
 
               <button
