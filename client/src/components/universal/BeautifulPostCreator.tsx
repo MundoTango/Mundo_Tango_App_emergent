@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import GoogleMapsLocationInput from './GoogleMapsLocationInput';
+import LocationInput from './LocationInput';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 // ESA Layer 13: Advanced media processing with universal format support
@@ -1245,7 +1245,7 @@ export default function BeautifulPostCreator({
                       </span>
                       <div className="relative p-1 rounded-xl bg-gradient-to-br from-amber-200 via-yellow-200 to-amber-200 shadow-inner">
                         <div className="relative">
-                          <GoogleMapsLocationInput
+                          <LocationInput
                             value={location}
                             onChange={handleLocationChange}
                             placeholder="🔍 Search for your hidden gem..."
