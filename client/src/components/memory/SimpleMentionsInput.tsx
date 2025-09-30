@@ -39,6 +39,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [mentionStart, setMentionStart] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0); // Track selected suggestion for keyboard nav
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const valueRef = useRef<string>(value); // Track last known value to detect external changes
+  const isInternalUpdate = useRef<boolean>(false); // Flag to prevent cursor overwrite
 
   // Search for mentions when @ is typed (both users and events)
   const { data: searchData, isLoading } = useQuery({
@@ -227,15 +229,39 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       });
     }
     
-    // Now sync canonical value to React state
+    // Mark as internal update to prevent sync effect from overwriting
+    isInternalUpdate.current = true;
+    valueRef.current = newValue;
+    
+    // Sync canonical value to React state
     onChange(newValue);
     setShowSuggestions(false);
+    
+    // Reset flag after React has processed the update
+    setTimeout(() => {
+      isInternalUpdate.current = false;
+    }, 0);
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
   useEffect(() => {
     setSelectedIndex(0);
   }, [suggestions]);
+
+  // Sync textarea when parent value changes (but not from our own updates)
+  useEffect(() => {
+    if (!isInternalUpdate.current && textareaRef.current && valueRef.current !== value) {
+      const displayValue = getDisplayValue(value);
+      textareaRef.current.value = displayValue;
+      valueRef.current = value;
+      
+      console.log('🔄 Synced textarea from parent value change:', {
+        newValue: value,
+        displayValue,
+        isInternal: false
+      });
+    }
+  }, [value, getDisplayValue]);
 
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -413,8 +439,17 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     console.log('✅ New Canonical:', newCanonical);
     
+    // Mark as internal update
+    isInternalUpdate.current = true;
+    valueRef.current = newCanonical;
+    
     onChange(newCanonical);
     updateMentionSuggestions(newDisplayValue, cursorPos, newCanonical);
+    
+    // Reset flag
+    setTimeout(() => {
+      isInternalUpdate.current = false;
+    }, 0);
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
   // Render styled text with colored mentions (blue for users, green for events)
@@ -510,7 +545,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       
       <textarea
         ref={textareaRef}
-        value={getDisplayValue(value)}
+        defaultValue={getDisplayValue(value)}
         onChange={handleTextChangeWithFormat}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
