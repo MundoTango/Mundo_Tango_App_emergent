@@ -949,22 +949,6 @@ export default function BeautifulPostCreator({
 
           {/* Main content area */}
           <div className="space-y-5">
-            {/* Visibility Dropdown - Added above post body */}
-            <div className="flex items-center justify-between px-2">
-              <span className="text-sm font-medium text-gray-600">Post visibility:</span>
-              <div className="relative">
-                <select
-                  value={visibility}
-                  onChange={(e) => setVisibility(e.target.value as 'public' | 'friends' | 'private')}
-                  className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-gray-700 hover:border-turquoise-300 focus:outline-none focus:ring-2 focus:ring-turquoise-400/30 focus:border-turquoise-400 transition-all cursor-pointer"
-                >
-                  <option value="public">🌍 Public</option>
-                  <option value="friends">👥 Friends Only</option>
-                  <option value="private">🔒 Private</option>
-                </select>
-                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-              </div>
-            </div>
 
             {/* ESA Layer 9: Rich Text Editor - Simplified for stability */}
             <div className="relative">
@@ -1083,7 +1067,7 @@ export default function BeautifulPostCreator({
               </div>
             )}
 
-            {/* Icon Buttons Row: Hidden Gems, Tags, Upload */}
+            {/* Icon Buttons Row: Hidden Gems, Tags, Camera, AI Enhance, Visibility */}
             <div className="flex items-center gap-3">
               {/* 🗺️ Hidden Gems */}
               <TooltipProvider>
@@ -1165,6 +1149,78 @@ export default function BeautifulPostCreator({
                       <div>
                         <p className="font-bold text-sm">Upload Media Files</p>
                         <p className="text-xs text-blue-200">support images and videos - max 30 files - up to 500mb each</p>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              {/* ✨ AI Enhancement Icon Button */}
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={handleEnhanceContent}
+                      disabled={isEnhancing || !content.trim()}
+                      className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
+                        isEnhancing
+                          ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-pink-600 text-white shadow-xl animate-pulse'
+                          : 'bg-gradient-to-br from-purple-50 to-pink-100 hover:from-purple-100 hover:to-pink-200 text-purple-600 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed'
+                      }`}
+                    >
+                      <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : ''}`} />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 border-2 border-purple-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">✨</span>
+                      <div>
+                        <p className="font-bold text-sm">{isEnhancing ? 'Enhancing...' : 'AI Enhance'}</p>
+                        <p className="text-xs text-purple-200">Make your post more engaging</p>
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              {/* 🌍 Visibility Icon Button */}
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => {
+                        const visibilityOptions = ['public', 'friends', 'private'] as const;
+                        const currentIndex = visibilityOptions.indexOf(visibility as any);
+                        const nextIndex = (currentIndex + 1) % visibilityOptions.length;
+                        setVisibility(visibilityOptions[nextIndex]);
+                      }}
+                      className="p-4 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-100 hover:from-green-100 hover:to-emerald-200 text-green-600 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3"
+                    >
+                      {visibility === 'public' && <Globe className="h-6 w-6" />}
+                      {visibility === 'friends' && <Users className="h-6 w-6" />}
+                      {visibility === 'private' && <Lock className="h-6 w-6" />}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900 border-2 border-green-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">
+                        {visibility === 'public' && '🌍'}
+                        {visibility === 'friends' && '👥'}
+                        {visibility === 'private' && '🔒'}
+                      </span>
+                      <div>
+                        <p className="font-bold text-sm">
+                          {visibility === 'public' && 'Public'}
+                          {visibility === 'friends' && 'Friends Only'}
+                          {visibility === 'private' && 'Private'}
+                        </p>
+                        <p className="text-xs text-green-200">Click to change visibility</p>
                       </div>
                     </div>
                   </TooltipContent>
@@ -1387,41 +1443,9 @@ export default function BeautifulPostCreator({
             </div>
           )}
 
-          {/* Enhanced Action bar with better visual design */}
+          {/* Enhanced Action bar - Share Button */}
           <div className="mt-8 pt-6 border-t border-gray-100">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                {/* AI Enhancement Icon Button */}
-                <TooltipProvider>
-                  <Tooltip delayDuration={200}>
-                    <TooltipTrigger asChild>
-                      <button
-                        onClick={handleEnhanceContent}
-                        disabled={isEnhancing || !content.trim()}
-                        className={`p-4 rounded-2xl transition-all duration-300 transform hover:scale-110 hover:rotate-3 ${
-                          isEnhancing
-                            ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-pink-600 text-white shadow-xl animate-pulse'
-                            : 'bg-gradient-to-br from-purple-50 to-pink-100 hover:from-purple-100 hover:to-pink-200 text-purple-600 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed'
-                        }`}
-                      >
-                        <Sparkles className={`h-6 w-6 ${isEnhancing ? 'animate-spin' : ''}`} />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent 
-                      side="top"
-                      className="bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 border-2 border-purple-400 text-white px-4 py-3 animate-in zoom-in-95 duration-300"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">✨</span>
-                        <div>
-                          <p className="font-bold text-sm">{isEnhancing ? 'Enhancing...' : 'AI Enhance'}</p>
-                          <p className="text-xs text-purple-200">Make your post more engaging</p>
-                        </div>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
+            <div className="flex items-center justify-end">
 
               <button
                 onClick={(e) => {
