@@ -328,11 +328,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const allSuggestions: MentionData[] = [];
     const results = searchData.results || [];
     
-    console.log('🔍 Search results received:', results);
-    
     if (Array.isArray(results)) {
       results.forEach((item: any) => {
-        console.log('Processing item:', item.type, item.name, item.metadata?.groupType);
         if (item.type === 'users') {
           allSuggestions.push({
             id: item.id?.toString(),

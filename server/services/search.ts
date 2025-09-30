@@ -9,7 +9,7 @@ import { db } from '../db';
 import { users, posts, events, groups, userProfiles as userProfilesTable } from '../../shared/schema';
 import { eq, desc, sql } from 'drizzle-orm';
 
-export type SearchType = 'users' | 'posts' | 'events' | 'communities' | 'cities';
+export type SearchType = 'users' | 'posts' | 'events' | 'communities' | 'cities' | 'cityGroup' | 'professionalGroup';
 export type SearchOptions = {
   limit?: number;
   offset?: number;
@@ -411,11 +411,24 @@ class SearchService {
     }
     
     const results = fuseInstance.search(query).slice(offset, offset + limit);
-    return results.map(result => ({
-      ...result.item,
-      score: result.score,
-      type
-    }));
+    return results.map(result => {
+      let resultType = type;
+      
+      // Map city groups to 'cityGroup' type for frontend
+      if (type === 'cities' || (type === 'communities' && result.item.type === 'city')) {
+        resultType = 'cityGroup';
+      } 
+      // Map professional groups to 'professionalGroup' type for frontend
+      else if (type === 'communities' && result.item.type === 'professional') {
+        resultType = 'professionalGroup';
+      }
+      
+      return {
+        ...result.item,
+        score: result.score,
+        type: resultType
+      };
+    });
   }
   
   /**
