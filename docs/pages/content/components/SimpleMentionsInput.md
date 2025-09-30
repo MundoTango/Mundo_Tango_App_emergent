@@ -1,29 +1,37 @@
 # SimpleMentionsInput Component
 
 ## Overview
-The SimpleMentionsInput is a specialized text input component that provides @mention functionality for tagging users, events, and groups in posts. Built on a robust token-based architecture, it delivers deterministic cursor positioning and multi-entity mention support, integrated with the ESA LIFE CEO framework.
+The SimpleMentionsInput is a specialized text input component that provides @mention functionality for tagging users, events, groups, and cities in posts. Built on a robust contentEditable architecture with token-based rendering, it delivers deterministic cursor positioning and multi-entity mention support, integrated with the ESA LIFE CEO framework.
 
-**Major Update (September 30, 2025)**: Complete rewrite with token-based architecture replacing string manipulation approach, solving all cursor positioning issues.
+**Major Update (September 30, 2025)**: Complete refactor from textarea+overlay to contentEditable approach, eliminating multi-layer rendering issues and solving all cursor positioning problems.
+
+**Latest Enhancement (September 30, 2025)**: Extended support for city mentions (@madrid) with MapPin icons and orange color coding, viewport-aware positioning with z-index 9999.
 
 ## Features
 
 ### Core Functionality
 - **Trigger Character**: '@' activates mention mode
-- **Multi-Entity Search**: Real-time search for users, events, and groups
+- **Multi-Entity Search**: Real-time search for users, events, groups, and cities
 - **Suggestion Dropdown**: Shows matching entities with type badges and icons
 - **Keyboard Navigation**: Arrow keys + Enter for selection with visual highlighting
 - **Auto-completion**: Enter to select from dropdown
-- **Visual Highlighting**: Color-coded mentions (users=blue, events=green, groups=purple)
+- **Color-Coded Mentions**: 
+  - 🔵 **Users** → Blue badges
+  - 🟢 **Events** → Green badges
+  - 🟣 **Groups** → Purple badges
+  - 🟠 **Cities** → Orange badges with MapPin icon
 - **Multiple Mentions**: Support for multiple @mentions in single post
 - **Atomic Editing**: Backspace deletes entire mention as single unit
+- **Viewport-Aware Positioning**: Suggestion dropdown intelligently repositions to stay on screen
 
-### Token-Based Architecture (September 30, 2025)
-The component now uses a **Token[] state management** approach instead of string manipulation:
-- **Deterministic cursor positioning** - No more cursor jumping issues
-- **Single source of truth** - Tokens drive all state changes
-- **Works with React** - Leverages useLayoutEffect for cursor restoration
-- **Proper mention boundaries** - Mentions are atomic units, not just text
-- **Edit-safe** - Editing a mention converts it to text automatically
+### contentEditable Architecture (September 30, 2025)
+The component uses a **contentEditable div** instead of textarea+overlay approach:
+- **Single-layer rendering** - Eliminates multi-layer text misalignment issues
+- **Direct inline styling** - Mentions rendered as colored `<span>` elements
+- **Natural text flow** - No cursor positioning bugs from overlay conflicts
+- **Browser-native editing** - Leverages browser's contentEditable capabilities
+- **Recursive node handling** - Properly handles DIV, BR, and paste wrappers
+- **Smart spacing** - Automatically adds space after mention only when needed
 
 ## Technical Implementation
 
@@ -49,35 +57,51 @@ interface SimpleMentionsInputProps {
 ### Token-Based State Management
 ```typescript
 // Internal state (single source of truth)
-const [tokens, setTokens] = useState<Token[]>(() => parseCanonicalToTokens(value));
-const [displayValue, setDisplayValue] = useState<string>(() => tokensToDisplay(tokens));
-const [cursorPos, setCursorPos] = useState<number>(0);
+const [tokens, setTokens] = useState<Token[]>([]);
+const [showSuggestions, setShowSuggestions] = useState(false);
+const [suggestions, setSuggestions] = useState<MentionData[]>([]);
+const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0 });
 
 // Token types
 type TextToken = { kind: 'text'; text: string; };
-type MentionToken = { kind: 'mention'; name: string; type: 'user'|'event'|'group'; id: string; };
+type MentionToken = { 
+  kind: 'mention'; 
+  name: string; 
+  type: 'user' | 'event' | 'group' | 'city'; 
+  id: string; 
+};
 type Token = TextToken | MentionToken;
+
+// Mention data from API
+interface MentionData {
+  id: string;
+  display: string;
+  type: 'user' | 'event' | 'group' | 'city';
+  image?: string;
+  subtitle?: string;
+}
 ```
 
-### State Flow
-1. **Parent value → Tokens**: `parseCanonicalToTokens(value)` on mount/prop changes
-2. **Tokens → Display**: `tokensToDisplay(tokens)` for textarea rendering
-3. **User input → Diff**: Calculate changes between old/new display values
-4. **Diff → Tokens**: `applyEditToTokens(tokens, start, end, insertText)` 
-5. **Tokens → Canonical**: `tokensToCanonical(tokens)` emitted to parent via onChange
-6. **Cursor restoration**: `useLayoutEffect` sets cursor position after render
+### contentEditable Rendering Flow
+1. **Tokens → DOM Elements**: Render tokens as text nodes and styled `<span>` elements
+2. **User Input → Token Extraction**: Extract tokens from contentEditable via recursive node traversal
+3. **Mention Detection**: Find `@` triggers and calculate suggestion position using `getBoundingClientRect()`
+4. **Token Insertion**: Replace trigger text with mention token, re-render DOM
+5. **Cursor Restoration**: Set selection after mention using `Range` API
+6. **Canonical Emission**: Convert tokens to canonical format and emit to parent
 
 ## API Integration
 
 ### Multi-Entity Search Endpoint
 `GET /api/search/multi?q={searchTerm}&limit=10`
 
-**Status**: ✅ ACTIVE (supports users, events, and groups)
+**Status**: ✅ ACTIVE (supports users, events, groups, and cities)
 
 - Returns array of matching entities across all types
-- Searches by name, username, title
+- Searches by name, username, title, city name
 - Limited to 10 results for performance
 - Excludes blocked users
+- Cities searched via indexed `cityGroups` table
 
 ### Response Format
 ```json
@@ -103,6 +127,14 @@ type Token = TextToken | MentionToken;
       "type": "groups",
       "name": "Buenos Aires Tango",
       "memberCount": 342
+    },
+    {
+      "id": 7,
+      "type": "city",
+      "name": "Madrid Tango Lovers",
+      "city": "Madrid",
+      "country": "Spain",
+      "memberCount": 156
     }
   ]
 }
@@ -110,30 +142,37 @@ type Token = TextToken | MentionToken;
 
 ### Entity Type Mapping
 Component maps API types to mention types:
-- `type: "users"` → `mention.type = "user"`
-- `type: "events"` → `mention.type = "event"`  
-- `type: "groups"` → `mention.type = "group"`
+- `type: "users"` → `mention.type = "user"` (blue styling)
+- `type: "events"` → `mention.type = "event"` (green styling)
+- `type: "groups"` → `mention.type = "group"` (purple styling)
+- `type: "city"` → `mention.type = "city"` (orange styling with MapPin icon)
 
 ## Mention Format
 
 ### Canonical Format (Storage)
 Mentions are stored in the database with entity type prefix:
 ```
-Hello @[Elena Rodriguez](user:1) and @[Milan Tango Festival 2025](event:123), see you at @[Buenos Aires Tango](group:45)!
+Hello @[Elena Rodriguez](user:1) and @[Milan Tango Festival 2025](event:123), see you at @[Buenos Aires Tango](group:45) in @[Madrid Tango Lovers](city:7)!
 ```
 
-### Display Format (Textarea)
-Rendered in the textarea without markup:
-```
-Hello @Elena Rodriguez and @Milan Tango Festival 2025, see you at @Buenos Aires Tango!
-```
-
-### Visual Overlay
-Colored overlay shows mention types:
+### Display Format (contentEditable)
+Rendered directly as styled spans in contentEditable div:
 ```html
-<span class="text-blue-600 font-semibold">@Elena Rodriguez</span>
-<span class="text-green-600 font-semibold">@Milan Tango Festival 2025</span>
-<span class="text-purple-600 font-semibold">@Buenos Aires Tango</span>
+Hello <span class="mention-user">@Elena Rodriguez</span> and 
+<span class="mention-event">@Milan Tango Festival 2025</span>, see you at 
+<span class="mention-group">@Buenos Aires Tango</span> in 
+<span class="mention-city">@Madrid Tango Lovers</span>!
+```
+
+### Visual Rendering (contentEditable Architecture)
+Colored spans rendered directly in contentEditable:
+```html
+<span class="px-1 py-0.5 rounded bg-blue-100 text-blue-700 font-medium">@Elena Rodriguez</span>
+<span class="px-1 py-0.5 rounded bg-green-100 text-green-700 font-medium">@Milan Tango Festival 2025</span>
+<span class="px-1 py-0.5 rounded bg-purple-100 text-purple-700 font-medium">@Buenos Aires Tango</span>
+<span class="px-1 py-0.5 rounded bg-orange-100 text-orange-700 font-medium inline-flex items-center gap-1">
+  <MapPin className="w-3 h-3" />@Madrid Tango Lovers
+</span>
 ```
 
 ## Event Handlers
@@ -155,15 +194,89 @@ Colored overlay shows mention types:
 - Closes suggestion dropdown
 - Moves cursor after mention
 
+## Viewport-Aware Positioning
+
+### Smart Dropdown Placement
+The suggestion dropdown intelligently repositions to stay within viewport bounds:
+
+```typescript
+// Calculate dropdown position with bounds checking
+const dropdownWidth = 320; // 80rem
+const dropdownHeight = 256; // max-h-64
+
+let top = cursorRect.bottom - editorRect.top + 5;
+let left = cursorRect.left - editorRect.left;
+
+// Check right edge
+if (cursorRect.left + dropdownWidth > window.innerWidth) {
+  left = window.innerWidth - dropdownWidth - editorRect.left - 10;
+}
+
+// Check bottom edge
+if (cursorRect.bottom + dropdownHeight > window.innerHeight) {
+  top = cursorRect.top - editorRect.top - dropdownHeight - 5; // Show above
+}
+
+// Ensure not negative
+left = Math.max(0, left);
+```
+
+### Z-Index Stacking
+Dropdown uses **z-index: 9999** via inline styles to ensure it appears above all UI elements including:
+- Event cards
+- Sidebar widgets
+- Modal overlays
+- Navigation bars
+
+```jsx
+<Card 
+  style={{
+    top: suggestionPosition.top,
+    left: suggestionPosition.left,
+    zIndex: 9999 // Highest priority
+  }}
+>
+```
+
 ## Styling
 
-### CSS Classes
-- `.mentions-input-container`: Main container
-- `.mentions-textarea`: Text input area
-- `.mentions-suggestions`: Dropdown container
-- `.mention-item`: Individual suggestion
-- `.mention-item-selected`: Highlighted suggestion
-- `.mention-highlight`: Rendered mention in text
+### contentEditable Styling
+```css
+/* Main contentEditable input */
+.mention-input {
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.mention-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Mention badges */
+.mention-user { /* Blue */ }
+.mention-event { /* Green */ }
+.mention-group { /* Purple */ }
+.mention-city { /* Orange with icon */ }
+```
+
+### Dropdown Styling
+```css
+.suggestions-dropdown {
+  position: absolute;
+  z-index: 9999;
+  width: 20rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  background: white;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+```
 
 ## Performance Optimizations
 
@@ -288,12 +401,53 @@ The complete @mention notification system was verified end-to-end:
 - Edge 90+
 - Mobile browsers supported
 
+## contentEditable Implementation Details
+
+### Recursive Node Traversal
+The component handles browser-inserted wrapper elements (DIV, BR, P) during paste and editing:
+
+```typescript
+const traverseNodes = (node: Node) => {
+  if (node.nodeType === Node.TEXT_NODE) {
+    // Add text to last token or create new text token
+  } else if (node.nodeName === 'SPAN' && node.classList.contains('mention-')) {
+    // Extract mention data from span attributes
+    newTokens.push({
+      kind: 'mention',
+      name: node.textContent,
+      type: node.dataset.type,
+      id: node.dataset.id
+    });
+  } else if (node.nodeName === 'BR') {
+    // Handle line breaks
+  } else {
+    // Recursively traverse child nodes for DIV, P, etc.
+    Array.from(node.childNodes).forEach(traverseNodes);
+  }
+};
+```
+
+### Smart Space Insertion
+Only adds space after mention when needed:
+
+```typescript
+// Check if next character exists and is not already a space
+const nextChar = displayValue[cursorPos];
+const needsSpace = nextChar && nextChar !== ' ' && nextChar !== '\n';
+
+if (needsSpace) {
+  result.tokens.push({ kind: 'text', text: ' ' });
+}
+```
+
 ## Known Limitations
 - Search limited to 10 results per query
 - Cannot mention users who blocked you
 - Mentions in edited posts don't re-notify
-- Cursor positioning issue when mention inserted (RESOLVED September 30, 2025)
-- Event and group mentions don't trigger notifications (by design - only users notified)
+- ✅ **RESOLVED**: Cursor positioning issues (fixed with contentEditable, Sept 30, 2025)
+- ✅ **RESOLVED**: Multi-layer text alignment (fixed with contentEditable, Sept 30, 2025)
+- Event, group, and city mentions don't trigger notifications (by design - only users notified)
+- contentEditable loses formatting on paste from external sources (converts to plain text)
 
 ## Troubleshooting Guide
 

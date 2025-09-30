@@ -1,16 +1,39 @@
 # ESA Layer 24: Social Features Agent 🤝
 
 ## Overview
-Layer 24 manages all social interactions including posts, comments, likes, shares, follows, and social graph management for community engagement.
+Layer 24 manages all social interaction features within the platform, including advanced @mention systems, post creation, reactions, sharing, and social engagement mechanics. This layer implements the core social networking functionality that enables user connections and community building.
+
+**Status**: ✅ **COMPLETE** (September 30, 2025)  
+**Framework**: ESA LIFE CEO 61×21  
+**Key Achievement**: Advanced @mention system with contentEditable architecture and multi-entity support
+
+## 🎯 Key Achievement: Advanced @Mention System
+
+### Extended Multi-Entity @Mention System ✅
+The platform features a state-of-the-art @mention system supporting **four entity types** with sophisticated contentEditable architecture:
+
+#### Supported Entity Types
+- 🔵 **Users** → Blue badges (`@Elena Rodriguez`)
+- 🟢 **Events** → Green badges (`@Milan Tango Festival 2025`)
+- 🟣 **Groups** → Purple badges (`@Buenos Aires Tango`)
+- 🟠 **Cities** → Orange badges with MapPin icon (`@Madrid Tango Lovers`)
+
+#### Technical Highlights
+- **contentEditable Architecture**: Single-layer rendering eliminates multi-layer text alignment issues
+- **Token-Based State Management**: Deterministic cursor positioning and editing operations
+- **Viewport-Aware Positioning**: Smart dropdown placement with z-index 9999 prevents UI overflow
+- **Real-time Search**: Multi-entity API with indexed search across users, events, groups, cities
+- **Notification Integration**: Automatic notification creation for mentioned users
+- **Canonical Format Storage**: `@[Display Name](type:id)` format for reliable parsing
 
 ## Core Responsibilities
 
 ### 1. Content Creation
-- Posts and updates
-- Media attachments
-- Hashtags and mentions
-- Content visibility
-- Post scheduling
+- Posts with @mention support for 4 entity types
+- Media attachments with compression
+- Real-time privacy controls (Public, Friends, Private)
+- Recommendation system with city group cross-posting
+- Location tagging via Google Maps
 
 ### 2. Social Interactions
 - Likes and reactions
@@ -26,26 +49,297 @@ Layer 24 manages all social interactions including posts, comments, likes, share
 - Relationship management
 - Social recommendations
 
+## Implementation Details
+
+### SimpleMentionsInput Component
+**Location**: `client/src/components/memory/SimpleMentionsInput.tsx`
+
+#### contentEditable Architecture
+```typescript
+const SimpleMentionsInput = ({ value, onChange }) => {
+  const [tokens, setTokens] = useState<Token[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState<MentionData[]>([]);
+  const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0 });
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  // Extract tokens from contentEditable DOM via recursive traversal
+  const extractTokensFromEditor = useCallback(() => {
+    const newTokens: Token[] = [];
+    const traverseNodes = (node: Node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        // Handle text nodes
+        if (node.textContent) {
+          newTokens.push({ kind: 'text', text: node.textContent });
+        }
+      } else if (node.nodeName === 'SPAN' && node.classList.contains('mention-')) {
+        // Extract mention data from span
+        const element = node as HTMLElement;
+        newTokens.push({
+          kind: 'mention',
+          name: element.dataset.name || element.textContent || '',
+          type: element.dataset.type as 'user' | 'event' | 'group' | 'city',
+          id: element.dataset.id || ''
+        });
+      } else if (node.nodeName === 'BR') {
+        // Handle line breaks
+        newTokens.push({ kind: 'text', text: '\n' });
+      } else {
+        // Recursively traverse children (handles DIV, P from paste)
+        Array.from(node.childNodes).forEach(traverseNodes);
+      }
+    };
+    Array.from(editorRef.current.childNodes).forEach(traverseNodes);
+    return newTokens;
+  }, []);
+
+  // Render tokens to contentEditable DOM
+  const renderTokensToEditor = (tokens: Token[]) => {
+    const fragment = document.createDocumentFragment();
+    tokens.forEach(token => {
+      if (token.kind === 'text') {
+        fragment.appendChild(document.createTextNode(token.text));
+      } else {
+        const span = document.createElement('span');
+        span.textContent = `@${token.name}`;
+        span.className = getMentionClassName(token.type); // Returns color classes
+        span.dataset.name = token.name;
+        span.dataset.type = token.type;
+        span.dataset.id = token.id;
+        if (token.type === 'city') {
+          // Add MapPin icon for cities
+          const icon = document.createElement('svg');
+          // ... MapPin SVG setup
+          span.prepend(icon);
+        }
+        fragment.appendChild(span);
+      }
+    });
+    editorRef.current.innerHTML = '';
+    editorRef.current.appendChild(fragment);
+  };
+
+  // Viewport-aware positioning
+  const calculatePosition = () => {
+    const cursorRect = range.getBoundingClientRect();
+    const editorRect = editorRef.current.getBoundingClientRect();
+    const dropdownWidth = 320;
+    const dropdownHeight = 256;
+
+    let top = cursorRect.bottom - editorRect.top + 5;
+    let left = cursorRect.left - editorRect.left;
+
+    // Prevent right overflow
+    if (cursorRect.left + dropdownWidth > window.innerWidth) {
+      left = window.innerWidth - dropdownWidth - editorRect.left - 10;
+    }
+
+    // Prevent bottom overflow
+    if (cursorRect.bottom + dropdownHeight > window.innerHeight) {
+      top = cursorRect.top - editorRect.top - dropdownHeight - 5;
+    }
+
+    left = Math.max(0, left);
+    setSuggestionPosition({ top, left });
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={editorRef}
+        contentEditable
+        onInput={handleInput}
+        className="mention-input min-h-[100px] p-3 border rounded-lg"
+      />
+      {showSuggestions && suggestions.length > 0 && (
+        <Card
+          className="absolute w-80 max-h-64 overflow-y-auto"
+          style={{
+            top: suggestionPosition.top,
+            left: suggestionPosition.left,
+            zIndex: 9999 // Highest priority
+          }}
+        >
+          {/* Suggestion list */}
+        </Card>
+      )}
+    </div>
+  );
+};
+```
+
+### Multi-Entity Search API
+**Location**: `server/routes/searchRoutes.ts`
+
+```typescript
+router.get('/multi', async (req, res) => {
+  const { q, limit = 10 } = req.query;
+  const results: MentionData[] = [];
+
+  // Search users
+  const users = await storage.searchUsers(q as string, limit);
+  results.push(...users.map(u => ({
+    id: u.id.toString(),
+    type: 'users' as const,
+    display: u.name,
+    subtitle: `@${u.username}`,
+    image: u.profileImage
+  })));
+
+  // Search events
+  const events = await storage.searchEvents(q as string, limit);
+  results.push(...events.map(e => ({
+    id: e.id.toString(),
+    type: 'events' as const,
+    display: e.title,
+    subtitle: format(e.startDate, 'MMM d, yyyy'),
+    image: e.image
+  })));
+
+  // Search groups
+  const groups = await storage.searchGroups(q as string, limit);
+  results.push(...groups.map(g => ({
+    id: g.id.toString(),
+    type: 'groups' as const,
+    display: g.name,
+    subtitle: `${g.memberCount} members`
+  })));
+
+  // Search cities (indexed cityGroups)
+  const cities = await storage.searchCities(q as string, limit);
+  results.push(...cities.map(c => ({
+    id: c.id.toString(),
+    type: 'city' as const,
+    display: c.name,
+    subtitle: `${c.city}, ${c.country}`
+  })));
+
+  res.json({ success: true, results: results.slice(0, limit) });
+});
+```
+
+### Cities Search Index
+**Location**: `server/services/search.ts`
+
+```typescript
+// Create Fuse.js index for city groups
+const cityGroupsArray = await storage.getAllCityGroups();
+const citiesIndex = new Fuse(cityGroupsArray, {
+  keys: ['name', 'city', 'country'],
+  threshold: 0.3,
+  includeScore: true
+});
+
+// Search function
+export const searchCities = (query: string, limit: number = 10) => {
+  const results = citiesIndex.search(query);
+  return results.slice(0, limit).map(r => r.item);
+};
+```
+
+### Mention Notification Service
+**Location**: `server/services/mentionNotificationService.ts`
+
+```typescript
+export class MentionNotificationService {
+  static async processMentions(
+    content: string,
+    mentionerId: number,
+    contentType: 'post' | 'comment',
+    contentId: number,
+    actionUrl: string
+  ) {
+    // Extract user IDs from canonical format
+    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    const matches = [...content.matchAll(mentionRegex)];
+    
+    console.log(`📢 Creating ${matches.length} mention notifications for ${contentType} ${contentId}`);
+    
+    for (const match of matches) {
+      const userName = match[1];
+      const userId = parseInt(match[2]);
+      
+      // Create notification
+      await storage.createNotification({
+        userId,
+        type: 'mention',
+        message: `${mentionerName} mentioned you in a ${contentType}`,
+        actionUrl,
+        relatedId: contentId,
+        isRead: false
+      });
+
+      // Emit real-time Socket.io event
+      io.to(`user-${userId}`).emit('new-notification', {
+        type: 'mention',
+        message: `${mentionerName} mentioned you`,
+        actionUrl
+      });
+    }
+  }
+}
+```
+
+### Integration with Post Creation
+**Location**: `server/routes/postsRoutes.ts`
+
+```typescript
+router.post('/direct', async (req, res) => {
+  const { content, privacy, isRecommendation, mentions } = req.body;
+  const userId = req.user.id;
+
+  // Create post
+  const newPost = await storage.createPost({
+    userId,
+    content,
+    privacy: privacy || 'public',
+    isRecommendation: isRecommendation || false,
+    mentions: mentions || []
+  });
+
+  // Process @mentions and send notifications
+  if (newPost && content) {
+    try {
+      const { MentionNotificationService } = await import('../services/mentionNotificationService');
+      await MentionNotificationService.processMentions(
+        content,
+        Number(userId),
+        'post',
+        newPost.id,
+        `/posts/${newPost.id}`
+      );
+      console.log('✅ @mention notifications processed');
+    } catch (error) {
+      console.error('⚠️ Failed to process @mentions:', error);
+    }
+  }
+
+  res.json({ success: true, data: newPost });
+});
+```
+
 ## Open Source Packages
 
 ```json
 {
-  "react-mentions": "^4.4.10",
-  "react-share": "^5.0.3",
-  "react-infinite-scroll-component": "^6.1.0",
-  "react-intersection-observer": "^9.5.3"
+  "lucide-react": "MapPin icon for city mentions",
+  "react-share": "Social sharing features",
+  "react-infinite-scroll-component": "Feed pagination",
+  "react-intersection-observer": "Lazy loading",
+  "fuse.js": "Multi-entity fuzzy search"
 }
 ```
 
 ## Integration Points
 
-- **Layer 1 (Database)**: Social data storage
-- **Layer 11 (WebSockets)**: Real-time updates
-- **Layer 16 (Notifications)**: Social notifications
-- **Layer 19 (Content)**: Content management
-- **Layer 21 (User Management)**: User relationships
+- **Layer 1 (Database)**: PostgreSQL with posts, mentions, notifications tables
+- **Layer 11 (WebSockets)**: Real-time notification delivery via Socket.io
+- **Layer 15 (Search)**: Fuse.js indexes for multi-entity search
+- **Layer 16 (Notifications)**: Mention notification system
+- **Layer 21 (User Management)**: User profiles and relationships
+- **Layer 22 (Group Management)**: City groups for recommendations
 
-## Post Service
+## Legacy Post Service (Template)
 
 ```typescript
 export class PostService {

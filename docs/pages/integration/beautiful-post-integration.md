@@ -6,10 +6,12 @@ This document provides a complete technical reference for the Beautiful Post Cre
 **Status**: ✅ COMPLETE - All integrations functional and verified (September 30, 2025)
 
 ### Latest Updates (September 30, 2025)
-- ✅ **Token-Based Architecture Rewrite** - Complete SimpleMentionsInput overhaul
-- ✅ **Multi-Entity Mentions** - Users, Events, and Groups support
-- ✅ **Cursor Positioning SOLVED** - Token system eliminates all cursor jumping issues
-- ✅ **Deterministic State Management** - Token[] as single source of truth
+- ✅ **contentEditable Architecture** - Complete refactor from textarea+overlay to single-layer rendering
+- ✅ **Extended Multi-Entity Mentions** - Users, Events, Groups, and Cities support
+- ✅ **Viewport-Aware Positioning** - Suggestion dropdown with z-index 9999 stays on screen
+- ✅ **City Mentions Added** - Orange badges with MapPin icon for city group mentions
+- ✅ **Cursor Positioning SOLVED** - contentEditable eliminates all text alignment issues
+- ✅ **Smart Space Insertion** - Only adds space after mention when needed
 - ✅ @Mention notifications **VERIFIED END-TO-END** - Tested with production API
 - ✅ Canonical format `@[Name](type:id)` correctly parsed and stored
 - ✅ Notification creation confirmed: `📢 Created 1 mention notifications for post 88`
@@ -83,18 +85,22 @@ router.get('/feed', async (req, res) => {
 - Form submission with validation
 
 #### SimpleMentionsInput (client/src/components/memory/SimpleMentionsInput.tsx)
-**Status**: ✅ **COMPLETE REWRITE** with token-based architecture (September 30, 2025)
+**Status**: ✅ **COMPLETE contentEditable REFACTOR** (September 30, 2025)
 
-**New Architecture**:
-- **Token[] State Management**: Internal state as array of text and mention tokens
-- **Multi-Entity Support**: Users, Events, and Groups
-- **API**: Uses `/api/search/multi?q={query}&limit=10` endpoint
-- **Cursor Positioning**: Deterministic via `useLayoutEffect` + token utilities
-- **Display Rendering**: `tokensToDisplay(tokens)` for textarea
-- **Canonical Export**: `tokensToCanonical(tokens)` for storage
-- **Edit Safety**: Diff-based editing via `applyEditToTokens()`
-- **Mention Insertion**: `replaceTriggerWithMention()` returns tokens + cursor position
-- **Color Coding**: Visual overlay with blue (users), green (events), purple (groups)
+**contentEditable Architecture**:
+- **Single-Layer Rendering**: contentEditable div replaces textarea+overlay approach
+- **Direct Span Rendering**: Mentions rendered as styled `<span>` elements inline
+- **Multi-Entity Support**: Users, Events, Groups, and Cities
+- **API**: Uses `/api/search/multi?q={query}&limit=10` endpoint with cities index
+- **Token Extraction**: Recursive node traversal handles DIV, BR, paste wrappers
+- **Smart Spacing**: Only adds space after mention when needed (no duplicate spaces)
+- **Cursor Management**: Uses Range API for accurate cursor restoration
+- **Color Coding**: 
+  - 🔵 Blue badges for users
+  - 🟢 Green badges for events
+  - 🟣 Purple badges for groups
+  - 🟠 Orange badges with MapPin icon for cities
+- **Viewport Positioning**: Smart dropdown placement with z-index 9999 prevents overflow
 
 **Token Utilities** (`client/src/utils/mentionTokens.ts`):
 - 15+ utility functions for token manipulation
@@ -162,9 +168,9 @@ curl -X POST http://localhost:5000/api/posts \
 
 ## API Endpoints
 
-### Search Users (for @mentions)
+### Multi-Entity Search (for @mentions)
 ```
-GET /api/search?type=users&q={query}&limit=10
+GET /api/search/multi?q={query}&limit=10
 
 Response:
 {
@@ -172,9 +178,29 @@ Response:
   "results": [
     {
       "id": 1,
-      "username": "elena_tango",
+      "type": "users",
       "name": "Elena Rodriguez",
+      "username": "elena_tango",
       "profileImage": "/uploads/avatar.jpg"
+    },
+    {
+      "id": 123,
+      "type": "events",
+      "title": "Milan Tango Festival 2025",
+      "startDate": "2025-08-15"
+    },
+    {
+      "id": 45,
+      "type": "groups",
+      "name": "Buenos Aires Tango",
+      "memberCount": 342
+    },
+    {
+      "id": 7,
+      "type": "city",
+      "name": "Madrid Tango Lovers",
+      "city": "Madrid",
+      "country": "Spain"
     }
   ]
 }

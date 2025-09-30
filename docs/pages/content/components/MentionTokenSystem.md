@@ -1,9 +1,10 @@
 # Mention Token System - Technical Reference
 
 ## Overview
-The Mention Token System is a robust, token-based architecture for managing @mentions in text content. It eliminates cursor positioning issues inherent in string-based approaches by treating text as an array of discrete tokens (text segments and mentions) rather than a single string.
+The Mention Token System is a robust, token-based architecture for managing @mentions in text content with support for users, events, groups, and cities. It eliminates cursor positioning issues inherent in string-based approaches by treating text as an array of discrete tokens (text segments and mentions) rather than a single string.
 
 **Created**: September 30, 2025  
+**Enhanced**: September 30, 2025 (Added city mention support)  
 **Purpose**: Replace string manipulation with deterministic token-based state management  
 **Location**: `client/src/utils/mentionTokens.ts`
 
@@ -63,13 +64,13 @@ type TextToken = {
 ```
 
 ### MentionToken
-Represents a mention of a user, event, or group.
+Represents a mention of a user, event, group, or city.
 
 ```typescript
 type MentionToken = {
   kind: 'mention';
   name: string; // Display name
-  type: 'user' | 'event' | 'group';
+  type: 'user' | 'event' | 'group' | 'city';
   id: string; // Entity ID
 };
 ```
@@ -84,6 +85,9 @@ type MentionToken = {
 
 // Group mention
 { kind: 'mention', name: 'Buenos Aires Tango', type: 'group', id: '45' }
+
+// City mention
+{ kind: 'mention', name: 'Madrid Tango Lovers', type: 'city', id: '7' }
 ```
 
 ### Token Union
@@ -100,7 +104,7 @@ Converts canonical storage format to token array.
 function parseCanonicalToTokens(canonical: string): Token[]
 ```
 
-**Input**: `"Hello @[Elena Rodriguez](user:1) and @[Milan Festival](event:123)!"`  
+**Input**: `"Hello @[Elena Rodriguez](user:1) and @[Milan Festival](event:123) in @[Madrid Tango Lovers](city:7)!"`  
 **Output**:
 ```typescript
 [
@@ -108,11 +112,13 @@ function parseCanonicalToTokens(canonical: string): Token[]
   { kind: 'mention', name: 'Elena Rodriguez', type: 'user', id: '1' },
   { kind: 'text', text: ' and ' },
   { kind: 'mention', name: 'Milan Festival', type: 'event', id: '123' },
+  { kind: 'text', text: ' in ' },
+  { kind: 'mention', name: 'Madrid Tango Lovers', type: 'city', id: '7' },
   { kind: 'text', text: '!' }
 ]
 ```
 
-**Regex Used**: `/@\[([^\]]+)\]\((user|event|group):([^\)]+)\)/g`
+**Regex Used**: `/@\[([^\]]+)\]\((user|event|group|city):([^\)]+)\)/g`
 
 ### 2. tokensToDisplay()
 Converts tokens to display format for textarea.

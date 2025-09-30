@@ -32,7 +32,7 @@
 21. [User Management Agent](./layer-21-user-management.md) - Profiles, preferences
 22. [Group Management Agent](./layer-22-group-management.md) - Communities
 23. [Event Management Agent](./layer-23-event-management.md) - Calendar, scheduling
-24. [Social Features Agent](./layer-24-social-features.md) - Posts, reactions
+24. [**Social Features Agent**](./layer-24-social-features.md) ✅ **COMPLETE** - @Mentions, Posts, Privacy
 25. [Messaging System Agent](./layer-25-messaging-system.md) - Direct messages
 26. [Recommendation Engine Agent](./layer-26-recommendation-engine.md) - Personalization
 27. [Gamification Agent](./layer-27-gamification.md) - Points, badges
@@ -83,9 +83,9 @@
 
 | Status | Count | Layers |
 |--------|-------|--------|
-| ✅ Complete | 1 | Layer 53 (Internationalization) |
+| ✅ Complete | 2 | Layer 24 (Social Features), Layer 53 (Internationalization) |
 | 🚧 In Progress | 0 | - |
-| 📋 Planned | 60 | Layers 1-52, 54-61 |
+| 📋 Planned | 59 | Layers 1-23, 25-52, 54-61 |
 
 ## Quick Links
 
@@ -94,6 +94,13 @@
 - [Open Source Package Mapping](#) - 312+ packages mapped to layers
 
 ## Recent Completions
+
+### Layer 24: Social Features Agent ✅
+- **Completed**: September 30, 2025
+- **Key Achievement**: Advanced @mention system with contentEditable architecture
+- **Entity Support**: Users, Events, Groups, Cities (4 types)
+- **Technical Innovation**: Single-layer rendering with viewport-aware positioning
+- **Features**: Color-coded badges, real-time notifications, canonical storage format
 
 ### Layer 53: Internationalization Agent ✅
 - **Completed**: September 27, 2025
