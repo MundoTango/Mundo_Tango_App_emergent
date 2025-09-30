@@ -249,21 +249,28 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
 // Get group posts with membership/residency filtering
 router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
   try {
-    const groupId = parseInt(req.params.groupId);
+    const groupSlugOrId = req.params.groupId;
     const { filter = 'all', page = '1', limit = '20' } = req.query;
     const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
 
     // Import posts table
     const { posts } = await import('../../shared/schema');
 
-    // Get group details to determine type
+    // Get group details by slug or ID
+    const parsedId = parseInt(groupSlugOrId);
     const [group] = await db.select()
       .from(groups)
-      .where(eq(groups.id, groupId));
+      .where(
+        isNaN(parsedId) 
+          ? eq(groups.slug, groupSlugOrId)
+          : eq(groups.id, parsedId)
+      );
 
     if (!group) {
       return res.status(404).json({ error: 'Group not found' });
     }
+
+    const groupId = group.id;
 
     if (group.type === 'city') {
       // City Group Filtering: Residents vs Visitors
@@ -296,8 +303,8 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
           .where(
             and(
               or(
-                sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
-                sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+                sql`${posts.content} LIKE ${'%city:' + group.slug + '%'}`,
+                sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`
               ),
               sql`${users.city} = ${group.city}` // User's city matches group's city
             )
@@ -336,8 +343,8 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
           .where(
             and(
               or(
-                sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
-                sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+                sql`${posts.content} LIKE ${'%city:' + group.slug + '%'}`,
+                sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`
               ),
               or(
                 sql`${users.city} IS NULL`,
@@ -384,7 +391,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             eq(groupMembers.userId, posts.userId)
           ))
           .where(
-            sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+            sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`
           )
           .orderBy(desc(posts.createdAt))
           .limit(parseInt(limit as string))
@@ -418,7 +425,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
           .innerJoin(users, eq(posts.userId, users.id))
           .where(
             and(
-              sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`,
+              sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`,
               sql`NOT EXISTS (
                 SELECT 1 FROM ${groupMembers} 
                 WHERE ${groupMembers.groupId} = ${groupId} 
@@ -460,8 +467,8 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
       .innerJoin(users, eq(posts.userId, users.id))
       .where(
         or(
-          sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
-          sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+          sql`${posts.content} LIKE ${'%city:' + group.slug + '%'}`,
+          sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`
         )
       )
       .orderBy(desc(posts.createdAt))
