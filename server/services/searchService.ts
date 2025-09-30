@@ -344,8 +344,8 @@ export class SearchService {
         results.push(...eventResults.map(r => ({ ...r, type: 'events' })));
       }
 
-      // Search communities/groups
-      if (types.includes('communities') || types.includes('groups')) {
+      // Search communities/groups (including City Groups and Professional Groups)
+      if (types.includes('communities') || types.includes('groups') || types.includes('cities')) {
         const groupResults = await this.searchGroups(searchQuery, limit);
         results.push(...groupResults.map(r => {
           // Check if this is a city group or professional group
@@ -354,7 +354,7 @@ export class SearchService {
           
           return {
             ...r,
-            type: isCityGroup ? 'cities' : (isProfessionalGroup ? 'professional' : 'communities'),
+            type: isCityGroup ? 'cityGroup' : (isProfessionalGroup ? 'professionalGroup' : 'communities'),
             // Include fields needed for mention display
             name: r.title,
             slug: r.metadata?.slug || r.id,
@@ -363,51 +363,6 @@ export class SearchService {
             groupType: r.metadata?.groupType
           };
         }));
-      }
-
-      // Search cities specifically
-      if (types.includes('cities')) {
-        const cityResults = await db
-          .select({
-            id: groups.id,
-            name: groups.name,
-            slug: groups.slug,
-            description: groups.description,
-            city: groups.city,
-            country: groups.country,
-            coverImage: groups.coverImage,
-            memberCount: sql<number>`(SELECT COUNT(*) FROM group_members WHERE group_id = ${groups.id})`,
-            createdAt: groups.createdAt
-          })
-          .from(groups)
-          .where(
-            and(
-              eq(groups.type, 'city'),
-              or(
-                sql`LOWER(${groups.name}) LIKE ${searchQuery}`,
-                sql`LOWER(${groups.city}) LIKE ${searchQuery}`,
-                sql`LOWER(${groups.country}) LIKE ${searchQuery}`
-              )
-            )
-          )
-          .limit(limit);
-
-        results.push(...cityResults.map(city => ({
-          id: city.slug || city.id,
-          type: 'cities',
-          title: city.name,
-          name: city.name,
-          slug: city.slug,
-          city: city.city,
-          country: city.country,
-          description: city.description,
-          imageUrl: city.coverImage,
-          metadata: {
-            groupType: 'city',
-            memberCount: city.memberCount
-          },
-          createdAt: city.createdAt
-        })));
       }
 
       // Search posts

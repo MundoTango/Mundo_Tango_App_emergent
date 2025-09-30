@@ -353,20 +353,21 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             avatar: item.coverImage,
             status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
           });
-        } else if (item.type === 'cities') {
+        } else if (item.type === 'cityGroup') {
           allSuggestions.push({
             id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
-            display: item.name || 'Unknown City',
-            type: 'city',
-            status: item.country ? `📍 ${item.country}` : undefined
+            display: item.name || 'Unknown City Group',
+            type: 'group',
+            avatar: item.coverImage,
+            status: item.city && item.country ? `📍 ${item.city}, ${item.country}` : (item.country || undefined)
           });
-        } else if (item.type === 'professional') {
+        } else if (item.type === 'professionalGroup') {
           allSuggestions.push({
             id: item.slug || item.id?.toString(),
             display: item.name || 'Unknown Group',
             type: 'group',
             avatar: item.coverImage,
-            status: item.country ? `🌐 ${item.country}` : undefined
+            status: '🌐 International'
           });
         }
       });
