@@ -421,24 +421,13 @@ export default function EnhancedFriendsPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 glassmorphic-card hover:scale-105 transition-transform">
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
                 <p className="text-sm text-gray-600">Total Friends</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-blue-50 glassmorphic-card hover:scale-105 transition-transform">
-            <div className="flex items-center gap-3">
-              <Globe className="w-8 h-8 text-cyan-600" />
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {friends.filter(f => f.isOnline).length}
-                </p>
-                <p className="text-sm text-gray-600">Online Now</p>
               </div>
             </div>
           </Card>

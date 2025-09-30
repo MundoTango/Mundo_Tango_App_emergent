@@ -243,24 +243,13 @@ export default function FriendsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 glassmorphic-card">
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
                 <p className="text-sm text-gray-600">Total Friends</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-blue-50 glassmorphic-card">
-            <div className="flex items-center gap-3">
-              <Globe className="w-8 h-8 text-cyan-600" />
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {friends.filter((f: Friend) => f.isOnline).length}
-                </p>
-                <p className="text-sm text-gray-600">Online Now</p>
               </div>
             </div>
           </Card>
