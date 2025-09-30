@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { MapPin } from 'lucide-react';
-import GoogleMapsAutocomplete from '../maps/GoogleMapsAutocomplete';
+import LocationInput from '../universal/LocationInput';
 
 interface LocationData {
   country: string;
@@ -31,26 +31,32 @@ export default function GoogleMapsLocationPicker({ value, onChange, className }:
     return '';
   });
 
-  const handleLocationSelect = useCallback((locationData: any) => {
+  const handleLocationChange = useCallback((location: string, coordinates?: { lat: number; lng: number }, details?: any) => {
+    // Extract city, state, country from location string
+    const parts = location.split(',').map(p => p.trim());
+    const country = parts[parts.length - 1] || '';
+    const state = parts.length > 2 ? parts[parts.length - 2] : undefined;
+    const city = parts.length > 2 ? parts[0] : undefined;
+    
     const newLocation: LocationData = {
-      country: locationData.country,
-      state: locationData.state || undefined,
-      city: locationData.city || undefined,
-      countryId: Math.abs(locationData.country.split('').reduce((a: number, b: string) => {
+      country,
+      state,
+      city,
+      countryId: Math.abs(country.split('').reduce((a: number, b: string) => {
         a = ((a << 5) - a) + b.charCodeAt(0);
         return a & a;
       }, 0)),
-      stateId: locationData.state ? Math.abs(locationData.state.split('').reduce((a: number, b: string) => {
+      stateId: state ? Math.abs(state.split('').reduce((a: number, b: string) => {
         a = ((a << 5) - a) + b.charCodeAt(0);
         return a & a;
       }, 0)) : undefined,
-      cityId: locationData.city ? Math.abs(locationData.city.split('').reduce((a: number, b: string) => {
+      cityId: city ? Math.abs(city.split('').reduce((a: number, b: string) => {
         a = ((a << 5) - a) + b.charCodeAt(0);
         return a & a;
       }, 0)) : undefined,
     };
 
-    setDisplayValue(locationData.formattedAddress);
+    setDisplayValue(location);
     onChange(newLocation);
   }, [onChange]);
 
@@ -71,10 +77,10 @@ export default function GoogleMapsLocationPicker({ value, onChange, className }:
             <Label htmlFor="location" className="font-medium">Location</Label>
           </div>
           
-          <GoogleMapsAutocomplete
+          <LocationInput
             value={displayValue}
             placeholder="Search for your location..."
-            onLocationSelect={handleLocationSelect}
+            onChange={handleLocationChange}
             onClear={handleClear}
             className="w-full"
             required

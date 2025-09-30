@@ -19,7 +19,7 @@ import {
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import GoogleMapsAutocomplete from '../maps/GoogleMapsAutocomplete';
+import LocationInput from '../universal/LocationInput';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 // ESA-44x21s Fix: Temporarily disable react-mentions due to React 18 incompatibility
 // import { MentionsInput, Mention } from 'react-mentions';
@@ -396,12 +396,10 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
 
         {/* Location Input with Google Maps */}
         <div className="mb-4">
-          <GoogleMapsAutocomplete
+          <LocationInput
             value={location}
             placeholder="Add location..."
-            onLocationSelect={(locationData) => {
-              setLocation(locationData.formattedAddress);
-            }}
+            onChange={(loc) => setLocation(loc)}
             onClear={() => setLocation('')}
             className="w-full"
           />

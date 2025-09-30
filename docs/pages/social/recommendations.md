@@ -1,16 +1,23 @@
-# Recommendations System
+# Recommendations System - Treasure Map Explorer 🗺️
 
 ## Overview
-The recommendations system in ESA LIFE CEO allows users to share valuable content with their local community by automatically cross-posting to city-based groups. This feature is powered by ESA Layer 57 (Automation Management) and integrates with the Beautiful Post Creator.
+The recommendations system in ESA LIFE CEO allows users to share valuable content with their local community through an adventure-themed "Treasure Map Explorer" interface. Users can mark their favorite locations (restaurants, cafes, hotels, venues) with integrated location search, price ranges, and automatic cross-posting to city-based groups. This feature is powered by ESA Layer 57 (Automation Management) and integrates with the Beautiful Post Creator.
+
+**Design Theme**: Vintage map aesthetics with compass rose animations, treasure-themed language, and warm amber/brown color palette.
 
 ## How It Works
 
-### 1. User Creates a Post
+### 1. User Opens Treasure Map Explorer
 When creating a post using the BeautifulPostCreator component:
-- User writes their content
+- User writes their content (with @mention support)
 - Sets privacy level (public/friends/private)
-- **Toggles "Share as recommendation" option**
-- Submits the post
+- **Clicks "🗺️ Discover Hidden Gems" button** (treasure map opens with animation)
+- Selects recommendation metadata:
+  - **💎 Treasure Type**: Restaurant (Dining Hall), Cafe (Cozy Tavern), Hotel (Inn & Lodge), or Venue (Grand Ballroom)
+  - **💰 Treasure Value**: Budget ($), Moderate ($$), or Luxury ($$$)
+  - **📍 Location**: Uses integrated Google Maps Places API search
+- Location search field appears **inside** the treasure map dropdown
+- Submits the post with recommendation metadata
 
 ### 2. Automatic City Group Detection
 The system automatically:
@@ -41,32 +48,113 @@ if (isRecommendation && user.city) {
 
 ### Frontend Component
 
-#### BeautifulPostCreator Enhancement
+#### Treasure Map Explorer UI
 ```jsx
 function BeautifulPostCreator() {
   const [isRecommendation, setIsRecommendation] = useState(false);
+  const [recommendationType, setRecommendationType] = useState('');
+  const [priceRange, setPriceRange] = useState('');
+  const [location, setLocation] = useState('');
   
   return (
     <div className="post-creator">
       {/* Content input */}
       <SimpleMentionsInput {...props} />
       
-      {/* Recommendation toggle */}
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={isRecommendation}
-          onChange={(e) => setIsRecommendation(e.target.checked)}
-          className="toggle"
-        />
-        <label>Share as local recommendation</label>
-        {isRecommendation && (
-          <span className="text-sm text-muted">
-            Will be shared with your city community
-          </span>
-        )}
-      </div>
+      {/* Treasure Map Explorer Toggle */}
+      <button
+        onClick={() => setIsRecommendation(!isRecommendation)}
+        className="treasure-map-toggle"
+      >
+        <CompassRoseIcon className={isRecommendation ? 'rotate-0' : 'rotate-180'} />
+        <div>
+          <span>🗺️ Discover Hidden Gems</span>
+          <span className="subtitle">Share your treasure map with the community</span>
+        </div>
+      </button>
+      
+      {/* Expanded Treasure Map */}
+      {isRecommendation && (
+        <div className="treasure-map-container">
+          <header className="compass-header">
+            <CompassIcon className="animate-spin-slow" />
+            MARK YOUR TREASURE
+          </header>
+          
+          {/* Treasure Type */}
+          <select value={recommendationType} onChange={e => setRecommendationType(e.target.value)}>
+            <option value="">Choose your treasure type...</option>
+            <option value="restaurant">🍽️ Dining Hall</option>
+            <option value="cafe">☕ Cozy Tavern</option>
+            <option value="hotel">🏨 Inn & Lodge</option>
+            <option value="venue">💃 Grand Ballroom</option>
+          </select>
+          
+          {/* Treasure Value */}
+          <div className="price-range-buttons">
+            {['$', '$$', '$$$'].map(price => (
+              <button 
+                key={price}
+                onClick={() => setPriceRange(price)}
+                className={priceRange === price ? 'selected' : ''}
+              >
+                {price}
+                <span>{price === '$' ? '⭐ Budget' : price === '$$' ? '⭐⭐ Moderate' : '⭐⭐⭐ Luxury'}</span>
+              </button>
+            ))}
+          </div>
+          
+          {/* Location Search - INTEGRATED INSIDE */}
+          <LocationInput
+            value={location}
+            onChange={(loc, coords, details) => {
+              setLocation(loc);
+              setLocationCoords(coords);
+            }}
+            placeholder="🔍 Search for your hidden gem..."
+            biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
+            showBusinessDetails={true}
+          />
+          
+          {location && (
+            <div className="treasure-confirmation">
+              <MapPin className="animate-bounce" />
+              Treasure marked: {location}
+            </div>
+          )}
+        </div>
+      )}
     </div>
+  );
+}
+```
+
+#### Unified LocationInput Component
+The treasure map uses the new unified `LocationInput` component:
+
+**Features:**
+- Intelligent Google Maps API detection
+- Automatic fallback to SimplifiedLocationInput
+- Consistent interface across all location inputs
+- Business details support (ratings, price levels)
+- Place ID and coordinates extraction
+
+**Implementation:**
+```typescript
+// client/src/components/universal/LocationInput.tsx
+export default function LocationInput(props: LocationInputProps) {
+  const [googleMapsAvailable, setGoogleMapsAvailable] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    setGoogleMapsAvailable(!!apiKey && apiKey.length > 0);
+  }, []);
+
+  // Auto-select primary or fallback
+  return googleMapsAvailable ? (
+    <GoogleMapsLocationInput {...props} />
+  ) : (
+    <SimplifiedLocationInput {...props} />
   );
 }
 ```
