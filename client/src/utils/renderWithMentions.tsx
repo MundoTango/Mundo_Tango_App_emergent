@@ -62,6 +62,7 @@ export const renderWithMentions = (text: string) => {
     }
 
     // Determine link and styling based on type
+    // Add URL parameters to indicate post filtering should be shown
     let href: string;
     let className: string;
 
@@ -71,15 +72,15 @@ export const renderWithMentions = (text: string) => {
         className = 'text-blue-600 hover:text-blue-700 font-medium bg-blue-50 px-1 py-0.5 rounded hover:bg-blue-100 transition-colors inline-block';
         break;
       case 'event':
-        href = `/events/${id}`;
+        href = `/events/${id}?tab=posts&filter=all`; // Show posts tab with filtering options
         className = 'text-green-600 hover:text-green-700 font-medium bg-green-50 px-1 py-0.5 rounded hover:bg-green-100 transition-colors inline-block';
         break;
       case 'group':
-        href = `/groups/${id}`;
+        href = `/groups/${id}?tab=posts&filter=all`; // Show posts tab with membership filtering
         className = 'text-purple-600 hover:text-purple-700 font-medium bg-purple-50 px-1 py-0.5 rounded hover:bg-purple-100 transition-colors inline-block';
         break;
       case 'city':
-        href = `/groups/${id}`; // City groups use same route pattern as professional groups
+        href = `/groups/${id}?tab=posts&filter=all`; // Show posts tab with residency filtering
         className = 'text-orange-600 hover:text-orange-700 font-medium bg-orange-50 px-1 py-0.5 rounded hover:bg-orange-100 transition-colors inline-block';
         break;
       default:
