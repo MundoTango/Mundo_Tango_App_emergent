@@ -127,7 +127,7 @@ export default function UpcomingEventsSidebar({
         variant: "destructive"
       });
     },
-    onSuccess: (data, { eventId, status }) => {
+    onSuccess: async (data, { eventId, status }) => {
       console.log('✅ [Sidebar RSVP] onSuccess called', { data, eventId, status });
       if (status === null) {
         toast({
@@ -145,10 +145,10 @@ export default function UpcomingEventsSidebar({
           description: `You're now marked as ${statusText}`,
         });
       }
-      // Invalidate both the feed and the specific event detail page
-      queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
-      queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
-      queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
+      // Force immediate refetch to get updated data from backend
+      await queryClient.refetchQueries({ queryKey: ['/api/events/feed'] });
+      await queryClient.refetchQueries({ queryKey: [`/api/events/${eventId}`] });
+      await queryClient.refetchQueries({ queryKey: ['/api/events/upcoming'] });
     }
   });
   
