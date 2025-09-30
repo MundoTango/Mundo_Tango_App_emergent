@@ -196,6 +196,7 @@ export default function EventDetailPage() {
       });
       queryClient.invalidateQueries({ queryKey: [`/api/events/${id}`] });
       queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
     },
     onError: (error, variables, context: any) => {
       queryClient.setQueryData([`/api/events/${id}`], context?.previousEvent);

@@ -115,7 +115,7 @@ export default function UpcomingEventsSidebar({
         variant: "destructive"
       });
     },
-    onSuccess: (data, { status }) => {
+    onSuccess: (data, { eventId, status }) => {
       if (status === null) {
         toast({
           title: "RSVP Removed",
@@ -132,9 +132,10 @@ export default function UpcomingEventsSidebar({
           description: `You're now marked as ${statusText}`,
         });
       }
-    },
-    onSettled: () => {
+      // Invalidate both the feed and the specific event detail page
       queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
+      queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
     }
   });
   
