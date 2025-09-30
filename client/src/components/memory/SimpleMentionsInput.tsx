@@ -357,7 +357,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
           allSuggestions.push({
             id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
             display: item.name || 'Unknown City Group',
-            type: 'group',
+            type: 'city',
             avatar: item.coverImage,
             status: item.city && item.country ? `📍 ${item.city}, ${item.country}` : (item.country || undefined)
           });
