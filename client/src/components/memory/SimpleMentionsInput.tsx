@@ -194,17 +194,24 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const mentionDisplayLength = `@${suggestion.display}`.length;
     const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
     
+    const finalDisplayValue = getDisplayValue(newValue);
     console.log('🎯 Cursor Calculation:', {
       mentionStart,
+      mentionStartType: 'canonical',
       currentMention,
       beforeMentionCanonical: beforeMention,
+      beforeMentionCanonicalLength: beforeMention.length,
       beforeMentionDisplay,
+      beforeMentionDisplayLength: beforeMentionDisplay.length,
       mentionDisplayText: `@${suggestion.display}`,
       mentionDisplayLength,
       spacesAdded: 1,
       calculatedDisplayPosition: newCursorPosInDisplay,
       newValueCanonical: newValue,
-      newValueDisplay: getDisplayValue(newValue)
+      newValueCanonicalLength: newValue.length,
+      newValueDisplay: finalDisplayValue,
+      newValueDisplayLength: finalDisplayValue.length,
+      expectedCursorAt: `After "${finalDisplayValue.substring(0, newCursorPosInDisplay)}"`
     });
     
     // Store intended cursor position in DISPLAY coordinates (textarea shows display format)
@@ -325,6 +332,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       requestAnimationFrame(() => {
         if (textareaRef.current && intendedCursorPosRef.current !== null) {
           const pos = intendedCursorPosRef.current;
+          console.log('📍 Setting cursor position:', { 
+            pos, 
+            textLength: textareaRef.current.value.length,
+            textValue: textareaRef.current.value 
+          });
           textareaRef.current.setSelectionRange(pos, pos);
           intendedCursorPosRef.current = null;
         }
