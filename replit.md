@@ -68,6 +68,28 @@ This project is a comprehensive digital ecosystem consisting of an AI-powered li
 - **Documentation**: Created comprehensive docs (UpcomingEventsSidebar.md, EventRSVP.md)
 - **ESA Layer 26**: Events & Calendar Agent marked as complete in framework index
 - Consolidated duplicate components (NewFeedEvents.tsx archived)
+- **RSVP Toggle Functionality** ✅ **COMPLETE** (Sept 30, 2025):
+  - **Frontend Event Detail Page** (`client/src/pages/event-detail.tsx`):
+    - Fixed double-stringify bug (changed `body: JSON.stringify({ status })` to `body: { status }`)
+    - Added toggle behavior: clicking same status sends `null` to remove RSVP
+    - Implemented optimistic UI updates with onMutate for instant visual feedback
+    - Added ocean-themed gradient styling for selected states (#14b8a6 to #06b6d4)
+    - Disabled buttons during mutation with isPending state
+  - **Frontend Sidebar** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
+    - Updated mutation to accept `null` status for toggle removal
+    - Modified handleRSVP to compare current status and send null if matching
+    - Updated all three RSVP buttons (Going, Interested, Maybe) with toggle logic
+    - Enhanced toast messages to show "RSVP Removed" when toggling off
+  - **Backend Event Details** (`server/routes/eventsRoutes.ts`):
+    - Modified `/api/events/:id` endpoint to return `userStatus` field
+    - Added join query to `event_rsvps` table for authenticated user's current RSVP
+    - Returns `null` if user hasn't RSVP'd, otherwise returns their status
+  - **Backend RSVP Handler** (`server/routes/eventsRoutes.ts`):
+    - Updated Zod schema to accept `nullable()` status
+    - Added logic to handle `status === null` by deleting RSVP record from database
+    - Maintains existing upsert logic for valid status values
+  - **Complete Flow**: Click status → highlight with gradient → click again → remove highlight and delete from DB ✅ Working
+  - **Result**: Status now persists correctly, displays on event detail page, and supports toggle on/off behavior
 
 **Location Input System Consolidation**
 - Created `LocationInput.tsx` wrapper with intelligent Google Maps API detection
