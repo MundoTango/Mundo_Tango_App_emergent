@@ -246,4 +246,233 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
   }
 });
 
+// Get group posts with membership/residency filtering
+router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
+  try {
+    const groupId = parseInt(req.params.groupId);
+    const { filter = 'all', page = '1', limit = '20' } = req.query;
+    const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+
+    // Import posts table
+    const { posts } = await import('../../shared/schema');
+
+    // Get group details to determine type
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.id, groupId));
+
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+
+    if (group.type === 'city') {
+      // City Group Filtering: Residents vs Visitors
+      if (filter === 'residents') {
+        // Get posts by users living in this city
+        const residentPosts = await db
+          .select({
+            id: posts.id,
+            userId: posts.userId,
+            content: posts.content,
+            imageUrl: posts.imageUrl,
+            videoUrl: posts.videoUrl,
+            mediaEmbeds: posts.mediaEmbeds,
+            mentions: posts.mentions,
+            location: posts.location,
+            visibility: posts.visibility,
+            likesCount: posts.likesCount,
+            commentsCount: posts.commentsCount,
+            createdAt: posts.createdAt,
+            user: {
+              id: users.id,
+              firstName: users.firstName,
+              lastName: users.lastName,
+              profileImage: users.profileImage,
+              city: users.city
+            }
+          })
+          .from(posts)
+          .innerJoin(users, eq(posts.userId, users.id))
+          .where(
+            and(
+              or(
+                sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
+                sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+              ),
+              sql`${users.city} = ${group.city}` // User's city matches group's city
+            )
+          )
+          .orderBy(desc(posts.createdAt))
+          .limit(parseInt(limit as string))
+          .offset(offset);
+
+        return res.json({ success: true, data: residentPosts });
+      } else if (filter === 'visitors') {
+        // Get posts by users NOT living in this city
+        const visitorPosts = await db
+          .select({
+            id: posts.id,
+            userId: posts.userId,
+            content: posts.content,
+            imageUrl: posts.imageUrl,
+            videoUrl: posts.videoUrl,
+            mediaEmbeds: posts.mediaEmbeds,
+            mentions: posts.mentions,
+            location: posts.location,
+            visibility: posts.visibility,
+            likesCount: posts.likesCount,
+            commentsCount: posts.commentsCount,
+            createdAt: posts.createdAt,
+            user: {
+              id: users.id,
+              firstName: users.firstName,
+              lastName: users.lastName,
+              profileImage: users.profileImage,
+              city: users.city
+            }
+          })
+          .from(posts)
+          .innerJoin(users, eq(posts.userId, users.id))
+          .where(
+            and(
+              or(
+                sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
+                sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+              ),
+              or(
+                sql`${users.city} IS NULL`,
+                sql`${users.city} != ${group.city}`
+              )
+            )
+          )
+          .orderBy(desc(posts.createdAt))
+          .limit(parseInt(limit as string))
+          .offset(offset);
+
+        return res.json({ success: true, data: visitorPosts });
+      }
+    } else {
+      // Professional Group Filtering: Members vs Non-members
+      if (filter === 'members') {
+        // Get posts by group members
+        const memberPosts = await db
+          .select({
+            id: posts.id,
+            userId: posts.userId,
+            content: posts.content,
+            imageUrl: posts.imageUrl,
+            videoUrl: posts.videoUrl,
+            mediaEmbeds: posts.mediaEmbeds,
+            mentions: posts.mentions,
+            location: posts.location,
+            visibility: posts.visibility,
+            likesCount: posts.likesCount,
+            commentsCount: posts.commentsCount,
+            createdAt: posts.createdAt,
+            user: {
+              id: users.id,
+              firstName: users.firstName,
+              lastName: users.lastName,
+              profileImage: users.profileImage
+            },
+            memberRole: groupMembers.role
+          })
+          .from(posts)
+          .innerJoin(users, eq(posts.userId, users.id))
+          .innerJoin(groupMembers, and(
+            eq(groupMembers.groupId, groupId),
+            eq(groupMembers.userId, posts.userId)
+          ))
+          .where(
+            sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+          )
+          .orderBy(desc(posts.createdAt))
+          .limit(parseInt(limit as string))
+          .offset(offset);
+
+        return res.json({ success: true, data: memberPosts });
+      } else if (filter === 'non-members') {
+        // Get posts by non-members who mentioned the group
+        const nonMemberPosts = await db
+          .select({
+            id: posts.id,
+            userId: posts.userId,
+            content: posts.content,
+            imageUrl: posts.imageUrl,
+            videoUrl: posts.videoUrl,
+            mediaEmbeds: posts.mediaEmbeds,
+            mentions: posts.mentions,
+            location: posts.location,
+            visibility: posts.visibility,
+            likesCount: posts.likesCount,
+            commentsCount: posts.commentsCount,
+            createdAt: posts.createdAt,
+            user: {
+              id: users.id,
+              firstName: users.firstName,
+              lastName: users.lastName,
+              profileImage: users.profileImage
+            }
+          })
+          .from(posts)
+          .innerJoin(users, eq(posts.userId, users.id))
+          .where(
+            and(
+              sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`,
+              sql`NOT EXISTS (
+                SELECT 1 FROM ${groupMembers} 
+                WHERE ${groupMembers.groupId} = ${groupId} 
+                AND ${groupMembers.userId} = ${posts.userId}
+              )`
+            )
+          )
+          .orderBy(desc(posts.createdAt))
+          .limit(parseInt(limit as string))
+          .offset(offset);
+
+        return res.json({ success: true, data: nonMemberPosts });
+      }
+    }
+
+    // Default: Get all posts mentioning the group
+    const allPosts = await db
+      .select({
+        id: posts.id,
+        userId: posts.userId,
+        content: posts.content,
+        imageUrl: posts.imageUrl,
+        videoUrl: posts.videoUrl,
+        mediaEmbeds: posts.mediaEmbeds,
+        mentions: posts.mentions,
+        location: posts.location,
+        visibility: posts.visibility,
+        likesCount: posts.likesCount,
+        commentsCount: posts.commentsCount,
+        createdAt: posts.createdAt,
+        user: {
+          id: users.id,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          profileImage: users.profileImage
+        }
+      })
+      .from(posts)
+      .innerJoin(users, eq(posts.userId, users.id))
+      .where(
+        or(
+          sql`${posts.mentions}::text LIKE ${'%city:' + groupId + '%'}`,
+          sql`${posts.mentions}::text LIKE ${'%group:' + groupId + '%'}`
+        )
+      )
+      .orderBy(desc(posts.createdAt))
+      .limit(parseInt(limit as string))
+      .offset(offset);
+
+    return res.json({ success: true, data: allPosts });
+  } catch (error) {
+    console.error('Error fetching group posts:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch group posts' });
+  }
+});
+
 export default router;
