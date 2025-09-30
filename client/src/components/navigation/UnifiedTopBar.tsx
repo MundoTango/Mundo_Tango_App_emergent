@@ -431,28 +431,40 @@ export default function UnifiedTopBar({
 
           {/* Theme Toggle */}
           {onThemeToggle && (
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={onThemeToggle}
-              className={cn(
-                "transition-all",
-                theme === 'light'
-                  ? "hover:bg-gray-100 text-gray-600"
-                  : "hover:bg-slate-800 text-slate-400"
-              )}
-            >
-              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </Button>
+            <div className="relative">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={onThemeToggle}
+                className={cn(
+                  "transition-all",
+                  theme === 'light'
+                    ? "hover:bg-gray-100 text-gray-600"
+                    : "hover:bg-slate-800 text-slate-400"
+                )}
+              >
+                {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+              </Button>
+              {/* COMING SOON Overlay - Dark Mode Disabled */}
+              <div className="absolute inset-0 bg-gray-900/90 rounded-md flex items-center justify-center cursor-not-allowed z-10">
+                <span className="text-[10px] font-bold text-white whitespace-nowrap">COMING SOON</span>
+              </div>
+            </div>
           )}
 
           {/* Language Selector - ESA Layer 53: Internationalization Agent */}
-          <LanguageSelector 
-            variant="dropdown" 
-            showFlags={true}
-            groupByRegion={true}
-            className="hidden sm:flex"
-          />
+          <div className="relative hidden sm:flex">
+            <LanguageSelector 
+              variant="dropdown" 
+              showFlags={true}
+              groupByRegion={true}
+              className=""
+            />
+            {/* COMING SOON Overlay - Language Switching Disabled */}
+            <div className="absolute inset-0 bg-gray-900/90 rounded-md flex items-center justify-center cursor-not-allowed z-10 pointer-events-auto">
+              <span className="text-xs font-bold text-white">COMING SOON</span>
+            </div>
+          </div>
 
           {/* Profile Dropdown */}
           <DropdownMenu open={isProfileOpen} onOpenChange={setIsProfileOpen}>
