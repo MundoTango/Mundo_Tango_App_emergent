@@ -1079,104 +1079,201 @@ export default function BeautifulPostCreator({
               </div>
             )}
 
-            {/* Enhanced Recommendation toggle with better design */}
+            {/* 🗺️ TREASURE MAP EXPLORER - Enhanced Recommendation with Adventure Theme */}
             <div className="relative">
               <button
                 onClick={() => setIsRecommendation(!isRecommendation)}
-                className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all duration-300 group ${
+                className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all duration-500 group relative overflow-hidden ${
                   isRecommendation 
-                    ? 'bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100 border-2 border-amber-300 shadow-lg transform scale-[1.02]' 
-                    : 'bg-white/70 hover:bg-white border border-gray-200/60 hover:border-amber-200 shadow-sm hover:shadow-md'
+                    ? 'bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 border-2 border-amber-400 shadow-xl transform scale-[1.02]' 
+                    : 'bg-gradient-to-br from-white via-amber-50/30 to-white hover:from-amber-50/50 hover:via-yellow-50/30 hover:to-orange-50/30 border-2 border-amber-200/40 hover:border-amber-300 shadow-md hover:shadow-lg'
                 }`}
+                style={{
+                  backgroundImage: isRecommendation 
+                    ? 'radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%)'
+                    : 'none'
+                }}
               >
+                {/* Treasure chest icon with animation */}
                 <div className="flex items-center space-x-3">
-                  <div className={`p-2 rounded-xl transition-all duration-300 ${
+                  <div className={`relative p-2.5 rounded-xl transition-all duration-500 ${
                     isRecommendation 
-                      ? 'bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md' 
-                      : 'bg-gray-100 text-gray-500 group-hover:bg-amber-100 group-hover:text-amber-600'
+                      ? 'bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-600 text-white shadow-lg animate-pulse' 
+                      : 'bg-gradient-to-br from-amber-100 to-yellow-100 text-amber-700 group-hover:from-amber-200 group-hover:to-yellow-200'
                   }`}>
-                    <Lightbulb className="h-5 w-5" />
+                    {/* Compass Rose Icon */}
+                    <div className={`transform transition-transform duration-700 ${isRecommendation ? 'rotate-0' : 'rotate-180'}`}>
+                      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2 L12 6 M12 18 L12 22 M2 12 L6 12 M18 12 L22 12"/>
+                        <path d="M12 12 L16 8 M12 12 L8 16" strokeWidth="2.5" strokeLinecap="round"/>
+                      </svg>
+                    </div>
                   </div>
                   <div className="text-left">
-                    <span className={`block font-semibold transition-colors ${
-                      isRecommendation ? 'text-amber-800' : 'text-gray-700 group-hover:text-amber-700'
+                    <span className={`block font-bold text-base transition-colors ${
+                      isRecommendation ? 'text-amber-900' : 'text-gray-700 group-hover:text-amber-800'
                     }`}>
-                      Share a recommendation
+                      🗺️ Discover Hidden Gems
                     </span>
-                    <span className="text-xs text-gray-500">
-                      Help others discover amazing places
+                    <span className={`text-xs font-medium ${
+                      isRecommendation ? 'text-amber-700' : 'text-gray-500 group-hover:text-amber-600'
+                    }`}>
+                      Share your treasure map with the community
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`h-5 w-5 text-gray-400 transition-all duration-300 ${
-                  isRecommendation ? 'rotate-180 text-amber-600' : 'group-hover:text-amber-500'
-                }`} />
+                
+                {/* Animated chevron */}
+                <div className={`transition-all duration-500 ${
+                  isRecommendation ? 'rotate-180' : 'rotate-0'
+                }`}>
+                  <ChevronDown className={`h-6 w-6 ${
+                    isRecommendation ? 'text-amber-700' : 'text-gray-400 group-hover:text-amber-500'
+                  }`} />
+                </div>
+
+                {/* Decorative corner elements (map edges) */}
+                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-amber-400/40 rounded-tl-sm" />
+                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-amber-400/40 rounded-tr-sm" />
+                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-amber-400/40 rounded-bl-sm" />
+                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-amber-400/40 rounded-br-sm" />
               </button>
 
+              {/* Treasure Map Unfolding - Content Area */}
               {isRecommendation && (
-                <div className="mt-3 p-5 bg-gradient-to-br from-amber-50 via-orange-50/50 to-amber-50 backdrop-blur-sm rounded-2xl space-y-4 border border-amber-200/40 shadow-inner animate-slide-in">
-                  <div className="space-y-3">
+                <div 
+                  className="mt-3 p-6 rounded-2xl space-y-5 border-2 shadow-2xl animate-in slide-in-from-top-4 duration-500 relative overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fcd34d 50%, #fde68a 75%, #fef3c7 100%)',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient-shift 8s ease infinite',
+                    borderColor: '#d97706'
+                  }}
+                >
+                  {/* Vintage paper texture overlay */}
+                  <div className="absolute inset-0 opacity-20 pointer-events-none" 
+                       style={{
+                         backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(120, 53, 15, 0.03) 2px, rgba(120, 53, 15, 0.03) 4px)`
+                       }}
+                  />
+                  
+                  {/* Compass Rose Header */}
+                  <div className="flex items-center justify-center mb-4 relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t-2 border-dashed border-amber-700/30"></div>
+                    </div>
+                    <div className="relative bg-gradient-to-br from-yellow-50 to-amber-100 px-4 py-2 rounded-full border-2 border-amber-700/40 shadow-md">
+                      <span className="text-sm font-bold text-amber-900 flex items-center gap-2">
+                        <svg className="h-4 w-4 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <circle cx="12" cy="12" r="9"/>
+                          <path d="M12 3 L12 6 M12 18 L12 21 M3 12 L6 12 M18 12 L21 12"/>
+                          <path d="M12 12 L15 9"/>
+                        </svg>
+                        MARK YOUR TREASURE
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 relative z-10">
+                    {/* Category Selection - Treasure Type */}
                     <label className="block">
-                      <span className="text-sm font-semibold text-amber-800 mb-2 block">What are you recommending?</span>
+                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
+                        <span className="text-xl">💎</span>
+                        What treasure did you find?
+                      </span>
                       <div className="relative">
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 rounded-xl bg-white/90 backdrop-blur-sm border border-amber-200/60 focus:outline-none focus:ring-4 focus:ring-amber-400/30 font-medium text-gray-800 appearance-none cursor-pointer transition-all hover:border-amber-300"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl bg-white/95 backdrop-blur-sm border-2 border-amber-700/40 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 focus:border-amber-600 font-semibold text-gray-900 appearance-none cursor-pointer transition-all hover:border-amber-600 shadow-inner"
+                          style={{
+                            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(254,243,199,0.3))'
+                          }}
                         >
-                          <option value="">Choose a category...</option>
-                          <option value="restaurant">🍽️ Restaurant</option>
-                          <option value="cafe">☕ Café</option>
-                          <option value="hotel">🏨 Hotel</option>
-                          <option value="venue">💃 Venue</option>
+                          <option value="">Choose your treasure type...</option>
+                          <option value="restaurant">🍽️ Dining Hall</option>
+                          <option value="cafe">☕ Cozy Tavern</option>
+                          <option value="hotel">🏨 Inn & Lodge</option>
+                          <option value="venue">💃 Grand Ballroom</option>
                         </select>
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl">
                           {recommendationType === 'restaurant' ? '🍽️' : 
                            recommendationType === 'cafe' ? '☕' :
                            recommendationType === 'hotel' ? '🏨' :
-                           recommendationType === 'venue' ? '🎭' : '📍'}
+                           recommendationType === 'venue' ? '💃' : '🗺️'}
                         </div>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-600 pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-800 pointer-events-none" />
                       </div>
                     </label>
 
+                    {/* Price Range - Treasure Value */}
                     <label className="block">
-                      <span className="text-sm font-semibold text-amber-800 mb-2 block">Price range</span>
-                      <div className="grid grid-cols-3 gap-2">
-                        {['$', '$$', '$$$'].map((price) => (
+                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
+                        <span className="text-xl">💰</span>
+                        Treasure value
+                      </span>
+                      <div className="grid grid-cols-3 gap-3">
+                        {['$', '$$', '$$$'].map((price, idx) => (
                           <button
                             key={price}
+                            type="button"
                             onClick={() => setPriceRange(price)}
-                            className={`p-3 rounded-xl font-bold transition-all duration-200 ${
+                            className={`relative p-4 rounded-xl font-bold transition-all duration-300 overflow-hidden ${
                               priceRange === price
-                                ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg transform scale-105'
-                                : 'bg-white/80 text-gray-700 hover:bg-amber-100 hover:text-amber-700 border border-amber-200/40'
+                                ? 'bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500 text-white shadow-xl transform scale-105 border-2 border-amber-600'
+                                : 'bg-white/90 text-amber-800 hover:bg-amber-50 border-2 border-amber-300/60 hover:border-amber-400 shadow-md hover:shadow-lg'
                             }`}
                           >
-                            <div className="text-lg">{price}</div>
-                            <div className="text-xs font-normal mt-1">
-                              {price === '$' ? 'Budget' : price === '$$' ? 'Moderate' : 'Upscale'}
+                            <div className="text-2xl mb-1">{price}</div>
+                            <div className="text-xs font-semibold">
+                              {price === '$' ? '⭐ Budget' : price === '$$' ? '⭐⭐ Moderate' : '⭐⭐⭐ Luxury'}
                             </div>
+                            {priceRange === price && (
+                              <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/20 to-transparent animate-pulse" />
+                            )}
                           </button>
                         ))}
                       </div>
                     </label>
+
+                    {/* Location Search - Mark on Map */}
+                    <label className="block">
+                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
+                        <span className="text-xl">📍</span>
+                        Mark it on the map
+                      </span>
+                      <div className="relative p-1 rounded-xl bg-gradient-to-br from-amber-200 via-yellow-200 to-amber-200 shadow-inner">
+                        <div className="relative">
+                          <GoogleMapsLocationInput
+                            value={location}
+                            onChange={handleLocationChange}
+                            placeholder="🔍 Search for your hidden gem..."
+                            className="border-2 border-amber-600/40 rounded-lg shadow-md"
+                            biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
+                            searchTypes={[]}
+                            showBusinessDetails={true}
+                          />
+                        </div>
+                      </div>
+                      {location && (
+                        <div className="mt-2 p-3 bg-white/80 rounded-lg border-2 border-dashed border-amber-600/40 flex items-center gap-2">
+                          <MapPin className="h-5 w-5 text-amber-700 animate-bounce" />
+                          <span className="text-sm font-semibold text-amber-900">
+                            Treasure marked: {location}
+                          </span>
+                        </div>
+                      )}
+                    </label>
                   </div>
+
+                  {/* Decorative map corner markers */}
+                  <div className="absolute top-3 left-3 w-6 h-6 border-t-3 border-l-3 border-amber-800/30" style={{ borderTopWidth: '3px', borderLeftWidth: '3px' }} />
+                  <div className="absolute top-3 right-3 w-6 h-6 border-t-3 border-r-3 border-amber-800/30" style={{ borderTopWidth: '3px', borderRightWidth: '3px' }} />
+                  <div className="absolute bottom-3 left-3 w-6 h-6 border-b-3 border-l-3 border-amber-800/30" style={{ borderBottomWidth: '3px', borderLeftWidth: '3px' }} />
+                  <div className="absolute bottom-3 right-3 w-6 h-6 border-b-3 border-r-3 border-amber-800/30" style={{ borderBottomWidth: '3px', borderRightWidth: '3px' }} />
                 </div>
               )}
-            </div>
-
-            {/* Location input using Google Maps Places API */}
-            <div className="relative">
-              <GoogleMapsLocationInput
-                value={location}
-                onChange={handleLocationChange}
-                placeholder="Search for venues, restaurants, milongas..."
-                className="w-full"
-                biasToLocation={{ lat: -34.6037, lng: -58.3816 }} // Buenos Aires
-                searchTypes={[]} // Search all establishment types
-                showBusinessDetails={true}
-              />
             </div>
 
             {/* Enhanced Tags with better styling */}

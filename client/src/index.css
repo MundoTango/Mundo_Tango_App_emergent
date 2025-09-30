@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🗺️ Treasure Map Explorer Animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-gradient {
+  animation: gradient-shift 8s ease infinite;
+}
+
 @keyframes slideInUp {
   from {
     opacity: 0;
