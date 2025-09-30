@@ -8,7 +8,7 @@ export type TextToken = {
 export type MentionToken = {
   kind: 'mention';
   name: string;
-  type: 'user' | 'event' | 'group';
+  type: 'user' | 'event' | 'group' | 'city';
   id: string;
 };
 
@@ -17,7 +17,7 @@ export type Token = TextToken | MentionToken;
 // Parse canonical format "@[Name](type:id)" into token array
 export function parseCanonicalToTokens(canonical: string): Token[] {
   const tokens: Token[] = [];
-  const mentionRegex = /@\[([^\]]+)\]\((user|event|group):([^\)]+)\)/g;
+  const mentionRegex = /@\[([^\]]+)\]\((user|event|group|city):([^\)]+)\)/g;
   let lastIndex = 0;
   let match;
 
@@ -34,7 +34,7 @@ export function parseCanonicalToTokens(canonical: string): Token[] {
     tokens.push({
       kind: 'mention',
       name: match[1],
-      type: match[2] as 'user' | 'event' | 'group',
+      type: match[2] as 'user' | 'event' | 'group' | 'city',
       id: match[3]
     });
 
@@ -224,7 +224,7 @@ export function getDisplayLength(tokens: Token[]): number {
 export function insertMentionAtPos(
   tokens: Token[],
   displayPos: number,
-  mention: { name: string; type: 'user' | 'event' | 'group'; id: string }
+  mention: { name: string; type: 'user' | 'event' | 'group' | 'city'; id: string }
 ): { tokens: Token[]; newCursorPos: number } {
   const newTokens: Token[] = [];
   let currentPos = 0;
@@ -326,7 +326,7 @@ export function replaceTriggerWithMention(
   tokens: Token[],
   triggerStart: number,
   queryLength: number,
-  mention: { name: string; type: 'user' | 'event' | 'group'; id: string }
+  mention: { name: string; type: 'user' | 'event' | 'group' | 'city'; id: string }
 ): { tokens: Token[]; newCursorPos: number } {
   // Remove the @query part (triggerStart to triggerStart + queryLength + 1 for @)
   const deleteEnd = triggerStart + queryLength + 1; // +1 for the @ symbol

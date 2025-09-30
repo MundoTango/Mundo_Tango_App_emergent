@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Users, Calendar, UsersRound } from 'lucide-react';
+import { Users, Calendar, UsersRound, MapPin } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import {
   Token,
@@ -19,7 +19,7 @@ import {
 interface MentionData {
   id: string;
   display: string;
-  type: 'user' | 'event' | 'group';
+  type: 'user' | 'event' | 'group' | 'city';
   avatar?: string;
   status?: string;
 }
@@ -38,7 +38,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   value,
   onChange,
   onMentionsChange,
-  placeholder = "Share your memory and @mention people or events...",
+  placeholder = "Share your memory and @mention people, events, or cities...",
   className = "",
   disabled = false,
   rows = 4
@@ -110,6 +110,21 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             type: 'event',
             avatar: item.image || item.imageUrl,
             status: item.startDate ? `📅 ${new Date(item.startDate).toLocaleDateString()}` : undefined
+          });
+        } else if (item.type === 'groups') {
+          allSuggestions.push({
+            id: item.id?.toString(),
+            display: item.name || 'Unknown Group',
+            type: 'group',
+            avatar: item.coverImage,
+            status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
+          });
+        } else if (item.type === 'cities') {
+          allSuggestions.push({
+            id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
+            display: item.name || 'Unknown City',
+            type: 'city',
+            status: item.country ? `📍 ${item.country}` : undefined
           });
         }
       });
@@ -262,6 +277,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         return <Calendar className="h-4 w-4 text-green-500" />;
       case 'group':
         return <UsersRound className="h-4 w-4 text-purple-500" />;
+      case 'city':
+        return <MapPin className="h-4 w-4 text-orange-500" />;
       default:
         return null;
     }
@@ -275,6 +292,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         return 'bg-green-50 text-green-700';
       case 'group':
         return 'bg-purple-50 text-purple-700';
+      case 'city':
+        return 'bg-orange-50 text-orange-700';
       default:
         return 'bg-gray-50 text-gray-700';
     }
@@ -297,9 +316,22 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         displayIndex += token.text.length;
       } else {
         const mentionDisplay = `@${token.name}`;
-        const colorClass = token.type === 'user' 
-          ? 'text-blue-600 font-semibold' 
-          : 'text-green-600 font-semibold';
+        let colorClass = 'text-gray-600 font-semibold';
+        
+        switch (token.type) {
+          case 'user':
+            colorClass = 'text-blue-600 font-semibold';
+            break;
+          case 'event':
+            colorClass = 'text-green-600 font-semibold';
+            break;
+          case 'group':
+            colorClass = 'text-purple-600 font-semibold';
+            break;
+          case 'city':
+            colorClass = 'text-orange-600 font-semibold';
+            break;
+        }
         
         parts.push(
           <span key={`mention-${i}`} className={colorClass}>
