@@ -125,7 +125,7 @@ router.post('/api/events', authMiddleware, async (req, res) => {
 });
 
 // Get events feed with filters
-router.get('/api/events/feed', async (req, res) => {
+router.get('/api/events/feed', optionalAuth, async (req, res) => {
   try {
     const {
       page = '1',
