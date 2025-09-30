@@ -206,125 +206,111 @@ export default function UpcomingEventsSidebar({
   };
 
   const renderRSVPIcons = (event: Event) => (
-    <TooltipProvider delayDuration={200}>
-      <div className="flex items-center gap-1">
-        {/* Going - Check Mark */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleRSVP(event.id, 'going', event.userRsvpStatus);
-              }}
-              disabled={rsvpMutation.isPending}
-              aria-label="Mark as attending"
-              style={{
-                background: event.userRsvpStatus === 'going' 
-                  ? 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
-                  : 'rgba(255,255,255,0.78)',
-                borderColor: 'rgba(94,234,212,0.55)',
-                color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF'
-              }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-              data-testid={`rsvp-attending-${event.id}`}
-            >
-              <Check className="w-4 h-4" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Mark as attending</p>
-          </TooltipContent>
-        </Tooltip>
+    <div className="flex items-center gap-1">
+      {/* Going - Check Mark */}
+      <button
+        onClick={(e) => {
+          console.log('🔥 BUTTON CLICKED - Going button');
+          e.preventDefault();
+          e.stopPropagation();
+          handleRSVP(event.id, 'going', event.userRsvpStatus);
+        }}
+        disabled={rsvpMutation.isPending}
+        title="Mark as attending"
+        aria-label="Mark as attending"
+        style={{
+          background: event.userRsvpStatus === 'going' 
+            ? 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
+            : 'rgba(255,255,255,0.78)',
+          borderColor: 'rgba(94,234,212,0.55)',
+          color: event.userRsvpStatus === 'going' ? '#FFFFFF' : '#3BA0AF',
+          pointerEvents: 'auto',
+          cursor: 'pointer'
+        }}
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        data-testid={`rsvp-attending-${event.id}`}
+      >
+        <Check className="w-4 h-4" />
+      </button>
 
-        {/* Interested - Star */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleRSVP(event.id, 'interested', event.userRsvpStatus);
-              }}
-              disabled={rsvpMutation.isPending}
-              aria-label="Mark as interested"
-              style={{
-                background: event.userRsvpStatus === 'interested' 
-                  ? 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)'
-                  : 'rgba(255,255,255,0.78)',
-                borderColor: 'rgba(94,234,212,0.55)',
-                color: event.userRsvpStatus === 'interested' ? '#FFFFFF' : '#3BA0AF'
-              }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-              data-testid={`rsvp-interested-${event.id}`}
-            >
-              <Star className="w-4 h-4" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Mark as interested</p>
-          </TooltipContent>
-        </Tooltip>
+      {/* Interested - Star */}
+      <button
+        onClick={(e) => {
+          console.log('🔥 BUTTON CLICKED - Interested button');
+          e.preventDefault();
+          e.stopPropagation();
+          handleRSVP(event.id, 'interested', event.userRsvpStatus);
+        }}
+        disabled={rsvpMutation.isPending}
+        title="Mark as interested"
+        aria-label="Mark as interested"
+        style={{
+          background: event.userRsvpStatus === 'interested' 
+            ? 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)'
+            : 'rgba(255,255,255,0.78)',
+          borderColor: 'rgba(94,234,212,0.55)',
+          color: event.userRsvpStatus === 'interested' ? '#FFFFFF' : '#3BA0AF',
+          pointerEvents: 'auto',
+          cursor: 'pointer'
+        }}
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        data-testid={`rsvp-interested-${event.id}`}
+      >
+        <Star className="w-4 h-4" />
+      </button>
 
-        {/* Maybe - Question Mark */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleRSVP(event.id, 'maybe', event.userRsvpStatus);
-              }}
-              disabled={rsvpMutation.isPending}
-              aria-label="Mark as maybe"
-              style={{
-                background: event.userRsvpStatus === 'maybe' 
-                  ? 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%)'
-                  : 'rgba(255,255,255,0.78)',
-                borderColor: 'rgba(94,234,212,0.55)',
-                color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF'
-              }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-              data-testid={`rsvp-maybe-${event.id}`}
-            >
-              <HelpCircle className="w-4 h-4" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Mark as maybe</p>
-          </TooltipContent>
-        </Tooltip>
+      {/* Maybe - Question Mark */}
+      <button
+        onClick={(e) => {
+          console.log('🔥 BUTTON CLICKED - Maybe button');
+          e.preventDefault();
+          e.stopPropagation();
+          handleRSVP(event.id, 'maybe', event.userRsvpStatus);
+        }}
+        disabled={rsvpMutation.isPending}
+        title="Mark as maybe"
+        aria-label="Mark as maybe"
+        style={{
+          background: event.userRsvpStatus === 'maybe' 
+            ? 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%)'
+            : 'rgba(255,255,255,0.78)',
+          borderColor: 'rgba(94,234,212,0.55)',
+          color: event.userRsvpStatus === 'maybe' ? '#FFFFFF' : '#3BA0AF',
+          pointerEvents: 'auto',
+          cursor: 'pointer'
+        }}
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        data-testid={`rsvp-maybe-${event.id}`}
+      >
+        <HelpCircle className="w-4 h-4" />
+      </button>
 
-        {/* Not Going - X */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleRSVP(event.id, 'not_going');
-              }}
-              disabled={rsvpMutation.isPending}
-              aria-label="Mark as not going"
-              style={{
-                background: event.userRsvpStatus === 'not_going' 
-                  ? 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
-                  : 'rgba(255,255,255,0.78)',
-                borderColor: 'rgba(94,234,212,0.55)',
-                color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF'
-              }}
-              className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-              data-testid={`rsvp-not-going-${event.id}`}
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Mark as not going</p>
-          </TooltipContent>
-        </Tooltip>
-      </div>
-    </TooltipProvider>
+      {/* Not Going - X */}
+      <button
+        onClick={(e) => {
+          console.log('🔥 BUTTON CLICKED - Not going button');
+          e.preventDefault();
+          e.stopPropagation();
+          handleRSVP(event.id, 'not_going');
+        }}
+        disabled={rsvpMutation.isPending}
+        title="Mark as not going"
+        aria-label="Mark as not going"
+        style={{
+          background: event.userRsvpStatus === 'not_going' 
+            ? 'linear-gradient(135deg, #F87171 0%, #EF4444 100%)'
+            : 'rgba(255,255,255,0.78)',
+          borderColor: 'rgba(94,234,212,0.55)',
+          color: event.userRsvpStatus === 'not_going' ? '#FFFFFF' : '#3BA0AF',
+          pointerEvents: 'auto',
+          cursor: 'pointer'
+        }}
+        className="p-1.5 rounded-lg transition-all duration-200 border hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+        data-testid={`rsvp-not-going-${event.id}`}
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </div>
   );
 
   const renderEventCard = (event: Event) => {
