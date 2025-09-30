@@ -571,31 +571,82 @@ function ESAMemoryFeedCore() {
                         profileImage: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Pierre'
                       }}
                       onSubmit={(data) => {
-                        // Convert structured data to FormData for API
+                        // ESA Layer 13 FIX: Handle internal media URLs properly
                         console.log('🔍 [ESAMemoryFeed] Received data.content:', data.content);
-                        const formData = new FormData();
-                        formData.append('content', data.content);
-                        console.log('🔍 [ESAMemoryFeed] FormData content appended:', formData.get('content'));
-                        formData.append('visibility', data.visibility);
-                        if (data.location) formData.append('location', data.location);
-                        if (data.tags.length > 0) formData.append('tags', JSON.stringify(data.tags));
-                        if (data.mentions && data.mentions.length > 0) {
-                          formData.append('mentions', JSON.stringify(data.mentions));
-                        }
-                        if (data.emotions && data.emotions.length > 0) {
-                          formData.append('emotions', JSON.stringify(data.emotions));
-                        }
-                        if (data.isRecommendation) {
-                          formData.append('isRecommendation', 'true');
-                          if (data.recommendationType) {
-                            formData.append('recommendationType', data.recommendationType);
+                        console.log('🏠 [ESAMemoryFeed] Internal media URLs:', data.internalMediaUrls?.length || 0);
+                        console.log('📸 [ESAMemoryFeed] Legacy media files:', data.media?.length || 0);
+
+                        // If we have internal URLs, use the direct endpoint (JSON)
+                        if (data.internalMediaUrls && data.internalMediaUrls.length > 0) {
+                          const postData = {
+                            content: data.content,
+                            visibility: data.visibility,
+                            location: data.location,
+                            tags: data.tags,
+                            mentions: data.mentions,
+                            emotions: data.emotions,
+                            mediaUrls: data.internalMediaUrls, // Use uploaded URLs
+                            isRecommendation: data.isRecommendation,
+                            recommendationType: data.recommendationType
+                          };
+                          
+                          // Use direct endpoint for URL-based media
+                          fetch('/api/posts/direct', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            credentials: 'include',
+                            body: JSON.stringify(postData)
+                          })
+                            .then(async res => {
+                              if (!res.ok) {
+                                const errorText = await res.text();
+                                throw new Error(`Failed to create post: ${res.status} - ${errorText}`);
+                              }
+                              return res.json();
+                            })
+                            .then(() => {
+                              queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+                              queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+                              setShowCreateModal(false);
+                              toast({
+                                title: "Post created! 🎉",
+                                description: "Your memory has been shared with media"
+                              });
+                            })
+                            .catch(err => {
+                              console.error('Error creating post:', err);
+                              toast({
+                                title: "Failed to create post",
+                                description: err.message || "Please try again",
+                                variant: "destructive"
+                              });
+                            });
+                        } 
+                        // Otherwise use FormData for legacy file uploads
+                        else {
+                          const formData = new FormData();
+                          formData.append('content', data.content);
+                          formData.append('visibility', data.visibility);
+                          if (data.location) formData.append('location', data.location);
+                          if (data.tags.length > 0) formData.append('tags', JSON.stringify(data.tags));
+                          if (data.mentions && data.mentions.length > 0) {
+                            formData.append('mentions', JSON.stringify(data.mentions));
                           }
+                          if (data.emotions && data.emotions.length > 0) {
+                            formData.append('emotions', JSON.stringify(data.emotions));
+                          }
+                          if (data.isRecommendation) {
+                            formData.append('isRecommendation', 'true');
+                            if (data.recommendationType) {
+                              formData.append('recommendationType', data.recommendationType);
+                            }
+                          }
+                          // Add media files
+                          data.media.forEach(file => {
+                            formData.append('images', file);
+                          });
+                          createPostMutation.mutate(formData);
                         }
-                        // Add media files
-                        data.media.forEach(file => {
-                          formData.append('images', file);
-                        });
-                        createPostMutation.mutate(formData);
                       }}
                       onPostCreated={() => {
                         // Optional callback after successful post
@@ -606,13 +657,11 @@ function ESAMemoryFeedCore() {
                   )}
                   
                   {/* Posts Display */}
-                  {console.log('[ESA DEBUG ESAMemoryFeed] About to render feed section, isLoading:', isLoading, 'posts:', posts?.length)}
                   <Suspense fallback={
                     <div className="flex justify-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
                     </div>
                   }>
-                    {console.log('[ESA DEBUG ESAMemoryFeed] Inside Suspense')}
                     {/* Posts Feed - Feed Only Mode */}
                     {isLoading ? (
                       <div className="flex justify-center py-8">
