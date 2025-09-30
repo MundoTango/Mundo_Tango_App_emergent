@@ -98,9 +98,12 @@ Fixed RSVP button highlighting and click handling across event detail pages and 
 2. **Data Unwrapping** (`client/src/pages/event-detail.tsx`):
    - Added `select: (data: any) => data.data` to unwrap API response
    
-3. **Click Event Handling** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
-   - Added wrapper div around RSVP icons with `onClick` that calls `e.preventDefault()` and `e.stopPropagation()`
-   - Prevents parent link from hijacking RSVP button clicks
+3. **Component Pattern Fix** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
+   - Replaced native `button` elements with shadcn `Button` components
+   - Changed onClick handlers to call `rsvpMutation.mutate()` directly instead of using wrapper function
+   - Removed `e.preventDefault()` and `e.stopPropagation()` to match working pattern from event-detail.tsx
+   - Removed unused `handleRSVP` wrapper function
+   - Cleaned up debug console.log statements and version tracking
 
 ### Result:
 ✅ RSVP statuses display with ocean/turquoise gradients when selected
