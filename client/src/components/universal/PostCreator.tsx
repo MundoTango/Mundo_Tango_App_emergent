@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import LocationInput from './LocationInput';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
+import { useTranslation } from 'react-i18next';
 // ESA Layer 13: Advanced media processing with universal format support
 import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
 import { extractVideoThumbnail } from '@/utils/videoThumbnail';
@@ -146,6 +147,7 @@ export default function PostCreator({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   // ESA LIFE CEO 61x21 - CSRF Token for secure API requests
   const { csrfToken } = useCsrfToken();
@@ -200,8 +202,8 @@ export default function PostCreator({
         // Show enhanced toast if business has rating
         if (details.rating) {
           toast({
-            title: `${details.name} selected! 📍`,
-            description: `⭐ ${details.rating}/5 • ${details.address}`,
+            title: t('memories.creator.locationSelected', { name: details.name }),
+            description: t('memories.creator.locationDetails', { rating: details.rating, address: details.address }),
           });
         }
       }
@@ -214,8 +216,8 @@ export default function PostCreator({
     // ESA LIFE CEO 61x21 - DISABLED TO PREVENT SERVER UPLOADS
     console.error('❌ BLOCKED: Old file upload mechanism triggered!');
     toast({
-      title: "⚠️ Use Cloud Upload Instead",
-      description: "Please use the '☁️ Cloud Upload' button for all media uploads",
+      title: t('memories.creator.useCloudUpload'),
+      description: t('memories.creator.useCloudUploadDesc'),
       variant: "destructive"
     });
     return; // Block completely
@@ -229,8 +231,8 @@ export default function PostCreator({
 
       if (!isValidType) {
         toast({
-          title: "Invalid file type",
-          description: "Please upload only images or videos",
+          title: t('memories.creator.invalidFileType'),
+          description: t('memories.creator.invalidFileTypeDesc'),
           variant: "destructive"
         });
         return false;
@@ -238,8 +240,8 @@ export default function PostCreator({
 
       if (!isValidSize) {
         toast({
-          title: "File too large",
-          description: `${file.name} exceeds 500MB limit`,
+          title: t('memories.creator.fileTooLarge'),
+          description: t('memories.creator.fileTooLargeDesc', { filename: file.name }),
           variant: "destructive"
         });
         return false;
@@ -278,8 +280,8 @@ export default function PostCreator({
 
     // Show success message
     toast({
-      title: "Media added! 📸",
-      description: `${validFiles.length} file(s) ready to upload`,
+      title: t('memories.creator.mediaAdded'),
+      description: t('memories.creator.mediaAddedDesc', { count: validFiles.length }),
     });
 
     // Reset the file input to allow re-selecting the same file
@@ -389,8 +391,8 @@ export default function PostCreator({
         setMediaPreviews([]);
 
         toast({
-          title: "❌ Server Upload Blocked!",
-          description: "Please use the 'Upload Media Files' button for ALL media. Direct file uploads are disabled.",
+          title: t('memories.creator.uploadBlocked'),
+          description: t('memories.creator.uploadBlockedDesc'),
           variant: "destructive"
         });
 
@@ -590,8 +592,8 @@ export default function PostCreator({
     onSuccess: (response) => {
       console.log('✅ ESA Layer 13: Post mutation success!', response);
       toast({
-        title: editMode ? "Post updated! ✏️" : "Post created! 🎉", 
-        description: editMode ? "Your changes have been saved" : "Your memory has been shared",
+        title: editMode ? t('memories.toasts.postUpdatedEmoji') : t('memories.toasts.postCreatedEmoji'), 
+        description: editMode ? t('memories.toasts.changesSaved') : t('memories.toasts.memorySharedDescription'),
       });
 
       // Trigger confetti celebration
@@ -627,8 +629,8 @@ export default function PostCreator({
       setIsUploading(false);
       setUploadProgress(0);
       toast({
-        title: "Error creating post",
-        description: error.message || "Please try again",
+        title: t('memories.toasts.createFailed'),
+        description: error.message || t('memories.toasts.createFailedDesc'),
         variant: "destructive"
       });
     }
@@ -637,8 +639,8 @@ export default function PostCreator({
   const handleEnhanceContent = async () => {
     if (!content.trim()) {
       toast({
-        title: "No content to enhance",
-        description: 'Please add some content to enhance',
+        title: t('memories.creator.noContentToEnhance'),
+        description: t('memories.creator.noContentToEnhanceDesc'),
         variant: "destructive"
       });
       return;
@@ -662,7 +664,7 @@ export default function PostCreator({
         setEnhancedContent(result.enhanced);
         setShowEnhancement(true);
         toast({
-          title: "Content enhanced with AI! ✨",
+          title: t('memories.creator.contentEnhanced'),
         });
       } else {
         toast({
