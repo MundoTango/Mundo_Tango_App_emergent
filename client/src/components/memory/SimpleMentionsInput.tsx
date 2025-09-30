@@ -85,11 +85,20 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       
       overlay.style.fontFamily = computedStyle.fontFamily;
       overlay.style.fontSize = computedStyle.fontSize;
+      overlay.style.fontWeight = computedStyle.fontWeight;
       overlay.style.lineHeight = computedStyle.lineHeight;
       overlay.style.letterSpacing = computedStyle.letterSpacing;
+      overlay.style.wordSpacing = computedStyle.wordSpacing;
+      overlay.style.textAlign = computedStyle.textAlign;
       overlay.style.padding = computedStyle.padding;
+      overlay.style.paddingTop = computedStyle.paddingTop;
+      overlay.style.paddingRight = computedStyle.paddingRight;
+      overlay.style.paddingBottom = computedStyle.paddingBottom;
+      overlay.style.paddingLeft = computedStyle.paddingLeft;
       overlay.style.border = computedStyle.border;
+      overlay.style.borderWidth = computedStyle.borderWidth;
       overlay.style.borderRadius = computedStyle.borderRadius;
+      overlay.style.boxSizing = computedStyle.boxSizing;
     }
   }, []);
   
@@ -407,9 +416,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       {displayValue && (
         <div
           ref={styledOverlayRef}
-          className="absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words"
+          className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden"
           style={{
-            zIndex: 2
+            zIndex: 2,
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word'
           }}
           aria-hidden="true"
         >
