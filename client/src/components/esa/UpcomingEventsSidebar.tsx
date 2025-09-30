@@ -8,8 +8,6 @@ import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/theme-context';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
 import { useQuery } from '@tanstack/react-query';
-// ESA Framework Layer 7: Removed wouter dependency to prevent context errors
-import OnlinePresence from './OnlinePresence';
 
 interface Event {
   id: string;
@@ -64,9 +62,6 @@ export default function UpcomingEventsSidebar({
 
   return (
     <div className="h-full space-y-6">
-      {/* Online Presence */}
-      <OnlinePresence showCount showList />
-      
       {/* Events Section */}
       <div className="">
         {/* Header */}
