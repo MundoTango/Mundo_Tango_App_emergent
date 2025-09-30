@@ -8,7 +8,7 @@ export type TextToken = {
 export type MentionToken = {
   kind: 'mention';
   name: string;
-  type: 'user' | 'event';
+  type: 'user' | 'event' | 'group';
   id: string;
 };
 
@@ -17,7 +17,7 @@ export type Token = TextToken | MentionToken;
 // Parse canonical format "@[Name](type:id)" into token array
 export function parseCanonicalToTokens(canonical: string): Token[] {
   const tokens: Token[] = [];
-  const mentionRegex = /@\[([^\]]+)\]\((user|event):([^\)]+)\)/g;
+  const mentionRegex = /@\[([^\]]+)\]\((user|event|group):([^\)]+)\)/g;
   let lastIndex = 0;
   let match;
 
@@ -34,7 +34,7 @@ export function parseCanonicalToTokens(canonical: string): Token[] {
     tokens.push({
       kind: 'mention',
       name: match[1],
-      type: match[2] as 'user' | 'event',
+      type: match[2] as 'user' | 'event' | 'group',
       id: match[3]
     });
 
@@ -105,21 +105,21 @@ export function getTokenAtDisplayPos(tokens: Token[], displayPos: number): {
 }
 
 // Apply text edit to tokens at display position
+// Returns: { tokens: updated tokens, newCursorPos: where cursor should be after edit }
 export function applyEditToTokens(
   tokens: Token[],
   displayStart: number,
   displayEnd: number,
   insertText: string
-): Token[] {
+): { tokens: Token[]; newCursorPos: number } {
   const newTokens: Token[] = [];
   let currentPos = 0;
   let editApplied = false;
+  let newCursorPos = displayStart + insertText.length;
   
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    const tokenDisplayLength = token.kind === 'text' 
-      ? token.text.length 
-      : `@${token.name}`.length;
+    const tokenDisplayLength = getTokenDisplayLength(token);
     const tokenStart = currentPos;
     const tokenEnd = currentPos + tokenDisplayLength;
     
@@ -187,7 +187,9 @@ export function applyEditToTokens(
   }
   
   // Merge consecutive text tokens
-  return mergeTextTokens(newTokens);
+  const merged = mergeTextTokens(newTokens);
+  
+  return { tokens: merged, newCursorPos };
 }
 
 // Merge consecutive text tokens
@@ -208,11 +210,21 @@ function mergeTextTokens(tokens: Token[]): Token[] {
   return merged.length > 0 ? merged : [{ kind: 'text', text: '' }];
 }
 
+// Get display length of a single token
+export function getTokenDisplayLength(token: Token): number {
+  return token.kind === 'text' ? token.text.length : `@${token.name}`.length;
+}
+
+// Get total display length of token array
+export function getDisplayLength(tokens: Token[]): number {
+  return tokens.reduce((sum, token) => sum + getTokenDisplayLength(token), 0);
+}
+
 // Insert a mention token at display position
 export function insertMentionAtPos(
   tokens: Token[],
   displayPos: number,
-  mention: { name: string; type: 'user' | 'event'; id: string }
+  mention: { name: string; type: 'user' | 'event' | 'group'; id: string }
 ): { tokens: Token[]; newCursorPos: number } {
   const newTokens: Token[] = [];
   let currentPos = 0;
@@ -264,4 +276,64 @@ export function insertMentionAtPos(
   }
   
   return { tokens: mergeTextTokens(newTokens), newCursorPos };
+}
+
+// Find mention trigger (@query) at cursor position
+// Returns start position and query string if found
+export function findMentionTriggerAtCursor(
+  tokens: Token[],
+  cursorPos: number
+): { start: number; query: string } | null {
+  let currentPos = 0;
+  
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    const tokenDisplayLength = getTokenDisplayLength(token);
+    const tokenStart = currentPos;
+    const tokenEnd = currentPos + tokenDisplayLength;
+    
+    // Check if cursor is in this token
+    if (cursorPos >= tokenStart && cursorPos <= tokenEnd) {
+      if (token.kind === 'text') {
+        const offsetInToken = cursorPos - tokenStart;
+        const textBeforeCursor = token.text.substring(0, offsetInToken);
+        
+        // Find last @ before cursor
+        const lastAtIndex = textBeforeCursor.lastIndexOf('@');
+        if (lastAtIndex !== -1) {
+          const query = textBeforeCursor.substring(lastAtIndex + 1);
+          // Only trigger if query doesn't contain whitespace (still typing mention)
+          if (!/\s/.test(query)) {
+            return {
+              start: tokenStart + lastAtIndex,
+              query
+            };
+          }
+        }
+      }
+      return null;
+    }
+    
+    currentPos = tokenEnd;
+  }
+  
+  return null;
+}
+
+// Replace @ trigger with mention token
+// Removes "@query" and inserts mention, returns new tokens and cursor position
+export function replaceTriggerWithMention(
+  tokens: Token[],
+  triggerStart: number,
+  queryLength: number,
+  mention: { name: string; type: 'user' | 'event' | 'group'; id: string }
+): { tokens: Token[]; newCursorPos: number } {
+  // Remove the @query part (triggerStart to triggerStart + queryLength + 1 for @)
+  const deleteEnd = triggerStart + queryLength + 1; // +1 for the @ symbol
+  
+  // Apply deletion
+  const afterDelete = applyEditToTokens(tokens, triggerStart, deleteEnd, '');
+  
+  // Insert mention at the position
+  return insertMentionAtPos(afterDelete.tokens, triggerStart, mention);
 }
