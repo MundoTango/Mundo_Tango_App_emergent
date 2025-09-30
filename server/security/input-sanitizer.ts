@@ -58,7 +58,7 @@ export function sanitizeHTML(input: string, options?: any): string {
   };
 
   const config = { ...defaultOptions, ...options };
-  return DOMPurify.sanitize(input, config);
+  return DOMPurify.sanitize(input, config).toString();
 }
 
 // Sanitize user input

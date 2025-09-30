@@ -317,23 +317,23 @@ export class MentionNotificationService {
       .where(eq(userProfiles.userId, mentionedUserId));
     
     // Simplified privacy check - will enhance with actual settings
-    const mentionPrivacy: 'everyone' | 'followers' | 'nobody' = 'everyone'; // Default to everyone for now
+    const mentionPrivacy = 'everyone' as 'everyone' | 'followers' | 'nobody'; // Default to everyone for now
     
-    switch (mentionPrivacy) {
-      case 'everyone':
-        return true;
-      
-      case 'followers':
-        // Check if mentioner follows the mentioned user
-        // In production: return await FollowService.isFollowing(mentionerUserId, mentionedUserId);
-        return true; // Simplified for now
-      
-      case 'nobody':
-        return false;
-      
-      default:
-        return true;
+    if (mentionPrivacy === 'everyone') {
+      return true;
     }
+    
+    if (mentionPrivacy === 'followers') {
+      // Check if mentioner follows the mentioned user
+      // In production: return await FollowService.isFollowing(mentionerUserId, mentionedUserId);
+      return true; // Simplified for now
+    }
+    
+    if (mentionPrivacy === 'nobody') {
+      return false;
+    }
+    
+    return true;
   }
   
   /**
