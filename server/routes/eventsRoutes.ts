@@ -29,7 +29,7 @@ const createEventSchema = z.object({
 });
 
 const rsvpSchema = z.object({
-  status: z.enum(['attending', 'maybe', 'not_attending'])
+  status: z.enum(['going', 'interested', 'maybe', 'not_going'])
 });
 
 // Create event
@@ -42,8 +42,9 @@ router.post('/api/events', authMiddleware, async (req, res) => {
       return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
+    const { recurringPattern, ...eventData } = validatedData;
     const [newEvent] = await db.insert(events).values({
-      ...validatedData,
+      ...eventData,
       userId: userId, // Required field
       organizerId: userId, // Also set organizerId for compatibility
       startDate: new Date(validatedData.startDate),
@@ -90,6 +91,7 @@ router.get('/api/events/feed', async (req, res) => {
     } = req.query;
 
     const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+    const userId = (req as any).user?.id; // Optional user ID from session
     
     // Build where conditions
     const whereConditions = [];
@@ -107,13 +109,17 @@ router.get('/api/events/feed', async (req, res) => {
         startDate: events.startDate,
         endDate: events.endDate,
         location: events.location,
+        city: events.city,
+        eventType: events.eventType,
         organizerId: events.organizerId, // Use organizerId field that exists
         userId: events.userId, // Also include userId
         groupId: events.groupId,
         maxAttendees: events.maxAttendees,
+        currentAttendees: events.currentAttendees,
         imageUrl: events.imageUrl,
         tags: events.tags,
         visibility: events.visibility,
+        isFeatured: events.isFeatured,
         createdAt: events.createdAt,
         organizer: {
           id: users.id,
@@ -141,27 +147,35 @@ router.get('/api/events/feed', async (req, res) => {
       );
     }
 
-    // Get RSVP counts for each event
+    // Get RSVP counts and user's RSVP status for each event
     const eventsWithRsvps = await Promise.all(
       filteredEvents.map(async (event) => {
         const rsvpCounts = await db
           .select({
             status: eventRsvps.status,
+            userId: eventRsvps.userId,
             count: eventRsvps.id
           })
           .from(eventRsvps)
           .where(eq(eventRsvps.eventId, event.id));
 
-        const attendingCount = rsvpCounts.filter(r => r.status === 'attending').length;
+        const goingCount = rsvpCounts.filter(r => r.status === 'going').length;
+        const interestedCount = rsvpCounts.filter(r => r.status === 'interested').length;
         const maybeCount = rsvpCounts.filter(r => r.status === 'maybe').length;
+
+        // Find user's RSVP status if they're logged in
+        const userRsvp = userId ? rsvpCounts.find(r => r.userId === userId) : null;
 
         return {
           ...event,
+          current_attendees: goingCount,
           rsvpCounts: {
-            attending: attendingCount,
+            going: goingCount,
+            interested: interestedCount,
             maybe: maybeCount,
             total: rsvpCounts.length
-          }
+          },
+          userRsvpStatus: userRsvp?.status || null
         };
       })
     );
