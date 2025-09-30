@@ -328,8 +328,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     const allSuggestions: MentionData[] = [];
     const results = searchData.results || [];
     
+    console.log('🔍 Search results received:', results);
+    
     if (Array.isArray(results)) {
       results.forEach((item: any) => {
+        console.log('Processing item:', item.type, item.name, item.metadata?.groupType);
         if (item.type === 'users') {
           allSuggestions.push({
             id: item.id?.toString(),
@@ -345,15 +348,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             avatar: item.image || item.imageUrl,
             status: item.startDate ? `📅 ${new Date(item.startDate).toLocaleDateString()}` : undefined
           });
-        } else if (item.type === 'communities' || item.type === 'groups') {
-          allSuggestions.push({
-            id: item.id?.toString(),
-            display: item.name || 'Unknown Group',
-            type: 'group',
-            avatar: item.coverImage,
-            status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
-          });
         } else if (item.type === 'cityGroup') {
+          // City Groups - orange with MapPin
           allSuggestions.push({
             id: item.slug || item.name?.toLowerCase().replace(/\s+/g, '-'),
             display: item.name || 'Unknown City Group',
@@ -362,12 +358,22 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
             status: item.city && item.country ? `📍 ${item.city}, ${item.country}` : (item.country || undefined)
           });
         } else if (item.type === 'professionalGroup') {
+          // Professional Groups - purple with globe
           allSuggestions.push({
             id: item.slug || item.id?.toString(),
             display: item.name || 'Unknown Group',
             type: 'group',
             avatar: item.coverImage,
             status: '🌐 International'
+          });
+        } else if (item.type === 'communities' || item.type === 'groups') {
+          // Fallback for other community/group types
+          allSuggestions.push({
+            id: item.id?.toString(),
+            display: item.name || 'Unknown Group',
+            type: 'group',
+            avatar: item.coverImage,
+            status: item.memberCount ? `👥 ${item.memberCount} members` : undefined
           });
         }
       });
