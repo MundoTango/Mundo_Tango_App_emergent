@@ -855,15 +855,20 @@ export default function PostCreator({
     });
 
     try {
+      console.log(`🚀 [PostCreator] Starting media processing for ${files.length} files`);
+      console.log(`📊 [PostCreator] File details:`, files.map(f => ({ name: f.name, type: f.type, size: `${(f.size/1024/1024).toFixed(2)}MB` })));
+      
       // Process all files with the advanced processor
       const processedFiles = await processMultipleMedia(
         files,
         (current, total, status) => {
           const progress = (current / total) * 100;
           setUploadProgress(progress);
-          console.log(`📸 Processing ${current}/${total}: ${status}`);
+          console.log(`📸 [PostCreator] Processing ${current}/${total} (${progress.toFixed(0)}%): ${status}`);
         }
       );
+      
+      console.log(`✅ [PostCreator] Processing complete! Got ${processedFiles.length} files`);
 
       // Check upload strategy for each file
       processedFiles.forEach(file => {
