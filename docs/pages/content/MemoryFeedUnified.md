@@ -12,9 +12,11 @@ Following the ESA LIFE CEO 61×21 AGENTS FRAMEWORK, we have consolidated multipl
 - **Benefits:** Reduced code duplication, consistent behavior, easier maintenance
 
 This page integrates:  
-- **BeautifulPostCreator** → multi-media post creation with support for text, images, videos, audio, and attachments.  
-- **UnifiedPostFeed** → single consolidated feed component with dual modes (simple/full) 
-- **UpcomingEventsSidebar** → event awareness widget for contextual community engagement.  
+- **PostCreator** → multi-media post creation with support for text, images, videos, audio, and attachments.  
+- **UnifiedPostFeed** → single consolidated feed component with built-in filtering (simple/full modes) 
+- **UpcomingEventsSidebar** → event awareness widget for contextual community engagement.
+
+**Note:** Filtering UI is built directly into UnifiedPostFeed, not a separate component.  
 
 It implements the **MT Ocean theme** with turquoise-to-cyan gradients (#5EEAD4 → #155E75), animated orbs, sparkles, and provides real-time updates through React Query and WebSockets.  
 
@@ -40,14 +42,27 @@ The feed supports:
 ### Component Interface
 ```typescript
 interface UnifiedPostFeedProps {
-  mode?: 'simple' | 'full';  // Determines feature set
   posts?: Post[];             // Optional external posts
+  showFilters?: boolean;      // Show filter UI (All/Following/Nearby buttons)
+  showSearch?: boolean;       // Show search bar
   filters?: FilterOptions;    // External filter configuration
   currentUserId?: string;     // Authenticated user ID
   onEdit?: (post: Post) => void;  // Edit handler
   className?: string;         // Additional CSS classes
   onLoadMore?: () => void;   // Infinite scroll handler
   hasMore?: boolean;         // Pagination state
+}
+```
+
+**Filter Configuration:**
+```typescript
+interface FilterOptions {
+  filterType?: 'all' | 'following' | 'nearby';
+  tags?: string[];
+  visibility?: 'all' | 'public' | 'friends' | 'private';
+  location?: { lat: number; lng: number; radius: number };
+  startDate?: string;  // ISO date string
+  endDate?: string;    // ISO date string
 }
 ```
 
@@ -67,20 +82,23 @@ interface Post {
 }
 ```
 
-### Mode Configurations
+### Display Configurations
 
-#### Simple Mode (`mode="simple"`)
+#### Simple Display (`showFilters={false}`, `showSearch={false}`)
 - Basic post display
 - No filter UI
-- Local search only
+- No search bar
 - Minimal interactions
 - Optimized for performance
+- Uses local filtering if search query present
 
-#### Full Mode (`mode="full"`)  
-- Complete filter UI
-- Server-side search
-- Tag management
-- Location filters
+#### Full Display (`showFilters={true}`, `showSearch={true}`)  
+- Complete filter UI with expandable sections
+- Server-side search and filtering
+- Filter buttons: All / Following / Nearby
+- Tag management (add/remove tags)
+- Date range filtering (from/to dates)
+- Location-based filters
 - Advanced interactions
 
 ---
@@ -255,10 +273,9 @@ Pierre Dubois (ID: 7) ↔ Sofia Chen (ID: 5) - Status: 'accepted'
 ## 5. Core Dependencies & Integration Points  
 | Dependency                  | Version | Purpose                         | Integration Type |
 |------------------------------|---------|---------------------------------|------------------|
-| BeautifulPostCreator         | Internal| Multi-media memory creation     | Component        |
-| UnifiedPostFeed              | Internal| Consolidated feed display       | Component        |
+| PostCreator                  | Internal| Multi-media memory creation     | Component        |
+| UnifiedPostFeed              | Internal| Consolidated feed with filters  | Component        |
 | EnhancedPostItem             | Internal| Individual post rendering       | Component        |
-| MemoryFilters                | Internal| Content filtering UI            | Component        |
 | UpcomingEventsSidebar        | Internal| Event integration widget        | Component        |
 | DashboardLayout              | Internal| Page layout wrapper             | Component        |
 | VideoMemoryCard              | Internal| Video content display           | Component        |
@@ -310,8 +327,8 @@ interface MemoryFeedState {
 ```
 
 ### B. Data Flow Patterns  
-- **Create Flow:** BeautifulPostCreator → API (FormData) → React Query invalidation → Feed refresh  
-- **Filter Flow:** MemoryFilters → State update → API request with params → Feed re-render  
+- **Create Flow:** PostCreator → API (FormData) → React Query invalidation → Feed refresh  
+- **Filter Flow:** UnifiedPostFeed (internal state) → API request with params → Feed re-render  
 - **Event Integration:** UpcomingEventsSidebar → Independent query stream (non-blocking)  
 - **Refresh Mechanism:** refreshKey increment triggers feed re-mount  
 - **Real-time Flow:** WebSocket → State update → Optimistic UI → Confirmation  
@@ -330,13 +347,15 @@ MemoryFeed (Unified) → ESAMemoryFeed
 │   │   ├── Title + Subtitle  
 │   │   └── AnimatedIcons  
 │   ├── MainContent  
-│   │   ├── BeautifulPostCreator  
+│   │   ├── PostCreator  
 │   │   │   └── AIAssistant
-│   │   ├── MemoryFilters  
-│   │   └── UnifiedPostFeed
-│   │       ├── Filter UI (full mode only)
-│   │       ├── Search Bar
-│   │       ├── Tag Management
+│   │   └── UnifiedPostFeed (showFilters={true}, showSearch={true})
+│   │       ├── Search Bar (when showSearch={true})
+│   │       ├── Filter Toggle Button (when showFilters={true})
+│   │       ├── Expanded Filter Panel (when toggled)
+│   │       │   ├── Filter Type Buttons (All/Following/Nearby)
+│   │       │   ├── Tag Management (add/remove tags)
+│   │       │   └── Date Range Filters (from/to date pickers)
 │   │       └── EnhancedPostItem[]
 │   │           ├── User Info
 │   │           ├── Content
@@ -397,23 +416,45 @@ As part of the antifragile architecture initiative:
   - Admin notification system
   - Moderation queue integration
 
-### E. Filter Options
+### E. Unified Filtering System (September 2025)
 
-#### Available Filter Types
-- **all**: Show all posts
-- **following**: Posts from followed users
-- **nearby**: Location-based posts
+#### Built-in Filter UI (UnifiedPostFeed)
+The filtering system is **built directly into UnifiedPostFeed**, not a separate component. When `showFilters={true}`, the component renders:
 
-#### Tag Filtering
-- Dynamic tag management
-- Multiple tag support
-- Visual tag chips with removal
+**Filter Type Buttons:**
+- **All Posts** - Shows all posts regardless of connection
+- **Following** - Posts from users you follow
+- **Nearby** - Location-based posts from nearby users
 
-#### Visibility Options
-- **all**: All visibility levels
-- **public**: Public posts only
-- **friends**: Friends-only posts
-- **private**: Private posts
+**Tag Management:**
+- Add custom tags by typing and pressing Enter
+- Visual tag chips with removal buttons
+- Multiple tags supported
+- Sent to API as comma-separated values
+
+**Date Range Filtering (NEW):**
+- **From Date** - Filter posts from this date onward
+- **To Date** - Filter posts up to this date
+- Clear button to reset both dates
+- Sent to API as ISO date strings (`startDate`, `endDate` params)
+
+**Search Bar:**
+- Debounced text search (300ms delay)
+- Searches post content and user names
+- Server-side filtering when `showFilters={true}`
+- Local filtering when `showFilters={false}`
+
+#### API Integration
+All filters are sent as query parameters to `/api/posts/feed`:
+```typescript
+GET /api/posts/feed?filter=following&tags=tango,milonga&startDate=2025-01-01&endDate=2025-12-31&search=abrazo
+```
+
+#### Archived Components
+- **MemoryFilterBar.tsx** - Archived to `client/src/components/_archive/` (September 2025)
+  - Material-UI based alternative filter component
+  - Not used in production - replaced by UnifiedPostFeed's built-in filters
+  - Had emotion/mood filtering which was deemed unnecessary
 
 ### F. Performance Features
 
