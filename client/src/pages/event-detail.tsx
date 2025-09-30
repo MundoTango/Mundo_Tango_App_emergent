@@ -167,10 +167,10 @@ export default function EventDetailPage() {
       const previousEvent = queryClient.getQueryData([`/api/events/${id}`]);
       
       queryClient.setQueryData([`/api/events/${id}`], (old: any) => {
-        // After unwrapping with select, old is now the raw response { success, data }
-        if (!old?.data) return old;
+        // With select unwrapping, old is already the unwrapped EventDetail object
+        if (!old) return old;
         
-        const currentStatus = old.data.userStatus;
+        const currentStatus = old.userStatus;
         const newStatus = status;
         
         let attendeeAdjustment = 0;
@@ -179,11 +179,8 @@ export default function EventDetailPage() {
         
         return {
           ...old,
-          data: {
-            ...old.data,
-            userStatus: newStatus,
-            currentAttendees: (old.data.currentAttendees || 0) + attendeeAdjustment
-          }
+          userStatus: newStatus,
+          currentAttendees: (old.currentAttendees || 0) + attendeeAdjustment
         };
       });
       
