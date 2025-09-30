@@ -1394,6 +1394,10 @@ export default function PostCreator({
                   setMediaPreviews(prev => [...prev, ...urls]);
                   console.log(`[Internal Upload] ✅ Added ${files.length} files to post`);
                 }}
+                onProgress={(progress, uploading) => {
+                  setIsUploading(uploading);
+                  setUploadProgress(progress);
+                }}
                 maxFiles={30}
                 maxFileSize={500}
                 className=""

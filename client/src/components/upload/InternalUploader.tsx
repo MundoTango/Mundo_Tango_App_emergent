@@ -17,6 +17,7 @@ interface UploadedFile {
 
 interface InternalUploaderProps {
   onUploadComplete: (files: UploadedFile[]) => void;
+  onProgress?: (progress: number, isUploading: boolean) => void;
   maxFiles?: number;
   maxFileSize?: number; // in MB
   accept?: string;
@@ -26,6 +27,7 @@ interface InternalUploaderProps {
 
 export function InternalUploader({
   onUploadComplete,
+  onProgress,
   maxFiles = 30,
   maxFileSize = 500,
   accept = "image/*,video/*,.heic,.heif,.mov,.mp4,.webm,.avi,.mkv,.flv,.wmv,.m4v,.3gp,.3g2",
@@ -60,6 +62,7 @@ export function InternalUploader({
 
     setIsUploading(true);
     setUploadProgress(0);
+    onProgress?.(0, true);
 
     // Check for special formats (HEIC, MOV, etc)
     const fileTypes = files.map(f => {
@@ -81,6 +84,7 @@ export function InternalUploader({
         (current, total, status) => {
           const progress = Math.min((current / total) * 50, 50); // First 50% for processing
           setUploadProgress(progress);
+          onProgress?.(progress, true);
           console.log(`[Processing] ${current}/${total}: ${status}`);
         }
       );
@@ -117,6 +121,7 @@ export function InternalUploader({
         if (e.lengthComputable) {
           const progress = Math.round((e.loaded / e.total) * 100);
           setUploadProgress(progress);
+          onProgress?.(progress, true);
           console.log(`[Internal Upload] Progress: ${progress}%`);
         }
       });
@@ -160,6 +165,7 @@ export function InternalUploader({
       onUploadComplete(newFiles);
       
       setUploadProgress(100);
+      onProgress?.(100, true);
       
       toast({
         title: "Upload successful",
@@ -174,11 +180,13 @@ export function InternalUploader({
       // Reset progress after delay
       setTimeout(() => {
         setUploadProgress(0);
+        onProgress?.(0, false);
       }, 2000);
 
     } catch (error) {
       console.error('[Internal Upload] Error:', error);
       setUploadProgress(0);
+      onProgress?.(0, false);
       
       toast({
         title: "Upload failed", 
@@ -188,6 +196,7 @@ export function InternalUploader({
     } finally {
       setTimeout(() => {
         setIsUploading(false);
+        onProgress?.(0, false);
       }, 2000);
     }
   };
