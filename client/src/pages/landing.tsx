@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Music, Users, Calendar, MapPin, Heart, Star } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import NewFeedEvents from "@/components/feed/NewFeedEvents";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState } from "react";
@@ -144,7 +143,7 @@ export default function Landing() {
                 {/* Right Sidebar with Events */}
                 <div className="lg:col-span-4">
                   <div className="sticky top-20">
-                    <NewFeedEvents />
+                    {/* Events sidebar removed - using ESAMemoryFeed's UpcomingEventsSidebar instead */}
                   </div>
                 </div>
               </div>
