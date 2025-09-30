@@ -1,48 +1,13 @@
 /**
  * ESA LIFE CEO 61x21 - Advanced Media Processor
  * Facebook/Instagram-style universal media handling
- * Supports ALL formats using FFmpeg.wasm and WebCodecs API
+ * FIXED: Removed FFmpeg dependency - uses native browser APIs for reliability
  */
 
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { toBlobURL } from '@ffmpeg/util';
 import heic2any from 'heic2any';
-// import imageCompression from 'browser-image-compression'; // DISABLED - hangs in Replit
 import { compressImageNative } from './nativeImageCompression';
 
-// Singleton FFmpeg instance
-let ffmpegInstance: FFmpeg | null = null;
-let ffmpegLoaded = false;
-
-/**
- * Initialize FFmpeg.wasm (20MB download, one-time)
- */
-async function loadFFmpeg(): Promise<FFmpeg> {
-  if (ffmpegInstance && ffmpegLoaded) {
-    return ffmpegInstance;
-  }
-
-  console.log('🎬 Loading FFmpeg.wasm for universal media support...');
-  
-  ffmpegInstance = new FFmpeg();
-  
-  // Configure with CDN URLs for core files
-  const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-  
-  try {
-    await ffmpegInstance.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
-    
-    ffmpegLoaded = true;
-    console.log('✅ FFmpeg.wasm loaded successfully');
-    return ffmpegInstance;
-  } catch (error) {
-    console.error('❌ FFmpeg.wasm failed to load:', error);
-    throw error;
-  }
-}
+console.log('📦 [Media Processor] Initialized with native compression (FFmpeg disabled for Replit compatibility)');
 
 /**
  * Detect file format and capabilities
@@ -206,11 +171,18 @@ async function compressVideoWebCodecs(file: File): Promise<File> {
         // Process frames
         video.play();
         
-        const processFrame = () => {
+        const processFrame = async () => {
           if (video.ended) {
-            encoder.flush();
+            // CRITICAL FIX: Await flush() to ensure all frames are encoded before creating blob
+            try {
+              await encoder.flush();
+              console.log('✅ WebCodecs encoder flushed successfully');
+            } catch (flushError) {
+              console.error('⚠️ WebCodecs flush error:', flushError);
+              // Continue with available chunks even if flush fails
+            }
             
-            // Convert chunks to file
+            // Convert chunks to file AFTER flush completes
             const blob = new Blob(chunks as any, { type: 'video/webm' });
             const compressedFile = new File(
               [blob],
@@ -218,6 +190,7 @@ async function compressVideoWebCodecs(file: File): Promise<File> {
               { type: 'video/webm' }
             );
             
+            console.log(`✅ WebCodecs compression complete: ${(file.size/1024/1024).toFixed(2)}MB → ${(compressedFile.size/1024/1024).toFixed(2)}MB`);
             resolve(compressedFile);
             return;
           }
@@ -253,6 +226,7 @@ async function compressVideoWebCodecs(file: File): Promise<File> {
 
 /**
  * Fallback video compression using MediaRecorder
+ * Safari-compatible with automatic codec detection
  */
 async function compressVideoFallback(file: File): Promise<File> {
   const sizeMB = file.size / 1024 / 1024;
@@ -260,6 +234,35 @@ async function compressVideoFallback(file: File): Promise<File> {
   
   // Return if already small
   if (sizeMB < 25) {
+    console.log(`🎥 Video already small enough (${sizeMB.toFixed(2)}MB), skipping compression`);
+    return file;
+  }
+  
+  // Detect Safari-compatible MIME types
+  const supportedMimes = [
+    'video/webm;codecs=vp9',      // Chrome/Edge
+    'video/webm;codecs=vp8',      // Older Chrome/Firefox
+    'video/webm',                 // Generic WebM
+    'video/mp4;codecs=h264',      // Safari fallback
+    'video/mp4'                   // Generic MP4 (Safari)
+  ];
+  
+  let selectedMime = supportedMimes[0];
+  let selectedExtension = 'webm';
+  
+  // Find first supported MIME type
+  for (const mime of supportedMimes) {
+    if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(mime)) {
+      selectedMime = mime;
+      selectedExtension = mime.startsWith('video/mp4') ? 'mp4' : 'webm';
+      console.log(`🎥 Selected MIME: ${selectedMime} (extension: ${selectedExtension})`);
+      break;
+    }
+  }
+  
+  // If no supported MIME found (rare), return original
+  if (!MediaRecorder.isTypeSupported || !MediaRecorder.isTypeSupported(selectedMime)) {
+    console.warn(`⚠️ No supported video MIME types found, returning original file`);
     return file;
   }
   
@@ -268,15 +271,47 @@ async function compressVideoFallback(file: File): Promise<File> {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     
+    // iOS Safari compatibility settings
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', 'true');
+    
     video.src = URL.createObjectURL(file);
     
-    video.onloadedmetadata = () => {
+    video.onloadedmetadata = async () => {
       canvas.width = Math.min(video.videoWidth, 1080);
       canvas.height = Math.min(video.videoHeight, 1920);
       
-      const stream = canvas.captureStream(30);
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'video/webm;codecs=vp9',
+      // Create video stream from canvas
+      const canvasStream = canvas.captureStream(30);
+      const videoTrack = canvasStream.getVideoTracks()[0];
+      
+      // Attempt to preserve audio (Chrome/Firefox support)
+      let finalStream = canvasStream;
+      
+      try {
+        // Try to capture audio from the video element
+        const mediaStream = (video as any).captureStream?.() || (video as any).mozCaptureStream?.();
+        if (mediaStream) {
+          const audioTracks = mediaStream.getAudioTracks();
+          if (audioTracks.length > 0) {
+            // Merge video from canvas + audio from original
+            finalStream = new MediaStream([videoTrack, audioTracks[0]]);
+            console.log('✅ Audio track preserved from original video');
+          } else {
+            console.log('ℹ️ No audio track in video (silent video or audio extraction failed)');
+          }
+        } else {
+          console.log('ℹ️ captureStream not supported (Safari/iOS) - audio will not be included in compressed video');
+        }
+      } catch (audioError) {
+        console.log('ℹ️ Could not capture audio stream, compressing video only:', audioError);
+      }
+      
+      // Continue with compression regardless of audio capture success
+      
+      const mediaRecorder = new MediaRecorder(finalStream, {
+        mimeType: selectedMime,
         videoBitsPerSecond: 1_000_000
       });
       
@@ -284,72 +319,55 @@ async function compressVideoFallback(file: File): Promise<File> {
       
       mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
+        const mimeBase = selectedMime.split(';')[0];
+        const blob = new Blob(chunks, { type: mimeBase });
         const compressedFile = new File(
           [blob],
-          file.name.replace(/\.[^/.]+$/, '.webm'),
-          { type: 'video/webm' }
+          file.name.replace(/\.[^/.]+$/, `.${selectedExtension}`),
+          { type: mimeBase }
         );
+        console.log(`✅ Video compressed: ${sizeMB.toFixed(2)}MB → ${(compressedFile.size/1024/1024).toFixed(2)}MB (${selectedMime})`);
+        
+        // Cleanup
+        URL.revokeObjectURL(video.src);
         resolve(compressedFile);
       };
       
-      video.play();
-      mediaRecorder.start();
-      
-      const drawFrame = () => {
-        if (!video.ended && ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          requestAnimationFrame(drawFrame);
-        } else {
-          mediaRecorder.stop();
-        }
-      };
-      drawFrame();
+      // iOS Safari playback handling
+      try {
+        await video.play();
+        mediaRecorder.start();
+        
+        const drawFrame = () => {
+          if (!video.ended && !video.paused && ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            requestAnimationFrame(drawFrame);
+          } else if (video.ended) {
+            mediaRecorder.stop();
+          }
+        };
+        drawFrame();
+        
+      } catch (playError) {
+        console.error(`❌ Video playback failed (likely iOS autoplay restriction):`, playError);
+        // If playback fails, return original file
+        URL.revokeObjectURL(video.src);
+        resolve(file);
+      }
+    };
+    
+    video.onerror = () => {
+      console.error(`❌ Video loading failed, returning original file`);
+      URL.revokeObjectURL(video.src);
+      resolve(file);
     };
   });
 }
 
 /**
- * Use FFmpeg.wasm for universal video format conversion
+ * REMOVED: FFmpeg dependency disabled for Replit compatibility
+ * Videos are now compressed using native browser APIs (WebCodecs/MediaRecorder)
  */
-async function convertVideoWithFFmpeg(file: File, targetFormat: string = 'mp4'): Promise<File> {
-  console.log(`🎬 Converting video to ${targetFormat} using FFmpeg.wasm`);
-  
-  const ffmpeg = await loadFFmpeg();
-  
-  // Write input file
-  const inputName = 'input' + file.name.substring(file.name.lastIndexOf('.'));
-  const outputName = `output.${targetFormat}`;
-  
-  await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
-  
-  // Instagram-quality conversion
-  await ffmpeg.exec([
-    '-i', inputName,
-    '-vf', 'scale=1080:-2',  // Scale to 1080p width
-    '-c:v', 'libx264',        // H.264 codec
-    '-preset', 'fast',        // Fast encoding
-    '-crf', '28',            // Quality (lower = better, 23 default)
-    '-c:a', 'aac',           // AAC audio
-    '-b:a', '128k',          // Audio bitrate
-    '-movflags', '+faststart', // Web optimization
-    outputName
-  ]);
-  
-  // Read output
-  const data = await ffmpeg.readFile(outputName);
-  const blob = new Blob([data], { type: `video/${targetFormat}` });
-  
-  // Cleanup
-  await ffmpeg.deleteFile(inputName);
-  await ffmpeg.deleteFile(outputName);
-  
-  return new File(
-    [blob],
-    file.name.replace(/\.[^/.]+$/, `.${targetFormat}`),
-    { type: `video/${targetFormat}` }
-  );
-}
 
 /**
  * Smart image compression with format detection
@@ -393,14 +411,13 @@ export async function processMediaUniversal(
       return compressed;
     }
     
-    // Handle MOV/ProRes (iPhone videos)
+    // Handle MOV/ProRes (iPhone videos) - Direct compression without FFmpeg
     if (mediaInfo.format === 'mov') {
-      console.log(`📱 [processMediaUniversal] Path: MOV conversion`);
-      onProgress?.('Converting iPhone video...', 30);
-      const mp4File = await convertVideoWithFFmpeg(file, 'mp4');
-      onProgress?.('Compressing video...', 60);
-      const compressed = await compressVideoWebCodecs(mp4File);
+      console.log(`📱 [processMediaUniversal] Path: MOV direct compression (FFmpeg skipped for Replit)`);
+      onProgress?.('Compressing iPhone video...', 50);
+      const compressed = await compressVideoWebCodecs(file);
       onProgress?.('Complete!', 100);
+      console.log(`✅ [processMediaUniversal] MOV processing complete for ${file.name}`);
       return compressed;
     }
     
@@ -414,40 +431,21 @@ export async function processMediaUniversal(
       return compressed;
     }
     
-    // Handle standard videos
+    // Handle standard videos - Direct compression (FFmpeg removed)
     if (mediaInfo.type === 'video') {
-      if (mediaInfo.needsConversion) {
-        console.log(`🎥 [processMediaUniversal] Path: Video conversion + compression`);
-        onProgress?.('Converting video format...', 30);
-        const converted = await convertVideoWithFFmpeg(file, 'mp4');
-        onProgress?.('Compressing video...', 60);
-        const compressed = await compressVideoWebCodecs(converted);
-        onProgress?.('Complete!', 100);
-        return compressed;
-      } else {
-        console.log(`🎥 [processMediaUniversal] Path: Video compression only`);
-        onProgress?.('Compressing video...', 50);
-        const compressed = await compressVideoWebCodecs(file);
-        onProgress?.('Complete!', 100);
-        return compressed;
-      }
+      console.log(`🎥 [processMediaUniversal] Path: Video compression (FFmpeg skipped for Replit)`);
+      onProgress?.('Compressing video...', 50);
+      const compressed = await compressVideoWebCodecs(file);
+      onProgress?.('Complete!', 100);
+      console.log(`✅ [processMediaUniversal] Video processing complete for ${file.name}`);
+      return compressed;
     }
     
-    // Unknown format - try FFmpeg conversion
+    // Unknown format - return original (FFmpeg conversion removed)
     if (mediaInfo.type === 'unknown') {
-      console.log(`❓ [processMediaUniversal] Path: Unknown format, trying conversion`);
-      onProgress?.('Processing unknown format...', 30);
-      try {
-        // Try as video first
-        const converted = await convertVideoWithFFmpeg(file, 'mp4');
-        onProgress?.('Complete!', 100);
-        return converted;
-      } catch {
-        // If video fails, return original
-        console.warn(`⚠️ [processMediaUniversal] Unknown format failed conversion, returning original`);
-        onProgress?.('Complete!', 100);
-        return file;
-      }
+      console.warn(`❓ [processMediaUniversal] Unknown format, returning original file (FFmpeg disabled)`);
+      onProgress?.('Using original file', 100);
+      return file;
     }
     
     console.log(`🔄 [processMediaUniversal] No processing path matched, returning original file`);
@@ -547,6 +545,5 @@ export default {
   processMediaUniversal,
   processMultipleMedia,
   getUploadStrategy,
-  detectMediaType,
-  loadFFmpeg
+  detectMediaType
 };

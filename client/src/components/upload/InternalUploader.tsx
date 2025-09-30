@@ -50,6 +50,12 @@ export function InternalUploader({
     const files = Array.from(event.target.files || []);
     if (files.length === 0) return;
 
+    console.log(`📁 [InternalUploader] File selection: ${files.length} files`, files.map(f => ({
+      name: f.name,
+      type: f.type,
+      size: `${(f.size/1024/1024).toFixed(2)}MB`
+    })));
+
     // Validate file count
     if (files.length > maxFiles) {
       toast({
@@ -77,17 +83,24 @@ export function InternalUploader({
       description: `Optimizing ${fileTypes.join(', ')} for upload`
     });
 
+    let currentPhase = 'file-selection';
+
     try {
-      // Process files with advanced media processor (Facebook/Instagram style)
+      // PHASE 1: Compression (0-40%)
+      currentPhase = 'compression';
+      console.log(`🔄 [InternalUploader] Phase 1: Starting compression for ${files.length} files`);
+      
       const processedFiles = await processMultipleMedia(
         files,
         (current, total, status) => {
-          const progress = Math.min((current / total) * 50, 50); // First 50% for processing
+          const progress = Math.min((current / total) * 40, 40); // First 40% for compression
           setUploadProgress(progress);
           onProgress?.(progress, true);
-          console.log(`[Processing] ${current}/${total}: ${status}`);
+          console.log(`📊 [InternalUploader] Compression progress: ${current}/${total} - ${status} (${progress.toFixed(0)}%)`);
         }
       );
+      
+      console.log(`✅ [InternalUploader] Phase 1 complete: ${processedFiles.length} files compressed`);
 
       // Check if files are now within size limits after processing
       const oversizedFiles = processedFiles.filter(file => file.size > maxFileSize * 1024 * 1024);
@@ -105,6 +118,11 @@ export function InternalUploader({
         }
       }
 
+      // PHASE 2: Upload preparation (40-50%)
+      currentPhase = 'upload-preparation';
+      setUploadProgress(45);
+      onProgress?.(45, true);
+      
       const formData = new FormData();
       processedFiles.forEach(file => {
         formData.append('files', file);
@@ -112,17 +130,22 @@ export function InternalUploader({
 
       const originalSize = files.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
       const processedSize = processedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024;
-      console.log(`[Internal Upload] Compressed ${originalSize.toFixed(1)}MB → ${processedSize.toFixed(1)}MB`);
+      const compressionRatio = ((1 - processedSize / originalSize) * 100).toFixed(1);
+      console.log(`📦 [InternalUploader] Phase 2: Upload ready - Compressed ${originalSize.toFixed(1)}MB → ${processedSize.toFixed(1)}MB (-${compressionRatio}%)`);
 
+      // PHASE 3: Network upload (50-95%)
+      currentPhase = 'network-upload';
+      console.log(`🌐 [InternalUploader] Phase 3: Starting network upload to /api/upload`);
+      
       const xhr = new XMLHttpRequest();
       
       // Track upload progress
       xhr.upload.addEventListener('progress', (e) => {
         if (e.lengthComputable) {
-          const progress = Math.round((e.loaded / e.total) * 100);
-          setUploadProgress(progress);
-          onProgress?.(progress, true);
-          console.log(`[Internal Upload] Progress: ${progress}%`);
+          const uploadProgress = 50 + Math.round((e.loaded / e.total) * 45); // 50-95%
+          setUploadProgress(uploadProgress);
+          onProgress?.(uploadProgress, true);
+          console.log(`📡 [InternalUploader] Network upload: ${uploadProgress}% (${(e.loaded/1024/1024).toFixed(2)}MB / ${(e.total/1024/1024).toFixed(2)}MB)`);
         }
       });
 
@@ -161,15 +184,23 @@ export function InternalUploader({
 
       const newFiles = await uploadPromise;
       
+      // PHASE 4: Storage & Display (95-100%)
+      currentPhase = 'storage-display';
+      console.log(`💾 [InternalUploader] Phase 4: Storage successful, displaying files`);
+      setUploadProgress(98);
+      onProgress?.(98, true);
+      
       setUploadedFiles(prev => [...prev, ...newFiles]);
       onUploadComplete(newFiles);
       
       setUploadProgress(100);
       onProgress?.(100, true);
       
+      console.log(`🎉 [InternalUploader] COMPLETE! ${newFiles.length} files uploaded successfully:`, newFiles);
+      
       toast({
-        title: "Upload successful",
-        description: `${newFiles.length} files uploaded successfully`,
+        title: "✅ Upload successful",
+        description: `${newFiles.length} files uploaded (${compressionRatio}% compressed)`,
       });
 
       // Reset file input
@@ -184,15 +215,57 @@ export function InternalUploader({
       }, 2000);
 
     } catch (error) {
-      console.error('[Internal Upload] Error:', error);
+      // Enhanced error handling with phase detection
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorStack = error instanceof Error ? error.stack : '';
+      
+      console.error(`❌ [InternalUploader] UPLOAD FAILED at phase: ${currentPhase}`);
+      console.error(`❌ Error message:`, errorMessage);
+      console.error(`❌ Error stack:`, errorStack);
+      console.error(`❌ Error object:`, error);
+      
+      // Reset progress
       setUploadProgress(0);
       onProgress?.(0, false);
       
+      // User-friendly error messages based on phase
+      let userMessage = errorMessage;
+      let phaseContext = '';
+      
+      switch(currentPhase) {
+        case 'compression':
+          phaseContext = 'during media compression';
+          userMessage = `Compression failed: ${errorMessage}. Try smaller files or different format.`;
+          break;
+        case 'upload-preparation':
+          phaseContext = 'preparing upload';
+          userMessage = `Upload preparation failed: ${errorMessage}`;
+          break;
+        case 'network-upload':
+          phaseContext = 'during network upload';
+          userMessage = `Network error: ${errorMessage}. Check your connection and try again.`;
+          break;
+        case 'storage-display':
+          phaseContext = 'saving files';
+          userMessage = `Storage error: ${errorMessage}. Files may not have been saved.`;
+          break;
+        default:
+          phaseContext = 'unknown phase';
+      }
+      
+      console.error(`❌ [InternalUploader] User will see: "${userMessage}" (failed ${phaseContext})`);
+      
       toast({
-        title: "Upload failed", 
-        description: error instanceof Error ? error.message : "Please try again",
+        title: `❌ Upload failed ${phaseContext}`,
+        description: userMessage,
         variant: "destructive"
       });
+      
+      // Reset file input to allow retry
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      
     } finally {
       setTimeout(() => {
         setIsUploading(false);

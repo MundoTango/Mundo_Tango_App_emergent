@@ -43,7 +43,7 @@ const upload = multer({
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error(`Invalid file type: ${file.mimetype}`), false);
+      cb(new Error(`Invalid file type: ${file.mimetype}`) as any);
     }
   }
 });
