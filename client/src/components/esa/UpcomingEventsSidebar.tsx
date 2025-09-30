@@ -3,7 +3,7 @@
 // Event awareness widget for contextual community engagement
 
 import { Calendar, MapPin, Users, Clock, Sparkles, Check, HelpCircle, X, Star, ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/theme-context';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
@@ -17,6 +17,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+// VERSION INDICATOR - Updated: Sept 30, 2025 7:00 PM
+const COMPONENT_VERSION = 'v2025-09-30-19:00:00';
 
 interface Event {
   id: string;
@@ -49,6 +52,11 @@ export default function UpcomingEventsSidebar({
     eventsYouFollow: true,
     citiesYouFollow: true
   });
+  
+  // Log component version on mount to verify correct version is loaded
+  useEffect(() => {
+    console.log(`🔧 UpcomingEventsSidebar loaded - ${COMPONENT_VERSION}`);
+  }, []);
   
   // Fetch real events from database via API
   const { data: eventsData, isLoading } = useQuery({
@@ -464,6 +472,9 @@ export default function UpcomingEventsSidebar({
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-5 h-5 text-[#5EEAD4]" />
             <h2 className="text-lg font-semibold text-[#0B3C49]">Upcoming Events</h2>
+            <span className="ml-auto px-2 py-0.5 text-xs font-mono bg-purple-100 text-purple-700 rounded border border-purple-300">
+              {COMPONENT_VERSION}
+            </span>
           </div>
           {isLoading ? (
             <p className="text-sm text-[#146778]">
