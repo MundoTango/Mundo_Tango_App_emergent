@@ -117,6 +117,8 @@ const UnifiedPostFeed = React.memo(({
   const [tagInput, setTagInput] = useState('');
   const [showExpandedFilters, setShowExpandedFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const debouncedSearch = useDebounce(searchQuery, 300);
 
   // Share modal state
@@ -128,8 +130,10 @@ const UnifiedPostFeed = React.memo(({
     filterType: externalFilters?.filterType || filterBy,
     tags: externalFilters?.tags || filterTags,
     visibility: externalFilters?.visibility || 'all',
-    location: externalFilters?.location
-  }), [externalFilters, filterBy, filterTags]);
+    location: externalFilters?.location,
+    startDate: startDate || undefined,
+    endDate: endDate || undefined
+  }), [externalFilters, filterBy, filterTags, startDate, endDate]);
 
   // ESA Framework: Fetch posts with resilient query
   const { data: fetchedPosts, isLoading, error } = useQuery({
@@ -154,6 +158,12 @@ const UnifiedPostFeed = React.memo(({
       }
       if (debouncedSearch) {
         params.append('search', debouncedSearch);
+      }
+      if (activeFilters.startDate) {
+        params.append('startDate', activeFilters.startDate);
+      }
+      if (activeFilters.endDate) {
+        params.append('endDate', activeFilters.endDate);
       }
 
       const response = await fetch(`/api/posts/feed?${params.toString()}`, {
@@ -390,6 +400,44 @@ const UnifiedPostFeed = React.memo(({
                     className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
+              </div>
+
+              {/* Date Range Filter */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-medium text-gray-700">Date Range</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-gray-600 mb-1 block">From</label>
+                    <input
+                      type="date"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-600 mb-1 block">To</label>
+                    <input
+                      type="date"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                    />
+                  </div>
+                </div>
+                {(startDate || endDate) && (
+                  <button
+                    onClick={() => {
+                      setStartDate('');
+                      setEndDate('');
+                    }}
+                    className="mt-2 text-xs text-red-600 hover:text-red-700"
+                  >
+                    Clear dates
+                  </button>
+                )}
               </div>
             </div>
           )}
