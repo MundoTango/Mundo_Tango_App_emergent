@@ -13,6 +13,20 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 
 ## Recent Updates (September 30, 2025)
 
+### ✅ Extended @Mention Backend Fix - ALL ENTITY TYPES SUPPORTED (September 30, 2025)
+- **Critical Regex Fix**: Updated backend mention extraction to support ALL 4 entity types (user, event, city, group)
+- **Problem Solved**: Backend regex only matched `(user:id)` format, causing event/city/group mentions to lose display names
+- **Regex Updated**: Changed from `/@\[([^\]]+)\]\(user:(\d+)\)/g` to `/@\[([^\]]+)\]\((\w+):([^\)]+)\)/g`
+- **Files Fixed**: 
+  - `server/services/mentionNotificationService.ts` - mention extraction logic
+  - `server/security/input-sanitizer.ts` - NoSQL injection protection
+- **Test Results**: Post 99 confirms all 4 mentions preserved with complete display names
+  - Before fix: `@[Elena](user:1)@(group:pro-tango)` ❌ (missing group name)
+  - After fix: `@[Elena Rodriguez](user:1)@[Professional Tango Instructors](group:pro-tango-instructors)` ✅
+- **Notification Behavior**: Backend correctly sends notifications ONLY for user mentions (events/cities/groups don't get notified)
+- **Frontend Rendering**: renderWithMentions displays all types with proper colors (blue/green/orange/purple) and MapPin icons for cities
+- **Status**: 🎯 **FULLY OPERATIONAL** - All mention types working end-to-end with architect approval
+
 ### ✅ Extended @Mention System - DOCUMENTATION COMPLETE
 - **Comprehensive Documentation Suite**: 7 files created/updated with architect approval
 - **Entity Support Documented**: Users, Events, Groups, Cities (4 types) fully documented
