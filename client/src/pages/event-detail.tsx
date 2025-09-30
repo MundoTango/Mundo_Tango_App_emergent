@@ -124,7 +124,8 @@ export default function EventDetailPage() {
   // Fetch event details
   const { data: event, isLoading } = useQuery<EventDetail>({
     queryKey: [`/api/events/${id}`],
-    enabled: !!id
+    enabled: !!id,
+    select: (data: any) => data.data // Unwrap { success, data } response
   });
 
   // Fetch event discussion posts with mention filtering
@@ -166,6 +167,7 @@ export default function EventDetailPage() {
       const previousEvent = queryClient.getQueryData([`/api/events/${id}`]);
       
       queryClient.setQueryData([`/api/events/${id}`], (old: any) => {
+        // After unwrapping with select, old is now the raw response { success, data }
         if (!old?.data) return old;
         
         const currentStatus = old.data.userStatus;

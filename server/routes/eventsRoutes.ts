@@ -5,8 +5,56 @@ import { events, eventRsvps, recurringEvents, users, eventParticipants } from '.
 import { eq, and, gte, desc, like, or, sql } from 'drizzle-orm';
 import { authMiddleware } from '../middleware/auth';
 import { getWebSocketService } from '../services/websocketService';
+import { storage } from '../storage';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
+
+const JWT_SECRET = process.env.JWT_SECRET || "mundo-tango-secret-key";
+
+// Optional auth middleware - doesn't require authentication but adds user if available
+const optionalAuth = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  try {
+    // Development bypass
+    if (process.env.NODE_ENV === 'development' || process.env.AUTH_BYPASS === 'true') {
+      const defaultUser = await storage.getUser(7);
+      if (defaultUser) {
+        (req as any).user = {
+          id: defaultUser.id,
+          email: defaultUser.email,
+          username: defaultUser.username,
+          name: defaultUser.name,
+        };
+      }
+      return next();
+    }
+
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1];
+
+    if (!token) {
+      // No token - continue without user
+      return next();
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: number };
+    const user = await storage.getUser(decoded.userId);
+
+    if (user && user.id) {
+      (req as any).user = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        name: user.name,
+      };
+    }
+
+    next();
+  } catch (error) {
+    // Auth failed - continue without user
+    next();
+  }
+};
 
 // Validation schemas
 const createEventSchema = z.object({
@@ -286,8 +334,8 @@ router.get('/api/events/calendar', async (req, res) => {
   }
 });
 
-// Get event details
-router.get('/api/events/:id', async (req, res) => {
+// Get event details (with optional auth to get user's RSVP status)
+router.get('/api/events/:id', optionalAuth, async (req, res) => {
   try {
     const { id } = req.params;
     const userId = (req as any).user?.id;
