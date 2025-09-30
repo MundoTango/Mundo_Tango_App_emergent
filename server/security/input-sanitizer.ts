@@ -86,9 +86,9 @@ export function sanitizeInput(input: any): any {
       }
     }
     
-    // ESA Fix: Preserve canonical mention format @[Name](user:id) before NoSQL injection check
-    // Extract and temporarily replace mentions with placeholders
-    const mentionRegex = /@\[([^\]]+)\]\(user:(\d+)\)/g;
+    // ESA Fix: Preserve canonical mention format @[Name](type:id) before NoSQL injection check
+    // Supports all mention types: (user:id), (event:id), (city:slug), (group:slug)
+    const mentionRegex = /@\[([^\]]+)\]\((\w+):([^\)]+)\)/g;
     const mentions: Array<{match: string; placeholder: string}> = [];
     let mentionIndex = 0;
     
