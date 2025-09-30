@@ -922,22 +922,37 @@ export default function PostCreator({
       <Card className="relative overflow-hidden border-0 glassmorphic-card beautiful-hover shadow-2xl">
         {/* Enhanced gradient background with advanced animations */}
         <div className="absolute inset-0">
-          {/* Primary gradient layers with movement */}
-          <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/30 via-cyan-400/20 to-blue-500/30 animate-gradient" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/10 via-transparent to-pink-400/10 animate-gradient-reverse" />
+          {/* Multi-layer Dynamic Gradient Mesh - Depth Layer 1 (Background) */}
+          <div className="absolute inset-0 bg-gradient-to-br from-turquoise-400/35 via-cyan-400/25 to-blue-500/35 animate-gradient z-0" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-400/15 via-transparent to-pink-400/15 animate-gradient-reverse z-0" />
           
-          {/* Floating orbs with blur */}
-          <div className="absolute top-0 left-0 w-96 h-96 bg-turquoise-300/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-300/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          {/* Depth Layer 2 - Color Shifting Orbs */}
+          <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl animate-float z-[1]" 
+            style={{
+              background: 'radial-gradient(circle, rgba(94, 234, 212, 0.25), rgba(6, 182, 212, 0.15), transparent)',
+              animation: 'float 6s ease-in-out infinite, color-shift-teal 10s ease-in-out infinite'
+            }} />
+          <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl animate-float-delayed z-[1]" 
+            style={{
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.25), rgba(6, 182, 212, 0.15), transparent)',
+              animation: 'float 7s ease-in-out infinite 0.5s, color-shift-blue 12s ease-in-out infinite'
+            }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl animate-float z-[1]" 
+            style={{
+              background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2), rgba(94, 234, 212, 0.1), transparent)',
+              animation: 'float 8s ease-in-out infinite 1s, color-shift-cyan 11s ease-in-out infinite'
+            }} />
           
-          {/* Mesh gradient overlay for depth */}
-          <div className="absolute inset-0 opacity-30" style={{
+          {/* Depth Layer 3 - Enhanced Mesh Gradient Overlay */}
+          <div className="absolute inset-0 opacity-40 z-[2]" style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 50%, rgba(94, 234, 212, 0.2) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-              radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%)
-            `
+              radial-gradient(circle at 20% 50%, rgba(94, 234, 212, 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(94, 234, 212, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 30% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 40%)
+            `,
+            animation: 'mesh-shift 15s ease-in-out infinite'
           }} />
           
           {/* Subtle scan lines for texture */}
