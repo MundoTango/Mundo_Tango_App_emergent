@@ -61,8 +61,6 @@ export default function UpcomingEventsSidebar({
         credentials: 'include'
       });
       const result = await response.json();
-      console.log('📥 [Sidebar] Raw API response from /api/events/feed:', result);
-      console.log('📥 [Sidebar] First event userRsvpStatus:', result?.data?.[0]?.userRsvpStatus);
       return result.data || [];
     }
   });
@@ -70,16 +68,13 @@ export default function UpcomingEventsSidebar({
   // RSVP mutation with optimistic updates and toggle support
   const rsvpMutation = useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
-      console.log('🚀 [Sidebar RSVP] mutationFn called', { eventId, status });
       const result = await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }
       });
-      console.log('✅ [Sidebar RSVP] API request completed', result);
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      console.log('🔄 [Sidebar RSVP] onMutate called', { eventId, status });
       // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
       
@@ -118,7 +113,6 @@ export default function UpcomingEventsSidebar({
       return { previousEvents };
     },
     onError: (err, variables, context) => {
-      console.error('❌ [Sidebar RSVP] onError called', err);
       // Rollback on error
       if (context?.previousEvents) {
         queryClient.setQueryData(['/api/events/feed'], context.previousEvents);
@@ -130,8 +124,6 @@ export default function UpcomingEventsSidebar({
       });
     },
     onSuccess: async (data, { eventId, status }) => {
-      console.log('✅ [Sidebar RSVP] onSuccess called', { data, eventId, status });
-      
       // Show toast notification
       if (status === null) {
         toast({
@@ -158,22 +150,18 @@ export default function UpcomingEventsSidebar({
   });
   
   // Transform API data to component format
-  const allEvents = eventsData?.map((event: any) => {
-    const transformed = {
-      id: event.id.toString(),
-      title: event.title,
-      type: event.event_type || 'milonga',
-      date: event.startDate || event.start_date || event.date,
-      time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
-      location: event.location || event.city || 'Location TBA',
-      city: event.city,
-      attendees: event.current_attendees || event.rsvpCounts?.going || 0,
-      userRsvpStatus: event.userRsvpStatus || null,
-      isFeatured: event.is_featured || false
-    };
-    console.log(`🔄 [Sidebar] Transformed event ${event.id} (${event.title}): userRsvpStatus = ${transformed.userRsvpStatus}`);
-    return transformed;
-  }) || [];
+  const allEvents = eventsData?.map((event: any) => ({
+    id: event.id.toString(),
+    title: event.title,
+    type: event.event_type || 'milonga',
+    date: event.startDate || event.start_date || event.date,
+    time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
+    location: event.location || event.city || 'Location TBA',
+    city: event.city,
+    attendees: event.current_attendees || event.rsvpCounts?.going || 0,
+    userRsvpStatus: event.userRsvpStatus || null,
+    isFeatured: event.is_featured || false
+  })) || [];
 
   // Categorize events (NEW ORDER: RSVP'ed → Your City → Events You Follow → Cities You Follow)
   const rsvpedEvents = allEvents.filter((e: Event) => 

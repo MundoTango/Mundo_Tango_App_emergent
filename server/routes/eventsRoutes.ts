@@ -213,8 +213,6 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
 
         // Find user's RSVP status if they're logged in
         const userRsvp = userId ? rsvpCounts.find(r => r.userId === userId) : null;
-        
-        console.log(`📊 [Feed Backend] Event ${event.id} (${event.title}): userRsvp =`, userRsvp ? { userId: userRsvp.userId, status: userRsvp.status } : 'null');
 
         return {
           ...event,
@@ -243,8 +241,6 @@ router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
     const { id: eventId } = req.params;
     const userId = req.user?.id;
     const validatedData = rsvpSchema.parse(req.body);
-    
-    console.log('🎯 [RSVP Backend] Received RSVP request:', { eventId, userId, status: validatedData.status });
 
     if (!userId) {
       return res.status(401).json({ success: false, error: 'Unauthorized' });
@@ -257,8 +253,6 @@ router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
       .where(and(eq(eventRsvps.eventId, parseInt(eventId)), eq(eventRsvps.userId, userId)))
       .limit(1);
 
-    console.log('🔍 [RSVP Backend] Existing RSVP found:', existingRsvp.length > 0 ? existingRsvp[0] : 'none');
-
     let rsvp = null;
     
     // If status is null, remove the RSVP (toggle off)
@@ -267,7 +261,6 @@ router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
         await db
           .delete(eventRsvps)
           .where(eq(eventRsvps.id, existingRsvp[0].id));
-        console.log('🗑️ [RSVP Backend] RSVP deleted');
       }
       // Return null to indicate RSVP was removed
       return res.json({ success: true, data: { status: null } });
@@ -275,17 +268,14 @@ router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
 
     // Otherwise, create or update RSVP
     if (existingRsvp.length > 0) {
-      // Update existing RSVP - only update status field that exists in schema
-      console.log('🔄 [RSVP Backend] Updating RSVP with status:', validatedData.status);
+      // Update existing RSVP
       [rsvp] = await db
         .update(eventRsvps)
         .set({ status: validatedData.status, updatedAt: new Date() })
         .where(eq(eventRsvps.id, existingRsvp[0].id))
         .returning();
-      console.log('✅ [RSVP Backend] RSVP updated:', rsvp);
     } else {
-      // Create new RSVP - only include fields that exist in schema
-      console.log('➕ [RSVP Backend] Creating new RSVP with status:', validatedData.status);
+      // Create new RSVP
       [rsvp] = await db
         .insert(eventRsvps)
         .values({
@@ -294,7 +284,6 @@ router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
           status: validatedData.status
         })
         .returning();
-      console.log('✅ [RSVP Backend] RSVP created:', rsvp);
     }
 
     // Notify about RSVP change
