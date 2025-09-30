@@ -10,14 +10,18 @@ The BeautifulPostCreator is a comprehensive post creation component integrated w
 - **Friends**: Posts visible only to accepted friends
 - **Private**: Posts visible only to the creator
 
-### @Mention System
-- Integrated SimpleMentionsInput component
-- Real-time user search and suggestions
-- Automatic user linking and formatting
-- Triggered by typing "@" followed by username
+### @Mention System (Multi-Entity Support)
+- Integrated SimpleMentionsInput component with token-based architecture
+- Real-time search for **users, events, and groups**
+- Automatic entity linking and formatting
+- Triggered by typing "@" followed by name
+- **Multiple mentions** supported in single post
+- **Color-coded display**: Users (blue), Events (green), Groups (purple)
 - **Automatic Notification Creation**: Mentioned users receive instant notifications
-- **Format**: Canonical `@[Display Name](user:id)` format for parsing
+- **Format**: Canonical `@[Display Name](type:id)` format for parsing
+  - Examples: `@[Elena Rodriguez](user:1)`, `@[Milan Tango Festival](event:123)`, `@[Buenos Aires Tango](group:45)`
 - **Backend Integration**: Connected to `MentionNotificationService` on post submission
+- **Cursor Positioning**: Token-based system ensures deterministic cursor placement (Sept 30, 2025)
 
 ### Recommendation System
 - Toggle to mark posts as recommendations
@@ -142,17 +146,25 @@ When `isRecommendation` is enabled:
 
 ## @Mention Notification Workflow
 
-### Complete End-to-End Flow
-1. **User Input**: Types `@` in SimpleMentionsInput textarea
-2. **Search**: Component queries `/api/search?type=users&q={query}`
-3. **Selection**: User picks from dropdown, mention formatted as `@[Elena Rodriguez](user:1)`
-4. **Submission**: BeautifulPostCreator extracts mention IDs via callback
-5. **Post Creation**: API creates post with `mentions: ["1"]` array
-6. **Notification Processing**: `MentionNotificationService.processMentions()` called
-7. **Parsing**: Regex extracts user IDs: `/@\[([^\]]+)\]\(user:(\d+)\)/g`
-8. **Database**: Creates notification record for each mentioned user
-9. **Real-time**: Emits Socket.io event to mentioned users' active sessions
-10. **Email**: Queues email notification if user enabled email preferences
+### Complete End-to-End Flow (Multi-Entity)
+1. **User Input**: Types `@` in SimpleMentionsInput textarea (token-based component)
+2. **Search**: Component queries `/api/search/multi?q={query}&limit=10`
+3. **Entity Display**: Dropdown shows users, events, and groups with type badges
+4. **Selection**: User picks from dropdown using keyboard or mouse
+5. **Token Insertion**: `replaceTriggerWithMention()` utility inserts mention token
+6. **Cursor Positioning**: Token system returns exact cursor position (no jumping!)
+7. **Display Rendering**: `tokensToDisplay()` converts to readable format
+8. **Canonical Export**: `tokensToCanonical()` creates storage format
+   - Example: `@[Elena Rodriguez](user:1) loves @[Milan Tango Festival](event:123)`
+9. **Submission**: BeautifulPostCreator extracts user IDs via `onMentionsChange` callback
+10. **Post Creation**: API creates post with `mentions: ["1"]` array (user IDs only)
+11. **Notification Processing**: `MentionNotificationService.processMentions()` called
+12. **Parsing**: Regex extracts user IDs: `/@\[([^\]]+)\]\(user:(\d+)\)/g`
+13. **Database**: Creates notification record for each mentioned user
+14. **Real-time**: Emits Socket.io event to mentioned users' active sessions
+15. **Email**: Queues email notification if user enabled email preferences
+
+**Note**: Only user mentions trigger notifications. Event and group mentions are for reference only.
 
 ### Service Integration
 ```typescript
