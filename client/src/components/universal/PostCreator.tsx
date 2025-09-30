@@ -611,12 +611,10 @@ export default function PostCreator({
       setEnhancedContent('');
       setShowEnhancement(false);
 
-      // ESA LIFE CEO 61x21 - Layer 13: Complete cache invalidation for media display
+      // Invalidate queries to trigger immediate refetch with staleTime: 0
       queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
-      // Force immediate refetch
-      queryClient.refetchQueries({ queryKey: ['/api/posts'] });
       
       // Call appropriate callback
       if (editMode) {
