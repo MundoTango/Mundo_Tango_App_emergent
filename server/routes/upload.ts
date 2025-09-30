@@ -34,10 +34,14 @@ const upload = multer({
     files: 30 // Maximum 30 files
   },
   fileFilter: (req, file, cb) => {
-    // Allow images and videos
+    // Allow images and videos (including iPhone/QuickTime formats)
     const allowedMimes = [
       'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
-      'video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm'
+      'video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/webm',
+      'video/quicktime', // iPhone MOV files
+      'video/x-m4v',     // iPhone M4V files
+      'video/3gpp',      // 3GP files
+      'video/x-msvideo'  // Alternative AVI MIME
     ];
     
     if (allowedMimes.includes(file.mimetype)) {
