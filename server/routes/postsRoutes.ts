@@ -904,6 +904,142 @@ router.post('/api/posts/enhance-content', async (req: any, res) => {
 });
 
 /**
+ * ESA Layer 24: Entity mention filtering endpoints
+ */
+
+// Get posts mentioning a city
+router.get('/api/posts/mentions/city/:cityId', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const { cityId } = req.params;
+    const { filter } = req.query; // 'residents' | 'visitors' | 'all'
+    
+    let posts = await storage.getPostsByMention('city', Number(cityId));
+    
+    // Apply membership filtering
+    if (filter === 'residents') {
+      const filtered = [];
+      for (const post of posts) {
+        const isResident = await storage.isUserInCity(post.userId, Number(cityId));
+        if (isResident) filtered.push(post);
+      }
+      posts = filtered;
+    } else if (filter === 'visitors') {
+      const filtered = [];
+      for (const post of posts) {
+        const isResident = await storage.isUserInCity(post.userId, Number(cityId));
+        if (!isResident) filtered.push(post);
+      }
+      posts = filtered;
+    }
+    
+    res.json({ success: true, data: posts });
+  } catch (error: any) {
+    console.error('Error fetching city mention posts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch posts',
+      error: error.message
+    });
+  }
+});
+
+// Get posts mentioning a professional group
+router.get('/api/posts/mentions/group/:groupId', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const { groupId } = req.params;
+    const { filter } = req.query; // 'members' | 'non-members' | 'all'
+    
+    let posts = await storage.getPostsByMention('group', Number(groupId));
+    
+    // Apply membership filtering
+    if (filter === 'members') {
+      const filtered = [];
+      for (const post of posts) {
+        const isMember = await storage.isUserInGroup(post.userId, Number(groupId));
+        if (isMember) filtered.push(post);
+      }
+      posts = filtered;
+    } else if (filter === 'non-members') {
+      const filtered = [];
+      for (const post of posts) {
+        const isMember = await storage.isUserInGroup(post.userId, Number(groupId));
+        if (!isMember) filtered.push(post);
+      }
+      posts = filtered;
+    }
+    
+    res.json({ success: true, data: posts });
+  } catch (error: any) {
+    console.error('Error fetching group mention posts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch posts',
+      error: error.message
+    });
+  }
+});
+
+// Get posts mentioning an event
+router.get('/api/posts/mentions/event/:eventId', async (req: any, res) => {
+  try {
+    const userId = await getUserId(req);
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+    }
+
+    const { eventId } = req.params;
+    const { filter } = req.query; // 'participants' | 'guests' | 'all'
+    
+    let posts = await storage.getPostsByMention('event', Number(eventId));
+    
+    // Apply participant filtering
+    if (filter === 'participants') {
+      const filtered = [];
+      for (const post of posts) {
+        const isParticipant = await storage.isUserEventParticipant(post.userId, Number(eventId));
+        if (isParticipant) filtered.push(post);
+      }
+      posts = filtered;
+    } else if (filter === 'guests') {
+      const filtered = [];
+      for (const post of posts) {
+        const isParticipant = await storage.isUserEventParticipant(post.userId, Number(eventId));
+        if (!isParticipant) filtered.push(post);
+      }
+      posts = filtered;
+    }
+    
+    res.json({ success: true, data: posts });
+  } catch (error: any) {
+    console.error('Error fetching event mention posts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch posts',
+      error: error.message
+    });
+  }
+});
+
+/**
  * ESA Framework - Tag System Endpoints
  */
 
