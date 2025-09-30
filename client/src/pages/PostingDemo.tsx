@@ -1,4 +1,4 @@
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import PostCreator from '@/components/universal/PostCreator';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -20,7 +20,7 @@ export default function PostingDemo() {
               ESA Framework 61x21 - Single internal upload system with 30 files, 500MB support.
               No Cloudinary dependencies, pure internal reliability.
             </p>
-            <BeautifulPostCreator />
+            <PostCreator />
           </Card>
         </TabsContent>
         
@@ -31,7 +31,7 @@ export default function PostingDemo() {
               Test the internal upload functionality with drag-and-drop, progress tracking,
               and batch uploads. All files stored locally in /uploads directory.
             </p>
-            <BeautifulPostCreator />
+            <PostCreator />
           </Card>
         </TabsContent>
       </Tabs>

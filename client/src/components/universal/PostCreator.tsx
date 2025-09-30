@@ -96,7 +96,7 @@ interface PostCreatorProps {
   onEditComplete?: () => void;
 }
 
-export default function BeautifulPostCreator({ 
+export default function PostCreator({ 
   context = { type: 'feed' }, 
   user,
   onPostCreated,
@@ -723,10 +723,10 @@ export default function BeautifulPostCreator({
     // If custom submit handler is provided (for memories feed), use it
     if (onSubmit) {
       console.log('🔄 ESA Layer 13: Using custom onSubmit handler!');
-      console.log('🔍 [BeautifulPostCreator] Content being submitted:', content);
+      console.log('🔍 [PostCreator] Content being submitted:', content);
       onSubmit({
         content,
-        emotions: [], // BeautifulPostCreator doesn't have emotions
+        emotions: [], // PostCreator doesn't have emotions
         location: location || undefined,
         tags: selectedTags,
         mentions: mentions, // ESA Layer 24: Send validated mention IDs to API

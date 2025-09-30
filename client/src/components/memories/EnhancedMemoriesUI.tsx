@@ -43,20 +43,20 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
-// Import the BeautifulPostCreator for advanced features
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+// Import the PostCreator for advanced features
+import PostCreator from '@/components/universal/PostCreator';
 // import { AdvancedMediaUploader } from '@/components/media/AdvancedMediaUploader';
 
 // Enhanced Post Creator with Life CEO 44x21s Methodology
-// Re-export BeautifulPostCreator with wrapper for compatibility
+// Re-export PostCreator with wrapper for compatibility
 export const EnhancedPostCreator: React.FC<{
   onPost: (data: any) => void;
   user?: any;
 }> = ({ onPost, user }) => {
-  // Use BeautifulPostCreator with all advanced features including recommendations
+  // Use PostCreator with all advanced features including recommendations
   return (
-    <div className="beautiful-post-creator-wrapper">
-      <BeautifulPostCreator
+    <div className="post-creator-wrapper">
+      <PostCreator
         user={user}
         context={{ type: 'memory' }}
         onSubmit={(data) => {

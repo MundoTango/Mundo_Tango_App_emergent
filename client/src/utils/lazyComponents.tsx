@@ -82,8 +82,8 @@ export const LazyAddTravelDetailModal = withLazyLoading(
 );
 
 // Lazy load heavy components
-export const LazyBeautifulPostCreator = withLazyLoading(
-  () => import('@/components/BeautifulPostCreator')
+export const LazyPostCreator = withLazyLoading(
+  () => import('@/components/universal/PostCreator')
 );
 
 export const LazyEnhancedTimelineV2 = withLazyLoading(

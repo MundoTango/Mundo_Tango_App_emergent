@@ -18,7 +18,7 @@ import { ProfileMemoryPostModal } from '@/components/profile/ProfileMemoryPostMo
 import { ProfileAboutSection } from '@/components/profile/ProfileAboutSection';
 import { ProfileEngagementFeatures } from '@/components/profile/ProfileEngagementFeaturesSimplified';
 import EditProfileModal from '@/components/profile/EditProfileModal';
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
+import PostCreator from '@/components/universal/PostCreator';
 
 // ESA Performance: Import optimized lazy-loaded components
 import {
@@ -457,7 +457,7 @@ export default function Profile() {
                   {/* Main Feed Area */}
                   <div className="lg:col-span-3 space-y-4">
                     {/* Beautiful Post Creator - Same as Main Memories Feed */}
-                    <BeautifulPostCreator 
+                    <PostCreator 
                       context={{ type: 'memory' }}
                       user={user || undefined}
                       onPostCreated={() => {
