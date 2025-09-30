@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,8 +12,7 @@ import {
   tokensToCanonical,
   applyEditToTokens,
   replaceTriggerWithMention,
-  findMentionTriggerAtCursor,
-  getDisplayLength
+  findMentionTriggerAtCursor
 } from '@/utils/mentionTokens';
 
 interface MentionData {
@@ -45,72 +44,233 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
 }) => {
   // Internal state: tokens are the single source of truth
   const [tokens, setTokens] = useState<Token[]>(() => parseCanonicalToTokens(value));
-  const [displayValue, setDisplayValue] = useState<string>(() => tokensToDisplay(tokens));
-  const [cursorPos, setCursorPos] = useState<number>(0);
-  
-  // Mention suggestion state
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0 });
   const [currentMention, setCurrentMention] = useState('');
   const [mentionStart, setMentionStart] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const styledOverlayRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
   const lastEmittedCanonical = useRef<string>(value);
-  const prevDisplayValue = useRef<string>(displayValue);
+  const isComposing = useRef(false);
   
   // Initialize tokens from parent value changes
   useEffect(() => {
     if (value !== lastEmittedCanonical.current) {
       const newTokens = parseCanonicalToTokens(value);
       setTokens(newTokens);
-      setDisplayValue(tokensToDisplay(newTokens));
-      prevDisplayValue.current = tokensToDisplay(newTokens);
+      renderTokensToEditor(newTokens);
     }
   }, [value]);
-  
-  // Restore cursor position after state updates
-  useLayoutEffect(() => {
-    if (textareaRef.current && document.activeElement === textareaRef.current) {
-      textareaRef.current.setSelectionRange(cursorPos, cursorPos);
+
+  // Render tokens to contentEditable
+  const renderTokensToEditor = useCallback((tokensToRender: Token[]) => {
+    if (!editorRef.current) return;
+    
+    const editor = editorRef.current;
+    
+    // Clear and rebuild
+    editor.innerHTML = '';
+    
+    tokensToRender.forEach((token, index) => {
+      if (token.kind === 'text') {
+        const textNode = document.createTextNode(token.text);
+        editor.appendChild(textNode);
+      } else {
+        // Create styled mention span
+        const mentionSpan = document.createElement('span');
+        mentionSpan.contentEditable = 'false';
+        mentionSpan.setAttribute('data-mention-type', token.type);
+        mentionSpan.setAttribute('data-mention-id', token.id);
+        mentionSpan.className = getMentionClassName(token.type);
+        mentionSpan.textContent = `@${token.name}`;
+        editor.appendChild(mentionSpan);
+        
+        // Only add space if next token is not text or doesn't start with space
+        const nextToken = tokensToRender[index + 1];
+        if (!nextToken || (nextToken.kind === 'text' && !nextToken.text.startsWith(' '))) {
+          const space = document.createTextNode(' ');
+          editor.appendChild(space);
+        }
+      }
+    });
+    
+    // Show placeholder if empty
+    if (editor.textContent?.trim() === '') {
+      editor.setAttribute('data-placeholder', placeholder);
+    } else {
+      editor.removeAttribute('data-placeholder');
     }
-  }, [displayValue, cursorPos]);
-  
-  // Sync overlay styles with textarea computed styles
-  useLayoutEffect(() => {
-    if (textareaRef.current && styledOverlayRef.current) {
-      const computedStyle = getComputedStyle(textareaRef.current);
-      const overlay = styledOverlayRef.current;
+  }, [placeholder]);
+
+  // Get mention styling class
+  const getMentionClassName = (type: string) => {
+    const baseClass = 'inline-flex items-center px-2 py-0.5 rounded-md font-semibold mx-0.5';
+    switch (type) {
+      case 'user':
+        return `${baseClass} bg-blue-100 text-blue-700`;
+      case 'event':
+        return `${baseClass} bg-green-100 text-green-700`;
+      case 'group':
+        return `${baseClass} bg-purple-100 text-purple-700`;
+      case 'city':
+        return `${baseClass} bg-orange-100 text-orange-700`;
+      default:
+        return `${baseClass} bg-gray-100 text-gray-700`;
+    }
+  };
+
+  // Extract tokens from contentEditable DOM (recursively handles nested nodes)
+  const extractTokensFromEditor = useCallback((): Token[] => {
+    if (!editorRef.current) return [];
+    
+    const newTokens: Token[] = [];
+    
+    const traverseNodes = (node: Node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent || '';
+        if (text) {
+          // Merge consecutive text tokens
+          const lastToken = newTokens[newTokens.length - 1];
+          if (lastToken && lastToken.kind === 'text') {
+            lastToken.text += text;
+          } else {
+            newTokens.push({ kind: 'text', text });
+          }
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as HTMLElement;
+        
+        // Handle mention spans
+        if (element.hasAttribute('data-mention-type')) {
+          const type = element.getAttribute('data-mention-type') as 'user' | 'event' | 'group' | 'city';
+          const id = element.getAttribute('data-mention-id') || '';
+          const name = element.textContent?.replace('@', '') || '';
+          newTokens.push({ kind: 'mention', type, id, name });
+        }
+        // Handle BR tags as newlines
+        else if (element.tagName === 'BR') {
+          const lastToken = newTokens[newTokens.length - 1];
+          if (lastToken && lastToken.kind === 'text') {
+            lastToken.text += '\n';
+          } else {
+            newTokens.push({ kind: 'text', text: '\n' });
+          }
+        }
+        // Recursively traverse child nodes for DIV, P, etc.
+        else {
+          Array.from(element.childNodes).forEach(traverseNodes);
+        }
+      }
+    };
+    
+    Array.from(editorRef.current.childNodes).forEach(traverseNodes);
+    
+    return newTokens;
+  }, []);
+
+  // Get cursor position in display text
+  const getCursorPosition = useCallback((): number => {
+    if (!editorRef.current) return 0;
+    
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return 0;
+    
+    const range = selection.getRangeAt(0);
+    const preCaretRange = range.cloneRange();
+    preCaretRange.selectNodeContents(editorRef.current);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+    
+    return preCaretRange.toString().length;
+  }, []);
+
+  // Handle input changes
+  const handleInput = useCallback(() => {
+    if (isComposing.current) return;
+    
+    const newTokens = extractTokensFromEditor();
+    const displayValue = tokensToDisplay(newTokens);
+    const cursorPos = getCursorPosition();
+    
+    setTokens(newTokens);
+    
+    // Emit canonical value
+    const canonical = tokensToCanonical(newTokens);
+    lastEmittedCanonical.current = canonical;
+    onChange(canonical);
+    
+    // Check for mention trigger
+    const trigger = findMentionTriggerAtCursor(newTokens, cursorPos);
+    if (trigger) {
+      setCurrentMention(trigger.query);
+      setMentionStart(trigger.start);
+      setShowSuggestions(true);
       
-      overlay.style.fontFamily = computedStyle.fontFamily;
-      overlay.style.fontSize = computedStyle.fontSize;
-      overlay.style.fontWeight = computedStyle.fontWeight;
-      overlay.style.lineHeight = computedStyle.lineHeight;
-      overlay.style.letterSpacing = computedStyle.letterSpacing;
-      overlay.style.wordSpacing = computedStyle.wordSpacing;
-      overlay.style.textAlign = computedStyle.textAlign;
-      overlay.style.padding = computedStyle.padding;
-      overlay.style.paddingTop = computedStyle.paddingTop;
-      overlay.style.paddingRight = computedStyle.paddingRight;
-      overlay.style.paddingBottom = computedStyle.paddingBottom;
-      overlay.style.paddingLeft = computedStyle.paddingLeft;
-      overlay.style.border = computedStyle.border;
-      overlay.style.borderWidth = computedStyle.borderWidth;
-      overlay.style.borderRadius = computedStyle.borderRadius;
-      overlay.style.boxSizing = computedStyle.boxSizing;
+      // Calculate suggestion position
+      if (editorRef.current) {
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          const editorRect = editorRef.current.getBoundingClientRect();
+          
+          setSuggestionPosition({
+            top: rect.bottom - editorRect.top + 5,
+            left: rect.left - editorRect.left
+          });
+        }
+      }
+    } else {
+      setShowSuggestions(false);
     }
-  }, []);
-  
-  // Sync scroll position between textarea and overlay
-  const handleScroll = useCallback((e: React.UIEvent<HTMLTextAreaElement>) => {
-    if (styledOverlayRef.current) {
-      styledOverlayRef.current.scrollTop = e.currentTarget.scrollTop;
-      styledOverlayRef.current.scrollLeft = e.currentTarget.scrollLeft;
-    }
-  }, []);
-  
-  // Search for mentions when @ is typed
+  }, [extractTokensFromEditor, getCursorPosition, onChange]);
+
+  // Insert mention at cursor
+  const insertMention = useCallback((suggestion: MentionData) => {
+    if (!editorRef.current) return;
+    
+    const currentTokens = extractTokensFromEditor();
+    const displayValue = tokensToDisplay(currentTokens);
+    const cursorPos = getCursorPosition();
+    
+    // Use token replacement logic
+    const result = replaceTriggerWithMention(
+      currentTokens,
+      mentionStart,
+      currentMention.length,
+      {
+        name: suggestion.display,
+        type: suggestion.type,
+        id: suggestion.id
+      }
+    );
+    
+    const newTokens = result.tokens;
+    setTokens(newTokens);
+    renderTokensToEditor(newTokens);
+    
+    // Emit canonical
+    const canonical = tokensToCanonical(newTokens);
+    lastEmittedCanonical.current = canonical;
+    onChange(canonical);
+    
+    setShowSuggestions(false);
+    editorRef.current.focus();
+    
+    // Move cursor to end
+    setTimeout(() => {
+      if (editorRef.current) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(editorRef.current);
+        range.collapse(false);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
+    }, 0);
+  }, [extractTokensFromEditor, getCursorPosition, mentionStart, currentMention, onChange]);
+
+  // Search for mentions
   const { data: searchData } = useQuery({
     queryKey: ['/api/search/multi', currentMention],
     queryFn: async () => {
@@ -120,7 +280,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     enabled: currentMention.length >= 1 && showSuggestions,
     staleTime: 30000,
   });
-  
+
   // Get suggestions from search data
   const suggestions: MentionData[] = React.useMemo(() => {
     if (!searchData) return [];
@@ -176,124 +336,8 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     return allSuggestions;
   }, [searchData]);
-  
-  // Reset selected index when suggestions change
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [suggestions]);
-  
-  // Extract mention IDs and notify parent (user mentions only for notifications)
-  useEffect(() => {
-    if (onMentionsChange) {
-      const userMentionIds: string[] = [];
-      tokens.forEach(token => {
-        if (token.kind === 'mention' && token.type === 'user') {
-          userMentionIds.push(token.id);
-        }
-      });
-      onMentionsChange(userMentionIds);
-    }
-  }, [tokens, onMentionsChange]);
-  
-  // Handle text input changes
-  const handleInput = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newDisplayValue = e.target.value;
-    const newCursorPos = e.target.selectionStart;
-    
-    // Compute diff between previous and new display value
-    const oldDisplay = prevDisplayValue.current;
-    let displayStart = 0;
-    let displayEnd = 0;
-    let insertText = '';
-    
-    // Find where the change occurred
-    // Find common prefix
-    while (displayStart < Math.min(oldDisplay.length, newDisplayValue.length) &&
-           oldDisplay[displayStart] === newDisplayValue[displayStart]) {
-      displayStart++;
-    }
-    
-    // Find common suffix
-    let oldEnd = oldDisplay.length;
-    let newEnd = newDisplayValue.length;
-    while (oldEnd > displayStart && newEnd > displayStart &&
-           oldDisplay[oldEnd - 1] === newDisplayValue[newEnd - 1]) {
-      oldEnd--;
-      newEnd--;
-    }
-    
-    displayEnd = oldEnd;
-    insertText = newDisplayValue.substring(displayStart, newEnd);
-    
-    // Apply edit to tokens
-    const result = applyEditToTokens(tokens, displayStart, displayEnd, insertText);
-    const newTokens = result.tokens;
-    const newCanonical = tokensToCanonical(newTokens);
-    
-    // Update state
-    setTokens(newTokens);
-    setDisplayValue(newDisplayValue);
-    setCursorPos(newCursorPos);
-    prevDisplayValue.current = newDisplayValue;
-    
-    // Emit canonical value to parent
-    lastEmittedCanonical.current = newCanonical;
-    onChange(newCanonical);
-    
-    // Check for mention trigger
-    const trigger = findMentionTriggerAtCursor(newTokens, newCursorPos);
-    if (trigger) {
-      setCurrentMention(trigger.query);
-      setMentionStart(trigger.start);
-      setShowSuggestions(true);
-      
-      // Calculate suggestion position
-      if (textareaRef.current) {
-        const coords = getCaretCoordinates(textareaRef.current, newCursorPos);
-        setSuggestionPosition({
-          top: coords.top + 25,
-          left: coords.left
-        });
-      }
-    } else {
-      setShowSuggestions(false);
-    }
-  }, [tokens, onChange]);
-  
-  // Insert mention
-  const insertMention = useCallback((suggestion: MentionData) => {
-    const result = replaceTriggerWithMention(
-      tokens,
-      mentionStart,
-      currentMention.length,
-      {
-        name: suggestion.display,
-        type: suggestion.type,
-        id: suggestion.id
-      }
-    );
-    
-    const newTokens = result.tokens;
-    const newCursorPos = result.newCursorPos + 1; // +1 for space after mention
-    const newDisplay = tokensToDisplay(newTokens);
-    const newCanonical = tokensToCanonical(newTokens);
-    
-    // Update state
-    setTokens(newTokens);
-    setDisplayValue(newDisplay);
-    setCursorPos(newCursorPos);
-    prevDisplayValue.current = newDisplay;
-    setShowSuggestions(false);
-    
-    // Emit canonical to parent
-    lastEmittedCanonical.current = newCanonical;
-    onChange(newCanonical);
-    
-    // Focus textarea
-    textareaRef.current?.focus();
-  }, [tokens, mentionStart, currentMention, onChange]);
-  
-  // Handle keyboard navigation in suggestions
+
+  // Handle keyboard navigation
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (showSuggestions && suggestions.length > 0) {
       if (e.key === 'ArrowDown') {
@@ -311,7 +355,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       }
     }
   }, [showSuggestions, suggestions, selectedIndex, insertMention]);
-  
+
   // Helper functions for styling
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -327,7 +371,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         return null;
     }
   };
-  
+
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'user':
@@ -342,91 +386,30 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         return 'bg-gray-50 text-gray-700';
     }
   };
-  
-  // Render styled content with colored mentions
-  const renderStyledContent = () => {
-    const parts: JSX.Element[] = [];
-    let displayIndex = 0;
-    
-    tokens.forEach((token, i) => {
-      if (token.kind === 'text') {
-        if (token.text) {
-          // Preserve whitespace by converting spaces to non-breaking spaces
-          const preservedText = token.text.replace(/ /g, '\u00A0');
-          parts.push(
-            <span key={`text-${i}`} className="text-gray-700" style={{ whiteSpace: 'pre-wrap' }}>
-              {preservedText}
-            </span>
-          );
-        }
-        displayIndex += token.text.length;
-      } else {
-        const mentionDisplay = `@${token.name}`;
-        let colorClass = 'text-gray-600 font-semibold';
-        
-        switch (token.type) {
-          case 'user':
-            colorClass = 'text-blue-600 font-semibold';
-            break;
-          case 'event':
-            colorClass = 'text-green-600 font-semibold';
-            break;
-          case 'group':
-            colorClass = 'text-purple-600 font-semibold';
-            break;
-          case 'city':
-            colorClass = 'text-orange-600 font-semibold';
-            break;
-        }
-        
-        parts.push(
-          <span key={`mention-${i}`} className={colorClass}>
-            {mentionDisplay}
-          </span>
-        );
-        displayIndex += mentionDisplay.length;
-      }
-    });
-    
-    return parts;
-  };
-  
+
+  // Initialize editor content
+  useEffect(() => {
+    renderTokensToEditor(tokens);
+  }, []);
+
   return (
     <div className="relative w-full">
-      {/* Actual textarea */}
-      <textarea
-        ref={textareaRef}
-        value={displayValue}
-        onChange={handleInput}
+      {/* ContentEditable editor */}
+      <div
+        ref={editorRef}
+        contentEditable={!disabled}
+        onInput={handleInput}
         onKeyDown={handleKeyDown}
-        onScroll={handleScroll}
-        placeholder={placeholder}
-        disabled={disabled}
-        rows={rows}
-        className={`w-full p-3 rounded-lg border-2 border-gray-200 focus:border-emerald-400 focus:outline-none resize-none relative ${className}`}
+        onCompositionStart={() => { isComposing.current = true; }}
+        onCompositionEnd={() => { isComposing.current = false; handleInput(); }}
+        className={`w-full p-3 rounded-lg border-2 border-gray-200 focus:border-emerald-400 focus:outline-none resize-none min-h-[100px] ${className}`}
         style={{
-          color: 'transparent',
-          caretColor: '#111827',
-          zIndex: 1
+          minHeight: `${rows * 1.5}rem`,
+          maxHeight: '300px',
+          overflowY: 'auto'
         }}
         data-testid="input-mention"
       />
-      
-      {/* Styled overlay showing colored mentions (only when content exists) */}
-      {displayValue && (
-        <div
-          ref={styledOverlayRef}
-          className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden"
-          style={{
-            zIndex: 2,
-            whiteSpace: 'pre-wrap',
-            wordWrap: 'break-word'
-          }}
-          aria-hidden="true"
-        >
-          {renderStyledContent()}
-        </div>
-      )}
       
       {/* Suggestion dropdown */}
       {showSuggestions && suggestions.length > 0 && (
@@ -475,43 +458,21 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
           </CardContent>
         </Card>
       )}
+      
+      <style>{`
+        [contenteditable][data-placeholder]:empty:before {
+          content: attr(data-placeholder);
+          color: #9ca3af;
+          pointer-events: none;
+          position: absolute;
+        }
+        
+        [contenteditable]:focus {
+          outline: none;
+        }
+      `}</style>
     </div>
   );
 };
-
-// Get caret coordinates in textarea for positioning dropdown
-function getCaretCoordinates(element: HTMLTextAreaElement, position: number) {
-  const div = document.createElement('div');
-  const style = getComputedStyle(element);
-  const properties = [
-    'padding', 'margin', 'border', 'font', 'lineHeight',
-    'letterSpacing', 'wordSpacing', 'whiteSpace', 'wordWrap'
-  ];
-  
-  properties.forEach(prop => {
-    div.style[prop as any] = style[prop as any];
-  });
-  
-  div.style.position = 'absolute';
-  div.style.visibility = 'hidden';
-  div.style.whiteSpace = 'pre-wrap';
-  div.style.wordWrap = 'break-word';
-  div.textContent = element.value.substring(0, position);
-  
-  const span = document.createElement('span');
-  span.textContent = element.value.substring(position) || '.';
-  div.appendChild(span);
-  
-  document.body.appendChild(div);
-  
-  const coordinates = {
-    top: span.offsetTop,
-    left: span.offsetLeft
-  };
-  
-  document.body.removeChild(div);
-  
-  return coordinates;
-}
 
 export default SimpleMentionsInput;
