@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -39,6 +39,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [mentionStart, setMentionStart] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0); // Track selected suggestion for keyboard nav
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const pendingDisplaySelection = useRef<number | null>(null);
 
   // Search for mentions when @ is typed (both users and events)
   const { data: searchData, isLoading } = useQuery({
@@ -210,34 +211,48 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       VERIFY_mentionDisplayLength: actualMentionDisplay.length
     });
     
-    // Update state first
+    // Update state and mark cursor position to apply after React updates
+    pendingDisplaySelection.current = newCursorPosInDisplay;
     onChange(newValue);
     setShowSuggestions(false);
     
-    // Set cursor position directly after React updates the DOM
-    setTimeout(() => {
-      if (textareaRef.current) {
-        const displayText = getDisplayValue(newValue);
-        console.log('📍 Setting cursor after mention insertion:', {
-          targetPosition: newCursorPosInDisplay,
-          actualTextLength: textareaRef.current.value.length,
-          expectedDisplayText: displayText,
-          actualTextValue: textareaRef.current.value,
-          match: textareaRef.current.value === displayText
-        });
-        
-        // Ensure we're setting position in the actual rendered text
-        const safePos = Math.min(newCursorPosInDisplay, textareaRef.current.value.length);
-        textareaRef.current.setSelectionRange(safePos, safePos);
-        textareaRef.current.focus();
-      }
-    }, 0);
+    console.log('📍 Pending cursor position after mention insertion:', {
+      targetPosition: newCursorPosInDisplay,
+      finalDisplayValue,
+      willBeAppliedInLayoutEffect: true
+    });
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
   // Reset selected index when suggestions change
   useEffect(() => {
     setSelectedIndex(0);
   }, [suggestions]);
+
+  // Apply pending cursor position after React updates the textarea
+  useLayoutEffect(() => {
+    if (pendingDisplaySelection.current !== null && textareaRef.current) {
+      const expectedDisplay = getDisplayValue(value);
+      const actualDisplay = textareaRef.current.value;
+      
+      // Only apply if the textarea has been updated with the new value
+      if (expectedDisplay === actualDisplay) {
+        const targetPos = pendingDisplaySelection.current;
+        const safePos = Math.min(targetPos, actualDisplay.length);
+        
+        console.log('✅ Applying cursor position in useLayoutEffect:', {
+          targetPos,
+          safePos,
+          textLength: actualDisplay.length,
+          expectedDisplay: expectedDisplay.substring(Math.max(0, safePos - 10), safePos + 10),
+          actualDisplay: actualDisplay.substring(Math.max(0, safePos - 10), safePos + 10)
+        });
+        
+        textareaRef.current.setSelectionRange(safePos, safePos);
+        textareaRef.current.focus();
+        pendingDisplaySelection.current = null;
+      }
+    }
+  }, [value, getDisplayValue]);
 
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -331,6 +346,9 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   }, []);
 
 
+  // Track previous mention IDs to prevent infinite loops
+  const prevMentionIdsRef = useRef<string>('');
+
   // ESA Layer 24: Extract mention IDs and notify parent component (user mentions only for notifications)
   useEffect(() => {
     if (onMentionsChange) {
@@ -347,7 +365,13 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       };
       
       const mentionIds = extractMentionIds(value);
-      onMentionsChange(mentionIds);
+      const mentionIdsKey = mentionIds.sort().join(',');
+      
+      // Only call onMentionsChange if the mention IDs actually changed
+      if (mentionIdsKey !== prevMentionIdsRef.current) {
+        prevMentionIdsRef.current = mentionIdsKey;
+        onMentionsChange(mentionIds);
+      }
     }
   }, [value, onMentionsChange]);
 
