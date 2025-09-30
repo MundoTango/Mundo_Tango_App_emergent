@@ -37,6 +37,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
   const [suggestionPosition, setSuggestionPosition] = useState({ top: 0, left: 0 });
   const [currentMention, setCurrentMention] = useState('');
   const [mentionStart, setMentionStart] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0); // Track selected suggestion for keyboard nav
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Search for mentions when @ is typed (both users and events)
@@ -85,10 +86,51 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     return allSuggestions;
   }, [searchData, currentMention, showSuggestions]);
 
-  // Update @ mention suggestion state based on cursor position
-  const updateMentionSuggestions = useCallback((displayValue: string, cursorPos: number) => {
-    // Check if we're in a mention context
-    const textBeforeCursor = displayValue.substring(0, cursorPos);
+  // Convert internal format to display format
+  const getDisplayValue = useCallback((text: string) => {
+    // Replace @[Name](user:id) or @[Name](event:id) with just @Name
+    return text.replace(/@\[([^\]]+)\]\((user|event):[^\)]+\)/g, '@$1');
+  }, []);
+
+  // Convert cursor position from canonical format to display format
+  const getDisplayCursorPosition = useCallback((canonicalText: string, canonicalPos: number): number => {
+    const beforeCursor = canonicalText.substring(0, canonicalPos);
+    const beforeCursorDisplay = getDisplayValue(beforeCursor);
+    return beforeCursorDisplay.length;
+  }, [getDisplayValue]);
+
+  // Convert cursor position from display format to canonical format
+  const getCanonicalCursorPosition = useCallback((canonicalText: string, displayPos: number): number => {
+    let canonicalIndex = 0;
+    let displayIndex = 0;
+    const canonicalRegex = /@\[([^\]]+)\]\((user|event):([^\)]+)\)/g;
+    
+    while (canonicalIndex < canonicalText.length && displayIndex < displayPos) {
+      // Check if we're at the start of a mention
+      const remaining = canonicalText.substring(canonicalIndex);
+      const match = canonicalRegex.exec(remaining);
+      canonicalRegex.lastIndex = 0; // Reset regex
+      
+      if (match && match.index === 0) {
+        // We're at a mention - advance display by @Name length, canonical by full mention length
+        const displayLength = `@${match[1]}`.length;
+        canonicalIndex += match[0].length;
+        displayIndex += displayLength;
+      } else {
+        // Regular character - both indices advance
+        canonicalIndex++;
+        displayIndex++;
+      }
+    }
+    
+    return canonicalIndex;
+  }, []);
+
+  // Update @ mention suggestion state based on cursor position (displayValue and displayCursorPos)
+  // Note: This function receives display coordinates but needs to work with canonical text for insertion
+  const updateMentionSuggestions = useCallback((displayValue: string, displayCursorPos: number, canonicalValue: string) => {
+    // Check if we're in a mention context (in display format)
+    const textBeforeCursor = displayValue.substring(0, displayCursorPos);
     const lastAtIndex = textBeforeCursor.lastIndexOf('@');
     
     if (lastAtIndex !== -1) {
@@ -96,15 +138,18 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       const hasSpaceAfterAt = textAfterAt.includes(' ');
       
       if (!hasSpaceAfterAt && textAfterAt.length <= 50) {
-        // We're in a mention
+        // We're in a mention - convert display position to canonical position
+        const canonicalMentionStart = getCanonicalCursorPosition(canonicalValue, lastAtIndex);
+        
         setCurrentMention(textAfterAt);
-        setMentionStart(lastAtIndex);
+        setMentionStart(canonicalMentionStart); // Store canonical position!
         setShowSuggestions(true);
         
-        // Calculate suggestion position
+        // Calculate suggestion position using canonical cursor position
         const textarea = textareaRef.current;
         if (textarea) {
-          const coords = getCaretCoordinates(textarea, cursorPos);
+          const canonicalCursorPos = getCanonicalCursorPosition(canonicalValue, displayCursorPos);
+          const coords = getCaretCoordinates(textarea, canonicalCursorPos);
           setSuggestionPosition({
             top: coords.top + 25,
             left: coords.left
@@ -116,22 +161,23 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     } else {
       setShowSuggestions(false);
     }
-  }, []);
+  }, [getCanonicalCursorPosition]);
 
-  // Convert internal format to display format
-  const getDisplayValue = useCallback((text: string) => {
-    // Replace @[Name](user:id) or @[Name](event:id) with just @Name
-    return text.replace(/@\[([^\]]+)\]\((user|event):[^\)]+\)/g, '@$1');
-  }, []);
-
-  // Legacy handler for simple text change (no mentions)
+  // Handler for text change - converts to display format for detection
   const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    const cursorPos = e.target.selectionStart;
+    const newCanonicalValue = e.target.value;
+    const canonicalCursorPos = e.target.selectionStart;
     
-    onChange(newValue);
-    updateMentionSuggestions(newValue, cursorPos);
-  }, [onChange, updateMentionSuggestions]);
+    // Store canonical format in state
+    onChange(newCanonicalValue);
+    
+    // Convert to display format for @ mention detection
+    const displayValue = getDisplayValue(newCanonicalValue);
+    const displayCursorPos = getDisplayCursorPosition(newCanonicalValue, canonicalCursorPos);
+    
+    // Pass both display and canonical values for proper coordinate conversion
+    updateMentionSuggestions(displayValue, displayCursorPos, newCanonicalValue);
+  }, [onChange, updateMentionSuggestions, getDisplayValue, getDisplayCursorPosition]);
 
   // Insert mention into text (supports both user and event mentions)
   const insertMention = useCallback((suggestion: MentionData) => {
@@ -142,28 +188,25 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     
     const newValue = beforeMention + mentionText + ' ' + afterMention;
     
-    // Calculate cursor position in display format
-    // beforeMention might contain other mentions, so we need to convert to display length
-    const beforeMentionDisplay = getDisplayValue(beforeMention);
-    const mentionDisplayLength = `@${suggestion.display}`.length;
-    const newCursorPosInDisplay = beforeMentionDisplay.length + mentionDisplayLength + 1; // +1 for space
+    // Calculate cursor position in CANONICAL format
+    // Cursor should be placed after the inserted mention + space in canonical text
+    const newCursorPosInCanonical = beforeMention.length + mentionText.length + 1; // +1 for space
     
     console.log('🎯 Cursor Calculation:', {
       mentionStart,
       currentMention,
       beforeMentionCanonical: beforeMention,
-      beforeMentionDisplay,
-      beforeMentionDisplayLength: beforeMentionDisplay.length,
-      mentionDisplayText: `@${suggestion.display}`,
-      mentionDisplayLength,
+      beforeMentionLength: beforeMention.length,
+      mentionTextCanonical: mentionText,
+      mentionTextLength: mentionText.length,
       spacesAdded: 1,
-      calculatedPosition: newCursorPosInDisplay,
+      calculatedCanonicalPosition: newCursorPosInCanonical,
       newValueCanonical: newValue,
       newValueDisplay: getDisplayValue(newValue)
     });
     
-    // Store intended cursor position before calling onChange
-    intendedCursorPosRef.current = newCursorPosInDisplay;
+    // Store intended cursor position in CANONICAL coordinates before calling onChange
+    intendedCursorPosRef.current = newCursorPosInCanonical;
     
     onChange(newValue);
     setShowSuggestions(false);
@@ -174,18 +217,29 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     }
   }, [value, mentionStart, currentMention, onChange, getDisplayValue]);
 
+  // Reset selected index when suggestions change
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [suggestions]);
+
   // Handle key navigation in suggestions
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (showSuggestions && suggestions.length > 0) {
-      if (e.key === 'Escape') {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev + 1) % suggestions.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        insertMention(suggestions[selectedIndex]);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
         setShowSuggestions(false);
-        e.preventDefault();
-      } else if (e.key === 'Enter' && suggestions.length > 0) {
-        insertMention(suggestions[0]);
-        e.preventDefault();
       }
     }
-  }, [showSuggestions, suggestions, insertMention]);
+  }, [showSuggestions, suggestions, selectedIndex, insertMention]);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -352,7 +406,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     console.log('✅ New Canonical:', newCanonical);
     
     onChange(newCanonical);
-    updateMentionSuggestions(newDisplayValue, cursorPos);
+    updateMentionSuggestions(newDisplayValue, cursorPos, newCanonical);
     intendedCursorPosRef.current = cursorPos;
   }, [value, onChange, handleTextChange, getMentionSpans, updateMentionSuggestions]);
 
@@ -395,11 +449,11 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
     let displayOffset = 0;
     
     canonicalMatches.forEach((canonical, idx) => {
-      // Add text before this mention
+      // Add text before this mention (convert to display format)
       if (canonical.start > internalIndex) {
         const beforeText = value.substring(internalIndex, canonical.start);
-        parts.push(beforeText);
-        displayOffset += beforeText.length;
+        parts.push(getDisplayValue(beforeText));
+        displayOffset += getDisplayValue(beforeText).length;
       }
       
       // Add the highlighted mention with color based on type
@@ -417,9 +471,10 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       internalIndex = canonical.end;
     });
     
-    // Add remaining text after last mention
+    // Add remaining text after last mention (convert to display format)
     if (internalIndex < value.length) {
-      parts.push(value.substring(internalIndex));
+      const remainingText = value.substring(internalIndex);
+      parts.push(getDisplayValue(remainingText));
     }
     
     return (
@@ -475,7 +530,9 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
               suggestions.map((suggestion, index) => (
                 <div
                   key={`${suggestion.type}-${suggestion.id}`}
-                  className="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                  className={`flex items-center gap-3 p-3 cursor-pointer border-b last:border-b-0 ${
+                    index === selectedIndex ? 'bg-blue-100' : 'hover:bg-gray-50'
+                  }`}
                   onClick={() => insertMention(suggestion)}
                 >
                   {/* Avatar or Icon */}
@@ -524,7 +581,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       
       {/* Helper text */}
       <div className="mt-2 text-xs text-gray-500">
-        Type @ to mention users or events. Press Enter to select the first suggestion.
+        Type @ to mention users or events. Use arrow keys to navigate, Enter to select.
       </div>
     </div>
   );
