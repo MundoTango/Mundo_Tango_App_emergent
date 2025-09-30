@@ -60,12 +60,12 @@ export default function UpcomingEventsSidebar({
     }
   });
   
-  // RSVP mutation with optimistic updates and toggle support (FIXED)
+  // RSVP mutation with optimistic updates and toggle support
   const rsvpMutation = useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
       return await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
-        body: { status }  // apiRequest will stringify this
+        body: { status }
       });
     },
     onMutate: async ({ eventId, status }) => {
@@ -352,7 +352,13 @@ export default function UpcomingEventsSidebar({
                 {event.type}
               </span>
             </div>
-            <div className="flex items-start gap-1 flex-shrink-0">
+            <div 
+              className="flex items-start gap-1 flex-shrink-0"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
               {event.isFeatured && (
                 <Sparkles className="w-4 h-4 text-[#5EEAD4] animate-pulse" />
               )}

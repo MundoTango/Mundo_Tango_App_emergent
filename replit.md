@@ -79,3 +79,31 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **Email Service**: Resend
 - **Analytics**: Plausible Analytics
 - **Project Management**: Atlassian Jira
+## RSVP System - Complete Implementation (Sept 30, 2025)
+
+### Issue & Resolution
+Fixed RSVP button highlighting and click handling across event detail pages and sidebar.
+
+### Problems Identified:
+1. **Backend Auth Missing**: `/api/events/:id` and `/api/events/feed` endpoints lacked authentication, so `userStatus` was always null
+2. **Data Structure Mismatch**: Frontend expected unwrapped data but API returned `{ success, data }` wrapper
+3. **Click Event Hijacking**: Sidebar RSVP buttons weren't clickable because parent `<a>` tag captured click events
+
+### Solutions Implemented:
+1. **Created `optionalAuth` Middleware** (`server/routes/eventsRoutes.ts`):
+   - Works without requiring authentication (graceful fallback)
+   - Respects `AUTH_BYPASS=true` for development (uses admin user ID 7)
+   - Applied to both `/api/events/:id` and `/api/events/feed` endpoints
+   
+2. **Data Unwrapping** (`client/src/pages/event-detail.tsx`):
+   - Added `select: (data: any) => data.data` to unwrap API response
+   
+3. **Click Event Handling** (`client/src/components/esa/UpcomingEventsSidebar.tsx`):
+   - Added wrapper div around RSVP icons with `onClick` that calls `e.preventDefault()` and `e.stopPropagation()`
+   - Prevents parent link from hijacking RSVP button clicks
+
+### Result:
+✅ RSVP statuses display with ocean/turquoise gradients when selected
+✅ Clicking RSVP buttons triggers mutations and updates UI
+✅ Toggle behavior works (click same status to remove RSVP)
+✅ Works on both event detail pages and sidebar upcoming events
