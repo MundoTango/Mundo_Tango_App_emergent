@@ -31,7 +31,7 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **Automation Platform**: n8n integration.
 - **Automated Testing**: TestSprite AI.
 - **Performance**: Lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
-- **Internationalization**: Full 73-language support with OpenAI-powered translations and comprehensive coverage, including cultural customization (e.g., Lunfardo).
+- **Internationalization**: ⚠️ BROKEN - Translation generation works (68 languages via OpenAI), but UI integration non-functional. Language switching doesn't work, components don't re-render with translations. See docs/pages/esa-layers/layer-53-internationalization.md for details.
 - **Payments**: Full Stripe integration.
 - **Media Upload System**: Hybrid approach with YouTube/Vimeo URLs, Cloudinary uploads, and server uploads with client-side compression.
 
