@@ -16,10 +16,11 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 The platform employs a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 **UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-blue gradients (#40E0D0 → #0047AB).
+- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-blue gradients (#40E0D0 → #1E90FF → #0047AB).
   - ✅ **Token-Based Architecture** (October 2025): Comprehensive design token system in `client/src/styles/design-tokens.css` with 30+ utility classes for colors, spacing, shadows, typography. Single source of truth for all styling.
-  - ✅ **Updated Color Palette** (October 2025): Turquoise (#40E0D0) to Dodger Blue (#1E90FF) to Cobalt Blue (#0047AB) gradient for vibrant, modern aesthetic.
+  - ✅ **Updated Color Palette** (October 1, 2025): Turquoise (#40E0D0) to Dodger Blue (#1E90FF) to Cobalt Blue (#0047AB) gradient. All colors in modern HSLA format. Dark mode uses cobalt blue family (hsl 218°) for consistency.
   - ✅ **Phase 1 Complete**: Sidebar and UnifiedTopBar fully refactored - zero inline styles, zero JS hover handlers, zero hardcoded hex values. WCAG AA compliant contrast in both light/dark themes.
+  - ✅ **Sidebar Profile Section** (October 1, 2025): Fully clickable profile card with navigation to `/profile/{userId}`. Interactive hover states: card scales 1.02x, avatar 1.1x, name changes to turquoise, username brightens. Integrated RoleEmojiDisplay for tango role badges.
   - 📋 **Rollout Guide**: See `docs/design/MT_OCEAN_DESIGN_ROLLOUT.md` for page-by-page implementation strategy (Dashboard/Feed, Profile/Settings, Admin pages pending).
 - **Responsiveness**: Mobile-first design.
 - **Interaction**: Micro-interactions including ripple effects, magnetic buttons, confetti, and particle effects.

@@ -6,7 +6,13 @@
 
 ## Overview
 
-The MT Ocean design system provides a comprehensive, token-based architecture for consistent visual styling across the Mundo Tango platform. It uses the signature seafoam-to-teal gradient (#5EEAD4 → #155E75) with theme-aware components and WCAG AA-compliant contrast.
+The MT Ocean design system provides a comprehensive, token-based architecture for consistent visual styling across the Mundo Tango platform. It uses the signature **turquoise-to-blue gradient** (#40E0D0 → #1E90FF → #0047AB) with theme-aware components and WCAG AA-compliant contrast.
+
+### Color System Update (October 1, 2025)
+- **New Palette:** Turquoise (#40E0D0) → Dodger Blue (#1E90FF) → Cobalt Blue (#0047AB)
+- **Format:** All colors converted to modern HSLA format for systematic alpha variants
+- **Dark Mode:** Cobalt blue family (hsl 218°) for consistent shadows, gradients, borders
+- **Legacy Cleanup:** All RGBA values eliminated from design tokens
 
 ## Architecture Principles
 
@@ -18,11 +24,11 @@ The MT Ocean design system provides a comprehensive, token-based architecture fo
 
 ### Token Categories
 
-1. **Color Palette** - Ocean seafoam (400-500), teal (400-800), secondary colors
+1. **Color Palette** - Turquoise (180° hue), Dodger Blue (210° hue), Cobalt Blue (218° hue) in HSLA format
 2. **Semantic Aliases** - `--text-ocean`, `--border-ocean-divider`, `--bg-ocean-card`
 3. **Spacing Scale** - `--space-xs` through `--space-2xl`
 4. **Typography** - Size scale, weights, line-heights
-5. **Shadows** - `shadow-ocean-sm/md/lg/xl` with glassmorphic effects
+5. **Shadows** - `shadow-ocean-sm/md/lg/xl` with cobalt-based HSLA glassmorphic effects
 6. **Utility Classes** - 30+ pre-built classes for common patterns
 
 ## Completed Rollout (Phase 1)
