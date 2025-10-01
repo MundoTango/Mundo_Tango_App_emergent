@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy, Component, ReactNode } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import { Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,7 +12,6 @@ import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
-import { ThemeProvider as ESAThemeProvider } from "@/contexts/theme-context";
 import ThemeManager from "@/components/theme/ThemeManager";
 import { performanceOptimizations } from "@/lib/performance-optimizations";
 import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
@@ -21,7 +20,7 @@ import { setupGlobalErrorHandlers, setupQueryErrorHandling } from "@/lib/global-
 import { MicroInteractionProvider } from "@/components/MicroInteractionProvider";
 import BuildOptimizer from "@/lib/build-optimizations";
 import * as Sentry from "@sentry/react";
-import "@/i18n/config"; // Initialize i18n with comprehensive configuration
+import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
 // ESA Life CEO 61x21 - Monitoring Services
@@ -90,15 +89,13 @@ const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
-// ========== Social Features Pages (7) ==========
+// ========== Social Features Pages (6) ==========
 const EnhancedFriends = lazy(() => import("@/pages/EnhancedFriends"));
 const FriendshipPage = lazy(() => import("@/pages/FriendshipPage"));
 const Messages = lazy(() => import("@/pages/Messages"));
 const Groups = lazy(() => import("@/pages/groups"));
 const GroupDetailPage = lazy(() => import("@/pages/GroupDetailPageMT"));
 const RoleInvitations = lazy(() => import("@/pages/RoleInvitations"));
-const Favorites = lazy(() => import("@/pages/Favorites"));
-const Notifications = lazy(() => import("@/pages/Notifications"));
 
 // ========== Community Pages (8) ==========
 const Community = lazy(() => import("@/pages/community"));
@@ -110,9 +107,7 @@ const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: 
 const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
 
 // ========== Content & Timeline Pages (8) ==========
-// ESA Framework: Using canonical Memory Feed implementation
-// ESA Fix: Import directly, not lazy - this is the main homepage
-import ESAMemoryFeed from "@/pages/ESAMemoryFeed";
+const ESAMemoryFeed = lazy(() => import("@/pages/ESAMemoryFeed"));
 const MemoriesTest = lazy(() => import("@/pages/MemoriesTest"));
 // ESA Framework: Single unified /memories interface - no competing timeline implementations
 const Search = lazy(() => import("@/pages/search"));
@@ -193,7 +188,7 @@ const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
 );
 
 // Simple error boundary component
-class ErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean, error: any}> {
+class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
   constructor(props: any) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -230,22 +225,20 @@ function Router() {
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <Switch>
-          {/* Homepage - Main Memories feed - ESA Framework Implementation */}
+          {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
-            <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <ESAMemoryFeed />
-            </Suspense>
+            <Redirect to="/memories" />
           </Route>
 
-          {/* ESA Framework: Redirect legacy timeline routes to main homepage */}
+          {/* ESA Framework: Redirect legacy timeline routes to unified /memories interface */}
           <Route path="/timeline">
-            <Redirect to="/" />
+            <Redirect to="/memories" />
           </Route>
           <Route path="/enhanced-timeline">
-            <Redirect to="/" />
+            <Redirect to="/memories" />
           </Route>
           <Route path="/timeline-minimal">
-            <Redirect to="/" />
+            <Redirect to="/memories" />
           </Route>
 
           {/* ========== Authentication Routes (2) ========== */}
@@ -302,13 +295,6 @@ function Router() {
 
           <Route path="/public-profile/:userId?">
             <Suspense fallback={<LoadingFallback message="Loading public profile..." />}>
-              <PublicProfilePage />
-            </Suspense>
-          </Route>
-          
-          {/* Profile route for @mentions */}
-          <Route path="/profile/:userId">
-            <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
               <PublicProfilePage />
             </Suspense>
           </Route>
@@ -369,19 +355,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Social Features Routes (9) ========== */}
-          <Route path="/notifications">
-            <Suspense fallback={<LoadingFallback message="Loading notifications..." />}>
-              <Notifications />
-            </Suspense>
-          </Route>
-          
-          <Route path="/favorites">
-            <Suspense fallback={<LoadingFallback message="Loading favorites..." />}>
-              <Favorites />
-            </Suspense>
-          </Route>
-
+          {/* ========== Social Features Routes (7) ========== */}
           <Route path="/friends">
             <Suspense fallback={<LoadingFallback message="Loading friends..." />}>
               <EnhancedFriends />
@@ -461,7 +435,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== ESA Unified Memories Interface - Kept for backward compatibility ========== */}
+          {/* ========== ESA Unified Memories Interface - Single Route ========== */}
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
@@ -744,24 +718,20 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ESAThemeProvider>
-        <AuthProvider>
-          <SocketProvider>
-            <CsrfProvider>
-              <TenantProvider>
-                <OpenReplayProvider>
-                  <MonitoringProvider>
-                    <TrialBanner />
-                    <SessionRecordingNotice />
-                    <Router />
-                    <Toaster />
-                  </MonitoringProvider>
-                </OpenReplayProvider>
-              </TenantProvider>
-            </CsrfProvider>
-          </SocketProvider>
-        </AuthProvider>
-      </ESAThemeProvider>
+      <AuthProvider>
+        <CsrfProvider>
+          <TenantProvider>
+            <OpenReplayProvider>
+              <MonitoringProvider>
+                <TrialBanner />
+                <SessionRecordingNotice />
+                <Router />
+                <Toaster />
+              </MonitoringProvider>
+            </OpenReplayProvider>
+          </TenantProvider>
+        </CsrfProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
