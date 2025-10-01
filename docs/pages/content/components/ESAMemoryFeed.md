@@ -2,7 +2,7 @@
 *(ESA LIFE CEO 61×21 Platform)*
 
 ## 1. Overview
-- **Route**: `/` (Main memories page, root route)
+- **Route**: `/memories` (Main memories page)
 - **Purpose**: Central hub for content creation, discovery, and interaction across user memories. Serves as the platform's primary social feed implementing the ESA LIFE CEO 61×21 AGENTS Framework specifications.
 - **ESA Framework Layer**: 
   - Layer 9 (Content Management System)
@@ -10,14 +10,49 @@
   - Layer 13 (Media Management)
   - Layer 28 (Performance Optimization)
 
+## ⚠️ CRITICAL CHANGE: Layer 53 (Internationalization) REMOVED
+
+**Status**: As of October 2025, Layer 53 internationalization has been **completely removed** from this component.
+
+**What Changed:**
+- All `useTranslation()` hooks removed
+- All `t()` translation calls replaced with hardcoded English strings
+- Component now operates in **English-only mode**
+- `useTheme` import changed from old `@/contexts/theme-context` to new `@/lib/theme/theme-provider`
+- `useAuth` import changed from `@/hooks/useAuth` to `@/contexts/auth-context`
+
+**Affected Dependencies:**
+- ❌ `react-i18next` - No longer used
+- ✅ `@/lib/theme/theme-provider` - Now using shadcn theme provider
+- ✅ `@/contexts/auth-context` - Unified auth context
+
+**Why This Change:**
+Layer 53 had critical failures (language switching broken, components not re-rendering, translation keys not loading). Rather than block functionality, we removed i18n dependencies and switched to English-only operation until Layer 53 can be properly re-implemented.
+
 ## 2. Technical Implementation
+
+### Provider Requirements
+**CRITICAL:** ESAMemoryFeed requires these providers in App.tsx:
+```typescript
+<QueryClientProvider>
+  <ThemeProvider>        {/* Required for useTheme hook */}
+    <AuthProvider>       {/* Required for useAuth hook */}
+      <CsrfProvider>
+        <TenantProvider>
+          <Router />
+        </TenantProvider>
+      </CsrfProvider>
+    </AuthProvider>
+  </ThemeProvider>
+</QueryClientProvider>
+```
 
 ### Components
 ```typescript
 // Core Components
 import DashboardLayout from '@/layouts/DashboardLayout';
-import BeautifulPostCreator from '@/components/universal/BeautifulPostCreator';
-import EnhancedPostFeed from '@/components/moments/EnhancedPostFeed';
+import PostCreator from '@/components/universal/PostCreator';
+import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
 import UpcomingEventsSidebar from '@/components/esa/UpcomingEventsSidebar';
 import FloatingCreateButton from '@/components/esa/FloatingCreateButton';
 import ShareModal from '@/components/modern/ShareModal';
@@ -84,7 +119,29 @@ shares.postId → posts.id (Many-to-One)
   - Smooth scroll with virtual scrolling
   - Particle effects on interactions
 
-## 6. Test Coverage
+## 6. Layout Structure
+
+### Responsive Grid
+```typescript
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  {/* Posts Feed - 2/3 width on large screens */}
+  <div className="lg:col-span-2">
+    <PostCreator />
+    <UnifiedPostFeed />
+  </div>
+  
+  {/* Events Sidebar - 1/3 width on large screens */}
+  <div className="lg:col-span-1">
+    <UpcomingEventsSidebar />
+  </div>
+</div>
+```
+
+**Breakpoint Behavior:**
+- **Mobile/Tablet** (< lg): Single column, stacks vertically
+- **Desktop** (≥ lg): 3-column grid with 2:1 ratio
+
+## 7. Test Coverage
 - **Current Status**: 15% covered (needs improvement)
 - **Requirements**:
   - Unit tests for state management
@@ -93,34 +150,13 @@ shares.postId → posts.id (Many-to-One)
   - WebSocket event testing
   - Performance tests for 1000+ posts
 
-## 7. Known Issues
+## 8. Known Issues
 
-### ⚠️ CRITICAL: Filters & Search Currently Disabled
-
-**Note:** This page uses the `UnifiedPostFeed` component which has its filters/search section covered with "COMING SOON" overlays.
-
-**Affected Features:**
-- Search bar (visible but interaction blocked)
-- Filter controls (All/Following/Nearby)
-- Tag filtering system
-- Date range filtering
-
-**See Full Details:** [UnifiedPostFeed Documentation](../../components/UnifiedPostFeed.md)
-
-**Overlay Design:**
-- Background: `bg-cyan-500/30` (30% opacity turquoise-blue)
-- Border: `border-cyan-500/50` (cyan border)
-- Hover text: "COMING SOON" appears on hover
-- Purpose: Users can see features to build excitement
-
-### Critical Fix Applied
-```typescript
-// Fixed TypeError: url.toLowerCase is not a function
-// Applied to all media processing
-if (typeof url === 'string' && url.toLowerCase) {
-  // Safe to process URL
-}
-```
+### Recent Fixes (October 2025)
+✅ **Fixed: Missing ThemeProvider** - Added to App.tsx provider tree
+✅ **Fixed: useAuth import mismatch** - Now imports from `@/contexts/auth-context`
+✅ **Fixed: Layer 53 crashes** - Completely removed, using English-only strings
+✅ **Fixed: Page routing** - `/memories` now correctly loads ESAMemoryFeed instead of ModernMemoriesPage
 
 ### Current Issues
 - **Feed refresh lag**: Optimistic updates partially implemented
@@ -128,15 +164,15 @@ if (typeof url === 'string' && url.toLowerCase) {
 - **Memory leaks**: WebSocket listeners need cleanup
 - **Safari compatibility**: Backdrop-filter fallback implemented
 
-## 8. Agent Responsibilities
-- **Content Creation Agent (Layer 9)**: Manages BeautifulPostCreator
+## 9. Agent Responsibilities
+- **Content Creation Agent (Layer 9)**: Manages PostCreator
 - **Real-time Agent (Layer 11)**: Handles WebSocket connections
 - **Media Agent (Layer 13)**: Processes uploads and compressions
 - **Performance Agent (Layer 28)**: Optimizes virtual scrolling
 - **Moderation Agent (Layer 11)**: Reviews reported content
 - **Analytics Agent (Layer 30)**: Tracks engagement metrics
 
-## 9. Integration Points
+## 10. Integration Points
 - **External Services**:
   - Socket.io for real-time updates
   - Cloudinary for media storage
@@ -144,11 +180,11 @@ if (typeof url === 'string' && url.toLowerCase) {
   - React Query for state management
   - Intersection Observer for infinite scroll
 - **Internal Systems**:
-  - Authentication via useAuth hook
-  - Theme system via useTheme context
+  - Authentication via useAuth hook (`@/contexts/auth-context`)
+  - Theme system via useTheme hook (`@/lib/theme/theme-provider`)
   - Toast notifications via useToast
 
-## 10. Performance Metrics
+## 11. Performance Metrics
 - **Load Times**:
   - Initial page load: <2s target
   - Post creation: <3s including media
@@ -162,25 +198,23 @@ if (typeof url === 'string' && url.toLowerCase) {
   - WebP format with fallbacks
   - Service Worker caching (planned)
 
-## Code Example - Critical Data Extraction Fix
+## Code Example - English-Only Implementation
 ```typescript
-// Before (broken):
-const { data: posts = [] } = useQuery({
-  queryKey: ['/api/posts/feed', filters],
-  enabled: !!currentUserId
+// Translation calls REMOVED - now using English strings directly
+toast({
+  title: "✨ Memory Created!",
+  description: "Your memory with media has been shared"
 });
 
-// After (fixed):
-const { data: response } = useQuery({
-  queryKey: ['/api/posts/feed', filters],
-  enabled: !!currentUserId
-});
-const posts = response?.posts || []; // Extract posts array from response
+// Was previously:
+// title: t('memories.toasts.postCreatedEmoji'),
+// description: t('memories.toasts.memoryWithMedia')
 ```
 
 ## Implementation Notes
 1. **State Management**: Uses React Query for server state, useState for UI state
 2. **Infinite Scroll**: Intersection Observer with loadMoreRef
 3. **Real-time Updates**: Socket.io with room-based subscriptions
-4. **Error Boundaries**: Wrapped in Suspense with fallback UI
+4. **Error Boundaries**: Wrapped in ResilientBoundary with fallback UI
 5. **Accessibility**: ARIA labels, semantic HTML, keyboard navigation
+6. **English-Only**: All user-facing text is hardcoded in English (Layer 53 removed)
