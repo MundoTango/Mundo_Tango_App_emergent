@@ -704,4 +704,133 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
   }
 });
 
+// ========== USER-NAMESPACED ENDPOINTS FOR FRONTEND COMPATIBILITY ==========
+// These endpoints map to the existing group endpoints but use slug-based routing
+
+// User join group by slug
+router.post('/user/join-group/:slug', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const slug = req.params.slug;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Get group by slug
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.slug, slug));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
+    // Check if already member
+    const [existingMember] = await db.select()
+      .from(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, group.id),
+        eq(groupMembers.userId, user.id)
+      ));
+    
+    if (existingMember) {
+      return res.status(400).json({ error: 'Already a member' });
+    }
+    
+    await db.insert(groupMembers).values({
+      groupId: group.id,
+      userId: user.id,
+      role: 'member'
+    });
+    
+    res.json({ success: true, message: 'Joined group successfully' });
+  } catch (error) {
+    console.error('Error joining group:', error);
+    res.status(500).json({ error: 'Failed to join group' });
+  }
+});
+
+// User leave group by slug
+router.post('/user/leave-group/:slug', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const slug = req.params.slug;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Get group by slug
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.slug, slug));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
+    await db.delete(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, group.id),
+        eq(groupMembers.userId, user.id)
+      ));
+    
+    res.json({ success: true, message: 'Left group successfully' });
+  } catch (error) {
+    console.error('Error leaving group:', error);
+    res.status(500).json({ error: 'Failed to leave group' });
+  }
+});
+
+// User follow city by slug - maps to join group
+router.post('/user/follow-city/:slug', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const slug = req.params.slug;
+    
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Get city group by slug
+    const [group] = await db.select()
+      .from(groups)
+      .where(and(
+        eq(groups.slug, slug),
+        eq(groups.type, 'city')
+      ));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'City group not found' });
+    }
+    
+    // Check if already following (member)
+    const [existingMember] = await db.select()
+      .from(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, group.id),
+        eq(groupMembers.userId, user.id)
+      ));
+    
+    if (existingMember) {
+      return res.status(400).json({ error: 'Already following this city' });
+    }
+    
+    await db.insert(groupMembers).values({
+      groupId: group.id,
+      userId: user.id,
+      role: 'member'
+    });
+    
+    res.json({ success: true, message: 'Following city successfully' });
+  } catch (error) {
+    console.error('Error following city:', error);
+    res.status(500).json({ error: 'Failed to follow city' });
+  }
+});
+
 export default router;
