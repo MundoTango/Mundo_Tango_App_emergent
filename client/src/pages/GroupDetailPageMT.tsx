@@ -1395,6 +1395,11 @@ export default function GroupDetailPageMT() {
                 { id: 'events', label: 'Events', icon: Calendar },
                 { id: 'members', label: 'Members', icon: Users },
                 { id: 'community-hub', label: 'Community Hub', icon: MapPin },
+                // City-specific tabs (Housing & Recommendations only for city groups)
+                ...(group.type === 'city' ? [
+                  { id: 'housing', label: 'Housing', icon: Home },
+                  { id: 'recommendations', label: 'Recommendations', icon: Star },
+                ] : [])
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -1421,6 +1426,8 @@ export default function GroupDetailPageMT() {
             {activeTab === 'events' && renderEventsTab()}
             {activeTab === 'posts' && renderPostsTab()}
             {activeTab === 'community-hub' && renderCommunityHub()}
+            {activeTab === 'housing' && group.type === 'city' && renderHousingTab()}
+            {activeTab === 'recommendations' && group.type === 'city' && renderRecommendationsTab()}
           </div>
         </div>
       </div>
