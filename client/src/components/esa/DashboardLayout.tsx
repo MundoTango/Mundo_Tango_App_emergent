@@ -41,7 +41,7 @@ export default function DashboardLayout({
   ];
 
   const communityStats = [
-    { icon: Globe, label: 'Global Dancers', value: '3.2K', color: 'text-cyan-500' },
+    { icon: Globe, label: 'Global People', value: '3.2K', color: 'text-cyan-500' },
     { icon: Calendar, label: 'Active Events', value: '945', color: 'text-emerald-500' },
     { icon: Building2, label: 'Communities', value: '6.8K', color: 'text-cyan-500' },
     { icon: MapPin, label: 'Your City', value: '184', color: 'text-emerald-500' }
