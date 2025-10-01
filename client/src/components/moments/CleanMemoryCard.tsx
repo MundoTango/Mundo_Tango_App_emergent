@@ -42,6 +42,13 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
 
   // Reactions array - Fixed spacing
   const reactions = ['❤️', '🔥', '😍', '🎉', '👏'];
+  const reactionIds = {
+    '❤️': 'heart',
+    '🔥': 'fire', 
+    '😍': 'heart_eyes',
+    '🎉': 'party',
+    '👏': 'clap'
+  };
   const [selectedReaction, setSelectedReaction] = useState(post.currentUserReaction || '');
 
   // Get avatar fallback
@@ -226,7 +233,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
 
   return (
     <>
-      <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+      <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow" data-testid={`card-memory-${post.id}`}>
         {/* Header */}
         <div className="p-4">
           <div className="flex items-start justify-between">
@@ -246,7 +253,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
               
               {/* User info */}
               <div>
-                <h3 className="font-semibold text-gray-900">{post.user?.name || 'Unknown User'}</h3>
+                <h3 className="font-semibold text-gray-900" data-testid={`text-username-${post.id}`}>{post.user?.name || 'Unknown User'}</h3>
                 <div className="flex items-center gap-2 text-sm text-gray-500">
                   {post.user?.city && (
                     <>
@@ -256,7 +263,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                     </>
                   )}
                   <Clock className="w-3 h-3" />
-                  <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
+                  <span data-testid={`text-timestamp-${post.id}`}>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
                 </div>
                 {/* User roles/badges */}
                 {post.user?.tangoRoles && post.user.tangoRoles.length > 0 && (
@@ -282,6 +289,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                 size="sm"
                 onClick={() => setShowMenu(!showMenu)}
                 className="h-8 w-8 p-0 hover:bg-gray-100"
+                data-testid="button-menu"
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
@@ -296,6 +304,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                           setShowMenu(false);
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                        data-testid="button-edit"
                       >
                         <Edit className="w-4 h-4 text-blue-600" />
                         Edit Post
@@ -313,6 +322,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-red-50 text-red-600 flex items-center gap-2"
                         disabled={deleteMutation.isPending}
+                        data-testid="button-delete"
                       >
                         <Trash2 className="w-4 h-4" />
                         {deleteMutation.isPending ? 'Deleting...' : 'Delete Memory'}
@@ -325,6 +335,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                       setShowMenu(false);
                     }}
                     className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                    data-testid="button-report"
                   >
                     <Flag className="w-4 h-4 text-red-500" />
                     Report
@@ -512,7 +523,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
             <div className="flex items-center justify-between">
               {/* Reaction Buttons - FIXED: Smaller, properly spaced */}
               <div className="flex items-center gap-1">
-                {reactions.map((reaction) => (
+                {reactions.map((reaction, index) => (
                   <button
                     key={reaction}
                     onClick={() => handleReaction(reaction)}
@@ -523,6 +534,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                         : 'hover:bg-gray-50 border-gray-200 hover:border-gray-300'
                       }
                     `}
+                    data-testid={`button-reaction-${reactionIds[reaction]}`}
                   >
                     <span className="select-none leading-none">{reaction}</span>
                   </button>
@@ -536,6 +548,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                   size="sm"
                   onClick={() => setShowComments(!showComments)}
                   className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
+                  data-testid="button-comment-toggle"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="text-sm">
@@ -548,6 +561,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                   size="sm"
                   onClick={onShare}
                   className="flex items-center gap-2 text-gray-600 hover:text-green-600"
+                  data-testid="button-share"
                 >
                   <Share2 className="w-4 h-4" />
                   <span className="text-sm">Share</span>
@@ -577,7 +591,7 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
             {!commentsQuery.isLoading && comments.length > 0 && (
               <div className="space-y-3 mb-4">
                 {comments.map((comment: any) => (
-                  <div key={comment.id} className="flex gap-3">
+                  <div key={comment.id} className="flex gap-3" data-testid={`row-comment-${comment.id}`}>
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center text-white text-sm font-medium">
                       {getAvatarFallback(comment.user?.name || 'U')}
                     </div>
@@ -610,12 +624,14 @@ export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEd
                   onChange={(e) => setCommentText(e.target.value)}
                   placeholder="Write a comment..."
                   className="flex-1 min-h-[40px] resize-none"
+                  data-testid={`input-comment-clean-${post.id}`}
                 />
                 <Button
                   onClick={handleSubmitComment}
                   disabled={!commentText.trim() || commentMutation.isPending}
                   size="sm"
                   className="self-end"
+                  data-testid={`button-submit-comment-clean-${post.id}`}
                 >
                   {commentMutation.isPending ? (
                     <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>

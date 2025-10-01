@@ -45,7 +45,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
     : null;
 
   return (
-    <div className={`relative flex items-center gap-2 ${className}`}>
+    <div className={`relative flex items-center gap-2 ${className}`} data-testid={`reactions-container-${postId}`}>
       {/* Reaction Button */}
       <button
         onMouseEnter={() => setShowReactions(true)}
@@ -64,6 +64,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
             : 'text-gray-600 hover:bg-gray-50'
           }
         `}
+        data-testid={`button-reaction-toggle-${postId}`}
       >
         <span style={{ marginRight: '8px', fontSize: '16px' }}>👍</span>
         <span style={{ fontSize: '14px', fontWeight: '500' }}>
@@ -86,7 +87,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
               {reaction!.emoji}
             </span>
           ))}
-          <span style={{ fontSize: '14px', color: '#666', marginLeft: '4px' }}>
+          <span style={{ fontSize: '14px', color: '#666', marginLeft: '4px' }} data-testid={`text-reaction-count-${postId}`}>
             {totalReactions}
           </span>
         </div>
@@ -94,7 +95,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
 
       {/* Reaction Picker */}
       {showReactions && (
-        <div className="absolute bottom-full left-0 mb-3 bg-white rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100">
+        <div className="absolute bottom-full left-0 mb-3 bg-white rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100" data-testid={`popover-reactions-${postId}`}>
           <div className="grid grid-cols-6 gap-1">
             {FACEBOOK_REACTIONS.map((reaction) => (
               <button
@@ -109,6 +110,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
                   ${currentReaction === reaction.id ? 'bg-gray-100 ring-2 ring-blue-500' : ''}
                 `}
                 title={reaction.label}
+                data-testid={`button-reaction-${postId}-${reaction.id}`}
               >
                 <span style={{ fontSize: '24px', padding: '4px' }}>
                   {reaction.emoji}

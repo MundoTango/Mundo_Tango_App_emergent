@@ -157,6 +157,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             position: 'relative'
           }}
           onClick={(e) => e.stopPropagation()}
+          data-testid={`modal-report-${postId}`}
         >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -172,6 +173,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+            data-testid={`button-close-report-${postId}`}
           >
             <X className="h-5 w-5 text-gray-400" />
           </button>
@@ -193,6 +195,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                     : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                   }
                 `}
+                data-testid={`button-category-${postId}-${category.id}`}
               >
                 <div className={category.color}>
                   {category.icon}
@@ -227,6 +230,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 className="w-full p-4 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
                 rows={4}
                 maxLength={500}
+                data-testid={`textarea-report-description-${postId}`}
               />
               <div className="text-right text-sm text-gray-500">
                 {description.length}/500 characters
@@ -257,8 +261,11 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }
               `}
+              data-testid={`button-submit-report-${postId}`}
             >
-              {isSubmitting ? 'Submitting Report...' : 'Submit Report'}
+              <span data-testid={isSubmitting ? `text-submitting-report-${postId}` : undefined}>
+                {isSubmitting ? 'Submitting Report...' : 'Submit Report'}
+              </span>
             </button>
           </div>
         </div>

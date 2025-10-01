@@ -108,6 +108,7 @@ export function RichTextCommentEditor({
                 onClick={() => formatText('bold')}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 title="Bold"
+                data-testid={`button-editor-bold-${postId}`}
               >
                 <Bold className="h-4 w-4" />
               </button>
@@ -115,6 +116,7 @@ export function RichTextCommentEditor({
                 onClick={() => formatText('italic')}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 title="Italic"
+                data-testid={`button-editor-italic-${postId}`}
               >
                 <Italic className="h-4 w-4" />
               </button>
@@ -123,12 +125,14 @@ export function RichTextCommentEditor({
                 onClick={() => formatText('createLink', prompt('Enter URL:') || '')}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 title="Add Link"
+                data-testid={`button-editor-link-${postId}`}
               >
                 <Link className="h-4 w-4" />
               </button>
               <button
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 title="Mention User"
+                data-testid={`button-editor-mention-${postId}`}
               >
                 <AtSign className="h-4 w-4" />
               </button>
@@ -139,6 +143,7 @@ export function RichTextCommentEditor({
                   showEmojiPicker ? 'bg-pink-100 text-pink-600' : 'hover:bg-gray-100'
                 }`}
                 title="Add Emoji"
+                data-testid={`button-editor-emoji-toggle-${postId}`}
               >
                 <Smile className="h-4 w-4" />
               </button>
@@ -156,6 +161,7 @@ export function RichTextCommentEditor({
                     className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200"
                     title={`Add ${emoji}`}
                     type="button"
+                    data-testid={`button-editor-emoji-${postId}-${index}`}
                   >
                     {emoji}
                   </button>
@@ -180,6 +186,7 @@ export function RichTextCommentEditor({
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           suppressContentEditableWarning={true}
+          data-testid={`editor-input-${postId}`}
         />
 
         {/* Placeholder text display */}
@@ -194,7 +201,7 @@ export function RichTextCommentEditor({
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
             <div className="text-sm text-gray-500">
               {mentions.length > 0 && (
-                <span>
+                <span data-testid={`text-mentions-${postId}`}>
                   Mentioning: {mentions.map(m => `@${m}`).join(', ')}
                 </span>
               )}
@@ -204,6 +211,7 @@ export function RichTextCommentEditor({
                 <button
                   onClick={onCancel}
                   className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                  data-testid={`button-editor-cancel-${postId}`}
                 >
                   Cancel
                 </button>
@@ -218,6 +226,7 @@ export function RichTextCommentEditor({
                     : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }
                 `}
+                data-testid={`button-submit-comment-editor-${postId}`}
               >
                 <Send className="h-4 w-4" />
                 Comment

@@ -172,6 +172,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                           className="w-full h-auto max-h-96"
                           preload="metadata"
                           playsInline
+                          data-testid={`video-media-${post.id}-${index}`}
                         />
                       </div>
                     );
@@ -183,6 +184,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                           alt={`Memory ${index + 1}`}
                           className="w-full h-auto max-h-96 object-cover rounded-lg"
                           loading="lazy"
+                          data-testid={`img-media-${post.id}-${index}`}
                         />
                       </div>
                     );
@@ -194,7 +196,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
         </div>
 
         {/* Actions */}
-        <div className="mt-4 pt-3 border-t border-gray-100">
+        <div className="mt-4 pt-3 border-t border-gray-100" data-testid={`section-actions-${post.id}`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button 
@@ -203,6 +205,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   post.userHasLiked ? 'text-red-600' : 'text-gray-600 hover:text-red-600'
                 }`}
                 disabled={likeMutation.isPending}
+                data-testid={`button-like-${post.id}`}
               >
                 <Heart className={`w-5 h-5 ${post.userHasLiked ? 'fill-current' : ''}`} />
                 <span className="text-sm">{post.reactionCount || 0}</span>
@@ -211,6 +214,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
               <button 
                 onClick={() => setShowComments(!showComments)}
                 className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+                data-testid={`button-comment-toggle-${post.id}`}
               >
                 <MessageCircle className="w-5 h-5" />
                 <span className="text-sm">{post.commentCount || 0}</span>
@@ -238,11 +242,13 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                       addCommentMutation.mutate(commentText);
                     }
                   }}
+                  data-testid={`input-comment-video-${post.id}`}
                 />
                 <Button
                   onClick={() => commentText.trim() && addCommentMutation.mutate(commentText)}
                   disabled={!commentText.trim() || addCommentMutation.isPending}
                   size="sm"
+                  data-testid={`button-submit-comment-video-${post.id}`}
                 >
                   <Send className="w-4 h-4" />
                 </Button>
