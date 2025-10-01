@@ -195,7 +195,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             {/* Dance Emojis with Role Display */}
             <div className="flex gap-2 mt-2 pl-1 text-lg opacity-90 group-hover:opacity-100 transition-opacity">
               {user?.tangoRoles && user.tangoRoles.length > 0 ? (
-                <RoleEmojiDisplay tangoRoles={user.tangoRoles} size="lg" />
+                <RoleEmojiDisplay 
+                  tangoRoles={user.tangoRoles} 
+                  leaderLevel={user.leaderLevel}
+                  followerLevel={user.followerLevel}
+                  size="lg" 
+                />
               ) : (
                 <>
                   <span>💃</span>
