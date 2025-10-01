@@ -3,8 +3,7 @@
 // Following ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK.md specifications
 // WITH RESILIENCE ARCHITECTURE - Prevents component failures and blank screens
 
-// ESA Fix: Import React and hooks together to prevent null reference errors
-import React, { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
 import io from 'socket.io-client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';

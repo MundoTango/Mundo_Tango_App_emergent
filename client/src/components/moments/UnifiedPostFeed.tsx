@@ -5,7 +5,7 @@
  * Layer 2: API Structure Agent - Consistent data contracts
  */
 
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
@@ -93,7 +93,7 @@ interface UnifiedPostFeedProps {
  * ESA LIFE CEO 61×21 - Unified Post Feed Component
  * Layer 9: UI Framework - Single responsibility, configurable features
  */
-const UnifiedPostFeed = React.memo(({ 
+const UnifiedPostFeed = memo(({ 
   posts: propsPosts,
   showFilters = false,
   showSearch = false,
