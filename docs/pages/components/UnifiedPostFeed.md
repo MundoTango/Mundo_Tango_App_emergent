@@ -2,9 +2,30 @@
 
 ## Overview
 - **Component:** `client/src/components/moments/UnifiedPostFeed.tsx`
-- **Route:** Used on `/` (home), `/memories`, and various feed pages
+- **Route:** Used on `/memories` and various feed pages
 - **Purpose:** Unified post feed component replacing multiple duplicate implementations
 - **ESA Framework Layer:** Layer 9 (UI Framework) & Layer 2 (API Structure)
+
+## ⚠️ CRITICAL CHANGE: Layer 53 (Internationalization) REMOVED
+
+**Status**: As of October 2025, Layer 53 internationalization has been **completely removed** from this component.
+
+**What Changed:**
+- All `useTranslation()` hooks removed
+- All `t()` translation calls replaced with hardcoded English strings (19 replacements)
+- Component now operates in **English-only mode**
+- Filter button now shows "Filters" instead of "common.actions.filters"
+
+**Affected Text:**
+- "Filters" button label
+- "No posts yet" empty state
+- "Search posts..." placeholder
+- Loading states
+- Error messages
+- All user-facing strings
+
+**Why This Change:**
+Layer 53 had critical failures preventing proper UI rendering. We removed i18n dependencies to restore full functionality while Layer 53 is being re-implemented.
 
 ## Technical Implementation
 
@@ -18,22 +39,26 @@
   interface UnifiedPostFeedProps {
     showFilters?: boolean;      // Show filter controls
     showSearch?: boolean;        // Show search bar
-    showTagManager?: boolean;    // Show tag management
-    className?: string;          // Additional styling
-    currentUserId: number;       // Current user ID
+    posts?: any[];              // Posts array (preferred over internal fetch)
+    currentUserId: string;      // Current user ID
+    filters?: FilterOptions;    // Filter configuration
+    hasMore?: boolean;          // Infinite scroll flag
+    onLoadMore?: () => void;    // Load more callback
+    onEdit?: (post) => void;    // Edit handler
   }
   ```
 
 ### Component Modes
-- **Full Mode:** All features enabled (filters, search, tags)
-- **Simple Mode:** Lightweight view without controls
+- **Prop-Driven Mode (Preferred):** Receives posts from parent component
+- **Self-Fetch Mode:** Internal data fetching when posts prop not provided
 - **Custom Mode:** Selective feature enabling via props
 
 ### Data Flow
-1. **API Call:** Fetches posts from `/api/posts/feed`
-2. **Enrichment:** Includes friendship status and user data
-3. **Filtering:** Client-side filtering by tags and search
-4. **Rendering:** Optimized virtual scrolling for large lists
+1. **Preferred:** Parent fetches from `/api/posts/feed`, passes via props
+2. **Fallback:** Component fetches internally if no posts prop
+3. **Enrichment:** Includes friendship status and user data
+4. **Filtering:** Client-side filtering by tags and search
+5. **Rendering:** Optimized virtual scrolling for large lists
 
 ## Database Schema
 
@@ -102,7 +127,7 @@ LIMIT $2 OFFSET $3
 - **Engagement Buttons:** Like, comment, share with animations
 - **Tag Pills:** Clickable tags with gradient backgrounds
 - **Search Bar:** Real-time search with debouncing
-- **Filter Tabs:** Smooth tab switching animations
+- **Filter Button:** "Filters" button (English-only)
 
 ## Test Coverage
 
@@ -121,34 +146,12 @@ LIMIT $2 OFFSET $3
 
 ## Known Issues
 
-### ⚠️ CRITICAL: Filters & Search Currently Disabled
+### Recent Fixes (October 2025)
+✅ **Fixed: Translation key display** - "common.actions.filters" now shows as "Filters"
+✅ **Fixed: Layer 53 crashes** - Removed all i18n dependencies, English-only
+✅ **Fixed: Component rendering** - All 19 t() calls replaced with English strings
 
-**Status:** Filters/Search section is covered with a "COMING SOON" overlay (cyan-500/30 opacity with border)
-
-**Affected Features:**
-- Search bar (visible but interaction blocked)
-- Filter button and expanded filter controls
-- Tag filtering system
-- Date range filtering
-
-**Overlay Design:**
-- Background: `bg-cyan-500/30` (30% opacity turquoise-blue tint)
-- Border: `border-cyan-500/50` (cyan border for visibility)
-- Hover text: Large white "COMING SOON" appears on hover (text-2xl)
-- Location: Covers entire filters section in Memories feed
-- Purpose: Users can see the features underneath to build excitement while knowing they're temporarily unavailable
-
-**Why Disabled:**
-- Part of ESA Layer 53 internationalization issues
-- Filter/search UI components affected by broken translation integration
-- Functionality exists but UI strings don't render properly
-
-**Code Location:**
-- Component: `client/src/components/moments/UnifiedPostFeed.tsx`
-- Overlay starts at line ~450
-- Covers search bar, filter toggle, and expanded filter controls
-
-### Other Current Bugs
+### Current Bugs
 - Infinite scroll occasionally duplicates posts
 - Search doesn't highlight matched terms
 - Tag filtering has case sensitivity issues
@@ -175,12 +178,12 @@ LIMIT $2 OFFSET $3
 - **API Backend:** Express.js REST endpoints
 - **Real-time Updates:** Socket.io for live posts
 - **Image CDN:** Cloudinary for media optimization
-- **Search Service:** Elasticsearch/Fuse.js
+- **Search Service:** Elasticsearch/Fuse.js (when implemented)
 - **Analytics:** Event tracking for engagement
 
 ### Internal Integrations
 - **EnhancedPostItem:** Individual post rendering
-- **CreatePost:** New post creation component
+- **PostCreator:** New post creation component
 - **CommentSection:** Nested comments display
 - **ShareModal:** Post sharing functionality
 - **ReportModal:** Content reporting system
@@ -200,3 +203,15 @@ LIMIT $2 OFFSET $3
 - **Memory Usage:** Optimized with virtual scrolling
 - **API Calls:** Reduced by 30% with better caching
 - **User Experience:** Consistent behavior across all feeds
+
+## English-Only Implementation
+```typescript
+// Example: All text is now hardcoded in English
+<Button>
+  <Filter className="h-4 w-4 mr-2" />
+  Filters
+</Button>
+
+// Was previously:
+// {t('common.actions.filters')}
+```
