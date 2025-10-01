@@ -369,7 +369,7 @@ router.post('/groups', isAuthenticated, async (req: any, res) => {
       description,
       city,
       isPrivate: isPrivate || false,
-      createdById: user.id
+      createdBy: user.id
     }).returning();
     
     // Add creator as admin
