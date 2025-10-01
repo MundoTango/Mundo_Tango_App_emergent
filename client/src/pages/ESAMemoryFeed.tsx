@@ -12,8 +12,8 @@ import { postsAPI } from '@/lib/api/posts';
 import { useToast } from '@/hooks/use-toast';
 import { Sparkles } from 'lucide-react';
 import { useTheme } from '@/lib/theme/theme-provider';
-import { useAuth } from '@/hooks/useAuth'; // ESA Framework Layer 4: Use existing auth
-import { useTranslation } from 'react-i18next'; // ESA Layer 53: Internationalization
+import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use existing auth
+// NOTE: useTranslation removed - Layer 53 is broken, using English strings
 
 // RESILIENCE IMPORTS - Platform-wide protection
 import { useResilientQuery } from '@/hooks/useResilientQuery';
@@ -33,10 +33,10 @@ const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
 
 // Core component without error boundary
 function ESAMemoryFeedCore() {
-  const { t } = useTranslation(); // ESA Layer 53: Translation hook
+  // NOTE: Translation hook removed - Layer 53 is broken, using English strings directly
   const { toast } = useToast();
   const { currentTheme } = useTheme();
-  const { user, isAuthenticated } = useAuth(); // ESA Framework Layer 4: Get authenticated user
+  const { user } = useAuth(); // ESA Framework Layer 4: Get authenticated user
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentUserId, setCurrentUserId] = useState<string>('');
   // Grid view removed per requirements - using feed only
@@ -115,8 +115,8 @@ function ESAMemoryFeedCore() {
         setAllPosts(prev => [newPost, ...prev]);
         // Use toastRef for stable reference (ESA Framework pattern)
         toastRef.current({
-          title: t('memories.toasts.newPost'),
-          description: t('memories.toasts.newPostDescription', { name: newPost.user?.name || t('memories.toasts.someone') }),
+          title: "New Memory",
+          description: `${newPost.user?.name || 'Someone'} shared a new memory`,
           duration: 3000
         });
       }
@@ -263,8 +263,8 @@ function ESAMemoryFeedCore() {
     mutationFn: (formData: FormData) => postsAPI.createPost(formData),
     onSuccess: () => {
       toast({ 
-        title: t('memories.memoryShared'),
-        description: t('memories.memorySharedDescription')
+        title: "Memory Shared",
+        description: "Your memory has been shared successfully"
       });
       // Refresh the feed from the beginning
       setPage(1);
@@ -274,8 +274,8 @@ function ESAMemoryFeedCore() {
     },
     onError: (error: any) => {
       toast({ 
-        title: t('common.error'),
-        description: error.message || t('errors.uploadFailed'),
+        title: "Error",
+        description: error.message || "Upload failed",
         variant: "destructive"
       });
     }
@@ -399,8 +399,8 @@ function ESAMemoryFeedCore() {
       }));
       console.error('Failed to toggle reaction:', error);
       toast({
-        title: t('common.error'),
-        description: t('memories.toasts.reactionFailed'),
+        title: "Error",
+        description: "Failed to add reaction",
         variant: "destructive"
       });
     }
@@ -417,8 +417,8 @@ function ESAMemoryFeedCore() {
     try {
       await postsAPI.addComment(postId, comment);
       toast({ 
-        title: t('memories.toasts.commentAdded'),
-        description: t('memories.toasts.commentAddedDesc')
+        title: "Comment Added",
+        description: "Your comment has been posted"
       });
       // Update local state optimistically
       setAllPosts(prev => prev.map(post => 
@@ -429,8 +429,8 @@ function ESAMemoryFeedCore() {
     } catch (error) {
       console.error('Failed to add comment:', error);
       toast({ 
-        title: t('common.error'),
-        description: t('memories.toasts.commentFailed'),
+        title: "Error",
+        description: "Failed to post comment",
         variant: "destructive"
       });
     } finally {
@@ -448,8 +448,8 @@ function ESAMemoryFeedCore() {
     const post = allPosts.find(p => p.id === postId);
     if (!post) {
       toast({
-        title: t('common.error'),
-        description: t('memories.toasts.shareFailed'),
+        title: "Error",
+        description: "Failed to share memory",
         variant: "destructive"
       });
       return;
@@ -492,8 +492,8 @@ function ESAMemoryFeedCore() {
     try {
       await postsAPI.deletePost(postId);
       toast({
-        title: t('memories.toasts.postDeleted'),
-        description: t('memories.toasts.postDeletedDesc')
+        title: "Memory Deleted",
+        description: "Your memory has been removed"
       });
       // Remove from local state immediately
       setAllPosts(prev => prev.filter(post => post.id !== postId));
@@ -502,8 +502,8 @@ function ESAMemoryFeedCore() {
     } catch (error) {
       console.error('Failed to delete post:', error);
       toast({
-        title: t('common.error'),
-        description: t('memories.toasts.deleteFailed'),
+        title: "Error",
+        description: "Failed to delete memory",
         variant: "destructive"
       });
     }
@@ -517,14 +517,14 @@ function ESAMemoryFeedCore() {
     try {
       await postsAPI.reportPost(postId, reportReason);
       toast({
-        title: t('memories.toasts.postReported'),
-        description: t('memories.toasts.postReportedDesc')
+        title: "Memory Reported",
+        description: "Thank you for your report. We'll review it soon."
       });
     } catch (error) {
       console.error('Failed to report post:', error);
       toast({
-        title: t('common.error'),
-        description: t('memories.toasts.reportFailed'),
+        title: "Error",
+        description: "Failed to submit report",
         variant: "destructive"
       });
     }
@@ -550,7 +550,7 @@ function ESAMemoryFeedCore() {
             <div className="flex items-center mb-4">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-teal-500" />
-                {t('memories.title')}
+                Memories
               </h1>
             </div>
           </div>
@@ -609,15 +609,15 @@ function ESAMemoryFeedCore() {
                               queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
                               setShowCreateModal(false);
                               toast({
-                                title: t('memories.toasts.postCreatedEmoji'),
-                                description: t('memories.toasts.memoryWithMedia')
+                                title: "✨ Memory Created!",
+                                description: "Your memory with media has been shared"
                               });
                             })
                             .catch(err => {
                               console.error('Error creating post:', err);
                               toast({
-                                title: t('memories.toasts.createFailed'),
-                                description: err.message || t('memories.toasts.createFailedDesc'),
+                                title: "Failed to Create Memory",
+                                description: err.message || "Please try again",
                                 variant: "destructive"
                               });
                             });
@@ -771,8 +771,8 @@ function ESAMemoryFeedCore() {
                 // ESA Layer 9: Edit completed successfully
                 console.log('[ESA Layer 9] Post edited successfully');
                 toast({
-                  title: t('memories.toasts.postUpdated'),
-                  description: t('memories.toasts.changesSaved')
+                  title: "Memory Updated",
+                  description: "Your changes have been saved"
                 });
                 queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
                 queryClient.invalidateQueries({ queryKey: ['/api/memories'] });

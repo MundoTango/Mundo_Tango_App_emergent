@@ -5,12 +5,12 @@
 import { Calendar, MapPin, Users, Clock, Sparkles, Check, HelpCircle, X, Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/contexts/theme-context';
+import { useTheme } from '@/lib/theme/theme-provider';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
-import { useTranslation } from 'react-i18next';
+// NOTE: useTranslation removed - Layer 53 is broken
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,9 +41,9 @@ interface UpcomingEventsSidebarProps {
 export default function UpcomingEventsSidebar({ 
   onEventClick 
 }: UpcomingEventsSidebarProps) {
-  const { theme } = useTheme();
+  const { currentTheme } = useTheme();
   const { toast } = useToast();
-  const { t } = useTranslation();
+  // NOTE: useTranslation removed - Layer 53 is broken
   const [, setLocation] = useLocation();
   
   // Expanded sections state - reordered: RSVP'ed, Your City, Events You Follow, Cities You Follow
@@ -120,8 +120,8 @@ export default function UpcomingEventsSidebar({
         queryClient.setQueryData(['/api/events/feed'], context.previousEvents);
       }
       toast({
-        title: t('common.app.error'),
-        description: t('memories.rsvp.rsvpFailed'),
+        title: "Error",
+        description: "Failed to update RSVP",
         variant: "destructive"
       });
     },
@@ -351,13 +351,13 @@ export default function UpcomingEventsSidebar({
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-3 h-3 flex-shrink-0" />
-                <span>{event.attendees} {t('memories.rsvp.attending')}</span>
+                <span>{event.attendees} attending</span>
                 {event.userRsvpStatus === 'going' && (
                   <span 
                     style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.rsvp.youreGoing')}
+                    You're Going
                   </span>
                 )}
                 {event.userRsvpStatus === 'interested' && (
@@ -365,7 +365,7 @@ export default function UpcomingEventsSidebar({
                     style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.rsvp.interested')}
+                    Interested
                   </span>
                 )}
                 {event.userRsvpStatus === 'maybe' && (
@@ -373,7 +373,7 @@ export default function UpcomingEventsSidebar({
                     style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
                     className="px-1.5 py-0.5 rounded text-xs"
                   >
-                    {t('memories.rsvp.maybe')}
+                    Maybe
                   </span>
                 )}
               </div>
@@ -428,33 +428,33 @@ export default function UpcomingEventsSidebar({
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-5 h-5 text-[#5EEAD4]" />
-            <h2 className="text-lg font-semibold text-[#0B3C49]">{t('events.sidebar.upcomingEvents')}</h2>
+            <h2 className="text-lg font-semibold text-[#0B3C49]">Upcoming Events</h2>
           </div>
           {isLoading ? (
             <p className="text-sm text-[#146778]">
-              {t('events.sidebar.loadingEvents')}
+              Loading events...
             </p>
           ) : allEvents.length === 0 ? (
             <>
               <p className="text-sm text-[#146778]">
-                {t('events.sidebar.noUpcomingEvents')}
+                No upcoming events
               </p>
               <p className="text-xs mt-1 text-[#3BA0AF]">
-                {t('events.sidebar.checkCityOrJoin')}
+                Check your city page or join groups to see events
               </p>
             </>
           ) : (
             <p className="text-sm text-[#146778]">
-              {t('events.sidebar.upcomingEventsCount', { count: allEvents.length })}
+              {allEvents.length} {allEvents.length === 1 ? 'event' : 'events'} coming up
             </p>
           )}
         </div>
 
         {/* Categorized Events - NEW ORDER */}
-        {renderSection(t('events.sidebar.rsvpedEvents'), rsvpedEvents, 'rsvpedEvents', t('events.sidebar.noRsvpedEvents'))}
-        {renderSection(t('events.sidebar.inYourCity'), yourCityEvents, 'yourCity', t('events.sidebar.noEventsInCity'))}
-        {renderSection(t('events.sidebar.eventsYouFollow'), eventsYouFollowEvents, 'eventsYouFollow', t('events.sidebar.noEventsYouFollow'))}
-        {renderSection(t('events.sidebar.citiesYouFollow'), citiesYouFollowEvents, 'citiesYouFollow', t('events.sidebar.noEventsInCitiesYouFollow'))}
+        {renderSection("Events You're Attending", rsvpedEvents, 'rsvpedEvents', "No RSVP'd events")}
+        {renderSection("In Your City", yourCityEvents, 'yourCity', "No events in your city")}
+        {renderSection("Events You Follow", eventsYouFollowEvents, 'eventsYouFollow', "No events from groups you follow")}
+        {renderSection("Cities You Follow", citiesYouFollowEvents, 'citiesYouFollow', "No events in cities you follow")}
 
         {/* View All Link */}
         <div className="mt-6 pt-6 border-t border-[rgba(94,234,212,0.35)]">
@@ -469,7 +469,7 @@ export default function UpcomingEventsSidebar({
             aria-label="View all upcoming events"
             data-testid="button-view-all-events"
           >
-            {t('events.sidebar.viewAllEvents')}
+            View All Events
           </button>
         </div>
       </div>
