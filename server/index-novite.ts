@@ -23,6 +23,7 @@ import { cacheWarmer } from './services/cache-warmer';
 import postsRoutes from './routes/postsRoutes';
 import eventsRoutes from './routes/eventsRoutes';
 import integrationHelpers from './routes/integrationHelpers';
+import hostHomesRoutes from './routes/hostHomesRoutes';
 
 // Memory optimization for large uploads
 if (global.gc) {
@@ -284,6 +285,7 @@ const startServer = async () => {
     app.use(postsRoutes);
     app.use(eventsRoutes);
     app.use(integrationHelpers);
+    app.use(hostHomesRoutes);
 
     // ESA FIX: Setup Vite in development mode BEFORE catch-all route
     if (process.env.NODE_ENV === 'development') {
