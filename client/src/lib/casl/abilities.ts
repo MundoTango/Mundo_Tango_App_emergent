@@ -24,7 +24,11 @@ type Actions =
   | 'leave'
   | 'invite'
   | 'ban'
-  | 'unban';
+  | 'unban'
+  | 'post'
+  | 'moderate_posts'
+  | 'edit_details'
+  | 'view_private';
 
 // Define all subjects (covering all 72 pages and entities)
 type Subjects = 
@@ -113,6 +117,8 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
     can('moderate', 'Community');
     can('ban', 'Group');
     can('unban', 'Group');
+    can('moderate_posts', 'Group');
+    can('edit_details', 'Group', { moderators: { $includes: user.id } });
     can('access', 'Analytics', { type: 'moderation' });
     cannot('access', 'AdminPanel');
     cannot('access', 'BillingPage');
@@ -138,6 +144,10 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
     can('update', 'Group', { ownerId: user.id });
     can('delete', 'Group', { ownerId: user.id });
     can('invite', 'Group', { ownerId: user.id });
+    can('edit_details', 'Group', { ownerId: user.id });
+    can('moderate_posts', 'Group', { ownerId: user.id });
+    can('post', 'Group', { members: { $includes: user.id } });
+    can('view_private', 'Group', { members: { $includes: user.id } });
     
     // Limited analytics
     can('view', 'Analytics', { type: 'event' });
@@ -189,7 +199,11 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
     // Groups - can view and join
     can('read', 'Group');
     can('join', 'Group');
-    can('leave', 'Group');
+    can('leave', 'Group', { members: { $includes: user.id } });
+    
+    // Group posting - only if member
+    can('post', 'Group', { members: { $includes: user.id } });
+    can('view_private', 'Group', { members: { $includes: user.id } });
     
     // Messages
     can('create', 'Message');
@@ -251,7 +265,7 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
 
   return build({
     conditionsMatcher: (condition: any) => (subject: any) => {
-      // Handle special conditions like $or, $in, $lte, etc.
+      // Handle special conditions like $or, $in, $lte, $includes, etc.
       if (condition.$or) {
         return condition.$or.some((cond: any) => 
           Object.keys(cond).every(key => subject[key] === cond[key])
@@ -269,6 +283,13 @@ export function defineAbilitiesFor(user: User | null): AppAbility {
         }
         if (typeof condition[key] === 'object' && condition[key].$in) {
           return condition[key].$in.includes(subject[key]);
+        }
+        if (typeof condition[key] === 'object' && condition[key].$includes) {
+          const fieldValue = subject[key];
+          if (Array.isArray(fieldValue)) {
+            return fieldValue.includes(condition[key].$includes);
+          }
+          return false;
         }
         if (typeof condition[key] === 'object' && condition[key].$lte) {
           return subject[key] <= condition[key].$lte;
@@ -311,4 +332,43 @@ export const useCanFilterMemories = () => {
 export const useCanAccessAdmin = () => {
   const ability = useAbility();
   return ability.can('access_admin', 'AdminPanel');
+};
+
+export const useCanPostInGroup = (group: any, user: User | null) => {
+  const ability = useAbility();
+  if (!user || !group) return false;
+  
+  const groupSubject = {
+    ...group,
+    members: group.memberIds || group.members || [],
+    ownerId: group.ownerId
+  };
+  
+  return ability.can('post', subject('Group', groupSubject));
+};
+
+export const useCanModerateGroup = (group: any, user: User | null) => {
+  const ability = useAbility();
+  if (!user || !group) return false;
+  
+  const groupSubject = {
+    ...group,
+    ownerId: group.ownerId,
+    moderators: group.moderatorIds || group.moderators || []
+  };
+  
+  return ability.can('moderate_posts', subject('Group', groupSubject));
+};
+
+export const useCanEditGroup = (group: any, user: User | null) => {
+  const ability = useAbility();
+  if (!user || !group) return false;
+  
+  const groupSubject = {
+    ...group,
+    ownerId: group.ownerId,
+    moderators: group.moderatorIds || group.moderators || []
+  };
+  
+  return ability.can('edit_details', subject('Group', groupSubject));
 };
