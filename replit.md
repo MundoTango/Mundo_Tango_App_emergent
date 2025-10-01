@@ -16,7 +16,10 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 The platform employs a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 **UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-cyan gradients.
+- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-cyan gradients (#5EEAD4 → #155E75).
+  - ✅ **Token-Based Architecture** (October 2025): Comprehensive design token system in `client/src/styles/design-tokens.css` with 30+ utility classes for colors, spacing, shadows, typography. Single source of truth for all styling.
+  - ✅ **Phase 1 Complete**: Sidebar and UnifiedTopBar fully refactored - zero inline styles, zero JS hover handlers, zero hardcoded hex values. WCAG AA compliant contrast in both light/dark themes.
+  - 📋 **Rollout Guide**: See `docs/design/MT_OCEAN_DESIGN_ROLLOUT.md` for page-by-page implementation strategy (Dashboard/Feed, Profile/Settings, Admin pages pending).
 - **Responsiveness**: Mobile-first design.
 - **Interaction**: Micro-interactions including ripple effects, magnetic buttons, confetti, and particle effects.
 - **Theming**: Comprehensive system supporting site-wide visual transformations and various themes.
