@@ -101,7 +101,11 @@ export type Actions =
   | 'leave'
   | 'invite'
   | 'ban'
-  | 'unban';
+  | 'unban'
+  | 'post'
+  | 'moderate_posts'
+  | 'edit_details'
+  | 'view_private';
 
 export type AppAbility = MongoAbility<[Actions, Subjects]>;
 

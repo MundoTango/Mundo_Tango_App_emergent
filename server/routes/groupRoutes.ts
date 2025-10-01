@@ -3,9 +3,13 @@ import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
 import { db } from '../db';
-import { groups, groupMembers, users, events } from '../../shared/schema';
-import { eq, and, or, sql, desc, ilike, gte, isNull } from 'drizzle-orm';
+import { groups, groupMembers, users, events, posts } from '../../shared/schema';
+import { eq, and, or, sql, desc, ilike, gte, isNull, inArray } from 'drizzle-orm';
 import { z } from 'zod';
+import { requireAbility } from '../auth/abilities';
+import { getRecommendedGroups, suggestSimilarMembers } from '../services/groupRecommendationService';
+import { getGroupHealth, getGroupInsights } from '../services/groupAnalyticsService';
+import Fuse from 'fuse.js';
 
 const router = Router();
 
@@ -263,10 +267,10 @@ router.get('/groups', setUserContext, async (req, res) => {
   try {
     const { search, city } = req.query;
     
-    let query = db.select().from(groups);
+    const conditions = [];
     
     if (search) {
-      query = query.where(
+      conditions.push(
         or(
           ilike(groups.name, `%${search}%`),
           ilike(groups.description, `%${search}%`)
@@ -275,10 +279,14 @@ router.get('/groups', setUserContext, async (req, res) => {
     }
     
     if (city) {
-      query = query.where(eq(groups.city, city as string));
+      conditions.push(eq(groups.city, city as string));
     }
     
-    const allGroups = await query.orderBy(desc(groups.createdAt));
+    const allGroups = await db
+      .select()
+      .from(groups)
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .orderBy(desc(groups.createdAt));
     
     res.json(allGroups);
   } catch (error) {
@@ -362,10 +370,11 @@ router.post('/groups', isAuthenticated, async (req: any, res) => {
       return res.status(401).json({ error: 'User not found' });
     }
 
-    const { name, description, city, isPrivate } = req.body;
+    const { name, description, city, isPrivate, slug } = req.body;
     
     const [newGroup] = await db.insert(groups).values({
       name,
+      slug: slug || name.toLowerCase().replace(/\s+/g, '-'),
       description,
       city,
       isPrivate: isPrivate || false,
@@ -830,6 +839,169 @@ router.post('/user/follow-city/:slug', isAuthenticated, async (req: any, res) =>
   } catch (error) {
     console.error('Error following city:', error);
     res.status(500).json({ error: 'Failed to follow city' });
+  }
+});
+
+router.get('/groups/search', async (req, res) => {
+  try {
+    const { q, city, roleType, minMembers, maxMembers, visibility } = req.query;
+    
+    console.log('🔍 Group Search:', { q, city, roleType, minMembers, maxMembers, visibility });
+    
+    let query = db.select().from(groups).where(eq(groups.type, 'city'));
+    
+    let conditions: any[] = [eq(groups.type, 'city')];
+    
+    if (city) {
+      conditions.push(ilike(groups.city, `%${city}%`));
+    }
+    
+    if (roleType) {
+      conditions.push(eq(groups.roleType, roleType as string));
+    }
+    
+    if (minMembers) {
+      conditions.push(gte(groups.memberCount, parseInt(minMembers as string)));
+    }
+    
+    if (maxMembers) {
+      const maxVal = parseInt(maxMembers as string);
+      conditions.push(sql`${groups.memberCount} <= ${maxVal}`);
+    }
+    
+    if (visibility && visibility !== 'all') {
+      const isPublic = visibility === 'public';
+      conditions.push(eq(groups.isPrivate, !isPublic));
+    }
+    
+    const allGroups = await db
+      .select()
+      .from(groups)
+      .where(and(...conditions))
+      .limit(100);
+    
+    let results = allGroups;
+    
+    if (q) {
+      const fuse = new Fuse(allGroups, {
+        keys: ['name', 'description', 'city', 'country'],
+        threshold: 0.4,
+        includeScore: true
+      });
+      
+      const fuseResults = fuse.search(q as string);
+      results = fuseResults.map(r => ({
+        ...r.item,
+        relevance: 1 - (r.score || 0)
+      }));
+    }
+    
+    const limited = results.slice(0, 20);
+    
+    console.log(`✅ Search returned ${limited.length} results`);
+    
+    res.json({
+      success: true,
+      data: limited,
+      total: results.length
+    });
+  } catch (error) {
+    console.error('Error searching groups:', error);
+    res.status(500).json({ success: false, error: 'Failed to search groups' });
+  }
+});
+
+router.get('/groups/recommendations', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'User not found' });
+    }
+    
+    console.log(`🤖 Getting recommendations for user ${user.id}`);
+    
+    const recommendations = await getRecommendedGroups(user.id);
+    
+    res.json({
+      success: true,
+      data: recommendations
+    });
+  } catch (error) {
+    console.error('Error getting recommendations:', error);
+    res.status(500).json({ success: false, error: 'Failed to get recommendations' });
+  }
+});
+
+router.get('/groups/:id/similar-members', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const groupId = parseInt(req.params.id);
+    
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'User not found' });
+    }
+    
+    console.log(`🤖 Getting similar members for group ${groupId}, user ${user.id}`);
+    
+    const similarMembers = await suggestSimilarMembers(groupId, user.id);
+    
+    res.json({
+      success: true,
+      data: similarMembers
+    });
+  } catch (error) {
+    console.error('Error getting similar members:', error);
+    res.status(500).json({ success: false, error: 'Failed to get similar members' });
+  }
+});
+
+router.get('/groups/:id/analytics', isAuthenticated, async (req: any, res) => {
+  try {
+    const userId = req.user.claims.sub;
+    const user = await storage.getUserByReplitId(userId);
+    const groupId = parseInt(req.params.id);
+    
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'User not found' });
+    }
+    
+    const [group] = await db.select().from(groups).where(eq(groups.id, groupId)).limit(1);
+    
+    if (!group) {
+      return res.status(404).json({ success: false, error: 'Group not found' });
+    }
+    
+    const [membership] = await db
+      .select()
+      .from(groupMembers)
+      .where(and(
+        eq(groupMembers.groupId, groupId),
+        eq(groupMembers.userId, user.id)
+      ))
+      .limit(1);
+    
+    if (!membership || (membership.role !== 'admin' && membership.role !== 'moderator')) {
+      return res.status(403).json({ success: false, error: 'Only admins and moderators can view analytics' });
+    }
+    
+    console.log(`📊 Getting analytics for group ${groupId}`);
+    
+    const health = await getGroupHealth(groupId);
+    const insights = await getGroupInsights(groupId);
+    
+    res.json({
+      success: true,
+      data: {
+        health,
+        insights
+      }
+    });
+  } catch (error) {
+    console.error('Error getting group analytics:', error);
+    res.status(500).json({ success: false, error: 'Failed to get analytics' });
   }
 });
 

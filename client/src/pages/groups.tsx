@@ -6,14 +6,27 @@ import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import CommunityCard from '@/components/Community/CommunityCard';
 import EnhancedCityGroupCard from '@/components/Community/EnhancedCityGroupCard';
+import GroupSearch from '@/components/groups/GroupSearch';
+import RecommendedGroups from '@/components/groups/RecommendedGroups';
 
 export default function GroupsPage() {
   console.log('🎯 GROUPS PAGE COMPONENT RENDERING - v5 ROLE-BASED GROUPS');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
+  const [searchResults, setSearchResults] = useState<any[] | null>(null);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  const handleSearchResults = (results: any[]) => {
+    console.log('📊 Search results received:', results.length);
+    setSearchResults(results);
+  };
+  
+  const handleClearFilters = () => {
+    console.log('🧹 Clearing search filters');
+    setSearchResults(null);
+  };
 
   // Fetch groups data with membership status
   const { data: groupsData, isLoading } = useQuery({
@@ -129,6 +142,8 @@ export default function GroupsPage() {
         return true;
     }
   }) || [];
+  
+  const displayedGroups = searchResults !== null ? searchResults : filteredGroups;
 
   const filterButtons = [
     { key: 'all', label: 'All Communities', icon: Globe },
@@ -186,51 +201,14 @@ export default function GroupsPage() {
           </div>
         </div>
 
-        {/* Search and Filters */}
-        <div className="glassmorphic-card rounded-xl shadow-lg backdrop-blur-xl bg-white/70 border border-white/50 p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search communities..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500 focus:border-transparent"
-              />
-            </div>
-            <button 
-              className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
-              onClick={() => {
-                setLocation('/create-community');
-              }}
-            >
-              <Plus className="h-5 w-5" />
-              Create Community
-            </button>
-          </div>
+        {/* Advanced Search Component */}
+        <GroupSearch 
+          onSearchResults={handleSearchResults}
+          onClearFilters={handleClearFilters}
+        />
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-2">
-            {filterButtons.map((filter) => {
-              const Icon = filter.icon;
-              return (
-                <button
-                  key={filter.key}
-                  onClick={() => setActiveFilter(filter.key)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all ${
-                    activeFilter === filter.key
-                      ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {filter.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* AI Recommendations */}
+        <RecommendedGroups />
 
         {/* Communities Grid */}
         {isLoading ? (
@@ -238,9 +216,9 @@ export default function GroupsPage() {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
             <p className="text-gray-600">Loading communities...</p>
           </div>
-        ) : filteredGroups.length > 0 ? (
+        ) : displayedGroups.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredGroups.map((group: any) => {
+            {displayedGroups.map((group: any) => {
               // Use EnhancedCityGroupCard for city groups
               if (group.type === 'city') {
                 return (
