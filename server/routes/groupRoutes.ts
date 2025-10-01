@@ -129,6 +129,86 @@ router.get('/community/rankings', async (req, res) => {
   }
 });
 
+// Get global community statistics for sidebar
+router.get('/community/global-stats', async (req, res) => {
+  try {
+    // Get total member count across all city groups
+    const [memberStats] = await db
+      .select({
+        totalMembers: sql<number>`SUM(CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END)::int`,
+      })
+      .from(groups)
+      .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+      .where(eq(groups.type, 'city'))
+      .groupBy(groups.id);
+
+    // Calculate actual total by summing per-group counts
+    const perGroupCounts = await db
+      .select({
+        memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+      })
+      .from(groups)
+      .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+      .where(eq(groups.type, 'city'))
+      .groupBy(groups.id, groups.memberCount);
+    
+    const totalMembers = perGroupCounts.reduce((sum, group) => sum + group.memberCount, 0);
+
+    // Get total event count
+    const [eventStats] = await db
+      .select({
+        totalEvents: sql<number>`COUNT(*)::int`,
+      })
+      .from(events);
+
+    // Get total communities (city groups)
+    const [communityStats] = await db
+      .select({
+        totalCommunities: sql<number>`COUNT(*)::int`,
+      })
+      .from(groups)
+      .where(eq(groups.type, 'city'));
+
+    // Get user's city count (if authenticated and has a city)
+    let yourCityCount = 0;
+    if (req.user && (req.user as any).city) {
+      const userCity = (req.user as any).city;
+      const userCountry = (req.user as any).country;
+      
+      const [cityStats] = await db
+        .select({
+          memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+        })
+        .from(groups)
+        .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+        .where(and(
+          eq(groups.type, 'city'),
+          eq(groups.city, userCity),
+          userCountry ? eq(groups.country, userCountry) : sql`true`
+        ))
+        .groupBy(groups.id, groups.memberCount)
+        .limit(1);
+      
+      if (cityStats) {
+        yourCityCount = cityStats.memberCount;
+      }
+    }
+
+    res.json({
+      success: true,
+      data: {
+        globalPeople: totalMembers,
+        activeEvents: eventStats?.totalEvents || 0,
+        communities: communityStats?.totalCommunities || 0,
+        yourCity: yourCityCount
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching global stats:', error);
+    res.status(500).json({ error: 'Failed to fetch global statistics' });
+  }
+});
+
 // OPTIMIZED: Get city groups for world map with aggregated stats (fixes N+1 query issue)
 router.get('/community/city-groups', async (req, res) => {
   try {
