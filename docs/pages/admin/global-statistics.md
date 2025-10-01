@@ -1,8 +1,42 @@
 # Global Statistics Documentation
 
+## Platform Statistics Overview
+
+The Mundo Tango platform provides **two distinct statistics systems** serving different purposes:
+
+### 1. **Live Global Statistics** (Sidebar - Real-Time) 🔴 LIVE
+- **Location**: DashboardLayout sidebar (visible on all pages)
+- **Update Frequency**: Real-time with 5-minute cache
+- **Purpose**: Quick at-a-glance community engagement metrics
+- **Data Source**: `/api/community/global-stats` endpoint
+- **Metrics Displayed**:
+  - People (unique users in city communities)
+  - Events (active upcoming events)
+  - Communities (total city groups)
+  - Your City (members in user's location)
+- **Target Audience**: All authenticated users
+- **Documentation**: See `docs/pages/MUNDO_TANGO_WORLD_MAP.md` and `docs/pages/api/community-statistics-api.md`
+
+### 2. **Historical Global Statistics** (Dashboard Page - Analytics) 📊 ANALYTICS
+- **Location**: Dedicated admin/analytics dashboard page
+- **Update Frequency**: Batch processing, historical data
+- **Purpose**: Deep-dive analysis, trends, forecasting, business intelligence
+- **Data Source**: Data warehouse, aggregated metrics
+- **Features**:
+  - Historical trend analysis
+  - Comparative reporting (period-over-period)
+  - Custom report generation
+  - Data exports (CSV, PDF, Excel)
+  - A/B test results
+  - Predictive analytics
+- **Target Audience**: Administrators, analysts, business intelligence team
+- **Documentation**: This document (admin/global-statistics.md)
+
+---
+
 ## 1. Component Overview
 
-The GlobalStatistics page provides comprehensive platform-wide analytics and reporting capabilities for the ESA LIFE CEO 61x21 platform. This analytical powerhouse aggregates data from all platform services to present holistic insights into user behavior, content trends, system performance, and business metrics while maintaining the MT Ocean theme (#5EEAD4 → #155E75). Unlike the live version, this page focuses on historical analysis, trend identification, comparative reporting, and deep-dive analytics.
+The GlobalStatistics page provides comprehensive platform-wide analytics and reporting capabilities for the ESA LIFE CEO 61x21 platform. This analytical powerhouse aggregates data from all platform services to present holistic insights into user behavior, content trends, system performance, and business metrics while maintaining the MT Ocean theme (#5EEAD4 → #155E75). Unlike the **live sidebar statistics**, this page focuses on historical analysis, trend identification, comparative reporting, and deep-dive analytics.
 
 ### ESA Layer 53: Complete Multilingual Implementation
 The GlobalStatistics component now features comprehensive internationalization support, enabling the global tango community to access analytics in their native languages. This implementation includes:
