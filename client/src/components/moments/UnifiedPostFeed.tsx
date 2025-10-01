@@ -445,8 +445,8 @@ const UnifiedPostFeed = React.memo(({
           )}
           
           {/* COMING SOON Overlay - Filters/Search Disabled */}
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-400/95 to-blue-500/95 rounded-3xl cursor-not-allowed z-10 pointer-events-auto backdrop-blur-md shadow-inner">
-            <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-600 to-blue-700 rounded-3xl cursor-not-allowed z-10 pointer-events-auto">
+            <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               COMING SOON
             </span>
           </div>
