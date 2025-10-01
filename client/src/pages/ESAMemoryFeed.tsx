@@ -11,7 +11,7 @@ import { queryClient } from '@/lib/queryClient';
 import { postsAPI } from '@/lib/api/posts';
 import { useToast } from '@/hooks/use-toast';
 import { Sparkles } from 'lucide-react';
-import { useTheme } from '@/contexts/theme-context';
+import { useTheme } from '@/lib/theme/theme-provider';
 import { useAuth } from '@/hooks/useAuth'; // ESA Framework Layer 4: Use existing auth
 import { useTranslation } from 'react-i18next'; // ESA Layer 53: Internationalization
 
@@ -35,7 +35,7 @@ const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
 function ESAMemoryFeedCore() {
   const { t } = useTranslation(); // ESA Layer 53: Translation hook
   const { toast } = useToast();
-  const { theme } = useTheme();
+  const { currentTheme } = useTheme();
   const { user, isAuthenticated } = useAuth(); // ESA Framework Layer 4: Get authenticated user
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentUserId, setCurrentUserId] = useState<string>('');
@@ -718,7 +718,7 @@ function ESAMemoryFeedCore() {
           // Scroll to top where the creator is in feed view
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-          theme={theme}
+          theme={currentTheme.id}
         />
       </Suspense>
 

@@ -74,6 +74,13 @@ export function TenantProvider({ children }: { children: ReactNode }) {
       });
 
       if (!response.ok) {
+        // If endpoint doesn't exist (404), silently fail - tenant system is optional
+        if (response.status === 404) {
+          console.warn('[TenantContext] Tenant API not available - using single community mode');
+          setUserTenants([]);
+          setIsLoading(false);
+          return;
+        }
         throw new Error('Failed to load user tenants');
       }
 
@@ -87,8 +94,10 @@ export function TenantProvider({ children }: { children: ReactNode }) {
         setCurrentTenant(primaryTenant || data.tenants[0]);
       }
     } catch (err) {
-      console.error('Error loading user tenants:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load tenants');
+      // Gracefully handle errors - don't crash the app
+      console.warn('[TenantContext] Error loading tenants:', err);
+      setUserTenants([]);
+      setError(null); // Don't set error to prevent app crashes
     } finally {
       setIsLoading(false);
     }
