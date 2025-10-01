@@ -181,7 +181,7 @@ export default function DashboardLayout({
                 "text-sm font-semibold uppercase tracking-wider mb-4",
                 theme === 'light' ? "text-gray-500" : "text-slate-400"
               )}>
-                Global Statistics
+                GLOBAL STATISTICS
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {communityStats.map((stat) => {
