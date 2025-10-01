@@ -173,27 +173,37 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         </div>
 
         <nav className="mt-6 px-4">
-          {/* Mini Profile Section - Ocean Styled */}
-          <div className="mb-6 p-3 rounded-xl bg-profile-card">
+          {/* Mini Profile Section - Clickable Link to Profile */}
+          <Link 
+            href={user ? `/profile/${user.id}` : '/profile'}
+            className="block mb-6 p-3 rounded-xl bg-profile-card cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:bg-opacity-90 group"
+            data-testid="link-user-profile"
+          >
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md bg-brand-gradient">
-                P
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md bg-brand-gradient transition-transform group-hover:scale-110">
+                {user?.name?.[0]?.toUpperCase() || 'P'}
               </div>
               <div className="flex-1">
-                <div className="text-sm font-semibold text-ocean">
-                  Pierre Dubois
+                <div className="text-sm font-semibold text-ocean group-hover:text-seafoam transition-colors">
+                  {user?.name || 'Pierre Dubois'}
                 </div>
-                <div className="text-xs text-ocean-muted">
-                  @pierre_dancer
+                <div className="text-xs text-ocean-muted group-hover:text-ocean-secondary transition-colors">
+                  @{user?.username || 'pierre_dancer'}
                 </div>
               </div>
             </div>
-            {/* Dance Emojis */}
-            <div className="flex gap-2 mt-2 pl-1 text-lg opacity-90">
-              <span>💃</span>
-              <span>🎵</span>
+            {/* Dance Emojis with Role Display */}
+            <div className="flex gap-2 mt-2 pl-1 text-lg opacity-90 group-hover:opacity-100 transition-opacity">
+              {user?.tangoRoles && user.tangoRoles.length > 0 ? (
+                <RoleEmojiDisplay tangoRoles={user.tangoRoles} size="lg" />
+              ) : (
+                <>
+                  <span>💃</span>
+                  <span>🎵</span>
+                </>
+              )}
             </div>
-          </div>
+          </Link>
 
           {/* Navigation Menu - Ocean Styled */}
           <div className="mb-6">
