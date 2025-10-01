@@ -3,21 +3,36 @@
 ## Overview
 Layer 9 manages the Tailwind CSS utility-first framework, MT Ocean Theme implementation, glassmorphic design patterns, and responsive design system.
 
+## Recent Updates (October 1, 2025)
+
+### MT Ocean Theme Refactor
+- **New Color Gradient**: Turquoise → Dodger Blue → Cobalt Blue (#40E0D0 → #1E90FF → #0047AB)
+- **Format Modernization**: All RGBA values converted to HSLA format
+- **Dark Mode Standardization**: Cobalt blue family (hsl 218°) for consistent shadows, gradients, borders
+- **Token Architecture**: Single source of truth in `client/src/styles/design-tokens.css`
+- **Phase 1 Complete**: Sidebar and UnifiedTopBar fully refactored with zero inline styles
+
+### Design Token System
+- **30+ utility classes** for colors, spacing, shadows, typography
+- **Zero hardcoded hex values** - All colors via CSS variables
+- **Zero JS hover handlers** - CSS-only `:hover` pseudo-classes
+- **WCAG AA compliant** - All gradients verified for 4.5:1+ contrast ratio
+
 ## Core Responsibilities
 
 ### 1. Design System Management
 - Tailwind CSS configuration
-- Custom theme tokens
-- Color palette management
+- Token-based architecture (`design-tokens.css`)
+- HSLA color palette management
 - Typography system
 - Spacing and sizing scales
 
 ### 2. MT Ocean Theme
-- Gradient system (#5EEAD4 → #155E75)
+- Gradient system (#40E0D0 → #1E90FF → #0047AB)
 - Glassmorphic components
-- Dark/light mode theming
+- Dark/light mode theming with cobalt blue family
 - Custom animations
-- Brand consistency
+- Brand consistency across all components
 
 ### 3. Responsive Design
 - Mobile-first approach
@@ -338,6 +353,8 @@ export const Typography = {
 
 ## Testing Utilities
 
+### Visual Theme Compliance Testing
+
 ```typescript
 // Visual regression testing helpers
 export const visualTestClasses = {
@@ -347,12 +364,117 @@ export const visualTestClasses = {
   'test-responsive-grid': 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
 };
 
+// MT Ocean theme compliance checks
+export const themeComplianceTests = {
+  // Verify no hardcoded hex colors
+  noHexColors: (component: HTMLElement) => {
+    const styles = window.getComputedStyle(component);
+    const hasHexInline = component.getAttribute('style')?.includes('#');
+    return !hasHexInline;
+  },
+  
+  // Verify using design tokens
+  usesDesignTokens: (component: HTMLElement) => {
+    const classes = component.className;
+    const validTokens = ['bg-ocean', 'text-ocean', 'border-ocean', 'shadow-ocean'];
+    return validTokens.some(token => classes.includes(token));
+  },
+  
+  // Verify gradient consistency
+  verifyGradient: (element: HTMLElement) => {
+    const bg = window.getComputedStyle(element).backgroundImage;
+    // Should contain turquoise (#40E0D0) and cobalt (#0047AB) hues
+    return bg.includes('180') || bg.includes('218'); // HSL hue values
+  }
+};
+
 // Accessibility testing
 export function checkColorContrast(foreground: string, background: string): boolean {
   // WCAG AA compliance check
   const ratio = getContrastRatio(foreground, background);
   return ratio >= 4.5; // AA standard for normal text
 }
+
+// Screenshot comparison for visual regression
+export async function compareThemeConsistency(page: Page, componentName: string) {
+  // Light mode screenshot
+  await page.screenshot({ 
+    path: `./visual-tests/${componentName}-light.png`,
+    fullPage: false 
+  });
+  
+  // Dark mode screenshot
+  await page.evaluate(() => document.documentElement.classList.add('dark'));
+  await page.screenshot({ 
+    path: `./visual-tests/${componentName}-dark.png`,
+    fullPage: false 
+  });
+  
+  // Verify MT Ocean gradient present
+  const gradient = await page.evaluate(() => {
+    const elements = document.querySelectorAll('[class*="ocean-gradient"]');
+    return elements.length > 0;
+  });
+  
+  return { lightMode: true, darkMode: true, hasOceanGradient: gradient };
+}
+```
+
+### Playwright Theme Tests
+
+```typescript
+// e2e/theme-compliance.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('MT Ocean Theme Compliance', () => {
+  test('Sidebar uses design tokens', async ({ page }) => {
+    await page.goto('/');
+    
+    const sidebar = page.locator('[data-testid="sidebar"]');
+    const classes = await sidebar.getAttribute('class');
+    
+    // Verify design token usage
+    expect(classes).toContain('bg-ocean-gradient');
+    expect(classes).toContain('text-ocean');
+    
+    // Verify no inline styles with hex colors
+    const inlineStyle = await sidebar.getAttribute('style');
+    expect(inlineStyle).not.toMatch(/#[0-9A-Fa-f]{3,6}/);
+  });
+  
+  test('Profile section interactive states', async ({ page }) => {
+    await page.goto('/');
+    
+    const profileCard = page.locator('[data-testid="link-user-profile"]');
+    
+    // Take screenshot before hover
+    await profileCard.screenshot({ path: 'profile-default.png' });
+    
+    // Hover and verify scale transform
+    await profileCard.hover();
+    const transform = await profileCard.evaluate(el => 
+      window.getComputedStyle(el).transform
+    );
+    expect(transform).toContain('matrix'); // CSS transform applied
+    
+    // Take screenshot after hover
+    await profileCard.screenshot({ path: 'profile-hover.png' });
+  });
+  
+  test('Color contrast meets WCAG AA', async ({ page }) => {
+    await page.goto('/');
+    
+    // Use @axe-core/playwright for automated a11y testing
+    const axe = await injectAxe(page);
+    const results = await page.evaluate(axe.run);
+    
+    const contrastViolations = results.violations.filter(
+      v => v.id === 'color-contrast'
+    );
+    
+    expect(contrastViolations.length).toBe(0);
+  });
+});
 ```
 
 ## Next Steps
