@@ -40,7 +40,7 @@ export default function WorldMap() {
   
   // Fetch city groups with statistics
   const { data: cityGroups = [], isLoading } = useQuery({
-    queryKey: ['/api/community/city-groups'],
+    queryKey: ['/api/community/city-groups', 'world-map-component'],
     queryFn: async () => {
       const response = await fetch('/api/community/city-groups', {
         credentials: 'include'
