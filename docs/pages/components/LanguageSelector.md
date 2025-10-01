@@ -199,7 +199,33 @@ npx tsx server/scripts/testRTLSupport.ts
 
 ## Known Issues
 
-### Current Bugs
+### ⚠️ CRITICAL: Language Switching Currently Disabled
+
+**Status:** Language selector is covered with a "COMING SOON" overlay (cyan-500/30 opacity with border)
+
+**Why Disabled:**
+- ESA Layer 53 UI integration is **completely broken**
+- Translation generation works perfectly (68 languages via OpenAI)
+- UI components don't re-render when language changes
+- Translation keys appear raw in UI (e.g., "common.actions.filters" instead of translated text)
+- Root cause: `useTranslation()` hook integration issues, not translation data
+
+**Overlay Design:**
+- Background: `bg-cyan-500/30` (30% opacity turquoise-blue tint)
+- Border: `border-cyan-500/50` (cyan border for visibility)
+- Hover text: White "COMING SOON" appears on hover
+- Location: UnifiedTopBar in top navigation
+- Purpose: Users can see the feature to build excitement while knowing it's temporarily unavailable
+
+**Technical Details:**
+- Translation files exist at `client/src/i18n/translations.json` with all 68 languages
+- Config exists at `client/src/i18n/config.ts` 
+- Component renders at `client/src/components/LanguageSelector.tsx`
+- Integration broken: components don't respond to language changes
+
+**Full Documentation:** See [Layer 53 Internationalization](../esa-layers/layer-53-internationalization.md) for complete technical breakdown
+
+### Other Current Bugs
 - **Minor:** Swahili showing Swedish translation (sw language code conflict)
 - **UX:** Dropdown scroll position not preserved between opens
 - **Performance:** Initial render of 65 flags causes brief lag on low-end devices
