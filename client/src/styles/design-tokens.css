@@ -7,37 +7,37 @@
 :root {
   /* ================================
      MT OCEAN CORE COLORS
-     Primary palette: Seafoam to Deep Ocean
+     Primary palette: Turquoise to Deep Blue
      ================================ */
   
-  /* Seafoam/Turquoise (Accent) - #5EEAD4 */
-  --ocean-seafoam-50: hsl(173, 80%, 95%);   /* #E6FFF9 - Lightest */
-  --ocean-seafoam-100: hsl(173, 80%, 88%);  /* #CCFFF3 */
-  --ocean-seafoam-200: hsl(173, 80%, 78%);  /* #99FFEA */
-  --ocean-seafoam-300: hsl(173, 80%, 68%);  /* #66FFE0 */
-  --ocean-seafoam-400: hsl(173, 80%, 65%);  /* #5EEAD4 - Primary Accent */
-  --ocean-seafoam-500: hsl(173, 80%, 55%);  /* #3BDDBC */
-  --ocean-seafoam-600: hsl(173, 70%, 45%);  /* #27C4A0 */
+  /* Turquoise (Accent) - #40E0D0 to #00CED1 */
+  --ocean-seafoam-50: hsl(177, 70%, 95%);   /* #E6FFFE - Lightest */
+  --ocean-seafoam-100: hsl(177, 70%, 88%);  /* #CCFFF9 */
+  --ocean-seafoam-200: hsl(177, 72%, 78%);  /* #99F5F0 */
+  --ocean-seafoam-300: hsl(177, 75%, 68%);  /* #66EBE6 */
+  --ocean-seafoam-400: hsl(177, 72%, 56%);  /* #40E0D0 - Primary Turquoise */
+  --ocean-seafoam-500: hsl(180, 100%, 41%); /* #00CED1 - Dark Turquoise */
+  --ocean-seafoam-600: hsl(180, 100%, 35%); /* #00B3B5 */
   
-  /* Cyan (Mid-tone) */
-  --ocean-cyan-50: hsl(185, 70%, 95%);      /* #E6F9FB */
-  --ocean-cyan-100: hsl(185, 70%, 85%);     /* #B3EDF5 */
-  --ocean-cyan-200: hsl(185, 70%, 70%);     /* #66D9E8 */
-  --ocean-cyan-300: hsl(185, 65%, 55%);     /* #33C3D9 */
-  --ocean-cyan-400: hsl(185, 62%, 45%);     /* #1EB3CC */
-  --ocean-cyan-500: hsl(185, 62%, 35%);     /* #1A8FA3 - Mid Ocean */
+  /* Blue (Mid-tone) - #1E90FF Dodger Blue */
+  --ocean-cyan-50: hsl(210, 100%, 96%);     /* #E6F3FF */
+  --ocean-cyan-100: hsl(210, 100%, 90%);    /* #CCE7FF */
+  --ocean-cyan-200: hsl(210, 100%, 78%);    /* #80CFFF */
+  --ocean-cyan-300: hsl(210, 100%, 68%);    /* #5CBFFF */
+  --ocean-cyan-400: hsl(210, 100%, 56%);    /* #1E90FF - Dodger Blue */
+  --ocean-cyan-500: hsl(210, 100%, 46%);    /* #0077EB - Mid Blue */
   
-  /* Teal (Deep) - #155E75 */
-  --ocean-teal-50: hsl(192, 70%, 95%);      /* #E6F4F7 */
-  --ocean-teal-100: hsl(192, 70%, 85%);     /* #B3DFE8 */
-  --ocean-teal-200: hsl(192, 68%, 70%);     /* #66C4D9 */
-  --ocean-teal-300: hsl(192, 65%, 55%);     /* #33A8C4 */
-  --ocean-teal-400: hsl(192, 72%, 42%);     /* #1E8BA8 */
-  --ocean-teal-500: hsl(192, 72%, 27%);     /* #155E75 - Deep Ocean */
-  --ocean-teal-600: hsl(192, 75%, 22%);     /* #0F4D5F */
-  --ocean-teal-700: hsl(192, 78%, 18%);     /* #0A3C4A */
-  --ocean-teal-800: hsl(192, 81%, 14%);     /* #071E26 - Abyss */
-  --ocean-teal-900: hsl(192, 85%, 10%);     /* #040F14 - Deep Abyss */
+  /* Deep Blue - #0047AB Cobalt Blue */
+  --ocean-teal-50: hsl(218, 100%, 96%);     /* #E6EDFF */
+  --ocean-teal-100: hsl(218, 100%, 88%);    /* #CCDBFF */
+  --ocean-teal-200: hsl(218, 100%, 75%);    /* #80B3FF */
+  --ocean-teal-300: hsl(218, 100%, 62%);    /* #3D8AFF */
+  --ocean-teal-400: hsl(218, 100%, 50%);    /* #0066FF */
+  --ocean-teal-500: hsl(218, 100%, 34%);    /* #0047AB - Cobalt Blue */
+  --ocean-teal-600: hsl(218, 100%, 28%);    /* #003A8F */
+  --ocean-teal-700: hsl(218, 100%, 22%);    /* #002D70 */
+  --ocean-teal-800: hsl(218, 100%, 16%);    /* #002052 - Deep Blue */
+  --ocean-teal-900: hsl(218, 100%, 10%);    /* #001333 - Navy */
   
   /* ================================
      SEMANTIC COLORS
@@ -108,19 +108,19 @@
   --line-height-relaxed: 1.625;
   
   /* ================================
-     SHADOWS (Ocean-themed)
+     SHADOWS (Ocean-themed with Cobalt Blue)
      ================================ */
   
-  --shadow-xs: 0 1px 2px 0 rgba(21, 94, 117, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(21, 94, 117, 0.1), 0 1px 2px -1px rgba(21, 94, 117, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(21, 94, 117, 0.1), 0 2px 4px -2px rgba(21, 94, 117, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(21, 94, 117, 0.1), 0 4px 6px -4px rgba(21, 94, 117, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(21, 94, 117, 0.1), 0 8px 10px -6px rgba(21, 94, 117, 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgba(21, 94, 117, 0.25);
+  --shadow-xs: 0 1px 2px 0 hsl(218 100% 34% / 0.05);
+  --shadow-sm: 0 1px 3px 0 hsl(218 100% 34% / 0.1), 0 1px 2px -1px hsl(218 100% 34% / 0.1);
+  --shadow-md: 0 4px 6px -1px hsl(218 100% 34% / 0.1), 0 2px 4px -2px hsl(218 100% 34% / 0.1);
+  --shadow-lg: 0 10px 15px -3px hsl(218 100% 34% / 0.1), 0 4px 6px -4px hsl(218 100% 34% / 0.1);
+  --shadow-xl: 0 20px 25px -5px hsl(218 100% 34% / 0.1), 0 8px 10px -6px hsl(218 100% 34% / 0.1);
+  --shadow-2xl: 0 25px 50px -12px hsl(218 100% 34% / 0.25);
   
-  /* Glow effects for seafoam accent */
-  --glow-seafoam: 0 0 20px rgba(94, 234, 212, 0.3);
-  --glow-seafoam-strong: 0 0 30px rgba(94, 234, 212, 0.5), 0 0 60px rgba(94, 234, 212, 0.2);
+  /* Glow effects for turquoise accent */
+  --glow-seafoam: 0 0 20px hsl(177 72% 56% / 0.3);
+  --glow-seafoam-strong: 0 0 30px hsl(177 72% 56% / 0.5), 0 0 60px hsl(177 72% 56% / 0.2);
   
   /* ================================
      BORDER RADIUS
@@ -167,17 +167,17 @@
   --sidebar-text: var(--text-ocean-primary);
   --sidebar-text-muted: var(--text-ocean-muted);
   --sidebar-accent: var(--ocean-seafoam-400);
-  --sidebar-hover-bg: rgba(94, 234, 212, 0.1);
-  --sidebar-active-bg: rgba(94, 234, 212, 0.15);
-  --sidebar-divider: rgba(255, 255, 255, 0.1);
+  --sidebar-hover-bg: hsl(177 72% 56% / 0.1);
+  --sidebar-active-bg: hsl(177 72% 56% / 0.15);
+  --sidebar-divider: hsl(0 0% 100% / 0.1);
   
   /* ================================
      TOPBAR SPECIFIC
      ================================ */
   
   --topbar-height: 64px;
-  --topbar-bg: rgba(255, 255, 255, 0.95);
-  --topbar-border: rgba(21, 94, 117, 0.1);
+  --topbar-bg: hsl(0 0% 100% / 0.95);
+  --topbar-border: hsl(218 100% 34% / 0.1);
   --topbar-shadow: var(--shadow-sm);
   
   /* ================================
@@ -204,14 +204,14 @@
   --color-primary: var(--ocean-seafoam-300);
   --color-primary-hover: var(--ocean-seafoam-400);
   
-  --bg-ocean-gradient: linear-gradient(180deg, var(--ocean-teal-900) 0%, hsl(192, 90%, 8%) 100%);
+  --bg-ocean-gradient: linear-gradient(180deg, var(--ocean-teal-900) 0%, hsl(218 90% 8%) 100%);
   
-  --text-ocean-primary: hsla(0, 0%, 100%, 0.95);
-  --text-ocean-secondary: hsla(0, 0%, 100%, 0.70);
-  --text-ocean-muted: hsla(0, 0%, 100%, 0.45);
+  --text-ocean-primary: hsl(0 0% 100% / 0.95);
+  --text-ocean-secondary: hsl(0 0% 100% / 0.70);
+  --text-ocean-muted: hsl(0 0% 100% / 0.45);
   
-  --topbar-bg: rgba(15, 23, 42, 0.95);
-  --topbar-border: rgba(94, 234, 212, 0.1);
+  --topbar-bg: hsl(218 60% 10% / 0.95);
+  --topbar-border: hsl(177 72% 56% / 0.1);
 }
 
 /* ================================
@@ -267,25 +267,25 @@
 
 /* Profile Cards */
 .bg-profile-card {
-  background: rgba(94, 234, 212, 0.08);
-  border: 1px solid rgba(94, 234, 212, 0.15);
+  background: hsl(177 72% 56% / 0.08);
+  border: 1px solid hsl(177 72% 56% / 0.15);
 }
 
 /* Stat Cards */
 .bg-stat-card {
-  background: rgba(94, 234, 212, 0.08);
-  border: 1px solid rgba(94, 234, 212, 0.12);
+  background: hsl(177 72% 56% / 0.08);
+  border: 1px solid hsl(177 72% 56% / 0.12);
 }
 
 .bg-stat-icon {
-  background: rgba(94, 234, 212, 0.15);
+  background: hsl(177 72% 56% / 0.15);
   color: var(--ocean-seafoam-400);
 }
 
 /* Footer Branding */
 .bg-footer-brand {
-  background: linear-gradient(135deg, rgba(94, 234, 212, 0.12) 0%, rgba(30, 179, 204, 0.08) 100%);
-  border: 1px solid rgba(94, 234, 212, 0.20);
+  background: linear-gradient(135deg, hsl(177 72% 56% / 0.12) 0%, hsl(210 100% 56% / 0.08) 100%);
+  border: 1px solid hsl(177 72% 56% / 0.20);
 }
 
 /* Text colors */
@@ -307,7 +307,7 @@
 
 /* Borders */
 .border-ocean-divider {
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: hsl(0 0% 100% / 0.1);
 }
 
 .border-primary {
@@ -341,8 +341,8 @@
 }
 
 .hover-ocean-light:hover {
-  background: rgba(94, 234, 212, 0.08);
-  color: rgba(94, 234, 212, 0.9);
+  background: hsl(177 72% 56% / 0.08);
+  color: hsl(177 72% 56% / 0.9);
   transition: all var(--transition-base);
 }
 
