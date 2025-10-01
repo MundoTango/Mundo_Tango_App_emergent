@@ -39,6 +39,7 @@ The platform employs a decoupled, microservices-oriented architecture, separatin
 - **User Profiles**: Comprehensive profiles with community-specific roles, travel details, and engagement systems.
 - **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds. Entity-specific post navigation.
 - **Community Management**: City-specific groups, event management (with RSVP system), housing listings, and recommendations.
+- **Tango World Map**: ✅ Fully functional interactive map at `/community-world-map` showing tango communities worldwide with Leaflet.js. Features: color-coded city markers by member count, map legend, statistics tabs, and city search. See `docs/pages/MUNDO_TANGO_WORLD_MAP.md` for details. Known limitations: role filtering UI present but not server-implemented, N+1 query performance issue.
 - **Admin Center**: Dashboard for user management, content moderation, analytics, and system health.
 - **AI Integration**: 16 Life CEO agents with semantic memory and self-learning capabilities; AI-powered analytics.
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).

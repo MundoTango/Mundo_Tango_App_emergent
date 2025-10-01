@@ -288,17 +288,37 @@ queryKey: ['/api/community/city-groups', 'world-map-component']
 
 ## Known Limitations & Future Enhancements
 
-### Current Limitations
-1. **Member Count Accuracy**: Some city groups show 0 members because:
+### Current Limitations (Architect Review - Oct 2025)
+
+1. **Role Filtering (HIGH PRIORITY)**:
+   - UI exposes role filter dropdown (all/teacher/dancer/dj)
+   - Backend `/api/community/world-map` has placeholder only - returns all cities regardless
+   - **Action Required**: Implement server-side role filtering with proper JOIN to `group_members` table
+
+2. **Performance - N+1 Query Issue (HIGH PRIORITY)**:
+   - `cityGroupsStats.ts` uses separate queries for each city's stats (member/event/host/recommendation counts)
+   - Will not scale beyond 50-100 cities
+   - **Action Required**: Replace with aggregated GROUP BY queries or precomputed/materialized stats
+   - **Optimization**: Add indexes on `group_members.group_id` and related foreign keys
+
+3. **API Endpoint Duplication**:
+   - Both `/api/community/world-map` and `/api/community/city-groups` return similar data
+   - Risk of schema drift and inconsistency
+   - **Action Required**: Unify endpoints or clearly separate responsibilities and document
+
+4. **Member Count Accuracy**: Some city groups show 0 members because:
    - No entries in `group_members` table for those groups
    - Falls back to `groups.member_count` (static value)
    - Solution: Populate `group_members` or update `member_count` regularly
 
-2. **Role Filtering**: Not implemented yet (returns all cities regardless of role param)
+5. **Statistics Tabs**: Global Statistics and City Rankings tabs need data integration
 
-3. **Statistics Tabs**: Global Statistics and City Rankings tabs need data integration
+6. **Real-time Updates**: Map doesn't auto-refresh when new cities added (requires page reload)
 
-4. **Real-time Updates**: Map doesn't auto-refresh when new cities added (requires page reload)
+7. **Production Polish**:
+   - Remove debug console logs in `WorldMap.tsx` render path
+   - Add React Query `staleTime`/`cacheTime` configuration
+   - `/api/community/world-map` returns `countries: []` (always empty) - populate or remove
 
 ### Future Enhancements
 1. **Live Member Counts**: Real-time WebSocket updates for member counts
@@ -372,17 +392,23 @@ VALUES (
 ## Changelog
 
 ### 2025-10-01 - World Map Fixes & Documentation
-- ✅ Created `/api/community/world-map` endpoint with filters
+- ✅ Created `/api/community/world-map` endpoint with activity filters
 - ✅ Updated `/api/community/city-groups` to include statistics
 - ✅ Backfilled missing coordinates for Buenos Aires, Madrid, New York
-- ✅ Fixed React Query cache collision (unique queryKey)
+- ✅ Fixed React Query cache collision (unique queryKey: `['/api/community/city-groups', 'world-map-component']`)
 - ✅ Verified no Layer 53 (i18n) dependencies
-- ✅ Confirmed all 3 tabs functional
+- ✅ Confirmed Interactive Map tab fully functional with 3 cities rendering
 - ✅ Created comprehensive documentation
-- ✅ Added Playwright E2E test suite (17 tests)
+- ✅ Architect review completed
+
+**Architect Findings**:
+- ⚠️ Role filtering exposed in UI but not implemented server-side (high priority)
+- ⚠️ N+1 query performance issue in cityGroupsStats.ts (high priority)
+- ⚠️ API endpoint duplication - consider unifying `/api/community/world-map` and `/api/community/city-groups`
+- ℹ️ Production polish needed: remove console logs, add React Query cache config
 
 ---
 
 **Platform**: Mundo Tango (ESA LIFE CEO 61x21 Framework)  
 **Last Updated**: October 1, 2025  
-**Status**: Production Ready ✅
+**Status**: Functional ✅ (with known limitations documented)
