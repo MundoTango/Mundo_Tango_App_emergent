@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, memo } from 'react';
 import { 
   Heart, 
   MessageCircle, 
@@ -122,7 +122,7 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
   });
 
   // Update comments when fetched
-  React.useEffect(() => {
+  useEffect(() => {
     if (fetchedComments) {
       setComments(fetchedComments);
     }
@@ -995,4 +995,4 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
   );
 }
 
-export default React.memo(EnhancedPostItem);
+export default memo(EnhancedPostItem);
