@@ -4,7 +4,7 @@ import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
 import { db } from '../db';
 import { groups, groupMembers, users, events } from '../../shared/schema';
-import { eq, and, or, sql, desc, ilike } from 'drizzle-orm';
+import { eq, and, or, sql, desc, ilike, gte, isNull } from 'drizzle-orm';
 import { z } from 'zod';
 
 const router = Router();
@@ -132,24 +132,34 @@ router.get('/community/rankings', async (req, res) => {
 // Get global community statistics for sidebar
 router.get('/community/global-stats', async (req, res) => {
   try {
-    // Calculate total member count by summing per-group counts
-    const perGroupCounts = await db
+    // Calculate total unique users across all city groups (prevents double-counting)
+    const [globalPeopleStats] = await db
       .select({
-        memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+        totalPeople: sql<number>`COUNT(DISTINCT ${groupMembers.userId})::int`,
       })
-      .from(groups)
-      .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
-      .where(eq(groups.type, 'city'))
-      .groupBy(groups.id, groups.memberCount);
-    
-    const totalMembers = perGroupCounts.reduce((sum, group) => sum + group.memberCount, 0);
+      .from(groupMembers)
+      .innerJoin(groups, eq(groupMembers.groupId, groups.id))
+      .where(eq(groups.type, 'city'));
 
-    // Get total event count
+    const totalMembers = globalPeopleStats?.totalPeople || 0;
+
+    // Get active event count (upcoming or currently happening events only)
+    const now = new Date();
+    const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000);
     const [eventStats] = await db
       .select({
         totalEvents: sql<number>`COUNT(*)::int`,
       })
-      .from(events);
+      .from(events)
+      .where(
+        or(
+          gte(events.endDate, now),
+          and(
+            isNull(events.endDate),
+            gte(events.startDate, yesterday)
+          )
+        )
+      );
 
     // Get total communities (city groups)
     const [communityStats] = await db
@@ -159,7 +169,7 @@ router.get('/community/global-stats', async (req, res) => {
       .from(groups)
       .where(eq(groups.type, 'city'));
 
-    // Get user's city count (if authenticated and has a city)
+    // Get user's city count - aggregate ALL groups matching user's city (not just one)
     let yourCityCount = 0;
     if (req.user && (req.user as any).city) {
       const userCity = (req.user as any).city;
@@ -167,7 +177,7 @@ router.get('/community/global-stats', async (req, res) => {
       
       const [cityStats] = await db
         .select({
-          memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+          totalMembers: sql<number>`COUNT(DISTINCT ${groupMembers.userId})::int`,
         })
         .from(groups)
         .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
@@ -175,13 +185,9 @@ router.get('/community/global-stats', async (req, res) => {
           eq(groups.type, 'city'),
           eq(groups.city, userCity),
           userCountry ? eq(groups.country, userCountry) : sql`true`
-        ))
-        .groupBy(groups.id, groups.memberCount)
-        .limit(1);
+        ));
       
-      if (cityStats) {
-        yourCityCount = cityStats.memberCount;
-      }
+      yourCityCount = cityStats?.totalMembers || 0;
     }
 
     res.json({

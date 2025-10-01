@@ -42,8 +42,8 @@ export default function DashboardLayout({
   ];
 
   // Fetch real global statistics from API
-  const { data: globalStats, isLoading: statsLoading } = useQuery({
-    queryKey: ['/api/community/global-stats'],
+  const { data: globalStats, isLoading: statsLoading, error: statsError } = useQuery({
+    queryKey: ['community', 'global-stats'],
     queryFn: async () => {
       const response = await fetch('/api/community/global-stats', {
         credentials: 'include'
@@ -56,6 +56,7 @@ export default function DashboardLayout({
     },
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+    retry: 2,
   });
 
   // Format numbers with K/M suffix
@@ -69,11 +70,17 @@ export default function DashboardLayout({
     return num.toString();
   };
 
+  const getStatValue = (stat: number | undefined) => {
+    if (statsLoading) return '...';
+    if (statsError) return '—';
+    return formatNumber(stat || 0);
+  };
+
   const communityStats = [
-    { icon: Globe, label: 'Global People', value: statsLoading ? '...' : formatNumber(globalStats?.globalPeople || 0), color: 'text-cyan-500' },
-    { icon: Calendar, label: 'Active Events', value: statsLoading ? '...' : formatNumber(globalStats?.activeEvents || 0), color: 'text-emerald-500' },
-    { icon: Building2, label: 'Communities', value: statsLoading ? '...' : formatNumber(globalStats?.communities || 0), color: 'text-cyan-500' },
-    { icon: MapPin, label: 'Your City', value: statsLoading ? '...' : formatNumber(globalStats?.yourCity || 0), color: 'text-emerald-500' }
+    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
+    { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
+    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
+    { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }
   ];
 
   return (
