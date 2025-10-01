@@ -681,16 +681,189 @@ describe('Search Service', () => {
 });
 ```
 
+## Groups Advanced Search Implementation
+
+### Overview
+
+The Groups feature implements a comprehensive advanced search system with faceted filtering, autocomplete suggestions, and real-time search capabilities.
+
+### Search Component (`GroupSearch.tsx`)
+
+**Features:**
+- Full-text search across group names and descriptions
+- Debounced search (300ms) for optimal performance
+- Real-time autocomplete suggestions
+- Advanced filters with collapsible UI
+- Active filter badges for easy removal
+- ARIA labels for accessibility compliance
+
+**Search Filters:**
+```typescript
+interface SearchFilters {
+  query: string;        // Full-text search query
+  city: string;         // Filter by city location
+  roleType: string;     // Filter by tango role (dancer, teacher, organizer, musician, dj)
+  minMembers: number;   // Minimum member count
+  maxMembers: number;   // Maximum member count
+  visibility: string;   // Public/private/all
+}
+```
+
+### API Endpoint
+
+**Route:** `GET /api/groups/search`
+
+**Query Parameters:**
+- `q` - Search query string
+- `city` - City filter
+- `roleType` - Role type filter
+- `minMembers` - Minimum member count
+- `maxMembers` - Maximum member count
+- `visibility` - Visibility filter (public/private/all)
+
+**Implementation:**
+```typescript
+router.get('/api/groups/search', async (req, res) => {
+  const { q, city, roleType, minMembers, maxMembers, visibility } = req.query;
+  
+  // Build query conditions
+  const conditions = [];
+  
+  if (q) {
+    conditions.push(
+      or(
+        ilike(groups.name, `%${q}%`),
+        ilike(groups.description, `%${q}%`)
+      )
+    );
+  }
+  
+  if (city) conditions.push(eq(groups.city, city));
+  if (roleType) conditions.push(eq(groups.roleType, roleType));
+  if (visibility !== 'all') conditions.push(eq(groups.visibility, visibility));
+  
+  // Member count range filter
+  if (minMembers) conditions.push(gte(groups.memberCount, parseInt(minMembers)));
+  if (maxMembers) conditions.push(lte(groups.memberCount, parseInt(maxMembers)));
+  
+  const results = await db
+    .select()
+    .from(groups)
+    .where(and(...conditions))
+    .orderBy(desc(groups.memberCount));
+});
+```
+
+### Search Features
+
+#### 1. Full-Text Search
+- Case-insensitive matching
+- Searches group names and descriptions
+- Results ranked by relevance and member count
+
+#### 2. Autocomplete Suggestions
+- Displays top 10 matching groups as user types
+- Shows group location and member count
+- Click to auto-fill search query
+- Closes after selection or blur
+
+#### 3. Advanced Filters
+- **Collapsible UI**: Toggle with "Filters" button
+- **Active Filter Count**: Shows number of active filters in badge
+- **City Filter**: Text input with partial matching
+- **Role Type Dropdown**: Predefined tango roles
+- **Member Range**: Min/max number inputs
+- **Visibility Toggle**: Public, private, or all groups
+
+#### 4. Filter Management
+- **Active Filter Badges**: Visual chips showing applied filters
+- **Individual Removal**: Click X icon on any filter badge
+- **Clear All**: Single button to reset all filters
+- **Persistent State**: Filters maintained during search
+
+### Performance Optimizations
+
+**Debouncing:**
+```typescript
+const debouncedSearch = useCallback(
+  debounce((filters: SearchFilters) => performSearch(filters), 300),
+  [performSearch]
+);
+```
+
+**Conditional Rendering:**
+- Suggestions only shown when query exists and has results
+- Advanced filters hidden by default
+- Loading state shown during search
+
+**Efficient Queries:**
+- Index on `groups.name` and `groups.city` columns
+- Member count stored denormalized for fast filtering
+- Pagination support for large result sets
+
+### Search Testing & Data-TestId Attributes
+
+All interactive elements include `data-testid` attributes for automated testing:
+
+```typescript
+// Search input
+<Input data-testid="input-search-query" ... />
+
+// Filter controls
+<Button data-testid="button-toggle-filters" ... />
+<Button data-testid="button-clear-filters" ... />
+
+// Filter inputs
+<Input data-testid="input-filter-city" ... />
+<Select data-testid="select-role-type" ... />
+<Select data-testid="select-visibility" ... />
+<Input data-testid="input-min-members" ... />
+<Input data-testid="input-max-members" ... />
+
+// Suggestions
+<div data-testid="search-suggestions" ... />
+<button data-testid={`suggestion-${group.id}`} ... />
+
+// Active filters
+<div data-testid="active-filters" ... />
+```
+
+### Integration with Group Listing
+
+Search results are passed via `onSearchResults` callback:
+
+```typescript
+<GroupSearch
+  onSearchResults={(results) => setFilteredGroups(results)}
+  onClearFilters={() => setFilteredGroups(allGroups)}
+/>
+```
+
+### User Experience Features
+
+1. **Real-time Feedback**: Search executes on every filter change
+2. **Loading Indicator**: "Searching..." message during API calls
+3. **Empty State Handling**: Graceful display when no results
+4. **Mobile Responsive**: Filters stack vertically on small screens
+5. **Keyboard Accessible**: Tab navigation and Enter key support
+
+### Search Analytics
+
+Future enhancement: Track search queries, popular filters, and zero-result searches for continuous improvement.
+
 ## Next Steps
 
 - [ ] Implement semantic search with embeddings
 - [ ] Add search personalization
 - [ ] Enhanced multi-language support
 - [ ] Real-time index updates
+- [x] Groups advanced search with faceted filtering (October 2025)
+- [x] Autocomplete suggestions for groups (October 2025)
+- [x] Search accessibility compliance (October 2025)
 
 ---
 
 **Status**: 🟢 Operational
 **Dependencies**: Elasticsearch, Fuse.js
 **Owner**: Search Team
-**Last Updated**: September 2025
+**Last Updated**: October 2025
