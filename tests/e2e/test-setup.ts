@@ -4,7 +4,7 @@
  */
 
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { eq, and, sql } from 'drizzle-orm';
+import { eq, and, sql, like, inArray } from 'drizzle-orm';
 import pg from 'pg';
 import bcrypt from 'bcrypt';
 import { users, sessions, events, memories, eventAttendees, posts } from '../../shared/schema';
@@ -200,7 +200,7 @@ export async function cleanupTestUsers(emailPattern: string = '@mundotango-test.
   try {
     const deletedUsers = await testDb
       .delete(users)
-      .where(sql`email LIKE '%${emailPattern}%'`)
+      .where(like(users.email, `%${emailPattern}%`))
       .returning({ id: users.id, email: users.email });
     
     console.log(`🧹 Cleaned up ${deletedUsers.length} test users`);
@@ -214,9 +214,14 @@ export async function cleanupTestUsers(emailPattern: string = '@mundotango-test.
 // Clean up test events by organizer
 export async function cleanupTestEvents(organizerIds: number[]) {
   try {
+    if (organizerIds.length === 0) {
+      console.log('🧹 No events to clean up');
+      return [];
+    }
+    
     const deletedEvents = await testDb
       .delete(events)
-      .where(sql`organizer_id = ANY(${organizerIds})`)
+      .where(inArray(events.organizerId, organizerIds))
       .returning({ id: events.id, title: events.title });
     
     console.log(`🧹 Cleaned up ${deletedEvents.length} test events`);
@@ -230,9 +235,14 @@ export async function cleanupTestEvents(organizerIds: number[]) {
 // Clean up test memories by author
 export async function cleanupTestMemories(authorIds: number[]) {
   try {
+    if (authorIds.length === 0) {
+      console.log('🧹 No memories to clean up');
+      return [];
+    }
+    
     const deletedMemories = await testDb
       .delete(posts)
-      .where(sql`author_id = ANY(${authorIds})`)
+      .where(inArray(posts.userId, authorIds))
       .returning({ id: posts.id });
     
     console.log(`🧹 Cleaned up ${deletedMemories.length} test memories`);
@@ -252,7 +262,7 @@ export async function cleanupAllTestData() {
     const testUsers = await testDb
       .select({ id: users.id })
       .from(users)
-      .where(sql`email LIKE '%@mundotango-test.com%'`);
+      .where(like(users.email, '%@mundotango-test.com%'));
     
     const userIds = testUsers.map(u => u.id);
     
@@ -264,7 +274,7 @@ export async function cleanupAllTestData() {
       // Clean up event attendees
       await testDb
         .delete(eventAttendees)
-        .where(sql`user_id = ANY(${userIds})`);
+        .where(inArray(eventAttendees.userId, userIds));
     }
     
     // Finally clean up users
