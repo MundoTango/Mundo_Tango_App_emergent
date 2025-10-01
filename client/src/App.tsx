@@ -263,6 +263,12 @@ function Router() {
             </Suspense>
           </Route>
 
+          <Route path="/profile/:userId">
+            <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
+              <PublicProfilePage />
+            </Suspense>
+          </Route>
+
           <Route path="/profile">
             <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
               <Profile />

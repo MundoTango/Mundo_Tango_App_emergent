@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
@@ -33,7 +33,6 @@ import {
   ListFallback,
   PostFeedFallback
 } from '@/components/profile/OptimizedProfileComponents';
-import { Suspense } from 'react';
 
 // Phase 5: Production Hardening imports
 import ProfileErrorBoundary from '@/components/profile/ProfileErrorBoundary';

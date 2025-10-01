@@ -3,7 +3,7 @@
  * Layer 2: Component Layer - Reusable role emoji indicators with hover tooltips
  */
 
-import React from 'react';
+import { useMemo } from 'react';
 import { getTangoRoleById, mapUserRoleToTangoRole, TangoRole, processDancerRoles } from '@/utils/tangoRoles';
 import { EnhancedTooltip } from './EnhancedTooltip';
 
@@ -24,7 +24,7 @@ interface RoleEmojiDisplayProps {
   className?: string;
 }
 
-export const RoleEmojiDisplay: React.FC<RoleEmojiDisplayProps> = ({
+export const RoleEmojiDisplay = ({
   tangoRoles,
   fallbackRole = 'dancer',
   leaderLevel,
@@ -32,9 +32,9 @@ export const RoleEmojiDisplay: React.FC<RoleEmojiDisplayProps> = ({
   size = 'md',
   maxRoles = 5,
   className = ''
-}) => {
+}: RoleEmojiDisplayProps) => {
   // Determine role objects to display with dancer automation
-  const roleObjects: TangoRole[] = React.useMemo(() => {
+  const roleObjects: TangoRole[] = useMemo(() => {
     if (tangoRoles && tangoRoles.length > 0) {
       // Process dancer roles with leader/follower levels
       const processedRoles = processDancerRoles(tangoRoles, leaderLevel, followerLevel);
