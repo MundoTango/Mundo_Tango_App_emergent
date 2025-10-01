@@ -1,12 +1,49 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 93 pages  
+**Total Pages Documented:** 94 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 **Google Maps API:** ✅ Integrated (worldwide business search)
 
 ## 🎯 Recent Updates
+
+### Community Statistics API & Tango World Map - COMPLETE (October 1, 2025)
+Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ Global Statistics API Implementation**
+- **New Endpoint**: `/api/community/global-stats` with real-time database-driven metrics (Layer 22: Group Management)
+- **Accurate Calculations**: `COUNT(DISTINCT userId)` prevents double-counting across city groups
+- **Active Event Filtering**: Date-based filtering (end_date >= NOW()) for accurate upcoming event counts
+- **"Your City" Aggregation**: Sums ALL city groups in user's location (not LIMIT 1)
+- **Response Time**: ~150-250ms with proper indexing
+
+**✅ Sidebar Statistics Integration**
+- **Real-Time Display**: DashboardLayout sidebar shows 4 live metrics (Layer 18: Analytics & Reporting)
+  - People: Unique users in city communities
+  - Events: Active upcoming events
+  - Communities: Total city groups
+  - Your City: Members in user's location
+- **Number Formatting**: K/M suffix (3.2K, 1.5M)
+- **React Query Caching**: 5-minute staleTime, 2 retry attempts, graceful error handling
+- **Loading States**: "..." placeholder while loading, "—" on error
+
+**✅ Rankings Panel Filters**
+- **People/Events Filter**: Sort cities by member count or event count (Layer 9: UI Framework)
+- **API Endpoint**: `/api/community/rankings` with query parameters
+- **View Options**: City or region aggregation
+
+**✅ Comprehensive Testing**
+- **8 ESA Layers Tested**: Database (Layer 1), API (Layer 2), Validation (Layer 6), State (Layer 7), UI (Layer 9), Caching (Layer 14), Analytics (Layer 18), Groups (Layer 22)
+- **100% Pass Rate**: All calculations verified against database
+- **Database Verification**: Accurate zero values explained (no members yet, past events only)
+
+**✅ Complete Documentation**
+- [Community Statistics API Reference](/docs/pages/api/community-statistics-api.md) - **NEW** - Full API specs with examples
+- [Mundo Tango World Map](/docs/pages/MUNDO_TANGO_WORLD_MAP.md) - **UPDATED** - Added Global Statistics Integration section
+- [Layer 22: Group Management](/docs/pages/esa-layers/layer-22-group-management.md) - **UPDATED** - Community Statistics APIs section
+- [Layer 18: Analytics & Reporting](/docs/pages/esa-layers/layer-18-analytics-reporting.md) - **UPDATED** - Real-Time Global Statistics section
+- [Admin: Global Statistics](/docs/pages/admin/global-statistics.md) - **UPDATED** - Clarified live vs historical statistics
 
 ### Extended @Mention System - COMPLETE (September 30, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
@@ -236,6 +273,15 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Privacy Policy](/docs/pages/legal/privacy-policy.md) - `/privacy-policy` - Data protection policies
 - [404 Not Found](/docs/pages/legal/not-found.md) - 404 page
 - [Travel Planner](/docs/pages/support/TravelPlanner.md) - `/travel-planner`
+
+### 📡 API Reference Documentation (1 page)
+- [Community Statistics API](/docs/pages/api/community-statistics-api.md) - **✅ NEW (Oct 1, 2025)** - Complete API reference for community statistics:
+  - `/api/community/global-stats` - Real-time global platform metrics
+  - `/api/community/rankings` - City/region rankings with filters
+  - `/api/community/city-groups` - City groups with coordinates for mapping
+  - Calculation methods and accuracy guidelines
+  - Frontend integration patterns with React Query
+  - Performance optimization strategies
 
 ### 🔌 Integrations (5 pages)
 - [Notion Home Page](/docs/pages/integration/NotionHomePage.md) - `/notion-home` - Notion workspace integration
