@@ -21,7 +21,7 @@ router.get('/community/rankings', async (req, res) => {
         .select({
           country: groups.country,
           groupId: groups.id,
-          memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
+          memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
         })
         .from(groups)
         .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
@@ -72,7 +72,7 @@ router.get('/community/rankings', async (req, res) => {
           country: groups.country,
           lat: groups.latitude,
           lng: groups.longitude,
-          memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
+          memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
         })
         .from(groups)
         .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
@@ -82,7 +82,7 @@ router.get('/community/rankings', async (req, res) => {
           sql`${groups.longitude} IS NOT NULL`
         ))
         .groupBy(groups.id, groups.name, groups.city, groups.country, groups.latitude, groups.longitude, groups.memberCount)
-        .orderBy(desc(sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)`));
+        .orderBy(desc(sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END`));
       
       res.json({
         success: true,
@@ -120,7 +120,7 @@ router.get('/community/city-groups', async (req, res) => {
         slug: groups.slug,
         fallbackMemberCount: groups.memberCount,
         description: groups.description,
-        memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
+        memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
       })
       .from(groups)
       .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
@@ -130,7 +130,7 @@ router.get('/community/city-groups', async (req, res) => {
         sql`${groups.longitude} IS NOT NULL`
       ))
       .groupBy(groups.id, groups.name, groups.city, groups.country, groups.latitude, groups.longitude, groups.slug, groups.memberCount, groups.description)
-      .orderBy(desc(sql`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)`));
+      .orderBy(desc(sql`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END`));
     
     const formattedData = cityGroupsWithStats.map(group => ({
       id: group.id,
