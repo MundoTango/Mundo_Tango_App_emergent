@@ -233,7 +233,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } = await import('./middleware/securityEnhancements');
 
   // Apply security middleware - Life CEO 44x21s Layer 44 Critical Fix
-  app.use(securityHeaders);
+  // DISABLED: CSP is handled by configureSecurityHeaders in index-novite.ts to prevent conflicts
+  // app.use(securityHeaders);
 
   // Apply ESA-44x21s Security Enhancements
   app.use(regexpProtection);
