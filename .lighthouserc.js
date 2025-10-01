@@ -3,16 +3,12 @@ export default {
     // Collection settings
     collect: {
       url: [
+        'http://localhost:5000/memories',
+        'http://localhost:5000/community-world-map',
         'http://localhost:5000/',
         'http://localhost:5000/auth/login',
         'http://localhost:5000/profile',
-        'http://localhost:5000/events',
-        'http://localhost:5000/messages',
-        'http://localhost:5000/community',
-        'http://localhost:5000/events/discover',
-        'http://localhost:5000/housing',
-        'http://localhost:5000/life-ceo',
-        'http://localhost:5000/admin'
+        'http://localhost:5000/events'
       ],
       startServerCommand: 'npm run dev',
       startServerReadyPattern: 'Server running on port 5000',

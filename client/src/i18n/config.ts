@@ -181,9 +181,11 @@ const baseResources = {
         memorySharedDescription: "Your memory has been shared with the community"
       },
       community: {
-        globalDancers: "Global Dancers",
+        globalDancers: "Global People",
         activeEvents: "Active Events",
-        communities: "Communities"
+        communities: "Communities",
+        yourCity: "Your City",
+        globalStatistics: "Global Statistics"
       },
       settings: {
         languageChanged: "Language Changed",
@@ -256,9 +258,11 @@ const baseResources = {
         memorySharedDescription: "Tu recuerdo ha sido compartido con la comunidad"
       },
       community: {
-        globalDancers: "Bailarines Globales",
+        globalDancers: "Personas Globales",
         activeEvents: "Eventos Activos",
-        communities: "Comunidades"
+        communities: "Comunidades",
+        yourCity: "Tu Ciudad",
+        globalStatistics: "Estadísticas Globales"
       },
       settings: {
         languageChanged: "Idioma Cambiado",
@@ -331,9 +335,11 @@ const baseResources = {
         memorySharedDescription: "Votre souvenir a été partagé avec la communauté"
       },
       community: {
-        globalDancers: "Danseurs Globaux",
+        globalDancers: "Personnes Globales",
         activeEvents: "Événements Actifs",
-        communities: "Communautés"
+        communities: "Communautés",
+        yourCity: "Votre Ville",
+        globalStatistics: "Statistiques Globales"
       },
       settings: {
         languageChanged: "Langue Changée",
