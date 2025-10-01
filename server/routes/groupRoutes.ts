@@ -132,17 +132,7 @@ router.get('/community/rankings', async (req, res) => {
 // Get global community statistics for sidebar
 router.get('/community/global-stats', async (req, res) => {
   try {
-    // Get total member count across all city groups
-    const [memberStats] = await db
-      .select({
-        totalMembers: sql<number>`SUM(CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END)::int`,
-      })
-      .from(groups)
-      .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
-      .where(eq(groups.type, 'city'))
-      .groupBy(groups.id);
-
-    // Calculate actual total by summing per-group counts
+    // Calculate total member count by summing per-group counts
     const perGroupCounts = await db
       .select({
         memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
