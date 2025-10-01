@@ -121,37 +121,25 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
           </div>
         </div>
 
-        {/* Split Panel Layout: Map + Rankings */}
-        <div className={cn(
-          "grid gap-6",
-          // Desktop: side-by-side (true 60/40 split: 3fr map, 2fr rankings)
-          "lg:grid-cols-[3fr,2fr]",
-          // Mobile: stacked
-          "grid-cols-1"
-        )}>
-          {/* Left Panel: Interactive Map */}
-          <div className="relative">
-            <div className={cn(
-              "rounded-lg border overflow-hidden",
-              "bg-white dark:bg-slate-900",
-              "border-gray-200 dark:border-slate-800",
-              // Fixed height on desktop, responsive on mobile
-              "h-[600px] lg:h-[700px]"
-            )}>
-              <WorldMap ref={mapRef} />
-            </div>
-          </div>
-
-          {/* Right Panel: Rankings */}
+        {/* Map Section */}
+        <div className="relative">
           <div className={cn(
-            "rounded-lg border p-6",
+            "rounded-lg border overflow-hidden",
             "bg-white dark:bg-slate-900",
             "border-gray-200 dark:border-slate-800",
-            // Fixed height on desktop, auto on mobile
-            "lg:h-[700px] h-auto"
+            "h-[600px] lg:h-[700px]"
           )}>
-            <RankingsPanel onCityClick={handleCityClick} />
+            <WorldMap ref={mapRef} />
           </div>
+        </div>
+
+        {/* Rankings Panel Below Map */}
+        <div className={cn(
+          "rounded-lg border p-6",
+          "bg-white dark:bg-slate-900",
+          "border-gray-200 dark:border-slate-800"
+        )}>
+          <RankingsPanel onCityClick={handleCityClick} />
         </div>
       </div>
     </DashboardLayout>

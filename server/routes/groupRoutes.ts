@@ -3,7 +3,7 @@ import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
 import { db } from '../db';
-import { groups, groupMembers, users } from '../../shared/schema';
+import { groups, groupMembers, users, events } from '../../shared/schema';
 import { eq, and, or, sql, desc, ilike } from 'drizzle-orm';
 import { z } from 'zod';
 
@@ -12,45 +12,58 @@ const router = Router();
 // OPTIMIZED: Get rankings (city or region) with aggregated stats
 router.get('/community/rankings', async (req, res) => {
   try {
-    const { view = 'city', sortBy = 'members' } = req.query;
+    const { view = 'city', sortBy = 'members', filterBy = 'people' } = req.query;
     
     if (view === 'region') {
       // Region/Country aggregation - compute per-city counts first, then aggregate by country
-      // Step 1: Get per-city member counts
+      // Step 1: Get per-city member and event counts
       const cityCounts = await db
         .select({
           country: groups.country,
           groupId: groups.id,
+          city: groups.city,
           memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+          eventCount: sql<number>`COUNT(DISTINCT ${events.id})::int`,
         })
         .from(groups)
         .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+        .leftJoin(events, and(
+          eq(events.city, groups.city),
+          eq(events.country, groups.country)
+        ))
         .where(and(
           eq(groups.type, 'city'),
           sql`${groups.country} IS NOT NULL`,
           sql`${groups.latitude} IS NOT NULL`,
           sql`${groups.longitude} IS NOT NULL`
         ))
-        .groupBy(groups.id, groups.country, groups.memberCount);
+        .groupBy(groups.id, groups.country, groups.city, groups.memberCount);
       
       // Step 2: Aggregate by country
-      const regionMap = new Map<string, { memberCount: number; cityCount: number }>();
+      const regionMap = new Map<string, { memberCount: number; eventCount: number; cityCount: number }>();
       cityCounts.forEach(city => {
-        const existing = regionMap.get(city.country!) || { memberCount: 0, cityCount: 0 };
+        const existing = regionMap.get(city.country!) || { memberCount: 0, eventCount: 0, cityCount: 0 };
         regionMap.set(city.country!, {
           memberCount: existing.memberCount + city.memberCount,
+          eventCount: existing.eventCount + city.eventCount,
           cityCount: existing.cityCount + 1
         });
       });
       
-      // Step 3: Convert to array and sort
+      // Step 3: Convert to array and sort based on filter
       const regionRankings = Array.from(regionMap.entries())
         .map(([country, stats]) => ({
           region: country,
           memberCount: stats.memberCount,
+          eventCount: stats.eventCount,
           cityCount: stats.cityCount
         }))
-        .sort((a, b) => b.memberCount - a.memberCount);
+        .sort((a, b) => {
+          if (filterBy === 'events') {
+            return b.eventCount - a.eventCount;
+          }
+          return b.memberCount - a.memberCount;
+        });
       
       res.json({
         success: true,
@@ -59,11 +72,16 @@ router.get('/community/rankings', async (req, res) => {
           rank: index + 1,
           name: r.region,
           memberCount: r.memberCount,
+          eventCount: r.eventCount,
           cityCount: r.cityCount
         }))
       });
     } else {
-      // City rankings
+      // City rankings with member and event counts
+      const sortColumn = filterBy === 'events' 
+        ? sql<number>`COUNT(DISTINCT ${events.id})`
+        : sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END`;
+      
       const cityRankings = await db
         .select({
           id: groups.id,
@@ -73,16 +91,21 @@ router.get('/community/rankings', async (req, res) => {
           lat: groups.latitude,
           lng: groups.longitude,
           memberCount: sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END::int`,
+          eventCount: sql<number>`COUNT(DISTINCT ${events.id})::int`,
         })
         .from(groups)
         .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+        .leftJoin(events, and(
+          eq(events.city, groups.city),
+          eq(events.country, groups.country)
+        ))
         .where(and(
           eq(groups.type, 'city'),
           sql`${groups.latitude} IS NOT NULL`,
           sql`${groups.longitude} IS NOT NULL`
         ))
         .groupBy(groups.id, groups.name, groups.city, groups.country, groups.latitude, groups.longitude, groups.memberCount)
-        .orderBy(desc(sql<number>`CASE WHEN COUNT(DISTINCT ${groupMembers.id}) > 0 THEN COUNT(DISTINCT ${groupMembers.id}) ELSE COALESCE(${groups.memberCount}, 0) END`));
+        .orderBy(desc(sortColumn));
       
       res.json({
         success: true,
@@ -95,7 +118,8 @@ router.get('/community/rankings', async (req, res) => {
           country: c.country,
           lat: c.lat,
           lng: c.lng,
-          memberCount: c.memberCount
+          memberCount: c.memberCount,
+          eventCount: c.eventCount
         }))
       });
     }
