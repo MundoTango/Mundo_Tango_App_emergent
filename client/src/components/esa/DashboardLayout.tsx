@@ -12,6 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 import { useTheme } from '@/contexts/theme-context';
+import { useQuery } from '@tanstack/react-query';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -40,11 +41,39 @@ export default function DashboardLayout({
     { path: '/role-invitations', label: 'Role Invitations', icon: Mail }
   ];
 
+  // Fetch real global statistics from API
+  const { data: globalStats, isLoading: statsLoading } = useQuery({
+    queryKey: ['/api/community/global-stats'],
+    queryFn: async () => {
+      const response = await fetch('/api/community/global-stats', {
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch global statistics');
+      }
+      const result = await response.json();
+      return result.data;
+    },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+  });
+
+  // Format numbers with K/M suffix
+  const formatNumber = (num: number): string => {
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`;
+    }
+    if (num >= 1000) {
+      return `${(num / 1000).toFixed(1)}K`;
+    }
+    return num.toString();
+  };
+
   const communityStats = [
-    { icon: Globe, label: 'Global People', value: '3.2K', color: 'text-cyan-500' },
-    { icon: Calendar, label: 'Active Events', value: '945', color: 'text-emerald-500' },
-    { icon: Building2, label: 'Communities', value: '6.8K', color: 'text-cyan-500' },
-    { icon: MapPin, label: 'Your City', value: '184', color: 'text-emerald-500' }
+    { icon: Globe, label: 'Global People', value: statsLoading ? '...' : formatNumber(globalStats?.globalPeople || 0), color: 'text-cyan-500' },
+    { icon: Calendar, label: 'Active Events', value: statsLoading ? '...' : formatNumber(globalStats?.activeEvents || 0), color: 'text-emerald-500' },
+    { icon: Building2, label: 'Communities', value: statsLoading ? '...' : formatNumber(globalStats?.communities || 0), color: 'text-cyan-500' },
+    { icon: MapPin, label: 'Your City', value: statsLoading ? '...' : formatNumber(globalStats?.yourCity || 0), color: 'text-emerald-500' }
   ];
 
   return (
