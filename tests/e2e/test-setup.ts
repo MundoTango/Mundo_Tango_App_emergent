@@ -174,16 +174,19 @@ export async function createTestMemory(userId: number, options: {
   content?: string;
   imageUrl?: string;
   videoUrl?: string;
+  mediaEmbeds?: string[];
+  visibility?: 'public' | 'friends' | 'private';
 } = {}) {
   const [memory] = await testDb.insert(posts).values({
     userId,
     content: options.content || `Test memory ${Date.now()}`,
     imageUrl: options.imageUrl,
     videoUrl: options.videoUrl,
-    visibility: 'public',
-    likeCount: 0,
-    commentCount: 0,
-    shareCount: 0,
+    mediaEmbeds: options.mediaEmbeds || [],
+    visibility: options.visibility || 'public',
+    likesCount: 0,
+    commentsCount: 0,
+    sharesCount: 0,
     createdAt: new Date(),
     updatedAt: new Date()
   }).returning();
