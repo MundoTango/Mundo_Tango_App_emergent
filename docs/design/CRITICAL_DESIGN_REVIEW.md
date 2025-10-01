@@ -5,23 +5,39 @@
 
 ## What We've Accomplished ✅
 
-### 1. Translation & Content
+### 1. Color System Refactor (October 1, 2025)
+- ✅ **Updated gradient:** Seafoam-teal → **Turquoise-to-blue** (#40E0D0 → #1E90FF → #0047AB)
+- ✅ **Format conversion:** All RGBA values → Modern HSLA format
+- ✅ **Dark mode:** Standardized cobalt blue family (hsl 218°) for shadows, gradients, borders
+- ✅ **Legacy cleanup:** Eliminated all hardcoded RGBA values from design tokens
+
+### 2. Sidebar Profile Section Interactive Improvements (October 1, 2025)
+- ✅ Made profile card fully clickable with navigation to `/profile/{userId}`
+- ✅ Added hover animations: Card scales 1.02x with shadow effect
+- ✅ Avatar scales to 1.1x on hover
+- ✅ Name changes to turquoise color on hover
+- ✅ Username brightens on hover
+- ✅ Integrated RoleEmojiDisplay component for tango role badges
+- ✅ Added `data-testid="link-user-profile"` for automated testing
+- ✅ **UX improvement:** Profile section no longer "lost" in gradient colors
+
+### 3. Translation & Content
 - ✅ Changed "Global Dancers" → "Global People" (more inclusive)
 - ✅ Revealed all 4 stats (removed `.slice(0, 2)`)
 - ✅ Added missing translations for "Your City" and "Communities"
 
-### 2. Design Token Implementation
+### 4. Design Token Implementation
 - ✅ Added brand gradient to "GLOBAL STATISTICS" header
 - ✅ Converted stat cards from `<div>` to `<button>` for accessibility
 - ✅ Added keyboard focus indicators with `focus:ring-2 focus:ring-ocean-focus`
 - ✅ Added ARIA labels for screen readers
 
-### 3. ESLint Automation
+### 5. ESLint Automation
 - ✅ Created `.eslintrc.cjs` with custom rule to catch hardcoded hex colors
 - ✅ Configured to warn developers when they use `#RRGGBB` patterns
 - ✅ Encourages use of design tokens
 
-### 4. Accessibility Audit
+### 6. Accessibility Audit
 - ✅ Ran axe-core audit on Memories, Tango Community, Home, Events
 - ✅ Identified 6-7 violations per page (button labels, viewport, contrast)
 - ✅ Created comprehensive action plan with prioritized fixes

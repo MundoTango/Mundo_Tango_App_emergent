@@ -1,7 +1,7 @@
 # Sidebar - Global Navigation Sidebar
 
 ## Overview
-- **Component:** `client/src/components/Sidebar.tsx` *(Refactored Sept 27, 2025)*
+- **Component:** `client/src/components/Sidebar.tsx` *(Refactored Sept 27, 2025 | Profile Section Updated Oct 1, 2025)*
 - **Previous Name:** TrangoTechSidebar (renamed for clean codebase)
 - **Route:** Used globally via DashboardLayout wrapper
 - **Purpose:** Main navigation sidebar providing consistent menu structure across platform
@@ -9,6 +9,29 @@
   - Layer 9 (UI Framework Agent) - Single responsibility navigation component
   - Layer 60 (Clean Codebase) - Removed legacy branding references
   - Layer 48 (Debugging Agent) - Fixed navigation issues
+
+## Recent Updates (October 1, 2025)
+
+### Interactive Profile Section
+The mini profile card at the top of the sidebar is now fully clickable and navigates to the user's profile page:
+
+**Navigation:**
+- Click anywhere on profile card → Navigate to `/profile/{userId}`
+- Dynamic route using actual user ID from auth context
+- Fallback to `/profile` if user ID not available
+
+**Interactive Hover States:**
+- **Card**: Scales to 1.02x with shadow on hover
+- **Avatar**: Turquoise badge scales to 1.1x
+- **Name**: Changes to seafoam turquoise color
+- **Username**: Brightens from muted to secondary
+- **Emojis**: Opacity increases to 100%
+
+**Technical Details:**
+- Uses Wouter `<Link>` component for navigation
+- Added `data-testid="link-user-profile"` for automated testing
+- Integrated RoleEmojiDisplay component for tango role badges
+- Group hover effects with CSS-only transitions (no JS handlers)
 
 ## Technical Implementation
 
@@ -82,12 +105,13 @@ navigation_metrics (
 
 ## MT Ocean Theme
 
-### Design Implementation
+### Design Implementation (Updated October 1, 2025)
 - **Background:** Glassmorphic design with backdrop blur
-- **Gradients:** Teal-cyan gradients `#5EEAD4 → #155E75`
+- **Gradients:** Turquoise-to-blue gradients `#40E0D0 → #1E90FF → #0047AB` (HSLA format)
 - **Active State:** Magnetic hover effects with smooth transitions
 - **Icons:** Lucide React icons with consistent sizing
 - **Typography:** Clear hierarchy with weight variations
+- **Profile Card:** Interactive with turquoise accent color on hover, 1.02x scale transform
 
 ### Interactive Elements
 - **Hover Effects:** Scale and translate animations
