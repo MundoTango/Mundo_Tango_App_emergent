@@ -231,6 +231,63 @@
   background: var(--bg-ocean-gradient-soft);
 }
 
+/* Brand Elements */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--ocean-seafoam-400) 0%, var(--ocean-seafoam-500) 100%);
+}
+
+.bg-brand-icon {
+  background: linear-gradient(135deg, var(--ocean-seafoam-400) 0%, var(--ocean-seafoam-500) 100%);
+  color: var(--ocean-teal-600);
+}
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--ocean-seafoam-400) 0%, var(--ocean-teal-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* TopBar Overlay */
+.overlay-ocean {
+  background: linear-gradient(to right, var(--ocean-seafoam-400) 0%, transparent 50%, var(--ocean-teal-500) 100%);
+  opacity: 0.05;
+}
+
+/* Avatar/Profile Elements - WCAG AA compliant */
+.bg-avatar-light {
+  background: linear-gradient(135deg, var(--ocean-teal-500) 0%, var(--ocean-teal-600) 100%);
+  color: white;
+}
+
+.bg-avatar-dark {
+  background: linear-gradient(135deg, var(--ocean-teal-600) 0%, var(--ocean-teal-800) 100%);
+  color: white;
+}
+
+/* Profile Cards */
+.bg-profile-card {
+  background: rgba(94, 234, 212, 0.08);
+  border: 1px solid rgba(94, 234, 212, 0.15);
+}
+
+/* Stat Cards */
+.bg-stat-card {
+  background: rgba(94, 234, 212, 0.08);
+  border: 1px solid rgba(94, 234, 212, 0.12);
+}
+
+.bg-stat-icon {
+  background: rgba(94, 234, 212, 0.15);
+  color: var(--ocean-seafoam-400);
+}
+
+/* Footer Branding */
+.bg-footer-brand {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.12) 0%, rgba(30, 179, 204, 0.08) 100%);
+  border: 1px solid rgba(94, 234, 212, 0.20);
+}
+
 /* Text colors */
 .text-ocean {
   color: var(--text-ocean-primary);
@@ -246,6 +303,25 @@
 
 .text-seafoam {
   color: var(--ocean-seafoam-400);
+}
+
+/* Borders */
+.border-ocean-divider {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.border-primary {
+  border-color: var(--ocean-seafoam-400);
+}
+
+/* Borders - Active/Focus States */
+.ring-primary {
+  --tw-ring-color: var(--ocean-seafoam-400);
+}
+
+/* Spinner/Loading */
+.spinner-primary {
+  border-color: var(--ocean-seafoam-400);
 }
 
 /* Glow effects */
@@ -264,9 +340,28 @@
   transition: all var(--transition-base);
 }
 
+.hover-ocean-light:hover {
+  background: rgba(94, 234, 212, 0.08);
+  color: rgba(94, 234, 212, 0.9);
+  transition: all var(--transition-base);
+}
+
 /* Active/Selected states */
 .active-ocean {
   background-color: var(--sidebar-active-bg);
   color: var(--ocean-seafoam-300);
   border-left: 3px solid var(--ocean-seafoam-400);
+}
+
+/* Shadow utilities */
+.shadow-ocean-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-ocean-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-ocean-lg {
+  box-shadow: var(--shadow-lg);
 }

@@ -189,7 +189,7 @@ export default function UnifiedTopBar({
         : "bg-slate-900/95 border-slate-800"
     )}>
       {/* MT Ocean Theme Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#5EEAD4]/5 via-transparent to-[#155E75]/5 pointer-events-none" />
+      <div className="absolute inset-0 overlay-ocean pointer-events-none" />
       
       <div className="relative flex items-center justify-between h-16 px-4 lg:px-8">
         {/* Left Section - Menu & Brand */}
@@ -209,12 +209,10 @@ export default function UnifiedTopBar({
           )}
           
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-brand-icon">
               MT
             </div>
-            <span className={cn(
-              "hidden sm:block text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
-            )}>
+            <span className="hidden sm:block text-xl font-bold text-brand-gradient">
               Mundo Tango
             </span>
           </Link>
@@ -256,7 +254,7 @@ export default function UnifiedTopBar({
             )}>
               {searchLoading ? (
                 <div className="p-8 text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 spinner-primary mx-auto"></div>
                   <p className={cn(
                     "mt-2 text-sm",
                     theme === 'light' ? "text-gray-500" : "text-slate-400"
@@ -487,9 +485,7 @@ export default function UnifiedTopBar({
                   <AvatarImage src={user?.profileImage} className="object-cover" />
                   <AvatarFallback className={cn(
                     "font-medium",
-                    theme === 'light' 
-                      ? "bg-gradient-to-br from-purple-600 to-pink-600 text-white"
-                      : "bg-gradient-to-br from-[#5EEAD4] to-[#155E75] text-white"
+                    theme === 'light' ? "bg-avatar-light" : "bg-avatar-dark"
                   )}>
                     {user?.name?.charAt(0) || 'U'}
                   </AvatarFallback>
