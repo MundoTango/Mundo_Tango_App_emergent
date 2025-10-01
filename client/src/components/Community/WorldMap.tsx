@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -26,17 +26,42 @@ interface CityGroup {
   recommendationCount?: number;
 }
 
-// Helper component to change map view
-function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }) {
+// Helper component to change map view and expose map instance
+function MapController({ 
+  center, 
+  zoom, 
+  onMapReady 
+}: { 
+  center: [number, number]; 
+  zoom: number;
+  onMapReady: (map: L.Map) => void;
+}) {
   const map = useMap();
+  
+  useEffect(() => {
+    onMapReady(map);
+  }, [map, onMapReady]);
+  
   useEffect(() => {
     map.setView(center, zoom);
   }, [center, zoom, map]);
+  
   return null;
 }
 
-export default function WorldMap() {
+const WorldMap = forwardRef((props, ref) => {
   const [selectedCity, setSelectedCity] = useState<CityGroup | null>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([20, 0]);
+  const [mapZoom, setMapZoom] = useState(2);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  
+  // Expose methods to parent via ref
+  useImperativeHandle(ref, () => ({
+    centerOnCity: ({ lat, lng, city }: { lat: number; lng: number; city: string }) => {
+      setMapCenter([lat, lng]);
+      setMapZoom(10);
+    }
+  }));
   
   // Fetch city groups with statistics
   const { data: cityGroups = [], isLoading } = useQuery({
@@ -58,9 +83,10 @@ export default function WorldMap() {
         latitude: parseFloat(group.lat),
         longitude: parseFloat(group.lng)
       }));
-      console.log('🗺️ City groups fetched:', transformed);
       return transformed;
-    }
+    },
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
   });
 
   // Create custom icon for city markers
@@ -106,12 +132,16 @@ export default function WorldMap() {
   return (
     <div className="relative h-full w-full">
       <MapContainer
-        center={[20, 0]}
-        zoom={2}
+        center={mapCenter}
+        zoom={mapZoom}
         className="h-full w-full"
         style={{ background: '#f0f9ff' }}
       >
-        <ChangeView center={[20, 0]} zoom={2} />
+        <MapController 
+          center={mapCenter} 
+          zoom={mapZoom} 
+          onMapReady={(map) => { mapInstanceRef.current = map; }}
+        />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -145,9 +175,7 @@ export default function WorldMap() {
         </div>
         
         {/* Render city group markers */}
-        {console.log('🗺️ Rendering markers for:', cityGroups.length, 'cities')}
         {!isLoading && cityGroups.length > 0 && cityGroups.map((group: CityGroup) => {
-          console.log('📍 Rendering marker for:', group.city, 'at', [group.latitude, group.longitude]);
           return (
           <Marker
             key={group.id}
@@ -233,4 +261,8 @@ export default function WorldMap() {
       )}
     </div>
   );
-}
+});
+
+WorldMap.displayName = 'WorldMap';
+
+export default WorldMap;

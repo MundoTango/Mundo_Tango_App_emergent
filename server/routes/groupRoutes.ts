@@ -9,56 +9,148 @@ import { z } from 'zod';
 
 const router = Router();
 
-// Get city groups for world map
+// OPTIMIZED: Get rankings (city or region) with aggregated stats
+router.get('/community/rankings', async (req, res) => {
+  try {
+    const { view = 'city', sortBy = 'members' } = req.query;
+    
+    if (view === 'region') {
+      // Region/Country aggregation - compute per-city counts first, then aggregate by country
+      // Step 1: Get per-city member counts
+      const cityCounts = await db
+        .select({
+          country: groups.country,
+          groupId: groups.id,
+          memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
+        })
+        .from(groups)
+        .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+        .where(and(
+          eq(groups.type, 'city'),
+          sql`${groups.country} IS NOT NULL`,
+          sql`${groups.latitude} IS NOT NULL`,
+          sql`${groups.longitude} IS NOT NULL`
+        ))
+        .groupBy(groups.id, groups.country, groups.memberCount);
+      
+      // Step 2: Aggregate by country
+      const regionMap = new Map<string, { memberCount: number; cityCount: number }>();
+      cityCounts.forEach(city => {
+        const existing = regionMap.get(city.country!) || { memberCount: 0, cityCount: 0 };
+        regionMap.set(city.country!, {
+          memberCount: existing.memberCount + city.memberCount,
+          cityCount: existing.cityCount + 1
+        });
+      });
+      
+      // Step 3: Convert to array and sort
+      const regionRankings = Array.from(regionMap.entries())
+        .map(([country, stats]) => ({
+          region: country,
+          memberCount: stats.memberCount,
+          cityCount: stats.cityCount
+        }))
+        .sort((a, b) => b.memberCount - a.memberCount);
+      
+      res.json({
+        success: true,
+        view: 'region',
+        data: regionRankings.map((r, index) => ({
+          rank: index + 1,
+          name: r.region,
+          memberCount: r.memberCount,
+          cityCount: r.cityCount
+        }))
+      });
+    } else {
+      // City rankings
+      const cityRankings = await db
+        .select({
+          id: groups.id,
+          name: groups.name,
+          city: groups.city,
+          country: groups.country,
+          lat: groups.latitude,
+          lng: groups.longitude,
+          memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
+        })
+        .from(groups)
+        .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+        .where(and(
+          eq(groups.type, 'city'),
+          sql`${groups.latitude} IS NOT NULL`,
+          sql`${groups.longitude} IS NOT NULL`
+        ))
+        .groupBy(groups.id, groups.name, groups.city, groups.country, groups.latitude, groups.longitude, groups.memberCount)
+        .orderBy(desc(sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)`));
+      
+      res.json({
+        success: true,
+        view: 'city',
+        data: cityRankings.map((c, index) => ({
+          rank: index + 1,
+          id: c.id,
+          name: c.name,
+          city: c.city,
+          country: c.country,
+          lat: c.lat,
+          lng: c.lng,
+          memberCount: c.memberCount
+        }))
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching rankings:', error);
+    res.status(500).json({ error: 'Failed to fetch rankings' });
+  }
+});
+
+// OPTIMIZED: Get city groups for world map with aggregated stats (fixes N+1 query issue)
 router.get('/community/city-groups', async (req, res) => {
   try {
-    const cityGroups = await db.select({
-      id: groups.id,
-      name: groups.name,
-      city: groups.city,
-      country: groups.country,
-      lat: groups.latitude,
-      lng: groups.longitude,
-      slug: groups.slug,
-      memberCount: groups.memberCount,
-      description: groups.description
-    })
-    .from(groups)
-    .where(eq(groups.type, 'city'))
-    .orderBy(desc(groups.memberCount));
-    
-    // Add additional stats for each group
-    const cityGroupsWithStats = await Promise.all(
-      cityGroups.filter(g => g.lat && g.lng).map(async (group) => {
-        // Get actual member count from groupMembers table
-        const memberResult = await db
-          .select({ count: sql<number>`COUNT(*)::int` })
-          .from(groupMembers)
-          .where(eq(groupMembers.groupId, group.id));
-        
-        const actualMemberCount = memberResult[0]?.count || group.memberCount || 0;
-        
-        return {
-          id: group.id,
-          name: group.name,
-          city: group.city,
-          country: group.country,
-          lat: group.lat,
-          lng: group.lng,
-          slug: group.slug,
-          memberCount: actualMemberCount,
-          totalUsers: actualMemberCount,
-          description: group.description,
-          eventCount: 0,
-          hostCount: 0,
-          recommendationCount: 0
-        };
+    // Single aggregated query instead of N+1 queries
+    const cityGroupsWithStats = await db
+      .select({
+        id: groups.id,
+        name: groups.name,
+        city: groups.city,
+        country: groups.country,
+        lat: groups.latitude,
+        lng: groups.longitude,
+        slug: groups.slug,
+        fallbackMemberCount: groups.memberCount,
+        description: groups.description,
+        memberCount: sql<number>`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)::int`,
       })
-    );
+      .from(groups)
+      .leftJoin(groupMembers, eq(groupMembers.groupId, groups.id))
+      .where(and(
+        eq(groups.type, 'city'),
+        sql`${groups.latitude} IS NOT NULL`,
+        sql`${groups.longitude} IS NOT NULL`
+      ))
+      .groupBy(groups.id, groups.name, groups.city, groups.country, groups.latitude, groups.longitude, groups.slug, groups.memberCount, groups.description)
+      .orderBy(desc(sql`COALESCE(COUNT(DISTINCT ${groupMembers.id}), ${groups.memberCount}, 0)`));
+    
+    const formattedData = cityGroupsWithStats.map(group => ({
+      id: group.id,
+      name: group.name,
+      city: group.city,
+      country: group.country,
+      lat: group.lat,
+      lng: group.lng,
+      slug: group.slug,
+      memberCount: group.memberCount,
+      totalUsers: group.memberCount,
+      description: group.description,
+      eventCount: 0,
+      hostCount: 0,
+      recommendationCount: 0
+    }));
     
     res.json({ 
       success: true,
-      data: cityGroupsWithStats
+      data: formattedData
     });
   } catch (error) {
     console.error('Error fetching city groups:', error);
