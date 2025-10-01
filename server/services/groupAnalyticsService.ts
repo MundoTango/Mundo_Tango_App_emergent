@@ -2,7 +2,7 @@ import { db } from '../db';
 import { groups, groupMembers, posts } from '../../shared/schema';
 import { eq, and, gte, sql, desc } from 'drizzle-orm';
 
-interface GroupHealth {
+export interface GroupHealth {
   score: number;
   engagementScore: number;
   growthRate: number;
@@ -11,11 +11,16 @@ interface GroupHealth {
   newMembersPerWeek: number;
 }
 
-interface GroupInsights {
+export interface GroupInsights {
   peakActivityTimes: Array<{ hour: number; count: number }>;
   topContributors: Array<{ userId: number; username: string; postCount: number }>;
   trendingTopics: string[];
   recentActivity: string;
+  trends: {
+    engagement: 'up' | 'down' | 'stable';
+    growth: 'up' | 'down' | 'stable';
+    activity: 'up' | 'down' | 'stable';
+  };
 }
 
 export async function getGroupHealth(groupId: number): Promise<GroupHealth> {
@@ -179,12 +184,27 @@ export async function getGroupInsights(groupId: number): Promise<GroupInsights> 
                         recentPosts.length > 5 ? 'Active' :
                         recentPosts.length > 0 ? 'Moderate' : 'Quiet';
   
+  const engagementTrend: 'up' | 'down' | 'stable' = 
+    recentPosts.length > 15 ? 'up' : 
+    recentPosts.length < 5 ? 'down' : 'stable';
+  
+  const growthTrend: 'up' | 'down' | 'stable' = 'stable';
+  
+  const activityTrend: 'up' | 'down' | 'stable' = 
+    recentPosts.length > 10 ? 'up' : 
+    recentPosts.length < 3 ? 'down' : 'stable';
+  
   console.log(`✅ Generated insights: ${topContributors.length} contributors, ${trendingTopics.length} topics`);
   
   return {
     peakActivityTimes,
     topContributors,
     trendingTopics,
-    recentActivity
+    recentActivity,
+    trends: {
+      engagement: engagementTrend,
+      growth: growthTrend,
+      activity: activityTrend
+    }
   };
 }
