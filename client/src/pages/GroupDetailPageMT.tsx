@@ -1307,12 +1307,12 @@ export default function GroupDetailPageMT() {
                 {/* Group Stats */}
                 <div className="mt-group-stats">
                   <div className="mt-group-stat">
-                    {group.privacy === 'public' ? (
+                    {group.visibility === 'public' || !group.isPrivate ? (
                       <Globe className="mt-group-stat-icon" />
                     ) : (
                       <Lock className="mt-group-stat-icon" />
                     )}
-                    <span>{group.privacy === 'public' ? 'Public' : 'Private'} Group</span>
+                    <span>{group.visibility === 'public' || !group.isPrivate ? 'Public' : 'Private'} Group</span>
                   </div>
                   <div className="mt-group-stat">
                     <Users className="mt-group-stat-icon" />
