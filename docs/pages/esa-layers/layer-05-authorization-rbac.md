@@ -345,16 +345,126 @@ describe('Authorization', () => {
 });
 ```
 
+## Groups Implementation
+
+### Group-Level Permissions
+
+The Groups feature implements comprehensive RBAC for community management with role-based access controls for city groups and professional groups.
+
+```typescript
+// Group permission structure
+interface GroupPermissions {
+  canView: boolean;           // View group details and content
+  canJoin: boolean;            // Join the group
+  canPost: boolean;            // Create posts in the group
+  canModerate: boolean;        // Moderate group content
+  canManageMembers: boolean;   // Add/remove members
+  canManageSettings: boolean;  // Update group settings
+  canDelete: boolean;          // Delete the group
+}
+
+// Group role definitions
+enum GroupRole {
+  ADMIN = 'admin',           // Full group management permissions
+  MODERATOR = 'moderator',   // Content moderation + member management
+  MEMBER = 'member',         // View + post permissions
+  PENDING = 'pending',       // View-only until approved
+  GUEST = 'guest'            // Public view-only access
+}
+```
+
+### Permission Enforcement
+
+Group permissions are enforced at multiple levels:
+
+1. **Route-Level Protection**: Middleware validates user's group membership and role
+2. **API Authorization**: Backend endpoints check permissions before operations
+3. **UI Conditional Rendering**: Frontend components hide/disable actions based on permissions
+4. **Database Row-Level Security**: Queries filter results based on user's access level
+
+```typescript
+// API middleware for group permissions
+export const requireGroupPermission = (permission: keyof GroupPermissions) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const { slug } = req.params;
+    const userId = req.user?.id;
+    
+    const membership = await getGroupMembership(slug, userId);
+    
+    if (!membership || !hasPermission(membership.role, permission)) {
+      return res.status(403).json({
+        error: 'Insufficient permissions',
+        required: permission
+      });
+    }
+    
+    next();
+  };
+};
+
+// Example usage
+router.post('/api/groups/:slug/posts',
+  authenticate,
+  requireGroupPermission('canPost'),
+  createGroupPost
+);
+```
+
+### Group Search Permissions
+
+The advanced search functionality (`/api/groups/search`) respects visibility rules:
+
+- **Public groups**: Searchable and viewable by all users
+- **Private groups**: Only visible to members
+- **Pending members**: Cannot search or view private group content
+
+### Analytics Permissions
+
+Group health analytics (`GroupHealthAnalytics.tsx`) are restricted to:
+- Group admins: Full analytics access
+- Group moderators: Limited analytics (no member-level data)
+- Members: No analytics access
+
+### Implementation Files
+
+**Backend:**
+- `server/routes/groupRoutes.ts` - Group permission middleware
+- `server/services/groupService.ts` - Permission validation logic
+
+**Frontend:**
+- `client/src/pages/GroupDetailPageMT.tsx` - Permission-based UI rendering
+- `client/src/components/groups/GroupSearch.tsx` - Search with visibility filters
+- `client/src/components/groups/GroupHealthAnalytics.tsx` - Admin-only analytics
+
+### Permission Matrix
+
+| Action | Guest | Pending | Member | Moderator | Admin |
+|--------|-------|---------|--------|-----------|-------|
+| View Public Group | ✅ | ✅ | ✅ | ✅ | ✅ |
+| View Private Group | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Join Group | ✅ | ❌ | ✅ | ✅ | ✅ |
+| Create Post | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Moderate Content | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Manage Members | ❌ | ❌ | ❌ | ✅ | ✅ |
+| View Analytics | ❌ | ❌ | ❌ | 📊 | ✅ |
+| Update Settings | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Delete Group | ❌ | ❌ | ❌ | ❌ | ✅ |
+
+📊 = Limited access
+
 ## Next Steps
 
 - [ ] Implement dynamic permission creation UI
 - [ ] Add permission delegation system
 - [ ] Enhanced audit logging
 - [ ] Permission analytics dashboard
+- [x] Groups RBAC implementation (October 2025)
+- [x] Group search with visibility controls (October 2025)
+- [x] Group analytics access controls (October 2025)
 
 ---
 
 **Status**: 🟢 Operational
 **Dependencies**: CASL, JWT, bcrypt
 **Owner**: Security Team
-**Last Updated**: September 2025
+**Last Updated**: October 2025
