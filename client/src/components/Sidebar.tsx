@@ -154,55 +154,36 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
       <div
         className={`fixed inset-y-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out bg-ocean-gradient w-64 text-ocean z-40 overflow-y-auto`}
-        style={{
-          background: 'linear-gradient(180deg, hsl(192, 72%, 27%) 0%, hsl(192, 78%, 18%) 50%, hsl(192, 81%, 14%) 100%)',
-          boxShadow: '4px 0 24px rgba(21, 94, 117, 0.15)'
-        }}
+        } transition-transform duration-300 ease-in-out bg-ocean-gradient w-64 text-ocean z-40 overflow-y-auto shadow-ocean-lg`}
       >
         {/* Ocean Header - Simplified */}
-        <div className="h-16 flex justify-between items-center px-4 border-b" style={{
-          borderColor: 'rgba(255, 255, 255, 0.1)'
-        }}>
+        <div className="h-16 flex justify-between items-center px-4 border-b border-ocean-divider">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg"
-              style={{
-                background: 'linear-gradient(135deg, #5EEAD4 0%, #3BDDBC 100%)',
-                color: '#155E75'
-              }}
-            >
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg bg-brand-icon">
               MT
             </div>
-            <div className="text-lg font-bold tracking-wide" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>
+            <div className="text-lg font-bold tracking-wide text-ocean">
               Mundo Tango
             </div>
           </div>
           <X
             onClick={() => setIsOpen(false)}
-            className="cursor-pointer w-5 h-5 lg:hidden hover:opacity-70 transition-opacity"
-            style={{ color: 'rgba(255, 255, 255, 0.75)' }}
+            className="cursor-pointer w-5 h-5 lg:hidden text-ocean-secondary hover:opacity-70 transition-opacity"
           />
         </div>
 
         <nav className="mt-6 px-4">
           {/* Mini Profile Section - Ocean Styled */}
-          <div className="mb-6 p-3 rounded-xl" style={{
-            background: 'rgba(94, 234, 212, 0.08)',
-            border: '1px solid rgba(94, 234, 212, 0.15)'
-          }}>
+          <div className="mb-6 p-3 rounded-xl bg-profile-card">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md"
-                style={{
-                  background: 'linear-gradient(135deg, #5EEAD4 0%, #1EB3CC 100%)'
-                }}
-              >
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md bg-brand-gradient">
                 P
               </div>
               <div className="flex-1">
-                <div className="text-sm font-semibold" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>
+                <div className="text-sm font-semibold text-ocean">
                   Pierre Dubois
                 </div>
-                <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+                <div className="text-xs text-ocean-muted">
                   @pierre_dancer
                 </div>
               </div>
@@ -216,9 +197,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
           {/* Navigation Menu - Ocean Styled */}
           <div className="mb-6">
-            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2" 
-              style={{ color: 'rgba(255, 255, 255, 0.50)' }}
-            >
+            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2 text-ocean-muted">
               Menu
             </div>
             <div className="space-y-1">
@@ -231,28 +210,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                       setIsOpen(false);
                     }
                   }}
-                  className={`group flex items-center gap-3 py-2.5 px-3 rounded-lg cursor-pointer transition-all block ${
-                    isActive(link) ? '' : ''
+                  className={`group flex items-center gap-3 py-2.5 px-3 rounded-lg cursor-pointer transition-all block text-ocean-secondary hover-ocean-light ${
+                    isActive(link) ? 'active-ocean' : ''
                   }`}
-                  style={isActive(link) ? {
-                    background: 'rgba(94, 234, 212, 0.15)',
-                    borderLeft: '3px solid #5EEAD4',
-                    color: '#5EEAD4'
-                  } : {
-                    color: 'rgba(255, 255, 255, 0.75)'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive(link)) {
-                      e.currentTarget.style.background = 'rgba(94, 234, 212, 0.08)';
-                      e.currentTarget.style.color = 'rgba(94, 234, 212, 0.9)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive(link)) {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)';
-                    }
-                  }}
                 >
                   <div className="transition-transform group-hover:scale-110">
                     {icon}
@@ -267,34 +227,23 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
           {/* Global Statistics - Simplified */}
           <div className="mb-6">
-            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2" 
-              style={{ color: 'rgba(255, 255, 255, 0.50)' }}
-            >
+            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2 text-ocean-muted">
               {t('community.globalStatistics')}
             </div>
             <div className="grid grid-cols-2 gap-2">
               {globalStats.slice(0, 2).map((item, index) => (
                 <div
                   key={index}
-                  className="p-3 rounded-lg cursor-pointer transition-all hover:scale-105"
-                  style={{
-                    background: 'rgba(94, 234, 212, 0.08)',
-                    border: '1px solid rgba(94, 234, 212, 0.12)'
-                  }}
+                  className="p-3 rounded-lg cursor-pointer transition-all hover:scale-105 bg-stat-card"
                 >
-                  <div className="flex items-center justify-center w-7 h-7 rounded-lg mb-2 mx-auto"
-                    style={{
-                      background: 'rgba(94, 234, 212, 0.15)',
-                      color: '#5EEAD4'
-                    }}
-                  >
+                  <div className="flex items-center justify-center w-7 h-7 rounded-lg mb-2 mx-auto bg-stat-icon">
                     {item.icon}
                   </div>
                   <div className="text-center">
-                    <div className="text-xs mb-1" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+                    <div className="text-xs mb-1 text-ocean-muted">
                       {item.title}
                     </div>
-                    <div className="text-lg font-bold" style={{ color: '#5EEAD4' }}>
+                    <div className="text-lg font-bold text-seafoam">
                       {item.count}
                     </div>
                   </div>
@@ -304,18 +253,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           </div>
 
           {/* Footer - MT Ocean Branding */}
-          <div className="mb-4 p-4 rounded-xl text-center"
-            style={{
-              background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.12) 0%, rgba(30, 179, 204, 0.08) 100%)',
-              border: '1px solid rgba(94, 234, 212, 0.20)'
-            }}
-          >
-            <div className="text-xs font-semibold tracking-wide mb-1" 
-              style={{ color: 'rgba(255, 255, 255, 0.95)' }}
-            >
+          <div className="mb-4 p-4 rounded-xl text-center bg-footer-brand">
+            <div className="text-xs font-semibold tracking-wide mb-1 text-ocean">
               Mundo Tango
             </div>
-            <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+            <div className="text-xs text-ocean-muted">
               Global Tango Community
             </div>
           </div>
