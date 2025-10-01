@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { MapPin, Globe, Users, TrendingUp } from 'lucide-react';
+import { MapPin, Globe, Users, TrendingUp, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface CityRanking {
@@ -12,12 +12,14 @@ interface CityRanking {
   lat: string;
   lng: string;
   memberCount: number;
+  eventCount?: number;
 }
 
 interface RegionRanking {
   rank: number;
   name: string;
   memberCount: number;
+  eventCount?: number;
   cityCount: number;
 }
 
@@ -28,11 +30,12 @@ interface RankingsPanelProps {
 
 export default function RankingsPanel({ onCityClick, className }: RankingsPanelProps) {
   const [view, setView] = useState<'city' | 'region'>('city');
+  const [filterBy, setFilterBy] = useState<'people' | 'events'>('people');
 
   const { data: rankings, isLoading } = useQuery({
-    queryKey: ['/api/community/rankings', view],
+    queryKey: ['/api/community/rankings', view, filterBy],
     queryFn: async () => {
-      const response = await fetch(`/api/community/rankings?view=${view}`, {
+      const response = await fetch(`/api/community/rankings?view=${view}&filterBy=${filterBy}`, {
         credentials: 'include'
       });
       
@@ -87,6 +90,38 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
         </div>
       </div>
 
+      {/* Filter Buttons */}
+      <div className="flex gap-2 mb-4">
+        <button
+          data-testid="filter-people"
+          onClick={() => setFilterBy('people')}
+          className={cn(
+            "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+            "border-2",
+            filterBy === 'people'
+              ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300"
+              : "border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-gray-700 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-700"
+          )}
+        >
+          <Users className="w-4 h-4 inline mr-2" />
+          People
+        </button>
+        <button
+          data-testid="filter-events"
+          onClick={() => setFilterBy('events')}
+          className={cn(
+            "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+            "border-2",
+            filterBy === 'events'
+              ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300"
+              : "border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-gray-700 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-700"
+          )}
+        >
+          <Calendar className="w-4 h-4 inline mr-2" />
+          Events
+        </button>
+      </div>
+
       {/* Rankings List */}
       <div className="flex-1 overflow-y-auto space-y-2">
         {isLoading ? (
@@ -131,10 +166,21 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                 </div>
                 <div className="flex flex-col items-end">
                   <div className="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
-                    <Users className="w-4 h-4" />
-                    <span className="font-bold">{city.memberCount.toLocaleString()}</span>
+                    {filterBy === 'people' ? (
+                      <Users className="w-4 h-4" />
+                    ) : (
+                      <Calendar className="w-4 h-4" />
+                    )}
+                    <span className="font-bold">
+                      {filterBy === 'people' 
+                        ? city.memberCount.toLocaleString()
+                        : (city.eventCount || 0).toLocaleString()
+                      }
+                    </span>
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-slate-400">members</span>
+                  <span className="text-xs text-gray-500 dark:text-slate-400">
+                    {filterBy === 'people' ? 'members' : 'events'}
+                  </span>
                 </div>
               </div>
             </button>
@@ -173,10 +219,21 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                 </div>
                 <div className="flex flex-col items-end">
                   <div className="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
-                    <Users className="w-4 h-4" />
-                    <span className="font-bold">{region.memberCount.toLocaleString()}</span>
+                    {filterBy === 'people' ? (
+                      <Users className="w-4 h-4" />
+                    ) : (
+                      <Calendar className="w-4 h-4" />
+                    )}
+                    <span className="font-bold">
+                      {filterBy === 'people'
+                        ? region.memberCount.toLocaleString()
+                        : (region.eventCount || 0).toLocaleString()
+                      }
+                    </span>
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-slate-400">total members</span>
+                  <span className="text-xs text-gray-500 dark:text-slate-400">
+                    {filterBy === 'people' ? 'total members' : 'total events'}
+                  </span>
                 </div>
               </div>
             </div>
