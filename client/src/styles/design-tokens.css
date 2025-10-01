@@ -1,0 +1,272 @@
+/* ================================
+   ESA LIFE CEO 61x21 - MT Ocean Design System
+   Design Tokens v1.0
+   Created: October 1, 2025
+   ================================ */
+
+:root {
+  /* ================================
+     MT OCEAN CORE COLORS
+     Primary palette: Seafoam to Deep Ocean
+     ================================ */
+  
+  /* Seafoam/Turquoise (Accent) - #5EEAD4 */
+  --ocean-seafoam-50: hsl(173, 80%, 95%);   /* #E6FFF9 - Lightest */
+  --ocean-seafoam-100: hsl(173, 80%, 88%);  /* #CCFFF3 */
+  --ocean-seafoam-200: hsl(173, 80%, 78%);  /* #99FFEA */
+  --ocean-seafoam-300: hsl(173, 80%, 68%);  /* #66FFE0 */
+  --ocean-seafoam-400: hsl(173, 80%, 65%);  /* #5EEAD4 - Primary Accent */
+  --ocean-seafoam-500: hsl(173, 80%, 55%);  /* #3BDDBC */
+  --ocean-seafoam-600: hsl(173, 70%, 45%);  /* #27C4A0 */
+  
+  /* Cyan (Mid-tone) */
+  --ocean-cyan-50: hsl(185, 70%, 95%);      /* #E6F9FB */
+  --ocean-cyan-100: hsl(185, 70%, 85%);     /* #B3EDF5 */
+  --ocean-cyan-200: hsl(185, 70%, 70%);     /* #66D9E8 */
+  --ocean-cyan-300: hsl(185, 65%, 55%);     /* #33C3D9 */
+  --ocean-cyan-400: hsl(185, 62%, 45%);     /* #1EB3CC */
+  --ocean-cyan-500: hsl(185, 62%, 35%);     /* #1A8FA3 - Mid Ocean */
+  
+  /* Teal (Deep) - #155E75 */
+  --ocean-teal-50: hsl(192, 70%, 95%);      /* #E6F4F7 */
+  --ocean-teal-100: hsl(192, 70%, 85%);     /* #B3DFE8 */
+  --ocean-teal-200: hsl(192, 68%, 70%);     /* #66C4D9 */
+  --ocean-teal-300: hsl(192, 65%, 55%);     /* #33A8C4 */
+  --ocean-teal-400: hsl(192, 72%, 42%);     /* #1E8BA8 */
+  --ocean-teal-500: hsl(192, 72%, 27%);     /* #155E75 - Deep Ocean */
+  --ocean-teal-600: hsl(192, 75%, 22%);     /* #0F4D5F */
+  --ocean-teal-700: hsl(192, 78%, 18%);     /* #0A3C4A */
+  --ocean-teal-800: hsl(192, 81%, 14%);     /* #071E26 - Abyss */
+  --ocean-teal-900: hsl(192, 85%, 10%);     /* #040F14 - Deep Abyss */
+  
+  /* ================================
+     SEMANTIC COLORS
+     ================================ */
+  
+  /* Primary (Seafoam accent) */
+  --color-primary: var(--ocean-seafoam-400);
+  --color-primary-hover: var(--ocean-seafoam-500);
+  --color-primary-light: var(--ocean-seafoam-100);
+  --color-primary-dark: var(--ocean-teal-500);
+  
+  /* Backgrounds */
+  --bg-ocean-gradient: linear-gradient(180deg, var(--ocean-teal-500) 0%, var(--ocean-teal-700) 50%, var(--ocean-teal-800) 100%);
+  --bg-ocean-gradient-soft: linear-gradient(135deg, var(--ocean-seafoam-50) 0%, var(--ocean-cyan-50) 100%);
+  --bg-ocean-card: linear-gradient(135deg, var(--ocean-teal-600) 0%, var(--ocean-teal-700) 100%);
+  
+  /* Text on ocean backgrounds */
+  --text-ocean-primary: hsla(0, 0%, 100%, 0.95);
+  --text-ocean-secondary: hsla(0, 0%, 100%, 0.75);
+  --text-ocean-muted: hsla(0, 0%, 100%, 0.50);
+  --text-ocean-accent: var(--ocean-seafoam-300);
+  
+  /* Status Colors (ocean-friendly) */
+  --color-success: hsl(158, 64%, 52%);      /* #22C55E - Ocean green */
+  --color-warning: hsl(38, 92%, 50%);       /* #F59E0B - Amber */
+  --color-error: hsl(0, 84%, 60%);          /* #EF4444 - Coral red */
+  --color-info: var(--ocean-cyan-400);      /* Use cyan for info */
+  
+  /* ================================
+     SPACING SYSTEM
+     4px base increment
+     ================================ */
+  
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  
+  /* ================================
+     TYPOGRAPHY SCALE
+     ================================ */
+  
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  
+  /* ================================
+     SHADOWS (Ocean-themed)
+     ================================ */
+  
+  --shadow-xs: 0 1px 2px 0 rgba(21, 94, 117, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(21, 94, 117, 0.1), 0 1px 2px -1px rgba(21, 94, 117, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(21, 94, 117, 0.1), 0 2px 4px -2px rgba(21, 94, 117, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(21, 94, 117, 0.1), 0 4px 6px -4px rgba(21, 94, 117, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(21, 94, 117, 0.1), 0 8px 10px -6px rgba(21, 94, 117, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(21, 94, 117, 0.25);
+  
+  /* Glow effects for seafoam accent */
+  --glow-seafoam: 0 0 20px rgba(94, 234, 212, 0.3);
+  --glow-seafoam-strong: 0 0 30px rgba(94, 234, 212, 0.5), 0 0 60px rgba(94, 234, 212, 0.2);
+  
+  /* ================================
+     BORDER RADIUS
+     ================================ */
+  
+  --radius-none: 0;
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;  /* 6px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.75rem;   /* 12px */
+  --radius-2xl: 1rem;     /* 16px */
+  --radius-3xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;  /* Fully rounded */
+  
+  /* ================================
+     Z-INDEX LAYERS
+     ================================ */
+  
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  
+  /* ================================
+     TRANSITIONS
+     ================================ */
+  
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* ================================
+     SIDEBAR SPECIFIC
+     ================================ */
+  
+  --sidebar-width: 280px;
+  --sidebar-width-collapsed: 72px;
+  --sidebar-bg: var(--bg-ocean-gradient);
+  --sidebar-text: var(--text-ocean-primary);
+  --sidebar-text-muted: var(--text-ocean-muted);
+  --sidebar-accent: var(--ocean-seafoam-400);
+  --sidebar-hover-bg: rgba(94, 234, 212, 0.1);
+  --sidebar-active-bg: rgba(94, 234, 212, 0.15);
+  --sidebar-divider: rgba(255, 255, 255, 0.1);
+  
+  /* ================================
+     TOPBAR SPECIFIC
+     ================================ */
+  
+  --topbar-height: 64px;
+  --topbar-bg: rgba(255, 255, 255, 0.95);
+  --topbar-border: rgba(21, 94, 117, 0.1);
+  --topbar-shadow: var(--shadow-sm);
+  
+  /* ================================
+     NEUTRALS (for content areas)
+     ================================ */
+  
+  --neutral-50: hsl(210, 20%, 98%);
+  --neutral-100: hsl(210, 20%, 95%);
+  --neutral-200: hsl(210, 16%, 93%);
+  --neutral-300: hsl(210, 14%, 89%);
+  --neutral-400: hsl(210, 14%, 83%);
+  --neutral-500: hsl(210, 11%, 71%);
+  --neutral-600: hsl(210, 9%, 46%);
+  --neutral-700: hsl(210, 10%, 35%);
+  --neutral-800: hsl(210, 14%, 24%);
+  --neutral-900: hsl(210, 22%, 15%);
+}
+
+/* ================================
+   DARK MODE TOKENS
+   ================================ */
+
+.dark {
+  --color-primary: var(--ocean-seafoam-300);
+  --color-primary-hover: var(--ocean-seafoam-400);
+  
+  --bg-ocean-gradient: linear-gradient(180deg, var(--ocean-teal-900) 0%, hsl(192, 90%, 8%) 100%);
+  
+  --text-ocean-primary: hsla(0, 0%, 100%, 0.95);
+  --text-ocean-secondary: hsla(0, 0%, 100%, 0.70);
+  --text-ocean-muted: hsla(0, 0%, 100%, 0.45);
+  
+  --topbar-bg: rgba(15, 23, 42, 0.95);
+  --topbar-border: rgba(94, 234, 212, 0.1);
+}
+
+/* ================================
+   UTILITY CLASSES
+   ================================ */
+
+/* Ocean gradient backgrounds */
+.bg-ocean-gradient {
+  background: var(--bg-ocean-gradient);
+}
+
+.bg-ocean-card {
+  background: var(--bg-ocean-card);
+}
+
+.bg-ocean-soft {
+  background: var(--bg-ocean-gradient-soft);
+}
+
+/* Text colors */
+.text-ocean {
+  color: var(--text-ocean-primary);
+}
+
+.text-ocean-secondary {
+  color: var(--text-ocean-secondary);
+}
+
+.text-ocean-muted {
+  color: var(--text-ocean-muted);
+}
+
+.text-seafoam {
+  color: var(--ocean-seafoam-400);
+}
+
+/* Glow effects */
+.glow-seafoam {
+  box-shadow: var(--glow-seafoam);
+}
+
+.glow-seafoam-strong {
+  box-shadow: var(--glow-seafoam-strong);
+}
+
+/* Hover states */
+.hover-ocean-accent:hover {
+  background-color: var(--sidebar-hover-bg);
+  color: var(--ocean-seafoam-300);
+  transition: all var(--transition-base);
+}
+
+/* Active/Selected states */
+.active-ocean {
+  background-color: var(--sidebar-active-bg);
+  color: var(--ocean-seafoam-300);
+  border-left: 3px solid var(--ocean-seafoam-400);
+}
