@@ -121,7 +121,34 @@ LIMIT $2 OFFSET $3
 
 ## Known Issues
 
-### Current Bugs
+### ⚠️ CRITICAL: Filters & Search Currently Disabled
+
+**Status:** Filters/Search section is covered with a "COMING SOON" overlay (cyan-500/30 opacity with border)
+
+**Affected Features:**
+- Search bar (visible but interaction blocked)
+- Filter button and expanded filter controls
+- Tag filtering system
+- Date range filtering
+
+**Overlay Design:**
+- Background: `bg-cyan-500/30` (30% opacity turquoise-blue tint)
+- Border: `border-cyan-500/50` (cyan border for visibility)
+- Hover text: Large white "COMING SOON" appears on hover (text-2xl)
+- Location: Covers entire filters section in Memories feed
+- Purpose: Users can see the features underneath to build excitement while knowing they're temporarily unavailable
+
+**Why Disabled:**
+- Part of ESA Layer 53 internationalization issues
+- Filter/search UI components affected by broken translation integration
+- Functionality exists but UI strings don't render properly
+
+**Code Location:**
+- Component: `client/src/components/moments/UnifiedPostFeed.tsx`
+- Overlay starts at line ~450
+- Covers search bar, filter toggle, and expanded filter controls
+
+### Other Current Bugs
 - Infinite scroll occasionally duplicates posts
 - Search doesn't highlight matched terms
 - Tag filtering has case sensitivity issues

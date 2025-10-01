@@ -111,8 +111,28 @@ messages (
 
 ## Known Issues
 
+### Current Status: Features Temporarily Disabled
+⚠️ **COMING SOON Overlays Active** - The following features are temporarily disabled with visual overlays:
+
+1. **Dark Mode Toggle** - Covered with cyan-500/30 overlay with border
+   - Users can see the toggle underneath but cannot interact
+   - "COMING SOON" text appears on hover
+   - Located in top-right toolbar area
+
+2. **Language Selector** - Covered with cyan-500/30 overlay with border  
+   - English button visible but interaction blocked
+   - "COMING SOON" text appears on hover
+   - See [Layer 53 Documentation](../esa-layers/layer-53-internationalization.md) for full details on broken i18n
+
+**Overlay Design Specs:**
+- Background: `bg-cyan-500/30` (30% opacity turquoise-blue)
+- Border: `border-cyan-500/50` (50% opacity cyan border)
+- Hover text: White "COMING SOON" with dark shadow
+- Purpose: Users can see features to build excitement while knowing they're temporarily unavailable
+
 ### Current Bugs
-- None - All toolbar elements fully functional as of September 27, 2025
+- Dark mode switching non-functional (overlay blocks interaction)
+- Language switching broken at UI level (see Layer 53 docs)
 
 ### Improvement Areas
 - Add loading states for API calls

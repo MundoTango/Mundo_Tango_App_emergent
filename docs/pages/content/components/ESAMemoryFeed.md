@@ -95,6 +95,24 @@ shares.postId → posts.id (Many-to-One)
 
 ## 7. Known Issues
 
+### ⚠️ CRITICAL: Filters & Search Currently Disabled
+
+**Note:** This page uses the `UnifiedPostFeed` component which has its filters/search section covered with "COMING SOON" overlays.
+
+**Affected Features:**
+- Search bar (visible but interaction blocked)
+- Filter controls (All/Following/Nearby)
+- Tag filtering system
+- Date range filtering
+
+**See Full Details:** [UnifiedPostFeed Documentation](../../components/UnifiedPostFeed.md)
+
+**Overlay Design:**
+- Background: `bg-cyan-500/30` (30% opacity turquoise-blue)
+- Border: `border-cyan-500/50` (cyan border)
+- Hover text: "COMING SOON" appears on hover
+- Purpose: Users can see features to build excitement
+
 ### Critical Fix Applied
 ```typescript
 // Fixed TypeError: url.toLowerCase is not a function
