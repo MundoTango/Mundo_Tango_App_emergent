@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
@@ -20,14 +20,14 @@ import { useAuth } from '@/hooks/useAuth';
 import EventMap from '@/components/EventMap';
 import { Filter } from 'lucide-react';
 import CommunityToolbar from '@/components/CommunityToolbar';
-// ESA LIFE CEO 56x21 - Removed duplicate CommunityMapWithLayers import
-// Map functionality is provided by CommunityToolbar component
 import HostHomesList from '@/components/Housing/HostHomesList';
 import RecommendationsList from '@/components/Recommendations/RecommendationsList';
 import { GuestOnboardingEntrance } from '@/components/GuestOnboarding/GuestOnboardingEntrance';
 import { CityRbacService } from '@/services/cityRbacService';
 import VisitorAlerts from '@/components/VisitorAlerts';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
+import { Helmet } from 'react-helmet';
+import io, { Socket } from 'socket.io-client';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -72,6 +72,9 @@ export default function GroupDetailPageMT() {
   const { toast } = useToast();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('about');
+  
+  // Socket.io connection reference (persisted across renders)
+  const socketRef = React.useRef<Socket | null>(null);
   
   // Read URL query parameters for tab and filter on mount
   React.useEffect(() => {
@@ -251,6 +254,75 @@ export default function GroupDetailPageMT() {
   const isAdmin = group?.members?.some((m: GroupMember) => m.user.id === user?.id && m.role === 'admin') || false;
   const memberRole = group?.members?.find((m: GroupMember) => m.user.id === user?.id)?.role || 'member';
 
+  // Socket.io real-time integration (Layer 11 + Layer 22)
+  useEffect(() => {
+    if (!group?.id) return;
+
+    // Initialize socket connection and store in ref
+    socketRef.current = io({
+      path: '/socket.io',
+      transports: ['websocket', 'polling']
+    });
+
+    const socket = socketRef.current;
+
+    // Join group room for real-time updates
+    socket.emit('join:group', group.id.toString());
+    console.log(`🔌 Joined group room: ${group.id}`);
+
+    // Listen for member join events
+    socket.on('group:member_joined', (data: any) => {
+      console.log('👥 Member joined:', data);
+      if (data.groupId === group.id) {
+        // Refresh group data to update member count
+        queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+        
+        toast({
+          title: 'New Member',
+          description: `${data.username} joined the group`,
+        });
+      }
+    });
+
+    // Listen for member leave events
+    socket.on('group:member_left', (data: any) => {
+      console.log('👋 Member left:', data);
+      if (data.groupId === group.id) {
+        queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+      }
+    });
+
+    // Listen for new posts in group
+    socket.on('group:new_post', (data: any) => {
+      console.log('📝 New post in group:', data);
+      if (data.groupId === group.id && activeTab === 'posts') {
+        // Refresh posts
+        fetchPosts();
+        
+        toast({
+          title: 'New Post',
+          description: `${data.username} posted in the group`,
+        });
+      }
+    });
+
+    // Listen for group details updates
+    socket.on('group:details_updated', (data: any) => {
+      console.log('✏️ Group details updated:', data);
+      if (data.groupId === group.id) {
+        queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+      }
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.emit('leave:group', group.id.toString());
+      socket.disconnect();
+      socketRef.current = null;
+      console.log(`🔌 Left group room: ${group.id}`);
+    };
+  }, [group?.id, slug, activeTab]);
+
   // Guest profile check
   const { data: guestProfile } = useQuery({
     queryKey: ['/api/guest-profiles', user?.id],
@@ -294,12 +366,23 @@ export default function GroupDetailPageMT() {
       if (!response.ok) throw new Error('Failed to join group');
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: 'Welcome to the group!',
         description: `You are now a member of ${group?.name}`,
       });
       queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+      
+      // Emit Socket.io event for real-time updates
+      if (socketRef.current && group?.id && user) {
+        socketRef.current.emit('group:memberJoined', {
+          groupId: group.id,
+          userId: user.id,
+          username: user.username || user.name,
+          memberCount: (group.memberCount || 0) + 1
+        });
+        console.log('✅ Emitted group:memberJoined event');
+      }
     },
   });
 
@@ -319,6 +402,17 @@ export default function GroupDetailPageMT() {
         description: `You have left ${group?.name}`,
       });
       queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+      
+      // Emit Socket.io event for real-time updates
+      if (socketRef.current && group?.id && user) {
+        socketRef.current.emit('group:memberLeft', {
+          groupId: group.id,
+          userId: user.id,
+          username: user.username || user.name,
+          memberCount: Math.max((group.memberCount || 1) - 1, 0)
+        });
+        console.log('✅ Emitted group:memberLeft event');
+      }
     },
   });
 
@@ -1265,9 +1359,45 @@ export default function GroupDetailPageMT() {
   // ESA LIFE CEO 56x21 - Removed duplicate renderMapTab function
   // The CommunityToolbar in renderCommunityHub already provides map functionality
 
+  // SEO meta tags (Layer 55: SEO Optimization)
+  const groupType = group.type === 'city' ? 'City Community' : 'Professional Group';
+  const pageTitle = `${group.name} ${groupType} | Mundo Tango`;
+  const pageDescription = group.description || `Join ${group.name} - ${groupType} on Mundo Tango. Connect with ${group.memberCount || 0} tango enthusiasts${group.city ? ` in ${group.city}` : ''}.`;
+  const pageImage = group.coverImage || group.image_url || group.imageUrl || 'https://mundotango.com/default-group-cover.jpg';
+  const pageUrl = `https://mundotango.com/community/groups/${slug}`;
+
   return (
-    <DashboardLayout>
-      <div className="max-w-7xl mx-auto">
+    <>
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={pageImage} />
+        <meta property="og:site_name" content="Mundo Tango" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={pageUrl} />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={pageImage} />
+        
+        {/* Additional SEO */}
+        <link rel="canonical" href={pageUrl} />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Mundo Tango" />
+        {group.city && <meta name="geo.placename" content={group.city} />}
+        {group.country && <meta name="geo.region" content={group.country} />}
+      </Helmet>
+      
+      <DashboardLayout>
+        <div className="max-w-7xl mx-auto">
         {/* MT Group Header */}
         <div className="mt-group-header">
           {(group.image_url || group.coverImage) && (
@@ -1432,5 +1562,6 @@ export default function GroupDetailPageMT() {
         </div>
       </div>
     </DashboardLayout>
+    </>
   );
 }

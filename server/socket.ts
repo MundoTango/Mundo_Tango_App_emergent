@@ -209,6 +209,115 @@ export function setupSocketIO(httpServer: HTTPServer) {
           console.log(`User left event room: ${eventId}`);
         });
 
+        // === GROUP REAL-TIME FEATURES (Layer 22: Group Management) ===
+
+        // Handle joining group rooms
+        socket.on('join:group', (groupId: string) => {
+          socket.join(`group:${groupId}`);
+          console.log(`User joined group room: ${groupId}`);
+        });
+
+        socket.on('leave:group', (groupId: string) => {
+          socket.leave(`group:${groupId}`);
+          console.log(`User left group room: ${groupId}`);
+        });
+
+        // Handle member joining group - broadcast to all viewers
+        socket.on('group:memberJoined', (data: any) => {
+          console.log(`👥 Member joined group:`, data);
+
+          // Broadcast to all users viewing this group
+          socket.to(`group:${data.groupId}`).emit('group:member_joined', {
+            groupId: data.groupId,
+            userId: data.userId,
+            username: data.username,
+            memberCount: data.memberCount,
+            timestamp: new Date().toISOString()
+          });
+
+          // Also broadcast to main groups list page
+          io.emit('groups:membership_changed', {
+            groupId: data.groupId,
+            action: 'joined',
+            memberCount: data.memberCount
+          });
+        });
+
+        // Handle member leaving group - broadcast to all viewers
+        socket.on('group:memberLeft', (data: any) => {
+          console.log(`👋 Member left group:`, data);
+
+          // Broadcast to all users viewing this group
+          socket.to(`group:${data.groupId}`).emit('group:member_left', {
+            groupId: data.groupId,
+            userId: data.userId,
+            username: data.username,
+            memberCount: data.memberCount,
+            timestamp: new Date().toISOString()
+          });
+
+          // Also broadcast to main groups list page
+          io.emit('groups:membership_changed', {
+            groupId: data.groupId,
+            action: 'left',
+            memberCount: data.memberCount
+          });
+        });
+
+        // Handle new post created in group
+        socket.on('group:postCreated', (data: any) => {
+          console.log(`📝 New post in group:`, data);
+
+          // Broadcast to all group members
+          socket.to(`group:${data.groupId}`).emit('group:new_post', {
+            groupId: data.groupId,
+            postId: data.postId,
+            userId: data.userId,
+            username: data.username,
+            content: data.content,
+            timestamp: new Date().toISOString()
+          });
+
+          // Send notifications to group members
+          socket.to(`group:${data.groupId}`).emit('notification:new', {
+            type: 'group_post',
+            groupId: data.groupId,
+            postId: data.postId,
+            fromUserId: data.userId,
+            message: `${data.username} posted in ${data.groupName}`
+          });
+        });
+
+        // Handle group typing indicators for posts
+        socket.on('group:typing', (data: any) => {
+          console.log(`⌨️ Group typing:`, data);
+
+          socket.to(`group:${data.groupId}`).emit('group:user_typing', {
+            groupId: data.groupId,
+            userId: data.userId,
+            username: data.username,
+            isTyping: data.isTyping,
+            timestamp: new Date().toISOString()
+          });
+        });
+
+        // Handle group update (name, description, image, etc.)
+        socket.on('group:updated', (data: any) => {
+          console.log(`✏️ Group updated:`, data);
+
+          socket.to(`group:${data.groupId}`).emit('group:details_updated', {
+            groupId: data.groupId,
+            updates: data.updates,
+            timestamp: new Date().toISOString()
+          });
+
+          // Broadcast to groups list page
+          io.emit('groups:updated', {
+            groupId: data.groupId,
+            updates: data.updates
+          });
+        });
+
         // Handle new memory creation broadcasts
         socket.on('memory:created', (data: any) => {
           console.log(`✨ New memory created:`, data);
