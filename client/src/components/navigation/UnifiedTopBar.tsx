@@ -446,7 +446,7 @@ export default function UnifiedTopBar({
                 {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               </Button>
               {/* COMING SOON Overlay - Dark Mode Disabled */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-600 to-blue-700 rounded-md cursor-not-allowed z-10 pointer-events-auto">
+              <div className="absolute inset-0 bg-black/90 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/30">
                 <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   COMING SOON
                 </span>
@@ -463,7 +463,7 @@ export default function UnifiedTopBar({
               className=""
             />
             {/* COMING SOON Overlay - Language Switching Disabled */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-600 to-blue-700 rounded-md cursor-not-allowed z-10 pointer-events-auto">
+            <div className="absolute inset-0 bg-black/90 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/30">
               <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 COMING SOON
               </span>
