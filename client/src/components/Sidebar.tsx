@@ -225,16 +225,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
 
-          {/* Global Statistics - Simplified */}
+          {/* Global Statistics - All 4 Stats */}
           <div className="mb-6">
-            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2 text-ocean-muted">
+            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2 text-brand-gradient">
               {t('community.globalStatistics')}
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {globalStats.slice(0, 2).map((item, index) => (
-                <div
+              {globalStats.map((item, index) => (
+                <button
                   key={index}
-                  className="p-3 rounded-lg cursor-pointer transition-all hover:scale-105 bg-stat-card"
+                  className="p-3 rounded-lg cursor-pointer transition-all hover:scale-105 bg-stat-card focus:outline-none focus:ring-2 focus:ring-ocean-focus focus:ring-offset-2 focus:ring-offset-transparent"
+                  aria-label={`${item.title}: ${item.count}`}
+                  tabIndex={0}
                 >
                   <div className="flex items-center justify-center w-7 h-7 rounded-lg mb-2 mx-auto bg-stat-icon">
                     {item.icon}
@@ -247,7 +249,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                       {item.count}
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
