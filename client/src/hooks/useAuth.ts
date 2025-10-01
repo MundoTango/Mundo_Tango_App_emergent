@@ -14,6 +14,8 @@ interface User {
   codeOfConductAccepted?: boolean;
   tangoRoles?: string[];
   roles?: string[];
+  leaderLevel?: number; // ESA Framework: Tango leader level (0-10)
+  followerLevel?: number; // ESA Framework: Tango follower level (0-10)
 }
 
 export function useAuth() {
