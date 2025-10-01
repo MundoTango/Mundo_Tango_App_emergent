@@ -19,6 +19,7 @@ router.get('/community/city-groups', async (req, res) => {
       country: groups.country,
       lat: groups.latitude,
       lng: groups.longitude,
+      slug: groups.slug,
       memberCount: groups.memberCount,
       description: groups.description
     })
@@ -26,9 +27,38 @@ router.get('/community/city-groups', async (req, res) => {
     .where(eq(groups.type, 'city'))
     .orderBy(desc(groups.memberCount));
     
+    // Add additional stats for each group
+    const cityGroupsWithStats = await Promise.all(
+      cityGroups.filter(g => g.lat && g.lng).map(async (group) => {
+        // Get actual member count from groupMembers table
+        const memberResult = await db
+          .select({ count: sql<number>`COUNT(*)::int` })
+          .from(groupMembers)
+          .where(eq(groupMembers.groupId, group.id));
+        
+        const actualMemberCount = memberResult[0]?.count || group.memberCount || 0;
+        
+        return {
+          id: group.id,
+          name: group.name,
+          city: group.city,
+          country: group.country,
+          lat: group.lat,
+          lng: group.lng,
+          slug: group.slug,
+          memberCount: actualMemberCount,
+          totalUsers: actualMemberCount,
+          description: group.description,
+          eventCount: 0,
+          hostCount: 0,
+          recommendationCount: 0
+        };
+      })
+    );
+    
     res.json({ 
       success: true,
-      data: cityGroups.filter(g => g.lat && g.lng) // Only return groups with coordinates
+      data: cityGroupsWithStats
     });
   } catch (error) {
     console.error('Error fetching city groups:', error);
