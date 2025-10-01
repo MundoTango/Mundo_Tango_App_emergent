@@ -154,47 +154,73 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
       <div
         className={`fixed inset-y-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out bg-white w-64 text-gray-800 z-40 border-r border-gray-200 overflow-y-auto shadow-lg`}
+        } transition-transform duration-300 ease-in-out bg-ocean-gradient w-64 text-ocean z-40 overflow-y-auto`}
+        style={{
+          background: 'linear-gradient(180deg, hsl(192, 72%, 27%) 0%, hsl(192, 78%, 18%) 50%, hsl(192, 81%, 14%) 100%)',
+          boxShadow: '4px 0 24px rgba(21, 94, 117, 0.15)'
+        }}
       >
-        {/* Gradient Header Bar */}
-        <div className="h-16 flex justify-between items-center px-4 bg-gradient-to-r from-turquoise-500 to-cyan-500">
+        {/* Ocean Header - Simplified */}
+        <div className="h-16 flex justify-between items-center px-4 border-b" style={{
+          borderColor: 'rgba(255, 255, 255, 0.1)'
+        }}>
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-turquoise-500 font-bold text-sm">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg"
+              style={{
+                background: 'linear-gradient(135deg, #5EEAD4 0%, #3BDDBC 100%)',
+                color: '#155E75'
+              }}
+            >
               MT
             </div>
-            <div className="text-xl font-bold text-white tracking-wide">
+            <div className="text-lg font-bold tracking-wide" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>
               Mundo Tango
             </div>
           </div>
           <X
             onClick={() => setIsOpen(false)}
-            className="cursor-pointer w-5 h-5 lg:hidden text-white hover:text-gray-200 transition-colors"
+            className="cursor-pointer w-5 h-5 lg:hidden hover:opacity-70 transition-opacity"
+            style={{ color: 'rgba(255, 255, 255, 0.75)' }}
           />
         </div>
 
-        <nav className="mt-4">
-          {/* Mini Profile Section - Simplified */}
-          <div className="px-4 mb-6">
-            <div className="flex items-center gap-3 p-3">
-              <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white font-semibold text-lg">
+        <nav className="mt-6 px-4">
+          {/* Mini Profile Section - Ocean Styled */}
+          <div className="mb-6 p-3 rounded-xl" style={{
+            background: 'rgba(94, 234, 212, 0.08)',
+            border: '1px solid rgba(94, 234, 212, 0.15)'
+          }}>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md"
+                style={{
+                  background: 'linear-gradient(135deg, #5EEAD4 0%, #1EB3CC 100%)'
+                }}
+              >
                 P
               </div>
-              <div>
-                <div className="text-sm font-semibold text-gray-900">Pierre Dubois</div>
-                <div className="text-xs text-gray-600">@pierre_dancer</div>
+              <div className="flex-1">
+                <div className="text-sm font-semibold" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>
+                  Pierre Dubois
+                </div>
+                <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+                  @pierre_dancer
+                </div>
               </div>
             </div>
             {/* Dance Emojis */}
-            <div className="flex gap-1 px-3">
+            <div className="flex gap-2 mt-2 pl-1 text-lg opacity-90">
               <span>💃</span>
               <span>🎵</span>
             </div>
           </div>
 
-
-          {/* Navigation Menu */}
-          <div className="px-4 mb-6">
-            <div className="text-xs uppercase font-semibold text-gray-500 tracking-wide mb-3">Menu</div>
+          {/* Navigation Menu - Ocean Styled */}
+          <div className="mb-6">
+            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2" 
+              style={{ color: 'rgba(255, 255, 255, 0.50)' }}
+            >
+              Menu
+            </div>
             <div className="space-y-1">
               {allRoutes.map(({ icon, title, link }, index) => (
                 <Link
@@ -205,16 +231,33 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                       setIsOpen(false);
                     }
                   }}
-                  className={`group flex items-center gap-3 py-2 px-4 rounded-xl cursor-pointer transition-all hover:bg-gray-100 block ${
-                    isActive(link)
-                      ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white shadow-lg"
-                      : "text-gray-700"
+                  className={`group flex items-center gap-3 py-2.5 px-3 rounded-lg cursor-pointer transition-all block ${
+                    isActive(link) ? '' : ''
                   }`}
+                  style={isActive(link) ? {
+                    background: 'rgba(94, 234, 212, 0.15)',
+                    borderLeft: '3px solid #5EEAD4',
+                    color: '#5EEAD4'
+                  } : {
+                    color: 'rgba(255, 255, 255, 0.75)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive(link)) {
+                      e.currentTarget.style.background = 'rgba(94, 234, 212, 0.08)';
+                      e.currentTarget.style.color = 'rgba(94, 234, 212, 0.9)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive(link)) {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)';
+                    }
+                  }}
                 >
-                  <div className={`${isActive(link) ? "text-white" : "text-gray-500 group-hover:text-gray-700"}`}>
+                  <div className="transition-transform group-hover:scale-110">
                     {icon}
                   </div>
-                  <div className={`text-sm font-semibold ${isActive(link) ? "text-white" : "group-hover:text-gray-900"} tracking-wide`}>
+                  <div className="text-sm font-medium tracking-wide">
                     {title}
                   </div>
                 </Link>
@@ -222,36 +265,58 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
 
-          {/* Global Statistics */}
-          <div className="px-4 mb-6">
-            <div className="text-xs uppercase font-semibold text-gray-500 tracking-wide mb-3">
+          {/* Global Statistics - Simplified */}
+          <div className="mb-6">
+            <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2" 
+              style={{ color: 'rgba(255, 255, 255, 0.50)' }}
+            >
               {t('community.globalStatistics')}
             </div>
-            <div className="space-y-2">
-              {globalStats.map((item, index) => (
+            <div className="grid grid-cols-2 gap-2">
+              {globalStats.slice(0, 2).map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 py-2 px-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer"
+                  className="p-3 rounded-lg cursor-pointer transition-all hover:scale-105"
+                  style={{
+                    background: 'rgba(94, 234, 212, 0.08)',
+                    border: '1px solid rgba(94, 234, 212, 0.12)'
+                  }}
                 >
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-lg mb-2 mx-auto"
+                    style={{
+                      background: 'rgba(94, 234, 212, 0.15)',
+                      color: '#5EEAD4'
+                    }}
+                  >
                     {item.icon}
                   </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">{item.title}</div>
-                    <div className="text-lg font-bold text-gray-700">{item.count}</div>
+                  <div className="text-center">
+                    <div className="text-xs mb-1" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+                      {item.title}
+                    </div>
+                    <div className="text-lg font-bold" style={{ color: '#5EEAD4' }}>
+                      {item.count}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-
-
-          {/* Footer */}
-          <div className="px-4 mb-4">
-            <div className="p-3 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white text-center">
-              <div className="text-xs font-semibold tracking-wide mb-1">Mundo Tango</div>
-              <div className="text-xs opacity-90">Global Tango Community</div>
+          {/* Footer - MT Ocean Branding */}
+          <div className="mb-4 p-4 rounded-xl text-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.12) 0%, rgba(30, 179, 204, 0.08) 100%)',
+              border: '1px solid rgba(94, 234, 212, 0.20)'
+            }}
+          >
+            <div className="text-xs font-semibold tracking-wide mb-1" 
+              style={{ color: 'rgba(255, 255, 255, 0.95)' }}
+            >
+              Mundo Tango
+            </div>
+            <div className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.60)' }}>
+              Global Tango Community
             </div>
           </div>
         </nav>
