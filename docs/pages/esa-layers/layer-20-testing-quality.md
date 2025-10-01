@@ -16,8 +16,9 @@ Layer 20 ensures code quality and reliability through comprehensive testing stra
 - Code coverage analysis
 - Test success rates
 - Performance benchmarks
-- Accessibility testing
+- Accessibility testing (WCAG AA compliance)
 - Security testing
+- **Visual theme compliance testing** (MT Ocean design tokens)
 
 ### 3. CI/CD Integration
 - Automated test runs
@@ -55,10 +56,11 @@ Layer 20 ensures code quality and reliability through comprehensive testing stra
 ## Integration Points
 
 - **Layer 8 (Client Framework)**: React testing
+- **Layer 9 (UI Framework)**: Visual theme compliance, design token verification
 - **Layer 13 (Error Tracking)**: Test failure tracking
 - **Layer 18 (Analytics)**: Test metrics
 - **Layer 48 (Performance)**: Performance testing
-- **Layer 54 (Accessibility)**: A11y testing
+- **Layer 54 (Accessibility)**: A11y testing with axe-core
 
 ## Test Configuration
 
@@ -291,6 +293,112 @@ test.describe('User Journey', () => {
         html: true
       }
     });
+  });
+});
+```
+
+## Visual Theme Compliance Testing (MT Ocean Design System)
+
+```typescript
+// e2e/visual-theme.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('MT Ocean Theme Compliance', () => {
+  test('verifies no hardcoded hex colors in components', async ({ page }) => {
+    await page.goto('/');
+    
+    // Check sidebar for inline hex colors
+    const sidebar = page.locator('[data-testid="sidebar"]');
+    const sidebarStyle = await sidebar.getAttribute('style');
+    
+    // Should not contain #RRGGBB patterns
+    expect(sidebarStyle).not.toMatch(/#[0-9A-Fa-f]{3,6}/);
+    
+    // Verify using design token classes
+    const classes = await sidebar.getAttribute('class');
+    expect(classes).toMatch(/bg-ocean|text-ocean|shadow-ocean/);
+  });
+  
+  test('verifies turquoise-to-blue gradient colors', async ({ page }) => {
+    await page.goto('/');
+    
+    const gradient = await page.evaluate(() => {
+      const el = document.querySelector('.bg-ocean-gradient');
+      if (!el) return null;
+      
+      const bg = window.getComputedStyle(el).backgroundImage;
+      // Should contain turquoise (hsl 180) or cobalt (hsl 218) hues
+      return {
+        hasTurquoise: bg.includes('180') || bg.includes('#40E0D0'),
+        hasCobalt: bg.includes('218') || bg.includes('#0047AB'),
+        gradient: bg
+      };
+    });
+    
+    expect(gradient?.hasTurquoise || gradient?.hasCobalt).toBeTruthy();
+  });
+  
+  test('profile section hover states', async ({ page }) => {
+    await page.goto('/');
+    
+    const profile = page.locator('[data-testid="link-user-profile"]');
+    
+    // Get initial transform
+    const initialTransform = await profile.evaluate(el => 
+      window.getComputedStyle(el).transform
+    );
+    
+    // Hover and check transform changes
+    await profile.hover();
+    await page.waitForTimeout(100); // Wait for transition
+    
+    const hoverTransform = await profile.evaluate(el => 
+      window.getComputedStyle(el).transform
+    );
+    
+    // Transform should change (scale 1.02x)
+    expect(hoverTransform).not.toBe(initialTransform);
+    expect(hoverTransform).toContain('matrix');
+  });
+  
+  test('dark mode uses cobalt blue family', async ({ page }) => {
+    await page.goto('/');
+    
+    // Enable dark mode
+    await page.evaluate(() => document.documentElement.classList.add('dark'));
+    
+    // Check shadow colors use cobalt (hsl 218)
+    const shadows = await page.evaluate(() => {
+      const elements = document.querySelectorAll('.shadow-ocean-lg, .shadow-ocean-md');
+      return Array.from(elements).map(el => {
+        const shadow = window.getComputedStyle(el).boxShadow;
+        return shadow;
+      });
+    });
+    
+    // Shadows should exist in dark mode
+    expect(shadows.length).toBeGreaterThan(0);
+  });
+  
+  test('WCAG AA contrast compliance', async ({ page }) => {
+    await page.goto('/');
+    
+    // Use axe-core for contrast testing
+    const { violations } = await page.evaluate(async () => {
+      // @ts-ignore
+      const axe = await import('axe-core');
+      return await axe.run({
+        rules: {
+          'color-contrast': { enabled: true }
+        }
+      });
+    });
+    
+    const contrastViolations = violations.filter(
+      (v: any) => v.id === 'color-contrast'
+    );
+    
+    expect(contrastViolations.length).toBe(0);
   });
 });
 ```
