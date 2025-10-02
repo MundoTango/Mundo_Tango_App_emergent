@@ -168,26 +168,7 @@ export default function GroupDetailPageMT() {
     }
   }, [mentionFilter]);
   
-  // Listen for cache invalidations and trigger refetch
-  React.useEffect(() => {
-    const unsubscribe = queryClient.getQueryCache().subscribe((event) => {
-      if (event?.type === 'updated') {
-        const query = event.query;
-        const queryKey = query.queryKey[0];
-        
-        // Trigger refetch if relevant cache keys are invalidated
-        if (
-          queryKey === '/api/posts' || 
-          queryKey === `/api/groups/${slug}/posts` ||
-          (mentionFilter !== 'all' && group?.id && queryKey === `/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`)
-        ) {
-          setRefetchTrigger(prev => prev + 1);
-        }
-      }
-    });
-    
-    return () => unsubscribe();
-  }, [slug, mentionFilter, group?.id, group?.type, queryClient]);
+  // Note: Cache invalidation listener moved after group data is loaded to avoid reference errors
 
   // Fetch group posts when posts tab is active
   React.useEffect(() => {
@@ -307,6 +288,27 @@ export default function GroupDetailPageMT() {
       setAutomatedCoverPhoto(null);
     }
   }, [group, slug]);
+
+  // Listen for cache invalidations and trigger refetch
+  useEffect(() => {
+    const unsubscribe = queryClient.getQueryCache().subscribe((event) => {
+      if (event?.type === 'updated') {
+        const query = event.query;
+        const queryKey = query.queryKey[0];
+        
+        // Trigger refetch if relevant cache keys are invalidated
+        if (
+          queryKey === '/api/posts' || 
+          queryKey === `/api/groups/${slug}/posts` ||
+          (mentionFilter !== 'all' && group?.id && queryKey === `/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`)
+        ) {
+          setRefetchTrigger(prev => prev + 1);
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [slug, mentionFilter, group?.id, group?.type, queryClient]);
 
   // Auto-minimize PostCreator when switching tabs
   useEffect(() => {
