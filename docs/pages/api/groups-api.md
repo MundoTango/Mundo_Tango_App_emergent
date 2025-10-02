@@ -1,6 +1,6 @@
 # Groups API Documentation
 
-**Last Updated:** October 1, 2025  
+**Last Updated:** October 2, 2025  
 **Base URL:** `/api`  
 **Authentication:** JWT (most endpoints require authentication)
 
@@ -217,14 +217,25 @@ GET /api/groups/:groupId/posts
       "createdAt": "2025-10-01T20:00:00Z",
       "user": {
         "id": 7,
+        "name": "Elena Rodriguez",
+        "username": "elena_tango",
         "firstName": "Elena",
         "lastName": "Rodriguez",
-        "profileImage": "/uploads/profiles/elena.jpg"
+        "profileImage": "/uploads/profiles/elena.jpg",
+        "city": "Buenos Aires",
+        "country": "Argentina",
+        "tangoRoles": ["leader", "follower"]
       }
     }
   ]
 }
 ```
+
+**Note:** The user object includes complete profile data for consistent rendering across all filter types (residents, visitors, members, non-members, all). This enables:
+- Location display with city/country and pin icon (📍)
+- Tango role emoji display (🕺💃🎓🎵🎭)
+- @mention functionality with username
+- Design parity with Memories feed using shared CleanMemoryCard component
 
 ---
 
