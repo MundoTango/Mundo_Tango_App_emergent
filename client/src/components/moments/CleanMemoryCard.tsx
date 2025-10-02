@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Heart, MessageCircle, Share2, MoreHorizontal, MapPin, 
-  Clock, Send, AlertCircle, X, Edit, Trash2, Flag
+  Clock, Send, AlertCircle, X, Edit, Trash2, Flag, Users
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/auth-context';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Link } from 'wouter';
 // ESA Layer 7: Removed PostEditCreatorDialog - parent should handle edit with ModernPostComposer
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -569,6 +570,22 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   <Share2 className="w-4 h-4" />
                   <span className="text-sm">Share</span>
                 </Button>
+                
+                {/* See Friendship Button - Only for accepted friends */}
+                {post.user?.friendshipStatus === 'accepted' && post.user?.id !== user?.id && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center gap-2 text-gray-600 hover:bg-gradient-to-r hover:from-turquoise hover:to-cobalt hover:text-white transition-all duration-300"
+                    data-testid="button-see-friendship"
+                    asChild
+                  >
+                    <Link href={`/friendship/${post.user.id}`}>
+                      <Users className="w-4 h-4" />
+                      <span className="text-sm">See Friendship</span>
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>
