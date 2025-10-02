@@ -596,10 +596,13 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             user: {
               id: users.id,
               name: users.name,
+              username: users.username,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage,
-              city: users.city
+              city: users.city,
+              country: users.country,
+              tangoRoles: users.tangoRoles
             }
           })
           .from(posts)
@@ -637,10 +640,13 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             user: {
               id: users.id,
               name: users.name,
+              username: users.username,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage,
-              city: users.city
+              city: users.city,
+              country: users.country,
+              tangoRoles: users.tangoRoles
             }
           })
           .from(posts)
@@ -684,9 +690,13 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             user: {
               id: users.id,
               name: users.name,
+              username: users.username,
               firstName: users.firstName,
               lastName: users.lastName,
-              profileImage: users.profileImage
+              profileImage: users.profileImage,
+              city: users.city,
+              country: users.country,
+              tangoRoles: users.tangoRoles
             },
             memberRole: groupMembers.role
           })
@@ -723,9 +733,13 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             user: {
               id: users.id,
               name: users.name,
+              username: users.username,
               firstName: users.firstName,
               lastName: users.lastName,
-              profileImage: users.profileImage
+              profileImage: users.profileImage,
+              city: users.city,
+              country: users.country,
+              tangoRoles: users.tangoRoles
             }
           })
           .from(posts)
@@ -766,9 +780,13 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
         user: {
           id: users.id,
           name: users.name,
+          username: users.username,
           firstName: users.firstName,
           lastName: users.lastName,
-          profileImage: users.profileImage
+          profileImage: users.profileImage,
+          city: users.city,
+          country: users.country,
+          tangoRoles: users.tangoRoles
         }
       })
       .from(posts)
