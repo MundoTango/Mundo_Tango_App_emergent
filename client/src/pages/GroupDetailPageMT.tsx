@@ -127,6 +127,7 @@ export default function GroupDetailPageMT() {
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
   const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
+  const [refetchTrigger, setRefetchTrigger] = useState(0);
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -167,12 +168,33 @@ export default function GroupDetailPageMT() {
     }
   }, [mentionFilter]);
   
+  // Listen for cache invalidations and trigger refetch
+  React.useEffect(() => {
+    const unsubscribe = queryClient.getQueryCache().subscribe((event) => {
+      if (event?.type === 'updated') {
+        const query = event.query;
+        const queryKey = query.queryKey[0];
+        
+        // Trigger refetch if relevant cache keys are invalidated
+        if (
+          queryKey === '/api/posts' || 
+          queryKey === `/api/groups/${slug}/posts` ||
+          (mentionFilter !== 'all' && group?.id && queryKey === `/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`)
+        ) {
+          setRefetchTrigger(prev => prev + 1);
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [slug, mentionFilter, group?.id, group?.type, queryClient]);
+
   // Fetch group posts when posts tab is active
   React.useEffect(() => {
     if (activeTab === 'posts' && slug) {
       fetchPosts();
     }
-  }, [activeTab, slug, postsPage, mentionFilter]);
+  }, [activeTab, slug, postsPage, mentionFilter, refetchTrigger]);
   
   const fetchPosts = async () => {
     setLoadingPosts(true);
@@ -1199,6 +1221,12 @@ export default function GroupDetailPageMT() {
                   setEditingPost(post);
                   setCreatePostModal(true);
                 }}
+                apiBasePath="/api/posts"
+                cacheKeys={[
+                  '/api/posts',
+                  `/api/groups/${slug}/posts`,
+                  ...(mentionFilter !== 'all' && group?.id ? [`/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`] : [])
+                ]}
               />
             ))}
             
