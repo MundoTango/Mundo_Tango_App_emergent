@@ -188,8 +188,10 @@ function EnhancedPostItem({
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      // Invalidate all relevant cache keys
+      cacheKeys.forEach(key => {
+        queryClient.invalidateQueries({ queryKey: [key] });
+      });
     }
   });
 
@@ -207,8 +209,11 @@ function EnhancedPostItem({
       return response.json();
     },
     onSuccess: (response) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      // Invalidate all relevant cache keys
+      cacheKeys.forEach(key => {
+        queryClient.invalidateQueries({ queryKey: [key] });
+      });
+      // Always invalidate comments for this specific post
       queryClient.invalidateQueries({ queryKey: [`${apiBasePath}/${post.id}/comments`] });
       
       // Add the actual comment returned from server
@@ -263,9 +268,10 @@ function EnhancedPostItem({
     onSuccess: () => {
       toast({ title: "Post shared to your timeline!" });
       setShowShareOptions(false);
-      // Refresh the feed to show the shared post
-      queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      // Invalidate all relevant cache keys plus user posts
+      cacheKeys.forEach(key => {
+        queryClient.invalidateQueries({ queryKey: [key] });
+      });
       queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
     },
     onError: (error) => {
