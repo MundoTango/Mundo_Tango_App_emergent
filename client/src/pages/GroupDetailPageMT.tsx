@@ -30,7 +30,7 @@ import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
 import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
-import CleanMemoryCard from '@/components/moments/CleanMemoryCard';
+import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
 import PostCreator from '@/components/universal/PostCreator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -1183,24 +1183,23 @@ export default function GroupDetailPageMT() {
             <p className="text-gray-500 text-sm">Loading posts...</p>
           </div>
         ) : posts.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {posts.map((post) => (
-              <CleanMemoryCard
+              <EnhancedPostItem
                 key={post.id}
                 post={post}
-                currentUser={user}
+                currentUserId={user?.id?.toString()}
+                onLike={(postId) => {
+                  // Handle like/unlike
+                  console.log('Like post:', postId);
+                }}
+                onShare={(post) => {
+                  // Handle share
+                  console.log('Share post:', post);
+                }}
                 onEdit={(post) => {
                   setEditingPost(post);
                   setCreatePostModal(true);
-                }}
-                onDelete={async (postId) => {
-                  try {
-                    await fetch(`/api/posts/${postId}`, { method: 'DELETE' });
-                    setPosts(posts.filter(p => p.id !== postId));
-                    toast({ title: "Post deleted successfully" });
-                  } catch (error) {
-                    toast({ title: "Failed to delete post", variant: "destructive" });
-                  }
                 }}
               />
             ))}
