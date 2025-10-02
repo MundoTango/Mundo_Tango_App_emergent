@@ -4,6 +4,9 @@
  */
 
 import fetch from 'node-fetch';
+import { db } from '../db';
+import { groups } from '../../shared/schema';
+import { eq } from 'drizzle-orm';
 
 interface CityPhoto {
   url: string;
@@ -142,32 +145,32 @@ export class CityPhotoService {
   /**
    * Layer 8: Automation Layer - Batch update photos for existing groups
    */
-  static async updateAllGroupPhotos(storage: any): Promise<void> {
+  static async updateAllGroupPhotos(): Promise<void> {
     console.log('🔄 Starting batch photo update for all city groups...');
     
     try {
-      // Get all city groups without photos
-      const groups = await storage.db.select().from(storage.schema.groups)
-        .where(storage.eq(storage.schema.groups.type, 'city'));
+      // Get all city groups
+      const cityGroups = await db.select().from(groups)
+        .where(eq(groups.type, 'city'));
 
-      console.log(`📋 Found ${groups.length} city groups to process`);
+      console.log(`📋 Found ${cityGroups.length} city groups to process`);
 
       let successCount = 0;
       let errorCount = 0;
 
-      for (const group of groups) {
+      for (const group of cityGroups) {
         try {
           console.log(`\n🔍 Processing ${group.name} (${group.city}, ${group.country})`);
           
-          const photo = await this.fetchCityPhoto(group.city, group.country);
+          const photo = await this.fetchCityPhoto(group.city || '', group.country || '');
           
           if (photo) {
-            await storage.db.update(storage.schema.groups)
+            await db.update(groups)
               .set({ 
                 imageUrl: photo.url,
                 coverImage: photo.url
               })
-              .where(storage.eq(storage.schema.groups.id, group.id));
+              .where(eq(groups.id, group.id));
             
             console.log(`✅ Updated photo for ${group.name}`);
             successCount++;
