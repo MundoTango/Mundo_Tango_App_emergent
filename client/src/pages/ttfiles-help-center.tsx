@@ -183,7 +183,7 @@ export default function TTfilesHelpCenter() {
       return apiRequest('/api/ttfiles/help-requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {
@@ -216,7 +216,7 @@ export default function TTfilesHelpCenter() {
       return apiRequest('/api/ttfiles/report-memory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {

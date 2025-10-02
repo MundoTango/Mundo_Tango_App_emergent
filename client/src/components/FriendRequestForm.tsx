@@ -53,7 +53,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
     mutationFn: (data: FriendRequestFormData) => 
       apiRequest('/api/friend-requests/send', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: data,
       }),
     onSuccess: () => {
       toast({

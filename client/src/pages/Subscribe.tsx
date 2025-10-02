@@ -51,7 +51,7 @@ const Subscribe: React.FC = () => {
       const response = await apiRequest('/api/payments/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier })
+        body: { tier }
       });
       return response.json();
     },

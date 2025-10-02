@@ -202,7 +202,7 @@ const ModernMemoriesPage = () => {
     mutationFn: async (postData: any) => {
       return await apiRequest('/api/posts', {
         method: 'POST',
-        body: JSON.stringify(postData)
+        body: postData
       });
     },
     onSuccess: () => {

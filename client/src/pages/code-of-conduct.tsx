@@ -55,7 +55,7 @@ export default function CodeOfConduct() {
       return apiRequest("/api/code-of-conduct/accept", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {

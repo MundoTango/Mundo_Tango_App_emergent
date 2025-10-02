@@ -36,7 +36,7 @@ export default function PricingPage() {
     mutationFn: async ({ tier }: { tier: string }) => {
       return apiRequest('/api/payments/create-subscription', {
         method: 'POST',
-        body: JSON.stringify({ tier, billingCycle })
+        body: { tier, billingCycle }
       });
     },
     onSuccess: (data) => {

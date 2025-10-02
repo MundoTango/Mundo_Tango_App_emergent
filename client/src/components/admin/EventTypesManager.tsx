@@ -46,7 +46,7 @@ export const EventTypesManager: React.FC = () => {
     mutationFn: async (data: typeof formData) => {
       return await apiRequest('/api/admin/event-types', {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {
@@ -72,7 +72,7 @@ export const EventTypesManager: React.FC = () => {
     mutationFn: async ({ id, data }: { id: number; data: Partial<EventType> }) => {
       return await apiRequest(`/api/admin/event-types/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {

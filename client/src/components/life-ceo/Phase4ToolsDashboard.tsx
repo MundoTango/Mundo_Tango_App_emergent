@@ -38,7 +38,7 @@ export function Phase4ToolsDashboard() {
       setLoadTestRunning(true);
       return apiRequest(`/api/life-ceo/run-load-test`, {
         method: 'POST',
-        body: JSON.stringify({ phase })
+        body: { phase }
       });
     },
     onSuccess: (data) => {

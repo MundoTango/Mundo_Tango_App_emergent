@@ -141,7 +141,7 @@ export const LifeCEODashboard: React.FC = () => {
     mutationFn: async (params: { message: string; sessionId: string }) => {
       const response = await apiRequest('/api/ai/chat', {
         method: 'POST',
-        body: JSON.stringify(params)
+        body: params
       });
       return response;
     },

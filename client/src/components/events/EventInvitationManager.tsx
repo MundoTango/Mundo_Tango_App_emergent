@@ -24,7 +24,7 @@ export default function EventInvitationManager() {
     mutationFn: ({ participantId, status }: { participantId: number; status: 'accepted' | 'declined' }) =>
       apiRequest(`/api/event-participants/${participantId}/status`, {
         method: 'PATCH',
-        body: JSON.stringify({ status }),
+        body: { status },
       }),
     onSuccess: (data, variables) => {
       toast({

@@ -43,7 +43,7 @@ export function useCreateProject() {
     mutationFn: async (project: InsertProject) => {
       const response = await apiRequest('/api/projects', {
         method: 'POST',
-        body: JSON.stringify(project),
+        body: project,
       });
       return response;
     },
@@ -61,7 +61,7 @@ export function useUpdateProject() {
     mutationFn: async ({ id, updates }: { id: string; updates: Partial<Project> }) => {
       const response = await apiRequest(`/api/projects/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(updates),
+        body: updates,
       });
       return response;
     },
@@ -105,7 +105,7 @@ export function useBulkImportProjects() {
     mutationFn: async (projects: InsertProject[]) => {
       const response = await apiRequest('/api/projects/bulk-import', {
         method: 'POST',
-        body: JSON.stringify({ projects }),
+        body: { projects },
       });
       return response;
     },

@@ -80,7 +80,7 @@ export default function PostComposer() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData),
+        body: postData,
       });
       return response.json();
     },

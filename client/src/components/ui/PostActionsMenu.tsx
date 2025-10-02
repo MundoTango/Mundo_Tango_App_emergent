@@ -113,12 +113,12 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     mutationFn: async ({ reason }: { reason: string }) => {
       return apiRequest('/api/reports', {
         method: 'POST',
-        body: JSON.stringify({
+        body: {
           type: 'post',
           targetId: post.id,
           reason: reason,
           description: `Reported post by ${post.user.name} (@${post.user.username})`
-        })
+        }
       });
     },
     onSuccess: () => {
@@ -182,7 +182,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     try {
       await apiRequest('/api/saved-posts', {
         method: 'POST',
-        body: JSON.stringify({ postId: post.id })
+        body: { postId: post.id }
       });
       toast({
         title: "Post saved",

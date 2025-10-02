@@ -79,7 +79,7 @@ export default function Favorites() {
       return apiRequest('/api/favorites/bulk', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'remove', items })
+        body: { action: 'remove', items }
       });
     },
     onSuccess: () => {
