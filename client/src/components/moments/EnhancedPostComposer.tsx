@@ -1,7 +1,9 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type ReactQuillType from 'react-quill';
 import 'quill/dist/quill.snow.css';
+
+// Type definition for ReactQuill
+type ReactQuillType = any;
 
 // ESA Framework Line 87: Memory posting with rich text editor (react-quill integration)
 // Use React.lazy for proper dynamic import in React 18 applications

@@ -8,7 +8,7 @@ import {
   Camera, Settings, UserPlus, Heart, Share2, MoreVertical, Flag,
   Image, Video, FileText, Link as LinkIcon, UserCheck, UserX,
   Star, Clock, Info, Home, Music, BookOpen, Trophy, Zap, Mail,
-  Eye, ChevronRight, AlertCircle, Shield, Edit
+  Eye, ChevronRight, AlertCircle, Shield, Edit, MessageSquare, Plane
 } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
@@ -938,7 +938,7 @@ export default function GroupDetailPageMT() {
           </div>
         )}
 
-        {/* Filter Buttons - Emoji Only Design */}
+        {/* Filter Buttons - Icon Design */}
         <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200">
           {group?.type === 'city' ? (
             <>
@@ -949,14 +949,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="All Posts"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'all'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-all-posts"
               >
-                🌍
+                <Globe className="h-4 w-4" />
               </button>
               <button
                 onClick={() => { 
@@ -965,14 +965,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="Residents"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'residents'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-residents"
               >
-                🏠
+                <Home className="h-4 w-4" />
               </button>
               <button
                 onClick={() => { 
@@ -981,14 +981,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="Visitors"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'visitors'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-visitors"
               >
-                ✈️
+                <Plane className="h-4 w-4" />
               </button>
               <button
                 onClick={() => { 
@@ -997,14 +997,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="Friends in City"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'friends'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-friends"
               >
-                👥
+                <Users className="h-4 w-4" />
               </button>
             </>
           ) : (
@@ -1016,14 +1016,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="All Posts"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'all'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-all-posts"
               >
-                🌍
+                <Globe className="h-4 w-4" />
               </button>
               <button
                 onClick={() => { 
@@ -1032,14 +1032,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="Members"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-members"
               >
-                👥
+                <Users className="h-4 w-4" />
               </button>
               <button
                 onClick={() => { 
@@ -1048,14 +1048,14 @@ export default function GroupDetailPageMT() {
                   setPostsPage(1); 
                 }}
                 title="Non-members"
-                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                   mentionFilter === 'non-members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                     : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-non-members"
               >
-                🌐
+                <UserX className="h-4 w-4" />
               </button>
             </>
           )}
@@ -1527,35 +1527,91 @@ export default function GroupDetailPageMT() {
 
         {/* Content Area */}
         <div className="px-4 py-6">
-          {/* Tabs - Emoji Only Design */}
+          {/* Tabs - Icon Design */}
           <div className="border-b border-gray-200 mb-6">
             <nav className="flex gap-6" aria-label="Tabs">
-              {[
-                { id: 'posts', emoji: '💬', label: 'Posts' },
-                { id: 'events', emoji: '📅', label: 'Events' },
-                { id: 'members', emoji: '👥', label: 'Members' },
-                { id: 'community-hub', emoji: '🗺️', label: 'Community Hub' },
-                // City-specific tabs
-                ...(group.type === 'city' ? [
-                  { id: 'housing', emoji: '🏠', label: 'Housing' },
-                  { id: 'recommendations', emoji: '⭐', label: 'Recommendations' },
-                ] : [])
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  title={tab.label}
-                  className={`
-                    flex items-center justify-center py-4 px-2 border-b-2 font-medium text-2xl transition-all hover:scale-110
-                    ${activeTab === tab.id 
-                      ? 'border-pink-500' 
-                      : 'border-transparent opacity-50 hover:opacity-100'
-                    }
-                  `}
-                >
-                  {tab.emoji}
-                </button>
-              ))}
+              <button
+                onClick={() => setActiveTab('posts')}
+                title="Posts"
+                className={`
+                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                  ${activeTab === 'posts' 
+                    ? 'border-pink-500 text-pink-600' 
+                    : 'border-transparent opacity-50 hover:opacity-100'
+                  }
+                `}
+              >
+                <MessageSquare className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setActiveTab('events')}
+                title="Events"
+                className={`
+                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                  ${activeTab === 'events' 
+                    ? 'border-pink-500 text-pink-600' 
+                    : 'border-transparent opacity-50 hover:opacity-100'
+                  }
+                `}
+              >
+                <Calendar className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setActiveTab('members')}
+                title="Members"
+                className={`
+                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                  ${activeTab === 'members' 
+                    ? 'border-pink-500 text-pink-600' 
+                    : 'border-transparent opacity-50 hover:opacity-100'
+                  }
+                `}
+              >
+                <Users className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setActiveTab('community-hub')}
+                title="Community Hub"
+                className={`
+                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                  ${activeTab === 'community-hub' 
+                    ? 'border-pink-500 text-pink-600' 
+                    : 'border-transparent opacity-50 hover:opacity-100'
+                  }
+                `}
+              >
+                <Globe className="h-5 w-5" />
+              </button>
+              {group.type === 'city' && (
+                <>
+                  <button
+                    onClick={() => setActiveTab('housing')}
+                    title="Housing"
+                    className={`
+                      flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                      ${activeTab === 'housing' 
+                        ? 'border-pink-500 text-pink-600' 
+                        : 'border-transparent opacity-50 hover:opacity-100'
+                      }
+                    `}
+                  >
+                    <Home className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('recommendations')}
+                    title="Recommendations"
+                    className={`
+                      flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                      ${activeTab === 'recommendations' 
+                        ? 'border-pink-500 text-pink-600' 
+                        : 'border-transparent opacity-50 hover:opacity-100'
+                      }
+                    `}
+                  >
+                    <Star className="h-5 w-5" />
+                  </button>
+                </>
+              )}
             </nav>
           </div>
 
@@ -1580,16 +1636,16 @@ export default function GroupDetailPageMT() {
             </DialogTitle>
           </DialogHeader>
           <EnhancedPostComposer
-            onSuccess={() => {
+            onPostCreated={() => {
               setCreatePostModal(false);
               setEditingPost(null);
               // Refresh posts
               setPosts([]);
               setPostsPage(1);
             }}
-            editPost={editingPost}
-            groupId={group?.id}
-            groupName={group?.type === 'city' ? group.city : group.name}
+            onClose={() => setCreatePostModal(false)}
+            editMode={!!editingPost}
+            existingPost={editingPost || undefined}
           />
         </DialogContent>
       </Dialog>
