@@ -286,6 +286,22 @@ export default function GroupDetailPageMT() {
     }
   }, [group, slug]);
 
+  // Auto-minimize PostCreator when switching tabs
+  useEffect(() => {
+    setIsPostCreatorExpanded(false);
+  }, [activeTab]);
+
+  // Auto-minimize PostCreator after 10 seconds of inactivity
+  useEffect(() => {
+    if (!isPostCreatorExpanded) return;
+
+    const inactivityTimer = setTimeout(() => {
+      setIsPostCreatorExpanded(false);
+    }, 10000); // 10 seconds
+
+    return () => clearTimeout(inactivityTimer);
+  }, [isPostCreatorExpanded]);
+
   // Socket.io real-time integration (Layer 11 + Layer 22)
   useEffect(() => {
     if (!group?.id) return;
