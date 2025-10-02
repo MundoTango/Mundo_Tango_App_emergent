@@ -250,7 +250,7 @@ function EnhancedPostItem({
 
   const shareToWallMutation = useMutation({
     mutationFn: async ({ postId, comment }: { postId: number; comment?: string }) => {
-      const response = await fetch(`/api/posts/${postId}/share`, {
+      const response = await fetch(`${apiBasePath}/${postId}/share`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
