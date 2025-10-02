@@ -973,7 +973,9 @@ export default function GroupDetailPageMT() {
   };
 
   const renderPostsTab = () => (
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Posts Feed - 2/3 width on large screens */}
+        <div className="lg:col-span-2 space-y-6">
         {/* Post Creator - Collapsed/Expanded State */}
         {!isPostCreatorExpanded ? (
           /* Collapsed: Floating send button */
@@ -1234,6 +1236,12 @@ export default function GroupDetailPageMT() {
             </p>
           </div>
         )}
+        </div>
+        
+        {/* Sidebar - 1/3 width on large screens (placeholder for future use) */}
+        <div className="lg:col-span-1">
+          {/* Future: Add sidebar content here (events, members, etc.) */}
+        </div>
       </div>
   );
 
