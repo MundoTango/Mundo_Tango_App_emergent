@@ -554,6 +554,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             createdAt: posts.createdAt,
             user: {
               id: users.id,
+              name: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage,
@@ -594,6 +595,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             createdAt: posts.createdAt,
             user: {
               id: users.id,
+              name: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage,
@@ -640,6 +642,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             createdAt: posts.createdAt,
             user: {
               id: users.id,
+              name: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage
@@ -678,6 +681,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
             createdAt: posts.createdAt,
             user: {
               id: users.id,
+              name: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
               firstName: users.firstName,
               lastName: users.lastName,
               profileImage: users.profileImage
@@ -720,6 +724,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
         createdAt: posts.createdAt,
         user: {
           id: users.id,
+          name: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
           firstName: users.firstName,
           lastName: users.lastName,
           profileImage: users.profileImage
