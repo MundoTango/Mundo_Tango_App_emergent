@@ -28,6 +28,9 @@ import VisitorAlerts from '@/components/VisitorAlerts';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
+import CleanMemoryCard from '@/components/moments/CleanMemoryCard';
+import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
