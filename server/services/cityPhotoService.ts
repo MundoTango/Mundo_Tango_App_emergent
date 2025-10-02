@@ -28,7 +28,7 @@ export class CityPhotoService {
   private static readonly PEXELS_BASE_URL = 'https://api.pexels.com/v1';
   
   // Layer 5: Data Layer - Curated city photo mappings
-  private static readonly CURATED_PHOTOS = {
+  private static readonly CURATED_PHOTOS: { [key: string]: string } = {
     'Buenos Aires': 'https://images.pexels.com/photos/16228260/pexels-photo-16228260.jpeg?auto=compress&cs=tinysrgb&w=800&h=300&fit=crop',
     'Montevideo': 'https://images.pexels.com/photos/5472862/pexels-photo-5472862.jpeg?auto=compress&cs=tinysrgb&w=800&h=300&fit=crop',
     'Milan': 'https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg?auto=compress&cs=tinysrgb&w=800&h=300&fit=crop',
@@ -198,7 +198,8 @@ export class CityPhotoService {
   static async validatePhotoUrl(url: string): Promise<boolean> {
     try {
       const response = await fetch(url, { method: 'HEAD' });
-      return response.ok && response.headers.get('content-type')?.startsWith('image/');
+      const contentType = response.headers.get('content-type');
+      return response.ok && (contentType?.startsWith('image/') || false);
     } catch {
       return false;
     }
