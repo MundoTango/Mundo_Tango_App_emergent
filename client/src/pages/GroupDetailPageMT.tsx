@@ -1510,23 +1510,23 @@ export default function GroupDetailPageMT() {
                 
                 {/* Group Stats */}
                 <div className="mt-group-stats">
-                  {/* For city groups: show emoji-only stats with tooltips */}
+                  {/* For city groups: show icon-based stats with tooltips */}
                   {group.type === 'city' ? (
                     <>
                       <div className="mt-group-stat" title="members">
-                        <span className="text-xl">👥</span>
+                        <Users className="h-5 w-5" />
                         <span className="ml-1">{group.memberCount || 0}</span>
                       </div>
                       <div className="mt-group-stat" title="events">
-                        <span className="text-xl">📅</span>
+                        <Calendar className="h-5 w-5" />
                         <span className="ml-1">{group.eventCount || 0}</span>
                       </div>
                       <div className="mt-group-stat" title="hosts">
-                        <span className="text-xl">🏠</span>
+                        <Home className="h-5 w-5" />
                         <span className="ml-1">{group.hostCount || 0}</span>
                       </div>
                       <div className="mt-group-stat" title="recommendations">
-                        <span className="text-xl">⭐</span>
+                        <Star className="h-5 w-5" />
                         <span className="ml-1">{group.recommendationCount || 0}</span>
                       </div>
                     </>
