@@ -914,14 +914,14 @@ export default function GroupDetailPageMT() {
 
   const renderPostsTab = () => (
       <div className="space-y-6">
-        {/* Create Post - Memories Feed Style */}
+        {/* Post Creator - Memories Feed Style (ABOVE filters) */}
         {isMember && (
-          <div className="mt-info-card">
-            <div className="flex gap-3">
+          <div className="bg-white rounded-xl shadow-sm border border-turquoise-100 p-4 mb-4">
+            <div className="flex gap-3 items-center">
               <Avatar className="h-12 w-12 ring-2 ring-turquoise-200">
                 <AvatarImage src={user?.profileImage} />
                 <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
-                  {user?.name?.charAt(0) || user?.firstName?.charAt(0) || 'U'}
+                  {user?.name?.charAt(0) || 'U'}
                 </AvatarFallback>
               </Avatar>
               <button
@@ -935,43 +935,11 @@ export default function GroupDetailPageMT() {
                 What's happening in {group.type === 'city' ? group.city : group.name}?
               </button>
             </div>
-            <div className="flex gap-2 mt-3 justify-around border-t border-gray-200 pt-3">
-              <button
-                onClick={() => {
-                  setEditingPost(null);
-                  setCreatePostModal(true);
-                }}
-                className="flex items-center gap-2 text-pink-600 hover:bg-pink-50 px-4 py-2 rounded-lg transition-colors"
-              >
-                <Image className="h-5 w-5" />
-                <span className="font-medium">Photo</span>
-              </button>
-              <button
-                onClick={() => {
-                  setEditingPost(null);
-                  setCreatePostModal(true);
-                }}
-                className="flex items-center gap-2 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors"
-              >
-                <Video className="h-5 w-5" />
-                <span className="font-medium">Video</span>
-              </button>
-              <button
-                onClick={() => {
-                  setEditingPost(null);
-                  setCreatePostModal(true);
-                }}
-                className="flex items-center gap-2 text-purple-600 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors"
-              >
-                <MessageCircle className="h-5 w-5" />
-                <span className="font-medium">Feeling</span>
-              </button>
-            </div>
           </div>
         )}
-  
+
         {/* Filter Buttons - Emoji Only Design */}
-        <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200 mb-6">
+        <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200">
           {group?.type === 'city' ? (
             <>
               <button
