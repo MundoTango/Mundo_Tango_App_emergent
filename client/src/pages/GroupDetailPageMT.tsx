@@ -89,7 +89,7 @@ export default function GroupDetailPageMT() {
       setActiveTab('posts');
     }
     
-    if (filterParam && ['all', 'residents', 'visitors', 'members', 'non-members'].includes(filterParam)) {
+    if (filterParam && ['all', 'residents', 'visitors', 'members', 'non-members', 'friends'].includes(filterParam)) {
       setMentionFilter(filterParam as any);
     }
   }, []);
