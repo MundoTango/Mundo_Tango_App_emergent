@@ -1105,6 +1105,7 @@ export default function GroupDetailPageMT() {
               <CleanMemoryCard
                 key={post.id}
                 post={post}
+                currentUser={user}
                 onEdit={(post) => {
                   setEditingPost(post);
                   setCreatePostModal(true);

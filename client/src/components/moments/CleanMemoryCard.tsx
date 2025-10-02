@@ -17,6 +17,7 @@ import { renderWithMentions } from '@/utils/renderWithMentions';
 
 interface MemoryCardProps {
   post: any;
+  currentUser?: any;  // ESA Framework: Accept user as prop to avoid context dependency issues
   onLike?: () => void;
   onComment?: () => void;
   onShare?: () => void;
@@ -24,8 +25,10 @@ interface MemoryCardProps {
   onDelete?: (postId: number) => void;  // ESA Framework: Parent handles delete
 }
 
-export default function CleanMemoryCard({ post, onLike, onComment, onShare, onEdit, onDelete }: MemoryCardProps) {
-  const { user } = useAuth();
+export default function CleanMemoryCard({ post, currentUser, onLike, onComment, onShare, onEdit, onDelete }: MemoryCardProps) {
+  // Use provided user or fall back to context (for backward compatibility)
+  const authContext = currentUser ? null : useAuth();
+  const user = currentUser || authContext?.user;
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
