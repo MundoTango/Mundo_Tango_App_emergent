@@ -8,7 +8,8 @@ import {
   Camera, Settings, UserPlus, Heart, Share2, MoreVertical, Flag,
   Image, Video, FileText, Link as LinkIcon, UserCheck, UserX,
   Star, Clock, Info, Home, Music, BookOpen, Trophy, Zap, Mail,
-  Eye, ChevronRight, AlertCircle, Shield, Edit, MessageSquare, Plane
+  Eye, ChevronRight, AlertCircle, Shield, Edit, MessageSquare, Plane,
+  Send
 } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
@@ -32,6 +33,7 @@ import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import CleanMemoryCard from '@/components/moments/CleanMemoryCard';
 import PostCreator from '@/components/universal/PostCreator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -123,6 +125,8 @@ export default function GroupDetailPageMT() {
   const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
   const [createPostModal, setCreatePostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
+  const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
+  const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -259,6 +263,28 @@ export default function GroupDetailPageMT() {
   const isMember = group?.members?.some((m: GroupMember) => m.user.id === user?.id) || false;
   const isAdmin = group?.members?.some((m: GroupMember) => m.user.id === user?.id && m.role === 'admin') || false;
   const memberRole = group?.members?.find((m: GroupMember) => m.user.id === user?.id)?.role || 'member';
+
+  // Fetch automated city cover photo
+  useEffect(() => {
+    if (group && group.type === 'city' && group.city && slug) {
+      fetch(`/api/groups/${slug}/cover-photo`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.url) {
+            setAutomatedCoverPhoto(data.url);
+          } else {
+            setAutomatedCoverPhoto(null);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching automated cover photo:', error);
+          setAutomatedCoverPhoto(null);
+        });
+    } else {
+      // Clear photo when not a city group
+      setAutomatedCoverPhoto(null);
+    }
+  }, [group, slug]);
 
   // Socket.io real-time integration (Layer 11 + Layer 22)
   useEffect(() => {
@@ -915,149 +941,206 @@ export default function GroupDetailPageMT() {
 
   const renderPostsTab = () => (
       <div className="space-y-6">
-        {/* Post Creator - Reusable Component (BeautifulPostCreator) */}
-        <PostCreator
-          context={{
-            type: 'group',
-            id: group?.id?.toString(),
-            name: group?.type === 'city' ? group.city : group.name
-          }}
-          user={user ? {
-            id: user.id,
-            name: user.name || '',
-            username: user.username || '',
-            profileImage: user.profileImage
-          } : undefined}
-          onPostCreated={() => {
-            // Refresh posts after creation
-            setPosts([]);
-            setPostsPage(1);
-            queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
-          }}
-        />
+        {/* Post Creator - Collapsed/Expanded State */}
+        {!isPostCreatorExpanded ? (
+          /* Collapsed: Floating send button */
+          <button
+            onClick={() => setIsPostCreatorExpanded(true)}
+            className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-turquoise-400 to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 mx-auto block animate-pulse"
+            data-testid="button-expand-post-creator"
+          >
+            <Send className="h-6 w-6 text-white mx-auto transition-transform group-hover:rotate-45 group-active:rotate-[360deg] duration-500" />
+          </button>
+        ) : (
+          /* Expanded: Full PostCreator with animation */
+          <div className="animate-in slide-in-from-bottom-8 duration-500 fade-in">
+            <PostCreator
+              context={{
+                type: 'group',
+                id: group?.id?.toString(),
+                name: group?.type === 'city' ? group.city : group.name
+              }}
+              user={user ? {
+                id: user.id,
+                name: user.name || '',
+                username: user.username || '',
+                profileImage: user.profileImage
+              } : undefined}
+              onPostCreated={() => {
+                // Refresh posts after creation
+                setPosts([]);
+                setPostsPage(1);
+                queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
+                setIsPostCreatorExpanded(false); // Collapse after posting
+              }}
+            />
+            <button
+              onClick={() => setIsPostCreatorExpanded(false)}
+              className="mt-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              data-testid="button-collapse-post-creator"
+            >
+              ✕ Collapse
+            </button>
+          </div>
+        )}
 
-        {/* Filter Buttons - Icon Design */}
-        <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200">
-          {group?.type === 'city' ? (
-            <>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('all'); 
-                  setPostsPage(1); 
-                }}
-                title="All Posts"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'all'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-all-posts"
-              >
-                <Globe className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('residents'); 
-                  setPostsPage(1); 
-                }}
-                title="Residents"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'residents'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-residents"
-              >
-                <Home className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('visitors'); 
-                  setPostsPage(1); 
-                }}
-                title="Visitors"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'visitors'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-visitors"
-              >
-                <Plane className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('friends'); 
-                  setPostsPage(1); 
-                }}
-                title="Friends in City"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'friends'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-friends"
-              >
-                <Users className="h-4 w-4" />
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('all'); 
-                  setPostsPage(1); 
-                }}
-                title="All Posts"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'all'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-all-posts"
-              >
-                <Globe className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('members'); 
-                  setPostsPage(1); 
-                }}
-                title="Members"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-members"
-              >
-                <Users className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => { 
-                  setPosts([]);
-                  setMentionFilter('non-members'); 
-                  setPostsPage(1); 
-                }}
-                title="Non-members"
-                className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
-                  mentionFilter === 'non-members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
-                    : 'bg-gray-100 opacity-60 hover:opacity-100'
-                }`}
-                data-testid="filter-non-members"
-              >
-                <UserX className="h-4 w-4" />
-              </button>
-            </>
-          )}
-        </div>
+        {/* Filter Buttons - Icon Design with Instant Tooltips */}
+        <TooltipProvider>
+          <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200">
+            {group?.type === 'city' ? (
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('all'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'all'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-all-posts"
+                    >
+                      <Globe className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>All Posts</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('residents'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'residents'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-residents"
+                    >
+                      <Home className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Residents</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('visitors'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'visitors'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-visitors"
+                    >
+                      <Plane className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Visitors</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('friends'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'friends'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-friends"
+                    >
+                      <Users className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Friends in City</TooltipContent>
+                </Tooltip>
+              </>
+            ) : (
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('all'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'all'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-all-posts"
+                    >
+                      <Globe className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>All Posts</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('members'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'members'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-members"
+                    >
+                      <Users className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Members</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => { 
+                        setPosts([]);
+                        setMentionFilter('non-members'); 
+                        setPostsPage(1); 
+                      }}
+                      className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
+                        mentionFilter === 'non-members'
+                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
+                          : 'bg-gray-100 opacity-60 hover:opacity-100'
+                      }`}
+                      data-testid="filter-non-members"
+                    >
+                      <UserX className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Non-members</TooltipContent>
+                </Tooltip>
+              </>
+            )}
+          </div>
+        </TooltipProvider>
   
         {/* Posts Feed */}
         {loadingPosts && postsPage === 1 ? (
@@ -1349,14 +1432,12 @@ export default function GroupDetailPageMT() {
       </Helmet>
       
       <DashboardLayout>
-        <div className="max-w-7xl mx-auto">
-        {/* MT Group Header */}
+        {/* MT Group Header - Full width */}
         <div className="mt-group-header">
           {(() => {
-            // Use group image or fallback to default city image (same as Groups landing page)
+            // Priority: group image > automated city photo > fallback
             const imageUrl = group.image_url || group.coverImage || group.imageUrl;
-            const defaultBuenosAiresImage = 'https://images.pexels.com/photos/2238435/pexels-photo-2238435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-            const displayImage = imageUrl || (group.type === 'city' && group.city === 'Buenos Aires' ? defaultBuenosAiresImage : null);
+            const displayImage = imageUrl || automatedCoverPhoto || null;
             
             return displayImage ? (
               <img 
@@ -1367,7 +1448,9 @@ export default function GroupDetailPageMT() {
             ) : null;
           })()}
           
-          <div className="mt-group-header-content">
+          {/* Constrain only header content, not cover image */}
+          <div className="max-w-7xl mx-auto">
+            <div className="mt-group-header-content">
             <div className="flex items-end justify-between">
               <div>
                 {/* Group Avatar - Hide for city groups */}
@@ -1519,98 +1602,136 @@ export default function GroupDetailPageMT() {
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
-            </div>
-          </div>
-        </div>
+            </div> {/* Close flex items-end justify-between */}
+            </div> {/* Close mt-group-header-content */}
+          </div> {/* Close max-w-7xl mx-auto */}
+        </div> {/* Close mt-group-header */}
 
         {/* Content Area */}
-        <div className="px-4 py-6">
-          {/* Tabs - Icon Design */}
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          {/* Tabs - Icon Design with Instant Tooltips */}
           <div className="border-b border-gray-200 mb-6">
-            <nav className="flex gap-6" aria-label="Tabs">
-              <button
-                onClick={() => setActiveTab('posts')}
-                title="Posts"
-                className={`
-                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                  ${activeTab === 'posts' 
-                    ? 'border-pink-500 text-pink-600' 
-                    : 'border-transparent opacity-50 hover:opacity-100'
-                  }
-                `}
-              >
-                <MessageSquare className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveTab('events')}
-                title="Events"
-                className={`
-                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                  ${activeTab === 'events' 
-                    ? 'border-pink-500 text-pink-600' 
-                    : 'border-transparent opacity-50 hover:opacity-100'
-                  }
-                `}
-              >
-                <Calendar className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveTab('members')}
-                title="Members"
-                className={`
-                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                  ${activeTab === 'members' 
-                    ? 'border-pink-500 text-pink-600' 
-                    : 'border-transparent opacity-50 hover:opacity-100'
-                  }
-                `}
-              >
-                <Users className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setActiveTab('community-hub')}
-                title="Community Hub"
-                className={`
-                  flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                  ${activeTab === 'community-hub' 
-                    ? 'border-pink-500 text-pink-600' 
-                    : 'border-transparent opacity-50 hover:opacity-100'
-                  }
-                `}
-              >
-                <Globe className="h-5 w-5" />
-              </button>
-              {group.type === 'city' && (
-                <>
-                  <button
-                    onClick={() => setActiveTab('housing')}
-                    title="Housing"
-                    className={`
-                      flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                      ${activeTab === 'housing' 
-                        ? 'border-pink-500 text-pink-600' 
-                        : 'border-transparent opacity-50 hover:opacity-100'
-                      }
-                    `}
-                  >
-                    <Home className="h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('recommendations')}
-                    title="Recommendations"
-                    className={`
-                      flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                      ${activeTab === 'recommendations' 
-                        ? 'border-pink-500 text-pink-600' 
-                        : 'border-transparent opacity-50 hover:opacity-100'
-                      }
-                    `}
-                  >
-                    <Star className="h-5 w-5" />
-                  </button>
-                </>
-              )}
-            </nav>
+            <TooltipProvider>
+              <nav className="flex gap-6" aria-label="Tabs">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActiveTab('posts')}
+                      className={`
+                        flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                        ${activeTab === 'posts' 
+                          ? 'border-pink-500 text-pink-600' 
+                          : 'border-transparent opacity-50 hover:opacity-100'
+                        }
+                      `}
+                      data-testid="tab-posts"
+                    >
+                      <MessageSquare className="h-5 w-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Posts</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActiveTab('events')}
+                      className={`
+                        flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                        ${activeTab === 'events' 
+                          ? 'border-pink-500 text-pink-600' 
+                          : 'border-transparent opacity-50 hover:opacity-100'
+                        }
+                      `}
+                      data-testid="tab-events"
+                    >
+                      <Calendar className="h-5 w-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Events</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActiveTab('members')}
+                      className={`
+                        flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                        ${activeTab === 'members' 
+                          ? 'border-pink-500 text-pink-600' 
+                          : 'border-transparent opacity-50 hover:opacity-100'
+                        }
+                      `}
+                      data-testid="tab-members"
+                    >
+                      <Users className="h-5 w-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Members</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setActiveTab('community-hub')}
+                      className={`
+                        flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                        ${activeTab === 'community-hub' 
+                          ? 'border-pink-500 text-pink-600' 
+                          : 'border-transparent opacity-50 hover:opacity-100'
+                        }
+                      `}
+                      data-testid="tab-community-hub"
+                    >
+                      <Globe className="h-5 w-5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>Community Hub</TooltipContent>
+                </Tooltip>
+
+                {group.type === 'city' && (
+                  <>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => setActiveTab('housing')}
+                          className={`
+                            flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                            ${activeTab === 'housing' 
+                              ? 'border-pink-500 text-pink-600' 
+                              : 'border-transparent opacity-50 hover:opacity-100'
+                            }
+                          `}
+                          data-testid="tab-housing"
+                        >
+                          <Home className="h-5 w-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Housing</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => setActiveTab('recommendations')}
+                          className={`
+                            flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                            ${activeTab === 'recommendations' 
+                              ? 'border-pink-500 text-pink-600' 
+                              : 'border-transparent opacity-50 hover:opacity-100'
+                            }
+                          `}
+                          data-testid="tab-recommendations"
+                        >
+                          <Star className="h-5 w-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Recommendations</TooltipContent>
+                    </Tooltip>
+                  </>
+                )}
+              </nav>
+            </TooltipProvider>
           </div>
 
           {/* Tab Content */}
@@ -1622,8 +1743,7 @@ export default function GroupDetailPageMT() {
             {activeTab === 'housing' && group.type === 'city' && renderHousingTab()}
             {activeTab === 'recommendations' && group.type === 'city' && renderRecommendationsTab()}
           </div>
-        </div>
-      </div>
+        </div> {/* Close max-w-7xl mx-auto px-4 py-6 */}
       
       {/* Post Composer Modal */}
       <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>

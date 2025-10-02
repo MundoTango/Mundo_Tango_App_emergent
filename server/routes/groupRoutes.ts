@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { requireAbility } from '../auth/abilities';
 import { getRecommendedGroups, suggestSimilarMembers } from '../services/groupRecommendationService';
 import { getGroupHealth, getGroupInsights } from '../services/groupAnalyticsService';
+import { CityPhotoService } from '../services/cityPhotoService';
 import Fuse from 'fuse.js';
 
 const router = Router();
@@ -505,6 +506,46 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
   } catch (error) {
     console.error('Error fetching group members:', error);
     res.status(500).json({ error: 'Failed to fetch group members' });
+  }
+});
+
+// Get automated city cover photo
+router.get('/groups/:groupId/cover-photo', setUserContext, async (req, res) => {
+  try {
+    const groupSlugOrId = req.params.groupId;
+    
+    // Get group details by slug or ID
+    const parsedId = parseInt(groupSlugOrId);
+    const [group] = await db.select()
+      .from(groups)
+      .where(
+        isNaN(parsedId) 
+          ? eq(groups.slug, groupSlugOrId)
+          : eq(groups.id, parsedId)
+      );
+
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+
+    // Only fetch photos for city groups
+    if (group.type === 'city' && group.city) {
+      const photo = await CityPhotoService.fetchCityPhoto(group.city, group.country || undefined);
+      
+      if (photo) {
+        return res.json({ 
+          url: photo.url,
+          photographer: photo.photographer,
+          source: photo.source
+        });
+      }
+    }
+    
+    // Return null if no photo available
+    res.json({ url: null });
+  } catch (error) {
+    console.error('Error fetching city cover photo:', error);
+    res.status(500).json({ error: 'Failed to fetch cover photo' });
   }
 });
 
