@@ -1193,14 +1193,8 @@ export default function GroupDetailPageMT() {
                 key={post.id}
                 post={post}
                 currentUserId={user?.id?.toString()}
-                onLike={(postId) => {
-                  // Handle like/unlike
-                  console.log('Like post:', postId);
-                }}
-                onShare={(post) => {
-                  // Handle share
-                  console.log('Share post:', post);
-                }}
+                onLike={() => {}}
+                onShare={() => {}}
                 onEdit={(post) => {
                   setEditingPost(post);
                   setCreatePostModal(true);
