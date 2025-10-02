@@ -97,6 +97,8 @@ interface PostCreatorProps {
     media?: Array<{ url: string; type: string; }>;
   };
   onEditComplete?: () => void;
+  // Callback for user activity (to reset inactivity timer)
+  onActivity?: () => void;
 }
 
 export default function PostCreator({ 
@@ -106,7 +108,8 @@ export default function PostCreator({
   onSubmit,
   editMode = false,
   existingPost,
-  onEditComplete 
+  onEditComplete,
+  onActivity
 }: PostCreatorProps) {
   // ESA Layer 7 & 23: Initialize with existing post data in edit mode
   // ESA Layer 9: Rich text editing implementation
@@ -936,7 +939,12 @@ export default function PostCreator({
   };
 
   return (
-    <div className="w-full">
+    <div 
+      className="w-full"
+      onClick={onActivity}
+      onFocus={onActivity}
+      onKeyDown={onActivity}
+    >
       <Card className="relative overflow-hidden border-0 glassmorphic-card beautiful-hover shadow-2xl">
         {/* Enhanced gradient background with advanced animations */}
         <div className="absolute inset-0">

@@ -291,16 +291,33 @@ export default function GroupDetailPageMT() {
     setIsPostCreatorExpanded(false);
   }, [activeTab]);
 
+  // Track last activity timestamp for inactivity timer
+  const lastActivityRef = React.useRef(Date.now());
+
   // Auto-minimize PostCreator after 10 seconds of inactivity
   useEffect(() => {
     if (!isPostCreatorExpanded) return;
 
-    const inactivityTimer = setTimeout(() => {
-      setIsPostCreatorExpanded(false);
-    }, 10000); // 10 seconds
+    // Reset last activity when PostCreator expands
+    lastActivityRef.current = Date.now();
 
-    return () => clearTimeout(inactivityTimer);
+    const checkInactivity = () => {
+      const timeSinceLastActivity = Date.now() - lastActivityRef.current;
+      if (timeSinceLastActivity >= 10000) {
+        setIsPostCreatorExpanded(false);
+      }
+    };
+
+    // Check every second for inactivity
+    const inactivityCheckInterval = setInterval(checkInactivity, 1000);
+
+    return () => clearInterval(inactivityCheckInterval);
   }, [isPostCreatorExpanded]);
+
+  // Callback to reset inactivity timer when user interacts with PostCreator
+  const handlePostCreatorActivity = React.useCallback(() => {
+    lastActivityRef.current = Date.now();
+  }, []);
 
   // Socket.io real-time integration (Layer 11 + Layer 22)
   useEffect(() => {
@@ -989,6 +1006,7 @@ export default function GroupDetailPageMT() {
                 queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
                 setIsPostCreatorExpanded(false); // Collapse after posting
               }}
+              onActivity={handlePostCreatorActivity}
             />
             <button
               onClick={() => setIsPostCreatorExpanded(false)}
