@@ -71,7 +71,7 @@ export default function GroupDetailPageMT() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('about');
+  const [activeTab, setActiveTab] = useState('posts');
   
   // Socket.io connection reference (persisted across renders)
   const socketRef = React.useRef<Socket | null>(null);
@@ -1416,14 +1416,6 @@ export default function GroupDetailPageMT() {
           })()}
           
           <div className="mt-group-header-content">
-            <button
-              onClick={() => setLocation('/groups')}
-              className="flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-              Back to Groups
-            </button>
-            
             <div className="flex items-end justify-between">
               <div>
                 {/* Group Avatar - Hide for city groups */}
@@ -1581,34 +1573,33 @@ export default function GroupDetailPageMT() {
 
         {/* Content Area */}
         <div className="px-4 py-6">
-          {/* Tabs */}
+          {/* Tabs - Emoji Only Design */}
           <div className="border-b border-gray-200 mb-6">
-            <nav className="flex gap-8" aria-label="Tabs">
+            <nav className="flex gap-6" aria-label="Tabs">
               {[
-                { id: 'about', label: 'About', icon: Info },
-                { id: 'posts', label: 'Posts', icon: MessageCircle },
-                { id: 'events', label: 'Events', icon: Calendar },
-                { id: 'members', label: 'Members', icon: Users },
-                { id: 'community-hub', label: 'Community Hub', icon: MapPin },
-                // City-specific tabs (Housing & Recommendations only for city groups)
+                { id: 'posts', emoji: '💬', label: 'Posts' },
+                { id: 'events', emoji: '📅', label: 'Events' },
+                { id: 'members', emoji: '👥', label: 'Members' },
+                { id: 'community-hub', emoji: '🗺️', label: 'Community Hub' },
+                // City-specific tabs
                 ...(group.type === 'city' ? [
-                  { id: 'housing', label: 'Housing', icon: Home },
-                  { id: 'recommendations', label: 'Recommendations', icon: Star },
+                  { id: 'housing', emoji: '🏠', label: 'Housing' },
+                  { id: 'recommendations', emoji: '⭐', label: 'Recommendations' },
                 ] : [])
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
+                  title={tab.label}
                   className={`
-                    flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors
+                    flex items-center justify-center py-4 px-2 border-b-2 font-medium text-2xl transition-all hover:scale-110
                     ${activeTab === tab.id 
-                      ? 'border-pink-500 text-pink-600' 
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-pink-500' 
+                      : 'border-transparent opacity-50 hover:opacity-100'
                     }
                   `}
                 >
-                  <tab.icon className="h-5 w-5" />
-                  {tab.label}
+                  {tab.emoji}
                 </button>
               ))}
             </nav>
@@ -1616,7 +1607,6 @@ export default function GroupDetailPageMT() {
 
           {/* Tab Content */}
           <div className="min-h-[400px]">
-            {activeTab === 'about' && renderAboutTab()}
             {activeTab === 'members' && renderMembersTab()}
             {activeTab === 'events' && renderEventsTab()}
             {activeTab === 'posts' && renderPostsTab()}
