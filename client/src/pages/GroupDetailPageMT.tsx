@@ -28,7 +28,6 @@ import VisitorAlerts from '@/components/VisitorAlerts';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
-import CleanMemoryCard from '@/components/moments/CleanMemoryCard';
 import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import '../styles/ttfiles.css';
@@ -1093,7 +1092,7 @@ export default function GroupDetailPageMT() {
           )}
         </div>
   
-        {/* Posts Feed - Using CleanMemoryCard */}
+        {/* Posts Feed */}
         {loadingPosts && postsPage === 1 ? (
           <div className="flex flex-col items-center justify-center py-16">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
@@ -1102,40 +1101,105 @@ export default function GroupDetailPageMT() {
         ) : posts.length > 0 ? (
           <div className="space-y-4">
             {posts.map((post) => (
-              <CleanMemoryCard
-                key={post.id}
-                post={{
-                  ...post,
-                  userId: post.userId || post.author?.id || 0,
-                  user: post.author || post.user,
-                  likes: post.likesCount || 0,
-                  isLiked: post.isLiked || false,
-                  comments: post.commentsCount || 0,
-                  shares: post.sharesCount || 0,
-                }}
-                onLike={(postId) => {
-                  // Handle like
-                }}
-                onShare={(postId) => {
-                  const postUrl = `${window.location.origin}/posts/${postId}`;
-                  if (navigator.share) {
-                    navigator.share({
-                      title: 'Check out this post!',
-                      url: postUrl,
-                    }).catch(() => {});
-                  } else {
-                    navigator.clipboard.writeText(postUrl);
-                    toast({ 
-                      title: "Link copied!",
-                      description: "Post link has been copied to clipboard."
-                    });
-                  }
-                }}
-                onEdit={(post) => {
-                  setEditingPost(post);
-                  setCreatePostModal(true);
-                }}
-              />
+              <Card 
+                key={post.id} 
+                className="overflow-hidden border-turquoise-100 hover:shadow-lg transition-shadow duration-200"
+                data-testid={`post-card-${post.id}`}
+              >
+                <CardContent className="p-5">
+                  <div className="flex items-start gap-4">
+                    <Avatar 
+                      className="h-12 w-12 ring-2 ring-turquoise-200 cursor-pointer"
+                      onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
+                    >
+                      <AvatarImage src={post.author?.profileImage} />
+                      <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
+                        {post.author?.name?.charAt(0) || post.author?.firstName?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <p 
+                          className="font-semibold text-gray-900 cursor-pointer hover:underline"
+                          onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
+                        >
+                          {post.author?.name || `${post.author?.firstName || ''} ${post.author?.lastName || ''}`.trim() || 'Unknown User'}
+                        </p>
+                        {post.user?.city && (
+                          <Badge 
+                            variant="outline" 
+                            className="text-xs bg-turquoise-50 text-turquoise-700 border-turquoise-200"
+                          >
+                            {post.user.city === group?.city ? 'Resident' : 'Visitor'}
+                          </Badge>
+                        )}
+                        <span className="text-sm text-gray-500">
+                          {formatTimeAgo(post.createdAt)}
+                        </span>
+                      </div>
+                      <p className="text-gray-700 leading-relaxed whitespace-pre-wrap mb-4">
+                        {post.content}
+                      </p>
+                      
+                      {/* Media Assets */}
+                      {post.imageUrl && (
+                        <div className="mt-4">
+                          <img 
+                            src={post.imageUrl} 
+                            alt="Post image" 
+                            className="rounded-lg max-w-full h-auto shadow-md"
+                          />
+                        </div>
+                      )}
+                      {post.mediaAssets && post.mediaAssets.length > 0 && (
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                          {post.mediaAssets.map((media: any, idx: number) => (
+                            <div key={idx} className="relative rounded-lg overflow-hidden">
+                              {media.fileType === 'image' ? (
+                                <img src={media.fileUrl} alt="" className="w-full h-48 object-cover" />
+                              ) : media.fileType === 'video' ? (
+                                <video src={media.fileUrl} className="w-full h-48 object-cover" controls />
+                              ) : null}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                        <button className={`flex items-center gap-1 transition-colors ${post.isLiked ? 'text-pink-500' : 'hover:text-pink-500'}`}>
+                          <Heart className={`h-4 w-4 ${post.isLiked ? 'fill-current' : ''}`} />
+                          <span>{post.likesCount || 0}</span>
+                        </button>
+                        <button className="flex items-center gap-1 hover:text-turquoise-600 transition-colors">
+                          <MessageCircle className="h-4 w-4" />
+                          <span>{post.commentsCount || 0}</span>
+                        </button>
+                        <button 
+                          className="flex items-center gap-1 hover:text-cyan-600 transition-colors"
+                          onClick={() => {
+                            const postUrl = `${window.location.origin}/posts/${post.id}`;
+                            if (navigator.share) {
+                              navigator.share({
+                                title: 'Check out this post!',
+                                url: postUrl,
+                              }).catch(() => {});
+                            } else {
+                              navigator.clipboard.writeText(postUrl);
+                              toast({ 
+                                title: "Link copied!",
+                                description: "Post link has been copied to clipboard."
+                              });
+                            }
+                          }}
+                        >
+                          <Share2 className="h-4 w-4" />
+                          <span>Share</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
             
             {/* Load More */}
