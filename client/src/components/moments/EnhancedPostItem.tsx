@@ -316,9 +316,8 @@ function EnhancedPostItem({
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
       try {
-        // ESA LIFE CEO 61x21 - Use correct endpoint for memories
-        const endpoint = `/api/memories/${post.id}`;
-        // Deleting post
+        // Use dynamic apiBasePath for context-aware deletion
+        const endpoint = `${apiBasePath}/${post.id}`;
         
         const response = await fetch(endpoint, {
           method: 'DELETE',
@@ -334,10 +333,10 @@ function EnhancedPostItem({
             description: "Your post has been successfully deleted."
           });
           
-          // ESA LIFE CEO 61x21 - Invalidate queries instead of page reload
-          queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-          queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-          queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
+          // Invalidate all relevant cache keys
+          cacheKeys.forEach(key => {
+            queryClient.invalidateQueries({ queryKey: [key] });
+          });
         } else {
           const errorData = await response.text();
           // Delete failed
