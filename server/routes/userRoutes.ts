@@ -10,6 +10,48 @@ import { apiCache, cacheKeys, CACHE_TTL, cacheMiddleware } from '../utils/cache'
 const router = Router();
 const upload = setupUpload();
 
+// Location validation - checks for common city/country mismatches
+const validateLocation = (city: string | undefined, country: string | undefined): { isValid: boolean; warning?: string } => {
+  if (!city || !country) return { isValid: true };
+  
+  const cityLower = city.toLowerCase();
+  const countryLower = country.toLowerCase();
+  
+  // Known city -> correct country mappings
+  const cityCountryMap: { [key: string]: string[] } = {
+    'buenos aires': ['argentina'],
+    'rosario': ['argentina'],
+    'córdoba': ['argentina', 'spain'],
+    'paris': ['france'],
+    'lyon': ['france'],
+    'marseille': ['france'],
+    'madrid': ['spain'],
+    'barcelona': ['spain'],
+    'rome': ['italy'],
+    'milan': ['italy'],
+    'florence': ['italy'],
+    'toronto': ['canada'],
+    'montreal': ['canada'],
+    'vancouver': ['canada'],
+    'são paulo': ['brazil'],
+    'rio de janeiro': ['brazil'],
+    'berlin': ['germany'],
+    'munich': ['germany'],
+    'london': ['united kingdom', 'uk', 'england'],
+    'new york': ['united states', 'usa', 'us'],
+    'los angeles': ['united states', 'usa', 'us'],
+  };
+  
+  const correctCountries = cityCountryMap[cityLower];
+  if (correctCountries && !correctCountries.includes(countryLower)) {
+    const warning = `⚠️ Location mismatch detected: ${city}, ${country} (${city} is typically in ${correctCountries.join(' or ')})`;
+    console.warn(warning);
+    return { isValid: false, warning };
+  }
+  
+  return { isValid: true };
+};
+
 // Calculate profile completion percentage - Fixed for database field names
 const calculateProfileCompletion = (userData: any): number => {
   if (!userData) return 0;
@@ -456,6 +498,14 @@ router.put('/user/profile', setUserContext, async (req: any, res) => {
     if (req.body.facebookUrl !== undefined) updateData.facebook_url = req.body.facebookUrl;
     if (req.body.twitter !== undefined) updateData.twitter = req.body.twitter;
     if (req.body.website !== undefined) updateData.website = req.body.website;
+    
+    // Validate location consistency (logs warning but doesn't block update)
+    if (updateData.city || updateData.country) {
+      const validation = validateLocation(updateData.city, updateData.country);
+      if (!validation.isValid && validation.warning) {
+        console.warn(`User ${targetUserId} location validation:`, validation.warning);
+      }
+    }
     
     // Log the update for debugging
     console.log(`PUT /api/user/profile - Updating user ${targetUserId} with:`, Object.keys(updateData));

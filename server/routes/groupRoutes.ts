@@ -3,7 +3,7 @@ import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
 import { db } from '../db';
-import { groups, groupMembers, users, events, posts, hostHomes, recommendations } from '../../shared/schema';
+import { groups, groupMembers, users, events, posts, hostHomes, recommendations, friends } from '../../shared/schema';
 import { eq, and, or, sql, desc, ilike, gte, isNull, inArray } from 'drizzle-orm';
 import { z } from 'zod';
 import { requireAbility } from '../auth/abilities';
@@ -579,6 +579,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
       // City Group Filtering: Residents vs Visitors
       if (filter === 'residents') {
         // Get posts by users living in this city
+        const currentUserId = req.user?.id;
         const residentPosts = await db
           .select({
             id: posts.id,
@@ -602,11 +603,26 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               profileImage: users.profileImage,
               city: users.city,
               country: users.country,
-              tangoRoles: users.tangoRoles
+              tangoRoles: users.tangoRoles,
+              friendshipStatus: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'accepted'
+                WHEN ${friends.id} IS NOT NULL THEN 'pending'
+                ELSE 'none'
+              END`
             }
           })
           .from(posts)
           .innerJoin(users, eq(posts.userId, users.id))
+          .leftJoin(friends, or(
+            and(
+              eq(friends.userId, currentUserId || 0),
+              eq(friends.friendId, users.id)
+            ),
+            and(
+              eq(friends.friendId, currentUserId || 0),
+              eq(friends.userId, users.id)
+            )
+          ))
           .where(
             and(
               or(
@@ -623,6 +639,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
         return res.json({ success: true, data: residentPosts });
       } else if (filter === 'visitors') {
         // Get posts by users NOT living in this city
+        const currentUserId = req.user?.id;
         const visitorPosts = await db
           .select({
             id: posts.id,
@@ -646,11 +663,26 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               profileImage: users.profileImage,
               city: users.city,
               country: users.country,
-              tangoRoles: users.tangoRoles
+              tangoRoles: users.tangoRoles,
+              friendshipStatus: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'accepted'
+                WHEN ${friends.id} IS NOT NULL THEN 'pending'
+                ELSE 'none'
+              END`
             }
           })
           .from(posts)
           .innerJoin(users, eq(posts.userId, users.id))
+          .leftJoin(friends, or(
+            and(
+              eq(friends.userId, currentUserId || 0),
+              eq(friends.friendId, users.id)
+            ),
+            and(
+              eq(friends.friendId, currentUserId || 0),
+              eq(friends.userId, users.id)
+            )
+          ))
           .where(
             and(
               or(
@@ -673,6 +705,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
       // Professional Group Filtering: Members vs Non-members
       if (filter === 'members') {
         // Get posts by group members
+        const currentUserId = req.user?.id;
         const memberPosts = await db
           .select({
             id: posts.id,
@@ -696,7 +729,12 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               profileImage: users.profileImage,
               city: users.city,
               country: users.country,
-              tangoRoles: users.tangoRoles
+              tangoRoles: users.tangoRoles,
+              friendshipStatus: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'accepted'
+                WHEN ${friends.id} IS NOT NULL THEN 'pending'
+                ELSE 'none'
+              END`
             },
             memberRole: groupMembers.role
           })
@@ -705,6 +743,16 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
           .innerJoin(groupMembers, and(
             eq(groupMembers.groupId, groupId),
             eq(groupMembers.userId, posts.userId)
+          ))
+          .leftJoin(friends, or(
+            and(
+              eq(friends.userId, currentUserId || 0),
+              eq(friends.friendId, users.id)
+            ),
+            and(
+              eq(friends.friendId, currentUserId || 0),
+              eq(friends.userId, users.id)
+            )
           ))
           .where(
             sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`
@@ -716,6 +764,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
         return res.json({ success: true, data: memberPosts });
       } else if (filter === 'non-members') {
         // Get posts by non-members who mentioned the group
+        const currentUserId = req.user?.id;
         const nonMemberPosts = await db
           .select({
             id: posts.id,
@@ -739,11 +788,26 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               profileImage: users.profileImage,
               city: users.city,
               country: users.country,
-              tangoRoles: users.tangoRoles
+              tangoRoles: users.tangoRoles,
+              friendshipStatus: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'accepted'
+                WHEN ${friends.id} IS NOT NULL THEN 'pending'
+                ELSE 'none'
+              END`
             }
           })
           .from(posts)
           .innerJoin(users, eq(posts.userId, users.id))
+          .leftJoin(friends, or(
+            and(
+              eq(friends.userId, currentUserId || 0),
+              eq(friends.friendId, users.id)
+            ),
+            and(
+              eq(friends.friendId, currentUserId || 0),
+              eq(friends.userId, users.id)
+            )
+          ))
           .where(
             and(
               sql`${posts.content} LIKE ${'%group:' + group.slug + '%'}`,
@@ -763,6 +827,7 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
     }
 
     // Default: Get all posts mentioning the group
+    const currentUserId = req.user?.id;
     const allPosts = await db
       .select({
         id: posts.id,
@@ -786,11 +851,26 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
           profileImage: users.profileImage,
           city: users.city,
           country: users.country,
-          tangoRoles: users.tangoRoles
+          tangoRoles: users.tangoRoles,
+          friendshipStatus: sql<string>`CASE 
+            WHEN ${friends.status} = 'accepted' THEN 'accepted'
+            WHEN ${friends.id} IS NOT NULL THEN 'pending'
+            ELSE 'none'
+          END`
         }
       })
       .from(posts)
       .innerJoin(users, eq(posts.userId, users.id))
+      .leftJoin(friends, or(
+        and(
+          eq(friends.userId, currentUserId || 0),
+          eq(friends.friendId, users.id)
+        ),
+        and(
+          eq(friends.friendId, currentUserId || 0),
+          eq(friends.userId, users.id)
+        )
+      ))
       .where(
         or(
           sql`${posts.content} LIKE ${'%city:' + group.slug + '%'}`,
