@@ -103,7 +103,7 @@ export default function LiveStreaming() {
     mutationFn: async (data: any) => {
       return apiRequest("/api/streaming/streams", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: data,
       });
     },
     onSuccess: (data) => {

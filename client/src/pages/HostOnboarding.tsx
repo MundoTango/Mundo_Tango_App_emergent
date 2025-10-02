@@ -129,7 +129,7 @@ export default function HostOnboarding() {
         const response = await apiRequest('/api/host-homes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(hostHomeData)
+          body: hostHomeData
         });
         console.log('Host home response status:', response.status);
         const result = await response.json();

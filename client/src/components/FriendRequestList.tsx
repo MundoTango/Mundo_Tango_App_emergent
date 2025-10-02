@@ -58,7 +58,7 @@ export function FriendRequestList() {
     mutationFn: ({ requestId, message }: { requestId: number; message: string }) =>
       apiRequest(`/api/friend-requests/${requestId}/accept`, {
         method: 'POST',
-        body: JSON.stringify({ receiverMessage: message }),
+        body: { receiverMessage: message },
       }),
     onSuccess: (_, { requestId }) => {
       toast({
@@ -92,7 +92,7 @@ export function FriendRequestList() {
       snoozedUntil.setDate(snoozedUntil.getDate() + days);
       return apiRequest(`/api/friend-requests/${requestId}/snooze`, {
         method: 'POST',
-        body: JSON.stringify({ snoozedUntil: snoozedUntil.toISOString() }),
+        body: { snoozedUntil: snoozedUntil.toISOString() },
       });
     },
     onSuccess: () => {

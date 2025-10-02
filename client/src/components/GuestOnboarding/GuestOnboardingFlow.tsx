@@ -117,7 +117,7 @@ export function GuestOnboardingFlow() {
       
       const response = await apiRequest('/api/guest-profile', {
         method: 'POST',
-        body: JSON.stringify(profileData)
+        body: profileData
       });
 
       if (response.success) {

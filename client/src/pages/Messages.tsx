@@ -119,7 +119,7 @@ export default function Messages() {
     mutationFn: async (data: { recipientId: number; content: string }) => {
       return apiRequest('/api/messages/send', {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {

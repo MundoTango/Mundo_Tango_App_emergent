@@ -67,7 +67,7 @@ export function useSubscription() {
     mutationFn: async (tier: string) => {
       return apiRequest('/api/payments/create-subscription', {
         method: 'POST',
-        body: JSON.stringify({ tier, billingCycle: 'monthly' })
+        body: { tier, billingCycle: 'monthly' }
       });
     },
     onSuccess: () => {

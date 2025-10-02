@@ -33,7 +33,7 @@ export default function InlinePostComposer({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData),
+        body: postData,
       });
       const data = await response.json();
       return data;

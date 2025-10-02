@@ -104,7 +104,7 @@ export default function EventCard({ event, onEdit, onShare }: EventCardProps) {
       return apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
+        body: { status }
       });
     },
     onSuccess: () => {

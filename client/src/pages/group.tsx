@@ -72,7 +72,7 @@ export default function GroupPage() {
     mutationFn: () => apiRequest(`/api/user/join-group/${slug}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
+      body: {}
     }),
     onSuccess: (response: any) => {
       toast({

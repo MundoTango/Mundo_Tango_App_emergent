@@ -92,7 +92,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
       return apiRequest('/api/user/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: data
       });
     },
     onSuccess: () => {

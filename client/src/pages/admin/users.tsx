@@ -160,7 +160,7 @@ export default function AdminUsersPage() {
     mutationFn: async ({ userId, reason }: { userId: number; reason: string }) => {
       return apiRequest(`/api/admin/users/${userId}/suspend`, {
         method: 'POST',
-        body: JSON.stringify({ reason })
+        body: { reason }
       });
     },
     onSuccess: () => {
@@ -220,10 +220,10 @@ export default function AdminUsersPage() {
     try {
       await apiRequest('/api/admin/users/bulk-action', {
         method: 'POST',
-        body: JSON.stringify({
+        body: {
           userIds: selectedUsers,
           action
-        })
+        }
       });
       
       toast({ title: `Bulk action completed for ${selectedUsers.length} users` });

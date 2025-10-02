@@ -214,7 +214,7 @@ export default function EventDetailPage() {
       return apiRequest(`/api/events/${id}/purchase`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(paymentData)
+        body: paymentData
       });
     },
     onSuccess: () => {

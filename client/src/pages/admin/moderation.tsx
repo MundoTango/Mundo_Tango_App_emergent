@@ -152,7 +152,7 @@ export default function AdminModerationPage() {
     mutationFn: async ({ reportId, action, note }: { reportId: number; action: string; note: string }) => {
       return apiRequest(`/api/admin/moderation/reports/${reportId}/action`, {
         method: 'POST',
-        body: JSON.stringify({ action, note })
+        body: { action, note }
       });
     },
     onSuccess: () => {

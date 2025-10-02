@@ -55,7 +55,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
     mutationFn: ({ userId, role }: { userId: number; role: string }) =>
       apiRequest(`/api/events/${eventId}/participants`, {
         method: 'POST',
-        body: JSON.stringify({ userId, role }),
+        body: { userId, role },
       }),
     onSuccess: () => {
       toast({
