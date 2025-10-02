@@ -1400,13 +1400,20 @@ export default function GroupDetailPageMT() {
         <div className="max-w-7xl mx-auto">
         {/* MT Group Header */}
         <div className="mt-group-header">
-          {(group.image_url || group.coverImage) && (
-            <img 
-              src={group.image_url || group.coverImage} 
-              alt={`${group.city || group.name} cityscape`}
-              className="mt-group-cover"
-            />
-          )}
+          {(() => {
+            // Use group image or fallback to default city image (same as Groups landing page)
+            const imageUrl = group.image_url || group.coverImage || group.imageUrl;
+            const defaultBuenosAiresImage = 'https://images.pexels.com/photos/2238435/pexels-photo-2238435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+            const displayImage = imageUrl || (group.type === 'city' && group.city === 'Buenos Aires' ? defaultBuenosAiresImage : null);
+            
+            return displayImage ? (
+              <img 
+                src={displayImage} 
+                alt={`${group.city || group.name} cityscape`}
+                className="mt-group-cover"
+              />
+            ) : null;
+          })()}
           
           <div className="mt-group-header-content">
             <button
@@ -1431,43 +1438,59 @@ export default function GroupDetailPageMT() {
                 </div>
                 
                 {/* Group Info */}
-                <h1 className="mt-group-title">{group.name}</h1>
-                <p className="mt-group-subtitle">{group.tagline || `Welcome to ${group.name}`}</p>
+                <h1 className="mt-group-title">
+                  {group.type === 'city' ? group.city : group.name}
+                </h1>
+                <p className="mt-group-subtitle">
+                  {group.type === 'city' 
+                    ? `Welcome to ${group.city}` 
+                    : (group.tagline || `Welcome to ${group.name}`)
+                  }
+                </p>
                 
                 {/* Group Stats */}
                 <div className="mt-group-stats">
-                  <div className="mt-group-stat">
-                    {group.visibility === 'public' || !group.isPrivate ? (
-                      <Globe className="mt-group-stat-icon" />
-                    ) : (
-                      <Lock className="mt-group-stat-icon" />
-                    )}
-                    <span>{group.visibility === 'public' || !group.isPrivate ? 'Public' : 'Private'} Group</span>
-                  </div>
-                  <div className="mt-group-stat">
-                    <Users className="mt-group-stat-icon" />
-                    <span>{group.memberCount || 0} members</span>
-                  </div>
-                  {group.city && (
-                    <div className="mt-group-stat">
-                      <MapPin className="mt-group-stat-icon" />
-                      <span>{group.city}{group.country ? `, ${group.country}` : ''}</span>
-                    </div>
-                  )}
-                  {group.type === 'city' && (
+                  {/* For city groups: show emoji-only stats with tooltips */}
+                  {group.type === 'city' ? (
+                    <>
+                      <div className="mt-group-stat" title="members">
+                        <span className="text-xl">👥</span>
+                        <span className="ml-1">{group.memberCount || 0}</span>
+                      </div>
+                      <div className="mt-group-stat" title="events">
+                        <span className="text-xl">📅</span>
+                        <span className="ml-1">{group.eventCount || 0}</span>
+                      </div>
+                      <div className="mt-group-stat" title="hosts">
+                        <span className="text-xl">🏠</span>
+                        <span className="ml-1">{group.hostCount || 0}</span>
+                      </div>
+                      <div className="mt-group-stat" title="recommendations">
+                        <span className="text-xl">⭐</span>
+                        <span className="ml-1">{group.recommendationCount || 0}</span>
+                      </div>
+                    </>
+                  ) : (
+                    /* For professional groups: show traditional stats */
                     <>
                       <div className="mt-group-stat">
-                        <Calendar className="mt-group-stat-icon" />
-                        <span>{group.eventCount || 0} events</span>
+                        {group.visibility === 'public' || !group.isPrivate ? (
+                          <Globe className="mt-group-stat-icon" />
+                        ) : (
+                          <Lock className="mt-group-stat-icon" />
+                        )}
+                        <span>{group.visibility === 'public' || !group.isPrivate ? 'Public' : 'Private'} Group</span>
                       </div>
                       <div className="mt-group-stat">
-                        <Home className="mt-group-stat-icon" />
-                        <span>{group.hostCount || 0} hosts</span>
+                        <Users className="mt-group-stat-icon" />
+                        <span>{group.memberCount || 0} members</span>
                       </div>
-                      <div className="mt-group-stat">
-                        <Star className="mt-group-stat-icon" />
-                        <span>{group.recommendationCount || 0} recommendations</span>
-                      </div>
+                      {group.city && (
+                        <div className="mt-group-stat">
+                          <MapPin className="mt-group-stat-icon" />
+                          <span>{group.city}{group.country ? `, ${group.country}` : ''}</span>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
@@ -1475,35 +1498,75 @@ export default function GroupDetailPageMT() {
               
               {/* Action Buttons */}
               <div className="flex gap-3">
-                {isMember ? (
+                {group.type === 'city' ? (
+                  /* City group button logic: residents auto-join, visitors can follow */
                   <>
-                    {isAdmin && (
+                    {isMember ? (
+                      <>
+                        {isAdmin && (
+                          <Button
+                            onClick={() => setLocation(`/groups/${slug}/edit`)}
+                            className="mt-action-button mt-action-button-secondary"
+                          >
+                            <Settings className="h-4 w-4" />
+                            Manage
+                          </Button>
+                        )}
+                        <Button
+                          onClick={() => leaveGroupMutation.mutate()}
+                          disabled={leaveGroupMutation.isPending}
+                          className="mt-action-button mt-action-button-danger"
+                        >
+                          <UserX className="h-4 w-4" />
+                          Leave Community
+                        </Button>
+                      </>
+                    ) : (
+                      /* Non-members can follow the city */
                       <Button
-                        onClick={() => setLocation(`/groups/${slug}/edit`)}
-                        className="mt-action-button mt-action-button-secondary"
+                        onClick={() => followCityMutation.mutate()}
+                        disabled={followCityMutation.isPending}
+                        className="mt-action-button mt-action-button-primary"
                       >
-                        <Settings className="h-4 w-4" />
-                        Manage
+                        <Heart className="h-4 w-4" />
+                        Follow City
                       </Button>
                     )}
-                    <Button
-                      onClick={() => leaveGroupMutation.mutate()}
-                      disabled={leaveGroupMutation.isPending}
-                      className="mt-action-button mt-action-button-danger"
-                    >
-                      <UserX className="h-4 w-4" />
-                      Leave Group
-                    </Button>
                   </>
                 ) : (
-                  <Button
-                    onClick={() => joinGroupMutation.mutate()}
-                    disabled={joinGroupMutation.isPending}
-                    className="mt-action-button mt-action-button-primary"
-                  >
-                    <UserPlus className="h-4 w-4" />
-                    Join Group
-                  </Button>
+                  /* Professional group button logic: standard join/leave */
+                  <>
+                    {isMember ? (
+                      <>
+                        {isAdmin && (
+                          <Button
+                            onClick={() => setLocation(`/groups/${slug}/edit`)}
+                            className="mt-action-button mt-action-button-secondary"
+                          >
+                            <Settings className="h-4 w-4" />
+                            Manage
+                          </Button>
+                        )}
+                        <Button
+                          onClick={() => leaveGroupMutation.mutate()}
+                          disabled={leaveGroupMutation.isPending}
+                          className="mt-action-button mt-action-button-danger"
+                        >
+                          <UserX className="h-4 w-4" />
+                          Leave Group
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        onClick={() => joinGroupMutation.mutate()}
+                        disabled={joinGroupMutation.isPending}
+                        className="mt-action-button mt-action-button-primary"
+                      >
+                        <UserPlus className="h-4 w-4" />
+                        Join Group
+                      </Button>
+                    )}
+                  </>
                 )}
                 
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
