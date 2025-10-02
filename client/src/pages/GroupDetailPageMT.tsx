@@ -922,7 +922,12 @@ export default function GroupDetailPageMT() {
             id: group?.id?.toString(),
             name: group?.type === 'city' ? group.city : group.name
           }}
-          user={user}
+          user={user ? {
+            id: user.id,
+            name: user.name || '',
+            username: user.username || '',
+            profileImage: user.profileImage
+          } : undefined}
           onPostCreated={() => {
             // Refresh posts after creation
             setPosts([]);
