@@ -83,9 +83,19 @@ interface PostItemProps {
   onLike: (postId: number) => void;
   onShare: (post: Post) => void;
   onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
+  apiBasePath?: string; // API endpoint base path (default: '/api/posts')
+  cacheKeys?: string[]; // Cache keys to invalidate on mutations (default: ['/api/posts/feed', '/api/posts'])
 }
 
-function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: PostItemProps) {
+function EnhancedPostItem({ 
+  post, 
+  currentUserId, 
+  onLike, 
+  onShare, 
+  onEdit,
+  apiBasePath = '/api/posts',
+  cacheKeys = ['/api/posts/feed', '/api/posts']
+}: PostItemProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -101,11 +111,6 @@ function EnhancedPostItem({ post, currentUserId, onLike, onShare, onEdit }: Post
   const [currentUserReaction, setCurrentUserReaction] = useState(post.currentUserReaction);
 
   const [comments, setComments] = useState(post.comments || []);
-  // ESA Layer 7 & 23: Edit functionality delegated to parent's unified composer
-  // Removed local edit state - parent should handle edit modals
-
-  // All posts in memories feed are treated as posts in the API
-  const apiBasePath = `/api/posts`;
 
   // Fetch comments when section is opened
   const { data: fetchedComments } = useQuery({
