@@ -973,9 +973,11 @@ export default function GroupDetailPageMT() {
   };
 
   const renderPostsTab = () => (
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Posts Feed - 2/3 width on large screens */}
-        <div className="lg:col-span-2 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Posts Feed - 2/3 width on large screens */}
+          <div className="lg:col-span-2 space-y-6">
         {/* Post Creator - Collapsed/Expanded State */}
         {!isPostCreatorExpanded ? (
           /* Collapsed: Floating send button */
@@ -1236,13 +1238,15 @@ export default function GroupDetailPageMT() {
             </p>
           </div>
         )}
-        </div>
-        
-        {/* Sidebar - 1/3 width on large screens (placeholder for future use) */}
-        <div className="lg:col-span-1">
-          {/* Future: Add sidebar content here (events, members, etc.) */}
+          </div>
+          
+          {/* Sidebar - 1/3 width on large screens (placeholder for future use) */}
+          <div className="lg:col-span-1">
+            {/* Future: Add sidebar content here (events, members, etc.) */}
+          </div>
         </div>
       </div>
+    </div>
   );
 
   const renderHousingTab = () => {
