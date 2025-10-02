@@ -1426,16 +1426,18 @@ export default function GroupDetailPageMT() {
             
             <div className="flex items-end justify-between">
               <div>
-                {/* Group Avatar */}
-                <div className="mt-group-avatar mb-4">
-                  {group.imageUrl ? (
-                    <img src={group.imageUrl} alt={group.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-4xl font-bold bg-gradient-to-br from-pink-400 to-purple-600 text-white">
-                      {group.emoji || group.name.charAt(0)}
-                    </div>
-                  )}
-                </div>
+                {/* Group Avatar - Hide for city groups */}
+                {group.type !== 'city' && (
+                  <div className="mt-group-avatar mb-4">
+                    {group.imageUrl ? (
+                      <img src={group.imageUrl} alt={group.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-4xl font-bold bg-gradient-to-br from-pink-400 to-purple-600 text-white">
+                        {group.emoji || group.name.charAt(0)}
+                      </div>
+                    )}
+                  </div>
+                )}
                 
                 {/* Group Info */}
                 <h1 className="mt-group-title">

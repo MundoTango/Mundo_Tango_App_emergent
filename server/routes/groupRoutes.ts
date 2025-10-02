@@ -3,7 +3,7 @@ import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { setUserContext } from '../middleware/tenantMiddleware';
 import { db } from '../db';
-import { groups, groupMembers, users, events, posts } from '../../shared/schema';
+import { groups, groupMembers, users, events, posts, hostHomes, recommendations } from '../../shared/schema';
 import { eq, and, or, sql, desc, ilike, gte, isNull, inArray } from 'drizzle-orm';
 import { z } from 'zod';
 import { requireAbility } from '../auth/abilities';
@@ -350,9 +350,40 @@ router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
       .from(groupMembers)
       .where(eq(groupMembers.groupId, group.id));
     
+    // For city groups, calculate additional metrics
+    let eventCount = null;
+    let hostCount = null;
+    let recommendationCount = null;
+    
+    if (group.type === 'city' && group.city) {
+      // Count events in this city
+      const cityEvents = await db.select()
+        .from(events)
+        .where(and(
+          eq(events.city, group.city),
+          group.country ? eq(events.country, group.country) : sql`true`
+        ));
+      eventCount = cityEvents.length;
+      
+      // Count hosts in this city
+      const cityHosts = await db.select()
+        .from(hostHomes)
+        .where(eq(hostHomes.city, group.city));
+      hostCount = cityHosts.length;
+      
+      // Count recommendations in this city
+      const cityRecommendations = await db.select()
+        .from(recommendations)
+        .where(eq(recommendations.city, group.city));
+      recommendationCount = cityRecommendations.length;
+    }
+    
     res.json({
       ...group,
-      memberCount: members.length
+      memberCount: members.length,
+      eventCount,
+      hostCount,
+      recommendationCount
     });
   } catch (error) {
     console.error('Error fetching group:', error);
