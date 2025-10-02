@@ -119,7 +119,9 @@ export default function GroupDetailPageMT() {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [postsPage, setPostsPage] = useState(1);
   const [hasMorePosts, setHasMorePosts] = useState(true);
-  const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members'>('all');
+  const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
+  const [createPostModal, setCreatePostModal] = useState(false);
+  const [editingPost, setEditingPost] = useState<any>(null);
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -912,141 +914,186 @@ export default function GroupDetailPageMT() {
 
   const renderPostsTab = () => (
       <div className="space-y-6">
-        {/* Create Post */}
+        {/* Create Post - Memories Feed Style */}
         {isMember && (
           <div className="mt-info-card">
             <div className="flex gap-3">
-              <div className="mt-member-avatar">
-                {user?.profileImage ? (
-                  <img src={user.profileImage} alt={user.name} className="w-full h-full rounded-full object-cover" />
-                ) : (
-                  user?.name?.charAt(0) || 'U'
-                )}
-              </div>
-              <div className="flex-1">
-                <button 
-                  onClick={() => setLocation(`/groups/${slug}/create-post`)}
-                  className="w-full text-left px-4 py-3 bg-gray-100 rounded-lg text-gray-500 hover:bg-gray-200 transition-colors"
-                >
-                  Share something with the group...
-                </button>
-                <div className="flex gap-2 mt-3">
-                  <Button variant="ghost" size="sm" className="text-pink-600 hover:bg-pink-50">
-                    <Image className="h-4 w-4 mr-2" />
-                    Photo
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-blue-600 hover:bg-blue-50">
-                    <Video className="h-4 w-4 mr-2" />
-                    Video
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-purple-600 hover:bg-purple-50">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Event
-                  </Button>
-                </div>
-              </div>
+              <Avatar className="h-12 w-12 ring-2 ring-turquoise-200">
+                <AvatarImage src={user?.profileImage} />
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
+                  {user?.name?.charAt(0) || user?.firstName?.charAt(0) || 'U'}
+                </AvatarFallback>
+              </Avatar>
+              <button
+                onClick={() => {
+                  setEditingPost(null);
+                  setCreatePostModal(true);
+                }}
+                className="flex-1 text-left px-4 py-3 bg-gray-100 rounded-full text-gray-500 hover:bg-gray-200 transition-colors font-medium"
+                data-testid="button-create-post"
+              >
+                What's happening in {group.type === 'city' ? group.city : group.name}?
+              </button>
+            </div>
+            <div className="flex gap-2 mt-3 justify-around border-t border-gray-200 pt-3">
+              <button
+                onClick={() => {
+                  setEditingPost(null);
+                  setCreatePostModal(true);
+                }}
+                className="flex items-center gap-2 text-pink-600 hover:bg-pink-50 px-4 py-2 rounded-lg transition-colors"
+              >
+                <Image className="h-5 w-5" />
+                <span className="font-medium">Photo</span>
+              </button>
+              <button
+                onClick={() => {
+                  setEditingPost(null);
+                  setCreatePostModal(true);
+                }}
+                className="flex items-center gap-2 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors"
+              >
+                <Video className="h-5 w-5" />
+                <span className="font-medium">Video</span>
+              </button>
+              <button
+                onClick={() => {
+                  setEditingPost(null);
+                  setCreatePostModal(true);
+                }}
+                className="flex items-center gap-2 text-purple-600 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span className="font-medium">Feeling</span>
+              </button>
             </div>
           </div>
         )}
   
-        {/* Filter Buttons with ESA MT Ocean Theme */}
-        <div className="flex items-center gap-3 pb-4 border-b border-turquoise-200 mb-6">
-          <Button
-            variant={mentionFilter === 'all' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => { 
-              setPosts([]);
-              setMentionFilter('all'); 
-              setPostsPage(1); 
-            }}
-            className={`transition-all ${
-              mentionFilter === 'all'
-                ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
-            }`}
-            data-testid="filter-all-posts"
-          >
-            All Posts
-          </Button>
-          
+        {/* Filter Buttons - Emoji Only Design */}
+        <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200 mb-6">
           {group?.type === 'city' ? (
             <>
-              <Button
-                variant={mentionFilter === 'residents' ? 'default' : 'outline'}
-                size="sm"
+              <button
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('all'); 
+                  setPostsPage(1); 
+                }}
+                title="All Posts"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                  mentionFilter === 'all'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
+                }`}
+                data-testid="filter-all-posts"
+              >
+                🌍
+              </button>
+              <button
                 onClick={() => { 
                   setPosts([]);
                   setMentionFilter('residents'); 
                   setPostsPage(1); 
                 }}
-                className={`transition-all ${
+                title="Residents"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
                   mentionFilter === 'residents'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-residents"
               >
-                Residents
-              </Button>
-              <Button
-                variant={mentionFilter === 'visitors' ? 'default' : 'outline'}
-                size="sm"
+                🏠
+              </button>
+              <button
                 onClick={() => { 
                   setPosts([]);
                   setMentionFilter('visitors'); 
                   setPostsPage(1); 
                 }}
-                className={`transition-all ${
+                title="Visitors"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
                   mentionFilter === 'visitors'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-visitors"
               >
-                Visitors
-              </Button>
+                ✈️
+              </button>
+              <button
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('friends'); 
+                  setPostsPage(1); 
+                }}
+                title="Friends in City"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                  mentionFilter === 'friends'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
+                }`}
+                data-testid="filter-friends"
+              >
+                👥
+              </button>
             </>
           ) : (
             <>
-              <Button
-                variant={mentionFilter === 'members' ? 'default' : 'outline'}
-                size="sm"
+              <button
+                onClick={() => { 
+                  setPosts([]);
+                  setMentionFilter('all'); 
+                  setPostsPage(1); 
+                }}
+                title="All Posts"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
+                  mentionFilter === 'all'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
+                }`}
+                data-testid="filter-all-posts"
+              >
+                🌍
+              </button>
+              <button
                 onClick={() => { 
                   setPosts([]);
                   setMentionFilter('members'); 
                   setPostsPage(1); 
                 }}
-                className={`transition-all ${
+                title="Members"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
                   mentionFilter === 'members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-members"
               >
-                Members
-              </Button>
-              <Button
-                variant={mentionFilter === 'non-members' ? 'default' : 'outline'}
-                size="sm"
+                👥
+              </button>
+              <button
                 onClick={() => { 
                   setPosts([]);
                   setMentionFilter('non-members'); 
                   setPostsPage(1); 
                 }}
-                className={`transition-all ${
+                title="Non-members"
+                className={`px-4 py-2 rounded-full text-xl transition-all hover:scale-110 ${
                   mentionFilter === 'non-members'
-                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
-                    : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
+                    ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg'
+                    : 'bg-gray-100 opacity-60 hover:opacity-100'
                 }`}
                 data-testid="filter-non-members"
               >
-                Non-members
-              </Button>
+                🌐
+              </button>
             </>
           )}
         </div>
   
-        {/* Posts Feed */}
+        {/* Posts Feed - Using CleanMemoryCard */}
         {loadingPosts && postsPage === 1 ? (
           <div className="flex flex-col items-center justify-center py-16">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
@@ -1055,88 +1102,40 @@ export default function GroupDetailPageMT() {
         ) : posts.length > 0 ? (
           <div className="space-y-4">
             {posts.map((post) => (
-              <Card 
-                key={post.id} 
-                className="overflow-hidden border-turquoise-100 hover:shadow-lg transition-shadow duration-200"
-                data-testid={`post-card-${post.id}`}
-              >
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <Avatar 
-                      className="h-12 w-12 ring-2 ring-turquoise-200 cursor-pointer"
-                      onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
-                    >
-                      <AvatarImage src={post.author?.profileImage} />
-                      <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
-                        {post.author?.name?.charAt(0) || post.author?.firstName?.charAt(0) || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        <p 
-                          className="font-semibold text-gray-900 cursor-pointer hover:underline"
-                          onClick={() => post.author?.username && setLocation(`/u/${post.author.username}`)}
-                        >
-                          {post.author?.name || `${post.author?.firstName || ''} ${post.author?.lastName || ''}`.trim() || 'Unknown User'}
-                        </p>
-                        {post.user?.city && (
-                          <Badge 
-                            variant="outline" 
-                            className="text-xs bg-turquoise-50 text-turquoise-700 border-turquoise-200"
-                          >
-                            {post.user.city === group?.city ? 'Resident' : 'Visitor'}
-                          </Badge>
-                        )}
-                        <span className="text-sm text-gray-500">
-                          {formatTimeAgo(post.createdAt)}
-                        </span>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed whitespace-pre-wrap mb-4">
-                        {post.content}
-                      </p>
-                      
-                      {/* Media Assets */}
-                      {post.imageUrl && (
-                        <div className="mt-4">
-                          <img 
-                            src={post.imageUrl} 
-                            alt="Post image" 
-                            className="rounded-lg max-w-full h-auto shadow-md"
-                          />
-                        </div>
-                      )}
-                      {post.mediaAssets && post.mediaAssets.length > 0 && (
-                        <div className="grid grid-cols-2 gap-2 mt-4">
-                          {post.mediaAssets.map((media: any, idx: number) => (
-                            <div key={idx} className="relative rounded-lg overflow-hidden">
-                              {media.fileType === 'image' ? (
-                                <img src={media.fileUrl} alt="" className="w-full h-48 object-cover" />
-                              ) : media.fileType === 'video' ? (
-                                <video src={media.fileUrl} className="w-full h-48 object-cover" controls />
-                              ) : null}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
-                        <button className={`flex items-center gap-1 transition-colors ${post.isLiked ? 'text-pink-500' : 'hover:text-pink-500'}`}>
-                          <Heart className={`h-4 w-4 ${post.isLiked ? 'fill-current' : ''}`} />
-                          <span>{post.likesCount || 0}</span>
-                        </button>
-                        <button className="flex items-center gap-1 hover:text-turquoise-600 transition-colors">
-                          <MessageCircle className="h-4 w-4" />
-                          <span>{post.commentsCount || 0}</span>
-                        </button>
-                        <button className="flex items-center gap-1 hover:text-cyan-600 transition-colors">
-                          <Share2 className="h-4 w-4" />
-                          <span>Share</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <CleanMemoryCard
+                key={post.id}
+                post={{
+                  ...post,
+                  userId: post.userId || post.author?.id || 0,
+                  user: post.author || post.user,
+                  likes: post.likesCount || 0,
+                  isLiked: post.isLiked || false,
+                  comments: post.commentsCount || 0,
+                  shares: post.sharesCount || 0,
+                }}
+                onLike={(postId) => {
+                  // Handle like
+                }}
+                onShare={(postId) => {
+                  const postUrl = `${window.location.origin}/posts/${postId}`;
+                  if (navigator.share) {
+                    navigator.share({
+                      title: 'Check out this post!',
+                      url: postUrl,
+                    }).catch(() => {});
+                  } else {
+                    navigator.clipboard.writeText(postUrl);
+                    toast({ 
+                      title: "Link copied!",
+                      description: "Post link has been copied to clipboard."
+                    });
+                  }
+                }}
+                onEdit={(post) => {
+                  setEditingPost(post);
+                  setCreatePostModal(true);
+                }}
+              />
             ))}
             
             {/* Load More */}
@@ -1619,6 +1618,29 @@ export default function GroupDetailPageMT() {
           </div>
         </div>
       </div>
+      
+      {/* Post Composer Modal */}
+      <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingPost ? 'Edit Post' : 'Create Post'}
+            </DialogTitle>
+          </DialogHeader>
+          <EnhancedPostComposer
+            onSuccess={() => {
+              setCreatePostModal(false);
+              setEditingPost(null);
+              // Refresh posts
+              setPosts([]);
+              setPostsPage(1);
+            }}
+            editPost={editingPost}
+            groupId={group?.id}
+            groupName={group?.type === 'city' ? group.city : group.name}
+          />
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
     </>
   );
