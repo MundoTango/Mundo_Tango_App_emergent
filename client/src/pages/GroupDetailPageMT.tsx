@@ -30,6 +30,7 @@ import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
 import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import CleanMemoryCard from '@/components/moments/CleanMemoryCard';
+import PostCreator from '@/components/universal/PostCreator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
@@ -914,29 +915,21 @@ export default function GroupDetailPageMT() {
 
   const renderPostsTab = () => (
       <div className="space-y-6">
-        {/* Post Creator - Memories Feed Style (ABOVE filters) */}
-        {isMember && (
-          <div className="bg-white rounded-xl shadow-sm border border-turquoise-100 p-4 mb-4">
-            <div className="flex gap-3 items-center">
-              <Avatar className="h-12 w-12 ring-2 ring-turquoise-200">
-                <AvatarImage src={user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
-                  {user?.name?.charAt(0) || 'U'}
-                </AvatarFallback>
-              </Avatar>
-              <button
-                onClick={() => {
-                  setEditingPost(null);
-                  setCreatePostModal(true);
-                }}
-                className="flex-1 text-left px-4 py-3 bg-gray-100 rounded-full text-gray-500 hover:bg-gray-200 transition-colors font-medium"
-                data-testid="button-create-post"
-              >
-                What's happening in {group.type === 'city' ? group.city : group.name}?
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Post Creator - Reusable Component (BeautifulPostCreator) */}
+        <PostCreator
+          context={{
+            type: 'group',
+            id: group?.id?.toString(),
+            name: group?.type === 'city' ? group.city : group.name
+          }}
+          user={user}
+          onPostCreated={() => {
+            // Refresh posts after creation
+            setPosts([]);
+            setPostsPage(1);
+            queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
+          }}
+        />
 
         {/* Filter Buttons - Icon Design */}
         <div className="flex items-center gap-2 pb-4 border-b border-turquoise-200">
