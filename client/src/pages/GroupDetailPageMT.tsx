@@ -115,46 +115,13 @@ export default function GroupDetailPageMT() {
   const [loadingEvents, setLoadingEvents] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   
-  // Post data state
-  const [posts, setPosts] = useState<any[]>([]);
-  const [loadingPosts, setLoadingPosts] = useState(false);
-  const [postsPage, setPostsPage] = useState(1);
-  const [hasMorePosts, setHasMorePosts] = useState(true);
+  // Post filtering state (used for context)
   const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
   const [createPostModal, setCreatePostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
 
-  // Helper: Normalize post data to ensure correct structure for EnhancedPostComposer
-  const normalizePost = (post: any) => {
-    return {
-      ...post,
-      content: post.content || '',
-      imageUrl: typeof post.imageUrl === 'string' ? post.imageUrl : (post.imageUrl?.url || ''),
-      videoUrl: typeof post.videoUrl === 'string' ? post.videoUrl : (post.videoUrl?.url || ''),
-      location: post.location || '',
-      visibility: post.visibility || (post.isPublic ? 'public' : 'private'),
-      isPublic: post.isPublic ?? (post.visibility === 'public')
-    };
-  };
-
-  // Handle post update in local state
-  const handlePostUpdated = (postId: number, updatedData: any) => {
-    setPosts(prevPosts => 
-      prevPosts.map(post => 
-        post.id === postId ? { ...post, ...updatedData } : post
-      )
-    );
-    setEditingPost(null);
-    setCreatePostModal(false);
-  };
-
-  // Handle post deletion in local state
-  const handlePostDeleted = (postId: number) => {
-    setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
-  };
-
-  // Handle post edit - copied from Memories feed
+  // Handle post edit - opens modal with post data
   const handleEditPost = (post: any) => {
     console.log('[Groups Feed] Opening edit modal for post:', post.id);
     setEditingPost(post);
@@ -162,7 +129,6 @@ export default function GroupDetailPageMT() {
   };
 
   const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
-  const [refetchTrigger, setRefetchTrigger] = useState(0);
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -196,57 +162,7 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
-  // Reset page to 1 when mention filter changes
-  React.useEffect(() => {
-    if (mentionFilter !== 'all') {
-      setPostsPage(1);
-    }
-  }, [mentionFilter]);
-  
-  // Note: Cache invalidation listener moved after group data is loaded to avoid reference errors
-
-  // Fetch group posts when posts tab is active
-  React.useEffect(() => {
-    if (activeTab === 'posts' && slug) {
-      fetchPosts();
-    }
-  }, [activeTab, slug, postsPage, mentionFilter, refetchTrigger]);
-  
-  const fetchPosts = async () => {
-    setLoadingPosts(true);
-    try {
-      let response;
-      
-      // Use mention filtering API if filter is active (always page 1 for filtered results)
-      if (mentionFilter !== 'all' && group?.id) {
-        const entityType = group.type === 'city' ? 'city' : 'group';
-        const filterParam = mentionFilter;
-        response = await fetch(`/api/posts/mentions/${entityType}/${group.id}?filter=${filterParam}`);
-        // Always replace posts for filtered queries (no pagination on filtered results yet)
-        const data = await response.json();
-        if (data.success) {
-          setPosts(data.data || []);
-          setHasMorePosts(false); // Disable pagination for filtered results
-        }
-      } else {
-        // Use regular group posts API with pagination
-        response = await fetch(`/api/groups/${slug}/posts?page=${postsPage}&limit=10`);
-        const data = await response.json();
-        if (data.success) {
-          if (postsPage === 1) {
-            setPosts(data.data || []);
-          } else {
-            setPosts(prev => [...prev, ...(data.data || [])]);
-          }
-          setHasMorePosts((data.data || []).length === 10);
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoadingPosts(false);
-    }
-  };
+  // Note: Post fetching now handled by UnifiedPostFeed context-based approach
   
   const formatTimeAgo = (date: string) => {
     const now = new Date();
@@ -297,26 +213,7 @@ export default function GroupDetailPageMT() {
     }
   }, [group, slug]);
 
-  // Listen for cache invalidations and trigger refetch
-  useEffect(() => {
-    const unsubscribe = queryClient.getQueryCache().subscribe((event) => {
-      if (event?.type === 'updated') {
-        const query = event.query;
-        const queryKey = query.queryKey[0];
-        
-        // Trigger refetch if relevant cache keys are invalidated
-        if (
-          queryKey === '/api/posts' || 
-          queryKey === `/api/groups/${slug}/posts` ||
-          (mentionFilter !== 'all' && group?.id && queryKey === `/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`)
-        ) {
-          setRefetchTrigger(prev => prev + 1);
-        }
-      }
-    });
-    
-    return () => unsubscribe();
-  }, [slug, mentionFilter, group?.id, group?.type, queryClient]);
+  // Note: Cache invalidation now handled by UnifiedPostFeed
 
   // Auto-minimize PostCreator when switching tabs
   useEffect(() => {
@@ -393,9 +290,7 @@ export default function GroupDetailPageMT() {
     socket.on('group:new_post', (data: any) => {
       console.log('📝 New post in group:', data);
       if (data.groupId === group.id && activeTab === 'posts') {
-        // Refresh posts
-        fetchPosts();
-        
+        // Note: UnifiedPostFeed handles its own refreshing via context
         toast({
           title: 'New Post',
           description: `${data.username} posted in the group`,
@@ -1036,9 +931,7 @@ export default function GroupDetailPageMT() {
                 profileImage: user.profileImage
               } : undefined}
               onPostCreated={() => {
-                // Refresh posts after creation
-                setPosts([]);
-                setPostsPage(1);
+                // Note: UnifiedPostFeed handles its own cache invalidation
                 queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
                 setIsPostCreatorExpanded(false); // Collapse after posting
               }}
@@ -1063,9 +956,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('all'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
@@ -1084,9 +975,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('residents'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'residents'
@@ -1105,9 +994,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('visitors'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'visitors'
@@ -1126,9 +1013,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('friends'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'friends'
@@ -1149,9 +1034,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('all'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
@@ -1170,9 +1053,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('members'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'members'
@@ -1191,9 +1072,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setPosts([]);
                         setMentionFilter('non-members'); 
-                        setPostsPage(1); 
                       }}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'non-members'
@@ -1212,28 +1091,21 @@ export default function GroupDetailPageMT() {
           </div>
         </TooltipProvider>
   
-        {/* Posts Feed - Using UnifiedPostFeed exactly like Memories feed */}
-        {loadingPosts && postsPage === 1 ? (
-          <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-turquoise-500" />
-          </div>
+        {/* Posts Feed - Context-based smart mode */}
+        {group?.id ? (
+          <UnifiedPostFeed 
+            context={{
+              type: 'group',
+              groupId: group.id,
+              filter: mentionFilter
+            }}
+            currentUserId={user?.id?.toString()}
+            onEdit={handleEditPost}
+          />
         ) : (
-          <>
-            <UnifiedPostFeed 
-              posts={posts}
-              currentUserId={user?.id?.toString()}
-              onEdit={handleEditPost}
-              hasMore={hasMorePosts}
-              onLoadMore={() => setPostsPage(prev => prev + 1)}
-            />
-            {loadingPosts && (
-              <div className="flex justify-center py-4">
-                <div className="text-sm text-gray-500">
-                  Loading more posts...
-                </div>
-              </div>
-            )}
-          </>
+          <div className="flex justify-center py-8">
+            <div className="text-sm text-gray-500">Loading group data...</div>
+          </div>
         )}
           </div>
           
@@ -1827,8 +1699,6 @@ export default function GroupDetailPageMT() {
                   description: "Your changes have been saved"
                 });
                 queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
-                setPosts([]);
-                setPostsPage(1);
                 setCreatePostModal(false);
                 setEditingPost(null);
               }}

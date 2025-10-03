@@ -3,9 +3,8 @@
 // Following ESA_LIFE_CEO_61x21_AGENTS_FRAMEWORK.md specifications
 // WITH RESILIENCE ARCHITECTURE - Prevents component failures and blank screens
 
-import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from 'react';
-import io from 'socket.io-client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useState, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { postsAPI } from '@/lib/api/posts';
 import { useToast } from '@/hooks/use-toast';
@@ -15,10 +14,7 @@ import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use
 // NOTE: useTranslation removed - Layer 53 is broken, using English strings
 
 // RESILIENCE IMPORTS - Platform-wide protection
-import { useResilientQuery } from '@/hooks/useResilientQuery';
 import { withResilience } from '@/components/resilient/ResilientBoundary';
-import { PostsFeedResponseSchema, normalizePostsResponse } from '@shared/schemas/posts';
-import { safe, safeArray } from '@shared/resilience/guards';
 
 // ESA Framework Canonical Components - Using standard layouts for consistency
 import DashboardLayout from '@/layouts/DashboardLayout';
@@ -36,24 +32,8 @@ function ESAMemoryFeedCore() {
   const { toast } = useToast();
   const { currentTheme } = useTheme();
   const { user } = useAuth(); // ESA Framework Layer 4: Get authenticated user
-  const [refreshKey, setRefreshKey] = useState(0);
   const [currentUserId, setCurrentUserId] = useState<string>('');
-  // Grid view removed per requirements - using feed only
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  const [allPosts, setAllPosts] = useState<any[]>([]);
-  
-  // ESA LIFE CEO 61x21 - Memoize filters object to prevent React Query key instability
-  const feedFilters = useMemo(() => ({
-    filterType: 'all' as 'all' | 'following' | 'nearby',
-    tags: [] as string[],
-    visibility: 'all' as 'all' | 'public' | 'friends' | 'private'
-  }), []);
-  const [socket, setSocket] = useState<any>(null);
-  const [isInfiniteScrollEnabled, setIsInfiniteScrollEnabled] = useState(true);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [shareModalPost, setShareModalPost] = useState<any>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   
@@ -75,188 +55,6 @@ function ESAMemoryFeedCore() {
     }
   }, [user]);
 
-  // Initialize Socket.io connection ONCE on mount (ESA Framework pattern)
-  useEffect(() => {
-    // Connect to Socket.io server
-    const socketConnection = io('/', {
-      path: '/socket.io/',
-      transports: ['websocket', 'polling'],
-      withCredentials: true
-    });
-
-    setSocket(socketConnection);
-
-    // Join memory feed room for updates
-    socketConnection.emit('join-feed', { room: 'global-memories' });
-
-    // Cleanup on unmount only
-    return () => {
-      socketConnection.emit('leave-feed', { room: 'global-memories' });
-      socketConnection.disconnect();
-    };
-  }, []); // Empty dependency array - connect once!
-
-  // Handle Socket.io real-time events with current state (ESA Framework pattern)
-  useEffect(() => {
-    if (!socket) return;
-
-    // Remove old listeners before adding new ones to prevent memory leaks
-    socket.off('new-post');
-    socket.off('post-liked');
-    socket.off('post-commented');
-    socket.off('post-deleted');
-    socket.off('user-typing');
-
-    // Handle new posts
-    const handleNewPost = (newPost: any) => {
-      // Only add to feed if on first page
-      if (page === 1) {
-        setAllPosts(prev => [newPost, ...prev]);
-        // Use toastRef for stable reference (ESA Framework pattern)
-        toastRef.current({
-          title: "New Memory",
-          description: `${newPost.user?.name || 'Someone'} shared a new memory`,
-          duration: 3000
-        });
-      }
-    };
-
-    // Handle post likes
-    const handlePostLiked = (data: { postId: string, likesCount: number }) => {
-      setAllPosts(prev => prev.map(post => 
-        post.id === data.postId 
-          ? { ...post, likesCount: data.likesCount }
-          : post
-      ));
-    };
-
-    // Handle post comments
-    const handlePostCommented = (data: { postId: string, commentsCount: number }) => {
-      setAllPosts(prev => prev.map(post => 
-        post.id === data.postId 
-          ? { ...post, commentsCount: data.commentsCount }
-          : post
-      ));
-    };
-
-    // Handle post deletions
-    const handlePostDeleted = (postId: string) => {
-      setAllPosts(prev => prev.filter(post => post.id !== postId));
-    };
-
-    // Handle typing indicators
-    const handleUserTyping = (data: { userId: string, postId: string, isTyping: boolean }) => {
-      // Could be used to show typing indicators in comments
-      console.log('User typing:', data);
-    };
-
-    // Register event listeners
-    socket.on('new-post', handleNewPost);
-    socket.on('post-liked', handlePostLiked);
-    socket.on('post-commented', handlePostCommented);
-    socket.on('post-deleted', handlePostDeleted);
-    socket.on('user-typing', handleUserTyping);
-
-    // Cleanup function to remove listeners
-    return () => {
-      socket.off('new-post', handleNewPost);
-      socket.off('post-liked', handlePostLiked);
-      socket.off('post-commented', handlePostCommented);
-      socket.off('post-deleted', handlePostDeleted);
-      socket.off('user-typing', handleUserTyping);
-    };
-  }, [socket, page]); // ESA Framework: Keep dependencies minimal for stability
-
-
-  // RESILIENT DATA FETCHING - Protected with validation and fallbacks
-  // ESA Fix: Use raw data fetch instead of schema validation that strips friendship data
-  const { 
-    data: feedResponse, 
-    isLoading, 
-    isFetching, 
-    error 
-  } = useQuery({
-    queryKey: ['/api/posts/feed', page],
-    queryFn: async () => {
-      console.log('[ESA MemoryFeed] Starting fetch for page:', page);
-      try {
-        const response = await fetch(`/api/posts/feed?limit=20&offset=${(page - 1) * 20}`, {
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
-        console.log('[ESA MemoryFeed] Fetch response received, status:', response.status);
-        
-        if (!response.ok) {
-          console.error('[ESA MemoryFeed] Response not OK:', response.status, response.statusText);
-          throw new Error('Failed to fetch posts');
-        }
-        
-        const data = await response.json();
-        
-        // ESA Debug: Log raw API response to verify friendship data
-        console.log('[ESA MemoryFeed] Raw API response:', {
-          hasData: !!data,
-          postsCount: data?.posts?.length,
-          firstPost: data?.posts?.[0],
-          firstUserFriendship: data?.posts?.[0]?.user?.friendshipStatus
-        });
-        
-        return data;
-      } catch (err) {
-        console.error('[ESA MemoryFeed] Fetch error:', err);
-        throw err;
-      }
-    },
-    staleTime: 30 * 1000,
-    gcTime: 5 * 60 * 1000
-  });
-  
-  // Log loading state changes
-  useEffect(() => {
-    console.log('[ESA MemoryFeed] Query state changed:', { isLoading, isFetching, hasData: !!feedResponse, error });
-  }, [isLoading, isFetching, feedResponse, error]);
-
-
-  // ESA Framework: Process feed response and manage pagination
-  useEffect(() => {
-    if (feedResponse?.posts && Array.isArray(feedResponse.posts)) {
-      const posts = feedResponse.posts;
-      
-      if (page > 1) {
-        setAllPosts(prev => [...prev, ...posts]);
-      } else {
-        setAllPosts(posts);
-      }
-      
-      // Update hasMore based on response
-      const hasMorePosts = feedResponse.hasMore || posts.length === 20;
-      setHasMore(hasMorePosts);
-    }
-  }, [feedResponse, page]);
-
-  // RESILIENCE: Safe extraction with fallback to cached posts
-  const posts = useMemo(() => {
-    if (feedResponse?.posts && Array.isArray(feedResponse.posts)) {
-      // ESA Layer 2: API Structure - Log full data contract
-      console.log('[ESA MemoryFeed] Processing feed response:', {
-        postsCount: feedResponse.posts.length,
-        firstPost: feedResponse.posts[0],
-        friendshipStatuses: feedResponse.posts.slice(0, 3).map((p: any) => ({
-          userId: p.user?.id,
-          userName: p.user?.name,
-          friendshipStatus: p.user?.friendshipStatus
-        }))
-      });
-      return feedResponse.posts;
-    }
-    // Fallback to accumulated posts if response is invalid
-    return allPosts;
-  }, [feedResponse, allPosts]);
-
-
-  // ESA Framework Layer 9: Removed unused memoriesForGrid transformation - posts passed directly with user data intact
-
   // Create post mutation with FormData support
   const createPostMutation = useMutation({
     mutationFn: (formData: FormData) => postsAPI.createPost(formData),
@@ -265,9 +63,7 @@ function ESAMemoryFeedCore() {
         title: "Memory Shared",
         description: "Your memory has been shared successfully"
       });
-      // Refresh the feed from the beginning
-      setPage(1);
-      setAllPosts([]);
+      // Refresh the feed - UnifiedPostFeed will handle re-fetching
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       setShowCreateModal(false);
     },
@@ -279,47 +75,6 @@ function ESAMemoryFeedCore() {
       });
     }
   });
-
-  // Handle post submission
-  const handleCreatePost = async (formData: FormData) => {
-    createPostMutation.mutate(formData);
-  };
-
-  // Handle load more for infinite scroll
-  const handleLoadMore = useCallback(() => {
-    if (!isFetching && hasMore && isInfiniteScrollEnabled) {
-      setPage(prev => prev + 1);
-    }
-  }, [isFetching, hasMore, isInfiniteScrollEnabled]);
-
-  // Set up Intersection Observer for infinite scroll
-  useEffect(() => {
-    if (!isInfiniteScrollEnabled) return;
-    
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && !isFetching && hasMore) {
-          handleLoadMore();
-        }
-      },
-      { threshold: 0.8 }
-    );
-
-    if (loadMoreRef.current) {
-      observerRef.current.observe(loadMoreRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [handleLoadMore, isFetching, hasMore, isInfiniteScrollEnabled]);
 
   // Keyboard shortcuts for navigation and actions
   useEffect(() => {
@@ -340,17 +95,10 @@ function ESAMemoryFeedCore() {
             creator?.focus();
           }
           break;
-        case 'g':
-          if (!e.ctrlKey && !e.metaKey) {
-            // Grid view removed - feed only
-          }
-          break;
         case 'r':
           if (e.ctrlKey || e.metaKey) {
             e.preventDefault();
-            // Refresh feed
-            setPage(1);
-            setAllPosts([]);
+            // Refresh feed - UnifiedPostFeed will handle re-fetching
             queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
           }
           break;
@@ -366,167 +114,12 @@ function ESAMemoryFeedCore() {
   }, []);
 
 
-  // Handle reactions with optimistic updates
-  const handleReaction = async (postId: string, type: string) => {
-    // Optimistic update on allPosts state
-    setAllPosts(prev => prev.map(post => {
-      if (post.id === postId) {
-        const isLiked = !post.isLiked;
-        return {
-          ...post,
-          isLiked,
-          likesCount: isLiked ? (post.likesCount || 0) + 1 : Math.max(0, (post.likesCount || 1) - 1)
-        };
-      }
-      return post;
-    }));
-
-    try {
-      await postsAPI.toggleReaction(postId, type);
-    } catch (error) {
-      // Rollback optimistic update on error
-      setAllPosts(prev => prev.map(post => {
-        if (post.id === postId) {
-          const isLiked = !post.isLiked;
-          return {
-            ...post,
-            isLiked,
-            likesCount: isLiked ? (post.likesCount || 0) + 1 : Math.max(0, (post.likesCount || 1) - 1)
-          };
-        }
-        return post;
-      }));
-      console.error('Failed to toggle reaction:', error);
-      toast({
-        title: "Error",
-        description: "Failed to add reaction",
-        variant: "destructive"
-      });
-    }
-  };
-
-  // Handle comment with Socket.io
-  const handleComment = async (postId: string) => {
-    const comment = prompt('Add your comment:');
-    if (!comment) return;
-    
-    // Emit typing start event
-    socket?.emit('typing-start', { postId });
-
-    try {
-      await postsAPI.addComment(postId, comment);
-      toast({ 
-        title: "Comment Added",
-        description: "Your comment has been posted"
-      });
-      // Update local state optimistically
-      setAllPosts(prev => prev.map(post => 
-        post.id === postId 
-          ? { ...post, commentsCount: (post.commentsCount || 0) + 1 }
-          : post
-      ));
-    } catch (error) {
-      console.error('Failed to add comment:', error);
-      toast({ 
-        title: "Error",
-        description: "Failed to post comment",
-        variant: "destructive"
-      });
-    } finally {
-      // Emit typing end event
-      socket?.emit('typing-end', { postId });
-    }
-  };
-
-  // Handle share with internal ShareModal
-  const handleShare = async (postId: string) => {
-    // Emit share event for real-time stats
-    socket?.emit('post-shared', { postId });
-    
-    // Find the post data for the modal
-    const post = allPosts.find(p => p.id === postId);
-    if (!post) {
-      toast({
-        title: "Error",
-        description: "Failed to share memory",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    // Open the share modal with the post data
-    setShareModalPost({
-      id: post.id,
-      content: post.content,
-      user: {
-        name: post.user?.name || 'Tango Dancer'
-      }
-    });
-    setIsShareModalOpen(true);
-    
-    // Track the share on backend
-    try {
-      await postsAPI.sharePost(postId);
-      // Refresh to update share count
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-    } catch (err) {
-      console.error('Failed to track share:', err);
-    }
-  };
 
   // ESA LIFE CEO 61×21 - Layer 9: Handle post edit with rich text editor
   const handleEditPost = (post: any) => {
     console.log('[ESA Layer 9] Opening edit modal with react-quill for post:', post.id);
     setEditingPost(post);
     setShowEditModal(true);
-  };
-
-  // ESA LIFE CEO 61×21 - Layer 9: BeautifulPostCreator handles edit internally
-  // No need for separate saveEditedPost - BeautifulPostCreator manages the API call
-
-  // Handle post delete with Socket.io
-  const handleDeletePost = async (postId: string) => {
-    if (!confirm('Are you sure you want to delete this post?')) return;
-    
-    try {
-      await postsAPI.deletePost(postId);
-      toast({
-        title: "Memory Deleted",
-        description: "Your memory has been removed"
-      });
-      // Remove from local state immediately
-      setAllPosts(prev => prev.filter(post => post.id !== postId));
-      // Emit delete event for other users
-      socket?.emit('post-delete', { postId });
-    } catch (error) {
-      console.error('Failed to delete post:', error);
-      toast({
-        title: "Error",
-        description: "Failed to delete memory",
-        variant: "destructive"
-      });
-    }
-  };
-
-  // Handle post report
-  const handleReportPost = async (postId: string, reason?: string) => {
-    const reportReason = reason || prompt('Please provide a reason for reporting this post:');
-    if (!reportReason) return;
-    
-    try {
-      await postsAPI.reportPost(postId, reportReason);
-      toast({
-        title: "Memory Reported",
-        description: "Thank you for your report. We'll review it soon."
-      });
-    } catch (error) {
-      console.error('Failed to report post:', error);
-      toast({
-        title: "Error",
-        description: "Failed to submit report",
-        variant: "destructive"
-      });
-    }
   };
 
   // Current user for dashboard
@@ -661,35 +254,14 @@ function ESAMemoryFeedCore() {
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
                     </div>
                   }>
-                    {/* Posts Feed - Feed Only Mode */}
-                    {isLoading ? (
-                      <div className="flex justify-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
-                      </div>
-                    ) : (
-                      <>
-                        <UnifiedPostFeed 
-                          showFilters={true} // ESA Layer 9: Show filter buttons for main feed
-                          showSearch={true} // ESA Layer 9: Show search bar for main feed
-                          posts={posts} // ESA Framework: Pass the actual posts data!
-                          currentUserId={currentUserId} // ESA Framework Layer 4: Pass authenticated user ID
-                          filters={feedFilters}
-                          onEdit={handleEditPost} // ESA Layer 9: Pass edit handler with rich text editor
-                          hasMore={hasMore}
-                          onLoadMore={() => setPage(prev => prev + 1)}
-                        />
-                        {/* Infinite scroll trigger */}
-                        <div ref={loadMoreRef} className="h-10" />
-                        {/* Loading more indicator */}
-                        {isFetching && (
-                          <div className="flex justify-center py-4">
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
-                              Loading more memories...
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    )}
+                    {/* Posts Feed - Context-Based Mode (UnifiedPostFeed handles all fetching/pagination) */}
+                    <UnifiedPostFeed 
+                      context={{ type: 'feed' }}
+                      showFilters={true}
+                      showSearch={true}
+                      currentUserId={currentUserId}
+                      onEdit={handleEditPost}
+                    />
                   </Suspense>
                 </div>
               </div>
