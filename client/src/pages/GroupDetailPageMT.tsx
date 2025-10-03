@@ -260,49 +260,12 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // TEMPORARY DEBUG: Direct fetch to bypass React Query
-  const [response, setResponse] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    if (!slug) {
-      console.log('[DEBUG] No slug, skipping fetch');
-      return;
-    }
-    
-    const url = `/api/groups/${slug}`;
-    console.log('[DEBUG] Starting fetch to:', url);
-    console.log('[DEBUG] Slug value:', slug, 'Type:', typeof slug);
-    setIsLoading(true);
-    
-    fetch(url, {
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(res => {
-        console.log('[DEBUG] Fetch completed! Status:', res.status, 'OK:', res.ok);
-        console.log('[DEBUG] Response headers:', Object.fromEntries(res.headers.entries()));
-        if (!res.ok) {
-          return res.text().then(text => {
-            console.error('[DEBUG] Error response body:', text);
-            throw new Error(`HTTP ${res.status}: ${text}`);
-          });
-        }
-        return res.json();
-      })
-      .then(data => {
-        console.log('[DEBUG] Group data received successfully:', data);
-        setResponse(data);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        console.error('[DEBUG] Fetch failed with error:', err.message);
-        console.error('[DEBUG] Full error:', err);
-        setError(err);
-        setIsLoading(false);
-      });
-  }, [slug]);
+  // Fetch group details using React Query with default fetcher
+  const { data: response, isLoading, error } = useQuery({
+    queryKey: [`/api/groups/${slug}`],
+    enabled: !!slug
+    // Uses default fetcher from queryClient
+  });
 
   // Extract group data from API response - handle both patterns
   console.log('Group API response:', response);
