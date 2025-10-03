@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import { Router as WouterRouter, Switch, Route, Redirect } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocketProvider } from "@/contexts/socket-context";
@@ -26,33 +27,6 @@ import "@/utils/console-cleanup"; // Security: Clean console output
 // ESA Life CEO 61x21 - Monitoring Services
 import { MonitoringProvider } from "@/components/MonitoringProvider";
 import { useMonitoring } from "@/hooks/useMonitoring";
-
-// Create queryClient inside App component to avoid initialization issues
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      queryFn: async ({ queryKey }) => {
-        const res = await fetch(queryKey[0] as string, {
-          credentials: "include",
-        });
-
-        if (!res.ok) {
-          const text = (await res.text()) || res.statusText;
-          throw new Error(`${res.status}: ${text}`);
-        }
-
-        return await res.json();
-      },
-      refetchInterval: false,
-      refetchOnWindowFocus: false,
-      staleTime: 60000,
-      retry: 1,
-    },
-    mutations: {
-      retry: 1,
-    },
-  },
-});
 
 // Critical components that load immediately - minimal initial bundle
 import NotFound from "@/pages/not-found";
