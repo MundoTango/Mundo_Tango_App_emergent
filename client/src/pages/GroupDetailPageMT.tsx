@@ -82,6 +82,22 @@ export default function GroupDetailPageMT() {
   // Socket.io connection reference (persisted across renders)
   const socketRef = React.useRef<Socket | null>(null);
   
+  // Helper function to update tab and URL simultaneously
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab);
+    
+    // Update URL with tab parameter for proper back button navigation
+    const params = new URLSearchParams(window.location.search);
+    if (newTab === 'posts') {
+      params.delete('tab'); // Default tab doesn't need param
+    } else {
+      params.set('tab', newTab);
+    }
+    
+    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+    window.history.replaceState({}, '', newUrl);
+  };
+  
   // Read URL query parameters for tab and filter on mount
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -1526,7 +1542,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setActiveTab('posts')}
+                      onClick={() => handleTabChange('posts')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'posts' 
@@ -1545,7 +1561,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setActiveTab('events')}
+                      onClick={() => handleTabChange('events')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'events' 
@@ -1564,7 +1580,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setActiveTab('members')}
+                      onClick={() => handleTabChange('members')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'members' 
@@ -1583,7 +1599,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() => setActiveTab('community-hub')}
+                      onClick={() => handleTabChange('community-hub')}
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'community-hub' 
@@ -1604,7 +1620,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => setActiveTab('housing')}
+                          onClick={() => handleTabChange('housing')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'housing' 
@@ -1623,7 +1639,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => setActiveTab('recommendations')}
+                          onClick={() => handleTabChange('recommendations')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'recommendations' 
