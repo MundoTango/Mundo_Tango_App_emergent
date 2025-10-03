@@ -1,12 +1,14 @@
 import { db } from '../db';
 import { groups, events } from '../../shared/schema';
 import { eq, and, sql } from 'drizzle-orm';
+import { CityAutoCreationService } from './cityAutoCreationService';
 
 interface EventWithCity {
   id?: number;
   city?: string | null;
   country?: string | null;
   groupId?: number | null;
+  userId?: number | null;
 }
 
 export async function autoAssociateEventWithCityGroup<T extends EventWithCity>(
@@ -37,12 +39,34 @@ export async function autoAssociateEventWithCityGroup<T extends EventWithCity>(
 
     if (cityGroup.length > 0) {
       event.groupId = cityGroup[0].id;
-      console.log('[EventGroup] Auto-associated event with city group:', {
+      console.log('[EventGroup] Auto-associated event with existing city group:', {
         eventId: event.id,
         eventCity: event.city,
         groupId: cityGroup[0].id,
         groupName: cityGroup[0].name
       });
+    } else {
+      // No matching group found - auto-create it
+      console.log('[EventGroup] No matching group found, creating city group for:', event.city);
+      const createdGroupId = await CityAutoCreationService.processEventCity(
+        event.city,
+        event.userId || 1
+      );
+      
+      if (createdGroupId) {
+        event.groupId = createdGroupId;
+        console.log('[EventGroup] Auto-created and associated event with new city group:', {
+          eventId: event.id,
+          eventCity: event.city,
+          groupId: createdGroupId
+        });
+      } else {
+        console.warn('[EventGroup] Failed to create city group for event:', {
+          eventId: event.id,
+          city: event.city,
+          country: event.country
+        });
+      }
     }
   } catch (error) {
     console.error('[EventGroup] Failed to auto-associate:', error);
