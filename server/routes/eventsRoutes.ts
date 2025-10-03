@@ -149,7 +149,8 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
       tags,
       startDate,
       endDate,
-      visibility = 'public'
+      visibility = 'public',
+      groupId
     } = req.query;
 
     const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
@@ -161,6 +162,15 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
     
     if (startDate) {
       whereConditions.push(gte(events.startDate, new Date(startDate as string)));
+    }
+
+    // Filter by groupId if provided (for city group event pages)
+    if (groupId) {
+      const groupIdValue = Array.isArray(groupId) ? groupId[0] : groupId;
+      const groupIdNum = parseInt(groupIdValue as string);
+      if (!isNaN(groupIdNum)) {
+        whereConditions.push(eq(events.groupId, groupIdNum));
+      }
     }
 
     let query = db
