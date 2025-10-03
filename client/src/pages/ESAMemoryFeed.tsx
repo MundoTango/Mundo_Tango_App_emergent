@@ -21,7 +21,7 @@ import DashboardLayout from '@/layouts/DashboardLayout';
 import PostCreator from '@/components/universal/PostCreator';
 // ESA LIFE CEO 61×21 - Using unified feed component following Layer 9 UI Framework
 // Direct import instead of lazy to fix rendering issue
-import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
+import PostFeed from '@/components/moments/PostFeed';
 const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEventsSidebar'));
 const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
@@ -63,7 +63,7 @@ function ESAMemoryFeedCore() {
         title: "Memory Shared",
         description: "Your memory has been shared successfully"
       });
-      // Refresh the feed - UnifiedPostFeed will handle re-fetching
+      // Refresh the feed - PostFeed will handle re-fetching
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       setShowCreateModal(false);
     },
@@ -98,7 +98,7 @@ function ESAMemoryFeedCore() {
         case 'r':
           if (e.ctrlKey || e.metaKey) {
             e.preventDefault();
-            // Refresh feed - UnifiedPostFeed will handle re-fetching
+            // Refresh feed - PostFeed will handle re-fetching
             queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
           }
           break;
@@ -254,8 +254,8 @@ function ESAMemoryFeedCore() {
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
                     </div>
                   }>
-                    {/* Posts Feed - Context-Based Mode (UnifiedPostFeed handles all fetching/pagination) */}
-                    <UnifiedPostFeed 
+                    {/* Posts Feed - Context-Based Mode (PostFeed handles all fetching/pagination) */}
+                    <PostFeed 
                       context={{ type: 'feed' }}
                       showFilters={true}
                       showSearch={true}

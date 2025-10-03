@@ -29,7 +29,7 @@ import VisitorAlerts from '@/components/VisitorAlerts';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
-import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
+import PostFeed from '@/components/moments/PostFeed';
 import PostCreator from '@/components/universal/PostCreator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import '../styles/ttfiles.css';
@@ -162,7 +162,7 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
-  // Note: Post fetching now handled by UnifiedPostFeed context-based approach
+  // Note: Post fetching now handled by PostFeed context-based approach
   
   const formatTimeAgo = (date: string) => {
     const now = new Date();
@@ -213,7 +213,7 @@ export default function GroupDetailPageMT() {
     }
   }, [group, slug]);
 
-  // Note: Cache invalidation now handled by UnifiedPostFeed
+  // Note: Cache invalidation now handled by PostFeed
 
   // Auto-minimize PostCreator when switching tabs
   useEffect(() => {
@@ -290,7 +290,7 @@ export default function GroupDetailPageMT() {
     socket.on('group:new_post', (data: any) => {
       console.log('📝 New post in group:', data);
       if (data.groupId === group.id && activeTab === 'posts') {
-        // Note: UnifiedPostFeed handles its own refreshing via context
+        // Note: PostFeed handles its own refreshing via context
         toast({
           title: 'New Post',
           description: `${data.username} posted in the group`,
@@ -931,7 +931,7 @@ export default function GroupDetailPageMT() {
                 profileImage: user.profileImage
               } : undefined}
               onPostCreated={() => {
-                // Note: UnifiedPostFeed handles its own cache invalidation
+                // Note: PostFeed handles its own cache invalidation
                 queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
                 setIsPostCreatorExpanded(false); // Collapse after posting
               }}
@@ -1093,7 +1093,7 @@ export default function GroupDetailPageMT() {
   
         {/* Posts Feed - Context-based smart mode */}
         {group?.id ? (
-          <UnifiedPostFeed 
+          <PostFeed 
             context={{
               type: 'group',
               groupId: group.id,
