@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a comprehensive digital ecosystem featuring an AI-powered life management system (Life CEO) and independent, data-isolated social community platforms, starting with Mundo Tango. The Life CEO System uses 16 specialized AI agents for personalized life management with a mobile-first, voice-controlled approach. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer facilitates secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform prioritizes security, performance, and user experience, incorporating a global payment system, advanced internationalization, comprehensive administrative controls, and AI-powered performance optimization. It is production-ready with full AI integration, PWA capabilities, and enterprise-grade security, designed for significant market potential and ambitious growth.
+This project is an AI-powered life management system (Life CEO) integrated with independent, data-isolated social community platforms, beginning with Mundo Tango. The Life CEO System leverages 16 specialized AI agents for personalized life management with a mobile-first, voice-controlled interface. Community Platforms provide social networking, event management, and real-time messaging. An Integration Layer ensures secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform emphasizes security, performance, and user experience, incorporating a global payment system, advanced internationalization, comprehensive administrative controls, and AI-driven performance optimization. It is designed as a production-ready system with full AI integration, PWA capabilities, and enterprise-grade security, targeting significant market potential and ambitious growth.
 
 ## User Preferences
 
@@ -13,62 +13,50 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 
 ## System Architecture
 
-The platform employs a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
+The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 **UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-blue gradients (#40E0D0 → #1E90FF → #0047AB).
-  - ✅ **Token-Based Architecture** (October 2025): Comprehensive design token system in `client/src/styles/design-tokens.css` with 30+ utility classes for colors, spacing, shadows, typography. Single source of truth for all styling.
-  - ✅ **Updated Color Palette** (October 1, 2025): Turquoise (#40E0D0) to Dodger Blue (#1E90FF) to Cobalt Blue (#0047AB) gradient. All colors in modern HSLA format. Dark mode uses cobalt blue family (hsl 218°) for consistency.
-  - ✅ **Phase 1 Complete**: Sidebar and UnifiedTopBar fully refactored - zero inline styles, zero JS hover handlers, zero hardcoded hex values. WCAG AA compliant contrast in both light/dark themes.
-  - ✅ **Sidebar Profile Section** (October 1, 2025): Fully clickable profile card with navigation to `/profile/{userId}`. Interactive hover states: card scales 1.02x, avatar 1.1x, name changes to turquoise, username brightens. Integrated RoleEmojiDisplay for tango role badges.
-  - 📋 **Rollout Guide**: See `docs/design/MT_OCEAN_DESIGN_ROLLOUT.md` for page-by-page implementation strategy (Dashboard/Feed, Profile/Settings, Admin pages pending).
-- **Responsiveness**: Mobile-first design.
-- **Interaction**: Micro-interactions including ripple effects, magnetic buttons, confetti, and particle effects.
-- **Theming**: Comprehensive system supporting site-wide visual transformations and various themes.
+- **Design System**: "MT Ocean Theme" with glassmorphic elements and turquoise-to-blue gradients. It uses a comprehensive design token system for styling, ensuring a single source of truth.
+- **Responsiveness**: Mobile-first design approach.
+- **Interaction**: Incorporates micro-interactions such as ripple effects, magnetic buttons, confetti, and particle effects.
+- **Theming**: Features a comprehensive theming system for site-wide visual transformations.
 
 **Technical Implementations:**
 - **Frontend**: React with functional components, hooks, React Query, and context APIs.
 - **Backend**: Node.js with Express.js and TypeScript.
-- **Real-time**: WebSocket (Socket.io).
-- **Authentication**: JWT-based and session-based with RBAC/ABAC using `@casl/ability`.
+- **Real-time**: WebSocket communication via Socket.io.
+- **Authentication**: JWT and session-based authentication with RBAC/ABAC using `@casl/ability`.
 - **Database Interaction**: Drizzle ORM for PostgreSQL.
 - **Container Orchestration**: Docker stack.
 - **Automation Platform**: n8n integration.
-- **Automated Testing**: TestSprite AI.
-- **Performance**: Lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
-- **Internationalization**: ⚠️ BROKEN - Translation generation works (68 languages via OpenAI), but UI integration non-functional. Language switching doesn't work, components don't re-render with translations. See docs/pages/esa-layers/layer-53-internationalization.md for details.
+- **Automated Testing**: Utilizes TestSprite AI.
+- **Performance**: Implements lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
+- **Internationalization**: Translation generation is functional (68 languages via OpenAI), but UI integration for language switching and component re-rendering is pending.
 - **Payments**: Full Stripe integration.
-- **Media Upload System**: Hybrid approach with YouTube/Vimeo URLs, Cloudinary uploads, and server uploads with client-side compression.
+- **Media Upload System**: Hybrid approach supporting YouTube/Vimeo URLs, Cloudinary, and direct server uploads with client-side compression.
 
 **Feature Specifications:**
-- **User Profiles**: Comprehensive profiles with community-specific roles, travel details, and engagement systems.
-- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds. Entity-specific post navigation.
-- **Community Management**: City-specific groups, event management (with RSVP system), housing listings, and recommendations.
-  - ✅ **Group Posts Tab** (October 2, 2025): Fully redesigned with Memories Feed style. Post creator positioned above filter buttons, integrated CleanMemoryCard component for modern post display with colored mention links. Backend API unified across all 5 filter types (residents/visitors/members/non-members/all) to return complete user profile data (username, city, country, tangoRoles) for consistent location and role emoji display matching Memories feed.
-  - ✅ **Group Posts Edit/Delete Parity** (October 3, 2025): Fixed edit and delete actions to work identically to Memories feed. Added post normalization to prevent Zod validation errors, implemented local state handlers (handlePostUpdated, handlePostDeleted) to sync UI with mutations, and added onDelete callback to EnhancedPostItem. All post actions (like, comment, share, delete, edit, report) now work correctly in Groups feed across all filter contexts.
-  - ✅ **Service Worker TypeScript Bug Fix** (October 3, 2025): CRITICAL FIX - Service worker file `client/public/sw.js` contained TypeScript type annotations (`: Request`, `: Promise<Response>`) in what should be plain JavaScript, preventing browser registration with error "ServiceWorker script evaluation failed". This caused API caching issues, 400/401 errors, and Groups page loading failures. Fixed by removing all 8 TypeScript annotations from service worker functions. Service Worker must always be plain JavaScript as browsers execute it directly without transpilation. See `docs/troubleshooting/SERVICE_WORKER_TYPESCRIPT_BUG.md` for complete details and prevention guidelines.
-  - ✅ **Complete Architectural Unification** (October 3, 2025): Achieved zero-duplication feed architecture where Groups is truly "Memory Feed filtered by group." Refactored PostFeed to support context-based data fetching (feed/group/profile/event types), eliminating ~430 lines of duplicate code. Both ESAMemoryFeed and GroupDetailPageMT are now thin wrappers passing context to PostFeed, which handles all internal data fetching, pagination, infinite scroll, loading states, and cache invalidation. Fixed critical pagination reset bug ensuring filter/search changes reset to page 1. All post actions (create/edit/delete/like/comment/share) work identically across both feeds with shared mutation logic. Pattern: `<PostFeed context={{type: 'feed'|'group', groupId?, filter?}} />` enables any parent component to render a fully functional feed with zero duplicate state management.
-  - ✅ **Events-Groups Integration** (October 3, 2025): Events now automatically associate with matching city groups. Schema migrated `events.groupId` from UUID to INTEGER with FK to `groups.id` (safe migration - all values were NULL). Automation service (`eventGroupService.ts`) performs case-insensitive city/country matching on event create/update. New API endpoint: `GET /api/groups/:slug/events` returns all events for a group (supports both slug and numeric ID). Database index on `events.group_id` for query performance. Buenos Aires event successfully associated with Buenos Aires group and verified via API. Backfill complete: 1/5 events associated (others lack matching city groups). Pattern enables unified event displays within group pages.
-  - ✅ **City Group Auto-Creation Critical Fixes** (October 3, 2025): Resolved 3 critical issues in event-to-group auto-association: (1) **Country Parameter**: `createOrGetCityGroup()` now accepts country parameter, prevents ambiguous city matching (Paris, France vs Paris, Texas), passes country to Nominatim geocoding API. (2) **Geocoding Cache & Rate Limiting**: In-memory cache with 24-hour TTL prevents repeated API calls, 1-second delay between calls respects OpenStreetMap Nominatim usage policy, caches both successes and failures. (3) **Race Condition Protection**: Try-catch around group creation detects duplicate key violations (PostgreSQL error 23505), retry logic fetches existing group on conflict. Database constraint: `CREATE UNIQUE INDEX unique_city_group_idx ON groups (type, LOWER(city), LOWER(COALESCE(country, ''))) WHERE type = 'city'` - uses COALESCE to treat NULL countries as empty strings, preventing NULL-based duplicates. Duplicate Buenos Aires group #7 cleaned up before constraint creation. All database lookups use NULL-safe comparison for consistency.
-  - ✅ **Event Card Navigation & Dialog Context Fix** (October 3, 2025): CRITICAL FIX - Resolved "Invalid hook call - Cannot read properties of null (reading 'useHref')" error when navigating to event detail pages. Root cause: App.tsx was missing wouter's Router wrapper, causing Radix UI Dialog portals to lose routing context. Solution: Added `<Router>` wrapper around Switch component in App.tsx, providing routing context to all components including portal-rendered dialogs. Event cards now fully clickable using `handleCardClick` with `e.stopPropagation()` on buttons to prevent double-navigation. Navigation uses wouter's `setLocation` hook for client-side routing, maintaining context across all components. All Dialog components (payment, edit, RSVP) now work correctly without hook errors. Pattern: Always wrap Wouter routes with `<Router>` at app root level to ensure portal components can access routing hooks.
-- **Tango World Map**: ✅ Fully functional interactive map at `/community-world-map` showing tango communities worldwide with Leaflet.js. Features: color-coded city markers by member count, map legend, statistics tabs, and city search. See `docs/pages/MUNDO_TANGO_WORLD_MAP.md` for details. Known limitations: role filtering UI present but not server-implemented, N+1 query performance issue.
-- **Admin Center**: Dashboard for user management, content moderation, analytics, and system health.
-- **AI Integration**: 16 Life CEO agents with semantic memory and self-learning capabilities; AI-powered analytics.
-- **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
-- **Reporting System**: Comprehensive content reporting with moderation workflows.
+- **User Profiles**: Comprehensive profiles including community-specific roles, travel details, and engagement systems.
+- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds with entity-specific post navigation.
+- **Community Management**: Features city-specific groups, event management with RSVP, housing listings, and recommendations. Group posts tab redesigned for enhanced user experience and architectural unification with the main feed.
+- **Tango World Map**: Interactive map showing global tango communities with Leaflet.js, featuring color-coded markers, map legend, statistics, and city search.
+- **Admin Center**: Provides a dashboard for user management, content moderation, analytics, and system health monitoring.
+- **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics.
+- **Security**: Implements Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
+- **Reporting System**: Comprehensive content reporting with defined moderation workflows.
 - **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
-- **Maps**: Interactive maps for community features and host onboarding.
-- **Automations**: Automated city/professional group assignment and geocoding.
-- **Navigation**: Unified top navigation bar and refactored sidebar.
-- **Testing Infrastructure**: ✅ Comprehensive test coverage for Memories Feed components. All 5 components (CleanMemoryCard, VideoMemoryCard, RichTextCommentEditor, FacebookReactionSelector, ReportModal) fully instrumented with data-testid attributes following namespace strategy. 36 end-to-end test cases defined with real PostgreSQL database integration via Drizzle ORM. Test infrastructure complete, authentication integration pending. See `docs/testing/memories-feed-component-testing.md` for details.
+- **Maps**: Interactive maps for various community features and host onboarding processes.
+- **Automations**: Automated city/professional group assignment and geocoding services.
+- **Navigation**: Features a unified top navigation bar and refactored sidebar.
+- **Testing Infrastructure**: Comprehensive test coverage, especially for Memories Feed components, with end-to-end tests and real database integration.
 
 **System Design Choices:**
-- **Microservices**: Decoupled Life CEO, Community Platforms, and Integration Layer.
+- **Microservices**: Decoupled architecture for Life CEO, Community Platforms, and Integration Layer.
 - **Data Sovereignty**: Each system maintains an isolated database.
-- **API-First**: All inter-system communication via versioned APIs with consistent data contracts.
-- **Framework**: Systematic development methodology across 44 technical layers and 21 development phases (ESA LIFE CEO 61x21).
-- **PWA**: Progressive Web App capabilities for mobile experience.
-- **Critical Architecture Decisions**: CommonJS for server modules, JavaScript launcher for TypeScript server via `tsx`, independent frontend builds, 4GB heap allocation with garbage collection, Vite bypass in production, static file serving for uploads and images, disabled React StrictMode in development, and a console cleanup utility for production.
+- **API-First**: All inter-system communication is via versioned APIs with consistent data contracts.
+- **Framework**: Adheres to the ESA LIFE CEO 61x21 systematic development methodology.
+- **PWA**: Progressive Web App capabilities for an optimized mobile experience.
+- **Critical Architecture Decisions**: Includes using CommonJS for server modules, JavaScript launcher for TypeScript server via `tsx`, independent frontend builds, 4GB heap allocation with garbage collection, Vite bypass in production, static file serving, disabled React StrictMode in development, and a console cleanup utility for production.
 
 ## External Dependencies
 

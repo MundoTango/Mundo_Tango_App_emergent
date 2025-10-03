@@ -255,7 +255,7 @@ async function handleOfflinePost(request) {
 }
 
 // ============= Background Sync =============
-self.addEventListener('sync', (event: any) => {
+self.addEventListener('sync', (event) => {
   if (event.tag === 'offline-posts') {
     event.waitUntil(syncOfflineRequests());
   }
