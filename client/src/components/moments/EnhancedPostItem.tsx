@@ -83,6 +83,7 @@ interface PostItemProps {
   onLike: (postId: number) => void;
   onShare: (post: Post) => void;
   onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
+  onDelete?: (postId: number) => void; // Callback after successful deletion
   apiBasePath?: string; // API endpoint base path (default: '/api/posts')
   cacheKeys?: string[]; // Cache keys to invalidate on mutations (default: ['/api/posts/feed', '/api/posts'])
 }
@@ -93,6 +94,7 @@ function EnhancedPostItem({
   onLike, 
   onShare, 
   onEdit,
+  onDelete,
   apiBasePath = '/api/posts',
   cacheKeys = ['/api/posts/feed', '/api/posts']
 }: PostItemProps) {
@@ -343,6 +345,11 @@ function EnhancedPostItem({
           cacheKeys.forEach(key => {
             queryClient.invalidateQueries({ queryKey: [key] });
           });
+          
+          // Notify parent component of deletion
+          if (onDelete) {
+            onDelete(post.id);
+          }
         } else {
           const errorData = await response.text();
           // Delete failed
