@@ -1,5 +1,4 @@
 import React from 'react';
-import TTEventCard from '@/components/ttfiles/TTEventCard';
 import TTProfileHead from '@/components/ttfiles/TTProfileHead';
 import TTCommunityCard from '@/components/ttfiles/TTCommunityCard';
 import { useLocation } from 'wouter';
@@ -8,25 +7,6 @@ import '../styles/ttfiles.css';
 
 const TTfilesDemo = () => {
   const [, setLocation] = useLocation();
-
-  // Sample data
-  const sampleEvent = {
-    id: '1',
-    title: 'Classic Milonga Night at Salon Canning',
-    description: 'Traditional milonga with live orchestra featuring Orquesta Típica Fernández Fierro. Dance the night away in one of Buenos Aires\' most iconic venues.',
-    date: new Date(2025, 6, 15),
-    time: '9:00 PM - 3:00 AM',
-    location: 'Salon Canning, Av. Scalabrini Ortiz 1331, Buenos Aires',
-    organizer: {
-      name: 'Milonga Parakultural',
-      avatar: undefined
-    },
-    attendees: 142,
-    maxAttendees: 200,
-    eventType: 'Milonga',
-    price: '25',
-    isGoing: false
-  };
 
   const sampleUser = {
     id: '1',
@@ -72,42 +52,6 @@ const TTfilesDemo = () => {
               user={sampleUser}
               isOwnProfile={true}
               onEditProfile={() => alert('Edit profile clicked')}
-            />
-          </div>
-        </div>
-
-        {/* Event Cards Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">TTEventCard Components</h2>
-          <div className="tt-grid tt-grid-cols-3">
-            <TTEventCard 
-              {...sampleEvent}
-              onRSVP={(id) => alert(`RSVP for event ${id}`)}
-              onClick={() => alert('Event card clicked')}
-            />
-            <TTEventCard 
-              {...sampleEvent}
-              id="2"
-              title="Beginner Tango Workshop"
-              description="Learn the fundamentals of Argentine Tango with experienced instructors in a friendly environment."
-              eventType="Workshop"
-              price="0"
-              date={new Date(2025, 6, 18)}
-              time="6:00 PM - 8:00 PM"
-              attendees={28}
-              maxAttendees={30}
-            />
-            <TTEventCard 
-              {...sampleEvent}
-              id="3"
-              title="Tango Festival Buenos Aires 2025"
-              description="Annual tango festival featuring world-renowned dancers, orchestras, and special performances."
-              eventType="Festival"
-              price="150"
-              date={new Date(2025, 7, 5)}
-              time="All Day Event"
-              attendees={850}
-              isGoing={true}
             />
           </div>
         </div>
