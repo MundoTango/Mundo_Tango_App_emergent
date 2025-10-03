@@ -49,6 +49,7 @@ import {
 } from 'react-share';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import PostFeed from '@/components/moments/PostFeed';
 
 interface EventDetail {
   id: number;
@@ -137,19 +138,6 @@ export default function EventDetailPage() {
         credentials: 'include'
       });
       if (!response.ok) throw new Error('Failed to fetch posts');
-      return response.json();
-    }
-  });
-
-  // Fetch event posts for Posts tab
-  const { data: eventPosts, isLoading: eventPostsLoading, error: eventPostsError } = useQuery({
-    queryKey: [`/api/events/${id}/posts`, postFilter],
-    enabled: !!id,
-    queryFn: async () => {
-      const response = await fetch(`/api/events/${id}/posts?filter=${postFilter}`, {
-        credentials: 'include'
-      });
-      if (!response.ok) throw new Error('Failed to fetch event posts');
       return response.json();
     }
   });
@@ -660,94 +648,14 @@ export default function EventDetailPage() {
                     </Button>
                   </div>
 
-                  {/* Posts Feed */}
-                  {eventPostsLoading ? (
-                    <div className="flex flex-col items-center justify-center py-16">
-                      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
-                      <p className="text-gray-500 text-sm">Loading posts...</p>
-                    </div>
-                  ) : eventPostsError ? (
-                    <div className="text-center py-12">
-                      <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-3" />
-                      <p className="text-red-600 font-medium">Failed to load posts</p>
-                      <p className="text-gray-500 text-sm mt-2">
-                        Please try again later or contact support if the issue persists.
-                      </p>
-                    </div>
-                  ) : eventPosts?.success && eventPosts?.data?.length > 0 ? (
-                    <div className="space-y-4">
-                      {eventPosts.data.map((post: any) => (
-                        <Card 
-                          key={post.id} 
-                          className="overflow-hidden border-turquoise-100 hover:shadow-lg transition-shadow duration-200"
-                          data-testid={`post-card-${post.id}`}
-                        >
-                          <CardContent className="p-5">
-                            <div className="flex items-start gap-4">
-                              <Avatar className="h-12 w-12 ring-2 ring-turquoise-200">
-                                <AvatarImage src={post.user?.profileImage} />
-                                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-400 text-white">
-                                  {post.user?.firstName?.[0] || post.user?.lastName?.[0] || 'U'}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                  <p className="font-semibold text-gray-900">
-                                    {post.user?.firstName && post.user?.lastName
-                                      ? `${post.user.firstName} ${post.user.lastName}`
-                                      : post.user?.firstName || post.user?.lastName || 'Unknown User'}
-                                  </p>
-                                  <Badge variant="outline" className="text-xs bg-turquoise-50 text-turquoise-700 border-turquoise-200">
-                                    {post.isParticipant ? 'Participant' : 'Guest'}
-                                  </Badge>
-                                  <span className="text-sm text-gray-500">
-                                    {post.createdAt ? format(new Date(post.createdAt), 'MMM d, yyyy • h:mm a') : ''}
-                                  </span>
-                                </div>
-                                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                                  {post.content}
-                                </p>
-                                {post.imageUrl && (
-                                  <div className="mt-4">
-                                    <LazyLoadImage
-                                      src={post.imageUrl}
-                                      alt="Post image"
-                                      effect="blur"
-                                      className="rounded-lg max-w-full h-auto shadow-md"
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
-                                  <div className="flex items-center gap-1">
-                                    <Heart className="h-4 w-4" />
-                                    <span>{post.likesCount || 0}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <MessageSquare className="h-4 w-4" />
-                                    <span>{post.commentsCount || 0}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-16">
-                      <div className="bg-gradient-to-br from-turquoise-50 to-cyan-50 rounded-full p-6 w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-                        <FileText className="h-12 w-12 text-turquoise-500" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No posts yet</h3>
-                      <p className="text-gray-500 max-w-md mx-auto">
-                        {postFilter === 'all' 
-                          ? 'Be the first to share something about this event!'
-                          : postFilter === 'participants'
-                          ? 'No posts from event participants yet.'
-                          : 'No posts from guests mentioning this event yet.'}
-                      </p>
-                    </div>
-                  )}
+                  {/* Unified PostFeed Component */}
+                  <PostFeed 
+                    context={{ 
+                      type: 'event', 
+                      eventId: parseInt(id || '0'), 
+                      filter: postFilter 
+                    }}
+                  />
                 </div>
               </TabsContent>
 
