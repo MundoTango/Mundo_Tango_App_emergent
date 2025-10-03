@@ -94,7 +94,23 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    const [url, params] = queryKey;
+    
+    let fetchUrl = url as string;
+    if (params && typeof params === 'object') {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          searchParams.append(key, String(value));
+        }
+      });
+      const queryString = searchParams.toString();
+      if (queryString) {
+        fetchUrl = `${fetchUrl}?${queryString}`;
+      }
+    }
+    
+    const res = await fetch(fetchUrl, {
       headers: {
         'Content-Type': 'application/json'
       },
