@@ -903,6 +903,76 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
   }
 });
 
+// Get group events
+router.get('/groups/:groupId/events', setUserContext, async (req, res) => {
+  try {
+    const groupSlugOrId = req.params.groupId;
+    const { page = '1', limit = '20' } = req.query;
+    const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
+
+    // Get group details by slug or ID
+    const parsedId = parseInt(groupSlugOrId);
+    const [group] = await db.select()
+      .from(groups)
+      .where(
+        isNaN(parsedId) 
+          ? eq(groups.slug, groupSlugOrId)
+          : eq(groups.id, parsedId)
+      );
+
+    if (!group) {
+      return res.status(404).json({ success: false, error: 'Group not found' });
+    }
+
+    const groupId = group.id;
+
+    // Fetch events for this group with organizer information
+    const groupEvents = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        imageUrl: events.imageUrl,
+        eventType: events.eventType,
+        startDate: events.startDate,
+        endDate: events.endDate,
+        location: events.location,
+        venue: events.venue,
+        address: events.address,
+        city: events.city,
+        country: events.country,
+        price: events.price,
+        currency: events.currency,
+        ticketUrl: events.ticketUrl,
+        maxAttendees: events.maxAttendees,
+        currentAttendees: events.currentAttendees,
+        isPublic: events.isPublic,
+        level: events.level,
+        status: events.status,
+        isRecurring: events.isRecurring,
+        recurringPattern: events.recurringPattern,
+        createdAt: events.createdAt,
+        organizer: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        }
+      })
+      .from(events)
+      .leftJoin(users, eq(events.organizerId, users.id))
+      .where(eq(events.groupId, groupId))
+      .orderBy(desc(events.startDate))
+      .limit(parseInt(limit as string))
+      .offset(offset);
+
+    return res.json({ success: true, data: groupEvents });
+  } catch (error) {
+    console.error('Error fetching group events:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch group events' });
+  }
+});
+
 // ========== USER-NAMESPACED ENDPOINTS FOR FRONTEND COMPATIBILITY ==========
 // These endpoints map to the existing group endpoints but use slug-based routing
 
