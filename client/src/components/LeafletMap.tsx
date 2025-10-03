@@ -21,6 +21,7 @@ interface MapCity {
   memberCount?: number | string;
   totalUsers?: number;
   eventCount?: number;
+  slug?: string;
 }
 
 interface LeafletMapProps {
