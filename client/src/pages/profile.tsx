@@ -29,8 +29,7 @@ import {
   LazyTravelDetailsComponent,
   LazyGuestProfileDisplay,
   GalleryFallback,
-  ListFallback,
-  PostFeedFallback
+  ListFallback
 } from '@/components/profile/OptimizedProfileComponents';
 import PostFeed from '@/components/moments/PostFeed';
 
