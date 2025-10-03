@@ -616,4 +616,120 @@ export class CityAutoCreationService {
       return null;
     }
   }
+
+  /**
+   * Geocode event location to get coordinates
+   * Tries full address first, falls back to city only
+   */
+  static async geocodeEventLocation(params: {
+    city?: string;
+    location?: string;
+    country?: string;
+  }): Promise<{ latitude: string; longitude: string } | null> {
+    try {
+      const { city, location, country } = params;
+      
+      if (!city && !location) {
+        console.warn('[Event Geocode] No city or location provided');
+        return null;
+      }
+
+      // Build search query - avoid duplicating city if it's already in location
+      let searchQuery = '';
+      if (location) {
+        // If location already contains the city name, just use location
+        if (city && location.toLowerCase().includes(city.toLowerCase())) {
+          searchQuery = location;
+          if (country && !location.toLowerCase().includes(country.toLowerCase())) {
+            searchQuery += `, ${country}`;
+          }
+        } else {
+          // Location doesn't contain city, add both
+          searchQuery = location;
+          if (city) searchQuery += `, ${city}`;
+          if (country) searchQuery += `, ${country}`;
+        }
+      } else if (city) {
+        searchQuery = city;
+        if (country) searchQuery += `, ${country}`;
+      }
+
+      // Normalize and check cache
+      const cacheKey = searchQuery.toLowerCase().trim();
+      const cached = this.geocodeCache.get(cacheKey);
+      if (cached && (Date.now() - cached.timestamp < this.CACHE_TTL)) {
+        console.log(`[Event Geocode] Using cached result for: ${searchQuery}`);
+        if (cached.data) {
+          return {
+            latitude: cached.data.lat.toString(),
+            longitude: cached.data.lon.toString()
+          };
+        }
+        return null;
+      }
+
+      // Rate limiting
+      const timeSinceLastCall = Date.now() - this.lastGeocodingCall;
+      if (timeSinceLastCall < this.MIN_GEOCODING_DELAY) {
+        const waitTime = this.MIN_GEOCODING_DELAY - timeSinceLastCall;
+        console.log(`[Event Geocode] Rate limiting: waiting ${waitTime}ms`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+      }
+
+      const encodedQuery = encodeURIComponent(searchQuery);
+      this.lastGeocodingCall = Date.now();
+
+      console.log(`[Event Geocode] Geocoding: ${searchQuery}`);
+      
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodedQuery}&format=json&addressdetails=1&limit=1`,
+        {
+          headers: {
+            'User-Agent': 'MundoTango/1.0 (https://mundotango.life)'
+          }
+        }
+      );
+
+      if (!response.ok) {
+        console.error(`[Event Geocode] Failed for ${searchQuery}: ${response.statusText}`);
+        this.geocodeCache.set(cacheKey, { data: null, timestamp: Date.now() });
+        return null;
+      }
+
+      const data = await response.json() as any[];
+
+      if (data.length === 0) {
+        console.warn(`[Event Geocode] No results for ${searchQuery}`);
+        
+        // Fallback: if full address failed, try just the city
+        if (location && city) {
+          console.log(`[Event Geocode] Retrying with city only: ${city}`);
+          return await this.geocodeEventLocation({ city, country });
+        }
+        
+        this.geocodeCache.set(cacheKey, { data: null, timestamp: Date.now() });
+        return null;
+      }
+
+      const result = data[0];
+      const geoResult: GeocodingResult = {
+        lat: parseFloat(result.lat),
+        lon: parseFloat(result.lon),
+        display_name: result.display_name,
+        address: result.address || {}
+      };
+
+      // Cache the result
+      this.geocodeCache.set(cacheKey, { data: geoResult, timestamp: Date.now() });
+      console.log(`✅ [Event Geocode] Success for ${searchQuery}: ${geoResult.lat}, ${geoResult.lon}`);
+
+      return {
+        latitude: geoResult.lat.toString(),
+        longitude: geoResult.lon.toString()
+      };
+    } catch (error) {
+      console.error('[Event Geocode] Error:', error);
+      return null;
+    }
+  }
 }

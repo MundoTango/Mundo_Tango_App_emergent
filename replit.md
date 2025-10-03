@@ -45,8 +45,8 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Security**: Implements Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Reporting System**: Comprehensive content reporting with defined moderation workflows.
 - **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
-- **Maps**: Interactive maps for various community features and host onboarding processes.
-- **Automations**: Automated city/professional group assignment and geocoding services.
+- **Maps**: Interactive maps for various community features and host onboarding processes. Event maps with automatic geocoding using OpenStreetMap Nominatim API.
+- **Automations**: Automated city/professional group assignment and geocoding services. Events are automatically geocoded on creation and via bulk admin endpoint.
 - **Navigation**: Features a unified top navigation bar and refactored sidebar.
 - **Testing Infrastructure**: Comprehensive test coverage, especially for Memories Feed components, with end-to-end tests and real database integration.
 
