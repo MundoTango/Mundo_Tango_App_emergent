@@ -191,7 +191,7 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
   - 📅 Events - **FIXED**: API endpoint corrected from `/api/events` to `/api/events/feed`
   - 📬 Role Invitations - **FIXED**: Added 4 new API endpoints for role-based system
 - [See Friendship Button](/docs/pages/components/SeeFriendshipButton.md) - Social connection feature - Quick navigation to friendship timeline
-- [UnifiedPostFeed](/docs/pages/components/UnifiedPostFeed.md) - Consolidated feed component - Unified post feed replacing 3 duplicate implementations
+- [UnifiedPostFeed](/docs/pages/components/PostFeed.md) - Consolidated feed component - Unified post feed replacing 3 duplicate implementations
 
 ### 🔐 Authentication (4 pages)
 - [Login](/docs/pages/auth/login.md) - `/login` - Primary login route

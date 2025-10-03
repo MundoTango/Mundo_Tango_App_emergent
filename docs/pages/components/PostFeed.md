@@ -1,7 +1,7 @@
-# UnifiedPostFeed Component Documentation
+# PostFeed Component Documentation
 
 **Last Updated:** October 3, 2025  
-**Component Path:** `client/src/components/moments/UnifiedPostFeed.tsx`  
+**Component Path:** `client/src/components/moments/PostFeed.tsx`  
 **ESA Framework Layer:** Layer 22 - Social Feed Management  
 **Status:** ✅ PRODUCTION READY
 
@@ -9,11 +9,11 @@
 
 ## Overview
 
-UnifiedPostFeed is a **context-based, smart feed component** that eliminates code duplication across all post feeds in the platform (Memories, Groups, Events, Profiles). It handles data fetching, pagination, infinite scroll, loading states, and mutation cache invalidation internally based on a feed context prop.
+PostFeed is a **context-based, smart feed component** that eliminates code duplication across all post feeds in the platform (Memories, Groups, Events, Profiles). It handles data fetching, pagination, infinite scroll, loading states, and mutation cache invalidation internally based on a feed context prop.
 
 ### Key Principle
 
-**"One component, zero duplication"** - Any feed that displays posts should use UnifiedPostFeed with a context prop, rather than implementing its own fetch/pagination logic.
+**"One component, zero duplication"** - Any feed that displays posts should use PostFeed with a context prop, rather than implementing its own fetch/pagination logic.
 
 ---
 
@@ -51,7 +51,7 @@ return <PostFeed posts={posts} loading={loading} />;
 
 ```tsx
 // Parent component is now a thin wrapper:
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'group', 
     groupId: 7,
@@ -59,7 +59,7 @@ return <PostFeed posts={posts} loading={loading} />;
   }} 
 />
 
-// UnifiedPostFeed handles EVERYTHING internally:
+// PostFeed handles EVERYTHING internally:
 // - Data fetching
 // - Pagination & infinite scroll
 // - Loading states
@@ -74,12 +74,12 @@ return <PostFeed posts={posts} loading={loading} />;
 
 ## Context Types
 
-UnifiedPostFeed supports four context types, each with its own data source and query keys:
+PostFeed supports four context types, each with its own data source and query keys:
 
 ### 1. Feed Context (Memories Feed)
 
 ```tsx
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'feed' 
   }}
@@ -96,7 +96,7 @@ UnifiedPostFeed supports four context types, each with its own data source and q
 ### 2. Group Context (Group Posts)
 
 ```tsx
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'group',
     groupId: 7,
@@ -115,7 +115,7 @@ UnifiedPostFeed supports four context types, each with its own data source and q
 ### 3. Profile Context (User Posts)
 
 ```tsx
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'profile',
     userId: 123
@@ -133,7 +133,7 @@ UnifiedPostFeed supports four context types, each with its own data source and q
 ### 4. Event Context (Event Posts)
 
 ```tsx
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'event',
     eventId: 456
@@ -154,18 +154,18 @@ UnifiedPostFeed supports four context types, each with its own data source and q
 
 ### Smart vs Controlled Modes
 
-UnifiedPostFeed operates in two modes:
+PostFeed operates in two modes:
 
 #### Smart Mode (Recommended)
 ```tsx
 // Pass context, component fetches data internally
-<UnifiedPostFeed context={{ type: 'feed' }} />
+<PostFeed context={{ type: 'feed' }} />
 ```
 
 #### Controlled Mode (Legacy Compatibility)
 ```tsx
 // Parent passes posts prop for custom control
-<UnifiedPostFeed posts={customPosts} />
+<PostFeed posts={customPosts} />
 ```
 
 **New implementations should always use Smart Mode.**
@@ -175,7 +175,7 @@ UnifiedPostFeed operates in two modes:
 ```
 Parent Component
     ↓ (passes context prop)
-UnifiedPostFeed
+PostFeed
     ↓ (builds query URL from context)
 useQuery with React Query
     ↓ (fetches from API)
@@ -191,7 +191,7 @@ Renders PostCreator + PostItems
 ### Internal State
 
 ```tsx
-// UnifiedPostFeed manages these internally:
+// PostFeed manages these internally:
 const [page, setPage] = useState(1);
 const [allPosts, setAllPosts] = useState([]);
 const [internalHasMore, setInternalHasMore] = useState(true);
@@ -221,7 +221,7 @@ This prevents bugs where users scroll to page 3, change a filter, and see empty 
 
 ## Cache Invalidation
 
-UnifiedPostFeed provides a context-aware cache invalidation helper:
+PostFeed provides a context-aware cache invalidation helper:
 
 ```tsx
 const invalidateQueriesForContext = () => {
@@ -263,7 +263,7 @@ All mutations (like, comment, share, delete) automatically call this helper.
 ## Props Interface
 
 ```typescript
-interface UnifiedPostFeedProps {
+interface PostFeedProps {
   // CONTEXT MODE (smart fetching)
   context?: FeedContext;
   
@@ -295,7 +295,7 @@ type FeedContext =
 
 ## Migration Guide
 
-### From Legacy Pattern to UnifiedPostFeed
+### From Legacy Pattern to PostFeed
 
 #### Step 1: Identify Duplicate Code
 
@@ -323,7 +323,7 @@ useEffect(() => { fetchPosts(); }, [page]);
 
 ```tsx
 // REPLACE WITH:
-<UnifiedPostFeed 
+<PostFeed 
   context={{ 
     type: 'group',  // or 'feed', 'profile', 'event'
     groupId: groupData.id  // if type === 'group'
@@ -333,7 +333,7 @@ useEffect(() => { fetchPosts(); }, [page]);
 
 #### Step 4: Remove Mutation Handlers
 
-UnifiedPostFeed handles these internally:
+PostFeed handles these internally:
 - `handlePostCreated` - DELETE
 - `handlePostUpdated` - DELETE  
 - `handlePostDeleted` - DELETE
@@ -371,8 +371,8 @@ export default function ESAMemoryFeed() {
             </h1>
           </div>
           
-          {/* That's it! UnifiedPostFeed does everything else */}
-          <UnifiedPostFeed 
+          {/* That's it! PostFeed does everything else */}
+          <PostFeed 
             context={{ type: 'feed' }}
             showFilters={true}
             showSearch={true}
@@ -401,8 +401,8 @@ export default function ESAMemoryFeed() {
       </Button>
     </div>
 
-    {/* UnifiedPostFeed with group context */}
-    <UnifiedPostFeed
+    {/* PostFeed with group context */}
+    <PostFeed
       context={{
         type: 'group',
         groupId: groupData.id,
@@ -421,7 +421,7 @@ export default function ESAMemoryFeed() {
 
 ```tsx
 {activeTab === 'posts' && (
-  <UnifiedPostFeed
+  <PostFeed
     context={{
       type: 'profile',
       userId: profileUser.id
@@ -440,20 +440,20 @@ export default function ESAMemoryFeed() {
 ### Unit Tests
 
 ```typescript
-describe('UnifiedPostFeed', () => {
+describe('PostFeed', () => {
   it('should fetch posts from correct endpoint based on context', () => {
     // Test feed context
-    render(<UnifiedPostFeed context={{ type: 'feed' }} />);
+    render(<PostFeed context={{ type: 'feed' }} />);
     expect(mockFetch).toHaveBeenCalledWith('/api/posts/feed?page=1&limit=20');
     
     // Test group context
-    render(<UnifiedPostFeed context={{ type: 'group', groupId: 7 }} />);
+    render(<PostFeed context={{ type: 'group', groupId: 7 }} />);
     expect(mockFetch).toHaveBeenCalledWith('/api/groups/7/posts?page=1&limit=20');
   });
 
   it('should reset pagination when filters change', () => {
     const { rerender } = render(
-      <UnifiedPostFeed context={{ type: 'group', groupId: 7, filter: 'all' }} />
+      <PostFeed context={{ type: 'group', groupId: 7, filter: 'all' }} />
     );
     
     // Simulate scroll to page 3
@@ -462,7 +462,7 @@ describe('UnifiedPostFeed', () => {
     
     // Change filter
     rerender(
-      <UnifiedPostFeed context={{ type: 'group', groupId: 7, filter: 'residents' }} />
+      <PostFeed context={{ type: 'group', groupId: 7, filter: 'residents' }} />
     );
     
     // Should reset to page 1
@@ -501,7 +501,7 @@ test('should load more posts on scroll in group feed', async ({ page }) => {
 
 ### Infinite Scroll Optimization
 
-UnifiedPostFeed uses IntersectionObserver for efficient scroll detection:
+PostFeed uses IntersectionObserver for efficient scroll detection:
 
 ```tsx
 const observerRef = useRef<HTMLDivElement>(null);
@@ -530,11 +530,11 @@ React Query automatically caches feed data:
 
 ### Bundle Size
 
-UnifiedPostFeed is code-split with React.lazy():
+PostFeed is code-split with React.lazy():
 
 ```tsx
-const UnifiedPostFeed = React.lazy(() => 
-  import('@/components/moments/UnifiedPostFeed')
+const PostFeed = React.lazy(() => 
+  import('@/components/moments/PostFeed')
 );
 ```
 
@@ -588,13 +588,13 @@ const UnifiedPostFeed = React.lazy(() =>
 
 ## Summary
 
-UnifiedPostFeed represents a major architectural improvement that:
+PostFeed represents a major architectural improvement that:
 - ✅ Eliminates ~430 lines of duplicate code
 - ✅ Provides consistent UX across all feeds
 - ✅ Simplifies parent components to thin wrappers
 - ✅ Centralizes pagination, caching, and mutation logic
 - ✅ Makes adding new feed types trivial (5-10 lines of code)
 
-**Pattern:** `<UnifiedPostFeed context={{type, ...params}} />`
+**Pattern:** `<PostFeed context={{type, ...params}} />`
 
 **Status:** ✅ Production Ready - Deployed October 3, 2025

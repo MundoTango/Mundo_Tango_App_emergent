@@ -57,7 +57,7 @@ groups (
    - Route: `/groups/:slug`
    - Handles city groups, professional groups, practice groups, and festivals
    - **Conditionally renders tabs** based on group type
-   - **Uses UnifiedPostFeed** with context-based architecture (see below)
+   - **Uses PostFeed** with context-based architecture (see below)
 
 2. **Groups List Page** (`groups.tsx`)
    - Route: `/groups`
@@ -65,9 +65,9 @@ groups (
    - Uses `EnhancedCityGroupCard` for city groups
    - Uses `CommunityCard` for professional groups
 
-### UnifiedPostFeed Integration (October 3, 2025)
+### PostFeed Integration (October 3, 2025)
 
-**MAJOR ARCHITECTURAL CHANGE:** GroupDetailPageMT now uses context-based UnifiedPostFeed, eliminating ~200 lines of duplicate post management code.
+**MAJOR ARCHITECTURAL CHANGE:** GroupDetailPageMT now uses context-based PostFeed, eliminating ~200 lines of duplicate post management code.
 
 #### Old Pattern (Deprecated)
 ```tsx
@@ -88,7 +88,7 @@ const fetchGroupPosts = async () => {
 ```tsx
 // GroupDetailPageMT is now a thin wrapper:
 {activeTab === 'posts' && (
-  <UnifiedPostFeed
+  <PostFeed
     context={{
       type: 'group',
       groupId: groupData.id,
@@ -107,7 +107,7 @@ const fetchGroupPosts = async () => {
 - ✅ Consistent UX across all feeds
 - ✅ ~200 lines of code eliminated
 
-**Documentation:** See [UnifiedPostFeed.md](../components/UnifiedPostFeed.md) for complete details.
+**Documentation:** See [PostFeed.md](../components/PostFeed.md) for complete details.
 
 ### Conditional Tabs
 

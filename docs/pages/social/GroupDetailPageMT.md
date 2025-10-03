@@ -10,13 +10,13 @@
 
 ## 1. Overview
 
-GroupDetailPageMT is the **unified detail page** for all group types (city, professional, practice, festivals). Following the October 3, 2025 refactoring, it is now a **thin wrapper** that manages UI chrome and delegates post management to UnifiedPostFeed.
+GroupDetailPageMT is the **unified detail page** for all group types (city, professional, practice, festivals). Following the October 3, 2025 refactoring, it is now a **thin wrapper** that manages UI chrome and delegates post management to PostFeed.
 
 ### Key Characteristics
 
 - **Unified Design**: Single component handles all group types
 - **Conditional Tabs**: Shows/hides tabs based on group type (city vs professional)
-- **Context-Based Posts**: Uses UnifiedPostFeed with group context (zero duplicate code)
+- **Context-Based Posts**: Uses PostFeed with group context (zero duplicate code)
 - **Minimal State**: Only manages UI-specific state (activeTab, mentionFilter)
 
 ---
@@ -93,9 +93,9 @@ export default function GroupDetailPageMT() {
       <GroupHeader />
       <TabNavigation />
       
-      {/* Posts tab uses UnifiedPostFeed */}
+      {/* Posts tab uses PostFeed */}
       {activeTab === 'posts' && (
-        <UnifiedPostFeed
+        <PostFeed
           context={{
             type: 'group',
             groupId: groupData.id,
@@ -114,7 +114,7 @@ export default function GroupDetailPageMT() {
 
 ---
 
-## 3. UnifiedPostFeed Integration
+## 3. PostFeed Integration
 
 ### Posts Tab Implementation
 
@@ -134,8 +134,8 @@ export default function GroupDetailPageMT() {
       </Button>
     </div>
 
-    {/* UnifiedPostFeed handles everything else */}
-    <UnifiedPostFeed
+    {/* PostFeed handles everything else */}
+    <PostFeed
       context={{
         type: 'group',
         groupId: groupData.id,
@@ -148,7 +148,7 @@ export default function GroupDetailPageMT() {
 )}
 ```
 
-### What UnifiedPostFeed Handles Automatically
+### What PostFeed Handles Automatically
 
 - ✅ Data fetching from `/api/groups/${groupId}/posts`
 - ✅ Pagination (20 posts per page)
@@ -237,13 +237,13 @@ POST /api/user/join-group/:slug
 POST /api/user/leave-group/:slug
 ```
 
-### Posts (via UnifiedPostFeed)
+### Posts (via PostFeed)
 
 ```
 GET /api/groups/:groupId/posts?filter=all|mentions-only&page=1&limit=20
 ```
 
-**Note:** GroupDetailPageMT doesn't call this directly - UnifiedPostFeed handles it internally.
+**Note:** GroupDetailPageMT doesn't call this directly - PostFeed handles it internally.
 
 ---
 
@@ -318,7 +318,7 @@ All styling uses CSS variables from `design-tokens.css`:
 ### Test Case 1: City Group Posts Tab
 
 ```typescript
-test('should display posts tab with UnifiedPostFeed for city group', async ({ page }) => {
+test('should display posts tab with PostFeed for city group', async ({ page }) => {
   await page.goto('/groups/buenos-aires');
   
   // Wait for group to load
@@ -331,7 +331,7 @@ test('should display posts tab with UnifiedPostFeed for city group', async ({ pa
   const filterButton = page.locator('[data-testid="button-toggle-mention-filter"]');
   await expect(filterButton).toBeVisible();
   
-  // Should show posts via UnifiedPostFeed
+  // Should show posts via PostFeed
   await page.waitForSelector('[data-testid^="card-post-"]');
   const posts = await page.locator('[data-testid^="card-post-"]').count();
   expect(posts).toBeGreaterThan(0);
@@ -372,12 +372,12 @@ test('should not show Housing tab for professional groups', async ({ page }) => 
 - **Code Reduction:** 72% decrease
 - **Initial Load:** < 1.5 seconds
 - **Tab Switch:** < 200ms
-- **Post Loading:** Handled by UnifiedPostFeed (~500ms)
+- **Post Loading:** Handled by PostFeed (~500ms)
 
 ### Bundle Size Impact
 
 - **Before:** GroupDetailPageMT + duplicate post logic = ~85KB
-- **After:** GroupDetailPageMT (thin) + shared UnifiedPostFeed = ~45KB
+- **After:** GroupDetailPageMT (thin) + shared PostFeed = ~45KB
 - **Savings:** 40KB per page load
 
 ---
@@ -409,7 +409,7 @@ None! Post-refactoring, the component is stable.
 
 ## 12. Related Documentation
 
-- [UnifiedPostFeed Component](../components/UnifiedPostFeed.md) - Core post management
+- [PostFeed Component](../components/PostFeed.md) - Core post management
 - [Unified Groups Architecture](UNIFIED-GROUPS-ARCHITECTURE.md) - Overall groups system
 - [Feed Architecture Overview](feed-architecture.md) - Feed unification strategy
 
@@ -420,9 +420,9 @@ None! Post-refactoring, the component is stable.
 GroupDetailPageMT is a **thin wrapper** that:
 - ✅ Manages UI chrome (header, tabs, navigation)
 - ✅ Conditionally shows tabs based on group type
-- ✅ Delegates post management to UnifiedPostFeed (zero duplication)
+- ✅ Delegates post management to PostFeed (zero duplication)
 - ✅ Maintains minimal state (only UI-specific)
 - ✅ 72% code reduction (1,436 → 400 lines)
 
-**Pattern:** UI wrapper + UnifiedPostFeed context  
+**Pattern:** UI wrapper + PostFeed context  
 **Status:** ✅ Production Ready - Refactored October 3, 2025

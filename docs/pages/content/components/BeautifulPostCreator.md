@@ -197,5 +197,5 @@ if (newPost && content) {
 ## Related Components
 - [SimpleMentionsInput](./SimpleMentionsInput.md)
 - [ESAMemoryFeed](./ESAMemoryFeed.md)
-- [UnifiedPostFeed](./UnifiedPostFeed.md)
+- [UnifiedPostFeed](./PostFeed.md)
 - [Beautiful Post Integration Guide](../../integration/beautiful-post-integration.md)
