@@ -32,6 +32,8 @@ import io, { Socket } from 'socket.io-client';
 import PostFeed from '@/components/moments/PostFeed';
 import PostCreator from '@/components/universal/PostCreator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import UnifiedEventCard from '@/components/events/UnifiedEventCard';
+import { useEventRSVP } from '@/hooks/useEventRSVP';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -129,6 +131,8 @@ export default function GroupDetailPageMT() {
   };
 
   const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
+
+  const eventRsvpMutation = useEventRSVP();
 
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
@@ -850,30 +854,23 @@ export default function GroupDetailPageMT() {
               </div>
             ) : filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
-                <div key={event.id} className="mt-event-item" onClick={() => setLocation(`/events/${event.id}`)}>
-                  <div className="mt-event-date">
-                    <div className="mt-event-day">{new Date(event.startDate).getDate()}</div>
-                    <div className="mt-event-month">{new Date(event.startDate).toLocaleDateString('en', { month: 'short' }).toUpperCase()}</div>
-                  </div>
-                  <div className="mt-event-details">
-                    <h4 className="mt-event-title">{event.title}</h4>
-                    <div className="mt-event-info">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        {event.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Users className="h-4 w-4" />
-                        {event.attendeeCount || 0} attending
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-gray-400" />
-                </div>
+                <UnifiedEventCard
+                  key={event.id}
+                  event={{
+                    id: event.id.toString(),
+                    title: event.title,
+                    type: event.eventType || event.type || 'milonga',
+                    date: event.startDate,
+                    time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                    location: event.location || 'Location TBA',
+                    city: event.city,
+                    attendees: event.attendeeCount || event.currentAttendees || 0,
+                    userRsvpStatus: event.userRsvpStatus || event.userStatus || null,
+                    isFeatured: event.isFeatured || false
+                  }}
+                  onEventClick={(eventId) => setLocation(`/events/${eventId}`)}
+                  rsvpMutation={eventRsvpMutation}
+                />
               ))
             ) : (
               <div className="mt-empty-state">
