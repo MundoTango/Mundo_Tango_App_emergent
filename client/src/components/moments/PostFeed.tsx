@@ -82,7 +82,7 @@ type FeedContext =
   | { type: 'feed' } // Main memories feed (/api/posts/feed)
   | { type: 'group'; groupId: number; filter?: 'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends' } // Group feed
   | { type: 'profile'; userId: number } // User profile feed
-  | { type: 'event'; eventId: number }; // Event feed
+  | { type: 'event'; eventId: number; filter?: 'all' | 'participants' | 'guests' }; // Event feed
 
 interface PostFeedProps {
   // Legacy: Direct posts prop (for backward compatibility during migration)
@@ -177,7 +177,7 @@ const PostFeed = memo(({
       case 'profile':
         return ['/api/users', context.userId, 'posts', page];
       case 'event':
-        return ['/api/events', context.eventId, 'posts', page];
+        return ['/api/events', context.eventId, 'posts', context.filter || 'all', page];
       default:
         return ['/api/posts/feed', page];
     }
@@ -222,8 +222,12 @@ const PostFeed = memo(({
       }
       case 'profile':
         return `/api/users/${context.userId}/posts?${params.toString()}`;
-      case 'event':
+      case 'event': {
+        if (context.filter && context.filter !== 'all') {
+          params.append('filter', context.filter);
+        }
         return `/api/events/${context.eventId}/posts?${params.toString()}`;
+      }
       default:
         return `/api/posts/feed?${params.toString()}`;
     }
