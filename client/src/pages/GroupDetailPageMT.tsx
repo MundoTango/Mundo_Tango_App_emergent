@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { queryClient } from '@/lib/queryClient';
+import { queryClient, apiRequest } from '@/lib/queryClient';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { 
   ArrowLeft, MapPin, Users, Globe, Lock, Calendar, MessageCircle, 
@@ -260,28 +260,16 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // Fetch group details with members
+  // Fetch group details with members - explicit queryFn to ensure request is sent
   const { data: response, isLoading, error } = useQuery({
     queryKey: [`/api/groups/${slug}`],
     enabled: !!slug,
     retry: 2,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    queryFn: async () => {
-      console.log('Fetching group with slug:', slug);
-      const res = await fetch(`/api/groups/${slug}`, {
-        credentials: 'include',
-      });
-      console.log('Response status:', res.status);
-      console.log('Response headers:', res.headers);
-      
-      if (!res.ok) {
-        throw new Error(`Failed to fetch group: ${res.status}`);
-      }
-      
-      const data = await res.json();
-      console.log('Response data:', data);
-      return data;
+    queryFn: async ({ signal }) => {
+      const res = await apiRequest(`/api/groups/${slug}`);
+      return await res.json();
     }
   });
 
