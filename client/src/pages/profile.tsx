@@ -26,13 +26,13 @@ import {
   LazyUserVideosGallery,
   LazyUserFriendsList,
   LazyUserEventsList,
-  LazyEnhancedPostFeed,
   LazyTravelDetailsComponent,
   LazyGuestProfileDisplay,
   GalleryFallback,
   ListFallback,
   PostFeedFallback
 } from '@/components/profile/OptimizedProfileComponents';
+import PostFeed from '@/components/moments/PostFeed';
 
 // Phase 5: Production Hardening imports
 import ProfileErrorBoundary from '@/components/profile/ProfileErrorBoundary';
@@ -105,32 +105,6 @@ export default function Profile() {
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
-
-  // Fetch user posts with retry logic
-  const { data: postsData, isLoading: postsLoading, error: postsError } = useQuery({
-    queryKey: ['/api/user/posts', user?.id],
-    queryFn: async () => {
-      const tracker = measureApiCall('/api/user/posts');
-      try {
-        const response = await withRetry(
-          () => withTimeout(
-            () => fetch(`/api/user/posts`, { credentials: 'include' }),
-            5000 // 5 second timeout
-          )
-        );
-        
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
-        tracker.complete(response.status);
-        return result.data || [];
-      } catch (error) {
-        tracker.error(error);
-        throw error;
-      }
-    },
-    enabled: !!user?.id,
-    retry: false // We handle retry ourselves
-  });
 
   // Fetch user stats with retry logic
   const { data: statsData, error: statsError } = useQuery({
@@ -465,10 +439,14 @@ export default function Profile() {
                       }}
                     />
                     
-                    {/* Enhanced Post Feed - Same as Main Memories Feed */}
-                    <Suspense fallback={<PostFeedFallback />}>
-                      <LazyEnhancedPostFeed key={refreshKey} />
-                    </Suspense>
+                    {/* Unified PostFeed - Integrated with platform architecture */}
+                    <PostFeed 
+                      key={refreshKey}
+                      context={{ 
+                        type: 'profile', 
+                        userId: user?.id || 0 
+                      }}
+                    />
                   </div>
                 </div>
               </TabsContent>
