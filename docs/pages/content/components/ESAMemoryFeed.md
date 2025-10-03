@@ -52,7 +52,7 @@ Layer 53 had critical failures (language switching broken, components not re-ren
 // Core Components
 import DashboardLayout from '@/layouts/DashboardLayout';
 import PostCreator from '@/components/universal/PostCreator';
-import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
+import PostFeed from '@/components/moments/PostFeed';
 import UpcomingEventsSidebar from '@/components/esa/UpcomingEventsSidebar';
 import FloatingCreateButton from '@/components/esa/FloatingCreateButton';
 import ShareModal from '@/components/modern/ShareModal';
@@ -127,7 +127,7 @@ shares.postId → posts.id (Many-to-One)
   {/* Posts Feed - 2/3 width on large screens */}
   <div className="lg:col-span-2">
     <PostCreator />
-    <UnifiedPostFeed />
+    <PostFeed />
   </div>
   
   {/* Events Sidebar - 1/3 width on large screens */}
