@@ -114,7 +114,7 @@ self.addEventListener('fetch', (event) => {
 // ============= Caching Strategies =============
 
 // Network First with Cache Fallback (for API)
-async function handleApiRequest(request: Request): Promise<Response> {
+async function handleApiRequest(request) {
   const cache = await caches.open(CACHE_NAMES.API);
   
   try {
@@ -152,7 +152,7 @@ async function handleApiRequest(request: Request): Promise<Response> {
 }
 
 // Cache First with Network Fallback (for images)
-async function handleImageRequest(request: Request): Promise<Response> {
+async function handleImageRequest(request) {
   const cache = await caches.open(CACHE_NAMES.IMAGES);
   
   const cachedResponse = await cache.match(request);
@@ -183,7 +183,7 @@ async function handleImageRequest(request: Request): Promise<Response> {
 }
 
 // Stale While Revalidate (for static assets)
-async function handleStaticAsset(request: Request): Promise<Response> {
+async function handleStaticAsset(request) {
   const cache = await caches.open(CACHE_NAMES.STATIC);
   
   const cachedResponse = await cache.match(request);
@@ -199,7 +199,7 @@ async function handleStaticAsset(request: Request): Promise<Response> {
 }
 
 // Network First with Offline Page Fallback
-async function handleGeneralRequest(request: Request): Promise<Response> {
+async function handleGeneralRequest(request) {
   const cache = await caches.open(CACHE_NAMES.DYNAMIC);
   
   try {
@@ -226,7 +226,7 @@ async function handleGeneralRequest(request: Request): Promise<Response> {
 }
 
 // ============= Offline Support =============
-async function handleOfflinePost(request: Request): Promise<Response> {
+async function handleOfflinePost(request) {
   try {
     const response = await fetch(request.clone());
     return response;
@@ -261,7 +261,7 @@ self.addEventListener('sync', (event: any) => {
   }
 });
 
-async function syncOfflineRequests(): Promise<void> {
+async function syncOfflineRequests() {
   const queue = await caches.open(CACHE_NAMES.OFFLINE);
   const requests = await queue.keys();
   
@@ -317,16 +317,16 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 // ============= Utility Functions =============
-function fetchWithTimeout(request: Request, timeout: number): Promise<Response> {
+function fetchWithTimeout(request, timeout) {
   return Promise.race([
     fetch(request),
-    new Promise<Response>((_, reject) =>
+    new Promise((_, reject) =>
       setTimeout(() => reject(new Error('Request timeout')), timeout)
     )
   ]);
 }
 
-async function fetchAndCache(request: Request, cache: Cache): Promise<void> {
+async function fetchAndCache(request, cache) {
   try {
     const response = await fetch(request);
     if (response.ok) {
@@ -350,7 +350,7 @@ self.addEventListener('message', (event) => {
   }
 });
 
-async function getCacheSize(): Promise<number> {
+async function getCacheSize() {
   const cacheNames = await caches.keys();
   let totalSize = 0;
   
