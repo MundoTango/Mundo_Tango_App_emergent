@@ -78,7 +78,7 @@ export default function EventMap({ events, cityLat, cityLng, onEventClick }: Eve
           iconAnchor: [20, 40],
         });
 
-        const marker = L.marker([event.latitude, event.longitude], { icon: customIcon })
+        const marker = L.marker([parseFloat(event.latitude as any), parseFloat(event.longitude as any)], { icon: customIcon })
           .addTo(mapRef.current!);
 
         // Create popup content

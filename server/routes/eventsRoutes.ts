@@ -8,6 +8,7 @@ import { getWebSocketService } from '../services/websocketService';
 import { storage } from '../storage';
 import jwt from 'jsonwebtoken';
 import { autoAssociateEventWithCityGroup } from '../services/eventGroupService';
+import { CityAutoCreationService } from '../services/cityAutoCreationService';
 
 const router = express.Router();
 
@@ -113,6 +114,32 @@ router.post('/api/events', authMiddleware, async (req, res) => {
         .where(eq(events.id, newEvent.id));
     }
 
+    // Auto-geocode event location if coordinates not provided
+    if (!newEvent.latitude || !newEvent.longitude) {
+      console.log(`[Event Geocode] Auto-geocoding event ${newEvent.id}: ${newEvent.title}`);
+      const coordinates = await CityAutoCreationService.geocodeEventLocation({
+        city: newEvent.city || undefined,
+        location: newEvent.location || undefined,
+        country: newEvent.country || undefined
+      });
+
+      if (coordinates) {
+        await db
+          .update(events)
+          .set({
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude
+          })
+          .where(eq(events.id, newEvent.id));
+        
+        newEvent.latitude = coordinates.latitude;
+        newEvent.longitude = coordinates.longitude;
+        console.log(`✅ [Event Geocode] Updated event ${newEvent.id} with coordinates: ${coordinates.latitude}, ${coordinates.longitude}`);
+      } else {
+        console.warn(`⚠️ [Event Geocode] Could not geocode event ${newEvent.id}`);
+      }
+    }
+
     // Handle recurring events
     if (validatedData.recurringPattern) {
       await db.insert(recurringEvents).values({
@@ -182,6 +209,8 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
         endDate: events.endDate,
         location: events.location,
         city: events.city,
+        latitude: events.latitude,
+        longitude: events.longitude,
         eventType: events.eventType,
         organizerId: events.organizerId, // Use organizerId field that exists
         userId: events.userId, // Also include userId
@@ -760,6 +789,79 @@ router.get('/api/events/:id/posts', async (req, res) => {
   } catch (error) {
     console.error('Error fetching event posts:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch event posts' });
+  }
+});
+
+// Admin endpoint to geocode all events missing coordinates
+router.post('/api/events/geocode-all', authMiddleware, async (req, res) => {
+  try {
+    console.log('🗺️ Starting bulk geocoding of events...');
+    
+    // Get all events without coordinates
+    const eventsToGeocode = await db
+      .select()
+      .from(events)
+      .where(
+        or(
+          sql`${events.latitude} IS NULL`,
+          sql`${events.longitude} IS NULL`,
+          eq(events.latitude, ''),
+          eq(events.longitude, '')
+        )
+      );
+
+    console.log(`Found ${eventsToGeocode.length} events to geocode`);
+    
+    const results = {
+      total: eventsToGeocode.length,
+      geocoded: 0,
+      failed: 0,
+      skipped: 0
+    };
+
+    for (const event of eventsToGeocode) {
+      try {
+        // Skip if no location data
+        if (!event.city && !event.location) {
+          console.log(`⏭️ Skipping event ${event.id} (${event.title}) - no location data`);
+          results.skipped++;
+          continue;
+        }
+
+        console.log(`📍 Geocoding event ${event.id}: ${event.title} (${event.city || event.location})`);
+        
+        const coordinates = await CityAutoCreationService.geocodeEventLocation({
+          city: event.city || undefined,
+          location: event.location || undefined,
+          country: event.country || undefined
+        });
+
+        if (coordinates) {
+          await db
+            .update(events)
+            .set({
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude
+            })
+            .where(eq(events.id, event.id));
+          
+          console.log(`✅ Geocoded event ${event.id}: ${coordinates.latitude}, ${coordinates.longitude}`);
+          results.geocoded++;
+        } else {
+          console.warn(`❌ Failed to geocode event ${event.id}`);
+          results.failed++;
+        }
+      } catch (error) {
+        console.error(`Error geocoding event ${event.id}:`, error);
+        results.failed++;
+      }
+    }
+
+    console.log('🎉 Bulk geocoding complete:', results);
+    res.json({ success: true, data: results });
+  } catch (error) {
+    console.error('Error in bulk geocoding:', error);
+    res.status(500).json({ success: false, error: 'Failed to geocode events' });
   }
 });
 
