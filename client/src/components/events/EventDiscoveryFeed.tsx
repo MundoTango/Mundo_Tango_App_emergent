@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -47,6 +48,7 @@ interface EventData {
 }
 
 export const EventDiscoveryFeed: React.FC = () => {
+  const [, setLocation] = useLocation();
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -173,8 +175,8 @@ export const EventDiscoveryFeed: React.FC = () => {
   };
 
   const handleViewDetails = (eventId: number) => {
-    // Navigate to event detail page
-    window.location.href = `/events/${eventId}`;
+    // Navigate to event detail page using wouter
+    setLocation(`/events/${eventId}`);
   };
 
   const updateFilter = (key: keyof EventFilters, value: any) => {
