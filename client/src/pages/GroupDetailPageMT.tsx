@@ -126,6 +126,35 @@ export default function GroupDetailPageMT() {
   const [createPostModal, setCreatePostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
+
+  // Helper: Normalize post data to ensure correct structure for EnhancedPostComposer
+  const normalizePost = (post: any) => {
+    return {
+      ...post,
+      content: post.content || '',
+      imageUrl: typeof post.imageUrl === 'string' ? post.imageUrl : (post.imageUrl?.url || ''),
+      videoUrl: typeof post.videoUrl === 'string' ? post.videoUrl : (post.videoUrl?.url || ''),
+      location: post.location || '',
+      visibility: post.visibility || (post.isPublic ? 'public' : 'private'),
+      isPublic: post.isPublic ?? (post.visibility === 'public')
+    };
+  };
+
+  // Handle post update in local state
+  const handlePostUpdated = (postId: number, updatedData: any) => {
+    setPosts(prevPosts => 
+      prevPosts.map(post => 
+        post.id === postId ? { ...post, ...updatedData } : post
+      )
+    );
+    setEditingPost(null);
+    setCreatePostModal(false);
+  };
+
+  // Handle post deletion in local state
+  const handlePostDeleted = (postId: number) => {
+    setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+  };
   const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
   const [refetchTrigger, setRefetchTrigger] = useState(0);
 
@@ -1220,9 +1249,10 @@ export default function GroupDetailPageMT() {
                 onLike={() => {}}
                 onShare={() => {}}
                 onEdit={(post) => {
-                  setEditingPost(post);
+                  setEditingPost(normalizePost(post));
                   setCreatePostModal(true);
                 }}
+                onDelete={handlePostDeleted}
                 apiBasePath="/api/posts"
                 cacheKeys={[
                   '/api/posts',
@@ -1830,7 +1860,11 @@ export default function GroupDetailPageMT() {
               setPosts([]);
               setPostsPage(1);
             }}
-            onClose={() => setCreatePostModal(false)}
+            onPostUpdated={handlePostUpdated}
+            onClose={() => {
+              setCreatePostModal(false);
+              setEditingPost(null);
+            }}
             editMode={!!editingPost}
             existingPost={editingPost || undefined}
           />
