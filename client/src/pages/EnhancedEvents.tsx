@@ -84,6 +84,8 @@ import {
   TwitterIcon,
   WhatsappIcon
 } from 'react-share';
+import UnifiedEventCard from '@/components/events/UnifiedEventCard';
+import { useEventRSVP } from '@/hooks/useEventRSVP';
 
 // Lazy load the map component for better performance
 const LeafletMap = lazy(() => import('@/components/LeafletMap'));
@@ -175,6 +177,7 @@ export default function EnhancedEventsPage() {
   const [distanceFilter, setDistanceFilter] = useState(50); // km
   
   const { toast } = useToast();
+  const eventRsvpMutation = useEventRSVP();
 
   // Animations
   const fadeIn = useSpring({
@@ -322,149 +325,6 @@ export default function EnhancedEventsPage() {
       );
     }
   };
-
-  // Event Card Component
-  const EventCard = ({ event }: { event: Event }) => (
-    <LazyLoad height={300} offset={100}>
-      <Card className="glassmorphic-card hover:scale-105 transition-all duration-300 group">
-        <div className="relative">
-          {event.imageUrl && (
-            <div className="relative h-48 overflow-hidden rounded-t-lg">
-              <img 
-                src={event.imageUrl} 
-                alt={event.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute top-2 right-2 flex gap-2">
-                {event.isVirtual && (
-                  <Badge className="bg-purple-500 text-white">
-                    <Video className="w-3 h-3 mr-1" />
-                    Virtual
-                  </Badge>
-                )}
-                {event.isRecurring && (
-                  <Badge className="bg-blue-500 text-white">
-                    <RefreshCw className="w-3 h-3 mr-1" />
-                    Recurring
-                  </Badge>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-        
-        <div className="p-4">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
-              {event.title}
-            </h3>
-            <div className="flex gap-1">
-              <CopyToClipboard 
-                text={`${window.location.origin}/events/${event.id}`}
-                onCopy={() => toast({ title: "Link copied!" })}
-              >
-                <Button size="icon" variant="ghost" className="h-8 w-8">
-                  <Copy className="w-4 h-4" />
-                </Button>
-              </CopyToClipboard>
-              
-              <div className="relative group/share">
-                <Button size="icon" variant="ghost" className="h-8 w-8">
-                  <Share2 className="w-4 h-4" />
-                </Button>
-                <div className="absolute right-0 mt-1 hidden group-hover/share:flex gap-1 bg-white shadow-lg rounded-lg p-2 z-10">
-                  <FacebookShareButton url={`${window.location.origin}/events/${event.id}`}>
-                    <FacebookIcon size={24} round />
-                  </FacebookShareButton>
-                  <TwitterShareButton url={`${window.location.origin}/events/${event.id}`}>
-                    <TwitterIcon size={24} round />
-                  </TwitterShareButton>
-                  <WhatsappShareButton url={`${window.location.origin}/events/${event.id}`}>
-                    <WhatsappIcon size={24} round />
-                  </WhatsappShareButton>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-turquoise-500" />
-              <span>{moment(event.startDate).format('MMM D, YYYY • h:mm A')}</span>
-            </div>
-            
-            {event.location && (
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-turquoise-500" />
-                <span className="line-clamp-1">{event.location}</span>
-              </div>
-            )}
-            
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-turquoise-500" />
-              <span>
-                {event.currentAttendees || 0} / {event.maxAttendees || '∞'} attending
-              </span>
-            </div>
-
-            {event.price && (
-              <div className="flex items-center gap-2">
-                <DollarSign className="w-4 h-4 text-turquoise-500" />
-                <span>{event.currency || '$'}{event.price}</span>
-              </div>
-            )}
-          </div>
-
-          <div className="mt-3 flex items-center gap-2">
-            <Badge variant="outline" className="text-xs" style={{ borderColor: categoryColors[event.category || 'social'] }}>
-              {event.category || 'Event'}
-            </Badge>
-            {event.level && event.level !== 'all_levels' && (
-              <Badge variant="outline" className="text-xs">
-                {event.level.replace('_', ' ')}
-              </Badge>
-            )}
-          </div>
-
-          <div className="mt-4 flex gap-2">
-            <Button
-              size="sm"
-              className={`flex-1 ${
-                event.userStatus === 'going' 
-                  ? 'bg-green-500 hover:bg-green-600' 
-                  : 'bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600'
-              } text-white`}
-              onClick={() => rsvpMutation.mutate({ eventId: event.id, status: 'going' })}
-            >
-              {event.userStatus === 'going' ? (
-                <>
-                  <CheckCircle className="w-4 h-4 mr-1" />
-                  Going
-                </>
-              ) : (
-                'RSVP'
-              )}
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setSelectedEvent(event)}
-            >
-              Details
-            </Button>
-          </div>
-
-          {/* Countdown for upcoming events */}
-          {moment(event.startDate).isAfter() && moment(event.startDate).diff(moment(), 'days') <= 7 && (
-            <div className="mt-3 text-center">
-              <p className="text-xs text-gray-500 mb-1">Starts in:</p>
-              <Countdown date={event.startDate} renderer={countdownRenderer} />
-            </div>
-          )}
-        </div>
-      </Card>
-    </LazyLoad>
-  );
 
   if (eventsLoading) {
     return (
@@ -692,7 +552,23 @@ export default function EnhancedEventsPage() {
               }
             >
               {events.map(event => (
-                <EventCard key={event.id} event={event} />
+                <UnifiedEventCard
+                  key={event.id}
+                  event={{
+                    id: event.id.toString(),
+                    title: event.title,
+                    type: event.eventType || event.category || 'milonga',
+                    date: event.startDate,
+                    time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                    location: event.location || 'Location TBA',
+                    city: event.user?.city,
+                    attendees: event.currentAttendees || 0,
+                    userRsvpStatus: event.userStatus || null,
+                    isFeatured: false
+                  }}
+                  onEventClick={(eventId) => setSelectedEvent(events.find(e => e.id.toString() === eventId) || null)}
+                  rsvpMutation={eventRsvpMutation}
+                />
               ))}
             </InfiniteScroll>
           </div>
@@ -701,7 +577,23 @@ export default function EnhancedEventsPage() {
         {viewMode === 'grid' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map(event => (
-              <EventCard key={event.id} event={event} />
+              <UnifiedEventCard
+                key={event.id}
+                event={{
+                  id: event.id.toString(),
+                  title: event.title,
+                  type: event.eventType || event.category || 'milonga',
+                  date: event.startDate,
+                  time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                  location: event.location || 'Location TBA',
+                  city: event.user?.city,
+                  attendees: event.currentAttendees || 0,
+                  userRsvpStatus: event.userStatus || null,
+                  isFeatured: false
+                }}
+                onEventClick={(eventId) => setSelectedEvent(events.find(e => e.id.toString() === eventId) || null)}
+                rsvpMutation={eventRsvpMutation}
+              />
             ))}
           </div>
         )}
