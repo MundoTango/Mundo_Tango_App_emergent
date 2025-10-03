@@ -164,13 +164,13 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
-  // Fetch group events using React Query (enables optimistic RSVP updates)
+  // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
   const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
-    queryKey: ['/api/groups', slug, 'events'],
-    enabled: activeTab === 'events' && !!slug
+    queryKey: ['/api/events/feed', { groupId: group?.id }],
+    enabled: activeTab === 'events' && !!group?.id
   });
   
-  const events = eventsResponse?.success !== false ? (eventsResponse?.data || eventsResponse || []) : [];
+  const events = eventsResponse?.data || [];
   
   // Note: Post fetching now handled by PostFeed context-based approach
   
