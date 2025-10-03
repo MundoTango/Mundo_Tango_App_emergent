@@ -9,6 +9,16 @@ import "./utils/console-cleanup";
 
 console.log('Starting React app...');
 
+// Unregister all old service workers to prevent cached API responses
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => {
+      registration.unregister();
+      console.log('Unregistered old service worker');
+    });
+  });
+}
+
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
