@@ -153,17 +153,21 @@ return `/api/groups/${context.groupId}/posts?${params.toString()}`;
 <PostFeed 
   context={{ 
     type: 'event',
-    eventId: 456
+    eventId: 456,
+    filter: 'all' // or 'participants', 'guests'
   }}
   showFilters={false}
   showSearch={false}
 />
 ```
 
-- **Fetches from:** `/api/events/${eventId}/posts`
-- **Query Key:** `['/api/events', eventId, 'posts', page]`
+- **Fetches from:** `/api/events/${eventId}/posts?filter=${filter}`
+- **Query Key:** `['/api/events', eventId, 'posts', filter, page]`
 - **Use Case:** Event detail page Posts tab
-- **Features:** Shows event-related posts only
+- **Features:** Shows event-related posts with optional filtering:
+  - `'all'`: All event posts (default)
+  - `'participants'`: Only posts from RSVPed users
+  - `'guests'`: Only posts from non-RSVPed users
 
 ---
 
@@ -305,7 +309,7 @@ type FeedContext =
   | { type: 'feed' }
   | { type: 'group'; groupId: number; filter?: string }
   | { type: 'profile'; userId: number }
-  | { type: 'event'; eventId: number };
+  | { type: 'event'; eventId: number; filter?: 'all' | 'participants' | 'guests' };
 ```
 
 ---
@@ -434,19 +438,64 @@ export default function ESAMemoryFeed() {
 
 **Lines of code for posts tab:** ~20 (previously ~220)
 
-### Example 3: Profile Posts Tab (Future)
+### Example 3: Profile Posts Tab
 
 ```tsx
-{activeTab === 'posts' && (
+{activeTab === 'posts' && user?.id && (
   <PostFeed
     context={{
       type: 'profile',
-      userId: profileUser.id
+      userId: user.id
     }}
     showFilters={false}
     showSearch={false}
-    showPostCreator={currentUser.id === profileUser.id} // Only show creator on own profile
+    showPostCreator={true}
   />
+)}
+```
+
+**Note:** Profile feed guards rendering until `user.id` is available to prevent `undefined` in API calls.
+
+### Example 4: Event Detail Posts Tab
+
+```tsx
+const [postFilter, setPostFilter] = useState<'all' | 'participants' | 'guests'>('all');
+
+{activeTab === 'posts' && (
+  <div className="space-y-4">
+    {/* Filter buttons */}
+    <div className="flex gap-2">
+      <Button 
+        variant={postFilter === 'all' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('all')}
+      >
+        All Posts
+      </Button>
+      <Button 
+        variant={postFilter === 'participants' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('participants')}
+      >
+        Participants
+      </Button>
+      <Button 
+        variant={postFilter === 'guests' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('guests')}
+      >
+        Guests
+      </Button>
+    </div>
+
+    {/* Unified PostFeed with event context */}
+    <PostFeed
+      context={{
+        type: 'event',
+        eventId: eventData.id,
+        filter: postFilter
+      }}
+      showFilters={false}
+      showSearch={false}
+    />
+  </div>
 )}
 ```
 
@@ -606,12 +655,21 @@ const PostFeed = React.lazy(() =>
 ## Summary
 
 PostFeed represents a major architectural improvement that:
-- ✅ Eliminates ~430 lines of duplicate code
-- ✅ Provides consistent UX across all feeds
+- ✅ Eliminates ~450 lines of duplicate code across ALL 6 platform feeds
+- ✅ Provides consistent UX across all feeds (Memories, Groups, Events, Profiles, Home, Public Profiles)
 - ✅ Simplifies parent components to thin wrappers
 - ✅ Centralizes pagination, caching, and mutation logic
-- ✅ Makes adding new feed types trivial (5-10 lines of code)
+- ✅ Makes adding new feed types trivial (20-30 lines of code)
+- ✅ Supports advanced filtering (event participant/guest filters, group member filters)
+
+**Unified Feeds:**
+1. ✅ Memories Feed (ESAMemoryFeed)
+2. ✅ Groups Posts Tab (GroupDetailPageMT)
+3. ✅ Profile Posts Tab (profile.tsx) - with auth guard
+4. ✅ Event Detail Posts Tab (event-detail.tsx) - with filter support
+5. ✅ Public Profile Feed (PublicProfilePage)
+6. ✅ Home Feed (home.tsx)
 
 **Pattern:** `<PostFeed context={{type, ...params}} />`
 
-**Status:** ✅ Production Ready - Deployed October 3, 2025
+**Status:** ✅ 100% Production Ready - Full Platform Unification Completed October 3, 2025
