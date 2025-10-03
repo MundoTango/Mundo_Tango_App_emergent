@@ -3,9 +3,6 @@
  * Advanced caching strategies with offline support and background sync
  */
 
-/// <reference lib="webworker" />
-declare const self: ServiceWorkerGlobalScope;
-
 const CACHE_VERSION = 'v2.0.1-memories-fix';
 const CACHE_NAMES = {
   STATIC: `static-${CACHE_VERSION}`,
@@ -101,8 +98,10 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Handle different resource types with appropriate strategies
+  // CRITICAL FIX: Skip service worker for API requests in development
+  // This prevents caching of error responses and allows direct server communication
   if (url.pathname.startsWith('/api/')) {
-    event.respondWith(handleApiRequest(request));
+    return; // Let the request pass through to the server without service worker intervention
   } else if (request.destination === 'image') {
     event.respondWith(handleImageRequest(request));
   } else if (request.destination === 'script' || request.destination === 'style') {

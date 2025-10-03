@@ -44,23 +44,10 @@ self.addEventListener('fetch', event => {
   // Skip non-GET requests
   if (request.method !== 'GET') return;
 
-  // API requests - network first, cache fallback
+  // API requests - CRITICAL FIX: Skip service worker entirely for API requests
+  // This prevents caching of error responses and allows direct server communication
   if (url.pathname.startsWith('/api/')) {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          // Clone the response before caching
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseToCache);
-          });
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request);
-        })
-    );
-    return;
+    return; // Let the request pass through to the server without service worker intervention
   }
 
   // Static assets - cache first, network fallback
