@@ -103,6 +103,13 @@ SAVINGS: ~90 lines + massive maintenance reduction
 - ✅ Consistent pagination/caching/mutations
 - ✅ Unified testing strategy
 
+### Known Issues Fixed
+
+**Service Worker TypeScript Bug (October 3, 2025)**  
+During PostFeed unification testing, discovered that `client/public/sw.js` contained TypeScript type annotations preventing browser registration. This caused API caching issues and Groups feed loading failures. Fixed by removing all TypeScript syntax from service worker. See `docs/troubleshooting/SERVICE_WORKER_TYPESCRIPT_BUG.md` for details.
+
+**Impact:** PostFeed now works perfectly across all contexts with proper service worker support for offline caching and performance optimization.
+
 ---
 
 ## 2. Context-Based Architecture
