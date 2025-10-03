@@ -7,6 +7,7 @@ import { authMiddleware } from '../middleware/auth';
 import { getWebSocketService } from '../services/websocketService';
 import { storage } from '../storage';
 import jwt from 'jsonwebtoken';
+import { autoAssociateEventWithCityGroup } from '../services/eventGroupService';
 
 const router = express.Router();
 
@@ -63,7 +64,9 @@ const createEventSchema = z.object({
   startDate: z.string().datetime(),
   endDate: z.string().datetime().optional(),
   location: z.string().min(1),
-  groupId: z.string().uuid().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
+  groupId: z.number().int().positive().optional(),
   maxAttendees: z.number().positive().optional(),
   imageUrl: z.string().url().optional(),
   tags: z.array(z.string()).default([]),
@@ -91,13 +94,24 @@ router.post('/api/events', authMiddleware, async (req, res) => {
     }
 
     const { recurringPattern, ...eventData } = validatedData;
-    const [newEvent] = await db.insert(events).values({
+    let [newEvent] = await db.insert(events).values({
       ...eventData,
       userId: userId, // Required field
       organizerId: userId, // Also set organizerId for compatibility
       startDate: new Date(validatedData.startDate),
       endDate: validatedData.endDate ? new Date(validatedData.endDate) : null
     }).returning();
+
+    // Auto-associate event with city group if city matches
+    newEvent = await autoAssociateEventWithCityGroup(newEvent);
+    
+    // Update the event in database if groupId was set by automation
+    if (newEvent.groupId && !validatedData.groupId) {
+      await db
+        .update(events)
+        .set({ groupId: newEvent.groupId })
+        .where(eq(events.id, newEvent.id));
+    }
 
     // Handle recurring events
     if (validatedData.recurringPattern) {
