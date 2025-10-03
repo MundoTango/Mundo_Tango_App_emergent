@@ -14,42 +14,74 @@ export function useEventRSVP() {
       return result;
     },
     onMutate: async ({ eventId, status }) => {
+      // Cancel all related queries
       await queryClient.cancelQueries({ queryKey: ['/api/events/feed'] });
-      
-      const previousEvents = queryClient.getQueryData(['/api/events/feed']);
-      
-      queryClient.setQueryData(['/api/events/feed'], (old: any) => {
-        if (!old) return old;
-        
-        const updated = old.map((event: any) => {
-          if (event.id.toString() === eventId) {
-            const oldStatus = event.userRsvpStatus;
-            const oldAttendees = event.current_attendees || 0;
-            
-            let attendeeChange = 0;
-            if (oldStatus === 'going' && status !== 'going') {
-              attendeeChange = -1;
-            } else if (oldStatus !== 'going' && status === 'going') {
-              attendeeChange = 1;
-            }
-            
-            const updatedEvent = { 
-              ...event, 
-              userRsvpStatus: status, 
-              current_attendees: Math.max(0, oldAttendees + attendeeChange)
-            };
-            return updatedEvent;
-          }
-          return event;
-        });
-        return updated;
+      await queryClient.cancelQueries({ 
+        predicate: (query) => {
+          const key = query.queryKey[0];
+          return typeof key === 'string' && key.includes('/api/groups/') && key.includes('/events');
+        }
       });
       
-      return { previousEvents };
+      // Save previous data for rollback
+      const previousEvents = queryClient.getQueryData(['/api/events/feed']);
+      const previousGroupEvents = new Map();
+      
+      // Helper function to update event RSVP
+      const updateEvent = (event: any) => {
+        if (event.id.toString() === eventId) {
+          const oldStatus = event.userRsvpStatus;
+          const oldAttendees = event.current_attendees || 0;
+          
+          let attendeeChange = 0;
+          if (oldStatus === 'going' && status !== 'going') {
+            attendeeChange = -1;
+          } else if (oldStatus !== 'going' && status === 'going') {
+            attendeeChange = 1;
+          }
+          
+          return { 
+            ...event, 
+            userRsvpStatus: status, 
+            current_attendees: Math.max(0, oldAttendees + attendeeChange)
+          };
+        }
+        return event;
+      };
+      
+      // Update events feed optimistically
+      queryClient.setQueryData(['/api/events/feed'], (old: any) => {
+        if (!old) return old;
+        return old.map(updateEvent);
+      });
+      
+      // Update all group event queries optimistically
+      queryClient.getQueriesData({ 
+        predicate: (query) => {
+          const key = query.queryKey[0];
+          return typeof key === 'string' && key.includes('/api/groups/') && key.includes('/events');
+        }
+      }).forEach(([queryKey, data]) => {
+        if (data) {
+          previousGroupEvents.set(queryKey, data);
+          queryClient.setQueryData(queryKey, (old: any) => {
+            if (!old) return old;
+            return old.map(updateEvent);
+          });
+        }
+      });
+      
+      return { previousEvents, previousGroupEvents };
     },
     onError: (err, variables, context) => {
+      // Rollback optimistic updates on error
       if (context?.previousEvents) {
         queryClient.setQueryData(['/api/events/feed'], context.previousEvents);
+      }
+      if (context?.previousGroupEvents) {
+        context.previousGroupEvents.forEach((data: any, queryKey: any) => {
+          queryClient.setQueryData(queryKey, data);
+        });
       }
       toast({
         title: "Error",
