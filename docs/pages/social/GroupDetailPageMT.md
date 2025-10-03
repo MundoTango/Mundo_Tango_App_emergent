@@ -164,7 +164,95 @@ export default function GroupDetailPageMT() {
 
 ---
 
-## 4. Conditional Tabs
+## 4. Events Tab Integration (Unified Architecture)
+
+### October 3, 2025 Update
+
+The Events tab now uses the **unified event feed endpoint** (`/api/events/feed`) with `groupId` parameter, ensuring consistent RSVP behavior across all event contexts.
+
+### Implementation
+
+```tsx
+import { useEventRSVP } from '@/hooks/useEventRSVP';
+
+const eventRsvpMutation = useEventRSVP();
+
+// Fetch group events using unified endpoint
+const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
+  queryKey: ['/api/events/feed', { groupId: group?.id }],
+  enabled: activeTab === 'events' && !!group?.id
+});
+
+const events = eventsResponse?.data || [];
+
+// Render events tab
+{activeTab === 'events' && (
+  <div className="space-y-4">
+    {loadingEvents ? (
+      <div className="text-center py-8">Loading events...</div>
+    ) : events.length === 0 ? (
+      <div className="text-center py-8 text-muted-foreground">
+        No events scheduled for this group yet.
+      </div>
+    ) : (
+      events.map((event) => (
+        <UnifiedEventCard
+          key={event.id}
+          event={event}
+          eventRsvpMutation={eventRsvpMutation}
+        />
+      ))
+    )}
+  </div>
+)}
+```
+
+### Key Features
+
+**Unified Endpoint:**
+- Uses `/api/events/feed?groupId=X` (same as Upcoming Events Sidebar)
+- Includes `userRsvpStatus` in response
+- Supports instant RSVP updates
+
+**Query Key Pattern:**
+```typescript
+queryKey: ['/api/events/feed', { groupId: group?.id }]
+```
+
+**RSVP Behavior:**
+- Click "Going" → Instant visual update
+- Updates all event contexts (Upcoming Events, Event Discovery, User Profile)
+- No page refresh required
+- Optimistic updates with server sync
+
+**Critical Implementation Details:**
+
+1. **Variable Ordering:** Must define `group` BEFORE using it in query
+   ```tsx
+   // ✅ CORRECT
+   const group = groupData?.id ? groupData : null;
+   
+   const { data: eventsResponse } = useQuery({
+     queryKey: ['/api/events/feed', { groupId: group?.id }],
+     enabled: !!group?.id
+   });
+   ```
+
+2. **Enabled Flag:** Prevents query when group not loaded
+   ```tsx
+   enabled: activeTab === 'events' && !!group?.id
+   ```
+
+3. **Data Structure:** Response wrapped in `{ data: [...] }`
+   ```tsx
+   const events = eventsResponse?.data || [];
+   ```
+
+**See:** [Unified Event Feed Architecture](../events/UnifiedEventFeedArchitecture.md) for complete details
+
+---
+
+## 5. Conditional Tabs
 
 ### City Groups (`type === 'city'`)
 
@@ -430,6 +518,8 @@ None! Post-refactoring, the component is stable.
 - [PostFeed Component](../components/PostFeed.md) - Core post management
 - [Unified Groups Architecture](UNIFIED-GROUPS-ARCHITECTURE.md) - Overall groups system
 - [Feed Architecture Overview](feed-architecture.md) - Feed unification strategy
+- [Unified Event Feed Architecture](../events/UnifiedEventFeedArchitecture.md) - Events tab implementation
+- [Event RSVP System](../events/EventRSVP.md) - RSVP functionality
 
 ---
 

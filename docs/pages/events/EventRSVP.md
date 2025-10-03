@@ -727,8 +727,95 @@ test('RSVP updates UI immediately without refresh', async ({ page }) => {
 5. **Include rollback logic** in `onError` handler
 6. **Test without page refresh** to ensure real-time behavior
 
-## 16. Related Documentation
+## 16. Unified Event Feed Architecture (October 2025)
 
+### Architectural Unification
+
+All event contexts now use a **single unified endpoint** (`/api/events/feed`) with query parameters:
+
+```
+Before (fragmented):
+- Upcoming Events: /api/events/feed ✅
+- Group Events: /api/groups/:slug/events ❌ (doesn't exist)
+- Event Discovery: /api/events/feed ✅
+- User Profile: /api/events/feed?userId=X ✅
+
+After (unified):
+- All contexts: /api/events/feed?[contextParam]=value ✅
+```
+
+### Query Key Pattern
+
+```typescript
+// Upcoming Events Sidebar
+queryKey: ['/api/events/feed']
+
+// Group Events Tab
+queryKey: ['/api/events/feed', { groupId: 7 }]
+
+// User Profile Events
+queryKey: ['/api/events/feed', { userId: 123 }]
+
+// Event Discovery
+queryKey: ['/api/events/feed', { featured: true }]
+```
+
+### useEventRSVP Hook Update
+
+The RSVP hook now uses **predicate matching** to update ALL event contexts:
+
+```typescript
+// ✅ Updates all /api/events/feed queries (any parameters)
+queryClient.setQueriesData(
+  { predicate: (query) => query.queryKey[0] === '/api/events/feed' },
+  (old: any) => { /* optimistic update logic */ }
+);
+```
+
+**Benefits:**
+- ✅ RSVP updates work instantly in Upcoming Events
+- ✅ RSVP updates work instantly in Group Events
+- ✅ RSVP updates work instantly in Event Discovery
+- ✅ RSVP updates work instantly in User Profile Events
+- ✅ Single mutation hook for all contexts
+
+### Implementation Example
+
+```tsx
+import { useEventRSVP } from '@/hooks/useEventRSVP';
+
+function GroupEventsTab({ group }) {
+  const eventRsvpMutation = useEventRSVP();
+  
+  // Unified endpoint with context parameter
+  const { data: eventsResponse } = useQuery({
+    queryKey: ['/api/events/feed', { groupId: group?.id }],
+    enabled: !!group?.id
+  });
+  
+  const events = eventsResponse?.data || [];
+  
+  return (
+    <>
+      {events.map(event => (
+        <UnifiedEventCard
+          key={event.id}
+          event={event}
+          eventRsvpMutation={eventRsvpMutation}
+        />
+      ))}
+    </>
+  );
+}
+```
+
+**See:** [Unified Event Feed Architecture](./UnifiedEventFeedArchitecture.md) for complete details
+
+---
+
+## 17. Related Documentation
+
+- [Unified Event Feed Architecture](./UnifiedEventFeedArchitecture.md) - **NEW** Architectural overview
 - [Upcoming Events Sidebar](./UpcomingEventsSidebar.md) - Quick RSVP widget
 - [Event Detail Page](./event-detail.md) - Full RSVP interface
 - [Events Management](./Events.md) - Event creation and discovery
