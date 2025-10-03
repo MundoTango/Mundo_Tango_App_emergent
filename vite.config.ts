@@ -25,7 +25,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "client", "src"),
       "@shared": path.resolve(__dirname, "shared"),
       "@assets": path.resolve(__dirname, "attached_assets"),
+      // ESA Layer 15: Force single React instance to prevent hook errors
+      "react": path.resolve(__dirname, "node_modules", "react"),
+      "react-dom": path.resolve(__dirname, "node_modules", "react-dom"),
     },
+    // ESA Layer 15: Deduplicate React to prevent multiple instances
+    dedupe: ['react', 'react-dom'],
   },
   root: path.resolve(__dirname, "client"),
   build: {
@@ -44,7 +49,8 @@ export default defineConfig({
         output: {
           manualChunks: {
             // Split vendor libraries for better caching
-            vendor: ['react', 'react-dom', 'react-router-dom', 'wouter'],
+            // ESA Layer 15: Removed react-router-dom (app uses wouter)
+            vendor: ['react', 'react-dom', 'wouter'],
             ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
             tanstack: ['@tanstack/react-query'],
             utils: ['lodash', 'date-fns', 'zod']
