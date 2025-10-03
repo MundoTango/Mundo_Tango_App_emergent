@@ -130,7 +130,7 @@ export const EventDiscoveryFeed: React.FC = () => {
     }
   };
 
-  const handleRSVP = async (eventId: number, status: 'attending' | 'maybe' | 'not_attending') => {
+  const handleRSVP = async (eventId: number, status: 'going' | 'interested' | 'maybe' | 'not_going') => {
     try {
       const response = await api.post(`/api/events/${eventId}/rsvp`, { status });
       
@@ -143,8 +143,8 @@ export const EventDiscoveryFeed: React.FC = () => {
             const currentCounts = event.rsvpCounts || { attending: 0, maybe: 0, total: 0 };
             const newCounts = { ...currentCounts };
             
-            // Adjust counts based on new status
-            if (status === 'attending') {
+            // Only 'going' status increments attendance count per EventRSVP.md
+            if (status === 'going') {
               newCounts.attending += 1;
             } else if (status === 'maybe') {
               newCounts.maybe += 1;
@@ -157,9 +157,12 @@ export const EventDiscoveryFeed: React.FC = () => {
         
         toast({
           title: 'RSVP Updated',
-          description: `You are now ${status === 'attending' ? 'attending' : 
-                                      status === 'maybe' ? 'maybe attending' : 
-                                      'not attending'} this event`,
+          description: `You are now ${
+            status === 'going' ? 'attending' : 
+            status === 'interested' ? 'interested in' :
+            status === 'maybe' ? 'maybe attending' : 
+            'not attending'
+          } this event`,
         });
       } else {
         throw new Error(response.error || 'Failed to update RSVP');
