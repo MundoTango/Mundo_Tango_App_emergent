@@ -53,16 +53,61 @@ groups (
 
 **ALL groups use the same components:**
 
-1. **GroupDetailPageMT.tsx** (1,436 lines)
+1. **GroupDetailPageMT.tsx** (~400 lines - refactored October 3, 2025)
    - Route: `/groups/:slug`
    - Handles city groups, professional groups, practice groups, and festivals
    - **Conditionally renders tabs** based on group type
+   - **Uses UnifiedPostFeed** with context-based architecture (see below)
 
 2. **Groups List Page** (`groups.tsx`)
    - Route: `/groups`
    - Shows all group types with filters
    - Uses `EnhancedCityGroupCard` for city groups
    - Uses `CommunityCard` for professional groups
+
+### UnifiedPostFeed Integration (October 3, 2025)
+
+**MAJOR ARCHITECTURAL CHANGE:** GroupDetailPageMT now uses context-based UnifiedPostFeed, eliminating ~200 lines of duplicate post management code.
+
+#### Old Pattern (Deprecated)
+```tsx
+// GroupDetailPageMT used to manage all post state:
+const [posts, setPosts] = useState([]);
+const [loadingPosts, setLoadingPosts] = useState(false);
+const [postsPage, setPostsPage] = useState(1);
+const [hasMorePosts, setHasMorePosts] = useState(true);
+
+const fetchGroupPosts = async () => {
+  // 50+ lines of fetch logic
+  // Socket handlers
+  // Mutation handlers
+};
+```
+
+#### New Pattern (Current)
+```tsx
+// GroupDetailPageMT is now a thin wrapper:
+{activeTab === 'posts' && (
+  <UnifiedPostFeed
+    context={{
+      type: 'group',
+      groupId: groupData.id,
+      filter: mentionFilter  // 'all' or 'mentions-only'
+    }}
+    showFilters={false}
+    showSearch={false}
+  />
+)}
+```
+
+**Benefits:**
+- ✅ Zero duplicate code with Memories feed
+- ✅ Automatic pagination & infinite scroll
+- ✅ Context-aware cache invalidation
+- ✅ Consistent UX across all feeds
+- ✅ ~200 lines of code eliminated
+
+**Documentation:** See [UnifiedPostFeed.md](../components/UnifiedPostFeed.md) for complete details.
 
 ### Conditional Tabs
 
