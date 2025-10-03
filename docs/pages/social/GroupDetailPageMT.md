@@ -393,6 +393,24 @@ None! Post-refactoring, the component is stable.
 - ✅ **Fixed:** Post pagination not resetting on filter change (October 3, 2025)
 - ✅ **Fixed:** Duplicate post state management (October 3, 2025)
 - ✅ **Fixed:** Service worker caching API errors (October 3, 2025)
+- ✅ **Fixed:** Group filter buttons not working - URL path vs query parameter bug (October 3, 2025)
+
+### Troubleshooting
+
+**Filter buttons not responding?**
+- Check browser Network tab for API requests
+- Verify URLs use query parameters: `/api/groups/7/posts?filter=residents`
+- NOT path segments: `/api/groups/7/posts/filter/residents`
+- See PostFeed documentation for filter implementation details
+
+**Service worker errors?**
+- Service workers must be plain JavaScript (no TypeScript syntax)
+- See `docs/troubleshooting/SERVICE_WORKER_TYPESCRIPT_BUG.md`
+
+**Posts not loading?**
+- Verify PostFeed context includes correct groupId and filter
+- Check React Query DevTools for cache status
+- Confirm group slug in URL matches database
 
 ---
 
