@@ -4,11 +4,11 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import ProfileHead from "@/components/profile/ProfileHead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import PostCard from "@/components/feed/post-card";
 import { Badge } from "@/components/ui/badge";
 import { getTangoRoleById } from "@/utils/tangoRoles";
 import { RoleEmojiDisplay } from "@/components/ui/RoleEmojiDisplay";
 import { Users } from "lucide-react";
+import PostFeed from "@/components/moments/PostFeed";
 
 interface PublicUser {
   id: number;
@@ -63,24 +63,6 @@ export default function PublicProfilePage() {
       return result.data as PublicUser;
     },
     enabled: !!identifier
-  });
-
-  // Fetch user posts - use userId if available from userData
-  const { data: postsData, isLoading: postsLoading } = useQuery({
-    queryKey: ['/api/user/posts', userData?.id],
-    queryFn: async () => {
-      if (!userData?.id) return [];
-      
-      const response = await fetch(`/api/users/${userData.id}/posts`, {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) return [];
-      
-      const result = await response.json();
-      return result.data || [];
-    },
-    enabled: !!userData?.id
   });
 
   // Fetch user stats
@@ -176,47 +158,15 @@ export default function PublicProfilePage() {
           </Card>
         )}
 
-        {/* Profile Content */}
+        {/* Profile Content - Unified PostFeed */}
         <Tabs value="posts" className="space-y-4">
           <TabsContent value="posts" className="space-y-4">
-            {postsLoading ? (
-              <div className="grid gap-4">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <Card key={i}>
-                    <CardContent className="p-6">
-                      <div className="animate-pulse space-y-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
-                          <div className="space-y-2">
-                            <div className="h-4 bg-gray-200 rounded w-24"></div>
-                            <div className="h-3 bg-gray-200 rounded w-16"></div>
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <div className="h-4 bg-gray-200 rounded"></div>
-                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : postsData?.length > 0 ? (
-              <div className="space-y-4">
-                {postsData.map((post: any) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </div>
-            ) : (
-              <Card>
-                <CardContent className="p-12 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No public posts</h3>
-                  <p className="text-gray-600">
-                    @{userData.username} hasn't shared any public posts yet.
-                  </p>
-                </CardContent>
-              </Card>
-            )}
+            <PostFeed 
+              context={{ 
+                type: 'profile', 
+                userId: userData.id 
+              }}
+            />
           </TabsContent>
         </Tabs>
       </div>
