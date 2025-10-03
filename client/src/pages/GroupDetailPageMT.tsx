@@ -29,11 +29,8 @@ import VisitorAlerts from '@/components/VisitorAlerts';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
-import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
-import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
 import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
 import PostCreator from '@/components/universal/PostCreator';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
@@ -1817,32 +1814,60 @@ export default function GroupDetailPageMT() {
           </div>
         </div> {/* Close max-w-7xl mx-auto px-4 py-6 */}
       
-      {/* Post Composer Modal */}
-      <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>
-              {editingPost ? 'Edit Post' : 'Create Post'}
-            </DialogTitle>
-          </DialogHeader>
-          <EnhancedPostComposer
-            onPostCreated={() => {
-              setCreatePostModal(false);
-              setEditingPost(null);
-              // Refresh posts
-              setPosts([]);
-              setPostsPage(1);
-            }}
-            onPostUpdated={handlePostUpdated}
-            onClose={() => {
-              setCreatePostModal(false);
-              setEditingPost(null);
-            }}
-            editMode={!!editingPost}
-            existingPost={editingPost || undefined}
-          />
-        </DialogContent>
-      </Dialog>
+      {/* Post Edit Modal - Unified with Memories Feed */}
+      {createPostModal && editingPost && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
+            <button
+              onClick={() => {
+                setCreatePostModal(false);
+                setEditingPost(null);
+              }}
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              data-testid="button-close-edit-modal"
+            >
+              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+              ✏️ Edit Your Post
+            </h2>
+            
+            {/* PostCreator with edit mode - matches Memories feed */}
+            <PostCreator
+              editMode={true}
+              existingPost={{
+                id: editingPost.id,
+                content: editingPost.content,
+                location: editingPost.location,
+                visibility: editingPost.visibility,
+                media: editingPost.mediaEmbeds?.map((url: string) => ({ url, type: 'image' })) || 
+                       (editingPost.imageUrl ? [{ url: editingPost.imageUrl, type: 'image' }] : []),
+                hashtags: editingPost.hashtags
+              }}
+              onEditComplete={() => {
+                console.log('[Groups Feed] Post edited successfully');
+                toast({
+                  title: "Post Updated",
+                  description: "Your changes have been saved"
+                });
+                queryClient.invalidateQueries({ queryKey: ['/api/groups', slug, 'posts'] });
+                setPosts([]);
+                setPostsPage(1);
+                setCreatePostModal(false);
+                setEditingPost(null);
+              }}
+              context={{ 
+                type: 'group', 
+                id: group?.id?.toString(),
+                name: group?.type === 'city' ? group.city : group.name
+              }}
+            />
+          </div>
+        </div>
+      )}
     </DashboardLayout>
     </>
   );
