@@ -70,8 +70,6 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
                 userRsvpStatus: event.userRsvpStatus || null,
                 isFeatured: false
               }}
-              onEventClick={(eventId) => {
-              }}
               rsvpMutation={eventRsvpMutation}
             />
           ))}

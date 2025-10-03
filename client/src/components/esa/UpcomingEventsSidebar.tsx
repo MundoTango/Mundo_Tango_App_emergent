@@ -26,12 +26,9 @@ interface Event {
 }
 
 interface UpcomingEventsSidebarProps {
-  onEventClick?: (eventId: string) => void;
 }
 
-export default function UpcomingEventsSidebar({ 
-  onEventClick 
-}: UpcomingEventsSidebarProps) {
+export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
   const { currentTheme } = useTheme();
   const [, setLocation] = useLocation();
   
@@ -127,7 +124,6 @@ export default function UpcomingEventsSidebar({
               <UnifiedEventCard 
                 key={event.id}
                 event={event} 
-                onEventClick={onEventClick} 
                 rsvpMutation={rsvpMutation} 
               />
             ))}

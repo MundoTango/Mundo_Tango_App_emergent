@@ -1,7 +1,6 @@
 import { Clock, MapPin, Users, Sparkles, Check, HelpCircle, X, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
-import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { UseMutationResult } from '@tanstack/react-query';
 
@@ -20,13 +19,10 @@ interface Event {
 
 interface UnifiedEventCardProps {
   event: Event;
-  onEventClick?: (eventId: string) => void;
   rsvpMutation: UseMutationResult<any, Error, { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }, unknown>;
 }
 
-export default function UnifiedEventCard({ event, onEventClick, rsvpMutation }: UnifiedEventCardProps) {
-  const [, setLocation] = useLocation();
-
+export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCardProps) {
   const eventTypeColors = {
     milonga: { bg: 'bg-[rgba(94,234,212,0.24)]', text: 'text-[#0E7490]', border: 'border-[rgba(94,234,212,0.55)]' },
     workshop: { bg: 'bg-[rgba(43,178,232,0.24)]', text: 'text-[#0369A1]', border: 'border-[rgba(43,178,232,0.55)]' },
@@ -142,11 +138,6 @@ export default function UnifiedEventCard({ event, onEventClick, rsvpMutation }: 
         <div className="flex items-start justify-between mb-2 gap-2">
           <a
             href={`/events/${event.id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocation(`/events/${event.id}`);
-              onEventClick?.(event.id);
-            }}
             className="flex-1 min-w-0 cursor-pointer text-left"
           >
             <h3 className="font-semibold text-sm transition-colors truncate text-[#0B3C49] group-hover:text-[#5EEAD4]">
@@ -169,11 +160,6 @@ export default function UnifiedEventCard({ event, onEventClick, rsvpMutation }: 
 
         <a
           href={`/events/${event.id}`}
-          onClick={(e) => {
-            e.preventDefault();
-            setLocation(`/events/${event.id}`);
-            onEventClick?.(event.id);
-          }}
           className="block cursor-pointer"
         >
           <div className="space-y-1 text-xs text-[#3BA0AF]">

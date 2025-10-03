@@ -868,7 +868,6 @@ export default function GroupDetailPageMT() {
                     userRsvpStatus: event.userRsvpStatus || event.userStatus || null,
                     isFeatured: event.isFeatured || false
                   }}
-                  onEventClick={(eventId) => setLocation(`/events/${eventId}`)}
                   rsvpMutation={eventRsvpMutation}
                 />
               ))
