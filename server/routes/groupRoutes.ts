@@ -598,16 +598,21 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               id: users.id,
               name: users.name,
               username: users.username,
-              firstName: users.firstName,
-              lastName: users.lastName,
               profileImage: users.profileImage,
-              city: users.city,
-              country: users.country,
               tangoRoles: users.tangoRoles,
+              leaderLevel: users.leaderLevel,
+              followerLevel: users.followerLevel,
+              city: users.city,
+              state: users.state,
+              country: users.country,
               friendshipStatus: sql<string>`CASE 
                 WHEN ${friends.status} = 'accepted' THEN 'accepted'
                 WHEN ${friends.id} IS NOT NULL THEN 'pending'
                 ELSE 'none'
+              END`,
+              connectionType: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'friend'
+                ELSE NULL
               END`
             }
           })
@@ -658,16 +663,21 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               id: users.id,
               name: users.name,
               username: users.username,
-              firstName: users.firstName,
-              lastName: users.lastName,
               profileImage: users.profileImage,
-              city: users.city,
-              country: users.country,
               tangoRoles: users.tangoRoles,
+              leaderLevel: users.leaderLevel,
+              followerLevel: users.followerLevel,
+              city: users.city,
+              state: users.state,
+              country: users.country,
               friendshipStatus: sql<string>`CASE 
                 WHEN ${friends.status} = 'accepted' THEN 'accepted'
                 WHEN ${friends.id} IS NOT NULL THEN 'pending'
                 ELSE 'none'
+              END`,
+              connectionType: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'friend'
+                ELSE NULL
               END`
             }
           })
@@ -783,16 +793,21 @@ router.get('/groups/:groupId/posts', setUserContext, async (req, res) => {
               id: users.id,
               name: users.name,
               username: users.username,
-              firstName: users.firstName,
-              lastName: users.lastName,
               profileImage: users.profileImage,
-              city: users.city,
-              country: users.country,
               tangoRoles: users.tangoRoles,
+              leaderLevel: users.leaderLevel,
+              followerLevel: users.followerLevel,
+              city: users.city,
+              state: users.state,
+              country: users.country,
               friendshipStatus: sql<string>`CASE 
                 WHEN ${friends.status} = 'accepted' THEN 'accepted'
                 WHEN ${friends.id} IS NOT NULL THEN 'pending'
                 ELSE 'none'
+              END`,
+              connectionType: sql<string>`CASE 
+                WHEN ${friends.status} = 'accepted' THEN 'friend'
+                ELSE NULL
               END`
             }
           })
