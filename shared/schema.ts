@@ -659,7 +659,7 @@ export const events = pgTable("events", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id).notNull(),
   organizerId: integer("organizer_id").references(() => users.id), // Added for eventsRoutes compatibility
-  groupId: uuid("group_id"), // Added for group association
+  groupId: integer("group_id").references(() => groups.id), // Foreign key to groups table for city/professional group association
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
   imageUrl: text("image_url"),
