@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../../auth/useAuthContext';
-import EventCard from '../../../components/Events/EventCard';
+import EventCard from '../../../client/src/components/events/EventCard';
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { Add, Search, FilterList } from '@mui/icons-material';
 
