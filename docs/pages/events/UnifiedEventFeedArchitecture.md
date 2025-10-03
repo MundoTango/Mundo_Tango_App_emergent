@@ -450,6 +450,69 @@ const { data: eventsResponse } = useQuery({
 - Organizer badge
 - Analytics for own profile
 
+### Event Detail Posts Tab
+
+**Location:** `client/src/pages/event-detail.tsx`
+
+**Implementation:**
+```tsx
+const [postFilter, setPostFilter] = useState<'all' | 'participants' | 'guests'>('all');
+
+{activeTab === 'posts' && (
+  <div className="space-y-4">
+    {/* Filter buttons */}
+    <div className="flex gap-2">
+      <Button 
+        variant={postFilter === 'all' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('all')}
+      >
+        All Posts
+      </Button>
+      <Button 
+        variant={postFilter === 'participants' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('participants')}
+      >
+        Participants
+      </Button>
+      <Button 
+        variant={postFilter === 'guests' ? 'default' : 'outline'}
+        onClick={() => setPostFilter('guests')}
+      >
+        Guests
+      </Button>
+    </div>
+
+    {/* Unified PostFeed component */}
+    <PostFeed
+      context={{
+        type: 'event',
+        eventId: eventData.id,
+        filter: postFilter
+      }}
+      showFilters={false}
+      showSearch={false}
+    />
+  </div>
+)}
+```
+
+**Features:**
+- Uses unified PostFeed component with event context
+- Three filter states:
+  - `'all'`: All posts related to this event
+  - `'participants'`: Only posts from RSVPed attendees
+  - `'guests'`: Only posts from non-attendees
+- Filter state managed locally with useState
+- Integrates seamlessly with platform-wide feed architecture
+- Supports all PostFeed features (pagination, mutations, real-time updates)
+
+**Query Pattern:**
+```tsx
+// PostFeed internally builds this query:
+queryKey: ['/api/events', eventId, 'posts', filter, page]
+url: `/api/events/${eventId}/posts?filter=${filter}&page=${page}&limit=20`
+```
+
 ---
 
 ## 7. Common Pitfalls & Solutions
