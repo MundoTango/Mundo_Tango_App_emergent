@@ -14,15 +14,14 @@ export function useEventRSVP() {
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      // Cancel all event-related queries
+      // Cancel all event-related queries (unified approach)
       await queryClient.cancelQueries({ 
         predicate: (query) => {
           const key = query.queryKey;
-          // Match all event queries: /api/events/*, /api/groups/*/events, /api/user/events/*
+          // Match all event queries: /api/events/feed (with or without groupId), /api/events/upcoming, /api/user/events/*
           return Array.isArray(key) && (
             key[0] === '/api/events/feed' ||
             key[0] === '/api/events/upcoming' ||
-            (key[0] === '/api/groups' && key[2] === 'events') ||
             key[0] === '/api/user/events'
           );
         }
@@ -36,7 +35,6 @@ export function useEventRSVP() {
           return Array.isArray(key) && (
             key[0] === '/api/events/feed' ||
             key[0] === '/api/events/upcoming' ||
-            (key[0] === '/api/groups' && key[2] === 'events') ||
             key[0] === '/api/user/events'
           );
         }
@@ -118,7 +116,7 @@ export function useEventRSVP() {
         });
       }
       
-      // Invalidate all event-related queries to refetch from server
+      // Invalidate all event-related queries to refetch from server (unified approach)
       queryClient.invalidateQueries({ 
         predicate: (query) => {
           const key = query.queryKey;
@@ -126,7 +124,6 @@ export function useEventRSVP() {
             key[0] === '/api/events/feed' ||
             key[0] === '/api/events/upcoming' ||
             key[0] === `/api/events/${eventId}` ||
-            (key[0] === '/api/groups' && key[2] === 'events') ||
             key[0] === '/api/user/events'
           );
         }
