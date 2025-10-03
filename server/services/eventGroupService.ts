@@ -47,10 +47,11 @@ export async function autoAssociateEventWithCityGroup<T extends EventWithCity>(
       });
     } else {
       // No matching group found - auto-create it
-      console.log('[EventGroup] No matching group found, creating city group for:', event.city);
+      console.log('[EventGroup] No matching group found, creating city group for:', event.city, event.country);
       const createdGroupId = await CityAutoCreationService.processEventCity(
         event.city,
-        event.userId || 1
+        event.userId || 1,
+        event.country || undefined
       );
       
       if (createdGroupId) {

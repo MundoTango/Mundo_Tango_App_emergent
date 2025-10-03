@@ -18,6 +18,12 @@ interface GeocodingResult {
 }
 
 export class CityAutoCreationService {
+  // Geocoding cache to prevent excessive API calls
+  private static geocodeCache: Map<string, { data: GeocodingResult | null; timestamp: number }> = new Map();
+  private static CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+  private static lastGeocodingCall = 0;
+  private static MIN_GEOCODING_DELAY = 1000; // 1 second between calls (Nominatim usage policy)
+  
   // Common city abbreviations and variations
   private static cityAbbreviations: Record<string, string> = {
     'nyc': 'New York City',
@@ -131,11 +137,30 @@ export class CityAutoCreationService {
 
   /**
    * Get geocoding data for a city using OpenStreetMap Nominatim
+   * Includes caching and rate limiting to respect API usage policy
    */
   private static async geocodeCity(cityName: string): Promise<GeocodingResult | null> {
     try {
       const normalizedCity = this.normalizeCityName(cityName);
+      const cacheKey = normalizedCity.toLowerCase();
+      
+      // Check cache first
+      const cached = this.geocodeCache.get(cacheKey);
+      if (cached && (Date.now() - cached.timestamp < this.CACHE_TTL)) {
+        console.log(`[Geocode] Using cached result for: ${cityName}`);
+        return cached.data;
+      }
+      
+      // Rate limiting: ensure minimum delay between API calls
+      const timeSinceLastCall = Date.now() - this.lastGeocodingCall;
+      if (timeSinceLastCall < this.MIN_GEOCODING_DELAY) {
+        const waitTime = this.MIN_GEOCODING_DELAY - timeSinceLastCall;
+        console.log(`[Geocode] Rate limiting: waiting ${waitTime}ms`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+      }
+      
       const encodedCity = encodeURIComponent(normalizedCity);
+      this.lastGeocodingCall = Date.now();
       
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?q=${encodedCity}&format=json&addressdetails=1&limit=1`,
@@ -148,6 +173,8 @@ export class CityAutoCreationService {
       
       if (!response.ok) {
         console.error(`Geocoding failed for ${cityName}: ${response.statusText}`);
+        // Cache the failure to avoid repeated attempts
+        this.geocodeCache.set(cacheKey, { data: null, timestamp: Date.now() });
         return null;
       }
       
@@ -155,16 +182,24 @@ export class CityAutoCreationService {
       
       if (data.length === 0) {
         console.warn(`No geocoding results found for ${cityName}`);
+        // Cache null result
+        this.geocodeCache.set(cacheKey, { data: null, timestamp: Date.now() });
         return null;
       }
       
       const result = data[0];
-      return {
+      const geoResult: GeocodingResult = {
         lat: parseFloat(result.lat),
         lon: parseFloat(result.lon),
         display_name: result.display_name,
         address: result.address || {}
       };
+      
+      // Cache the result
+      this.geocodeCache.set(cacheKey, { data: geoResult, timestamp: Date.now() });
+      console.log(`[Geocode] Cached result for: ${cityName}`);
+      
+      return geoResult;
     } catch (error) {
       console.error(`Geocoding error for ${cityName}:`, error);
       return null;
@@ -193,7 +228,8 @@ export class CityAutoCreationService {
   static async createOrGetCityGroup(
     cityName: string, 
     triggerType: 'registration' | 'recommendation' | 'event',
-    userId?: number
+    userId?: number,
+    country?: string
   ): Promise<{ groupId: number; created: boolean } | null> {
     try {
       if (!cityName || cityName.trim().length === 0) {
@@ -203,14 +239,17 @@ export class CityAutoCreationService {
 
       const normalizedCity = this.normalizeCityName(cityName);
       
-      // Check if group already exists (case-insensitive)
+      // Check if group already exists (case-insensitive) - match both city and country for precision
       const existingGroup = await db
         .select()
         .from(groups)
         .where(
           and(
             eq(groups.type, 'city'),
-            sql`LOWER(${groups.name}) = LOWER(${normalizedCity})`
+            sql`LOWER(${groups.city}) = LOWER(${normalizedCity})`,
+            country 
+              ? sql`LOWER(${groups.country}) = LOWER(${country})`
+              : sql`TRUE`
           )
         )
         .limit(1);
@@ -220,32 +259,35 @@ export class CityAutoCreationService {
         return { groupId: existingGroup[0].id, created: false };
       }
       
-      // Get geocoding data
-      const geoData = await this.geocodeCity(normalizedCity);
+      // Get geocoding data - include country for better accuracy
+      const geocodeQuery = country ? `${normalizedCity}, ${country}` : normalizedCity;
+      const geoData = await this.geocodeCity(geocodeQuery);
       
       if (!geoData) {
-        console.error(`Could not geocode city: ${normalizedCity}`);
+        console.error(`Could not geocode city: ${geocodeQuery}`);
         // Still create the group without coordinates
       }
       
       // Determine the full location name
       let fullLocationName = normalizedCity;
-      let country = '';
+      let resolvedCountry = country || '';
       
       if (geoData?.address) {
         const addr = geoData.address;
-        country = addr.country || '';
+        if (!resolvedCountry) {
+          resolvedCountry = addr.country || '';
+        }
         const state = addr.state || '';
         
-        if (country) {
+        if (resolvedCountry) {
           fullLocationName = state 
-            ? `${normalizedCity}, ${state}, ${country}`
-            : `${normalizedCity}, ${country}`;
+            ? `${normalizedCity}, ${state}, ${resolvedCountry}`
+            : `${normalizedCity}, ${resolvedCountry}`;
         }
       }
       
       // Generate slug
-      const slug = this.generateSlug(normalizedCity, country);
+      const slug = this.generateSlug(normalizedCity, resolvedCountry);
       
       // Create the city group
       const [newGroup] = await db
@@ -258,7 +300,7 @@ export class CityAutoCreationService {
           isPrivate: false,
           memberCount: 0,
           city: normalizedCity,
-          country: country || null,
+          country: resolvedCountry || null,
           latitude: geoData?.lat || null,
           longitude: geoData?.lon || null,
           createdBy: userId || 1, // Default to system user if no user provided
@@ -390,9 +432,9 @@ export class CityAutoCreationService {
   /**
    * Process city from event creation
    */
-  static async processEventCity(cityName: string, userId: number): Promise<number | null> {
+  static async processEventCity(cityName: string, userId: number, country?: string): Promise<number | null> {
     try {
-      const result = await this.createOrGetCityGroup(cityName, 'event', userId);
+      const result = await this.createOrGetCityGroup(cityName, 'event', userId, country);
       return result?.groupId || null;
     } catch (error) {
       console.error('Error processing event city:', error);
