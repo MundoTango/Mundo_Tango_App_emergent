@@ -325,6 +325,8 @@ router.get('/groups/my', isAuthenticated, async (req: any, res) => {
 // Get single group (by ID or slug)
 router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
   try {
+    console.log('🔍 [GROUP ROUTE] Request received for identifier:', req.params.groupIdentifier);
+    console.log('🔍 [GROUP ROUTE] Headers:', JSON.stringify(req.headers, null, 2));
     const identifier = req.params.groupIdentifier;
     let group;
     
