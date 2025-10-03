@@ -260,36 +260,15 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // Fetch group details - using pattern from working groups list page
+  // Fetch group details
   const { data: response, isLoading, error } = useQuery({
     queryKey: [`/api/groups/${slug}`],
-    queryFn: async () => {
-      const response = await fetch(`/api/groups/${slug}`, {
-        credentials: 'include',
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        }
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      return response.json();
-    },
     enabled: !!slug
   });
 
   // Extract group data from API response - handle both patterns
-  console.log('Group API response:', response);
-  console.log('Slug being requested:', slug);
-  console.log('Query error:', error);
-  console.log('Is loading:', isLoading);
-  
-  // Check if the response has a success flag
   const groupData = response?.success === false ? null : (response?.data || response);
   const group = groupData?.id ? groupData : null;
-  
-  console.log('Extracted group:', group);
   
   // Check if user is member/admin
   const isMember = group?.members?.some((m: GroupMember) => m.user.id === user?.id) || false;

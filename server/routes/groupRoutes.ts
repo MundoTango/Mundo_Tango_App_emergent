@@ -322,17 +322,10 @@ router.get('/groups/my', isAuthenticated, async (req: any, res) => {
   }
 });
 
-// TEST: Minimal route without middleware
-router.get('/groups-test/:slug', async (req, res) => {
-  console.log('✅ TEST ROUTE HIT:', req.params.slug);
-  res.json({ test: true, slug: req.params.slug, message: 'Test route works!' });
-});
-
 // Get single group (by ID or slug)
 router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
   try {
     const identifier = req.params.groupIdentifier;
-    console.log(`📍 GET /api/groups/${identifier} - Request received`);
     let group;
     
     // Check if identifier is numeric (ID) or string (slug)
@@ -386,15 +379,13 @@ router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
       recommendationCount = cityRecommendations.length;
     }
     
-    const responseData = {
+    res.json({
       ...group,
       memberCount: members.length,
       eventCount,
       hostCount,
       recommendationCount
-    };
-    console.log(`📤 Sending response for ${identifier}:`, JSON.stringify(responseData).substring(0, 100));
-    res.json(responseData);
+    });
   } catch (error) {
     console.error('Error fetching group:', error);
     res.status(500).json({ error: 'Failed to fetch group' });
