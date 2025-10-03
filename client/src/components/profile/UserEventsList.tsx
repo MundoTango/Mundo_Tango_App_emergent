@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Calendar, MapPin, Users, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import UnifiedEventCard from '@/components/events/UnifiedEventCard';
+import { useEventRSVP } from '@/hooks/useEventRSVP';
 
 interface UserEventsListProps {
   userId: number;
@@ -13,6 +15,8 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     queryKey: ['/api/user/events', userId],
     enabled: !!userId,
   });
+
+  const eventRsvpMutation = useEventRSVP();
 
   if (isLoading) {
     return (
@@ -52,47 +56,24 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
           {upcomingEvents.map((event: any) => (
-            <Card key={event.id} className="glassmorphic-card hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start gap-4">
-                  <div className="space-y-3 flex-1">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-lg">{event.title}</h4>
-                      {event.description && (
-                        <p className="text-gray-600 text-sm mt-1">{event.description}</p>
-                      )}
-                    </div>
-                    
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Calendar className="h-4 w-4" />
-                        <span>{new Date(event.startDate).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock className="h-4 w-4" />
-                        <span>{new Date(event.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                      </div>
-                      {event.location && (
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <MapPin className="h-4 w-4" />
-                          <span>{event.location}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Users className="h-4 w-4" />
-                        <span>{event.attendeesCount || 0} attending</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {isOwnProfile && event.userRole && (
-                    <Badge className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white">
-                      {event.userRole}
-                    </Badge>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <UnifiedEventCard
+              key={event.id}
+              event={{
+                id: event.id.toString(),
+                title: event.title,
+                type: event.eventType || event.type || 'milonga',
+                date: event.startDate,
+                time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                location: event.location || 'Location TBA',
+                city: event.city,
+                attendees: event.attendeesCount || 0,
+                userRsvpStatus: event.userRsvpStatus || null,
+                isFeatured: false
+              }}
+              onEventClick={(eventId) => {
+              }}
+              rsvpMutation={eventRsvpMutation}
+            />
           ))}
         </div>
       )}
