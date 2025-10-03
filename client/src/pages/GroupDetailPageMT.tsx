@@ -260,11 +260,23 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // Fetch group details using React Query with default fetcher
+  // Fetch group details - using pattern from working groups list page
   const { data: response, isLoading, error } = useQuery({
     queryKey: [`/api/groups/${slug}`],
+    queryFn: async () => {
+      const response = await fetch(`/api/groups/${slug}`, {
+        credentials: 'include',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return response.json();
+    },
     enabled: !!slug
-    // Uses default fetcher from queryClient
   });
 
   // Extract group data from API response - handle both patterns
