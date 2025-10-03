@@ -1,217 +1,600 @@
-# UnifiedPostFeed - Consolidated Feed Component
+# UnifiedPostFeed Component Documentation
+
+**Last Updated:** October 3, 2025  
+**Component Path:** `client/src/components/moments/UnifiedPostFeed.tsx`  
+**ESA Framework Layer:** Layer 22 - Social Feed Management  
+**Status:** ✅ PRODUCTION READY
+
+---
 
 ## Overview
-- **Component:** `client/src/components/moments/UnifiedPostFeed.tsx`
-- **Route:** Used on `/memories` and various feed pages
-- **Purpose:** Unified post feed component replacing multiple duplicate implementations
-- **ESA Framework Layer:** Layer 9 (UI Framework) & Layer 2 (API Structure)
 
-## ⚠️ CRITICAL CHANGE: Layer 53 (Internationalization) REMOVED
+UnifiedPostFeed is a **context-based, smart feed component** that eliminates code duplication across all post feeds in the platform (Memories, Groups, Events, Profiles). It handles data fetching, pagination, infinite scroll, loading states, and mutation cache invalidation internally based on a feed context prop.
 
-**Status**: As of October 2025, Layer 53 internationalization has been **completely removed** from this component.
+### Key Principle
 
-**What Changed:**
-- All `useTranslation()` hooks removed
-- All `t()` translation calls replaced with hardcoded English strings (19 replacements)
-- Component now operates in **English-only mode**
-- Filter button now shows "Filters" instead of "common.actions.filters"
+**"One component, zero duplication"** - Any feed that displays posts should use UnifiedPostFeed with a context prop, rather than implementing its own fetch/pagination logic.
 
-**Affected Text:**
-- "Filters" button label
-- "No posts yet" empty state
-- "Search posts..." placeholder
-- Loading states
-- Error messages
-- All user-facing strings
+---
 
-**Why This Change:**
-Layer 53 had critical failures preventing proper UI rendering. We removed i18n dependencies to restore full functionality while Layer 53 is being re-implemented.
+## Architecture Pattern
 
-## Technical Implementation
+### Before (Legacy Pattern - ❌ DON'T USE)
 
-### Components
-- **Primary Component:** `UnifiedPostFeed.tsx` - Consolidated feed component
-- **Replaced Components:**
-  - `EnhancedPostFeed.tsx` (full-featured version)
-  - `EnhancedPostFeedSimple.tsx` (2 lightweight versions)
-- **Props Interface:**
-  ```typescript
-  interface UnifiedPostFeedProps {
-    showFilters?: boolean;      // Show filter controls
-    showSearch?: boolean;        // Show search bar
-    posts?: any[];              // Posts array (preferred over internal fetch)
-    currentUserId: string;      // Current user ID
-    filters?: FilterOptions;    // Filter configuration
-    hasMore?: boolean;          // Infinite scroll flag
-    onLoadMore?: () => void;    // Load more callback
-    onEdit?: (post) => void;    // Edit handler
-  }
-  ```
+```tsx
+// Parent component had to manage everything:
+const [posts, setPosts] = useState([]);
+const [page, setPage] = useState(1);
+const [loading, setLoading] = useState(false);
+const [hasMore, setHasMore] = useState(true);
 
-### Component Modes
-- **Prop-Driven Mode (Preferred):** Receives posts from parent component
-- **Self-Fetch Mode:** Internal data fetching when posts prop not provided
-- **Custom Mode:** Selective feature enabling via props
+const fetchPosts = async () => {
+  setLoading(true);
+  const response = await fetch(`/api/posts?page=${page}`);
+  const data = await response.json();
+  setPosts(prev => [...prev, ...data.posts]);
+  setHasMore(data.hasMore);
+  setLoading(false);
+};
+
+useEffect(() => { fetchPosts(); }, [page]);
+
+// Socket handlers for real-time updates
+// Mutation handlers for like/comment/delete
+// Filter/search state management
+// 200+ lines of duplicate code...
+
+return <PostFeed posts={posts} loading={loading} />;
+```
+
+### After (Unified Pattern - ✅ USE THIS)
+
+```tsx
+// Parent component is now a thin wrapper:
+<UnifiedPostFeed 
+  context={{ 
+    type: 'group', 
+    groupId: 7,
+    filter: 'all'
+  }} 
+/>
+
+// UnifiedPostFeed handles EVERYTHING internally:
+// - Data fetching
+// - Pagination & infinite scroll
+// - Loading states
+// - Cache invalidation
+// - Filter/search reset
+// - Mutation updates
+```
+
+**Result:** ~430 lines of duplicate code eliminated across Memories and Groups feeds.
+
+---
+
+## Context Types
+
+UnifiedPostFeed supports four context types, each with its own data source and query keys:
+
+### 1. Feed Context (Memories Feed)
+
+```tsx
+<UnifiedPostFeed 
+  context={{ 
+    type: 'feed' 
+  }}
+  showFilters={true}
+  showSearch={true}
+/>
+```
+
+- **Fetches from:** `/api/posts/feed`
+- **Query Key:** `['/api/posts/feed', page]`
+- **Use Case:** Main Memories feed on `/memories` page
+- **Features:** All filters (photos/videos, links, all posts, friends only)
+
+### 2. Group Context (Group Posts)
+
+```tsx
+<UnifiedPostFeed 
+  context={{ 
+    type: 'group',
+    groupId: 7,
+    filter: 'all' // or 'residents', 'visitors', 'members', 'non-members'
+  }}
+  showFilters={false}
+  showSearch={false}
+/>
+```
+
+- **Fetches from:** `/api/groups/${groupId}/posts?filter=${filter}`
+- **Query Key:** `['/api/groups', groupId, 'posts', filter, page]`
+- **Use Case:** Group detail page Posts tab
+- **Features:** Group-specific filtering by member status
+
+### 3. Profile Context (User Posts)
+
+```tsx
+<UnifiedPostFeed 
+  context={{ 
+    type: 'profile',
+    userId: 123
+  }}
+  showFilters={false}
+  showSearch={false}
+/>
+```
+
+- **Fetches from:** `/api/users/${userId}/posts`
+- **Query Key:** `['/api/users', userId, 'posts', page]`
+- **Use Case:** User profile page Posts tab
+- **Features:** Shows only that user's posts
+
+### 4. Event Context (Event Posts)
+
+```tsx
+<UnifiedPostFeed 
+  context={{ 
+    type: 'event',
+    eventId: 456
+  }}
+  showFilters={false}
+  showSearch={false}
+/>
+```
+
+- **Fetches from:** `/api/events/${eventId}/posts`
+- **Query Key:** `['/api/events', eventId, 'posts', page]`
+- **Use Case:** Event detail page Posts tab
+- **Features:** Shows event-related posts only
+
+---
+
+## Internal Architecture
+
+### Smart vs Controlled Modes
+
+UnifiedPostFeed operates in two modes:
+
+#### Smart Mode (Recommended)
+```tsx
+// Pass context, component fetches data internally
+<UnifiedPostFeed context={{ type: 'feed' }} />
+```
+
+#### Controlled Mode (Legacy Compatibility)
+```tsx
+// Parent passes posts prop for custom control
+<UnifiedPostFeed posts={customPosts} />
+```
+
+**New implementations should always use Smart Mode.**
 
 ### Data Flow
-1. **Preferred:** Parent fetches from `/api/posts/feed`, passes via props
-2. **Fallback:** Component fetches internally if no posts prop
-3. **Enrichment:** Includes friendship status and user data
-4. **Filtering:** Client-side filtering by tags and search
-5. **Rendering:** Optimized virtual scrolling for large lists
 
-## Database Schema
-
-### Posts Table
-```sql
-posts (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id),
-  content TEXT,
-  media_url VARCHAR(500),
-  media_type VARCHAR(50),
-  hashtags TEXT[],
-  mentions INTEGER[],
-  likes_count INTEGER DEFAULT 0,
-  comments_count INTEGER DEFAULT 0,
-  shares_count INTEGER DEFAULT 0,
-  is_public BOOLEAN DEFAULT true,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP
-)
+```
+Parent Component
+    ↓ (passes context prop)
+UnifiedPostFeed
+    ↓ (builds query URL from context)
+useQuery with React Query
+    ↓ (fetches from API)
+Internal State Management
+    ↓ (manages page, posts, hasMore)
+Infinite Scroll Observer
+    ↓ (triggers page increment)
+Re-fetch with new page
+    ↓ (appends to posts array)
+Renders PostCreator + PostItems
 ```
 
-### Feed Aggregation Query
-```sql
-SELECT 
-  p.*,
-  u.name, u.username, u.profile_image,
-  f.status as friendship_status,
-  COUNT(l.id) as likes_count,
-  COUNT(c.id) as comments_count
-FROM posts p
-JOIN users u ON p.user_id = u.id
-LEFT JOIN friends f ON f.user_id = $1 AND f.friend_id = p.user_id
-LEFT JOIN likes l ON l.post_id = p.id
-LEFT JOIN comments c ON c.post_id = p.id
-GROUP BY p.id, u.id, f.status
-ORDER BY p.created_at DESC
-LIMIT $2 OFFSET $3
+### Internal State
+
+```tsx
+// UnifiedPostFeed manages these internally:
+const [page, setPage] = useState(1);
+const [allPosts, setAllPosts] = useState([]);
+const [internalHasMore, setInternalHasMore] = useState(true);
+const [activeFilters, setActiveFilters] = useState({...});
+const [debouncedSearch, setDebouncedSearch] = useState('');
 ```
 
-## User Permissions
+### Pagination Reset Logic
 
-### Access Control
-- **Public Feed:** Available to all authenticated users
-- **Friends Feed:** Filtered to show friends' posts only
-- **Private Posts:** Excluded from public feeds
-- **Admin View:** Can see all posts including flagged content
+**Critical Feature:** When filters or search change, pagination automatically resets to page 1:
 
-### Privacy Settings
-- Post visibility levels (public, friends, private)
-- User blocking and muting
-- Content filtering preferences
-- NSFW content toggles
+```tsx
+useEffect(() => {
+  if (context) {
+    console.log('[Framework] Filters/search changed - resetting pagination');
+    setPage(1);
+    setAllPosts([]);
+    setInternalHasMore(true);
+  }
+}, [activeFilters.filterType, activeFilters.tags, activeFilters.visibility, 
+    activeFilters.startDate, activeFilters.endDate, debouncedSearch]);
+```
 
-## MT Ocean Theme
+This prevents bugs where users scroll to page 3, change a filter, and see empty results because the component was still querying page 3 of the new filter.
 
-### Design Implementation
-- **Container:** Glassmorphic cards with backdrop blur
-- **Gradients:** Teal-cyan theme `#5EEAD4 → #155E75`
-- **Spacing:** Consistent gap-6 between posts
-- **Typography:** Clear hierarchy with weight/size variations
-- **Loading States:** Skeleton screens with shimmer effect
+---
 
-### Interactive Elements
-- **Hover Effects:** Card elevation and shadow transitions
-- **Engagement Buttons:** Like, comment, share with animations
-- **Tag Pills:** Clickable tags with gradient backgrounds
-- **Search Bar:** Real-time search with debouncing
-- **Filter Button:** "Filters" button (English-only)
+## Cache Invalidation
 
-## Test Coverage
+UnifiedPostFeed provides a context-aware cache invalidation helper:
 
-### Current Status
-- **Component Tests:** Basic rendering tests
-- **Integration Tests:** API integration verified
-- **Performance Tests:** Virtual scrolling tested
-- **Visual Tests:** Screenshot regression tests
+```tsx
+const invalidateQueriesForContext = () => {
+  if (!context) return;
 
-### Requirements
-- Unit tests for filtering logic
-- Integration tests for real-time updates
-- E2E tests for user interactions
-- Performance tests for large datasets
-- Accessibility tests for screen readers
+  switch (context.type) {
+    case 'feed':
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      break;
+    case 'group':
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/groups', context.groupId, 'posts'] 
+      });
+      break;
+    case 'profile':
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/users', context.userId, 'posts'] 
+      });
+      break;
+    case 'event':
+      queryClient.invalidateQueries({ 
+        queryKey: ['/api/events', context.eventId, 'posts'] 
+      });
+      break;
+  }
+};
+```
 
-## Known Issues
+**When to invalidate:**
+- After creating a new post
+- After editing a post
+- After deleting a post
+- After any mutation that affects the feed
 
-### Recent Fixes (October 2025)
-✅ **Fixed: Translation key display** - "common.actions.filters" now shows as "Filters"
-✅ **Fixed: Layer 53 crashes** - Removed all i18n dependencies, English-only
-✅ **Fixed: Component rendering** - All 19 t() calls replaced with English strings
+All mutations (like, comment, share, delete) automatically call this helper.
 
-### Current Bugs
-- Infinite scroll occasionally duplicates posts
-- Search doesn't highlight matched terms
-- Tag filtering has case sensitivity issues
+---
 
-### Improvement Areas
-- Implement optimistic UI for likes/comments
-- Add post caching strategy
-- Improve virtual scrolling smoothness
-- Add skeleton loading for images
-- Implement pull-to-refresh on mobile
+## Props Interface
 
-## Agent Responsibilities
-
-### ESA Framework Assignments
-- **Layer 9 (UI Framework):** Component consolidation and optimization
-- **Layer 2 (API Structure):** Data contract and API design
-- **Layer 48 (Performance):** Feed optimization and caching
-- **Layer 11 (Real-time):** Live updates for new posts
-- **Layer 22 (Group Management):** Friendship-based filtering
-
-## Integration Points
-
-### External Services
-- **API Backend:** Express.js REST endpoints
-- **Real-time Updates:** Socket.io for live posts
-- **Image CDN:** Cloudinary for media optimization
-- **Search Service:** Elasticsearch/Fuse.js (when implemented)
-- **Analytics:** Event tracking for engagement
-
-### Internal Integrations
-- **EnhancedPostItem:** Individual post rendering
-- **PostCreator:** New post creation component
-- **CommentSection:** Nested comments display
-- **ShareModal:** Post sharing functionality
-- **ReportModal:** Content reporting system
-
-## Performance Metrics
-
-### Load Times
-- **Initial Load:** ~200ms for first 20 posts
-- **Infinite Scroll:** ~100ms per batch
-- **Search Response:** ~150ms with debouncing
-- **Image Loading:** Progressive with lazy loading
-
-### Optimization Results
-- **Component Reduction:** 3 components → 1 unified (60% less code)
-- **Bundle Size:** Reduced by ~15KB through consolidation
-- **Render Performance:** 40% faster with React.memo
-- **Memory Usage:** Optimized with virtual scrolling
-- **API Calls:** Reduced by 30% with better caching
-- **User Experience:** Consistent behavior across all feeds
-
-## English-Only Implementation
 ```typescript
-// Example: All text is now hardcoded in English
-<Button>
-  <Filter className="h-4 w-4 mr-2" />
-  Filters
-</Button>
+interface UnifiedPostFeedProps {
+  // CONTEXT MODE (smart fetching)
+  context?: FeedContext;
+  
+  // CONTROLLED MODE (legacy compatibility)
+  posts?: any[];
+  
+  // UI CONTROLS
+  showFilters?: boolean;      // Default: true (feed), false (group/profile/event)
+  showSearch?: boolean;       // Default: true (feed), false (group/profile/event)
+  showPostCreator?: boolean;  // Default: true
+  
+  // STYLING
+  className?: string;
+  
+  // CALLBACKS
+  onPostCreated?: (post: any) => void;
+  onPostDeleted?: (postId: number) => void;
+  onPostUpdated?: (post: any) => void;
+}
 
-// Was previously:
-// {t('common.actions.filters')}
+type FeedContext = 
+  | { type: 'feed' }
+  | { type: 'group'; groupId: number; filter?: string }
+  | { type: 'profile'; userId: number }
+  | { type: 'event'; eventId: number };
 ```
+
+---
+
+## Migration Guide
+
+### From Legacy Pattern to UnifiedPostFeed
+
+#### Step 1: Identify Duplicate Code
+
+Look for these patterns in your component:
+- `useState` for posts, page, loading, hasMore
+- `useEffect` with fetch logic
+- `useInfiniteScroll` or manual scroll handlers
+- Socket listeners for real-time updates
+- Mutation handlers for like/comment/delete
+
+#### Step 2: Remove Duplicate State
+
+```tsx
+// DELETE THESE:
+const [posts, setPosts] = useState([]);
+const [page, setPage] = useState(1);
+const [loading, setLoading] = useState(false);
+const [hasMore, setHasMore] = useState(true);
+
+const fetchPosts = async () => { /* ... */ };
+useEffect(() => { fetchPosts(); }, [page]);
+```
+
+#### Step 3: Add Context Prop
+
+```tsx
+// REPLACE WITH:
+<UnifiedPostFeed 
+  context={{ 
+    type: 'group',  // or 'feed', 'profile', 'event'
+    groupId: groupData.id  // if type === 'group'
+  }}
+/>
+```
+
+#### Step 4: Remove Mutation Handlers
+
+UnifiedPostFeed handles these internally:
+- `handlePostCreated` - DELETE
+- `handlePostUpdated` - DELETE  
+- `handlePostDeleted` - DELETE
+- `handleLikeToggle` - DELETE
+- Socket listeners - DELETE
+
+#### Step 5: Verify Context-Aware Queries
+
+Ensure your backend API returns data in the expected format:
+
+```typescript
+{
+  posts: Post[],
+  hasMore: boolean,
+  total?: number
+}
+```
+
+---
+
+## Real-World Examples
+
+### Example 1: Memories Feed (ESAMemoryFeed.tsx)
+
+```tsx
+export default function ESAMemoryFeed() {
+  return (
+    <DashboardLayout>
+      <div className="min-h-screen bg-gradient-to-b from-turquoise-50 to-white dark:from-cobalt-950 dark:to-black">
+        <div className="max-w-3xl mx-auto px-4 py-8">
+          <div className="flex items-center gap-3 mb-8">
+            <Sparkles className="w-8 h-8 text-turquoise-500" />
+            <h1 className="text-3xl font-bold text-cobalt-900 dark:text-turquoise-100">
+              Memories
+            </h1>
+          </div>
+          
+          {/* That's it! UnifiedPostFeed does everything else */}
+          <UnifiedPostFeed 
+            context={{ type: 'feed' }}
+            showFilters={true}
+            showSearch={true}
+          />
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+}
+```
+
+**Lines of code:** ~50 (previously ~280)
+
+### Example 2: Group Posts Tab (GroupDetailPageMT.tsx)
+
+```tsx
+{activeTab === 'posts' && (
+  <div className="space-y-6">
+    {/* Simple mention filter toggle */}
+    <div className="flex justify-end">
+      <Button
+        variant={mentionFilter === 'all' ? 'default' : 'outline'}
+        onClick={() => setMentionFilter(mentionFilter === 'all' ? 'mentions-only' : 'all')}
+      >
+        {mentionFilter === 'all' ? 'Show All Posts' : 'Show @Mentions Only'}
+      </Button>
+    </div>
+
+    {/* UnifiedPostFeed with group context */}
+    <UnifiedPostFeed
+      context={{
+        type: 'group',
+        groupId: groupData.id,
+        filter: mentionFilter
+      }}
+      showFilters={false}
+      showSearch={false}
+    />
+  </div>
+)}
+```
+
+**Lines of code for posts tab:** ~20 (previously ~220)
+
+### Example 3: Profile Posts Tab (Future)
+
+```tsx
+{activeTab === 'posts' && (
+  <UnifiedPostFeed
+    context={{
+      type: 'profile',
+      userId: profileUser.id
+    }}
+    showFilters={false}
+    showSearch={false}
+    showPostCreator={currentUser.id === profileUser.id} // Only show creator on own profile
+  />
+)}
+```
+
+---
+
+## Testing Strategy
+
+### Unit Tests
+
+```typescript
+describe('UnifiedPostFeed', () => {
+  it('should fetch posts from correct endpoint based on context', () => {
+    // Test feed context
+    render(<UnifiedPostFeed context={{ type: 'feed' }} />);
+    expect(mockFetch).toHaveBeenCalledWith('/api/posts/feed?page=1&limit=20');
+    
+    // Test group context
+    render(<UnifiedPostFeed context={{ type: 'group', groupId: 7 }} />);
+    expect(mockFetch).toHaveBeenCalledWith('/api/groups/7/posts?page=1&limit=20');
+  });
+
+  it('should reset pagination when filters change', () => {
+    const { rerender } = render(
+      <UnifiedPostFeed context={{ type: 'group', groupId: 7, filter: 'all' }} />
+    );
+    
+    // Simulate scroll to page 3
+    scrollToBottom();
+    expect(currentPage).toBe(3);
+    
+    // Change filter
+    rerender(
+      <UnifiedPostFeed context={{ type: 'group', groupId: 7, filter: 'residents' }} />
+    );
+    
+    // Should reset to page 1
+    expect(currentPage).toBe(1);
+  });
+});
+```
+
+### Integration Tests
+
+Use Playwright to test end-to-end:
+
+```typescript
+test('should load more posts on scroll in group feed', async ({ page }) => {
+  await page.goto('/groups/buenos-aires');
+  await page.click('[data-testid="tab-posts"]');
+  
+  // Wait for initial posts
+  await page.waitForSelector('[data-testid^="card-post-"]');
+  const initialPosts = await page.locator('[data-testid^="card-post-"]').count();
+  
+  // Scroll to bottom
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  
+  // Wait for more posts to load
+  await page.waitForTimeout(1000);
+  const afterScrollPosts = await page.locator('[data-testid^="card-post-"]').count();
+  
+  expect(afterScrollPosts).toBeGreaterThan(initialPosts);
+});
+```
+
+---
+
+## Performance Considerations
+
+### Infinite Scroll Optimization
+
+UnifiedPostFeed uses IntersectionObserver for efficient scroll detection:
+
+```tsx
+const observerRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && internalHasMore && !isLoadingMore) {
+        setPage(prev => prev + 1);
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  if (observerRef.current) observer.observe(observerRef.current);
+  return () => observer.disconnect();
+}, [internalHasMore, isLoadingMore]);
+```
+
+### Query Caching
+
+React Query automatically caches feed data:
+- **Stale Time:** 30 seconds
+- **Cache Time:** 5 minutes
+- **Refetch on Focus:** Enabled
+
+### Bundle Size
+
+UnifiedPostFeed is code-split with React.lazy():
+
+```tsx
+const UnifiedPostFeed = React.lazy(() => 
+  import('@/components/moments/UnifiedPostFeed')
+);
+```
+
+---
+
+## Troubleshooting
+
+### Issue: Posts not loading
+
+**Check:**
+1. Is context prop passed correctly?
+2. Does API endpoint return `{ posts: [], hasMore: boolean }`?
+3. Are query keys unique per context?
+
+### Issue: Pagination reset not working
+
+**Check:**
+1. Are filters stored in local state?
+2. Is useEffect dependency array correct?
+3. Does filter change trigger re-render?
+
+### Issue: Cache not invalidating after mutation
+
+**Check:**
+1. Is `invalidateQueriesForContext()` called after mutation?
+2. Do query keys match between fetch and invalidate?
+3. Is queryClient imported correctly?
+
+---
+
+## Future Enhancements
+
+- [ ] Add virtualization for feeds with 1000+ posts
+- [ ] Implement optimistic updates for mutations
+- [ ] Add skeleton loading states
+- [ ] Support custom post renderers per context
+- [ ] Add feed analytics tracking
+- [ ] Implement feed preferences per user
+- [ ] Add export feed data functionality
+
+---
+
+## Related Documentation
+
+- [Feed Architecture Overview](../social/feed-architecture.md)
+- [Unified Groups Architecture](../social/UNIFIED-GROUPS-ARCHITECTURE.md)
+- [Group Detail Page](../social/GroupDetailPageMT.md)
+- [Memories Feed Testing](../../testing/memories-feed-component-testing.md)
+
+---
+
+## Summary
+
+UnifiedPostFeed represents a major architectural improvement that:
+- ✅ Eliminates ~430 lines of duplicate code
+- ✅ Provides consistent UX across all feeds
+- ✅ Simplifies parent components to thin wrappers
+- ✅ Centralizes pagination, caching, and mutation logic
+- ✅ Makes adding new feed types trivial (5-10 lines of code)
+
+**Pattern:** `<UnifiedPostFeed context={{type, ...params}} />`
+
+**Status:** ✅ Production Ready - Deployed October 3, 2025
