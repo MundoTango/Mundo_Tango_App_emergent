@@ -566,7 +566,6 @@ export default function EnhancedEventsPage() {
                     userRsvpStatus: event.userStatus || null,
                     isFeatured: false
                   }}
-                  onEventClick={(eventId) => setSelectedEvent(events.find(e => e.id.toString() === eventId) || null)}
                   rsvpMutation={eventRsvpMutation}
                 />
               ))}
@@ -591,7 +590,6 @@ export default function EnhancedEventsPage() {
                   userRsvpStatus: event.userStatus || null,
                   isFeatured: false
                 }}
-                onEventClick={(eventId) => setSelectedEvent(events.find(e => e.id.toString() === eventId) || null)}
                 rsvpMutation={eventRsvpMutation}
               />
             ))}

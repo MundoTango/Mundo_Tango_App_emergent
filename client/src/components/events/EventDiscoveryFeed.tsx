@@ -324,7 +324,6 @@ export const EventDiscoveryFeed: React.FC = () => {
                   userRsvpStatus: userRsvps[event.id] || null,
                   isFeatured: false
                 }}
-                onEventClick={(eventId) => setLocation(`/events/${eventId}`)}
                 rsvpMutation={eventRsvpMutation}
               />
             ))}

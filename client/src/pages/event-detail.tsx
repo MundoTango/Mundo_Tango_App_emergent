@@ -282,8 +282,8 @@ export default function EventDetailPage() {
             <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Event not found</h2>
             <p className="text-gray-600 mb-4">This event may have been deleted or you don't have permission to view it.</p>
-            <Button onClick={() => setLocation('/events')}>
-              Back to Events
+            <Button onClick={() => window.history.back()}>
+              Back
             </Button>
           </CardContent>
         </Card>
