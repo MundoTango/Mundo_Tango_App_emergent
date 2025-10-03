@@ -60,8 +60,15 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
     return `${attending} attending`;
   };
 
+  const handleCardClick = () => {
+    onViewDetails?.(event.id);
+  };
+
   return (
-    <Card className="group relative overflow-hidden bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+    <Card 
+      className="group relative overflow-hidden bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Event Image */}
       {event.imageUrl && (
         <div className="relative h-48 overflow-hidden">
@@ -165,7 +172,10 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => onViewDetails?.(event.id)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click
+              onViewDetails?.(event.id);
+            }}
             className="flex-1 bg-white/50 hover:bg-white/80 border-white/30"
           >
             View Details
@@ -175,7 +185,10 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
             <div className="flex gap-1">
               <Button 
                 size="sm"
-                onClick={() => onRSVP(event.id, 'attending')}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent card click
+                  onRSVP(event.id, 'attending');
+                }}
                 className={`bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 ${
                   userRsvpStatus === 'attending' ? 'ring-2 ring-turquoise-300' : ''
                 }`}
@@ -185,7 +198,10 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => onRSVP(event.id, 'maybe')}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent card click
+                  onRSVP(event.id, 'maybe');
+                }}
                 className={`bg-white/50 hover:bg-white/80 border-white/30 ${
                   userRsvpStatus === 'maybe' ? 'ring-2 ring-gray-300' : ''
                 }`}
