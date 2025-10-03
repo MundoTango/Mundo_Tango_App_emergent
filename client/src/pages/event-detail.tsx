@@ -50,6 +50,7 @@ import {
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import PostFeed from '@/components/moments/PostFeed';
+import { useEventRSVP } from '@/hooks/useEventRSVP';
 
 interface EventDetail {
   id: number;
@@ -142,59 +143,8 @@ export default function EventDetailPage() {
     }
   });
 
-  // RSVP mutation with optimistic updates and toggle behavior
-  const rsvpMutation = useMutation({
-    mutationFn: async ({ status }: { status: string | null }) => {
-      return apiRequest(`/api/events/${id}/rsvp`, {
-        method: 'POST',
-        body: { status }
-      });
-    },
-    onMutate: async ({ status }) => {
-      await queryClient.cancelQueries({ queryKey: [`/api/events/${id}`] });
-      const previousEvent = queryClient.getQueryData([`/api/events/${id}`]);
-      
-      queryClient.setQueryData([`/api/events/${id}`], (old: any) => {
-        // With select unwrapping, old is already the unwrapped EventDetail object
-        if (!old) return old;
-        
-        const currentStatus = old.userStatus;
-        const newStatus = status;
-        
-        let attendeeAdjustment = 0;
-        if (currentStatus === 'going' && newStatus !== 'going') attendeeAdjustment = -1;
-        if (currentStatus !== 'going' && newStatus === 'going') attendeeAdjustment = 1;
-        
-        return {
-          ...old,
-          userStatus: newStatus,
-          currentAttendees: (old.currentAttendees || 0) + attendeeAdjustment
-        };
-      });
-      
-      return { previousEvent };
-    },
-    onSuccess: (data, { status }) => {
-      const statusText = status === null ? 'removed' : status;
-      toast({
-        title: "RSVP Updated",
-        description: status === null 
-          ? "Your RSVP has been removed." 
-          : `You're now marked as ${status}!`,
-      });
-      queryClient.invalidateQueries({ queryKey: [`/api/events/${id}`] });
-      queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
-    },
-    onError: (error, variables, context: any) => {
-      queryClient.setQueryData([`/api/events/${id}`], context?.previousEvent);
-      toast({
-        title: "Error",
-        description: "Failed to update RSVP. Please try again.",
-        variant: "destructive",
-      });
-    }
-  });
+  // Use shared RSVP hook (benefits from backend auth fix automatically)
+  const rsvpMutation = useEventRSVP();
 
   // Purchase ticket mutation
   const purchaseTicketMutation = useMutation({
@@ -746,6 +696,7 @@ export default function EventDetailPage() {
                     variant={event.userStatus === 'going' ? 'default' : 'outline'}
                     className={`w-full ${event.userStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
+                      eventId: id!,
                       status: event.userStatus === 'going' ? null : 'going' 
                     })}
                     disabled={rsvpMutation.isPending}
@@ -758,6 +709,7 @@ export default function EventDetailPage() {
                     variant={event.userStatus === 'interested' ? 'default' : 'outline'}
                     className={`w-full ${event.userStatus === 'interested' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
+                      eventId: id!,
                       status: event.userStatus === 'interested' ? null : 'interested' 
                     })}
                     disabled={rsvpMutation.isPending}
@@ -770,6 +722,7 @@ export default function EventDetailPage() {
                     variant={event.userStatus === 'maybe' ? 'default' : 'outline'}
                     className={`w-full ${event.userStatus === 'maybe' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
                     onClick={() => rsvpMutation.mutate({ 
+                      eventId: id!,
                       status: event.userStatus === 'maybe' ? null : 'maybe' 
                     })}
                     disabled={rsvpMutation.isPending}
