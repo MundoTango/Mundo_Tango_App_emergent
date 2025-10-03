@@ -166,11 +166,17 @@ export function requireTenantAdmin(req: Request, res: Response, next: NextFuncti
 
 // Middleware to set current user context for database queries
 export async function setUserContext(req: Request, res: Response, next: NextFunction) {
+  // Skip in development - RLS not actively used and causes connection pool hangs
+  if (process.env.NODE_ENV === 'development') {
+    return next();
+  }
+  
   if (req.user?.id && global.dbPool) {
     try {
       await global.dbPool.query(`SET LOCAL app.user_id TO '${req.user.id}'`);
     } catch (error) {
-      console.error('Error setting user context:', error);
+      // Log but don't block - user context is optional
+      console.error('Error setting user context (non-blocking):', error);
     }
   }
   next();
