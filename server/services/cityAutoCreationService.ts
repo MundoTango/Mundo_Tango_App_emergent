@@ -240,6 +240,7 @@ export class CityAutoCreationService {
       const normalizedCity = this.normalizeCityName(cityName);
       
       // Check if group already exists (case-insensitive) - match both city and country for precision
+      // Use COALESCE to handle NULL countries consistently with unique constraint
       const existingGroup = await db
         .select()
         .from(groups)
@@ -247,9 +248,7 @@ export class CityAutoCreationService {
           and(
             eq(groups.type, 'city'),
             sql`LOWER(${groups.city}) = LOWER(${normalizedCity})`,
-            country 
-              ? sql`LOWER(${groups.country}) = LOWER(${country})`
-              : sql`TRUE`
+            sql`LOWER(COALESCE(${groups.country}, '')) = LOWER(COALESCE(${country || ''}, ''))`
           )
         )
         .limit(1);
@@ -289,29 +288,56 @@ export class CityAutoCreationService {
       // Generate slug
       const slug = this.generateSlug(normalizedCity, resolvedCountry);
       
-      // Create the city group
-      const [newGroup] = await db
-        .insert(groups)
-        .values({
-          name: normalizedCity,
-          slug: slug,
-          description: `Tango community in ${fullLocationName}`,
-          type: 'city',
-          isPrivate: false,
-          memberCount: 0,
-          city: normalizedCity,
-          country: resolvedCountry || null,
-          latitude: geoData?.lat || null,
-          longitude: geoData?.lon || null,
-          createdBy: userId || 1, // Default to system user if no user provided
-          coverImage: null,
-          emoji: '🏙️',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        })
-        .returning();
-      
-      console.log(`Created new city group: ${normalizedCity} (ID: ${newGroup.id}) via ${triggerType} trigger`);
+      // Create the city group with retry logic for race conditions
+      let newGroup;
+      try {
+        [newGroup] = await db
+          .insert(groups)
+          .values({
+            name: normalizedCity,
+            slug: slug,
+            description: `Tango community in ${fullLocationName}`,
+            type: 'city',
+            isPrivate: false,
+            memberCount: 0,
+            city: normalizedCity,
+            country: resolvedCountry || null,
+            latitude: geoData?.lat || null,
+            longitude: geoData?.lon || null,
+            createdBy: userId || 1, // Default to system user if no user provided
+            coverImage: null,
+            emoji: '🏙️',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          })
+          .returning();
+        
+        console.log(`Created new city group: ${normalizedCity} (ID: ${newGroup.id}) via ${triggerType} trigger`);
+      } catch (error: any) {
+        // Handle race condition: if another request created the same group
+        if (error.code === '23505' || error.message?.includes('duplicate key') || error.message?.includes('unique constraint')) {
+          console.log(`[Race condition] City group created by another request: ${normalizedCity}, ${resolvedCountry}`);
+          
+          // Retry the check for existing group with NULL-safe comparison
+          const retryCheck = await db
+            .select()
+            .from(groups)
+            .where(
+              and(
+                eq(groups.type, 'city'),
+                sql`LOWER(${groups.city}) = LOWER(${normalizedCity})`,
+                sql`LOWER(COALESCE(${groups.country}, '')) = LOWER(COALESCE(${resolvedCountry || ''}, ''))`
+              )
+            )
+            .limit(1);
+          
+          if (retryCheck.length > 0) {
+            console.log(`[Race condition resolved] Using existing group ID: ${retryCheck[0].id}`);
+            return { groupId: retryCheck[0].id, created: false };
+          }
+        }
+        throw error; // Re-throw if not a duplicate key error
+      }
       
       // Log the auto-creation event (you might want to create an audit table for this)
       console.log(`Auto-created city group via ${triggerType}:`, {
