@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The Mundo Tango platform implements a **zero-duplication feed architecture** where all post feeds (Memories, Groups, Events, Profiles) use a single shared component (`UnifiedPostFeed`) with context-based data fetching. This architecture eliminated ~430 lines of duplicate code while ensuring consistent UX across all feeds.
+The Mundo Tango platform implements a **zero-duplication feed architecture** where all post feeds (Memories, Groups, Events, Profiles) use a single shared component (`PostFeed`) with context-based data fetching. This architecture eliminated ~430 lines of duplicate code while ensuring consistent UX across all feeds.
 
 ### Key Principle
 
@@ -61,10 +61,10 @@ TOTAL: ~680 lines of duplicate code across 3 feeds
 
 ### The Solution (Post-October 2025)
 
-Single UnifiedPostFeed component with context-based architecture:
+Single PostFeed component with context-based architecture:
 
 ```
-UnifiedPostFeed.tsx (~500 lines)
+PostFeed.tsx (~500 lines)
 ├── Context-aware data fetching
 │   ├── feed context → /api/posts/feed
 │   ├── group context → /api/groups/:id/posts
@@ -84,13 +84,13 @@ UnifiedPostFeed.tsx (~500 lines)
 └── Context-aware cache invalidation
 
 Memories Feed (ESAMemoryFeed.tsx) - 50 lines
-└── <UnifiedPostFeed context={{ type: 'feed' }} />
+└── <PostFeed context={{ type: 'feed' }} />
 
 Groups Feed (GroupDetailPageMT.tsx) - 20 lines (posts tab)
-└── <UnifiedPostFeed context={{ type: 'group', groupId: X }} />
+└── <PostFeed context={{ type: 'group', groupId: X }} />
 
 Profile Feed (ProfilePage.tsx) - 20 lines (posts tab)
-└── <UnifiedPostFeed context={{ type: 'profile', userId: Y }} />
+└── <PostFeed context={{ type: 'profile', userId: Y }} />
 
 TOTAL: ~590 lines (vs 680 lines before)
 SAVINGS: ~90 lines + massive maintenance reduction
@@ -109,7 +109,7 @@ SAVINGS: ~90 lines + massive maintenance reduction
 
 ### Feed Context Types
 
-UnifiedPostFeed accepts a `context` prop that defines:
+PostFeed accepts a `context` prop that defines:
 1. **Data source** (which API endpoint)
 2. **Query keys** (for React Query caching)
 3. **Feature set** (filters, search, etc.)
@@ -136,7 +136,7 @@ type FeedContext =
 #### Smart Mode (Recommended)
 ```tsx
 // Component fetches data internally based on context
-<UnifiedPostFeed context={{ type: 'group', groupId: 7 }} />
+<PostFeed context={{ type: 'group', groupId: 7 }} />
 ```
 
 **Advantages:**
@@ -148,7 +148,7 @@ type FeedContext =
 #### Controlled Mode (Legacy)
 ```tsx
 // Parent passes posts directly
-<UnifiedPostFeed posts={customPosts} />
+<PostFeed posts={customPosts} />
 ```
 
 **Use only when:**
@@ -167,7 +167,7 @@ User Action (scroll to bottom)
     ↓
 IntersectionObserver triggers
     ↓
-UnifiedPostFeed: setPage(prev => prev + 1)
+PostFeed: setPage(prev => prev + 1)
     ↓
 useQuery detects page change
     ↓
@@ -181,7 +181,7 @@ PostgreSQL query with LIMIT/OFFSET
     ↓
 Response: { posts: [...], hasMore: true }
     ↓
-UnifiedPostFeed: setAllPosts([...prev, ...new])
+PostFeed: setAllPosts([...prev, ...new])
     ↓
 React renders new posts
     ↓
@@ -348,7 +348,7 @@ onSuccess: () => {
 
 **Implementation:**
 ```tsx
-<UnifiedPostFeed
+<PostFeed
   context={{ type: 'feed' }}
   showFilters={true}
   showSearch={true}
@@ -366,7 +366,7 @@ onSuccess: () => {
 
 **Implementation:**
 ```tsx
-<UnifiedPostFeed
+<PostFeed
   context={{ 
     type: 'group', 
     groupId: groupData.id,
@@ -387,7 +387,7 @@ onSuccess: () => {
 
 **Implementation:**
 ```tsx
-<UnifiedPostFeed
+<PostFeed
   context={{ 
     type: 'profile', 
     userId: profileUser.id 
@@ -408,7 +408,7 @@ onSuccess: () => {
 
 **Implementation:**
 ```tsx
-<UnifiedPostFeed
+<PostFeed
   context={{ 
     type: 'event', 
     eventId: eventData.id 
@@ -444,7 +444,7 @@ router.get('/api/custom/:id/posts', async (req, res) => {
 #### 2. Extend FeedContext Type
 
 ```typescript
-// UnifiedPostFeed.tsx
+// PostFeed.tsx
 type FeedContext = 
   | { type: 'feed' }
   | { type: 'group'; groupId: number; filter?: string }
@@ -500,7 +500,7 @@ const invalidateQueriesForContext = () => {
 #### 6. Use in Parent Component
 
 ```tsx
-<UnifiedPostFeed
+<PostFeed
   context={{ 
     type: 'custom', 
     customId: 42 
@@ -519,7 +519,7 @@ const invalidateQueriesForContext = () => {
 ### Unit Tests
 
 ```typescript
-describe('UnifiedPostFeed Context Resolution', () => {
+describe('PostFeed Context Resolution', () => {
   it('should build correct URL for feed context', () => {
     const url = buildFetchUrl({ type: 'feed' }, 1);
     expect(url).toBe('/api/posts/feed?page=1&limit=20');
@@ -541,7 +541,7 @@ describe('UnifiedPostFeed Context Resolution', () => {
 ```typescript
 describe('Feed Pagination Reset', () => {
   it('should reset to page 1 when filter changes', async () => {
-    render(<UnifiedPostFeed context={{ type: 'feed' }} />);
+    render(<PostFeed context={{ type: 'feed' }} />);
     
     // Scroll to page 3
     await scrollToBottom();
@@ -640,7 +640,7 @@ test('should maintain feed state across tab switches', async ({ page }) => {
 - [ ] Remove fetch logic and useEffect
 - [ ] Remove socket listeners
 - [ ] Remove mutation handlers
-- [ ] Add UnifiedPostFeed with context
+- [ ] Add PostFeed with context
 - [ ] Test pagination, filters, mutations
 - [ ] Update component documentation
 - [ ] Delete old post management code
@@ -649,7 +649,7 @@ test('should maintain feed state across tab switches', async ({ page }) => {
 
 ## 11. Related Documentation
 
-- [UnifiedPostFeed Component](../components/UnifiedPostFeed.md) - Component API
+- [PostFeed Component](../components/PostFeed.md) - Component API
 - [Group Detail Page](GroupDetailPageMT.md) - Groups implementation
 - [Unified Groups Architecture](UNIFIED-GROUPS-ARCHITECTURE.md) - Groups system
 
@@ -692,7 +692,7 @@ The unified feed architecture represents a **paradigm shift** from duplicate, fe
 
 **Core Pattern:**
 ```tsx
-<UnifiedPostFeed context={{ type, ...params }} />
+<PostFeed context={{ type, ...params }} />
 ```
 
 **Status:** ✅ Production Ready - Deployed October 3, 2025
