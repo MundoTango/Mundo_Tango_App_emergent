@@ -31,6 +31,7 @@ import { Helmet } from 'react-helmet';
 import io, { Socket } from 'socket.io-client';
 import EnhancedPostComposer from '@/components/moments/EnhancedPostComposer';
 import EnhancedPostItem from '@/components/moments/EnhancedPostItem';
+import UnifiedPostFeed from '@/components/moments/UnifiedPostFeed';
 import PostCreator from '@/components/universal/PostCreator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -155,6 +156,14 @@ export default function GroupDetailPageMT() {
   const handlePostDeleted = (postId: number) => {
     setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
   };
+
+  // Handle post edit - copied from Memories feed
+  const handleEditPost = (post: any) => {
+    console.log('[Groups Feed] Opening edit modal for post:', post.id);
+    setEditingPost(post);
+    setCreatePostModal(true);
+  };
+
   const [automatedCoverPhoto, setAutomatedCoverPhoto] = useState<string | null>(null);
   const [refetchTrigger, setRefetchTrigger] = useState(0);
 
@@ -1233,64 +1242,28 @@ export default function GroupDetailPageMT() {
           </div>
         </TooltipProvider>
   
-        {/* Posts Feed */}
+        {/* Posts Feed - Using UnifiedPostFeed exactly like Memories feed */}
         {loadingPosts && postsPage === 1 ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-turquoise-500 mb-4"></div>
-            <p className="text-gray-500 text-sm">Loading posts...</p>
-          </div>
-        ) : posts.length > 0 ? (
-          <div className="space-y-6">
-            {posts.map((post) => (
-              <EnhancedPostItem
-                key={post.id}
-                post={post}
-                currentUserId={user?.id?.toString()}
-                onLike={() => {}}
-                onShare={() => {}}
-                onEdit={(post) => {
-                  setEditingPost(normalizePost(post));
-                  setCreatePostModal(true);
-                }}
-                onDelete={handlePostDeleted}
-                apiBasePath="/api/posts"
-                cacheKeys={[
-                  '/api/posts',
-                  `/api/groups/${slug}/posts`,
-                  ...(mentionFilter !== 'all' && group?.id ? [`/api/posts/mentions/${group.type === 'city' ? 'city' : 'group'}/${group.id}`] : [])
-                ]}
-              />
-            ))}
-            
-            {/* Load More */}
-            {hasMorePosts && (
-              <div className="text-center mt-6">
-                <Button
-                  onClick={() => setPostsPage(prev => prev + 1)}
-                  disabled={loadingPosts}
-                  className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600 transition-all shadow-md"
-                  data-testid="button-load-more-posts"
-                >
-                  {loadingPosts ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
-                      Loading...
-                    </>
-                  ) : (
-                    'Load More Posts'
-                  )}
-                </Button>
-              </div>
-            )}
+          <div className="flex justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-turquoise-500" />
           </div>
         ) : (
-          <div className="text-center py-12">
-            <MessageCircle className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No posts yet</h3>
-            <p className="text-gray-500">
-              {isMember ? 'Be the first to share something with the group!' : 'Join the group to see and create posts.'}
-            </p>
-          </div>
+          <>
+            <UnifiedPostFeed 
+              posts={posts}
+              currentUserId={user?.id?.toString()}
+              onEdit={handleEditPost}
+              hasMore={hasMorePosts}
+              onLoadMore={() => setPostsPage(prev => prev + 1)}
+            />
+            {loadingPosts && (
+              <div className="flex justify-center py-4">
+                <div className="text-sm text-gray-500">
+                  Loading more posts...
+                </div>
+              </div>
+            )}
+          </>
         )}
           </div>
           
