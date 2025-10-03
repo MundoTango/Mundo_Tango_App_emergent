@@ -543,13 +543,75 @@ test('complete RSVP flow', async ({ page }) => {
 
 ## 13. Troubleshooting
 
+### Issue: 401 Unauthorized on RSVP (October 3, 2025 Fix)
+
+**Symptom:**
+- RSVP button clicked
+- Toast shows "RSVP Updated - You're now marked as attending"
+- Console shows `401 Unauthorized` error
+- RSVP not saved to backend (reverts on refresh)
+
+**Root Cause:**
+The RSVP endpoint was using `optionalAuth` middleware but then **required** authentication:
+
+```typescript
+// ❌ BROKEN: Uses optionalAuth but requires userId
+router.post('/api/events/:id/rsvp', optionalAuth, async (req, res) => {
+  const userId = req.user?.id;
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' }); // Always fails
+  }
+  // ...
+});
+```
+
+**Why It Failed:**
+- `optionalAuth` doesn't guarantee `req.user` exists
+- The check `if (!userId)` always failed for unauthenticated requests
+- Frontend optimistic update showed success but backend rejected request
+- Development mode bypass wasn't working correctly
+
+**Solution:**
+Changed endpoint to use `authMiddleware` which guarantees authentication:
+
+```typescript
+// ✅ FIXED: Uses authMiddleware with guaranteed user
+router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
+  const userId = req.user.id; // Now guaranteed by authMiddleware
+  // No need for null check - user is always authenticated
+  // ...
+});
+```
+
+**Benefits:**
+- ✅ Consistent with other event endpoints (`POST /api/events`)
+- ✅ Development mode bypass works correctly
+- ✅ RSVP mutations now persist to backend
+- ✅ Real-time UI updates work across all event feeds
+
+**Verification:**
+```bash
+# Test RSVP endpoint
+curl -X POST http://localhost:5000/api/events/1/rsvp \
+  -H "Content-Type: application/json" \
+  -d '{"status": "going"}'
+
+# Should return 200 with RSVP data (not 401)
+```
+
+**Related Files:**
+- `server/routes/eventsRoutes.ts` - RSVP endpoint authentication
+- `client/src/hooks/useEventRSVP.ts` - Frontend mutation hook
+
+---
+
 ### Issue: Attendee count not updating
 **Cause**: Optimistic update logic incorrect  
 **Solution**: Verify calculation logic and data structure
 
 ### Issue: RSVP reverts after refresh
 **Cause**: Server mutation failed silently  
-**Solution**: Check network tab, verify API response
+**Solution**: Check network tab, verify API response (see 401 fix above)
 
 ### Issue: Duplicate RSVPs created
 **Cause**: Missing UNIQUE constraint  
