@@ -6,26 +6,6 @@ import StoryViewer from "@/components/feed/story-viewer";
 import { useQuery } from "@tanstack/react-query";
 import PostFeed from "@/components/moments/PostFeed";
 
-interface Post {
-  id: number;
-  userId: number;
-  content: string;
-  imageUrl?: string;
-  videoUrl?: string;
-  likesCount: number;
-  commentsCount: number;
-  sharesCount: number;
-  hashtags: string[];
-  isPublic: boolean;
-  createdAt: string;
-  user?: {
-    id: number;
-    name: string;
-    username: string;
-    profileImage?: string;
-  };
-}
-
 export default function Home() {
   // MT Ocean Theme Restored - July 22, 2025 9:20PM - v4 with service worker update
   // Force cache refresh with service worker update
