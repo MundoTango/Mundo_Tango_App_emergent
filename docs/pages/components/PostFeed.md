@@ -112,6 +112,23 @@ PostFeed supports four context types, each with its own data source and query ke
 - **Use Case:** Group detail page Posts tab
 - **Features:** Group-specific filtering by member status
 
+#### Known Issues Fixed
+
+**Group Filter Bug (October 3, 2025)**  
+Early implementation incorrectly built group filter URLs as `/api/groups/7/posts/filter/residents` (filter in path) instead of `/api/groups/7/posts?filter=residents` (filter as query parameter). This caused filter buttons (Residents, Visitors, Members, Non-members) to appear non-functional as requests went to non-existent endpoints.
+
+**Root Cause:** `buildFetchUrl()` was concatenating filter into URL path instead of appending via URLSearchParams.
+
+**Fix:** Changed lines 217-224 to append filter as query parameter:
+```typescript
+if (context.filter && context.filter !== 'all') {
+  params.append('filter', context.filter);
+}
+return `/api/groups/${context.groupId}/posts?${params.toString()}`;
+```
+
+**Impact:** All group filters now work correctly across both city groups (residents/visitors) and professional groups (members/non-members).
+
 ### 3. Profile Context (User Posts)
 
 ```tsx
