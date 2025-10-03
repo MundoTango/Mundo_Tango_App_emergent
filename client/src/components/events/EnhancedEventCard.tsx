@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, Clock, User } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, User, Check, Star, HelpCircle, X } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface EnhancedEventCardProps {
@@ -31,9 +31,9 @@ interface EnhancedEventCardProps {
       total: number;
     };
   };
-  onRSVP?: (eventId: number, status: 'attending' | 'maybe' | 'not_attending') => void;
+  onRSVP?: (eventId: number, status: 'going' | 'interested' | 'maybe' | 'not_going') => void;
   onViewDetails?: (eventId: number) => void;
-  userRsvpStatus?: string;
+  userRsvpStatus?: 'going' | 'interested' | 'maybe' | 'not_going' | null;
 }
 
 export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
@@ -110,10 +110,11 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
           {/* RSVP Status Badge */}
           {userRsvpStatus && (
             <Badge 
-              variant={userRsvpStatus === 'attending' ? 'default' : 'secondary'}
+              variant={userRsvpStatus === 'going' ? 'default' : 'secondary'}
               className="ml-2"
             >
-              {userRsvpStatus === 'attending' ? 'Going' : 
+              {userRsvpStatus === 'going' ? 'Going' : 
+               userRsvpStatus === 'interested' ? 'Interested' :
                userRsvpStatus === 'maybe' ? 'Maybe' : 'Not Going'}
             </Badge>
           )}
@@ -167,50 +168,82 @@ export const EnhancedEventCard: React.FC<EnhancedEventCardProps> = ({
           </div>
         )}
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 pt-2 border-t border-gray-200/50">
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent card click
-              onViewDetails?.(event.id);
-            }}
-            className="flex-1 bg-white/50 hover:bg-white/80 border-white/30"
-          >
-            View Details
-          </Button>
-          
-          {onRSVP && (
-            <div className="flex gap-1">
-              <Button 
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent card click
-                  onRSVP(event.id, 'attending');
-                }}
-                className={`bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 ${
-                  userRsvpStatus === 'attending' ? 'ring-2 ring-turquoise-300' : ''
-                }`}
-              >
-                Going
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent card click
-                  onRSVP(event.id, 'maybe');
-                }}
-                className={`bg-white/50 hover:bg-white/80 border-white/30 ${
-                  userRsvpStatus === 'maybe' ? 'ring-2 ring-gray-300' : ''
-                }`}
-              >
-                Maybe
-              </Button>
-            </div>
-          )}
-        </div>
+        {/* RSVP Action Buttons - 4 status options per EventRSVP.md */}
+        {onRSVP && (
+          <div className="flex gap-2 pt-2 border-t border-gray-200/50">
+            {/* Going - Turquoise */}
+            <Button 
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRSVP(event.id, 'going');
+              }}
+              className={`flex-1 ${
+                userRsvpStatus === 'going' 
+                  ? 'bg-[#5EEAD4] hover:bg-[#14B8A6] text-gray-900 shadow-md' 
+                  : 'bg-white/70 hover:bg-[#5EEAD4]/20 text-gray-700 border border-gray-200'
+              }`}
+              data-testid={`rsvp-going-${event.id}`}
+            >
+              <Check className="w-4 h-4 mr-1" />
+              Going
+            </Button>
+            
+            {/* Interested - Yellow */}
+            <Button 
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRSVP(event.id, 'interested');
+              }}
+              className={`flex-1 ${
+                userRsvpStatus === 'interested' 
+                  ? 'bg-[#FCD34D] hover:bg-[#F59E0B] text-gray-900 shadow-md' 
+                  : 'bg-white/70 hover:bg-[#FCD34D]/20 text-gray-700 border border-gray-200'
+              }`}
+              data-testid={`rsvp-interested-${event.id}`}
+            >
+              <Star className="w-4 h-4 mr-1" />
+              Interested
+            </Button>
+            
+            {/* Maybe - Purple */}
+            <Button 
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRSVP(event.id, 'maybe');
+              }}
+              className={`flex-1 ${
+                userRsvpStatus === 'maybe' 
+                  ? 'bg-[#A78BFA] hover:bg-[#8B5CF6] text-white shadow-md' 
+                  : 'bg-white/70 hover:bg-[#A78BFA]/20 text-gray-700 border border-gray-200'
+              }`}
+              data-testid={`rsvp-maybe-${event.id}`}
+            >
+              <HelpCircle className="w-4 h-4 mr-1" />
+              Maybe
+            </Button>
+            
+            {/* Not Going - Red */}
+            <Button 
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRSVP(event.id, 'not_going');
+              }}
+              className={`flex-1 ${
+                userRsvpStatus === 'not_going' 
+                  ? 'bg-[#F87171] hover:bg-[#EF4444] text-white shadow-md' 
+                  : 'bg-white/70 hover:bg-[#F87171]/20 text-gray-700 border border-gray-200'
+              }`}
+              data-testid={`rsvp-not-going-${event.id}`}
+            >
+              <X className="w-4 h-4 mr-1" />
+              Can't Go
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
