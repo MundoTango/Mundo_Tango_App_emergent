@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Search, Filter, Calendar, MapPin, SlidersHorizontal } from 'lucide-react';
-import { EnhancedEventCard } from './EnhancedEventCard';
+import UnifiedEventCard from './UnifiedEventCard';
+import { useEventRSVP } from '@/hooks/useEventRSVP';
 import { createApiRequest } from '@/lib/apiClient';
 import { useCsrfToken } from '@/contexts/CsrfContext';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -29,6 +30,8 @@ interface EventData {
   startDate: string;
   endDate?: string;
   location: string;
+  city?: string;
+  eventType?: 'milonga' | 'workshop' | 'festival' | 'practica';
   organizerId: number;
   maxAttendees?: number;
   imageUrl?: string;
@@ -69,6 +72,7 @@ export const EventDiscoveryFeed: React.FC = () => {
   const { csrfToken } = useCsrfToken();
   const api = createApiRequest(csrfToken);
   const debouncedSearch = useDebounce(filters.search, 300);
+  const eventRsvpMutation = useEventRSVP();
 
   useEffect(() => {
     fetchEvents(true);
@@ -130,57 +134,6 @@ export const EventDiscoveryFeed: React.FC = () => {
     }
   };
 
-  const handleRSVP = async (eventId: number, status: 'going' | 'interested' | 'maybe' | 'not_going') => {
-    try {
-      const response = await api.post(`/api/events/${eventId}/rsvp`, { status });
-      
-      if (response.success) {
-        setUserRsvps(prev => ({ ...prev, [eventId]: status }));
-        
-        // Update event RSVP counts
-        setEvents(prev => prev.map(event => {
-          if (event.id === eventId) {
-            const currentCounts = event.rsvpCounts || { attending: 0, maybe: 0, total: 0 };
-            const newCounts = { ...currentCounts };
-            
-            // Only 'going' status increments attendance count per EventRSVP.md
-            if (status === 'going') {
-              newCounts.attending += 1;
-            } else if (status === 'maybe') {
-              newCounts.maybe += 1;
-            }
-            
-            return { ...event, rsvpCounts: newCounts };
-          }
-          return event;
-        }));
-        
-        toast({
-          title: 'RSVP Updated',
-          description: `You are now ${
-            status === 'going' ? 'attending' : 
-            status === 'interested' ? 'interested in' :
-            status === 'maybe' ? 'maybe attending' : 
-            'not attending'
-          } this event`,
-        });
-      } else {
-        throw new Error(response.error || 'Failed to update RSVP');
-      }
-    } catch (error) {
-      console.error('RSVP error:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to update RSVP',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const handleViewDetails = (eventId: number) => {
-    // Navigate to event detail page using wouter
-    setLocation(`/events/${eventId}`);
-  };
 
   const updateFilter = (key: keyof EventFilters, value: any) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -357,16 +310,22 @@ export const EventDiscoveryFeed: React.FC = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <EnhancedEventCard
+              <UnifiedEventCard
                 key={event.id}
                 event={{
-                  ...event,
-                  startDate: new Date(event.startDate),
-                  endDate: event.endDate ? new Date(event.endDate) : undefined,
+                  id: event.id.toString(),
+                  title: event.title,
+                  type: event.eventType || 'milonga',
+                  date: event.startDate,
+                  time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
+                  location: event.location || 'Location TBA',
+                  city: event.city,
+                  attendees: event.rsvpCounts?.attending || 0,
+                  userRsvpStatus: userRsvps[event.id] || null,
+                  isFeatured: false
                 }}
-                onRSVP={handleRSVP}
-                onViewDetails={handleViewDetails}
-                userRsvpStatus={userRsvps[event.id]}
+                onEventClick={(eventId) => setLocation(`/events/${eventId}`)}
+                rsvpMutation={eventRsvpMutation}
               />
             ))}
           </div>
