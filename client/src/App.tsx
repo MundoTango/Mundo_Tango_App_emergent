@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from "react";
-import { Switch, Route, Redirect } from "wouter";
+import { Router as WouterRouter, Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -222,9 +222,10 @@ function Router() {
   console.log("🔍 Current path:", currentPath);
 
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Switch>
+    <WouterRouter>
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Switch>
           {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
             <Redirect to="/memories" />
@@ -715,6 +716,7 @@ function Router() {
         </Switch>
       </Suspense>
     </ErrorBoundary>
+    </WouterRouter>
   );
 }
 
