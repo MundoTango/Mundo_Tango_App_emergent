@@ -128,9 +128,7 @@ export default function GroupDetailPageMT() {
   });
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   
-  // Event data state
-  const [events, setEvents] = useState<any[]>([]);
-  const [loadingEvents, setLoadingEvents] = useState(false);
+  // Event data fetched via React Query (no local state needed)
   const [showFilters, setShowFilters] = useState(false);
   
   // Post filtering state (used for context)
@@ -166,21 +164,13 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
-  // Fetch group events when events tab is active
-  React.useEffect(() => {
-    if (activeTab === 'events' && slug) {
-      setLoadingEvents(true);
-      fetch(`/api/groups/${slug}/events`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            setEvents(data.data || []);
-          }
-          setLoadingEvents(false);
-        })
-        .catch(() => setLoadingEvents(false));
-    }
-  }, [activeTab, slug]);
+  // Fetch group events using React Query (enables optimistic RSVP updates)
+  const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
+    queryKey: ['/api/groups', slug, 'events'],
+    enabled: activeTab === 'events' && !!slug
+  });
+  
+  const events = eventsResponse?.success !== false ? (eventsResponse?.data || eventsResponse || []) : [];
   
   // Note: Post fetching now handled by PostFeed context-based approach
   
