@@ -164,14 +164,6 @@ export default function GroupDetailPageMT() {
     }
   }, [activeTab, slug]);
   
-  // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
-  const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
-    queryKey: ['/api/events/feed', { groupId: group?.id }],
-    enabled: activeTab === 'events' && !!group?.id
-  });
-  
-  const events = eventsResponse?.data || [];
-  
   // Note: Post fetching now handled by PostFeed context-based approach
   
   const formatTimeAgo = (date: string) => {
@@ -195,6 +187,15 @@ export default function GroupDetailPageMT() {
   // Extract group data from API response - handle both patterns
   const groupData = response?.success === false ? null : (response?.data || response);
   const group = groupData?.id ? groupData : null;
+  
+  // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
+  // MUST come after group is defined to avoid ReferenceError
+  const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
+    queryKey: ['/api/events/feed', { groupId: group?.id }],
+    enabled: activeTab === 'events' && !!group?.id
+  });
+  
+  const events = eventsResponse?.data || [];
   
   // Check if user is member/admin
   const isMember = group?.members?.some((m: GroupMember) => m.user.id === user?.id) || false;
