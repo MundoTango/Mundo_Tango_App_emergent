@@ -439,13 +439,19 @@ export default function Profile() {
                     />
                     
                     {/* Unified PostFeed - Integrated with platform architecture */}
-                    <PostFeed 
-                      key={refreshKey}
-                      context={{ 
-                        type: 'profile', 
-                        userId: user?.id || 0 
-                      }}
-                    />
+                    {user?.id ? (
+                      <PostFeed 
+                        key={refreshKey}
+                        context={{ 
+                          type: 'profile', 
+                          userId: user.id 
+                        }}
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500"></div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </TabsContent>
