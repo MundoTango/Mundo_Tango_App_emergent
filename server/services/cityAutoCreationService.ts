@@ -492,7 +492,7 @@ export class CityAutoCreationService {
     userId: number
   ): Promise<{ group: any; isNew: boolean } | null> {
     try {
-      const result = await this.createOrGetCityGroup(city, 'post', userId);
+      const result = await this.createOrGetCityGroup(city, 'recommendation', userId);
       
       if (!result) {
         return null;
