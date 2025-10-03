@@ -78,6 +78,12 @@ export function useEventRSVP() {
       queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
       queryClient.invalidateQueries({ queryKey: [`/api/events/${eventId}`] });
       queryClient.invalidateQueries({ queryKey: ['/api/events/upcoming'] });
+      queryClient.invalidateQueries({ 
+        predicate: (query) => {
+          const key = query.queryKey[0];
+          return typeof key === 'string' && key.includes('/api/groups/') && key.includes('/events');
+        }
+      });
     }
   });
 }

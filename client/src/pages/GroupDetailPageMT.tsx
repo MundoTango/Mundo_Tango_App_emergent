@@ -88,8 +88,8 @@ export default function GroupDetailPageMT() {
     const tabParam = params.get('tab');
     const filterParam = params.get('filter');
     
-    if (tabParam === 'posts') {
-      setActiveTab('posts');
+    if (tabParam && ['posts', 'events', 'members', 'community-hub', 'housing', 'recommendations'].includes(tabParam)) {
+      setActiveTab(tabParam as any);
     }
     
     if (filterParam && ['all', 'residents', 'visitors', 'members', 'non-members', 'friends'].includes(filterParam)) {
