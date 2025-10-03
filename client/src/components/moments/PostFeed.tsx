@@ -216,7 +216,7 @@ const PostFeed = memo(({
       }
       case 'group': {
         if (context.filter && context.filter !== 'all') {
-          return `/api/groups/${context.groupId}/posts/filter/${context.filter}?${params.toString()}`;
+          params.append('filter', context.filter);
         }
         return `/api/groups/${context.groupId}/posts?${params.toString()}`;
       }
