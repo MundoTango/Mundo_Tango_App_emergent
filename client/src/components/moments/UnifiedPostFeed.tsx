@@ -77,14 +77,28 @@ interface FilterOptions {
   location?: { lat: number; lng: number; radius: number };
 }
 
+// ESA Framework: Feed context for data source identification
+type FeedContext = 
+  | { type: 'feed' } // Main memories feed (/api/posts/feed)
+  | { type: 'group'; groupId: number; filter?: 'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends' } // Group feed
+  | { type: 'profile'; userId: number } // User profile feed
+  | { type: 'event'; eventId: number }; // Event feed
+
 interface UnifiedPostFeedProps {
+  // Legacy: Direct posts prop (for backward compatibility during migration)
   posts?: Post[];
+  
+  // New: Context-based data fetching (smart mode)
+  context?: FeedContext;
+  
   showFilters?: boolean;  // Show filter buttons (All/Following/Nearby)
   showSearch?: boolean;   // Show search bar
   filters?: FilterOptions;
   currentUserId?: string;
   onEdit?: (post: Post) => void;
   className?: string;
+  
+  // Legacy pagination props (removed when context is used)
   onLoadMore?: () => void;
   hasMore?: boolean;
 }
@@ -92,9 +106,11 @@ interface UnifiedPostFeedProps {
 /**
  * ESA LIFE CEO 61×21 - Unified Post Feed Component
  * Layer 9: UI Framework - Single responsibility, configurable features
+ * Supports both legacy controlled mode (posts prop) and new smart mode (context prop)
  */
 const UnifiedPostFeed = memo(({ 
   posts: propsPosts,
+  context,
   showFilters = false,
   showSearch = false,
   filters: externalFilters,
@@ -102,12 +118,24 @@ const UnifiedPostFeed = memo(({
   onEdit,
   className = '',
   onLoadMore,
-  hasMore = false
+  hasMore: externalHasMore = false
 }: UnifiedPostFeedProps) => {
-  console.log('[ESA DEBUG] UnifiedPostFeed component rendering with props:', { propsPosts: propsPosts?.length, showFilters, showSearch });
+  console.log('[Framework] UnifiedPostFeed rendering:', { 
+    mode: context ? 'smart' : 'controlled',
+    context, 
+    propsPosts: propsPosts?.length, 
+    showFilters, 
+    showSearch 
+  });
+  
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  // Internal pagination state (used in smart mode)
+  const [page, setPage] = useState(1);
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [internalHasMore, setInternalHasMore] = useState(true);
 
   // Internal filter state
   const [filterBy, setFilterBy] = useState<'all' | 'following' | 'nearby'>(
@@ -135,67 +163,193 @@ const UnifiedPostFeed = memo(({
     endDate: endDate || undefined
   }), [externalFilters, filterBy, filterTags, startDate, endDate]);
 
-  // ESA Framework: Fetch posts with resilient query
-  const { data: fetchedPosts, isLoading, error } = useQuery({
-    queryKey: ['/api/posts/feed', activeFilters, debouncedSearch],
-    enabled: !propsPosts && (showFilters || showSearch),
-    queryFn: async () => {
-      const params = new URLSearchParams();
+  // ESA Framework: Context-aware query key generation
+  const getQueryKey = useCallback(() => {
+    if (!context) {
+      return ['/api/posts/feed', activeFilters, debouncedSearch];
+    }
+    
+    switch (context.type) {
+      case 'feed':
+        return ['/api/posts/feed', page, activeFilters, debouncedSearch];
+      case 'group':
+        return ['/api/groups', context.groupId, 'posts', context.filter || 'all', page];
+      case 'profile':
+        return ['/api/users', context.userId, 'posts', page];
+      case 'event':
+        return ['/api/events', context.eventId, 'posts', page];
+      default:
+        return ['/api/posts/feed', page];
+    }
+  }, [context, page, activeFilters, debouncedSearch]);
 
-      if (activeFilters.filterType !== 'all') {
-        params.append('filter', activeFilters.filterType);
-      }
-      if (activeFilters.tags.length > 0) {
-        params.append('tags', activeFilters.tags.join(','));
-      }
-      if (activeFilters.visibility !== 'all') {
-        params.append('visibility', activeFilters.visibility);
-      }
+  // ESA Framework: Context-aware API URL builder
+  const buildFetchUrl = useCallback(() => {
+    if (!context) {
+      // Legacy: Original feed fetching
+      const params = new URLSearchParams();
+      if (activeFilters.filterType !== 'all') params.append('filter', activeFilters.filterType);
+      if (activeFilters.tags.length > 0) params.append('tags', activeFilters.tags.join(','));
+      if (activeFilters.visibility !== 'all') params.append('visibility', activeFilters.visibility);
       if (activeFilters.location) {
         params.append('lat', activeFilters.location.lat.toString());
         params.append('lng', activeFilters.location.lng.toString());
         params.append('radius', activeFilters.location.radius.toString());
       }
-      if (debouncedSearch) {
-        params.append('search', debouncedSearch);
+      if (debouncedSearch) params.append('search', debouncedSearch);
+      if (activeFilters.startDate) params.append('startDate', activeFilters.startDate);
+      if (activeFilters.endDate) params.append('endDate', activeFilters.endDate);
+      return `/api/posts/feed?${params.toString()}`;
+    }
+    
+    // Context-based URL building
+    const params = new URLSearchParams();
+    params.append('page', page.toString());
+    params.append('limit', '20');
+    
+    switch (context.type) {
+      case 'feed': {
+        if (activeFilters.filterType !== 'all') params.append('filter', activeFilters.filterType);
+        if (activeFilters.tags.length > 0) params.append('tags', activeFilters.tags.join(','));
+        if (debouncedSearch) params.append('search', debouncedSearch);
+        return `/api/posts/feed?${params.toString()}`;
       }
-      if (activeFilters.startDate) {
-        params.append('startDate', activeFilters.startDate);
+      case 'group': {
+        if (context.filter && context.filter !== 'all') {
+          return `/api/groups/${context.groupId}/posts/filter/${context.filter}?${params.toString()}`;
+        }
+        return `/api/groups/${context.groupId}/posts?${params.toString()}`;
       }
-      if (activeFilters.endDate) {
-        params.append('endDate', activeFilters.endDate);
-      }
+      case 'profile':
+        return `/api/users/${context.userId}/posts?${params.toString()}`;
+      case 'event':
+        return `/api/events/${context.eventId}/posts?${params.toString()}`;
+      default:
+        return `/api/posts/feed?${params.toString()}`;
+    }
+  }, [context, page, activeFilters, debouncedSearch]);
 
-      const response = await fetch(`/api/posts/feed?${params.toString()}`, {
+  // ESA Framework: Fetch posts with resilient query
+  const { data: fetchedResponse, isLoading, error, isFetching } = useQuery({
+    queryKey: getQueryKey(),
+    enabled: !propsPosts, // Fetch when no posts prop provided (smart mode)
+    queryFn: async () => {
+      const url = buildFetchUrl();
+      console.log('[Framework] Fetching posts:', { url, context, page });
+
+      const response = await fetch(url, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch posts feed');
+        throw new Error(`Failed to fetch posts: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('[ESA UnifiedFeed] Fetched posts with friendship data:', {
-        count: data.data?.length,
-        sampleFriendship: data.data?.[0]?.user?.friendshipStatus,
-        fullFirstPost: data.data?.[0]
+      
+      console.log('[Framework] Fetched posts:', {
+        context: context?.type,
+        count: data.data?.length || data.posts?.length || 0,
+        page,
+        hasSuccess: data.success
       });
-      console.log('[ESA UnifiedFeed] Posts with friendships:', data.data?.map((p: any) => ({
-        postId: p.id,
-        userId: p.user?.id,
-        userName: p.user?.name,
-        friendshipStatus: p.user?.friendshipStatus
-      })));
 
-      return data.data || [];
+      // Handle different response formats
+      // Groups API returns: { success: true, data: [...] }
+      // Feed API returns: { data: [...] } or { posts: [...] }
+      const posts = data.data || data.posts || [];
+      return { posts, hasMore: posts.length === 20 };
     },
     staleTime: 30000,
     gcTime: 5 * 60 * 1000,
   });
 
-  // Use provided posts or fetched posts
-  const posts = propsPosts || fetchedPosts || [];
+  // ESA Framework: Handle pagination for context mode
+  useEffect(() => {
+    if (!context || !fetchedResponse?.posts) return;
+    
+    if (page === 1) {
+      setAllPosts(fetchedResponse.posts);
+    } else {
+      setAllPosts(prev => [...prev, ...fetchedResponse.posts]);
+    }
+    
+    setInternalHasMore(fetchedResponse.hasMore);
+    console.log('[Framework] Posts updated:', { page, count: fetchedResponse.posts.length, hasMore: fetchedResponse.hasMore });
+  }, [fetchedResponse, page, context]);
+
+  // Reset pagination when context changes
+  useEffect(() => {
+    if (context) {
+      setPage(1);
+      setAllPosts([]);
+      setInternalHasMore(true);
+    }
+  }, [context?.type, context?.type === 'group' ? context.groupId : null, context?.type === 'group' ? context.filter : null]);
+
+  // ESA Framework: Reset pagination when filters or search change
+  useEffect(() => {
+    if (context) {
+      console.log('[Framework] Filters/search changed - resetting pagination');
+      setPage(1);
+      setAllPosts([]);
+      setInternalHasMore(true);
+    }
+  }, [activeFilters.filterType, activeFilters.tags, activeFilters.visibility, activeFilters.startDate, activeFilters.endDate, debouncedSearch, context]);
+
+  // ESA Framework: Use provided posts (controlled) or fetched posts (smart mode)
+  const posts = useMemo(() => {
+    if (propsPosts) {
+      // Controlled mode: Use provided posts
+      return propsPosts;
+    }
+    if (context) {
+      // Smart mode: Use accumulated posts with pagination
+      return allPosts;
+    }
+    // Legacy mode: Direct fetch result
+    return fetchedResponse?.posts || [];
+  }, [propsPosts, context, allPosts, fetchedResponse]);
+
+  // Determine hasMore based on mode
+  const hasMore = context ? internalHasMore : externalHasMore;
+
+  // Handle load more
+  const handleLoadMore = useCallback(() => {
+    if (context) {
+      // Smart mode: Increment internal page
+      setPage(prev => prev + 1);
+    } else if (onLoadMore) {
+      // Controlled mode: Call parent handler
+      onLoadMore();
+    }
+  }, [context, onLoadMore]);
+
+  // ESA Framework: Context-aware query invalidation helper
+  const invalidateContextQueries = useCallback(() => {
+    if (!context) {
+      // Legacy: Invalidate feed queries
+      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      return;
+    }
+    
+    // Context-aware invalidation
+    switch (context.type) {
+      case 'feed':
+        queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+        break;
+      case 'group':
+        queryClient.invalidateQueries({ queryKey: ['/api/groups', context.groupId, 'posts'] });
+        break;
+      case 'profile':
+        queryClient.invalidateQueries({ queryKey: ['/api/users', context.userId, 'posts'] });
+        break;
+      case 'event':
+        queryClient.invalidateQueries({ queryKey: ['/api/events', context.eventId, 'posts'] });
+        break;
+    }
+  }, [context, queryClient]);
 
   // Debug log posts data
   useEffect(() => {
@@ -228,7 +382,7 @@ const UnifiedPostFeed = memo(({
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      invalidateContextQueries(); // Context-aware invalidation
     },
     onError: () => {
       toast({
