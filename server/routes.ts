@@ -1669,6 +1669,141 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // Guest Profile Routes (Sprint 1 - Critical Fix)
+  // ============================================
+
+  // POST /api/guest-profile - Create or update guest profile
+  app.post('/api/guest-profile', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get user - handle both Replit auth and local auth
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+        if (!user && req.user?.claims) {
+          await storage.upsertUser({
+            replitId: req.user.claims.sub,
+            name: `${req.user.claims.first_name || ''} ${req.user.claims.last_name || ''}`.trim() || 'User',
+            username: req.user.claims.email?.split('@')[0] || `user_${Date.now()}`,
+            email: req.user.claims.email || '',
+            password: '',
+            firstName: req.user.claims.first_name,
+            lastName: req.user.claims.last_name,
+            profileImage: req.user.claims.profile_image_url,
+          });
+          user = await storage.getUserByReplitId(req.user.claims.sub);
+        }
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+      
+      if (!user || !user.id) {
+        res.status(401).json({ error: 'Authentication required' });
+        return;
+      }
+
+      const userId = user.id;
+      console.log('👤 Creating/updating guest profile for user:', userId);
+
+      // Check if profile already exists
+      const existingProfile = await storage.getGuestProfile(userId);
+      if (existingProfile) {
+        console.log('✏️ Profile exists, updating...');
+        const updated = await storage.updateGuestProfile(userId, {
+          ...req.body,
+          updatedAt: new Date(),
+          onboardingCompleted: true
+        });
+        res.json({ success: true, profile: updated });
+        return;
+      }
+
+      // Create new profile
+      const profileData = {
+        userId,
+        ...req.body,
+        onboardingCompleted: true
+      };
+
+      const profile = await storage.createGuestProfile(profileData);
+      console.log('✅ Guest profile created successfully');
+      
+      res.json({ success: true, profile });
+    } catch (error: any) {
+      console.error('❌ Error saving guest profile:', error);
+      res.status(500).json({ 
+        error: 'Failed to save your profile. Please try again.',
+        message: error.message 
+      });
+    }
+  });
+
+  // GET /api/guest-profile - Get user's guest profile
+  app.get('/api/guest-profile', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+      
+      if (!user || !user.id) {
+        res.status(401).json({ error: 'Authentication required' });
+        return;
+      }
+
+      const profile = await storage.getGuestProfile(user.id);
+      if (!profile) {
+        res.status(404).json({ error: 'Guest profile not found' });
+        return;
+      }
+
+      res.json({ data: profile });
+    } catch (error: any) {
+      console.error('❌ Error fetching guest profile:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch guest profile',
+        message: error.message 
+      });
+    }
+  });
+
+  // PUT /api/guest-profile - Update guest profile
+  app.put('/api/guest-profile', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+      
+      if (!user || !user.id) {
+        res.status(401).json({ error: 'Authentication required' });
+        return;
+      }
+
+      console.log('✏️ Updating guest profile for user:', user.id);
+
+      const updated = await storage.updateGuestProfile(user.id, {
+        ...req.body,
+        updatedAt: new Date()
+      });
+
+      console.log('✅ Guest profile updated successfully');
+      res.json({ success: true, profile: updated });
+    } catch (error: any) {
+      console.error('❌ Error updating guest profile:', error);
+      res.status(500).json({ 
+        error: 'Failed to update guest profile',
+        message: error.message 
+      });
+    }
+  });
+
   // POST /api/upload/host-home-photos - Upload photos for host homes
   const uploadMiddleware = setupUpload();
   app.post('/api/upload/host-home-photos', isAuthenticated, uploadMiddleware.array('files', 10), async (req: any, res) => {
