@@ -133,7 +133,10 @@ export class MemoriesFeedAlgorithm {
       const tagConditions = filters.tags.map(tag => 
         sql`${posts.hashtags} @> ARRAY[${tag}]::text[]`
       );
-      baseConditions.push(or(...tagConditions));
+      const tagFilter = or(...tagConditions);
+      if (tagFilter) {
+        baseConditions.push(tagFilter);
+      }
     }
 
     // Get user's own posts based on filter type
@@ -559,7 +562,7 @@ export class MemoriesFeedAlgorithm {
         .where(eq(posts.id, memory.postId))
         .limit(1);
       
-      if (post.length > 0) {
+      if (post.length > 0 && post[0].createdAt) {
         const date = new Date(post[0].createdAt);
         const dateKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
         const weekKey = `${date.getFullYear()}-${Math.floor(date.getTime() / (7 * 24 * 60 * 60 * 1000))}`;

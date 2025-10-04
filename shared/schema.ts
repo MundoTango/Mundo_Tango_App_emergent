@@ -1295,10 +1295,15 @@ export const friends = pgTable("friends", {
   status: text("status").notNull().default("pending"), // 'pending', 'accepted', 'blocked'
   connectionDegree: integer("connection_degree").default(1), // 1st, 2nd, 3rd degree
   closenessScore: real("closeness_score").default(0), // 0-100 based on interactions
+  lastInteractionAt: timestamp("last_interaction_at"), // Track temporal decay
+  interactionCount: integer("interaction_count").default(0), // Bi-directional tracking
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => ({
   uniqueFriendship: unique().on(table.userId, table.friendId),
+  idxClosenessScore: index("idx_friends_closeness_score").on(table.closenessScore),
+  idxConnectionDegree: index("idx_friends_connection_degree").on(table.connectionDegree),
+  idxLastInteraction: index("idx_friends_last_interaction").on(table.lastInteractionAt),
 }));
 
 // Friend Requests table with detailed information
@@ -1691,6 +1696,10 @@ export const hostHomes = pgTable("host_homes", {
   pricePerNight: integer("price_per_night"), // in cents
   availability: jsonb("availability").default({}), // dates available
   blockedDates: jsonb("blocked_dates"), // dates manually blocked by host (array of {startDate, endDate, reason})
+  // Friendship-based booking restrictions (ESA Layer 24: Social Features)
+  whoCanBook: varchar("who_can_book", { length: 50 }).default("anyone"), // 'anyone', 'friends_only', '1st_degree', '2nd_degree', '3rd_degree', 'custom_closeness'
+  minimumClosenessScore: integer("minimum_closeness_score").default(0), // 0-100 threshold for custom_closeness
+  allowUnconnected: boolean("allow_unconnected").default(true), // Allow non-connected users to book
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -1699,6 +1708,7 @@ export const hostHomes = pgTable("host_homes", {
   index("idx_host_homes_city").on(table.city),
   index("idx_host_homes_active").on(table.isActive),
   index("idx_host_homes_location").on(table.lat, table.lng),
+  index("idx_host_homes_who_can_book").on(table.whoCanBook),
 ]);
 
 // Recommendations table for user posts with recommendations
@@ -1838,6 +1848,8 @@ export const guestBookings = pgTable("guest_bookings", {
   status: varchar("status", { length: 20 }).notNull().default("pending"), // pending, approved, rejected, cancelled, completed
   hostResponse: text("host_response"),
   totalPrice: integer("total_price"), // in cents
+  // Connection info snapshot at time of booking (ESA Layer 31: Validation Sentinel)
+  connectionInfo: jsonb("connection_info"), // {connectionDegree: number, closenessScore: number, mutualFriends: number, sharedMemories: number}
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
   respondedAt: timestamp("responded_at"),
