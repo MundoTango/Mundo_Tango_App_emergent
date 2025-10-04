@@ -1648,7 +1648,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/upload/host-home-photos - Upload photos for host homes
-  app.post('/api/upload/host-home-photos', setUserContext, setupUpload.array('files', 10), async (req: any, res) => {
+  const uploadMiddleware = setupUpload();
+  app.post('/api/upload/host-home-photos', setUserContext, uploadMiddleware.array('files', 10), async (req: any, res) => {
     try {
       const userId = req.user?.id;
       if (!userId) {
