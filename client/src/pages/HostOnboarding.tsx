@@ -15,6 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
 import { toast } from '@/hooks/use-toast';
+import DashboardLayout from '@/layouts/DashboardLayout';
 
 interface OnboardingData {
   // Property basics
@@ -210,9 +211,10 @@ export default function HostOnboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b sticky top-0 z-10">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -331,6 +333,7 @@ export default function HostOnboarding() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
