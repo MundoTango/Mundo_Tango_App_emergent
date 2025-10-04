@@ -1,6 +1,6 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 94 pages  
+**Total Pages Documented:** 96 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
@@ -52,6 +52,48 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
   - Troubleshooting guide
 - [Geocoding System Index](/docs/pages/geocoding-system/index.md) - **UPDATED** - Added CDN-free migration reference
 - [Unified Map Components](/docs/pages/components/UnifiedMapComponents.md) - **CURRENT** - Complete component reference
+
+### Housing Documentation Unification - COMPLETE (October 4, 2025)
+Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ Unified Documentation Hub**
+- **Housing System Index**: [/docs/pages/housing/index.md](/docs/pages/housing/index.md) - **NEW** - Master documentation hub (Layer 27: Marketplace)
+  - Complete feature overview and architecture
+  - API endpoints and database schema
+  - MT Ocean theme implementation guide
+  - Performance metrics and testing coverage
+  - Integration with map system and geocoding
+- **Clear Navigation**: All housing docs now cross-referenced with central hub
+- **374 Lines**: Comprehensive documentation covering all housing features
+
+**✅ Group Page Integration Documentation**
+- **Housing on Group Pages**: [/docs/pages/housing/housing-on-group-page.md](/docs/pages/housing/housing-on-group-page.md) - **NEW** - City group housing tab (Layer 22 + Layer 27)
+  - Tab visibility rules (city groups only)
+  - Component architecture (HostHomesList, HousingMap)
+  - User permissions and RBAC integration
+  - Planned enhancements (map toggle, filters, statistics)
+  - Data flow and API integration
+  - MT Ocean theme styling
+- **GroupDetailPageMT Update**: [/docs/pages/social/GroupDetailPageMT.md](/docs/pages/social/GroupDetailPageMT.md) - **UPDATED** - Added comprehensive Housing Tab section
+
+**✅ Cross-Reference Updates**
+- **Housing Marketplace**: [/docs/pages/housing/housing-marketplace.md](/docs/pages/housing/housing-marketplace.md) - **UPDATED** - Added Related Documentation section
+- **Host Onboarding**: [/docs/pages/housing/HostOnboarding.md](/docs/pages/housing/HostOnboarding.md) - **UPDATED** - Added Related Documentation with hub reference
+- **Guest Onboarding**: [/docs/pages/housing/GuestOnboarding.md](/docs/pages/housing/GuestOnboarding.md) - **UPDATED** - Added Related Documentation with hub reference
+
+**✅ Architecture Standardization**
+- **Unified Structure**: All housing docs follow consistent format
+  - Overview → Implementation → Components → API → Testing → Related Docs
+- **ESA Framework Alignment**: Documentation references appropriate ESA layers
+- **Map Integration**: Clear linkage to geocoding system and CDN-free maps
+- **Theme Consistency**: MT Ocean styling documented across all housing features
+
+**Next Steps (Planned UI Enhancements):**
+- Map/list view toggle on group housing tab
+- Compact mode filters for housing tab
+- Statistics card (total homes, price range, availability)
+- Enhanced empty states with CTAs
+- Quick action buttons (Become a Host, View Marketplace)
 
 ### Memories Feed Component Testing - INFRASTRUCTURE COMPLETE (October 1, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
@@ -265,7 +307,9 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Teacher Dashboard](/docs/pages/events/teacher.md) - `/teacher`
 - [Organizer Dashboard](/docs/pages/events/organizer.md) - `/organizer`
 
-### 🏠 Housing & Marketplace (3 pages)
+### 🏠 Housing & Marketplace (5 pages)
+- **[Housing System Index](/docs/pages/housing/index.md) - Complete documentation hub** ⭐ NEW
+- [Housing on Group Pages](/docs/pages/housing/housing-on-group-page.md) - City group housing tab ⭐ NEW
 - [Housing Marketplace](/docs/pages/housing/housing-marketplace.md) - `/housing-marketplace`
 - [Host Onboarding](/docs/pages/housing/HostOnboarding.md) - `/host-onboarding`
 - [Guest Onboarding](/docs/pages/housing/GuestOnboarding.md) - `/guest-onboarding`
