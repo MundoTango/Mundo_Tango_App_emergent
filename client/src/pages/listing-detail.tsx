@@ -39,6 +39,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from '../components/ui/checkbox';
 import { useToast } from '../hooks/use-toast';
 import { format, differenceInDays } from 'date-fns';
+import { ConnectionInfoPanel } from '../components/housing/ConnectionInfoPanel';
+import { useAuth } from '../hooks/useAuth';
 
 interface HostHome {
   id: number;
@@ -80,6 +82,7 @@ export default function ListingDetail() {
   const { id } = useParams();
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  const { user } = useAuth();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
   
@@ -605,6 +608,17 @@ export default function ListingDetail() {
                 </Button>
               </CardContent>
             </Card>
+
+            {/* Connection Info Panel - ESA Layer 9 */}
+            {user && home.hostId && (
+              <div className="mt-6">
+                <ConnectionInfoPanel
+                  userId={user.id}
+                  hostId={home.hostId}
+                  hostName="Host Name"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
