@@ -33,6 +33,7 @@ import {
   Check,
   Banknote
 } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
 
 interface HousingListing {
   id: string;
@@ -393,52 +394,45 @@ export default function HousingMarketplace() {
                   <div data-testid="filter-room-types">
                     <Label className="text-sm font-semibold mb-3 block">Room Type</Label>
                     <div className="space-y-2">
-                      {roomTypes.map(roomType => (
-                        <div key={roomType} className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id={`room-${roomType}`}
-                            checked={selectedRoomTypes.includes(roomType)}
-                            onChange={() => toggleRoomType(roomType)}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                            data-testid={`checkbox-roomtype-${roomType.toLowerCase().replace(' ', '-')}`}
-                          />
-                          <Label htmlFor={`room-${roomType}`} className="font-normal cursor-pointer">
-                            {roomType}
-                          </Label>
-                        </div>
-                      ))}
+                      {roomTypes.map(roomType => {
+                        const roomTypeId = `room-${roomType.toLowerCase().replace(/\s+/g, '-')}`;
+                        return (
+                          <div key={roomType} className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id={roomTypeId}
+                              checked={selectedRoomTypes.includes(roomType)}
+                              onChange={() => toggleRoomType(roomType)}
+                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                              data-testid={`checkbox-roomtype-${roomType.toLowerCase().replace(/\s+/g, '-')}`}
+                            />
+                            <Label htmlFor={roomTypeId} className="font-normal cursor-pointer">
+                              {roomType}
+                            </Label>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  {/* Price Range */}
+                  {/* Price Range Slider */}
                   <div data-testid="filter-price-range">
                     <Label className="text-sm font-semibold mb-3 block">
-                      Price Range (${priceRange.min} - ${priceRange.max})
+                      Price Range (${priceRange.min} - ${priceRange.max} per night)
                     </Label>
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-xs text-gray-600">Min Price</Label>
-                        <Input
-                          type="number"
-                          value={priceRange.min}
-                          onChange={(e) => setPriceRange(prev => ({ ...prev, min: parseInt(e.target.value) || 0 }))}
-                          min={0}
-                          max={priceRange.max}
-                          className="mt-1"
-                          data-testid="input-price-min"
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs text-gray-600">Max Price</Label>
-                        <Input
-                          type="number"
-                          value={priceRange.max}
-                          onChange={(e) => setPriceRange(prev => ({ ...prev, max: parseInt(e.target.value) || 200 }))}
-                          min={priceRange.min}
-                          className="mt-1"
-                          data-testid="input-price-max"
-                        />
+                    <div className="space-y-4">
+                      <Slider
+                        min={0}
+                        max={300}
+                        step={5}
+                        value={[priceRange.min, priceRange.max]}
+                        onValueChange={(values) => setPriceRange({ min: values[0], max: values[1] })}
+                        className="mt-2"
+                        data-testid="slider-price-range"
+                      />
+                      <div className="flex justify-between text-xs text-gray-600">
+                        <span>$0</span>
+                        <span>$300+</span>
                       </div>
                     </div>
                   </div>
