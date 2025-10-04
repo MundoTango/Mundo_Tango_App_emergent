@@ -11,7 +11,8 @@
 - `client/src/pages/housing-marketplace.tsx` - Main marketplace
 - `HousingListingCard` - Property display cards
 - `FilterPanel` - Search and filter options
-- `MapView` - Map-based property search
+- **`HousingMap`** - Unified map component with automatic geocoding (NEW)
+- `HousingMapFilters` - Pre-built filter components for map view
 - `BookingCalendar` - Availability calendar
 - `HostProfile` - Host information display
 - `PaymentOptions` - Payment preference display
@@ -111,7 +112,13 @@
 - **Map Agent**: Location services
 
 ## 8. Integration Points
-- **Maps Service**: Property locations
+- **Unified Geocoding System**: Automatic property location geocoding via OpenStreetMap Nominatim API
+  - `/docs/pages/geocoding-system/` - Complete geocoding documentation
+  - `HousingMap` component - Interactive map with MT Ocean Theme gradient markers
+  - `HousingMapFilters` - Price range, guest capacity, amenities filtering
+  - Real coordinates stored in `lat`/`lng` fields (REAL type)
+  - 24-hour caching, 2 req/sec rate limiting
+- **Maps Service**: Property locations (legacy)
 - **Payment Gateway**: Booking payments
 - **Calendar Service**: Availability sync
 - **Messaging Service**: Host-guest chat
