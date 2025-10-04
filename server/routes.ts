@@ -2115,10 +2115,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         role: role as 'guest' | 'host' | undefined,
       });
 
-      console.log(`✅ Found ${bookings.length} bookings`);
+      // Enrich bookings with property and user information
+      const enrichedBookings = await Promise.all(bookings.map(async (booking) => {
+        const property = await storage.getHostHomeById(booking.hostHomeId);
+        const guest = await storage.getUser(booking.guestId);
+        const checkIn = new Date(booking.checkInDate);
+        const checkOut = new Date(booking.checkOutDate);
+        const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+        
+        return {
+          ...booking,
+          propertyTitle: property?.title || 'Unknown Property',
+          propertyLocation: property?.location || '',
+          propertyImage: property?.photos?.[0] || null,
+          guestName: guest?.name || 'Unknown Guest',
+          guestEmail: guest?.email || '',
+          guestAvatar: guest?.profileImage || null,
+          nights,
+          hostHome: property ? {
+            id: property.id,
+            title: property.title,
+            location: property.location,
+            photos: property.photos,
+            pricePerNight: property.pricePerNight,
+          } : null,
+        };
+      }));
+
+      console.log(`✅ Found ${enrichedBookings.length} bookings`);
       res.json({ 
         success: true,
-        bookings 
+        bookings: enrichedBookings
       });
     } catch (error: any) {
       console.error('❌ Error fetching bookings:', error);
