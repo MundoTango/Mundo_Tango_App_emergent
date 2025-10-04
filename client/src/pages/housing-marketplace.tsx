@@ -71,7 +71,23 @@ export default function HousingMarketplace() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 200 });
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedListing, setSelectedListing] = useState<HousingListing | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // New filter states
+  const [selectedRoomTypes, setSelectedRoomTypes] = useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [guestCount, setGuestCount] = useState(1);
+  const [bedroomCount, setBedroomCount] = useState(0);
+  
   const { toast } = useToast();
+
+  // Filter options
+  const roomTypes = ['Entire place', 'Private room', 'Shared room'];
+  const amenitiesList = [
+    'wifi', 'kitchen', 'washing_machine', 'air_conditioning', 
+    'heating', 'parking', 'tango_practice_space', 'practice_floor',
+    'sound_system', 'balcony', 'doorman', 'shared_kitchen'
+  ];
 
   // Mock data for demonstration
   const mockListings: HousingListing[] = [
@@ -174,15 +190,69 @@ export default function HousingMarketplace() {
     ARS: Banknote
   };
 
-  // Filter listings based on search and type
+  // Enhanced filter logic
   const filteredListings = mockListings.filter(listing => {
     const matchesSearch = listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          listing.location.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = selectedType === 'all' || listing.type === selectedType;
     const matchesPrice = listing.pricePerNight >= priceRange.min && listing.pricePerNight <= priceRange.max;
-    return matchesSearch && matchesType && matchesPrice;
+    
+    // Room type filter (map property type to room type categories)
+    const matchesRoomType = selectedRoomTypes.length === 0 || selectedRoomTypes.some(roomType => {
+      if (roomType === 'Entire place') return listing.type === 'apartment' || listing.type === 'house';
+      if (roomType === 'Private room') return listing.type === 'room';
+      if (roomType === 'Shared room') return listing.type === 'shared';
+      return false;
+    });
+    
+    // Amenities filter
+    const matchesAmenities = selectedAmenities.length === 0 || 
+      selectedAmenities.every(amenity => listing.amenities.includes(amenity));
+    
+    // Guest capacity filter
+    const matchesGuests = listing.guests >= guestCount;
+    
+    // Bedroom filter
+    const matchesBedrooms = bedroomCount === 0 || listing.bedrooms >= bedroomCount;
+    
+    return matchesSearch && matchesType && matchesPrice && matchesRoomType && 
+           matchesAmenities && matchesGuests && matchesBedrooms;
   });
+
+  // Handle filter toggles
+  const toggleRoomType = (roomType: string) => {
+    setSelectedRoomTypes(prev => 
+      prev.includes(roomType) 
+        ? prev.filter(t => t !== roomType)
+        : [...prev, roomType]
+    );
+  };
+
+  const toggleAmenity = (amenity: string) => {
+    setSelectedAmenities(prev => 
+      prev.includes(amenity) 
+        ? prev.filter(a => a !== amenity)
+        : [...prev, amenity]
+    );
+  };
+
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedType('all');
+    setPriceRange({ min: 0, max: 200 });
+    setSelectedRoomTypes([]);
+    setSelectedAmenities([]);
+    setGuestCount(1);
+    setBedroomCount(0);
+  };
+
+  const activeFilterCount = 
+    (selectedType !== 'all' ? 1 : 0) +
+    selectedRoomTypes.length +
+    selectedAmenities.length +
+    (guestCount > 1 ? 1 : 0) +
+    (bedroomCount > 0 ? 1 : 0);
 
   // Toggle favorite mutation
   const toggleFavoriteMutation = useMutation({
@@ -264,36 +334,204 @@ export default function HousingMarketplace() {
           </div>
 
           {/* Search and Filters */}
-          <div className="flex flex-col lg:flex-row gap-4 mb-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
-                type="text"
-                placeholder="Search by location, title, or description..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
-                <Button
-                  key={type}
-                  variant={selectedType === type ? 'default' : 'outline'}
+          <div className="flex flex-col gap-4 mb-6">
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Input
+                  type="text"
+                  placeholder="Search by location, title, or description..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                  data-testid="input-search"
+                />
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
+                  <Button
+                    key={type}
+                    variant={selectedType === type ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedType(type)}
+                    className={selectedType === type 
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
+                      : ''}
+                    data-testid={`button-type-${type}`}
+                  >
+                    {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                  </Button>
+                ))}
+                <Button 
+                  variant="outline" 
                   size="sm"
-                  onClick={() => setSelectedType(type)}
-                  className={selectedType === type 
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
-                    : ''}
+                  onClick={() => setShowFilters(!showFilters)}
+                  className={showFilters ? 'bg-indigo-50 border-indigo-300' : ''}
+                  data-testid="button-toggle-filters"
                 >
-                  {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                  <Filter className="w-4 h-4 mr-1" />
+                  Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
                 </Button>
-              ))}
-              <Button variant="outline" size="sm">
-                <Filter className="w-4 h-4 mr-1" />
-                More Filters
-              </Button>
+                {activeFilterCount > 0 && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={clearFilters}
+                    data-testid="button-clear-filters"
+                  >
+                    Clear all
+                  </Button>
+                )}
+              </div>
             </div>
+
+            {/* Expanded Filter Panel */}
+            {showFilters && (
+              <Card className="p-6 bg-gray-50" data-testid="filter-panel">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Room Types */}
+                  <div data-testid="filter-room-types">
+                    <Label className="text-sm font-semibold mb-3 block">Room Type</Label>
+                    <div className="space-y-2">
+                      {roomTypes.map(roomType => (
+                        <div key={roomType} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`room-${roomType}`}
+                            checked={selectedRoomTypes.includes(roomType)}
+                            onChange={() => toggleRoomType(roomType)}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                            data-testid={`checkbox-roomtype-${roomType.toLowerCase().replace(' ', '-')}`}
+                          />
+                          <Label htmlFor={`room-${roomType}`} className="font-normal cursor-pointer">
+                            {roomType}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price Range */}
+                  <div data-testid="filter-price-range">
+                    <Label className="text-sm font-semibold mb-3 block">
+                      Price Range (${priceRange.min} - ${priceRange.max})
+                    </Label>
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-xs text-gray-600">Min Price</Label>
+                        <Input
+                          type="number"
+                          value={priceRange.min}
+                          onChange={(e) => setPriceRange(prev => ({ ...prev, min: parseInt(e.target.value) || 0 }))}
+                          min={0}
+                          max={priceRange.max}
+                          className="mt-1"
+                          data-testid="input-price-min"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs text-gray-600">Max Price</Label>
+                        <Input
+                          type="number"
+                          value={priceRange.max}
+                          onChange={(e) => setPriceRange(prev => ({ ...prev, max: parseInt(e.target.value) || 200 }))}
+                          min={priceRange.min}
+                          className="mt-1"
+                          data-testid="input-price-max"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Guests & Bedrooms */}
+                  <div data-testid="filter-capacity">
+                    <Label className="text-sm font-semibold mb-3 block">Capacity</Label>
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-xs text-gray-600">Guests</Label>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                            disabled={guestCount <= 1}
+                            data-testid="button-guests-decrease"
+                          >
+                            -
+                          </Button>
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-guest-count">
+                            {guestCount}
+                          </span>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setGuestCount(guestCount + 1)}
+                            data-testid="button-guests-increase"
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-xs text-gray-600">Bedrooms</Label>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setBedroomCount(Math.max(0, bedroomCount - 1))}
+                            disabled={bedroomCount <= 0}
+                            data-testid="button-bedrooms-decrease"
+                          >
+                            -
+                          </Button>
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
+                            {bedroomCount === 0 ? 'Any' : bedroomCount}
+                          </span>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setBedroomCount(bedroomCount + 1)}
+                            data-testid="button-bedrooms-increase"
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="md:col-span-2 lg:col-span-3" data-testid="filter-amenities">
+                    <Label className="text-sm font-semibold mb-3 block">Amenities</Label>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                      {amenitiesList.map(amenity => (
+                        <div key={amenity} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`amenity-${amenity}`}
+                            checked={selectedAmenities.includes(amenity)}
+                            onChange={() => toggleAmenity(amenity)}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                            data-testid={`checkbox-amenity-${amenity}`}
+                          />
+                          <Label htmlFor={`amenity-${amenity}`} className="font-normal cursor-pointer text-sm">
+                            {amenity.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+
+          {/* Results Count */}
+          <div className="mb-4">
+            <p className="text-gray-600" data-testid="text-results-count">
+              Showing {filteredListings.length} of {mockListings.length} listings
+              {activeFilterCount > 0 && ` with ${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} applied`}
+            </p>
           </div>
         </div>
 
