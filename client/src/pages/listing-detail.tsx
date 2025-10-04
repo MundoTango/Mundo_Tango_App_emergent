@@ -42,7 +42,7 @@ import { format, differenceInDays } from 'date-fns';
 import { ConnectionInfoPanel } from '../components/housing/ConnectionInfoPanel';
 import { ConnectionBadge } from '../components/housing/ConnectionBadge';
 import { useAuth } from '../hooks/useAuth';
-import { getConnectionDegreeLabel } from '../utils/friendshipHelpers';
+import { getConnectionLabel } from '../utils/friendshipHelpers';
 
 interface HostHome {
   id: number;
@@ -618,11 +618,11 @@ export default function ListingDetail() {
             </Card>
 
             {/* Connection Info Panel - ESA Layer 9 */}
-            {user && home.hostId && (
+            {user && listing?.data?.hostId && user.id !== listing?.data?.hostId && (
               <div className="mt-6">
                 <ConnectionInfoPanel
                   userId={user.id}
-                  hostId={home.hostId}
+                  hostId={listing.data.hostId}
                   hostName="Host Name"
                 />
               </div>
@@ -661,7 +661,7 @@ export default function ListingDetail() {
                   {connectionData.data.connectionDegree >= 1 ? (
                     <div>
                       <p className="font-semibold text-cyan-900">
-                        You're connected! {getConnectionDegreeLabel(connectionData.data.connectionDegree)}
+                        You're connected! {getConnectionLabel(connectionData.data.connectionDegree)}
                       </p>
                       <p className="text-sm text-cyan-800 mt-1">
                         Your friendship score: {connectionData.data.closenessScore}/100
