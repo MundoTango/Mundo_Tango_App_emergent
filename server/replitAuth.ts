@@ -173,10 +173,10 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
     
     console.log('🔧 Auth bypass - using default user for Life CEO testing');
     
-    // Set default user for development - CRITICAL FIX: Use Scott's actual Replit ID
+    // Set default user for development - Use Pierre Dubois (host) for testing
     req.user = {
       claims: {
-        sub: "44164221" // Scott Boddye's actual Replit ID
+        sub: "77777777" // Pierre Dubois's Replit ID (host with properties)
       },
       expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now
     } as any;

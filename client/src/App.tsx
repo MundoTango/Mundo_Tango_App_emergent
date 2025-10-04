@@ -88,6 +88,10 @@ const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
 const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
+const HostBookings = lazy(() => import("@/pages/host-bookings"));
+const MyBookings = lazy(() => import("@/pages/my-bookings"));
+const ListingDetail = lazy(() => import("@/pages/listing-detail"));
+const HostCalendar = lazy(() => import("@/pages/host-calendar"));
 
 // ========== Social Features Pages (6) ==========
 const EnhancedFriends = lazy(() => import("@/pages/EnhancedFriends"));
@@ -336,7 +340,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Housing & Marketplace Routes (3) ========== */}
+          {/* ========== Housing & Marketplace Routes (7) ========== */}
           <Route path="/housing-marketplace">
             <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
               <HousingMarketplace />
@@ -352,6 +356,30 @@ function Router() {
           <Route path="/guest-onboarding">
             <Suspense fallback={<LoadingFallback message="Loading guest onboarding..." />}>
               <GuestOnboarding />
+            </Suspense>
+          </Route>
+
+          <Route path="/listing/:id">
+            <Suspense fallback={<LoadingFallback message="Loading listing details..." />}>
+              <ListingDetail />
+            </Suspense>
+          </Route>
+
+          <Route path="/my-bookings">
+            <Suspense fallback={<LoadingFallback message="Loading your bookings..." />}>
+              <MyBookings />
+            </Suspense>
+          </Route>
+
+          <Route path="/host-bookings">
+            <Suspense fallback={<LoadingFallback message="Loading host dashboard..." />}>
+              <HostBookings />
+            </Suspense>
+          </Route>
+
+          <Route path="/host-calendar">
+            <Suspense fallback={<LoadingFallback message="Loading booking calendar..." />}>
+              <HostCalendar />
             </Suspense>
           </Route>
 

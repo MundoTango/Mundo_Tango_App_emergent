@@ -2127,7 +2127,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return {
           ...booking,
           propertyTitle: property?.title || 'Unknown Property',
-          propertyLocation: property?.location || '',
+          propertyLocation: property ? `${property.city || ''}, ${property.country || ''}` : '',
           propertyImage: property?.photos?.[0] || null,
           guestName: guest?.name || 'Unknown Guest',
           guestEmail: guest?.email || '',
@@ -2136,9 +2136,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           hostHome: property ? {
             id: property.id,
             title: property.title,
-            location: property.location,
+            address: property.address || '',
+            city: property.city || '',
+            country: property.country || '',
+            location: `${property.city || ''}, ${property.country || ''}`,
             photos: property.photos,
             pricePerNight: property.pricePerNight,
+          } : null,
+          guest: guest ? {
+            id: guest.id,
+            name: guest.name,
+            profileImage: guest.profileImage,
           } : null,
         };
       }));
@@ -2294,28 +2302,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Send real-time notification to guest
-      try {
-        const statusText = status === 'approved' ? 'approved' : 'declined';
-        const notificationTitle = status === 'approved' 
-          ? '🎉 Booking Confirmed!' 
-          : 'Booking Update';
-        
-        await RealTimeNotificationService.sendToUser(booking.guestId, {
-          type: 'message',
-          title: notificationTitle,
-          message: `Your booking request for ${listing.title} has been ${statusText}.`,
-          actionUrl: `/my-bookings`,
-          metadata: {
-            bookingId: booking.id,
-            status,
-            propertyTitle: listing.title
-          },
-          timestamp: new Date().toISOString()
-        });
-        console.log(`📨 Real-time notification sent to guest ${booking.guestId}`);
-      } catch (notifError) {
-        console.error('⚠️ Failed to send real-time notification:', notifError);
-        // Continue even if notification fails
+      if (listing) {
+        try {
+          const statusText = status === 'approved' ? 'approved' : 'declined';
+          const notificationTitle = status === 'approved' 
+            ? '🎉 Booking Confirmed!' 
+            : 'Booking Update';
+          
+          await RealTimeNotificationService.sendToUser(booking.guestId, {
+            type: 'message',
+            title: notificationTitle,
+            message: `Your booking request for ${listing.title} has been ${statusText}.`,
+            actionUrl: `/my-bookings`,
+            metadata: {
+              bookingId: booking.id,
+              status,
+              propertyTitle: listing.title
+            },
+            timestamp: new Date().toISOString()
+          });
+          console.log(`📨 Real-time notification sent to guest ${booking.guestId}`);
+        } catch (notifError) {
+          console.error('⚠️ Failed to send real-time notification:', notifError);
+          // Continue even if notification fails
+        }
       }
 
       console.log('✅ Booking status updated');
