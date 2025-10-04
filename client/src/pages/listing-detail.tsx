@@ -40,7 +40,9 @@ import { Checkbox } from '../components/ui/checkbox';
 import { useToast } from '../hooks/use-toast';
 import { format, differenceInDays } from 'date-fns';
 import { ConnectionInfoPanel } from '../components/housing/ConnectionInfoPanel';
+import { ConnectionBadge } from '../components/housing/ConnectionBadge';
 import { useAuth } from '../hooks/useAuth';
+import { getConnectionDegreeLabel } from '../utils/friendshipHelpers';
 
 interface HostHome {
   id: number;
@@ -99,6 +101,12 @@ export default function ListingDetail() {
   const { data: listing, isLoading, error } = useQuery<{ data: HostHome }>({
     queryKey: [`/api/host-homes/${id}`],
     enabled: !!id,
+  });
+
+  // Fetch connection info for booking eligibility (ESA Layer 31)
+  const { data: connectionData, isLoading: isLoadingConnection } = useQuery({
+    queryKey: user && listing?.data.hostId ? [`/api/users/${user.id}/connection-info/${listing.data.hostId}`] : ['connection-info-disabled'],
+    enabled: !!user && !!listing?.data.hostId && showBookingModal,
   });
 
   // Booking mutation
@@ -627,11 +635,50 @@ export default function ListingDetail() {
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-booking-request">
           <DialogHeader>
-            <DialogTitle>Request to Book</DialogTitle>
+            <div className="flex items-center gap-3 mb-2">
+              <DialogTitle>Request to Book</DialogTitle>
+              {connectionData?.data && (
+                <ConnectionBadge connectionDegree={connectionData.data.connectionDegree} />
+              )}
+            </div>
             <DialogDescription>
               Complete the form below to send a booking request to the host.
             </DialogDescription>
           </DialogHeader>
+
+          {/* Friendship Eligibility Status - ESA Layer 9 + 31 */}
+          {connectionData?.data && (
+            <div className="mb-4 p-4 rounded-lg bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-1">
+                  {connectionData.data.connectionDegree >= 1 ? (
+                    <span className="text-2xl">✅</span>
+                  ) : (
+                    <span className="text-2xl">ℹ️</span>
+                  )}
+                </div>
+                <div className="flex-1">
+                  {connectionData.data.connectionDegree >= 1 ? (
+                    <div>
+                      <p className="font-semibold text-cyan-900">
+                        You're connected! {getConnectionDegreeLabel(connectionData.data.connectionDegree)}
+                      </p>
+                      <p className="text-sm text-cyan-800 mt-1">
+                        Your friendship score: {connectionData.data.closenessScore}/100
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="font-semibold text-gray-900">Not yet connected</p>
+                      <p className="text-sm text-gray-700 mt-1">
+                        Build a connection with this host to unlock easier booking approval. Start by sending a message or attending tango events together!
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="space-y-6 py-4">
             {/* Dates Selection */}
