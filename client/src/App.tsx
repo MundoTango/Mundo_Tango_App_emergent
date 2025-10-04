@@ -1,7 +1,6 @@
 import React, { useEffect, Suspense, lazy } from "react";
-import { Router as WouterRouter, Switch, Route, Redirect } from "wouter";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/lib/queryClient";
+import { Switch, Route, Redirect } from "wouter";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocketProvider } from "@/contexts/socket-context";
@@ -27,6 +26,33 @@ import "@/utils/console-cleanup"; // Security: Clean console output
 // ESA Life CEO 61x21 - Monitoring Services
 import { MonitoringProvider } from "@/components/MonitoringProvider";
 import { useMonitoring } from "@/hooks/useMonitoring";
+
+// Create queryClient inside App component to avoid initialization issues
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: async ({ queryKey }) => {
+        const res = await fetch(queryKey[0] as string, {
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          const text = (await res.text()) || res.statusText;
+          throw new Error(`${res.status}: ${text}`);
+        }
+
+        return await res.json();
+      },
+      refetchInterval: false,
+      refetchOnWindowFocus: false,
+      staleTime: 60000,
+      retry: 1,
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
 
 // Critical components that load immediately - minimal initial bundle
 import NotFound from "@/pages/not-found";
@@ -58,11 +84,8 @@ const EventDetail = lazy(() => import("@/pages/event-detail"));
 const TeacherDashboard = lazy(() => import("@/pages/teacher"));
 const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
 
-// ========== Housing & Marketplace Pages (6) ==========
+// ========== Housing & Marketplace Pages (3) ==========
 const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
-const ListingDetail = lazy(() => import("@/pages/listing-detail"));
-const MyBookings = lazy(() => import("@/pages/my-bookings"));
-const HostBookings = lazy(() => import("@/pages/host-bookings"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
@@ -84,7 +107,7 @@ const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: 
 const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
 
 // ========== Content & Timeline Pages (8) ==========
-const ESAMemoryFeed = lazy(() => import("@/pages/ESAMemoryFeed"));
+const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
 const MemoriesTest = lazy(() => import("@/pages/MemoriesTest"));
 // ESA Framework: Single unified /memories interface - no competing timeline implementations
 const Search = lazy(() => import("@/pages/search"));
@@ -199,10 +222,9 @@ function Router() {
   console.log("🔍 Current path:", currentPath);
 
   return (
-    <WouterRouter>
-      <ErrorBoundary>
-        <Suspense fallback={<LoadingFallback />}>
-          <Switch>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <Switch>
           {/* Homepage - Redirect to unified Memories feed */}
           <Route path="/">
             <Redirect to="/memories" />
@@ -238,12 +260,6 @@ function Router() {
           <Route path="/home">
             <Suspense fallback={<LoadingFallback message="Loading home..." />}>
               <Home />
-            </Suspense>
-          </Route>
-
-          <Route path="/profile/:userId">
-            <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
-              <PublicProfilePage />
             </Suspense>
           </Route>
 
@@ -320,28 +336,10 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Housing & Marketplace Routes (6) ========== */}
+          {/* ========== Housing & Marketplace Routes (3) ========== */}
           <Route path="/housing-marketplace">
             <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
               <HousingMarketplace />
-            </Suspense>
-          </Route>
-
-          <Route path="/housing-marketplace/:id">
-            <Suspense fallback={<LoadingFallback message="Loading listing details..." />}>
-              <ListingDetail />
-            </Suspense>
-          </Route>
-
-          <Route path="/my-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading your bookings..." />}>
-              <MyBookings />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading host dashboard..." />}>
-              <HostBookings />
             </Suspense>
           </Route>
 
@@ -441,7 +439,7 @@ function Router() {
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <ESAMemoryFeed />
+              <ModernMemoriesPage />
             </Suspense>
           </Route>
 
@@ -711,7 +709,6 @@ function Router() {
         </Switch>
       </Suspense>
     </ErrorBoundary>
-    </WouterRouter>
   );
 }
 
@@ -721,22 +718,20 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <CsrfProvider>
-            <TenantProvider>
-              <OpenReplayProvider>
-                <MonitoringProvider>
-                  <TrialBanner />
-                  <SessionRecordingNotice />
-                  <Router />
-                  <Toaster />
-                </MonitoringProvider>
-              </OpenReplayProvider>
-            </TenantProvider>
-          </CsrfProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <CsrfProvider>
+          <TenantProvider>
+            <OpenReplayProvider>
+              <MonitoringProvider>
+                <TrialBanner />
+                <SessionRecordingNotice />
+                <Router />
+                <Toaster />
+              </MonitoringProvider>
+            </OpenReplayProvider>
+          </TenantProvider>
+        </CsrfProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
