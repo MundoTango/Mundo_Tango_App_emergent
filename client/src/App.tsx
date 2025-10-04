@@ -27,6 +27,11 @@ import "@/utils/console-cleanup"; // Security: Clean console output
 import { MonitoringProvider } from "@/components/MonitoringProvider";
 import { useMonitoring } from "@/hooks/useMonitoring";
 
+// ESA LIFE CEO 61x21 - Route Registry (Layers 21-30)
+// Type-safe route management system - prevents debug components in production
+// Documentation: docs/build-coordination/route-protection-sprint.md
+import { productionRoutes, debugRoutes, type RouteConfig } from "@/config/routes";
+
 // Create queryClient inside App component to avoid initialization issues
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,113 +64,11 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import TrialBanner from "@/components/TrialBanner";
 
-// ESA Fix: Removed duplicate Moments component - using single /memories page
-
 // Import EventDiscoveryFeed directly since it's used frequently
 import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 
-// ========== Authentication Pages (2) ==========
-const Login = lazy(() => import("@/pages/auth/login"));
-const Register = lazy(() => import("@/pages/auth/register"));
-
-// ========== User Management Pages (8) ==========
-const Profile = lazy(() => import("@/pages/profile"));
-const UserSettings = lazy(() => import("@/pages/UserSettings"));
-const Onboarding = lazy(() => import("@/pages/onboarding"));
-const ResumePage = lazy(() => import("@/pages/ResumePage"));
-const PublicResumePage = lazy(() => import("@/pages/PublicResumePage"));
-const PublicProfilePage = lazy(() => import("@/pages/PublicProfilePage"));
-const ProfileSwitcher = lazy(() => import("@/pages/ProfileSwitcher"));
-const Home = lazy(() => import("@/pages/home"));
-
-// ========== Events System Pages (5) ==========
-const EnhancedEvents = lazy(() => import("@/pages/EnhancedEvents"));
-const EventDetail = lazy(() => import("@/pages/event-detail"));
-const TeacherDashboard = lazy(() => import("@/pages/teacher"));
-const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
-
-// ========== Housing & Marketplace Pages (3) ==========
-const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
-const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
-const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
-const HostBookings = lazy(() => import("@/pages/host-bookings"));
-const MyBookings = lazy(() => import("@/pages/my-bookings"));
-const ListingDetail = lazy(() => import("@/pages/listing-detail"));
-const HostCalendar = lazy(() => import("@/pages/host-calendar"));
-
-// ========== Social Features Pages (6) ==========
-const EnhancedFriends = lazy(() => import("@/pages/EnhancedFriends"));
-const FriendshipPage = lazy(() => import("@/pages/FriendshipPage"));
-const Messages = lazy(() => import("@/pages/Messages"));
-const Groups = lazy(() => import("@/pages/groups"));
-const GroupDetailPage = lazy(() => import("@/pages/GroupDetailPageMT"));
-const RoleInvitations = lazy(() => import("@/pages/RoleInvitations"));
-
-// ========== Community Pages (8) ==========
-const Community = lazy(() => import("@/pages/community"));
-const CommunityWorldMap = lazy(() => import("@/pages/community-world-map"));
-const CreateCommunity = lazy(() => import("@/pages/CreateCommunity"));
-const TangoCommunities = lazy(() => import("@/pages/tango-communities"));
-const TangoStories = lazy(() => import("@/pages/TangoStories"));
-const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: Live Streaming
-const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
-
-// ========== Content & Timeline Pages (8) ==========
-const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
-const MemoriesTest = lazy(() => import("@/pages/MemoriesTest"));
-// ESA Framework: Single unified /memories interface - no competing timeline implementations
-const Search = lazy(() => import("@/pages/search"));
-const PostingDemo = lazy(() => import("@/pages/PostingDemo"));
-
-// ========== Billing & Subscriptions Pages (7) ==========
-const Subscribe = lazy(() => import("@/pages/Subscribe"));
-const BillingDashboard = lazy(() => import("@/pages/BillingDashboard"));
-const Checkout = lazy(() => import("./pages/Checkout"));
-const PaymentMethods = lazy(() => import("./pages/PaymentMethods"));
-const Invoices = lazy(() => import("./pages/Invoices"));
-const Subscription = lazy(() => import("./pages/Subscription"));
-const SubscriptionAnalytics = lazy(() => import("./pages/SubscriptionAnalytics"));
-
-// ========== Admin & Analytics Pages (11) ==========
-const AdminCenter = lazy(() => import("@/pages/AdminCenter"));
-const AdminDashboard = lazy(() => import("@/pages/admin/dashboard"));
-const AdminUsers = lazy(() => import("@/pages/admin/users"));
-const AdminModeration = lazy(() => import("@/pages/admin/moderation"));
-const AdminAnalytics = lazy(() => import("@/pages/admin/analytics"));
-const PromoCodesAdmin = lazy(() => import("./pages/PromoCodesAdmin"));
-const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
-const AgentFrameworkDashboard = lazy(() => import("@/pages/AgentFrameworkDashboard"));
-const ProjectTracker = lazy(() => import("@/pages/ProjectTracker"));
-const LiveGlobalStatistics = lazy(() => import("@/pages/LiveGlobalStatistics"));
-const HierarchyDashboard = lazy(() => import("@/pages/HierarchyDashboard"));
-
-// ========== LifeCEO Pages (2) ==========
-const LifeCEOEnhanced = lazy(() => import("@/pages/LifeCEOEnhanced"));
-const LifeCeoPerformance = lazy(() => import("@/pages/LifeCeoPerformance"));
-
-// ========== Testing & Development Pages (6) ==========
-const MediaUploadTest = lazy(() => import("@/pages/MediaUploadTest"));
-const MonitoringDashboard = lazy(() => import("@/pages/MonitoringDashboard"));
-const MonitoringTest = lazy(() => import("@/pages/MonitoringTest"));
-const TestGroupedRoleSelector = lazy(() => import("@/components/test/TestGroupedRoleSelector"));
-const TTfilesDemo = lazy(() => import("@/pages/TTfilesDemo"));
-const FeatureNavigation = lazy(() => import("@/pages/feature-navigation"));
-const DatabaseSecurity = lazy(() => import("@/pages/database-security"));
-
-// ========== Diagnostic Component (Temporary) ==========
-const MemoriesDebug = lazy(() => import("@/pages/MemoriesDebug"));
-
-// ========== Legal & Compliance Pages (4) ==========
-const CodeOfConduct = lazy(() => import("@/pages/code-of-conduct"));
-const PrivacyAnalytics = lazy(() => import("@/pages/PrivacyAnalytics"));
-
-// ========== Additional Platform Pages (5) ==========
-const TravelPlanner = lazy(() => import("@/pages/TravelPlanner"));
-const MobileAppDashboard = lazy(() => import("@/pages/MobileAppDashboard"));
-const ErrorBoundaryPage = lazy(() => import("@/pages/ErrorBoundaryPage"));
-// TODO: Fix Notion pages - they need default exports
-// const NotionHomePage = lazy(() => import("@/pages/NotionHomePage"));
-// const NotionEntryPage = lazy(() => import("@/pages/NotionEntryPage"));
+// ESA LIFE CEO 61x21 - All other components now loaded from route registry
+// See client/src/config/routes.ts for the complete route configuration
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
 const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
@@ -221,9 +124,16 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 }
 
 function Router() {
-  // ESA Fix: Simplified router without auth hooks to prevent hook errors
+  // ESA LIFE CEO 61x21 - Registry-driven routing (Layers 21-30)
+  // Type-safe route management prevents debug components in production
   const currentPath = window.location.pathname;
   console.log("🔍 Current path:", currentPath);
+
+  // Get routes from registry - debugRoutes only in development
+  const isDevelopment = import.meta.env.MODE === 'development' || import.meta.env.DEV;
+  const allRoutes = isDevelopment 
+    ? [...productionRoutes, ...debugRoutes]
+    : productionRoutes;
 
   return (
     <ErrorBoundary>
@@ -245,490 +155,32 @@ function Router() {
             <Redirect to="/memories" />
           </Route>
 
-          {/* ========== Authentication Routes (2) ========== */}
-          <Route path="/login">
-            <Suspense fallback={<LoadingFallback message="Loading login..." />}>
-              <Login />
-            </Suspense>
-          </Route>
-          
-
-          <Route path="/register">
-            <Suspense fallback={<LoadingFallback message="Loading registration..." />}>
-              <Register />
-            </Suspense>
-          </Route>
-          
-
-          {/* ========== User Management Routes (8) ========== */}
-          <Route path="/home">
-            <Suspense fallback={<LoadingFallback message="Loading home..." />}>
-              <Home />
-            </Suspense>
-          </Route>
-
-          <Route path="/profile">
-            <Suspense fallback={<LoadingFallback message="Loading profile..." />}>
-              <Profile />
-            </Suspense>
-          </Route>
-
-          <Route path="/settings">
-            <Suspense fallback={<LoadingFallback message="Loading settings..." />}>
-              <UserSettings />
-            </Suspense>
-          </Route>
-
-          <Route path="/onboarding">
-            <Suspense fallback={<LoadingFallback message="Loading onboarding..." />}>
-              <Onboarding />
-            </Suspense>
-          </Route>
-
-          <Route path="/resume">
-            <Suspense fallback={<LoadingFallback message="Loading resume..." />}>
-              <ResumePage />
-            </Suspense>
-          </Route>
-
-          <Route path="/public-resume/:userId?">
-            <Suspense fallback={<LoadingFallback message="Loading public resume..." />}>
-              <PublicResumePage />
-            </Suspense>
-          </Route>
-
-          <Route path="/public-profile/:userId?">
-            <Suspense fallback={<LoadingFallback message="Loading public profile..." />}>
-              <PublicProfilePage />
-            </Suspense>
-          </Route>
-
-          <Route path="/profile-switcher">
-            <Suspense fallback={<LoadingFallback message="Loading profile switcher..." />}>
-              <ProfileSwitcher />
-            </Suspense>
-          </Route>
-
-          {/* ========== Events System Routes (6) ========== */}
-          <Route path="/events">
-            <Suspense fallback={<LoadingFallback message="Loading events..." />}>
-              <EnhancedEvents />
-            </Suspense>
-          </Route>
-
+          {/* Special route: Event discovery feed */}
           <Route path="/events/discover">
             <Suspense fallback={<LoadingFallback message="Loading event discovery..." />}>
               <EventDiscoveryFeed />
             </Suspense>
           </Route>
 
-          <Route path="/events/:id">
-            <Suspense fallback={<LoadingFallback message="Loading event details..." />}>
-              <EventDetail />
-            </Suspense>
-          </Route>
-
-          <Route path="/teacher">
-            <Suspense fallback={<LoadingFallback message="Loading teacher dashboard..." />}>
-              <TeacherDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/organizer">
-            <Suspense fallback={<LoadingFallback message="Loading organizer dashboard..." />}>
-              <OrganizerDashboard />
-            </Suspense>
-          </Route>
-
-          {/* ========== Housing & Marketplace Routes (7) ========== */}
-          <Route path="/housing-marketplace">
-            <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
-              <HousingMarketplace />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-onboarding">
-            <Suspense fallback={<LoadingFallback message="Loading host onboarding..." />}>
-              <HostOnboarding />
-            </Suspense>
-          </Route>
-
-          <Route path="/guest-onboarding">
-            <Suspense fallback={<LoadingFallback message="Loading guest onboarding..." />}>
-              <GuestOnboarding />
-            </Suspense>
-          </Route>
-
-          <Route path="/listing/:id">
-            <Suspense fallback={<LoadingFallback message="Loading listing details..." />}>
-              <ListingDetail />
-            </Suspense>
-          </Route>
-
-          <Route path="/my-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading your bookings..." />}>
-              <MyBookings />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading host dashboard..." />}>
-              <HostBookings />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-calendar">
-            <Suspense fallback={<LoadingFallback message="Loading booking calendar..." />}>
-              <HostCalendar />
-            </Suspense>
-          </Route>
-
-          {/* ========== Social Features Routes (7) ========== */}
-          <Route path="/friends">
-            <Suspense fallback={<LoadingFallback message="Loading friends..." />}>
-              <EnhancedFriends />
-            </Suspense>
-          </Route>
-
-          <Route path="/friendship/:friendId">
-            <Suspense fallback={<LoadingFallback message="Loading friendship details..." />}>
-              <FriendshipPage />
-            </Suspense>
-          </Route>
-
-          <Route path="/messages">
-            <Suspense fallback={<LoadingFallback message="Loading messages..." />}>
-              <Messages />
-            </Suspense>
-          </Route>
-
-          <Route path="/groups">
-            <Suspense fallback={<LoadingFallback message="Loading groups..." />}>
-              <Groups />
-            </Suspense>
-          </Route>
-
-          <Route path="/groups/:slug">
-            <Suspense fallback={<LoadingFallback message="Loading group..." />}>
-              <GroupDetailPage />
-            </Suspense>
-          </Route>
-
-          <Route path="/invitations">
-            <Suspense fallback={<LoadingFallback message="Loading invitations..." />}>
-              <RoleInvitations />
-            </Suspense>
-          </Route>
-
-          {/* ========== Community Routes (6) ========== */}
-          <Route path="/community">
-            <Suspense fallback={<LoadingFallback message="Loading community..." />}>
-              <Community />
-            </Suspense>
-          </Route>
-
-          <Route path="/community-world-map">
-            <Suspense fallback={<LoadingFallback message="Loading world map..." />}>
-              <CommunityWorldMap />
-            </Suspense>
-          </Route>
-
-          <Route path="/create-community">
-            <Suspense fallback={<LoadingFallback message="Loading community creator..." />}>
-              <CreateCommunity />
-            </Suspense>
-          </Route>
-
-          <Route path="/tango-communities">
-            <Suspense fallback={<LoadingFallback message="Loading communities..." />}>
-              <TangoCommunities />
-            </Suspense>
-          </Route>
-
-          <Route path="/tango-stories">
-            <Suspense fallback={<LoadingFallback message="Loading stories..." />}>
-              <TangoStories />
-            </Suspense>
-          </Route>
-
-          <Route path="/live-streaming">
-            <Suspense fallback={<LoadingFallback message="Loading streaming..." />}>
-              <LiveStreaming />
-            </Suspense>
-          </Route>
-
-          <Route path="/gamification">
-            <Suspense fallback={<LoadingFallback message="Loading gamification..." />}>
-              <Gamification />
-            </Suspense>
-          </Route>
-
-          {/* ========== ESA Unified Memories Interface - Single Route ========== */}
-
-          <Route path="/memories">
-            <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <ModernMemoriesPage />
-            </Suspense>
-          </Route>
-
-          <Route path="/memories-debug">
-            <Suspense fallback={<LoadingFallback message="Loading debug..." />}>
-              <MemoriesDebug />
-            </Suspense>
-          </Route>
-
-          <Route path="/memories-test">
-            <Suspense fallback={<LoadingFallback message="Loading test..." />}>
-              <MemoriesTest />
-            </Suspense>
-          </Route>
-
-          <Route path="/search">
-            <Suspense fallback={<LoadingFallback message="Loading search..." />}>
-              <Search />
-            </Suspense>
-          </Route>
-
-          <Route path="/posting-demo">
-            <Suspense fallback={<LoadingFallback message="Loading posting demo..." />}>
-              <PostingDemo />
-            </Suspense>
-          </Route>
-
+          {/* Landing page (not in registry - always eager loaded) */}
           <Route path="/landing">
             <Landing />
           </Route>
 
-          {/* ========== Billing & Subscriptions Routes (7) ========== */}
-          <Route path="/subscribe">
-            <Suspense fallback={<LoadingFallback message="Loading subscription plans..." />}>
-              <Subscribe />
-            </Suspense>
-          </Route>
-
-          <Route path="/settings/billing">
-            <Suspense fallback={<LoadingFallback message="Loading billing..." />}>
-              <BillingDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/checkout/:tier">
-            <Suspense fallback={<LoadingFallback message="Loading checkout..." />}>
-              <Checkout />
-            </Suspense>
-          </Route>
-
-          <Route path="/payment-methods">
-            <Suspense fallback={<LoadingFallback message="Loading payment methods..." />}>
-              <PaymentMethods />
-            </Suspense>
-          </Route>
-
-          <Route path="/invoices">
-            <Suspense fallback={<LoadingFallback message="Loading invoices..." />}>
-              <Invoices />
-            </Suspense>
-          </Route>
-
-          <Route path="/subscription">
-            <Suspense fallback={<LoadingFallback message="Loading subscription..." />}>
-              <Subscription />
-            </Suspense>
-          </Route>
-
-          {/* ========== Admin & Analytics Routes (11) ========== */}
-          <Route path="/admin">
-            <Suspense fallback={<LoadingFallback message="Loading admin dashboard..." />}>
-              <AdminDashboard />
-            </Suspense>
-          </Route>
-          
-          <Route path="/admin/users">
-            <Suspense fallback={<LoadingFallback message="Loading user management..." />}>
-              <AdminUsers />
-            </Suspense>
-          </Route>
-          
-          <Route path="/admin/moderation">
-            <Suspense fallback={<LoadingFallback message="Loading moderation queue..." />}>
-              <AdminModeration />
-            </Suspense>
-          </Route>
-          
-          <Route path="/admin/analytics">
-            <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
-              <AdminAnalytics />
-            </Suspense>
-          </Route>
-          
-          <Route path="/admin-legacy">
-            <Suspense fallback={<LoadingFallback message="Loading admin center..." />}>
-              <AdminCenter />
-            </Suspense>
-          </Route>
-
-          <Route path="/admin/promo-codes">
-            <Suspense fallback={<LoadingFallback message="Loading promo codes..." />}>
-              <PromoCodesAdmin />
-            </Suspense>
-          </Route>
-
-          <Route path="/admin/subscription-analytics">
-            <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
-              <SubscriptionAnalytics />
-            </Suspense>
-          </Route>
-
-          <Route path="/analytics">
-            <Suspense fallback={<LoadingFallback message="Loading analytics..." />}>
-              <AnalyticsDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/agent-framework">
-            <Suspense fallback={<LoadingFallback message="Loading Agent Framework Dashboard..." />}>
-              <AgentFrameworkDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/project-tracker">
-            <Suspense fallback={<LoadingFallback message="Loading project tracker..." />}>
-              <ProjectTracker />
-            </Suspense>
-          </Route>
-
-          <Route path="/stats">
-            <Suspense fallback={<LoadingFallback message="Loading statistics..." />}>
-              <LiveGlobalStatistics />
-            </Suspense>
-          </Route>
-
-
-          <Route path="/hierarchy">
-            <Suspense fallback={<LoadingFallback message="Loading hierarchy..." />}>
-              <HierarchyDashboard />
-            </Suspense>
-          </Route>
-
-          {/* ========== LifeCEO Routes (3) ========== */}
-          <Route path="/life-ceo">
-            <Suspense fallback={<LoadingFallback message="Loading Life CEO..." />}>
-              <LifeCEOEnhanced />
-            </Suspense>
-          </Route>
-
-          <Route path="/life-ceo-performance">
-            <Suspense fallback={<LoadingFallback message="Loading Life CEO Performance..." />}>
-              <LifeCeoPerformance />
-            </Suspense>
-          </Route>
-
-          <Route path="/lifeceo">
-            <Suspense fallback={<LoadingFallback message="Loading Life CEO..." />}>
-              <LifeCEOEnhanced />
-            </Suspense>
-          </Route>
-
-          {/* ========== Testing & Development Routes (6) ========== */}
-          <Route path="/monitoring">
-            <Suspense fallback={<LoadingFallback message="Loading monitoring dashboard..." />}>
-              <MonitoringDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/monitoring-test">
-            <Suspense fallback={<LoadingFallback message="Loading monitoring test..." />}>
-              <MonitoringTest />
-            </Suspense>
-          </Route>
-
-          <Route path="/media-upload-test">
-            <Suspense fallback={<LoadingFallback message="Loading media upload test..." />}>
-              <MediaUploadTest />
-            </Suspense>
-          </Route>
-
-          <Route path="/test-grouped-roles">
-            <Suspense fallback={<LoadingFallback message="Loading test..." />}>
-              <TestGroupedRoleSelector />
-            </Suspense>
-          </Route>
-
-          <Route path="/ttfiles-demo">
-            <Suspense fallback={<LoadingFallback message="Loading TTfiles demo..." />}>
-              <TTfilesDemo />
-            </Suspense>
-          </Route>
-
-          <Route path="/feature-navigation">
-            <Suspense fallback={<LoadingFallback message="Loading feature navigation..." />}>
-              <FeatureNavigation />
-            </Suspense>
-          </Route>
-
-          <Route path="/database-security">
-            <Suspense fallback={<LoadingFallback message="Loading database security..." />}>
-              <DatabaseSecurity />
-            </Suspense>
-          </Route>
-
-          {/* ========== Legal & Compliance Routes (4) ========== */}
-          <Route path="/code-of-conduct">
-            <Suspense fallback={<LoadingFallback message="Loading terms..." />}>
-              <CodeOfConduct />
-            </Suspense>
-          </Route>
-
-          <Route path="/terms">
-            <Suspense fallback={<LoadingFallback message="Loading terms..." />}>
-              <CodeOfConduct />
-            </Suspense>
-          </Route>
-
-          <Route path="/privacy-policy">
-            <Suspense fallback={<LoadingFallback message="Loading privacy policy..." />}>
-              <CodeOfConduct />
-            </Suspense>
-          </Route>
-
-          <Route path="/privacy-analytics">
-            <Suspense fallback={<LoadingFallback message="Loading privacy settings..." />}>
-              <PrivacyAnalytics />
-            </Suspense>
-          </Route>
-
-          {/* ========== Additional Platform Routes (5) ========== */}
-          <Route path="/travel-planner">
-            <Suspense fallback={<LoadingFallback message="Loading travel planner..." />}>
-              <TravelPlanner />
-            </Suspense>
-          </Route>
-
-          <Route path="/mobile-dashboard">
-            <Suspense fallback={<LoadingFallback message="Loading mobile dashboard..." />}>
-              <MobileAppDashboard />
-            </Suspense>
-          </Route>
-
-          <Route path="/error">
-            <Suspense fallback={<LoadingFallback message="Loading..." />}>
-              <ErrorBoundaryPage />
-            </Suspense>
-          </Route>
-
-          {/* TODO: Add Notion integration when pages are ready
-          <Route path="/notion">
-            <Suspense fallback={<LoadingFallback message="Loading Notion..." />}>
-              <NotionHomePage />
-            </Suspense>
-          </Route>
-
-          <Route path="/notion/:entryId">
-            <Suspense fallback={<LoadingFallback message="Loading Notion entry..." />}>
-              <NotionEntryPage />
-            </Suspense>
-          </Route>
-          */}
+          {/* ESA LIFE CEO 61x21 - Registry-driven routes 
+              All production routes are defined in client/src/config/routes.ts
+              Debug routes (from pages/_debug/) only loaded in development mode
+              See docs/build-coordination/route-protection-sprint.md for details */}
+          {allRoutes.map((routeConfig: RouteConfig) => {
+            const Component = routeConfig.component;
+            return (
+              <Route key={routeConfig.path} path={routeConfig.path}>
+                <Suspense fallback={<LoadingFallback message={routeConfig.loadingMessage} />}>
+                  <Component />
+                </Suspense>
+              </Route>
+            );
+          })}
 
           {/* 404 Fallback - Must be last */}
           <Route>

@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-10-04T23:39:44.142Z",
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "warnings": 0,
+    "total": 5
+  },
+  "coverage": {
+    "productionRoutes": 71,
+    "debugRoutes": 4,
+    "archiveRoutes": 0,
+    "totalRoutes": 75
+  },
+  "errors": []
+}

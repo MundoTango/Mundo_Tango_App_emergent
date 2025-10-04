@@ -21,6 +21,28 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   rules: {
+    // ESA LIFE CEO 61x21 - Prevent debug/archive imports in production
+    'no-restricted-imports': ['error', {
+      patterns: [
+        {
+          group: ['*/_debug/*', '@/pages/_debug/*', '../*/_debug/*', './_debug/*'],
+          message: '🚫 ESA Framework Violation: Cannot import from _debug/ in production code.\n' +
+            '   Debug components must only be used in:\n' +
+            '   - Test files (*.test.ts, *.spec.ts)\n' +
+            '   - Debug-specific contexts\n' +
+            '   Production routes should use components from client/src/pages/ (not _debug/)\n' +
+            '   See: docs/build-coordination/route-protection-sprint.md'
+        },
+        {
+          group: ['*/_archive/*', '@/pages/_archive/*', '../*/_archive/*', './_archive/*'],
+          message: '🚫 ESA Framework Violation: Cannot import from _archive/ in production code.\n' +
+            '   Archive components are deprecated and cannot be used.\n' +
+            '   Use current production components from client/src/pages/\n' +
+            '   See: docs/build-coordination/route-protection-sprint.md'
+        }
+      ]
+    }],
+    
     // Custom rule: Prevent hardcoded hex colors
     'no-restricted-syntax': [
       'warn',

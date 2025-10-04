@@ -15,6 +15,7 @@
     "check": "tsc",
     "type-check": "tsc --noEmit",
     "lint": "npx eslint . --ext .ts,.tsx",
+    "validate:routes": "node scripts/validate-routes.js",
     "db:push": "drizzle-kit push",
     "db:seed:test": "NODE_ENV=test tsx tests/api/seed-test-data.ts",
     "test": "NODE_ENV=test jest",
