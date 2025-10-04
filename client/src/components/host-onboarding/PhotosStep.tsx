@@ -39,6 +39,7 @@ export default function PhotosStep({ data, updateData }: PhotosStepProps) {
       'image/*': ['.jpeg', '.jpg', '.png', '.webp']
     },
     maxSize: 10 * 1024 * 1024, // 10MB
+    maxFiles: 10, // Match backend limit
     multiple: true,
   });
 

@@ -23,7 +23,7 @@ import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
 import { storage } from "./storage";
-import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
+import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
 // Removed homeAmenities, homePhotos import to fix duplicate export issue
 import { z } from "zod";
 import { SocketService } from "./services/socketService";
@@ -1673,7 +1673,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Guest Profile Routes (Sprint 1 - Critical Fix)
   // ============================================
 
-  // POST /api/guest-profile - Create or update guest profile
+  // POST /api/guest-profile - Create or update guest profile (ESA 61x21 compliant)
   app.post('/api/guest-profile', isAuthenticated, async (req: any, res) => {
     try {
       // Get user - handle both Replit auth and local auth
@@ -1698,47 +1698,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       if (!user || !user.id) {
-        res.status(401).json({ error: 'Authentication required' });
-        return;
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
       }
 
       const userId = user.id;
       console.log('👤 Creating/updating guest profile for user:', userId);
+
+      // SECURITY: Validate request body WITHOUT userId to prevent spoofing
+      const bodySchema = insertGuestProfileSchema.omit({ userId: true });
+      const validationResult = bodySchema.safeParse(req.body);
+
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error);
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid profile data',
+          code: 'VALIDATION_ERROR',
+          details: validationResult.error.errors
+        });
+      }
+
+      // Extract validated data and merge with session userId
+      const validatedData = validationResult.data;
 
       // Check if profile already exists
       const existingProfile = await storage.getGuestProfile(userId);
       if (existingProfile) {
         console.log('✏️ Profile exists, updating...');
         const updated = await storage.updateGuestProfile(userId, {
-          ...req.body,
+          ...validatedData,
           updatedAt: new Date(),
           onboardingCompleted: true
         });
-        res.json({ success: true, profile: updated });
-        return;
+        return res.json({ 
+          success: true, 
+          profile: updated,
+          message: 'Profile updated successfully'
+        });
       }
 
-      // Create new profile
+      // Create new profile with userId from authenticated session ONLY
       const profileData = {
-        userId,
-        ...req.body,
+        userId, // Source from session, NOT from request body
+        ...validatedData,
         onboardingCompleted: true
       };
 
       const profile = await storage.createGuestProfile(profileData);
       console.log('✅ Guest profile created successfully');
       
-      res.json({ success: true, profile });
+      res.status(201).json({ 
+        success: true, 
+        profile,
+        message: 'Profile created successfully'
+      });
     } catch (error: any) {
       console.error('❌ Error saving guest profile:', error);
       res.status(500).json({ 
-        error: 'Failed to save your profile. Please try again.',
-        message: error.message 
+        success: false,
+        error: 'Failed to save profile',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
     }
   });
 
-  // GET /api/guest-profile - Get user's guest profile
+  // GET /api/guest-profile - Get user's guest profile (ESA 61x21 compliant)
   app.get('/api/guest-profile', isAuthenticated, async (req: any, res) => {
     try {
       // Get user
@@ -1750,30 +1779,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       if (!user || !user.id) {
-        res.status(401).json({ error: 'Authentication required' });
-        return;
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
       }
 
       const profile = await storage.getGuestProfile(user.id);
       if (!profile) {
-        res.status(404).json({ error: 'Guest profile not found' });
-        return;
+        return res.status(404).json({ 
+          success: false,
+          error: 'Guest profile not found',
+          code: 'NOT_FOUND'
+        });
       }
 
-      res.json({ data: profile });
+      res.json({ 
+        success: true,
+        data: profile 
+      });
     } catch (error: any) {
       console.error('❌ Error fetching guest profile:', error);
       res.status(500).json({ 
-        error: 'Failed to fetch guest profile',
-        message: error.message 
+        success: false,
+        error: 'Failed to fetch profile',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
     }
   });
 
-  // PUT /api/guest-profile - Update guest profile
+  // PUT /api/guest-profile - Update guest profile (ESA 61x21 compliant with ownership check)
   app.put('/api/guest-profile', isAuthenticated, async (req: any, res) => {
     try {
-      // Get user
+      // Get user - handle both Replit auth and local auth
       let user: any = null;
       if (req.user?.claims?.sub) {
         user = await storage.getUserByReplitId(req.user.claims.sub);
@@ -1782,24 +1822,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       if (!user || !user.id) {
-        res.status(401).json({ error: 'Authentication required' });
-        return;
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
       }
 
       console.log('✏️ Updating guest profile for user:', user.id);
 
+      // CRITICAL: Verify ownership - user can only update their own profile
+      const existingProfile = await storage.getGuestProfile(user.id);
+      if (!existingProfile) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Profile not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // SECURITY: Validate update data WITHOUT userId to prevent spoofing
+      const updateSchema = insertGuestProfileSchema.partial().omit({ userId: true });
+      const validationResult = updateSchema.safeParse(req.body);
+
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error);
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid profile data',
+          code: 'VALIDATION_ERROR',
+          details: validationResult.error.errors
+        });
+      }
+
+      // Use validated data, never trust req.body directly
+      const validatedData = validationResult.data;
+
       const updated = await storage.updateGuestProfile(user.id, {
-        ...req.body,
+        ...validatedData,
         updatedAt: new Date()
       });
 
       console.log('✅ Guest profile updated successfully');
-      res.json({ success: true, profile: updated });
+      res.json({ 
+        success: true, 
+        profile: updated,
+        message: 'Profile updated successfully'
+      });
     } catch (error: any) {
       console.error('❌ Error updating guest profile:', error);
       res.status(500).json({ 
-        error: 'Failed to update guest profile',
-        message: error.message 
+        success: false,
+        error: 'Failed to update profile',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
     }
   });
