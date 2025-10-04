@@ -133,3 +133,19 @@
 - **Color Contrast**: WCAG AA
 - **Form Validation**: Inline help
 - **Language Support**: Multi-lingual
+
+---
+
+## 11. Related Documentation
+
+### Housing System
+- **[Housing System Hub](./index.md)** - Complete housing documentation index
+- **[Housing Marketplace](./housing-marketplace.md)** - Main marketplace page
+- **[Housing on Group Pages](./housing-on-group-page.md)** - City group integration
+- **[Host Onboarding](./HostOnboarding.md)** - Property listing flow
+- **[Guest Step 1: Accommodation](./guest/guest-step1-accommodation.md)** - Detailed step docs
+- **[Guest Step 4: Location](./guest/guest-step4-location.md)** - Location preferences
+
+### Framework
+- [ESA Layer 27: Marketplace](../esa-layers/layer-27-marketplace.md)
+- [ESA Framework Guide](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)

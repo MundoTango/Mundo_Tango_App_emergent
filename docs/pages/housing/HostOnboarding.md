@@ -133,3 +133,21 @@
 - **Help Tooltips**: Context assistance
 - **Skip Options**: Advanced users
 - **Mobile Optimized**: Touch interface
+
+---
+
+## 11. Related Documentation
+
+### Housing System
+- **[Housing System Hub](./index.md)** - Complete housing documentation index
+- **[Housing Marketplace](./housing-marketplace.md)** - Main marketplace page
+- **[Housing on Group Pages](./housing-on-group-page.md)** - City group integration
+- **[Guest Onboarding](./GuestOnboarding.md)** - Guest preferences flow
+
+### Map & Location
+- [Geocoding System](../geocoding-system/index.md) - Automatic geocoding
+- [LocationStep Implementation](../geocoding-system/map-components.md) - Map integration
+
+### Framework
+- [ESA Layer 27: Marketplace](../esa-layers/layer-27-marketplace.md)
+- [ESA Framework Guide](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)

@@ -140,3 +140,22 @@
 - **Currency Display**: Multiple formats
 - **Date Picker**: Accessible controls
 - **Mobile Responsive**: Touch-optimized
+
+---
+
+## 11. Related Documentation
+
+### Housing System
+- **[Housing System Hub](./index.md)** - Complete housing documentation index
+- **[Housing on Group Pages](./housing-on-group-page.md)** - City group integration
+- **[Host Onboarding](./HostOnboarding.md)** - Property listing flow
+- **[Guest Onboarding](./GuestOnboarding.md)** - Guest preferences
+
+### Map & Location
+- [Geocoding System](../geocoding-system/index.md) - Automatic geocoding
+- [HousingMap Component](../geocoding-system/map-components.md) - Map integration
+- [Unified Map Components](../components/UnifiedMapComponents.md) - Map reference
+
+### Framework
+- [ESA Layer 27: Marketplace](../esa-layers/layer-27-marketplace.md)
+- [ESA Framework Guide](/docs/ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md)
