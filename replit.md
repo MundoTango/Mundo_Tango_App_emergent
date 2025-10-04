@@ -45,7 +45,8 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Security**: Implements Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Reporting System**: Comprehensive content reporting with defined moderation workflows.
 - **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
-- **Maps**: Interactive maps for various community features and host onboarding processes. Event maps with automatic geocoding using OpenStreetMap Nominatim API.
+- **Maps**: **Unified map infrastructure** with shared components (`UnifiedMapBase`, `UnifiedMapLegend`) powered by Leaflet.js. All maps use local icon files (`/leaflet/`) instead of CDN for production reliability. Features automatic geocoding via OpenStreetMap Nominatim API (2 req/sec, 24hr caching), custom MT Ocean Theme gradient markers, and pre-built filter components. Maps implemented: EventMap, HousingMap, Tango World Map. 
+- **Geocoding System**: **Production-ready automatic geocoding** integrated across platform entities (events, housing, recommendations, city groups). Uses `CityAutoCreationService` for OpenStreetMap Nominatim API integration with intelligent caching, rate limiting (500ms/2 req/sec), and error handling. Events automatically geocoded on creation/update with coordinates stored in database. Schema-ready for housing/recommendations awaiting endpoint implementation. Comprehensive documentation at `docs/pages/geocoding-system/`.
 - **Automations**: Automated city/professional group assignment and geocoding services. Events are automatically geocoded on creation and via bulk admin endpoint.
 - **Navigation**: Features a unified top navigation bar and refactored sidebar.
 - **Testing Infrastructure**: Comprehensive test coverage, especially for Memories Feed components, with end-to-end tests and real database integration.
@@ -56,6 +57,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **API-First**: All inter-system communication is via versioned APIs with consistent data contracts.
 - **Framework**: Adheres to the ESA LIFE CEO 61x21 systematic development methodology.
 - **PWA**: Progressive Web App capabilities for an optimized mobile experience.
+- **Unified Map Architecture** (October 2025): Eliminated code duplication across all maps by creating shared utilities (`client/src/utils/leafletConfig.ts`), reusable base components (`UnifiedMapBase`, `UnifiedMapLegend`), and centralized filter management hooks (`useMapFilters`). Fixed critical production risk by migrating from CDN-based Leaflet icons to local `/leaflet/` assets. All map components (EventMap, HousingMap, WorldMap) now use consistent MT Ocean Theme gradients, unified marker creation, and shared error handling. Geocoding integrated via `CityAutoCreationService` with OpenStreetMap Nominatim API.
 - **Critical Architecture Decisions**: Includes using CommonJS for server modules, JavaScript launcher for TypeScript server via `tsx`, independent frontend builds, 4GB heap allocation with garbage collection, Vite bypass in production, static file serving, disabled React StrictMode in development, and a console cleanup utility for production.
 
 ## External Dependencies
