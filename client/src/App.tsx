@@ -107,7 +107,7 @@ const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: 
 const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
 
 // ========== Content & Timeline Pages (8) ==========
-const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
+const ESAMemoryFeed = lazy(() => import("@/pages/ESAMemoryFeed"));
 const MemoriesTest = lazy(() => import("@/pages/MemoriesTest"));
 // ESA Framework: Single unified /memories interface - no competing timeline implementations
 const Search = lazy(() => import("@/pages/search"));
@@ -439,7 +439,7 @@ function Router() {
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <ModernMemoriesPage />
+              <ESAMemoryFeed />
             </Suspense>
           </Route>
 
