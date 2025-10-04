@@ -76,9 +76,9 @@ export default function HostCalendar() {
 
   // Update blocked dates mutation
   const updateBlockedDatesMutation = useMutation({
-    mutationFn: async (blockedDates: BlockedDate[]) => {
+    mutationFn: async (blockedDates: BlockedDate[]): Promise<void> => {
       if (!selectedHomeId) throw new Error('No home selected');
-      return await apiRequest(`/api/host-homes/${selectedHomeId}/availability`, {
+      await apiRequest(`/api/host-homes/${selectedHomeId}/availability`, {
         method: 'PATCH',
         body: JSON.stringify({ blockedDates }),
         headers: { 'Content-Type': 'application/json' },
