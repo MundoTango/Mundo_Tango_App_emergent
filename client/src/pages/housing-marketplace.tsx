@@ -636,7 +636,7 @@ export default function HousingMarketplace() {
                     </div>
                     <Button
                       size="sm"
-                      onClick={() => navigate(`/housing-marketplace/${listing.id}`)}
+                      onClick={() => navigate(`/listing/${listing.id}`)}
                       data-testid={`button-view-details-${listing.id}`}
                     >
                       View Details
