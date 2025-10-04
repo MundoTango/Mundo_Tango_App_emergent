@@ -84,12 +84,8 @@ const EventDetail = lazy(() => import("@/pages/event-detail"));
 const TeacherDashboard = lazy(() => import("@/pages/teacher"));
 const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
 
-// ========== Housing & Marketplace Pages (7) ==========
+// ========== Housing & Marketplace Pages (3) ==========
 const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
-const ListingDetail = lazy(() => import("@/pages/listing-detail"));
-const MyBookings = lazy(() => import("@/pages/my-bookings"));
-const HostBookings = lazy(() => import("@/pages/host-bookings"));
-const HostCalendar = lazy(() => import("@/pages/host-calendar"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
@@ -111,7 +107,7 @@ const LiveStreaming = lazy(() => import("@/pages/LiveStreaming")); // Phase 20: 
 const Gamification = lazy(() => import("@/pages/Gamification")); // Phase 20: Gamification
 
 // ========== Content & Timeline Pages (8) ==========
-const ESAMemoryFeed = lazy(() => import("@/pages/ESAMemoryFeed"));
+const ModernMemoriesPage = lazy(() => import("@/pages/ModernMemoriesPage"));
 const MemoriesTest = lazy(() => import("@/pages/MemoriesTest"));
 // ESA Framework: Single unified /memories interface - no competing timeline implementations
 const Search = lazy(() => import("@/pages/search"));
@@ -340,40 +336,10 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Housing & Marketplace Routes (7) ========== */}
+          {/* ========== Housing & Marketplace Routes (3) ========== */}
           <Route path="/housing-marketplace">
             <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
               <HousingMarketplace />
-            </Suspense>
-          </Route>
-
-          <Route path="/listing/:id">
-            <Suspense fallback={<LoadingFallback message="Loading listing details..." />}>
-              <ListingDetail />
-            </Suspense>
-          </Route>
-
-          <Route path="/my-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading your bookings..." />}>
-              <MyBookings />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-bookings">
-            <Suspense fallback={<LoadingFallback message="Loading host dashboard..." />}>
-              <HostBookings />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-calendar">
-            <Suspense fallback={<LoadingFallback message="Loading calendar..." />}>
-              <HostCalendar />
-            </Suspense>
-          </Route>
-
-          <Route path="/host-calendar/:id">
-            <Suspense fallback={<LoadingFallback message="Loading calendar..." />}>
-              <HostCalendar />
             </Suspense>
           </Route>
 
@@ -473,7 +439,7 @@ function Router() {
 
           <Route path="/memories">
             <Suspense fallback={<LoadingFallback message="Loading memories..." />}>
-              <ESAMemoryFeed />
+              <ModernMemoriesPage />
             </Suspense>
           </Route>
 
