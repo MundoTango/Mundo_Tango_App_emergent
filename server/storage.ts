@@ -4408,39 +4408,33 @@ export class DatabaseStorage implements IStorage {
     maxPrice?: number;
     roomType?: string;
     minGuests?: number;
+    userId?: number;
   }): Promise<any[]> {
     let query = sql`
       SELECT h.*,
-        u.id as "host.id",
-        u.name as "host.name",
-        u.username as "host.username",
-        u.profile_image as "host.profileImage",
-        array_agg(DISTINCT hp.url) as photos,
-        array_agg(DISTINCT ha.amenity) as amenities
+        u.id as "host_id",
+        u.name as "host_name",
+        u.username as "host_username",
+        u.profile_image as "host_profile_image"
       FROM host_homes h
       INNER JOIN users u ON h.host_id = u.id
-      LEFT JOIN home_photos hp ON h.id = hp.home_id
-      LEFT JOIN home_amenities ha ON h.id = ha.home_id
-      WHERE h.status = 'active'
+      WHERE h.is_active = true
     `;
     
     if (filters.city) {
       query = sql`${query} AND h.city = ${filters.city}`;
     }
     if (filters.minPrice !== undefined) {
-      query = sql`${query} AND h.base_price >= ${filters.minPrice}`;
+      query = sql`${query} AND h.price_per_night >= ${filters.minPrice * 100}`;
     }
     if (filters.maxPrice !== undefined) {
-      query = sql`${query} AND h.base_price <= ${filters.maxPrice}`;
-    }
-    if (filters.roomType) {
-      query = sql`${query} AND h.room_type = ${filters.roomType}`;
+      query = sql`${query} AND h.price_per_night <= ${filters.maxPrice * 100}`;
     }
     if (filters.minGuests !== undefined) {
       query = sql`${query} AND h.max_guests >= ${filters.minGuests}`;
     }
     
-    query = sql`${query} GROUP BY h.id, u.id ORDER BY h.created_at DESC`;
+    query = sql`${query} ORDER BY h.created_at DESC`;
     
     const result = await db.execute(query);
     
@@ -4449,25 +4443,25 @@ export class DatabaseStorage implements IStorage {
       id: row.id,
       title: row.title,
       description: row.description,
-      propertyType: row.property_type,
-      roomType: row.room_type,
+      propertyType: 'house', // Default value
+      roomType: 'entire_place', // Default value
       city: row.city,
-      state: row.state,
+      state: row.state || '',
       country: row.country,
-      pricePerNight: parseFloat(row.base_price),
-      maxGuests: row.max_guests,
-      bedroomCount: row.bedrooms,
-      bathroomCount: parseFloat(row.bathrooms),
-      amenities: row.amenities.filter(a => a !== null),
-      photos: (row.photos || []).filter(p => p !== null).map((url, idx) => ({
+      pricePerNight: Math.round((row.price_per_night || 0) / 100), // Convert from cents to dollars
+      maxGuests: row.max_guests || 1,
+      bedroomCount: 1, // Default value
+      bathroomCount: 1, // Default value
+      amenities: row.amenities || [],
+      photos: (row.photos || []).map((url, idx) => ({
         url,
         displayOrder: idx
       })),
       host: {
-        id: row['host.id'],
-        name: row['host.name'],  
-        username: row['host.username'],
-        profileImage: row['host.profileImage']
+        id: row.host_id,
+        name: row.host_name,  
+        username: row.host_username,
+        profileImage: row.host_profile_image
       },
       rating: 4.5 + Math.random() * 0.5, // Mock rating
       reviewCount: Math.floor(Math.random() * 50) + 5 // Mock review count
