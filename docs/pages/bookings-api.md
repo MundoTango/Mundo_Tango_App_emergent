@@ -151,7 +151,7 @@ interface EnrichedBooking {
   propertyLocation: string;
   propertyImage: string | null;
   
-  // Enriched guest data
+  // Enriched guest data (flat fields)
   guestName: string;
   guestEmail: string;
   guestAvatar: string | null;
@@ -163,9 +163,19 @@ interface EnrichedBooking {
   hostHome: {
     id: number;
     title: string;
+    address: string;
+    city: string;
+    country: string;
     location: string;
     photos: string[];
     pricePerNight: number;
+  } | null;
+  
+  // Nested guest object (added Oct 2025)
+  guest: {
+    id: number;
+    name: string;
+    profileImage: string | null;
   } | null;
 }
 ```

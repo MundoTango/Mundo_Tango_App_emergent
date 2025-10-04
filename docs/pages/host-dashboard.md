@@ -48,9 +48,9 @@ For hosts with multiple properties:
 2. Clicks "Accept" button on booking card
 3. Confirmation dialog appears
 4. Optional: Add welcome message to guest
-5. Backend updates booking status to "confirmed"
-6. Guest receives notification (future feature)
-7. Booking appears in "Confirmed" tab
+5. Backend updates booking status to "approved"
+6. **Guest receives real-time WebSocket notification instantly**
+7. Booking appears in "Approved" tab
 8. Calendar automatically updated with blocked dates
 
 ### Declining a Booking
@@ -60,7 +60,7 @@ For hosts with multiple properties:
 3. Modal opens requesting decline reason
 4. Host provides explanation (required)
 5. Backend updates status to "rejected"
-6. Guest receives notification with reason
+6. **Guest receives real-time WebSocket notification with decline reason**
 7. Booking moves to "Rejected" tab
 8. Dates remain available for other guests
 
