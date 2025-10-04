@@ -58,10 +58,11 @@ const EventDetail = lazy(() => import("@/pages/event-detail"));
 const TeacherDashboard = lazy(() => import("@/pages/teacher"));
 const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
 
-// ========== Housing & Marketplace Pages (5) ==========
+// ========== Housing & Marketplace Pages (6) ==========
 const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
 const ListingDetail = lazy(() => import("@/pages/listing-detail"));
 const MyBookings = lazy(() => import("@/pages/my-bookings"));
+const HostBookings = lazy(() => import("@/pages/host-bookings"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
@@ -319,7 +320,7 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Housing & Marketplace Routes (5) ========== */}
+          {/* ========== Housing & Marketplace Routes (6) ========== */}
           <Route path="/housing-marketplace">
             <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
               <HousingMarketplace />
@@ -335,6 +336,12 @@ function Router() {
           <Route path="/my-bookings">
             <Suspense fallback={<LoadingFallback message="Loading your bookings..." />}>
               <MyBookings />
+            </Suspense>
+          </Route>
+
+          <Route path="/host-bookings">
+            <Suspense fallback={<LoadingFallback message="Loading host dashboard..." />}>
+              <HostBookings />
             </Suspense>
           </Route>
 
