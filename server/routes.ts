@@ -1530,7 +1530,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ESA LIFE CEO 61x21 - Housing Marketplace API
 
   // GET /api/host-homes - Get all host homes with filters
-  app.get('/api/host-homes', setUserContext, async (req: any, res) => {
+  app.get('/api/host-homes', async (req: any, res) => {
     try {
       const city = parseQueryParam(req.query.city);
       const groupSlug = parseQueryParam(req.query.groupSlug);
@@ -1573,7 +1573,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/host-homes - Create a new host home listing
-  app.post('/api/host-homes', setUserContext, async (req: any, res) => {
+  app.post('/api/host-homes', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user?.id;
       if (!userId) {
@@ -1620,7 +1620,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // GET /api/host-homes/:id - Get a single host home by ID
-  app.get('/api/host-homes/:id', setUserContext, async (req: any, res) => {
+  app.get('/api/host-homes/:id', async (req: any, res) => {
     try {
       const homeId = parseInt(req.params.id);
       if (isNaN(homeId)) {
@@ -1649,7 +1649,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // POST /api/upload/host-home-photos - Upload photos for host homes
   const uploadMiddleware = setupUpload();
-  app.post('/api/upload/host-home-photos', setUserContext, uploadMiddleware.array('files', 10), async (req: any, res) => {
+  app.post('/api/upload/host-home-photos', isAuthenticated, uploadMiddleware.array('files', 10), async (req: any, res) => {
     try {
       const userId = req.user?.id;
       if (!userId) {
