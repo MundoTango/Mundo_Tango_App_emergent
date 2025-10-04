@@ -4164,10 +4164,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getHostHomesByUser(userId: number): Promise<HostHome[]> {
-    return await db.select()
-      .from(hostHomes)
-      .where(eq(hostHomes.hostId, userId))
-      .orderBy(desc(hostHomes.createdAt));
+    console.log('🔍 Getting host homes for user:', userId);
+    const result = await db.execute(sql`
+      SELECT * FROM host_homes 
+      WHERE host_id = ${userId}
+      ORDER BY created_at DESC
+    `);
+    console.log('✅ Found homes:', result.rows.length);
+    return result.rows as HostHome[];
   }
 
   async verifyHostHome(id: number, verifiedBy: number, status: string, notes?: string): Promise<HostHome> {
