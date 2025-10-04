@@ -17,25 +17,26 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/useDebounce';
+import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// Fix for missing marker icons in production
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-});
+// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+initializeLeaflet();
 
-// ESA LIFE CEO 56x21 - MT Ocean Theme Enhanced Icons
+// ESA LIFE CEO 61x21 - MT Ocean Theme Enhanced Icons with gradient background
 const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) => {
   const size = isCluster ? 48 : 42;
   const anchor = size / 2;
+  
+  // ESA LIFE CEO 61x21 - Enhanced gradient background for MT Ocean theme
+  const gradientBg = color.includes('gradient') 
+    ? color 
+    : `linear-gradient(135deg, ${color} 0%, #06B6D4 100%)`;
   
   return L.divIcon({
     html: `
       <div class="mt-map-marker ${isCluster ? 'mt-cluster' : ''}" 
            style="
-             background: ${color};
+             background: ${gradientBg};
              width: ${size}px;
              height: ${size}px;
              display: flex;
@@ -53,7 +54,7 @@ const createEnhancedIcon = (color: string, icon: string, isCluster?: boolean) =>
           position: absolute;
           top: -5px;
           right: -5px;
-          background: #ef4444;
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           color: white;
           border-radius: 50%;
           width: 20px;
