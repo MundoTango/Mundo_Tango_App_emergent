@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, useLocation, Link } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiRequest, queryClient } from '../lib/queryClient';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -22,13 +23,22 @@ import {
   Home,
   Bed,
   Bath,
-  DollarSign
+  DollarSign,
+  Calendar as CalendarIcon,
+  X
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Skeleton } from '../components/ui/skeleton';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
+import { Calendar } from '../components/ui/calendar';
+import { Label } from '../components/ui/label';
+import { Textarea } from '../components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { Checkbox } from '../components/ui/checkbox';
 import { useToast } from '../hooks/use-toast';
+import { format, differenceInDays } from 'date-fns';
 
 interface HostHome {
   id: number;
@@ -72,6 +82,15 @@ export default function ListingDetail() {
   const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
+  
+  // Booking modal state
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [checkInDate, setCheckInDate] = useState<Date | undefined>();
+  const [checkOutDate, setCheckOutDate] = useState<Date | undefined>();
+  const [guestCount, setGuestCount] = useState(1);
+  const [purpose, setPurpose] = useState('');
+  const [message, setMessage] = useState('');
+  const [hasReadRules, setHasReadRules] = useState(false);
 
   // Fetch listing details
   const { data: listing, isLoading, error } = useQuery<{ data: HostHome }>({
@@ -79,11 +98,156 @@ export default function ListingDetail() {
     enabled: !!id,
   });
 
+  // Booking mutation
+  const createBookingMutation = useMutation({
+    mutationFn: async (bookingData: any) => {
+      return await apiRequest('/api/bookings', {
+        method: 'POST',
+        body: JSON.stringify(bookingData),
+        headers: { 'Content-Type': 'application/json' },
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Booking request sent!',
+        description: 'The host will review your request and respond soon.',
+      });
+      setShowBookingModal(false);
+      // Reset form
+      setCheckInDate(undefined);
+      setCheckOutDate(undefined);
+      setGuestCount(1);
+      setPurpose('');
+      setMessage('');
+      setHasReadRules(false);
+      // Navigate to my bookings page
+      setTimeout(() => navigate('/my-bookings'), 1500);
+    },
+    onError: (error: any) => {
+      toast({
+        title: 'Booking failed',
+        description: error.message || 'Please try again later.',
+        variant: 'destructive',
+      });
+    },
+  });
+
+  // Calculate price based on dates
+  const calculateTotalPrice = () => {
+    if (!checkInDate || !checkOutDate || !listing?.data.pricePerNight) return 0;
+    const nights = differenceInDays(checkOutDate, checkInDate);
+    return nights * listing.data.pricePerNight;
+  };
+
+  const nights = checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+  const totalPrice = calculateTotalPrice();
+  const serviceFee = Math.round(totalPrice * 0.1);
+  const grandTotal = totalPrice + serviceFee;
+
   const handleRequestToBook = () => {
-    // This will open the booking modal in Sprint 3.4
-    toast({
-      title: 'Coming soon!',
-      description: 'Booking request feature will be implemented in the next sprint.',
+    setShowBookingModal(true);
+  };
+
+  const handleSubmitBooking = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Validation
+    if (!checkInDate || !checkOutDate) {
+      toast({
+        title: 'Missing dates',
+        description: 'Please select check-in and check-out dates.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Prevent past check-in dates
+    const checkInDateOnly = new Date(checkInDate);
+    checkInDateOnly.setHours(0, 0, 0, 0);
+    if (checkInDateOnly < today) {
+      toast({
+        title: 'Invalid check-in date',
+        description: 'Check-in date cannot be in the past.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Prevent check-out before or same as check-in
+    if (checkOutDate <= checkInDate) {
+      toast({
+        title: 'Invalid dates',
+        description: 'Check-out must be after check-in.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (nights <= 0) {
+      toast({
+        title: 'Invalid dates',
+        description: 'Check-out must be after check-in.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Validate guest count doesn't exceed maximum
+    if (guestCount > (listing?.data.maxGuests || 10)) {
+      toast({
+        title: 'Too many guests',
+        description: `Maximum ${listing?.data.maxGuests || 10} guests allowed.`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (guestCount < 1) {
+      toast({
+        title: 'Invalid guest count',
+        description: 'At least 1 guest is required.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!purpose) {
+      toast({
+        title: 'Purpose required',
+        description: 'Please select the purpose of your stay.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!message.trim()) {
+      toast({
+        title: 'Message required',
+        description: 'Please write a message to the host.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!hasReadRules) {
+      toast({
+        title: 'House rules',
+        description: 'Please confirm you have read the house rules.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Submit booking
+    createBookingMutation.mutate({
+      hostHomeId: parseInt(id!),
+      checkInDate: checkInDate.toISOString(),
+      checkOutDate: checkOutDate.toISOString(),
+      guestCount,
+      purpose,
+      message,
+      hasReadRules,
     });
   };
 
@@ -444,6 +608,212 @@ export default function ListingDetail() {
           </div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-booking-request">
+          <DialogHeader>
+            <DialogTitle>Request to Book</DialogTitle>
+            <DialogDescription>
+              Complete the form below to send a booking request to the host.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            {/* Dates Selection */}
+            <div className="space-y-4">
+              <Label className="text-base font-semibold">Select Dates</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm text-gray-600 mb-2 block">Check-in</Label>
+                  <Calendar
+                    mode="single"
+                    selected={checkInDate}
+                    onSelect={setCheckInDate}
+                    disabled={(date) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      const checkDate = new Date(date);
+                      checkDate.setHours(0, 0, 0, 0);
+                      return checkDate < today;
+                    }}
+                    fromDate={new Date()}
+                    className="border rounded-lg"
+                    data-testid="calendar-check-in"
+                  />
+                  {checkInDate && (
+                    <p className="text-sm text-center mt-2 font-medium" data-testid="text-check-in-date">
+                      {format(checkInDate, 'PPP')}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <Label className="text-sm text-gray-600 mb-2 block">Check-out</Label>
+                  <Calendar
+                    mode="single"
+                    selected={checkOutDate}
+                    onSelect={setCheckOutDate}
+                    disabled={(date) => {
+                      if (!checkInDate) return true;
+                      const checkDate = new Date(date);
+                      checkDate.setHours(0, 0, 0, 0);
+                      const checkIn = new Date(checkInDate);
+                      checkIn.setHours(0, 0, 0, 0);
+                      return checkDate <= checkIn;
+                    }}
+                    fromDate={checkInDate || new Date()}
+                    className="border rounded-lg"
+                    data-testid="calendar-check-out"
+                  />
+                  {checkOutDate && (
+                    <p className="text-sm text-center mt-2 font-medium" data-testid="text-check-out-date">
+                      {format(checkOutDate, 'PPP')}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {nights > 0 && (
+                <p className="text-sm text-gray-600" data-testid="text-nights-count">
+                  {nights} night{nights > 1 ? 's' : ''} selected
+                </p>
+              )}
+            </div>
+
+            {/* Guest Count */}
+            <div className="space-y-2">
+              <Label htmlFor="guest-count" className="text-base font-semibold">
+                Number of Guests
+              </Label>
+              <div className="flex items-center gap-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                  disabled={guestCount <= 1}
+                  data-testid="button-decrease-guests"
+                >
+                  -
+                </Button>
+                <span className="text-lg font-medium w-12 text-center" data-testid="text-guest-count">
+                  {guestCount}
+                </span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setGuestCount(Math.min(listing?.data.maxGuests || 10, guestCount + 1))}
+                  disabled={guestCount >= (listing?.data.maxGuests || 10)}
+                  data-testid="button-increase-guests"
+                >
+                  +
+                </Button>
+                <span className="text-sm text-gray-500">
+                  (Max: {listing?.data.maxGuests || 10} guests)
+                </span>
+              </div>
+            </div>
+
+            {/* Purpose */}
+            <div className="space-y-2">
+              <Label htmlFor="purpose" className="text-base font-semibold">
+                Purpose of Stay
+              </Label>
+              <Select value={purpose} onValueChange={setPurpose}>
+                <SelectTrigger id="purpose" data-testid="select-purpose">
+                  <SelectValue placeholder="Select purpose..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Tango Classes">Tango Classes</SelectItem>
+                  <SelectItem value="Tango Festival">Tango Festival</SelectItem>
+                  <SelectItem value="Tango Practice">Tango Practice</SelectItem>
+                  <SelectItem value="Vacation">Vacation</SelectItem>
+                  <SelectItem value="Business">Business</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Message to Host */}
+            <div className="space-y-2">
+              <Label htmlFor="message" className="text-base font-semibold">
+                Message to Host
+              </Label>
+              <Textarea
+                id="message"
+                placeholder="Introduce yourself and let the host know why you'd like to stay..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                rows={4}
+                className="resize-none"
+                data-testid="textarea-message"
+              />
+              <p className="text-xs text-gray-500">
+                Tip: Mention your tango experience and what brings you to the area!
+              </p>
+            </div>
+
+            {/* House Rules Checkbox */}
+            <div className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+              <Checkbox
+                id="house-rules"
+                checked={hasReadRules}
+                onCheckedChange={(checked) => setHasReadRules(checked as boolean)}
+                data-testid="checkbox-house-rules"
+              />
+              <label
+                htmlFor="house-rules"
+                className="text-sm leading-relaxed cursor-pointer"
+              >
+                I have read and agree to the house rules (check-in after 2PM, checkout before 11AM, no parties/events, no smoking inside)
+              </label>
+            </div>
+
+            {/* Price Breakdown */}
+            {nights > 0 && (
+              <Card className="bg-gray-50">
+                <CardContent className="pt-6">
+                  <h4 className="font-semibold mb-4">Price Details</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>${listing?.data.pricePerNight} × {nights} nights</span>
+                      <span data-testid="text-subtotal">${totalPrice}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>Service fee (10%)</span>
+                      <span data-testid="text-service-fee">${serviceFee}</span>
+                    </div>
+                    <div className="flex justify-between font-bold text-lg border-t pt-2 mt-2">
+                      <span>Total</span>
+                      <span data-testid="text-grand-total">${grandTotal}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Modal Actions */}
+          <div className="flex gap-3 pt-4 border-t">
+            <Button
+              variant="outline"
+              onClick={() => setShowBookingModal(false)}
+              className="flex-1"
+              data-testid="button-cancel-booking"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSubmitBooking}
+              disabled={createBookingMutation.isPending}
+              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600"
+              data-testid="button-submit-booking"
+            >
+              {createBookingMutation.isPending ? 'Submitting...' : 'Send Request'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
