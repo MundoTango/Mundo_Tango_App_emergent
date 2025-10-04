@@ -252,6 +252,204 @@ queryKey: ['/api/events/feed', { groupId: group?.id }]
 
 ---
 
+## 4a. Housing Tab Integration (City Groups Only)
+
+**Route:** `/groups/:slug?tab=housing`  
+**Visibility:** City groups only (`group.type === 'city'`)  
+**Component:** `renderHousingTab()` (lines 1124-1151)
+
+### Overview
+
+The Housing tab provides city-specific accommodation listings, enabling visitors and locals to find tango-friendly housing within the community. This tab is **conditionally rendered** for city groups only and is hidden for professional groups.
+
+### Current Implementation
+
+**Location:** Lines 1124-1151 in GroupDetailPageMT.tsx
+
+```typescript
+const renderHousingTab = () => {
+  return (
+    <div className="space-y-6">
+      {/* Super Admin Quick Action */}
+      {user?.roles?.includes('super_admin') && (
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-5 w-5 text-purple-600" />
+            <span className="font-semibold text-purple-900">Super Admin Actions</span>
+          </div>
+          <Button
+            onClick={() => setLocation('/host-onboarding')}
+            className="mt-action-button mt-action-button-primary"
+          >
+            <Home className="h-4 w-4" />
+            Start Host Onboarding
+          </Button>
+        </div>
+      )}
+      
+      {/* Housing Listings */}
+      <HostHomesList 
+        groupSlug={group.slug}
+        city={group.city}
+        showFilters={false}  // Currently disabled on group pages
+      />
+    </div>
+  );
+};
+```
+
+### Components Used
+
+**1. HostHomesList** (`client/src/components/Housing/HostHomesList.tsx`)
+- **Purpose:** Displays city-filtered housing listings in grid layout
+- **Props:**
+  - `groupSlug`: Current group slug for context
+  - `city`: Auto-filters listings by city name
+  - `showFilters={false}`: Disables filter panel on group pages
+- **Features:**
+  - Responsive grid (1/2/3 columns)
+  - Friend connection badges
+  - Price display and room type
+  - "Request Stay" CTA → routes to `/guest-onboarding`
+  - Empty state handling
+
+**2. HousingMap** (Planned Integration)
+- **Component:** `client/src/components/maps/HousingMap.tsx`
+- **Status:** Available but not yet integrated on group page
+- **Features:**
+  - Turquoise gradient markers (MT Ocean theme)
+  - Popup with price, guests, host info
+  - Auto-fit bounds to show all listings
+  - Legend with count display
+
+### API Integration
+
+**Query Pattern:**
+```typescript
+GET /api/host-homes?city={group.city}&groupSlug={group.slug}
+```
+
+**Response:**
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Cozy Studio in Palermo",
+      "city": "Buenos Aires",
+      "lat": -34.5889,
+      "lng": -58.4164,
+      "pricePerNight": 45,
+      "maxGuests": 2,
+      "roomType": "private_room",
+      "photos": [{"url": "...", "displayOrder": 0}],
+      "host": { "id": 5, "name": "María González" },
+      "friendConnection": "direct"
+    }
+  ]
+}
+```
+
+### User Permissions
+
+| Role | View Listings | Book Stay | List Property | Quick Actions |
+|------|---------------|-----------|---------------|---------------|
+| **Unauthenticated** | ✅ | ❌ | ❌ | ❌ |
+| **Member** | ✅ | ✅ | Locals only | ❌ |
+| **Super Admin** | ✅ | ✅ | ✅ | Host onboarding |
+
+### Planned Enhancements
+
+**Phase 1: View Toggle**
+```typescript
+const [housingView, setHousingView] = useState<'list' | 'map'>('list');
+
+<Tabs value={housingView} onValueChange={setHousingView}>
+  <TabsTrigger value="list">List View</TabsTrigger>
+  <TabsTrigger value="map">Map View</TabsTrigger>
+</Tabs>
+
+{housingView === 'list' ? (
+  <HostHomesList {...props} />
+) : (
+  <HousingMap homes={homes} cityLat={group.latitude} cityLng={group.longitude} />
+)}
+```
+
+**Phase 2: Compact Filters**
+- Enable `HousingMapFilters` component
+- Popover mode for space efficiency
+- Price range, room type, guest count filters
+
+**Phase 3: Statistics Card**
+- Total homes available
+- Average price per night
+- Average rating
+- Available listings count
+
+**Phase 4: Quick Actions**
+```typescript
+<div className="flex gap-3">
+  <Button onClick={() => setLocation('/host-onboarding')}>Become a Host</Button>
+  <Button onClick={() => setLocation('/housing-marketplace')}>View All Marketplace</Button>
+  <Button onClick={() => setLocation('/guest-onboarding')}>Search Preferences</Button>
+</div>
+```
+
+### MT Ocean Theme Styling
+
+**Current:**
+- Super Admin card: Purple gradient (`#F3E8FF` background)
+- Housing cards: White with turquoise hover effects
+- Glassmorphic friend badges
+- Gradient price tags (black/70% opacity)
+
+**Planned:**
+- Turquoise gradient view toggle buttons
+- Glassmorphic statistics cards with backdrop blur
+- MT Ocean gradient markers on map (turquoise → cyan)
+
+### Data Flow
+
+```
+1. User clicks Housing tab
+2. URL updates: /groups/buenos-aires-tango?tab=housing
+3. renderHousingTab() executes
+4. HostHomesList fetches: GET /api/host-homes?city=Buenos Aires
+5. Backend filters by city, returns with coordinates
+6. React Query caches (5min staleTime)
+7. Render grid of housing cards
+8. User clicks "Request Stay" → /guest-onboarding?hostHomeId=123
+```
+
+### Testing
+
+**E2E Test Cases:**
+```typescript
+test('shows housing tab for city groups only', async ({ page }) => {
+  await page.goto('/groups/buenos-aires-tango');
+  await expect(page.locator('[data-testid="tab-housing"]')).toBeVisible();
+  
+  await page.goto('/groups/tango-instructors-network');
+  await expect(page.locator('[data-testid="tab-housing"]')).not.toBeVisible();
+});
+
+test('displays city-filtered listings', async ({ page }) => {
+  await page.goto('/groups/buenos-aires-tango?tab=housing');
+  await expect(page.locator('text=Buenos Aires')).toHaveCount.greaterThan(0);
+});
+```
+
+### Related Documentation
+
+- **[Housing System Hub](../housing/index.md)** - Complete housing documentation
+- **[Housing on Group Pages](../housing/housing-on-group-page.md)** - Detailed tab integration docs
+- **[Housing Marketplace](../housing/housing-marketplace.md)** - Main marketplace page
+- **[HousingMap Component](../geocoding-system/map-components.md)** - Map integration
+- **[Host Onboarding](../housing/HostOnboarding.md)** - Property listing flow
+
+---
+
 ## 5. Conditional Tabs
 
 ### City Groups (`type === 'city'`)
