@@ -22,7 +22,7 @@ export class CityAutoCreationService {
   private static geocodeCache: Map<string, { data: GeocodingResult | null; timestamp: number }> = new Map();
   private static CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
   private static lastGeocodingCall = 0;
-  private static MIN_GEOCODING_DELAY = 1000; // 1 second between calls (Nominatim usage policy)
+  private static MIN_GEOCODING_DELAY = 500; // 2 requests per second (Nominatim usage policy)
   
   // Common city abbreviations and variations
   private static cityAbbreviations: Record<string, string> = {
