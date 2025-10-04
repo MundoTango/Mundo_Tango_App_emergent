@@ -7,14 +7,10 @@ import { toast } from '@/hooks/use-toast';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// Fix Leaflet icon issues
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-});
+// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+initializeLeaflet();
 
 const defaultCenter = {
   lat: -34.603722, // Buenos Aires default
@@ -34,6 +30,8 @@ interface AddressSuggestion {
     house_number?: string;
     road?: string;
     city?: string;
+    town?: string;
+    village?: string;
     state?: string;
     country?: string;
     postcode?: string;
