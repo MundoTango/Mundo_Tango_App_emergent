@@ -1,0 +1,449 @@
+import { useState } from 'react';
+import { useParams, useLocation, Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Users, 
+  Star, 
+  Share2, 
+  Heart,
+  Wifi,
+  Coffee,
+  Car,
+  Wind,
+  Music,
+  Utensils,
+  Dumbbell,
+  Waves,
+  Briefcase,
+  PawPrint,
+  Cigarette,
+  Home,
+  Bed,
+  Bath,
+  DollarSign
+} from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Skeleton } from '../components/ui/skeleton';
+import { useToast } from '../hooks/use-toast';
+
+interface HostHome {
+  id: number;
+  hostId: number;
+  title: string;
+  description: string;
+  address: string;
+  city: string;
+  state: string | null;
+  country: string;
+  lat: number | null;
+  lng: number | null;
+  photos: string[];
+  amenities: string[];
+  maxGuests: number;
+  pricePerNight: number;
+  availability: Record<string, unknown>;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const amenityIcons: Record<string, any> = {
+  'WiFi': Wifi,
+  'Kitchen': Utensils,
+  'Parking': Car,
+  'Air Conditioning': Wind,
+  'Music Equipment': Music,
+  'Coffee Maker': Coffee,
+  'Gym': Dumbbell,
+  'Pool': Waves,
+  'Workspace': Briefcase,
+  'Pets Allowed': PawPrint,
+  'Smoking Allowed': Cigarette,
+  'Washer': Home,
+};
+
+export default function ListingDetail() {
+  const { id } = useParams();
+  const [, navigate] = useLocation();
+  const { toast } = useToast();
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  // Fetch listing details
+  const { data: listing, isLoading, error } = useQuery<{ data: HostHome }>({
+    queryKey: [`/api/host-homes/${id}`],
+    enabled: !!id,
+  });
+
+  const handleRequestToBook = () => {
+    // This will open the booking modal in Sprint 3.4
+    toast({
+      title: 'Coming soon!',
+      description: 'Booking request feature will be implemented in the next sprint.',
+    });
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: listing?.data.title,
+        text: `Check out this accommodation: ${listing?.data.title}`,
+        url: window.location.href,
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: 'Link copied!',
+        description: 'Share this listing with your friends.',
+      });
+    }
+  };
+
+  const handleFavorite = () => {
+    setIsFavorited(!isFavorited);
+    toast({
+      title: isFavorited ? 'Removed from favorites' : 'Added to favorites',
+      description: isFavorited 
+        ? 'You can add it back anytime.'
+        : 'Find it in your saved listings.',
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <Skeleton className="h-8 w-32 mb-6" />
+          <Skeleton className="h-96 w-full mb-6" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+            </div>
+            <Skeleton className="h-96 w-full" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !listing?.data) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+        <Card className="max-w-md w-full">
+          <CardContent className="pt-6 text-center">
+            <h2 className="text-2xl font-bold mb-2">Listing Not Found</h2>
+            <p className="text-gray-600 mb-4">
+              The listing you're looking for doesn't exist or has been removed.
+            </p>
+            <Button onClick={() => navigate('/housing-marketplace')}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Marketplace
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const home = listing.data;
+  const priceFormatted = `$${home.pricePerNight}`;
+
+  return (
+    <div className="min-h-screen bg-gray-50" data-testid="page-listing-detail">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Back Button */}
+        <Button 
+          variant="ghost" 
+          onClick={() => navigate('/housing-marketplace')}
+          className="mb-4"
+          data-testid="button-back-to-marketplace"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Marketplace
+        </Button>
+
+        {/* Photo Gallery */}
+        <div className="mb-6" data-testid="section-photo-gallery">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
+            {/* Main Image */}
+            <div className="md:col-span-3 h-96 md:h-[500px]">
+              {home.photos && home.photos.length > 0 ? (
+                <img
+                  src={home.photos[selectedImage] || home.photos[0]}
+                  alt={home.title}
+                  className="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-95 transition"
+                  onClick={() => setSelectedImage(0)}
+                  data-testid="img-main-photo"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Home className="h-24 w-24 text-white opacity-50" />
+                </div>
+              )}
+            </div>
+
+            {/* Thumbnail Grid */}
+            <div className="grid grid-cols-4 md:grid-cols-1 gap-2">
+              {home.photos && home.photos.slice(1, 5).map((photo, idx) => (
+                <img
+                  key={idx}
+                  src={photo}
+                  alt={`${home.title} ${idx + 2}`}
+                  className={`w-full h-24 md:h-[120px] object-cover rounded-lg cursor-pointer transition ${
+                    selectedImage === idx + 1 ? 'ring-2 ring-indigo-500' : 'hover:opacity-75'
+                  }`}
+                  onClick={() => setSelectedImage(idx + 1)}
+                  data-testid={`img-thumbnail-${idx + 1}`}
+                />
+              ))}
+              {home.photos && home.photos.length > 5 && (
+                <div
+                  className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
+                  onClick={() => setSelectedImage(5)}
+                  data-testid="button-more-photos"
+                >
+                  <span className="text-sm font-semibold">+{home.photos.length - 5} more</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Details */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Header */}
+            <Card data-testid="section-property-header">
+              <CardContent className="pt-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h1 className="text-3xl font-bold mb-2" data-testid="text-listing-title">
+                      {home.title}
+                    </h1>
+                    <div className="flex items-center text-gray-600 mb-2">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      <span data-testid="text-location">{home.city}, {home.country}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-indigo-100 text-indigo-800">
+                        <Users className="h-3 w-3 mr-1" />
+                        Up to {home.maxGuests} guests
+                      </Badge>
+                      <Badge variant="outline">
+                        <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
+                        4.8 (12 reviews)
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="icon"
+                      onClick={handleShare}
+                      data-testid="button-share"
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="icon"
+                      onClick={handleFavorite}
+                      data-testid="button-favorite"
+                    >
+                      <Heart className={`h-4 w-4 ${isFavorited ? 'fill-red-500 text-red-500' : ''}`} />
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-6 text-gray-700 border-t pt-4">
+                  <div className="flex items-center">
+                    <Home className="h-5 w-5 mr-2 text-gray-500" />
+                    <span>Entire place</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Users className="h-5 w-5 mr-2 text-gray-500" />
+                    <span>{home.maxGuests} guests</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Bed className="h-5 w-5 mr-2 text-gray-500" />
+                    <span>2 bedrooms</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Bath className="h-5 w-5 mr-2 text-gray-500" />
+                    <span>1 bathroom</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Description */}
+            <Card data-testid="section-description">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-bold mb-4">About this space</h2>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-line" data-testid="text-description">
+                  {home.description}
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Amenities */}
+            <Card data-testid="section-amenities">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-bold mb-4">What this place offers</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {home.amenities && home.amenities.length > 0 ? (
+                    home.amenities.map((amenity, idx) => {
+                      const Icon = amenityIcons[amenity] || Home;
+                      return (
+                        <div 
+                          key={idx} 
+                          className="flex items-center text-gray-700"
+                          data-testid={`amenity-${amenity.toLowerCase().replace(/\s+/g, '-')}`}
+                        >
+                          <Icon className="h-5 w-5 mr-3 text-gray-500" />
+                          <span>{amenity}</span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className="text-gray-500">No amenities listed</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* House Rules */}
+            <Card data-testid="section-house-rules">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-bold mb-4">House Rules</h2>
+                <div className="space-y-3 text-gray-700">
+                  <div>✓ Check-in: After 2:00 PM</div>
+                  <div>✓ Checkout: Before 11:00 AM</div>
+                  <div>✓ Self check-in with lockbox</div>
+                  <div>✓ No parties or events</div>
+                  <div>✓ No smoking inside</div>
+                  <div>✓ Pets allowed with prior approval</div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Location */}
+            {home.lat && home.lng && (
+              <Card data-testid="section-location">
+                <CardContent className="pt-6">
+                  <h2 className="text-2xl font-bold mb-4">Location</h2>
+                  <p className="text-gray-600 mb-4">{home.address}</p>
+                  <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <MapPin className="h-12 w-12 text-gray-400" />
+                    <span className="ml-2 text-gray-500">Map integration coming soon</span>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Right Column - Booking Card (Sticky) */}
+          <div className="lg:sticky lg:top-6 h-fit">
+            <Card className="shadow-lg" data-testid="card-booking">
+              <CardContent className="pt-6">
+                <div className="mb-6">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-3xl font-bold" data-testid="text-price-per-night">
+                      {priceFormatted}
+                    </span>
+                    <span className="text-gray-600">/ night</span>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
+                    <span className="font-semibold">4.8</span>
+                    <span className="mx-1">·</span>
+                    <span>12 reviews</span>
+                  </div>
+                </div>
+
+                {/* Booking Form Placeholder */}
+                <div className="space-y-4 mb-6">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="border rounded-lg p-3">
+                      <label className="text-xs font-semibold text-gray-600">CHECK-IN</label>
+                      <div className="text-sm">Add date</div>
+                    </div>
+                    <div className="border rounded-lg p-3">
+                      <label className="text-xs font-semibold text-gray-600">CHECKOUT</label>
+                      <div className="text-sm">Add date</div>
+                    </div>
+                  </div>
+                  <div className="border rounded-lg p-3">
+                    <label className="text-xs font-semibold text-gray-600">GUESTS</label>
+                    <div className="text-sm">1 guest</div>
+                  </div>
+                </div>
+
+                <Button 
+                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-6 text-lg hover:from-indigo-700 hover:to-purple-700 transition"
+                  onClick={handleRequestToBook}
+                  data-testid="button-request-to-book"
+                >
+                  Request to Book
+                </Button>
+
+                <p className="text-center text-sm text-gray-500 mt-4">
+                  You won't be charged yet
+                </p>
+
+                {/* Price Breakdown */}
+                <div className="border-t mt-6 pt-6 space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="underline">{priceFormatted} × 5 nights</span>
+                    <span>${home.pricePerNight * 5}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="underline">Service fee</span>
+                    <span>${Math.round(home.pricePerNight * 5 * 0.1)}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold text-lg border-t pt-2">
+                    <span>Total</span>
+                    <span data-testid="text-total-price">
+                      ${home.pricePerNight * 5 + Math.round(home.pricePerNight * 5 * 0.1)}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Host Card */}
+            <Card className="mt-6" data-testid="card-host">
+              <CardContent className="pt-6">
+                <h3 className="text-xl font-bold mb-4">Meet your host</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                    H
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg">Host Name</h4>
+                    <p className="text-sm text-gray-600">Joined in 2023</p>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm text-gray-700 mb-4">
+                  <div>⭐ 4.9 Host rating</div>
+                  <div>📝 12 Reviews</div>
+                  <div>✓ Identity verified</div>
+                  <div>⚡ Responds within an hour</div>
+                </div>
+                <Button variant="outline" className="w-full" data-testid="button-contact-host">
+                  Contact Host
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

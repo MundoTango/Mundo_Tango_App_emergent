@@ -487,11 +487,12 @@ export interface IStorage {
   addHostResponse(reviewId: string, response: string): Promise<HostReview>;
   
   // Guest Bookings
-  createGuestBooking(booking: InsertGuestBooking): Promise<GuestBooking>;
+  createGuestBooking(booking: InsertGuestBooking & { totalPrice?: number }): Promise<GuestBooking>;
   getGuestBookingById(id: number): Promise<GuestBooking | undefined>;
-  getGuestBookings(guestId: number): Promise<GuestBooking[]>;
+  getGuestBookings(options: { userId: number; role?: 'guest' | 'host' }): Promise<GuestBooking[]>;
   getBookingRequestsForHome(homeId: number): Promise<GuestBooking[]>;
   updateBookingStatus(id: number, status: string, hostResponse?: string): Promise<GuestBooking>;
+  updateGuestBookingStatus(id: number, updates: { status: string; hostResponse?: string | null; respondedAt: Date }): Promise<GuestBooking>;
   
   // Social connections
   checkFriendship(userId1: number, userId2: number): Promise<boolean>;
@@ -4238,8 +4239,8 @@ export class DatabaseStorage implements IStorage {
   }
   
   // Guest Bookings Implementation
-  async createGuestBooking(booking: InsertGuestBooking): Promise<GuestBooking> {
-    const [result] = await db.insert(guestBookings).values(booking).returning();
+  async createGuestBooking(booking: InsertGuestBooking & { totalPrice?: number }): Promise<GuestBooking> {
+    const [result] = await db.insert(guestBookings).values(booking as any).returning();
     return result;
   }
   
@@ -4252,12 +4253,33 @@ export class DatabaseStorage implements IStorage {
     return booking;
   }
   
-  async getGuestBookings(guestId: number): Promise<GuestBooking[]> {
-    return await db
-      .select()
-      .from(guestBookings)
-      .where(eq(guestBookings.guestId, guestId))
-      .orderBy(desc(guestBookings.createdAt));
+  async getGuestBookings(options: { userId: number; role?: 'guest' | 'host' }): Promise<GuestBooking[]> {
+    const { userId, role } = options;
+    
+    if (role === 'host') {
+      // Get bookings for properties hosted by this user
+      return await this.getHostBookingRequests(userId);
+    } else if (role === 'guest') {
+      // Get bookings made by this user as a guest
+      return await db
+        .select()
+        .from(guestBookings)
+        .where(eq(guestBookings.guestId, userId))
+        .orderBy(desc(guestBookings.createdAt));
+    } else {
+      // Get both guest and host bookings
+      const guestBookingsList = await db
+        .select()
+        .from(guestBookings)
+        .where(eq(guestBookings.guestId, userId))
+        .orderBy(desc(guestBookings.createdAt));
+      
+      const hostBookingsList = await this.getHostBookingRequests(userId);
+      
+      // Combine and sort by date
+      return [...guestBookingsList, ...hostBookingsList]
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    }
   }
   
   async getBookingRequestsForHome(homeId: number): Promise<GuestBooking[]> {
@@ -4287,8 +4309,14 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
-  async updateGuestBookingStatus(id: number, status: string): Promise<GuestBooking> {
-    return this.updateBookingStatus(id, status);
+  async updateGuestBookingStatus(id: number, updates: { status: string; hostResponse?: string | null; respondedAt: Date }): Promise<GuestBooking> {
+    const [result] = await db
+      .update(guestBookings)
+      .set(updates)
+      .where(eq(guestBookings.id, id))
+      .returning();
+    
+    return result;
   }
 
   async getHostBookingRequests(hostId: number): Promise<GuestBooking[]> {

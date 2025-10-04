@@ -58,8 +58,9 @@ const EventDetail = lazy(() => import("@/pages/event-detail"));
 const TeacherDashboard = lazy(() => import("@/pages/teacher"));
 const OrganizerDashboard = lazy(() => import("@/pages/organizer"));
 
-// ========== Housing & Marketplace Pages (3) ==========
+// ========== Housing & Marketplace Pages (4) ==========
 const HousingMarketplace = lazy(() => import("@/pages/housing-marketplace"));
+const ListingDetail = lazy(() => import("@/pages/listing-detail"));
 const HostOnboarding = lazy(() => import("@/pages/HostOnboarding"));
 const GuestOnboarding = lazy(() => import("@/pages/GuestOnboarding"));
 
@@ -317,10 +318,16 @@ function Router() {
             </Suspense>
           </Route>
 
-          {/* ========== Housing & Marketplace Routes (3) ========== */}
+          {/* ========== Housing & Marketplace Routes (4) ========== */}
           <Route path="/housing-marketplace">
             <Suspense fallback={<LoadingFallback message="Loading housing marketplace..." />}>
               <HousingMarketplace />
+            </Suspense>
+          </Route>
+
+          <Route path="/housing-marketplace/:id">
+            <Suspense fallback={<LoadingFallback message="Loading listing details..." />}>
+              <ListingDetail />
             </Suspense>
           </Route>
 
