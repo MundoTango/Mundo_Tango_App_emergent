@@ -1669,6 +1669,129 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // GET /api/host-homes/:id/availability - Get availability calendar with bookings and blocked dates
+  app.get('/api/host-homes/:id/availability', async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      console.log('📅 Fetching availability calendar for home:', homeId);
+
+      const home = await storage.getHostHomeById(homeId);
+      if (!home) {
+        return res.status(404).json({ error: 'Host home not found' });
+      }
+
+      // Get all bookings for this home
+      const bookings = await db
+        .select({
+          id: guestBookings.id,
+          checkInDate: guestBookings.checkInDate,
+          checkOutDate: guestBookings.checkOutDate,
+          status: guestBookings.status,
+          guestCount: guestBookings.guestCount,
+          guestId: guestBookings.guestId,
+        })
+        .from(guestBookings)
+        .where(eq(guestBookings.hostHomeId, homeId));
+
+      // Return calendar data
+      res.json({
+        success: true,
+        data: {
+          homeId,
+          blockedDates: home.blockedDates || [],
+          bookings: bookings.map(b => ({
+            id: b.id,
+            checkInDate: b.checkInDate,
+            checkOutDate: b.checkOutDate,
+            status: b.status,
+            guestCount: b.guestCount,
+          })),
+        },
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching availability:', error);
+      res.status(500).json({
+        error: 'Failed to fetch availability',
+        message: error.message,
+      });
+    }
+  });
+
+  // PATCH /api/host-homes/:id/availability - Update blocked dates
+  app.patch('/api/host-homes/:id/availability', isAuthenticated, async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      // Get user from auth
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+
+      console.log('📅 Updating availability for home:', homeId, 'by user:', user.id);
+
+      // Verify user owns this home
+      const home = await storage.getHostHomeById(homeId);
+      if (!home) {
+        return res.status(404).json({ error: 'Host home not found' });
+      }
+
+      if (home.hostId !== user.id) {
+        return res.status(403).json({ error: 'You do not own this property' });
+      }
+
+      // Validate blocked dates array
+      const { blockedDates } = req.body;
+      if (!Array.isArray(blockedDates)) {
+        return res.status(400).json({ error: 'blockedDates must be an array' });
+      }
+
+      // Validate each blocked date entry
+      for (const entry of blockedDates) {
+        if (!entry.startDate || !entry.endDate) {
+          return res.status(400).json({ error: 'Each blocked date must have startDate and endDate' });
+        }
+      }
+
+      // Update blocked dates
+      const [updated] = await db
+        .update(hostHomes)
+        .set({
+          blockedDates: blockedDates,
+          updatedAt: new Date(),
+        })
+        .where(eq(hostHomes.id, homeId))
+        .returning();
+
+      console.log('✅ Availability updated successfully');
+      res.json({
+        success: true,
+        data: {
+          blockedDates: updated.blockedDates,
+        },
+      });
+    } catch (error: any) {
+      console.error('❌ Error updating availability:', error);
+      res.status(500).json({
+        error: 'Failed to update availability',
+        message: error.message,
+      });
+    }
+  });
+
   // ============================================
   // Guest Profile Routes (Sprint 1 - Critical Fix)
   // ============================================

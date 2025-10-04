@@ -1690,6 +1690,7 @@ export const hostHomes = pgTable("host_homes", {
   maxGuests: integer("max_guests").default(1),
   pricePerNight: integer("price_per_night"), // in cents
   availability: jsonb("availability").default({}), // dates available
+  blockedDates: jsonb("blocked_dates"), // dates manually blocked by host (array of {startDate, endDate, reason})
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
