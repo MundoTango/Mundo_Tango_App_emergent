@@ -73,6 +73,7 @@ import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrast
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
 import paymentRoutes from "./routes/paymentRoutes"; // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
 import translationRoutes from "./routes/translationRoutes"; // ESA Layer 53: Internationalization & Translation System
+import lifeCeoAgentRoutes from "./routes/lifeCeoAgentRoutes"; // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -171,6 +172,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
+  app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
   // ESA Layer 58: Cloudinary routes removed per user request
