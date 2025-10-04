@@ -1526,6 +1526,165 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ========== HOUSING API ROUTES ==========
+  // ESA LIFE CEO 61x21 - Housing Marketplace API
+
+  // GET /api/host-homes - Get all host homes with filters
+  app.get('/api/host-homes', setUserContext, async (req: any, res) => {
+    try {
+      const city = parseQueryParam(req.query.city);
+      const groupSlug = parseQueryParam(req.query.groupSlug);
+      const minPrice = parseIntQueryParam(req.query.minPrice, 0);
+      const maxPrice = parseIntQueryParam(req.query.maxPrice, 100000);
+      const roomType = parseQueryParam(req.query.roomType);
+      const minGuests = parseIntQueryParam(req.query.minGuests, 1);
+      const friendFilter = parseQueryParam(req.query.friendFilter);
+
+      console.log('🏠 Fetching host homes with filters:', { 
+        city, 
+        groupSlug, 
+        minPrice, 
+        maxPrice, 
+        roomType, 
+        minGuests,
+        friendFilter 
+      });
+
+      const homes = await storage.getHostHomes({
+        city: city || undefined,
+        minPrice,
+        maxPrice,
+        roomType: roomType !== 'all' ? roomType : undefined,
+        minGuests,
+        userId: req.user?.id,
+      });
+
+      console.log(`✅ Found ${homes.length} host homes`);
+
+      // Return in format expected by frontend: { data: HostHome[] }
+      res.json({ data: homes });
+    } catch (error: any) {
+      console.error('❌ Error fetching host homes:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch host homes',
+        message: error.message 
+      });
+    }
+  });
+
+  // POST /api/host-homes - Create a new host home listing
+  app.post('/api/host-homes', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        res.status(401).json({ error: 'Authentication required' });
+        return;
+      }
+
+      console.log('🏠 Creating new host home for user:', userId);
+      console.log('📝 Host home data:', req.body);
+
+      // Map frontend field names to database schema
+      const hostHomeData = {
+        hostId: userId,
+        title: req.body.title,
+        description: req.body.description,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state || '',
+        country: req.body.country,
+        lat: req.body.latitude || null,
+        lng: req.body.longitude || null,
+        photos: req.body.photos || [],
+        amenities: req.body.amenities || [],
+        maxGuests: req.body.maxGuests || 1,
+        pricePerNight: req.body.basePrice ? Math.round(req.body.basePrice * 100) : 0, // Convert to cents
+        availability: req.body.availability || {},
+        isActive: true,
+      };
+
+      const newHome = await storage.createHostHome(hostHomeData);
+      console.log('✅ Host home created with ID:', newHome.id);
+
+      res.status(201).json({ 
+        success: true,
+        data: newHome 
+      });
+    } catch (error: any) {
+      console.error('❌ Error creating host home:', error);
+      res.status(500).json({ 
+        error: 'Failed to create host home',
+        message: error.message 
+      });
+    }
+  });
+
+  // GET /api/host-homes/:id - Get a single host home by ID
+  app.get('/api/host-homes/:id', setUserContext, async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        res.status(400).json({ error: 'Invalid home ID' });
+        return;
+      }
+
+      console.log('🏠 Fetching host home with ID:', homeId);
+
+      const home = await storage.getHostHomeById(homeId);
+      if (!home) {
+        res.status(404).json({ error: 'Host home not found' });
+        return;
+      }
+
+      console.log('✅ Found host home:', home.title);
+      res.json({ data: home });
+    } catch (error: any) {
+      console.error('❌ Error fetching host home:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch host home',
+        message: error.message 
+      });
+    }
+  });
+
+  // POST /api/upload/host-home-photos - Upload photos for host homes
+  app.post('/api/upload/host-home-photos', setUserContext, setupUpload.array('files', 10), async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        res.status(401).json({ error: 'Authentication required' });
+        return;
+      }
+
+      console.log('📸 Uploading host home photos for user:', userId);
+      console.log('📁 Files received:', req.files?.length);
+
+      if (!req.files || req.files.length === 0) {
+        res.status(400).json({ error: 'No files uploaded' });
+        return;
+      }
+
+      // Return URLs of uploaded files
+      const urls = req.files.map((file: any) => {
+        // In production, these would be uploaded to cloud storage (Cloudinary, S3, etc.)
+        // For now, return the local file path
+        return `/uploads/${file.filename}`;
+      });
+
+      console.log('✅ Photos uploaded successfully:', urls);
+      res.json({ 
+        success: true,
+        urls 
+      });
+    } catch (error: any) {
+      console.error('❌ Error uploading host home photos:', error);
+      res.status(500).json({ 
+        error: 'Failed to upload photos',
+        message: error.message 
+      });
+    }
+  });
+
   // Create HTTP server
   const server = createServer(app);
 
