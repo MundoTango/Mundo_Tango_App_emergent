@@ -1,0 +1,43 @@
+{
+  "name": "Event Map Debug Test",
+  "objective": "Navigate to Buenos Aires group Events tab, switch to map view, and capture console logs showing what data EventMap receives",
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "/groups/buenos-aires-tango"
+    },
+    {
+      "action": "wait",
+      "duration": 3000
+    },
+    {
+      "action": "click",
+      "selector": "[data-testid='tab-events']",
+      "description": "Click Events tab"
+    },
+    {
+      "action": "wait",
+      "duration": 2000
+    },
+    {
+      "action": "click",
+      "selector": "button:has-text('Map')",
+      "description": "Click Map view button"
+    },
+    {
+      "action": "wait",
+      "duration": 3000
+    },
+    {
+      "action": "screenshot",
+      "path": "/tmp/event_map_with_markers.png"
+    }
+  ],
+  "assertions": [
+    {
+      "type": "element_visible",
+      "selector": ".leaflet-container",
+      "description": "Map container should be visible"
+    }
+  ]
+}
