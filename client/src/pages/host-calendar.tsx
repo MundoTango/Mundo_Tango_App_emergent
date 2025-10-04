@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { useToast } from '../hooks/use-toast';
 import { BookingCalendar } from '../components/BookingCalendar';
+import { BookingRestrictionsCard } from '../components/housing/BookingRestrictionsCard';
 import {
   Select,
   SelectContent,
@@ -200,6 +201,13 @@ export default function HostCalendar() {
             </SelectContent>
           </Select>
         </div>
+
+        {/* Booking Restrictions - ESA Layer 9 */}
+        {selectedHomeId && (
+          <div className="mb-6">
+            <BookingRestrictionsCard propertyId={selectedHomeId} />
+          </div>
+        )}
 
         {/* Calendar Component */}
         {selectedHomeId && (
