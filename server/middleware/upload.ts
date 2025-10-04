@@ -23,7 +23,7 @@ export function setupUpload() {
     storage: storage,
     limits: {
       fileSize: 500 * 1024 * 1024, // 500MB limit (reduced to prevent memory crashes)
-      files: 3, // Max 3 files at once to conserve memory
+      files: 10, // Max 10 files at once (matches route expectation)
       parts: 1000, // Reduced parts for multipart
       fieldSize: 10 * 1024 * 1024 // 10MB max field size
     },
