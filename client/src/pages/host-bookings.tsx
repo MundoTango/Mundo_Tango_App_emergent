@@ -83,10 +83,10 @@ export default function HostBookings() {
   });
 
   const respondToBookingMutation = useMutation({
-    mutationFn: async ({ bookingId, status, message }: { bookingId: number; status: 'approved' | 'rejected'; message: string }) => {
+    mutationFn: async ({ bookingId, status, message }: { bookingId: number; status: 'approve' | 'reject'; message: string }) => {
       return await apiRequest(`/api/bookings/${bookingId}/status`, {
         method: 'PATCH',
-        body: JSON.stringify({ status, hostResponse: message }),
+        body: JSON.stringify({ status: status === 'approve' ? 'approved' : 'rejected', hostResponse: message }),
         headers: { 'Content-Type': 'application/json' },
       });
     },
