@@ -297,6 +297,7 @@ export interface IStorage {
   createFriendshipActivity(activity: InsertFriendshipActivity): Promise<FriendshipActivity>;
   getFriendshipActivities(friendshipId: number): Promise<FriendshipActivity[]>;
   updateFriendshipCloseness(friendshipId: number): Promise<void>;
+  trackSharedMemory(userId1: number, userId2: number, postId: number, initiatedBy: number): Promise<void>;
   getFriendship(userId1: number, userId2: number): Promise<Friend | undefined>;
   getFriendshipWithDetails(userId1: number, userId2: number): Promise<any>;
   getConnectionDegree(userId1: number, userId2: number): Promise<number>;
@@ -2134,10 +2135,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateFriendshipCloseness(friendshipId: number): Promise<void> {
-    // Calculate closeness based on activities
+    // ESA LIFE CEO 61x21 - Layer 44: Algorithm Optimization Agent
+    // Calculate closeness with temporal decay and activity weighting
     const activities = await this.getFriendshipActivities(friendshipId);
     
-    // Simple algorithm: each activity adds to closeness
     const activityWeights: Record<string, number> = {
       became_friends: 1.0,
       danced_together: 2.0,
@@ -2147,18 +2148,66 @@ export class DatabaseStorage implements IStorage {
       recommended: 1.5
     };
     
+    const now = Date.now();
     let totalScore = 1.0; // Base score for being friends
+    
+    // Apply temporal decay: recent interactions matter more
     activities.forEach(activity => {
-      totalScore += activityWeights[activity.activityType] || 0.5;
+      const basePoints = activityWeights[activity.activityType] || 0.5;
+      const activityTime = new Date(activity.createdAt).getTime();
+      const daysSince = (now - activityTime) / (1000 * 60 * 60 * 24);
+      
+      // Temporal decay multiplier
+      let decayMultiplier = 1.0;
+      if (daysSince <= 30) {
+        decayMultiplier = 1.0; // 100% - Last 30 days
+      } else if (daysSince <= 90) {
+        decayMultiplier = 0.75; // 75% - 30-90 days
+      } else if (daysSince <= 180) {
+        decayMultiplier = 0.5; // 50% - 90-180 days
+      } else {
+        decayMultiplier = 0.25; // 25% - 180+ days
+      }
+      
+      totalScore += basePoints * decayMultiplier;
     });
     
-    // Normalize to 0-10 range
-    const closeness = Math.min(10, totalScore);
+    // Normalize to 0-100 range for closeness score
+    const closeness = Math.min(100, totalScore * 10);
     
+    // Update friendship with new closeness score and interaction metadata
     await db
       .update(friends)
-      .set({ connectionStrength: closeness })
+      .set({ 
+        closenessScore: closeness,
+        interactionCount: activities.length,
+        lastInteractionAt: activities.length > 0 ? activities[0].createdAt : null,
+        updatedAt: new Date()
+      })
       .where(eq(friends.id, friendshipId));
+  }
+  
+  // ESA LIFE CEO 61x21 - Layer 36: Memory Systems Agent
+  // Automatic shared memory tracking when users are tagged together
+  async trackSharedMemory(userId1: number, userId2: number, postId: number, initiatedBy: number): Promise<void> {
+    // Get or verify friendship exists
+    const friendship = await this.getFriendship(userId1, userId2);
+    if (!friendship) return; // Only track for existing friendships
+    
+    // Create friendship activity for shared memory
+    await this.createFriendshipActivity({
+      friendshipId: friendship.id,
+      activityType: 'shared_memory',
+      activityData: {
+        postId,
+        initiatedBy, // Who tagged/created the memory
+        type: 'post_tag'
+      },
+      points: 2.5 // High value for shared memories
+    });
+    
+    // Update closeness score with temporal decay
+    await this.updateFriendshipCloseness(friendship.id);
   }
 
   async getFriendship(userId1: number, userId2: number): Promise<Friend | undefined> {
@@ -2168,12 +2217,12 @@ export class DatabaseStorage implements IStorage {
       .where(
         or(
           and(
-            eq(friends.userId1, userId1),
-            eq(friends.userId2, userId2)
+            eq(friends.userId, userId1),
+            eq(friends.friendId, userId2)
           ),
           and(
-            eq(friends.userId1, userId2),
-            eq(friends.userId2, userId1)
+            eq(friends.userId, userId2),
+            eq(friends.friendId, userId1)
           )
         )
       )
