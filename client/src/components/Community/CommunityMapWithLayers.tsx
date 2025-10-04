@@ -5,14 +5,10 @@ import 'leaflet/dist/leaflet.css';
 import { Calendar, Home, Star, Users, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
+import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// Fix Leaflet icon issue
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-});
+// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+initializeLeaflet();
 
 interface MapItem {
   id: number;
@@ -89,26 +85,26 @@ export default function CommunityMapWithLayers({
     return activeLayers[item.type];
   });
 
-  // Create custom icons for different item types
+  // ESA LIFE CEO 61x21 - MT Ocean Theme gradient icons for different item types
   const eventIcon = L.divIcon({
-    className: 'custom-event-marker',
-    html: '<div class="w-6 h-6 bg-red-500 rounded-full border-2 border-white shadow-md flex items-center justify-center"><div class="w-2 h-2 bg-white rounded-full"></div></div>',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12]
+    className: 'mt-ocean-event-marker',
+    html: '<div style="background: linear-gradient(135deg, #9C27B0 0%, #E91E63 100%); width: 32px; height: 32px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;"><div style="width: 8px; height: 8px; background: white; border-radius: 50%;"></div></div>',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16]
   });
 
   const housingIcon = L.divIcon({
-    className: 'custom-housing-marker',
-    html: '<div class="w-6 h-6 bg-blue-500 rounded-full border-2 border-white shadow-md flex items-center justify-center"><div class="w-2 h-2 bg-white rounded-full"></div></div>',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12]
+    className: 'mt-ocean-housing-marker',
+    html: '<div style="background: linear-gradient(135deg, #38B2AC 0%, #06B6D4 100%); width: 32px; height: 32px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;"><div style="width: 8px; height: 8px; background: white; border-radius: 50%;"></div></div>',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16]
   });
 
   const recommendationIcon = L.divIcon({
-    className: 'custom-recommendation-marker',
-    html: '<div class="w-6 h-6 bg-green-500 rounded-full border-2 border-white shadow-md flex items-center justify-center"><div class="w-2 h-2 bg-white rounded-full"></div></div>',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12]
+    className: 'mt-ocean-recommendation-marker',
+    html: '<div style="background: linear-gradient(135deg, #F50057 0%, #FF1744 100%); width: 32px; height: 32px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;"><div style="width: 8px; height: 8px; background: white; border-radius: 50%;"></div></div>',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16]
   });
 
   const getIcon = (type: string) => {
