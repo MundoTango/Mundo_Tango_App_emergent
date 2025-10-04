@@ -1849,14 +1849,20 @@ export const guestBookings = pgTable("guest_bookings", {
 ]);
 
 // Guest Bookings schema
-export const insertGuestBookingSchema = createInsertSchema(guestBookings).omit({
+export const insertGuestBookingSchema = createInsertSchema(guestBookings, {
+  checkInDate: z.union([z.date(), z.string().transform((val) => new Date(val))]),
+  checkOutDate: z.union([z.date(), z.string().transform((val) => new Date(val))]),
+}).omit({
   id: true,
+  guestId: true,
   createdAt: true,
   updatedAt: true,
   status: true,
   hostResponse: true,
   totalPrice: true,
   respondedAt: true,
+}).extend({
+  guestId: z.number().optional(),
 });
 
 // Recommendations schema
