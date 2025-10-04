@@ -23,7 +23,7 @@ import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
 import { storage } from "./storage";
-import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
+import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, guestBookings, recommendations, notifications } from "../shared/schema";
 // Removed homeAmenities, homePhotos import to fix duplicate export issue
 import { z } from "zod";
 import { SocketService } from "./services/socketService";
