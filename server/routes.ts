@@ -1575,12 +1575,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // POST /api/host-homes - Create a new host home listing
   app.post('/api/host-homes', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
+      // Get user - handle both Replit auth and local auth structures
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+        // Auto-provision user if not found
+        if (!user && req.user?.claims) {
+          await storage.upsertUser({
+            replitId: req.user.claims.sub,
+            name: `${req.user.claims.first_name || ''} ${req.user.claims.last_name || ''}`.trim() || 'User',
+            username: req.user.claims.email?.split('@')[0] || `user_${Date.now()}`,
+            email: req.user.claims.email || '',
+            password: '',
+            firstName: req.user.claims.first_name,
+            lastName: req.user.claims.last_name,
+            profileImage: req.user.claims.profile_image_url,
+          });
+          user = await storage.getUserByReplitId(req.user.claims.sub);
+        }
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+      
+      if (!user || !user.id) {
         res.status(401).json({ error: 'Authentication required' });
         return;
       }
 
+      const userId = user.id;
       console.log('🏠 Creating new host home for user:', userId);
       console.log('📝 Host home data:', req.body);
 
@@ -1651,12 +1673,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const uploadMiddleware = setupUpload();
   app.post('/api/upload/host-home-photos', isAuthenticated, uploadMiddleware.array('files', 10), async (req: any, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
+      // Get user - handle both Replit auth and local auth structures
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+        // Auto-provision user if not found
+        if (!user && req.user?.claims) {
+          await storage.upsertUser({
+            replitId: req.user.claims.sub,
+            name: `${req.user.claims.first_name || ''} ${req.user.claims.last_name || ''}`.trim() || 'User',
+            username: req.user.claims.email?.split('@')[0] || `user_${Date.now()}`,
+            email: req.user.claims.email || '',
+            password: '',
+            firstName: req.user.claims.first_name,
+            lastName: req.user.claims.last_name,
+            profileImage: req.user.claims.profile_image_url,
+          });
+          user = await storage.getUserByReplitId(req.user.claims.sub);
+        }
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+      
+      if (!user || !user.id) {
         res.status(401).json({ error: 'Authentication required' });
         return;
       }
 
+      const userId = user.id;
       console.log('📸 Uploading host home photos for user:', userId);
       console.log('📁 Files received:', req.files?.length);
 
