@@ -9,7 +9,7 @@ import {
   Image, Video, FileText, Link as LinkIcon, UserCheck, UserX,
   Star, Clock, Info, Home, Music, BookOpen, Trophy, Zap, Mail,
   Eye, ChevronRight, AlertCircle, Shield, Edit, MessageSquare, Plane,
-  Send
+  Send, List, DollarSign, Search
 } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
@@ -17,11 +17,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import EventMap from '@/components/EventMap';
 import { Filter } from 'lucide-react';
 import CommunityToolbar from '@/components/CommunityToolbar';
 import HostHomesList from '@/components/Housing/HostHomesList';
+import HousingMap from '@/components/maps/HousingMap';
 import RecommendationsList from '@/components/Recommendations/RecommendationsList';
 import { GuestOnboardingEntrance } from '@/components/GuestOnboarding/GuestOnboardingEntrance';
 import { CityRbacService } from '@/services/cityRbacService';
@@ -128,6 +130,9 @@ export default function GroupDetailPageMT() {
   });
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   
+  // Housing view state
+  const [housingView, setHousingView] = useState<'list' | 'map'>('list');
+  
   // Event data fetched via React Query (no local state needed)
   const [showFilters, setShowFilters] = useState(false);
   
@@ -196,6 +201,14 @@ export default function GroupDetailPageMT() {
   });
   
   const events = eventsResponse?.data || [];
+  
+  // Fetch housing data for housing tab (city groups only)
+  const { data: housingData, isLoading: loadingHousing } = useQuery({
+    queryKey: ['/api/host-homes', { city: group?.city, groupSlug: group?.slug }],
+    enabled: activeTab === 'housing' && group?.type === 'city' && !!group?.city
+  });
+  
+  const homes = housingData?.data || [];
   
   // Check if user is member/admin
   const isMember = group?.members?.some((m: GroupMember) => m.user.id === user?.id) || false;
@@ -1122,30 +1135,234 @@ export default function GroupDetailPageMT() {
   );
 
   const renderHousingTab = () => {
+    // Calculate housing statistics
+    const totalHomes = homes.length;
+    const availableHomes = homes.filter((h: any) => h.isActive).length;
+    const priceRange = homes.length > 0 ? {
+      min: Math.min(...homes.map((h: any) => h.pricePerNight || 0)),
+      max: Math.max(...homes.map((h: any) => h.pricePerNight || 0))
+    } : { min: 0, max: 0 };
+    const avgPrice = homes.length > 0 
+      ? Math.round(homes.reduce((sum: number, h: any) => sum + (h.pricePerNight || 0), 0) / homes.length)
+      : 0;
+
+    // Get user context for CTAs
+    const userContext = CityRbacService.getUserCityContext(
+      user,
+      group?.city || '',
+      [] as any[],
+      [] as any[],
+      group?.id
+    );
+
     return (
       <div className="space-y-6">
-        {/* Host Onboarding for Super Admin */}
+        {/* Quick Actions Bar */}
+        <div className="flex flex-wrap gap-3 items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Housing in {group?.city}
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {userContext.isLocal && (
+              <Button
+                onClick={() => setLocation('/host-onboarding')}
+                className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white"
+                data-testid="button-become-host"
+              >
+                <Home className="h-4 w-4 mr-2" />
+                Become a Host
+              </Button>
+            )}
+            <Button
+              onClick={() => setLocation('/guest-onboarding')}
+              variant="outline"
+              className="border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50"
+              data-testid="button-search-preferences"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Search Preferences
+            </Button>
+            <Button
+              onClick={() => setLocation('/housing-marketplace')}
+              variant="outline"
+              className="border-cyan-300 text-cyan-700 hover:bg-cyan-50"
+              data-testid="button-view-marketplace"
+            >
+              <Search className="h-4 w-4 mr-2" />
+              View All Marketplace
+            </Button>
+          </div>
+        </div>
+
+        {/* Super Admin Quick Action */}
         {user?.roles?.includes('super_admin') && (
-          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+          <div className="bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-200 dark:border-purple-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <Shield className="h-5 w-5 text-purple-600" />
-              <span className="font-semibold text-purple-900">Super Admin Actions</span>
+              <Shield className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              <span className="font-semibold text-purple-900 dark:text-purple-300">Super Admin Actions</span>
             </div>
             <Button
               onClick={() => setLocation('/host-onboarding')}
               className="mt-action-button mt-action-button-primary"
+              data-testid="button-admin-host-onboarding"
             >
-              <Home className="h-4 w-4" />
+              <Home className="h-4 w-4 mr-2" />
               Start Host Onboarding
             </Button>
           </div>
         )}
-        
-        <HostHomesList 
-          groupSlug={group.slug}
-          city={group.city}
-          showFilters={false}
-        />
+
+        {/* Housing Statistics Card */}
+        {totalHomes > 0 && (
+          <div 
+            className="relative overflow-hidden rounded-lg p-6 border-2 border-turquoise-200 dark:border-turquoise-700"
+            style={{
+              background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%)',
+              backdropFilter: 'blur(10px)'
+            }}
+            data-testid="housing-statistics-card"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center" data-testid="stat-total-homes">
+                <Home className="h-8 w-8 mx-auto mb-2 text-turquoise-500" />
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{totalHomes}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Total Homes</div>
+              </div>
+              <div className="text-center" data-testid="stat-avg-price">
+                <DollarSign className="h-8 w-8 mx-auto mb-2 text-cyan-500" />
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">${avgPrice}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Avg/Night</div>
+              </div>
+              <div className="text-center" data-testid="stat-price-range">
+                <Star className="h-8 w-8 mx-auto mb-2 text-pink-500" />
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">
+                  ${priceRange.min}-${priceRange.max}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Price Range</div>
+              </div>
+              <div className="text-center" data-testid="stat-available">
+                <Users className="h-8 w-8 mx-auto mb-2 text-purple-500" />
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{availableHomes}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Available</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Map/List View Toggle */}
+        <Tabs value={housingView} onValueChange={(v: any) => setHousingView(v)} data-testid="housing-view-tabs">
+          <TabsList className="grid w-full max-w-md grid-cols-2">
+            <TabsTrigger 
+              value="list" 
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
+              data-testid="housing-view-list"
+            >
+              <List className="h-4 w-4 mr-2" />
+              List View
+            </TabsTrigger>
+            <TabsTrigger 
+              value="map"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
+              data-testid="housing-view-map"
+            >
+              <MapPin className="h-4 w-4 mr-2" />
+              Map View
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="list" className="mt-6" data-testid="housing-list-content">
+            {loadingHousing ? (
+              <div className="flex justify-center py-12">
+                <div className="text-gray-500 dark:text-gray-400">Loading housing listings...</div>
+              </div>
+            ) : totalHomes === 0 ? (
+              // Enhanced Empty State
+              <div 
+                className="text-center py-16 px-6 rounded-lg border-2 border-dashed border-turquoise-300 dark:border-turquoise-700"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%)'
+                }}
+                data-testid="housing-empty-state"
+              >
+                <Home className="h-16 w-16 mx-auto mb-4 text-turquoise-400" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  No housing listings yet
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                  {userContext.isLocal 
+                    ? "Be the first to offer tango-friendly accommodation in your city! Share your space with dancers from around the world."
+                    : `No housing listings are currently available in ${group?.city}. Check back soon or explore other cities.`
+                  }
+                </p>
+                {userContext.isLocal && (
+                  <Button
+                    onClick={() => setLocation('/host-onboarding')}
+                    size="lg"
+                    className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white"
+                    data-testid="button-empty-state-host"
+                  >
+                    <Home className="h-5 w-5 mr-2" />
+                    List Your Property
+                  </Button>
+                )}
+                {!userContext.isLocal && (
+                  <Button
+                    onClick={() => setLocation('/housing-marketplace')}
+                    size="lg"
+                    variant="outline"
+                    className="border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50"
+                    data-testid="button-empty-state-marketplace"
+                  >
+                    <Search className="h-5 w-5 mr-2" />
+                    Explore All Cities
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <HostHomesList 
+                groupSlug={group?.slug}
+                city={group?.city}
+                showFilters={false}
+              />
+            )}
+          </TabsContent>
+
+          <TabsContent value="map" className="mt-6" data-testid="housing-map-content">
+            {loadingHousing ? (
+              <div className="flex justify-center py-12">
+                <div className="text-gray-500 dark:text-gray-400">Loading map...</div>
+              </div>
+            ) : totalHomes === 0 ? (
+              // Empty state for map view
+              <div 
+                className="text-center py-16 px-6 rounded-lg border-2 border-dashed border-turquoise-300 dark:border-turquoise-700"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%)'
+                }}
+              >
+                <MapPin className="h-16 w-16 mx-auto mb-4 text-turquoise-400" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  No locations to display
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Listings will appear on the map once hosts add their properties.
+                </p>
+              </div>
+            ) : (
+              <div className="h-[600px] rounded-lg overflow-hidden border-2 border-turquoise-200 dark:border-turquoise-700">
+                <HousingMap 
+                  homes={homes}
+                  cityLat={group?.latitude}
+                  cityLng={group?.longitude}
+                  onHomeClick={(home) => {
+                    // TODO: Navigate to housing detail page when available
+                    console.log('Housing clicked:', home.id);
+                  }}
+                />
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     );
   };
