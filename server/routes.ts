@@ -29,6 +29,7 @@ import { z } from "zod";
 import { SocketService } from "./services/socketService";
 import { WebSocketServer } from "ws";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { RealTimeNotificationService } from "./services/realTimeNotifications";
 
 // Phase 2: Use secure auth middleware (with dev bypass support)
 const authMiddleware = process.env.NODE_ENV === 'development' && process.env.AUTH_BYPASS === 'true' 
@@ -2291,6 +2292,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
         hostResponse: hostResponse || null,
         respondedAt: new Date(),
       });
+
+      // Send real-time notification to guest
+      try {
+        const statusText = status === 'approved' ? 'approved' : 'declined';
+        const notificationTitle = status === 'approved' 
+          ? '🎉 Booking Confirmed!' 
+          : 'Booking Update';
+        
+        await RealTimeNotificationService.sendToUser(booking.guestId, {
+          type: 'message',
+          title: notificationTitle,
+          message: `Your booking request for ${listing.title} has been ${statusText}.`,
+          actionUrl: `/my-bookings`,
+          metadata: {
+            bookingId: booking.id,
+            status,
+            propertyTitle: listing.title
+          },
+          timestamp: new Date().toISOString()
+        });
+        console.log(`📨 Real-time notification sent to guest ${booking.guestId}`);
+      } catch (notifError) {
+        console.error('⚠️ Failed to send real-time notification:', notifError);
+        // Continue even if notification fails
+      }
 
       console.log('✅ Booking status updated');
       res.json({ 
