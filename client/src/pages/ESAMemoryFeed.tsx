@@ -347,7 +347,6 @@ function ESAMemoryFeedCore() {
                 });
                 queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
                 queryClient.invalidateQueries({ queryKey: ['/api/memories'] });
-                setRefreshKey(prev => prev + 1);
                 setShowEditModal(false);
                 setEditingPost(null);
               }}
