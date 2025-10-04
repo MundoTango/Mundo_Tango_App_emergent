@@ -4,6 +4,7 @@ import { useLocation } from 'wouter';
 import { Home, MapPin, Users, Star, Filter, DollarSign, Bed, Shield, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { ConnectionBadge } from '@/components/housing/ConnectionBadge';
 
 interface HostHome {
   id: number;
@@ -27,7 +28,8 @@ interface HostHome {
     profileImage?: string;
   };
   distanceFromUser?: number;
-  friendConnection?: 'direct' | 'friend-of-friend' | 'community' | null;
+  connectionDegree?: number;
+  closenessScore?: number;
   rating?: number;
   reviewCount?: number;
 }
@@ -36,7 +38,7 @@ interface HostHomesListProps {
   groupSlug?: string;
   city?: string;
   showFilters?: boolean;
-  friendFilter?: 'all' | 'direct' | 'friend-of-friend' | 'community';
+  friendFilter?: string;
 }
 
 export default function HostHomesList({ groupSlug, city, showFilters = true, friendFilter: propFriendFilter }: HostHomesListProps) {
@@ -77,18 +79,6 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
     enabled: !!city || !!groupSlug
   });
 
-  const getFriendConnectionLabel = (connection: string | null) => {
-    switch (connection) {
-      case 'direct':
-        return 'Your friend';
-      case 'friend-of-friend':
-        return 'Friend of friend';
-      case 'community':
-        return 'Community member';
-      default:
-        return null;
-    }
-  };
 
   const getRoomTypeLabel = (type: string) => {
     switch (type) {
@@ -173,7 +163,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
               </select>
             </div>
 
-            {/* Friend Filter */}
+            {/* Friend Filter - Updated to numeric degrees */}
             <div>
               <label className="text-sm font-medium mb-1 block">Connection</label>
               <select
@@ -182,8 +172,9 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                 className="w-full px-3 py-2 border rounded-lg"
               >
                 <option value="all">All hosts</option>
-                <option value="friends">Friends only</option>
-                <option value="friends-of-friends">Friends & FOF</option>
+                <option value="1st_degree">Direct friends (1st)</option>
+                <option value="2nd_degree">Friends & FOF (1-2nd)</option>
+                <option value="3rd_degree">Extended network (1-3rd)</option>
               </select>
             </div>
           </div>
@@ -209,10 +200,13 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
               )}
               
               {/* Friend Connection Badge */}
-              {home.friendConnection && (
-                <div className="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-                  <Heart className="h-3 w-3 text-pink-500" />
-                  {getFriendConnectionLabel(home.friendConnection)}
+              {home.connectionDegree !== undefined && home.connectionDegree > 0 && (
+                <div className="absolute top-2 left-2">
+                  <ConnectionBadge 
+                    connectionDegree={home.connectionDegree}
+                    closenessScore={home.closenessScore}
+                    compact={true}
+                  />
                 </div>
               )}
               
