@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -634,7 +635,8 @@ export default function HousingMarketplace() {
                     </div>
                     <Button
                       size="sm"
-                      onClick={() => setSelectedListing(listing)}
+                      onClick={() => navigate(`/housing-marketplace/${listing.id}`)}
+                      data-testid={`button-view-details-${listing.id}`}
                     >
                       View Details
                     </Button>

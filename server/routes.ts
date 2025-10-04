@@ -23,7 +23,7 @@ import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
 import { storage } from "./storage";
-import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
+import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, recommendations, notifications } from "../shared/schema";
 // Removed homeAmenities, homePhotos import to fix duplicate export issue
 import { z } from "zod";
 import { SocketService } from "./services/socketService";
@@ -1874,6 +1874,365 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false,
         error: 'Failed to update profile',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // ==========================================
+  // BOOKING REQUESTS API (Sprint 3)
+  // ==========================================
+
+  // POST /api/bookings - Create a booking request
+  app.post('/api/bookings', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      console.log('📝 Creating booking request for user:', user.id);
+
+      // Validate booking data
+      const validationResult = insertGuestBookingSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error);
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid booking data',
+          code: 'VALIDATION_ERROR',
+          details: validationResult.error.errors
+        });
+      }
+
+      const bookingData = validationResult.data;
+
+      // Verify the listing exists and get host info
+      const listing = await storage.getHostHomeById(bookingData.hostHomeId);
+      if (!listing) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Listing not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // Calculate total price (nights × price per night)
+      const checkIn = new Date(bookingData.checkInDate);
+      const checkOut = new Date(bookingData.checkOutDate);
+      const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+      const totalPrice = (listing.pricePerNight || 0) * nights;
+
+      // SECURITY: Force guestId to be the authenticated user (prevent spoofing)
+      const booking = await storage.createGuestBooking({
+        guestId: user.id,
+        hostHomeId: bookingData.hostHomeId,
+        checkInDate: bookingData.checkInDate,
+        checkOutDate: bookingData.checkOutDate,
+        guestCount: bookingData.guestCount,
+        purpose: bookingData.purpose,
+        message: bookingData.message,
+        hasReadRules: bookingData.hasReadRules,
+        totalPrice,
+      });
+
+      console.log('✅ Booking request created:', booking.id);
+      res.status(201).json({ 
+        success: true, 
+        booking,
+        message: 'Booking request submitted successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error creating booking:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to create booking request',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // GET /api/bookings - Get user's bookings (as guest or host)
+  app.get('/api/bookings', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const role = req.query.role as string; // 'guest' or 'host'
+      console.log(`📋 Fetching bookings for user ${user.id} as ${role || 'all'}`);
+
+      const bookings = await storage.getGuestBookings({
+        userId: user.id,
+        role: role as 'guest' | 'host' | undefined,
+      });
+
+      console.log(`✅ Found ${bookings.length} bookings`);
+      res.json({ 
+        success: true,
+        bookings 
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching bookings:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to fetch bookings',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // GET /api/bookings/:id - Get specific booking details
+  app.get('/api/bookings/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const bookingId = parseInt(req.params.id);
+      if (isNaN(bookingId)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid booking ID',
+          code: 'INVALID_ID'
+        });
+      }
+
+      console.log(`🔍 Fetching booking ${bookingId} for user ${user.id}`);
+
+      const booking = await storage.getGuestBookingById(bookingId);
+      if (!booking) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Booking not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // Verify user is either the guest or the host
+      const listing = await storage.getHostHomeById(booking.hostHomeId);
+      if (booking.guestId !== user.id && listing?.hostId !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'Access denied',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      console.log('✅ Booking retrieved');
+      res.json({ 
+        success: true,
+        booking 
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching booking:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to fetch booking',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // PATCH /api/bookings/:id/status - Update booking status (host only)
+  app.patch('/api/bookings/:id/status', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const bookingId = parseInt(req.params.id);
+      if (isNaN(bookingId)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid booking ID',
+          code: 'INVALID_ID'
+        });
+      }
+
+      const { status, hostResponse } = req.body;
+
+      // Validate status
+      const validStatuses = ['approved', 'rejected', 'cancelled'];
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid status. Must be: approved, rejected, or cancelled',
+          code: 'INVALID_STATUS'
+        });
+      }
+
+      console.log(`🔄 Updating booking ${bookingId} status to ${status}`);
+
+      // Get booking and verify ownership
+      const booking = await storage.getGuestBookingById(bookingId);
+      if (!booking) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Booking not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // Verify user is the host
+      const listing = await storage.getHostHomeById(booking.hostHomeId);
+      if (listing?.hostId !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'Only the host can update booking status',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Update booking status
+      const updated = await storage.updateGuestBookingStatus(bookingId, {
+        status,
+        hostResponse: hostResponse || null,
+        respondedAt: new Date(),
+      });
+
+      console.log('✅ Booking status updated');
+      res.json({ 
+        success: true,
+        booking: updated,
+        message: `Booking ${status} successfully`
+      });
+    } catch (error: any) {
+      console.error('❌ Error updating booking status:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to update booking status',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // DELETE /api/bookings/:id - Cancel booking (guest only, pending status only)
+  app.delete('/api/bookings/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const bookingId = parseInt(req.params.id);
+      if (isNaN(bookingId)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid booking ID',
+          code: 'INVALID_ID'
+        });
+      }
+
+      console.log(`❌ Cancelling booking ${bookingId} by user ${user.id}`);
+
+      // Get booking and verify ownership
+      const booking = await storage.getGuestBookingById(bookingId);
+      if (!booking) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Booking not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // Verify user is the guest who made the booking
+      if (booking.guestId !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'You can only cancel your own bookings',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Only allow cancelling pending bookings
+      if (booking.status !== 'pending') {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Only pending bookings can be cancelled',
+          code: 'INVALID_STATE'
+        });
+      }
+
+      // Update status to cancelled
+      await storage.updateGuestBookingStatus(bookingId, {
+        status: 'cancelled',
+        respondedAt: new Date(),
+      });
+
+      console.log('✅ Booking cancelled');
+      res.json({ 
+        success: true,
+        message: 'Booking cancelled successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error cancelling booking:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to cancel booking',
         code: 'INTERNAL_ERROR',
         message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
