@@ -2053,6 +2053,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
+      // ESA LIFE CEO 61x21 - Layer 31: Validation Sentinel
+      // Friendship-based booking eligibility validation
+      const whoCanBook = listing.whoCanBook || 'anyone';
+      const minimumCloseness = listing.minimumClosenessScore || 0;
+
+      if (whoCanBook !== 'anyone' && listing.hostId !== user.id) {
+        // Get connection info between guest and host
+        const connectionDegree = await storage.getConnectionDegree(user.id, listing.hostId);
+        const friendship = await storage.getFriendship(user.id, listing.hostId);
+        const closenessScore = friendship?.closenessScore || 0;
+
+        // Validate based on whoCanBook setting
+        let isEligible = false;
+        let reason = '';
+
+        if (whoCanBook === 'friends_only' || whoCanBook === '1st_degree') {
+          isEligible = connectionDegree === 1;
+          reason = 'This property only accepts bookings from direct friends';
+        } else if (whoCanBook === '2nd_degree') {
+          isEligible = connectionDegree >= 1 && connectionDegree <= 2;
+          reason = 'This property only accepts bookings from 1st or 2nd degree connections';
+        } else if (whoCanBook === '3rd_degree') {
+          isEligible = connectionDegree >= 1 && connectionDegree <= 3;
+          reason = 'This property only accepts bookings from 1st, 2nd, or 3rd degree connections';
+        } else if (whoCanBook === 'custom_closeness') {
+          isEligible = closenessScore >= minimumCloseness;
+          reason = `This property requires a minimum closeness score of ${minimumCloseness}. Your current score is ${closenessScore}`;
+        }
+
+        if (!isEligible) {
+          const host = await storage.getUser(listing.hostId);
+          return res.status(403).json({ 
+            success: false,
+            error: 'Not eligible to book',
+            code: 'FRIENDSHIP_RESTRICTION',
+            message: reason,
+            suggestion: connectionDegree === -1 
+              ? `Send a friend request to ${host?.name || 'the host'} to unlock this property`
+              : `Build a stronger connection with ${host?.name || 'the host'} to meet the booking requirements`
+          });
+        }
+      }
+
+      // Capture connection info snapshot at time of booking
+      const connectionDegree = await storage.getConnectionDegree(user.id, listing.hostId);
+      const friendship = await storage.getFriendship(user.id, listing.hostId);
+      const mutualFriendsList = await storage.getMutualFriends(user.id, listing.hostId);
+      const sharedMems = await storage.getSharedMemories(user.id, listing.hostId);
+
+      const connectionInfo = {
+        connectionDegree,
+        closenessScore: friendship?.closenessScore || 0,
+        mutualFriends: mutualFriendsList.length,
+        sharedMemories: sharedMems.length
+      };
+
       // Calculate total price (nights × price per night)
       const checkIn = new Date(bookingData.checkInDate);
       const checkOut = new Date(bookingData.checkOutDate);
@@ -2070,6 +2126,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: bookingData.message,
         hasReadRules: bookingData.hasReadRules,
         totalPrice,
+        connectionInfo, // Store connection snapshot
       });
 
       console.log('✅ Booking request created:', booking.id);
@@ -2086,6 +2143,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
         code: 'INTERNAL_ERROR',
         message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
+    }
+  });
+
+  // ========== FRIENDSHIP-HOUSING INTEGRATION API ==========
+  // ESA LIFE CEO 61x21 - Layer 23: API Steward + Layer 24: Social Features
+
+  // GET /api/users/:userId/connection-info/:hostId - Get friendship connection details
+  app.get('/api/users/:userId/connection-info/:hostId', async (req: any, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const hostId = parseInt(req.params.hostId);
+
+      if (isNaN(userId) || isNaN(hostId)) {
+        return res.status(400).json({ error: 'Invalid user IDs' });
+      }
+
+      // Get connection degree
+      const connectionDegree = await storage.getConnectionDegree(userId, hostId);
+      
+      // Get friendship details if connected
+      let closenessScore = 0;
+      let mutualFriends = 0;
+      let sharedMemories = 0;
+
+      if (connectionDegree > 0) {
+        const friendship = await storage.getFriendship(userId, hostId);
+        closenessScore = friendship?.closenessScore || 0;
+        
+        const mutualFriendsList = await storage.getMutualFriends(userId, hostId);
+        mutualFriends = mutualFriendsList.length;
+        
+        const sharedMems = await storage.getSharedMemories(userId, hostId);
+        sharedMemories = sharedMems.length;
+      }
+
+      res.json({
+        connectionDegree,
+        closenessScore,
+        mutualFriends,
+        sharedMemories,
+        isConnected: connectionDegree > 0
+      });
+    } catch (error: any) {
+      console.error('Error fetching connection info:', error);
+      res.status(500).json({ error: 'Failed to fetch connection info' });
+    }
+  });
+
+  // PATCH /api/host-homes/:id/booking-restrictions - Update friendship booking restrictions
+  app.patch('/api/host-homes/:id/booking-restrictions', isAuthenticated, async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      // Verify home ownership
+      const home = await storage.getHostHomeById(homeId);
+      if (!home || home.hostId !== user.id) {
+        return res.status(403).json({ error: 'Not authorized to modify this property' });
+      }
+
+      // Update booking restrictions
+      const updates: any = {};
+      if (req.body.whoCanBook !== undefined) {
+        updates.whoCanBook = req.body.whoCanBook;
+      }
+      if (req.body.minimumClosenessScore !== undefined) {
+        updates.minimumClosenessScore = req.body.minimumClosenessScore;
+      }
+      if (req.body.allowUnconnected !== undefined) {
+        updates.allowUnconnected = req.body.allowUnconnected;
+      }
+
+      const updatedHome = await storage.updateHostHome(homeId, updates);
+      
+      console.log(`✅ Updated booking restrictions for home ${homeId}`);
+      res.json({ success: true, data: updatedHome });
+    } catch (error: any) {
+      console.error('Error updating booking restrictions:', error);
+      res.status(500).json({ error: 'Failed to update booking restrictions' });
     }
   });
 
