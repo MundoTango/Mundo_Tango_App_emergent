@@ -39,6 +39,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **User Profiles**: Comprehensive profiles including community-specific roles, travel details, and engagement systems.
 - **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds with entity-specific post navigation.
 - **Community Management**: Features city-specific groups, event management with RSVP, housing listings, and recommendations. Group posts tab redesigned for enhanced user experience and architectural unification with the main feed.
+- **Housing System**: Complete marketplace with property listings, host/guest onboarding, city-filtered housing on group pages, and map integration. **Documentation unified** (October 4, 2025) with comprehensive hub at `docs/pages/housing/index.md` covering marketplace, group integration, onboarding flows, and MT Ocean theme implementation. All housing components use CDN-free HousingMap with turquoise gradient markers.
 - **Tango World Map**: Interactive map showing global tango communities with Leaflet.js, featuring color-coded markers, map legend, statistics, and city search.
 - **Admin Center**: Provides a dashboard for user management, content moderation, analytics, and system health monitoring.
 - **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics.
