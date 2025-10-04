@@ -68,6 +68,7 @@ interface HousingListing {
 }
 
 export default function HousingMarketplace() {
+  const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('all');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 200 });
