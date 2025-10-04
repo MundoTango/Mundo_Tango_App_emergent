@@ -2,14 +2,10 @@ import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { initializeLeaflet } from '@/utils/leafletConfig';
 
-// Fix for default markers not showing
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-});
+// ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
+initializeLeaflet();
 
 interface MapCity {
   id: string | number;
@@ -46,23 +42,30 @@ function MapUpdater({ selectedCity }: { selectedCity?: MapCity | null }) {
 }
 
 export default function LeafletMap({ cities, onCityClick, selectedCity }: LeafletMapProps) {
-  // Create custom icons based on member count
+  // ESA LIFE CEO 61x21 - MT Ocean Theme gradient markers based on member count
   const getMarkerIcon = (memberCount: number) => {
     const size = Math.min(40, 20 + memberCount / 5);
-    const color = memberCount > 100 ? '#FF1744' : 
-                  memberCount > 50 ? '#F50057' : 
-                  memberCount > 20 ? '#E91E63' : '#9C27B0';
+    
+    // MT Ocean Theme color gradient (turquoise to cyan to purple)
+    const getGradientColor = (count: number) => {
+      if (count >= 500) return 'linear-gradient(135deg, #FF1744 0%, #F50057 100%)'; // Red for 500+
+      if (count >= 200) return 'linear-gradient(135deg, #F50057 0%, #E91E63 100%)'; // Pink for 200-500
+      if (count >= 100) return 'linear-gradient(135deg, #E91E63 0%, #9C27B0 100%)'; // Purple for 100-200
+      if (count >= 50) return 'linear-gradient(135deg, #9C27B0 0%, #38B2AC 100%)'; // Purple to turquoise 50-100
+      return 'linear-gradient(135deg, #38B2AC 0%, #06B6D4 100%)'; // Turquoise to cyan <50
+    };
     
     return L.divIcon({
-      className: 'custom-marker',
+      className: 'mt-ocean-city-marker',
       html: `
         <div style="
-          background-color: ${color};
+          background: ${getGradientColor(memberCount)};
           width: ${size}px;
           height: ${size}px;
           border-radius: 50%;
           border: 3px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          transition: all 0.3s ease;
         "></div>
       `,
       iconSize: [size, size],
