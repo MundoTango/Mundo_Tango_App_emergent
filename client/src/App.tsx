@@ -199,18 +199,20 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <CsrfProvider>
-          <TenantProvider>
-            <OpenReplayProvider>
-              <MonitoringProvider>
-                <TrialBanner />
-                <SessionRecordingNotice />
-                <Router />
-                <Toaster />
-              </MonitoringProvider>
-            </OpenReplayProvider>
-          </TenantProvider>
-        </CsrfProvider>
+        <ThemeProvider>
+          <CsrfProvider>
+            <TenantProvider>
+              <OpenReplayProvider>
+                <MonitoringProvider>
+                  <TrialBanner />
+                  <SessionRecordingNotice />
+                  <Router />
+                  <Toaster />
+                </MonitoringProvider>
+              </OpenReplayProvider>
+            </TenantProvider>
+          </CsrfProvider>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
