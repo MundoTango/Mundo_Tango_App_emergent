@@ -73,9 +73,9 @@
 #### 🎮 Master Control (Layers 57-61)
 57. [Automation Management Agent](./layer-57-automation-management.md) - Master orchestrator
 58. [Third-Party Integration Agent](./layer-58-third-party-integration.md) - External services
-59. [Open Source Management Agent](./layer-59-open-source-management.md) - Dependencies
-60. [GitHub Expertise Agent](./layer-60-github-expertise.md) - Version control
-61. [Supabase Expertise Agent](./layer-61-supabase-expertise.md) - BaaS platform
+59. [**Open Source Management Agent**](./layer-59-open-source-management.md) ✅ **NEW** - Dependency lifecycle, licenses, updates
+60. [**Multi-Agent Frameworks Agent**](./layer-60-multi-agent-frameworks.md) ✅ **NEW** - LangGraph, Ray, parallel execution
+61. [Quality & Compliance Agent](./layer-61-quality-compliance.md) - Testing, standards
 
 ---
 
@@ -83,9 +83,9 @@
 
 | Status | Count | Layers |
 |--------|-------|--------|
-| ✅ Complete | 2 | Layer 24 (Social Features), Layer 53 (Internationalization) |
+| ✅ Complete | 4 | Layer 24 (Social Features), Layer 53 (i18n), Layer 59 (Open Source), Layer 60 (Multi-Agent) |
 | 🚧 In Progress | 1 | Layer 9 (UI Framework - MT Ocean Theme Refactor) |
-| 📋 Planned | 58 | Layers 1-8, 10-23, 25-52, 54-61 |
+| 📋 Planned | 56 | Layers 1-8, 10-23, 25-52, 54-58, 61 |
 
 ## Quick Links
 
@@ -129,6 +129,31 @@
 - **Coverage**: 100% UI translation
 - **Performance**: <100ms language switch
 - **Special Features**: Lunfardo support for Argentine Spanish
+
+### Layer 59: Open Source Management Agent ✅
+- **Completed**: October 5, 2025
+- **Key Achievement**: Complete open source dependency lifecycle documentation
+- **Coverage**: All 61 ESA layers mapped to 312+ npm packages
+- **Features**:
+  - Security scanning workflows (Snyk, npm audit)
+  - License compliance (MIT, Apache 2.0, BSD tracking)
+  - Monthly audit process with testing & deployment
+  - Bundle optimization strategies
+  - Version pinning guidelines
+- **Documentation**: Comprehensive dependency management, update strategy, conflict resolution
+
+### Layer 60: Multi-Agent Frameworks Agent ✅
+- **Completed**: October 5, 2025
+- **Key Achievement**: Research & architecture for parallel ESA 61x21 agent execution
+- **Frameworks Evaluated**: LangGraph, Ray, Microsoft Agent Framework, CrewAI, BullMQ
+- **Protocols Documented**: A2A (Agent-to-Agent), MCP (Model Context Protocol), ACP, ANP
+- **Integration Patterns**: BullMQ + LangGraph hybrid, Worker threads, Redis coordination
+- **Implementation Paths**:
+  - Option A: BullMQ + LangGraph (2-3 hours, MVP)
+  - Option B: Microsoft Agent Framework (15-20 hours, production)
+  - Option C: Ray integration (20-30 hours, massive scale)
+- **Agent Architecture**: 8-12 specialized agents covering all 61 ESA layers
+- **Status**: Documentation complete, implementation pending user decision
 
 ---
 
