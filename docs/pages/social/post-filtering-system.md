@@ -1,13 +1,17 @@
 # Post Filtering System - ESA 61x21 Implementation
 
-**Status**: ✅ Production Ready  
+**Status**: ⚠️ Temporarily Disabled (Coming Soon Overlay Active)  
 **Last Updated**: October 5, 2025  
 **ESA Layers**: 2, 5, 9  
 **Framework**: ESA LIFE CEO 61x21
 
+> **⚠️ IMPORTANT**: This feature has been disabled with a "Coming Soon" overlay due to critical frontend stability issues. See [Cancellation Analysis](../canceled-features/post-filtering.md) for full technical details.
+
 ## Overview
 
 The Post Filtering System enables users to filter their Memories feed by relationship type, showing posts from specific groups of people based on their residency status and friendship connections. This system implements a critical UX feature for community-driven social platforms.
+
+**Current State**: Backend fully functional, frontend disabled due to React rendering issues.
 
 ## Problem Statement
 
@@ -296,11 +300,19 @@ curl "http://localhost:5000/api/posts/feed?limit=10&filter=friends"
 
 ## Implementation History
 
-- **October 5, 2025**: Filter system restored and documented
+- **October 5, 2025 (Morning)**: Filter system restored and documented
   - Fixed broken filter parameter handling
   - Implemented relationship-based filtering logic
   - Added comprehensive logging and error handling
   - Validated all four filter types working correctly
+
+- **October 5, 2025 (Afternoon)**: Filter system disabled
+  - Discovered critical frontend rendering issues
+  - Posts disappearing after filter clicks
+  - Context reference instability causing infinite re-renders
+  - Multiple fix attempts unsuccessful
+  - Added "Coming Soon" overlay to filter buttons
+  - Full analysis documented in [canceled-features/post-filtering.md](../canceled-features/post-filtering.md)
 
 ## ESA 61x21 Compliance
 
@@ -308,7 +320,9 @@ This implementation follows ESA LIFE CEO 61x21 framework principles:
 
 - ✅ **Layer 2 (API)**: Clean REST endpoint with typed parameters
 - ✅ **Layer 5 (Storage)**: Efficient database queries with proper indexes
-- ✅ **Layer 9 (Frontend)**: Type-safe React components with clear props
+- ❌ **Layer 9 (Frontend)**: Type-safe React components - **FAILED** (disabled due to rendering issues)
 - ✅ **Performance**: All queries under 200ms target
 - ✅ **Security**: Respects visibility and privacy rules
-- ✅ **Maintainability**: Well-documented with clear separation of concerns
+- ⚠️ **Maintainability**: Backend well-documented, frontend needs refactoring
+
+**Overall Status**: Backend production-ready, frontend requires architectural refactor before re-enablement.
