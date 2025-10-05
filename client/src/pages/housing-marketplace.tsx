@@ -91,8 +91,8 @@ export default function HousingMarketplace() {
   // Fetch listings from API
   const { data: listingsData, isLoading } = useQuery<{ data: HousingListing[] }>({
     queryKey: ['/api/host-homes', { 
-      minPrice: priceRange.min * 100, // Convert to cents
-      maxPrice: priceRange.max * 100,
+      minPrice: priceRange.min, // Already in dollars
+      maxPrice: priceRange.max,
       roomType: selectedType !== 'all' ? selectedType : '',
       minGuests: guestCount
     }]
@@ -467,7 +467,7 @@ export default function HousingMarketplace() {
           ) : (
             filteredListings.map(listing => {
               const location = `${listing.city}, ${listing.state ? listing.state + ', ' : ''}${listing.country}`;
-              const priceUSD = listing.pricePerNight / 100; // Convert from cents
+              const priceUSD = listing.pricePerNight; // Already in dollars from API
               const primaryPhoto = listing.photos?.find(p => p.displayOrder === 0) || listing.photos?.[0];
               
               return (
