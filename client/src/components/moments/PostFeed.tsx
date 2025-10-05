@@ -132,6 +132,9 @@ const PostFeed = memo(({
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
+  // ESA Layer 9: Track initial mount to prevent premature filter resets
+  const isInitialMount = useRef(true);
+  
   // ESA Debug: Log authenticated user
   useEffect(() => {
     console.log('[Framework] User authenticated from context, ID:', user?.id);
@@ -276,7 +279,12 @@ const PostFeed = memo(({
 
   // ESA Framework: Handle pagination for context mode
   useEffect(() => {
-    if (!context || !fetchedResponse?.posts) return;
+    if (!context || !fetchedResponse?.posts) {
+      console.log('[DEBUG] Skipping posts update:', { hasContext: !!context, hasFetchedResponse: !!fetchedResponse, hasPostsInResponse: !!fetchedResponse?.posts });
+      return;
+    }
+    
+    console.log('[DEBUG] Setting allPosts:', { page, postsCount: fetchedResponse.posts.length, currentAllPosts: allPosts.length });
     
     if (page === 1) {
       setAllPosts(fetchedResponse.posts);
@@ -299,16 +307,34 @@ const PostFeed = memo(({
 
   // ESA Framework: Reset pagination when filters or search change
   useEffect(() => {
+    // ESA Layer 9: Skip on initial mount to prevent clearing posts before they're fetched
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      console.log('[DEBUG] ✅ Initial mount - skipping filter reset');
+      return;
+    }
+    
     if (context) {
-      console.log('[Framework] Filters/search changed - resetting pagination');
+      console.log('[DEBUG] ⚠️ CLEARING POSTS - Filters changed:', { 
+        filterType: activeFilters.filterType, 
+        tagsCount: activeFilters.tags.length,
+        currentPostsCount: allPosts.length 
+      });
       setPage(1);
       setAllPosts([]);
       setInternalHasMore(true);
     }
-  }, [activeFilters.filterType, activeFilters.tags, activeFilters.visibility, activeFilters.startDate, activeFilters.endDate, debouncedSearch, context]);
+  }, [activeFilters.filterType, activeFilters.tags.join(','), activeFilters.visibility, activeFilters.startDate, activeFilters.endDate, debouncedSearch]);
 
   // ESA Framework: Use provided posts (controlled) or fetched posts (smart mode)
   const posts = useMemo(() => {
+    console.log('[DEBUG] Computing posts:', { 
+      hasPropsPost: !!propsPosts, 
+      hasContext: !!context, 
+      allPostsCount: allPosts.length,
+      fetchedResponseCount: fetchedResponse?.posts?.length || 0
+    });
+    
     if (propsPosts) {
       // Controlled mode: Use provided posts
       return propsPosts;
@@ -374,11 +400,15 @@ const PostFeed = memo(({
 
   // Filter posts locally if search is active without filters
   const filteredPosts = useMemo(() => {
+    console.log('[DEBUG] Computing filteredPosts:', { postsCount: posts.length, hasSearch: !!debouncedSearch, showFilters });
+    
     if (!showFilters && debouncedSearch) {
-      return posts.filter((post: Post) => 
+      const filtered = posts.filter((post: Post) => 
         post.content.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
         post.user?.name?.toLowerCase().includes(debouncedSearch.toLowerCase())
       );
+      console.log('[DEBUG] Filtered to', filtered.length, 'posts');
+      return filtered;
     }
     return posts;
   }, [posts, debouncedSearch, showFilters]);
