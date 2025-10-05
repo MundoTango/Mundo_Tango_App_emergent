@@ -314,14 +314,26 @@ const requireAuth = async (req: any, res: any, next: any) => {
  */
 router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: any, res) => {
   try {
+    console.log('🔵 [ESA DEBUG Layer 2] POST /api/posts - Request received');
+    
     // Use userId from requireAuth middleware
     const userId = req.userId || await getUserId(req);
     if (!userId) {
+      console.log('❌ [ESA DEBUG Layer 2] No userId found');
       return res.status(401).json({
         success: false,
         message: 'Authentication required'
       });
     }
+    console.log('✅ [ESA DEBUG Layer 2] userId:', userId);
+    
+    // ESA DEBUG: Log what Multer received
+    console.log('📦 [ESA DEBUG Layer 2] Multer parsed data:');
+    console.log('  - req.body keys:', Object.keys(req.body));
+    console.log('  - req.body.content:', req.body.content);
+    console.log('  - req.body.visibility:', req.body.visibility);
+    console.log('  - req.files:', req.files ? `${req.files.length} files` : 'none');
+    console.log('  - req.file:', req.file ? 'single file' : 'none');
     
     // Handle file uploads if present
     const mediaUrls: string[] = [];
@@ -329,7 +341,9 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     let videoUrl: string | null = null;
     
     if (req.files && Array.isArray(req.files)) {
+      console.log('📸 [ESA DEBUG Layer 2] Processing', req.files.length, 'uploaded files');
       for (const file of req.files) {
+        console.log('  - File:', file.filename, 'size:', file.size, 'mimetype:', file.mimetype);
         // Generate relative URL for the uploaded file
         const relativeUrl = `/uploads/posts/${userId}/${file.filename}`;
         mediaUrls.push(relativeUrl);
@@ -342,6 +356,7 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
           videoUrl = relativeUrl;
         }
       }
+      console.log('✅ [ESA DEBUG Layer 2] Media URLs generated:', mediaUrls);
     }
     
     // Handle single file upload from 'image' field for backward compatibility
@@ -349,6 +364,7 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       const relativeUrl = `/uploads/posts/${userId}/${req.file.filename}`;
       mediaUrls.push(relativeUrl);
       imageUrl = relativeUrl;
+      console.log('📸 [ESA DEBUG Layer 2] Single file uploaded:', req.file.filename);
     }
     
     // ESA Layer 16: Extract and validate mentions from content
@@ -359,16 +375,11 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     const validMentions = mentions.length > 0 ? 
       await storage.validateUserIds(mentions) : [];
     
-    console.log('🔍 [Backend postsRoutes] Received content:', req.body.content);
-    console.log('🔍 [Backend postsRoutes] Received visibility:', req.body.visibility);
-    console.log('🔍 [Backend postsRoutes] Received req.body:', JSON.stringify(req.body));
-    
     // Handle visibility field from frontend (public/friends/private)
     const visibility = req.body.visibility || 'public';
     
     // Calculate isPublic based on visibility
     const calculatedIsPublic = (visibility === 'public');
-    console.log('🔍 [Backend postsRoutes] visibility:', visibility, 'calculatedIsPublic:', calculatedIsPublic);
     
     // Parse tags from JSON string if needed
     let parsedTags: string[] = [];
@@ -399,9 +410,21 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       sharesCount: 0
     };
     
-    console.log('📝 [Backend postsRoutes] Creating post:', JSON.stringify(postData, null, 2));
+    console.log('💾 [ESA DEBUG Layer 8] Calling storage.createPost with data:');
+    console.log('  - content length:', postData.content?.length || 0);
+    console.log('  - userId:', postData.userId);
+    console.log('  - imageUrl:', postData.imageUrl);
+    console.log('  - visibility:', postData.visibility);
+    console.log('  - isPublic:', postData.isPublic);
+    console.log('  - Full postData:', JSON.stringify(postData, null, 2));
+    
     const newPost = await storage.createPost(postData);
-    console.log('✅ [Backend postsRoutes] Post created successfully, ID:', newPost.id, 'isPublic:', newPost.isPublic);
+    
+    console.log('✅ [ESA DEBUG Layer 8] storage.createPost returned:');
+    console.log('  - Post ID:', newPost.id);
+    console.log('  - Post isPublic:', newPost.isPublic);
+    console.log('  - Post visibility:', newPost.visibility);
+    console.log('  - Full newPost:', JSON.stringify(newPost, null, 2));
     
     // ESA Layer 16: Create mention notifications for tagged users
     if (validMentions.length > 0) {
@@ -415,16 +438,18 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       
       if (notificationData.length > 0) {
         await storage.batchCreateMentionNotifications(notificationData);
-        console.log(`📢 Created ${notificationData.length} mention notifications for post ${newPost.id}`);
+        console.log(`📢 [ESA DEBUG Layer 8] Created ${notificationData.length} mention notifications for post ${newPost.id}`);
       }
     }
     
+    console.log('📤 [ESA DEBUG Layer 2] Sending success response with post ID:', newPost.id);
     res.json({
       success: true,
       data: newPost
     });
   } catch (error: any) {
-    console.error('Error creating post:', error);
+    console.error('❌ [ESA DEBUG Layer 20] Error creating post:', error);
+    console.error('❌ [ESA DEBUG Layer 20] Error stack:', error.stack);
     res.status(500).json({
       success: false,
       message: 'Failed to create post',
