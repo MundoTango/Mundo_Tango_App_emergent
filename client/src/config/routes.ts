@@ -429,6 +429,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Subscription analytics'
   },
   {
+    path: '/admin/agent-metrics',
+    component: lazy(() => import('@/pages/admin/AgentMetrics')),
+    mode: 'production',
+    loadingMessage: 'Loading agent monitoring dashboard...',
+    description: 'ESA 61x21 Multi-Agent System monitoring and analytics'
+  },
+  {
     path: '/analytics',
     component: lazy(() => import('@/pages/AnalyticsDashboard')),
     mode: 'production',

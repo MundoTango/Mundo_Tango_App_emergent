@@ -15,6 +15,7 @@ import {
   MasterControl
 } from './specialized-agents';
 import knowledgeGraph from '../esa-master-knowledge-graph.json';
+import { metricsCollector } from './metrics-collector';
 
 // Create Express router
 export const agentRouter = Router();
@@ -342,6 +343,149 @@ agentRouter.post('/pattern/check', (req: Request, res: Response) => {
     res.status(500).json({ error: 'Anti-pattern check failed' });
   }
 });
+
+/**
+ * Metrics and Monitoring Endpoints
+ */
+
+// Get metrics in Prometheus format
+agentRouter.get('/metrics', async (req: Request, res: Response) => {
+  try {
+    const metrics = await metricsCollector.getPrometheusMetrics();
+    
+    // Track the metrics request
+    metricsCollector.trackRequest('system', 'metrics_fetch', true, 0);
+    
+    res.set('Content-Type', 'text/plain; version=0.0.4');
+    res.send(metrics);
+  } catch (error) {
+    metricsCollector.trackError('system', 'metrics_fetch_error', 'high', (error as Error).message);
+    res.status(500).json({ error: 'Failed to fetch metrics' });
+  }
+});
+
+// Health check endpoint with detailed status
+agentRouter.get('/health', async (req: Request, res: Response) => {
+  try {
+    const health = await agentSystem.healthCheck();
+    const metrics = agentSystem.getMetrics();
+    const errorLog = metricsCollector.getErrorLog(10);
+    
+    // Determine overall health status
+    const isHealthy = health.status === 'healthy';
+    const statusCode = isHealthy ? 200 : 503;
+    
+    // Get agent-specific health details
+    const agentDetails = [];
+    for (const [agentId, status] of Object.entries(health.agents)) {
+      const domain = Object.values(knowledgeGraph.esa_knowledge_graph.agent_domains)
+        .find(d => d.id === agentId);
+      
+      agentDetails.push({
+        id: agentId,
+        name: domain?.name || 'Unknown',
+        status,
+        layers: domain?.layers || [],
+        healthy: status === 'healthy'
+      });
+    }
+    
+    res.status(statusCode).json({
+      status: health.status,
+      timestamp: Date.now(),
+      uptime: process.uptime(),
+      agents: agentDetails,
+      system: {
+        memory: process.memoryUsage(),
+        cpu: process.cpuUsage(),
+        nodeVersion: process.version
+      },
+      metrics: {
+        totalJobs: metrics.totalJobs,
+        completedJobs: metrics.completedJobs,
+        failedJobs: metrics.failedJobs,
+        averageProcessingTime: metrics.averageProcessingTime || 0
+      },
+      recentErrors: errorLog,
+      checks: {
+        database: health.status !== 'unhealthy',
+        agents: Object.values(health.agents).filter(s => s === 'healthy').length,
+        totalAgents: Object.keys(health.agents).length
+      }
+    });
+  } catch (error) {
+    metricsCollector.trackError('system', 'health_check_error', 'critical', (error as Error).message);
+    res.status(503).json({ 
+      status: 'unhealthy',
+      error: 'Health check failed',
+      details: (error as Error).message
+    });
+  }
+});
+
+// Analytics endpoint
+agentRouter.get('/analytics', async (req: Request, res: Response) => {
+  try {
+    // Get time range from query params
+    const { from, to, agentId } = req.query;
+    
+    // Fetch analytics data
+    const analytics = await metricsCollector.getAnalytics();
+    
+    // Track successful analytics request
+    metricsCollector.trackRequest('system', 'analytics_fetch', true, 0);
+    
+    // Add additional analytics
+    const agentAnalytics = {
+      ...analytics,
+      timeRange: {
+        from: from || Date.now() - 3600000, // Default to last hour
+        to: to || Date.now()
+      },
+      agents: analytics.agentPerformance,
+      patterns: analytics.topPatterns,
+      errors: analytics.recentErrors,
+      tokenUsage: await getTokenUsageAnalytics(),
+      queueDepth: await getQueueAnalytics()
+    };
+    
+    // Filter by agent if specified
+    if (agentId) {
+      agentAnalytics.agents = agentAnalytics.agents.filter(
+        (a: any) => a.id === agentId
+      );
+    }
+    
+    res.json(agentAnalytics);
+  } catch (error) {
+    metricsCollector.trackError('system', 'analytics_fetch_error', 'medium', (error as Error).message);
+    res.status(500).json({ error: 'Failed to fetch analytics' });
+  }
+});
+
+// Helper functions for analytics
+async function getTokenUsageAnalytics() {
+  // This would fetch from the metrics registry
+  return {
+    totalTokens: 0,
+    promptTokens: 0,
+    completionTokens: 0,
+    costEstimate: 0,
+    byModel: {},
+    byAgent: {}
+  };
+}
+
+async function getQueueAnalytics() {
+  const metrics = agentSystem.getMetrics();
+  return {
+    totalQueues: 9,
+    activeJobs: metrics.queueStats?.activeJobs || 0,
+    waitingJobs: metrics.queueStats?.waitingJobs || 0,
+    completedJobs: metrics.completedJobs || 0,
+    failedJobs: metrics.failedJobs || 0
+  };
+}
 
 /**
  * WebSocket Integration for Real-time Updates
