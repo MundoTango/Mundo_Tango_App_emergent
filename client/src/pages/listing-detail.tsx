@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '../lib/queryClient';
+import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 import { 
   ArrowLeft, 
   MapPin, 
@@ -50,6 +56,12 @@ import { ReviewList } from '../components/reviews/ReviewList';
 import HouseRulesDisplay from '../components/housing/HouseRulesDisplay';
 import { ConnectionInfoCard } from '../components/housing/ConnectionInfoCard';
 import type { HostReview } from '@shared/schema';
+
+// Aurora Tide Components
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { FadeIn, ScaleIn, SlideIn } from '@/components/animations/FramerMotionWrappers';
+import { MagneticButton, RippleButton, PulseButton } from '@/components/interactions/MicroInteractions';
+import { AuroraVariants } from '@/utils/gsapAnimations';
 
 interface HostHome {
   id: number;
@@ -100,6 +112,11 @@ export default function ListingDetail() {
   const { user } = useAuth();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
+  
+  // Aurora Tide - GSAP Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   
   // Booking modal state
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -340,6 +357,51 @@ export default function ListingDetail() {
     });
   };
 
+  // Aurora Tide - GSAP Scroll Reveal Animations
+  useGSAP(() => {
+    if (!listing || isLoading) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    // Hero parallax effect
+    if (heroRef.current) {
+      gsap.fromTo(heroRef.current,
+        { y: 0 },
+        {
+          y: -50,
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        }
+      );
+    }
+
+    // Section scroll reveals
+    sectionsRef.current.forEach((section, index) => {
+      if (section) {
+        gsap.fromTo(section,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+            delay: index * 0.1,
+          }
+        );
+      }
+    });
+  }, { scope: containerRef, dependencies: [listing, isLoading] });
+
   if (isLoading) {
     return (
       <DashboardLayout>
@@ -391,21 +453,23 @@ export default function ListingDetail() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50" data-testid="page-listing-detail">
+      <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800" data-testid="page-listing-detail">
       <div className="max-w-7xl mx-auto p-6">
-        {/* Back Button */}
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/housing-marketplace')}
-          className="mb-4"
-          data-testid="button-back-to-marketplace"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Marketplace
-        </Button>
+        {/* Back Button - Aurora Tide */}
+        <FadeIn>
+          <MagneticButton
+            strength={0.2}
+            onClick={() => navigate('/housing-marketplace')}
+            className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 mb-4 px-4 py-2 rounded-md flex items-center gap-2"
+            data-testid="button-back-to-marketplace"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Marketplace
+          </MagneticButton>
+        </FadeIn>
 
-        {/* Media Gallery */}
-        <div className="mb-6" data-testid="section-photo-gallery">
+        {/* Media Gallery - Aurora Tide Hero */}
+        <div ref={heroRef} className="mb-6 relative" data-testid="section-photo-gallery">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
             {/* Main Media Display */}
             <div className="md:col-span-3 h-96 md:h-[500px]">
@@ -487,50 +551,50 @@ export default function ListingDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Details */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Header */}
-            <Card data-testid="section-property-header">
+            {/* Header - Aurora Tide */}
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-property-header" ref={(el) => sectionsRef.current[0] = el}>
               <CardContent className="pt-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h1 className="text-3xl font-bold mb-2" data-testid="text-listing-title">
+                    <h1 className="text-3xl font-bold mb-2 text-brand-gradient" data-testid="text-listing-title">
                       {home.title}
                     </h1>
-                    <div className="flex items-center text-gray-600 mb-2">
+                    <div className="flex items-center text-slate-600 dark:text-slate-400 mb-2">
                       <MapPin className="h-4 w-4 mr-1" />
                       <span data-testid="text-location">{home.city}, {home.country}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-indigo-100 text-indigo-800">
+                      <Badge className="glass-card glass-depth-1 border-cyan-200/30 text-cyan-700 dark:text-cyan-300">
                         <Users className="h-3 w-3 mr-1" />
                         Up to {home.maxGuests} guests
                       </Badge>
-                      <Badge variant="outline">
+                      <Badge className="glass-card glass-depth-1 border-yellow-200/30">
                         <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
                         4.8 (12 reviews)
                       </Badge>
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="icon"
+                    <MagneticButton 
+                      strength={0.2}
                       onClick={handleShare}
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 rounded-md"
                       data-testid="button-share"
                     >
                       <Share2 className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="icon"
+                    </MagneticButton>
+                    <MagneticButton 
+                      strength={0.2}
                       onClick={handleFavorite}
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 rounded-md"
                       data-testid="button-favorite"
                     >
-                      <Heart className={`h-4 w-4 ${isFavorited ? 'fill-red-500 text-red-500' : ''}`} />
-                    </Button>
+                      <Heart className={`h-4 w-4 ${isFavorited ? 'fill-rose-500 text-rose-500' : ''}`} />
+                    </MagneticButton>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 text-gray-700 border-t pt-4">
+                <div className="flex items-center gap-6 text-slate-700 dark:text-slate-300 border-t border-slate-200/50 dark:border-slate-700/50 pt-4">
                   <div className="flex items-center">
                     <Home className="h-5 w-5 mr-2 text-gray-500" />
                     <span>Entire place</span>
@@ -549,22 +613,22 @@ export default function ListingDetail() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </GlassCard>
 
-            {/* Description */}
-            <Card data-testid="section-description">
+            {/* Description - Aurora Tide */}
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-description" ref={(el) => sectionsRef.current[1] = el}>
               <CardContent className="pt-6">
-                <h2 className="text-2xl font-bold mb-4">About this space</h2>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line" data-testid="text-description">
+                <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">About this space</h2>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line" data-testid="text-description">
                   {home.description}
                 </p>
               </CardContent>
-            </Card>
+            </GlassCard>
 
-            {/* Amenities */}
-            <Card data-testid="section-amenities">
+            {/* Amenities - Aurora Tide */}
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-amenities" ref={(el) => sectionsRef.current[2] = el}>
               <CardContent className="pt-6">
-                <h2 className="text-2xl font-bold mb-4">What this place offers</h2>
+                <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">What this place offers</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {home.amenities && home.amenities.length > 0 ? (
                     home.amenities.map((amenity, idx) => {
@@ -572,20 +636,20 @@ export default function ListingDetail() {
                       return (
                         <div 
                           key={idx} 
-                          className="flex items-center text-gray-700"
+                          className="flex items-center text-slate-700 dark:text-slate-300"
                           data-testid={`amenity-${amenity.toLowerCase().replace(/\s+/g, '-')}`}
                         >
-                          <Icon className="h-5 w-5 mr-3 text-gray-500" />
+                          <Icon className="h-5 w-5 mr-3 text-cyan-600 dark:text-cyan-400" />
                           <span>{amenity}</span>
                         </div>
                       );
                     })
                   ) : (
-                    <p className="text-gray-500">No amenities listed</p>
+                    <p className="text-slate-500 dark:text-slate-400">No amenities listed</p>
                   )}
                 </div>
               </CardContent>
-            </Card>
+            </GlassCard>
 
             {/* Connection Info */}
             {user && user.id !== home.hostId && connectionData && (
@@ -649,55 +713,58 @@ export default function ListingDetail() {
             </Card>
           </div>
 
-          {/* Right Column - Booking Card (Sticky) */}
+          {/* Right Column - Booking Card (Sticky) - Aurora Tide */}
           <div className="lg:sticky lg:top-6 h-fit">
-            <Card className="shadow-lg" data-testid="card-booking">
-              <CardContent className="pt-6">
-                <div className="mb-6">
-                  {/* TODO: PAYMENT PREP - Stripe integration 
-                      Display pricing and payment info here */}
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
-                    <span className="font-semibold">4.8</span>
-                    <span className="mx-1">·</span>
-                    <span>12 reviews</span>
+            <ScaleIn delay={0.3}>
+              <GlassCard depth={3} className="shadow-aurora border border-cyan-200/30 dark:border-cyan-500/30" data-testid="card-booking">
+                <CardContent className="pt-6">
+                  <div className="mb-6">
+                    {/* TODO: PAYMENT PREP - Stripe integration 
+                        Display pricing and payment info here */}
+                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+                      <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
+                      <span className="font-semibold">4.8</span>
+                      <span className="mx-1">·</span>
+                      <span>12 reviews</span>
+                    </div>
+                    <p className="text-sm text-cyan-700 dark:text-cyan-400 mt-2 font-medium">
+                      Connection-based hosting • Free for community members
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Connection-based hosting • Free for community members
+
+                  {/* Booking Form Placeholder */}
+                  <div className="space-y-4 mb-6">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">CHECK-IN</label>
+                        <div className="text-sm text-slate-700 dark:text-slate-300">Add date</div>
+                      </div>
+                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">CHECKOUT</label>
+                        <div className="text-sm text-slate-700 dark:text-slate-300">Add date</div>
+                      </div>
+                    </div>
+                    <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">GUESTS</label>
+                      <div className="text-sm text-slate-700 dark:text-slate-300">1 guest</div>
+                    </div>
+                  </div>
+
+                  <PulseButton 
+                    className="w-full aurora-gradient text-white font-semibold py-6 text-lg rounded-lg hover:shadow-aurora transition-all"
+                    onClick={handleRequestToBook}
+                    pulseColor="rgba(6, 182, 212, 0.6)"
+                    data-testid="button-request-to-book"
+                  >
+                    Request to Stay
+                  </PulseButton>
+
+                  <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+                    Subject to host approval based on your connection
                   </p>
-                </div>
-
-                {/* Booking Form Placeholder */}
-                <div className="space-y-4 mb-6">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="border rounded-lg p-3">
-                      <label className="text-xs font-semibold text-gray-600">CHECK-IN</label>
-                      <div className="text-sm">Add date</div>
-                    </div>
-                    <div className="border rounded-lg p-3">
-                      <label className="text-xs font-semibold text-gray-600">CHECKOUT</label>
-                      <div className="text-sm">Add date</div>
-                    </div>
-                  </div>
-                  <div className="border rounded-lg p-3">
-                    <label className="text-xs font-semibold text-gray-600">GUESTS</label>
-                    <div className="text-sm">1 guest</div>
-                  </div>
-                </div>
-
-                <Button 
-                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-6 text-lg hover:from-indigo-700 hover:to-purple-700 transition"
-                  onClick={handleRequestToBook}
-                  data-testid="button-request-to-book"
-                >
-                  Request to Stay
-                </Button>
-
-                <p className="text-center text-sm text-gray-500 mt-4">
-                  Subject to host approval based on your connection
-                </p>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </GlassCard>
+            </ScaleIn>
 
             {/* Host Card */}
             <Card className="mt-6" data-testid="card-host">
