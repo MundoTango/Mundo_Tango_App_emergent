@@ -10,6 +10,7 @@
  */
 
 import { lazy, ComponentType } from 'react';
+import GroupDetailPageMT from '@/pages/GroupDetailPageMT';
 
 /**
  * Route mode classification
@@ -253,7 +254,7 @@ export const productionRoutes: RouteConfig[] = [
   },
   {
     path: '/groups/:slug',
-    component: lazy(() => import('@/pages/GroupDetailPageMT')),
+    component: GroupDetailPageMT,
     mode: 'production',
     loadingMessage: 'Loading group...',
     description: 'Group detail page'
