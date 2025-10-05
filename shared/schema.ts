@@ -585,6 +585,9 @@ export const posts = pgTable("posts", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id).notNull(),
   eventId: integer("event_id").references(() => events.id), // Optional event association
+  // ESA Layer 8: Context-aware posting - track which group/event a post belongs to
+  contextType: varchar("context_type", { length: 20 }), // 'group', 'event', 'community', null
+  contextId: integer("context_id"), // ID of the group/event/community
   content: text("content").notNull(),
   richContent: jsonb("rich_content"), // Rich text editor content
   plainText: text("plain_text"), // Extracted plain text for search
@@ -615,6 +618,8 @@ export const posts = pgTable("posts", {
   index("idx_posts_hashtags").on(table.hashtags),
   index("idx_posts_post_type").on(table.postType),
   index("idx_posts_mentions").on(table.mentions),
+  // ESA Layer 8: Context filtering index for group/event feeds
+  index("idx_posts_context").on(table.contextType, table.contextId),
 ]);
 
 // ESA Layer 16: Mention Notifications table for @mention functionality
