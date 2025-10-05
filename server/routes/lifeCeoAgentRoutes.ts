@@ -20,6 +20,60 @@ router.get('/agents', (req, res) => {
 });
 
 /**
+ * Test endpoint for Life CEO agents (dev mode)
+ */
+router.post('/test/:agentId', async (req, res) => {
+  try {
+    const { agentId } = req.params;
+    const { message } = req.body;
+    
+    // In development mode, use a test user ID
+    const userId = process.env.NODE_ENV === 'development' ? 7 : null;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Test endpoint only available in development' });
+    }
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ success: false, error: 'Message is required' });
+    }
+
+    if (!AGENT_REGISTRY[agentId as keyof typeof AGENT_REGISTRY]) {
+      return res.status(404).json({ success: false, error: 'Agent not found' });
+    }
+
+    // Get conversation history
+    const conversationHistory = await agentOrchestrator.getConversationHistory(userId, agentId);
+
+    // Build context
+    const context = {
+      userId,
+      agentId,
+      conversationHistory
+    };
+
+    // Process message through OpenAI
+    const response = await agentOrchestrator.processMessage(context, message);
+
+    res.json({
+      success: true,
+      data: {
+        message: response,
+        agentId,
+        agent: AGENT_REGISTRY[agentId as keyof typeof AGENT_REGISTRY].name,
+        timestamp: new Date()
+      }
+    });
+  } catch (error: any) {
+    console.error('Error in Life CEO test endpoint:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to process message'
+    });
+  }
+});
+
+/**
  * Send a message to an agent
  */
 router.post('/agents/:agentId/message', requireAuth, async (req, res) => {
