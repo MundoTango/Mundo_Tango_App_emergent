@@ -2415,24 +2415,53 @@ export const dailyActivities = pgTable("daily_activities", {
   index("idx_daily_activities_project_id").on(table.project_id),
 ]);
 
-// Host reviews for marketplace
+// Host reviews for marketplace (guests review hosts/properties)
 export const hostReviews = pgTable("host_reviews", {
   id: uuid("id").primaryKey().defaultRandom(),
+  booking_id: integer("booking_id").references(() => guestBookings.id).notNull(),
   home_id: integer("home_id").references(() => hostHomes.id).notNull(),
   reviewer_id: integer("reviewer_id").references(() => users.id).notNull(),
-  rating: integer("rating").notNull(), // 1-5 stars
+  host_id: integer("host_id").references(() => users.id).notNull(),
+  rating: integer("rating").notNull(), // 1-5 stars overall
   review_text: text("review_text"),
   cleanliness_rating: integer("cleanliness_rating"),
   communication_rating: integer("communication_rating"),
+  accuracy_rating: integer("accuracy_rating"),
   location_rating: integer("location_rating"),
   value_rating: integer("value_rating"),
+  photos: text("photos").array().default(sql`ARRAY[]::text[]`), // Review photos
   host_response: text("host_response"),
   host_response_at: timestamp("host_response_at"),
+  is_verified_stay: boolean("is_verified_stay").default(true),
   created_at: timestamp("created_at").defaultNow(),
 }, (table) => [
   index("idx_host_reviews_home_id").on(table.home_id),
   index("idx_host_reviews_reviewer_id").on(table.reviewer_id),
-  unique().on(table.home_id, table.reviewer_id),
+  index("idx_host_reviews_booking_id").on(table.booking_id),
+  unique().on(table.booking_id), // One review per booking
+]);
+
+// Guest reviews (hosts review guests after their stay)
+export const guestReviews = pgTable("guest_reviews", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  booking_id: integer("booking_id").references(() => guestBookings.id).notNull(),
+  guest_id: integer("guest_id").references(() => users.id).notNull(),
+  reviewer_id: integer("reviewer_id").references(() => users.id).notNull(), // Host ID
+  rating: integer("rating").notNull(), // 1-5 stars overall
+  review_text: text("review_text"),
+  cleanliness_rating: integer("cleanliness_rating"),
+  communication_rating: integer("communication_rating"),
+  respect_rating: integer("respect_rating"), // Respect for house rules
+  would_host_again: boolean("would_host_again").default(true),
+  guest_response: text("guest_response"),
+  guest_response_at: timestamp("guest_response_at"),
+  is_verified_stay: boolean("is_verified_stay").default(true),
+  created_at: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_guest_reviews_guest_id").on(table.guest_id),
+  index("idx_guest_reviews_reviewer_id").on(table.reviewer_id),
+  index("idx_guest_reviews_booking_id").on(table.booking_id),
+  unique().on(table.booking_id), // One review per booking
 ]);
 
 // Guest profiles for personalized preferences
@@ -2465,6 +2494,15 @@ export const insertDailyActivitySchema = createInsertSchema(dailyActivities).omi
 export const insertHostReviewSchema = createInsertSchema(hostReviews).omit({
   id: true,
   created_at: true,
+  host_response: true,
+  host_response_at: true,
+});
+
+export const insertGuestReviewSchema = createInsertSchema(guestReviews).omit({
+  id: true,
+  created_at: true,
+  guest_response: true,
+  guest_response_at: true,
 });
 
 export const insertGuestProfileSchema = createInsertSchema(guestProfiles).omit({
@@ -2482,6 +2520,8 @@ export type GuestBooking = typeof guestBookings.$inferSelect;
 export type InsertGuestBooking = z.infer<typeof insertGuestBookingSchema>;
 export type HostReview = typeof hostReviews.$inferSelect;
 export type InsertHostReview = z.infer<typeof insertHostReviewSchema>;
+export type GuestReview = typeof guestReviews.$inferSelect;
+export type InsertGuestReview = z.infer<typeof insertGuestReviewSchema>;
 export type GuestProfile = typeof guestProfiles.$inferSelect;
 export type InsertGuestProfile = z.infer<typeof insertGuestProfileSchema>;
 
