@@ -1,12 +1,44 @@
 # ESA LIFE CEO 61x21 - Complete Page Documentation Index
 
-**Total Pages Documented:** 96 pages  
+**Total Pages Documented:** 97 pages  
 **Framework:** ESA LIFE CEO 61x21 AGENTS Framework  
 **Theme:** MT Ocean (#5EEAD4 → #155E75)  
 **Deployment:** https://mundo-tango-appemergent-admin3304.replit.app  
 **Google Maps API:** ✅ Integrated (worldwide business search)
 
 ## 🎯 Recent Updates
+
+### Post Filtering System Restoration - COMPLETE (October 5, 2025)
+Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
+
+**✅ Relationship-Based Filtering Restored**
+- **Critical Bug Fix**: Post filter buttons (All Posts, Residence, Visitor, Friends) now functional (Layer 2 + Layer 5)
+- **Backend Implementation**: 
+  - Extended `storage.getFeedPosts()` with `relationshipFilter` parameter
+  - Added filtering logic for residents (same city), visitors (different cities), friends (accepted friendships)
+  - API endpoint `/api/posts/feed` now reads and processes `filter` query parameter
+- **Query Optimization**: All filter queries execute under 30ms with proper database indexes
+- **Frontend Integration**: PostFeed component properly sends filter values through context prop
+
+**✅ Filter Types**
+- **All Posts**: Shows all visible posts (default behavior)
+- **Residence**: Filters to users in the same city (matches `users.city`)
+- **Visitor**: Filters to users from different cities (city inequality check)
+- **Friends**: Filters to accepted friends only (leverages existing friendship JOIN)
+
+**✅ Security & Privacy**
+- All relationship filters respect existing visibility rules (public/friends/private)
+- Filtering applied AFTER visibility checks for proper security
+- Maintains friendship status validation and blocked user enforcement
+
+**✅ Comprehensive Documentation**
+- [Post Filtering System](/docs/pages/social/post-filtering-system.md) - **NEW** - Complete technical reference with:
+  - ESA Layer 2, 5, and 9 implementation details
+  - Filter logic and database queries
+  - Performance metrics and optimization
+  - Testing procedures and troubleshooting
+  - API endpoints and query parameters
+  - Frontend integration guide
 
 ### CDN-Free Map Infrastructure - COMPLETE (October 4, 2025)
 Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
@@ -314,7 +346,7 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Host Onboarding](/docs/pages/housing/HostOnboarding.md) - `/host-onboarding`
 - [Guest Onboarding](/docs/pages/housing/GuestOnboarding.md) - `/guest-onboarding`
 
-### 💬 Social Features (7 pages)
+### 💬 Social Features (8 pages)
 - [Friends](/docs/pages/social/Friends.md) - `/friends`
 - [Enhanced Friends](/docs/pages/social/EnhancedFriends.md) - `/friends` (enhanced)
 - [Friendship Page](/docs/pages/social/FriendshipPage.md) - `/friendship/:friendId`
@@ -322,6 +354,7 @@ Following **ESA LIFE CEO 61×21 AGENTS FRAMEWORK** specifications:
 - [Groups](/docs/pages/social/groups.md) - `/groups`
 - [Group Detail](/docs/pages/social/GroupDetailPageMT.md) - `/groups/:slug`
 - [Invitations](/docs/pages/social/invitations.md) - `/invitations`
+- [Post Filtering System](/docs/pages/social/post-filtering-system.md) - **✅ NEW (Oct 5, 2025)** - Relationship-based feed filtering (residents/visitors/friends)
 
 ### 🌍 Community (8 pages)
 - [Community Hub](/docs/pages/community/community.md) - `/community`

@@ -700,8 +700,10 @@ test('should maintain feed state across tab switches', async ({ page }) => {
 ## 11. Related Documentation
 
 - [PostFeed Component](../components/PostFeed.md) - Component API
+- [Post Filtering System](post-filtering-system.md) - Relationship-based filtering (residents/visitors/friends) ⭐ NEW
 - [Group Detail Page](GroupDetailPageMT.md) - Groups implementation
 - [Unified Groups Architecture](UNIFIED-GROUPS-ARCHITECTURE.md) - Groups system
+- [Privacy Filtering](privacy-filtering.md) - Visibility and permission controls
 
 ---
 
