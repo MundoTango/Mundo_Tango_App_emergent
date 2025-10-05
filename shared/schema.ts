@@ -1867,6 +1867,50 @@ export const guestBookings = pgTable("guest_bookings", {
   index("idx_guest_bookings_dates").on(table.checkInDate, table.checkOutDate),
 ]);
 
+// House Rule Templates table - Pre-defined rule templates (ESA Layer 27)
+export const houseRuleTemplates = pgTable("house_rule_templates", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  category: varchar("category", { length: 50 }).notNull(), // check-in-out, pets, smoking, events, noise, parking, general, safety
+  icon: varchar("icon", { length: 50 }), // Icon identifier for UI
+  isDefault: boolean("is_default").default(true), // Show by default in templates
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_house_rule_templates_category").on(table.category),
+  index("idx_house_rule_templates_default").on(table.isDefault),
+]);
+
+// Host Home Rules table - Rules assigned to specific properties (ESA Layer 27)
+export const hostHomeRules = pgTable("host_home_rules", {
+  id: serial("id").primaryKey(),
+  hostHomeId: integer("host_home_id").references(() => hostHomes.id, { onDelete: 'cascade' }).notNull(),
+  ruleTemplateId: integer("rule_template_id").references(() => houseRuleTemplates.id), // null if custom rule
+  customTitle: varchar("custom_title", { length: 255 }), // For custom rules
+  customDescription: text("custom_description"), // For custom rules
+  category: varchar("category", { length: 50 }).notNull(),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_host_home_rules_home").on(table.hostHomeId),
+  index("idx_host_home_rules_template").on(table.ruleTemplateId),
+  index("idx_host_home_rules_category").on(table.category),
+]);
+
+// House Rules schemas
+export const insertHouseRuleTemplateSchema = createInsertSchema(houseRuleTemplates).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertHostHomeRuleSchema = createInsertSchema(hostHomeRules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Guest Bookings schema
 export const insertGuestBookingSchema = createInsertSchema(guestBookings, {
   checkInDate: z.union([z.date(), z.string().transform((val) => new Date(val))]),
@@ -2516,6 +2560,10 @@ export type DailyActivity = typeof dailyActivities.$inferSelect;
 export type InsertDailyActivity = z.infer<typeof insertDailyActivitySchema>;
 export type HostHome = typeof hostHomes.$inferSelect;
 export type InsertHostHome = z.infer<typeof insertHostHomeSchema>;
+export type HouseRuleTemplate = typeof houseRuleTemplates.$inferSelect;
+export type InsertHouseRuleTemplate = z.infer<typeof insertHouseRuleTemplateSchema>;
+export type HostHomeRule = typeof hostHomeRules.$inferSelect;
+export type InsertHostHomeRule = z.infer<typeof insertHostHomeRuleSchema>;
 export type GuestBooking = typeof guestBookings.$inferSelect;
 export type InsertGuestBooking = z.infer<typeof insertGuestBookingSchema>;
 export type HostReview = typeof hostReviews.$inferSelect;
