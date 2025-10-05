@@ -67,30 +67,17 @@ export const postsAPI = {
 
   // Create a new post with media
   async createPost(formData: FormData) {
-    // ESA Fix: Use direct endpoint for recommendation support
-    const response = await fetch('/api/posts/direct', {
+    // ESA 61×21 Layer 2: Send FormData directly to multipart endpoint
+    // Let browser set Content-Type: multipart/form-data automatically
+    const response = await fetch('/api/posts', {
       method: 'POST',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        content: formData.get('content'),
-        richContent: formData.get('richContent'),
-        visibility: formData.get('visibility') || 'public',
-        hashtags: formData.getAll('tags'),
-        mentions: formData.getAll('mentions'),
-        location: formData.get('location'),
-        isRecommendation: formData.get('isRecommendation') === 'true',
-        recommendationType: formData.get('recommendationType'),
-        priceRange: formData.get('priceRange'),
-        mediaUrls: [], // TODO: Handle media uploads
-        cloudMediaUrls: []
-      })
+      // DO NOT set Content-Type header - browser handles it for FormData
+      body: formData
     });
     
     if (!response.ok) {
-      const error = await response.json();
+      const error = await response.json().catch(() => ({ message: 'Failed to create post' }));
       throw new Error(error.message || 'Failed to create post');
     }
     
