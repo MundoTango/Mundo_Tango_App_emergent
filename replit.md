@@ -39,7 +39,7 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **User Profiles**: Comprehensive profiles with community-specific roles, travel details, and engagement systems.
 - **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds with entity-specific post navigation.
 - **Community Management**: City-specific groups, event management with RSVP, housing listings, and recommendations. Group posts tab redesigned and unified with main feed architecture.
-- **Housing System**: Complete marketplace with property listings, host/guest onboarding, city-filtered housing, and map integration. Features Friendship-Based Access Control, allowing hosts to restrict bookings by connection degree or closeness scores.
+- **Housing System**: Connection-based marketplace (NO PAYMENTS) with property listings, host/guest onboarding, city-filtered housing, and map integration. Features Friendship-Based Access Control, allowing hosts to restrict bookings by connection degree or closeness scores. Host dashboard at `/host-dashboard` shows all properties with conditional UI for first-time vs existing hosts.
 - **Tango World Map**: Interactive map showing global tango communities with Leaflet.js, color-coded markers, and city search.
 - **Admin Center**: Dashboard for user management, content moderation, analytics, and system health monitoring.
 - **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics.

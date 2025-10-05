@@ -111,9 +111,9 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
             <h3 className="font-semibold">Filter Housing</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Price Range */}
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* TODO: PAYMENT PREP - Enable price filter when payment system is ready */}
+            {/* <div>
               <label className="text-sm font-medium mb-1 block">Price per night</label>
               <div className="flex items-center gap-2">
                 <input
@@ -132,7 +132,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   placeholder="500"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Room Type */}
             <div>
@@ -210,10 +210,11 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                 </div>
               )}
               
-              {/* Price */}
-              <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded">
+              {/* TODO: PAYMENT PREP - Future Stripe integration
+                  Display price once payment system is implemented */}
+              {/* <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded">
                 <span className="font-semibold">${home.pricePerNight}</span>/night
-              </div>
+              </div> */}
             </div>
             
             {/* Content */}

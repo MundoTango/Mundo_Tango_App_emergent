@@ -181,6 +181,13 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Housing marketplace'
   },
   {
+    path: '/host-dashboard',
+    component: lazy(() => import('@/pages/HostDashboard')),
+    mode: 'production',
+    loadingMessage: 'Loading host dashboard...',
+    description: 'Host properties dashboard'
+  },
+  {
     path: '/host-onboarding',
     component: lazy(() => import('@/pages/HostOnboarding')),
     mode: 'production',
