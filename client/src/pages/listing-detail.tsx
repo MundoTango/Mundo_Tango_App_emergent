@@ -45,6 +45,9 @@ import { ConnectionBadge } from '../components/housing/ConnectionBadge';
 import { useAuth } from '../hooks/useAuth';
 import { getConnectionLabel } from '../utils/friendshipHelpers';
 import DashboardLayout from '../layouts/DashboardLayout';
+import { RatingSummary } from '../components/reviews/RatingSummary';
+import { ReviewList } from '../components/reviews/ReviewList';
+import type { HostReview } from '@shared/schema';
 
 interface HostHome {
   id: number;
@@ -108,6 +111,12 @@ export default function ListingDetail() {
   // Fetch listing details
   const { data: listing, isLoading, error } = useQuery<{ data: HostHome }>({
     queryKey: [`/api/host-homes/${id}`],
+    enabled: !!id,
+  });
+
+  // Fetch reviews for this listing
+  const { data: reviewsData, isLoading: isLoadingReviews } = useQuery<{ data: HostReview[] }>({
+    queryKey: [`/api/host-homes/${id}/reviews`],
     enabled: !!id,
   });
 
@@ -571,6 +580,35 @@ export default function ListingDetail() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Reviews Section */}
+            <Card data-testid="section-reviews">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-bold mb-6">Guest Reviews</h2>
+                
+                {isLoadingReviews ? (
+                  <div className="space-y-4">
+                    <Skeleton className="h-32 w-full" />
+                    <Skeleton className="h-32 w-full" />
+                  </div>
+                ) : reviewsData?.data && reviewsData.data.length > 0 ? (
+                  <div className="space-y-8">
+                    <RatingSummary reviews={reviewsData.data} />
+                    <div className="border-t pt-6">
+                      <ReviewList
+                        reviews={reviewsData.data}
+                        type="host"
+                        emptyMessage="No reviews yet. Be the first to review!"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    <p>No reviews yet. Be the first to stay and review!</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
 
           {/* Right Column - Booking Card (Sticky) */}
