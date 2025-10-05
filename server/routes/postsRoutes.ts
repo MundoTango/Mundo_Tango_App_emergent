@@ -404,6 +404,8 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       hashtags: parsedTags,  // Use parsed tags
       mentions: validMentions.map(id => id.toString()), // ESA Layer 16: Store validated mentions
       location: req.body.location || null,
+      contextType: req.body.contextType || null, // ESA Layer 8: Context-aware posting (group/event)
+      contextId: req.body.contextId ? parseInt(req.body.contextId) : null, // ESA Layer 8: Context ID
       createdAt: new Date(),
       likesCount: 0,
       commentsCount: 0,
