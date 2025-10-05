@@ -58,18 +58,21 @@ function ESAMemoryFeedCore() {
   // Create post mutation with FormData support
   const createPostMutation = useMutation({
     mutationFn: (formData: FormData) => postsAPI.createPost(formData),
-    onSuccess: () => {
+    onSuccess: (_data, formData) => {
       toast({ 
         title: "Memory Shared",
         description: "Your memory has been shared successfully"
       });
-      // ESA Layer 5: Invalidate both main feed and context-specific feeds
+      // ESA Layer 5: Invalidate feed queries
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       
-      // If posting in a group context, also invalidate group feed
-      if (feedContext.type === 'group' && 'groupId' in feedContext) {
-        queryClient.invalidateQueries({ queryKey: ['/api/groups', feedContext.groupId, 'posts'] });
+      // ESA Layer 8: Invalidate group feed if contextType is group
+      const contextType = formData.get('contextType');
+      const contextId = formData.get('contextId');
+      if (contextType === 'group' && contextId) {
+        queryClient.invalidateQueries({ queryKey: ['/api/groups', parseInt(contextId as string), 'posts'] });
       }
+      
       setShowCreateModal(false);
     },
     onError: (error: any) => {
@@ -188,9 +191,9 @@ function ESAMemoryFeedCore() {
                             mediaUrls: data.internalMediaUrls, // Use uploaded URLs
                             isRecommendation: data.isRecommendation,
                             recommendationType: data.recommendationType,
-                            // ESA Layer 8: Add context for context-aware posting
-                            contextType: feedContext.type !== 'feed' ? feedContext.type : null,
-                            contextId: feedContext.type === 'group' && 'groupId' in feedContext ? feedContext.groupId : null
+                            // ESA Layer 8: Forward context fields from PostCreator
+                            contextType: data.contextType,
+                            contextId: data.contextId
                           };
                           
                           // Use direct endpoint for URL-based media
@@ -208,13 +211,13 @@ function ESAMemoryFeedCore() {
                               return res.json();
                             })
                             .then(() => {
-                              // ESA Layer 5: Invalidate both main feed and context-specific feeds
+                              // ESA Layer 5: Invalidate feed queries
                               queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
                               queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
                               
-                              // If posting in a group context, also invalidate group feed
-                              if (feedContext.type === 'group' && 'groupId' in feedContext) {
-                                queryClient.invalidateQueries({ queryKey: ['/api/groups', feedContext.groupId, 'posts'] });
+                              // ESA Layer 8: Invalidate group feed if contextType is group
+                              if (postData.contextType === 'group' && postData.contextId) {
+                                queryClient.invalidateQueries({ queryKey: ['/api/groups', parseInt(postData.contextId), 'posts'] });
                               }
                               
                               setShowCreateModal(false);
@@ -251,12 +254,12 @@ function ESAMemoryFeedCore() {
                               formData.append('recommendationType', data.recommendationType);
                             }
                           }
-                          // ESA Layer 8: Add context for context-aware posting
-                          if (feedContext.type !== 'feed') {
-                            formData.append('contextType', feedContext.type);
-                            if (feedContext.type === 'group' && 'groupId' in feedContext) {
-                              formData.append('contextId', String(feedContext.groupId));
-                            }
+                          // ESA Layer 8: Forward context fields from PostCreator
+                          if (data.contextType) {
+                            formData.append('contextType', data.contextType);
+                          }
+                          if (data.contextId) {
+                            formData.append('contextId', data.contextId);
                           }
                           // Add media files
                           data.media.forEach(file => {
