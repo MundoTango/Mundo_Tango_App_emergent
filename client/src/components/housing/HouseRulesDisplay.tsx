@@ -9,17 +9,14 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import {
-  Clock,
-  PawPrint,
-  Cigarette,
-  Car,
-  Users,
-  Volume2,
-  Sparkles,
-  PartyPopper,
   CheckCircle2,
   AlertCircle,
 } from 'lucide-react';
+import { 
+  getCategoryDisplayLabel, 
+  getCategoryIcon, 
+  getCategoryColor 
+} from '@/utils/houseRulesHelpers';
 
 interface HouseRule {
   id: number;
@@ -42,28 +39,6 @@ interface HouseRulesDisplayProps {
   variant?: 'detailed' | 'compact';
   showTitle?: boolean;
 }
-
-const CATEGORY_ICONS: Record<string, any> = {
-  'Check-in/Check-out': Clock,
-  'Pets': PawPrint,
-  'Smoking': Cigarette,
-  'Parking': Car,
-  'Events & Parties': PartyPopper,
-  'Noise & Quiet Hours': Volume2,
-  'Guest Limits': Users,
-  'Cleaning & Maintenance': Sparkles,
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  'Check-in/Check-out': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  'Pets': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-  'Smoking': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-  'Parking': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  'Events & Parties': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
-  'Noise & Quiet Hours': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-  'Guest Limits': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
-  'Cleaning & Maintenance': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
-};
 
 export default function HouseRulesDisplay({ 
   homeId, 
@@ -134,7 +109,7 @@ export default function HouseRulesDisplay({
         <div className="grid gap-2">
           {rules.map((rule) => {
             const title = rule.customTitle || rule.template?.title || 'Rule';
-            const Icon = CATEGORY_ICONS[rule.category] || CheckCircle2;
+            const Icon = getCategoryIcon(rule.category);
 
             return (
               <div
@@ -165,22 +140,23 @@ export default function HouseRulesDisplay({
       )}
       <CardContent className={showTitle ? '' : 'pt-6'}>
         <div className="space-y-6">
-          {Object.entries(rulesByCategory).map(([category, categoryRules], categoryIndex) => {
-            const Icon = CATEGORY_ICONS[category] || CheckCircle2;
-            const colorClass = CATEGORY_COLORS[category] || 'bg-gray-100 text-gray-800';
+          {Object.entries(rulesByCategory).map(([categorySlug, categoryRules], categoryIndex) => {
+            const Icon = getCategoryIcon(categorySlug);
+            const colorClass = getCategoryColor(categorySlug);
+            const displayLabel = getCategoryDisplayLabel(categorySlug);
 
             return (
-              <div key={category} data-testid={`category-${category}`}>
+              <div key={categorySlug} data-testid={`category-${categorySlug}`}>
                 {categoryIndex > 0 && <Separator className="my-6" />}
                 
                 <div className="space-y-4">
                   {/* Category Header */}
                   <div className="flex items-center gap-3">
                     <Icon className="h-5 w-5 text-primary" />
-                    <h3 className="font-semibold text-base" data-testid={`category-title-${category}`}>
-                      {category}
+                    <h3 className="font-semibold text-base" data-testid={`category-title-${categorySlug}`}>
+                      {displayLabel}
                     </h3>
-                    <Badge className={colorClass} data-testid={`category-badge-${category}`}>
+                    <Badge className={colorClass} data-testid={`category-badge-${categorySlug}`}>
                       {categoryRules.length}
                     </Badge>
                   </div>
