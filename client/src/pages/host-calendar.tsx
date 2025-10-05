@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '../lib/queryClient';
 import { Link, useRoute } from 'wouter';
+import DashboardLayout from '../layouts/DashboardLayout';
 import { ArrowLeft, Home } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
@@ -116,123 +117,129 @@ export default function HostCalendar() {
 
   if (isLoadingHomes) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-5xl mx-auto px-4">
-          <Skeleton className="h-10 w-64 mb-8" />
-          <div className="space-y-6">
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-96 w-full" />
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 py-8">
+          <div className="max-w-5xl mx-auto px-4">
+            <Skeleton className="h-10 w-64 mb-8" />
+            <div className="space-y-6">
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-96 w-full" />
+            </div>
           </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   if (homes.length === 0) {
     return (
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 py-8">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="flex items-center gap-4 mb-8">
+              <Link href="/host-bookings">
+                <Button variant="ghost" size="icon" data-testid="button-back-host-dashboard">
+                  <ArrowLeft className="w-5 h-5" />
+                </Button>
+              </Link>
+              <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
+                Property Calendar
+              </h1>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+              <Home className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Properties Listed</h3>
+              <p className="text-gray-600 mb-6">
+                You need to create a property listing before you can manage your calendar.
+              </p>
+              <Link href="/host-onboarding">
+                <Button className="bg-indigo-600 hover:bg-indigo-700">
+                  Create Your First Listing
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  return (
+    <DashboardLayout>
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-5xl mx-auto px-4">
+          {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             <Link href="/host-bookings">
               <Button variant="ghost" size="icon" data-testid="button-back-host-dashboard">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
             </Link>
-            <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
-              Property Calendar
-            </h1>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
+                Property Calendar
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Manage availability and blocked dates for your properties
+              </p>
+            </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-            <Home className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No Properties Listed</h3>
-            <p className="text-gray-600 mb-6">
-              You need to create a property listing before you can manage your calendar.
-            </p>
-            <Link href="/host-onboarding">
-              <Button className="bg-indigo-600 hover:bg-indigo-700">
-                Create Your First Listing
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-5xl mx-auto px-4">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Link href="/host-bookings">
-            <Button variant="ghost" size="icon" data-testid="button-back-host-dashboard">
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          </Link>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
-              Property Calendar
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Manage availability and blocked dates for your properties
-            </p>
-          </div>
-        </div>
-
-        {/* Property Selector */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Select Property
-          </label>
-          <Select
-            value={selectedHomeId?.toString()}
-            onValueChange={(value) => setSelectedHomeId(parseInt(value))}
-          >
-            <SelectTrigger className="w-full max-w-md" data-testid="select-property">
-              <SelectValue placeholder="Choose a property" />
-            </SelectTrigger>
-            <SelectContent>
-              {homes.map((home) => (
-                <SelectItem key={home.id} value={home.id.toString()} data-testid={`option-property-${home.id}`}>
-                  {home.title} - {home.city}, {home.country}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Booking Restrictions - ESA Layer 9 */}
-        {selectedHomeId && (
+          {/* Property Selector */}
           <div className="mb-6">
-            <BookingRestrictionsCard propertyId={selectedHomeId} />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Property
+            </label>
+            <Select
+              value={selectedHomeId?.toString()}
+              onValueChange={(value) => setSelectedHomeId(parseInt(value))}
+            >
+              <SelectTrigger className="w-full max-w-md" data-testid="select-property">
+                <SelectValue placeholder="Choose a property" />
+              </SelectTrigger>
+              <SelectContent>
+                {homes.map((home) => (
+                  <SelectItem key={home.id} value={home.id.toString()} data-testid={`option-property-${home.id}`}>
+                    {home.title} - {home.city}, {home.country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-        )}
 
-        {/* Calendar Component */}
-        {selectedHomeId && (
-          <div>
-            {isLoadingAvailability ? (
-              <div className="space-y-6">
-                <Skeleton className="h-96 w-full" />
-                <Skeleton className="h-48 w-full" />
-              </div>
-            ) : availabilityData?.data ? (
-              <BookingCalendar
-                homeId={selectedHomeId}
-                bookings={availabilityData.data.bookings}
-                blockedDates={availabilityData.data.blockedDates}
-                onUpdateBlockedDates={(blockedDates) => updateBlockedDatesMutation.mutateAsync(blockedDates)}
-                isUpdating={updateBlockedDatesMutation.isPending}
-              />
-            ) : (
-              <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-                <p className="text-gray-600">Unable to load calendar data</p>
-              </div>
-            )}
-          </div>
-        )}
+          {/* Booking Restrictions - ESA Layer 9 */}
+          {selectedHomeId && (
+            <div className="mb-6">
+              <BookingRestrictionsCard propertyId={selectedHomeId} />
+            </div>
+          )}
+
+          {/* Calendar Component */}
+          {selectedHomeId && (
+            <div>
+              {isLoadingAvailability ? (
+                <div className="space-y-6">
+                  <Skeleton className="h-96 w-full" />
+                  <Skeleton className="h-48 w-full" />
+                </div>
+              ) : availabilityData?.data ? (
+                <BookingCalendar
+                  homeId={selectedHomeId}
+                  bookings={availabilityData.data.bookings}
+                  blockedDates={availabilityData.data.blockedDates}
+                  onUpdateBlockedDates={(blockedDates) => updateBlockedDatesMutation.mutateAsync(blockedDates)}
+                  isUpdating={updateBlockedDatesMutation.isPending}
+                />
+              ) : (
+                <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+                  <p className="text-gray-600">Unable to load calendar data</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
