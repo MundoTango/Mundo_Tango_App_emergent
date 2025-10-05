@@ -160,6 +160,7 @@ const InternationalIconTooltip = ({
         onMouseLeave={() => !isTouchDevice && setIsVisible(false)}
         onFocus={() => setIsVisible(true)}
         onBlur={() => setIsVisible(false)}
+        onKeyDown={handleKeyDown}
         aria-label={ariaLabel || `${iconType} information`}
         aria-describedby={isVisible ? tooltipId.current : undefined}
         className={cn(
