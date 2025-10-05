@@ -61,7 +61,7 @@ import type { HostReview } from '@shared/schema';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { FadeIn, ScaleIn, SlideIn } from '@/components/animations/FramerMotionWrappers';
 import { MagneticButton, RippleButton, PulseButton } from '@/components/interactions/MicroInteractions';
-import { AuroraVariants } from '@/utils/gsapAnimations';
+import Confetti from 'react-confetti';
 
 interface HostHome {
   id: number;
@@ -126,6 +126,9 @@ export default function ListingDetail() {
   const [purpose, setPurpose] = useState('');
   const [message, setMessage] = useState('');
   const [hasReadRules, setHasReadRules] = useState(false);
+  
+  // Aurora Tide - Confetti state
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Fetch listing details
   const { data: listing, isLoading, error } = useQuery<{ data: HostHome }>({
@@ -170,6 +173,13 @@ export default function ListingDetail() {
       });
     },
     onSuccess: () => {
+      // Aurora Tide - Trigger confetti celebration (respects reduced-motion)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 5000);
+      }
+      
       toast({
         title: 'Booking request sent!',
         description: 'The host will review your request and respond soon.',
@@ -453,6 +463,17 @@ export default function ListingDetail() {
 
   return (
     <DashboardLayout>
+      {/* Aurora Tide - Confetti on successful booking */}
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={500}
+          colors={['#06b6d4', '#14b8a6', '#3b82f6', '#8b5cf6', '#ec4899']}
+        />
+      )}
+      
       <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800" data-testid="page-listing-detail">
       <div className="max-w-7xl mx-auto p-6">
         {/* Back Button - Aurora Tide */}
@@ -805,53 +826,57 @@ export default function ListingDetail() {
         </div>
       </div>
 
-      {/* Booking Modal */}
+      {/* Booking Modal - Aurora Tide */}
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-booking-request">
-          <DialogHeader>
-            <div className="flex items-center gap-3 mb-2">
-              <DialogTitle>Request to Book</DialogTitle>
-              {connectionData?.data && (
-                <ConnectionBadge connectionDegree={connectionData.data.connectionDegree} />
-              )}
-            </div>
-            <DialogDescription>
-              Complete the form below to send a booking request to the host.
-            </DialogDescription>
-          </DialogHeader>
-
-          {/* Friendship Eligibility Status - ESA Layer 9 + 31 */}
-          {connectionData?.data && (
-            <div className="mb-4 p-4 rounded-lg bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 mt-1">
-                  {connectionData.data.connectionDegree >= 1 ? (
-                    <span className="text-2xl">✅</span>
-                  ) : (
-                    <span className="text-2xl">ℹ️</span>
-                  )}
-                </div>
-                <div className="flex-1">
-                  {connectionData.data.connectionDegree >= 1 ? (
-                    <div>
-                      <p className="font-semibold text-cyan-900">
-                        You're connected! {getConnectionLabel(connectionData.data.connectionDegree as -1 | 1 | 2 | 3)}
-                      </p>
-                      <p className="text-sm text-cyan-800 mt-1">
-                        Your friendship score: {connectionData.data.closenessScore}/100
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <p className="font-semibold text-gray-900">Not yet connected</p>
-                      <p className="text-sm text-gray-700 mt-1">
-                        Build a connection with this host to unlock easier booking approval. Start by sending a message or attending tango events together!
-                      </p>
-                    </div>
-                  )}
-                </div>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-booking-request">
+          <FadeIn>
+            <DialogHeader>
+              <div className="flex items-center gap-3 mb-2">
+                <DialogTitle className="text-slate-900 dark:text-white">Request to Book</DialogTitle>
+                {connectionData?.data && (
+                  <ConnectionBadge connectionDegree={connectionData.data.connectionDegree} />
+                )}
               </div>
-            </div>
+              <DialogDescription className="text-slate-600 dark:text-slate-400">
+                Complete the form below to send a booking request to the host.
+              </DialogDescription>
+            </DialogHeader>
+          </FadeIn>
+
+          {/* Friendship Eligibility Status - Aurora Tide */}
+          {connectionData?.data && (
+            <ScaleIn delay={0.1}>
+              <GlassCard depth={2} className="mb-4 p-4 border-cyan-200/40 dark:border-cyan-500/40 bg-gradient-to-r from-cyan-50/80 to-blue-50/80 dark:from-cyan-950/30 dark:to-blue-950/30">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 mt-1">
+                    {connectionData.data.connectionDegree >= 1 ? (
+                      <span className="text-2xl">✅</span>
+                    ) : (
+                      <span className="text-2xl">ℹ️</span>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    {connectionData.data.connectionDegree >= 1 ? (
+                      <div>
+                        <p className="font-semibold text-cyan-900 dark:text-cyan-100">
+                          You're connected! {getConnectionLabel(connectionData.data.connectionDegree as -1 | 1 | 2 | 3)}
+                        </p>
+                        <p className="text-sm text-cyan-800 dark:text-cyan-300 mt-1">
+                          Your friendship score: {connectionData.data.closenessScore}/100
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="font-semibold text-slate-900 dark:text-white">Not yet connected</p>
+                        <p className="text-sm text-slate-700 dark:text-slate-300 mt-1">
+                          Build a connection with this host to unlock easier booking approval. Start by sending a message or attending tango events together!
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </GlassCard>
+            </ScaleIn>
           )}
 
           <div className="space-y-6 py-4">
@@ -914,40 +939,40 @@ export default function ListingDetail() {
               )}
             </div>
 
-            {/* Guest Count */}
-            <div className="space-y-2">
-              <Label htmlFor="guest-count" className="text-base font-semibold">
-                Number of Guests
-              </Label>
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
-                  disabled={guestCount <= 1}
-                  data-testid="button-decrease-guests"
-                >
-                  -
-                </Button>
-                <span className="text-lg font-medium w-12 text-center" data-testid="text-guest-count">
-                  {guestCount}
-                </span>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setGuestCount(Math.min(listing?.data.maxGuests || 10, guestCount + 1))}
-                  disabled={guestCount >= (listing?.data.maxGuests || 10)}
-                  data-testid="button-increase-guests"
-                >
-                  +
-                </Button>
-                <span className="text-sm text-gray-500">
-                  (Max: {listing?.data.maxGuests || 10} guests)
-                </span>
+            {/* Guest Count - Aurora Tide */}
+            <ScaleIn delay={0.2}>
+              <div className="space-y-2">
+                <Label htmlFor="guest-count" className="text-base font-semibold text-slate-900 dark:text-white">
+                  Number of Guests
+                </Label>
+                <div className="flex items-center gap-4">
+                  <MagneticButton
+                    strength={0.15}
+                    onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                    disabled={guestCount <= 1}
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="button-decrease-guests"
+                  >
+                    -
+                  </MagneticButton>
+                  <span className="text-lg font-medium w-12 text-center text-slate-900 dark:text-white" data-testid="text-guest-count">
+                    {guestCount}
+                  </span>
+                  <MagneticButton
+                    strength={0.15}
+                    onClick={() => setGuestCount(Math.min(listing?.data.maxGuests || 10, guestCount + 1))}
+                    disabled={guestCount >= (listing?.data.maxGuests || 10)}
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="button-increase-guests"
+                  >
+                    +
+                  </MagneticButton>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
+                    (Max: {listing?.data.maxGuests || 10} guests)
+                  </span>
+                </div>
               </div>
-            </div>
+            </ScaleIn>
 
             {/* Purpose */}
             <div className="space-y-2">
@@ -1004,48 +1029,51 @@ export default function ListingDetail() {
               </label>
             </div>
 
-            {/* Price Breakdown */}
+            {/* Price Breakdown - Aurora Tide */}
             {nights > 0 && (
-              <Card className="bg-gray-50">
-                <CardContent className="pt-6">
-                  <h4 className="font-semibold mb-4">Price Details</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>${listing?.data.pricePerNight} × {nights} nights</span>
-                      <span data-testid="text-subtotal">${totalPrice}</span>
+              <ScaleIn delay={0.3}>
+                <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+                  <CardContent className="pt-6">
+                    <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Price Details</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm text-slate-700 dark:text-slate-300">
+                        <span>${listing?.data.pricePerNight} × {nights} nights</span>
+                        <span data-testid="text-subtotal">${totalPrice}</span>
+                      </div>
+                      <div className="flex justify-between text-sm text-slate-700 dark:text-slate-300">
+                        <span>Service fee (10%)</span>
+                        <span data-testid="text-service-fee">${serviceFee}</span>
+                      </div>
+                      <div className="flex justify-between font-bold text-lg border-t border-cyan-200/30 dark:border-cyan-500/30 pt-2 mt-2 text-slate-900 dark:text-white">
+                        <span>Total</span>
+                        <span data-testid="text-grand-total">${grandTotal}</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Service fee (10%)</span>
-                      <span data-testid="text-service-fee">${serviceFee}</span>
-                    </div>
-                    <div className="flex justify-between font-bold text-lg border-t pt-2 mt-2">
-                      <span>Total</span>
-                      <span data-testid="text-grand-total">${grandTotal}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </GlassCard>
+              </ScaleIn>
             )}
           </div>
 
-          {/* Modal Actions */}
-          <div className="flex gap-3 pt-4 border-t">
+          {/* Modal Actions - Aurora Tide */}
+          <div className="flex gap-3 pt-4 border-t border-cyan-200/30 dark:border-cyan-500/30">
             <Button
               variant="outline"
               onClick={() => setShowBookingModal(false)}
-              className="flex-1"
+              className="flex-1 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30"
               data-testid="button-cancel-booking"
             >
               Cancel
             </Button>
-            <Button
+            <PulseButton
               onClick={handleSubmitBooking}
               disabled={createBookingMutation.isPending}
-              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600"
+              className="flex-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold disabled:opacity-50"
+              pulseColor="rgba(6, 182, 212, 0.6)"
               data-testid="button-submit-booking"
             >
               {createBookingMutation.isPending ? 'Submitting...' : 'Send Request'}
-            </Button>
+            </PulseButton>
           </div>
         </DialogContent>
       </Dialog>
