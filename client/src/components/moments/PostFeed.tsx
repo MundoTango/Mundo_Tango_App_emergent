@@ -705,7 +705,17 @@ const PostFeed = memo(({
       )}
 
       {/* Posts List */}
-      <div className="space-y-6">
+      <div className="relative space-y-6">
+        {/* Loading Overlay during filter transitions */}
+        {isFetching && filteredPosts.length > 0 && (
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
+            <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
+              <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
+              <span className="text-sm font-medium text-gray-700">Updating feed...</span>
+            </div>
+          </div>
+        )}
+
         {filteredPosts.map((post: Post) => (
           <EnhancedPostItem
             key={post.id}
@@ -731,7 +741,7 @@ const PostFeed = memo(({
       )}
 
       {/* Empty State */}
-      {filteredPosts.length === 0 && !isLoading && (
+      {filteredPosts.length === 0 && !isLoading && !isFetching && (
         <div className="text-center py-16 px-8">
           <div className="max-w-md mx-auto">
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
