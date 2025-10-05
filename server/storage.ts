@@ -38,6 +38,8 @@ import {
   guestReviews,
   guestBookings,
   guestProfiles,
+  houseRuleTemplates,
+  hostHomeRules,
   travelDetails,
   userSettings,
   notifications,
@@ -131,6 +133,10 @@ import {
   type InsertGuestBooking,
   type GuestProfile,
   type InsertGuestProfile,
+  type HouseRuleTemplate,
+  type InsertHouseRuleTemplate,
+  type HostHomeRule,
+  type InsertHostHomeRule,
   type TravelDetail,
   type InsertTravelDetail,
   type UpdateTravelDetail,
@@ -4773,6 +4779,94 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(guestProfiles)
       .where(eq(guestProfiles.userId, userId));
+  }
+
+  // House Rules Implementation (ESA Layer 27)
+  async getAllHouseRuleTemplates(): Promise<HouseRuleTemplate[]> {
+    return await db.select()
+      .from(houseRuleTemplates)
+      .where(eq(houseRuleTemplates.isDefault, true))
+      .orderBy(asc(houseRuleTemplates.sortOrder), asc(houseRuleTemplates.category));
+  }
+
+  async getHouseRuleTemplatesByCategory(category: string): Promise<HouseRuleTemplate[]> {
+    return await db.select()
+      .from(houseRuleTemplates)
+      .where(and(
+        eq(houseRuleTemplates.category, category),
+        eq(houseRuleTemplates.isDefault, true)
+      ))
+      .orderBy(asc(houseRuleTemplates.sortOrder));
+  }
+
+  async getHostHomeRules(homeId: number): Promise<HostHomeRule[]> {
+    return await db.select()
+      .from(hostHomeRules)
+      .where(and(
+        eq(hostHomeRules.hostHomeId, homeId),
+        eq(hostHomeRules.isActive, true)
+      ))
+      .orderBy(asc(hostHomeRules.category));
+  }
+
+  async createHostHomeRule(rule: InsertHostHomeRule): Promise<HostHomeRule> {
+    const [newRule] = await db.insert(hostHomeRules)
+      .values(rule)
+      .returning();
+    return newRule;
+  }
+
+  async createHostHomeRulesFromTemplates(homeId: number, templateIds: number[]): Promise<HostHomeRule[]> {
+    const templates = await db.select()
+      .from(houseRuleTemplates)
+      .where(inArray(houseRuleTemplates.id, templateIds));
+
+    const rulesToInsert = templates.map(template => ({
+      hostHomeId: homeId,
+      ruleTemplateId: template.id,
+      category: template.category,
+      customTitle: null,
+      customDescription: null,
+      isActive: true
+    }));
+
+    return await db.insert(hostHomeRules)
+      .values(rulesToInsert)
+      .returning();
+  }
+
+  async updateHostHomeRule(id: number, updates: Partial<HostHomeRule>): Promise<HostHomeRule> {
+    const [updated] = await db.update(hostHomeRules)
+      .set({
+        ...updates,
+        updatedAt: new Date()
+      })
+      .where(eq(hostHomeRules.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteHostHomeRule(id: number): Promise<void> {
+    await db.delete(hostHomeRules).where(eq(hostHomeRules.id, id));
+  }
+
+  async getHostHomeRulesWithTemplates(homeId: number): Promise<Array<HostHomeRule & { template?: HouseRuleTemplate }>> {
+    const rules = await db.select({
+      rule: hostHomeRules,
+      template: houseRuleTemplates
+    })
+      .from(hostHomeRules)
+      .leftJoin(houseRuleTemplates, eq(hostHomeRules.ruleTemplateId, houseRuleTemplates.id))
+      .where(and(
+        eq(hostHomeRules.hostHomeId, homeId),
+        eq(hostHomeRules.isActive, true)
+      ))
+      .orderBy(asc(hostHomeRules.category));
+
+    return rules.map(r => ({
+      ...r.rule,
+      template: r.template || undefined
+    }));
   }
 
   // Travel Details Management Implementation
