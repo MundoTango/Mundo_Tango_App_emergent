@@ -16,7 +16,7 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 **UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, and a comprehensive design token system.
+- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, and a comprehensive design token system. **Aurora Tide Design System** now unified across housing platform with GSAP scroll reveals, Framer Motion orchestration, glassmorphic components (GlassCard with 4 depth levels), magnetic/ripple micro-interactions, and international icon/tooltip system (6 languages: EN, ES, FR, DE, IT, PT).
 - **Responsiveness**: Mobile-first design approach.
 - **Interaction**: Incorporates micro-interactions like ripple effects, magnetic buttons, confetti, and particle effects.
 - **Theming**: Comprehensive theming system for site-wide visual transformations.

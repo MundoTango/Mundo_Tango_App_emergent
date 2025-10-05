@@ -100,7 +100,7 @@ export default function HousingMarketplace() {
   
   // Refs for GSAP animations
   const containerRef = useRef(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   // Filter options
   const roomTypes = ['Entire place', 'Private room', 'Shared room'];
@@ -210,6 +210,26 @@ export default function HousingMarketplace() {
     (guestCount > 1 ? 1 : 0) +
     (bedroomCount > 0 ? 1 : 0);
 
+  // GSAP scroll reveal animation for listing cards
+  useGSAP(() => {
+    const cards = cardsRef.current.filter(Boolean);
+    if (cards.length > 0) {
+      gsap.from(cards, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 0,
+        y: 30,
+        scale: 0.95,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: 'power2.out',
+      });
+    }
+  }, { dependencies: [filteredListings.length], scope: containerRef });
+
   // Toggle favorite mutation
   const toggleFavoriteMutation = useMutation({
     mutationFn: async (listingId: number) => {
@@ -239,16 +259,17 @@ export default function HousingMarketplace() {
                 <h1 className="text-3xl font-bold text-brand-gradient">Tango Housing Marketplace</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">Find the perfect place to stay during your tango journey</p>
               </div>
-              <MagneticButton strength={0.3}>
-                <Button
-                  onClick={() => setShowCreateModal(true)}
-                  className="aurora-gradient text-white hover:shadow-aurora transition-all duration-300"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  List Your Space
-                </Button>
+              <MagneticButton 
+                strength={0.3}
+                onClick={() => setShowCreateModal(true)}
+                className="aurora-gradient text-white hover:shadow-aurora transition-all duration-300 px-4 py-2 rounded-md font-medium flex items-center gap-2"
+                data-testid="button-list-space"
+              >
+                <Plus className="w-4 h-4" />
+                List Your Space
               </MagneticButton>
             </div>
+          </div>
 
             {/* Stats */}
           <motion.div 
@@ -308,7 +329,6 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
           </motion.div>
-          </div>
         </FadeIn>
 
         {/* Search and Filters */}
@@ -328,18 +348,15 @@ export default function HousingMarketplace() {
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
-                    <RippleButton key={type}>
-                      <Button
-                        variant={selectedType === type ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => setSelectedType(type)}
-                        className={selectedType === type 
-                          ? 'aurora-gradient text-white border-0' 
-                          : 'glass-card glass-depth-1 border-cyan-200/30'}
-                        data-testid={`button-type-${type}`}
-                      >
-                        {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
-                      </Button>
+                    <RippleButton 
+                      key={type}
+                      onClick={() => setSelectedType(type)}
+                      className={selectedType === type 
+                        ? 'aurora-gradient text-white border-0 px-3 py-1.5 rounded-md text-sm font-medium' 
+                        : 'glass-card glass-depth-1 border-cyan-200/30 px-3 py-1.5 rounded-md text-sm font-medium border'}
+                      data-testid={`button-type-${type}`}
+                    >
+                      {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
                     </RippleButton>
                   ))}
                   <Button 
@@ -363,7 +380,7 @@ export default function HousingMarketplace() {
                       Clear all
                     </Button>
                   )}
-              </div>
+                </div>
               </div>
             </ScaleIn>
 
@@ -508,10 +525,9 @@ export default function HousingMarketplace() {
               {!isLoading && activeFilterCount > 0 && ` with ${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} applied`}
             </p>
           </div>
-        </div>
 
         {/* Listings Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="overflow-hidden animate-pulse">
@@ -524,7 +540,7 @@ export default function HousingMarketplace() {
               </Card>
             ))
           ) : (
-            filteredListings.map(listing => {
+            filteredListings.map((listing, index) => {
               const location = `${listing.city}, ${listing.state ? listing.state + ', ' : ''}${listing.country}`;
               const priceUSD = listing.pricePerNight; // Already in dollars from API
               
@@ -541,9 +557,14 @@ export default function HousingMarketplace() {
               const isThumbnailVideo = thumbnailUrl ? isVideoUrl(thumbnailUrl) : false;
               
               return (
-                <Card key={listing.id} className="overflow-hidden hover:shadow-lg transition-shadow" data-testid={`card-listing-${listing.id}`}>
+                <div key={listing.id} ref={el => cardsRef.current[index] = el}>
+                  <GlassCard 
+                    depth={2}
+                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
+                    data-testid={`card-listing-${listing.id}`}
+                  >
                   {/* Media Thumbnail */}
-                  <div className="h-48 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 relative">
+                  <div className="h-48 aurora-gradient relative overflow-hidden">
                     {thumbnailUrl && (
                       <>
                         {isThumbnailVideo ? (
@@ -567,19 +588,18 @@ export default function HousingMarketplace() {
                         )}
                       </>
                     )}
-                    <div className="absolute top-4 right-4">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="bg-white/90 hover:bg-white"
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <MagneticButton 
+                        strength={0.2}
                         onClick={() => handleToggleFavorite(listing)}
+                        className="glass-card glass-depth-2 hover:glass-depth-3 p-2 rounded-md"
                         data-testid={`button-favorite-${listing.id}`}
                       >
-                        <Heart className={`w-4 h-4 ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : ''}`} />
-                      </Button>
+                        <Heart className={`w-4 h-4 transition-colors ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : 'text-white'}`} />
+                      </MagneticButton>
                     </div>
                     <div className="absolute bottom-4 left-4">
-                      <Badge className="bg-white/90 text-gray-900">
+                      <Badge className="glass-card glass-depth-2 border-white/30 text-slate-900 dark:text-white">
                         {listing.roomType.replace('_', ' ')}
                       </Badge>
                     </div>
@@ -588,23 +608,23 @@ export default function HousingMarketplace() {
                   {/* Content */}
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 line-clamp-2" data-testid={`text-title-${listing.id}`}>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" data-testid={`text-title-${listing.id}`}>
                         {listing.title}
                       </h3>
-                      <div className="flex items-center text-lg font-bold text-gray-900" data-testid={`text-price-${listing.id}`}>
+                      <div className="flex items-center text-lg font-bold text-cyan-600 dark:text-cyan-400" data-testid={`text-price-${listing.id}`}>
                         <DollarSign className="w-4 h-4" />
                         {priceUSD}
-                        <span className="text-sm font-normal text-gray-600">/night</span>
+                        <span className="text-sm font-normal text-slate-600 dark:text-slate-400">/night</span>
                       </div>
                     </div>
 
-                    <p className="text-sm text-gray-600 flex items-center gap-1 mb-3" data-testid={`text-location-${listing.id}`}>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-1 mb-3" data-testid={`text-location-${listing.id}`}>
                       <MapPin className="w-3 h-3" />
                       {location}
                     </p>
 
                     {/* Room Info */}
-                    <div className="flex gap-4 text-sm text-gray-600 mb-3" data-testid={`text-capacity-${listing.id}`}>
+                    <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400 mb-3" data-testid={`text-capacity-${listing.id}`}>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
                         {listing.maxGuests} guests
@@ -623,42 +643,43 @@ export default function HousingMarketplace() {
                     {listing.rating && (
                       <div className="flex items-center gap-2 mb-3" data-testid={`rating-${listing.id}`}>
                         <div className="flex items-center gap-1 text-sm">
-                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                          <span className="font-medium">{listing.rating.toFixed(1)}</span>
-                          <span className="text-gray-500">({listing.reviewCount || 0} reviews)</span>
+                          <Star className="w-4 h-4 text-amber-500 fill-current" />
+                          <span className="font-medium text-slate-900 dark:text-white">{listing.rating.toFixed(1)}</span>
+                          <span className="text-slate-500 dark:text-slate-400">({listing.reviewCount || 0} reviews)</span>
                         </div>
                       </div>
                     )}
 
                     {/* Host Info */}
-                    <div className="flex items-center justify-between pt-3 border-t" data-testid={`host-info-${listing.id}`}>
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-slate-700/50" data-testid={`host-info-${listing.id}`}>
                       <div className="flex items-center gap-2">
                         {listing.host.profileImage ? (
                           <img 
                             src={listing.host.profileImage} 
                             alt={listing.host.name}
-                            className="w-8 h-8 rounded-full object-cover"
+                            className="w-8 h-8 rounded-full object-cover ring-2 ring-cyan-500/20"
                           />
                         ) : (
-                          <div className="w-8 h-8 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          <div className="w-8 h-8 aurora-gradient rounded-full flex items-center justify-center text-white text-sm font-bold">
                             {listing.host.name.charAt(0)}
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-medium text-gray-900">{listing.host.name}</p>
-                          <p className="text-xs text-gray-500">@{listing.host.username}</p>
+                          <p className="text-sm font-medium text-slate-900 dark:text-white">{listing.host.name}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">@{listing.host.username}</p>
                         </div>
                       </div>
-                      <Button
-                        size="sm"
+                      <RippleButton
                         onClick={() => navigate(`/listing/${listing.id}`)}
+                        className="aurora-gradient text-white hover:shadow-aurora transition-all px-3 py-1.5 rounded-md text-sm font-medium"
                         data-testid={`button-view-details-${listing.id}`}
                       >
                         View Details
-                      </Button>
+                      </RippleButton>
                     </div>
                   </div>
-                </Card>
+                  </GlassCard>
+                </div>
               );
             })
           )}
