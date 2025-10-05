@@ -42,8 +42,10 @@ interface OnboardingData {
   // Amenities
   amenities: string[];
   
-  // Photos
+  // Photos & Media
   photos: File[];
+  mediaOrder?: string[];
+  thumbnailIndex?: number;
   
   // Pricing
   basePrice: number;
@@ -123,6 +125,10 @@ export default function HostOnboarding() {
         const hostHomeData = {
           ...data,
           photos: photoUrls,
+          mediaOrder: data.mediaOrder || photoUrls, // Use custom order or uploaded order
+          thumbnailMedia: data.thumbnailIndex !== undefined && photoUrls[data.thumbnailIndex] 
+            ? photoUrls[data.thumbnailIndex] 
+            : photoUrls[0], // Use selected thumbnail or first photo
           status: 'pending_review',
         };
         
