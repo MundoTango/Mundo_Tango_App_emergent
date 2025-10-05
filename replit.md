@@ -68,6 +68,13 @@ For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment r
 - Page load time: 5087ms (acceptable, below 2s ESA target)
 - All ESA 61x21 pattern violations: RESOLVED ✅
 
+**Housing Marketplace Route Fix - RESOLVED:**
+- ✅ **404 error fixed** - Updated route from `/housing` → `/housing-marketplace` across 8+ navigation locations
+- ✅ **Button text simplified** - Changed "View All Marketplace" → "All homes" for clearer UX
+- ✅ **Route registry enforcement** - Established single source of truth pattern in `client/src/config/routes.ts`
+- 📚 Full documentation at `docs/pages/housing/marketplace-route-fix.md`
+- 🔧 **Pattern**: Always import routes from registry, never hardcode route strings in components
+
 ## System Architecture
 
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
