@@ -175,6 +175,8 @@ export interface IStorage {
   getUserVideos(userId: number): Promise<any[]>;
   getUserFriends(userId: number): Promise<any[]>;
   getFeedPosts(userId: number, limit?: number, offset?: number, filterTags?: string[]): Promise<Post[]>;
+  getPostsByContext(contextType: string, contextId: number, limit?: number, offset?: number): Promise<Post[]>; // ESA Layer 8: Get posts by context (group/event)
+  getUserGroupIds(userId: number): Promise<number[]>; // ESA Layer 8: Get user's group membership IDs
   getTotalPostsCount(userId: number): Promise<number>; // ESA LIFE CEO 61x21 - Total posts count for pagination
   likePost(postId: number, userId: number): Promise<void>;
   unlikePost(postId: number, userId: number): Promise<void>;
@@ -1395,6 +1397,61 @@ export class DatabaseStorage implements IStorage {
     return Number(result[0]?.count || 0);
   }
 
+  // ESA Layer 8: Get posts by context (group/event/community)
+  async getPostsByContext(contextType: string, contextId: number, limit = 20, offset = 0): Promise<Post[]> {
+    console.log(`🔍 [ESA Storage Layer 8] getPostsByContext called with contextType: ${contextType}, contextId: ${contextId}`);
+    
+    const result = await db
+      .select({
+        posts: posts,
+        users: users
+      })
+      .from(posts)
+      .leftJoin(users, eq(posts.userId, users.id))
+      .where(
+        and(
+          eq(posts.contextType, contextType),
+          eq(posts.contextId, contextId)
+        )
+      )
+      .orderBy(desc(posts.createdAt))
+      .limit(limit)
+      .offset(offset);
+    
+    const mappedPosts = result.map(row => ({
+      ...row.posts,
+      mediaEmbeds: row.posts?.mediaEmbeds || [],
+      user: row.users ? {
+        id: row.users.id,
+        name: row.users.name,
+        username: row.users.username,
+        profileImage: row.users.profileImage,
+        tangoRoles: row.users.tangoRoles,
+        city: row.users.city,
+        country: row.users.country
+      } : null
+    }));
+    
+    console.log(`📊 [ESA Storage Layer 8] Returning ${mappedPosts.length} posts for ${contextType}:${contextId}`);
+    return mappedPosts;
+  }
+
+  // ESA Layer 8: Get user's group membership IDs
+  async getUserGroupIds(userId: number): Promise<number[]> {
+    const result = await db
+      .select({ groupId: groupMembers.groupId })
+      .from(groupMembers)
+      .where(
+        and(
+          eq(groupMembers.userId, userId),
+          eq(groupMembers.status, 'active')
+        )
+      );
+    
+    const groupIds = result.map(row => row.groupId);
+    console.log(`🔍 [ESA Storage Layer 8] User ${userId} is member of ${groupIds.length} groups:`, groupIds);
+    return groupIds;
+  }
 
   async likePost(postId: number, userId: number): Promise<void> {
     await db.insert(postLikes).values({ postId, userId }).onConflictDoNothing();
