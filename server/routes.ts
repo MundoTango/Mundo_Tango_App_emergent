@@ -1821,6 +1821,157 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ========== REVIEW API ROUTES ==========
+  // ESA LIFE CEO 61x21 - Post-Stay Rating System
+
+  // POST /api/host-reviews - Create a host/property review (guest reviews host)
+  app.post('/api/host-reviews', isAuthenticated, async (req: any, res) => {
+    try {
+      const user = req.user;
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const review = {
+        ...req.body,
+        reviewer_id: user.id,
+      };
+
+      const created = await storage.createHostReview(review);
+      res.json({ success: true, data: created });
+    } catch (error: any) {
+      console.error('❌ Error creating host review:', error);
+      res.status(500).json({ error: 'Failed to create review', message: error.message });
+    }
+  });
+
+  // POST /api/guest-reviews - Create a guest review (host reviews guest)
+  app.post('/api/guest-reviews', isAuthenticated, async (req: any, res) => {
+    try {
+      const user = req.user;
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const review = {
+        ...req.body,
+        reviewer_id: user.id,
+      };
+
+      const created = await storage.createGuestReview(review);
+      res.json({ success: true, data: created });
+    } catch (error: any) {
+      console.error('❌ Error creating guest review:', error);
+      res.status(500).json({ error: 'Failed to create review', message: error.message });
+    }
+  });
+
+  // GET /api/host-homes/:id/reviews - Get all reviews for a property
+  app.get('/api/host-homes/:id/reviews', async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      const reviews = await storage.getHostReviews(homeId);
+      res.json({ success: true, data: reviews });
+    } catch (error: any) {
+      console.error('❌ Error fetching host reviews:', error);
+      res.status(500).json({ error: 'Failed to fetch reviews', message: error.message });
+    }
+  });
+
+  // GET /api/users/:id/guest-reviews - Get all reviews for a guest
+  app.get('/api/users/:id/guest-reviews', async (req: any, res) => {
+    try {
+      const guestId = parseInt(req.params.id);
+      if (isNaN(guestId)) {
+        return res.status(400).json({ error: 'Invalid user ID' });
+      }
+
+      const reviews = await storage.getGuestReviews(guestId);
+      res.json({ success: true, data: reviews });
+    } catch (error: any) {
+      console.error('❌ Error fetching guest reviews:', error);
+      res.status(500).json({ error: 'Failed to fetch reviews', message: error.message });
+    }
+  });
+
+  // GET /api/bookings/:id/review-status - Check if reviews can be submitted for a booking
+  app.get('/api/bookings/:id/review-status', isAuthenticated, async (req: any, res) => {
+    try {
+      const bookingId = parseInt(req.params.id);
+      if (isNaN(bookingId)) {
+        return res.status(400).json({ error: 'Invalid booking ID' });
+      }
+
+      const booking = await storage.getGuestBookingById(bookingId);
+      if (!booking) {
+        return res.status(404).json({ error: 'Booking not found' });
+      }
+
+      // Check if stay is completed
+      const now = new Date();
+      const checkoutDate = new Date(booking.checkOutDate);
+      const isStayCompleted = checkoutDate < now;
+
+      // Check if reviews already exist
+      const hostReview = await storage.getHostReviewByBooking(bookingId);
+      const guestReview = await storage.getGuestReviewByBooking(bookingId);
+
+      res.json({
+        success: true,
+        data: {
+          canReviewHost: isStayCompleted && !hostReview && req.user.id === booking.guestId,
+          canReviewGuest: isStayCompleted && !guestReview && req.user.id !== booking.guestId,
+          hasHostReview: !!hostReview,
+          hasGuestReview: !!guestReview,
+          isStayCompleted,
+        },
+      });
+    } catch (error: any) {
+      console.error('❌ Error checking review status:', error);
+      res.status(500).json({ error: 'Failed to check review status', message: error.message });
+    }
+  });
+
+  // POST /api/host-reviews/:id/response - Host responds to a review
+  app.post('/api/host-reviews/:id/response', isAuthenticated, async (req: any, res) => {
+    try {
+      const reviewId = req.params.id;
+      const { response } = req.body;
+
+      if (!response || !response.trim()) {
+        return res.status(400).json({ error: 'Response text is required' });
+      }
+
+      const updated = await storage.addHostResponse(reviewId, response);
+      res.json({ success: true, data: updated });
+    } catch (error: any) {
+      console.error('❌ Error adding host response:', error);
+      res.status(500).json({ error: 'Failed to add response', message: error.message });
+    }
+  });
+
+  // POST /api/guest-reviews/:id/response - Guest responds to a review
+  app.post('/api/guest-reviews/:id/response', isAuthenticated, async (req: any, res) => {
+    try {
+      const reviewId = req.params.id;
+      const { response } = req.body;
+
+      if (!response || !response.trim()) {
+        return res.status(400).json({ error: 'Response text is required' });
+      }
+
+      const updated = await storage.addGuestResponse(reviewId, response);
+      res.json({ success: true, data: updated });
+    } catch (error: any) {
+      console.error('❌ Error adding guest response:', error);
+      res.status(500).json({ error: 'Failed to add response', message: error.message });
+    }
+  });
+
   // ============================================
   // Guest Profile Routes (Sprint 1 - Critical Fix)
   // ============================================
