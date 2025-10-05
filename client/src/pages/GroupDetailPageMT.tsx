@@ -183,9 +183,9 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // Fetch group details using explicit slug endpoint
+  // Fetch group details using flexible endpoint (handles both IDs and slugs)
   const { data: response, isLoading, error } = useQuery<any>({
-    queryKey: [`/api/groups/slug/${slug}`],
+    queryKey: [`/api/groups/${slug}`],
     enabled: !!slug
   });
 

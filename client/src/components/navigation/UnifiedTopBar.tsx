@@ -351,7 +351,7 @@ export default function UnifiedTopBar({
                       )}>Groups</h3>
                       <div className="space-y-1">
                         {searchResults.groups.slice(0, 3).map((group: any) => (
-                          <Link key={group.id} href={`/groups/${group.id}`}>
+                          <Link key={group.id} href={`/groups/${group.slug || group.id}`}>
                             <a onClick={handleSearchResultClick} className={cn(
                               "block p-2 rounded-lg cursor-pointer transition-colors",
                               theme === 'light' 
