@@ -195,7 +195,9 @@ const PostFeed = memo(({
       if (debouncedSearch) params.append('search', debouncedSearch);
       if (activeFilters.startDate) params.append('startDate', activeFilters.startDate);
       if (activeFilters.endDate) params.append('endDate', activeFilters.endDate);
-      return `/api/posts/feed?${params.toString()}`;
+      const url = `/api/posts/feed?${params.toString()}`;
+      console.log('🔍 [PostFeed] Building URL (legacy mode):', url, 'Filter:', activeFilters.filterType);
+      return url;
     }
     
     // Context-based URL building
@@ -203,29 +205,40 @@ const PostFeed = memo(({
     params.append('page', page.toString());
     params.append('limit', '20');
     
+    let url = '';
     switch (context.type) {
       case 'feed': {
         if (activeFilters.filterType !== 'all') params.append('filter', activeFilters.filterType);
         if (activeFilters.tags.length > 0) params.append('tags', activeFilters.tags.join(','));
         if (debouncedSearch) params.append('search', debouncedSearch);
-        return `/api/posts/feed?${params.toString()}`;
+        url = `/api/posts/feed?${params.toString()}`;
+        console.log('🔍 [PostFeed] Building URL (feed context):', url, 'Filter:', activeFilters.filterType);
+        return url;
       }
       case 'group': {
         if (context.filter && context.filter !== 'all') {
           params.append('filter', context.filter);
         }
-        return `/api/groups/${context.groupId}/posts?${params.toString()}`;
+        url = `/api/groups/${context.groupId}/posts?${params.toString()}`;
+        console.log('🔍 [PostFeed] Building URL (group context):', url);
+        return url;
       }
       case 'profile':
-        return `/api/users/${context.userId}/posts?${params.toString()}`;
+        url = `/api/users/${context.userId}/posts?${params.toString()}`;
+        console.log('🔍 [PostFeed] Building URL (profile context):', url);
+        return url;
       case 'event': {
         if (context.filter && context.filter !== 'all') {
           params.append('filter', context.filter);
         }
-        return `/api/events/${context.eventId}/posts?${params.toString()}`;
+        url = `/api/events/${context.eventId}/posts?${params.toString()}`;
+        console.log('🔍 [PostFeed] Building URL (event context):', url);
+        return url;
       }
       default:
-        return `/api/posts/feed?${params.toString()}`;
+        url = `/api/posts/feed?${params.toString()}`;
+        console.log('🔍 [PostFeed] Building URL (default):', url);
+        return url;
     }
   }, [context, page, activeFilters, debouncedSearch]);
 
@@ -234,33 +247,68 @@ const PostFeed = memo(({
     queryKey: getQueryKey(),
     enabled: !propsPosts, // Fetch when no posts prop provided (smart mode)
     queryFn: async () => {
-      const url = buildFetchUrl();
-      const response = await fetch(url, {
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
-      });
+      try {
+        const url = buildFetchUrl();
+        console.log('🌐 [PostFeed] Fetching posts from:', url);
+        const response = await fetch(url, {
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include'
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        console.log('📡 [PostFeed] Response status:', response.status, response.ok);
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('❌ [PostFeed] Fetch failed:', response.status, response.statusText, errorText);
+          throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('✅ [PostFeed] Received data:', { 
+          postsCount: (data.data || data.posts || []).length,
+          hasData: !!data.data,
+          hasPosts: !!data.posts,
+          dataKeys: Object.keys(data),
+          rawData: data
+        });
+        
+        // Handle different response formats
+        // Groups API returns: { success: true, data: [...] }
+        // Feed API returns: { posts: [...], hasMore, page, total }
+        const posts = data.data || data.posts || [];
+        console.log('📊 [PostFeed] Returning', posts.length, 'posts, hasMore:', posts.length === 20);
+        return { posts, hasMore: posts.length === 20 };
+      } catch (err) {
+        console.error('💥 [PostFeed] Query function error:', err);
+        throw err;
       }
-
-      const data = await response.json();
-      
-      // Handle different response formats
-      // Groups API returns: { success: true, data: [...] }
-      // Feed API returns: { posts: [...], hasMore, page, total }
-      const posts = data.data || data.posts || [];
-      return { posts, hasMore: posts.length === 20 };
     },
     staleTime: 30000,
     gcTime: 5 * 60 * 1000,
+    retry: false, // Disable retry to see errors faster
   });
+  
+  // Log query state
+  useEffect(() => {
+    console.log('🔄 [PostFeed] Query state:', { isLoading, isFetching, hasError: !!error, hasData: !!fetchedResponse });
+    if (error) {
+      console.error('🚨 [PostFeed] Query error:', error);
+    }
+  }, [isLoading, isFetching, error, fetchedResponse]);
   
   // ESA Framework: Handle pagination for context mode
   useEffect(() => {
     if (!context || !fetchedResponse?.posts) {
+      console.log('⚠️ [PostFeed] Skipping allPosts update:', { hasContext: !!context, hasPosts: !!fetchedResponse?.posts });
       return;
     }
+    
+    console.log('📝 [PostFeed] Setting allPosts:', { 
+      page, 
+      newPostsCount: fetchedResponse.posts.length,
+      firstPostId: fetchedResponse.posts[0]?.id,
+      contextType: fetchedResponse.posts[0]?.contextType 
+    });
     
     if (page === 1) {
       setAllPosts(fetchedResponse.posts);
@@ -288,6 +336,8 @@ const PostFeed = memo(({
       return;
     }
     
+    console.log('🔄 [PostFeed] Filter changed! New filter:', activeFilters.filterType, 'Tags:', activeFilters.tags, 'Search:', debouncedSearch);
+    
     if (context) {
       setPage(1);
       setAllPosts([]);
@@ -297,17 +347,27 @@ const PostFeed = memo(({
 
   // ESA Framework: Use provided posts (controlled) or fetched posts (smart mode)
   const posts = useMemo(() => {
+    let result;
     if (propsPosts) {
       // Controlled mode: Use provided posts
-      return propsPosts;
-    }
-    if (context) {
+      result = propsPosts;
+    } else if (context) {
       // Smart mode: Use accumulated posts with pagination
-      return allPosts;
+      result = allPosts;
+    } else {
+      // Legacy mode: Direct fetch result
+      result = fetchedResponse?.posts || [];
     }
-    // Legacy mode: Direct fetch result
-    return fetchedResponse?.posts || [];
-  }, [propsPosts, context, allPosts, fetchedResponse]);
+    
+    console.log('📋 [PostFeed] Posts memo updated:', { 
+      mode: propsPosts ? 'controlled' : context ? 'smart' : 'legacy',
+      count: result.length,
+      firstPostId: result[0]?.id,
+      filterType: activeFilters.filterType
+    });
+    
+    return result;
+  }, [propsPosts, context, allPosts, fetchedResponse, activeFilters.filterType]);
 
   // Determine hasMore based on mode
   const hasMore = context ? internalHasMore : externalHasMore;

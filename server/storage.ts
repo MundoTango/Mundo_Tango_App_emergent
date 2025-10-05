@@ -1250,6 +1250,10 @@ export class DatabaseStorage implements IStorage {
     const currentUser = await this.getUser(userId);
     const currentUserCity = currentUser?.city;
     
+    // ESA FIX: Get user's group memberships to include group posts in feed
+    const userGroupIds = await this.getUserGroupIds(userId);
+    console.log(`🔍 [ESA Storage] User ${userId} is member of groups:`, userGroupIds);
+    
     if (filterTags.length === 0) {
       // Build WHERE conditions based on relationship filter
       const visibilityConditions = or(
@@ -1264,18 +1268,40 @@ export class DatabaseStorage implements IStorage {
         )
       );
       
+      // ESA FIX: Include posts from user's groups OR user's own group posts
+      const groupPostsCondition = or(
+        // Posts from groups user is a member of
+        userGroupIds.length > 0
+          ? and(
+              eq(posts.contextType, 'group'),
+              inArray(posts.contextId, userGroupIds)
+            )
+          : sql`false`,
+        // User's OWN group posts (even if not a member anymore)
+        and(
+          eq(posts.contextType, 'group'),
+          eq(posts.userId, userId)
+        )
+      );
+      
+      // Combine visibility conditions with group posts
+      const allVisibilityConditions = or(
+        visibilityConditions,
+        groupPostsCondition
+      );
+      
       // Build relationship filter conditions
       let relationshipConditions;
       if (relationshipFilter === 'residents') {
         // Filter to posts from users in the same city
         relationshipConditions = currentUserCity 
-          ? and(visibilityConditions, eq(users.city, currentUserCity))
-          : visibilityConditions; // If no city set, show all
+          ? and(allVisibilityConditions, eq(users.city, currentUserCity))
+          : allVisibilityConditions; // If no city set, show all
       } else if (relationshipFilter === 'visitors') {
         // Filter to posts from users in different cities
         relationshipConditions = currentUserCity 
-          ? and(visibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
-          : visibilityConditions; // If no city set, show all
+          ? and(allVisibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
+          : allVisibilityConditions; // If no city set, show all
       } else if (relationshipFilter === 'friends') {
         // Filter to posts only from accepted friends, excluding own posts
         relationshipConditions = and(
@@ -1288,7 +1314,7 @@ export class DatabaseStorage implements IStorage {
         );
       } else {
         // 'all' - no additional filtering
-        relationshipConditions = visibilityConditions;
+        relationshipConditions = allVisibilityConditions;
       }
       
       const result = await db
@@ -1366,24 +1392,46 @@ export class DatabaseStorage implements IStorage {
       )
     );
     
+    // ESA FIX: Include posts from user's groups OR user's own group posts (same as above)
+    const groupPostsCondition = or(
+      // Posts from groups user is a member of
+      userGroupIds.length > 0
+        ? and(
+            eq(posts.contextType, 'group'),
+            inArray(posts.contextId, userGroupIds)
+          )
+        : sql`false`,
+      // User's OWN group posts (even if not a member anymore)
+      and(
+        eq(posts.contextType, 'group'),
+        eq(posts.userId, userId)
+      )
+    );
+    
+    // Combine visibility conditions with group posts
+    const allVisibilityConditions = or(
+      visibilityConditions,
+      groupPostsCondition
+    );
+    
     // Build relationship filter conditions
     let relationshipConditions;
     if (relationshipFilter === 'residents') {
       // Filter to posts from users in the same city
       relationshipConditions = currentUserCity 
-        ? and(visibilityConditions, eq(users.city, currentUserCity))
-        : visibilityConditions; // If no city set, show all
+        ? and(allVisibilityConditions, eq(users.city, currentUserCity))
+        : allVisibilityConditions; // If no city set, show all
     } else if (relationshipFilter === 'visitors') {
       // Filter to posts from users in different cities
       relationshipConditions = currentUserCity 
-        ? and(visibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
-        : visibilityConditions; // If no city set, show all
+        ? and(allVisibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
+        : allVisibilityConditions; // If no city set, show all
     } else if (relationshipFilter === 'friends') {
       // Filter to posts only from accepted friends
-      relationshipConditions = and(visibilityConditions, isNotNull(friends.id));
+      relationshipConditions = and(allVisibilityConditions, isNotNull(friends.id));
     } else {
       // 'all' - no additional filtering
-      relationshipConditions = visibilityConditions;
+      relationshipConditions = allVisibilityConditions;
     }
     
     const result = await db
