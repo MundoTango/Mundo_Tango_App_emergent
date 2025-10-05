@@ -13,8 +13,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
 } from '@/components/ui/dropdown-menu';
-import { Globe2, Check, Sparkles, Languages } from 'lucide-react';
-import { changeLanguage, supportedLanguages as supportedLangsConfig } from '@/i18n/config';
+import { Globe2, Check, Languages } from 'lucide-react';
+import { changeLanguage, supportedLanguages as supportedLangsConfig } from '@/lib/i18n';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { useMutation } from '@tanstack/react-query';
@@ -62,11 +62,11 @@ const LanguageSelector = ({
   const supportedLanguages: Language[] = supportedLangsConfig.map(lang => ({
     code: lang.code,
     name: lang.name,
-    nativeName: lang.name, // Using name as nativeName for simplicity
-    country: lang.country || 'GB',
+    nativeName: lang.nativeName,
+    country: lang.flag.replace(/[^\w]/g, '').substring(0, 2), // Extract country code from flag emoji
     isActive: true,
-    isLunfardo: lang.code === 'es-AR-lunfardo',
-    isPrimary: lang.isPrimary || false
+    isLunfardo: false,
+    isPrimary: lang.code === 'en' || lang.code === 'es'
   }));
 
   // Default user preferences (can be fetched from API later)
@@ -98,16 +98,15 @@ const LanguageSelector = ({
       //   },
       // });
       
+      const langName = supportedLanguages.find(l => l.code === languageCode)?.name || languageCode;
       toast({
-        title: t('settings.languageChanged'),
-        description: t('settings.languageChangedDesc', { 
-          language: supportedLanguages.find(l => l.code === languageCode)?.name 
-        }),
+        title: 'Language Changed',
+        description: `Language changed to ${langName}`,
       });
     } catch (error) {
       toast({
-        title: t('errors.languageChangeFailed'),
-        description: t('errors.tryAgain'),
+        title: 'Language Change Failed',
+        description: 'Please try again.',
         variant: 'destructive',
       });
     } finally {
@@ -178,29 +177,24 @@ const LanguageSelector = ({
       <DropdownMenuItem
         key={lang.code}
         onClick={() => handleLanguageChange(lang.code)}
-        className="flex items-center justify-between hover:bg-turquoise-50"
+        className="flex items-center justify-between hover:glass-card hover:glass-depth-1 cursor-pointer"
         disabled={isChanging}
       >
         <div className="flex items-center gap-2">
           {showFlags && (
-            <span className="text-xl">{getFlagEmoji(lang.country)}</span>
+            <span className="text-xl">{supportedLangsConfig.find(l => l.code === lang.code)?.flag || '🌍'}</span>
           )}
-          <span className={isSelected ? 'font-semibold text-turquoise-600' : ''}>
-            {lang.name}
-          </span>
-          {lang.isLunfardo && (
-            <Badge className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white text-xs">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Lunfardo
-            </Badge>
-          )}
+          <div className={isSelected ? 'font-semibold text-cyan-600 dark:text-cyan-400' : ''}>
+            <div>{lang.name}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{lang.nativeName}</div>
+          </div>
           {isUserLanguage && (
-            <Badge variant="outline" className="text-xs border-turquoise-300">
-              {t('common.preferred')}
+            <Badge variant="outline" className="text-xs border-cyan-300">
+              Preferred
             </Badge>
           )}
         </div>
-        {isSelected && <Check className="w-4 h-4 text-turquoise-600" />}
+        {isSelected && <Check className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />}
       </DropdownMenuItem>
     );
   };
@@ -215,9 +209,9 @@ const LanguageSelector = ({
 
   if (variant === 'list') {
     return (
-      <div className={`glassmorphic-card p-6 ${className}`}>
-        <h3 className="text-lg font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-turquoise-400 to-cyan-500">
-          {t('settings.selectLanguage')}
+      <div className={`glass-card glass-depth-2 p-6 ${className}`}>
+        <h3 className="text-lg font-semibold mb-4 text-brand-gradient">
+          Select Language
         </h3>
         <div className="space-y-2 max-h-96 overflow-y-auto">
           {supportedLanguages.map(lang => (
@@ -228,8 +222,8 @@ const LanguageSelector = ({
               className={`
                 w-full p-3 rounded-lg text-left transition-all duration-200
                 ${i18n.language === lang.code 
-                  ? 'bg-gradient-to-r from-turquoise-100 to-cyan-100 border-2 border-turquoise-300' 
-                  : 'hover:bg-turquoise-50 border border-gray-200'
+                  ? 'glass-card glass-depth-1 border-2 border-cyan-300 dark:border-cyan-500' 
+                  : 'hover:glass-card hover:glass-depth-1 border border-white/20 dark:border-white/10'
                 }
               `}
             >
@@ -240,14 +234,8 @@ const LanguageSelector = ({
                   )}
                   <div>
                     <div className="font-medium">{lang.name}</div>
-                    <div className="text-sm text-gray-500">{lang.code}</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400">{lang.nativeName}</div>
                   </div>
-                  {lang.isLunfardo && (
-                    <Badge className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white text-xs">
-                      <Sparkles className="w-3 h-3 mr-1" />
-                      Lunfardo
-                    </Badge>
-                  )}
                 </div>
                 {i18n.language === lang.code && (
                   <Check className="w-5 h-5 text-turquoise-600" />
@@ -269,20 +257,20 @@ const LanguageSelector = ({
         <Button 
           variant="ghost" 
           size="sm"
-          className={`flex items-center gap-2 hover:bg-turquoise-50 ${className}`}
+          className={`flex items-center gap-2 hover:glass-card hover:glass-depth-1 transition-all ${className}`}
           disabled={isChanging}
         >
           <Globe2 className="w-4 h-4" />
           {showFlags && currentLanguage && (
-            <span className="text-lg">{getFlagEmoji(currentLanguage.country)}</span>
+            <span className="text-lg">{supportedLangsConfig.find(l => l.code === currentLanguage.code)?.flag || '🌍'}</span>
           )}
-          <span className="hidden sm:inline">{currentLanguage?.name || 'Language'}</span>
+          <span className="hidden sm:inline">{currentLanguage?.nativeName || 'Language'}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80 glassmorphic-card" align="end">
-        <DropdownMenuLabel className="flex items-center gap-2">
+      <DropdownMenuContent className="w-80 glass-card glass-depth-3 border border-white/20 dark:border-white/10" align="end">
+        <DropdownMenuLabel className="flex items-center gap-2 text-brand-gradient font-semibold">
           <Languages className="w-4 h-4" />
-          {t('settings.chooseLanguage')}
+          Choose Language
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         
@@ -292,7 +280,7 @@ const LanguageSelector = ({
             {languageGroups['Primary Languages'] && languageGroups['Primary Languages'].length > 0 && (
               <>
                 <div className="px-2 py-1.5">
-                  <p className="text-xs font-semibold text-turquoise-600 mb-1">✨ Primary Languages</p>
+                  <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 mb-1">✨ Primary Languages</p>
                   {languageGroups['Primary Languages'].map(renderLanguageItem)}
                 </div>
                 <DropdownMenuSeparator />
@@ -304,7 +292,7 @@ const LanguageSelector = ({
               if (region === 'Popular' || region === 'All Languages' || languages.length === 0) return null;
               return (
                 <DropdownMenuSub key={region}>
-                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50 cursor-pointer">
+                  <DropdownMenuSubTrigger className="hover:glass-card hover:glass-depth-1 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
                       <span>{region}</span>
                       <span className="text-xs text-gray-500 ml-2">({languages.length})</span>
@@ -327,9 +315,9 @@ const LanguageSelector = ({
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="hover:bg-turquoise-50 cursor-pointer">
+                  <DropdownMenuSubTrigger className="hover:glass-card hover:glass-depth-1 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
-                      <span>{t('settings.allLanguages') || 'All Languages'}</span>
+                      <span>All Languages</span>
                       <span className="text-xs text-gray-500 ml-2">({supportedLanguages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>

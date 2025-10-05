@@ -1,223 +1,167 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpBackend from 'i18next-http-backend';
 
-// Translation resources
+// Import translation files
+import enCommon from '@/i18n/locales/en/common.json';
+import enEvents from '@/i18n/locales/en/events.json';
+import enSocial from '@/i18n/locales/en/social.json';
+import enAgents from '@/i18n/locales/en/agents.json';
+import enPlaceholders from '@/i18n/locales/en/placeholders.json';
+
+import esCommon from '@/i18n/locales/es/common.json';
+import esEvents from '@/i18n/locales/es/events.json';
+import esSocial from '@/i18n/locales/es/social.json';
+import esAgents from '@/i18n/locales/es/agents.json';
+
+import frCommon from '@/i18n/locales/fr/common.json';
+import itCommon from '@/i18n/locales/it/common.json';
+import ptCommon from '@/i18n/locales/pt/common.json';
+
+// Translation resources organized by namespace
 const resources = {
   en: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Welcome to Mundo Tango',
-      friends: 'Friends',
-      messages: 'Messages',
-      notifications: 'Notifications',
-      search: 'Search',
-      // Memories Section
-      memories: 'Memories',
-      shareYourMemory: 'Share your precious moments with the community...',
-      eventsInYourCity: 'Events in Your City',
-      noUpcomingEvents: 'No upcoming events',
-      share: 'Share',
-      edit: 'Edit',
-      milongasInYourCity: 'Milongas in Your City',
-      shareTangoMoment: 'Share a tango moment...',
-      // Tags
-      add: 'Add',
-      addTags: 'Add tags to your memory',
-      practice: 'Practice',
-      performance: 'Performance',
-      // Common Actions
-      post: 'Post',
-      cancel: 'Cancel',
-      save: 'Save',
-      delete: 'Delete',
-      // Profile
-      profile: 'Profile',
-      settings: 'Settings',
-      logout: 'Logout',
-    }
+    common: enCommon,
+    events: enEvents,
+    social: enSocial,
+    agents: enAgents,
+    placeholders: enPlaceholders
   },
   es: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Bienvenido a Mundo Tango',
-      friends: 'Amigos',
-      messages: 'Mensajes',
-      notifications: 'Notificaciones',
-      search: 'Buscar',
-      // Memories Section
-      memories: 'Memorias',
-      shareYourMemory: 'Comparte tus momentos preciosos con la comunidad...',
-      eventsInYourCity: 'Eventos en Tu Ciudad',
-      noUpcomingEvents: 'No hay eventos próximos',
-      share: 'Compartir',
-      edit: 'Editar',
-      milongasInYourCity: 'Milongas en Tu Ciudad',
-      shareTangoMoment: 'Comparte un momento de tango...',
-      // Tags
-      add: 'Agregar',
-      addTags: 'Agrega etiquetas a tu memoria',
-      practice: 'Práctica',
-      performance: 'Presentación',
-      // Common Actions
-      post: 'Publicar',
-      cancel: 'Cancelar',
-      save: 'Guardar',
-      delete: 'Eliminar',
-      // Profile
-      profile: 'Perfil',
-      settings: 'Configuración',
-      logout: 'Cerrar sesión',
-    }
+    common: esCommon,
+    events: esEvents,
+    social: esSocial,
+    agents: esAgents
   },
   fr: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Bienvenue à Mundo Tango',
-      friends: 'Amis',
-      messages: 'Messages',
-      notifications: 'Notifications',
-      search: 'Rechercher',
-      // Memories Section
-      memories: 'Souvenirs',
-      shareYourMemory: 'Partagez vos moments précieux avec la communauté...',
-      eventsInYourCity: 'Événements dans votre ville',
-      noUpcomingEvents: 'Aucun événement à venir',
-      share: 'Partager',
-      edit: 'Modifier',
-      milongasInYourCity: 'Milongas dans votre ville',
-      shareTangoMoment: 'Partagez un moment de tango...',
-      // Tags
-      add: 'Ajouter',
-      addTags: 'Ajoutez des tags à votre souvenir',
-      practice: 'Pratique',
-      performance: 'Performance',
-      // Common Actions
-      post: 'Publier',
-      cancel: 'Annuler',
-      save: 'Enregistrer',
-      delete: 'Supprimer',
-      // Profile
-      profile: 'Profil',
-      settings: 'Paramètres',
-      logout: 'Déconnexion',
-    }
+    common: frCommon
   },
   de: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Willkommen bei Mundo Tango',
-      friends: 'Freunde',
-      messages: 'Nachrichten',
-      notifications: 'Benachrichtigungen',
-      search: 'Suchen',
-      // Memories Section
-      memories: 'Erinnerungen',
-      shareYourMemory: 'Teilen Sie Ihre kostbaren Momente mit der Community...',
-      eventsInYourCity: 'Veranstaltungen in Ihrer Stadt',
-      noUpcomingEvents: 'Keine bevorstehenden Veranstaltungen',
-      share: 'Teilen',
-      edit: 'Bearbeiten',
-      milongasInYourCity: 'Milongas in Ihrer Stadt',
-      shareTangoMoment: 'Teilen Sie einen Tango-Moment...',
-      // Tags
-      add: 'Hinzufügen',
-      addTags: 'Fügen Sie Tags zu Ihrer Erinnerung hinzu',
-      practice: 'Übung',
-      performance: 'Aufführung',
-      // Common Actions
-      post: 'Veröffentlichen',
-      cancel: 'Abbrechen',
-      save: 'Speichern',
-      delete: 'Löschen',
-      // Profile
-      profile: 'Profil',
-      settings: 'Einstellungen',
-      logout: 'Abmelden',
+    // German translations (using English as fallback for now)
+    common: {
+      app: {
+        name: 'Mundo Tango',
+        tagline: 'Die globale Tango-Community',
+        welcome: 'Willkommen bei Mundo Tango'
+      },
+      navigation: {
+        home: 'Startseite',
+        feed: 'Feed',
+        profile: 'Profil',
+        events: 'Veranstaltungen',
+        community: 'Gemeinschaft',
+        messages: 'Nachrichten',
+        friends: 'Freunde',
+        groups: 'Gruppen',
+        memories: 'Erinnerungen',
+        settings: 'Einstellungen',
+        admin: 'Admin',
+        logout: 'Abmelden',
+        search: 'Suchen',
+        notifications: 'Benachrichtigungen',
+        help: 'Hilfe'
+      },
+      actions: {
+        save: 'Speichern',
+        cancel: 'Abbrechen',
+        delete: 'Löschen',
+        edit: 'Bearbeiten',
+        add: 'Hinzufügen',
+        create: 'Erstellen',
+        update: 'Aktualisieren',
+        submit: 'Senden',
+        confirm: 'Bestätigen',
+        close: 'Schließen',
+        back: 'Zurück',
+        next: 'Weiter',
+        previous: 'Vorherige',
+        upload: 'Hochladen',
+        download: 'Herunterladen',
+        share: 'Teilen',
+        viewAll: 'Alle anzeigen'
+      }
     }
   },
   it: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Benvenuto a Mundo Tango',
-      friends: 'Amici',
-      messages: 'Messaggi',
-      notifications: 'Notifiche',
-      search: 'Cerca',
-      // Memories Section
-      memories: 'Ricordi',
-      shareYourMemory: 'Condividi i tuoi momenti preziosi con la comunità...',
-      eventsInYourCity: 'Eventi nella tua città',
-      noUpcomingEvents: 'Nessun evento in programma',
-      share: 'Condividi',
-      edit: 'Modifica',
-      milongasInYourCity: 'Milonghe nella tua città',
-      shareTangoMoment: 'Condividi un momento di tango...',
-      // Tags
-      add: 'Aggiungi',
-      addTags: 'Aggiungi tag al tuo ricordo',
-      practice: 'Pratica',
-      performance: 'Esibizione',
-      // Common Actions
-      post: 'Pubblica',
-      cancel: 'Annulla',
-      save: 'Salva',
-      delete: 'Elimina',
-      // Profile
-      profile: 'Profilo',
-      settings: 'Impostazioni',
-      logout: 'Esci',
-    }
+    common: itCommon
   },
   pt: {
-    translation: {
-      // Header & Navigation
-      welcome: 'Bem-vindo ao Mundo Tango',
-      friends: 'Amigos',
-      messages: 'Mensagens',
-      notifications: 'Notificações',
-      search: 'Pesquisar',
-      // Memories Section
-      memories: 'Memórias',
-      shareYourMemory: 'Compartilhe seus momentos preciosos com a comunidade...',
-      eventsInYourCity: 'Eventos em sua cidade',
-      noUpcomingEvents: 'Nenhum evento próximo',
-      share: 'Compartilhar',
-      edit: 'Editar',
-      milongasInYourCity: 'Milongas em sua cidade',
-      shareTangoMoment: 'Compartilhe um momento de tango...',
-      // Tags
-      add: 'Adicionar',
-      addTags: 'Adicione tags à sua memória',
-      practice: 'Prática',
-      performance: 'Apresentação',
-      // Common Actions
-      post: 'Publicar',
-      cancel: 'Cancelar',
-      save: 'Salvar',
-      delete: 'Excluir',
-      // Profile
-      profile: 'Perfil',
-      settings: 'Configurações',
-      logout: 'Sair',
-    }
+    common: ptCommon
   }
 };
+
+// Supported languages with metadata
+export const supportedLanguages = [
+  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', direction: 'ltr' },
+  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', direction: 'ltr' },
+  { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', direction: 'ltr' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', direction: 'ltr' },
+  { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', direction: 'ltr' },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', direction: 'ltr' }
+];
+
+// RTL languages (for future expansion)
+export const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
+    defaultNS: 'common',
     fallbackLng: 'en',
+    debug: false,
+    
     interpolation: {
-      escapeValue: false
+      escapeValue: false // React already escapes values
+    },
+
+    // Detection order
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage'],
+      lookupLocalStorage: 'i18nextLng'
+    },
+
+    // Return empty string for missing keys (better UX)
+    returnEmptyString: false,
+    returnNull: false,
+    
+    // Namespace behavior
+    ns: ['common', 'events', 'social', 'agents', 'placeholders'],
+    
+    // React options
+    react: {
+      useSuspense: false
     }
   });
 
+// Helper to check if language is RTL
+export const isRTL = (lang: string): boolean => {
+  return rtlLanguages.includes(lang);
+};
+
+// Helper to change language
+export const changeLanguage = async (lang: string) => {
+  await i18n.changeLanguage(lang);
+  
+  // Update document direction for RTL support
+  if (typeof document !== 'undefined') {
+    document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  }
+  
+  // Store preference
+  localStorage.setItem('i18nextLng', lang);
+  
+  return lang;
+};
+
 // Make i18n available globally for the language selector
 if (typeof window !== 'undefined') {
-  window.i18n = i18n;
+  (window as any).i18n = i18n;
+  (window as any).changeLanguage = changeLanguage;
 }
 
 export default i18n;
