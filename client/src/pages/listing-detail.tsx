@@ -104,7 +104,7 @@ export default function ListingDetail() {
   });
 
   // Fetch connection info for booking eligibility (ESA Layer 31)
-  const { data: connectionData, isLoading: isLoadingConnection } = useQuery({
+  const { data: connectionData, isLoading: isLoadingConnection } = useQuery<{ data: { connectionDegree: number; closenessScore: number } }>({
     queryKey: user && listing?.data.hostId ? [`/api/users/${user.id}/connection-info/${listing.data.hostId}`] : ['connection-info-disabled'],
     enabled: !!user && !!listing?.data.hostId && showBookingModal,
   });
@@ -661,7 +661,7 @@ export default function ListingDetail() {
                   {connectionData.data.connectionDegree >= 1 ? (
                     <div>
                       <p className="font-semibold text-cyan-900">
-                        You're connected! {getConnectionLabel(connectionData.data.connectionDegree)}
+                        You're connected! {getConnectionLabel(connectionData.data.connectionDegree as -1 | 1 | 2 | 3)}
                       </p>
                       <p className="text-sm text-cyan-800 mt-1">
                         Your friendship score: {connectionData.data.closenessScore}/100
