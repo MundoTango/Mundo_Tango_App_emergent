@@ -49,6 +49,7 @@ import { requireRole, requireAdmin, ensureUserProfile, auditRoleAction } from ".
 import { supabase } from "./supabaseClient";
 import { getNotionEntries, getNotionEntryBySlug, getNotionFilterOptions } from "./notion.js";
 import { CityPhotoService } from "./services/cityPhotoService";
+import { connectionService } from "./services/connectionCalculationService";
 import rbacRoutes from "./rbacRoutes";
 import tenantRoutes from "./routes/tenantRoutes";
 import { registerStatisticsRoutes } from "./routes/statisticsRoutes";
@@ -2584,6 +2585,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error('Error updating booking restrictions:', error);
       res.status(500).json({ error: 'Failed to update booking restrictions' });
+    }
+  });
+
+  // POST /api/host-homes/:id/check-booking-eligibility - Check if user can book a property
+  app.post('/api/host-homes/:id/check-booking-eligibility', isAuthenticated, async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      // Get property details
+      const home = await storage.getHostHomeById(homeId);
+      if (!home) {
+        return res.status(404).json({ error: 'Property not found' });
+      }
+
+      // Check eligibility using connection service
+      const eligibility = await connectionService.canUserBook(
+        user.id,
+        home.hostId,
+        home.whoCanBook || 'anyone',
+        home.minimumClosenessScore || 0
+      );
+
+      console.log(`🔍 Booking eligibility check for user ${user.id} on property ${homeId}:`, eligibility);
+
+      res.json({
+        success: true,
+        eligible: eligibility.canBook,
+        reason: eligibility.reason,
+        connectionInfo: eligibility.connectionInfo
+      });
+    } catch (error: any) {
+      console.error('Error checking booking eligibility:', error);
+      res.status(500).json({ error: 'Failed to check booking eligibility' });
     }
   });
 
