@@ -1,28 +1,13 @@
 /**
  * ESA 61x21 Multi-Agent System
- * Native Node.js implementation with Ray-like parallel execution
+ * PostgreSQL-based implementation with Ray-like parallel execution
  * Based on ESA Master Knowledge Graph
  */
 
-import { Queue, Worker, Job, QueueEvents } from 'bullmq';
-import Redis from 'ioredis';
+import { PgQueue, PgWorker, PgQueueEvents, PgStateManager, type PgJob } from './pg-queue-adapter';
 import EventEmitter from 'events';
 import { performance } from 'perf_hooks';
 import knowledgeGraph from '../esa-master-knowledge-graph.json';
-
-// Agent system configuration
-// BullMQ requires maxRetriesPerRequest to be null for blocking operations
-const REDIS_CONFIG = {
-  host: process.env.REDIS_HOST || 'localhost',
-  port: parseInt(process.env.REDIS_PORT || '6379'),
-  maxRetriesPerRequest: null, // Required by BullMQ for blocking operations
-  enableReadyCheck: false,
-};
-
-// Create Redis connections for different purposes
-const redisConnection = new Redis(REDIS_CONFIG);
-const redisPubSub = new Redis(REDIS_CONFIG);
-const redisSharedState = new Redis(REDIS_CONFIG);
 
 /**
  * Agent-to-Agent (A2A) Protocol
@@ -71,9 +56,10 @@ export abstract class Agent {
   public readonly id: string;
   public readonly name: string;
   public readonly layers: number[];
-  protected queue: Queue;
-  protected worker: Worker;
-  protected events: QueueEvents;
+  protected queue: PgQueue;
+  protected worker: PgWorker;
+  protected events: PgQueueEvents;
+  protected stateManager: PgStateManager;
   protected state: Map<string, any> = new Map();
   
   constructor(
@@ -83,31 +69,34 @@ export abstract class Agent {
     this.name = domain.name;
     this.layers = domain.layers;
     
-    // Initialize BullMQ queue for this agent
-    this.queue = new Queue(`agent_${this.id}`, {
-      connection: redisConnection.duplicate(),
+    // Initialize PostgreSQL queue for this agent
+    this.queue = new PgQueue(`agent_${this.id}`, {
+      pollIntervalMs: 1000,
     });
     
     // Initialize queue events
-    this.events = new QueueEvents(`agent_${this.id}`, {
-      connection: redisConnection.duplicate(),
+    this.events = new PgQueueEvents(`agent_${this.id}`, {
+      pollIntervalMs: 500,
     });
     
     // Initialize worker
-    this.worker = new Worker(
+    this.worker = new PgWorker(
       `agent_${this.id}`,
-      async (job: Job) => await this.processJob(job),
+      async (job: PgJob) => await this.processJob(job),
       {
-        connection: redisConnection.duplicate(),
         concurrency: this.getConcurrency(),
+        pollIntervalMs: 1000,
       }
     );
+    
+    // Initialize state manager
+    this.stateManager = new PgStateManager(this.id);
     
     this.setupEventHandlers();
   }
   
   // Abstract methods to be implemented by specific agents
-  abstract processJob(job: Job): Promise<any>;
+  abstract processJob(job: PgJob): Promise<any>;
   abstract execute(method: string, params: any): Promise<any>;
   abstract handleEvent(event: string, data: any): Promise<void>;
   
@@ -140,19 +129,13 @@ export abstract class Agent {
     });
   }
   
-  // Get/set shared state
+  // Get/set shared state using PostgreSQL
   async getSharedState(key: string) {
-    const value = await redisSharedState.get(`state:${this.id}:${key}`);
-    return value ? JSON.parse(value) : null;
+    return await this.stateManager.get(key);
   }
   
   async setSharedState(key: string, value: any) {
-    await redisSharedState.set(
-      `state:${this.id}:${key}`,
-      JSON.stringify(value),
-      'EX',
-      3600 // 1 hour TTL
-    );
+    await this.stateManager.set(key, value, 3600); // 1 hour TTL
   }
   
   // Apply patterns from knowledge graph
@@ -194,7 +177,7 @@ export class InfrastructureOrchestrator extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['1_infrastructure_orchestrator']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     // Apply relevant patterns
@@ -288,7 +271,7 @@ export class FrontendCoordinator extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['2_frontend_coordinator']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     // Apply frontend patterns
@@ -386,7 +369,7 @@ export class BackgroundProcessor extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['3_background_processor']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     switch (type) {
@@ -422,7 +405,10 @@ export class BackgroundProcessor extends Agent {
     // Apply geocoding cache pattern
     this.applyPattern('geocoding_cache');
     
-    await redisSharedState.set(`cache:${data.key}`, JSON.stringify(data.value), 'EX', data.ttl || 3600);
+    await this.setSharedState(`cache:${data.key}`, {
+      value: data.value,
+      ttl: data.ttl || 3600
+    });
     return { cached: true };
   }
   
@@ -449,8 +435,8 @@ export class BackgroundProcessor extends Agent {
   }
   
   private async getFromCache(key: string) {
-    const value = await redisSharedState.get(`cache:${key}`);
-    return value ? JSON.parse(value) : null;
+    const cached = await this.getSharedState(`cache:${key}`);
+    return cached?.value || null;
   }
   
   private async scheduleJob(params: any) {
@@ -462,11 +448,10 @@ export class BackgroundProcessor extends Agent {
   }
   
   private async invalidateCache(data: any) {
-    const keys = await redisSharedState.keys(`cache:${data.pattern}`);
-    if (keys.length > 0) {
-      await redisSharedState.del(...keys);
-    }
-    console.log(`[${this.name}] Invalidated ${keys.length} cache entries`);
+    // In PostgreSQL, we can't easily get all keys matching a pattern,
+    // so we'll just invalidate specific keys
+    await this.stateManager.delete(`cache:${data.pattern}`);
+    console.log(`[${this.name}] Cache invalidated for pattern: ${data.pattern}`);
   }
 }
 
@@ -621,16 +606,20 @@ export class MasterControlSystem {
     const health: any = {
       status: 'healthy',
       agents: {},
-      redis: false,
+      database: false,
     };
     
-    // Check Redis connection
+    // Check database connection (PostgreSQL is always available if the app is running)
     try {
-      await redisConnection.ping();
-      health.redis = true;
+      // Simple check - if we can create state managers, DB is working
+      const testManager = new PgStateManager('health_check');
+      await testManager.set('ping', 'pong', 1); // 1 second TTL
+      const value = await testManager.get('ping');
+      health.database = value === 'pong';
+      await testManager.delete('ping');
     } catch (error) {
       health.status = 'degraded';
-      health.redis = false;
+      health.database = false;
     }
     
     // Check each agent
@@ -659,11 +648,6 @@ export class MasterControlSystem {
     );
     
     await Promise.all(shutdownPromises);
-    
-    // Close Redis connections
-    await redisConnection.quit();
-    await redisPubSub.quit();
-    await redisSharedState.quit();
     
     console.log('✅ Multi-Agent System shutdown complete');
   }

@@ -3,7 +3,7 @@
  * Agents 4-9: Real-time, Business, Analytics, Life CEO, Platform, Master
  */
 
-import { Job } from 'bullmq';
+import { type PgJob } from './pg-queue-adapter';
 import { Agent } from './agent-system';
 import knowledgeGraph from '../esa-master-knowledge-graph.json';
 import { io, Socket } from 'socket.io-client';
@@ -19,7 +19,7 @@ export class RealtimeCommunications extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['4_realtime_communications']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     // Apply WebSocket patterns
@@ -158,7 +158,7 @@ export class BusinessLogicManager extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['5_business_logic_manager']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     // Apply business logic patterns
@@ -326,7 +326,7 @@ export class SearchAnalytics extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['6_search_analytics']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     switch (type) {
@@ -504,7 +504,7 @@ export class LifeCEOCore extends Agent {
     });
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     switch (type) {
@@ -663,7 +663,7 @@ export class PlatformEnhancement extends Agent {
     super(knowledgeGraph.esa_knowledge_graph.agent_domains['8_platform_enhancement']);
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     // Apply platform patterns
@@ -813,7 +813,7 @@ export class MasterControl extends Agent {
     this.systemState.set('system_status', 'operational');
   }
   
-  async processJob(job: Job) {
+  async processJob(job: PgJob) {
     const { type, data } = job.data;
     
     switch (type) {

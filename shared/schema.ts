@@ -2898,3 +2898,82 @@ export type SecurityEvent = typeof securityEvents.$inferSelect;
 export type InsertSecurityEvent = z.infer<typeof insertSecurityEventSchema>;
 export type SuspiciousActivity = typeof suspiciousActivities.$inferSelect;
 export type InsertSuspiciousActivity = z.infer<typeof insertSuspiciousActivitySchema>;
+
+// Agent System tables for PostgreSQL-based queue (replacing Redis/BullMQ)
+export const agentJobs = pgTable("agent_jobs", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 100 }).notNull(),
+  jobName: varchar("job_name", { length: 255 }).notNull(),
+  data: jsonb("data").notNull(),
+  status: varchar("status", { length: 50 }).notNull().default('pending'), // pending, processing, completed, failed, retrying
+  result: jsonb("result"),
+  error: text("error"),
+  attempts: integer("attempts").default(0),
+  maxAttempts: integer("max_attempts").default(3),
+  priority: integer("priority").default(0),
+  scheduledAt: timestamp("scheduled_at"),
+  processedAt: timestamp("processed_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_jobs_agent_id").on(table.agentId),
+  index("idx_agent_jobs_status").on(table.status),
+  index("idx_agent_jobs_priority_status").on(table.priority, table.status),
+  index("idx_agent_jobs_scheduled_at").on(table.scheduledAt),
+  index("idx_agent_jobs_created_at").on(table.createdAt),
+]);
+
+export const agentState = pgTable("agent_state", {
+  id: serial("id").primaryKey(),
+  agentId: varchar("agent_id", { length: 100 }).notNull(),
+  key: varchar("key", { length: 255 }).notNull(),
+  value: jsonb("value").notNull(),
+  expiresAt: timestamp("expires_at"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  unique().on(table.agentId, table.key),
+  index("idx_agent_state_agent_id").on(table.agentId),
+  index("idx_agent_state_key").on(table.key),
+  index("idx_agent_state_expires_at").on(table.expiresAt),
+]);
+
+export const agentEvents = pgTable("agent_events", {
+  id: serial("id").primaryKey(),
+  event: varchar("event", { length: 255 }).notNull(),
+  agentId: varchar("agent_id", { length: 100 }),
+  data: jsonb("data"),
+  processed: boolean("processed").default(false),
+  processedAt: timestamp("processed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_events_event").on(table.event),
+  index("idx_agent_events_agent_id").on(table.agentId),
+  index("idx_agent_events_processed").on(table.processed),
+  index("idx_agent_events_created_at").on(table.createdAt),
+]);
+
+// Insert schemas for agent system tables
+export const insertAgentJobSchema = createInsertSchema(agentJobs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAgentStateSchema = createInsertSchema(agentState).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentEventSchema = createInsertSchema(agentEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for agent system tables
+export type AgentJob = typeof agentJobs.$inferSelect;
+export type InsertAgentJob = z.infer<typeof insertAgentJobSchema>;
+export type AgentState = typeof agentState.$inferSelect;
+export type InsertAgentState = z.infer<typeof insertAgentStateSchema>;
+export type AgentEvent = typeof agentEvents.$inferSelect;
+export type InsertAgentEvent = z.infer<typeof insertAgentEventSchema>;
