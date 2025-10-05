@@ -88,13 +88,21 @@ export default function HousingMarketplace() {
     'sound_system', 'balcony', 'doorman', 'shared_kitchen'
   ];
 
+  // Map UI type selection to API params
+  const getTypeQueryParams = () => {
+    if (selectedType === 'all') return {};
+    // No API filtering by type - we'll filter on frontend
+    // This allows flexibility since propertyType and roomType are different fields
+    return {};
+  };
+
   // Fetch listings from API
   const { data: listingsData, isLoading } = useQuery<{ data: HousingListing[] }>({
     queryKey: ['/api/host-homes', { 
       minPrice: priceRange.min, // Already in dollars
       maxPrice: priceRange.max,
-      roomType: selectedType !== 'all' ? selectedType : '',
-      minGuests: guestCount
+      minGuests: guestCount,
+      ...getTypeQueryParams()
     }]
   });
 
@@ -121,6 +129,13 @@ export default function HousingMarketplace() {
                          listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          location.toLowerCase().includes(searchQuery.toLowerCase());
     
+    // Type filter (from top buttons: all/apartment/room/shared/house)
+    const matchesType = selectedType === 'all' || 
+      (selectedType === 'apartment' && listing.propertyType === 'apartment') ||
+      (selectedType === 'house' && listing.propertyType === 'house') ||
+      (selectedType === 'room' && listing.roomType === 'private_room') ||
+      (selectedType === 'shared' && listing.roomType === 'shared_room');
+    
     // Room type filter (map property type to room type categories)
     const matchesRoomType = selectedRoomTypes.length === 0 || selectedRoomTypes.some(roomType => {
       if (roomType === 'Entire place') return listing.roomType === 'entire_place';
@@ -136,7 +151,7 @@ export default function HousingMarketplace() {
     // Bedroom filter (already handled by API via minGuests and priceRange)
     const matchesBedrooms = bedroomCount === 0 || listing.bedroomCount >= bedroomCount;
     
-    return matchesSearch && matchesRoomType && matchesAmenities && matchesBedrooms;
+    return matchesSearch && matchesType && matchesRoomType && matchesAmenities && matchesBedrooms;
   });
 
   // Handle filter toggles
