@@ -84,6 +84,9 @@ interface PostCreatorProps {
     isRecommendation: boolean;
     recommendationType?: string;
     priceRange?: string;
+    // ESA Layer 8: Context-aware posting fields
+    contextType?: string;
+    contextId?: string;
   }) => void;
   // ESA Layer 7 & 23: Edit mode support for unified UI/UX
   editMode?: boolean;
@@ -730,6 +733,7 @@ export default function PostCreator({
       console.log('🔄 ESA Layer 13: Using custom onSubmit handler!');
       console.log('🔍 [PostCreator] Content being submitted:', content);
       console.log('🏠 [PostCreator] Internal media URLs:', internalMediaUrls.length);
+      console.log('📍 [PostCreator ESA Layer 8] Context:', context);
       onSubmit({
         content,
         emotions: [], // PostCreator doesn't have emotions
@@ -741,7 +745,10 @@ export default function PostCreator({
         visibility,
         isRecommendation,
         recommendationType,
-        priceRange
+        priceRange,
+        // ESA Layer 8: Context-aware posting - include context for group/event posts
+        contextType: context?.type !== 'feed' ? context?.type : undefined,
+        contextId: context?.type === 'group' || context?.type === 'event' ? context?.id : undefined
       });
 
       // Reset form after submission
