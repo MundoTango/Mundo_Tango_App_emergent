@@ -35,6 +35,7 @@ import {
   dailyActivities,
   hostHomes,
   hostReviews,
+  guestReviews,
   guestBookings,
   guestProfiles,
   travelDetails,
@@ -124,6 +125,8 @@ import {
   type InsertHostHome,
   type HostReview,
   type InsertHostReview,
+  type GuestReview,
+  type InsertGuestReview,
   type GuestBooking,
   type InsertGuestBooking,
   type GuestProfile,
@@ -483,11 +486,17 @@ export interface IStorage {
     minGuests?: number;
   }): Promise<any[]>;
   
-  // Host Reviews
+  // Host Reviews (guests review hosts/properties)
   createHostReview(review: InsertHostReview): Promise<HostReview>;
-  getHostReviews(homeId: string): Promise<HostReview[]>;
-  getHostReviewByUserAndHome(userId: number, homeId: string): Promise<HostReview | undefined>;
+  getHostReviews(homeId: number): Promise<HostReview[]>;
+  getHostReviewByBooking(bookingId: number): Promise<HostReview | undefined>;
   addHostResponse(reviewId: string, response: string): Promise<HostReview>;
+  
+  // Guest Reviews (hosts review guests)
+  createGuestReview(review: InsertGuestReview): Promise<GuestReview>;
+  getGuestReviews(guestId: number): Promise<GuestReview[]>;
+  getGuestReviewByBooking(bookingId: number): Promise<GuestReview | undefined>;
+  addGuestResponse(reviewId: string, response: string): Promise<GuestReview>;
   
   // Guest Bookings
   createGuestBooking(booking: InsertGuestBooking & { totalPrice?: number }): Promise<GuestBooking>;
@@ -4404,51 +4413,70 @@ export class DatabaseStorage implements IStorage {
       .where(eq(hostHomes.id, id));
   }
 
-  // Host Reviews Implementation
+  // Host Reviews Implementation (guests review hosts/properties)
   async createHostReview(review: InsertHostReview): Promise<HostReview> {
-    const result = await db.execute(sql`
-      INSERT INTO host_reviews (
-        home_id, reviewer_id, rating, review_text,
-        cleanliness_rating, communication_rating, 
-        location_rating, value_rating
-      ) VALUES (
-        ${review.home_id}, ${review.reviewer_id}, ${review.rating}, 
-        ${review.review_text || null}, ${review.cleanliness_rating || null}, 
-        ${review.communication_rating || null}, ${review.location_rating || null}, 
-        ${review.value_rating || null}
-      ) RETURNING *
-    `);
-    return result.rows[0] as HostReview;
+    const [result] = await db.insert(hostReviews).values(review).returning();
+    return result;
   }
 
-  async getHostReviews(homeId: string): Promise<HostReview[]> {
-    const result = await db.execute(sql`
-      SELECT * FROM host_reviews 
-      WHERE home_id = ${parseInt(homeId)}
-      ORDER BY created_at DESC
-    `);
-    return result.rows as HostReview[];
+  async getHostReviews(homeId: number): Promise<HostReview[]> {
+    const results = await db.select()
+      .from(hostReviews)
+      .where(eq(hostReviews.home_id, homeId))
+      .orderBy(desc(hostReviews.created_at));
+    return results;
   }
 
-  async getHostReviewByUserAndHome(userId: number, homeId: string): Promise<HostReview | undefined> {
-    const result = await db.execute(sql`
-      SELECT * FROM host_reviews 
-      WHERE reviewer_id = ${userId} 
-      AND home_id = ${parseInt(homeId)}
-      LIMIT 1
-    `);
-    return result.rows[0] as HostReview | undefined;
+  async getHostReviewByBooking(bookingId: number): Promise<HostReview | undefined> {
+    const [result] = await db.select()
+      .from(hostReviews)
+      .where(eq(hostReviews.booking_id, bookingId))
+      .limit(1);
+    return result;
   }
 
   async addHostResponse(reviewId: string, response: string): Promise<HostReview> {
-    const result = await db.execute(sql`
-      UPDATE host_reviews 
-      SET host_response = ${response}, 
-          host_response_at = ${new Date()}
-      WHERE id = ${reviewId}
-      RETURNING *
-    `);
-    return result.rows[0] as HostReview;
+    const [result] = await db.update(hostReviews)
+      .set({ 
+        host_response: response, 
+        host_response_at: new Date() 
+      })
+      .where(eq(hostReviews.id, reviewId))
+      .returning();
+    return result;
+  }
+
+  // Guest Reviews Implementation (hosts review guests)
+  async createGuestReview(review: InsertGuestReview): Promise<GuestReview> {
+    const [result] = await db.insert(guestReviews).values(review).returning();
+    return result;
+  }
+
+  async getGuestReviews(guestId: number): Promise<GuestReview[]> {
+    const results = await db.select()
+      .from(guestReviews)
+      .where(eq(guestReviews.guest_id, guestId))
+      .orderBy(desc(guestReviews.created_at));
+    return results;
+  }
+
+  async getGuestReviewByBooking(bookingId: number): Promise<GuestReview | undefined> {
+    const [result] = await db.select()
+      .from(guestReviews)
+      .where(eq(guestReviews.booking_id, bookingId))
+      .limit(1);
+    return result;
+  }
+
+  async addGuestResponse(reviewId: string, response: string): Promise<GuestReview> {
+    const [result] = await db.update(guestReviews)
+      .set({ 
+        guest_response: response, 
+        guest_response_at: new Date() 
+      })
+      .where(eq(guestReviews.id, reviewId))
+      .returning();
+    return result;
   }
   
   // Guest Bookings Implementation
