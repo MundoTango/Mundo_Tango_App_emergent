@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { MapPin, Globe, Users, TrendingUp, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
 
 interface CityRanking {
   rank: number;
@@ -90,56 +93,58 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
         </div>
       </div>
 
-      {/* Filter Buttons */}
+      {/* Filter Buttons - Aurora Tide */}
       <div className="flex gap-2 mb-4">
-        <button
+        <MagneticButton
           data-testid="filter-people"
           onClick={() => setFilterBy('people')}
+          strength={0.15}
           className={cn(
             "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
             "border-2",
             filterBy === 'people'
-              ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300"
-              : "border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-gray-700 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-700"
+              ? "border-cyan-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
+              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-700 dark:text-slate-300"
           )}
         >
           <Users className="w-4 h-4 inline mr-2" />
           People
-        </button>
-        <button
+        </MagneticButton>
+        <MagneticButton
           data-testid="filter-events"
           onClick={() => setFilterBy('events')}
+          strength={0.15}
           className={cn(
             "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
             "border-2",
             filterBy === 'events'
-              ? "border-cyan-500 bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300"
-              : "border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-gray-700 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-700"
+              ? "border-cyan-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
+              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-700 dark:text-slate-300"
           )}
         >
           <Calendar className="w-4 h-4 inline mr-2" />
           Events
-        </button>
+        </MagneticButton>
       </div>
 
-      {/* Rankings List */}
-      <div className="flex-1 overflow-y-auto space-y-2">
+      {/* Rankings List - Aurora Tide */}
+      <StaggerContainer className="flex-1 overflow-y-auto space-y-2">
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500" />
           </div>
         ) : view === 'city' ? (
-          // City Rankings
+          // City Rankings - Aurora Tide
           (rankings as CityRanking[])?.map((city) => (
-            <button
+            <MagneticButton
               key={city.id}
               data-testid={`city-ranking-${city.id}`}
               onClick={() => onCityClick?.(city)}
+              strength={0.1}
               className={cn(
                 "w-full text-left p-3 rounded-lg transition-all duration-200",
-                "hover:bg-gray-100 dark:hover:bg-slate-800/50",
-                "border border-transparent hover:border-cyan-500/50",
-                "transform hover:translate-x-1"
+                "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30",
+                "hover:glass-depth-2"
               )}
             >
               <div className="flex items-start justify-between">
@@ -150,15 +155,15 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                       city.rank === 1 ? "text-yellow-500" :
                       city.rank === 2 ? "text-gray-400" :
                       city.rank === 3 ? "text-orange-500" :
-                      "text-gray-400 dark:text-slate-500"
+                      "text-slate-400 dark:text-slate-500"
                     )}>
                       #{city.rank}
                     </span>
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
+                      <h4 className="font-semibold text-slate-900 dark:text-white">
                         {city.city}
                       </h4>
-                      <p className="text-sm text-gray-500 dark:text-slate-400">
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
                         {city.country}
                       </p>
                     </div>
@@ -178,24 +183,21 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                       }
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-slate-400">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     {filterBy === 'people' ? 'members' : 'events'}
                   </span>
                 </div>
               </div>
-            </button>
+            </MagneticButton>
           ))
         ) : (
-          // Region Rankings
+          // Region Rankings - Aurora Tide
           (rankings as RegionRanking[])?.map((region) => (
-            <div
+            <GlassCard
               key={region.name}
               data-testid={`region-ranking-${region.rank}`}
-              className={cn(
-                "p-3 rounded-lg",
-                "bg-gray-50 dark:bg-slate-800/30",
-                "border border-gray-200 dark:border-slate-700"
-              )}
+              depth={1}
+              className="p-3 border-cyan-200/30 dark:border-cyan-500/30"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -205,15 +207,15 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                       region.rank === 1 ? "text-yellow-500" :
                       region.rank === 2 ? "text-gray-400" :
                       region.rank === 3 ? "text-orange-500" :
-                      "text-gray-400 dark:text-slate-500"
+                      "text-slate-400 dark:text-slate-500"
                     )}>
                       #{region.rank}
                     </span>
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">
                       {region.name}
                     </h4>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-slate-400 ml-10">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 ml-10">
                     {region.cityCount} {region.cityCount === 1 ? 'city' : 'cities'}
                   </p>
                 </div>
@@ -231,15 +233,15 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                       }
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-slate-400">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     {filterBy === 'people' ? 'total members' : 'total events'}
                   </span>
                 </div>
               </div>
-            </div>
+            </GlassCard>
           ))
         )}
-      </div>
+      </StaggerContainer>
     </div>
   );
 }

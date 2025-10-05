@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { FadeIn, ScaleIn } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
 
 interface CityRanking {
   rank: number;
@@ -86,61 +89,61 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
   return (
     <DashboardLayout>
       <div className="max-w-full mx-auto p-6">
-        {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Tango World Map
-              </h1>
-              <p className="text-gray-600 dark:text-slate-400 mt-1">
-                Explore tango communities around the world
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  data-testid="input-search-city"
-                  placeholder="Search city..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="pl-10 w-64 bg-white dark:bg-slate-900 border-gray-300 dark:border-slate-700"
-                />
+        {/* Header - Aurora Tide */}
+        <FadeIn>
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+                  Tango World Map
+                </h1>
+                <p className="text-slate-600 dark:text-slate-300 mt-1">
+                  Explore tango communities around the world
+                </p>
               </div>
-              <Button 
-                data-testid="button-search"
-                onClick={handleSearch} 
-                variant="outline"
-                className="dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:hover:bg-slate-800"
-              >
-                Search
-              </Button>
+              <div className="flex gap-3">
+                <GlassCard depth={1} className="relative border-cyan-200/30 dark:border-cyan-500/30 p-0">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 h-4 w-4 z-10" />
+                  <Input
+                    data-testid="input-search-city"
+                    placeholder="Search city..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                    className="pl-10 w-64 bg-transparent border-0 focus-visible:ring-0 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
+                  />
+                </GlassCard>
+                <MagneticButton 
+                  data-testid="button-search"
+                  onClick={handleSearch}
+                  strength={0.2}
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+                >
+                  Search
+                </MagneticButton>
+              </div>
             </div>
           </div>
-        </div>
+        </FadeIn>
 
-        {/* Map Section */}
-        <div className="relative">
-          <div className={cn(
-            "rounded-lg border overflow-hidden",
-            "bg-white dark:bg-slate-900",
-            "border-gray-200 dark:border-slate-800",
-            "h-[600px] lg:h-[700px]"
-          )}>
-            <WorldMap ref={mapRef} />
+        {/* Map Section - Aurora Tide */}
+        <ScaleIn delay={0.1}>
+          <div className="relative mb-6">
+            <GlassCard depth={2} className={cn(
+              "overflow-hidden border-cyan-200/30 dark:border-cyan-500/30",
+              "h-[600px] lg:h-[700px]"
+            )}>
+              <WorldMap ref={mapRef} />
+            </GlassCard>
           </div>
-        </div>
+        </ScaleIn>
 
-        {/* Rankings Panel Below Map */}
-        <div className={cn(
-          "rounded-lg border p-6",
-          "bg-white dark:bg-slate-900",
-          "border-gray-200 dark:border-slate-800"
-        )}>
-          <RankingsPanel onCityClick={handleCityClick} />
-        </div>
+        {/* Rankings Panel Below Map - Aurora Tide */}
+        <ScaleIn delay={0.2}>
+          <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
+            <RankingsPanel onCityClick={handleCityClick} />
+          </GlassCard>
+        </ScaleIn>
       </div>
     </DashboardLayout>
   );
