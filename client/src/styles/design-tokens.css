@@ -194,24 +194,270 @@
   --neutral-700: hsl(210, 10%, 35%);
   --neutral-800: hsl(210, 14%, 24%);
   --neutral-900: hsl(210, 22%, 15%);
+
+  /* ================================
+     AURORA TIDE LIGHT MODE SEMANTIC TOKENS
+     ================================ */
+  
+  /* Primary Backgrounds - Light */
+  --bg-primary: hsl(0, 0%, 100%);         /* White */
+  --bg-secondary: hsl(210, 20%, 98%);     /* Off-white */
+  --bg-tertiary: hsl(210, 20%, 95%);      /* Light gray */
+  --bg-elevated: hsl(0, 0%, 100%);        /* White cards/modals */
+  
+  /* Text Colors - Light */
+  --text-primary: hsl(218, 100%, 10%);    /* Dark blue-black */
+  --text-secondary: hsl(218, 20%, 30%);   /* Medium gray */
+  --text-muted: hsl(218, 10%, 50%);       /* Muted gray */
+  --text-inverse: hsl(0, 0%, 100%);       /* White text for dark backgrounds */
+  
+  /* Borders - Light */
+  --border-primary: hsl(210, 16%, 93%);
+  --border-secondary: hsl(210, 14%, 89%);
+  --border-accent: hsl(177, 72%, 56% / 0.2);
+  
+  /* Glass/Glassmorphic Effects - Light */
+  --glass-bg: hsl(0 0% 100% / 0.7);                /* White glass background */
+  --glass-bg-elevated: hsl(0 0% 100% / 0.85);      /* More opaque */
+  --glass-border: hsl(177 72% 56% / 0.15);         /* Teal border glow */
+  --glass-blur: 12px;                              /* Blur amount */
+  --glass-shadow: 0 8px 32px 0 hsl(218 100% 34% / 0.1);
+  
+  /* Input/Form Elements - Light */
+  --input-bg: hsl(0, 0%, 100%);
+  --input-border: hsl(210, 16%, 93%);
+  --input-focus-border: var(--ocean-seafoam-400);
+  --input-placeholder: hsl(218, 10%, 50%);
+  
+  /* Interactive States - Light */
+  --hover-overlay: hsl(177 72% 56% / 0.05);
+  --active-overlay: hsl(177 72% 56% / 0.1);
+  --disabled-bg: hsl(210, 20%, 95%);
+  --disabled-text: hsl(218, 10%, 60%);
+  
+  /* ================================
+     AURORA TIDE ANIMATION SYSTEM
+     GSAP & Framer Motion Compatible
+     ================================ */
+  
+  /* Easing Curves */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);           /* Material Design standard */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);      /* Playful bounce */
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Elastic spring */
+  --ease-anticipate: cubic-bezier(0.36, 0, 0.66, -0.56); /* Anticipation */
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);   /* Smooth in-out */
+  --ease-swift: cubic-bezier(0.25, 0.46, 0.45, 0.94);    /* Swift movement */
+  
+  /* Duration Scale */
+  --duration-instant: 100ms;   /* Instant feedback */
+  --duration-fast: 150ms;      /* Quick transitions */
+  --duration-base: 200ms;      /* Standard duration */
+  --duration-moderate: 300ms;  /* Moderate animations */
+  --duration-slow: 400ms;      /* Deliberate animations */
+  --duration-slower: 600ms;    /* Very deliberate */
+  
+  /* Animation Delays for Orchestration */
+  --delay-stagger-sm: 50ms;    /* Small stagger between items */
+  --delay-stagger-md: 100ms;   /* Medium stagger */
+  --delay-stagger-lg: 150ms;   /* Large stagger */
+  
+  /* Transform Origins */
+  --origin-center: 50% 50%;
+  --origin-top: 50% 0%;
+  --origin-bottom: 50% 100%;
+  --origin-left: 0% 50%;
+  --origin-right: 100% 50%;
+  
+  /* Micro-interaction Scales */
+  --scale-press: 0.95;         /* Button press */
+  --scale-hover: 1.02;         /* Subtle hover */
+  --scale-active: 1.05;        /* Active emphasis */
+  --scale-pop: 1.1;            /* Pop effect */
+  
+  /* Blur Animation Values */
+  --blur-none: 0px;
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 16px;
+  --blur-2xl: 24px;
+  
+  /* Elevation Layers (for stacking context) */
+  --elevation-0: 0;            /* Base level */
+  --elevation-1: 1;            /* Slight raise */
+  --elevation-2: 2;            /* Cards */
+  --elevation-3: 3;            /* Dropdowns */
+  --elevation-4: 4;            /* Sticky elements */
+  --elevation-5: 5;            /* Modals/Dialogs */
+  
+  /* Glass Depth Layers */
+  --glass-depth-1: hsl(0 0% 100% / 0.6);   /* Subtle */
+  --glass-depth-2: hsl(0 0% 100% / 0.7);   /* Medium */
+  --glass-depth-3: hsl(0 0% 100% / 0.8);   /* Strong */
+  --glass-depth-4: hsl(0 0% 100% / 0.9);   /* Very strong */
 }
 
 /* ================================
-   DARK MODE TOKENS
+   AURORA TIDE DARK MODE TOKENS
+   MT Ocean Theme - Dark Variant
    ================================ */
 
 .dark {
-  --color-primary: var(--ocean-seafoam-300);
-  --color-primary-hover: var(--ocean-seafoam-400);
+  /* ================================
+     DARK MODE CORE COLORS
+     Based on MT Ocean Dark Palette
+     ================================ */
   
-  --bg-ocean-gradient: linear-gradient(180deg, var(--ocean-teal-900) 0%, hsl(218 90% 8%) 100%);
+  /* Primary Backgrounds */
+  --bg-primary: hsl(218, 70%, 10%);        /* #0a1929 - Deep blue (was white) */
+  --bg-secondary: hsl(218, 50%, 14%);      /* #1a2332 - Blue-gray-900 */
+  --bg-tertiary: hsl(218, 40%, 18%);       /* Lighter panel */
+  --bg-elevated: hsl(218, 45%, 16%);       /* Cards, modals */
   
+  /* Accent Colors - Brighter for dark mode */
+  --color-primary: var(--ocean-seafoam-300);       /* #5eead4 - Teal-300 */
+  --color-primary-hover: var(--ocean-seafoam-400); /* #40E0D0 */
+  --color-secondary: hsl(210, 100%, 70%);          /* #67e8f9 - Cyan-300 */
+  --color-secondary-hover: hsl(210, 100%, 75%);
+  
+  /* Text Colors */
+  --text-primary: hsl(0, 0%, 98%);         /* Almost white */
+  --text-secondary: hsl(0, 0%, 75%);       /* Light gray */
+  --text-muted: hsl(0, 0%, 55%);           /* Muted gray */
+  --text-inverse: hsl(218, 70%, 10%);      /* Dark text for light backgrounds */
+  
+  /* Ocean Theme Text (for dark panels) */
   --text-ocean-primary: hsl(0 0% 100% / 0.95);
   --text-ocean-secondary: hsl(0 0% 100% / 0.70);
   --text-ocean-muted: hsl(0 0% 100% / 0.45);
+  --text-ocean-accent: var(--ocean-seafoam-300);
   
+  /* Gradients - Dark variants */
+  --bg-ocean-gradient: linear-gradient(180deg, hsl(218, 90%, 8%) 0%, hsl(218, 95%, 6%) 100%);
+  --bg-ocean-gradient-soft: linear-gradient(135deg, hsl(218, 50%, 14%) 0%, hsl(218, 40%, 18%) 100%);
+  --bg-ocean-card: linear-gradient(135deg, hsl(218, 60%, 12%) 0%, hsl(218, 70%, 10%) 100%);
+  
+  /* Status Colors - Adjusted for dark mode */
+  --color-success: hsl(158, 64%, 45%);     /* Slightly darker green */
+  --color-warning: hsl(38, 92%, 55%);      /* Slightly brighter amber */
+  --color-error: hsl(0, 84%, 65%);         /* Slightly brighter red */
+  --color-info: var(--ocean-cyan-300);
+  
+  /* Borders */
+  --border-primary: hsl(0, 0%, 25%);       /* Subtle borders */
+  --border-secondary: hsl(0, 0%, 20%);
+  --border-accent: hsl(177, 72%, 56% / 0.3);
+  --border-ocean-divider: hsl(0 0% 100% / 0.08);
+  
+  /* Shadows - Darker with blue tint */
+  --shadow-xs: 0 1px 2px 0 hsl(218 100% 5% / 0.3);
+  --shadow-sm: 0 1px 3px 0 hsl(218 100% 5% / 0.4), 0 1px 2px -1px hsl(218 100% 5% / 0.3);
+  --shadow-md: 0 4px 6px -1px hsl(218 100% 5% / 0.4), 0 2px 4px -2px hsl(218 100% 5% / 0.3);
+  --shadow-lg: 0 10px 15px -3px hsl(218 100% 5% / 0.5), 0 4px 6px -4px hsl(218 100% 5% / 0.4);
+  --shadow-xl: 0 20px 25px -5px hsl(218 100% 5% / 0.6), 0 8px 10px -6px hsl(218 100% 5% / 0.5);
+  --shadow-2xl: 0 25px 50px -12px hsl(218 100% 5% / 0.7);
+  
+  /* Glass/Glassmorphic Effects - Dark variants */
+  --glass-bg: hsl(218 50% 14% / 0.7);              /* Dark glass background */
+  --glass-bg-elevated: hsl(218 45% 16% / 0.8);     /* Elevated glass */
+  --glass-border: hsl(177 72% 56% / 0.15);         /* Teal border glow */
+  --glass-blur: 16px;                              /* Blur amount */
+  --glass-shadow: 0 8px 32px 0 hsl(218 100% 5% / 0.4);
+  
+  /* Navigation */
   --topbar-bg: hsl(218 60% 10% / 0.95);
   --topbar-border: hsl(177 72% 56% / 0.1);
+  --topbar-shadow: 0 1px 3px 0 hsl(218 100% 5% / 0.3);
+  
+  --sidebar-bg: var(--bg-ocean-gradient);
+  --sidebar-text: var(--text-ocean-primary);
+  --sidebar-text-muted: var(--text-ocean-muted);
+  --sidebar-accent: var(--ocean-seafoam-300);
+  --sidebar-hover-bg: hsl(177 72% 56% / 0.12);
+  --sidebar-active-bg: hsl(177 72% 56% / 0.18);
+  --sidebar-divider: hsl(0 0% 100% / 0.08);
+  
+  /* Glow effects - Brighter for dark mode */
+  --glow-seafoam: 0 0 20px hsl(177 72% 56% / 0.4);
+  --glow-seafoam-strong: 0 0 30px hsl(177 72% 56% / 0.6), 0 0 60px hsl(177 72% 56% / 0.3);
+  --glow-cyan: 0 0 20px hsl(210 100% 70% / 0.4);
+  
+  /* Input/Form Elements */
+  --input-bg: hsl(218, 50%, 12%);
+  --input-border: hsl(0, 0%, 30%);
+  --input-focus-border: var(--ocean-seafoam-300);
+  --input-placeholder: hsl(0, 0%, 50%);
+  
+  /* Interactive States */
+  --hover-overlay: hsl(177 72% 56% / 0.08);
+  --active-overlay: hsl(177 72% 56% / 0.15);
+  --disabled-bg: hsl(218, 40%, 18%);
+  --disabled-text: hsl(0, 0%, 40%);
+  
+  /* Glass Depth Layers - Dark Mode */
+  --glass-depth-1: hsl(218 50% 14% / 0.5);   /* Subtle dark glass */
+  --glass-depth-2: hsl(218 50% 14% / 0.7);   /* Medium dark glass */
+  --glass-depth-3: hsl(218 45% 16% / 0.8);   /* Strong dark glass */
+  --glass-depth-4: hsl(218 45% 16% / 0.9);   /* Very strong dark glass */
+}
+
+/* ================================
+   ACCESSIBILITY OVERRIDES
+   Respect user preferences
+   ================================ */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-moderate: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --delay-stagger-sm: 0ms;
+    --delay-stagger-md: 0ms;
+    --delay-stagger-lg: 0ms;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reduce transparency for users who prefer it */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: hsl(0 0% 100% / 0.95);
+    --glass-bg-elevated: hsl(0 0% 100% / 1);
+    --glass-blur: 0px;
+  }
+  
+  .dark {
+    --glass-bg: hsl(218 50% 14% / 0.95);
+    --glass-bg-elevated: hsl(218 45% 16% / 1);
+    --glass-blur: 0px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-primary: hsl(210, 16%, 80%);
+    --border-secondary: hsl(210, 14%, 70%);
+    --glass-border: hsl(177, 72%, 56% / 0.4);
+  }
+  
+  .dark {
+    --border-primary: hsl(0, 0%, 40%);
+    --border-secondary: hsl(0, 0%, 35%);
+    --glass-border: hsl(177, 72%, 56% / 0.5);
+  }
 }
 
 /* ================================
@@ -364,4 +610,218 @@
 
 .shadow-ocean-lg {
   box-shadow: var(--shadow-lg);
+}
+
+/* ================================
+   AURORA TIDE GLASSMORPHIC UTILITIES
+   ================================ */
+
+/* Glass Card System */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card-elevated {
+  background: var(--glass-bg-elevated);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Glass Depth Variants */
+.glass-depth-1 {
+  background: var(--glass-depth-1);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+.glass-depth-2 {
+  background: var(--glass-depth-2);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+.glass-depth-3 {
+  background: var(--glass-depth-3);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+}
+
+.glass-depth-4 {
+  background: var(--glass-depth-4);
+  backdrop-filter: blur(var(--blur-xl));
+  -webkit-backdrop-filter: blur(var(--blur-xl));
+}
+
+/* ================================
+   AURORA TIDE ANIMATION UTILITIES
+   ================================ */
+
+/* Micro-interaction Scale Effects */
+.scale-press {
+  transform: scale(var(--scale-press));
+}
+
+.scale-hover {
+  transform: scale(var(--scale-hover));
+}
+
+.scale-active {
+  transform: scale(var(--scale-active));
+}
+
+.scale-pop {
+  transform: scale(var(--scale-pop));
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all var(--duration-base) var(--ease-smooth);
+}
+
+.transition-bounce {
+  transition: all var(--duration-moderate) var(--ease-bounce);
+}
+
+.transition-elastic {
+  transition: all var(--duration-slow) var(--ease-elastic);
+}
+
+/* Hover Lift Effect */
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-smooth),
+              box-shadow var(--duration-base) var(--ease-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Magnetic Button Effect */
+.magnetic-button {
+  position: relative;
+  transition: transform var(--duration-fast) var(--ease-swift);
+}
+
+.magnetic-button:hover {
+  transform: scale(1.02);
+}
+
+.magnetic-button:active {
+  transform: scale(0.98);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ocean-seafoam-300) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--ocean-seafoam-400);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--ocean-seafoam-300);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Fade In Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in var(--duration-moderate) var(--ease-smooth);
+}
+
+/* Slide In Animations */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slide-in-left var(--duration-moderate) var(--ease-smooth);
+}
+
+.slide-in-right {
+  animation: slide-in-right var(--duration-moderate) var(--ease-smooth);
+}
+
+/* GPU Acceleration Hint */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Stagger Animation Delays */
+.stagger-1 {
+  animation-delay: calc(1 * var(--delay-stagger-md));
+}
+
+.stagger-2 {
+  animation-delay: calc(2 * var(--delay-stagger-md));
+}
+
+.stagger-3 {
+  animation-delay: calc(3 * var(--delay-stagger-md));
+}
+
+.stagger-4 {
+  animation-delay: calc(4 * var(--delay-stagger-md));
+}
+
+.stagger-5 {
+  animation-delay: calc(5 * var(--delay-stagger-md));
 }
