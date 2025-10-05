@@ -24,28 +24,28 @@ const MemoriesDebug: React.FC = () => {
 
     // Check if components can be dynamically imported
     try {
-      await import('../pages/ModernMemoriesPage');
+      await import('./ModernMemoriesPage');
       components.ModernMemoriesPage = true;
     } catch (e) {
       console.error('ModernMemoriesPage import failed:', e);
     }
 
     try {
-      await import('../components/memories/EnhancedMemoriesRealtime');
+      await import('../../components/memories/EnhancedMemoriesRealtime');
       components.EnhancedMemoriesRealtime = true;
     } catch (e) {
       console.error('EnhancedMemoriesRealtime import failed:', e);
     }
 
     try {
-      await import('../components/universal/PostCreator');
+      await import('../../components/universal/PostCreator');
       components.PostCreator = true;
     } catch (e) {
       console.error('PostCreator import failed:', e);
     }
 
     try {
-      await import('../components/memories/EnhancedMemoriesUI');
+      await import('../../components/memories/EnhancedMemoriesUI');
       components.EnhancedMemoriesUI = true;
     } catch (e) {
       console.error('EnhancedMemoriesUI import failed:', e);

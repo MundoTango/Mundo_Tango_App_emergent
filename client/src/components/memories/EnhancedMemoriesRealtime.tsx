@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuthContext } from '../../auth/useAuthContext';
+import { useAuth } from '../../contexts/auth-context';
 import { useMemorySocket, useMemoryRealtimeEvents } from '../../hooks/useSocket';
 import ModernMemoriesHeader from '@/components/modern/ModernMemoriesHeader';
 import ModernPostComposer from '@/components/modern/ModernPostComposer';
@@ -43,7 +43,7 @@ interface AIEnhancementResult {
 }
 
 export default function EnhancedMemoriesRealtime() {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const [showComposer, setShowComposer] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
