@@ -174,7 +174,7 @@ export interface IStorage {
   getUserPhotos(userId: number): Promise<any[]>;
   getUserVideos(userId: number): Promise<any[]>;
   getUserFriends(userId: number): Promise<any[]>;
-  getFeedPosts(userId: number, limit?: number, offset?: number, filterTags?: string[]): Promise<Post[]>;
+  getFeedPosts(userId: number, limit?: number, offset?: number, filterTags?: string[], relationshipFilter?: 'all' | 'residents' | 'visitors' | 'friends'): Promise<Post[]>;
   getPostsByContext(contextType: string, contextId: number, limit?: number, offset?: number): Promise<Post[]>; // ESA Layer 8: Get posts by context (group/event)
   getUserGroupIds(userId: number): Promise<number[]>; // ESA Layer 8: Get user's group membership IDs
   getTotalPostsCount(userId: number): Promise<number>; // ESA LIFE CEO 61x21 - Total posts count for pagination
@@ -1242,11 +1242,48 @@ export class DatabaseStorage implements IStorage {
     return Array.from(friendsMap.values());
   }
 
-  async getFeedPosts(userId: number, limit = 20, offset = 0, filterTags: string[] = []): Promise<Post[]> {
+  async getFeedPosts(userId: number, limit = 20, offset = 0, filterTags: string[] = [], relationshipFilter: 'all' | 'residents' | 'visitors' | 'friends' = 'all'): Promise<Post[]> {
     // ESA Layer 22: Enhanced debugging
-    console.log(`🔍 [ESA Storage] getFeedPosts called with userId: ${userId}, limit: ${limit}, offset: ${offset}`);
+    console.log(`🔍 [ESA Storage] getFeedPosts called with userId: ${userId}, limit: ${limit}, offset: ${offset}, relationshipFilter: ${relationshipFilter}`);
+    
+    // Get current user's city for resident/visitor filtering
+    const currentUser = await this.getUser(userId);
+    const currentUserCity = currentUser?.city;
     
     if (filterTags.length === 0) {
+      // Build WHERE conditions based on relationship filter
+      const visibilityConditions = or(
+        // Public posts - visible to everyone
+        eq(posts.visibility, 'public'),
+        // User's own posts - always visible to creator
+        eq(posts.userId, userId),
+        // Friends posts - only visible if friendship exists
+        and(
+          eq(posts.visibility, 'friends'),
+          isNotNull(friends.id) // Friendship exists in the join
+        )
+      );
+      
+      // Build relationship filter conditions
+      let relationshipConditions;
+      if (relationshipFilter === 'residents') {
+        // Filter to posts from users in the same city
+        relationshipConditions = currentUserCity 
+          ? and(visibilityConditions, eq(users.city, currentUserCity))
+          : visibilityConditions; // If no city set, show all
+      } else if (relationshipFilter === 'visitors') {
+        // Filter to posts from users in different cities
+        relationshipConditions = currentUserCity 
+          ? and(visibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
+          : visibilityConditions; // If no city set, show all
+      } else if (relationshipFilter === 'friends') {
+        // Filter to posts only from accepted friends
+        relationshipConditions = and(visibilityConditions, isNotNull(friends.id));
+      } else {
+        // 'all' - no additional filtering
+        relationshipConditions = visibilityConditions;
+      }
+      
       const result = await db
         .select({
           posts: posts,
@@ -1267,19 +1304,7 @@ export class DatabaseStorage implements IStorage {
             eq(friends.status, 'accepted')
           )
         )
-        .where(
-          or(
-            // Public posts - visible to everyone
-            eq(posts.visibility, 'public'),
-            // User's own posts - always visible to creator
-            eq(posts.userId, userId),
-            // Friends posts - only visible if friendship exists
-            and(
-              eq(posts.visibility, 'friends'),
-              isNotNull(friends.id) // Friendship exists in the join
-            )
-          )
-        )
+        .where(relationshipConditions)
         .orderBy(desc(posts.createdAt))
         .limit(limit)
         .offset(offset);
@@ -1321,6 +1346,39 @@ export class DatabaseStorage implements IStorage {
     }
 
     // Complex filtering with tag support
+    // Build WHERE conditions based on relationship filter
+    const visibilityConditions = or(
+      // Public posts - visible to everyone
+      eq(posts.visibility, 'public'),
+      // User's own posts - always visible to creator
+      eq(posts.userId, userId),
+      // Friends posts - only visible if friendship exists
+      and(
+        eq(posts.visibility, 'friends'),
+        isNotNull(friends.id) // Friendship exists in the join
+      )
+    );
+    
+    // Build relationship filter conditions
+    let relationshipConditions;
+    if (relationshipFilter === 'residents') {
+      // Filter to posts from users in the same city
+      relationshipConditions = currentUserCity 
+        ? and(visibilityConditions, eq(users.city, currentUserCity))
+        : visibilityConditions; // If no city set, show all
+    } else if (relationshipFilter === 'visitors') {
+      // Filter to posts from users in different cities
+      relationshipConditions = currentUserCity 
+        ? and(visibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
+        : visibilityConditions; // If no city set, show all
+    } else if (relationshipFilter === 'friends') {
+      // Filter to posts only from accepted friends
+      relationshipConditions = and(visibilityConditions, isNotNull(friends.id));
+    } else {
+      // 'all' - no additional filtering
+      relationshipConditions = visibilityConditions;
+    }
+    
     const result = await db
       .select({
         posts: posts,
@@ -1345,18 +1403,8 @@ export class DatabaseStorage implements IStorage {
         and(
           // Filter by tags
           ...filterTags.map(tag => sql`${posts.hashtags} @> ARRAY[${tag}]`),
-          // Privacy filtering
-          or(
-            // Public posts - visible to everyone
-            eq(posts.visibility, 'public'),
-            // User's own posts - always visible to creator
-            eq(posts.userId, userId),
-            // Friends posts - only visible if friendship exists
-            and(
-              eq(posts.visibility, 'friends'),
-              isNotNull(friends.id) // Friendship exists in the join
-            )
-          )
+          // Privacy and relationship filtering
+          relationshipConditions
         )
       )
       .orderBy(desc(posts.createdAt))

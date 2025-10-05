@@ -118,10 +118,11 @@ router.get('/api/posts/feed', async (req: any, res) => {
     const offset = parseInt(req.query.offset as string) || 0;
     const startDate = req.query.startDate as string;
     const endDate = req.query.endDate as string;
+    const filter = (req.query.filter as 'all' | 'residents' | 'visitors' | 'friends') || 'all';
     
-    // ESA LIFE CEO 56x21 - Get posts from database using correct method
-    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, startDate: ${startDate}, endDate: ${endDate}`);
-    let posts = await storage.getFeedPosts(userId, limit, offset);
+    // ESA LIFE CEO 56x21 - Get posts from database using correct method with relationship filter
+    console.log(`📊 Fetching feed posts for userId: ${userId}, limit: ${limit}, offset: ${offset}, filter: ${filter}, startDate: ${startDate}, endDate: ${endDate}`);
+    let posts = await storage.getFeedPosts(userId, limit, offset, [], filter);
     
     // Filter by date range if provided
     if (startDate || endDate) {
