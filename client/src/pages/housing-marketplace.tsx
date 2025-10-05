@@ -37,34 +37,30 @@ import {
 import { Slider } from '@/components/ui/slider';
 
 interface HousingListing {
-  id: string;
+  id: number;
   title: string;
   description: string;
-  location: string;
+  city: string;
+  state?: string;
+  country: string;
   address?: string;
   pricePerNight: number;
-  currency: 'USD' | 'EUR' | 'ARS';
-  paymentPreference: 'cash' | 'transfer' | 'both';
-  availableFrom: string;
-  availableTo: string;
-  hostName: string;
-  hostUsername: string;
-  hostRoles?: string[];
+  propertyType: string;
+  roomType: string;
+  maxGuests: number;
+  bedroomCount: number;
+  bathroomCount: number;
+  amenities: string[];
+  photos: Array<{ url: string; displayOrder: number }>;
+  host: {
+    id: number;
+    name: string;
+    username: string;
+    profileImage?: string;
+  };
   rating?: number;
   reviewCount?: number;
-  type: 'apartment' | 'room' | 'shared' | 'house';
-  guests: number;
-  bedrooms: number;
-  bathrooms: number;
-  amenities: string[];
-  images?: string[];
-  tangoProximity?: {
-    nearestMilonga: string;
-    distanceToMilonga: string;
-    walkingTime: string;
-  };
   isFavorite?: boolean;
-  status: 'available' | 'booked' | 'unavailable';
 }
 
 export default function HousingMarketplace() {
@@ -92,92 +88,17 @@ export default function HousingMarketplace() {
     'sound_system', 'balcony', 'doorman', 'shared_kitchen'
   ];
 
-  // Mock data for demonstration
-  const mockListings: HousingListing[] = [
-    {
-      id: '1',
-      title: 'Cozy Palermo Studio Near Milongas',
-      description: 'Perfect studio apartment in the heart of Palermo, walking distance to La Viruta and Salon Canning. Ideal for tango dancers visiting Buenos Aires.',
-      location: 'Palermo, Buenos Aires',
-      address: 'Nicaragua 5500',
-      pricePerNight: 45,
-      currency: 'USD',
-      paymentPreference: 'cash',
-      availableFrom: '2025-01-15',
-      availableTo: '2025-03-30',
-      hostName: 'Maria Rodriguez',
-      hostUsername: 'maria_tango',
-      hostRoles: ['dancer', 'teacher'],
-      rating: 4.8,
-      reviewCount: 24,
-      type: 'apartment',
-      guests: 2,
-      bedrooms: 1,
-      bathrooms: 1,
-      amenities: ['wifi', 'kitchen', 'washing_machine', 'tango_practice_space'],
-      tangoProximity: {
-        nearestMilonga: 'La Viruta',
-        distanceToMilonga: '300m',
-        walkingTime: '5 min'
-      },
-      isFavorite: true,
-      status: 'available'
-    },
-    {
-      id: '2',
-      title: 'Shared Room in Tango House',
-      description: 'Join our tango community house! Shared room with other dancers, common areas for practice, and regular house milongas.',
-      location: 'San Telmo, Buenos Aires',
-      pricePerNight: 20,
-      currency: 'USD',
-      paymentPreference: 'both',
-      availableFrom: '2025-01-10',
-      availableTo: '2025-06-30',
-      hostName: 'Carlos Mendez',
-      hostUsername: 'carlos_milonga',
-      hostRoles: ['organizer', 'dancer'],
-      rating: 4.6,
-      reviewCount: 18,
-      type: 'shared',
-      guests: 1,
-      bedrooms: 1,
-      bathrooms: 2,
-      amenities: ['wifi', 'shared_kitchen', 'practice_floor', 'sound_system'],
-      tangoProximity: {
-        nearestMilonga: 'El Beso',
-        distanceToMilonga: '200m',
-        walkingTime: '3 min'
-      },
-      status: 'available'
-    },
-    {
-      id: '3',
-      title: 'Luxury Recoleta Apartment',
-      description: 'Spacious 2-bedroom apartment in elegant Recoleta. Perfect for couples or friends traveling together for tango festivals.',
-      location: 'Recoleta, Buenos Aires',
-      pricePerNight: 120,
-      currency: 'USD',
-      paymentPreference: 'transfer',
-      availableFrom: '2025-02-01',
-      availableTo: '2025-02-28',
-      hostName: 'Ana Silva',
-      hostUsername: 'ana_tango_dj',
-      hostRoles: ['dj', 'dancer'],
-      rating: 4.9,
-      reviewCount: 31,
-      type: 'apartment',
-      guests: 4,
-      bedrooms: 2,
-      bathrooms: 2,
-      amenities: ['wifi', 'kitchen', 'air_conditioning', 'balcony', 'doorman'],
-      tangoProximity: {
-        nearestMilonga: 'Milonga Parakultural',
-        distanceToMilonga: '500m',
-        walkingTime: '8 min'
-      },
-      status: 'available'
-    }
-  ];
+  // Fetch listings from API
+  const { data: listingsData, isLoading } = useQuery<{ data: HousingListing[] }>({
+    queryKey: ['/api/host-homes', { 
+      minPrice: priceRange.min * 100, // Convert to cents
+      maxPrice: priceRange.max * 100,
+      roomType: selectedType !== 'all' ? selectedType : '',
+      minGuests: guestCount
+    }]
+  });
+
+  const listings = listingsData?.data || [];
 
   const amenityIcons: Record<string, any> = {
     wifi: Wifi,
@@ -193,19 +114,18 @@ export default function HousingMarketplace() {
     ARS: Banknote
   };
 
-  // Enhanced filter logic
-  const filteredListings = mockListings.filter(listing => {
+  // Enhanced filter logic (frontend only - API handles basic filters)
+  const filteredListings = listings.filter(listing => {
+    const location = `${listing.city}, ${listing.state || ''} ${listing.country}`.trim();
     const matchesSearch = listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         listing.location.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = selectedType === 'all' || listing.type === selectedType;
-    const matchesPrice = listing.pricePerNight >= priceRange.min && listing.pricePerNight <= priceRange.max;
+                         location.toLowerCase().includes(searchQuery.toLowerCase());
     
     // Room type filter (map property type to room type categories)
     const matchesRoomType = selectedRoomTypes.length === 0 || selectedRoomTypes.some(roomType => {
-      if (roomType === 'Entire place') return listing.type === 'apartment' || listing.type === 'house';
-      if (roomType === 'Private room') return listing.type === 'room';
-      if (roomType === 'Shared room') return listing.type === 'shared';
+      if (roomType === 'Entire place') return listing.roomType === 'entire_place';
+      if (roomType === 'Private room') return listing.roomType === 'private_room';
+      if (roomType === 'Shared room') return listing.roomType === 'shared_room';
       return false;
     });
     
@@ -213,14 +133,10 @@ export default function HousingMarketplace() {
     const matchesAmenities = selectedAmenities.length === 0 || 
       selectedAmenities.every(amenity => listing.amenities.includes(amenity));
     
-    // Guest capacity filter
-    const matchesGuests = listing.guests >= guestCount;
+    // Bedroom filter (already handled by API via minGuests and priceRange)
+    const matchesBedrooms = bedroomCount === 0 || listing.bedroomCount >= bedroomCount;
     
-    // Bedroom filter
-    const matchesBedrooms = bedroomCount === 0 || listing.bedrooms >= bedroomCount;
-    
-    return matchesSearch && matchesType && matchesPrice && matchesRoomType && 
-           matchesAmenities && matchesGuests && matchesBedrooms;
+    return matchesSearch && matchesRoomType && matchesAmenities && matchesBedrooms;
   });
 
   // Handle filter toggles
@@ -259,7 +175,7 @@ export default function HousingMarketplace() {
 
   // Toggle favorite mutation
   const toggleFavoriteMutation = useMutation({
-    mutationFn: async (listingId: string) => {
+    mutationFn: async (listingId: number) => {
       // In a real app, this would call the API
       return { listingId };
     },
@@ -300,7 +216,7 @@ export default function HousingMarketplace() {
               <div className="flex items-center gap-3">
                 <Home className="w-8 h-8 text-indigo-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">{mockListings.length}</p>
+                  <p className="text-2xl font-bold text-gray-900">{isLoading ? '...' : listings.length}</p>
                   <p className="text-sm text-gray-600">Active Listings</p>
                 </div>
               </div>
@@ -310,9 +226,9 @@ export default function HousingMarketplace() {
                 <MapPin className="w-8 h-8 text-emerald-600" />
                 <div>
                   <p className="text-2xl font-bold text-gray-900">
-                    {new Set(mockListings.map(l => l.location.split(',')[0])).size}
+                    {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
                   </p>
-                  <p className="text-sm text-gray-600">Neighborhoods</p>
+                  <p className="text-sm text-gray-600">Cities</p>
                 </div>
               </div>
             </Card>
@@ -320,7 +236,11 @@ export default function HousingMarketplace() {
               <div className="flex items-center gap-3">
                 <Star className="w-8 h-8 text-rose-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">4.7</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {isLoading ? '...' : listings.filter(l => l.rating).length > 0 
+                      ? (listings.filter(l => l.rating).reduce((sum, l) => sum + (l.rating || 0), 0) / listings.filter(l => l.rating).length).toFixed(1)
+                      : 'N/A'}
+                  </p>
                   <p className="text-sm text-gray-600">Average Rating</p>
                 </div>
               </div>
@@ -329,8 +249,8 @@ export default function HousingMarketplace() {
               <div className="flex items-center gap-3">
                 <Music className="w-8 h-8 text-violet-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">100%</p>
-                  <p className="text-sm text-gray-600">Near Milongas</p>
+                  <p className="text-2xl font-bold text-gray-900">{isLoading ? '...' : filteredListings.length}</p>
+                  <p className="text-sm text-gray-600">Matching Filters</p>
                 </div>
               </div>
             </Card>
@@ -525,131 +445,141 @@ export default function HousingMarketplace() {
           {/* Results Count */}
           <div className="mb-4">
             <p className="text-gray-600" data-testid="text-results-count">
-              Showing {filteredListings.length} of {mockListings.length} listings
-              {activeFilterCount > 0 && ` with ${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} applied`}
+              {isLoading ? 'Loading...' : `Showing ${filteredListings.length} of ${listings.length} listings`}
+              {!isLoading && activeFilterCount > 0 && ` with ${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} applied`}
             </p>
           </div>
         </div>
 
         {/* Listings Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredListings.map(listing => {
-            const CurrencyIcon = currencySymbols[listing.currency] || DollarSign;
-            
-            return (
-              <Card key={listing.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                {/* Image */}
-                <div className="h-48 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 relative">
-                  <div className="absolute top-4 right-4">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="bg-white/90 hover:bg-white"
-                      onClick={() => handleToggleFavorite(listing)}
-                    >
-                      <Heart className={`w-4 h-4 ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : ''}`} />
-                    </Button>
-                  </div>
-                  <div className="absolute bottom-4 left-4">
-                    <Badge className="bg-white/90 text-gray-900">
-                      {listing.type}
-                    </Badge>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
-                      {listing.title}
-                    </h3>
-                    <div className="flex items-center text-lg font-bold text-gray-900">
-                      <CurrencyIcon className="w-4 h-4" />
-                      {listing.pricePerNight}
-                      <span className="text-sm font-normal text-gray-600">/night</span>
-                    </div>
-                  </div>
-
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mb-3">
-                    <MapPin className="w-3 h-3" />
-                    {listing.location}
-                  </p>
-
-                  {/* Room Info */}
-                  <div className="flex gap-4 text-sm text-gray-600 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Users className="w-4 h-4" />
-                      {listing.guests} guests
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Bed className="w-4 h-4" />
-                      {listing.bedrooms} bed
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Bath className="w-4 h-4" />
-                      {listing.bathrooms} bath
-                    </div>
-                  </div>
-
-                  {/* Tango Proximity */}
-                  {listing.tangoProximity && (
-                    <div className="bg-purple-50 rounded-lg p-3 mb-3">
-                      <p className="text-sm font-medium text-purple-900">
-                        <Music className="w-4 h-4 inline mr-1" />
-                        {listing.tangoProximity.walkingTime} to {listing.tangoProximity.nearestMilonga}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Payment Preference */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <Badge variant="outline" className="text-xs">
-                      <Banknote className="w-3 h-3 mr-1" />
-                      {listing.paymentPreference === 'cash' ? 'Cash Only' : 
-                       listing.paymentPreference === 'transfer' ? 'Bank Transfer' : 'Cash or Transfer'}
-                    </Badge>
-                    {listing.rating && (
-                      <div className="flex items-center gap-1 text-sm">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        <span className="font-medium">{listing.rating}</span>
-                        <span className="text-gray-500">({listing.reviewCount})</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Host Info */}
-                  <div className="flex items-center justify-between pt-3 border-t">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        {listing.hostName.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">{listing.hostName}</p>
-                        <div className="flex gap-1">
-                          {listing.hostRoles?.map(role => (
-                            <Badge key={role} variant="outline" className="text-xs">
-                              {role}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <Button
-                      size="sm"
-                      onClick={() => navigate(`/listing/${listing.id}`)}
-                      data-testid={`button-view-details-${listing.id}`}
-                    >
-                      View Details
-                    </Button>
-                  </div>
+          {isLoading ? (
+            Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} className="overflow-hidden animate-pulse">
+                <div className="h-48 bg-gray-200" />
+                <div className="p-4 space-y-3">
+                  <div className="h-6 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                  <div className="h-4 bg-gray-200 rounded w-full" />
                 </div>
               </Card>
-            );
-          })}
+            ))
+          ) : (
+            filteredListings.map(listing => {
+              const location = `${listing.city}, ${listing.state ? listing.state + ', ' : ''}${listing.country}`;
+              const priceUSD = listing.pricePerNight / 100; // Convert from cents
+              const primaryPhoto = listing.photos?.find(p => p.displayOrder === 0) || listing.photos?.[0];
+              
+              return (
+                <Card key={listing.id} className="overflow-hidden hover:shadow-lg transition-shadow" data-testid={`card-listing-${listing.id}`}>
+                  {/* Image */}
+                  <div className="h-48 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 relative">
+                    {primaryPhoto && (
+                      <img 
+                        src={primaryPhoto.url} 
+                        alt={listing.title}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    <div className="absolute top-4 right-4">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-white/90 hover:bg-white"
+                        onClick={() => handleToggleFavorite(listing)}
+                        data-testid={`button-favorite-${listing.id}`}
+                      >
+                        <Heart className={`w-4 h-4 ${listing.isFavorite ? 'fill-rose-500 text-rose-500' : ''}`} />
+                      </Button>
+                    </div>
+                    <div className="absolute bottom-4 left-4">
+                      <Badge className="bg-white/90 text-gray-900">
+                        {listing.roomType.replace('_', ' ')}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-lg font-semibold text-gray-900 line-clamp-2" data-testid={`text-title-${listing.id}`}>
+                        {listing.title}
+                      </h3>
+                      <div className="flex items-center text-lg font-bold text-gray-900" data-testid={`text-price-${listing.id}`}>
+                        <DollarSign className="w-4 h-4" />
+                        {priceUSD}
+                        <span className="text-sm font-normal text-gray-600">/night</span>
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-gray-600 flex items-center gap-1 mb-3" data-testid={`text-location-${listing.id}`}>
+                      <MapPin className="w-3 h-3" />
+                      {location}
+                    </p>
+
+                    {/* Room Info */}
+                    <div className="flex gap-4 text-sm text-gray-600 mb-3" data-testid={`text-capacity-${listing.id}`}>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-4 h-4" />
+                        {listing.maxGuests} guests
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Bed className="w-4 h-4" />
+                        {listing.bedroomCount} bed
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Bath className="w-4 h-4" />
+                        {listing.bathroomCount} bath
+                      </div>
+                    </div>
+
+                    {/* Rating */}
+                    {listing.rating && (
+                      <div className="flex items-center gap-2 mb-3" data-testid={`rating-${listing.id}`}>
+                        <div className="flex items-center gap-1 text-sm">
+                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                          <span className="font-medium">{listing.rating.toFixed(1)}</span>
+                          <span className="text-gray-500">({listing.reviewCount || 0} reviews)</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Host Info */}
+                    <div className="flex items-center justify-between pt-3 border-t" data-testid={`host-info-${listing.id}`}>
+                      <div className="flex items-center gap-2">
+                        {listing.host.profileImage ? (
+                          <img 
+                            src={listing.host.profileImage} 
+                            alt={listing.host.name}
+                            className="w-8 h-8 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                            {listing.host.name.charAt(0)}
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{listing.host.name}</p>
+                          <p className="text-xs text-gray-500">@{listing.host.username}</p>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        onClick={() => navigate(`/listing/${listing.id}`)}
+                        data-testid={`button-view-details-${listing.id}`}
+                      >
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })
+          )}
         </div>
 
         {/* Empty State */}
-        {filteredListings.length === 0 && (
+        {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
             <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No listings found</h3>
@@ -678,21 +608,14 @@ export default function HousingMarketplace() {
                   
                   <div className="flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-gray-500" />
-                    <span className="text-gray-700">{selectedListing.address || selectedListing.location}</span>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <Calendar className="w-5 h-5 text-gray-500" />
-                    <span className="text-gray-700">
-                      Available: {new Date(selectedListing.availableFrom).toLocaleDateString()} - {new Date(selectedListing.availableTo).toLocaleDateString()}
-                    </span>
+                    <span className="text-gray-700">{selectedListing.address || `${selectedListing.city}, ${selectedListing.country}`}</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 py-4">
                     <div className="bg-gray-50 rounded-lg p-4">
                       <h4 className="font-semibold text-gray-900 mb-2">Amenities</h4>
                       <div className="space-y-2">
-                        {selectedListing.amenities.map(amenity => {
+                        {selectedListing.amenities.slice(0, 5).map(amenity => {
                           const Icon = amenityIcons[amenity] || Check;
                           return (
                             <div key={amenity} className="flex items-center gap-2 text-sm text-gray-700">
@@ -701,18 +624,18 @@ export default function HousingMarketplace() {
                             </div>
                           );
                         })}
+                        {selectedListing.amenities.length > 5 && (
+                          <p className="text-xs text-gray-500">+{selectedListing.amenities.length - 5} more</p>
+                        )}
                       </div>
                     </div>
 
-                    <div className="bg-purple-50 rounded-lg p-4">
-                      <h4 className="font-semibold text-purple-900 mb-2">Tango Info</h4>
-                      <div className="space-y-2 text-sm text-purple-700">
-                        <p>
-                          <Music className="w-4 h-4 inline mr-1" />
-                          {selectedListing.tangoProximity?.nearestMilonga}
-                        </p>
-                        <p>Distance: {selectedListing.tangoProximity?.distanceToMilonga}</p>
-                        <p>Walking: {selectedListing.tangoProximity?.walkingTime}</p>
+                    <div className="bg-indigo-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-indigo-900 mb-2">Capacity</h4>
+                      <div className="space-y-2 text-sm text-indigo-800">
+                        <p>{selectedListing.maxGuests} guests max</p>
+                        <p>{selectedListing.bedroomCount} bedrooms</p>
+                        <p>{selectedListing.bathroomCount} bathrooms</p>
                       </div>
                     </div>
                   </div>
