@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
@@ -11,6 +11,15 @@ import { Badge } from '../components/ui/badge';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { useToast } from '../hooks/use-toast';
+import { useGSAP } from '@gsap/react';
+import { AuroraVariants, FadeIn, ScaleIn } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard, GlassInput } from '@/components/glass/GlassComponents';
+import { MagneticButton, RippleButton } from '@/components/interactions/MicroInteractions';
+import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 import { 
   Home, 
   MapPin, 
@@ -88,6 +97,10 @@ export default function HousingMarketplace() {
   const [bedroomCount, setBedroomCount] = useState(0);
   
   const { toast } = useToast();
+  
+  // Refs for GSAP animations
+  const containerRef = useRef(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   // Filter options
   const roomTypes = ['Entire place', 'Private room', 'Shared room'];
@@ -219,118 +232,140 @@ export default function HousingMarketplace() {
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Tango Housing Marketplace</h1>
-              <p className="text-gray-600 mt-2">Find the perfect place to stay during your tango journey</p>
-            </div>
-            <Button
-              onClick={() => setShowCreateModal(true)}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              List Your Space
-            </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
-              <div className="flex items-center gap-3">
-                <Home className="w-8 h-8 text-indigo-600" />
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">{isLoading ? '...' : listings.length}</p>
-                  <p className="text-sm text-gray-600">Active Listings</p>
-                </div>
+        <FadeIn>
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-3xl font-bold text-brand-gradient">Tango Housing Marketplace</h1>
+                <p className="text-slate-600 dark:text-slate-400 mt-2">Find the perfect place to stay during your tango journey</p>
               </div>
-            </Card>
-            <Card className="p-4 bg-gradient-to-r from-green-50 to-emerald-50">
-              <div className="flex items-center gap-3">
-                <MapPin className="w-8 h-8 text-emerald-600" />
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
-                  </p>
-                  <p className="text-sm text-gray-600">Cities</p>
-                </div>
-              </div>
-            </Card>
-            <Card className="p-4 bg-gradient-to-r from-pink-50 to-rose-50">
-              <div className="flex items-center gap-3">
-                <Star className="w-8 h-8 text-rose-600" />
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {isLoading ? '...' : listings.filter(l => l.rating).length > 0 
-                      ? (listings.filter(l => l.rating).reduce((sum, l) => sum + (l.rating || 0), 0) / listings.filter(l => l.rating).length).toFixed(1)
-                      : 'N/A'}
-                  </p>
-                  <p className="text-sm text-gray-600">Average Rating</p>
-                </div>
-              </div>
-            </Card>
-            <Card className="p-4 bg-gradient-to-r from-purple-50 to-violet-50">
-              <div className="flex items-center gap-3">
-                <Music className="w-8 h-8 text-violet-600" />
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">{isLoading ? '...' : filteredListings.length}</p>
-                  <p className="text-sm text-gray-600">Matching Filters</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Search and Filters */}
-          <div className="flex flex-col gap-4 mb-6">
-            <div className="flex flex-col lg:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search by location, title, or description..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                  data-testid="input-search"
-                />
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
-                  <Button
-                    key={type}
-                    variant={selectedType === type ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedType(type)}
-                    className={selectedType === type 
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
-                      : ''}
-                    data-testid={`button-type-${type}`}
-                  >
-                    {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
-                  </Button>
-                ))}
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => setShowFilters(!showFilters)}
-                  className={showFilters ? 'bg-indigo-50 border-indigo-300' : ''}
-                  data-testid="button-toggle-filters"
+              <MagneticButton strength={0.3}>
+                <Button
+                  onClick={() => setShowCreateModal(true)}
+                  className="aurora-gradient text-white hover:shadow-aurora transition-all duration-300"
                 >
-                  <Filter className="w-4 h-4 mr-1" />
-                  Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+                  <Plus className="w-4 h-4 mr-2" />
+                  List Your Space
                 </Button>
-                {activeFilterCount > 0 && (
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={clearFilters}
-                    data-testid="button-clear-filters"
-                  >
-                    Clear all
-                  </Button>
-                )}
-              </div>
+              </MagneticButton>
             </div>
+
+            {/* Stats */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6"
+            variants={AuroraVariants.staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={AuroraVariants.fadeInUp}>
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+                <div className="flex items-center gap-3">
+                  <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <div>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : listings.length}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Active Listings</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+            <motion.div variants={AuroraVariants.fadeInUp}>
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <div>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                      {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Cities</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+            <motion.div variants={AuroraVariants.fadeInUp}>
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+                <div className="flex items-center gap-3">
+                  <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <div>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                      {isLoading ? '...' : listings.filter(l => l.rating).length > 0 
+                        ? (listings.filter(l => l.rating).reduce((sum, l) => sum + (l.rating || 0), 0) / listings.filter(l => l.rating).length).toFixed(1)
+                        : 'N/A'}
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Average Rating</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+            <motion.div variants={AuroraVariants.fadeInUp}>
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+                <div className="flex items-center gap-3">
+                  <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                  <div>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : filteredListings.length}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Matching Filters</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
+          </div>
+        </FadeIn>
+
+        {/* Search and Filters */}
+          <div className="flex flex-col gap-4 mb-6">
+            <ScaleIn delay={0.2}>
+              <div className="flex flex-col lg:flex-row gap-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
+                  <Input
+                    type="text"
+                    placeholder="Search by location, title, or description..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                    data-testid="input-search"
+                  />
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {['all', 'apartment', 'room', 'shared', 'house'].map(type => (
+                    <RippleButton key={type}>
+                      <Button
+                        variant={selectedType === type ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedType(type)}
+                        className={selectedType === type 
+                          ? 'aurora-gradient text-white border-0' 
+                          : 'glass-card glass-depth-1 border-cyan-200/30'}
+                        data-testid={`button-type-${type}`}
+                      >
+                        {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                      </Button>
+                    </RippleButton>
+                  ))}
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setShowFilters(!showFilters)}
+                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
+                    data-testid="button-toggle-filters"
+                  >
+                    <Filter className="w-4 h-4 mr-1" />
+                    Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+                  </Button>
+                  {activeFilterCount > 0 && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={clearFilters}
+                      className="hover:glass-card hover:glass-depth-1"
+                      data-testid="button-clear-filters"
+                    >
+                      Clear all
+                    </Button>
+                  )}
+              </div>
+              </div>
+            </ScaleIn>
 
             {/* Expanded Filter Panel */}
             {showFilters && (
