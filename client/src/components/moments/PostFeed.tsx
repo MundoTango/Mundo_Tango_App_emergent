@@ -6,7 +6,7 @@
  */
 
 import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use canonical auth context
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   Heart, Search, X, Tag, Filter, Sparkles, Users, Globe, 
