@@ -63,8 +63,13 @@ function ESAMemoryFeedCore() {
         title: "Memory Shared",
         description: "Your memory has been shared successfully"
       });
-      // Refresh the feed - PostFeed will handle re-fetching
+      // ESA Layer 5: Invalidate both main feed and context-specific feeds
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+      
+      // If posting in a group context, also invalidate group feed
+      if (feedContext.type === 'group' && 'groupId' in feedContext) {
+        queryClient.invalidateQueries({ queryKey: ['/api/groups', feedContext.groupId, 'posts'] });
+      }
       setShowCreateModal(false);
     },
     onError: (error: any) => {
@@ -182,7 +187,10 @@ function ESAMemoryFeedCore() {
                             emotions: data.emotions,
                             mediaUrls: data.internalMediaUrls, // Use uploaded URLs
                             isRecommendation: data.isRecommendation,
-                            recommendationType: data.recommendationType
+                            recommendationType: data.recommendationType,
+                            // ESA Layer 8: Add context for context-aware posting
+                            contextType: feedContext.type !== 'feed' ? feedContext.type : null,
+                            contextId: feedContext.type === 'group' && 'groupId' in feedContext ? feedContext.groupId : null
                           };
                           
                           // Use direct endpoint for URL-based media
@@ -200,8 +208,15 @@ function ESAMemoryFeedCore() {
                               return res.json();
                             })
                             .then(() => {
+                              // ESA Layer 5: Invalidate both main feed and context-specific feeds
                               queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
                               queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
+                              
+                              // If posting in a group context, also invalidate group feed
+                              if (feedContext.type === 'group' && 'groupId' in feedContext) {
+                                queryClient.invalidateQueries({ queryKey: ['/api/groups', feedContext.groupId, 'posts'] });
+                              }
+                              
                               setShowCreateModal(false);
                               toast({
                                 title: "✨ Memory Created!",
@@ -234,6 +249,13 @@ function ESAMemoryFeedCore() {
                             formData.append('isRecommendation', 'true');
                             if (data.recommendationType) {
                               formData.append('recommendationType', data.recommendationType);
+                            }
+                          }
+                          // ESA Layer 8: Add context for context-aware posting
+                          if (feedContext.type !== 'feed') {
+                            formData.append('contextType', feedContext.type);
+                            if (feedContext.type === 'group' && 'groupId' in feedContext) {
+                              formData.append('contextId', String(feedContext.groupId));
                             }
                           }
                           // Add media files
