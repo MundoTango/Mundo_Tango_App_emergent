@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface StarRatingProps {
+interface StarRatingProps extends React.HTMLAttributes<HTMLDivElement> {
   rating: number;
   onRatingChange?: (rating: number) => void;
   maxRating?: number;
@@ -19,6 +19,7 @@ export function StarRating({
   readonly = false,
   showLabel = false,
   label,
+  ...props
 }: StarRatingProps) {
   const sizeClasses = {
     sm: "w-4 h-4",
@@ -33,7 +34,7 @@ export function StarRating({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" {...props}>
       {showLabel && label && (
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 min-w-[140px]">
           {label}
