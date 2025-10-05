@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '../lib/queryClient';
 import { Link } from 'wouter';
+import DashboardLayout from '../layouts/DashboardLayout';
 import { format } from 'date-fns';
 import {
   Calendar,
@@ -162,27 +163,29 @@ export default function HostBookings() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <Skeleton className="h-10 w-64 mb-8" />
-          <div className="space-y-6">
-            {[1, 2, 3].map((i) => (
-              <Card key={i}>
-                <CardContent className="p-6">
-                  <div className="flex gap-6">
-                    <Skeleton className="w-48 h-32 rounded-lg" />
-                    <div className="flex-1 space-y-4">
-                      <Skeleton className="h-6 w-3/4" />
-                      <Skeleton className="h-4 w-1/2" />
-                      <Skeleton className="h-4 w-1/3" />
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 py-8">
+          <div className="max-w-7xl mx-auto px-4">
+            <Skeleton className="h-10 w-64 mb-8" />
+            <div className="space-y-6">
+              {[1, 2, 3].map((i) => (
+                <Card key={i}>
+                  <CardContent className="p-6">
+                    <div className="flex gap-6">
+                      <Skeleton className="w-48 h-32 rounded-lg" />
+                      <div className="flex-1 space-y-4">
+                        <Skeleton className="h-6 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
+                        <Skeleton className="h-4 w-1/3" />
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
@@ -341,176 +344,178 @@ export default function HostBookings() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Link href="/housing-marketplace">
-            <Button variant="ghost" size="icon" data-testid="button-back-marketplace">
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          </Link>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-bookings">
-              Host Dashboard
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Manage booking requests for your properties
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500">Total bookings</p>
-            <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
-          </div>
-        </div>
-
-        {/* Tabbed Interface */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 max-w-2xl">
-            <TabsTrigger value="pending" className="gap-2" data-testid="tab-pending">
-              <Clock className="w-4 h-4" />
-              Pending ({pendingBookings.length})
-            </TabsTrigger>
-            <TabsTrigger value="approved" className="gap-2" data-testid="tab-approved">
-              <CheckCircle className="w-4 h-4" />
-              Approved ({approvedBookings.length})
-            </TabsTrigger>
-            <TabsTrigger value="rejected" className="gap-2" data-testid="tab-rejected">
-              <XCircle className="w-4 h-4" />
-              Rejected ({rejectedBookings.length})
-            </TabsTrigger>
-            <TabsTrigger value="all" className="gap-2" data-testid="tab-all">
-              <Filter className="w-4 h-4" />
-              All ({bookings.length})
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Pending Bookings */}
-          <TabsContent value="pending" className="space-y-6">
-            {pendingBookings.length === 0 ? (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <Clock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No pending requests</h3>
-                  <p className="text-gray-600">You're all caught up! New booking requests will appear here.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              pendingBookings.map(renderBookingCard)
-            )}
-          </TabsContent>
-
-          {/* Approved Bookings */}
-          <TabsContent value="approved" className="space-y-6">
-            {approvedBookings.length === 0 ? (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <CheckCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No approved bookings</h3>
-                  <p className="text-gray-600">Approved bookings will appear here.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              approvedBookings.map(renderBookingCard)
-            )}
-          </TabsContent>
-
-          {/* Rejected Bookings */}
-          <TabsContent value="rejected" className="space-y-6">
-            {rejectedBookings.length === 0 ? (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <XCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No rejected bookings</h3>
-                  <p className="text-gray-600">Rejected bookings will appear here.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              rejectedBookings.map(renderBookingCard)
-            )}
-          </TabsContent>
-
-          {/* All Bookings */}
-          <TabsContent value="all" className="space-y-6">
-            {bookings.length === 0 ? (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <Home className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No bookings yet</h3>
-                  <p className="text-gray-600">Booking requests for your properties will appear here.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              bookings.map(renderBookingCard)
-            )}
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Response Dialog */}
-      <Dialog 
-        open={respondingToBooking !== null} 
-        onOpenChange={(open) => {
-          if (!open && !respondToBookingMutation.isPending) {
-            setRespondingToBooking(null);
-            setResponseAction(null);
-            setHostResponse('');
-          }
-        }}
-      >
-        <DialogContent className="max-w-md" data-testid="dialog-respond-booking">
-          <DialogHeader>
-            <DialogTitle>
-              {responseAction === 'approve' ? 'Approve Booking' : 'Reject Booking'}
-            </DialogTitle>
-            <DialogDescription>
-              {responseAction === 'approve' 
-                ? 'Send a welcome message to your guest to confirm the booking.'
-                : 'Let the guest know why you cannot accommodate their request.'}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4 py-4">
-            <div>
-              <Label htmlFor="host-response">Your message to the guest</Label>
-              <Textarea
-                id="host-response"
-                value={hostResponse}
-                onChange={(e) => setHostResponse(e.target.value)}
-                rows={4}
-                className="mt-2"
-                placeholder={responseAction === 'approve' 
-                  ? 'Welcome the guest and provide any additional details...'
-                  : 'Explain why you cannot accept this booking...'}
-                data-testid="textarea-host-response"
-              />
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <Link href="/housing-marketplace">
+              <Button variant="ghost" size="icon" data-testid="button-back-marketplace">
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+            </Link>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-bookings">
+                Host Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Manage booking requests for your properties
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Total bookings</p>
+              <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
             </div>
           </div>
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setRespondingToBooking(null);
-                setResponseAction(null);
-                setHostResponse('');
-              }}
-              disabled={respondToBookingMutation.isPending}
-              data-testid="button-cancel-response"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSubmitResponse}
-              disabled={respondToBookingMutation.isPending}
-              className={responseAction === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
-              data-testid="button-submit-response"
-            >
-              {respondToBookingMutation.isPending ? 'Sending...' : `${responseAction === 'approve' ? 'Approve' : 'Reject'} & Send`}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+          {/* Tabbed Interface */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-4 max-w-2xl">
+              <TabsTrigger value="pending" className="gap-2" data-testid="tab-pending">
+                <Clock className="w-4 h-4" />
+                Pending ({pendingBookings.length})
+              </TabsTrigger>
+              <TabsTrigger value="approved" className="gap-2" data-testid="tab-approved">
+                <CheckCircle className="w-4 h-4" />
+                Approved ({approvedBookings.length})
+              </TabsTrigger>
+              <TabsTrigger value="rejected" className="gap-2" data-testid="tab-rejected">
+                <XCircle className="w-4 h-4" />
+                Rejected ({rejectedBookings.length})
+              </TabsTrigger>
+              <TabsTrigger value="all" className="gap-2" data-testid="tab-all">
+                <Filter className="w-4 h-4" />
+                All ({bookings.length})
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Pending Bookings */}
+            <TabsContent value="pending" className="space-y-6">
+              {pendingBookings.length === 0 ? (
+                <Card className="text-center py-12">
+                  <CardContent>
+                    <Clock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No pending requests</h3>
+                    <p className="text-gray-600">You're all caught up! New booking requests will appear here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                pendingBookings.map(renderBookingCard)
+              )}
+            </TabsContent>
+
+            {/* Approved Bookings */}
+            <TabsContent value="approved" className="space-y-6">
+              {approvedBookings.length === 0 ? (
+                <Card className="text-center py-12">
+                  <CardContent>
+                    <CheckCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No approved bookings</h3>
+                    <p className="text-gray-600">Approved bookings will appear here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                approvedBookings.map(renderBookingCard)
+              )}
+            </TabsContent>
+
+            {/* Rejected Bookings */}
+            <TabsContent value="rejected" className="space-y-6">
+              {rejectedBookings.length === 0 ? (
+                <Card className="text-center py-12">
+                  <CardContent>
+                    <XCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No rejected bookings</h3>
+                    <p className="text-gray-600">Rejected bookings will appear here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                rejectedBookings.map(renderBookingCard)
+              )}
+            </TabsContent>
+
+            {/* All Bookings */}
+            <TabsContent value="all" className="space-y-6">
+              {bookings.length === 0 ? (
+                <Card className="text-center py-12">
+                  <CardContent>
+                    <Home className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No bookings yet</h3>
+                    <p className="text-gray-600">Booking requests for your properties will appear here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                bookings.map(renderBookingCard)
+              )}
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Response Dialog */}
+        <Dialog 
+          open={respondingToBooking !== null} 
+          onOpenChange={(open) => {
+            if (!open && !respondToBookingMutation.isPending) {
+              setRespondingToBooking(null);
+              setResponseAction(null);
+              setHostResponse('');
+            }
+          }}
+        >
+          <DialogContent className="max-w-md" data-testid="dialog-respond-booking">
+            <DialogHeader>
+              <DialogTitle>
+                {responseAction === 'approve' ? 'Approve Booking' : 'Reject Booking'}
+              </DialogTitle>
+              <DialogDescription>
+                {responseAction === 'approve' 
+                  ? 'Send a welcome message to your guest to confirm the booking.'
+                  : 'Let the guest know why you cannot accommodate their request.'}
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4 py-4">
+              <div>
+                <Label htmlFor="host-response">Your message to the guest</Label>
+                <Textarea
+                  id="host-response"
+                  value={hostResponse}
+                  onChange={(e) => setHostResponse(e.target.value)}
+                  rows={4}
+                  className="mt-2"
+                  placeholder={responseAction === 'approve' 
+                    ? 'Welcome the guest and provide any additional details...'
+                    : 'Explain why you cannot accept this booking...'}
+                  data-testid="textarea-host-response"
+                />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setRespondingToBooking(null);
+                  setResponseAction(null);
+                  setHostResponse('');
+                }}
+                disabled={respondToBookingMutation.isPending}
+                data-testid="button-cancel-response"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSubmitResponse}
+                disabled={respondToBookingMutation.isPending}
+                className={responseAction === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
+                data-testid="button-submit-response"
+              >
+                {respondToBookingMutation.isPending ? 'Sending...' : `${responseAction === 'approve' ? 'Approve' : 'Reject'} & Send`}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </DashboardLayout>
   );
 }

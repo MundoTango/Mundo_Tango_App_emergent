@@ -43,6 +43,7 @@ import { ConnectionInfoPanel } from '../components/housing/ConnectionInfoPanel';
 import { ConnectionBadge } from '../components/housing/ConnectionBadge';
 import { useAuth } from '../hooks/useAuth';
 import { getConnectionLabel } from '../utils/friendshipHelpers';
+import DashboardLayout from '../layouts/DashboardLayout';
 
 interface HostHome {
   id: number;
@@ -290,38 +291,42 @@ export default function ListingDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto">
-          <Skeleton className="h-8 w-32 mb-6" />
-          <Skeleton className="h-96 w-full mb-6" />
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <Skeleton className="h-48 w-full" />
-              <Skeleton className="h-48 w-full" />
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 p-6">
+          <div className="max-w-7xl mx-auto">
+            <Skeleton className="h-8 w-32 mb-6" />
+            <Skeleton className="h-96 w-full mb-6" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+              </div>
+              <Skeleton className="h-96 w-full" />
             </div>
-            <Skeleton className="h-96 w-full" />
           </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   if (error || !listing?.data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <Card className="max-w-md w-full">
-          <CardContent className="pt-6 text-center">
-            <h2 className="text-2xl font-bold mb-2">Listing Not Found</h2>
-            <p className="text-gray-600 mb-4">
-              The listing you're looking for doesn't exist or has been removed.
-            </p>
-            <Button onClick={() => navigate('/housing-marketplace')}>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Marketplace
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      <DashboardLayout>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+          <Card className="max-w-md w-full">
+            <CardContent className="pt-6 text-center">
+              <h2 className="text-2xl font-bold mb-2">Listing Not Found</h2>
+              <p className="text-gray-600 mb-4">
+                The listing you're looking for doesn't exist or has been removed.
+              </p>
+              <Button onClick={() => navigate('/housing-marketplace')}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Marketplace
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </DashboardLayout>
     );
   }
 
@@ -329,7 +334,8 @@ export default function ListingDetail() {
   const priceFormatted = `$${home.pricePerNight}`;
 
   return (
-    <div className="min-h-screen bg-gray-50" data-testid="page-listing-detail">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50" data-testid="page-listing-detail">
       <div className="max-w-7xl mx-auto p-6">
         {/* Back Button */}
         <Button 
@@ -856,6 +862,7 @@ export default function ListingDetail() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
