@@ -309,6 +309,22 @@
   }
 }
 
+/* Aurora Tide - Ripple Animation */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 300ms ease-out;
+}
+
 /* Mundo Tango Design System v2.0 - Turquoise Ocean Theme */
 :root {
   /* Primary Colors - Turquoise to Blue Gradient */
