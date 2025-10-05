@@ -340,7 +340,9 @@ const PostFeed = memo(({
     
     if (context) {
       setPage(1);
-      setAllPosts([]);
+      // ESA 61×21 Pattern: Don't clear posts - let React Query refetch naturally
+      // The query key depends on activeFilters, so it will auto-refetch
+      // Posts stay visible during transition for smooth UX
       setInternalHasMore(true);
     }
   }, [activeFilters.filterType, activeFilters.tags.join(','), activeFilters.visibility, activeFilters.startDate, activeFilters.endDate, debouncedSearch]);
