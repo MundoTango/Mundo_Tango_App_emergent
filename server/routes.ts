@@ -1643,6 +1643,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // GET /api/host-homes/user/:userId - Get all properties for a specific host
+  app.get('/api/host-homes/user/:userId', async (req: any, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      if (isNaN(userId)) {
+        return res.status(400).json({ error: 'Invalid user ID' });
+      }
+
+      console.log('🏠 Fetching host homes for user:', userId);
+
+      const homes = await db
+        .select()
+        .from(hostHomes)
+        .where(eq(hostHomes.hostId, userId))
+        .orderBy(desc(hostHomes.createdAt));
+
+      console.log(`✅ Found ${homes.length} properties for user ${userId}`);
+      res.json({ success: true, data: homes });
+    } catch (error: any) {
+      console.error('❌ Error fetching user host homes:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch host homes',
+        message: error.message 
+      });
+    }
+  });
+
   // GET /api/host-homes/:id - Get a single host home by ID
   app.get('/api/host-homes/:id', async (req: any, res) => {
     try {

@@ -528,18 +528,17 @@ export default function ListingDetail() {
             <Card className="shadow-lg" data-testid="card-booking">
               <CardContent className="pt-6">
                 <div className="mb-6">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-3xl font-bold" data-testid="text-price-per-night">
-                      {priceFormatted}
-                    </span>
-                    <span className="text-gray-600">/ night</span>
-                  </div>
+                  {/* TODO: PAYMENT PREP - Stripe integration 
+                      Display pricing and payment info here */}
                   <div className="flex items-center text-sm text-gray-600">
                     <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
                     <span className="font-semibold">4.8</span>
                     <span className="mx-1">·</span>
                     <span>12 reviews</span>
                   </div>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Connection-based hosting • Free for community members
+                  </p>
                 </div>
 
                 {/* Booking Form Placeholder */}
@@ -565,30 +564,12 @@ export default function ListingDetail() {
                   onClick={handleRequestToBook}
                   data-testid="button-request-to-book"
                 >
-                  Request to Book
+                  Request to Stay
                 </Button>
 
                 <p className="text-center text-sm text-gray-500 mt-4">
-                  You won't be charged yet
+                  Subject to host approval based on your connection
                 </p>
-
-                {/* Price Breakdown */}
-                <div className="border-t mt-6 pt-6 space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="underline">{priceFormatted} × 5 nights</span>
-                    <span>${home.pricePerNight * 5}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="underline">Service fee</span>
-                    <span>${Math.round(home.pricePerNight * 5 * 0.1)}</span>
-                  </div>
-                  <div className="flex justify-between font-semibold text-lg border-t pt-2">
-                    <span>Total</span>
-                    <span data-testid="text-total-price">
-                      ${home.pricePerNight * 5 + Math.round(home.pricePerNight * 5 * 0.1)}
-                    </span>
-                  </div>
-                </div>
               </CardContent>
             </Card>
 
