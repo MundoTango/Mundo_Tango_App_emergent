@@ -47,6 +47,7 @@ import { getConnectionLabel } from '../utils/friendshipHelpers';
 import DashboardLayout from '../layouts/DashboardLayout';
 import { RatingSummary } from '../components/reviews/RatingSummary';
 import { ReviewList } from '../components/reviews/ReviewList';
+import HouseRulesDisplay from '../components/housing/HouseRulesDisplay';
 import type { HostReview } from '@shared/schema';
 
 interface HostHome {
@@ -552,20 +553,12 @@ export default function ListingDetail() {
               </CardContent>
             </Card>
 
-            {/* House Rules */}
-            <Card data-testid="section-house-rules">
-              <CardContent className="pt-6">
-                <h2 className="text-2xl font-bold mb-4">House Rules</h2>
-                <div className="space-y-3 text-gray-700">
-                  <div>✓ Check-in: After 2:00 PM</div>
-                  <div>✓ Checkout: Before 11:00 AM</div>
-                  <div>✓ Self check-in with lockbox</div>
-                  <div>✓ No parties or events</div>
-                  <div>✓ No smoking inside</div>
-                  <div>✓ Pets allowed with prior approval</div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* House Rules - Dynamic from Database */}
+            <HouseRulesDisplay 
+              homeId={home.id} 
+              variant="detailed"
+              showTitle={true}
+            />
 
             {/* Location */}
             {home.lat && home.lng && (
