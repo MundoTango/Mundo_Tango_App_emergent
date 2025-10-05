@@ -135,10 +135,6 @@ const PostFeed = memo(({
   // ESA Layer 9: Track initial mount to prevent premature filter resets
   const isInitialMount = useRef(true);
   
-  // ESA Debug: Log authenticated user
-  useEffect(() => {
-    console.log('[Framework] User authenticated from context, ID:', user?.id);
-  }, [user]);
   
   // Internal pagination state (used in smart mode)
   const [page, setPage] = useState(1);
@@ -247,8 +243,6 @@ const PostFeed = memo(({
     enabled: !propsPosts, // Fetch when no posts prop provided (smart mode)
     queryFn: async () => {
       const url = buildFetchUrl();
-      console.log('[Framework] Fetching posts:', { url, context, page });
-
       const response = await fetch(url, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -260,31 +254,21 @@ const PostFeed = memo(({
 
       const data = await response.json();
       
-      console.log('[Framework] Fetched posts:', {
-        context: context?.type,
-        count: data.data?.length || data.posts?.length || 0,
-        page,
-        hasSuccess: data.success
-      });
-
       // Handle different response formats
       // Groups API returns: { success: true, data: [...] }
-      // Feed API returns: { data: [...] } or { posts: [...] }
+      // Feed API returns: { posts: [...], hasMore, page, total }
       const posts = data.data || data.posts || [];
       return { posts, hasMore: posts.length === 20 };
     },
     staleTime: 30000,
     gcTime: 5 * 60 * 1000,
   });
-
+  
   // ESA Framework: Handle pagination for context mode
   useEffect(() => {
     if (!context || !fetchedResponse?.posts) {
-      console.log('[DEBUG] Skipping posts update:', { hasContext: !!context, hasFetchedResponse: !!fetchedResponse, hasPostsInResponse: !!fetchedResponse?.posts });
       return;
     }
-    
-    console.log('[DEBUG] Setting allPosts:', { page, postsCount: fetchedResponse.posts.length, currentAllPosts: allPosts.length });
     
     if (page === 1) {
       setAllPosts(fetchedResponse.posts);
@@ -293,8 +277,7 @@ const PostFeed = memo(({
     }
     
     setInternalHasMore(fetchedResponse.hasMore);
-    console.log('[Framework] Posts updated:', { page, count: fetchedResponse.posts.length, hasMore: fetchedResponse.hasMore });
-  }, [fetchedResponse, page, context]);
+  }, [fetchedResponse, page]);
 
   // Reset pagination when context changes
   useEffect(() => {
@@ -310,16 +293,10 @@ const PostFeed = memo(({
     // ESA Layer 9: Skip on initial mount to prevent clearing posts before they're fetched
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      console.log('[DEBUG] ✅ Initial mount - skipping filter reset');
       return;
     }
     
     if (context) {
-      console.log('[DEBUG] ⚠️ CLEARING POSTS - Filters changed:', { 
-        filterType: activeFilters.filterType, 
-        tagsCount: activeFilters.tags.length,
-        currentPostsCount: allPosts.length 
-      });
       setPage(1);
       setAllPosts([]);
       setInternalHasMore(true);
@@ -328,13 +305,6 @@ const PostFeed = memo(({
 
   // ESA Framework: Use provided posts (controlled) or fetched posts (smart mode)
   const posts = useMemo(() => {
-    console.log('[DEBUG] Computing posts:', { 
-      hasPropsPost: !!propsPosts, 
-      hasContext: !!context, 
-      allPostsCount: allPosts.length,
-      fetchedResponseCount: fetchedResponse?.posts?.length || 0
-    });
-    
     if (propsPosts) {
       // Controlled mode: Use provided posts
       return propsPosts;
@@ -400,7 +370,6 @@ const PostFeed = memo(({
 
   // Filter posts locally if search is active without filters
   const filteredPosts = useMemo(() => {
-    console.log('[DEBUG] Computing filteredPosts:', { postsCount: posts.length, hasSearch: !!debouncedSearch, showFilters });
     
     if (!showFilters && debouncedSearch) {
       const filtered = posts.filter((post: Post) => 

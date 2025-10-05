@@ -122,6 +122,9 @@ function ESAMemoryFeedCore() {
     setShowEditModal(true);
   };
 
+  // ESA Layer 9: Memoize context to prevent PostFeed re-renders
+  const feedContext = useMemo(() => ({ type: 'feed' as const }), []);
+  
   // Current user for dashboard
   const currentUser = {
     id: currentUserId,
@@ -244,25 +247,19 @@ function ESAMemoryFeedCore() {
                         // Optional callback after successful post
                         setShowCreateModal(false);
                       }}
-                      context={{ type: 'feed' }}
+                      context={feedContext}
                     />
                   )}
                   
                   {/* Posts Display */}
-                  <Suspense fallback={
-                    <div className="flex justify-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
-                    </div>
-                  }>
-                    {/* Posts Feed - Context-Based Mode (PostFeed handles all fetching/pagination) */}
-                    <PostFeed 
-                      context={{ type: 'feed' }}
-                      showFilters={true}
-                      showSearch={true}
-                      currentUserId={currentUserId}
-                      onEdit={handleEditPost}
-                    />
-                  </Suspense>
+                  {/* Posts Feed - Context-Based Mode (PostFeed handles all fetching/pagination) */}
+                  <PostFeed 
+                    context={feedContext}
+                    showFilters={true}
+                    showSearch={true}
+                    currentUserId={currentUserId}
+                    onEdit={handleEditPost}
+                  />
                 </div>
               </div>
 
