@@ -2661,5 +2661,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Continue without agent system - non-critical for core functionality
   }
 
+  // Production Health Check Endpoints for Autoscaling
+  app.get('/health', async (req, res) => {
+    try {
+      // Check database connection
+      const dbCheck = await db.$client.query('SELECT 1');
+      
+      // Check agent system health
+      const { agentSystem } = await import('./esa-agents/agent-system');
+      const agentHealth = await agentSystem.healthCheck();
+      
+      const healthy = dbCheck && agentHealth.status !== 'unhealthy';
+      
+      res.status(healthy ? 200 : 503).json({
+        status: healthy ? 'healthy' : 'unhealthy',
+        timestamp: new Date().toISOString(),
+        checks: {
+          database: dbCheck ? 'connected' : 'disconnected',
+          agents: agentHealth.status,
+          memory: process.memoryUsage(),
+          uptime: process.uptime()
+        }
+      });
+    } catch (error) {
+      res.status(503).json({
+        status: 'unhealthy',
+        error: (error as Error).message,
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // Readiness probe - checks if service is ready to accept traffic
+  app.get('/ready', async (req, res) => {
+    try {
+      const dbCheck = await db.$client.query('SELECT 1');
+      const ready = dbCheck ? true : false;
+      
+      res.status(ready ? 200 : 503).json({
+        ready,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      res.status(503).json({
+        ready: false,
+        error: (error as Error).message,
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // Liveness probe - checks if service is alive
+  app.get('/live', (req, res) => {
+    res.status(200).json({
+      alive: true,
+      timestamp: new Date().toISOString(),
+      pid: process.pid,
+      uptime: process.uptime()
+    });
+  });
+
   return server;
 }
