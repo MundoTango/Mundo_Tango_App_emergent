@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   Heart, Search, X, Tag, Filter, Sparkles, Users, Globe, 
-  MapPin, MessageCircle, Share2, MoreVertical 
+  MapPin, MessageCircle, Share2, MoreVertical, Home, Plane 
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -71,7 +71,7 @@ interface Post {
 }
 
 interface FilterOptions {
-  filterType?: 'all' | 'following' | 'nearby';
+  filterType?: 'all' | 'residents' | 'visitors' | 'friends';
   tags?: string[];
   visibility?: 'all' | 'public' | 'friends' | 'private';
   location?: { lat: number; lng: number; radius: number };
@@ -134,7 +134,7 @@ const PostFeed = memo(({
   const [internalHasMore, setInternalHasMore] = useState(true);
 
   // Internal filter state
-  const [filterBy, setFilterBy] = useState<'all' | 'following' | 'nearby'>(
+  const [filterBy, setFilterBy] = useState<'all' | 'residents' | 'visitors' | 'friends'>(
     externalFilters?.filterType || 'all'
   );
   const [filterTags, setFilterTags] = useState<string[]>(externalFilters?.tags || []);
@@ -498,29 +498,40 @@ const PostFeed = memo(({
                   }`}
                 >
                   <Globe className="h-4 w-4 inline mr-2" />
-                  All
+                  All Posts
                 </button>
                 <button
-                  onClick={() => setFilterBy('following')}
+                  onClick={() => setFilterBy('residents')}
                   className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
-                    filterBy === 'following'
+                    filterBy === 'residents'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <Home className="h-4 w-4 inline mr-2" />
+                  Residence
+                </button>
+                <button
+                  onClick={() => setFilterBy('visitors')}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    filterBy === 'visitors'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <Plane className="h-4 w-4 inline mr-2" />
+                  Visitor
+                </button>
+                <button
+                  onClick={() => setFilterBy('friends')}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    filterBy === 'friends'
                       ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   <Users className="h-4 w-4 inline mr-2" />
-                  Following
-                </button>
-                <button
-                  onClick={() => setFilterBy('nearby')}
-                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
-                    filterBy === 'nearby'
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  <MapPin className="h-4 w-4 inline mr-2" />
-                  Nearby
+                  Friends
                 </button>
               </div>
 
@@ -614,8 +625,9 @@ const PostFeed = memo(({
             </div>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                {activeFilters.filterType === 'following' ? 'Following' : 
-                 activeFilters.filterType === 'nearby' ? 'Nearby' : 'All'} Posts
+                {activeFilters.filterType === 'residents' ? 'Residence' : 
+                 activeFilters.filterType === 'visitors' ? 'Visitor' :
+                 activeFilters.filterType === 'friends' ? 'Friends' : 'All'} Posts
               </h2>
               <p className="text-gray-600">
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
@@ -665,10 +677,12 @@ const PostFeed = memo(({
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">No Memories Yet</h3>
             <p className="text-gray-600 leading-relaxed">
-              {activeFilters.filterType === 'following' 
-                ? "No posts from people you're following yet. Start following dancers to see their posts here!"
-                : activeFilters.filterType === 'nearby'
-                ? "No nearby posts found. Try expanding your search radius or check back later."
+              {activeFilters.filterType === 'residents' 
+                ? "No posts from residents in your city yet. Check back later!"
+                : activeFilters.filterType === 'visitors'
+                ? "No posts from visitors found. Check back when travelers visit your city!"
+                : activeFilters.filterType === 'friends'
+                ? "No posts from your friends yet. Connect with more dancers to see their posts here!"
                 : activeFilters.tags.length > 0
                 ? `No posts found with the tags: ${activeFilters.tags.map(tag => `#${tag}`).join(', ')}`
                 : debouncedSearch

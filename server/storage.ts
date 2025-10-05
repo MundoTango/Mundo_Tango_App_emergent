@@ -1277,8 +1277,15 @@ export class DatabaseStorage implements IStorage {
           ? and(visibilityConditions, sql`${users.city} IS DISTINCT FROM ${currentUserCity}`)
           : visibilityConditions; // If no city set, show all
       } else if (relationshipFilter === 'friends') {
-        // Filter to posts only from accepted friends
-        relationshipConditions = and(visibilityConditions, isNotNull(friends.id));
+        // Filter to posts only from accepted friends, excluding own posts
+        relationshipConditions = and(
+          or(
+            eq(posts.visibility, 'public'),
+            and(eq(posts.visibility, 'friends'), isNotNull(friends.id))
+          ),
+          sql`${posts.userId} != ${userId}`,
+          isNotNull(friends.id)
+        );
       } else {
         // 'all' - no additional filtering
         relationshipConditions = visibilityConditions;
