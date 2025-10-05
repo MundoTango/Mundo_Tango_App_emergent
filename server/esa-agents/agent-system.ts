@@ -11,10 +11,12 @@ import { performance } from 'perf_hooks';
 import knowledgeGraph from '../esa-master-knowledge-graph.json';
 
 // Agent system configuration
+// BullMQ requires maxRetriesPerRequest to be null for blocking operations
 const REDIS_CONFIG = {
   host: process.env.REDIS_HOST || 'localhost',
   port: parseInt(process.env.REDIS_PORT || '6379'),
-  maxRetriesPerRequest: 3,
+  maxRetriesPerRequest: null, // Required by BullMQ for blocking operations
+  enableReadyCheck: false,
 };
 
 // Create Redis connections for different purposes
@@ -82,18 +84,18 @@ export abstract class Agent {
     this.layers = domain.layers;
     
     // Initialize BullMQ queue for this agent
-    this.queue = new Queue(`agent:${this.id}`, {
+    this.queue = new Queue(`agent_${this.id}`, {
       connection: redisConnection.duplicate(),
     });
     
     // Initialize queue events
-    this.events = new QueueEvents(`agent:${this.id}`, {
+    this.events = new QueueEvents(`agent_${this.id}`, {
       connection: redisConnection.duplicate(),
     });
     
     // Initialize worker
     this.worker = new Worker(
-      `agent:${this.id}`,
+      `agent_${this.id}`,
       async (job: Job) => await this.processJob(job),
       {
         connection: redisConnection.duplicate(),

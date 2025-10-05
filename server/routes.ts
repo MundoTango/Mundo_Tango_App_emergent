@@ -75,6 +75,7 @@ import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent Sy
 import paymentRoutes from "./routes/paymentRoutes"; // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
 import translationRoutes from "./routes/translationRoutes"; // ESA Layer 53: Internationalization & Translation System
 import lifeCeoAgentRoutes from "./routes/lifeCeoAgentRoutes"; // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o
+import { integrateESAAgentSystem, registerTestEndpoints } from "./esa-agents/server-integration"; // ESA 61x21 Multi-Agent System
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -2642,6 +2643,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 🎯 ESA LIFE CEO 61x21 - Initialize real-time notifications for 100/100 score
   const { RealTimeNotificationService } = await import('./services/realTimeNotifications');
   RealTimeNotificationService.initialize(server);
+
+  // 🚀 ESA 61x21 Multi-Agent System Integration
+  // Initialize the complete ESA 61x21 multi-agent system with 9 agent domains
+  try {
+    await integrateESAAgentSystem(app);
+    
+    // Register test endpoints in development mode
+    if (process.env.NODE_ENV === 'development') {
+      registerTestEndpoints(app);
+    }
+    
+    console.log('✅ ESA 61x21 Multi-Agent System: Operational');
+    console.log('📊 Agent Domains: 9 | ESA Layers: 61 | Parallel Execution: Enabled');
+  } catch (error) {
+    console.error('⚠️ ESA Agent System initialization failed:', error);
+    // Continue without agent system - non-critical for core functionality
+  }
 
   return server;
 }
