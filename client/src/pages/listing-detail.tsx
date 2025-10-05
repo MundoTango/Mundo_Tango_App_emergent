@@ -48,6 +48,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import { RatingSummary } from '../components/reviews/RatingSummary';
 import { ReviewList } from '../components/reviews/ReviewList';
 import HouseRulesDisplay from '../components/housing/HouseRulesDisplay';
+import { ConnectionInfoCard } from '../components/housing/ConnectionInfoCard';
 import type { HostReview } from '@shared/schema';
 
 interface HostHome {
@@ -122,9 +123,24 @@ export default function ListingDetail() {
   });
 
   // Fetch connection info for booking eligibility (ESA Layer 31)
-  const { data: connectionData, isLoading: isLoadingConnection } = useQuery<{ data: { connectionDegree: number; closenessScore: number } }>({
+  const { data: connectionData, isLoading: isLoadingConnection } = useQuery<{ 
+    connectionDegree: number | null; 
+    closenessScore: number; 
+    mutualFriends: number; 
+    sharedMemories: number; 
+    isConnected: boolean; 
+  }>({
     queryKey: user && listing?.data.hostId ? [`/api/users/${user.id}/connection-info/${listing.data.hostId}`] : ['connection-info-disabled'],
-    enabled: !!user && !!listing?.data.hostId && showBookingModal,
+    enabled: !!user && !!listing?.data.hostId,
+  });
+
+  // Check booking eligibility
+  const checkEligibilityMutation = useMutation({
+    mutationFn: async () => {
+      return await apiRequest(`/api/host-homes/${id}/check-booking-eligibility`, {
+        method: 'POST',
+      });
+    },
   });
 
   // Booking mutation
@@ -173,8 +189,26 @@ export default function ListingDetail() {
   const serviceFee = Math.round(totalPrice * 0.1);
   const grandTotal = totalPrice + serviceFee;
 
-  const handleRequestToBook = () => {
-    setShowBookingModal(true);
+  const handleRequestToBook = async () => {
+    // Check eligibility first
+    try {
+      const result = await checkEligibilityMutation.mutateAsync();
+      if (result.eligible) {
+        setShowBookingModal(true);
+      } else {
+        toast({
+          title: 'Cannot book this property',
+          description: result.reason || 'You do not meet the booking requirements for this property.',
+          variant: 'destructive',
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Error checking eligibility',
+        description: error.message || 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const handleSubmitBooking = () => {
@@ -552,6 +586,17 @@ export default function ListingDetail() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Connection Info */}
+            {user && user.id !== home.hostId && connectionData && (
+              <ConnectionInfoCard 
+                connectionInfo={{
+                  ...connectionData,
+                  sharedEvents: 0
+                }}
+                hostName="Host" 
+              />
+            )}
 
             {/* House Rules - Dynamic from Database */}
             <HouseRulesDisplay 
