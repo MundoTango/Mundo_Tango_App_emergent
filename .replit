@@ -9,7 +9,7 @@ packages = ["unzip", "imagemagick", "k6", "ffmpeg", "jq", "chromium", "firefox",
 [deployment]
 deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
-run = ["node", "--max-old-space-size=1024", "server/index-deploy.js"]
+run = ["npm", "run", "start"]
 
 [[ports]]
 localPort = 5000
