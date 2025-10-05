@@ -132,6 +132,11 @@ const PostFeed = memo(({
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
+  // ESA Debug: Log authenticated user
+  useEffect(() => {
+    console.log('[Framework] User authenticated from context, ID:', user?.id);
+  }, [user]);
+  
   // Internal pagination state (used in smart mode)
   const [page, setPage] = useState(1);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
