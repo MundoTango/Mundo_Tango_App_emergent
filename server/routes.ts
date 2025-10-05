@@ -2325,6 +2325,175 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ========== HOUSE RULES API ROUTES ==========
+  // ESA LIFE CEO 61x21 - Layer 27: Comprehensive House Rules Library
+
+  // GET /api/house-rules/templates - Get all default house rule templates
+  app.get('/api/house-rules/templates', async (req: any, res) => {
+    try {
+      const templates = await storage.getAllHouseRuleTemplates();
+      res.json({ success: true, data: templates });
+    } catch (error: any) {
+      console.error('❌ Error fetching house rule templates:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch templates', 
+        message: error.message 
+      });
+    }
+  });
+
+  // GET /api/house-rules/templates/:category - Get templates by category
+  app.get('/api/house-rules/templates/:category', async (req: any, res) => {
+    try {
+      const { category } = req.params;
+      const templates = await storage.getHouseRuleTemplatesByCategory(category);
+      res.json({ success: true, data: templates });
+    } catch (error: any) {
+      console.error('❌ Error fetching templates by category:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch templates', 
+        message: error.message 
+      });
+    }
+  });
+
+  // GET /api/host-homes/:id/rules - Get house rules for a specific property
+  app.get('/api/host-homes/:id/rules', async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      const rules = await storage.getHostHomeRulesWithTemplates(homeId);
+      res.json({ success: true, data: rules });
+    } catch (error: any) {
+      console.error('❌ Error fetching host home rules:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch rules', 
+        message: error.message 
+      });
+    }
+  });
+
+  // POST /api/host-homes/:id/rules - Add rules to a property (from templates or custom)
+  app.post('/api/host-homes/:id/rules', isAuthenticated, async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.id);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ error: 'Invalid home ID' });
+      }
+
+      const user = req.user;
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      // Verify ownership of the property
+      const home = await storage.getHostHomeById(homeId);
+      if (!home) {
+        return res.status(404).json({ error: 'Property not found' });
+      }
+      if (home.hostId !== user.id) {
+        return res.status(403).json({ error: 'Unauthorized - not the property owner' });
+      }
+
+      const { templateIds, customRules } = req.body;
+      const createdRules = [];
+
+      // Add rules from templates
+      if (templateIds && templateIds.length > 0) {
+        const rulesFromTemplates = await storage.createHostHomeRulesFromTemplates(homeId, templateIds);
+        createdRules.push(...rulesFromTemplates);
+      }
+
+      // Add custom rules
+      if (customRules && customRules.length > 0) {
+        for (const customRule of customRules) {
+          const rule = await storage.createHostHomeRule({
+            hostHomeId: homeId,
+            ruleTemplateId: null,
+            customTitle: customRule.title,
+            customDescription: customRule.description,
+            category: customRule.category,
+            isActive: true
+          });
+          createdRules.push(rule);
+        }
+      }
+
+      res.json({ success: true, data: createdRules });
+    } catch (error: any) {
+      console.error('❌ Error creating host home rules:', error);
+      res.status(500).json({ 
+        error: 'Failed to create rules', 
+        message: error.message 
+      });
+    }
+  });
+
+  // PUT /api/host-homes/rules/:id - Update a specific rule
+  app.put('/api/host-homes/rules/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      const ruleId = parseInt(req.params.id);
+      if (isNaN(ruleId)) {
+        return res.status(400).json({ error: 'Invalid rule ID' });
+      }
+
+      const user = req.user;
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      // Get the rule to verify ownership
+      const rules = await storage.getHostHomeRules(req.body.hostHomeId || 0);
+      const existingRule = rules.find((r: any) => r.id === ruleId);
+      
+      if (!existingRule) {
+        return res.status(404).json({ error: 'Rule not found' });
+      }
+
+      // Verify property ownership
+      const home = await storage.getHostHomeById(existingRule.hostHomeId);
+      if (!home || home.hostId !== user.id) {
+        return res.status(403).json({ error: 'Unauthorized' });
+      }
+
+      const updated = await storage.updateHostHomeRule(ruleId, req.body);
+      res.json({ success: true, data: updated });
+    } catch (error: any) {
+      console.error('❌ Error updating host home rule:', error);
+      res.status(500).json({ 
+        error: 'Failed to update rule', 
+        message: error.message 
+      });
+    }
+  });
+
+  // DELETE /api/host-homes/rules/:id - Delete a specific rule
+  app.delete('/api/host-homes/rules/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      const ruleId = parseInt(req.params.id);
+      if (isNaN(ruleId)) {
+        return res.status(400).json({ error: 'Invalid rule ID' });
+      }
+
+      const user = req.user;
+      if (!user || !user.id) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      await storage.deleteHostHomeRule(ruleId);
+      res.json({ success: true, message: 'Rule deleted successfully' });
+    } catch (error: any) {
+      console.error('❌ Error deleting host home rule:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete rule', 
+        message: error.message 
+      });
+    }
+  });
+
   // ========== FRIENDSHIP-HOUSING INTEGRATION API ==========
   // ESA LIFE CEO 61x21 - Layer 23: API Steward + Layer 24: Social Features
 
