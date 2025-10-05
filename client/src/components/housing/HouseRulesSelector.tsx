@@ -35,14 +35,6 @@ import {
 } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { 
-  Clock, 
-  PawPrint, 
-  Cigarette, 
-  Car, 
-  Users, 
-  Volume2, 
-  Sparkles, 
-  PartyPopper,
   Plus,
   X,
   Edit,
@@ -50,6 +42,12 @@ import {
 } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  getCategoryDisplayLabel, 
+  getCategoryIcon, 
+  getCategoryColor,
+  CATEGORY_SLUG_TO_DISPLAY 
+} from '@/utils/houseRulesHelpers';
 
 interface HouseRuleTemplate {
   id: number;
@@ -75,28 +73,6 @@ interface HouseRulesSelectorProps {
   onChange?: (rules: SelectedRule[]) => void;
   showActions?: boolean;
 }
-
-const CATEGORY_ICONS: Record<string, any> = {
-  'Check-in/Check-out': Clock,
-  'Pets': PawPrint,
-  'Smoking': Cigarette,
-  'Parking': Car,
-  'Events & Parties': PartyPopper,
-  'Noise & Quiet Hours': Volume2,
-  'Guest Limits': Users,
-  'Cleaning & Maintenance': Sparkles,
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  'Check-in/Check-out': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  'Pets': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-  'Smoking': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-  'Parking': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  'Events & Parties': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
-  'Noise & Quiet Hours': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-  'Guest Limits': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
-  'Cleaning & Maintenance': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
-};
 
 export default function HouseRulesSelector({ 
   homeId, 
@@ -249,18 +225,19 @@ export default function HouseRulesSelector({
         </CardHeader>
         <CardContent>
           <Accordion type="multiple" className="w-full">
-            {Object.entries(templatesByCategory).map(([category, categoryTemplates]) => {
-              const Icon = CATEGORY_ICONS[category] || CheckCircle2;
-              const selectedCount = selectedRules.filter(r => r.category === category).length;
+            {Object.entries(templatesByCategory).map(([categorySlug, categoryTemplates]) => {
+              const Icon = getCategoryIcon(categorySlug);
+              const displayLabel = getCategoryDisplayLabel(categorySlug);
+              const selectedCount = selectedRules.filter(r => r.category === categorySlug).length;
 
               return (
-                <AccordionItem key={category} value={category} data-testid={`accordion-category-${category}`}>
-                  <AccordionTrigger data-testid={`trigger-category-${category}`}>
+                <AccordionItem key={categorySlug} value={categorySlug} data-testid={`accordion-category-${categorySlug}`}>
+                  <AccordionTrigger data-testid={`trigger-category-${categorySlug}`}>
                     <div className="flex items-center gap-3">
                       <Icon className="h-5 w-5 text-primary" />
-                      <span className="font-medium">{category}</span>
+                      <span className="font-medium">{displayLabel}</span>
                       {selectedCount > 0 && (
-                        <Badge variant="secondary" data-testid={`badge-count-${category}`}>
+                        <Badge variant="secondary" data-testid={`badge-count-${categorySlug}`}>
                           {selectedCount} selected
                         </Badge>
                       )}
@@ -337,9 +314,9 @@ export default function HouseRulesSelector({
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Object.keys(templatesByCategory).map((category) => (
-                        <SelectItem key={category} value={category} data-testid={`option-category-${category}`}>
-                          {category}
+                      {Object.keys(templatesByCategory).map((categorySlug) => (
+                        <SelectItem key={categorySlug} value={categorySlug} data-testid={`option-category-${categorySlug}`}>
+                          {getCategoryDisplayLabel(categorySlug)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -400,8 +377,9 @@ export default function HouseRulesSelector({
           <CardContent>
             <div className="space-y-3">
               {selectedRules.map((rule, index) => {
-                const Icon = CATEGORY_ICONS[rule.category] || CheckCircle2;
-                const colorClass = CATEGORY_COLORS[rule.category] || 'bg-gray-100 text-gray-800';
+                const Icon = getCategoryIcon(rule.category);
+                const colorClass = getCategoryColor(rule.category);
+                const displayLabel = getCategoryDisplayLabel(rule.category);
 
                 return (
                   <div
@@ -416,7 +394,7 @@ export default function HouseRulesSelector({
                           {rule.title}
                         </span>
                         <Badge className={colorClass} data-testid={`selected-category-${index}`}>
-                          {rule.category}
+                          {displayLabel}
                         </Badge>
                         {rule.isCustom && (
                           <Badge variant="outline" data-testid={`badge-custom-${index}`}>
