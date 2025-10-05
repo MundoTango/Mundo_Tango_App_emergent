@@ -322,6 +322,65 @@ router.get('/groups/my', isAuthenticated, async (req: any, res) => {
   }
 });
 
+// Get single group by slug (explicit route for slug-based lookups)
+router.get('/groups/slug/:slug', setUserContext, async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    
+    const [group] = await db.select()
+      .from(groups)
+      .where(eq(groups.slug, slug));
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
+    // Get member count
+    const members = await db.select()
+      .from(groupMembers)
+      .where(eq(groupMembers.groupId, group.id));
+    
+    // For city groups, calculate additional metrics
+    let eventCount = null;
+    let hostCount = null;
+    let recommendationCount = null;
+    
+    if (group.type === 'city' && group.city) {
+      // Count events in this city
+      const cityEvents = await db.select()
+        .from(events)
+        .where(and(
+          eq(events.city, group.city),
+          group.country ? eq(events.country, group.country) : sql`true`
+        ));
+      eventCount = cityEvents.length;
+      
+      // Count hosts in this city
+      const cityHosts = await db.select()
+        .from(hostHomes)
+        .where(eq(hostHomes.city, group.city));
+      hostCount = cityHosts.length;
+      
+      // Count recommendations in this city
+      const cityRecommendations = await db.select()
+        .from(recommendations)
+        .where(eq(recommendations.city, group.city));
+      recommendationCount = cityRecommendations.length;
+    }
+    
+    res.json({
+      ...group,
+      memberCount: members.length,
+      eventCount,
+      hostCount,
+      recommendationCount
+    });
+  } catch (error) {
+    console.error('Error fetching group by slug:', error);
+    res.status(500).json({ error: 'Failed to fetch group' });
+  }
+});
+
 // Get single group (by ID or slug)
 router.get('/groups/:groupIdentifier', setUserContext, async (req, res) => {
   try {
@@ -490,7 +549,20 @@ router.post('/groups/:groupId/leave', isAuthenticated, async (req: any, res) => 
 // Get group members
 router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
   try {
-    const groupId = parseInt(req.params.groupId);
+    const groupSlugOrId = req.params.groupId;
+    
+    const parsedId = parseInt(groupSlugOrId);
+    const [group] = await db.select()
+      .from(groups)
+      .where(
+        isNaN(parsedId) 
+          ? eq(groups.slug, groupSlugOrId)
+          : eq(groups.id, parsedId)
+      );
+
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
     
     const members = await db.select({
       user: users,
@@ -499,10 +571,10 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
     })
     .from(groupMembers)
     .innerJoin(users, eq(users.id, groupMembers.userId))
-    .where(eq(groupMembers.groupId, groupId))
+    .where(eq(groupMembers.groupId, group.id))
     .orderBy(desc(groupMembers.joinedAt));
     
-    res.json(members);
+    res.json({ success: true, data: members });
   } catch (error) {
     console.error('Error fetching group members:', error);
     res.status(500).json({ error: 'Failed to fetch group members' });

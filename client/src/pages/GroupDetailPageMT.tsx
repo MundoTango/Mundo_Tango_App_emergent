@@ -183,19 +183,19 @@ export default function GroupDetailPageMT() {
     return postDate.toLocaleDateString();
   };
 
-  // Fetch group details
-  const { data: response, isLoading, error } = useQuery({
-    queryKey: [`/api/groups/${slug}`],
+  // Fetch group details using explicit slug endpoint
+  const { data: response, isLoading, error } = useQuery<any>({
+    queryKey: [`/api/groups/slug/${slug}`],
     enabled: !!slug
   });
 
   // Extract group data from API response - handle both patterns
-  const groupData = response?.success === false ? null : (response?.data || response);
-  const group = groupData?.id ? groupData : null;
+  const groupData: any = response?.success === false ? null : (response?.data || response);
+  const group: any = groupData?.id ? groupData : null;
   
   // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
   // MUST come after group is defined to avoid ReferenceError
-  const { data: eventsResponse, isLoading: loadingEvents } = useQuery({
+  const { data: eventsResponse, isLoading: loadingEvents } = useQuery<any>({
     queryKey: ['/api/events/feed', { groupId: group?.id }],
     enabled: activeTab === 'events' && !!group?.id
   });
@@ -203,7 +203,7 @@ export default function GroupDetailPageMT() {
   const events = eventsResponse?.data || [];
   
   // Fetch housing data for housing tab (city groups only)
-  const { data: housingData, isLoading: loadingHousing } = useQuery({
+  const { data: housingData, isLoading: loadingHousing } = useQuery<any>({
     queryKey: ['/api/host-homes', { city: group?.city, groupSlug: group?.slug }],
     enabled: activeTab === 'housing' && group?.type === 'city' && !!group?.city
   });
@@ -704,7 +704,7 @@ export default function GroupDetailPageMT() {
 
   const renderEventsTab = () => {
     // Filter events based on current filters
-    const filteredEvents = events.filter(event => {
+    const filteredEvents = events.filter((event: any) => {
       if (eventFilters.search && !event.title.toLowerCase().includes(eventFilters.search.toLowerCase())) {
         return false;
       }
@@ -873,7 +873,7 @@ export default function GroupDetailPageMT() {
                 <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-500"></div>
               </div>
             ) : filteredEvents.length > 0 ? (
-              filteredEvents.map((event) => (
+              filteredEvents.map((event: any) => (
                 <UnifiedEventCard
                   key={event.id}
                   event={{
