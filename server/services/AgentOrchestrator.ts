@@ -389,6 +389,21 @@ class AgentOrchestrator {
 
     const assistantMessage = completion.choices[0]?.message?.content || 'I apologize, I could not process that request.';
 
+    // Capture token usage
+    const tokensUsed = {
+      input: completion.usage?.prompt_tokens || 0,
+      output: completion.usage?.completion_tokens || 0,
+      total: completion.usage?.total_tokens || 0
+    };
+
+    // Calculate estimated cost (GPT-4o pricing: $5/1M input, $15/1M output)
+    const estimatedCost = 
+      (tokensUsed.input / 1_000_000) * 5.00 +
+      (tokensUsed.output / 1_000_000) * 15.00;
+
+    // Store token usage in database
+    await this.saveTokenUsage(context.userId, context.agentId, tokensUsed, estimatedCost);
+
     // Store message in database
     await this.saveMessage(context.userId, context.agentId, 'user', userMessage);
     await this.saveMessage(context.userId, context.agentId, 'assistant', assistantMessage);
@@ -415,6 +430,30 @@ class AgentOrchestrator {
       });
     } catch (error) {
       console.error('Error saving message:', error);
+    }
+  }
+
+  /**
+   * Save token usage to database for cost tracking
+   */
+  private async saveTokenUsage(
+    userId: number, 
+    agentId: string, 
+    tokensUsed: { input: number; output: number; total: number }, 
+    estimatedCost: number
+  ) {
+    try {
+      await db.insert(schema.agentTokenUsage).values({
+        userId,
+        agentId,
+        inputTokens: tokensUsed.input,
+        outputTokens: tokensUsed.output,
+        totalTokens: tokensUsed.total,
+        estimatedCost: estimatedCost.toFixed(6),
+        model: 'gpt-4o'
+      });
+    } catch (error) {
+      console.error('Error saving token usage:', error);
     }
   }
 
@@ -562,10 +601,12 @@ class AgentOrchestrator {
       temperature: 0.7,
       max_tokens: 1000,
       stream: true,
+      stream_options: { include_usage: true }, // Request usage stats in stream
       user: `user-${context.userId}`
     });
 
     let fullResponse = '';
+    let tokensUsed = { input: 0, output: 0, total: 0 };
     
     for await (const chunk of stream) {
       const content = chunk.choices[0]?.delta?.content || '';
@@ -573,7 +614,24 @@ class AgentOrchestrator {
         fullResponse += content;
         yield content;
       }
+      
+      // Capture token usage from final chunk
+      if (chunk.usage) {
+        tokensUsed = {
+          input: chunk.usage.prompt_tokens,
+          output: chunk.usage.completion_tokens,
+          total: chunk.usage.total_tokens
+        };
+      }
     }
+
+    // Calculate estimated cost
+    const estimatedCost = 
+      (tokensUsed.input / 1_000_000) * 5.00 +
+      (tokensUsed.output / 1_000_000) * 15.00;
+
+    // Save token usage
+    await this.saveTokenUsage(context.userId, context.agentId, tokensUsed, estimatedCost);
 
     // Save messages after streaming completes
     await this.saveMessage(context.userId, context.agentId, 'user', userMessage);

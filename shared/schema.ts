@@ -2970,6 +2970,40 @@ export const insertAgentEventSchema = createInsertSchema(agentEvents).omit({
   createdAt: true,
 });
 
+// Agent Messages table for Life CEO conversations
+export const agentMessages = pgTable("agent_messages", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  agentId: varchar("agent_id", { length: 50 }).notNull(),
+  role: varchar("role", { length: 20 }).notNull(), // 'user' | 'assistant'
+  content: text("content").notNull(),
+  conversationId: varchar("conversation_id", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("idx_agent_messages_user_id").on(table.userId),
+  index("idx_agent_messages_agent_id").on(table.agentId),
+  index("idx_agent_messages_conversation_id").on(table.conversationId),
+  index("idx_agent_messages_created_at").on(table.createdAt),
+]);
+
+// Agent Token Usage table for OpenAI cost tracking
+export const agentTokenUsage = pgTable("agent_token_usage", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  agentId: varchar("agent_id", { length: 50 }).notNull(),
+  inputTokens: integer("input_tokens").notNull(),
+  outputTokens: integer("output_tokens").notNull(),
+  totalTokens: integer("total_tokens").notNull(),
+  estimatedCost: numeric("estimated_cost", { precision: 10, scale: 6 }).notNull(),
+  model: varchar("model", { length: 50 }).default('gpt-4o'),
+  conversationId: varchar("conversation_id", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("idx_agent_token_usage_user_id").on(table.userId),
+  index("idx_agent_token_usage_agent_id").on(table.agentId),
+  index("idx_agent_token_usage_created_at").on(table.createdAt),
+]);
+
 // Types for agent system tables
 export type AgentJob = typeof agentJobs.$inferSelect;
 export type InsertAgentJob = z.infer<typeof insertAgentJobSchema>;
@@ -2977,3 +3011,20 @@ export type AgentState = typeof agentState.$inferSelect;
 export type InsertAgentState = z.infer<typeof insertAgentStateSchema>;
 export type AgentEvent = typeof agentEvents.$inferSelect;
 export type InsertAgentEvent = z.infer<typeof insertAgentEventSchema>;
+
+// Insert schemas for agent messages and token usage
+export const insertAgentMessageSchema = createInsertSchema(agentMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAgentTokenUsageSchema = createInsertSchema(agentTokenUsage).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for agent messages and token usage
+export type AgentMessage = typeof agentMessages.$inferSelect;
+export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
+export type AgentTokenUsage = typeof agentTokenUsage.$inferSelect;
+export type InsertAgentTokenUsage = z.infer<typeof insertAgentTokenUsageSchema>;

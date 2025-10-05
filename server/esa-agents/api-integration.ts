@@ -465,15 +465,90 @@ agentRouter.get('/analytics', async (req: Request, res: Response) => {
 
 // Helper functions for analytics
 async function getTokenUsageAnalytics() {
-  // This would fetch from the metrics registry
-  return {
-    totalTokens: 0,
-    promptTokens: 0,
-    completionTokens: 0,
-    costEstimate: 0,
-    byModel: {},
-    byAgent: {}
-  };
+  try {
+    const { db } = await import('../db');
+    const { agentTokenUsage } = await import('../../shared/schema');
+    const { sql } = await import('drizzle-orm');
+    
+    // Get today's token usage
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    
+    // Get month's token usage
+    const monthStart = new Date();
+    monthStart.setDate(1);
+    monthStart.setHours(0, 0, 0, 0);
+    
+    // Query today's stats
+    const todayStats = await db
+      .select({
+        totalInputTokens: sql<number>`SUM(input_tokens)::int`,
+        totalOutputTokens: sql<number>`SUM(output_tokens)::int`,
+        totalCost: sql<string>`SUM(estimated_cost)::numeric`,
+        requestCount: sql<number>`COUNT(*)::int`
+      })
+      .from(agentTokenUsage)
+      .where(sql`created_at >= ${todayStart}`);
+    
+    // Query month's stats
+    const monthStats = await db
+      .select({
+        totalInputTokens: sql<number>`SUM(input_tokens)::int`,
+        totalOutputTokens: sql<number>`SUM(output_tokens)::int`,
+        totalCost: sql<string>`SUM(estimated_cost)::numeric`,
+        requestCount: sql<number>`COUNT(*)::int`
+      })
+      .from(agentTokenUsage)
+      .where(sql`created_at >= ${monthStart}`);
+    
+    // Query by agent
+    const byAgent = await db
+      .select({
+        agentId: agentTokenUsage.agentId,
+        totalInputTokens: sql<number>`SUM(input_tokens)::int`,
+        totalOutputTokens: sql<number>`SUM(output_tokens)::int`,
+        totalCost: sql<string>`SUM(estimated_cost)::numeric`,
+        requestCount: sql<number>`COUNT(*)::int`
+      })
+      .from(agentTokenUsage)
+      .groupBy(agentTokenUsage.agentId);
+    
+    return {
+      today: {
+        totalTokens: (todayStats[0]?.totalInputTokens || 0) + (todayStats[0]?.totalOutputTokens || 0),
+        inputTokens: todayStats[0]?.totalInputTokens || 0,
+        outputTokens: todayStats[0]?.totalOutputTokens || 0,
+        cost: parseFloat(todayStats[0]?.totalCost || '0'),
+        requests: todayStats[0]?.requestCount || 0
+      },
+      month: {
+        totalTokens: (monthStats[0]?.totalInputTokens || 0) + (monthStats[0]?.totalOutputTokens || 0),
+        inputTokens: monthStats[0]?.totalInputTokens || 0,
+        outputTokens: monthStats[0]?.totalOutputTokens || 0,
+        cost: parseFloat(monthStats[0]?.totalCost || '0'),
+        requests: monthStats[0]?.requestCount || 0
+      },
+      byAgent: byAgent.map(a => ({
+        agentId: a.agentId,
+        totalTokens: (a.totalInputTokens || 0) + (a.totalOutputTokens || 0),
+        inputTokens: a.totalInputTokens || 0,
+        outputTokens: a.totalOutputTokens || 0,
+        cost: parseFloat(a.totalCost || '0'),
+        requests: a.requestCount || 0
+      })),
+      avgCostPerRequest: todayStats[0]?.requestCount > 0
+        ? parseFloat(todayStats[0]?.totalCost || '0') / todayStats[0].requestCount
+        : 0
+    };
+  } catch (error) {
+    console.error('Error fetching token usage analytics:', error);
+    return {
+      today: { totalTokens: 0, inputTokens: 0, outputTokens: 0, cost: 0, requests: 0 },
+      month: { totalTokens: 0, inputTokens: 0, outputTokens: 0, cost: 0, requests: 0 },
+      byAgent: [],
+      avgCostPerRequest: 0
+    };
+  }
 }
 
 async function getQueueAnalytics() {
