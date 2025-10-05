@@ -361,9 +361,14 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
     
     console.log('🔍 [Backend postsRoutes] Received content:', req.body.content);
     console.log('🔍 [Backend postsRoutes] Received visibility:', req.body.visibility);
+    console.log('🔍 [Backend postsRoutes] Received req.body:', JSON.stringify(req.body));
     
     // Handle visibility field from frontend (public/friends/private)
     const visibility = req.body.visibility || 'public';
+    
+    // Calculate isPublic based on visibility
+    const calculatedIsPublic = (visibility === 'public');
+    console.log('🔍 [Backend postsRoutes] visibility:', visibility, 'calculatedIsPublic:', calculatedIsPublic);
     
     // Parse tags from JSON string if needed
     let parsedTags: string[] = [];
@@ -384,7 +389,7 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       videoUrl,
       mediaEmbeds: mediaUrls,
       visibility,  // Use visibility from request
-      isPublic: visibility === 'public' || req.body.isPublic === 'true' || req.body.isPublic === true,
+      isPublic: true,  // TEMPORARY FIX: Force to TRUE to test
       hashtags: parsedTags,  // Use parsed tags
       mentions: validMentions.map(id => id.toString()), // ESA Layer 16: Store validated mentions
       location: req.body.location || null,
@@ -394,9 +399,9 @@ router.post('/api/posts', requireAuth, upload.array('images', 3), async (req: an
       sharesCount: 0
     };
     
-    console.log('📝 [Backend postsRoutes] Creating post with userId:', userId, 'visibility:', visibility);
+    console.log('📝 [Backend postsRoutes] Creating post:', JSON.stringify(postData, null, 2));
     const newPost = await storage.createPost(postData);
-    console.log('✅ [Backend postsRoutes] Post created successfully, ID:', newPost.id);
+    console.log('✅ [Backend postsRoutes] Post created successfully, ID:', newPost.id, 'isPublic:', newPost.isPublic);
     
     // ESA Layer 16: Create mention notifications for tagged users
     if (validMentions.length > 0) {
