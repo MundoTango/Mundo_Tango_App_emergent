@@ -4698,6 +4698,8 @@ export class DatabaseStorage implements IStorage {
         url,
         displayOrder: idx
       })),
+      mediaOrder: row.media_order || null,
+      thumbnailMedia: row.thumbnail_media || null,
       host: {
         id: row.host_id,
         name: row.host_name,  

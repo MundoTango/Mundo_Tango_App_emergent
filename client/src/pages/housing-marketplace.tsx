@@ -32,9 +32,16 @@ import {
   Star,
   Clock,
   Check,
-  Banknote
+  Banknote,
+  Video as VideoIcon
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+
+// Helper to check if URL is a video
+const isVideoUrl = (url: string): boolean => {
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi'];
+  return videoExtensions.some(ext => url.toLowerCase().includes(ext));
+};
 
 interface HousingListing {
   id: number;
@@ -52,6 +59,8 @@ interface HousingListing {
   bathroomCount: number;
   amenities: string[];
   photos: Array<{ url: string; displayOrder: number }>;
+  mediaOrder?: string[];
+  thumbnailMedia?: string | null;
   host: {
     id: number;
     name: string;
@@ -483,18 +492,45 @@ export default function HousingMarketplace() {
             filteredListings.map(listing => {
               const location = `${listing.city}, ${listing.state ? listing.state + ', ' : ''}${listing.country}`;
               const priceUSD = listing.pricePerNight; // Already in dollars from API
-              const primaryPhoto = listing.photos?.find(p => p.displayOrder === 0) || listing.photos?.[0];
+              
+              // Determine thumbnail: use thumbnailMedia if available, otherwise first from mediaOrder, otherwise first photo
+              let thumbnailUrl: string | undefined;
+              if (listing.thumbnailMedia) {
+                thumbnailUrl = listing.thumbnailMedia;
+              } else if (listing.mediaOrder && listing.mediaOrder.length > 0) {
+                thumbnailUrl = listing.mediaOrder[0];
+              } else {
+                const primaryPhoto = listing.photos?.find(p => p.displayOrder === 0) || listing.photos?.[0];
+                thumbnailUrl = primaryPhoto?.url;
+              }
+              const isThumbnailVideo = thumbnailUrl ? isVideoUrl(thumbnailUrl) : false;
               
               return (
                 <Card key={listing.id} className="overflow-hidden hover:shadow-lg transition-shadow" data-testid={`card-listing-${listing.id}`}>
-                  {/* Image */}
+                  {/* Media Thumbnail */}
                   <div className="h-48 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 relative">
-                    {primaryPhoto && (
-                      <img 
-                        src={primaryPhoto.url} 
-                        alt={listing.title}
-                        className="w-full h-full object-cover"
-                      />
+                    {thumbnailUrl && (
+                      <>
+                        {isThumbnailVideo ? (
+                          <video 
+                            src={thumbnailUrl} 
+                            className="w-full h-full object-cover"
+                            data-testid={`video-thumbnail-${listing.id}`}
+                          />
+                        ) : (
+                          <img 
+                            src={thumbnailUrl} 
+                            alt={listing.title}
+                            className="w-full h-full object-cover"
+                            data-testid={`img-thumbnail-${listing.id}`}
+                          />
+                        )}
+                        {isThumbnailVideo && (
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
+                            <VideoIcon className="w-12 h-12 text-white" />
+                          </div>
+                        )}
+                      </>
                     )}
                     <div className="absolute top-4 right-4">
                       <Button
