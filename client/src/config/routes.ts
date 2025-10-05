@@ -173,7 +173,7 @@ export const productionRoutes: RouteConfig[] = [
 
   // ========== Housing & Marketplace Routes ==========
   {
-    path: '/housing',
+    path: '/housing-marketplace',
     component: lazy(() => import('@/pages/housing-marketplace')),
     mode: 'production',
     loadingMessage: 'Loading housing marketplace...',
