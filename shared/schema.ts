@@ -1695,7 +1695,9 @@ export const hostHomes = pgTable("host_homes", {
   country: varchar("country", { length: 100 }).notNull(),
   lat: real("lat"),
   lng: real("lng"),
-  photos: text("photos").array().default(sql`ARRAY[]::text[]`),
+  photos: text("photos").array().default(sql`ARRAY[]::text[]`), // Media URLs (images & videos)
+  mediaOrder: text("media_order").array(), // Order of media display (array of URLs from photos)
+  thumbnailMedia: text("thumbnail_media"), // URL of media to use as thumbnail (from photos array)
   amenities: text("amenities").array().default(sql`ARRAY[]::text[]`),
   maxGuests: integer("max_guests").default(1),
   pricePerNight: integer("price_per_night"), // in cents
