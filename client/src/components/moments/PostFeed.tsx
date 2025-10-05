@@ -120,14 +120,6 @@ const PostFeed = memo(({
   onLoadMore,
   hasMore: externalHasMore = false
 }: PostFeedProps) => {
-  console.log('[Framework] PostFeed rendering:', { 
-    mode: context ? 'smart' : 'controlled',
-    context, 
-    propsPosts: propsPosts?.length, 
-    showFilters, 
-    showSearch 
-  });
-  
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();

@@ -11,6 +11,20 @@ Do not reference monetary values or investment amounts when describing the platf
 When user says "Use ESA", reference the ESA_LIFE_CEO_61x21_DEFINITIVE_GUIDE.md document as the authoritative framework guide.
 For platform audits, use ESA_COMPREHENSIVE_PLATFORM_AUDIT.md as the deployment readiness checklist.
 
+## Recent Fixes & Patterns (October 5, 2025)
+
+**Post Display System - FULLY OPERATIONAL:**
+- ✅ Post creation visibility mapping (isPublic ↔ visibility field)
+- ✅ Auth context user ID consistency (unified to ID 7)
+- ✅ Post display race condition (context memoization + Suspense removal)
+- 📚 Full documentation at `docs/pages/bug-fixes/`
+
+**Critical ESA 61x21 Patterns:**
+- **ALWAYS memoize object props** passed to child components using `useMemo()` - inline objects cause infinite re-render loops
+- **NEVER wrap non-lazy components in Suspense** - only use Suspense for `React.lazy()` imports
+- **ALWAYS watch primitive values** in useEffect dependencies, never entire objects - prevents dependency loop triggers
+- **Server changes require full workflow restart** - hot reload doesn't reliably pick up backend route changes
+
 ## System Architecture
 
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
