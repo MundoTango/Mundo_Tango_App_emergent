@@ -1189,7 +1189,7 @@ export default function GroupDetailPageMT() {
               data-testid="button-view-marketplace"
             >
               <Search className="h-4 w-4 mr-2" />
-              View All Marketplace
+              All homes
             </Button>
           </div>
         </div>
