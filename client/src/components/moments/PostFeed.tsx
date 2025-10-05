@@ -320,13 +320,29 @@ const PostFeed = memo(({
   }, [fetchedResponse, page]);
 
   // Reset pagination when context changes
+  const contextKey = useMemo(() => {
+    if (!context) return 'no-context';
+    if (context.type === 'feed') return 'feed';
+    if (context.type === 'group') return `group-${context.groupId}-${context.filter || 'all'}`;
+    if (context.type === 'profile') return `profile-${context.userId}`;
+    if (context.type === 'event') return `event-${context.eventId}-${context.filter || 'all'}`;
+    return 'unknown';
+  }, [context]);
+
+  const prevContextKeyRef = useRef<string>(contextKey);
+
   useEffect(() => {
-    if (context) {
-      setPage(1);
-      setAllPosts([]);
-      setInternalHasMore(true);
+    if (!context || contextKey === prevContextKeyRef.current) {
+      return;
     }
-  }, [context?.type, context?.type === 'group' ? context.groupId : null, context?.type === 'group' ? context.filter : null]);
+    
+    console.log('🔄 [PostFeed] Context changed:', { old: prevContextKeyRef.current, new: contextKey });
+    prevContextKeyRef.current = contextKey;
+    
+    setPage(1);
+    setAllPosts([]);
+    setInternalHasMore(true);
+  }, [contextKey]);
 
   // ESA Framework: Reset pagination when filters or search change
   useEffect(() => {
