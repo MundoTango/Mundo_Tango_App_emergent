@@ -378,6 +378,7 @@ tests/e2e/housing/
 - [Guest Onboarding](./GuestOnboarding.md)
 - [Guest Step 1: Accommodation](./guest/guest-step1-accommodation.md)
 - [Guest Step 4: Location](./guest/guest-step4-location.md)
+- [Marketplace Route Fix](./marketplace-route-fix.md) ⚠️ Oct 5, 2025 - 404 fix
 
 ### System Integration
 - [Group Detail Page](../social/GroupDetailPageMT.md)
