@@ -25,7 +25,8 @@ import {
   Bath,
   DollarSign,
   Calendar as CalendarIcon,
-  X
+  X,
+  Video as VideoIcon
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
@@ -79,6 +80,12 @@ const amenityIcons: Record<string, any> = {
   'Pets Allowed': PawPrint,
   'Smoking Allowed': Cigarette,
   'Washer': Home,
+};
+
+// Helper to check if URL is a video
+const isVideoUrl = (url: string): boolean => {
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi'];
+  return videoExtensions.some(ext => url.toLowerCase().includes(ext));
 };
 
 export default function ListingDetail() {
@@ -333,6 +340,11 @@ export default function ListingDetail() {
   const home = listing.data;
   const priceFormatted = `$${home.pricePerNight}`;
 
+  // Get ordered media (use mediaOrder if available, otherwise use photos)
+  const orderedMedia = home.mediaOrder && home.mediaOrder.length > 0 ? home.mediaOrder : (home.photos || []);
+  const currentMedia = orderedMedia[selectedImage] || orderedMedia[0];
+  const isVideo = currentMedia ? isVideoUrl(currentMedia) : false;
+
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50" data-testid="page-listing-detail">
@@ -348,19 +360,30 @@ export default function ListingDetail() {
           Back to Marketplace
         </Button>
 
-        {/* Photo Gallery */}
+        {/* Media Gallery */}
         <div className="mb-6" data-testid="section-photo-gallery">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
-            {/* Main Image */}
+            {/* Main Media Display */}
             <div className="md:col-span-3 h-96 md:h-[500px]">
-              {home.photos && home.photos.length > 0 ? (
-                <img
-                  src={home.photos[selectedImage] || home.photos[0]}
-                  alt={home.title}
-                  className="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-95 transition"
-                  onClick={() => setSelectedImage(0)}
-                  data-testid="img-main-photo"
-                />
+              {orderedMedia && orderedMedia.length > 0 ? (
+                isVideo ? (
+                  <video
+                    src={currentMedia}
+                    controls
+                    className="w-full h-full object-cover rounded-lg"
+                    data-testid="video-main-media"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    src={currentMedia}
+                    alt={home.title}
+                    className="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-95 transition"
+                    onClick={() => setSelectedImage(0)}
+                    data-testid="img-main-photo"
+                  />
+                )
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <Home className="h-24 w-24 text-white opacity-50" />
@@ -370,25 +393,46 @@ export default function ListingDetail() {
 
             {/* Thumbnail Grid */}
             <div className="grid grid-cols-4 md:grid-cols-1 gap-2">
-              {home.photos && home.photos.slice(1, 5).map((photo, idx) => (
-                <img
-                  key={idx}
-                  src={photo}
-                  alt={`${home.title} ${idx + 2}`}
-                  className={`w-full h-24 md:h-[120px] object-cover rounded-lg cursor-pointer transition ${
-                    selectedImage === idx + 1 ? 'ring-2 ring-indigo-500' : 'hover:opacity-75'
-                  }`}
-                  onClick={() => setSelectedImage(idx + 1)}
-                  data-testid={`img-thumbnail-${idx + 1}`}
-                />
-              ))}
-              {home.photos && home.photos.length > 5 && (
+              {orderedMedia && orderedMedia.slice(1, 5).map((media, idx) => {
+                const isThumbVideo = isVideoUrl(media);
+                return (
+                  <div
+                    key={idx}
+                    className={`relative w-full h-24 md:h-[120px] rounded-lg cursor-pointer transition overflow-hidden ${
+                      selectedImage === idx + 1 ? 'ring-2 ring-indigo-500' : 'hover:opacity-75'
+                    }`}
+                    onClick={() => setSelectedImage(idx + 1)}
+                    data-testid={`thumbnail-${idx + 1}`}
+                  >
+                    {isThumbVideo ? (
+                      <>
+                        <video
+                          src={media}
+                          className="w-full h-full object-cover"
+                          data-testid={`video-thumbnail-${idx + 1}`}
+                        />
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                          <VideoIcon className="w-6 h-6 text-white" />
+                        </div>
+                      </>
+                    ) : (
+                      <img
+                        src={media}
+                        alt={`${home.title} ${idx + 2}`}
+                        className="w-full h-full object-cover"
+                        data-testid={`img-thumbnail-${idx + 1}`}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+              {orderedMedia && orderedMedia.length > 5 && (
                 <div
                   className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
                   onClick={() => setSelectedImage(5)}
-                  data-testid="button-more-photos"
+                  data-testid="button-more-media"
                 >
-                  <span className="text-sm font-semibold">+{home.photos.length - 5} more</span>
+                  <span className="text-sm font-semibold">+{orderedMedia.length - 5} more</span>
                 </div>
               )}
             </div>
