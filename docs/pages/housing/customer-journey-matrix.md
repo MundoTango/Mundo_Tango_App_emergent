@@ -10,13 +10,19 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 **Recent Enhancements (Oct 2025):** ALL 9 complete journeys (1, 2, 3, 4, 10, 11, 12, 14, 17) now feature full Aurora Tide design system implementation with i18next translations (190+ keys across 73 languages), glassmorphic UI (GlassCard depth 1-4), GSAP scroll animations (useScrollReveal), Framer Motion orchestration (FadeIn, ScaleIn, StaggerContainer), complete dark mode support with MT Ocean Theme gradients (cyan→teal→blue), micro-interactions (MagneticButton, PulseButton), and 100% data-testid accessibility coverage. **47% of housing journeys complete** with full design system compliance.
 
+**Implementation Roadmap:**
+- ✅ **9/19 Complete** (47%) - All with Aurora Tide compliance
+- 📋 **2/19 In Development** - Journey 6 (Reviews) & Journey 18 (Admin Moderation)
+- 🔜 **8/19 Coming Soon** - Q1/Q2 2026 roadmap (see [coming-soon.md](./coming-soon.md))
+
 ---
 
 ## Journey Status Legend
 
-- ✅ **Complete** - Fully implemented and tested
+- ✅ **Complete** - Fully implemented and tested with Aurora Tide
 - 🚧 **In Progress** - Partially implemented
-- 📋 **Planned** - Documented but not started
+- 📋 **Planned** - To be implemented (Journey 6 & 18)
+- 🔜 **Coming Soon** - Scheduled for Q1/Q2 2026
 - 🔴 **Critical** - Blocks revenue or core functionality
 - ⚡ **Priority** - High business value
 
@@ -214,8 +220,8 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 5: Booking Modifications 📋
-**Status:** Planned  
+### Journey 5: Booking Modifications 🔜
+**Status:** Coming Soon - Q1 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -223,6 +229,12 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 2. Request guest count changes
 3. Host approval workflow
 4. Automated notifications
+
+**Planned Features:**
+- Date modification requests with host approval
+- Guest count adjustments
+- Automated pricing recalculation
+- Real-time notification system
 
 ---
 
@@ -239,8 +251,8 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 7: Favorites & Saved Listings 📋
-**Status:** Planned  
+### Journey 7: Favorites & Saved Listings 🔜
+**Status:** Coming Soon - Q1 2026  
 **Priority:** Low  
 
 **User Flow:**
@@ -249,10 +261,16 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Remove from favorites
 4. Share saved collection
 
+**Planned Features:**
+- Wishlist management with collections
+- Price drop alerts for saved properties
+- Share favorites with friends
+- Comparison tool for saved listings
+
 ---
 
-### Journey 8: Booking Conflicts & Resolution 📋
-**Status:** Planned  
+### Journey 8: Booking Conflicts & Resolution 🔜
+**Status:** Coming Soon - Q2 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -261,10 +279,16 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Date negotiation
 4. Cancellation/refund flow
 
+**Planned Features:**
+- Dispute mediation workflow
+- Automated conflict detection
+- Refund processing system
+- Alternative property recommendations
+
 ---
 
-### Journey 9: Guest Communication Hub 📋
-**Status:** Planned  
+### Journey 9: Guest Communication Hub 🔜
+**Status:** Coming Soon - Q1 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -272,6 +296,12 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 2. Booking-specific threads
 3. Pre-booking inquiries
 4. Post-booking support
+
+**Planned Features:**
+- Real-time messaging with hosts
+- Booking-specific conversation threads
+- Automated response templates
+- Pre-arrival coordination tools
 
 ---
 
@@ -394,8 +424,8 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 13: Host Analytics Dashboard 📋
-**Status:** Planned  
+### Journey 13: Host Analytics Dashboard 🔜
+**Status:** Coming Soon - Q1 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -404,6 +434,13 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Occupancy rates
 4. Guest demographics
 5. Review summaries
+
+**Planned Features:**
+- Booking trends and forecasting
+- Revenue analytics with charts
+- Occupancy rate tracking
+- Guest demographics insights
+- Performance metrics dashboard
 
 ---
 
@@ -450,8 +487,8 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 15: Host Reviews & Reputation 📋
-**Status:** Planned  
+### Journey 15: Host Reviews & Reputation 🔜
+**Status:** Coming Soon - Q2 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -460,10 +497,19 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Reputation score tracking
 4. Quality improvement suggestions
 
+**Planned Features:**
+- Superhost badge qualification
+- Performance metrics tracking
+- Quality improvement recommendations
+- Rating trend analysis
+- Response templates for reviews
+
+**Note:** Core bidirectional review system covered by Journey 6
+
 ---
 
-### Journey 16: Payout Management 📋
-**Status:** Planned  
+### Journey 16: Payout Management 🔜
+**Status:** Coming Soon - Q1 2026  
 **Priority:** 🔴 Critical Revenue Path  
 
 **User Flow:**
@@ -472,6 +518,14 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Configure payment methods
 4. Download financial reports
 5. Tax documentation
+
+**Planned Features:**
+- Earnings dashboard with analytics
+- Automated payout scheduling
+- Multi-currency support
+- Tax documentation generation
+- Financial reporting tools
+- Stripe Connect integration
 
 ---
 
@@ -524,7 +578,7 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ## User Type 4: ADMIN (2 Journeys)
 
 ### Journey 18: Admin Property Moderation 📋
-**Status:** Planned  
+**Status:** Planned - To Be Implemented  
 **Priority:** High  
 
 **User Flow:**
@@ -534,10 +588,17 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 4. Suspend/delete listings
 5. Communication with hosts
 
+**Planned Implementation:**
+- Housing moderation queue with AI flagging
+- Listing approval/rejection workflow
+- Review content moderation
+- User behavior tracking and suspension
+- Automated policy violation detection
+
 ---
 
-### Journey 19: Admin Booking Oversight 📋
-**Status:** Planned  
+### Journey 19: Admin Booking Oversight 🔜
+**Status:** Coming Soon - Q2 2026  
 **Priority:** Medium  
 
 **User Flow:**
@@ -546,6 +607,15 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 3. Refund processing
 4. Fraud detection
 5. Platform analytics
+
+**Planned Features:**
+- Platform-wide booking dashboard
+- Automated fraud detection
+- Dispute mediation tools
+- Refund processing workflow
+- Compliance monitoring
+
+**Note:** Core moderation tools covered by Journey 18
 
 ---
 
