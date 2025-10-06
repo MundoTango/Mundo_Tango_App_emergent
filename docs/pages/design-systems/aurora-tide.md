@@ -1,8 +1,8 @@
 # Aurora Tide Design System
 
 **Last Updated:** October 6, 2025  
-**Status:** ✅ Production-Ready  
-**Coverage:** All Housing Platform Components  
+**Status:** ✅ Production-Ready + Complete Developer Documentation  
+**Coverage:** All Housing Platform Components + 4 Developer Guides  
 **ESA Framework:** Layer 9 (UI Framework) + Layer 48 (Performance)
 
 ---
@@ -1291,7 +1291,15 @@ export default function AuroraTidePage() {
 
 ## Changelog
 
-**October 6, 2025:**
+**October 6, 2025 - Developer Documentation Update:**
+- ✅ Added comprehensive "Developer Guides" section with 4 practical guides
+- ✅ **Dark Mode Toggle Guide:** ThemeProvider usage, useTheme hook, implementation patterns
+- ✅ **i18next Translation Workflow:** Step-by-step guide, patterns (simple, variables, pluralization), 73 language support
+- ✅ **GSAP ScrollTrigger Usage:** useScrollReveal hook docs, additional hooks (useParallax, usePinElement, useScrollProgress), accessibility
+- ✅ **Platform-Wide Design Cohesion:** 4 core systems integration, cross-module examples, scaffolding standards, quality checklist, migration guide
+- ✅ Enhanced documentation with ~500 lines of practical developer guidance
+
+**October 6, 2025 - Initial Aurora Tide Launch:**
 - ✅ Complete Aurora Tide transformation of 7 housing components
 - ✅ Glassmorphic depth system (1-4 levels)
 - ✅ MT Ocean Theme gradients (cyan/teal/blue)
