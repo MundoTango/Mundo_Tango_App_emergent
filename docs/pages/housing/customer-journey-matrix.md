@@ -1,11 +1,14 @@
 # Housing Marketplace - Customer Journey Matrix
 
-**Last Updated:** October 5, 2025  
-**ESA Framework:** Layer 9 (User Experience) + Layer 31 (Social Graph)
+**Last Updated:** October 6, 2025  
+**ESA Framework:** Layer 9 (User Experience) + Layer 31 (Social Graph)  
+**Design System:** Aurora Tide (Journeys 1 & 2 enhanced Oct 2025)
 
 ## Overview
 
 Complete mapping of all 19 housing customer journeys across 4 user types. This matrix tracks implementation status, testing coverage, and critical revenue paths for the unified housing marketplace system integrated with Life CEO & Mundo Tango platform.
+
+**Recent Enhancements:** Journeys 1 & 2 now feature full Aurora Tide design system implementation with i18next translations (6 languages), glassmorphic UI, GSAP/Framer Motion animations, and complete dark mode support.
 
 ---
 
@@ -22,7 +25,7 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ## User Type 1: GUEST (9 Journeys)
 
 ### Journey 1: Property Discovery & Browsing ✅
-**Status:** Complete  
+**Status:** Complete + Aurora Tide Enhanced  
 **Priority:** 🔴 Critical Revenue Path  
 **Route:** `/housing-marketplace`
 
@@ -33,19 +36,30 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 4. Sort results (price, rating, availability)
 
 **Components:**
-- `HousingMarketplacePage.tsx` - Main marketplace view
-- `PropertyCard.tsx` - Individual property display
-- Search/filter system
+- ✅ `HousingMarketplacePage.tsx` - Main marketplace view
+- ✅ `PropertyCard.tsx` - Individual property display
+- ✅ Search/filter system
+
+**Aurora Tide Enhancements (Oct 2025):**
+- ✅ **i18next Integration:** 30+ translation keys (title, stats, filters, listings, buttons)
+- ✅ **GlassCard Components:** Applied depth-1 and depth-2 glassmorphic cards
+- ✅ **GSAP Animations:** Scroll-triggered reveals for property cards
+- ✅ **Framer Motion:** Staggered card animations on load
+- ✅ **Dark Mode:** Full support with MT Ocean Theme gradients
+- ✅ **Micro-interactions:** Magnetic buttons, ripple effects, hover animations
+- ✅ **data-testid Coverage:** 100% accessibility attributes
 
 **Test Coverage:**
 - ✅ E2E test: Browse marketplace
 - ✅ Unit test: Property card rendering
 - ✅ Integration test: Search functionality
+- ✅ TypeScript: 0 LSP errors
+- ✅ Translation: 6 languages supported (EN, ES, FR, DE, IT, PT)
 
 ---
 
 ### Journey 2: Property Details & Booking Request ✅
-**Status:** Complete  
+**Status:** Complete + Aurora Tide Enhanced  
 **Priority:** 🔴 Critical Revenue Path  
 **Route:** `/listing/:id`
 
@@ -80,10 +94,21 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 - ✅ `POST /api/bookings` - Create booking request
 - ✅ `GET /api/users/:userId/connection-info/:hostId` - Get friendship connection
 
+**Aurora Tide Enhancements (Oct 2025):**
+- ✅ **TypeScript Cleanup:** Fixed 14 LSP errors → 0 errors (100% type safety)
+- ✅ **i18next Integration:** 13+ translation keys (toasts, modals, navigation, buttons)
+- ✅ **GlassCard Components:** Applied to booking modal and info panels
+- ✅ **Dark Mode:** Full MT Ocean Theme gradient support
+- ✅ **Micro-interactions:** Magnetic buttons, smooth transitions
+- ✅ **Toast Notifications:** Translated success/error messages
+- ✅ **data-testid Coverage:** Complete accessibility attributes
+
 **Test Coverage:**
 - ✅ E2E test: View listing and open booking modal
 - ✅ Component test: All UI elements verified
 - ✅ Integration test: Booking submission flow
+- ✅ TypeScript: 0 LSP errors (14 fixed)
+- ✅ Translation: 6 languages supported (EN, ES, FR, DE, IT, PT)
 
 **TypeScript Quality:**
 - ✅ Zero LSP errors
