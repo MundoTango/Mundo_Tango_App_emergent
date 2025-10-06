@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Star, MapPin, Users, Globe, Utensils, Coffee, ShoppingBag, Heart, Camera, Music } from 'lucide-react';
+import { Star, MapPin, Users, Globe, Utensils, Coffee, ShoppingBag, Heart, Camera, Music, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import RecommendationFilters from '@/components/recommendations/RecommendationFilters';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface Recommendation {
   id: number;
@@ -38,9 +39,14 @@ interface Recommendation {
   localRecommendations?: number;
   visitorRecommendations?: number;
   rating?: number;
+  mtRating?: number; // MT Community rating
+  googleRating?: number; // Google Places rating
+  googleReviewCount?: number; // Google review count
+  mtReviewCount?: number; // MT review count
   priceLevel?: string | 1 | 2 | 3 | 4;
   tags?: string[];
   photos?: string[];
+  postId?: number | null; // Link to the memory/post
 }
 
 interface RecommendationsListProps {
@@ -75,6 +81,7 @@ export default function RecommendationsList({
     connectionDegree: 'anyone',
     localStatus: propRecommendationType === 'local' ? 'local' : propRecommendationType === 'visitor' ? 'visitor' : 'all'
   });
+  const [selectedRecommendation, setSelectedRecommendation] = useState<Recommendation | null>(null);
 
   // Fetch recommendations with comprehensive filters
   const { data: apiResponse, isLoading } = useQuery({
@@ -190,11 +197,26 @@ export default function RecommendationsList({
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{rec.description}</p>
                   </div>
-                  <div className="text-right">
-                    {rec.rating && rec.rating > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.rating.toFixed(1)}</span>
+                  <div className="text-right space-y-1">
+                    {/* Dual Rating System */}
+                    {(rec.mtRating || rec.googleRating) && (
+                      <div className="space-y-1">
+                        {rec.mtRating && rec.mtRating > 0 && (
+                          <div className="flex items-center gap-1 justify-end">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">MT</span>
+                            <Star className="h-3.5 w-3.5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.mtRating.toFixed(1)}</span>
+                            {rec.mtReviewCount && <span className="text-xs text-gray-500">({rec.mtReviewCount})</span>}
+                          </div>
+                        )}
+                        {rec.googleRating && rec.googleRating > 0 && (
+                          <div className="flex items-center gap-1 justify-end">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">Google</span>
+                            <Star className="h-3.5 w-3.5 text-yellow-500 fill-current" />
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.googleRating.toFixed(1)}</span>
+                            {rec.googleReviewCount && <span className="text-xs text-gray-500">({rec.googleReviewCount})</span>}
+                          </div>
+                        )}
                       </div>
                     )}
                     {rec.priceLevel && (
@@ -258,25 +280,27 @@ export default function RecommendationsList({
                     className="flex-1"
                     onClick={() => {
                       if (lat && lng) {
-                        window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank');
+                        const placeName = encodeURIComponent(rec.title);
+                        window.open(`https://www.google.com/maps/search/?api=1&query=${placeName}+${lat},${lng}`, '_blank');
                       }
                     }}
                     data-testid={`button-map-${rec.id}`}
                   >
+                    <MapPin className="h-4 w-4 mr-1" />
                     View on Map
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => {
-                      if (lat && lng) {
-                        window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${encodeURIComponent(rec.title)}`, '_blank');
-                      }
-                    }}
-                    data-testid={`button-directions-${rec.id}`}
-                  >
-                    Get Directions
-                  </Button>
+                  {rec.mtReviewCount && rec.mtReviewCount > 0 && (
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="flex-1"
+                      onClick={() => setSelectedRecommendation(rec)}
+                      data-testid={`button-reviews-${rec.id}`}
+                    >
+                      <MessageSquare className="h-4 w-4 mr-1" />
+                      See MT Reviews ({rec.mtReviewCount})
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -294,6 +318,141 @@ export default function RecommendationsList({
           </p>
         </div>
       )}
+
+      {/* MT Reviews Modal */}
+      <Dialog open={!!selectedRecommendation} onOpenChange={() => setSelectedRecommendation(null)}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto glass-card glass-depth-2">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+              {selectedRecommendation?.title}
+            </DialogTitle>
+          </DialogHeader>
+          
+          {selectedRecommendation && (
+            <div className="space-y-4">
+              {/* Photo */}
+              {selectedRecommendation.photos && selectedRecommendation.photos[0] && (
+                <div className="rounded-lg overflow-hidden">
+                  <img 
+                    src={selectedRecommendation.photos[0]} 
+                    alt={selectedRecommendation.title}
+                    className="w-full h-64 object-cover"
+                  />
+                </div>
+              )}
+
+              {/* Ratings */}
+              <div className="flex items-center gap-4">
+                {selectedRecommendation.mtRating && (
+                  <div className="flex items-center gap-2 px-4 py-2 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">MT Community</span>
+                    <Star className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400 fill-current" />
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.mtRating.toFixed(1)}</span>
+                    {selectedRecommendation.mtReviewCount && (
+                      <span className="text-sm text-gray-500">({selectedRecommendation.mtReviewCount} reviews)</span>
+                    )}
+                  </div>
+                )}
+                {selectedRecommendation.googleRating && (
+                  <div className="flex items-center gap-2 px-4 py-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Google</span>
+                    <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">{selectedRecommendation.googleRating.toFixed(1)}</span>
+                    {selectedRecommendation.googleReviewCount && (
+                      <span className="text-sm text-gray-500">({selectedRecommendation.googleReviewCount} reviews)</span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Description */}
+              <div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h4>
+                <p className="text-gray-700 dark:text-gray-300">{selectedRecommendation.description}</p>
+              </div>
+
+              {/* Location & Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Location</h4>
+                  <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                    <MapPin className="h-5 w-5 text-turquoise-600 mt-0.5" />
+                    <span>{selectedRecommendation.address}</span>
+                  </div>
+                </div>
+                
+                {selectedRecommendation.priceLevel && (
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Price Level</h4>
+                    <p className="text-2xl text-gray-700 dark:text-gray-300">{getPriceLevelDisplay(selectedRecommendation.priceLevel)}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Tags */}
+              {selectedRecommendation.tags && selectedRecommendation.tags.length > 0 && (
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tags</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedRecommendation.tags.map((tag, index) => (
+                      <span 
+                        key={index}
+                        className="px-3 py-1 bg-turquoise-100 dark:bg-turquoise-900/30 text-turquoise-700 dark:text-turquoise-300 rounded-full text-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Recommender */}
+              {selectedRecommendation.user && (
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Recommended By</h4>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white font-semibold">
+                      {selectedRecommendation.user.profileImage ? (
+                        <img 
+                          src={selectedRecommendation.user.profileImage} 
+                          alt={selectedRecommendation.user.name}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      ) : (
+                        selectedRecommendation.user.name.charAt(0).toUpperCase()
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{selectedRecommendation.user.name}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {selectedRecommendation.user.city && selectedRecommendation.user.country 
+                          ? `${selectedRecommendation.user.city}, ${selectedRecommendation.user.country}`
+                          : selectedRecommendation.user.country || 'Community Member'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-4">
+                <Button
+                  className="flex-1 bg-gradient-to-br from-turquoise-400 to-ocean-500 hover:from-turquoise-500 hover:to-ocean-600 text-white"
+                  onClick={() => {
+                    if (selectedRecommendation.lat && selectedRecommendation.lng) {
+                      const placeName = encodeURIComponent(selectedRecommendation.title);
+                      window.open(`https://www.google.com/maps/search/?api=1&query=${placeName}+${selectedRecommendation.lat},${selectedRecommendation.lng}`, '_blank');
+                    }
+                  }}
+                >
+                  <MapPin className="h-4 w-4 mr-2" />
+                  Open in Google Maps
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
