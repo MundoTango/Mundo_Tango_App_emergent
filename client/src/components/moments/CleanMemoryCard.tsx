@@ -15,6 +15,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { renderWithMentions } from '@/utils/renderWithMentions';
+// ESA LIFE CEO 61x21 - Layer 28: Recommendations System
+import RecommendationBadge from '@/components/recommendations/RecommendationBadge';
 
 interface MemoryCardProps {
   post: any;
@@ -351,10 +353,21 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
 
           {/* Post Content */}
           <div className="mt-3">
-            <p className="text-gray-800 whitespace-pre-wrap">{renderWithMentions(post.content)}</p>
+            <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{renderWithMentions(post.content)}</p>
             
-            {/* Location */}
-            {post.location && (
+            {/* ESA LIFE CEO 61x21 - Layer 28: Recommendation Badge */}
+            {post.recommendation && (
+              <RecommendationBadge
+                type={post.recommendation.type}
+                rating={post.recommendation.rating}
+                priceLevel={post.recommendation.priceLevel}
+                city={post.recommendation.city}
+                country={post.recommendation.country}
+              />
+            )}
+            
+            {/* Location - Only show if NOT a recommendation (recommendations have location in badge) */}
+            {post.location && !post.recommendation && (
               <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
                 <MapPin className="w-4 h-4" />
                 <span>{getLocationName(post.location)}</span>
