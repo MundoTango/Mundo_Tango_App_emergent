@@ -22,31 +22,115 @@ This document outlines planned features for the Mundo Tango platform, including 
 
 ## Recommendations System - Phase 2: AI-Powered Engine
 
-### AI-Powered Recommendation Engine
+### 🤖 Journey R7: AI-Powered Recommendation Suggestions
 **Status**: Planned for Q2 2026  
-**Current**: User-generated recommendations with manual categorization  
-**Priority:** Medium
+**Current**: User-generated recommendations with manual categorization (Journeys R1-R6 complete)  
+**Priority:** Medium  
+**User Type:** All Users
 
 **Description**:
-An intelligent recommendation engine that provides personalized suggestions for restaurants, cafes, hotels, and venues based on user preferences, past behavior, and community trends.
+An intelligent recommendation engine powered by AI that provides personalized suggestions for restaurants, cafes, hotels, and venues based on user preferences, past behavior, friendship connections, and community trends.
+
+**User Flow:**
+1. User views recommendations feed/map
+2. AI analyzes user profile, preferences, and connection network
+3. System generates personalized suggestions based on:
+   - Past ratings and reviews
+   - Friends' recommendations
+   - Connection degree preferences (1st/2nd/3rd degree filtering)
+   - Current location and travel plans
+   - Cuisine preferences and price range history
+4. Display AI suggestions in dedicated "For You" section
+5. User interacts (view, save, rate) → System learns and improves
 
 **Features**:
 - **Personalized Suggestions**: ML-based recommendations tailored to individual user preferences
-- **Collaborative Filtering**: "Users like you also enjoyed..." recommendations
+- **Collaborative Filtering**: "Users like you also enjoyed..." based on similar connection networks
 - **Sentiment Analysis**: Analyze user reviews and comments to determine quality scores
-- **Smart Ranking**: Combine user ratings, popularity, recency, and personal preferences
-- **Context-Aware**: Consider user's current location, time of day, and upcoming events
-- **Discovery Mode**: Help users find hidden gems based on their taste profile
+- **Smart Ranking Algorithm**: 
+  - Combine MT platform ratings (1-5 stars)
+  - Factor in Google ratings (if available)
+  - Weight by connection degree (1st degree > 2nd > 3rd)
+  - Consider closeness scores with recommenders
+  - Account for recency and popularity
+- **Context-Aware Intelligence**: 
+  - User's current city/location
+  - Time of day (breakfast/lunch/dinner)
+  - Upcoming travel plans and events
+  - Weather conditions
+- **Discovery Mode**: Help users find hidden gems based on taste profile and friendship network
 
 **Technical Architecture**:
-- **Machine Learning**: TensorFlow.js or Python-based recommendation models
-- **Vector Embeddings**: Semantic similarity for content-based filtering
+- **Machine Learning Models**: TensorFlow.js or Python-based recommendation engine
+- **Vector Embeddings**: Semantic similarity for content-based filtering (cuisine types, venue atmosphere)
 - **Real-time Processing**: Stream analytics for trending recommendations
-- **A/B Testing**: Experiment with different recommendation algorithms
-- **Feedback Loop**: Learn from user interactions (clicks, bookings, reviews)
+- **Connection Graph Integration**: Leverage existing friendship degree calculations
+- **A/B Testing Framework**: Experiment with different recommendation algorithms
+- **Feedback Loop**: Learn from user interactions (clicks, saves, bookings, reviews)
+
+**API Endpoints (Planned):**
+```typescript
+// Get AI-powered suggestions for current user
+GET /api/recommendations/ai/suggestions?city={city}&type={type}
+
+// Submit feedback for learning
+POST /api/recommendations/ai/feedback
+{
+  recommendationId: number,
+  action: 'view' | 'save' | 'rate' | 'skip',
+  rating?: number
+}
+
+// Get recommendation explanation
+GET /api/recommendations/ai/explain/:id
+```
+
+**Database Schema Extensions:**
+```typescript
+// Track AI recommendation performance
+aiRecommendationMetrics {
+  id, recommendation_id, user_id, 
+  shown_at, clicked, saved, rated,
+  algorithm_version, confidence_score
+}
+
+// User preference learning
+userPreferenceProfile {
+  id, user_id, cuisine_preferences,
+  price_preference, atmosphere_tags,
+  connection_weight_preference,
+  updated_at
+}
+```
+
+**ESA Layers:** 
+- Layer 15 (Search & Discovery)
+- Layer 24 (Social Features - Connection Graph)
+- Layer 27 (Analytics - User Behavior)
+- Layer 35 (AI Agents - Recommendation Agent)
+- Layer 36 (Memory Systems - User Preferences)
+- Layer 37 (Learning Systems - Feedback Loop)
+- Layer 41 (NLP - Sentiment Analysis)
+- Layer 43 (Voice - Voice-activated recommendations)
 
 **Integration with Current System**:
-The AI engine will enhance (not replace) the current user-generated recommendations system. Users can still manually create recommendations, and the AI will learn from these contributions.
+The AI engine will **enhance (not replace)** the current user-generated recommendations system (Journeys R1-R6). Users can still manually create recommendations, and the AI will learn from these community contributions. The system respects all existing connection-based privacy filters (1st/2nd/3rd degree, closeness scores).
+
+**Aurora Tide Design Compliance (Planned):**
+- ✅ **GlassCard depth-3** for AI suggestion cards
+- ✅ **GSAP Scroll Animations** for suggestion reveals
+- ✅ **Framer Motion** orchestration for smooth transitions
+- ✅ **MT Ocean Theme** gradients (cyan→teal→blue)
+- ✅ **Dark Mode** full support
+- ✅ **i18next** translations (~40 new keys)
+- ✅ **data-testid** 100% coverage
+- ✅ **Micro-interactions** (MagneticButton, PulseButton for AI suggestions)
+
+**Success Metrics:**
+- AI suggestion click-through rate > 15%
+- User satisfaction rating > 4.2/5
+- Discovery of new venues increased by 30%
+- Connection-based recommendation accuracy > 75%
 
 ---
 
