@@ -9,8 +9,8 @@
 This document outlines the planned features for the Housing Marketplace that are scheduled for Q1/Q2 2026 implementation. These journeys will complete the full housing ecosystem, adding enhanced guest/host functionality, advanced analytics, and comprehensive admin oversight.
 
 **Current Status:**
-- ✅ 9/19 Journeys Complete (47%)
-- 📋 2/19 In Development (Journey 6 & 18)
+- ✅ 10/19 Journeys Complete (53%)
+- 📋 1/19 In Development (Journey 18 - Admin Moderation)
 - 🔜 8/19 Coming Soon (This Roadmap)
 
 ---
