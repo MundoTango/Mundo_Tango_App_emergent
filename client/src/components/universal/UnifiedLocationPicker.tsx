@@ -164,10 +164,22 @@ export default function UnifiedLocationPicker({
       console.log('🌍 No valid bias - global search');
     }
 
+    // ESA Layer 13: Timeout protection to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setIsSearching(false);
+      console.error('❌ Google Places timeout after 8 seconds');
+      toast({
+        title: 'Search timeout',
+        description: 'Location search is taking too long. Please try again.',
+        variant: 'destructive',
+      });
+    }, 8000);
+
     try {
       autocompleteServiceRef.current.getPlacePredictions(
         request,
         (predictions: any, status: any) => {
+          clearTimeout(timeoutId);
           setIsSearching(false);
           
           const google = (window as any).google;
@@ -188,14 +200,17 @@ export default function UnifiedLocationPicker({
         }
       );
     } catch (error) {
+      clearTimeout(timeoutId);
       console.error('❌ Google Places exception:', error);
       setIsSearching(false);
       setSuggestions([]);
     }
-  }, [strategy, biasToLocation, searchTypes]);
+  }, [strategy, biasToLocation, searchTypes, toast]);
 
   const searchOSM = useCallback(async (query: string) => {
     if (strategy !== 'osm') return;
+
+    setIsSearching(true);
 
     const commonLocations = [
       'La Viruta Tango Club, Buenos Aires',
@@ -214,6 +229,7 @@ export default function UnifiedLocationPicker({
 
     setSuggestions(filtered.map(loc => ({ description: loc, isOSM: true })));
     setShowSuggestions(filtered.length > 0);
+    setIsSearching(false);
   }, [strategy]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
