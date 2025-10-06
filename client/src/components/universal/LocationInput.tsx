@@ -55,26 +55,18 @@ interface LocationInputProps {
 }
 
 export default function LocationInput(props: LocationInputProps) {
-  const [useGoogleMaps, setUseGoogleMaps] = useState(true);
-  const [googleMapsAvailable, setGoogleMapsAvailable] = useState<boolean | null>(null);
+  // ESA Layer 13: Instant API key detection (no loading state needed)
+  // Check is synchronous - env vars are available immediately
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const googleMapsAvailable = !!apiKey && apiKey.length > 0;
+  const [useGoogleMaps, setUseGoogleMaps] = useState(googleMapsAvailable);
 
+  // Log mode for debugging (only in development)
   useEffect(() => {
-    // Check if Google Maps API key is configured
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const available = !!apiKey && apiKey.length > 0;
-    setGoogleMapsAvailable(available);
-    setUseGoogleMaps(available);
-  }, []);
-
-  // Show nothing while checking API availability
-  if (googleMapsAvailable === null) {
-    return (
-      <div className={`flex items-center gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200 ${props.className || ''}`}>
-        <div className="h-4 w-4 border-2 border-turquoise-500 border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm text-gray-500">Loading location search...</span>
-      </div>
-    );
-  }
+    if (import.meta.env.DEV) {
+      console.log('📍 LocationInput mode:', googleMapsAvailable ? 'Google Maps' : 'SimplifiedLocationInput (OSM)');
+    }
+  }, [googleMapsAvailable]);
 
   // Use Google Maps if available and enabled
   if (useGoogleMaps && googleMapsAvailable) {
