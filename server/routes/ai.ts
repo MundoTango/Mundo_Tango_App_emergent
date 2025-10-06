@@ -119,8 +119,10 @@ router.get('/memories', async (req, res) => {
   }
 });
 
-// Get recommendations for user - simplified for now
-router.get('/recommendations', async (req, res) => {
+// Get AI-generated recommendations for user - simplified for now
+// NOTE: This is for AI agent recommendations, NOT user-generated place recommendations
+// User-generated recommendations use /api/recommendations (see server/routes/recommendationsRoutes.ts)
+router.get('/ai/recommendations', async (req, res) => {
   try {
     const userId = req.user?.id || 7; // Default user ID 7
     
@@ -130,13 +132,13 @@ router.get('/recommendations', async (req, res) => {
       recommendations: []
     });
   } catch (error) {
-    console.error('Failed to fetch recommendations:', error);
-    res.status(500).json({ error: 'Failed to fetch recommendations' });
+    console.error('Failed to fetch AI recommendations:', error);
+    res.status(500).json({ error: 'Failed to fetch AI recommendations' });
   }
 });
 
-// Update recommendation status
-router.patch('/recommendations/:id', async (req, res) => {
+// Update AI recommendation status
+router.patch('/ai/recommendations/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { status, feedback } = req.body;
