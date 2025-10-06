@@ -2,13 +2,13 @@
 
 **Last Updated:** October 6, 2025  
 **ESA Framework:** Layer 9 (User Experience) + Layer 28 (Marketplace) + Layer 31 (Social Graph)  
-**Design System:** Aurora Tide (ALL 8 complete journeys enhanced Oct 2025)
+**Design System:** Aurora Tide (ALL 9 complete journeys enhanced Oct 2025)
 
 ## Overview
 
 Complete mapping of all 19 housing customer journeys across 4 user types. This matrix tracks implementation status, testing coverage, and critical revenue paths for the unified housing marketplace system integrated with Life CEO & Mundo Tango platform.
 
-**Recent Enhancements (Oct 2025):** ALL 8 complete journeys (1, 2, 3, 4, 10, 11, 12, 17) now feature full Aurora Tide design system implementation with i18next translations (175+ keys across 73 languages), glassmorphic UI (GlassCard depth 1-4), GSAP scroll animations (useScrollReveal), Framer Motion orchestration (FadeIn, ScaleIn, StaggerContainer), complete dark mode support with MT Ocean Theme gradients (cyan→teal→blue), micro-interactions (MagneticButton, PulseButton), and 100% data-testid accessibility coverage. **42% of housing journeys complete** with full design system compliance.
+**Recent Enhancements (Oct 2025):** ALL 9 complete journeys (1, 2, 3, 4, 10, 11, 12, 14, 17) now feature full Aurora Tide design system implementation with i18next translations (190+ keys across 73 languages), glassmorphic UI (GlassCard depth 1-4), GSAP scroll animations (useScrollReveal), Framer Motion orchestration (FadeIn, ScaleIn, StaggerContainer), complete dark mode support with MT Ocean Theme gradients (cyan→teal→blue), micro-interactions (MagneticButton, PulseButton), and 100% data-testid accessibility coverage. **47% of housing journeys complete** with full design system compliance.
 
 ---
 
@@ -407,15 +407,46 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 14: Host Calendar Management 📋
-**Status:** Planned  
+### Journey 14: Host Calendar Management ✅
+**Status:** Complete + Aurora Tide Enhanced  
 **Priority:** High  
+**Route:** `/host-calendar/:id`
 
 **User Flow:**
-1. Block unavailable dates
-2. Set seasonal pricing
-3. Bulk update availability
-4. Sync with external calendars
+1. Select property from dropdown (auto-selects if single property)
+2. View calendar with existing bookings and blocked dates
+3. Block/unblock unavailable dates with date picker
+4. Manage connection-based booking restrictions
+5. View booking requests integrated with calendar
+6. Real-time calendar updates on changes
+
+**Components:**
+- ✅ `host-calendar.tsx` - Calendar management page with full Aurora Tide
+- ✅ Property selector dropdown with glassmorphic styling
+- ✅ BookingCalendar component for date management
+- ✅ BookingRestrictionsCard for connection-based access control
+- ✅ Empty state for hosts without properties
+- ✅ Real-time availability updates
+
+**Aurora Tide Enhancements (Oct 2025):**
+- ✅ **Full i18next Integration:** 15+ translation keys (calendar, properties, restrictions, states)
+- ✅ **GlassCard Components:** Applied depth-1, depth-2, depth-3 throughout
+- ✅ **GSAP Animations:** useScrollReveal for calendar sections with staggered delays
+- ✅ **Framer Motion:** FadeIn header, ScaleIn cards for smooth entry animations
+- ✅ **Micro-interactions:** MagneticButton navigation, PulseButton CTAs
+- ✅ **Dark Mode:** Complete MT Ocean Theme gradient support (cyan→teal→blue)
+- ✅ **data-testid Coverage:** Enhanced accessibility with dynamic IDs per property
+
+**API Endpoints:**
+- ✅ `GET /api/host-homes/my-properties` - Fetch host's properties
+- ✅ `GET /api/host-homes/:id/availability` - Get calendar data
+- ✅ `PATCH /api/host-homes/:id/availability` - Update blocked dates
+
+**Test Coverage:**
+- ✅ TypeScript: 0 LSP errors
+- ✅ Translation: 6 languages supported (EN, ES, FR, DE, IT, PT)
+- ✅ Component: All UI elements with data-testid
+- ✅ Responsive: Mobile-first design with breakpoints
 
 ---
 
@@ -630,10 +661,12 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 - `DELETE /api/bookings/:id` - Cancel booking
 - `GET /api/users/:userId/connection-info/:hostId` - Connection data
 - `GET /api/groups/slug/:slug` - City group data
+- `GET /api/host-homes/my-properties` - Fetch host's properties
+- `GET /api/host-homes/:id/availability` - Get calendar availability
+- `PATCH /api/host-homes/:id/availability` - Update blocked dates
 
 ### Planned 📋
 - `POST /api/reviews` - Submit review
-- `GET /api/host-homes/:id/availability` - Check availability
 - `PATCH /api/host-homes/:id` - Update property
 - `POST /api/bookings/:id/modify` - Request changes
 - `GET /api/host-homes/:id/analytics` - Property stats
@@ -652,11 +685,11 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 5. ✅ **Journey 10:** Host Onboarding - Aurora Tide verified & documented - COMPLETE
 6. ✅ **Journey 11:** Host Bookings - Aurora Tide verified & documented - COMPLETE
 7. ✅ **Journey 12:** Host Dashboard - Aurora Tide enhanced with i18next + GSAP - COMPLETE
-8. ✅ **Journey 17:** City Group Housing - Aurora Tide enhanced with i18next + GSAP - COMPLETE
+8. ✅ **Journey 14:** Host Calendar - Aurora Tide enhanced with i18next + GSAP - COMPLETE
+9. ✅ **Journey 17:** City Group Housing - Aurora Tide enhanced with i18next + GSAP - COMPLETE
 
 ### Short-term (Weeks 2-3)
-5. **Journey 14:** Host calendar management
-7. **Journey 16:** Payout management system
+5. **Journey 16:** Payout management system
 8. **Journey 6:** Reviews & ratings system
 
 ### Medium-term (Weeks 4-6)
@@ -676,21 +709,21 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ## Success Metrics
 
 ### Journey Completion Status
-- ✅ **8 of 19 journeys complete** (42%)
-- ✅ **ALL 8 journeys have Aurora Tide** (Journeys 1, 2, 3, 4, 10, 11, 12, 17)
-- 📋 **11 journeys planned** (58%)
+- ✅ **9 of 19 journeys complete** (47%)
+- ✅ **ALL 9 journeys have Aurora Tide** (Journeys 1, 2, 3, 4, 10, 11, 12, 14, 17)
+- 📋 **10 journeys planned** (53%)
 
 ### Aurora Tide Coverage by Journey Type
 - **Guest Journeys:** 4 of 9 complete with Aurora Tide (Journeys 1-4)
-- **Host Journeys:** 3 of 7 complete with Aurora Tide (Journeys 10, 11, 12)
+- **Host Journeys:** 4 of 7 complete with Aurora Tide (Journeys 10, 11, 12, 14)
 - **City Group Journeys:** 1 of 1 complete with Aurora Tide (Journey 17)
 - **Admin Journeys:** 0 of 2 complete
 
 ### Technical KPIs
-- ✅ Zero TypeScript errors on all 8 complete journeys
+- ✅ Zero TypeScript errors on all 9 complete journeys
 - ✅ 100% API endpoint test coverage for core journeys
 - ✅ E2E test fixes applied (Journey 3 test updated)
-- ✅ 175+ i18next translation keys across housing pages
+- ✅ 190+ i18next translation keys across housing pages
 - ✅ 100% GlassCard, Framer Motion, GSAP compliance on completed journeys
 - 📋 <500ms page load time (target)
 - 📋 <100ms API response time (target)
