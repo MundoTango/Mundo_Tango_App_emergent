@@ -7,6 +7,36 @@ import { setUserContext } from '../middleware/tenantMiddleware';
 
 const router = Router();
 
+// Get current user's host homes
+router.get('/api/host-homes/my-properties', setUserContext, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+    
+    const homes = await db
+      .select({
+        id: hostHomes.id,
+        title: hostHomes.title,
+        city: hostHomes.city,
+        country: hostHomes.country,
+        isActive: hostHomes.isActive
+      })
+      .from(hostHomes)
+      .where(eq(hostHomes.hostId, userId));
+    
+    res.json({
+      success: true,
+      homes
+    });
+  } catch (error) {
+    console.error('Error fetching my properties:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch properties' });
+  }
+});
+
 // Get host homes (optionally filtered by city)
 router.get('/api/host-homes', setUserContext, async (req, res) => {
   try {
