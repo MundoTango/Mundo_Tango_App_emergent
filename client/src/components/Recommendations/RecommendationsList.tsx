@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Star, MapPin, Users, Globe, Utensils, Coffee, ShoppingBag, Heart, Camera, Music, MessageSquare } from 'lucide-react';
+import { Star, MapPin, Users, Globe, Utensils, Coffee, ShoppingBag, Heart, Camera, Music, MessageSquare, Map as MapIcon, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import RecommendationFilters from '@/components/recommendations/RecommendationFilters';
+import RecommendationsMap from '@/components/recommendations/RecommendationsMap';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface Recommendation {
@@ -12,7 +13,7 @@ interface Recommendation {
   description: string;
   type?: string;
   category?: 'restaurant' | 'bar' | 'cafe' | 'attraction' | 'shopping' | 'entertainment' | 'other';
-  address: string;
+  address?: string;
   city: string;
   country: string;
   lat?: number;
@@ -82,6 +83,7 @@ export default function RecommendationsList({
     localStatus: propRecommendationType === 'local' ? 'local' : propRecommendationType === 'visitor' ? 'visitor' : 'all'
   });
   const [selectedRecommendation, setSelectedRecommendation] = useState<Recommendation | null>(null);
+  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
 
   // Fetch recommendations with comprehensive filters
   const { data: apiResponse, isLoading } = useQuery({
@@ -153,8 +155,56 @@ export default function RecommendationsList({
         />
       )}
 
-      {/* Recommendations Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* View Mode Toggle */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600 dark:text-gray-400">
+            {recommendations?.length || 0} recommendation{recommendations?.length !== 1 ? 's' : ''} found
+          </span>
+        </div>
+        <div className="flex items-center gap-2 glass-card glass-depth-1 p-1 rounded-lg">
+          <button
+            onClick={() => setViewMode('list')}
+            className={`p-2 rounded-md transition-all ${
+              viewMode === 'list'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
+            }`}
+            data-testid="button-view-list"
+            title="List View"
+          >
+            <List className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => setViewMode('map')}
+            className={`p-2 rounded-md transition-all ${
+              viewMode === 'map'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
+            }`}
+            data-testid="button-view-map"
+            title="Map View"
+          >
+            <MapIcon className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Map View */}
+      {viewMode === 'map' && (
+        <div className="h-[600px] rounded-xl overflow-hidden glass-card glass-depth-2">
+          <RecommendationsMap
+            recommendations={recommendations}
+            cityLat={recommendations[0]?.lat || recommendations[0]?.latitude}
+            cityLng={recommendations[0]?.lng || recommendations[0]?.longitude}
+            onRecommendationClick={(rec) => setSelectedRecommendation(rec)}
+          />
+        </div>
+      )}
+
+      {/* List View - Recommendations Grid */}
+      {viewMode === 'list' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {recommendations?.map((rec: Recommendation) => {
           const categoryToUse = rec.type || rec.category || 'other';
           const CategoryIcon = getCategoryIcon(categoryToUse);
@@ -306,7 +356,8 @@ export default function RecommendationsList({
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
       
       {/* Empty State */}
       {(!recommendations || recommendations.length === 0) && (

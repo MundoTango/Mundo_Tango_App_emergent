@@ -13,8 +13,8 @@ interface Recommendation {
   address?: string;
   city: string;
   country: string;
-  lat: number | null;
-  lng: number | null;
+  lat?: number | null;
+  lng?: number | null;
   mtRating?: number;
   googleRating?: number;
   googleReviewCount?: number;
