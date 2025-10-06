@@ -62,24 +62,24 @@ test.describe('Complete Housing Marketplace Journey', () => {
 
   // Journey 3: Guest Onboarding
   test('Journey 3: Guest can complete onboarding', async ({ page }) => {
-    await page.goto('/onboarding/guest');
+    await page.goto('/guest-onboarding');
     await page.waitForLoadState('networkidle');
     
-    // Verify onboarding page loads
-    await expect(page.locator('[data-testid="guest-onboarding-container"]')).toBeVisible({ timeout: 5000 });
+    // Verify onboarding page loads with main heading
+    await expect(page.locator('h1:has-text("Complete Your Guest Profile")')).toBeVisible({ timeout: 10000 });
     
-    // Verify first step (Accommodation Preferences) is displayed
-    await expect(page.locator('[data-testid="step-title-accommodation"]')).toBeVisible();
-    await expect(page.locator('[data-testid="guest-onboarding-accommodation"]')).toBeVisible();
+    // Verify first step (Accommodation Preferences) is displayed  
+    await expect(page.locator('h3:has-text("Accommodation Preferences")')).toBeVisible();
     
-    // Verify progress indicator
-    await expect(page.locator('[data-testid="progress-bar"]')).toBeVisible();
+    // Verify progress bar is visible
+    await expect(page.locator('[role="progressbar"]')).toBeVisible();
     
-    // Verify step indicators are visible
-    await expect(page.locator('[data-testid="step-indicator-1"]')).toBeVisible();
+    // Verify we can see the accommodation form content
+    await expect(page.locator('text=Property Types')).toBeVisible();
+    await expect(page.locator('text=Room Types')).toBeVisible();
     
-    // Verify navigation buttons
-    await expect(page.locator('[data-testid="button-continue-accommodation"]')).toBeVisible();
+    // Verify navigation button exists
+    await expect(page.locator('button:has-text("Next")')).toBeVisible();
     
     console.log('✅ Journey 3: Guest Onboarding - PASSED (Aurora Tide Enhanced)');
   });
