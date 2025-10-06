@@ -65,10 +65,23 @@ test.describe('Complete Housing Marketplace Journey', () => {
     await page.goto('/onboarding/guest');
     await page.waitForLoadState('networkidle');
     
-    // Step 1: Check basic info step
-    await expect(page.locator('h2:has-text("Basic Information")')).toBeVisible({ timeout: 5000 });
+    // Verify onboarding page loads
+    await expect(page.locator('[data-testid="guest-onboarding-container"]')).toBeVisible({ timeout: 5000 });
     
-    console.log('✅ Journey 3: Guest Onboarding - PASSED');
+    // Verify first step (Accommodation Preferences) is displayed
+    await expect(page.locator('[data-testid="step-title-accommodation"]')).toBeVisible();
+    await expect(page.locator('[data-testid="guest-onboarding-accommodation"]')).toBeVisible();
+    
+    // Verify progress indicator
+    await expect(page.locator('[data-testid="progress-bar"]')).toBeVisible();
+    
+    // Verify step indicators are visible
+    await expect(page.locator('[data-testid="step-indicator-1"]')).toBeVisible();
+    
+    // Verify navigation buttons
+    await expect(page.locator('[data-testid="button-continue-accommodation"]')).toBeVisible();
+    
+    console.log('✅ Journey 3: Guest Onboarding - PASSED (Aurora Tide Enhanced)');
   });
 
   // Journey 4: Host Listing Creation
