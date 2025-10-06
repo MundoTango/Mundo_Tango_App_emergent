@@ -160,6 +160,60 @@ GET /api/esa-agents/health
 GET /admin/agent-metrics
 ```
 
+### Agent System Documentation
+
+The ESA Agents system includes 6 comprehensive sub-guides covering implementation details:
+
+#### 1. PostgreSQL Queue System
+**File:** `docs/pages/esa-agents/postgresql-queue-system.md`  
+**Purpose:** Native PostgreSQL job queue implementation replacing Redis/BullMQ
+- Job queue management via `agentJobs` table
+- State persistence via `agentState` table
+- Event broadcasting via `agentEvents` table
+- Full BullMQ-compatible API surface
+
+#### 2. OpenAI Integration
+**File:** `docs/pages/esa-agents/openai-integration.md`  
+**Purpose:** GPT-4o connection, streaming, and function calling
+- Conversation history management
+- Server-Sent Events (SSE) for streaming responses
+- Function calling for platform operations
+- Automatic memory storage for important interactions
+
+#### 3. AgentTools Platform Integration
+**File:** `docs/pages/esa-agents/agent-tools.md`  
+**Purpose:** Real operations wiring - agents can perform actual platform actions
+- Search and book housing with friendship filters
+- Create and manage events with RSVP
+- Generate posts and access social feeds
+- Query user profiles and connections
+- Access city groups and community data
+
+#### 4. Monitoring Dashboard
+**File:** `docs/pages/esa-agents/monitoring-dashboard.md`  
+**Purpose:** Real-time metrics and analytics
+- Dashboard at `/admin/agent-metrics`
+- Prometheus metrics collection
+- Error tracking and alerting
+- Performance analytics
+- Queue depth monitoring
+
+#### 5. Production Deployment
+**File:** `docs/pages/esa-agents/production-deployment.md`  
+**Purpose:** Deploy configuration and health checks
+- Health check endpoints (`/health`, `/ready`, `/live`)
+- Autoscale deployment configuration
+- Token usage tracking
+- Rate limiting and error handling
+
+#### 6. Token Usage Tracking
+**File:** `docs/pages/esa-agents/token-usage-tracking.md`  
+**Purpose:** OpenAI cost monitoring and optimization
+- Real-time token usage tracking
+- Cost analysis per agent
+- Budget alerts and limits
+- Usage optimization strategies
+
 **🔗 Full Guide:** `docs/pages/esa-agents/index.md`
 
 ---
@@ -484,9 +538,16 @@ Automation, third-party integrations, open source, version control, backend serv
 - **Validation:** `ESA_61x21_COMPREHENSIVE_VALIDATION.md`
 
 ### Related Documentation
+
+#### ESA Agent System Deep Dives
 - PostgreSQL Queue System: `docs/pages/esa-agents/postgresql-queue-system.md`
 - OpenAI Integration: `docs/pages/esa-agents/openai-integration.md`
-- Agent Tools: `docs/pages/esa-agents/agent-tools.md`
+- Agent Tools Platform Integration: `docs/pages/esa-agents/agent-tools.md`
+- Monitoring Dashboard: `docs/pages/esa-agents/monitoring-dashboard.md`
+- Production Deployment: `docs/pages/esa-agents/production-deployment.md`
+- Token Usage Tracking: `docs/pages/esa-agents/token-usage-tracking.md`
+
+#### Housing & Customer Journeys
 - Housing Customer Journeys: `docs/pages/housing/customer-journey-matrix.md`
 
 ### Key Technologies
