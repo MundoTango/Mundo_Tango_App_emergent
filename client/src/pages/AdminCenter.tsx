@@ -22,6 +22,9 @@ import { ValidationDashboard } from '@/components/admin/ValidationDashboard';
 import { Phase50x21ValidationDashboard } from '@/components/admin/Phase50x21ValidationDashboard';
 import { Phase4ToolsDashboard } from '@/components/life-ceo/Phase4ToolsDashboard';
 import { PlatformAuditDashboard } from '@/components/life-ceo/PlatformAuditDashboard';
+import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
 import { 
   Users, 
   Activity, 
@@ -529,108 +532,157 @@ const AdminCenter = memo(() => {
 
   const renderOverview = () => (
     <div className="space-y-4 sm:space-y-6">
-      {/* ESA Platform Audit - Mobile-First Platform Statistics */}
-      <div>
-        <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent mb-3 sm:mb-4">Platform Overview</h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-          <div className="glassmorphic-card backdrop-blur-xl bg-gradient-to-br from-turquoise-50/70 to-cyan-50/70 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 border border-turquoise-100/50">
+      {/* Aurora Tide Platform Overview */}
+      <FadeIn>
+        <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent mb-3 sm:mb-4">
+          Platform Overview
+        </h2>
+      </FadeIn>
+
+      <ScaleIn delay={0.1}>
+        <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          <GlassCard 
+            depth={2}
+            className="border-cyan-200/30 dark:border-cyan-500/30"
+            data-testid="stat-total-users"
+          >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg sm:rounded-xl">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-turquoise-600">+12%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-cyan-600 dark:text-cyan-400">+12%</span>
             </div>
-            <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent">{stats?.totalUsers?.toLocaleString() || '0'}</div>
-            <div className="text-xs sm:text-sm text-gray-600 mt-1">Total Users</div>
-            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 hidden sm:block">Registered members</div>
-          </div>
+            <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
+              {stats?.totalUsers?.toLocaleString() || '0'}
+            </div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Total Users</div>
+            <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
+              Registered members
+            </div>
+          </GlassCard>
 
-          <div className="glassmorphic-card backdrop-blur-xl bg-gradient-to-br from-green-50/70 to-emerald-50/70 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 border border-green-100/50">
+          <GlassCard 
+            depth={2}
+            className="border-teal-200/30 dark:border-teal-500/30"
+            data-testid="stat-active-users"
+          >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg sm:rounded-xl">
                 <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-green-600">+8%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-teal-600 dark:text-teal-400">+8%</span>
             </div>
-            <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent">{stats?.activeUsers?.toLocaleString() || '0'}</div>
-            <div className="text-xs sm:text-sm text-gray-600 mt-1">Active Users</div>
-            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 hidden sm:block">Last 30 days</div>
-          </div>
+            <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
+              {stats?.activeUsers?.toLocaleString() || '0'}
+            </div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Active Users</div>
+            <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
+              Last 30 days
+            </div>
+          </GlassCard>
 
-          <div className="glassmorphic-card backdrop-blur-xl bg-gradient-to-br from-purple-50/70 to-indigo-50/70 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 border border-purple-100/50">
+          <GlassCard 
+            depth={2}
+            className="border-blue-200/30 dark:border-blue-500/30"
+            data-testid="stat-total-events"
+          >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl">
                 <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-purple-600">+15%</span>
+              <span className="text-[10px] sm:text-xs font-medium text-blue-600 dark:text-blue-400">+15%</span>
             </div>
-            <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">{stats?.totalEvents?.toLocaleString() || '0'}</div>
-            <div className="text-xs sm:text-sm text-gray-600 mt-1">Total Events</div>
-            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 hidden sm:block">All time</div>
-          </div>
+            <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
+              {stats?.totalEvents?.toLocaleString() || '0'}
+            </div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">Total Events</div>
+            <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
+              All time
+            </div>
+          </GlassCard>
 
-          <div className="glassmorphic-card backdrop-blur-xl bg-gradient-to-br from-orange-50/70 to-amber-50/70 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 border border-orange-100/50">
+          <GlassCard 
+            depth={2}
+            className="border-purple-200/30 dark:border-purple-500/30"
+            data-testid="stat-system-health"
+          >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
-              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg sm:rounded-xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg sm:rounded-xl">
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-[10px] sm:text-xs font-medium text-orange-600">Excellent</span>
+              <span className="text-[10px] sm:text-xs font-medium text-purple-600 dark:text-purple-400">Excellent</span>
             </div>
-            <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-orange-700 to-amber-700 bg-clip-text text-transparent">{stats?.systemHealth?.toFixed(1) || '99.9'}%</div>
-            <div className="text-xs sm:text-sm text-gray-600 mt-1">System Health</div>
-            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 hidden sm:block">Overall performance</div>
-          </div>
-        </div>
-      </div>
+            <div className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
+              {stats?.systemHealth?.toFixed(1) || '99.9'}%
+            </div>
+            <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">System Health</div>
+            <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-500 mt-0.5 sm:mt-1 hidden sm:block">
+              Overall performance
+            </div>
+          </GlassCard>
+        </StaggerContainer>
+      </ScaleIn>
 
-      {/* Quick Actions with MT Styling */}
+      {/* Aurora Tide Quick Actions */}
       <div>
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <button 
-            onClick={() => setSelectedTab('users')}
-            className="p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl hover:shadow-xl transition-all text-left group transform hover:-translate-y-1"
-          >
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
-              <Users className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-semibold text-gray-800 mb-1">Manage Users</h3>
-            <p className="text-sm text-gray-600">View and manage user accounts</p>
-          </button>
+        <FadeIn delay={0.2}>
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">Quick Actions</h2>
+        </FadeIn>
+        <ScaleIn delay={0.3}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <MagneticButton 
+              onClick={() => setSelectedTab('users')}
+              strength={0.15}
+              className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 p-5 text-left group"
+              data-testid="button-manage-users"
+            >
+              <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">Manage Users</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">View and manage user accounts</p>
+            </MagneticButton>
 
-          <button 
-            onClick={() => setSelectedTab('compliance')}
-            className="p-5 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl hover:shadow-xl transition-all text-left group transform hover:-translate-y-1"
-          >
-            <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
-              <Shield className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-semibold text-gray-800 mb-1">Compliance Center</h3>
-            <p className="text-sm text-gray-600">Monitor GDPR and security</p>
-          </button>
+            <MagneticButton 
+              onClick={() => setSelectedTab('compliance')}
+              strength={0.15}
+              className="glass-card glass-depth-2 border-teal-200/30 dark:border-teal-500/30 p-5 text-left group"
+              data-testid="button-compliance-center"
+            >
+              <div className="p-3 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">Compliance Center</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Monitor GDPR and security</p>
+            </MagneticButton>
 
-          <button 
-            onClick={() => setSelectedTab('system')}
-            className="p-5 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl hover:shadow-xl transition-all text-left group transform hover:-translate-y-1"
-          >
-            <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
-              <Activity className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-semibold text-gray-800 mb-1">System Health</h3>
-            <p className="text-sm text-gray-600">Check performance and logs</p>
-          </button>
+            <MagneticButton 
+              onClick={() => setSelectedTab('system')}
+              strength={0.15}
+              className="glass-card glass-depth-2 border-blue-200/30 dark:border-blue-500/30 p-5 text-left group"
+              data-testid="button-system-health"
+            >
+              <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+                <Activity className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-1">System Health</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Check performance and logs</p>
+            </MagneticButton>
 
-          <a 
-            href="/ttfiles-demo"
-            className="p-5 bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-2xl hover:shadow-xl transition-all text-left group block transform hover:-translate-y-1"
-          >
-            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
-              <Code className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-semibold text-white mb-1">TTfiles Demo</h3>
-            <p className="text-sm text-white/90">View TrangoTech vintage components</p>
-          </a>
-        </div>
+            <MagneticButton 
+              onClick={() => window.location.href = '/ttfiles-demo'}
+              strength={0.15}
+              className="glass-card glass-depth-2 bg-gradient-to-r from-purple-500 to-pink-500 p-5 text-left group border-purple-200/30 dark:border-purple-500/30"
+              data-testid="button-ttfiles-demo"
+            >
+              <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
+                <Code className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-semibold text-white mb-1">TTfiles Demo</h3>
+              <p className="text-sm text-white/90">View TrangoTech vintage components</p>
+            </MagneticButton>
+          </StaggerContainer>
+        </ScaleIn>
       </div>
     </div>
   );
