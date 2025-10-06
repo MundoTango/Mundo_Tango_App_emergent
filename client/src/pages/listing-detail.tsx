@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { apiRequest, queryClient } from '../lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
@@ -109,6 +110,7 @@ const isVideoUrl = (url: string): boolean => {
 export default function ListingDetail() {
   const { id } = useParams();
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { user } = useAuth();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -182,8 +184,8 @@ export default function ListingDetail() {
       }
       
       toast({
-        title: 'Booking request sent!',
-        description: 'The host will review your request and respond soon.',
+        title: t('housing.listing_detail.booking_sent_title', 'Booking request sent!'),
+        description: t('housing.listing_detail.booking_sent_desc', 'The host will review your request and respond soon.'),
       });
       setShowBookingModal(false);
       // Reset form
@@ -198,8 +200,8 @@ export default function ListingDetail() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Booking failed',
-        description: error.message || 'Please try again later.',
+        title: t('housing.listing_detail.booking_failed_title', 'Booking failed'),
+        description: error.message || t('housing.listing_detail.try_again', 'Please try again later.'),
         variant: 'destructive',
       });
     },
@@ -225,15 +227,15 @@ export default function ListingDetail() {
         setShowBookingModal(true);
       } else {
         toast({
-          title: 'Cannot book this property',
-          description: result.reason || 'You do not meet the booking requirements for this property.',
+          title: t('housing.listing_detail.cannot_book_title', 'Cannot book this property'),
+          description: result.reason || t('housing.listing_detail.cannot_book_desc', 'You do not meet the booking requirements for this property.'),
           variant: 'destructive',
         });
       }
     } catch (error: any) {
       toast({
-        title: 'Error checking eligibility',
-        description: error.message || 'Please try again later.',
+        title: t('housing.listing_detail.eligibility_error_title', 'Error checking eligibility'),
+        description: error.message || t('housing.listing_detail.try_again', 'Please try again later.'),
         variant: 'destructive',
       });
     }
@@ -246,8 +248,8 @@ export default function ListingDetail() {
     // Validation
     if (!checkInDate || !checkOutDate) {
       toast({
-        title: 'Missing dates',
-        description: 'Please select check-in and check-out dates.',
+        title: t('housing.listing_detail.missing_dates_title', 'Missing dates'),
+        description: t('housing.listing_detail.missing_dates_desc', 'Please select check-in and check-out dates.'),
         variant: 'destructive',
       });
       return;
@@ -258,8 +260,8 @@ export default function ListingDetail() {
     checkInDateOnly.setHours(0, 0, 0, 0);
     if (checkInDateOnly < today) {
       toast({
-        title: 'Invalid check-in date',
-        description: 'Check-in date cannot be in the past.',
+        title: t('housing.listing_detail.invalid_checkin_title', 'Invalid check-in date'),
+        description: t('housing.listing_detail.invalid_checkin_desc', 'Check-in date cannot be in the past.'),
         variant: 'destructive',
       });
       return;
@@ -439,13 +441,13 @@ export default function ListingDetail() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
           <Card className="max-w-md w-full">
             <CardContent className="pt-6 text-center">
-              <h2 className="text-2xl font-bold mb-2">Listing Not Found</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('housing.listing_detail.not_found_title', 'Listing Not Found')}</h2>
               <p className="text-gray-600 mb-4">
-                The listing you're looking for doesn't exist or has been removed.
+                {t('housing.listing_detail.not_found_desc', "The listing you're looking for doesn't exist or has been removed.")}
               </p>
               <Button onClick={() => navigate('/housing-marketplace')}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Marketplace
+                {t('housing.listing_detail.back_to_marketplace', 'Back to Marketplace')}
               </Button>
             </CardContent>
           </Card>
@@ -486,7 +488,7 @@ export default function ListingDetail() {
             data-testid="button-back-to-marketplace"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Marketplace
+            {t('housing.listing_detail.back_to_marketplace', 'Back to Marketplace')}
           </MagneticButton>
         </FadeIn>
 
@@ -833,13 +835,13 @@ export default function ListingDetail() {
           <FadeIn>
             <DialogHeader>
               <div className="flex items-center gap-3 mb-2">
-                <DialogTitle className="text-slate-900 dark:text-white">Request to Book</DialogTitle>
+                <DialogTitle className="text-slate-900 dark:text-white">{t('housing.listing_detail.request_to_book', 'Request to Book')}</DialogTitle>
                 {connectionData && connectionData.connectionDegree !== null && (
                   <ConnectionBadge connectionDegree={connectionData.connectionDegree} />
                 )}
               </div>
               <DialogDescription className="text-slate-600 dark:text-slate-400">
-                Complete the form below to send a booking request to the host.
+                {t('housing.listing_detail.complete_form', 'Complete the form below to send a booking request to the host.')}
               </DialogDescription>
             </DialogHeader>
           </FadeIn>
