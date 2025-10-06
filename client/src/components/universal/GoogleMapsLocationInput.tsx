@@ -99,17 +99,33 @@ export default function GoogleMapsLocationInput({
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const { toast } = useToast();
 
-  // Initialize Google Maps
+  // ESA Layer 13: Initialize Google Maps with comprehensive logging
   useEffect(() => {
+    if (import.meta.env.DEV) {
+      console.log('🗺️ GoogleMapsLocationInput: Starting initialization...');
+    }
+    
     loadGoogleMapsScript()
       .then(() => {
+        if (import.meta.env.DEV) {
+          console.log('✅ Google Maps script loaded successfully');
+        }
+        
         autocompleteServiceRef.current = new (window as any).google.maps.places.AutocompleteService();
+        if (import.meta.env.DEV) {
+          console.log('✅ AutocompleteService created:', !!autocompleteServiceRef.current);
+        }
+        
         // Create a dummy div for PlacesService
         const div = document.createElement('div');
         placesServiceRef.current = new google.maps.places.PlacesService(div);
+        if (import.meta.env.DEV) {
+          console.log('✅ PlacesService created:', !!placesServiceRef.current);
+          console.log('🗺️ GoogleMapsLocationInput: Ready for autocomplete searches');
+        }
       })
       .catch(error => {
-        console.error('Google Maps initialization error:', error);
+        console.error('❌ Google Maps initialization error:', error);
         toast({
           title: "Location search unavailable",
           description: "Please check your Google Maps API configuration",
@@ -149,15 +165,29 @@ export default function GoogleMapsLocationInput({
     }
   }, [allowGoogleMapsUrl, toast]);
 
-  // Search for places
+  // ESA Layer 13: Search for places with proper dependencies and logging
   const searchPlaces = useCallback(async (query: string) => {
+    if (import.meta.env.DEV) {
+      console.log('🔍 GoogleMapsLocationInput: searchPlaces called with query:', query);
+      console.log('🔍 AutocompleteService ready:', !!autocompleteServiceRef.current);
+    }
+    
     // Check if it's a Google Maps URL first
     if (query.includes('maps.app.goo.gl') || query.includes('google.com/maps')) {
       handleGoogleMapsUrl(query);
       return;
     }
     
-    if (!query || query.length < 3 || !autocompleteServiceRef.current) {
+    if (!query || query.length < 3) {
+      if (import.meta.env.DEV) {
+        console.log('🔍 Query too short (<3 chars), clearing suggestions');
+      }
+      setSuggestions([]);
+      return;
+    }
+    
+    if (!autocompleteServiceRef.current) {
+      console.error('❌ AutocompleteService not initialized yet');
       setSuggestions([]);
       return;
     }
@@ -175,24 +205,41 @@ export default function GoogleMapsLocationInput({
       // componentRestrictions: { country: ['ar', 'us', 'gb', 'fr', 'es', 'it', 'br', 'mx'] }
     };
 
+    if (import.meta.env.DEV) {
+      console.log('🔍 Making autocomplete request:', { query, types: request.types });
+    }
+
     autocompleteServiceRef.current.getPlacePredictions(
       request,
       (predictions: any, status: any) => {
         setIsLoading(false);
         
+        if (import.meta.env.DEV) {
+          console.log('🔍 Autocomplete response:', { status, predictionsCount: predictions?.length || 0 });
+        }
+        
         if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
+          if (import.meta.env.DEV) {
+            console.log('✅ Found', predictions.length, 'suggestions');
+          }
           setSuggestions(predictions);
           setShowSuggestions(true);
         } else {
+          if (import.meta.env.DEV) {
+            console.warn('⚠️ No predictions or error status:', status);
+          }
           setSuggestions([]);
         }
       }
     );
-  }, []);
+  }, [biasToLocation, searchTypes, handleGoogleMapsUrl]);
 
-  // Handle input change
+  // ESA Layer 13: Handle input change with logging
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
+    if (import.meta.env.DEV) {
+      console.log('📝 LocationInput: User typed:', newValue);
+    }
     onChange(newValue);
     searchPlaces(newValue);
   };
