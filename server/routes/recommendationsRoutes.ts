@@ -19,6 +19,7 @@ router.get('/recommendations', async (req: any, res) => {
       priceLevel,
       minRating,
       tags,
+      cuisine, // ESA Layer 26: Cuisine-based ranking parameter
       connectionDegree,
       minClosenessScore,
       localStatus,
@@ -43,6 +44,8 @@ router.get('/recommendations', async (req: any, res) => {
     if (tags) {
       baseFilters.tags = Array.isArray(tags) ? tags : [tags];
     }
+    // ESA Layer 26: Cuisine parameter triggers ranking algorithm
+    if (cuisine) baseFilters.cuisine = cuisine as string;
 
     // Get initial recommendations using base filters
     let recommendations = await storage.getRecommendationsByFilters({

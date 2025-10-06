@@ -1235,6 +1235,7 @@ export class DatabaseStorage implements IStorage {
     priceLevel?: string;
     minRating?: number;
     tags?: string[];
+    cuisine?: string; // ESA Layer 26: Cuisine filter for ranking
     limit?: number;
     offset?: number;
   }): Promise<any[]> {
@@ -1258,6 +1259,8 @@ export class DatabaseStorage implements IStorage {
         sql`${recommendations.tags} && ARRAY[${sql.join(filters.tags.map(tag => sql`${tag}`), sql`, `)}]::text[]`
       );
     }
+    // ESA Layer 26: Cuisine parameter is used for RANKING, not filtering
+    // We fetch all results and rank them based on user's country matching the cuisine
 
     const result = await db
       .select({
@@ -1278,6 +1281,14 @@ export class DatabaseStorage implements IStorage {
         rating: recommendations.rating,
         priceLevel: recommendations.priceLevel,
         tags: recommendations.tags,
+        // ESA Layer 26: Cuisine-based ranking fields
+        cuisine: recommendations.cuisine,
+        // ESA Layer 58: Google Places API integration
+        googlePlaceId: recommendations.googlePlaceId,
+        googleRating: recommendations.googleRating,
+        googleReviewCount: recommendations.googleReviewCount,
+        mtRating: recommendations.mtRating,
+        mtReviewCount: recommendations.mtReviewCount,
         whoCanView: recommendations.whoCanView,
         minimumClosenessScore: recommendations.minimumClosenessScore,
         isActive: recommendations.isActive,
@@ -1297,6 +1308,57 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(recommendations.createdAt))
       .limit(filters.limit || 20)
       .offset(filters.offset || 0);
+
+    // ESA Layer 26: Cuisine-based ranking algorithm
+    // If cuisine is specified, rank recommendations by matching user origin
+    if (filters.cuisine) {
+      const rankedResults = result.map(rec => {
+        let score = 0;
+        
+        // Base score from MT rating (0-100 scale)
+        score += (rec.mtRating || rec.rating || 0) * 20;
+        
+        // Cuisine bonus: Match user's country to cuisine origin
+        if (rec.user?.country) {
+          const userCountry = rec.user.country.toLowerCase();
+          const cuisineOrigin = filters.cuisine!.toLowerCase();
+          
+          // +10 for exact match (e.g., "Chinese" restaurant from Chinese user)
+          if (cuisineOrigin.includes(userCountry) || userCountry.includes(cuisineOrigin)) {
+            score += 10;
+          }
+          // +5 for regional match (e.g., "Asian" cuisine from any Asian country)
+          else if (
+            (cuisineOrigin.includes('asian') && ['china', 'japan', 'korea', 'thailand', 'vietnam'].some(c => userCountry.includes(c))) ||
+            (cuisineOrigin.includes('latin') && ['argentina', 'brazil', 'mexico', 'spain'].some(c => userCountry.includes(c))) ||
+            (cuisineOrigin.includes('european') && ['italy', 'france', 'spain', 'germany'].some(c => userCountry.includes(c)))
+          ) {
+            score += 5;
+          }
+        }
+        
+        // Local expertise bonus: +3 if recommender lives in the city
+        if (rec.user?.city && rec.city && rec.user.city.toLowerCase() === rec.city.toLowerCase()) {
+          score += 3;
+        }
+        
+        // Google rating bonus: +2 if Google rating is high
+        if (rec.googleRating && rec.googleRating >= 4.5) {
+          score += 2;
+        }
+        
+        // Recency bonus: +1 per day in last 30 days
+        const daysSinceCreation = Math.floor((Date.now() - new Date(rec.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+        if (daysSinceCreation <= 30) {
+          score += Math.max(0, 30 - daysSinceCreation) / 3;
+        }
+        
+        return { ...rec, rankingScore: score };
+      });
+      
+      // Sort by ranking score (highest first)
+      return rankedResults.sort((a, b) => b.rankingScore - a.rankingScore);
+    }
 
     return result;
   }
