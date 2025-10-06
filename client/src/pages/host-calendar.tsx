@@ -19,6 +19,7 @@ import {
 import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
+import { useScrollReveal } from '../utils/gsapAnimations';
 
 interface HostHome {
   id: number;
@@ -53,6 +54,11 @@ export default function HostCalendar() {
   const [, params] = useRoute('/host-calendar/:id');
   const initialHomeId = params?.id ? parseInt(params.id) : undefined;
   const [selectedHomeId, setSelectedHomeId] = useState<number | undefined>(initialHomeId);
+  
+  // GSAP scroll animations for Aurora Tide
+  useScrollReveal('.calendar-selector', { delay: 0.2 });
+  useScrollReveal('.calendar-restrictions', { delay: 0.3 });
+  useScrollReveal('.calendar-main', { delay: 0.4 });
 
   // Fetch host's properties
   const { data: homesData, isLoading: isLoadingHomes } = useQuery<{ success: boolean; homes: HostHome[] }>({
@@ -220,7 +226,7 @@ export default function HostCalendar() {
 
           {/* Property Selector */}
           <ScaleIn delay={0.05}>
-            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+            <GlassCard depth={2} className="calendar-selector mb-6 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="p-6">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                   <CalendarIcon className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
@@ -232,7 +238,7 @@ export default function HostCalendar() {
                 >
                   <SelectTrigger 
                     className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/50 dark:bg-slate-800/50" 
-                    data-testid="select-property"
+                    data-testid="select-property-calendar"
                   >
                     <SelectValue placeholder={t('housing.host_calendar.choose_property', 'Choose a property')} />
                   </SelectTrigger>
@@ -256,7 +262,7 @@ export default function HostCalendar() {
           {/* Booking Restrictions - ESA Layer 9 */}
           {selectedHomeId && (
             <ScaleIn delay={0.1}>
-              <div className="mb-6">
+              <div className="calendar-restrictions mb-6">
                 <BookingRestrictionsCard propertyId={selectedHomeId} />
               </div>
             </ScaleIn>
@@ -265,7 +271,7 @@ export default function HostCalendar() {
           {/* Calendar Component */}
           {selectedHomeId && (
             <ScaleIn delay={0.15}>
-              <div>
+              <div className="calendar-main">
                 {isLoadingAvailability ? (
                   <div className="space-y-6">
                     <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
@@ -282,10 +288,11 @@ export default function HostCalendar() {
                     blockedDates={availabilityData.data.blockedDates}
                     onUpdateBlockedDates={(blockedDates) => updateBlockedDatesMutation.mutateAsync(blockedDates)}
                     isUpdating={updateBlockedDatesMutation.isPending}
+                    data-testid={`calendar-property-${selectedHomeId}`}
                   />
                 ) : (
                   <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
-                    <p className="text-slate-600 dark:text-slate-400">
+                    <p className="text-slate-600 dark:text-slate-400" data-testid="text-calendar-error">
                       {t('housing.host_calendar.unable_to_load', 'Unable to load calendar data')}
                     </p>
                   </GlassCard>
