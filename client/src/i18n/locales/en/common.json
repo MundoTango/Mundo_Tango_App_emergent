@@ -275,7 +275,11 @@
       "min_characters": "Minimum 10 characters",
       "submitting": "Submitting...",
       "submit_review": "Submit Review",
-      "would_host_again": "I would host this guest again"
+      "would_host_again": "I would host this guest again",
+      "no_reviews": "No reviews yet. Be the first to review this property!",
+      "review": "Review",
+      "reviews": "Reviews",
+      "from_verified_guests": "From verified guests"
     }
   }
 }
