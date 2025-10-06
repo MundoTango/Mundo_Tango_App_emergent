@@ -337,6 +337,711 @@ t('housing.reviews.review_count', {
 
 ---
 
+## Developer Guides
+
+### How to Toggle Dark Mode
+
+**Location:** `client/src/contexts/theme-context.tsx`
+
+The platform uses a global `ThemeProvider` that:
+- Detects system preference on first visit
+- Persists user choice to localStorage
+- Toggles `dark` class on `<html>` element
+- Works automatically with Tailwind's `dark:` variants
+
+#### Using the useTheme Hook
+
+```tsx
+import { useTheme } from '@/contexts/theme-context';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+    </button>
+  );
+}
+```
+
+#### Hook API
+
+```typescript
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+```
+
+#### Implementation Details
+
+**Initialization Logic:**
+1. Check `localStorage` for saved preference
+2. If none, check system preference via `matchMedia('(prefers-color-scheme: dark)')`
+3. Default to `'light'` if neither exists
+
+**Persistence:**
+```typescript
+// Auto-saved to localStorage on every toggle
+localStorage.setItem('esa-theme', theme); // 'light' or 'dark'
+
+// Auto-applied to document
+document.documentElement.classList.toggle('dark', theme === 'dark');
+```
+
+#### Conditional Rendering
+
+```tsx
+function AdaptiveIcon() {
+  const { theme } = useTheme();
+  
+  return theme === 'dark' ? <MoonIcon /> : <SunIcon />;
+}
+```
+
+#### Using Tailwind Dark Variants (Recommended)
+
+```tsx
+<GlassCard className="
+  bg-white/80 dark:bg-slate-900/80
+  border-cyan-200/30 dark:border-cyan-500/30
+  text-slate-900 dark:text-white
+">
+  <h3 className="text-slate-700 dark:text-slate-300">
+    Auto-adapts to theme
+  </h3>
+</GlassCard>
+```
+
+**Key Principle:** Always provide both light and dark variants for ALL visual properties (backgrounds, text, borders, shadows).
+
+---
+
+### How to Add Translations (i18next)
+
+**Location:** `client/src/i18n/config.ts`
+
+Aurora Tide uses `react-i18next` with support for **73 languages** (6 primary: EN, ES, FR, DE, IT, PT).
+
+#### Developer Workflow
+
+**Step 1: Import Hook**
+```tsx
+import { useTranslation } from 'react-i18next';
+```
+
+**Step 2: Use in Component**
+```tsx
+function PropertyCard({ property }) {
+  const { t } = useTranslation();
+  
+  return (
+    <GlassCard>
+      <h3>{t('housing.propertyTitle', 'Property Title')}</h3>
+      <p>{t('housing.maxGuests', {
+        defaultValue: 'Sleeps {{count}} guests',
+        count: property.maxGuests
+      })}</p>
+    </GlassCard>
+  );
+}
+```
+
+#### Translation Patterns
+
+**1. Simple Text**
+```tsx
+{t('common.save', 'Save')}
+{t('common.cancel', 'Cancel')}
+```
+
+**2. With Variables**
+```tsx
+{t('housing.pricePerNight', {
+  defaultValue: '{{price}} per night',
+  price: formatCurrency(listing.price)
+})}
+```
+
+**3. Pluralization**
+```tsx
+{t('housing.bedroomCount', {
+  count: bedrooms,
+  defaultValue: '{{count}} bedroom',
+  defaultValue_plural: '{{count}} bedrooms'
+})}
+```
+
+**4. With Namespace**
+```tsx
+const { t } = useTranslation('housing');
+{t('onboarding.step1.title', 'Property Type')}
+```
+
+#### Translation Key Namespaces
+
+Organized by module in `client/src/i18n/locales/[lang]/`:
+
+- **`common.json`** - Shared UI (Save, Cancel, Loading, etc.)
+- **`housing.json`** - Housing marketplace, onboarding, bookings
+- **`social.json`** - Posts, comments, friends, groups
+- **`events.json`** - Event creation, RSVP, calendar
+- **`agents.json`** - Life CEO agents
+
+#### Supported Languages
+
+**Primary (6):** English, Spanish, French, German, Italian, Portuguese  
+**Total:** 73 languages including:
+- **RTL Support:** Arabic, Hebrew, Persian, Urdu
+- **Asian:** Chinese, Japanese, Korean, Hindi, Thai
+- **Cultural Variants:** Spanish (Argentina - Lunfardo), French (Canada), Portuguese (Brazil)
+
+#### How Language Changes Work
+
+```tsx
+import { changeLanguage } from '@/i18n/config';
+
+// User selects language
+await changeLanguage('es'); // Spanish
+
+// Auto-updates:
+// 1. All t() calls re-render with new translations
+// 2. localStorage saves preference
+// 3. Document direction updates (LTR/RTL)
+```
+
+#### Translation File Structure
+
+```json
+{
+  "housing": {
+    "propertyTitle": "Property Title",
+    "maxGuests": "Sleeps {{count}} guests",
+    "bedroomCount": "{{count}} bedroom",
+    "bedroomCount_plural": "{{count}} bedrooms"
+  }
+}
+```
+
+#### Best Practices
+
+✅ **Always provide default values** - Prevents blank UI if translation missing  
+✅ **Use semantic keys** - `housing.propertyTitle` not `housing.text1`  
+✅ **Translate everything** - Labels, buttons, placeholders, errors, tooltips  
+✅ **Test with long text** - German/French translations are 30% longer than English  
+✅ **Consider RTL** - Arabic/Hebrew reverse layout direction
+
+---
+
+### GSAP ScrollTrigger Usage
+
+**Location:** `client/src/hooks/useScrollReveal.ts`
+
+Aurora Tide uses GSAP ScrollTrigger for scroll-based animations with **memory-safe cleanup** and **accessibility support**.
+
+#### useScrollReveal Hook
+
+Animates child elements as they enter the viewport.
+
+```tsx
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+function PropertyList({ properties }) {
+  // Animate cards on scroll
+  const cardsRef = useScrollReveal('.property-card', {
+    opacity: 0,
+    y: 30,
+  }, {
+    stagger: 0.1,
+    start: 'top 85%',
+    once: true,
+    respectReducedMotion: true,
+  });
+
+  return (
+    <div ref={cardsRef}>
+      {properties.map(property => (
+        <div key={property.id} className="property-card">
+          <PropertyCard data={property} />
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+#### Hook Parameters
+
+```typescript
+useScrollReveal(
+  selector: string,           // CSS selector for child elements
+  animation: gsap.TweenVars,  // GSAP animation properties
+  options: ScrollRevealOptions // ScrollTrigger configuration
+)
+```
+
+**1. selector** - Target child elements to animate
+```tsx
+'.property-card'  // Animate all elements with this class
+'.step-indicator' // Animate step indicators
+```
+
+**2. animation** - GSAP properties (defaults: `{ opacity: 0, y: 50 }`)
+```tsx
+{ opacity: 0, y: 30 }           // Fade + slide up
+{ opacity: 0, scale: 0.95 }     // Fade + scale
+{ opacity: 0, x: -50 }          // Fade + slide from left
+```
+
+**3. options** - ScrollTrigger configuration
+```typescript
+{
+  start?: string;                // Trigger point (default: 'top 80%')
+  end?: string;                  // End point (default: 'bottom 20%')
+  stagger?: number;              // Delay between elements (default: 0.1)
+  once?: boolean;                // Animate only once (default: true)
+  respectReducedMotion?: boolean; // Honor accessibility (default: true)
+  scrub?: boolean | number;      // Scrub animation to scroll
+  markers?: boolean;             // Debug markers (dev only)
+}
+```
+
+#### Implementation Pattern
+
+1. **Attach ref to wrapper element**
+2. **Add class to child elements**
+3. **Hook finds and animates children**
+4. **Cleanup handled automatically**
+
+```tsx
+const progressRef = useScrollReveal('.progress-step', {
+  opacity: 0,
+  y: 20,
+}, {
+  stagger: 0.15,
+  start: 'top 90%',
+});
+
+<div ref={progressRef}>
+  <div className="progress-step">Step 1</div>
+  <div className="progress-step">Step 2</div>
+  <div className="progress-step">Step 3</div>
+</div>
+```
+
+#### Additional Hooks
+
+**useParallax** - Parallax scrolling effect
+```tsx
+const heroRef = useParallax('.hero-background', -100);
+
+<div ref={heroRef}>
+  <div className="hero-background">
+    {/* Moves -100px during scroll */}
+  </div>
+</div>
+```
+
+**usePinElement** - Pin element during scroll
+```tsx
+const navRef = usePinElement('.sticky-nav', {
+  start: 'top top',
+  end: 'bottom top',
+  pinSpacing: true,
+});
+
+<div ref={navRef}>
+  <nav className="sticky-nav">
+    {/* Pinned while scrolling */}
+  </nav>
+</div>
+```
+
+**useScrollProgress** - Track scroll progress
+```tsx
+const [progress, setProgress] = useState(0);
+
+const progressRef = useScrollProgress('.progress-section', {
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: (progress) => setProgress(progress * 100),
+});
+
+<div ref={progressRef} className="progress-section">
+  <ProgressBar value={progress} />
+</div>
+```
+
+#### Accessibility
+
+**Respects `prefers-reduced-motion`:**
+```tsx
+// User has motion sensitivity
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // Animations automatically disabled
+}
+```
+
+To override (not recommended):
+```tsx
+useScrollReveal('.card', animation, {
+  respectReducedMotion: false, // Force animations
+});
+```
+
+#### Memory Safety
+
+All hooks include proper cleanup:
+- Kills GSAP tweens on unmount
+- Removes ScrollTrigger instances
+- Clears timeouts
+- No memory leaks
+
+```tsx
+// Automatic cleanup
+useEffect(() => {
+  // ... create animations
+  
+  return () => {
+    tween.kill();
+    scrollTriggerInstance.kill();
+  };
+}, []);
+```
+
+#### Production Examples
+
+**HostOnboarding** - Progress indicator reveals:
+```tsx
+const progressRef = useScrollReveal('.progress-indicator', {
+  opacity: 0,
+  scale: 0.95,
+}, {
+  start: 'top 90%',
+  once: true,
+});
+```
+
+**host-bookings** - Booking cards stagger:
+```tsx
+const cardsRef = useScrollReveal('.booking-card', {
+  opacity: 0,
+  y: 30,
+}, {
+  stagger: 0.1,
+  start: 'top 85%',
+  once: true,
+});
+```
+
+---
+
+### Platform-Wide Design Cohesion
+
+Aurora Tide unifies **4 core systems** across all modules (Housing, Admin, Social, Life CEO):
+
+#### 1. Glassmorphic Components (Visual Layer)
+
+**GlassCard** with 4 depth levels - consistent across platform
+
+```tsx
+// Housing Module
+<GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <h3>Property Details</h3>
+</GlassCard>
+
+// Admin Module
+<GlassCard depth={3} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <h2>System Metrics</h2>
+</GlassCard>
+
+// Social Module
+<GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <PostCard />
+</GlassCard>
+```
+
+#### 2. MT Ocean Theme (Color System)
+
+**Cyan → Teal → Blue gradients** - works in light AND dark mode
+
+```tsx
+// Primary gradient (CTAs, headers)
+className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500"
+
+// Text gradient (headings)
+className="bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 
+           dark:from-cyan-400 dark:via-teal-400 dark:to-blue-400 
+           bg-clip-text text-transparent"
+
+// Status badges
+className="bg-gradient-to-r from-cyan-300 to-cyan-400" // Success
+className="bg-gradient-to-r from-yellow-200 to-amber-400" // Warning
+className="bg-gradient-to-r from-red-300 to-red-400" // Error
+```
+
+#### 3. Dark Mode (Theme Layer)
+
+**Global ThemeProvider** - all components use `dark:` variants
+
+```tsx
+import { useTheme } from '@/contexts/theme-context';
+
+// Auto-persisted to localStorage
+// Auto-applied to <html class="dark">
+// All Tailwind dark: variants activate
+
+<div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+  Content adapts automatically
+</div>
+```
+
+#### 4. i18next Translations (Localization Layer)
+
+**73 languages** - all text uses `t()` function
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation();
+
+<h1>{t('module.title', 'Default Title')}</h1>
+<p>{t('module.description', {
+  defaultValue: 'Value: {{value}}',
+  value: data
+})}</p>
+```
+
+---
+
+#### Cross-Module Consistency Examples
+
+**Housing Module:**
+```tsx
+<GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <h3 className="text-slate-900 dark:text-white">
+    {t('housing.myProperties', 'My Properties')}
+  </h3>
+  <PulseButton className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white">
+    {t('housing.addProperty', 'Add Property')}
+  </PulseButton>
+</GlassCard>
+```
+
+**Admin Module:**
+```tsx
+<GlassCard depth={3} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <h2 className="bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+    {t('admin.dashboard', 'Admin Dashboard')}
+  </h2>
+  <div className="text-slate-700 dark:text-slate-300">
+    {t('admin.systemHealth', 'System Health')}
+  </div>
+</GlassCard>
+```
+
+**Social Module:**
+```tsx
+<GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+  <MagneticButton onClick={handleLike}>
+    <Heart className="text-cyan-500" />
+  </MagneticButton>
+  <p className="text-slate-600 dark:text-slate-400">
+    {t('social.likes', { count, defaultValue: '{{count}} likes' })}
+  </p>
+</GlassCard>
+```
+
+---
+
+#### Design Scaffolding Standards
+
+**Standard Page Structure:**
+```tsx
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { FadeIn, StaggerContainer, ScaleIn } from '@/components/animations/FramerMotionWrappers';
+import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+export default function AuroraTidePage() {
+  const { t } = useTranslation();
+  
+  const cardsRef = useScrollReveal('.reveal-card', {
+    opacity: 0,
+    y: 30,
+  }, {
+    stagger: 0.1,
+    once: true,
+  });
+  
+  return (
+    <DashboardLayout>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
+        
+        {/* Header */}
+        <FadeIn>
+          <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+            <div className="p-6">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 dark:from-cyan-400 dark:via-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
+                {t('page.title', 'Page Title')}
+              </h1>
+              <p className="text-slate-600 dark:text-slate-400 mt-2">
+                {t('page.subtitle', 'Page subtitle')}
+              </p>
+            </div>
+          </GlassCard>
+        </FadeIn>
+        
+        {/* Content Grid */}
+        <div ref={cardsRef}>
+          <StaggerContainer staggerDelay={0.1}>
+            {items.map(item => (
+              <ScaleIn key={item.id}>
+                <GlassCard 
+                  depth={2}
+                  className="p-6 border-cyan-200/30 dark:border-cyan-500/30 reveal-card"
+                >
+                  <h3 className="text-slate-900 dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">
+                    {item.description}
+                  </p>
+                  
+                  <PulseButton className="mt-4 px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl">
+                    {t('action.view', 'View Details')}
+                  </PulseButton>
+                </GlassCard>
+              </ScaleIn>
+            ))}
+          </StaggerContainer>
+        </div>
+        
+      </div>
+    </DashboardLayout>
+  );
+}
+```
+
+---
+
+#### Component Hierarchy
+
+1. **Layout** - DashboardLayout (navigation + content area)
+2. **Animations** - FadeIn/StaggerContainer wrappers
+3. **Cards** - GlassCard with MT Ocean borders
+4. **Interactions** - MagneticButton/PulseButton for actions
+5. **Text** - Always use `dark:` variants + `t()` translations
+6. **Scroll Reveals** - useScrollReveal for viewport animations
+
+---
+
+#### Color Palette Enforcement
+
+**Backgrounds:**
+- Light: `bg-slate-50`, `bg-white`, `bg-gradient-to-br from-slate-50 to-cyan-50/30`
+- Dark: `dark:bg-slate-950`, `dark:bg-slate-900`
+
+**Text:**
+- Headings: `text-slate-900 dark:text-white`
+- Body: `text-slate-700 dark:text-slate-300`
+- Muted: `text-slate-600 dark:text-slate-400`
+- Disabled: `text-slate-400 dark:text-slate-600`
+
+**Accents (MT Ocean):**
+- Primary: `cyan-500`, `teal-500`, `blue-500`
+- Gradients: `from-cyan-500 via-teal-500 to-blue-500`
+- Borders: `border-cyan-200/30 dark:border-cyan-500/30`
+
+**Status Colors:**
+- Success: `cyan-300` → `cyan-400`
+- Warning: `yellow-200` → `amber-400`
+- Error: `red-300` → `red-400`
+
+---
+
+#### Quality Checklist
+
+Before deploying a new component, ensure:
+
+- [ ] **Uses GlassCard** (not regular Card component)
+- [ ] **Dark mode variants** on ALL visual properties (bg, text, borders, shadows)
+- [ ] **Text uses `t()` function** with default values
+- [ ] **Buttons use MagneticButton or PulseButton** (not plain Button)
+- [ ] **Follows MT Ocean gradients** (cyan/teal/blue, not pink/purple)
+- [ ] **Includes scroll animations** (if page-level component)
+- [ ] **Has `data-testid` attributes** for E2E testing
+- [ ] **Responsive design** (mobile-first Tailwind classes)
+- [ ] **Accessibility** (ARIA labels, keyboard navigation)
+
+---
+
+#### Migration from Old Patterns
+
+**Before (Old MT Ocean / Generic Styles):**
+```tsx
+<Card className="bg-white border-gray-200 shadow-md">
+  <h3 className="text-gray-900">Property Title</h3>
+  <p className="text-gray-600">Description text</p>
+  <Button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+    View Details
+  </Button>
+</Card>
+```
+
+**After (Aurora Tide):**
+```tsx
+<ScaleIn>
+  <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+    <h3 className="text-slate-900 dark:text-white">
+      {t('housing.propertyTitle', 'Property Title')}
+    </h3>
+    <p className="text-slate-600 dark:text-slate-400">
+      {t('housing.description', 'Description text')}
+    </p>
+    <PulseButton className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl">
+      {t('housing.viewDetails', 'View Details')}
+    </PulseButton>
+  </GlassCard>
+</ScaleIn>
+```
+
+**Key Changes:**
+1. ✅ `Card` → `GlassCard` with depth
+2. ✅ Pink/purple → Cyan/teal gradients
+3. ✅ Wrap with Framer Motion components
+4. ✅ Add dark mode variants to ALL properties
+5. ✅ Use MagneticButton/PulseButton
+6. ✅ Add i18next translations
+7. ✅ Include data-testids
+
+---
+
+#### Platform Modules Using Aurora Tide
+
+**Housing Platform** (100% coverage)
+- HostOnboarding, GuestOnboarding
+- HostDashboard, host-bookings, my-bookings
+- host-calendar, housing-marketplace
+- listing-detail, HostHomesList
+
+**Admin Center** (In progress)
+- AdminCenter dashboard
+- Agent metrics
+- Analytics dashboards
+
+**Social Features** (Partial)
+- GroupDetailPageMT
+- Community world map
+
+**Life CEO** (Planned)
+- Agent interfaces
+- Dashboard widgets
+
+---
+
 ## Implemented Components
 
 ### Housing Platform (All Aurora Tide)
