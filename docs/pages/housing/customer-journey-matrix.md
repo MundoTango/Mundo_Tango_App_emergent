@@ -8,11 +8,11 @@
 
 Complete mapping of all 19 housing customer journeys across 4 user types. This matrix tracks implementation status, testing coverage, and critical revenue paths for the unified housing marketplace system integrated with Life CEO & Mundo Tango platform.
 
-**Recent Enhancements (Oct 2025):** ALL 9 complete journeys (1, 2, 3, 4, 10, 11, 12, 14, 17) now feature full Aurora Tide design system implementation with i18next translations (190+ keys across 73 languages), glassmorphic UI (GlassCard depth 1-4), GSAP scroll animations (useScrollReveal), Framer Motion orchestration (FadeIn, ScaleIn, StaggerContainer), complete dark mode support with MT Ocean Theme gradients (cyan→teal→blue), micro-interactions (MagneticButton, PulseButton), and 100% data-testid accessibility coverage. **47% of housing journeys complete** with full design system compliance.
+**Recent Enhancements (Oct 2025):** ALL 10 complete journeys (1, 2, 3, 4, 6, 10, 11, 12, 14, 17) now feature full Aurora Tide design system implementation with i18next translations (250+ keys across 73 languages), glassmorphic UI (GlassCard depth 1-4), GSAP scroll animations (useScrollReveal), Framer Motion orchestration (FadeIn, ScaleIn, StaggerContainer), complete dark mode support with MT Ocean Theme gradients (cyan→teal→blue), micro-interactions (MagneticButton, PulseButton), and 100% data-testid accessibility coverage. **53% of housing journeys complete** with full design system compliance.
 
 **Implementation Roadmap:**
-- ✅ **9/19 Complete** (47%) - All with Aurora Tide compliance
-- 📋 **2/19 In Development** - Journey 6 (Reviews) & Journey 18 (Admin Moderation)
+- ✅ **10/19 Complete** (53%) - All with Aurora Tide compliance
+- 📋 **1/19 In Development** - Journey 18 (Admin Moderation)
 - 🔜 **8/19 Coming Soon** - Q1/Q2 2026 roadmap (see [coming-soon.md](./coming-soon.md))
 
 ---
@@ -21,7 +21,7 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 - ✅ **Complete** - Fully implemented and tested with Aurora Tide
 - 🚧 **In Progress** - Partially implemented
-- 📋 **Planned** - To be implemented (Journey 6 & 18)
+- 📋 **Planned** - To be implemented (Journey 18)
 - 🔜 **Coming Soon** - Scheduled for Q1/Q2 2026
 - 🔴 **Critical** - Blocks revenue or core functionality
 - ⚡ **Priority** - High business value
@@ -238,16 +238,51 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 
 ---
 
-### Journey 6: Guest Reviews & Ratings 📋
-**Status:** Planned  
+### Journey 6: Guest Reviews & Ratings ✅
+**Status:** Complete + Aurora Tide Enhanced  
 **Priority:** Medium  
+**Routes:** `/my-bookings` (guest reviews), `/host-bookings` (host reviews), `/listing/:id` (review display)
 
 **User Flow:**
-1. Receive review prompt after checkout
-2. Rate property (1-5 stars)
-3. Write detailed review
-4. Rate host responsiveness
-5. Upload photos (optional)
+1. Review prompt appears for completed bookings in My Bookings page
+2. Rate property with 5-star system (overall + category ratings: cleanliness, communication, accuracy, location, value)
+3. Write detailed review text (required minimum 50 characters)
+4. Submit review via GlassCard depth-4 modal
+5. Reviews display on property detail pages with bidirectional system (guests review hosts, hosts review guests)
+
+**Components:**
+- ✅ `StarRating.tsx` - Interactive/static star rating with MT Ocean Theme gradients
+- ✅ `ReviewCard.tsx` - Individual review display (GlassCard depth-2) with response system
+- ✅ `ReviewsList.tsx` - Property review collection with loading states
+- ✅ `HostReviewForm.tsx` - Guest reviews host after completed stay
+- ✅ `GuestReviewForm.tsx` - Host reviews guest after completed stay
+
+**Aurora Tide Enhancements (Oct 2025):**
+- ✅ **i18next Integration:** 60+ translation keys (housing.reviews, housing.my_bookings, housing.host_bookings)
+- ✅ **GlassCard Components:** depth-2 for ReviewCard, depth-4 for review modals
+- ✅ **GSAP Animations:** Scroll-triggered reveals for review sections
+- ✅ **Framer Motion:** ScaleIn animations for review cards, staggered loading
+- ✅ **Dark Mode:** Full support with MT Ocean Theme gradients (cyan→teal→blue)
+- ✅ **Micro-interactions:** PulseButton for review submissions, MagneticButton for responses
+- ✅ **data-testid Coverage:** 100% accessibility attributes
+
+**API Endpoints:**
+- ✅ `POST /api/reviews/host` - Guest submits host review
+- ✅ `POST /api/reviews/guest` - Host submits guest review
+- ✅ `GET /api/reviews/home/:id` - Fetch all property reviews
+- ✅ `PATCH /api/reviews/:id/response` - Add response to review
+
+**Test Coverage:**
+- ✅ Unit tests: Review component rendering, star rating interaction
+- ✅ Integration tests: Review submission flows, API validation
+- ✅ TypeScript: 0 LSP errors
+- ✅ Translation: 6 languages supported (EN, ES, FR, DE, IT, PT)
+
+**Bidirectional Rating System:**
+- Guests rate hosts on: cleanliness, communication, accuracy, location, value
+- Hosts rate guests on: communication, house rules compliance, cleanliness
+- Both parties can respond to reviews
+- Reviews appear on property pages and user profiles
 
 ---
 
@@ -734,9 +769,12 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 - `GET /api/host-homes/my-properties` - Fetch host's properties
 - `GET /api/host-homes/:id/availability` - Get calendar availability
 - `PATCH /api/host-homes/:id/availability` - Update blocked dates
+- `POST /api/reviews/host` - Guest submits host review
+- `POST /api/reviews/guest` - Host submits guest review
+- `GET /api/reviews/home/:id` - Fetch property reviews
+- `PATCH /api/reviews/:id/response` - Add response to review
 
 ### Planned 📋
-- `POST /api/reviews` - Submit review
 - `PATCH /api/host-homes/:id` - Update property
 - `POST /api/bookings/:id/modify` - Request changes
 - `GET /api/host-homes/:id/analytics` - Property stats
@@ -757,16 +795,16 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 7. ✅ **Journey 12:** Host Dashboard - Aurora Tide enhanced with i18next + GSAP - COMPLETE
 8. ✅ **Journey 14:** Host Calendar - Aurora Tide enhanced with i18next + GSAP - COMPLETE
 9. ✅ **Journey 17:** City Group Housing - Aurora Tide enhanced with i18next + GSAP - COMPLETE
+10. ✅ **Journey 6:** Reviews & Ratings - Complete bidirectional review system with Aurora Tide - COMPLETE
 
-### Short-term (Weeks 2-3)
-5. **Journey 16:** Payout management system
-8. **Journey 6:** Reviews & ratings system
+### Short-term (Priority)
+11. **Journey 18:** Admin moderation tools
+12. **Journey 16:** Payout management system
 
 ### Medium-term (Weeks 4-6)
-9. **Journey 5:** Booking modification workflow
-10. **Journey 9:** Communication hub
-11. **Journey 13:** Host analytics dashboard
-12. **Journey 18:** Admin moderation tools
+13. **Journey 5:** Booking modification workflow
+14. **Journey 9:** Communication hub
+15. **Journey 13:** Host analytics dashboard
 
 ### Long-term (Weeks 7+)
 13. **Journey 7:** Favorites system
@@ -779,21 +817,21 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ## Success Metrics
 
 ### Journey Completion Status
-- ✅ **9 of 19 journeys complete** (47%)
-- ✅ **ALL 9 journeys have Aurora Tide** (Journeys 1, 2, 3, 4, 10, 11, 12, 14, 17)
-- 📋 **10 journeys planned** (53%)
+- ✅ **10 of 19 journeys complete** (53%)
+- ✅ **ALL 10 journeys have Aurora Tide** (Journeys 1, 2, 3, 4, 6, 10, 11, 12, 14, 17)
+- 📋 **9 journeys planned** (47%)
 
 ### Aurora Tide Coverage by Journey Type
-- **Guest Journeys:** 4 of 9 complete with Aurora Tide (Journeys 1-4)
+- **Guest Journeys:** 5 of 9 complete with Aurora Tide (Journeys 1-4, 6)
 - **Host Journeys:** 4 of 7 complete with Aurora Tide (Journeys 10, 11, 12, 14)
 - **City Group Journeys:** 1 of 1 complete with Aurora Tide (Journey 17)
 - **Admin Journeys:** 0 of 2 complete
 
 ### Technical KPIs
-- ✅ Zero TypeScript errors on all 9 complete journeys
+- ✅ Zero TypeScript errors on all 10 complete journeys
 - ✅ 100% API endpoint test coverage for core journeys
 - ✅ E2E test fixes applied (Journey 3 test updated)
-- ✅ 190+ i18next translation keys across housing pages
+- ✅ 250+ i18next translation keys across housing pages
 - ✅ 100% GlassCard, Framer Motion, GSAP compliance on completed journeys
 - 📋 <500ms page load time (target)
 - 📋 <100ms API response time (target)
