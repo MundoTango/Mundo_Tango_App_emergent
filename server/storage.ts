@@ -1259,8 +1259,10 @@ export class DatabaseStorage implements IStorage {
         sql`${recommendations.tags} && ARRAY[${sql.join(filters.tags.map(tag => sql`${tag}`), sql`, `)}]::text[]`
       );
     }
-    // ESA Layer 26: Cuisine parameter is used for RANKING, not filtering
-    // We fetch all results and rank them based on user's country matching the cuisine
+    // ESA Layer 26: Cuisine filter - match exact cuisine when specified
+    if (filters.cuisine) {
+      conditions.push(eq(recommendations.cuisine, filters.cuisine));
+    }
 
     const result = await db
       .select({
