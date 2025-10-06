@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { MapPin, Loader, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useLocationBias } from '@/contexts/LocationBiasContext';
 
 type LocationDetails = {
   name: string;
@@ -60,6 +61,7 @@ export default function UnifiedLocationPicker({
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   const { toast } = useToast();
+  const { userLocation, locationCity, locationCountry } = useLocationBias();
 
   const validateCoordinates = (coords: any): boolean => {
     if (!coords) return false;
@@ -183,16 +185,45 @@ export default function UnifiedLocationPicker({
 
     setIsSearching(true);
 
-    // ESA Layer 13: Real OpenStreetMap Nominatim API search (free, no API key)
+    // ESA Layer 15: Smart location-biased search using user's current location
     try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&addressdetails=1`,
-        {
-          headers: {
-            'User-Agent': 'MundoTangoApp/1.0'
-          }
+      // Use detected user location for bias, fall back to prop bias
+      const effectiveBias = userLocation || biasToLocation;
+      
+      // Build API URL with location bias
+      let apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&addressdetails=1`;
+      
+      // Add viewbox if we have a valid location (prioritizes nearby results)
+      if (effectiveBias && validateCoordinates(effectiveBias)) {
+        // Create ~50km radius viewbox around user location
+        // 1 degree ≈ 111km, so 0.45° ≈ 50km
+        const latOffset = 0.45;
+        const lngOffset = 0.6; // Adjusted for latitude distortion
+        
+        const minLng = effectiveBias.lng - lngOffset;
+        const maxLng = effectiveBias.lng + lngOffset;
+        const minLat = effectiveBias.lat - latOffset;
+        const maxLat = effectiveBias.lat + latOffset;
+        
+        // viewbox format: minLng,minLat,maxLng,maxLat
+        apiUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}`;
+        // bounded=0 means "prefer this area but show global results too"
+        apiUrl += `&bounded=0`;
+        
+        if (import.meta.env.DEV) {
+          const locationSource = userLocation ? 'detected' : 'prop';
+          const cityInfo = locationCity ? ` (${locationCity}, ${locationCountry})` : '';
+          console.log(`🗺️ Using ${locationSource} location bias${cityInfo}:`, effectiveBias);
         }
-      );
+      } else if (import.meta.env.DEV) {
+        console.log('🌍 No location bias - global search');
+      }
+
+      const response = await fetch(apiUrl, {
+        headers: {
+          'User-Agent': 'MundoTangoApp/1.0'
+        }
+      });
 
       if (!response.ok) {
         throw new Error(`OSM API error: ${response.status}`);
@@ -227,7 +258,7 @@ export default function UnifiedLocationPicker({
     } finally {
       setIsSearching(false);
     }
-  }, [strategy]);
+  }, [strategy, userLocation, locationCity, locationCountry, biasToLocation, validateCoordinates]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
