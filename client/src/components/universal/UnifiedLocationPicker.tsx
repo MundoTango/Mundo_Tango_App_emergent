@@ -103,43 +103,14 @@ export default function UnifiedLocationPicker({
   }, []);
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    
-    if (!apiKey || apiKey.length === 0) {
-      if (import.meta.env.DEV) {
-        console.log('🌍 UnifiedLocationPicker: Using OpenStreetMap (no Google API key)');
-      }
-      setStrategy('osm');
-      setInitState('ready');
-      return;
-    }
-
+    // ESA Layer 13: Force OSM mode due to Google Maps API key issues
+    // Google Maps deprecated AutocompleteService (March 2025) and has InvalidKeyMapError
     if (import.meta.env.DEV) {
-      console.log('🗺️ UnifiedLocationPicker: Initializing Google Maps...');
+      console.log('🌍 UnifiedLocationPicker: Using OpenStreetMap Nominatim API (free, no API key required)');
     }
-    setInitState('loading');
-
-    loadGoogleMapsScript()
-      .then(() => {
-        const google = (window as any).google;
-        autocompleteServiceRef.current = new google.maps.places.AutocompleteService();
-        
-        const div = document.createElement('div');
-        placesServiceRef.current = new google.maps.places.PlacesService(div);
-        
-        setStrategy('google');
-        setInitState('ready');
-        
-        if (import.meta.env.DEV) {
-          console.log('✅ UnifiedLocationPicker: Google Maps ready');
-        }
-      })
-      .catch((error) => {
-        console.warn('⚠️ UnifiedLocationPicker: Google Maps failed, falling back to OSM', error);
-        setStrategy('osm');
-        setInitState('ready');
-      });
-  }, [loadGoogleMapsScript]);
+    setStrategy('osm');
+    setInitState('ready');
+  }, []);
 
   const searchGooglePlaces = useCallback(async (query: string) => {
     if (!autocompleteServiceRef.current || strategy !== 'google') return;
@@ -212,24 +183,50 @@ export default function UnifiedLocationPicker({
 
     setIsSearching(true);
 
-    const commonLocations = [
-      'La Viruta Tango Club, Buenos Aires',
-      'Salón Canning, Buenos Aires',
-      'La Catedral Club, Buenos Aires',
-      'Milonga Parakultural, Buenos Aires',
-      'Centro Cultural Torquato Tasso, Buenos Aires',
-      'Confitería Ideal, Buenos Aires',
-      'El Beso Milonga, Buenos Aires',
-      'Plaza Dorrego, San Telmo, Buenos Aires'
-    ];
+    // ESA Layer 13: Real OpenStreetMap Nominatim API search (free, no API key)
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&addressdetails=1`,
+        {
+          headers: {
+            'User-Agent': 'MundoTangoApp/1.0'
+          }
+        }
+      );
 
-    const filtered = commonLocations.filter(loc =>
-      loc.toLowerCase().includes(query.toLowerCase())
-    );
+      if (!response.ok) {
+        throw new Error(`OSM API error: ${response.status}`);
+      }
 
-    setSuggestions(filtered.map(loc => ({ description: loc, isOSM: true })));
-    setShowSuggestions(filtered.length > 0);
-    setIsSearching(false);
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const osmSuggestions = data.map((place: any) => ({
+          description: place.display_name,
+          isOSM: true,
+          lat: place.lat,
+          lon: place.lon,
+          place_id: place.place_id,
+          address: place.address
+        }));
+
+        setSuggestions(osmSuggestions);
+        setShowSuggestions(true);
+
+        if (import.meta.env.DEV) {
+          console.log('✅ Found', osmSuggestions.length, 'OpenStreetMap suggestions');
+        }
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    } catch (error) {
+      console.error('❌ OpenStreetMap search error:', error);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    } finally {
+      setIsSearching(false);
+    }
   }, [strategy]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -287,36 +284,33 @@ export default function UnifiedLocationPicker({
     });
   }, [onChange, showBusinessDetails, toast]);
 
-  const selectOSMPlace = useCallback(async (location: string) => {
-    onChange(location);
+  const selectOSMPlace = useCallback((suggestion: any) => {
+    const location = suggestion.description;
+    const coords = suggestion.lat && suggestion.lon ? {
+      lat: parseFloat(suggestion.lat),
+      lng: parseFloat(suggestion.lon)
+    } : undefined;
+
+    const details: LocationDetails = {
+      name: suggestion.address?.name || location.split(',')[0],
+      address: location,
+      coordinates: coords,
+      city: suggestion.address?.city || suggestion.address?.town || suggestion.address?.village,
+      state: suggestion.address?.state,
+      country: suggestion.address?.country
+    };
+
+    onChange(location, coords, details);
     setShowSuggestions(false);
 
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}&limit=1`
-      );
-      const data = await response.json();
-
-      if (data && data[0]) {
-        const coords = {
-          lat: parseFloat(data[0].lat),
-          lng: parseFloat(data[0].lon)
-        };
-
-        onChange(location, coords, {
-          name: location,
-          address: data[0].display_name || location,
-          coordinates: coords
-        });
-      }
-    } catch (error) {
-      console.error('OSM geocoding error:', error);
+    if (import.meta.env.DEV) {
+      console.log('📍 Selected OSM location:', details);
     }
   }, [onChange]);
 
   const handleSuggestionClick = (suggestion: any) => {
     if (suggestion.isOSM) {
-      selectOSMPlace(suggestion.description);
+      selectOSMPlace(suggestion);
     } else {
       selectGooglePlace(suggestion);
     }
