@@ -57,12 +57,26 @@ export function StarRating({
             <Star
               className={cn(
                 sizeClasses[size],
-                "transition-colors",
+                "transition-all duration-300",
                 value <= rating
-                  ? "fill-cyan-500 text-cyan-500 dark:fill-cyan-400 dark:text-cyan-400"
+                  ? "fill-gradient-ocean text-cyan-500 dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]"
                   : "fill-slate-200 text-slate-300 dark:fill-slate-700 dark:text-slate-600"
               )}
+              style={value <= rating ? {
+                fill: "url(#ocean-gradient)"
+              } : undefined}
             />
+            {value === 1 && value <= rating && (
+              <svg width="0" height="0" className="absolute">
+                <defs>
+                  <linearGradient id="ocean-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgb(20, 184, 166)" />
+                    <stop offset="50%" stopColor="rgb(6, 182, 212)" />
+                    <stop offset="100%" stopColor="rgb(59, 130, 246)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            )}
           </button>
         ))}
         {showLabel && (

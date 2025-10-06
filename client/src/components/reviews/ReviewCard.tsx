@@ -32,11 +32,11 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
   const submitResponseMutation = useMutation({
     mutationFn: async (response: string) => {
       const endpoint = isHostReview
-        ? `/api/host-reviews/${review.id}/response`
-        : `/api/guest-reviews/${review.id}/response`;
+        ? `/api/reviews/host/${review.id}/response`
+        : `/api/reviews/guest/${review.id}/response`;
 
       return apiRequest(endpoint, {
-        method: "POST",
+        method: "PATCH",
         body: JSON.stringify({ response }),
       });
     },
@@ -47,8 +47,8 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
       });
       setShowResponseForm(false);
       setResponseText("");
-      queryClient.invalidateQueries({ queryKey: ["/api/host-homes"] });
-      queryClient.invalidateQueries({ queryKey: ["/api/users"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
     },
     onError: (error: any) => {
       toast({
