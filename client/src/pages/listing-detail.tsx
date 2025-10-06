@@ -75,6 +75,7 @@ interface HostHome {
   lat: number | null;
   lng: number | null;
   photos: string[];
+  mediaOrder?: string[];
   amenities: string[];
   maxGuests: number;
   pricePerNight: number;
@@ -155,11 +156,11 @@ export default function ListingDetail() {
   });
 
   // Check booking eligibility
-  const checkEligibilityMutation = useMutation({
+  const checkEligibilityMutation = useMutation<{ eligible: boolean; reason?: string }>({
     mutationFn: async () => {
       return await apiRequest(`/api/host-homes/${id}/check-booking-eligibility`, {
         method: 'POST',
-      });
+      }) as unknown as { eligible: boolean; reason?: string };
     },
   });
 
@@ -522,7 +523,7 @@ export default function ListingDetail() {
 
             {/* Thumbnail Grid */}
             <div className="grid grid-cols-4 md:grid-cols-1 gap-2">
-              {orderedMedia && orderedMedia.slice(1, 5).map((media, idx) => {
+              {orderedMedia && orderedMedia.slice(1, 5).map((media: string, idx: number) => {
                 const isThumbVideo = isVideoUrl(media);
                 return (
                   <div
@@ -833,8 +834,8 @@ export default function ListingDetail() {
             <DialogHeader>
               <div className="flex items-center gap-3 mb-2">
                 <DialogTitle className="text-slate-900 dark:text-white">Request to Book</DialogTitle>
-                {connectionData?.data && (
-                  <ConnectionBadge connectionDegree={connectionData.data.connectionDegree} />
+                {connectionData && connectionData.connectionDegree !== null && (
+                  <ConnectionBadge connectionDegree={connectionData.connectionDegree} />
                 )}
               </div>
               <DialogDescription className="text-slate-600 dark:text-slate-400">
@@ -844,25 +845,25 @@ export default function ListingDetail() {
           </FadeIn>
 
           {/* Friendship Eligibility Status - Aurora Tide */}
-          {connectionData?.data && (
+          {connectionData && (
             <ScaleIn delay={0.1}>
               <GlassCard depth={2} className="mb-4 p-4 border-cyan-200/40 dark:border-cyan-500/40 bg-gradient-to-r from-cyan-50/80 to-blue-50/80 dark:from-cyan-950/30 dark:to-blue-950/30">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 mt-1">
-                    {connectionData.data.connectionDegree >= 1 ? (
+                    {connectionData.connectionDegree !== null && connectionData.connectionDegree >= 1 ? (
                       <span className="text-2xl">✅</span>
                     ) : (
                       <span className="text-2xl">ℹ️</span>
                     )}
                   </div>
                   <div className="flex-1">
-                    {connectionData.data.connectionDegree >= 1 ? (
+                    {connectionData.connectionDegree !== null && connectionData.connectionDegree >= 1 ? (
                       <div>
                         <p className="font-semibold text-cyan-900 dark:text-cyan-100">
-                          You're connected! {getConnectionLabel(connectionData.data.connectionDegree as -1 | 1 | 2 | 3)}
+                          You're connected! {getConnectionLabel(connectionData.connectionDegree as -1 | 1 | 2 | 3)}
                         </p>
                         <p className="text-sm text-cyan-800 dark:text-cyan-300 mt-1">
-                          Your friendship score: {connectionData.data.closenessScore}/100
+                          Your friendship score: {connectionData.closenessScore}/100
                         </p>
                       </div>
                     ) : (
