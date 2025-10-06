@@ -1,383 +1,280 @@
-# Recommendations System - Treasure Map Explorer 🗺️
+# City Group Recommendations System
 
 ## Overview
-The recommendations system in ESA LIFE CEO allows users to share valuable content with their local community through an adventure-themed "Treasure Map Explorer" interface. Users can mark their favorite locations (restaurants, cafes, hotels, venues) with integrated location search, price ranges, and automatic cross-posting to city-based groups. This feature is powered by ESA Layer 57 (Automation Management) and integrates with the Beautiful Post Creator.
 
-**Design Theme**: Vintage map aesthetics with compass rose animations, treasure-themed language, and warm amber/brown color palette.
+The **User-Generated Recommendations** system enables community members to share and discover local gems (restaurants, cafes, hotels, venues) within their city groups. Built with Aurora Tide Design System principles, it features glassmorphic effects, MT Ocean Theme gradients, and seamless dark mode support.
 
-## How It Works
+## Architecture
 
-### 1. User Opens Treasure Map Explorer
-When creating a post using the BeautifulPostCreator component:
-- User writes their content (with @mention support)
-- Sets privacy level (public/friends/private)
-- **Clicks "🗺️ Discover Hidden Gems" button** (treasure map opens with animation)
-- Selects recommendation metadata:
-  - **💎 Treasure Type**: Restaurant (Dining Hall), Cafe (Cozy Tavern), Hotel (Inn & Lodge), or Venue (Grand Ballroom)
-  - **💰 Treasure Value**: Budget ($), Moderate ($$), or Luxury ($$$)
-  - **📍 Location**: Uses integrated Google Maps Places API search
-- Location search field appears **inside** the treasure map dropdown
-- Submits the post with recommendation metadata
+### System Type
+**User-Generated Recommendations** (Phase 1)
+- Members manually create recommendations through the PostCreator UI
+- Community-driven content with photos, descriptions, and ratings
+- City-specific filtering and categorization
+- Future: AI-powered recommendation engine (Phase 2 - see `coming-soon.md`)
 
-### 2. Automatic City Group Detection
-The system automatically:
-- Identifies user's city from their profile
-- Finds the corresponding city group
-- Validates user's membership in the group
-- Prepares for cross-posting
+### Technology Stack
+- **Frontend**: React + Aurora Tide Design System
+- **Backend**: Express.js REST API
+- **Database**: PostgreSQL via Drizzle ORM
+- **Design**: Glassmorphic components, MT Ocean gradients
+- **Geocoding**: OpenStreetMap Nominatim API
 
-### 3. Cross-Posting Process
-When `isRecommendation` is true:
-```javascript
-// In server/routes/postsRoutes.ts
-if (isRecommendation && user.city) {
-  const cityGroup = await storage.getGroupByCity(user.city);
-  if (cityGroup) {
-    await storage.createGroupPost({
-      groupId: cityGroup.id,
-      userId: post.userId,
-      content: `📍 Local Recommendation\n\n${post.content}`,
-      isRecommendation: true,
-      originalPostId: post.id
-    });
-  }
-}
-```
+## Database Schema
 
-## Implementation Details
-
-### Frontend Component
-
-#### Treasure Map Explorer UI
-```jsx
-function BeautifulPostCreator() {
-  const [isRecommendation, setIsRecommendation] = useState(false);
-  const [recommendationType, setRecommendationType] = useState('');
-  const [priceRange, setPriceRange] = useState('');
-  const [location, setLocation] = useState('');
-  
-  return (
-    <div className="post-creator">
-      {/* Content input */}
-      <SimpleMentionsInput {...props} />
-      
-      {/* Treasure Map Explorer Toggle */}
-      <button
-        onClick={() => setIsRecommendation(!isRecommendation)}
-        className="treasure-map-toggle"
-      >
-        <CompassRoseIcon className={isRecommendation ? 'rotate-0' : 'rotate-180'} />
-        <div>
-          <span>🗺️ Discover Hidden Gems</span>
-          <span className="subtitle">Share your treasure map with the community</span>
-        </div>
-      </button>
-      
-      {/* Expanded Treasure Map */}
-      {isRecommendation && (
-        <div className="treasure-map-container">
-          <header className="compass-header">
-            <CompassIcon className="animate-spin-slow" />
-            MARK YOUR TREASURE
-          </header>
-          
-          {/* Treasure Type */}
-          <select value={recommendationType} onChange={e => setRecommendationType(e.target.value)}>
-            <option value="">Choose your treasure type...</option>
-            <option value="restaurant">🍽️ Dining Hall</option>
-            <option value="cafe">☕ Cozy Tavern</option>
-            <option value="hotel">🏨 Inn & Lodge</option>
-            <option value="venue">💃 Grand Ballroom</option>
-          </select>
-          
-          {/* Treasure Value */}
-          <div className="price-range-buttons">
-            {['$', '$$', '$$$'].map(price => (
-              <button 
-                key={price}
-                onClick={() => setPriceRange(price)}
-                className={priceRange === price ? 'selected' : ''}
-              >
-                {price}
-                <span>{price === '$' ? '⭐ Budget' : price === '$$' ? '⭐⭐ Moderate' : '⭐⭐⭐ Luxury'}</span>
-              </button>
-            ))}
-          </div>
-          
-          {/* Location Search - INTEGRATED INSIDE */}
-          <LocationInput
-            value={location}
-            onChange={(loc, coords, details) => {
-              setLocation(loc);
-              setLocationCoords(coords);
-            }}
-            placeholder="🔍 Search for your hidden gem..."
-            biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
-            showBusinessDetails={true}
-          />
-          
-          {location && (
-            <div className="treasure-confirmation">
-              <MapPin className="animate-bounce" />
-              Treasure marked: {location}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-```
-
-#### Unified LocationInput Component
-The treasure map uses the new unified `LocationInput` component:
-
-**Features:**
-- Intelligent Google Maps API detection
-- Automatic fallback to SimplifiedLocationInput
-- Consistent interface across all location inputs
-- Business details support (ratings, price levels)
-- Place ID and coordinates extraction
-
-**Implementation:**
 ```typescript
-// client/src/components/universal/LocationInput.tsx
-export default function LocationInput(props: LocationInputProps) {
-  const [googleMapsAvailable, setGoogleMapsAvailable] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    setGoogleMapsAvailable(!!apiKey && apiKey.length > 0);
-  }, []);
-
-  // Auto-select primary or fallback
-  return googleMapsAvailable ? (
-    <GoogleMapsLocationInput {...props} />
-  ) : (
-    <SimplifiedLocationInput {...props} />
-  );
-}
+// shared/schema.ts
+export const recommendations = pgTable('recommendations', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id).notNull(),
+  postId: integer('post_id').references(() => posts.id),
+  groupId: integer('group_id').references(() => groups.id),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description').notNull(),
+  type: varchar('type', { length: 50 }).notNull(), // restaurant, cafe, hotel, venue
+  address: text('address'),
+  city: varchar('city', { length: 100 }).notNull(),
+  state: varchar('state', { length: 100 }),
+  country: varchar('country', { length: 100 }).notNull(),
+  lat: real('lat'),
+  lng: real('lng'),
+  photos: text('photos').array(),
+  rating: integer('rating'), // 1-5 stars
+  tags: text('tags').array(),
+  isActive: boolean('is_active').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
 ```
-
-### Backend Processing
-
-#### Database Schema
-The posts table includes:
-```sql
-isRecommendation BOOLEAN DEFAULT FALSE
-originalPostId INTEGER REFERENCES posts(id)
-recommendationScore INTEGER DEFAULT 0
-```
-
-#### Storage Layer Methods
-```typescript
-// Get city-based group
-async getGroupByCity(city: string) {
-  return await db
-    .select()
-    .from(groups)
-    .where(
-      and(
-        eq(groups.type, 'city'),
-        eq(groups.city, city)
-      )
-    )
-    .limit(1);
-}
-
-// Create group recommendation
-async createGroupPost(data: GroupPost) {
-  const post = await db.insert(groupPosts).values({
-    ...data,
-    type: 'recommendation',
-    createdAt: new Date()
-  }).returning();
-  
-  // Notify group members
-  await this.notifyGroupMembers(data.groupId, post.id);
-  
-  return post;
-}
-```
-
-## Recommendation Types
-
-### 1. Local Business
-- Restaurants, cafes, shops
-- Service providers
-- Entertainment venues
-- Format: Name, address, why recommended
-
-### 2. Events & Activities
-- Concerts, shows, exhibitions
-- Meetups and gatherings
-- Sports and recreation
-- Format: Event name, date, location, details
-
-### 3. Travel Tips
-- Hidden gems in the city
-- Best times to visit places
-- Local customs and etiquette
-- Format: Tip category, detailed advice
-
-### 4. Professional Services
-- Doctors, lawyers, accountants
-- Repair services
-- Educational resources
-- Format: Service type, contact, experience
-
-## Visibility Rules
-
-### Original Post Privacy
-- Maintains its original privacy setting
-- Visible according to standard privacy rules
-- Can be public, friends-only, or private
-
-### City Group Recommendation
-- Always visible to city group members
-- Inherits group visibility settings
-- Shows original poster's name
-- Links back to original post (if accessible)
-
-## Scoring System
-
-### Recommendation Score Calculation
-```typescript
-function calculateRecommendationScore(post) {
-  let score = 0;
-  
-  // Engagement metrics
-  score += post.likes * 2;
-  score += post.comments * 3;
-  score += post.shares * 5;
-  
-  // Quality indicators
-  if (post.hasImages) score += 10;
-  if (post.hasLocation) score += 15;
-  if (post.verified) score += 20;
-  
-  // Time decay
-  const daysSincePost = (Date.now() - post.createdAt) / (1000 * 60 * 60 * 24);
-  score *= Math.exp(-daysSincePost / 30); // 30-day half-life
-  
-  return Math.round(score);
-}
-```
-
-### Ranking in City Groups
-Recommendations are sorted by:
-1. Recommendation score (highest first)
-2. Recency (for equal scores)
-3. User reputation in group
-
-## Automation Features
-
-### Auto-Tagging
-Recommendations are automatically tagged based on content:
-- #food #restaurant for dining recommendations
-- #event #culture for cultural activities
-- #service #professional for services
-- #tip #local for general advice
-
-### Smart Notifications
-Group members receive notifications based on:
-- Notification preferences
-- Interest matching
-- Previous engagement with similar content
-- Time of day preferences
-
-### Duplicate Detection
-System prevents duplicate recommendations:
-- Checks for similar content in last 7 days
-- Uses fuzzy matching (80% similarity threshold)
-- Warns user before posting duplicate
-
-## Analytics and Insights
-
-### Metrics Tracked
-- Total recommendations per city
-- Engagement rate on recommendations
-- Most recommended categories
-- Top recommenders per city
-- Recommendation conversion rate
-
-### User Dashboard
-Shows personal recommendation stats:
-- Number of recommendations made
-- Total engagement received
-- Most successful recommendations
-- Recommendation score trend
-
-## Moderation
-
-### Community Moderation
-- Users can flag inappropriate recommendations
-- Group moderators review flagged content
-- Repeated violations lead to recommendation privileges suspension
-
-### Quality Control
-- Minimum account age (7 days) to make recommendations
-- Verified phone number required
-- Rate limiting (max 5 recommendations per day)
 
 ## API Endpoints
 
-### Create Recommendation
-```
-POST /api/posts
+### Base Path: `/api/recommendations`
+
+#### GET `/api/recommendations`
+Fetch recommendations with optional filters
+
+**Query Parameters:**
+- `city` (string, optional): Filter by city name
+- `type` (string, optional): Filter by category (restaurant, cafe, hotel, venue)
+- `limit` (number, optional): Results per page (default: 20)
+- `offset` (number, optional): Pagination offset (default: 0)
+
+**Response:**
+```json
 {
-  "content": "Great coffee at Café Luna!",
-  "privacy": "public",
-  "isRecommendation": true,
-  "location": { "lat": -34.603, "lng": -58.381 },
-  "tags": ["coffee", "cafe", "breakfast"]
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "userId": 42,
+      "title": "La Esquina Tango Cafe",
+      "description": "Amazing coffee and traditional Argentine pastries",
+      "type": "cafe",
+      "address": "123 Corrientes Ave",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "photos": ["https://example.com/photo1.jpg"],
+      "rating": 5,
+      "tags": ["coffee", "pastries", "tango"],
+      "user": {
+        "id": 42,
+        "name": "Maria Rodriguez",
+        "username": "maria_tango",
+        "profileImage": "https://example.com/avatar.jpg"
+      }
+    }
+  ]
 }
 ```
 
-### Get City Recommendations
-```
-GET /api/recommendations/city/:cityId
-?category=food
-&sort=score
-&limit=20
-```
+#### GET `/api/recommendations/:id`
+Get single recommendation by ID
 
-### Vote on Recommendation
-```
-POST /api/recommendations/:id/vote
+#### GET `/api/recommendations/user/:userId`
+Get all recommendations by a specific user
+
+#### POST `/api/recommendations`
+Create new recommendation (requires authentication)
+
+**Request Body:**
+```json
 {
-  "helpful": true
+  "title": "La Esquina Tango Cafe",
+  "description": "Amazing coffee and pastries near the milonga",
+  "type": "cafe",
+  "address": "123 Corrientes Ave",
+  "city": "Buenos Aires",
+  "state": "CABA",
+  "country": "Argentina",
+  "lat": -34.6037,
+  "lng": -58.3816,
+  "photos": ["https://example.com/photo.jpg"],
+  "rating": 5,
+  "tags": ["coffee", "pastries", "tango"]
 }
 ```
 
-## Best Practices
+#### PATCH `/api/recommendations/:id`
+Update recommendation (requires ownership)
 
-### For Users
-1. Include specific details (address, hours, prices)
-2. Add photos when possible
-3. Explain why you recommend it
-4. Update if information changes
-5. Respond to questions in comments
+#### DELETE `/api/recommendations/:id`
+Soft-delete recommendation (requires ownership)
 
-### For Developers
-1. Cache city group lookups
-2. Batch notification sending
-3. Use async processing for cross-posting
-4. Implement retry logic for failed posts
-5. Monitor recommendation quality metrics
+## Frontend Components
 
-## Testing Checklist
-- [ ] Recommendation toggle appears in post creator
-- [ ] Cross-posting to city group works
-- [ ] Original post privacy is maintained
-- [ ] Notifications sent to group members
-- [ ] Duplicate detection prevents spam
-- [ ] Scoring system ranks appropriately
-- [ ] Analytics track all metrics
-- [ ] Moderation tools function correctly
+### PostCreator Integration
+
+The recommendation UI is embedded in the universal `PostCreator` component, activated by clicking the recommendation icon (🗺️ or 📍).
+
+**Aurora Tide Design Features:**
+- **Glassmorphic Container**: `backdrop-blur-xl` with gradient overlays
+- **MT Ocean Gradients**: Turquoise (#5EEAD4) → Cyan (#14B8A6) → Teal (#0D9488) → Blue (#155E75)
+- **Dark Mode**: Full support with `dark:` variant classes
+- **Smooth Animations**: `animate-in slide-in-from-top-4` for panel expansion
+- **Micro-interactions**: Hover effects on buttons, scale transforms
+
+**Category Selection:**
+```tsx
+<select data-testid="select-recommendation-type">
+  <option value="restaurant">🍽️ Restaurant</option>
+  <option value="cafe">☕ Cafe</option>
+  <option value="hotel">🏨 Hotel</option>
+  <option value="venue">💃 Venue</option>
+</select>
+```
+
+**Price Range Buttons:**
+- Budget ($): Light glassmorphic button
+- Moderate ($$): Mid-tier glassmorphic button
+- Luxury ($$$): Premium glassmorphic button
+- Selected state: Full MT Ocean gradient with enhanced shadow
+
+**Location Input:**
+- Integrates with `LocationInput` component
+- Auto-geocoding via OpenStreetMap Nominatim
+- Visual confirmation badge with glassmorphic styling
+
+## Storage Methods
+
+```typescript
+// server/storage.ts
+interface IStorage {
+  createRecommendation(data: RecommendationData): Promise<Recommendation>;
+  getRecommendationById(id: number): Promise<Recommendation | null>;
+  getRecommendationsByCity(city: string, limit?: number, offset?: number): Promise<Recommendation[]>;
+  getRecommendationsByType(type: string, city?: string, limit?: number, offset?: number): Promise<Recommendation[]>;
+  getRecommendationsByUser(userId: number, limit?: number, offset?: number): Promise<Recommendation[]>;
+  updateRecommendation(id: number, data: Partial<Recommendation>): Promise<Recommendation>;
+  deleteRecommendation(id: number): Promise<void>; // Soft delete
+}
+```
+
+## User Experience Flow
+
+### Creating a Recommendation
+
+1. **Open PostCreator**: User clicks "What's on your mind?" or "New Post"
+2. **Enable Recommendations**: Click recommendation icon (🗺️/📍) in toolbar
+3. **Glassmorphic Panel Expands**: Aurora Tide styled panel slides in
+4. **Fill Details**:
+   - Select category (Restaurant/Cafe/Hotel/Venue)
+   - Choose price range ($/$$/$$$$)
+   - Search and select location
+   - Add optional description and photos
+5. **Submit**: Creates recommendation + post (if text/media included)
+
+### Viewing Recommendations
+
+**Display Components (To Be Implemented - Task #2):**
+- `RecommendationCard`: Individual recommendation with glassmorphic design
+- `RecommendationFeed`: Grid/list view with filters
+- `RecommendationMap`: Interactive map showing all recommendations
+
+**Filtering Options:**
+- By city (dropdown or map selection)
+- By category (restaurant, cafe, hotel, venue)
+- By price range ($, $$, $$$)
+- By tags (autocomplete)
+
+## Design System Integration
+
+### Color Palette (MT Ocean Theme)
+- Primary: Turquoise-500 (#14B8A6)
+- Secondary: Cyan-500 (#06B6D4)
+- Accent: Teal-500 (#0D9488)
+- Deep: Blue-800 (#155E75)
+
+### Glassmorphic Effects
+```css
+.recommendation-panel {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.15), rgba(20, 184, 166, 0.10));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+```
+
+### Dark Mode Support
+All components use dual theming:
+```tsx
+className="text-gray-800 dark:text-gray-200"
+className="border-turquoise-300/40 dark:border-cyan-500/30"
+className="from-turquoise-700 dark:from-turquoise-300"
+```
+
+## Testing
+
+### E2E Test Coverage
+- Recommendation creation flow (PostCreator)
+- Category selection validation
+- Price range selection
+- Location autocomplete
+- Database storage verification
+- API endpoint responses
+
+### Test IDs
+```tsx
+data-testid="select-recommendation-type"
+data-testid="button-price-$"
+data-testid="button-price-$$"
+data-testid="button-price-$$$"
+```
+
+## Future Enhancements
+
+### Phase 2: AI-Powered Recommendations (Coming Soon)
+- Personalized suggestions based on user preferences
+- Machine learning recommendation engine
+- Collaborative filtering
+- Sentiment analysis of reviews
+- See `docs/pages/housing/coming-soon.md` for details
+
+### Additional Features
+- User reviews and ratings
+- Bookmark/favorite system
+- Social sharing
+- Recommendation analytics
+- Map clustering for dense areas
+- Multi-language support via i18next
+
+## Migration Notes
+
+### From Treasure Map Theme → Aurora Tide
+**What Changed:**
+- ❌ Removed: Vintage paper texture, compass rose, amber gradients, decorative corners
+- ✅ Added: Glassmorphic panels, MT Ocean gradients, modern terminology
+- ✅ Standardized: "Restaurant", "Cafe", "Hotel", "Venue" (not "Dining Hall", "Cozy Tavern")
+- ✅ Enhanced: Dark mode support, accessibility, semantic HTML
+
+**Breaking Changes:**
+- None (database schema unchanged)
+- UI only - all APIs remain compatible
 
 ## Related Documentation
-- [BeautifulPostCreator](../content/components/BeautifulPostCreator.md)
-- [Privacy Filtering](./privacy-filtering.md)
-- [City Groups](./groups.md)
-- [ESA Layer 57](../esa-layers/layer-57-automation.md)
+- [Aurora Tide Design System](../design-systems/aurora-tide.md)
+- [PostCreator Component](../../client/src/components/universal/PostCreator.tsx)
+- [Coming Soon Features](../housing/coming-soon.md)
+- [City Groups Architecture](../social/city-groups.md)
