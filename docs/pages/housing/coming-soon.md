@@ -1,12 +1,49 @@
-# Housing Marketplace - Coming Soon Features
+# Platform Coming Soon Features
 
 **Last Updated:** October 6, 2025  
-**Status:** Roadmap for 8 Upcoming Journeys  
+**Status:** Roadmap for Platform Enhancements  
 **Target:** Q1/Q2 2026 Release
 
 ## Overview
 
-This document outlines the planned features for the Housing Marketplace that are scheduled for Q1/Q2 2026 implementation. These journeys will complete the full housing ecosystem, adding enhanced guest/host functionality, advanced analytics, and comprehensive admin oversight.
+This document outlines planned features for the Mundo Tango platform, including Housing Marketplace enhancements and Recommendations System Phase 2.
+
+---
+
+## Recommendations System - Phase 2: AI-Powered Engine
+
+### AI-Powered Recommendation Engine
+**Status**: Planned for Q2 2026  
+**Current**: User-generated recommendations with manual categorization  
+**Priority:** Medium
+
+**Description**:
+An intelligent recommendation engine that provides personalized suggestions for restaurants, cafes, hotels, and venues based on user preferences, past behavior, and community trends.
+
+**Features**:
+- **Personalized Suggestions**: ML-based recommendations tailored to individual user preferences
+- **Collaborative Filtering**: "Users like you also enjoyed..." recommendations
+- **Sentiment Analysis**: Analyze user reviews and comments to determine quality scores
+- **Smart Ranking**: Combine user ratings, popularity, recency, and personal preferences
+- **Context-Aware**: Consider user's current location, time of day, and upcoming events
+- **Discovery Mode**: Help users find hidden gems based on their taste profile
+
+**Technical Architecture**:
+- **Machine Learning**: TensorFlow.js or Python-based recommendation models
+- **Vector Embeddings**: Semantic similarity for content-based filtering
+- **Real-time Processing**: Stream analytics for trending recommendations
+- **A/B Testing**: Experiment with different recommendation algorithms
+- **Feedback Loop**: Learn from user interactions (clicks, bookings, reviews)
+
+**Integration with Current System**:
+The AI engine will enhance (not replace) the current user-generated recommendations system. Users can still manually create recommendations, and the AI will learn from these contributions.
+
+---
+
+## Housing Marketplace - Coming Soon Features
+
+**Status:** Roadmap for 8 Upcoming Journeys  
+**Target:** Q1/Q2 2026 Release
 
 **Current Status:**
 - ✅ 10/19 Journeys Complete (53%)
