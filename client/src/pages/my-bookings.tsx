@@ -32,6 +32,9 @@ import {
 import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
+import { HostReviewForm } from '../components/reviews/HostReviewForm';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
+import { Star } from 'lucide-react';
 
 interface BookingWithDetails {
   id: number;
@@ -69,6 +72,7 @@ export default function MyBookings() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [bookingToCancel, setBookingToCancel] = useState<number | null>(null);
+  const [bookingToReview, setBookingToReview] = useState<BookingWithDetails | null>(null);
 
   const { data: bookingsData, isLoading, error } = useQuery<{ success: boolean; bookings: BookingWithDetails[] }>({
     queryKey: ['/api/bookings'],
@@ -361,17 +365,30 @@ export default function MyBookings() {
                             <p className="text-xs text-slate-500 dark:text-slate-400">
                               {t('housing.my_bookings.requested_on', { defaultValue: 'Requested on {{date}}', date: format(new Date(booking.createdAt), 'MMM dd, yyyy') })}
                             </p>
-                            {booking.status === 'pending' && (
-                              <MagneticButton
-                                onClick={() => setBookingToCancel(booking.id)}
-                                strength={0.2}
-                                className="glass-card glass-depth-1 border-red-200/30 dark:border-red-500/30 px-4 py-2 text-red-700 dark:text-red-300 flex items-center gap-2"
-                                data-testid={`button-cancel-${booking.id}`}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                                {t('housing.my_bookings.cancel_request', 'Cancel Request')}
-                              </MagneticButton>
-                            )}
+                            <div className="flex gap-2">
+                              {booking.status === 'pending' && (
+                                <MagneticButton
+                                  onClick={() => setBookingToCancel(booking.id)}
+                                  strength={0.2}
+                                  className="glass-card glass-depth-1 border-red-200/30 dark:border-red-500/30 px-4 py-2 text-red-700 dark:text-red-300 flex items-center gap-2"
+                                  data-testid={`button-cancel-${booking.id}`}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                  {t('housing.my_bookings.cancel_request', 'Cancel Request')}
+                                </MagneticButton>
+                              )}
+                              {booking.status === 'completed' && (
+                                <PulseButton
+                                  onClick={() => setBookingToReview(booking)}
+                                  pulseColor="rgba(6, 182, 212, 0.6)"
+                                  className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl flex items-center gap-2"
+                                  data-testid={`button-write-review-${booking.id}`}
+                                >
+                                  <Star className="w-4 h-4" />
+                                  {t('housing.my_bookings.write_review', 'Write a Review')}
+                                </PulseButton>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -427,6 +444,42 @@ export default function MyBookings() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+
+        {/* Review Dialog */}
+        <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-write-review">
+            <DialogHeader>
+              <DialogTitle className="text-slate-900 dark:text-white">
+                {t('housing.my_bookings.review_dialog_title', 'Write a Review')}
+              </DialogTitle>
+              <DialogDescription className="text-slate-600 dark:text-slate-400">
+                {t('housing.my_bookings.review_dialog_desc', 'Share your experience with this property and help other guests make informed decisions.')}
+              </DialogDescription>
+            </DialogHeader>
+            {bookingToReview && (
+              <div className="mt-4">
+                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    {bookingToReview.hostHome.title}
+                  </h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {bookingToReview.hostHome.city}, {bookingToReview.hostHome.country}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-500 mt-2">
+                    {format(new Date(bookingToReview.checkInDate), 'MMM dd')} - {format(new Date(bookingToReview.checkOutDate), 'MMM dd, yyyy')}
+                  </p>
+                </div>
+                <HostReviewForm
+                  bookingId={bookingToReview.id}
+                  homeId={bookingToReview.hostHomeId}
+                  hostId={bookingToReview.host.id}
+                  onSuccess={() => setBookingToReview(null)}
+                  onCancel={() => setBookingToReview(null)}
+                />
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </DashboardLayout>
   );

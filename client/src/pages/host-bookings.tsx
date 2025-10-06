@@ -35,6 +35,9 @@ import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { GuestReviewForm } from '../components/reviews/GuestReviewForm';
+import { Star } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 
 interface BookingWithDetails {
   id: number;
@@ -71,10 +74,12 @@ interface BookingWithDetails {
 export default function HostBookings() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('pending');
   const [respondingToBooking, setRespondingToBooking] = useState<number | null>(null);
   const [responseAction, setResponseAction] = useState<'approve' | 'reject' | null>(null);
   const [hostResponse, setHostResponse] = useState('');
+  const [bookingToReview, setBookingToReview] = useState<BookingWithDetails | null>(null);
 
   const cardsRef = useScrollReveal('.booking-card', {
     opacity: 0,
@@ -374,27 +379,40 @@ export default function HostBookings() {
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   {t('housing.host_bookings.requested_on', { defaultValue: 'Requested on {{date}}', date: format(new Date(booking.createdAt), 'MMM dd, yyyy') })}
                 </p>
-                {booking.status === 'pending' && (
-                  <div className="flex gap-2">
-                    <MagneticButton
-                      onClick={() => handleOpenResponseDialog(booking.id, 'reject')}
-                      strength={0.2}
-                      className="glass-card glass-depth-1 border-red-200/30 dark:border-red-500/30 px-4 py-2 text-red-700 dark:text-red-300 flex items-center gap-2"
-                      data-testid={`button-reject-${booking.id}`}
-                    >
-                      <XCircle className="w-4 h-4" />
-                      {t('housing.host_bookings.reject', 'Reject')}
-                    </MagneticButton>
+                <div className="flex gap-2">
+                  {booking.status === 'pending' && (
+                    <>
+                      <MagneticButton
+                        onClick={() => handleOpenResponseDialog(booking.id, 'reject')}
+                        strength={0.2}
+                        className="glass-card glass-depth-1 border-red-200/30 dark:border-red-500/30 px-4 py-2 text-red-700 dark:text-red-300 flex items-center gap-2"
+                        data-testid={`button-reject-${booking.id}`}
+                      >
+                        <XCircle className="w-4 h-4" />
+                        {t('housing.host_bookings.reject', 'Reject')}
+                      </MagneticButton>
+                      <PulseButton
+                        onClick={() => handleOpenResponseDialog(booking.id, 'approve')}
+                        className="px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white flex items-center gap-2 rounded-xl"
+                        data-testid={`button-approve-${booking.id}`}
+                      >
+                        <CheckCircle className="w-4 h-4" />
+                        {t('housing.host_bookings.approve', 'Approve')}
+                      </PulseButton>
+                    </>
+                  )}
+                  {booking.status === 'completed' && (
                     <PulseButton
-                      onClick={() => handleOpenResponseDialog(booking.id, 'approve')}
-                      className="px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white flex items-center gap-2 rounded-xl"
-                      data-testid={`button-approve-${booking.id}`}
+                      onClick={() => setBookingToReview(booking)}
+                      pulseColor="rgba(6, 182, 212, 0.6)"
+                      className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl flex items-center gap-2"
+                      data-testid={`button-review-guest-${booking.id}`}
                     >
-                      <CheckCircle className="w-4 h-4" />
-                      {t('housing.host_bookings.approve', 'Approve')}
+                      <Star className="w-4 h-4" />
+                      {t('housing.host_bookings.review_guest', 'Review Guest')}
                     </PulseButton>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -626,6 +644,57 @@ export default function HostBookings() {
                       : t('housing.host_bookings.reject_send', 'Reject')} & ${t('housing.host_bookings.send', 'Send')}`}
               </PulseButton>
             </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Review Dialog */}
+        <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-review-guest">
+            <DialogHeader>
+              <DialogTitle className="text-slate-900 dark:text-white">
+                {t('housing.host_bookings.review_dialog_title', 'Review Your Guest')}
+              </DialogTitle>
+              <DialogDescription className="text-slate-600 dark:text-slate-400">
+                {t('housing.host_bookings.review_dialog_desc', 'Share your experience hosting this guest and help other hosts make informed decisions.')}
+              </DialogDescription>
+            </DialogHeader>
+            {bookingToReview && (
+              <div className="mt-4">
+                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
+                    {bookingToReview.guest.profileImage ? (
+                      <img
+                        src={bookingToReview.guest.profileImage}
+                        alt={bookingToReview.guest.name}
+                        className="w-12 h-12 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-semibold">
+                        {bookingToReview.guest.name.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="font-semibold text-slate-900 dark:text-white">
+                        {bookingToReview.guest.name}
+                      </h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        {bookingToReview.hostHome.title}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-500">
+                    {format(new Date(bookingToReview.checkInDate), 'MMM dd')} - {format(new Date(bookingToReview.checkOutDate), 'MMM dd, yyyy')}
+                  </p>
+                </div>
+                <GuestReviewForm
+                  bookingId={bookingToReview.id}
+                  guestId={bookingToReview.guestId}
+                  reviewerId={user?.id || 0}
+                  onSuccess={() => setBookingToReview(null)}
+                  onCancel={() => setBookingToReview(null)}
+                />
+              </div>
+            )}
           </DialogContent>
         </Dialog>
       </div>

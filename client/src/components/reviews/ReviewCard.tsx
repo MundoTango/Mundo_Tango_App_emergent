@@ -31,11 +31,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
 
   const submitResponseMutation = useMutation({
     mutationFn: async (response: string) => {
-      const endpoint = isHostReview
-        ? `/api/reviews/host/${review.id}/response`
-        : `/api/reviews/guest/${review.id}/response`;
-
-      return apiRequest(endpoint, {
+      return apiRequest(`/api/reviews/${review.id}/response`, {
         method: "PATCH",
         body: JSON.stringify({ response }),
       });
