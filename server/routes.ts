@@ -23,7 +23,7 @@ import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
 import { storage } from "./storage";
-import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, guestBookings, recommendations, notifications } from "../shared/schema";
+import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, insertHostReviewSchema, insertGuestReviewSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, guestBookings, recommendations, notifications } from "../shared/schema";
 // Removed homeAmenities, homePhotos import to fix duplicate export issue
 import { z } from "zod";
 import { SocketService } from "./services/socketService";
@@ -3003,6 +3003,476 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false,
         error: 'Failed to cancel booking',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // ==========================================
+  // ESA LIFE CEO 61x21 - Reviews & Ratings API (Journey 6)
+  // ==========================================
+
+  // POST /api/reviews/host - Create a host review (guests review hosts/properties)
+  app.post('/api/reviews/host', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      console.log('⭐ Creating host review for user:', user.id);
+
+      // Validate review data
+      const validationResult = insertHostReviewSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error);
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid review data',
+          code: 'VALIDATION_ERROR',
+          details: validationResult.error.errors
+        });
+      }
+
+      const reviewData = validationResult.data;
+
+      // Verify booking exists and user is the guest
+      const booking = await storage.getGuestBookingById(reviewData.booking_id);
+      if (!booking) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Booking not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      if (booking.guestId !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'You can only review bookings you were a guest for',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Check if stay is completed
+      const today = new Date();
+      const checkOutDate = new Date(booking.checkOutDate);
+      if (checkOutDate > today) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'You can only review after your stay is completed',
+          code: 'STAY_NOT_COMPLETED'
+        });
+      }
+
+      // Check if review already exists for this booking
+      const existingReview = await storage.getHostReviewByBooking(reviewData.booking_id);
+      if (existingReview) {
+        return res.status(409).json({ 
+          success: false,
+          error: 'You have already reviewed this stay',
+          code: 'REVIEW_EXISTS'
+        });
+      }
+
+      // Create the review
+      const review = await storage.createHostReview(reviewData);
+
+      // Send notification to host
+      try {
+        const home = await storage.getHostHomeById(reviewData.home_id);
+        if (home) {
+          await RealTimeNotificationService.sendToUser(reviewData.host_id, {
+            type: 'message',
+            title: '⭐ New Review!',
+            message: `${user.name} left a ${reviewData.rating}-star review for ${home.title}`,
+            actionUrl: `/listing/${home.id}`,
+            metadata: {
+              reviewId: review.id,
+              rating: reviewData.rating,
+              homeId: home.id
+            },
+            timestamp: new Date().toISOString()
+          });
+        }
+      } catch (notifError) {
+        console.error('⚠️ Failed to send notification:', notifError);
+      }
+
+      console.log('✅ Host review created');
+      res.json({ 
+        success: true,
+        review,
+        message: 'Review submitted successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error creating host review:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to create review',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // POST /api/reviews/guest - Create a guest review (hosts review guests)
+  app.post('/api/reviews/guest', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      console.log('⭐ Creating guest review for user:', user.id);
+
+      // Validate review data
+      const validationResult = insertGuestReviewSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error);
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid review data',
+          code: 'VALIDATION_ERROR',
+          details: validationResult.error.errors
+        });
+      }
+
+      const reviewData = validationResult.data;
+
+      // Verify booking exists and user is the host
+      const booking = await storage.getGuestBookingById(reviewData.booking_id);
+      if (!booking) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Booking not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      // Verify user is the host
+      const home = await storage.getHostHomeById(booking.hostHomeId);
+      if (!home || home.hostId !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'You can only review guests who stayed at your property',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Check if stay is completed
+      const today = new Date();
+      const checkOutDate = new Date(booking.checkOutDate);
+      if (checkOutDate > today) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'You can only review after the stay is completed',
+          code: 'STAY_NOT_COMPLETED'
+        });
+      }
+
+      // Check if review already exists for this booking
+      const existingReview = await storage.getGuestReviewByBooking(reviewData.booking_id);
+      if (existingReview) {
+        return res.status(409).json({ 
+          success: false,
+          error: 'You have already reviewed this guest',
+          code: 'REVIEW_EXISTS'
+        });
+      }
+
+      // Create the review
+      const review = await storage.createGuestReview(reviewData);
+
+      // Send notification to guest
+      try {
+        const guest = await storage.getUser(reviewData.guest_id);
+        if (guest) {
+          await RealTimeNotificationService.sendToUser(reviewData.guest_id, {
+            type: 'message',
+            title: '⭐ New Review!',
+            message: `${user.name} left a ${reviewData.rating}-star review about your stay`,
+            actionUrl: `/profile/${guest.username || guest.id}`,
+            metadata: {
+              reviewId: review.id,
+              rating: reviewData.rating,
+              hostId: user.id
+            },
+            timestamp: new Date().toISOString()
+          });
+        }
+      } catch (notifError) {
+        console.error('⚠️ Failed to send notification:', notifError);
+      }
+
+      console.log('✅ Guest review created');
+      res.json({ 
+        success: true,
+        review,
+        message: 'Review submitted successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error creating guest review:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to create review',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // GET /api/reviews/home/:homeId - Get all reviews for a property
+  app.get('/api/reviews/home/:homeId', async (req: any, res) => {
+    try {
+      const homeId = parseInt(req.params.homeId);
+      if (isNaN(homeId)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid home ID',
+          code: 'INVALID_ID'
+        });
+      }
+
+      console.log(`🔍 Fetching reviews for home ${homeId}`);
+
+      const reviews = await storage.getHostReviews(homeId);
+
+      // Enrich reviews with user data
+      const enrichedReviews = await Promise.all(reviews.map(async (review) => {
+        const reviewer = await storage.getUser(review.reviewer_id);
+        return {
+          ...review,
+          reviewer: reviewer ? {
+            id: reviewer.id,
+            name: reviewer.name,
+            profileImage: reviewer.profileImage,
+          } : null,
+        };
+      }));
+
+      console.log(`✅ Found ${enrichedReviews.length} reviews`);
+      res.json({ 
+        success: true,
+        reviews: enrichedReviews
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching reviews:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to fetch reviews',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // GET /api/reviews/guest/:guestId - Get all reviews for a guest
+  app.get('/api/reviews/guest/:guestId', async (req: any, res) => {
+    try {
+      const guestId = parseInt(req.params.guestId);
+      if (isNaN(guestId)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid guest ID',
+          code: 'INVALID_ID'
+        });
+      }
+
+      console.log(`🔍 Fetching reviews for guest ${guestId}`);
+
+      const reviews = await storage.getGuestReviews(guestId);
+
+      // Enrich reviews with host data
+      const enrichedReviews = await Promise.all(reviews.map(async (review) => {
+        const host = await storage.getUser(review.reviewer_id);
+        return {
+          ...review,
+          reviewer: host ? {
+            id: host.id,
+            name: host.name,
+            profileImage: host.profileImage,
+          } : null,
+        };
+      }));
+
+      console.log(`✅ Found ${enrichedReviews.length} reviews`);
+      res.json({ 
+        success: true,
+        reviews: enrichedReviews
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching guest reviews:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to fetch reviews',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // PATCH /api/reviews/host/:reviewId/response - Add host response to a review
+  app.patch('/api/reviews/host/:reviewId/response', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const reviewId = req.params.reviewId;
+      const { response } = req.body;
+
+      if (!response || typeof response !== 'string' || response.trim().length === 0) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Response text is required',
+          code: 'INVALID_RESPONSE'
+        });
+      }
+
+      console.log(`💬 Adding host response to review ${reviewId}`);
+
+      // Get the review and verify ownership
+      const reviews = await storage.getHostReviews(0); // Get all reviews to find by ID
+      const review = reviews.find(r => r.id === reviewId);
+      
+      if (!review) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Review not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      if (review.host_id !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'You can only respond to reviews of your property',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Add the response
+      const updated = await storage.addHostResponse(reviewId, response.trim());
+
+      console.log('✅ Host response added');
+      res.json({ 
+        success: true,
+        review: updated,
+        message: 'Response added successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error adding host response:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to add response',
+        code: 'INTERNAL_ERROR',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
+      });
+    }
+  });
+
+  // PATCH /api/reviews/guest/:reviewId/response - Add guest response to a review
+  app.patch('/api/reviews/guest/:reviewId/response', isAuthenticated, async (req: any, res) => {
+    try {
+      // Get authenticated user
+      let user: any = null;
+      if (req.user?.claims?.sub) {
+        user = await storage.getUserByReplitId(req.user.claims.sub);
+      } else if (req.user?.id) {
+        user = req.user;
+      }
+
+      if (!user || !user.id) {
+        return res.status(401).json({ 
+          success: false,
+          error: 'Authentication required',
+          code: 'UNAUTHORIZED'
+        });
+      }
+
+      const reviewId = req.params.reviewId;
+      const { response } = req.body;
+
+      if (!response || typeof response !== 'string' || response.trim().length === 0) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Response text is required',
+          code: 'INVALID_RESPONSE'
+        });
+      }
+
+      console.log(`💬 Adding guest response to review ${reviewId}`);
+
+      // Get the review and verify ownership
+      const reviews = await storage.getGuestReviews(user.id);
+      const review = reviews.find(r => r.id === reviewId);
+      
+      if (!review) {
+        return res.status(404).json({ 
+          success: false,
+          error: 'Review not found',
+          code: 'NOT_FOUND'
+        });
+      }
+
+      if (review.guest_id !== user.id) {
+        return res.status(403).json({ 
+          success: false,
+          error: 'You can only respond to reviews about you',
+          code: 'FORBIDDEN'
+        });
+      }
+
+      // Add the response
+      const updated = await storage.addGuestResponse(reviewId, response.trim());
+
+      console.log('✅ Guest response added');
+      res.json({ 
+        success: true,
+        review: updated,
+        message: 'Response added successfully'
+      });
+    } catch (error: any) {
+      console.error('❌ Error adding guest response:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to add response',
         code: 'INTERNAL_ERROR',
         message: process.env.NODE_ENV === 'development' ? error.message : 'An unexpected error occurred'
       });
