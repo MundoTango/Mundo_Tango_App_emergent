@@ -198,6 +198,7 @@ export default function RecommendationsList({
             cityLat={recommendations[0]?.lat || recommendations[0]?.latitude}
             cityLng={recommendations[0]?.lng || recommendations[0]?.longitude}
             onRecommendationClick={(rec) => setSelectedRecommendation(rec)}
+            selectedRecommendation={selectedRecommendation}
           />
         </div>
       )}
@@ -329,10 +330,13 @@ export default function RecommendationsList({
                     size="sm" 
                     className="flex-1"
                     onClick={() => {
-                      if (lat && lng) {
-                        const placeName = encodeURIComponent(rec.title);
-                        window.open(`https://www.google.com/maps/search/?api=1&query=${placeName}+${lat},${lng}`, '_blank');
-                      }
+                      // ESA Layer 13: Switch to map view and center on this recommendation
+                      setSelectedRecommendation(rec);
+                      setViewMode('map');
+                      // Scroll to map after a brief delay to allow render
+                      setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }, 100);
                     }}
                     data-testid={`button-map-${rec.id}`}
                   >
