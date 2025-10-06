@@ -120,7 +120,7 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ### Journey 3: Guest Profile Onboarding ✅
 **Status:** Complete + Aurora Tide Enhanced  
 **Priority:** ⚡ High Priority  
-**Route:** `/onboarding/guest`
+**Route:** `/guest-onboarding`
 
 **User Flow:**
 1. Navigate to guest onboarding
