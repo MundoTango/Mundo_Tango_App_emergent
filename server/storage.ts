@@ -524,6 +524,22 @@ export interface IStorage {
     priceLevel?: number;
   }): Promise<any[]>;
   countRecommendationsByType(recommendationId: number, isLocal: boolean): Promise<number>;
+  getRecommendationById(id: number): Promise<any>;
+  updateRecommendation(id: number, data: Partial<{
+    title: string;
+    description: string;
+    type: string;
+    address: string | null;
+    lat: number | null;
+    lng: number | null;
+    rating: number | null;
+    tags: string[];
+    isActive: boolean;
+  }>): Promise<any>;
+  deleteRecommendation(id: number): Promise<void>;
+  getRecommendationsByCity(city: string, limit?: number, offset?: number): Promise<any[]>;
+  getRecommendationsByType(type: string, city?: string, limit?: number, offset?: number): Promise<any[]>;
+  getRecommendationsByUser(userId: number, limit?: number, offset?: number): Promise<any[]>;
   
   // Guest Profile Management
   getGuestProfile(userId: number): Promise<GuestProfile | undefined>;
@@ -918,7 +934,10 @@ export class DatabaseStorage implements IStorage {
     city: string;
     state?: string | null;
     country: string;
+    lat?: number | null;
+    lng?: number | null;
     photos?: string[];
+    rating?: number | null;
     tags?: string[];
     isActive?: boolean;
   }): Promise<any> {
@@ -934,7 +953,10 @@ export class DatabaseStorage implements IStorage {
         city: data.city,
         state: data.state || null,
         country: data.country,
+        lat: data.lat || null,
+        lng: data.lng || null,
         photos: data.photos || [],
+        rating: data.rating || null,
         tags: data.tags || [],
         isActive: data.isActive !== false
       }).returning();
@@ -945,6 +967,176 @@ export class DatabaseStorage implements IStorage {
       console.error('❌ Error creating recommendation:', error);
       throw error;
     }
+  }
+
+  async getRecommendationById(id: number): Promise<any> {
+    const result = await db
+      .select({
+        id: recommendations.id,
+        userId: recommendations.userId,
+        postId: recommendations.postId,
+        groupId: recommendations.groupId,
+        title: recommendations.title,
+        description: recommendations.description,
+        type: recommendations.type,
+        address: recommendations.address,
+        city: recommendations.city,
+        state: recommendations.state,
+        country: recommendations.country,
+        lat: recommendations.lat,
+        lng: recommendations.lng,
+        photos: recommendations.photos,
+        rating: recommendations.rating,
+        tags: recommendations.tags,
+        isActive: recommendations.isActive,
+        createdAt: recommendations.createdAt,
+        updatedAt: recommendations.updatedAt,
+        user: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        }
+      })
+      .from(recommendations)
+      .leftJoin(users, eq(recommendations.userId, users.id))
+      .where(eq(recommendations.id, id))
+      .limit(1);
+    
+    return result[0] || null;
+  }
+
+  async updateRecommendation(id: number, data: Partial<{
+    title: string;
+    description: string;
+    type: string;
+    address: string | null;
+    lat: number | null;
+    lng: number | null;
+    rating: number | null;
+    tags: string[];
+    isActive: boolean;
+  }>): Promise<any> {
+    const [updated] = await db
+      .update(recommendations)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(recommendations.id, id))
+      .returning();
+    
+    return updated;
+  }
+
+  async deleteRecommendation(id: number): Promise<void> {
+    await db
+      .update(recommendations)
+      .set({ isActive: false, updatedAt: new Date() })
+      .where(eq(recommendations.id, id));
+  }
+
+  async getRecommendationsByCity(city: string, limit = 20, offset = 0): Promise<any[]> {
+    const result = await db
+      .select({
+        id: recommendations.id,
+        userId: recommendations.userId,
+        postId: recommendations.postId,
+        groupId: recommendations.groupId,
+        title: recommendations.title,
+        description: recommendations.description,
+        type: recommendations.type,
+        address: recommendations.address,
+        city: recommendations.city,
+        state: recommendations.state,
+        country: recommendations.country,
+        lat: recommendations.lat,
+        lng: recommendations.lng,
+        photos: recommendations.photos,
+        rating: recommendations.rating,
+        tags: recommendations.tags,
+        isActive: recommendations.isActive,
+        createdAt: recommendations.createdAt,
+        user: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        }
+      })
+      .from(recommendations)
+      .leftJoin(users, eq(recommendations.userId, users.id))
+      .where(and(
+        eq(recommendations.city, city),
+        eq(recommendations.isActive, true)
+      ))
+      .orderBy(desc(recommendations.createdAt))
+      .limit(limit)
+      .offset(offset);
+    
+    return result;
+  }
+
+  async getRecommendationsByType(type: string, city?: string, limit = 20, offset = 0): Promise<any[]> {
+    const conditions = [
+      eq(recommendations.type, type),
+      eq(recommendations.isActive, true)
+    ];
+    
+    if (city) {
+      conditions.push(eq(recommendations.city, city));
+    }
+    
+    const result = await db
+      .select({
+        id: recommendations.id,
+        userId: recommendations.userId,
+        postId: recommendations.postId,
+        groupId: recommendations.groupId,
+        title: recommendations.title,
+        description: recommendations.description,
+        type: recommendations.type,
+        address: recommendations.address,
+        city: recommendations.city,
+        state: recommendations.state,
+        country: recommendations.country,
+        lat: recommendations.lat,
+        lng: recommendations.lng,
+        photos: recommendations.photos,
+        rating: recommendations.rating,
+        tags: recommendations.tags,
+        isActive: recommendations.isActive,
+        createdAt: recommendations.createdAt,
+        user: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage
+        }
+      })
+      .from(recommendations)
+      .leftJoin(users, eq(recommendations.userId, users.id))
+      .where(and(...conditions))
+      .orderBy(desc(recommendations.createdAt))
+      .limit(limit)
+      .offset(offset);
+    
+    return result;
+  }
+
+  async getRecommendationsByUser(userId: number, limit = 20, offset = 0): Promise<any[]> {
+    const result = await db
+      .select()
+      .from(recommendations)
+      .where(and(
+        eq(recommendations.userId, userId),
+        eq(recommendations.isActive, true)
+      ))
+      .orderBy(desc(recommendations.createdAt))
+      .limit(limit)
+      .offset(offset);
+    
+    return result;
   }
 
   // ESA Layer 16: Mention operations implementation
