@@ -10,6 +10,7 @@ interface FilterState {
   minClosenessScore?: number;
   localStatus: 'all' | 'local' | 'visitor';
   originCountry?: string;
+  cuisine?: string; // For restaurant ranking (not filtering)
   type?: string;
   priceLevel?: string;
   minRating?: number;
@@ -101,9 +102,15 @@ export default function RecommendationFilters({
         </div>
       </div>
 
-      {/* Filters Grid */}
+      {/* Filters Grid - Two Column Layout */}
       {isExpanded && (
-        <div className="space-y-6 animate-fade-in">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in">
+          {/* Column 1: Connection & People */}
+          <div className="space-y-6">
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-turquoise-600 dark:text-turquoise-400 mb-4">
+              Connection & People
+            </h4>
+
           {/* Connection Level Filter */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -194,14 +201,79 @@ export default function RecommendationFilters({
               })}
             </div>
           </div>
+          </div>
 
-          {/* Cultural Expertise (Origin Country) */}
+          {/* Column 2: Experience Details */}
+          <div className="space-y-6">
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-turquoise-600 dark:text-turquoise-400 mb-4">
+              Experience Details
+            </h4>
+
+          {/* Category Filter (moved to top of column 2) */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-              <Globe className="h-4 w-4 text-turquoise-600" />
-              Cultural Expertise
+              <Tag className="h-4 w-4 text-turquoise-600" />
+              Category
             </label>
             <select
+              value={filters.type || ''}
+              onChange={(e) => updateFilter('type', e.target.value || undefined)}
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              data-testid="select-category"
+            >
+              <option value="">All categories</option>
+              <option value="restaurant">🍽️ Restaurants</option>
+              <option value="cafe">☕ Cafés</option>
+              <option value="bar">🍷 Bars</option>
+              <option value="hotel">🏨 Hotels</option>
+              <option value="venue">🎭 Venues</option>
+              <option value="shop">🛍️ Shops</option>
+              <option value="activity">⚽ Activities</option>
+            </select>
+          </div>
+
+          {/* Dynamic: Cuisine (restaurants) OR Cultural Expertise (all others) */}
+          {filters.type === 'restaurant' ? (
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Globe className="h-4 w-4 text-turquoise-600" />
+                Cuisine
+              </label>
+              <select
+                value={filters.cuisine || ''}
+                onChange={(e) => updateFilter('cuisine', e.target.value || undefined)}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                data-testid="select-cuisine"
+              >
+                <option value="">All cuisines</option>
+                <option value="Italian">🇮🇹 Italian</option>
+                <option value="Japanese">🇯🇵 Japanese</option>
+                <option value="Korean">🇰🇷 Korean</option>
+                <option value="Chinese">🇨🇳 Chinese</option>
+                <option value="French">🇫🇷 French</option>
+                <option value="Mexican">🇲🇽 Mexican</option>
+                <option value="Argentine">🇦🇷 Argentine</option>
+                <option value="Spanish">🇪🇸 Spanish</option>
+                <option value="Thai">🇹🇭 Thai</option>
+                <option value="Indian">🇮🇳 Indian</option>
+                <option value="Brazilian">🇧🇷 Brazilian</option>
+                <option value="Greek">🇬🇷 Greek</option>
+                <option value="American">🇺🇸 American</option>
+                <option value="Vietnamese">🇻🇳 Vietnamese</option>
+                <option value="Middle Eastern">🌍 Middle Eastern</option>
+                <option value="Fusion">🌐 Fusion</option>
+              </select>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                🎯 Ranks higher when recommended by people from that culture (e.g., Italian restaurants from Italian users)
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Globe className="h-4 w-4 text-turquoise-600" />
+                Cultural Expertise
+              </label>
+              <select
               value={filters.originCountry || ''}
               onChange={(e) => updateFilter('originCountry', e.target.value || undefined)}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
@@ -225,34 +297,12 @@ export default function RecommendationFilters({
                   {country}
                 </option>
               ))}
-            </select>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              Find recommendations from people with cultural expertise (e.g., Korean friends for Korean restaurants)
-            </p>
-          </div>
-
-          {/* Category Filter */}
-          <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-              <Tag className="h-4 w-4 text-turquoise-600" />
-              Category
-            </label>
-            <select
-              value={filters.type || ''}
-              onChange={(e) => updateFilter('type', e.target.value || undefined)}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              data-testid="select-category"
-            >
-              <option value="">All categories</option>
-              <option value="restaurant">🍽️ Restaurants</option>
-              <option value="cafe">☕ Cafés</option>
-              <option value="bar">🍷 Bars</option>
-              <option value="hotel">🏨 Hotels</option>
-              <option value="venue">🎭 Venues</option>
-              <option value="shop">🛍️ Shops</option>
-              <option value="activity">⚽ Activities</option>
-            </select>
-          </div>
+              </select>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Filter by recommender's cultural background (e.g., Korean friends for authentic spots)
+              </p>
+            </div>
+          )}
 
           {/* Price Level Filter */}
           <div className="space-y-2">
@@ -305,6 +355,7 @@ export default function RecommendationFilters({
                 {filters.minRating ? `${filters.minRating}+` : 'Any'}
               </span>
             </div>
+          </div>
           </div>
         </div>
       )}
