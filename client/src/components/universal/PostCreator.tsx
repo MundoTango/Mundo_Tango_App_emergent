@@ -1439,78 +1439,75 @@ export default function PostCreator({
             
             <div className="relative">
 
-              {/* Treasure Map Unfolding - Content Area */}
+              {/* Aurora Tide Recommendations - Glassmorphic Design */}
               {isRecommendation && (
                 <div 
-                  className="mt-3 p-6 rounded-2xl space-y-5 border-2 shadow-2xl animate-in slide-in-from-top-4 duration-500 relative overflow-hidden"
+                  className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative overflow-hidden backdrop-blur-xl dark:backdrop-blur-2xl"
                   style={{
-                    background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fcd34d 50%, #fde68a 75%, #fef3c7 100%)',
-                    backgroundSize: '200% 200%',
-                    animation: 'gradient-shift 8s ease infinite',
-                    borderColor: '#d97706'
+                    background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.15) 0%, rgba(20, 184, 166, 0.12) 25%, rgba(13, 148, 136, 0.10) 50%, rgba(21, 94, 117, 0.12) 75%, rgba(94, 234, 212, 0.15) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(94, 234, 212, 0.3)',
+                    boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.5)'
                   }}
                 >
-                  {/* Vintage paper texture overlay */}
-                  <div className="absolute inset-0 opacity-20 pointer-events-none" 
-                       style={{
-                         backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(120, 53, 15, 0.03) 2px, rgba(120, 53, 15, 0.03) 4px)`
-                       }}
-                  />
-                  
-                  {/* Compass Rose Header */}
+                  {/* Glassmorphic Header */}
                   <div className="flex items-center justify-center mb-4 relative">
                     <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t-2 border-dashed border-amber-700/30"></div>
+                      <div className="w-full border-t border-turquoise-400/30 dark:border-turquoise-300/20"></div>
                     </div>
-                    <div className="relative bg-gradient-to-br from-yellow-50 to-amber-100 px-4 py-2 rounded-full border-2 border-amber-700/40 shadow-md">
-                      <span className="text-sm font-bold text-amber-900 flex items-center gap-2">
-                        <svg className="h-4 w-4 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <circle cx="12" cy="12" r="9"/>
-                          <path d="M12 3 L12 6 M12 18 L12 21 M3 12 L6 12 M18 12 L21 12"/>
-                          <path d="M12 12 L15 9"/>
-                        </svg>
-                        MARK YOUR TREASURE
+                    <div 
+                      className="relative px-6 py-3 rounded-full shadow-lg backdrop-blur-md"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.25), rgba(20, 184, 166, 0.20))',
+                        border: '1px solid rgba(94, 234, 212, 0.4)'
+                      }}
+                    >
+                      <span className="text-sm font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 dark:from-turquoise-300 dark:to-cyan-300 bg-clip-text text-transparent flex items-center gap-2">
+                        <MapPin className="h-4 w-4 text-turquoise-600 dark:text-turquoise-400" />
+                        Share a Recommendation
                       </span>
                     </div>
                   </div>
 
-                  <div className="space-y-4 relative z-10">
-                    {/* Category Selection - Treasure Type */}
+                  <div className="space-y-5 relative z-10">
+                    {/* Category Selection */}
                     <label className="block">
-                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
-                        <span className="text-xl">💎</span>
-                        What treasure did you find?
+                      <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+                        <span className="text-lg">📍</span>
+                        Category
                       </span>
                       <div className="relative">
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 pr-12 rounded-xl bg-white/95 backdrop-blur-sm border-2 border-amber-700/40 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 focus:border-amber-600 font-semibold text-gray-900 appearance-none cursor-pointer transition-all hover:border-amber-600 shadow-inner"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
-                            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(254,243,199,0.3))'
+                            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
+                            backdropFilter: 'blur(12px)'
                           }}
+                          data-testid="select-recommendation-type"
                         >
-                          <option value="">Choose your treasure type...</option>
-                          <option value="restaurant">🍽️ Dining Hall</option>
-                          <option value="cafe">☕ Cozy Tavern</option>
-                          <option value="hotel">🏨 Inn & Lodge</option>
-                          <option value="venue">💃 Grand Ballroom</option>
+                          <option value="">Select a category...</option>
+                          <option value="restaurant">🍽️ Restaurant</option>
+                          <option value="cafe">☕ Cafe</option>
+                          <option value="hotel">🏨 Hotel</option>
+                          <option value="venue">💃 Venue</option>
                         </select>
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">
                           {recommendationType === 'restaurant' ? '🍽️' : 
                            recommendationType === 'cafe' ? '☕' :
                            recommendationType === 'hotel' ? '🏨' :
-                           recommendationType === 'venue' ? '💃' : '🗺️'}
+                           recommendationType === 'venue' ? '💃' : '📍'}
                         </div>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-800 pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-turquoise-600 dark:text-cyan-400 pointer-events-none" />
                       </div>
                     </label>
 
-                    {/* Price Range - Treasure Value */}
+                    {/* Price Range */}
                     <label className="block">
-                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
-                        <span className="text-xl">💰</span>
-                        Treasure value
+                      <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+                        <span className="text-lg">💵</span>
+                        Price Range
                       </span>
                       <div className="grid grid-cols-3 gap-3">
                         {['$', '$$', '$$$'].map((price, idx) => (
@@ -1518,37 +1515,53 @@ export default function PostCreator({
                             key={price}
                             type="button"
                             onClick={() => setPriceRange(price)}
-                            className={`relative p-4 rounded-xl font-bold transition-all duration-300 overflow-hidden ${
+                            className={`relative p-4 rounded-xl font-semibold transition-all duration-300 overflow-hidden backdrop-blur-md ${
                               priceRange === price
-                                ? 'bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500 text-white shadow-xl transform scale-105 border-2 border-amber-600'
-                                : 'bg-white/90 text-amber-800 hover:bg-amber-50 border-2 border-amber-300/60 hover:border-amber-400 shadow-md hover:shadow-lg'
+                                ? 'text-white shadow-xl transform scale-105'
+                                : 'text-gray-700 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
                             }`}
+                            style={
+                              priceRange === price
+                                ? {
+                                    background: 'linear-gradient(135deg, #5EEAD4, #14B8A6, #0D9488)',
+                                    border: '1px solid rgba(94, 234, 212, 0.5)',
+                                    boxShadow: '0 8px 24px rgba(20, 184, 166, 0.4)'
+                                  }
+                                : {
+                                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(240, 253, 250, 0.6))',
+                                    backdropFilter: 'blur(10px)'
+                                  }
+                            }
+                            data-testid={`button-price-${price}`}
                           >
-                            <div className="text-2xl mb-1">{price}</div>
-                            <div className="text-xs font-semibold">
-                              {price === '$' ? '⭐ Budget' : price === '$$' ? '⭐⭐ Moderate' : '⭐⭐⭐ Luxury'}
+                            <div className="text-xl mb-1">{price}</div>
+                            <div className="text-xs font-medium">
+                              {price === '$' ? 'Budget' : price === '$$' ? 'Moderate' : 'Luxury'}
                             </div>
-                            {priceRange === price && (
-                              <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/20 to-transparent animate-pulse" />
-                            )}
                           </button>
                         ))}
                       </div>
                     </label>
 
-                    {/* Location Search - Mark on Map */}
+                    {/* Location Search */}
                     <label className="block">
-                      <span className="text-sm font-bold text-amber-950 mb-2 flex items-center gap-2">
-                        <span className="text-xl">📍</span>
-                        Mark it on the map
+                      <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+                        <span className="text-lg">🗺️</span>
+                        Location
                       </span>
-                      <div className="relative p-1 rounded-xl bg-gradient-to-br from-amber-200 via-yellow-200 to-amber-200 shadow-inner">
+                      <div 
+                        className="relative p-1 rounded-xl shadow-md"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.15), rgba(20, 184, 166, 0.10))',
+                          border: '1px solid rgba(94, 234, 212, 0.3)'
+                        }}
+                      >
                         <div className="relative">
                           <LocationInput
                             value={location}
                             onChange={handleLocationChange}
-                            placeholder="🔍 Search for your hidden gem..."
-                            className="border-2 border-amber-600/40 rounded-lg shadow-md"
+                            placeholder="Search for a place..."
+                            className="border-turquoise-300/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}
                             showBusinessDetails={true}
@@ -1556,21 +1569,21 @@ export default function PostCreator({
                         </div>
                       </div>
                       {location && (
-                        <div className="mt-2 p-3 bg-white/80 rounded-lg border-2 border-dashed border-amber-600/40 flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-amber-700 animate-bounce" />
-                          <span className="text-sm font-semibold text-amber-900">
-                            Treasure marked: {location}
+                        <div 
+                          className="mt-2 p-3 rounded-lg flex items-center gap-2 backdrop-blur-md"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.2), rgba(20, 184, 166, 0.15))',
+                            border: '1px solid rgba(94, 234, 212, 0.4)'
+                          }}
+                        >
+                          <MapPin className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
+                          <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            {location}
                           </span>
                         </div>
                       )}
                     </label>
                   </div>
-
-                  {/* Decorative map corner markers */}
-                  <div className="absolute top-3 left-3 w-6 h-6 border-t-3 border-l-3 border-amber-800/30" style={{ borderTopWidth: '3px', borderLeftWidth: '3px' }} />
-                  <div className="absolute top-3 right-3 w-6 h-6 border-t-3 border-r-3 border-amber-800/30" style={{ borderTopWidth: '3px', borderRightWidth: '3px' }} />
-                  <div className="absolute bottom-3 left-3 w-6 h-6 border-b-3 border-l-3 border-amber-800/30" style={{ borderBottomWidth: '3px', borderLeftWidth: '3px' }} />
-                  <div className="absolute bottom-3 right-3 w-6 h-6 border-b-3 border-r-3 border-amber-800/30" style={{ borderBottomWidth: '3px', borderRightWidth: '3px' }} />
                 </div>
               )}
             </div>
