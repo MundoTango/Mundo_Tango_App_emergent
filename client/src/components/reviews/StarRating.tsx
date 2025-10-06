@@ -36,7 +36,7 @@ export function StarRating({
   return (
     <div className="flex items-center gap-2" {...props}>
       {showLabel && label && (
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 min-w-[140px]">
+        <span className="text-sm font-medium text-slate-700 dark:text-slate-300 min-w-[140px]">
           {label}
         </span>
       )}
@@ -59,14 +59,14 @@ export function StarRating({
                 sizeClasses[size],
                 "transition-colors",
                 value <= rating
-                  ? "fill-yellow-400 text-yellow-400"
-                  : "fill-gray-200 text-gray-300 dark:fill-gray-700 dark:text-gray-600"
+                  ? "fill-cyan-500 text-cyan-500 dark:fill-cyan-400 dark:text-cyan-400"
+                  : "fill-slate-200 text-slate-300 dark:fill-slate-700 dark:text-slate-600"
               )}
             />
           </button>
         ))}
         {showLabel && (
-          <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+          <span className="ml-2 text-sm text-slate-600 dark:text-slate-400">
             {rating > 0 ? rating.toFixed(1) : "—"}
           </span>
         )}
