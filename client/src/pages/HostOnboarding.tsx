@@ -16,6 +16,10 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
 import { toast } from '@/hooks/use-toast';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
 
 interface OnboardingData {
   // Property basics
@@ -74,6 +78,7 @@ const STEPS = [
 ];
 
 export default function HostOnboarding() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -218,124 +223,165 @@ export default function HostOnboarding() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-semibold">List Your Home</h1>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-slate-900 dark:to-slate-800">
+        {/* Aurora Tide Header */}
+        <FadeIn>
+          <GlassCard depth={2} className="border-b border-cyan-200/30 dark:border-cyan-500/30 sticky top-0 z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex items-center">
+                  <h1 className="text-xl font-semibold text-slate-900 dark:text-white">
+                    {t('housing.host_onboarding.title', 'List Your Home')}
+                  </h1>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_onboarding.step_progress', { 
+                      defaultValue: 'Step {{current}} of {{total}}', 
+                      current: currentStep + 1, 
+                      total: STEPS.length 
+                    })}
+                  </span>
+                  <MagneticButton
+                    onClick={() => setLocation('/host-dashboard')}
+                    strength={0.15}
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                    data-testid="button-save-exit"
+                  >
+                    {t('housing.host_onboarding.save_exit', 'Save & Exit')}
+                  </MagneticButton>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-500">
-                Step {currentStep + 1} of {STEPS.length}
-              </span>
-              <Button variant="outline" onClick={() => setLocation('/host-dashboard')}>
-                Save & Exit
-              </Button>
+          </GlassCard>
+        </FadeIn>
+
+        {/* Aurora Tide Progress Bar */}
+        <ScaleIn delay={0.1}>
+          <div className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
+                <div 
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
+                  style={{ width: `${progressPercentage}%` }}
+                  data-testid="onboarding-progress-bar"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </ScaleIn>
 
-      {/* Progress Bar */}
-      <div className="bg-white border-b">
+      {/* Aurora Tide Step Indicators */}
+      <div className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Progress value={progressPercentage} className="h-1" />
-        </div>
-      </div>
-
-      {/* Step Indicators */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between py-4 overflow-x-auto">
+          <StaggerContainer className="flex justify-between py-4 overflow-x-auto">
             {STEPS.map((step, index) => {
               const Icon = step.icon;
               const isCompleted = index < currentStep;
               const isCurrent = index === currentStep;
               
               return (
-                <button
+                <MagneticButton
                   key={step.id}
                   onClick={() => goToStep(index)}
+                  strength={index <= currentStep ? 0.15 : 0}
                   className={`flex flex-col items-center min-w-[100px] px-2 ${
-                    index <= currentStep ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'
+                    index <= currentStep ? '' : 'cursor-not-allowed opacity-50'
                   }`}
                   disabled={index > currentStep}
+                  data-testid={`step-indicator-${step.id}`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
+                    className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all duration-300 ${
                       isCompleted
-                        ? 'bg-green-500 text-white'
+                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white'
                         : isCurrent
-                        ? 'bg-pink-500 text-white'
-                        : 'bg-gray-200 text-gray-400'
+                        ? 'bg-gradient-to-r from-teal-500 to-blue-500 text-white'
+                        : 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500'
                     }`}
                   >
                     {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                   </div>
                   <span
-                    className={`text-xs text-center ${
-                      isCurrent ? 'text-pink-600 font-medium' : 'text-gray-500'
+                    className={`text-xs text-center transition-colors ${
+                      isCurrent 
+                        ? 'text-cyan-600 dark:text-cyan-400 font-medium' 
+                        : 'text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    {step.title}
+                    {t(`housing.host_onboarding.steps.${step.id}`, step.title)}
                   </span>
-                </button>
+                </MagneticButton>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
 
-      {/* Step Content */}
+      {/* Aurora Tide Step Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card>
-          <CardContent className="p-6">
+        <ScaleIn delay={0.2}>
+          <GlassCard 
+            depth={3} 
+            className="border-cyan-200/30 dark:border-cyan-500/30 p-6"
+            data-testid="onboarding-step-content"
+          >
             {renderStep()}
-          </CardContent>
-        </Card>
+          </GlassCard>
+        </ScaleIn>
 
-        {/* Navigation Buttons */}
+        {/* Aurora Tide Navigation Buttons */}
         <div className="flex justify-between mt-6">
-          <Button
-            variant="outline"
+          <MagneticButton
             onClick={previousStep}
             disabled={currentStep === 0}
+            strength={currentStep === 0 ? 0 : 0.15}
+            className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-2 text-slate-700 dark:text-slate-300 disabled:opacity-50"
+            data-testid="button-previous"
           >
-            Previous
-          </Button>
+            {t('housing.host_onboarding.previous', 'Previous')}
+          </MagneticButton>
           
           {currentStep === STEPS.length - 1 ? (
             <div className="flex flex-col items-end gap-2">
               {createHostHomeMutation.isPending && uploadProgress > 0 && (
                 <div className="w-64">
-                  <div className="text-sm text-gray-600 mb-1">
-                    Uploading photos... {uploadProgress}%
+                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">
+                    {t('housing.host_onboarding.uploading_photos', { 
+                      defaultValue: 'Uploading photos... {{progress}}%', 
+                      progress: uploadProgress 
+                    })}
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>
                 </div>
               )}
-              <Button
+              <PulseButton
                 onClick={handleSubmit}
                 disabled={createHostHomeMutation.isPending}
-                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
+                className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
+                pulseColor="rgba(6, 182, 212, 0.6)"
+                data-testid="button-submit"
               >
-                {createHostHomeMutation.isPending ? 'Submitting...' : 'Submit Listing'}
-              </Button>
+                {createHostHomeMutation.isPending 
+                  ? t('housing.host_onboarding.submitting', 'Submitting...') 
+                  : t('housing.host_onboarding.submit_listing', 'Submit Listing')
+                }
+              </PulseButton>
             </div>
           ) : (
-            <Button
+            <PulseButton
               onClick={nextStep}
-              className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
+              className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
+              pulseColor="rgba(6, 182, 212, 0.6)"
+              data-testid="button-continue"
             >
-              Continue
-            </Button>
+              {t('housing.host_onboarding.continue', 'Continue')}
+            </PulseButton>
           )}
         </div>
       </div>
