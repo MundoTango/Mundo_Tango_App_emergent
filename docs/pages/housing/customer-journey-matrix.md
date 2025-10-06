@@ -819,7 +819,7 @@ Complete mapping of all 19 housing customer journeys across 4 user types. This m
 ### Journey Completion Status
 - ✅ **10 of 19 journeys complete** (53%)
 - ✅ **ALL 10 journeys have Aurora Tide** (Journeys 1, 2, 3, 4, 6, 10, 11, 12, 14, 17)
-- 📋 **9 journeys planned** (47%)
+- 📋 **9 journeys remaining** (47%)
 
 ### Aurora Tide Coverage by Journey Type
 - **Guest Journeys:** 5 of 9 complete with Aurora Tide (Journeys 1-4, 6)
