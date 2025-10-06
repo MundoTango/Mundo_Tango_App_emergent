@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { queryClient } from '../lib/queryClient';
 import DashboardLayout from '../layouts/DashboardLayout';
 import { Card } from '../components/ui/card';
@@ -83,6 +84,7 @@ interface HousingListing {
 
 export default function HousingMarketplace() {
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('all');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 200 });
@@ -238,8 +240,8 @@ export default function HousingMarketplace() {
     },
     onSuccess: () => {
       toast({
-        title: 'Updated favorites',
-        description: 'Your favorites list has been updated.'
+        title: t('housing.marketplace.favorites_updated_title', 'Updated favorites'),
+        description: t('housing.marketplace.favorites_updated_desc', 'Your favorites list has been updated.')
       });
     }
   });
@@ -256,8 +258,8 @@ export default function HousingMarketplace() {
           <div className="mb-8">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold text-brand-gradient">Tango Housing Marketplace</h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-2">Find the perfect place to stay during your tango journey</p>
+                <h1 className="text-3xl font-bold text-brand-gradient">{t('housing.marketplace.title', 'Tango Housing Marketplace')}</h1>
+                <p className="text-slate-600 dark:text-slate-400 mt-2">{t('housing.marketplace.subtitle', 'Find the perfect place to stay during your tango journey')}</p>
               </div>
               <MagneticButton 
                 strength={0.3}
@@ -266,7 +268,7 @@ export default function HousingMarketplace() {
                 data-testid="button-list-space"
               >
                 <Plus className="w-4 h-4" />
-                List Your Space
+                {t('housing.marketplace.list_your_space', 'List Your Space')}
               </MagneticButton>
             </div>
           </div>
@@ -284,7 +286,7 @@ export default function HousingMarketplace() {
                   <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : listings.length}</p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Active Listings</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.active_listings', 'Active Listings')}</p>
                   </div>
                 </div>
               </GlassCard>
@@ -297,7 +299,7 @@ export default function HousingMarketplace() {
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">
                       {isLoading ? '...' : new Set(listings.map(l => l.city)).size}
                     </p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Cities</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.cities', 'Cities')}</p>
                   </div>
                 </div>
               </GlassCard>
@@ -312,7 +314,7 @@ export default function HousingMarketplace() {
                         ? (listings.filter(l => l.rating).reduce((sum, l) => sum + (l.rating || 0), 0) / listings.filter(l => l.rating).length).toFixed(1)
                         : 'N/A'}
                     </p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Average Rating</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.average_rating', 'Average Rating')}</p>
                   </div>
                 </div>
               </GlassCard>
@@ -323,7 +325,7 @@ export default function HousingMarketplace() {
                   <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
                     <p className="text-2xl font-bold text-slate-900 dark:text-white">{isLoading ? '...' : filteredListings.length}</p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Matching Filters</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">{t('housing.marketplace.matching_filters', 'Matching Filters')}</p>
                   </div>
                 </div>
               </GlassCard>
@@ -339,7 +341,7 @@ export default function HousingMarketplace() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 z-10" />
                   <Input
                     type="text"
-                    placeholder="Search by location, title, or description..."
+                    placeholder={t('housing.marketplace.search_placeholder', 'Search by location, title, or description...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
@@ -356,7 +358,7 @@ export default function HousingMarketplace() {
                         : 'glass-card glass-depth-1 border-cyan-200/30 px-3 py-1.5 rounded-md text-sm font-medium border'}
                       data-testid={`button-type-${type}`}
                     >
-                      {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                      {type === 'all' ? t('housing.marketplace.all_types', 'All Types') : type.charAt(0).toUpperCase() + type.slice(1)}
                     </RippleButton>
                   ))}
                   <Button 
@@ -367,7 +369,7 @@ export default function HousingMarketplace() {
                     data-testid="button-toggle-filters"
                   >
                     <Filter className="w-4 h-4 mr-1" />
-                    Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+                    {t('housing.marketplace.filters', 'Filters')} {activeFilterCount > 0 && `(${activeFilterCount})`}
                   </Button>
                   {activeFilterCount > 0 && (
                     <Button 
@@ -377,7 +379,7 @@ export default function HousingMarketplace() {
                       className="hover:glass-card hover:glass-depth-1"
                       data-testid="button-clear-filters"
                     >
-                      Clear all
+                      {t('housing.marketplace.clear_all', 'Clear all')}
                     </Button>
                   )}
                 </div>
@@ -390,7 +392,7 @@ export default function HousingMarketplace() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Room Types */}
                   <div data-testid="filter-room-types">
-                    <Label className="text-sm font-semibold mb-3 block">Room Type</Label>
+                    <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.room_type', 'Room Type')}</Label>
                     <div className="space-y-2">
                       {roomTypes.map(roomType => {
                         const roomTypeId = `room-${roomType.toLowerCase().replace(/\s+/g, '-')}`;
@@ -416,7 +418,7 @@ export default function HousingMarketplace() {
                   {/* Price Range Slider */}
                   <div data-testid="filter-price-range">
                     <Label className="text-sm font-semibold mb-3 block">
-                      Price Range (${priceRange.min} - ${priceRange.max} per night)
+                      {t('housing.marketplace.price_range', 'Price Range')} (${priceRange.min} - ${priceRange.max} {t('housing.marketplace.per_night', 'per night')})
                     </Label>
                     <div className="space-y-4">
                       <Slider
@@ -437,10 +439,10 @@ export default function HousingMarketplace() {
 
                   {/* Guests & Bedrooms */}
                   <div data-testid="filter-capacity">
-                    <Label className="text-sm font-semibold mb-3 block">Capacity</Label>
+                    <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.capacity', 'Capacity')}</Label>
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-xs text-gray-600">Guests</Label>
+                        <Label className="text-xs text-gray-600">{t('housing.marketplace.guests', 'Guests')}</Label>
                         <div className="flex items-center gap-2 mt-1">
                           <Button
                             variant="outline"
@@ -465,7 +467,7 @@ export default function HousingMarketplace() {
                         </div>
                       </div>
                       <div>
-                        <Label className="text-xs text-gray-600">Bedrooms</Label>
+                        <Label className="text-xs text-gray-600">{t('housing.marketplace.bedrooms', 'Bedrooms')}</Label>
                         <div className="flex items-center gap-2 mt-1">
                           <Button
                             variant="outline"
@@ -477,7 +479,7 @@ export default function HousingMarketplace() {
                             -
                           </Button>
                           <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
-                            {bedroomCount === 0 ? 'Any' : bedroomCount}
+                            {bedroomCount === 0 ? t('housing.marketplace.any', 'Any') : bedroomCount}
                           </span>
                           <Button
                             variant="outline"
@@ -494,7 +496,7 @@ export default function HousingMarketplace() {
 
                   {/* Amenities */}
                   <div className="md:col-span-2 lg:col-span-3" data-testid="filter-amenities">
-                    <Label className="text-sm font-semibold mb-3 block">Amenities</Label>
+                    <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.amenities', 'Amenities')}</Label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                       {amenitiesList.map(amenity => (
                         <div key={amenity} className="flex items-center space-x-2">
@@ -521,8 +523,8 @@ export default function HousingMarketplace() {
           {/* Results Count */}
           <div className="mb-4">
             <p className="text-gray-600" data-testid="text-results-count">
-              {isLoading ? 'Loading...' : `Showing ${filteredListings.length} of ${listings.length} listings`}
-              {!isLoading && activeFilterCount > 0 && ` with ${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} applied`}
+              {isLoading ? t('housing.marketplace.loading', 'Loading...') : t('housing.marketplace.showing_results', 'Showing {{count}} of {{total}} listings', { count: filteredListings.length, total: listings.length })}
+              {!isLoading && activeFilterCount > 0 && ` ${t('housing.marketplace.with_filters', 'with {{count}} filter applied', { count: activeFilterCount })}`}
             </p>
           </div>
 
@@ -614,7 +616,7 @@ export default function HousingMarketplace() {
                       <div className="flex items-center text-lg font-bold text-cyan-600 dark:text-cyan-400" data-testid={`text-price-${listing.id}`}>
                         <DollarSign className="w-4 h-4" />
                         {priceUSD}
-                        <span className="text-sm font-normal text-slate-600 dark:text-slate-400">/night</span>
+                        <span className="text-sm font-normal text-slate-600 dark:text-slate-400">/{t('housing.marketplace.night', 'night')}</span>
                       </div>
                     </div>
 
@@ -627,15 +629,15 @@ export default function HousingMarketplace() {
                     <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400 mb-3" data-testid={`text-capacity-${listing.id}`}>
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        {listing.maxGuests} guests
+                        {listing.maxGuests} {t('housing.marketplace.guests_lowercase', 'guests')}
                       </div>
                       <div className="flex items-center gap-1">
                         <Bed className="w-4 h-4" />
-                        {listing.bedroomCount} bed
+                        {listing.bedroomCount} {t('housing.marketplace.bed', 'bed')}
                       </div>
                       <div className="flex items-center gap-1">
                         <Bath className="w-4 h-4" />
-                        {listing.bathroomCount} bath
+                        {listing.bathroomCount} {t('housing.marketplace.bath', 'bath')}
                       </div>
                     </div>
 
@@ -645,7 +647,7 @@ export default function HousingMarketplace() {
                         <div className="flex items-center gap-1 text-sm">
                           <Star className="w-4 h-4 text-amber-500 fill-current" />
                           <span className="font-medium text-slate-900 dark:text-white">{listing.rating.toFixed(1)}</span>
-                          <span className="text-slate-500 dark:text-slate-400">({listing.reviewCount || 0} reviews)</span>
+                          <span className="text-slate-500 dark:text-slate-400">({listing.reviewCount || 0} {t('housing.marketplace.reviews', 'reviews')})</span>
                         </div>
                       </div>
                     )}
@@ -674,7 +676,7 @@ export default function HousingMarketplace() {
                         className="aurora-gradient text-white hover:shadow-aurora transition-all px-3 py-1.5 rounded-md text-sm font-medium"
                         data-testid={`button-view-details-${listing.id}`}
                       >
-                        View Details
+                        {t('housing.marketplace.view_details', 'View Details')}
                       </RippleButton>
                     </div>
                   </div>
@@ -689,8 +691,8 @@ export default function HousingMarketplace() {
         {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
             <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No listings found</h3>
-            <p className="text-gray-600">Try adjusting your search or filters</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
+            <p className="text-gray-600">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
           </Card>
         )}
 
