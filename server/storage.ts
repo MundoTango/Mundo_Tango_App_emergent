@@ -938,6 +938,7 @@ export class DatabaseStorage implements IStorage {
     lng?: number | null;
     photos?: string[];
     rating?: number | null;
+    priceLevel?: string | null; // ESA Layer 28: '$', '$$', '$$$'
     tags?: string[];
     isActive?: boolean;
   }): Promise<any> {
@@ -957,6 +958,7 @@ export class DatabaseStorage implements IStorage {
         lng: data.lng || null,
         photos: data.photos || [],
         rating: data.rating || null,
+        priceLevel: data.priceLevel || null, // ESA Layer 28
         tags: data.tags || [],
         isActive: data.isActive !== false
       }).returning();
@@ -967,6 +969,93 @@ export class DatabaseStorage implements IStorage {
       console.error('❌ Error creating recommendation:', error);
       throw error;
     }
+  }
+
+  // ESA LIFE CEO 61x21 - Layer 28: Transaction-safe recommendation creation
+  // Creates both post AND recommendation atomically - no orphan posts on failure
+  async createRecommendationWithPost(data: {
+    userId: number;
+    groupId?: number | null;
+    title: string;
+    description: string;
+    type: string;
+    address?: string | null;
+    city: string;
+    state?: string | null;
+    country: string;
+    lat?: number | null;
+    lng?: number | null;
+    photos?: string[];
+    rating?: number | null;
+    priceLevel?: string | null;
+    tags?: string[];
+    isActive?: boolean;
+  }): Promise<{ recommendation: any; post: any }> {
+    return await db.transaction(async (tx) => {
+      // 1. Create the memory/post first
+      const postContent = `${data.title}\n\n${data.description}`;
+      
+      const [newPost] = await tx.insert(posts).values({
+        userId: data.userId,
+        content: postContent,
+        mediaEmbeds: data.photos && data.photos.length > 0 ? data.photos : [],
+        location: data.city ? `${data.city}, ${data.country}` : null,
+        visibility: 'public',
+        hashtags: data.tags && data.tags.length > 0 ? data.tags : [],
+      }).returning();
+
+      // 2. Create recommendation linked to the post
+      const [recommendation] = await tx.insert(recommendations).values({
+        userId: data.userId,
+        postId: newPost.id,
+        groupId: data.groupId || null,
+        title: data.title,
+        description: data.description,
+        type: data.type,
+        address: data.address || null,
+        city: data.city,
+        state: data.state || null,
+        country: data.country,
+        lat: data.lat || null,
+        lng: data.lng || null,
+        photos: data.photos || [],
+        rating: data.rating || null,
+        priceLevel: data.priceLevel || null,
+        tags: data.tags || [],
+        isActive: data.isActive !== false
+      }).returning();
+
+      console.log('✅ Recommendation + Post created atomically:', { 
+        postId: newPost.id, 
+        recommendationId: recommendation.id 
+      });
+
+      return { recommendation, post: newPost };
+    });
+  }
+
+  // ESA LIFE CEO 61x21 - Layer 28: Fetch recommendations by post IDs for Memory Feed enrichment
+  async getRecommendationsByPostIds(postIds: number[]): Promise<any[]> {
+    if (!postIds || postIds.length === 0) return [];
+    
+    const result = await db
+      .select({
+        postId: recommendations.postId,
+        type: recommendations.type,
+        rating: recommendations.rating,
+        priceLevel: recommendations.priceLevel, // Use actual column, not derived from rating
+        city: recommendations.city,
+        country: recommendations.country,
+        title: recommendations.title,
+        description: recommendations.description,
+      })
+      .from(recommendations)
+      .where(and(
+        inArray(recommendations.postId, postIds),
+        eq(recommendations.isActive, true)
+      ));
+    
+    return result;
   }
 
   async getRecommendationById(id: number): Promise<any> {

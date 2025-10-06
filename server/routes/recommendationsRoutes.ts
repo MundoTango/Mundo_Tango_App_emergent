@@ -107,6 +107,7 @@ router.get('/recommendations/user/:userId', async (req, res) => {
 });
 
 // POST /api/recommendations - Create new recommendation (requires auth)
+// ESA LIFE CEO 61x21 - Layer 28: Recommendations ARE memories with social engagement
 router.post('/recommendations', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
@@ -125,14 +126,22 @@ router.post('/recommendations', isAuthenticated, async (req: any, res) => {
       userId: user.id
     });
     
-    const recommendation = await storage.createRecommendation({
+    // ESA Framework: Transaction-safe creation - both post and recommendation succeed or both fail
+    // This prevents orphan posts if recommendation creation fails
+    const { recommendation, post } = await storage.createRecommendationWithPost({
       ...validatedData,
-      userId: user.id
+      photos: validatedData.photos || undefined,
+      tags: validatedData.tags || undefined,
+      isActive: validatedData.isActive ?? true,
+      userId: user.id,
     });
     
     res.status(201).json({
       success: true,
-      data: recommendation,
+      data: {
+        ...recommendation,
+        post // Include post data in response
+      },
       message: 'Recommendation created successfully'
     });
   } catch (error: any) {
