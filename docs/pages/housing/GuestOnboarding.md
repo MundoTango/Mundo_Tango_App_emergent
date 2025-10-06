@@ -46,48 +46,165 @@
 - **Verified Guest**: Priority access
 - **Admin**: Profile management
 
-## 4. MT Ocean Theme Implementation
+## 4. Aurora Tide Design System Implementation
+
+**Status:** ✅ Production-Ready (October 6, 2025)  
+**Design System:** [Aurora Tide Documentation](../design-systems/aurora-tide.md)
+
+### Glassmorphic Components
+
+The guest onboarding uses Aurora Tide's glassmorphic panels:
+
+```typescript
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { ScaleIn, SlideIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { PulseButton } from '@/components/interactions/MicroInteractions';
+
+// Step Container - Depth 2-3 for wizard steps
+<ScaleIn delay={0.1}>
+  <GlassCard depth={3} className="border-cyan-200/30 dark:border-cyan-500/30 p-6">
+    <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+      {t('guest.step_title', 'Your Preferences')}
+    </h2>
+    <PreferenceForm />
+  </GlassCard>
+</ScaleIn>
+
+// Preference Cards
+<StaggerContainer staggerDelay={0.08}>
+  {preferences.map(pref => (
+    <ScaleIn key={pref.id}>
+      <GlassCard 
+        depth={2}
+        className={cn(
+          "cursor-pointer transition-all",
+          "border-cyan-200/30 dark:border-cyan-500/30",
+          selected && "border-cyan-400 dark:border-cyan-400 shadow-lg shadow-cyan-500/20"
+        )}
+        data-testid={`card-preference-${pref.id}`}
+      >
+        {pref.content}
+      </GlassCard>
+    </ScaleIn>
+  ))}
+</StaggerContainer>
+```
+
+### Framer Motion Animations
+
+**Entry Animations:**
+- ScaleIn for preference cards (0.3s duration)
+- SlideIn for date pickers and modals
+- Confetti animation on booking confirmation
+
+**Guest Count Selector:**
+```typescript
+<motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
+  data-testid="button-increase-guests"
+>
+  <Plus className="w-5 h-5 mx-auto" />
+</motion.button>
+```
+
+### MT Ocean Theme Gradients
+
+**Welcome Header:**
 ```css
-/* Guest welcome gradient */
-.guest-welcome {
-  background: linear-gradient(180deg, #5EEAD4 0%, #14B8A6 30%, #0D9488 60%, #155E75 100%);
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+background: linear-gradient(135deg,
+  #5EEAD4 0%,    /* cyan-300 */
+  #14B8A6 25%,   /* teal-500 */
+  #0D9488 50%,   /* teal-600 */
+  #0F766E 75%,   /* teal-700 */
+  #155E75 100%   /* cyan-900 */
+);
+```
 
-/* Preference cards */
-.preference-card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(94, 234, 212, 0.3);
-  padding: 20px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
+**Connection Degree Chips:**
+```tsx
+// Direct friends
+<span className="px-3 py-1 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 text-white">
+  {t('guest.connection.direct', '1st Degree')}
+</span>
 
-.preference-card.selected {
-  background: rgba(94, 234, 212, 0.1);
-  border-color: #5EEAD4;
-  transform: scale(1.02);
-}
+// Friends of friends
+<span className="px-3 py-1 rounded-full bg-gradient-to-r from-teal-500 to-blue-500 text-white">
+  {t('guest.connection.indirect', '2nd Degree')}
+</span>
+```
 
-/* Budget slider */
-.budget-slider {
-  background: linear-gradient(90deg, #5EEAD4 0%, #0D9488 100%);
-  height: 8px;
-  border-radius: 4px;
-}
+**Book Now CTA:**
+```tsx
+<PulseButton className="w-full py-4 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/30">
+  {t('guest.book_now', 'Request to Book')}
+</PulseButton>
+```
 
-/* Match indicator */
-.match-badge {
-  background: linear-gradient(45deg, #14B8A6, #0F766E);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 14px;
-}
+### i18next Translations
+
+All user-facing text uses translation keys:
+
+```typescript
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation();
+
+// Step titles
+{t('guest.step.dates', 'When are you traveling?')}
+{t('guest.step.guests', 'How many guests?')}
+{t('guest.step.preferences', 'What are your preferences?')}
+
+// Preference options
+{t('guest.preference.quiet', 'Quiet neighborhood')}
+{t('guest.preference.central', 'Close to milongas')}
+{t('guest.preference.kitchen', 'Kitchen access')}
+
+// Date picker
+{t('guest.checkin', 'Check-in')}
+{t('guest.checkout', 'Check-out')}
+{t('guest.nights', { defaultValue: '{{count}} night', defaultValue_plural: '{{count}} nights', count: 3 })}
+```
+
+### Dark Mode Support
+
+```tsx
+<GlassCard className="
+  bg-white/80 dark:bg-slate-900/80
+  border-cyan-200/30 dark:border-cyan-500/30
+">
+  <h3 className="text-slate-900 dark:text-white">
+    {t('guest.properties_found', '{{count}} properties match your preferences', { count: 5 })}
+  </h3>
+  
+  <div className="mt-4 p-4 rounded-lg bg-cyan-50/50 dark:bg-cyan-950/30 border border-cyan-200/30 dark:border-cyan-500/30">
+    <p className="text-sm text-slate-600 dark:text-slate-400">
+      {t('guest.tip', 'Tip: Direct connections get priority booking')}
+    </p>
+  </div>
+</GlassCard>
+```
+
+### Data-testid Coverage
+
+```typescript
+// Step navigation
+<div data-testid="step-indicator-dates" />
+<div data-testid="step-indicator-guests" />
+
+// Form controls
+<input data-testid="input-checkin-date" />
+<input data-testid="input-checkout-date" />
+<button data-testid="button-increase-guests" />
+<button data-testid="button-decrease-guests" />
+
+// Preference selection
+<GlassCard data-testid="card-preference-quiet" />
+<GlassCard data-testid="card-preference-central" />
+
+// Booking action
+<PulseButton data-testid="button-book-now" />
 ```
 
 ## 5. Test Coverage
