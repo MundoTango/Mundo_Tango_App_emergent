@@ -1259,9 +1259,11 @@ export class DatabaseStorage implements IStorage {
         sql`${recommendations.tags} && ARRAY[${sql.join(filters.tags.map(tag => sql`${tag}`), sql`, `)}]::text[]`
       );
     }
-    // ESA Layer 26: Cuisine filter - match exact cuisine when specified
+    // ESA Layer 26: Cuisine filter - case-insensitive contains match
     if (filters.cuisine) {
-      conditions.push(eq(recommendations.cuisine, filters.cuisine));
+      conditions.push(
+        ilike(recommendations.cuisine, `%${filters.cuisine}%`)
+      );
     }
 
     const result = await db
