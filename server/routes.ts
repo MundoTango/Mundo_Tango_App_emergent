@@ -1671,6 +1671,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // GET /api/host-homes/my-properties - Get current user's properties
+  app.get('/api/host-homes/my-properties', async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      
+      if (!userId) {
+        return res.status(401).json({ success: false, error: 'Unauthorized' });
+      }
+      
+      console.log('🏠 Fetching properties for current user:', userId);
+      
+      const homes = await db
+        .select({
+          id: hostHomes.id,
+          title: hostHomes.title,
+          city: hostHomes.city,
+          country: hostHomes.country,
+          isActive: hostHomes.isActive
+        })
+        .from(hostHomes)
+        .where(eq(hostHomes.hostId, userId));
+      
+      console.log(`✅ Found ${homes.length} properties for user ${userId}`);
+      res.json({
+        success: true,
+        homes
+      });
+    } catch (error: any) {
+      console.error('❌ Error fetching my properties:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to fetch properties',
+        message: error.message 
+      });
+    }
+  });
+
   // GET /api/host-homes/:id - Get a single host home by ID
   app.get('/api/host-homes/:id', async (req: any, res) => {
     try {

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { apiRequest, queryClient } from '../lib/queryClient';
 import { Link, useRoute } from 'wouter';
 import DashboardLayout from '../layouts/DashboardLayout';
-import { ArrowLeft, Home } from 'lucide-react';
-import { Button } from '../components/ui/button';
+import { ArrowLeft, Home, Calendar as CalendarIcon } from 'lucide-react';
 import { Skeleton } from '../components/ui/skeleton';
 import { useToast } from '../hooks/use-toast';
 import { BookingCalendar } from '../components/BookingCalendar';
@@ -16,6 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select';
+import { GlassCard } from '../components/glass/GlassComponents';
+import { FadeIn, ScaleIn } from '../components/animations/FramerMotionWrappers';
+import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
 
 interface HostHome {
   id: number;
@@ -45,6 +48,7 @@ interface AvailabilityData {
 }
 
 export default function HostCalendar() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [, params] = useRoute('/host-calendar/:id');
   const initialHomeId = params?.id ? parseInt(params.id) : undefined;
@@ -89,14 +93,14 @@ export default function HostCalendar() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/host-homes', selectedHomeId, 'availability'] });
       toast({
-        title: 'Calendar updated',
-        description: 'Your availability calendar has been updated successfully.',
+        title: t('housing.host_calendar.toast_updated_title', 'Calendar updated'),
+        description: t('housing.host_calendar.toast_updated_desc', 'Your availability calendar has been updated successfully.'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Update failed',
-        description: error.message || 'Could not update calendar. Please try again.',
+        title: t('housing.host_calendar.toast_error_title', 'Update failed'),
+        description: error.message || t('housing.host_calendar.toast_error_desc', 'Could not update calendar. Please try again.'),
         variant: 'destructive',
       });
     },
@@ -106,24 +110,28 @@ export default function HostCalendar() {
   const selectedHome = homes.find(h => h.id === selectedHomeId);
 
   // If initial home ID from params and homes loaded, ensure it's selected
-  if (initialHomeId && !selectedHomeId && homes.length > 0 && homes.some(h => h.id === initialHomeId)) {
-    setSelectedHomeId(initialHomeId);
-  }
+  useEffect(() => {
+    if (initialHomeId && !selectedHomeId && homes.length > 0 && homes.some(h => h.id === initialHomeId)) {
+      setSelectedHomeId(initialHomeId);
+    }
+  }, [initialHomeId, selectedHomeId, homes]);
 
   // Auto-select first home if none selected and homes are loaded
-  if (!selectedHomeId && homes.length > 0 && !isLoadingHomes) {
-    setSelectedHomeId(homes[0].id);
-  }
+  useEffect(() => {
+    if (!selectedHomeId && homes.length > 0 && !isLoadingHomes) {
+      setSelectedHomeId(homes[0].id);
+    }
+  }, [selectedHomeId, homes, isLoadingHomes]);
 
   if (isLoadingHomes) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
           <div className="max-w-5xl mx-auto px-4">
-            <Skeleton className="h-10 w-64 mb-8" />
+            <Skeleton className="h-10 w-64 mb-8 bg-slate-200 dark:bg-slate-800" />
             <div className="space-y-6">
-              <Skeleton className="h-12 w-full" />
-              <Skeleton className="h-96 w-full" />
+              <Skeleton className="h-12 w-full bg-slate-200 dark:bg-slate-800" />
+              <Skeleton className="h-96 w-full bg-slate-200 dark:bg-slate-800" />
             </div>
           </div>
         </div>
@@ -134,31 +142,45 @@ export default function HostCalendar() {
   if (homes.length === 0) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
           <div className="max-w-5xl mx-auto px-4">
-            <div className="flex items-center gap-4 mb-8">
-              <Link href="/host-bookings">
-                <Button variant="ghost" size="icon" data-testid="button-back-host-dashboard">
-                  <ArrowLeft className="w-5 h-5" />
-                </Button>
-              </Link>
-              <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
-                Property Calendar
-              </h1>
-            </div>
+            <FadeIn>
+              <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+                <div className="p-6">
+                  <div className="flex items-center gap-4">
+                    <Link href="/host-bookings">
+                      <MagneticButton
+                        strength={0.15}
+                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                        data-testid="button-back-host-dashboard"
+                      >
+                        <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                      </MagneticButton>
+                    </Link>
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
+                      {t('housing.host_calendar.title', 'Property Calendar')}
+                    </h1>
+                  </div>
+                </div>
+              </GlassCard>
+            </FadeIn>
 
-            <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-              <Home className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Properties Listed</h3>
-              <p className="text-gray-600 mb-6">
-                You need to create a property listing before you can manage your calendar.
-              </p>
-              <Link href="/host-onboarding">
-                <Button className="bg-indigo-600 hover:bg-indigo-700">
-                  Create Your First Listing
-                </Button>
-              </Link>
-            </div>
+            <ScaleIn delay={0.1}>
+              <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
+                <Home className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                  {t('housing.host_calendar.no_properties_title', 'No Properties Listed')}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                  {t('housing.host_calendar.no_properties_desc', 'You need to create a property listing before you can manage your calendar.')}
+                </p>
+                <Link href="/host-onboarding">
+                  <PulseButton className="px-6 py-3 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white rounded-xl">
+                    {t('housing.host_calendar.create_first_listing', 'Create Your First Listing')}
+                  </PulseButton>
+                </Link>
+              </GlassCard>
+            </ScaleIn>
           </div>
         </div>
       </DashboardLayout>
@@ -167,76 +189,109 @@ export default function HostCalendar() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
         <div className="max-w-5xl mx-auto px-4">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
-            <Link href="/host-bookings">
-              <Button variant="ghost" size="icon" data-testid="button-back-host-dashboard">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900" data-testid="heading-host-calendar">
-                Property Calendar
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Manage availability and blocked dates for your properties
-              </p>
-            </div>
-          </div>
+          <FadeIn>
+            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+              <div className="p-6">
+                <div className="flex items-center gap-4">
+                  <Link href="/host-bookings">
+                    <MagneticButton
+                      strength={0.15}
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                      data-testid="button-back-host-dashboard"
+                    >
+                      <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                    </MagneticButton>
+                  </Link>
+                  <div className="flex-1">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
+                      {t('housing.host_calendar.title', 'Property Calendar')}
+                    </h1>
+                    <p className="text-slate-600 dark:text-slate-400 mt-1">
+                      {t('housing.host_calendar.subtitle', 'Manage availability and blocked dates for your properties')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+          </FadeIn>
 
           {/* Property Selector */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Property
-            </label>
-            <Select
-              value={selectedHomeId?.toString()}
-              onValueChange={(value) => setSelectedHomeId(parseInt(value))}
-            >
-              <SelectTrigger className="w-full max-w-md" data-testid="select-property">
-                <SelectValue placeholder="Choose a property" />
-              </SelectTrigger>
-              <SelectContent>
-                {homes.map((home) => (
-                  <SelectItem key={home.id} value={home.id.toString()} data-testid={`option-property-${home.id}`}>
-                    {home.title} - {home.city}, {home.country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <ScaleIn delay={0.05}>
+            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+              <div className="p-6">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+                  <CalendarIcon className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                  {t('housing.host_calendar.select_property', 'Select Property')}
+                </label>
+                <Select
+                  value={selectedHomeId?.toString()}
+                  onValueChange={(value) => setSelectedHomeId(parseInt(value))}
+                >
+                  <SelectTrigger 
+                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/50 dark:bg-slate-800/50" 
+                    data-testid="select-property"
+                  >
+                    <SelectValue placeholder={t('housing.host_calendar.choose_property', 'Choose a property')} />
+                  </SelectTrigger>
+                  <SelectContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30">
+                    {homes.map((home) => (
+                      <SelectItem 
+                        key={home.id} 
+                        value={home.id.toString()} 
+                        data-testid={`option-property-${home.id}`}
+                        className="focus:bg-gradient-to-r focus:from-cyan-100 focus:to-teal-100 dark:focus:from-cyan-900/50 dark:focus:to-teal-900/50"
+                      >
+                        {home.title} - {home.city}, {home.country}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </GlassCard>
+          </ScaleIn>
 
           {/* Booking Restrictions - ESA Layer 9 */}
           {selectedHomeId && (
-            <div className="mb-6">
-              <BookingRestrictionsCard propertyId={selectedHomeId} />
-            </div>
+            <ScaleIn delay={0.1}>
+              <div className="mb-6">
+                <BookingRestrictionsCard propertyId={selectedHomeId} />
+              </div>
+            </ScaleIn>
           )}
 
           {/* Calendar Component */}
           {selectedHomeId && (
-            <div>
-              {isLoadingAvailability ? (
-                <div className="space-y-6">
-                  <Skeleton className="h-96 w-full" />
-                  <Skeleton className="h-48 w-full" />
-                </div>
-              ) : availabilityData?.data ? (
-                <BookingCalendar
-                  homeId={selectedHomeId}
-                  bookings={availabilityData.data.bookings}
-                  blockedDates={availabilityData.data.blockedDates}
-                  onUpdateBlockedDates={(blockedDates) => updateBlockedDatesMutation.mutateAsync(blockedDates)}
-                  isUpdating={updateBlockedDatesMutation.isPending}
-                />
-              ) : (
-                <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-                  <p className="text-gray-600">Unable to load calendar data</p>
-                </div>
-              )}
-            </div>
+            <ScaleIn delay={0.15}>
+              <div>
+                {isLoadingAvailability ? (
+                  <div className="space-y-6">
+                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+                      <Skeleton className="h-96 w-full bg-slate-200 dark:bg-slate-800" />
+                    </GlassCard>
+                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+                      <Skeleton className="h-48 w-full bg-slate-200 dark:bg-slate-800" />
+                    </GlassCard>
+                  </div>
+                ) : availabilityData?.data ? (
+                  <BookingCalendar
+                    homeId={selectedHomeId}
+                    bookings={availabilityData.data.bookings}
+                    blockedDates={availabilityData.data.blockedDates}
+                    onUpdateBlockedDates={(blockedDates) => updateBlockedDatesMutation.mutateAsync(blockedDates)}
+                    isUpdating={updateBlockedDatesMutation.isPending}
+                  />
+                ) : (
+                  <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
+                    <p className="text-slate-600 dark:text-slate-400">
+                      {t('housing.host_calendar.unable_to_load', 'Unable to load calendar data')}
+                    </p>
+                  </GlassCard>
+                )}
+              </div>
+            </ScaleIn>
           )}
         </div>
       </div>
