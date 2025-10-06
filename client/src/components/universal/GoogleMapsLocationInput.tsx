@@ -203,18 +203,33 @@ export default function GoogleMapsLocationInput({
 
     setIsLoading(true);
     
+    // ESA Layer 13: Build request with conditional location bias
     const request: any = {
       input: query,
-      // Search for all types of establishments if no specific types provided
       types: searchTypes.length > 0 ? searchTypes : ['establishment'],
-      // Properly bias results to location using valid Google Maps parameters
-      location: new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng),
-      radius: 50000, // 50km radius
     };
 
-    if (import.meta.env.DEV) {
-      console.log('🔍 Making autocomplete request:', { query, types: request.types });
+    // Only add location bias if we have valid coordinates
+    const hasValidCoords = 
+      biasToLocation && 
+      Number.isFinite(biasToLocation.lat) && 
+      Number.isFinite(biasToLocation.lng) &&
+      Math.abs(biasToLocation.lat) <= 90 &&
+      Math.abs(biasToLocation.lng) <= 180;
+
+    if (hasValidCoords) {
+      request.location = new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng);
+      request.radius = 50000; // 50km radius
+      console.log('🗺️ Using location bias:', biasToLocation);
+    } else {
+      console.log('🌍 No valid location bias - using global search');
     }
+
+    console.log('🔍 Making autocomplete request:', { 
+      query, 
+      types: request.types, 
+      hasBias: hasValidCoords 
+    });
 
     try {
       autocompleteServiceRef.current.getPlacePredictions(
@@ -222,23 +237,25 @@ export default function GoogleMapsLocationInput({
         (predictions: any, status: any) => {
           setIsLoading(false);
           
-          if (import.meta.env.DEV) {
-            console.log('🔍 Autocomplete response:', { status, predictionsCount: predictions?.length || 0 });
-          }
+          console.log('🔍 Autocomplete response:', { 
+            status, 
+            statusName: status,
+            predictionsCount: predictions?.length || 0,
+            query 
+          });
           
           if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
-            if (import.meta.env.DEV) {
-              console.log('✅ Found', predictions.length, 'suggestions');
-            }
+            console.log('✅ Found', predictions.length, 'Google Maps suggestions for:', query);
             setSuggestions(predictions);
             setShowSuggestions(true);
           } else if (status === (window as any).google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-            if (import.meta.env.DEV) {
-              console.log('📭 No results found for query:', query);
-            }
+            console.log('📭 No results found for query:', query);
+            setSuggestions([]);
+          } else if (status === (window as any).google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
+            console.error('❌ INVALID_REQUEST - Check request parameters:', { request, query });
             setSuggestions([]);
           } else {
-            console.error('❌ Autocomplete error:', status);
+            console.error('❌ Autocomplete error status:', status);
             setSuggestions([]);
           }
         }
