@@ -27,7 +27,7 @@ router.get('/recommendations', async (req: any, res) => {
       offset = '0'
     } = req.query;
 
-    // Get viewer ID for connection-based filtering (if authenticated)
+    // Get authenticated viewer ID (all users are authenticated on platform)
     let viewerId: number | null = null;
     if (req.user?.claims?.sub) {
       const viewer = await storage.getUserByReplitId(req.user.claims.sub);
@@ -51,11 +51,8 @@ router.get('/recommendations', async (req: any, res) => {
       offset: parseInt(offset as string)
     });
 
-    // Extract recommendation IDs for social filtering
-    const recIds = recommendations.map((r: any) => r.id);
-
-    // Apply social connection filters if viewer is authenticated
-    if (viewerId && recIds.length > 0) {
+    // Apply social filters if viewer is authenticated and recommendations exist
+    if (viewerId && recommendations.length > 0) {
       const socialFilters = {
         connectionDegree: connectionDegree as any,
         minClosenessScore: minClosenessScore ? parseInt(minClosenessScore as string) : undefined,
@@ -65,7 +62,7 @@ router.get('/recommendations', async (req: any, res) => {
 
       const filteredIds = await recommendationAccessService.applyAllFilters(
         viewerId,
-        recIds,
+        recommendations.map((r: any) => r.id),
         socialFilters
       );
 
