@@ -34,31 +34,86 @@ async function detectIPLocation(): Promise<{
   city: string;
   country: string;
 } | null> {
+  // ESA Layer 13: Try multiple free geolocation services with fallbacks
+  
+  // Service 1: ipapi.co (HTTPS, no key, 1000/day limit)
   try {
-    // ESA Layer 13: Use free ip-api.com service (no API key required)
-    const response = await fetch('http://ip-api.com/json/?fields=status,country,city,lat,lon', {
+    if (import.meta.env.DEV) {
+      console.log('📍 Attempting IP geolocation via ipapi.co...');
+    }
+    
+    const response = await fetch('https://ipapi.co/json/', {
       signal: AbortSignal.timeout(5000)
     });
 
-    if (!response.ok) {
-      throw new Error(`IP geolocation failed: ${response.status}`);
+    if (response.ok) {
+      const data: any = await response.json();
+
+      if (data.latitude && data.longitude) {
+        if (import.meta.env.DEV) {
+          console.log('✅ IP geolocation successful:', {
+            city: data.city,
+            country: data.country_name,
+            coordinates: { lat: data.latitude, lng: data.longitude }
+          });
+        }
+        return {
+          coordinates: { lat: data.latitude, lng: data.longitude },
+          city: data.city || 'Unknown',
+          country: data.country_name || 'Unknown'
+        };
+      }
     }
-
-    const data: IPGeolocationResponse = await response.json();
-
-    if (data.status === 'success') {
-      return {
-        coordinates: { lat: data.lat, lng: data.lon },
-        city: data.city,
-        country: data.country
-      };
-    }
-
-    return null;
   } catch (error) {
-    console.warn('⚠️ IP geolocation failed:', error);
-    return null;
+    if (import.meta.env.DEV) {
+      console.warn('⚠️ ipapi.co failed:', error);
+    }
   }
+
+  // Service 2: Fallback to freeipapi.com (no rate limit)
+  try {
+    if (import.meta.env.DEV) {
+      console.log('📍 Trying fallback: freeipapi.com...');
+    }
+    
+    const response = await fetch('https://freeipapi.com/api/json', {
+      signal: AbortSignal.timeout(5000)
+    });
+
+    if (response.ok) {
+      const data: any = await response.json();
+
+      if (data.latitude && data.longitude) {
+        if (import.meta.env.DEV) {
+          console.log('✅ Fallback geolocation successful:', {
+            city: data.cityName,
+            country: data.countryName,
+            coordinates: { lat: data.latitude, lng: data.longitude }
+          });
+        }
+        return {
+          coordinates: { lat: data.latitude, lng: data.longitude },
+          city: data.cityName || 'Unknown',
+          country: data.countryName || 'Unknown'
+        };
+      }
+    }
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.warn('⚠️ freeipapi.com failed:', error);
+    }
+  }
+
+  if (import.meta.env.DEV) {
+    console.warn('❌ All IP geolocation services failed - using default Buenos Aires location');
+  }
+  
+  // ESA Layer 13: Graceful degradation - default to Buenos Aires (most common user location)
+  return {
+    coordinates: { lat: -34.6037, lng: -58.3816 },
+    city: 'Buenos Aires',
+    country: 'Argentina'
+  };
 }
 
 async function detectBrowserLocation(): Promise<LocationCoordinates | null> {
