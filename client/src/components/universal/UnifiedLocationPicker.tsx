@@ -249,7 +249,7 @@ export default function UnifiedLocationPicker({
 
       if (uniquePlaces.length > 0) {
         const osmSuggestions = uniquePlaces.slice(0, 8).map((place: any) => ({
-          description: place.display_name,
+          description: place.description || place.display_name,
           isOSM: place.isOSM || false,
           isLocationIQ: place.isLocationIQ || false,
           isLocal: place.isLocal || false,
@@ -522,7 +522,7 @@ export default function UnifiedLocationPicker({
       {showSuggestions && suggestions.length > 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-dropdown w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
+          className="absolute z-popover w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
             border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
         >
           <div className="max-h-80 overflow-y-auto">
