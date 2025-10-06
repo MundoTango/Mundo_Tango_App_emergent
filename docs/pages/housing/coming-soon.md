@@ -10,6 +10,16 @@ This document outlines planned features for the Mundo Tango platform, including 
 
 ---
 
+## Known Issues
+
+### 🐛 Location Picker - Fixed October 2025
+**Status**: ✅ Resolved  
+**Issue**: Location dropdown visibility and data mapping  
+**Fixed**: October 6, 2025  
+**Details**: [LocationIQ Integration Fixes](../bug-fixes/locationiq-integration-fixes-oct-2025.md)
+
+---
+
 ## Recommendations System - Phase 2: AI-Powered Engine
 
 ### AI-Powered Recommendation Engine
