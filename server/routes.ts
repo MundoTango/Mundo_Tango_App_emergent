@@ -73,6 +73,7 @@ import tagRoutes from "./routes/tagRoutes"; // ESA LIFE CEO 61x21 - Tag manageme
 import projectRoutes from "./routes/projects"; // ESA LIFE CEO 56x21 - Project Tracker routes (Layer 2: API Structure)
 import aiRoutes from "./routes/ai"; // ESA LIFE CEO 56x21 - Intelligence Infrastructure routes (Layers 31-46)
 import agentRoutes from "./routes/agentRoutes"; // ESA LIFE CEO 61x21 - Agent System routes (All 61 layers)
+import recommendationsRoutes from "./routes/recommendationsRoutes"; // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
 import paymentRoutes from "./routes/paymentRoutes"; // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
 import translationRoutes from "./routes/translationRoutes"; // ESA Layer 53: Internationalization & Translation System
 import lifeCeoAgentRoutes from "./routes/lifeCeoAgentRoutes"; // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o
@@ -175,6 +176,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', projectRoutes); // ESA LIFE CEO 56x21 - Project Tracker API routes (Layer 2: API Structure)
   app.use('/api', aiRoutes); // ESA LIFE CEO 56x21 - Intelligence Infrastructure API routes (Layers 31-46)
   app.use('/api', agentRoutes); // ESA LIFE CEO 61x21 - Agent System API routes (All 61 layers)
+  app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
