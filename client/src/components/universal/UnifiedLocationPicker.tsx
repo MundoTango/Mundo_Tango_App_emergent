@@ -437,7 +437,8 @@ export default function UnifiedLocationPicker({
   const handleSuggestionClick = (suggestion: any) => {
     if (suggestion.isLocal) {
       selectLocalRecommendation(suggestion);
-    } else if (suggestion.isOSM) {
+    } else if (suggestion.isOSM || suggestion.isLocationIQ) {
+      // Both LocationIQ and Nominatim use the same data structure
       selectOSMPlace(suggestion);
     } else {
       selectGooglePlace(suggestion);
