@@ -3,45 +3,89 @@ import { storage } from '../storage';
 import { isAuthenticated } from '../replitAuth';
 import { insertRecommendationSchema } from '../../shared/schema';
 import { z } from 'zod';
+import { recommendationAccessService } from '../services/recommendationAccessService';
 
 const router = Router();
 
 // ESA LIFE CEO 61x21 - Layer 28: Recommendations System
-// User-Generated Recommendations with Aurora Tide Design
+// User-Generated Recommendations with Aurora Tide Design + Social Connection Filtering
 
-// GET /api/recommendations - Get all recommendations with optional filters
-router.get('/recommendations', async (req, res) => {
+// GET /api/recommendations - Get recommendations with comprehensive filters
+router.get('/recommendations', async (req: any, res) => {
   try {
-    const { city, type, limit = '20', offset = '0' } = req.query;
-    
-    let recommendations;
-    
-    if (type && typeof type === 'string') {
-      // Filter by type (restaurant, cafe, hotel, venue, etc.)
-      recommendations = await storage.getRecommendationsByType(
-        type,
-        city as string | undefined,
-        parseInt(limit as string),
-        parseInt(offset as string)
-      );
-    } else if (city && typeof city === 'string') {
-      // Filter by city only
-      recommendations = await storage.getRecommendationsByCity(
-        city,
-        parseInt(limit as string),
-        parseInt(offset as string)
-      );
-    } else {
-      // Get all recommendations (using legacy method for now)
-      recommendations = await storage.getRecommendations({
-        city: city as string | undefined,
-        category: type as string | undefined
-      });
+    const {
+      city,
+      type,
+      priceLevel,
+      minRating,
+      tags,
+      connectionDegree,
+      minClosenessScore,
+      localStatus,
+      originCountry,
+      limit = '20',
+      offset = '0'
+    } = req.query;
+
+    // Get viewer ID for connection-based filtering (if authenticated)
+    let viewerId: number | null = null;
+    if (req.user?.claims?.sub) {
+      const viewer = await storage.getUserByReplitId(req.user.claims.sub);
+      viewerId = viewer?.id || null;
     }
-    
+
+    // Build base query filters
+    const baseFilters: any = {};
+    if (city) baseFilters.city = city as string;
+    if (type) baseFilters.type = type as string;
+    if (priceLevel) baseFilters.priceLevel = priceLevel as string;
+    if (minRating) baseFilters.minRating = parseInt(minRating as string);
+    if (tags) {
+      baseFilters.tags = Array.isArray(tags) ? tags : [tags];
+    }
+
+    // Get initial recommendations using base filters
+    let recommendations = await storage.getRecommendationsByFilters({
+      ...baseFilters,
+      limit: parseInt(limit as string),
+      offset: parseInt(offset as string)
+    });
+
+    // Extract recommendation IDs for social filtering
+    const recIds = recommendations.map((r: any) => r.id);
+
+    // Apply social connection filters if viewer is authenticated
+    if (viewerId && recIds.length > 0) {
+      const socialFilters = {
+        connectionDegree: connectionDegree as any,
+        minClosenessScore: minClosenessScore ? parseInt(minClosenessScore as string) : undefined,
+        localStatus: localStatus as any,
+        originCountry: originCountry as string | undefined
+      };
+
+      const filteredIds = await recommendationAccessService.applyAllFilters(
+        viewerId,
+        recIds,
+        socialFilters
+      );
+
+      // Filter recommendations to only include filtered IDs
+      recommendations = recommendations.filter((r: any) => filteredIds.includes(r.id));
+    }
+
     res.json({
       success: true,
-      data: recommendations
+      data: recommendations,
+      meta: {
+        total: recommendations.length,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+        filters: {
+          connection: connectionDegree || 'anyone',
+          localStatus: localStatus || 'all',
+          originCountry: originCountry || null
+        }
+      }
     });
   } catch (error: any) {
     console.error('Error fetching recommendations:', error);
