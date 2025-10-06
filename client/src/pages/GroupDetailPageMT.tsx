@@ -87,6 +87,17 @@ export default function GroupDetailPageMT() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('posts');
   
+  // Aurora Tide: GSAP Scroll Reveal for housing statistics cards
+  const housingCardsRef = useScrollReveal('.housing-stat-card', {
+    opacity: 0,
+    y: 30,
+  }, {
+    stagger: 0.1,
+    start: 'top 85%',
+    once: true,
+    respectReducedMotion: true,
+  });
+  
   // Socket.io connection reference (persisted across renders)
   const socketRef = React.useRef<Socket | null>(null);
   
@@ -1160,17 +1171,6 @@ export default function GroupDetailPageMT() {
       [] as any[],
       group?.id
     );
-
-    // Aurora Tide: GSAP Scroll Reveal for housing cards
-    const housingCardsRef = useScrollReveal('.housing-stat-card', {
-      opacity: 0,
-      y: 30,
-    }, {
-      stagger: 0.1,
-      start: 'top 85%',
-      once: true,
-      respectReducedMotion: true,
-    });
 
     return (
       <div className="space-y-6" ref={housingCardsRef}>
