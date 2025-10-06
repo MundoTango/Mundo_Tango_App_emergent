@@ -3542,7 +3542,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ESA Layer 15: Geocoding proxy to avoid CORS issues
+  // ESA Layer 15: Geocoding proxy with multi-provider fallback strategy
+  // LocationIQ (fast, commercial) → Nominatim (free, open source) → Local DB
+  const geocodingCache = new Map<string, { data: any[], timestamp: number }>();
+  const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+
   app.get('/api/location/geocode', async (req, res) => {
     try {
       const { q, limit = '8', lat, lng } = req.query;
@@ -3553,60 +3557,139 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const searchLimit = Math.min(parseInt(limit as string) || 8, 20);
+      const cacheKey = `${q}|${lat}|${lng}|${searchLimit}`;
       
-      // Build OpenStreetMap Nominatim URL
-      let osmUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=${searchLimit}&addressdetails=1`;
-      
-      // Add location bias if provided
-      if (lat && lng) {
-        const latitude = parseFloat(lat as string);
-        const longitude = parseFloat(lng as string);
-        
-        if (!isNaN(latitude) && !isNaN(longitude)) {
-          // Create ~50km radius viewbox
-          const latOffset = 0.45;
-          const lngOffset = 0.6;
-          const minLng = longitude - lngOffset;
-          const maxLng = longitude + lngOffset;
-          const minLat = latitude - latOffset;
-          const maxLat = latitude + latOffset;
+      // Check cache first
+      const cached = geocodingCache.get(cacheKey);
+      if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('📦 Cache hit for:', q);
+        }
+        res.json(cached.data);
+        return;
+      }
+
+      let results: any[] = [];
+      let provider = 'none';
+
+      // Strategy 1: LocationIQ (best results, fast, free tier: 10k/day)
+      if (process.env.LOCATIONIQ_API_KEY) {
+        try {
+          let locationIqUrl = `https://us1.locationiq.com/v1/search?key=${process.env.LOCATIONIQ_API_KEY}&q=${encodeURIComponent(q)}&format=json&limit=${searchLimit}&addressdetails=1&normalizeaddress=1&dedupe=1`;
           
-          osmUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
+          if (lat && lng) {
+            const latitude = parseFloat(lat as string);
+            const longitude = parseFloat(lng as string);
+            
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+              // LocationIQ viewbox format: left,top,right,bottom (minLon,maxLat,maxLon,minLat)
+              const latOffset = 0.45;
+              const lngOffset = 0.6;
+              const minLng = longitude - lngOffset;
+              const maxLng = longitude + lngOffset;
+              const minLat = latitude - latOffset;
+              const maxLat = latitude + latOffset;
+              
+              locationIqUrl += `&viewbox=${minLng},${maxLat},${maxLng},${minLat}&bounded=0`;
+            }
+          }
+
+          if (process.env.NODE_ENV === 'development') {
+            console.log('🗺️ LocationIQ request:', q, lat ? `(bias: ${lat},${lng})` : '');
+          }
+
+          const response = await fetch(locationIqUrl, {
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            
+            results = Array.isArray(data) ? data.map((place: any) => ({
+              description: place.display_name,
+              isLocationIQ: true,
+              lat: place.lat,
+              lon: place.lon,
+              place_id: place.place_id,
+              address: place.address,
+              type: place.type,
+              class: place.class,
+              importance: place.importance
+            })) : [];
+            
+            provider = 'LocationIQ';
+          } else if (response.status === 429) {
+            console.warn('⚠️ LocationIQ rate limit reached, falling back to Nominatim');
+          }
+        } catch (error: any) {
+          console.warn('⚠️ LocationIQ error, falling back to Nominatim:', error.message);
+        }
+      }
+
+      // Strategy 2: Fallback to OpenStreetMap Nominatim (free, slower)
+      if (results.length === 0) {
+        try {
+          let osmUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=${searchLimit}&addressdetails=1`;
+          
+          if (lat && lng) {
+            const latitude = parseFloat(lat as string);
+            const longitude = parseFloat(lng as string);
+            
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+              const latOffset = 0.45;
+              const lngOffset = 0.6;
+              const minLng = longitude - lngOffset;
+              const maxLng = longitude + lngOffset;
+              const minLat = latitude - latOffset;
+              const maxLat = latitude + latOffset;
+              
+              osmUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
+            }
+          }
+
+          const response = await fetch(osmUrl, {
+            headers: {
+              'User-Agent': 'MundoTangoApp/1.0 (contact: support@mundotango.life)',
+              'Accept-Language': 'en'
+            }
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            
+            results = Array.isArray(data) ? data.map((place: any) => ({
+              description: place.display_name,
+              isOSM: true,
+              lat: place.lat,
+              lon: place.lon,
+              place_id: place.place_id,
+              address: place.address,
+              type: place.type,
+              class: place.class
+            })) : [];
+            
+            provider = 'Nominatim';
+          }
+        } catch (error: any) {
+          console.error('❌ Nominatim error:', error.message);
+        }
+      }
+
+      // Cache successful results
+      if (results.length > 0) {
+        geocodingCache.set(cacheKey, { data: results, timestamp: Date.now() });
+        
+        // Limit cache size
+        if (geocodingCache.size > 1000) {
+          const firstKey = geocodingCache.keys().next().value;
+          geocodingCache.delete(firstKey);
         }
       }
 
       if (process.env.NODE_ENV === 'development') {
-        console.log('🗺️ Geocoding proxy request:', q, lat ? `(bias: ${lat},${lng})` : '');
-      }
-
-      // Call OpenStreetMap Nominatim API
-      const response = await fetch(osmUrl, {
-        headers: {
-          'User-Agent': 'MundoTangoApp/1.0 (contact: support@mundotango.life)',
-          'Accept-Language': 'en'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`Nominatim API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      // Transform to consistent format
-      const results = Array.isArray(data) ? data.map((place: any) => ({
-        description: place.display_name,
-        isOSM: true,
-        lat: place.lat,
-        lon: place.lon,
-        place_id: place.place_id,
-        address: place.address,
-        type: place.type,
-        class: place.class
-      })) : [];
-
-      if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Found', results.length, 'locations');
+        console.log(`✅ Found ${results.length} locations via ${provider}`);
       }
 
       res.json(results);
