@@ -105,10 +105,10 @@ export default function UnifiedLocationPicker({
   }, []);
 
   useEffect(() => {
-    // ESA Layer 13: Force OSM mode due to Google Maps API key issues
-    // Google Maps deprecated AutocompleteService (March 2025) and has InvalidKeyMapError
+    // ESA Layer 13 + 15: Backend proxy with multi-provider strategy
+    // LocationIQ (fast, 10k/day free) → Nominatim (free fallback) → Local DB
     if (import.meta.env.DEV) {
-      console.log('🌍 UnifiedLocationPicker: Using OpenStreetMap Nominatim API (free, no API key required)');
+      console.log('🗺️ UnifiedLocationPicker: Using backend proxy (LocationIQ → Nominatim → Local DB)');
     }
     setStrategy('osm');
     setInitState('ready');
@@ -250,7 +250,9 @@ export default function UnifiedLocationPicker({
       if (uniquePlaces.length > 0) {
         const osmSuggestions = uniquePlaces.slice(0, 8).map((place: any) => ({
           description: place.display_name,
-          isOSM: true,
+          isOSM: place.isOSM || false,
+          isLocationIQ: place.isLocationIQ || false,
+          isLocal: place.isLocal || false,
           lat: place.lat,
           lon: place.lon,
           place_id: place.place_id,
@@ -261,7 +263,18 @@ export default function UnifiedLocationPicker({
         setShowSuggestions(true);
 
         if (import.meta.env.DEV) {
-          console.log('✅ Found', osmSuggestions.length, 'OpenStreetMap suggestions');
+          // Detect which provider was used
+          const hasLocationIQ = osmSuggestions.some(s => s.isLocationIQ);
+          const hasOSM = osmSuggestions.some(s => s.isOSM && !s.isLocationIQ);
+          const hasLocal = osmSuggestions.some(s => s.isLocal);
+          
+          const providers = [];
+          if (hasLocationIQ) providers.push('LocationIQ');
+          if (hasOSM) providers.push('Nominatim');
+          if (hasLocal) providers.push('Local');
+          
+          const providerStr = providers.length > 0 ? providers.join(' + ') : 'Unknown';
+          console.log(`✅ Found ${osmSuggestions.length} suggestions via ${providerStr}`);
         }
       } else {
         // ESA Layer 28: Fallback to local database recommendations
@@ -540,9 +553,14 @@ export default function UnifiedLocationPicker({
                           ⭐ Platform Recommendation
                         </span>
                       )}
-                      {suggestion.isOSM && (
-                        <span className="text-xs text-turquoise-600 dark:text-turquoise-400">
-                          OpenStreetMap
+                      {suggestion.isLocationIQ && (
+                        <span className="text-xs text-turquoise-600 dark:text-turquoise-400 font-medium">
+                          ⚡ LocationIQ
+                        </span>
+                      )}
+                      {suggestion.isOSM && !suggestion.isLocationIQ && (
+                        <span className="text-xs text-ocean-blue-600 dark:text-ocean-blue-400">
+                          🌍 OpenStreetMap
                         </span>
                       )}
                     </div>
