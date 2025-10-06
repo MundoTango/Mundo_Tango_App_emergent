@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,7 @@ import {
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
 import { PulseButton, MagneticButton } from '@/components/interactions/MicroInteractions';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface HostHome {
   id: number;
@@ -40,7 +42,19 @@ interface HostHome {
 
 export default function HostDashboard() {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [, navigate] = useLocation();
+  
+  // Aurora Tide: GSAP Scroll Reveal for property cards
+  const propertyCardsRef = useScrollReveal('.property-card', {
+    opacity: 0,
+    y: 30,
+  }, {
+    stagger: 0.15,
+    start: 'top 85%',
+    once: true,
+    respectReducedMotion: true,
+  });
 
   // Fetch user's host homes
   const { data: response, isLoading } = useQuery<{ success: boolean; data: HostHome[] }>({
@@ -81,12 +95,11 @@ export default function HostDashboard() {
               
               <FadeIn delay={0.2}>
                 <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                  Welcome to Hosting!
+                  {t('housing.host_dashboard.welcome_title', 'Welcome to Hosting!')}
                 </h1>
                 
                 <p className="text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-                  Share your space with the tango community. Connect with dancers from around the world 
-                  and offer them a home away from home during their travels.
+                  {t('housing.host_dashboard.welcome_description', 'Share your space with the tango community. Connect with dancers from around the world and offer them a home away from home during their travels.')}
                 </p>
               </FadeIn>
 
@@ -95,9 +108,11 @@ export default function HostDashboard() {
                   <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center mb-4">
                     <Users className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">Connection-Based</h3>
+                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
+                    {t('housing.host_dashboard.connection_based_title', 'Connection-Based')}
+                  </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    Control who can book based on your friendship connections and closeness scores
+                    {t('housing.host_dashboard.connection_based_desc', 'Control who can book based on your friendship connections and closeness scores')}
                   </p>
                 </GlassCard>
 
@@ -105,9 +120,11 @@ export default function HostDashboard() {
                   <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
                     <MessageCircle className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">Community Trust</h3>
+                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
+                    {t('housing.host_dashboard.community_trust_title', 'Community Trust')}
+                  </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    Host verified tango community members you're connected with
+                    {t('housing.host_dashboard.community_trust_desc', 'Host verified tango community members you\'re connected with')}
                   </p>
                 </GlassCard>
 
@@ -115,9 +132,11 @@ export default function HostDashboard() {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
                     <Calendar className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">Your Schedule</h3>
+                  <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
+                    {t('housing.host_dashboard.your_schedule_title', 'Your Schedule')}
+                  </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    Manage availability and approve booking requests on your terms
+                    {t('housing.host_dashboard.your_schedule_desc', 'Manage availability and approve booking requests on your terms')}
                   </p>
                 </GlassCard>
               </StaggerContainer>
@@ -130,7 +149,7 @@ export default function HostDashboard() {
                   data-testid="button-create-first-listing"
                 >
                   <Plus className="w-5 h-5 mr-2" />
-                  Create Your First Listing
+                  {t('housing.host_dashboard.create_first_listing', 'Create Your First Listing')}
                 </PulseButton>
               </ScaleIn>
             </GlassCard>
@@ -148,9 +167,11 @@ export default function HostDashboard() {
         <FadeIn>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">My Properties</h1>
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+                {t('housing.host_dashboard.my_properties', 'My Properties')}
+              </h1>
               <p className="text-slate-600 dark:text-slate-300 mt-1">
-                Manage your listings and booking requests
+                {t('housing.host_dashboard.manage_listings', 'Manage your listings and booking requests')}
               </p>
             </div>
             <PulseButton
@@ -160,7 +181,7 @@ export default function HostDashboard() {
               data-testid="button-add-property"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add New Property
+              {t('housing.host_dashboard.add_new_property', 'Add New Property')}
             </PulseButton>
           </div>
         </FadeIn>
@@ -175,7 +196,9 @@ export default function HostDashboard() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-900 dark:text-white">{properties.length}</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Active Listings</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.active_listings', 'Active Listings')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
@@ -189,7 +212,9 @@ export default function HostDashboard() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-900 dark:text-white">-</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Pending Requests</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.pending_requests', 'Pending Requests')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
@@ -203,7 +228,9 @@ export default function HostDashboard() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-900 dark:text-white">-</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Total Guests</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.total_guests', 'Total Guests')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
@@ -217,18 +244,20 @@ export default function HostDashboard() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-900 dark:text-white">-</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Avg Rating</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.avg_rating', 'Avg Rating')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
           </ScaleIn>
         </StaggerContainer>
 
-        {/* Properties Grid - Aurora Tide */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Properties Grid - Aurora Tide + GSAP */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={propertyCardsRef}>
           {properties.map((property, index) => (
             <ScaleIn key={property.id} delay={index * 0.1}>
-              <GlassCard depth={2} className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all">
+              <GlassCard depth={2} className="property-card overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all">
                 {/* Property Image */}
                 <div className="relative h-48 bg-gradient-to-br from-cyan-500 to-teal-500">
                   {property.photos && property.photos.length > 0 ? (
@@ -244,8 +273,8 @@ export default function HostDashboard() {
                   )}
                   
                   <div className="absolute top-3 right-3">
-                    <Badge className={property.isActive ? 'bg-green-500' : 'bg-gray-500'}>
-                      {property.isActive ? 'Active' : 'Inactive'}
+                    <Badge className={property.isActive ? 'bg-green-500' : 'bg-gray-500'} data-testid={`badge-status-${property.id}`}>
+                      {property.isActive ? t('housing.host_dashboard.status_active', 'Active') : t('housing.host_dashboard.status_inactive', 'Inactive')}
                     </Badge>
                   </div>
                 </div>
@@ -263,16 +292,16 @@ export default function HostDashboard() {
 
                   <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-4">
                     <Users className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                    <span>Up to {property.maxGuests} guests</span>
+                    <span>{t('housing.host_dashboard.up_to_guests', 'Up to {{count}} guests', { count: property.maxGuests })}</span>
                   </div>
 
                   {/* Connection-based access */}
                   {property.whoCanBook && (
                     <div className="mb-4 p-2 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 rounded text-sm border border-cyan-200/30 dark:border-cyan-500/30">
                       <span className="font-medium text-cyan-900 dark:text-cyan-100">
-                        {property.whoCanBook === 'friends_only' && '🔒 Friends only'}
-                        {property.whoCanBook === 'friends_of_friends' && '🤝 Friends & FOF'}
-                        {property.whoCanBook === 'all_connected' && '🌐 All connected'}
+                        {property.whoCanBook === 'friends_only' && t('housing.host_dashboard.friends_only', '🔒 Friends only')}
+                        {property.whoCanBook === 'friends_of_friends' && t('housing.host_dashboard.friends_and_fof', '🤝 Friends & FOF')}
+                        {property.whoCanBook === 'all_connected' && t('housing.host_dashboard.all_connected', '🌐 All connected')}
                       </span>
                     </div>
                   )}
@@ -310,7 +339,7 @@ export default function HostDashboard() {
               </GlassCard>
             </ScaleIn>
           ))}
-        </StaggerContainer>
+        </div>
 
         {/* Quick Actions - Aurora Tide */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -325,8 +354,12 @@ export default function HostDashboard() {
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">Manage Bookings</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Review and respond to booking requests</p>
+                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">
+                    {t('housing.host_dashboard.manage_bookings', 'Manage Bookings')}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.manage_bookings_desc', 'Review and respond to booking requests')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
@@ -343,8 +376,12 @@ export default function HostDashboard() {
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">View Analytics</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Track your hosting performance</p>
+                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">
+                    {t('housing.host_dashboard.view_analytics', 'View Analytics')}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.host_dashboard.view_analytics_desc', 'Track your hosting performance')}
+                  </p>
                 </div>
               </div>
             </GlassCard>
