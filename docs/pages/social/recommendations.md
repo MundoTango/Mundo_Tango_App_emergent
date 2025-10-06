@@ -40,7 +40,15 @@ export const recommendations = pgTable('recommendations', {
   lng: real('lng'),
   photos: text('photos').array(),
   rating: integer('rating'), // 1-5 stars
+  priceLevel: varchar('price_level', { length: 10 }), // '$', '$$', '$$$'
   tags: text('tags').array(),
+  
+  // ESA Layer 28: Social Connection Filters (from Housing system)
+  whoCanView: varchar('who_can_view', { length: 50 }).default('anyone'), 
+  // Options: 'anyone', '1st_degree', '2nd_degree', '3rd_degree', 'custom_closeness'
+  minimumClosenessScore: integer('minimum_closeness_score').default(0), 
+  // 0-100 threshold for custom_closeness filter
+  
   isActive: boolean('is_active').default(true).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -55,10 +63,35 @@ export const recommendations = pgTable('recommendations', {
 Fetch recommendations with optional filters
 
 **Query Parameters:**
+
+*Standard Filters:*
 - `city` (string, optional): Filter by city name
 - `type` (string, optional): Filter by category (restaurant, cafe, hotel, venue)
+- `priceLevel` (string, optional): Filter by price ('$', '$$', '$$$')
+- `minRating` (number, optional): Minimum star rating (1-5)
+- `tags` (string[], optional): Filter by tags
 - `limit` (number, optional): Results per page (default: 20)
 - `offset` (number, optional): Pagination offset (default: 0)
+
+*Social Connection Filters:*
+- `connectionDegree` (string, optional): Filter by relationship
+  - `anyone`: All recommendations (default)
+  - `1st_degree`: Direct friends only
+  - `2nd_degree`: Friends + friends-of-friends
+  - `3rd_degree`: Within 3 degrees of separation
+  - `custom_closeness`: Friends above closeness threshold
+- `minClosenessScore` (number, optional): Minimum closeness score (0-100, used with `custom_closeness`)
+
+*Local/Visitor Filters:*
+- `localStatus` (string, optional): Filter by recommender's relationship to city
+  - `all`: All recommendations (default)
+  - `local`: Only from users whose home city matches recommendation city
+  - `visitor`: Only from users visiting/passing through
+  
+*Cultural Expertise Filter:*
+- `originCountry` (string, optional): Filter by recommender's home country
+  - Example: `originCountry=South Korea` to find Korean users' recommendations
+  - Matches against `user.country` field
 
 **Response:**
 ```json
@@ -194,10 +227,69 @@ interface IStorage {
 - `RecommendationMap`: Interactive map showing all recommendations
 
 **Filtering Options:**
-- By city (dropdown or map selection)
-- By category (restaurant, cafe, hotel, venue)
-- By price range ($, $$, $$$)
-- By tags (autocomplete)
+
+#### Standard Filters
+- **City**: Dropdown or map selection
+- **Category**: Restaurant, cafe, hotel, venue
+- **Price Range**: $, $$, $$$
+- **Rating**: 1-5 stars
+- **Tags**: Autocomplete search
+
+#### Social Connection Filters
+Recommendations can be filtered by your relationship to the recommender, using the same connection system as Housing:
+
+- **Anyone**: See all public recommendations
+- **1st Degree (Direct Friends)**: Only recommendations from your accepted friends
+- **2nd Degree (Friends of Friends)**: Recommendations from friends and their friends
+- **3rd Degree**: Extended network within 3 degrees of separation
+- **Close Friends**: Only from friends above a minimum closeness score threshold
+
+**Technical Implementation:**
+- Leverages `ConnectionCalculationService` from Housing system
+- Uses BFS algorithm to calculate connection degrees
+- Closeness score (0-100) based on shared activities, events, messages
+- Configurable per-recommendation via `whoCanView` field
+
+#### Local vs Visitor Filters
+Filter recommendations based on the recommender's relationship to the city:
+
+- **All**: Show all recommendations
+- **Locals Only**: Filter to users whose home city matches the recommendation city
+  - User's `city` field matches recommendation's `city` field
+  - Prioritizes authentic local knowledge
+- **Visitors Only**: Show recommendations from people visiting/passing through
+  - User's `city` field differs from recommendation's `city`
+  - Captures fresh perspectives from travelers
+
+**Use Case:** When in Buenos Aires, toggle "Locals Only" to find authentic porteno favorites, or "Visitors Only" to see what tourists discovered.
+
+#### Cultural Expertise Filter (Origin-Based)
+Match recommendations by the recommender's origin country for cultural authenticity:
+
+- **Any Origin**: All recommendations regardless of recommender's background
+- **Filter by Country**: Select specific country (e.g., "Korea", "Japan", "Italy")
+  - Searches for users where `user.country === selectedCountry`
+  - Ideal for finding authentic ethnic cuisine
+
+**Real-World Example:**
+```
+Scenario: Looking for Korean BBQ in Buenos Aires
+Filter Settings:
+  - Category: Restaurant
+  - Origin Country: South Korea
+  - Local Status: All (or Visitors to find Korean expats)
+  
+Result: Korean friends who've tried Korean restaurants in BA, 
+        ensuring authentic recommendations vs. fusion interpretations
+```
+
+**Combined Filter Power:**
+```
+"Show me Italian restaurants in Buenos Aires recommended by:
+ - 1st or 2nd degree connections (people I trust)
+ - From Italy (authentic expertise)
+ - Who are locals or long-term visitors (know the city well)"
+```
 
 ## Design System Integration
 
