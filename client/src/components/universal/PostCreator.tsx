@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import LocationInput from './LocationInput';
+import UnifiedLocationPicker from './UnifiedLocationPicker';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 import { useTranslation } from 'react-i18next';
@@ -1557,7 +1557,7 @@ export default function PostCreator({
                         }}
                       >
                         <div className="relative">
-                          <LocationInput
+                          <UnifiedLocationPicker
                             value={location}
                             onChange={handleLocationChange}
                             placeholder="Search for a place..."
@@ -1565,6 +1565,7 @@ export default function PostCreator({
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}
                             showBusinessDetails={true}
+                            allowManualEntry={true}
                           />
                         </div>
                       </div>

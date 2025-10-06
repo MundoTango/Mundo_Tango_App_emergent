@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useAuthContext } from '../../auth/useAuthContext';
-import LocationInput from '../universal/LocationInput';
+import UnifiedLocationPicker from '../universal/UnifiedLocationPicker';
 import UploadMedia from '../upload/UploadMedia';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -355,12 +355,13 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Location */}
           <div className="space-y-2">
             <Label>Location</Label>
-            <LocationInput
+            <UnifiedLocationPicker
               value={location?.formattedAddress || ''}
               onChange={(loc, coords, details) => {
                 setLocation(details ? { ...details, formattedAddress: loc } : { formattedAddress: loc });
               }}
               placeholder="Where did this happen?"
+              allowManualEntry={true}
             />
             {location && (
               <div className="flex items-center text-sm text-gray-600">

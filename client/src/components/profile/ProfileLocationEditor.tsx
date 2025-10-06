@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LocationInput from '@/components/universal/LocationInput';
+import UnifiedLocationPicker from '@/components/universal/UnifiedLocationPicker';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -170,12 +170,12 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
             <div className="space-y-4">
               <FormLabel>Location</FormLabel>
               <div className="space-y-3">
-                <LocationInput
+                <UnifiedLocationPicker
                   value={selectedLocation}
                   placeholder="Search for your location..."
                   onChange={handleLocationChange}
-                  onClear={clearLocation}
                   className="w-full"
+                  allowManualEntry={true}
                 />
                 
                 {selectedLocation && (
