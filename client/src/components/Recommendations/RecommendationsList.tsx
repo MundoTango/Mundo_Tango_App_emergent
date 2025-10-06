@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Star, MapPin, Users, Globe, Filter, Utensils, Coffee, ShoppingBag, Heart, Camera, Music } from 'lucide-react';
+import { Star, MapPin, Users, Globe, Utensils, Coffee, ShoppingBag, Heart, Camera, Music } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import RecommendationFilters from '@/components/recommendations/RecommendationFilters';
 
 interface Recommendation {
   id: number;
   title: string;
   description: string;
-  category: 'restaurant' | 'bar' | 'cafe' | 'attraction' | 'shopping' | 'entertainment' | 'other';
+  type?: string;
+  category?: 'restaurant' | 'bar' | 'cafe' | 'attraction' | 'shopping' | 'entertainment' | 'other';
   address: string;
   city: string;
   country: string;
-  latitude: number;
-  longitude: number;
-  recommendedBy: {
+  lat?: number;
+  lng?: number;
+  latitude?: number;
+  longitude?: number;
+  user?: {
+    id: number;
+    name: string;
+    username: string;
+    profileImage?: string;
+    city?: string;
+    country?: string;
+  };
+  recommendedBy?: {
     id: number;
     name: string;
     username: string;
@@ -23,12 +35,12 @@ interface Recommendation {
     nationality?: string;
   };
   friendConnection?: 'direct' | 'friend-of-friend' | 'community' | null;
-  localRecommendations: number;
-  visitorRecommendations: number;
+  localRecommendations?: number;
+  visitorRecommendations?: number;
   rating?: number;
-  priceLevel?: 1 | 2 | 3 | 4;
-  tags: string[];
-  photos: string[];
+  priceLevel?: string | 1 | 2 | 3 | 4;
+  tags?: string[];
+  photos?: string[];
 }
 
 interface RecommendationsListProps {
@@ -39,6 +51,17 @@ interface RecommendationsListProps {
   recommendationType?: 'all' | 'local' | 'visitor';
 }
 
+interface FilterState {
+  connectionDegree: 'anyone' | '1st_degree' | '2nd_degree' | '3rd_degree' | 'custom_closeness';
+  minClosenessScore?: number;
+  localStatus: 'all' | 'local' | 'visitor';
+  originCountry?: string;
+  type?: string;
+  priceLevel?: string;
+  minRating?: number;
+  tags?: string[];
+}
+
 export default function RecommendationsList({ 
   groupSlug, 
   city, 
@@ -47,44 +70,37 @@ export default function RecommendationsList({
   recommendationType: propRecommendationType 
 }: RecommendationsListProps) {
   const { user } = useAuth();
-  const [filters, setFilters] = useState({
-    category: 'all',
-    recommendationType: propRecommendationType || 'all',
-    priceLevel: 'all',
-    friendFilter: propFriendFilter || 'all'
+  const [filters, setFilters] = useState<FilterState>({
+    connectionDegree: 'anyone',
+    localStatus: propRecommendationType === 'local' ? 'local' : propRecommendationType === 'visitor' ? 'visitor' : 'all'
   });
 
-  // Sync with prop changes
-  useEffect(() => {
-    setFilters(prev => ({
-      ...prev,
-      ...(propFriendFilter && { friendFilter: propFriendFilter }),
-      ...(propRecommendationType && { recommendationType: propRecommendationType })
-    }));
-  }, [propFriendFilter, propRecommendationType]);
-
-  // Fetch recommendations
-  const { data: recommendations, isLoading } = useQuery({
+  // Fetch recommendations with comprehensive filters
+  const { data: apiResponse, isLoading } = useQuery({
     queryKey: ['/api/recommendations', { city, groupSlug, ...filters }],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (city) {
-        console.log('📍 Setting city parameter:', city);
-        params.append('city', city);
-      }
+      if (city) params.append('city', city);
       if (groupSlug) params.append('groupSlug', groupSlug);
-      if (filters.category !== 'all') params.append('category', filters.category);
-      if (filters.recommendationType !== 'all') params.append('type', filters.recommendationType);
-      if (filters.priceLevel !== 'all') params.append('priceLevel', filters.priceLevel);
-      if (filters.friendFilter !== 'all') params.append('friendFilter', filters.friendFilter);
+      if (filters.connectionDegree !== 'anyone') params.append('connectionDegree', filters.connectionDegree);
+      if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
+      if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
+      if (filters.originCountry) params.append('originCountry', filters.originCountry);
+      if (filters.type) params.append('type', filters.type);
+      if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
+      if (filters.minRating) params.append('minRating', filters.minRating.toString());
+      if (filters.tags && filters.tags.length > 0) {
+        filters.tags.forEach(tag => params.append('tags', tag));
+      }
       
       const response = await fetch(`/api/recommendations?${params}`);
       if (!response.ok) throw new Error('Failed to fetch recommendations');
-      const data = await response.json();
-      return data as Recommendation[];
+      return await response.json();
     },
     enabled: !!city || !!groupSlug
   });
+
+  const recommendations = apiResponse?.data || [];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -104,26 +120,10 @@ export default function RecommendationsList({
     }
   };
 
-  const getPriceLevelDisplay = (level?: number) => {
+  const getPriceLevelDisplay = (level?: string | number) => {
     if (!level) return null;
-    return '$'.repeat(level);
-  };
-
-  const getRecommenderContext = (rec: Recommendation) => {
-    if (!rec.recommendedBy) {
-      return 'Community member';
-    }
-    
-    if (rec.recommendedBy.isLocal) {
-      return `Local ${rec.city} resident`;
-    } else if (rec.recommendedBy.nationality) {
-      // Special logic for cultural recommendations
-      if (rec.category === 'restaurant' && rec.recommendedBy.nationality === 'Chinese' && rec.tags.includes('chinese')) {
-        return 'Chinese visitor recommends authentic Chinese';
-      }
-      return `${rec.recommendedBy.nationality} visitor`;
-    }
-    return 'Community member';
+    const numLevel = typeof level === 'string' ? parseInt(level) : level;
+    return '$'.repeat(numLevel);
   };
 
   if (isLoading) {
@@ -136,82 +136,44 @@ export default function RecommendationsList({
 
   return (
     <div className="space-y-6">
-      {/* Filters */}
+      {/* Filters - New Aurora Tide Design */}
       {showFilters && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Filter className="h-5 w-5 text-gray-600" />
-            <h3 className="font-semibold">Filter Recommendations</h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Category */}
-            <div>
-              <label className="text-sm font-medium mb-1 block">Category</label>
-              <select
-                value={filters.category}
-                onChange={(e) => setFilters({...filters, category: e.target.value})}
-                className="w-full px-3 py-2 border rounded-lg"
-              >
-                <option value="all">All categories</option>
-                <option value="restaurant">🍽️ Restaurants</option>
-                <option value="bar">🍷 Bars</option>
-                <option value="cafe">☕ Cafés</option>
-                <option value="attraction">🎭 Attractions</option>
-                <option value="shopping">🛍️ Shopping</option>
-                <option value="entertainment">🎵 Entertainment</option>
-                <option value="other">📍 Other</option>
-              </select>
-            </div>
-
-            {/* Recommendation Type */}
-            <div>
-              <label className="text-sm font-medium mb-1 block">Recommended by</label>
-              <select
-                value={filters.recommendationType}
-                onChange={(e) => setFilters({...filters, recommendationType: e.target.value})}
-                className="w-full px-3 py-2 border rounded-lg"
-              >
-                <option value="all">Everyone</option>
-                <option value="locals">Locals only</option>
-                <option value="visitors">Visitors only</option>
-                <option value="friends">Friends & connections</option>
-              </select>
-            </div>
-
-            {/* Price Level */}
-            <div>
-              <label className="text-sm font-medium mb-1 block">Price level</label>
-              <select
-                value={filters.priceLevel}
-                onChange={(e) => setFilters({...filters, priceLevel: e.target.value})}
-                className="w-full px-3 py-2 border rounded-lg"
-              >
-                <option value="all">All prices</option>
-                <option value="1">$ - Budget</option>
-                <option value="2">$$ - Moderate</option>
-                <option value="3">$$$ - Upscale</option>
-                <option value="4">$$$$ - Luxury</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <RecommendationFilters
+          filters={filters}
+          onFiltersChange={setFilters}
+        />
       )}
 
       {/* Recommendations Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {recommendations?.map((rec) => {
-          const CategoryIcon = getCategoryIcon(rec.category);
+        {recommendations?.map((rec: Recommendation) => {
+          const categoryToUse = rec.type || rec.category || 'other';
+          const CategoryIcon = getCategoryIcon(categoryToUse);
+          const userInfo = rec.user || rec.recommendedBy;
+          const photos = rec.photos || [];
+          const tags = rec.tags || [];
+          const lat = rec.lat || rec.latitude;
+          const lng = rec.lng || rec.longitude;
+          
+          // Determine if recommender is local (handle both user formats)
+          const userCity = 'city' in (userInfo || {}) ? (userInfo as any).city : undefined;
+          const userCountry = 'country' in (userInfo || {}) ? (userInfo as any).country : 'nationality' in (userInfo || {}) ? (userInfo as any).nationality : undefined;
+          const isLocal = userCity?.toLowerCase() === rec.city?.toLowerCase();
           
           return (
-            <div key={rec.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <div 
+              key={rec.id} 
+              className="glass-card glass-depth-1 rounded-xl overflow-hidden hover:glass-depth-3 transition-all border border-white/20"
+              data-testid={`card-recommendation-${rec.id}`}
+            >
               {/* Photo */}
-              {rec.photos[0] && (
-                <div className="h-48 bg-gray-200">
+              {photos[0] && (
+                <div className="h-48 bg-gradient-to-br from-turquoise-100 to-ocean-100 dark:from-gray-800 dark:to-gray-900">
                   <img 
-                    src={rec.photos[0]} 
+                    src={photos[0]} 
                     alt={rec.title}
                     className="w-full h-full object-cover"
+                    data-testid={`img-recommendation-${rec.id}`}
                   />
                 </div>
               )}
@@ -221,35 +183,38 @@ export default function RecommendationsList({
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <CategoryIcon className="h-5 w-5 text-pink-500" />
-                      <h3 className="font-semibold text-lg">{rec.title}</h3>
+                      <CategoryIcon className="h-5 w-5 text-turquoise-600 dark:text-turquoise-400" />
+                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{rec.title}</h3>
                     </div>
-                    <p className="text-sm text-gray-600 line-clamp-2">{rec.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{rec.description}</p>
                   </div>
                   <div className="text-right">
-                    {rec.rating && (
+                    {rec.rating && rec.rating > 0 && (
                       <div className="flex items-center gap-1">
                         <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                        <span className="text-sm font-medium">{rec.rating.toFixed(1)}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">{rec.rating.toFixed(1)}</span>
                       </div>
                     )}
                     {rec.priceLevel && (
-                      <span className="text-sm text-gray-600">{getPriceLevelDisplay(rec.priceLevel)}</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{getPriceLevelDisplay(rec.priceLevel)}</span>
                     )}
                   </div>
                 </div>
                 
                 {/* Location */}
-                <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                   <MapPin className="h-4 w-4" />
                   <span>{rec.address}</span>
                 </div>
                 
                 {/* Tags */}
-                {rec.tags.length > 0 && (
+                {tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {rec.tags.slice(0, 3).map((tag, index) => (
-                      <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                    {tags.slice(0, 3).map((tag, index) => (
+                      <span 
+                        key={index} 
+                        className="text-xs bg-turquoise-100 dark:bg-turquoise-900/30 text-turquoise-700 dark:text-turquoise-300 px-2 py-1 rounded-full"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -257,58 +222,31 @@ export default function RecommendationsList({
                 )}
                 
                 {/* Recommender Info */}
-                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
-                      {rec.recommendedBy?.profileImage ? (
-                        <img src={rec.recommendedBy.profileImage} alt={rec.recommendedBy?.name || 'User'} className="w-full h-full rounded-full object-cover" />
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-400 to-ocean-600 flex items-center justify-center text-white font-semibold text-sm">
+                      {userInfo?.profileImage ? (
+                        <img src={userInfo.profileImage} alt={userInfo?.name || 'User'} className="w-full h-full rounded-full object-cover" />
                       ) : (
-                        (rec.recommendedBy?.name || 'U').charAt(0)
+                        (userInfo?.name || 'U').charAt(0).toUpperCase()
                       )}
                     </div>
                     <div>
-                      <p className="text-sm font-medium">{rec.recommendedBy?.name || 'Unknown'}</p>
-                      <p className="text-xs text-gray-500">{rec.recommendedBy ? getRecommenderContext(rec) : 'Community member'}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{userInfo?.name || 'Community Member'}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {isLocal ? `Local ${rec.city} resident` : `Visitor${userCountry ? ` from ${userCountry}` : ''}`}
+                      </p>
                     </div>
                   </div>
                   
-                  {/* Social Proof */}
-                  <div className="text-right">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      {rec.localRecommendations > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Users className="h-3 w-3" />
-                          {rec.localRecommendations} locals
-                        </span>
-                      )}
-                      {rec.visitorRecommendations > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Globe className="h-3 w-3" />
-                          {rec.visitorRecommendations} visitors
-                        </span>
-                      )}
+                  {/* Connection Badge */}
+                  {rec.friendConnection && (
+                    <div className="text-xs text-turquoise-600 dark:text-turquoise-400 font-medium flex items-center gap-1">
+                      <Heart className="h-3 w-3" />
+                      {rec.friendConnection === 'direct' ? 'Friend' : 'FOF'}
                     </div>
-                    {rec.friendConnection && (
-                      <div className="text-xs text-pink-600 font-medium mt-1 flex items-center gap-1 justify-end">
-                        <Heart className="h-3 w-3" />
-                        {rec.friendConnection === 'direct' ? 'Friend' : 'FOF'}
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
-                
-                {/* User Review/Post Content */}
-                {(rec as any).postContent && (
-                  <div className="bg-gray-50 rounded-lg p-3 mt-3">
-                    <p className="text-sm text-gray-700 font-medium mb-1">Review:</p>
-                    <p className="text-sm text-gray-600 italic">"{(rec as any).postContent}"</p>
-                    {(rec as any).postCreatedAt && (
-                      <p className="text-xs text-gray-500 mt-2">
-                        Posted {new Date((rec as any).postCreatedAt).toLocaleDateString()}
-                      </p>
-                    )}
-                  </div>
-                )}
                 
                 {/* Actions */}
                 <div className="flex gap-2 mt-3">
@@ -317,10 +255,11 @@ export default function RecommendationsList({
                     size="sm" 
                     className="flex-1"
                     onClick={() => {
-                      if (rec.latitude && rec.longitude) {
-                        window.open(`https://www.google.com/maps/search/?api=1&query=${rec.latitude},${rec.longitude}`, '_blank');
+                      if (lat && lng) {
+                        window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank');
                       }
                     }}
+                    data-testid={`button-map-${rec.id}`}
                   >
                     View on Map
                   </Button>
@@ -328,10 +267,11 @@ export default function RecommendationsList({
                     variant="outline" 
                     size="sm"
                     onClick={() => {
-                      if (rec.latitude && rec.longitude) {
-                        window.open(`https://www.google.com/maps/dir/?api=1&destination=${rec.latitude},${rec.longitude}&destination_place_id=${encodeURIComponent(rec.title)}`, '_blank');
+                      if (lat && lng) {
+                        window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${encodeURIComponent(rec.title)}`, '_blank');
                       }
                     }}
+                    data-testid={`button-directions-${rec.id}`}
                   >
                     Get Directions
                   </Button>
