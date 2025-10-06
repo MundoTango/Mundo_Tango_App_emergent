@@ -214,40 +214,23 @@ export default function UnifiedLocationPicker({
         }
       }
       
-      searchPromises.push(
-        fetch(standardUrlWithBias, {
-          headers: { 'User-Agent': 'MundoTangoApp/1.0' }
-        }).then(r => r.json())
-      );
+      // ESA Layer 13: Use backend proxy to avoid CORS issues
+      const proxyUrl = `/api/location/geocode?q=${encodeURIComponent(query)}&limit=8`;
+      const proxyParams = new URLSearchParams();
       
-      // Strategy 2: Business-specific search (restaurants, cafes, shops)
-      if (showBusinessDetails) {
-        const businessQueries = [
-          `${query} restaurant`,
-          `${query} cafe`,
-          `${query} bar`
-        ];
-        
-        for (const businessQuery of businessQueries) {
-          let businessUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(businessQuery)}&limit=3&addressdetails=1`;
-          
-          if (effectiveBias && validateCoordinates(effectiveBias)) {
-            const latOffset = 0.45;
-            const lngOffset = 0.6;
-            const minLng = effectiveBias.lng - lngOffset;
-            const maxLng = effectiveBias.lng + lngOffset;
-            const minLat = effectiveBias.lat - latOffset;
-            const maxLat = effectiveBias.lat + latOffset;
-            businessUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
-          }
-          
-          searchPromises.push(
-            fetch(businessUrl, {
-              headers: { 'User-Agent': 'MundoTangoApp/1.0' }
-            }).then(r => r.json())
-          );
-        }
+      if (effectiveBias && validateCoordinates(effectiveBias)) {
+        proxyParams.append('lat', effectiveBias.lat.toString());
+        proxyParams.append('lng', effectiveBias.lng.toString());
       }
+      
+      searchPromises.push(
+        fetch(`${proxyUrl}&${proxyParams.toString()}`)
+          .then(r => r.json())
+          .catch(err => {
+            console.error('❌ Geocoding proxy error:', err);
+            return [];
+          })
+      );
 
       const results = await Promise.allSettled(searchPromises);
       

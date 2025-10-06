@@ -3542,6 +3542,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ESA Layer 15: Geocoding proxy to avoid CORS issues
+  app.get('/api/location/geocode', async (req, res) => {
+    try {
+      const { q, limit = '8', lat, lng } = req.query;
+      
+      if (!q || typeof q !== 'string') {
+        res.status(400).json({ error: 'Query parameter "q" is required' });
+        return;
+      }
+
+      const searchLimit = Math.min(parseInt(limit as string) || 8, 20);
+      
+      // Build OpenStreetMap Nominatim URL
+      let osmUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=${searchLimit}&addressdetails=1`;
+      
+      // Add location bias if provided
+      if (lat && lng) {
+        const latitude = parseFloat(lat as string);
+        const longitude = parseFloat(lng as string);
+        
+        if (!isNaN(latitude) && !isNaN(longitude)) {
+          // Create ~50km radius viewbox
+          const latOffset = 0.45;
+          const lngOffset = 0.6;
+          const minLng = longitude - lngOffset;
+          const maxLng = longitude + lngOffset;
+          const minLat = latitude - latOffset;
+          const maxLat = latitude + latOffset;
+          
+          osmUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
+        }
+      }
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🗺️ Geocoding proxy request:', q, lat ? `(bias: ${lat},${lng})` : '');
+      }
+
+      // Call OpenStreetMap Nominatim API
+      const response = await fetch(osmUrl, {
+        headers: {
+          'User-Agent': 'MundoTangoApp/1.0 (contact: support@mundotango.life)',
+          'Accept-Language': 'en'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Nominatim API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Transform to consistent format
+      const results = Array.isArray(data) ? data.map((place: any) => ({
+        description: place.display_name,
+        isOSM: true,
+        lat: place.lat,
+        lon: place.lon,
+        place_id: place.place_id,
+        address: place.address,
+        type: place.type,
+        class: place.class
+      })) : [];
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('✅ Found', results.length, 'locations');
+      }
+
+      res.json(results);
+    } catch (error: any) {
+      console.error('❌ Geocoding proxy error:', error);
+      res.status(500).json({ 
+        error: 'Geocoding failed',
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      });
+    }
+  });
+
   // Create HTTP server
   const server = createServer(app);
 
