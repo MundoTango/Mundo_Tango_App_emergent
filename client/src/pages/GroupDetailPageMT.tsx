@@ -36,6 +36,9 @@ import PostCreator from '@/components/universal/PostCreator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
+import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -1157,42 +1160,45 @@ export default function GroupDetailPageMT() {
 
     return (
       <div className="space-y-6">
-        {/* Quick Actions Bar */}
-        <div className="flex flex-wrap gap-3 items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Housing in {group?.city}
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {userContext.isLocal && (
-              <Button
-                onClick={() => setLocation('/host-onboarding')}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white"
-                data-testid="button-become-host"
+        {/* Quick Actions Bar - Aurora Tide */}
+        <FadeIn>
+          <div className="flex flex-wrap gap-3 items-center justify-between">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+              Housing in {group?.city}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {userContext.isLocal && (
+                <PulseButton
+                  onClick={() => setLocation('/host-onboarding')}
+                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+                  pulseColor="rgba(6, 182, 212, 0.6)"
+                  data-testid="button-become-host"
+                >
+                  <Home className="h-4 w-4 mr-2" />
+                  Become a Host
+                </PulseButton>
+              )}
+              <MagneticButton
+                onClick={() => setLocation('/guest-onboarding')}
+                strength={0.15}
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                data-testid="button-search-preferences"
               >
-                <Home className="h-4 w-4 mr-2" />
-                Become a Host
-              </Button>
-            )}
-            <Button
-              onClick={() => setLocation('/guest-onboarding')}
-              variant="outline"
-              className="border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50"
-              data-testid="button-search-preferences"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Search Preferences
-            </Button>
-            <Button
-              onClick={() => setLocation('/housing-marketplace')}
-              variant="outline"
-              className="border-cyan-300 text-cyan-700 hover:bg-cyan-50"
-              data-testid="button-view-marketplace"
-            >
-              <Search className="h-4 w-4 mr-2" />
-              All homes
-            </Button>
+                <Settings className="h-4 w-4 mr-2" />
+                Search Preferences
+              </MagneticButton>
+              <MagneticButton
+                onClick={() => setLocation('/housing-marketplace')}
+                strength={0.15}
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                data-testid="button-view-marketplace"
+              >
+                <Search className="h-4 w-4 mr-2" />
+                All homes
+              </MagneticButton>
+            </div>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Super Admin Quick Action */}
         {user?.roles?.includes('super_admin') && (
@@ -1212,41 +1218,40 @@ export default function GroupDetailPageMT() {
           </div>
         )}
 
-        {/* Housing Statistics Card */}
+        {/* Housing Statistics Card - Aurora Tide */}
         {totalHomes > 0 && (
-          <div 
-            className="relative overflow-hidden rounded-lg p-6 border-2 border-turquoise-200 dark:border-turquoise-700"
-            style={{
-              background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%)',
-              backdropFilter: 'blur(10px)'
-            }}
-            data-testid="housing-statistics-card"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center" data-testid="stat-total-homes">
-                <Home className="h-8 w-8 mx-auto mb-2 text-turquoise-500" />
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{totalHomes}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Total Homes</div>
-              </div>
-              <div className="text-center" data-testid="stat-avg-price">
-                <DollarSign className="h-8 w-8 mx-auto mb-2 text-cyan-500" />
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">${avgPrice}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Avg/Night</div>
-              </div>
-              <div className="text-center" data-testid="stat-price-range">
-                <Star className="h-8 w-8 mx-auto mb-2 text-pink-500" />
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                  ${priceRange.min}-${priceRange.max}
+          <ScaleIn delay={0.1}>
+            <GlassCard 
+              depth={2}
+              className="p-6 border-cyan-200/30 dark:border-cyan-500/30"
+              data-testid="housing-statistics-card"
+            >
+              <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center" data-testid="stat-total-homes">
+                  <Home className="h-8 w-8 mx-auto mb-2 text-cyan-600 dark:text-cyan-400" />
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">{totalHomes}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Total Homes</div>
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Price Range</div>
-              </div>
-              <div className="text-center" data-testid="stat-available">
-                <Users className="h-8 w-8 mx-auto mb-2 text-purple-500" />
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{availableHomes}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Available</div>
-              </div>
-            </div>
-          </div>
+                <div className="text-center" data-testid="stat-avg-price">
+                  <DollarSign className="h-8 w-8 mx-auto mb-2 text-teal-600 dark:text-teal-400" />
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">${avgPrice}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Avg/Night</div>
+                </div>
+                <div className="text-center" data-testid="stat-price-range">
+                  <Star className="h-8 w-8 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">
+                    ${priceRange.min}-${priceRange.max}
+                  </div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Price Range</div>
+                </div>
+                <div className="text-center" data-testid="stat-available">
+                  <Users className="h-8 w-8 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">{availableHomes}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Available</div>
+                </div>
+              </StaggerContainer>
+            </GlassCard>
+          </ScaleIn>
         )}
 
         {/* Map/List View Toggle */}
@@ -1276,48 +1281,53 @@ export default function GroupDetailPageMT() {
                 <div className="text-gray-500 dark:text-gray-400">Loading housing listings...</div>
               </div>
             ) : totalHomes === 0 ? (
-              // Enhanced Empty State
-              <div 
-                className="text-center py-16 px-6 rounded-lg border-2 border-dashed border-turquoise-300 dark:border-turquoise-700"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%)'
-                }}
-                data-testid="housing-empty-state"
-              >
-                <Home className="h-16 w-16 mx-auto mb-4 text-turquoise-400" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  No housing listings yet
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
-                  {userContext.isLocal 
-                    ? "Be the first to offer tango-friendly accommodation in your city! Share your space with dancers from around the world."
-                    : `No housing listings are currently available in ${group?.city}. Check back soon or explore other cities.`
-                  }
-                </p>
-                {userContext.isLocal && (
-                  <Button
-                    onClick={() => setLocation('/host-onboarding')}
-                    size="lg"
-                    className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600 text-white"
-                    data-testid="button-empty-state-host"
-                  >
-                    <Home className="h-5 w-5 mr-2" />
-                    List Your Property
-                  </Button>
-                )}
-                {!userContext.isLocal && (
-                  <Button
-                    onClick={() => setLocation('/housing-marketplace')}
-                    size="lg"
-                    variant="outline"
-                    className="border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50"
-                    data-testid="button-empty-state-marketplace"
-                  >
-                    <Search className="h-5 w-5 mr-2" />
-                    Explore All Cities
-                  </Button>
-                )}
-              </div>
+              // Enhanced Empty State - Aurora Tide
+              <ScaleIn delay={0.2}>
+                <GlassCard
+                  depth={2}
+                  className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
+                  data-testid="housing-empty-state"
+                >
+                  <ScaleIn delay={0.3}>
+                    <Home className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
+                  </ScaleIn>
+                  <FadeIn delay={0.4}>
+                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                      No housing listings yet
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
+                      {userContext.isLocal 
+                        ? "Be the first to offer tango-friendly accommodation in your city! Share your space with dancers from around the world."
+                        : `No housing listings are currently available in ${group?.city}. Check back soon or explore other cities.`
+                      }
+                    </p>
+                  </FadeIn>
+                  <ScaleIn delay={0.5}>
+                    {userContext.isLocal && (
+                      <PulseButton
+                        onClick={() => setLocation('/host-onboarding')}
+                        className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3"
+                        pulseColor="rgba(6, 182, 212, 0.6)"
+                        data-testid="button-empty-state-host"
+                      >
+                        <Home className="h-5 w-5 mr-2" />
+                        List Your Property
+                      </PulseButton>
+                    )}
+                    {!userContext.isLocal && (
+                      <MagneticButton
+                        onClick={() => setLocation('/housing-marketplace')}
+                        strength={0.2}
+                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-3 text-slate-700 dark:text-slate-300"
+                        data-testid="button-empty-state-marketplace"
+                      >
+                        <Search className="h-5 w-5 mr-2" />
+                        Explore All Cities
+                      </MagneticButton>
+                    )}
+                  </ScaleIn>
+                </GlassCard>
+              </ScaleIn>
             ) : (
               <HostHomesList 
                 groupSlug={group?.slug}
@@ -1330,36 +1340,42 @@ export default function GroupDetailPageMT() {
           <TabsContent value="map" className="mt-6" data-testid="housing-map-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
-                <div className="text-gray-500 dark:text-gray-400">Loading map...</div>
+                <div className="text-slate-500 dark:text-slate-400">Loading map...</div>
               </div>
             ) : totalHomes === 0 ? (
-              // Empty state for map view
-              <div 
-                className="text-center py-16 px-6 rounded-lg border-2 border-dashed border-turquoise-300 dark:border-turquoise-700"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%)'
-                }}
-              >
-                <MapPin className="h-16 w-16 mx-auto mb-4 text-turquoise-400" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  No locations to display
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Listings will appear on the map once hosts add their properties.
-                </p>
-              </div>
+              // Empty state for map view - Aurora Tide
+              <ScaleIn delay={0.2}>
+                <GlassCard
+                  depth={2}
+                  className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
+                >
+                  <ScaleIn delay={0.3}>
+                    <MapPin className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
+                  </ScaleIn>
+                  <FadeIn delay={0.4}>
+                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                      No locations to display
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Listings will appear on the map once hosts add their properties.
+                    </p>
+                  </FadeIn>
+                </GlassCard>
+              </ScaleIn>
             ) : (
-              <div className="h-[600px] rounded-lg overflow-hidden border-2 border-turquoise-200 dark:border-turquoise-700">
-                <HousingMap 
-                  homes={homes}
-                  cityLat={group?.latitude}
-                  cityLng={group?.longitude}
-                  onHomeClick={(home) => {
-                    // TODO: Navigate to housing detail page when available
-                    console.log('Housing clicked:', home.id);
-                  }}
-                />
-              </div>
+              <ScaleIn delay={0.2}>
+                <GlassCard depth={2} className="h-[600px] overflow-hidden border-cyan-200/30 dark:border-cyan-500/30">
+                  <HousingMap 
+                    homes={homes}
+                    cityLat={group?.latitude}
+                    cityLng={group?.longitude}
+                    onHomeClick={(home) => {
+                      // TODO: Navigate to housing detail page when available
+                      console.log('Housing clicked:', home.id);
+                    }}
+                  />
+                </GlassCard>
+              </ScaleIn>
             )}
           </TabsContent>
         </Tabs>
