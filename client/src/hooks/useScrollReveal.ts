@@ -36,6 +36,9 @@ export function useScrollReveal(
 
     if (!elementRef.current) return;
 
+    let tween: gsap.core.Tween | null = null;
+    let scrollTriggerInstance: ScrollTrigger | null = null;
+
     // Delay execution to ensure DOM is fully rendered
     const timeoutId = setTimeout(() => {
       if (!elementRef.current) return;
@@ -59,7 +62,7 @@ export function useScrollReveal(
         toggleActions: 'play none none none',
       };
 
-      const tween = gsap.from(elements, {
+      tween = gsap.from(elements, {
         ...defaultAnimation,
         stagger: options.stagger || 0.1,
         duration: 0.8,
@@ -67,18 +70,20 @@ export function useScrollReveal(
         scrollTrigger: scrollTriggerConfig,
       });
 
-      return () => {
-        tween.kill();
-        ScrollTrigger.getAll().forEach((trigger) => {
-          if (trigger.vars.trigger === elementRef.current) {
-            trigger.kill();
-          }
-        });
-      };
+      // Capture the ScrollTrigger instance from the tween
+      if (tween && tween.scrollTrigger) {
+        scrollTriggerInstance = tween.scrollTrigger as ScrollTrigger;
+      }
     }, 0);
 
     return () => {
       clearTimeout(timeoutId);
+      if (tween) {
+        tween.kill();
+      }
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
     };
   }, [selector, animation, options]);
 
