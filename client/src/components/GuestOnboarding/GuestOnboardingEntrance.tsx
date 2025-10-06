@@ -1,109 +1,124 @@
-import React from 'react';
 import { useLocation } from 'wouter';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 import { Home, Heart, Users, MapPin, Coffee, ShoppingBag } from 'lucide-react';
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
+import { PulseButton, MagneticButton } from '@/components/interactions/MicroInteractions';
 
 export function GuestOnboardingEntrance() {
-  const [, navigate] = useLocation();
+  const [, setLocation] = useLocation();
+  const { t } = useTranslation();
 
   const benefits = [
     {
       icon: Home,
-      title: 'Find the Perfect Stay',
-      description: 'Get personalized housing recommendations based on your preferences and budget'
+      title: t('housing.guest_entrance.benefit_stay_title', 'Find the Perfect Stay'),
+      description: t('housing.guest_entrance.benefit_stay_desc', 'Get personalized housing recommendations based on your preferences and budget')
     },
     {
       icon: Heart,
-      title: 'Connect with Locals',
-      description: 'Receive tailored recommendations from locals who share your interests'
+      title: t('housing.guest_entrance.benefit_locals_title', 'Connect with Locals'),
+      description: t('housing.guest_entrance.benefit_locals_desc', 'Receive tailored recommendations from locals who share your interests')
     },
     {
       icon: Users,
-      title: 'Join Community Events',
-      description: 'Discover events that match your schedule and interests'
+      title: t('housing.guest_entrance.benefit_events_title', 'Join Community Events'),
+      description: t('housing.guest_entrance.benefit_events_desc', 'Discover events that match your schedule and interests')
     },
     {
       icon: MapPin,
-      title: 'Explore Like a Local',
-      description: 'Access hidden gems and authentic experiences curated by the community'
+      title: t('housing.guest_entrance.benefit_explore_title', 'Explore Like a Local'),
+      description: t('housing.guest_entrance.benefit_explore_desc', 'Access hidden gems and authentic experiences curated by the community')
     },
     {
       icon: Coffee,
-      title: 'Dietary Preferences',
-      description: 'Find restaurants and cafes that cater to your dietary needs'
+      title: t('housing.guest_entrance.benefit_dietary_title', 'Dietary Preferences'),
+      description: t('housing.guest_entrance.benefit_dietary_desc', 'Find restaurants and cafes that cater to your dietary needs')
     },
     {
       icon: ShoppingBag,
-      title: 'Personalized Shopping',
-      description: 'Discover local shops and markets that match your style'
+      title: t('housing.guest_entrance.benefit_shopping_title', 'Personalized Shopping'),
+      description: t('housing.guest_entrance.benefit_shopping_desc', 'Discover local shops and markets that match your style')
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <Card className="border-2 border-gradient-to-r from-turquoise-500 to-blue-500">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-20 h-20 bg-gradient-to-br from-turquoise-500 to-blue-500 rounded-full flex items-center justify-center">
-            <Users className="w-10 h-10 text-white" />
-          </div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-blue-600 bg-clip-text text-transparent">
-            Welcome to Our Community!
-          </CardTitle>
-          <CardDescription className="text-lg max-w-2xl mx-auto">
-            Tell us about yourself to receive personalized recommendations for housing, 
-            events, and local experiences tailored just for you.
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            {benefits.map((benefit, index) => {
-              const Icon = benefit.icon;
-              return (
-                <div key={index} className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-gradient-to-br from-turquoise-100 to-blue-100 rounded-lg flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-turquoise-600" />
-                    </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-12">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <FadeIn>
+          <GlassCard depth={3} className="border-cyan-200/30 dark:border-cyan-500/30">
+            <div className="p-8 md:p-12">
+              <ScaleIn delay={0.1}>
+                <div className="text-center space-y-6 mb-12">
+                  <div className="mx-auto w-24 h-24 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl shadow-cyan-500/20">
+                    <Users className="w-12 h-12 text-white" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{benefit.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{benefit.description}</p>
-                  </div>
+                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                    {t('housing.guest_entrance.title', 'Welcome to Our Community!')}
+                  </h1>
+                  <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                    {t('housing.guest_entrance.subtitle', 'Tell us about yourself to receive personalized recommendations for housing, events, and local experiences tailored just for you.')}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+              </ScaleIn>
 
-          <div className="bg-gradient-to-r from-turquoise-50 to-blue-50 rounded-lg p-6 text-center">
-            <p className="text-gray-700 mb-4">
-              <strong>🔒 Your privacy matters:</strong> Your profile information is only visible to you 
-              and helps us provide better recommendations. You control what you share.
-            </p>
-          </div>
+              <StaggerContainer className="grid md:grid-cols-2 gap-6 mb-10" staggerDelay={0.08}>
+                {benefits.map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  const testId = index === 0 ? 'stay' : index === 1 ? 'locals' : index === 2 ? 'events' : index === 3 ? 'explore' : index === 4 ? 'dietary' : 'shopping';
+                  return (
+                    <GlassCard 
+                      key={index} 
+                      depth={1} 
+                      className="p-5 border-cyan-200/20 dark:border-cyan-500/20 hover:border-cyan-300/40 dark:hover:border-cyan-400/40 transition-all duration-300"
+                      data-testid={`card-benefit-${testId}`}
+                    >
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-14 h-14 bg-gradient-to-br from-cyan-100 to-teal-100 dark:from-cyan-900/50 dark:to-teal-900/50 rounded-2xl flex items-center justify-center">
+                            <Icon className="w-7 h-7 text-cyan-600 dark:text-cyan-400" />
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{benefit.title}</h3>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">{benefit.description}</p>
+                        </div>
+                      </div>
+                    </GlassCard>
+                  );
+                })}
+              </StaggerContainer>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={() => navigate('/guest-onboarding')}
-              size="lg"
-              className="bg-gradient-to-r from-turquoise-500 to-blue-500 hover:from-turquoise-600 hover:to-blue-600 text-white"
-              data-testid="button-start-onboarding"
-            >
-              Get Started - It only takes 2 minutes
-            </Button>
-            <Button
-              onClick={() => navigate('/community')}
-              size="lg"
-              variant="outline"
-              className="border-gray-300"
-              data-testid="button-skip-onboarding"
-            >
-              Maybe Later
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+              <ScaleIn delay={0.4}>
+                <GlassCard depth={1} className="p-6 mb-8 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-r from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30" data-testid="card-privacy-notice">
+                  <p className="text-center text-slate-700 dark:text-slate-300">
+                    <strong className="text-cyan-700 dark:text-cyan-400">🔒 {t('housing.guest_entrance.privacy_title', 'Your privacy matters:')}</strong>{' '}
+                    {t('housing.guest_entrance.privacy_text', 'Your profile information is only visible to you and helps us provide better recommendations. You control what you share.')}
+                  </p>
+                </GlassCard>
+              </ScaleIn>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <PulseButton
+                  onClick={() => setLocation('/guest-onboarding')}
+                  className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
+                  data-testid="button-start-onboarding"
+                >
+                  {t('housing.guest_entrance.button_start', 'Get Started - It only takes 2 minutes')}
+                </PulseButton>
+                <MagneticButton
+                  onClick={() => setLocation('/community')}
+                  strength={0.2}
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-8 py-4 text-lg text-slate-700 dark:text-slate-300 font-medium"
+                  data-testid="button-skip-onboarding"
+                >
+                  {t('housing.guest_entrance.button_skip', 'Maybe Later')}
+                </MagneticButton>
+              </div>
+            </div>
+          </GlassCard>
+        </FadeIn>
+      </div>
     </div>
   );
 }
