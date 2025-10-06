@@ -56,6 +56,7 @@ interface FilterState {
   minClosenessScore?: number;
   localStatus: 'all' | 'local' | 'visitor';
   originCountry?: string;
+  cuisine?: string; // For restaurant ranking
   type?: string;
   priceLevel?: string;
   minRating?: number;
@@ -86,6 +87,7 @@ export default function RecommendationsList({
       if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
       if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
       if (filters.originCountry) params.append('originCountry', filters.originCountry);
+      if (filters.cuisine) params.append('cuisine', filters.cuisine); // For intelligent ranking
       if (filters.type) params.append('type', filters.type);
       if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
       if (filters.minRating) params.append('minRating', filters.minRating.toString());
