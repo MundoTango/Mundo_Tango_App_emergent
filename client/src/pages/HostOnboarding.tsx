@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -20,6 +20,7 @@ import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/Frame
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import { useTranslation } from 'react-i18next';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface OnboardingData {
   // Property basics
@@ -91,6 +92,25 @@ export default function HostOnboarding() {
     availableDates: [],
   });
 
+  const progressRef = useScrollReveal('.progress-indicator', {
+    opacity: 0,
+    scale: 0.95,
+  }, {
+    start: 'top 90%',
+    once: true,
+    respectReducedMotion: true,
+  });
+
+  const stepsRef = useScrollReveal('.step-indicator', {
+    opacity: 0,
+    y: 20,
+  }, {
+    stagger: 0.1,
+    start: 'top 85%',
+    once: true,
+    respectReducedMotion: true,
+  });
+
   const createHostHomeMutation = useMutation({
     mutationFn: async (data: Partial<OnboardingData>) => {
       try {
@@ -149,7 +169,9 @@ export default function HostOnboarding() {
         return result;
       } catch (error) {
         console.error('Error in createHostHomeMutation:', error);
-        console.error('Error stack:', error.stack);
+        if (error instanceof Error) {
+          console.error('Error stack:', error.stack);
+        }
         throw error;
       }
     },
@@ -257,22 +279,24 @@ export default function HostOnboarding() {
         </FadeIn>
 
         {/* Aurora Tide Progress Bar */}
-        <ScaleIn delay={0.1}>
-          <div className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
-                <div 
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
-                  style={{ width: `${progressPercentage}%` }}
-                  data-testid="onboarding-progress-bar"
-                />
+        <div ref={progressRef}>
+          <ScaleIn delay={0.1}>
+            <div className="progress-indicator bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
+                  <div 
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
+                    style={{ width: `${progressPercentage}%` }}
+                    data-testid="onboarding-progress-bar"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </ScaleIn>
+          </ScaleIn>
+        </div>
 
       {/* Aurora Tide Step Indicators */}
-      <div className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
+      <div ref={stepsRef} className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="flex justify-between py-4 overflow-x-auto">
             {STEPS.map((step, index) => {
@@ -285,7 +309,7 @@ export default function HostOnboarding() {
                   key={step.id}
                   onClick={() => goToStep(index)}
                   strength={index <= currentStep ? 0.15 : 0}
-                  className={`flex flex-col items-center min-w-[100px] px-2 ${
+                  className={`step-indicator flex flex-col items-center min-w-[100px] px-2 ${
                     index <= currentStep ? '' : 'cursor-not-allowed opacity-50'
                   }`}
                   disabled={index > currentStep}

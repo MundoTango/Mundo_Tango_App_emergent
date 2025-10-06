@@ -34,6 +34,7 @@ import { Label } from '../components/ui/label';
 import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface BookingWithDetails {
   id: number;
@@ -74,6 +75,16 @@ export default function HostBookings() {
   const [respondingToBooking, setRespondingToBooking] = useState<number | null>(null);
   const [responseAction, setResponseAction] = useState<'approve' | 'reject' | null>(null);
   const [hostResponse, setHostResponse] = useState('');
+
+  const cardsRef = useScrollReveal('.booking-card', {
+    opacity: 0,
+    y: 30,
+  }, {
+    stagger: 0.1,
+    start: 'top 85%',
+    once: true,
+    respectReducedMotion: true,
+  });
 
   const { data: bookingsData, isLoading } = useQuery<{ success: boolean; bookings: BookingWithDetails[] }>({
     queryKey: ['/api/bookings', { role: 'host' }],
@@ -478,9 +489,15 @@ export default function HostBookings() {
                     </GlassCard>
                   </ScaleIn>
                 ) : (
-                  <StaggerContainer staggerDelay={0.08}>
-                    {pendingBookings.map(renderBookingCard)}
-                  </StaggerContainer>
+                  <div ref={cardsRef}>
+                    <StaggerContainer staggerDelay={0.08} className="booking-card-container">
+                      {pendingBookings.map(booking => (
+                        <div key={booking.id} className="booking-card">
+                          {renderBookingCard(booking)}
+                        </div>
+                      ))}
+                    </StaggerContainer>
+                  </div>
                 )}
               </TabsContent>
 
