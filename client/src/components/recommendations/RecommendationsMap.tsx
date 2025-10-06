@@ -23,10 +23,13 @@ interface Recommendation {
   tags?: string[];
   user?: {
     id: number;
+    name: string;
     username: string;
     firstName?: string;
     lastName?: string;
     profileImage?: string;
+    city?: string;
+    country?: string;
   };
 }
 

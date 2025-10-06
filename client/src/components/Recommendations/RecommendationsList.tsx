@@ -16,10 +16,10 @@ interface Recommendation {
   address?: string;
   city: string;
   country: string;
-  lat?: number;
-  lng?: number;
-  latitude?: number;
-  longitude?: number;
+  lat?: number | null;
+  lng?: number | null;
+  latitude?: number | null;
+  longitude?: number | null;
   user?: {
     id: number;
     name: string;
