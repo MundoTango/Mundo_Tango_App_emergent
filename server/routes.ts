@@ -3684,7 +3684,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Limit cache size
         if (geocodingCache.size > 1000) {
           const firstKey = geocodingCache.keys().next().value;
-          geocodingCache.delete(firstKey);
+          if (firstKey) {
+            geocodingCache.delete(firstKey);
+          }
         }
       }
 
