@@ -107,6 +107,14 @@ class Layer58IntegrationTrackingAgent extends EventEmitter {
         apiKey: !!process.env.GOOGLE_MAPS_API_KEY
       },
       {
+        id: 'locationiq',
+        name: 'LocationIQ',
+        category: 'maps',
+        provider: 'LocationIQ (Unwired Labs)',
+        status: process.env.LOCATIONIQ_API_KEY ? 'connected' : 'disconnected',
+        apiKey: !!process.env.LOCATIONIQ_API_KEY
+      },
+      {
         id: 'openstreetmap',
         name: 'OpenStreetMap',
         category: 'maps',
