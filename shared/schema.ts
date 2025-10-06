@@ -1734,9 +1734,17 @@ export const recommendations = pgTable("recommendations", {
   lat: real("lat"),
   lng: real("lng"),
   photos: text("photos").array().default(sql`ARRAY[]::text[]`),
-  rating: integer("rating"), // 1-5 stars
+  rating: integer("rating"), // 1-5 stars (legacy - replaced by mtRating for clarity)
   priceLevel: varchar("price_level", { length: 10 }), // '$', '$$', '$$$' - ESA Layer 28
   tags: text("tags").array().default(sql`ARRAY[]::text[]`),
+  // ESA Layer 26: Cuisine-based ranking system for restaurants
+  cuisine: varchar("cuisine", { length: 50 }), // e.g., "Chinese", "Italian", "Japanese" (null for non-restaurants)
+  // ESA Layer 58: Google Places API integration for dual rating system
+  googlePlaceId: varchar("google_place_id", { length: 255 }), // Google Places API unique identifier
+  googleRating: real("google_rating"), // 0-5 from Google Places API
+  googleReviewCount: integer("google_review_count"), // Number of Google reviews
+  mtRating: real("mt_rating"), // Average rating from MT community (calculated from all recommendations for this place)
+  mtReviewCount: integer("mt_review_count"), // Number of MT users who recommended this place
   // ESA Layer 28: Social connection-based visibility (mirrors Housing whoCanBook system)
   whoCanView: varchar("who_can_view", { length: 50 }).default("anyone"), // 'anyone', '1st_degree', '2nd_degree', '3rd_degree', 'custom_closeness'
   minimumClosenessScore: integer("minimum_closeness_score").default(0), // 0-100 threshold for custom_closeness filter
@@ -1750,6 +1758,7 @@ export const recommendations = pgTable("recommendations", {
   index("idx_recommendations_city").on(table.city),
   index("idx_recommendations_type").on(table.type),
   index("idx_recommendations_location").on(table.lat, table.lng),
+  index("idx_recommendations_cuisine").on(table.cuisine), // ESA Layer 26: Optimize cuisine filtering queries
   index("idx_recommendations_who_can_view").on(table.whoCanView), // ESA Layer 28: Enable filtering by connection level
 ]);
 
