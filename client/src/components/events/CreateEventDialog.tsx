@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiRequest } from '@/lib/queryClient';
 import UploadMedia from '@/components/UploadMedia';
-import LocationInput from '@/components/universal/LocationInput';
+import UnifiedLocationPicker from '@/components/universal/UnifiedLocationPicker';
 import { Calendar, MapPin, DollarSign, Video, RefreshCw, Users, Image, FileText } from 'lucide-react';
 
 const eventSchema = z.object({
@@ -284,10 +284,12 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormItem>
                       <FormLabel>Location</FormLabel>
                       <FormControl>
-                        <LocationInput
+                        <UnifiedLocationPicker
                           value={field.value || ''}
                           onChange={(loc) => field.onChange(loc)}
                           placeholder="Search for event location..."
+                          searchTypes={['establishment', 'point_of_interest']}
+                          allowManualEntry={true}
                         />
                       </FormControl>
                       <FormMessage />
