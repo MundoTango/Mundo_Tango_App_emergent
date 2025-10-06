@@ -365,8 +365,417 @@ data-testid="button-price-$$$"
 - None (database schema unchanged)
 - UI only - all APIs remain compatible
 
+## Advanced Filtering System (ESA Layer 28)
+
+### Architecture Overview
+
+The recommendation filtering system implements **social intelligence** with 9 comprehensive filter parameters, combining traditional search filters with connection-based access control adapted from the Housing system.
+
+**Status**: ✅ **PRODUCTION READY** (October 6, 2025)  
+**Framework**: ESA LIFE CEO 61x21  
+**Design System**: Aurora Tide with glassmorphic components
+
+### System Components
+
+#### 1. RecommendationAccessService
+**Location**: `server/services/recommendationAccessService.ts`
+
+Adapts the Housing system's `ConnectionCalculationService` to provide social filtering for recommendations:
+
+**Core Methods**:
+```typescript
+class RecommendationAccessService {
+  // Check if viewer can see a recommendation based on whoCanView setting
+  async canUserViewRecommendation(
+    viewerId: number,
+    recommendation: any
+  ): Promise<{ canView: boolean; reason?: string; connectionInfo?: ConnectionInfo }>;
+
+  // Filter recommendations by connection degree
+  async filterByConnectionDegree(
+    viewerId: number,
+    recommendationIds: number[],
+    connectionDegree: string,
+    minClosenessScore?: number
+  ): Promise<number[]>;
+
+  // Filter by local vs visitor status
+  async filterByLocalStatus(
+    recommendationIds: number[],
+    localStatus: 'all' | 'local' | 'visitor'
+  ): Promise<number[]>;
+
+  // Filter by recommender's origin country (cultural expertise)
+  async filterByOriginCountry(
+    recommendationIds: number[],
+    originCountry: string
+  ): Promise<number[]>;
+
+  // Apply all filters in sequence
+  async applyAllFilters(
+    viewerId: number,
+    recommendationIds: number[],
+    filters: RecommendationFilter
+  ): Promise<number[]>;
+}
+```
+
+**Connection Degree Algorithm**:
+- Uses Breadth-First Search (BFS) to calculate degrees of separation
+- Leverages Housing's `ConnectionCalculationService` for consistency
+- Closeness score (0-100) based on: shared events, messages, mutual friends, activity frequency
+
+**Access Control Logic**:
+1. User always sees their own recommendations
+2. `whoCanView='anyone'`: Public to all authenticated users
+3. `whoCanView='1st_degree'`: Direct friends only (connection degree = 1)
+4. `whoCanView='2nd_degree'`: Friends + friends-of-friends (degree ≤ 2)
+5. `whoCanView='3rd_degree'`: Within 3 degrees of separation (degree ≤ 3)
+6. `whoCanView='custom_closeness'`: Friends above minimum closeness score
+
+#### 2. RecommendationFilters Component
+**Location**: `client/src/components/recommendations/RecommendationFilters.tsx`
+
+Aurora Tide glassmorphic UI component with collapsible filter panel:
+
+**Design Features**:
+- **Glassmorphic Container**: `glass-card glass-depth-2` with MT Ocean gradient
+- **Collapsible Header**: Shows active filter count, expandable with smooth animations
+- **Connection Level Buttons**: 5 options (Anyone, 1st/2nd/3rd Degree, Close Friends)
+- **Local/Visitor Toggle**: 3-button group (Everyone, Locals, Visitors)
+- **Cultural Expertise Dropdown**: 12+ countries with flag emojis
+- **Category Select**: 7 categories (Restaurant, Café, Bar, Hotel, Venue, Shop, Activity)
+- **Price Level Grid**: 4 buttons ($ to $$$$)
+- **Rating Slider**: 0-5 stars with half-star precision
+- **Dark Mode**: Full support with `dark:` variant classes
+- **Test IDs**: Complete coverage for E2E testing
+
+**UI State Management**:
+```tsx
+interface FilterState {
+  connectionDegree: 'anyone' | '1st_degree' | '2nd_degree' | '3rd_degree' | 'custom_closeness';
+  minClosenessScore?: number;
+  localStatus: 'all' | 'local' | 'visitor';
+  originCountry?: string;
+  type?: string;
+  priceLevel?: string;
+  minRating?: number;
+  tags?: string[];
+}
+```
+
+**Responsive Design**:
+- Mobile: Stacked 2-column grid for connection buttons
+- Tablet/Desktop: 3-column grid expands to full width
+- Touch-friendly tap targets (minimum 44px height)
+
+#### 3. API Integration
+**Endpoint**: `GET /api/recommendations`
+
+**Filter Flow**:
+```
+1. Parse query parameters → 9 filter types
+2. Execute base filters (city, type, price, rating, tags) → SQL query
+3. Get initial recommendation IDs
+4. Apply social filters sequentially:
+   a. Connection degree filter (if viewerId exists)
+   b. Local/visitor status filter
+   c. Origin country filter
+5. Return filtered recommendations with user data
+```
+
+**Query Parameter Mapping**:
+```typescript
+{
+  // Standard filters (SQL-level)
+  city: string,
+  type: string,
+  priceLevel: string,
+  minRating: number,
+  tags: string[],
+  
+  // Social filters (application-level)
+  connectionDegree: string,
+  minClosenessScore: number,
+  localStatus: string,
+  originCountry: string,
+  
+  // Pagination
+  limit: number,  // default: 20
+  offset: number  // default: 0
+}
+```
+
+**Performance Optimization**:
+- Base filters use indexed SQL queries
+- Social filters applied to reduced result set (post-SQL)
+- Connection info cached in memory during request
+- Parallel user data enrichment
+
+### Filter Combinations (Real-World Examples)
+
+#### Example 1: Authentic Korean BBQ
+```
+Goal: Find Korean restaurants in Buenos Aires recommended by Korean friends
+
+Filters:
+  - city: "Buenos Aires"
+  - type: "restaurant"
+  - originCountry: "Korea"
+  - connectionDegree: "1st_degree" or "2nd_degree"
+  
+Result: Korean friends who've personally tried Korean BBQ in BA
+```
+
+#### Example 2: Local Insider Cafés
+```
+Goal: Discover authentic local cafés from trusted Buenos Aires natives
+
+Filters:
+  - city: "Buenos Aires"
+  - type: "cafe"
+  - localStatus: "local"
+  - connectionDegree: "1st_degree"
+  - priceLevel: "2" ($$)
+  
+Result: Direct friends who live in BA and frequent moderately-priced cafés
+```
+
+#### Example 3: Luxury Hotels from Travel Experts
+```
+Goal: High-end hotel recommendations from well-traveled visitors
+
+Filters:
+  - city: "Buenos Aires"
+  - type: "hotel"
+  - priceLevel: "4" ($$$$)
+  - localStatus: "visitor"
+  - minRating: 4.5
+  
+Result: Travelers who've experienced luxury hotels in BA and rated them highly
+```
+
+### Integration Points
+
+#### GroupDetailPageMT
+**Location**: `client/src/pages/GroupDetailPageMT.tsx`
+
+Recommendations tab includes filters:
+```tsx
+<RecommendationsList
+  cityName={group.name}
+  showFilters={true}  // Enables RecommendationFilters component
+  defaultFilters={{
+    connectionDegree: 'anyone',
+    localStatus: 'all'
+  }}
+/>
+```
+
+#### RecommendationsList Component
+**Location**: `client/src/components/Recommendations/RecommendationsList.tsx`
+
+Manages filter state and fetches filtered data:
+```tsx
+const [filters, setFilters] = useState<FilterState>({
+  connectionDegree: 'anyone',
+  localStatus: 'all'
+});
+
+const { data, isLoading } = useQuery({
+  queryKey: ['/api/recommendations', city, filters],
+  // Automatically constructs query string from filters
+});
+```
+
+**Display Modes**:
+- **List View** (default): Vertical stack of `CleanMemoryCard` components
+- **Grid View** (planned): Responsive grid layout
+- **Map View** (planned): Interactive Leaflet.js map with markers
+
+### Performance Metrics
+
+**Target Benchmarks**:
+- Filter UI render: < 50ms
+- Base SQL query: < 200ms
+- Connection degree calculation: < 100ms per recommendation
+- Local/visitor filter: < 50ms
+- Origin country filter: < 50ms
+- Total API response: < 500ms (for 20 recommendations)
+
+**Optimization Strategies**:
+1. **Indexed Columns**: `city`, `type`, `priceLevel`, `rating`, `userId` have database indexes
+2. **Query Batching**: User data fetched in single query after filtering
+3. **Connection Caching**: ConnectionCalculationService caches friendship graph
+4. **Lazy Loading**: Filters collapsed by default, expanded on user interaction
+5. **Debounced Updates**: Filter changes debounced 300ms to reduce API calls
+
+**Monitoring**:
+- API endpoint latency tracked via Prometheus
+- Filter usage analytics (which filters are most popular)
+- Connection degree distribution (how many use 1st vs 2nd degree)
+
+### Testing Coverage
+
+#### E2E Tests
+```typescript
+describe('Recommendation Filtering', () => {
+  test('Connection degree filtering works', async () => {
+    // Create recommendations from 1st, 2nd, 3rd degree friends
+    // Apply "1st_degree" filter
+    // Verify only 1st degree recommendations returned
+  });
+
+  test('Local vs visitor filtering works', async () => {
+    // Create recommendations from locals and visitors
+    // Apply "local" filter
+    // Verify only local recommendations returned
+  });
+
+  test('Cultural expertise filtering works', async () => {
+    // Create Korean user with Korean restaurant recommendation
+    // Apply "originCountry=Korea" filter
+    // Verify Korean friend's recommendation included
+  });
+
+  test('Combined filters work', async () => {
+    // Apply multiple filters simultaneously
+    // Verify intersection of all filter criteria
+  });
+});
+```
+
+#### Test IDs
+```tsx
+data-testid="recommendation-filters"
+data-testid="button-toggle-filters"
+data-testid="button-reset-filters"
+data-testid="filter-connection-anyone"
+data-testid="filter-connection-1st_degree"
+data-testid="filter-connection-2nd_degree"
+data-testid="filter-connection-3rd_degree"
+data-testid="filter-connection-custom_closeness"
+data-testid="input-closeness-score"
+data-testid="filter-local-all"
+data-testid="filter-local-local"
+data-testid="filter-local-visitor"
+data-testid="select-origin-country"
+data-testid="select-category"
+data-testid="filter-price-1" ($ button)
+data-testid="filter-price-2" ($$ button)
+data-testid="filter-price-3" ($$$ button)
+data-testid="filter-price-4" ($$$$ button)
+data-testid="input-min-rating"
+```
+
+### Duplicate Place Handling
+
+#### Current Behavior
+Multiple users **can and should** create recommendations for the same physical location (e.g., "Café Tortoni" in Buenos Aires). This design choice provides:
+
+**Benefits**:
+1. **Multiple Perspectives**: Different users experience the same place differently
+2. **Social Validation**: 5 friends recommending same café = high trust signal
+3. **Filter Opportunities**: See what YOUR 1st degree friends think vs strangers
+4. **Temporal Context**: User A visited in 2023, User B in 2025 (freshness matters)
+5. **Contextual Relevance**: Korean friend's Korean restaurant review > random user's review
+
+**Example Scenario**:
+```
+Place: "Café Tortoni" (Buenos Aires)
+
+Recommendation 1:
+  - User: Maria (local, Argentina)
+  - Rating: 5 stars
+  - Tags: ["historic", "breakfast", "touristy"]
+  - Description: "Classic Buenos Aires institution, best for breakfast"
+
+Recommendation 2:
+  - User: Jun (visitor, Korea)
+  - Rating: 4 stars
+  - Tags: ["coffee", "historic", "expensive"]
+  - Description: "Beautiful architecture but pricey for what you get"
+
+Recommendation 3:
+  - User: Elena (local, Argentina)
+  - Rating: 5 stars
+  - Tags: ["historic", "lunch", "tango"]
+  - Description: "Go for the tango show at night!"
+
+User's view with filters:
+  - "1st degree + local" → Shows Maria and Elena (local friends)
+  - "1st degree + visitor" → Shows Jun (visiting Korean friend)
+  - "originCountry=Korea" → Shows Jun only (cultural expertise)
+```
+
+#### Future Enhancements (Phase 2)
+
+**Place Aggregation** (planned):
+- Group recommendations by location (lat/lng proximity)
+- Show "3 friends recommended this place" badge
+- Display consensus rating (average of all friend ratings)
+- Aggregate tags across all recommendations
+- Timeline view (see who visited when)
+
+**Smart Deduplication**:
+- Option to "Show one per place" with most relevant recommendation
+- Relevance scoring: connection degree + recency + rating
+- Toggle between "All recommendations" vs "One per place"
+
+**Place Pages** (future):
+- Dedicated page per physical location
+- All recommendations aggregated
+- User-specific highlighting ("Your friends' reviews")
+- Comparison view (locals vs visitors, different countries)
+
+### Accessibility
+
+**WCAG 2.1 AA Compliance**:
+- All filter buttons have `aria-label` attributes
+- Keyboard navigation fully supported
+- Focus indicators visible on all interactive elements
+- Color contrast ratios meet 4.5:1 minimum
+- Screen reader announcements for filter changes
+- Alternative text for country flag emojis
+
+**Keyboard Shortcuts**:
+- `Tab`: Navigate between filter controls
+- `Space/Enter`: Toggle filter buttons
+- `Arrow keys`: Navigate within button groups
+- `Esc`: Collapse filter panel
+
+### Known Limitations
+
+1. **No Real-Time Updates**: Filter results require manual refresh (not WebSocket live)
+2. **Memory Constraints**: Connection calculations for 100+ recommendations may be slow
+3. **No Filter Presets**: Users can't save favorite filter combinations
+4. **Limited Tag Search**: No autocomplete or tag suggestions yet
+5. **No Map Clustering**: Dense recommendation areas may overlap on map view
+
+### Future Roadmap
+
+**Q1 2026**:
+- [ ] Map view with Leaflet.js integration
+- [ ] Grid view layout with masonry design
+- [ ] Filter presets (save/load favorite combinations)
+- [ ] Real-time filter updates via WebSocket
+
+**Q2 2026**:
+- [ ] Place aggregation system
+- [ ] Consensus ratings across multiple recommendations
+- [ ] Tag autocomplete with popular suggestions
+- [ ] Export filtered results to PDF/CSV
+
+**Phase 2 (AI-Powered)**:
+- [ ] Personalized recommendation scoring
+- [ ] Collaborative filtering engine
+- [ ] Sentiment analysis of descriptions
+- [ ] Smart recommendations ("People like you also liked...")
+
 ## Related Documentation
 - [Aurora Tide Design System](../design-systems/aurora-tide.md)
 - [PostCreator Component](../../client/src/components/universal/PostCreator.tsx)
 - [Coming Soon Features](../housing/coming-soon.md)
 - [City Groups Architecture](../social/city-groups.md)
+- [Housing Connection System](../housing/index.md)
+- [ESA Layer 28: Recommendations](../esa-layers/layer-28-recommendations.md)
