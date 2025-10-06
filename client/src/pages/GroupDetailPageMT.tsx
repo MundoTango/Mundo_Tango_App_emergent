@@ -1417,7 +1417,7 @@ export default function GroupDetailPageMT() {
         <RecommendationsList 
           groupSlug={group.slug}
           city={group.city}
-          showFilters={false}
+          showFilters={true}
         />
       </div>
     );
