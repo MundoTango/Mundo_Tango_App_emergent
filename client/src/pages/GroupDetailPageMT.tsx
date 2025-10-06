@@ -39,6 +39,8 @@ import { useEventRSVP } from '@/hooks/useEventRSVP';
 import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -82,6 +84,7 @@ export default function GroupDetailPageMT() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('posts');
   
   // Socket.io connection reference (persisted across renders)
@@ -1158,13 +1161,24 @@ export default function GroupDetailPageMT() {
       group?.id
     );
 
+    // Aurora Tide: GSAP Scroll Reveal for housing cards
+    const housingCardsRef = useScrollReveal('.housing-stat-card', {
+      opacity: 0,
+      y: 30,
+    }, {
+      stagger: 0.1,
+      start: 'top 85%',
+      once: true,
+      respectReducedMotion: true,
+    });
+
     return (
-      <div className="space-y-6">
+      <div className="space-y-6" ref={housingCardsRef}>
         {/* Quick Actions Bar - Aurora Tide */}
         <FadeIn>
           <div className="flex flex-wrap gap-3 items-center justify-between">
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-              Housing in {group?.city}
+              {t('housing.city_housing_tab.title', { defaultValue: 'Housing in {{city}}', city: group?.city })}
             </h3>
             <div className="flex flex-wrap gap-2">
               {userContext.isLocal && (
@@ -1175,7 +1189,7 @@ export default function GroupDetailPageMT() {
                   data-testid="button-become-host"
                 >
                   <Home className="h-4 w-4 mr-2" />
-                  Become a Host
+                  {t('housing.city_housing_tab.become_host', 'Become a Host')}
                 </PulseButton>
               )}
               <MagneticButton
@@ -1185,7 +1199,7 @@ export default function GroupDetailPageMT() {
                 data-testid="button-search-preferences"
               >
                 <Settings className="h-4 w-4 mr-2" />
-                Search Preferences
+                {t('housing.city_housing_tab.search_preferences', 'Search Preferences')}
               </MagneticButton>
               <MagneticButton
                 onClick={() => setLocation('/housing-marketplace')}
@@ -1194,7 +1208,7 @@ export default function GroupDetailPageMT() {
                 data-testid="button-view-marketplace"
               >
                 <Search className="h-4 w-4 mr-2" />
-                All homes
+                {t('housing.city_housing_tab.all_homes', 'All homes')}
               </MagneticButton>
             </div>
           </div>
@@ -1205,7 +1219,9 @@ export default function GroupDetailPageMT() {
           <div className="bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-200 dark:border-purple-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
               <Shield className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-              <span className="font-semibold text-purple-900 dark:text-purple-300">Super Admin Actions</span>
+              <span className="font-semibold text-purple-900 dark:text-purple-300">
+                {t('housing.city_housing_tab.super_admin_actions', 'Super Admin Actions')}
+              </span>
             </div>
             <Button
               onClick={() => setLocation('/host-onboarding')}
@@ -1213,7 +1229,7 @@ export default function GroupDetailPageMT() {
               data-testid="button-admin-host-onboarding"
             >
               <Home className="h-4 w-4 mr-2" />
-              Start Host Onboarding
+              {t('housing.city_housing_tab.start_host_onboarding', 'Start Host Onboarding')}
             </Button>
           </div>
         )}
@@ -1227,27 +1243,35 @@ export default function GroupDetailPageMT() {
               data-testid="housing-statistics-card"
             >
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center" data-testid="stat-total-homes">
+                <div className="text-center housing-stat-card" data-testid="stat-total-homes">
                   <Home className="h-8 w-8 mx-auto mb-2 text-cyan-600 dark:text-cyan-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">{totalHomes}</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">Total Homes</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.city_housing_tab.total_homes', 'Total Homes')}
+                  </div>
                 </div>
-                <div className="text-center" data-testid="stat-avg-price">
+                <div className="text-center housing-stat-card" data-testid="stat-avg-price">
                   <DollarSign className="h-8 w-8 mx-auto mb-2 text-teal-600 dark:text-teal-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">${avgPrice}</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">Avg/Night</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.city_housing_tab.avg_night', 'Avg/Night')}
+                  </div>
                 </div>
-                <div className="text-center" data-testid="stat-price-range">
+                <div className="text-center housing-stat-card" data-testid="stat-price-range">
                   <Star className="h-8 w-8 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">
                     ${priceRange.min}-${priceRange.max}
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">Price Range</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.city_housing_tab.price_range', 'Price Range')}
+                  </div>
                 </div>
-                <div className="text-center" data-testid="stat-available">
+                <div className="text-center housing-stat-card" data-testid="stat-available">
                   <Users className="h-8 w-8 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">{availableHomes}</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">Available</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    {t('housing.city_housing_tab.available', 'Available')}
+                  </div>
                 </div>
               </StaggerContainer>
             </GlassCard>
@@ -1263,7 +1287,7 @@ export default function GroupDetailPageMT() {
               data-testid="housing-view-list"
             >
               <List className="h-4 w-4 mr-2" />
-              List View
+              {t('housing.city_housing_tab.list_view', 'List View')}
             </TabsTrigger>
             <TabsTrigger 
               value="map"
@@ -1271,14 +1295,16 @@ export default function GroupDetailPageMT() {
               data-testid="housing-view-map"
             >
               <MapPin className="h-4 w-4 mr-2" />
-              Map View
+              {t('housing.city_housing_tab.map_view', 'Map View')}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="list" className="mt-6" data-testid="housing-list-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
-                <div className="text-gray-500 dark:text-gray-400">Loading housing listings...</div>
+                <div className="text-gray-500 dark:text-gray-400">
+                  {t('housing.city_housing_tab.loading_listings', 'Loading housing listings...')}
+                </div>
               </div>
             ) : totalHomes === 0 ? (
               // Enhanced Empty State - Aurora Tide
@@ -1293,12 +1319,12 @@ export default function GroupDetailPageMT() {
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-                      No housing listings yet
+                      {t('housing.city_housing_tab.no_listings', 'No housing listings yet')}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
                       {userContext.isLocal 
-                        ? "Be the first to offer tango-friendly accommodation in your city! Share your space with dancers from around the world."
-                        : `No housing listings are currently available in ${group?.city}. Check back soon or explore other cities.`
+                        ? t('housing.city_housing_tab.empty_local_message', 'Be the first to offer tango-friendly accommodation in your city! Share your space with dancers from around the world.')
+                        : t('housing.city_housing_tab.empty_visitor_message', { defaultValue: 'No housing listings are currently available in {{city}}. Check back soon or explore other cities.', city: group?.city })
                       }
                     </p>
                   </FadeIn>
@@ -1311,7 +1337,7 @@ export default function GroupDetailPageMT() {
                         data-testid="button-empty-state-host"
                       >
                         <Home className="h-5 w-5 mr-2" />
-                        List Your Property
+                        {t('housing.city_housing_tab.list_property', 'List Your Property')}
                       </PulseButton>
                     )}
                     {!userContext.isLocal && (
@@ -1322,7 +1348,7 @@ export default function GroupDetailPageMT() {
                         data-testid="button-empty-state-marketplace"
                       >
                         <Search className="h-5 w-5 mr-2" />
-                        Explore All Cities
+                        {t('housing.city_housing_tab.explore_cities', 'Explore All Cities')}
                       </MagneticButton>
                     )}
                   </ScaleIn>
@@ -1340,7 +1366,9 @@ export default function GroupDetailPageMT() {
           <TabsContent value="map" className="mt-6" data-testid="housing-map-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
-                <div className="text-slate-500 dark:text-slate-400">Loading map...</div>
+                <div className="text-slate-500 dark:text-slate-400">
+                  {t('housing.city_housing_tab.loading_map', 'Loading map...')}
+                </div>
               </div>
             ) : totalHomes === 0 ? (
               // Empty state for map view - Aurora Tide
@@ -1354,10 +1382,10 @@ export default function GroupDetailPageMT() {
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-                      No locations to display
+                      {t('housing.city_housing_tab.no_locations', 'No locations to display')}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400">
-                      Listings will appear on the map once hosts add their properties.
+                      {t('housing.city_housing_tab.map_empty_message', 'Listings will appear on the map once hosts add their properties.')}
                     </p>
                   </FadeIn>
                 </GlassCard>
