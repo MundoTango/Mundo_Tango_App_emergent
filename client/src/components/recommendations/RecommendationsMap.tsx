@@ -38,13 +38,15 @@ interface RecommendationsMapProps {
   cityLat?: number;
   cityLng?: number;
   onRecommendationClick?: (recommendation: Recommendation) => void;
+  selectedRecommendation?: Recommendation | null;
 }
 
 export default function RecommendationsMap({ 
   recommendations, 
   cityLat, 
   cityLng, 
-  onRecommendationClick 
+  onRecommendationClick,
+  selectedRecommendation
 }: RecommendationsMapProps) {
   const [map, setMap] = useState<L.Map | null>(null);
   const { clearMarkers, addMarker, fitBoundsToMarkers } = useMapMarkers();
@@ -163,6 +165,33 @@ export default function RecommendationsMap({
       fitBoundsToMarkers(map);
     }
   }, [recommendations, map, onRecommendationClick, clearMarkers, addMarker, fitBoundsToMarkers]);
+
+  // ESA Layer 13: Center map on selected recommendation
+  useEffect(() => {
+    if (!map || !selectedRecommendation) return;
+
+    const lat = selectedRecommendation.lat;
+    const lng = selectedRecommendation.lng;
+
+    if (lat && lng) {
+      // Fly to the selected location with smooth animation
+      map.flyTo([lat, lng], 16, {
+        duration: 1.5
+      });
+
+      // Find and open the popup for this marker after animation
+      setTimeout(() => {
+        map.eachLayer((layer) => {
+          if (layer instanceof L.Marker) {
+            const markerLatLng = layer.getLatLng();
+            if (markerLatLng.lat === lat && markerLatLng.lng === lng) {
+              layer.openPopup();
+            }
+          }
+        });
+      }, 1600);
+    }
+  }, [selectedRecommendation, map]);
 
   // Calculate category counts
   const geocodedRecs = recommendations.filter(r => r.lat && r.lng);
