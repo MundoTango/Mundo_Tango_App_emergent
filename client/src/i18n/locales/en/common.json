@@ -283,6 +283,16 @@
     },
     "listing_detail": {
       "guest_reviews": "Guest Reviews"
+    },
+    "my_bookings": {
+      "write_review": "Write a Review",
+      "review_dialog_title": "Write a Review",
+      "review_dialog_desc": "Share your experience with this property and help other guests make informed decisions."
+    },
+    "host_bookings": {
+      "review_guest": "Review Guest",
+      "review_dialog_title": "Review Your Guest",
+      "review_dialog_desc": "Share your experience hosting this guest and help other hosts make informed decisions."
     }
   }
 }
