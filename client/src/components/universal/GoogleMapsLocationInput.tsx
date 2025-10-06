@@ -89,6 +89,8 @@ export default function GoogleMapsLocationInput({
   allowManualEntry = true,
   allowGoogleMapsUrl = true
 }: LocationInputProps) {
+  // ESA Layer 13: Track initialization state to prevent premature searches
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -99,7 +101,7 @@ export default function GoogleMapsLocationInput({
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const { toast } = useToast();
 
-  // ESA Layer 13: Initialize Google Maps with comprehensive logging
+  // ESA Layer 13: Initialize Google Maps with state tracking
   useEffect(() => {
     if (import.meta.env.DEV) {
       console.log('🗺️ GoogleMapsLocationInput: Starting initialization...');
@@ -111,24 +113,26 @@ export default function GoogleMapsLocationInput({
           console.log('✅ Google Maps script loaded successfully');
         }
         
+        // Create services
         autocompleteServiceRef.current = new (window as any).google.maps.places.AutocompleteService();
-        if (import.meta.env.DEV) {
-          console.log('✅ AutocompleteService created:', !!autocompleteServiceRef.current);
-        }
-        
-        // Create a dummy div for PlacesService
         const div = document.createElement('div');
         placesServiceRef.current = new google.maps.places.PlacesService(div);
+        
+        // Mark as initialized AFTER both services are created
+        setIsInitialized(true);
+        
         if (import.meta.env.DEV) {
+          console.log('✅ AutocompleteService created:', !!autocompleteServiceRef.current);
           console.log('✅ PlacesService created:', !!placesServiceRef.current);
-          console.log('🗺️ GoogleMapsLocationInput: Ready for autocomplete searches');
+          console.log('🗺️ GoogleMapsLocationInput: Initialization complete, ready for searches');
         }
       })
       .catch(error => {
         console.error('❌ Google Maps initialization error:', error);
+        setIsInitialized(false);
         toast({
           title: "Location search unavailable",
-          description: "Please check your Google Maps API configuration",
+          description: "Google Maps failed to load. Please refresh the page.",
           variant: "destructive"
         });
       });
@@ -165,11 +169,13 @@ export default function GoogleMapsLocationInput({
     }
   }, [allowGoogleMapsUrl, toast]);
 
-  // ESA Layer 13: Search for places with proper dependencies and logging
+  // ESA Layer 13: Search for places with initialization check
   const searchPlaces = useCallback(async (query: string) => {
     if (import.meta.env.DEV) {
-      console.log('🔍 GoogleMapsLocationInput: searchPlaces called with query:', query);
-      console.log('🔍 AutocompleteService ready:', !!autocompleteServiceRef.current);
+      console.log('🔍 GoogleMapsLocationInput: searchPlaces called');
+      console.log('🔍 Query:', query);
+      console.log('🔍 isInitialized:', isInitialized);
+      console.log('🔍 AutocompleteService exists:', !!autocompleteServiceRef.current);
     }
     
     // Check if it's a Google Maps URL first
@@ -178,6 +184,7 @@ export default function GoogleMapsLocationInput({
       return;
     }
     
+    // Check query length
     if (!query || query.length < 3) {
       if (import.meta.env.DEV) {
         console.log('🔍 Query too short (<3 chars), clearing suggestions');
@@ -186,8 +193,12 @@ export default function GoogleMapsLocationInput({
       return;
     }
     
-    if (!autocompleteServiceRef.current) {
-      console.error('❌ AutocompleteService not initialized yet');
+    // ESA Layer 13: Wait for initialization before searching
+    if (!isInitialized || !autocompleteServiceRef.current) {
+      console.warn('⚠️ GoogleMaps not initialized yet, cannot search');
+      if (import.meta.env.DEV) {
+        console.log('⏳ Please wait for initialization to complete');
+      }
       setSuggestions([]);
       return;
     }
@@ -201,38 +212,45 @@ export default function GoogleMapsLocationInput({
       // Properly bias results to location using valid Google Maps parameters
       location: new (window as any).google.maps.LatLng(biasToLocation.lat, biasToLocation.lng),
       radius: 50000, // 50km radius
-      // Optional: restrict to specific countries (remove for worldwide)
-      // componentRestrictions: { country: ['ar', 'us', 'gb', 'fr', 'es', 'it', 'br', 'mx'] }
     };
 
     if (import.meta.env.DEV) {
       console.log('🔍 Making autocomplete request:', { query, types: request.types });
     }
 
-    autocompleteServiceRef.current.getPlacePredictions(
-      request,
-      (predictions: any, status: any) => {
-        setIsLoading(false);
-        
-        if (import.meta.env.DEV) {
-          console.log('🔍 Autocomplete response:', { status, predictionsCount: predictions?.length || 0 });
-        }
-        
-        if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
+    try {
+      autocompleteServiceRef.current.getPlacePredictions(
+        request,
+        (predictions: any, status: any) => {
+          setIsLoading(false);
+          
           if (import.meta.env.DEV) {
-            console.log('✅ Found', predictions.length, 'suggestions');
+            console.log('🔍 Autocomplete response:', { status, predictionsCount: predictions?.length || 0 });
           }
-          setSuggestions(predictions);
-          setShowSuggestions(true);
-        } else {
-          if (import.meta.env.DEV) {
-            console.warn('⚠️ No predictions or error status:', status);
+          
+          if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
+            if (import.meta.env.DEV) {
+              console.log('✅ Found', predictions.length, 'suggestions');
+            }
+            setSuggestions(predictions);
+            setShowSuggestions(true);
+          } else if (status === (window as any).google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+            if (import.meta.env.DEV) {
+              console.log('📭 No results found for query:', query);
+            }
+            setSuggestions([]);
+          } else {
+            console.error('❌ Autocomplete error:', status);
+            setSuggestions([]);
           }
-          setSuggestions([]);
         }
-      }
-    );
-  }, [biasToLocation, searchTypes, handleGoogleMapsUrl]);
+      );
+    } catch (error) {
+      console.error('❌ Exception during autocomplete:', error);
+      setIsLoading(false);
+      setSuggestions([]);
+    }
+  }, [isInitialized, biasToLocation, searchTypes, handleGoogleMapsUrl]);
 
   // ESA Layer 13: Handle input change with logging
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -360,10 +378,13 @@ export default function GoogleMapsLocationInput({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={() => value && suggestions.length > 0 && setShowSuggestions(true)}
-          placeholder={placeholder}
-          className={`pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500 ${className}`}
+          placeholder={isInitialized ? placeholder : "Loading Google Maps..."}
+          disabled={!isInitialized}
+          className={`pl-10 pr-10 py-3 w-full border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-turquoise-500 ${
+            !isInitialized ? 'bg-gray-50 cursor-wait' : ''
+          } ${className}`}
         />
-        {isLoading && (
+        {(isLoading || !isInitialized) && (
           <Loader className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 animate-spin" />
         )}
       </div>
