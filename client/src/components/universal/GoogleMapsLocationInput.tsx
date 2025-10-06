@@ -171,12 +171,10 @@ export default function GoogleMapsLocationInput({
 
   // ESA Layer 13: Search for places with initialization check
   const searchPlaces = useCallback(async (query: string) => {
-    if (import.meta.env.DEV) {
-      console.log('🔍 GoogleMapsLocationInput: searchPlaces called');
-      console.log('🔍 Query:', query);
-      console.log('🔍 isInitialized:', isInitialized);
-      console.log('🔍 AutocompleteService exists:', !!autocompleteServiceRef.current);
-    }
+    console.log('🔍 GoogleMapsLocationInput: searchPlaces called');
+    console.log('🔍 Query:', query, 'Type:', typeof query, 'Length:', query?.length);
+    console.log('🔍 isInitialized:', isInitialized);
+    console.log('🔍 AutocompleteService exists:', !!autocompleteServiceRef.current);
     
     // Check if it's a Google Maps URL first
     if (query.includes('maps.app.goo.gl') || query.includes('google.com/maps')) {
@@ -255,10 +253,9 @@ export default function GoogleMapsLocationInput({
   // ESA Layer 13: Handle input change with logging
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    if (import.meta.env.DEV) {
-      console.log('📝 LocationInput: User typed:', newValue);
-    }
+    console.log('📝 LocationInput: User typed:', newValue, 'Length:', newValue.length);
     onChange(newValue);
+    console.log('📝 About to call searchPlaces with:', newValue);
     searchPlaces(newValue);
   };
 
