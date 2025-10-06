@@ -190,49 +190,82 @@ export default function UnifiedLocationPicker({
       // Use detected user location for bias, fall back to prop bias
       const effectiveBias = userLocation || biasToLocation;
       
-      // Build API URL with location bias
-      let apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&addressdetails=1`;
+      // ESA Layer 15: Enhanced business search with multiple strategies
+      const searchPromises: Promise<any[]>[] = [];
       
-      // Add viewbox if we have a valid location (prioritizes nearby results)
+      // Strategy 1: Standard location search with business priority
+      const standardUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`;
+      let standardUrlWithBias = standardUrl;
+      
       if (effectiveBias && validateCoordinates(effectiveBias)) {
-        // Create ~50km radius viewbox around user location
-        // 1 degree ≈ 111km, so 0.45° ≈ 50km
         const latOffset = 0.45;
-        const lngOffset = 0.6; // Adjusted for latitude distortion
-        
+        const lngOffset = 0.6;
         const minLng = effectiveBias.lng - lngOffset;
         const maxLng = effectiveBias.lng + lngOffset;
         const minLat = effectiveBias.lat - latOffset;
         const maxLat = effectiveBias.lat + latOffset;
         
-        // viewbox format: minLng,minLat,maxLng,maxLat
-        apiUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}`;
-        // bounded=0 means "prefer this area but show global results too"
-        apiUrl += `&bounded=0`;
+        standardUrlWithBias += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
         
         if (import.meta.env.DEV) {
           const locationSource = userLocation ? 'detected' : 'prop';
           const cityInfo = locationCity ? ` (${locationCity}, ${locationCountry})` : '';
           console.log(`🗺️ Using ${locationSource} location bias${cityInfo}:`, effectiveBias);
         }
-      } else if (import.meta.env.DEV) {
-        console.log('🌍 No location bias - global search');
+      }
+      
+      searchPromises.push(
+        fetch(standardUrlWithBias, {
+          headers: { 'User-Agent': 'MundoTangoApp/1.0' }
+        }).then(r => r.json())
+      );
+      
+      // Strategy 2: Business-specific search (restaurants, cafes, shops)
+      if (showBusinessDetails) {
+        const businessQueries = [
+          `${query} restaurant`,
+          `${query} cafe`,
+          `${query} bar`
+        ];
+        
+        for (const businessQuery of businessQueries) {
+          let businessUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(businessQuery)}&limit=3&addressdetails=1`;
+          
+          if (effectiveBias && validateCoordinates(effectiveBias)) {
+            const latOffset = 0.45;
+            const lngOffset = 0.6;
+            const minLng = effectiveBias.lng - lngOffset;
+            const maxLng = effectiveBias.lng + lngOffset;
+            const minLat = effectiveBias.lat - latOffset;
+            const maxLat = effectiveBias.lat + latOffset;
+            businessUrl += `&viewbox=${minLng},${minLat},${maxLng},${maxLat}&bounded=0`;
+          }
+          
+          searchPromises.push(
+            fetch(businessUrl, {
+              headers: { 'User-Agent': 'MundoTangoApp/1.0' }
+            }).then(r => r.json())
+          );
+        }
       }
 
-      const response = await fetch(apiUrl, {
-        headers: {
-          'User-Agent': 'MundoTangoApp/1.0'
+      const results = await Promise.allSettled(searchPromises);
+      
+      // Combine all successful results
+      const allPlaces: any[] = [];
+      results.forEach(result => {
+        if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+          allPlaces.push(...result.value);
         }
       });
 
-      if (!response.ok) {
-        throw new Error(`OSM API error: ${response.status}`);
-      }
+      // Remove duplicates based on place_id
+      const uniquePlaces = Array.from(
+        new Map(allPlaces.map(place => [place.place_id, place])).values()
+      );
 
-      const data = await response.json();
-
-      if (data && data.length > 0) {
-        const osmSuggestions = data.map((place: any) => ({
+      if (uniquePlaces.length > 0) {
+        const osmSuggestions = uniquePlaces.slice(0, 8).map((place: any) => ({
           description: place.display_name,
           isOSM: true,
           lat: place.lat,
@@ -248,17 +281,60 @@ export default function UnifiedLocationPicker({
           console.log('✅ Found', osmSuggestions.length, 'OpenStreetMap suggestions');
         }
       } else {
-        setSuggestions([]);
-        setShowSuggestions(false);
+        // ESA Layer 28: Fallback to local database recommendations
+        await searchLocalRecommendations(query);
       }
     } catch (error) {
       console.error('❌ OpenStreetMap search error:', error);
-      setSuggestions([]);
-      setShowSuggestions(false);
+      // ESA Layer 28: Fallback to local database
+      await searchLocalRecommendations(query);
     } finally {
       setIsSearching(false);
     }
-  }, [strategy, userLocation, locationCity, locationCountry, biasToLocation, validateCoordinates]);
+  }, [strategy, userLocation, locationCity, locationCountry, biasToLocation, validateCoordinates, showBusinessDetails]);
+
+  const searchLocalRecommendations = useCallback(async (query: string) => {
+    try {
+      if (import.meta.env.DEV) {
+        console.log('🔍 Searching local recommendations database...');
+      }
+      
+      const response = await fetch(`/api/recommendations?search=${encodeURIComponent(query)}&limit=5`);
+      
+      if (response.ok) {
+        const recommendations = await response.json();
+        
+        if (recommendations && recommendations.length > 0) {
+          const localSuggestions = recommendations.map((rec: any) => ({
+            description: `${rec.title} - ${rec.location}`,
+            isOSM: false,
+            isLocal: true,
+            lat: rec.latitude,
+            lon: rec.longitude,
+            place_id: `local-${rec.id}`,
+            address: { name: rec.title },
+            recommendation: rec
+          }));
+          
+          setSuggestions(localSuggestions);
+          setShowSuggestions(true);
+          
+          if (import.meta.env.DEV) {
+            console.log('✅ Found', localSuggestions.length, 'local recommendations');
+          }
+          return;
+        }
+      }
+      
+      // If no local results either, show empty state
+      setSuggestions([]);
+      setShowSuggestions(false);
+    } catch (error) {
+      console.error('❌ Local recommendations search error:', error);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -339,8 +415,33 @@ export default function UnifiedLocationPicker({
     }
   }, [onChange]);
 
+  const selectLocalRecommendation = useCallback((suggestion: any) => {
+    const rec = suggestion.recommendation;
+    const coords = suggestion.lat && suggestion.lon ? {
+      lat: parseFloat(suggestion.lat),
+      lng: parseFloat(suggestion.lon)
+    } : undefined;
+
+    const details: LocationDetails = {
+      name: rec.title,
+      address: rec.location,
+      coordinates: coords,
+      city: rec.city,
+      country: rec.country
+    };
+
+    onChange(rec.location, coords, details);
+    setShowSuggestions(false);
+
+    if (import.meta.env.DEV) {
+      console.log('📍 Selected local recommendation:', details);
+    }
+  }, [onChange]);
+
   const handleSuggestionClick = (suggestion: any) => {
-    if (suggestion.isOSM) {
+    if (suggestion.isLocal) {
+      selectLocalRecommendation(suggestion);
+    } else if (suggestion.isOSM) {
       selectOSMPlace(suggestion);
     } else {
       selectGooglePlace(suggestion);
@@ -424,7 +525,7 @@ export default function UnifiedLocationPicker({
       {showSuggestions && suggestions.length > 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-50 w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
+          className="absolute z-dropdown w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
             border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
         >
           <div className="max-h-80 overflow-y-auto">
@@ -450,11 +551,18 @@ export default function UnifiedLocationPicker({
                         {suggestion.structured_formatting.secondary_text}
                       </p>
                     )}
-                    {suggestion.isOSM && (
-                      <p className="text-xs text-turquoise-600 dark:text-turquoise-400 mt-1">
-                        OpenStreetMap
-                      </p>
-                    )}
+                    <div className="flex items-center gap-2 mt-1">
+                      {suggestion.isLocal && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
+                          ⭐ Platform Recommendation
+                        </span>
+                      )}
+                      {suggestion.isOSM && (
+                        <span className="text-xs text-turquoise-600 dark:text-turquoise-400">
+                          OpenStreetMap
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
