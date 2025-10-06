@@ -1228,6 +1228,79 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
+  // ESA Layer 28: Comprehensive recommendation filtering
+  async getRecommendationsByFilters(filters: {
+    city?: string;
+    type?: string;
+    priceLevel?: string;
+    minRating?: number;
+    tags?: string[];
+    limit?: number;
+    offset?: number;
+  }): Promise<any[]> {
+    const conditions = [eq(recommendations.isActive, true)];
+
+    if (filters.city) {
+      conditions.push(eq(recommendations.city, filters.city));
+    }
+    if (filters.type) {
+      conditions.push(eq(recommendations.type, filters.type));
+    }
+    if (filters.priceLevel) {
+      conditions.push(eq(recommendations.priceLevel, filters.priceLevel));
+    }
+    if (filters.minRating) {
+      conditions.push(gte(recommendations.rating, filters.minRating));
+    }
+    if (filters.tags && filters.tags.length > 0) {
+      // Match recommendations that have ANY of the specified tags
+      conditions.push(
+        sql`${recommendations.tags} && ARRAY[${sql.join(filters.tags.map(tag => sql`${tag}`), sql`, `)}]::text[]`
+      );
+    }
+
+    const result = await db
+      .select({
+        id: recommendations.id,
+        userId: recommendations.userId,
+        postId: recommendations.postId,
+        groupId: recommendations.groupId,
+        title: recommendations.title,
+        description: recommendations.description,
+        type: recommendations.type,
+        address: recommendations.address,
+        city: recommendations.city,
+        state: recommendations.state,
+        country: recommendations.country,
+        lat: recommendations.lat,
+        lng: recommendations.lng,
+        photos: recommendations.photos,
+        rating: recommendations.rating,
+        priceLevel: recommendations.priceLevel,
+        tags: recommendations.tags,
+        whoCanView: recommendations.whoCanView,
+        minimumClosenessScore: recommendations.minimumClosenessScore,
+        isActive: recommendations.isActive,
+        createdAt: recommendations.createdAt,
+        user: {
+          id: users.id,
+          name: users.name,
+          username: users.username,
+          profileImage: users.profileImage,
+          city: users.city,
+          country: users.country
+        }
+      })
+      .from(recommendations)
+      .leftJoin(users, eq(recommendations.userId, users.id))
+      .where(and(...conditions))
+      .orderBy(desc(recommendations.createdAt))
+      .limit(filters.limit || 20)
+      .offset(filters.offset || 0);
+
+    return result;
+  }
+
   // ESA Layer 16: Mention operations implementation
   async getPostsWhereMentioned(userId: number, limit = 20, offset = 0): Promise<Post[]> {
     const userIdString = userId.toString();
