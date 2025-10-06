@@ -9,6 +9,7 @@ import { TenantProvider } from "@/contexts/TenantContext";
 import { CsrfProvider } from "@/contexts/CsrfContext";
 import { OpenReplayProvider } from "@/components/OpenReplayProvider";
 import { SessionRecordingNotice } from "@/components/SessionRecordingNotice";
+import { LocationBiasProvider } from "@/contexts/LocationBiasContext";
 import { useAuth } from "@/hooks/useAuth";
 import { initAnalytics, analytics } from "@/lib/analytics";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -202,14 +203,16 @@ export default function App() {
         <ThemeProvider>
           <CsrfProvider>
             <TenantProvider>
-              <OpenReplayProvider>
-                <MonitoringProvider>
-                  <TrialBanner />
-                  <SessionRecordingNotice />
-                  <Router />
-                  <Toaster />
-                </MonitoringProvider>
-              </OpenReplayProvider>
+              <LocationBiasProvider>
+                <OpenReplayProvider>
+                  <MonitoringProvider>
+                    <TrialBanner />
+                    <SessionRecordingNotice />
+                    <Router />
+                    <Toaster />
+                  </MonitoringProvider>
+                </OpenReplayProvider>
+              </LocationBiasProvider>
             </TenantProvider>
           </CsrfProvider>
         </ThemeProvider>
