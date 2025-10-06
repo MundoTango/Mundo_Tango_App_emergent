@@ -20,6 +20,7 @@ interface Recommendation {
   lng?: number | null;
   latitude?: number | null;
   longitude?: number | null;
+  postId?: number | null; // ESA Layer 24: Link to original post/memory
   user?: {
     id: number;
     name: string;
@@ -112,6 +113,19 @@ export default function RecommendationsList({
   });
 
   const recommendations = apiResponse?.data || [];
+
+  // ESA Layer 24: Fetch linked post when modal is open
+  const { data: linkedPost, isLoading: isPostLoading } = useQuery({
+    queryKey: ['/api/posts', selectedRecommendation?.postId],
+    queryFn: async () => {
+      if (!selectedRecommendation?.postId) return null;
+      const response = await fetch(`/api/posts/${selectedRecommendation.postId}`);
+      if (!response.ok) return null;
+      const result = await response.json();
+      return result.data;
+    },
+    enabled: !!selectedRecommendation?.postId
+  });
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -485,6 +499,84 @@ export default function RecommendationsList({
                           : selectedRecommendation.user.country || 'Community Member'}
                       </p>
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ESA Layer 24: Original Post/Memory Card */}
+              {linkedPost && (
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Original Recommendation Post</h4>
+                  <div className="glass-card glass-depth-1 rounded-lg p-4 space-y-3">
+                    {/* Post Author */}
+                    {linkedPost.author && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-semibold">
+                          {linkedPost.author.profileImage ? (
+                            <img 
+                              src={linkedPost.author.profileImage} 
+                              alt={linkedPost.author.name}
+                              className="w-full h-full rounded-full object-cover"
+                            />
+                          ) : (
+                            linkedPost.author.name?.charAt(0).toUpperCase()
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm text-gray-900 dark:text-white">{linkedPost.author.name}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            {new Date(linkedPost.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Post Content */}
+                    <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                      {linkedPost.content || linkedPost.plainText}
+                    </p>
+
+                    {/* Post Image */}
+                    {linkedPost.imageUrl && (
+                      <div className="rounded-lg overflow-hidden">
+                        <img 
+                          src={linkedPost.imageUrl} 
+                          alt="Post image"
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
+                    )}
+
+                    {/* Post Metadata */}
+                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-gray-700">
+                      {linkedPost.likes > 0 && (
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-3 w-3" />
+                          {linkedPost.likes}
+                        </span>
+                      )}
+                      {linkedPost.comments > 0 && (
+                        <span className="flex items-center gap-1">
+                          <MessageSquare className="h-3 w-3" />
+                          {linkedPost.comments}
+                        </span>
+                      )}
+                      {linkedPost.location && (
+                        <span className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          {linkedPost.location}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Loading State for Post */}
+              {isPostLoading && selectedRecommendation?.postId && (
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-center py-4">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-turquoise-500"></div>
                   </div>
                 </div>
               )}
