@@ -952,7 +952,7 @@ export default function PostCreator({
       onFocus={onActivity}
       onKeyDown={onActivity}
     >
-      <Card className="relative overflow-hidden border-0 glassmorphic-card beautiful-hover shadow-2xl">
+      <Card className="relative border-0 glassmorphic-card beautiful-hover shadow-2xl">
         {/* Enhanced gradient background with advanced animations */}
         <div className="absolute inset-0">
           {/* Simple gradient background */}
@@ -1442,7 +1442,7 @@ export default function PostCreator({
               {/* Aurora Tide Recommendations - Glassmorphic Design */}
               {isRecommendation && (
                 <div 
-                  className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative overflow-hidden backdrop-blur-xl dark:backdrop-blur-2xl"
+                  className="mt-3 p-6 rounded-2xl space-y-5 shadow-xl animate-in slide-in-from-top-4 duration-500 relative backdrop-blur-xl dark:backdrop-blur-2xl"
                   style={{
                     background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.15) 0%, rgba(20, 184, 166, 0.12) 25%, rgba(13, 148, 136, 0.10) 50%, rgba(21, 94, 117, 0.12) 75%, rgba(94, 234, 212, 0.15) 100%)',
                     backdropFilter: 'blur(20px)',
