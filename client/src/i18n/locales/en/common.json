@@ -280,6 +280,9 @@
       "review": "Review",
       "reviews": "Reviews",
       "from_verified_guests": "From verified guests"
+    },
+    "listing_detail": {
+      "guest_reviews": "Guest Reviews"
     }
   }
 }
