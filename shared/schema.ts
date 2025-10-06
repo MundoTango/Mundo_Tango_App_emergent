@@ -1726,7 +1726,7 @@ export const recommendations = pgTable("recommendations", {
   groupId: integer("group_id").references(() => groups.id),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description").notNull(),
-  type: varchar("type", { length: 50 }).notNull(), // restaurant, venue, school, event, etc.
+  type: varchar("type", { length: 50 }).notNull(), // restaurant, cafe, hotel, venue
   address: text("address"),
   city: varchar("city", { length: 100 }).notNull(),
   state: varchar("state", { length: 100 }),
@@ -1735,6 +1735,7 @@ export const recommendations = pgTable("recommendations", {
   lng: real("lng"),
   photos: text("photos").array().default(sql`ARRAY[]::text[]`),
   rating: integer("rating"), // 1-5 stars
+  priceLevel: varchar("price_level", { length: 10 }), // '$', '$$', '$$$' - ESA Layer 28
   tags: text("tags").array().default(sql`ARRAY[]::text[]`),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),

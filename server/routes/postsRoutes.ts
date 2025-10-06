@@ -137,6 +137,33 @@ router.get('/api/posts/feed', async (req: any, res) => {
     
     console.log(`✅ Found ${posts.length} posts in database`);
     
+    // ESA LIFE CEO 61x21 - Layer 28: Enrich posts with recommendation metadata
+    const postIds = posts.map(p => p.id).filter(Boolean);
+    let recommendationsMap = new Map();
+    
+    if (postIds.length > 0) {
+      try {
+        const recommendations = await storage.getRecommendationsByPostIds(postIds);
+        recommendations.forEach((rec: any) => {
+          if (rec.postId) {
+            recommendationsMap.set(rec.postId, {
+              type: rec.type,
+              rating: rec.rating,
+              priceLevel: rec.priceLevel,
+              city: rec.city,
+              country: rec.country,
+              title: rec.title,
+              description: rec.description
+            });
+          }
+        });
+        console.log(`✅ Enriched ${recommendationsMap.size} posts with recommendation data`);
+      } catch (error) {
+        console.error('❌ Failed to fetch recommendations:', error);
+        // Continue without recommendation data if fetch fails
+      }
+    }
+    
     // ESA LIFE CEO 56x21 - Ensure media URLs are properly formatted
     const postsWithMedia = posts.map(post => {
       // ESA LIFE CEO 61×21 - Debug friendship data flow
@@ -227,6 +254,12 @@ router.get('/api/posts/feed', async (req: any, res) => {
       // ESA LIFE CEO 56x21 - Ensure mediaUrls is always an array
       if (!formattedPost.mediaUrls) {
         formattedPost.mediaUrls = [];
+      }
+
+      // ESA LIFE CEO 61x21 - Layer 28: Add recommendation data if this is a recommendation post
+      const recommendationData = recommendationsMap.get(post.id);
+      if (recommendationData) {
+        formattedPost.recommendation = recommendationData;
       }
 
       return formattedPost;
@@ -548,9 +581,12 @@ router.post('/api/posts/direct', async (req: any, res) => {
       location,
       visibility = 'public',
       isRecommendation = false,
-      recommendationType,
-      priceRange 
+      recommendationData 
     } = req.body;
+    
+    // ESA Layer 28: Extract recommendation fields from nested object
+    const recommendationType = recommendationData?.type;
+    const priceRange = recommendationData?.priceRange;
     
     // ESA LIFE CEO 61x21 - Extract user IDs from @mentions in content
     const extractedMentions: string[] = [];
@@ -627,6 +663,7 @@ router.post('/api/posts/direct', async (req: any, res) => {
             state: user.state || null,
             country: user.country || 'Argentina',
             photos: allMediaUrls,
+            priceLevel: priceRange || null, // ESA Layer 28: '$', '$$', '$$$'
             tags: hashtags,
             isActive: true
           };
