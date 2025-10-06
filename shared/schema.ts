@@ -1737,6 +1737,9 @@ export const recommendations = pgTable("recommendations", {
   rating: integer("rating"), // 1-5 stars
   priceLevel: varchar("price_level", { length: 10 }), // '$', '$$', '$$$' - ESA Layer 28
   tags: text("tags").array().default(sql`ARRAY[]::text[]`),
+  // ESA Layer 28: Social connection-based visibility (mirrors Housing whoCanBook system)
+  whoCanView: varchar("who_can_view", { length: 50 }).default("anyone"), // 'anyone', '1st_degree', '2nd_degree', '3rd_degree', 'custom_closeness'
+  minimumClosenessScore: integer("minimum_closeness_score").default(0), // 0-100 threshold for custom_closeness filter
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -1747,6 +1750,7 @@ export const recommendations = pgTable("recommendations", {
   index("idx_recommendations_city").on(table.city),
   index("idx_recommendations_type").on(table.type),
   index("idx_recommendations_location").on(table.lat, table.lng),
+  index("idx_recommendations_who_can_view").on(table.whoCanView), // ESA Layer 28: Enable filtering by connection level
 ]);
 
 // ESA LIFE CEO 61x21 - Favorites table for toolbar functionality (Layer 2: API Structure)
