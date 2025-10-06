@@ -13,8 +13,7 @@ import { Slider } from "@/components/ui/slider";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
-import { LocationPicker } from "@/components/onboarding/LocationPicker";
-import GoogleMapsLocationPicker from "@/components/onboarding/GoogleMapsLocationPicker";
+import UnifiedLocationPicker from "@/components/universal/UnifiedLocationPicker";
 import GroupedRoleSelector from "@/components/profile/GroupedRoleSelector";
 import SimpleRoleSelector from "@/components/debugging/SimpleRoleSelector";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -482,10 +481,23 @@ export default function Onboarding() {
                   <FormItem>
                     <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors">Where are you exploring Tango the most?</FormLabel>
                     <FormControl>
-                      <GoogleMapsLocationPicker
-                        value={field.value}
-                        onChange={field.onChange}
+                      <UnifiedLocationPicker
+                        value={field.value?.city || ''}
+                        onChange={(loc, coords, details) => {
+                          // Parse location string to extract city, state, country
+                          const parts = loc.split(',').map(p => p.trim());
+                          field.onChange({
+                            city: parts[0] || '',
+                            state: parts.length > 2 ? parts[1] : '',
+                            country: parts[parts.length - 1] || '',
+                            countryId: 1, // Default ID - will be updated by backend
+                            stateId: 0,
+                            cityId: 0
+                          });
+                        }}
                         className="border-gray-200 focus:border-indigo-500 rounded-lg hover:border-indigo-300 transition-all duration-200 focus:shadow-lg focus:shadow-indigo-100"
+                        placeholder="Search for your city..."
+                        allowManualEntry={true}
                       />
                     </FormControl>
                     <FormMessage />

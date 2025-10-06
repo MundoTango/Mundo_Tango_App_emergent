@@ -11,6 +11,9 @@ type LocationDetails = {
   rating?: number;
   priceLevel?: number;
   businessStatus?: string;
+  city?: string;
+  state?: string;
+  country?: string;
 };
 
 type LocationStrategy = 'google' | 'osm' | 'none';

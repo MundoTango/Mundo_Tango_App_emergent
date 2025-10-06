@@ -11,10 +11,8 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { TileSelect } from "@/components/ui/tile-select";
-import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
-import { AutocompleteLocationPicker } from "@/components/profile/AutocompleteLocationPicker";
+import UnifiedLocationPicker from "@/components/universal/UnifiedLocationPicker";
 import { ComprehensiveRoleSelector } from "@/components/profile/ComprehensiveRoleSelector";
-import GoogleMapsLocationPicker from "@/components/onboarding/GoogleMapsLocationPicker";
 import RoleSelector from "@/components/onboarding/RoleSelector";
 import SimpleRoleSelector from "@/components/debugging/SimpleRoleSelector";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -601,14 +599,14 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                 </h3>
                 
                 <div className="glassmorphic-card p-4 border border-turquoise-200/30">
-                  <LocationAutocomplete
+                  <UnifiedLocationPicker
                     value={form.watch('location')?.city ? `${form.watch('location')?.city}${form.watch('location')?.state ? `, ${form.watch('location')?.state}` : ''}, ${form.watch('location')?.country}` : ''}
-                    onChange={(value, details) => {
+                    onChange={(value, coords, details) => {
                       if (details) {
                         form.setValue('location', {
-                          country: details.country,
+                          country: details.country || '',
                           state: details.state || '',
-                          city: details.city,
+                          city: details.name || '',
                           countryId: 0,
                           stateId: 0,
                           cityId: 0
@@ -630,6 +628,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                     }}
                     placeholder="Enter city, state, country (e.g., Kolasin, Montenegro)"
                     className="w-full"
+                    allowManualEntry={true}
                   />
                 </div>
               </div>
