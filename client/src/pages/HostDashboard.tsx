@@ -21,7 +21,7 @@ import {
 
 // Aurora Tide Components
 import { GlassCard } from '@/components/glass/GlassComponents';
-import { FadeIn, ScaleIn, StaggerChildren } from '@/components/animations/FramerMotionWrappers';
+import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
 import { PulseButton, MagneticButton } from '@/components/interactions/MicroInteractions';
 
 interface HostHome {
@@ -90,7 +90,7 @@ export default function HostDashboard() {
                 </p>
               </FadeIn>
 
-              <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-left">
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-left">
                 <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
                   <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center mb-4">
                     <Users className="w-6 h-6 text-white" />
@@ -120,13 +120,12 @@ export default function HostDashboard() {
                     Manage availability and approve booking requests on your terms
                   </p>
                 </GlassCard>
-              </StaggerChildren>
+              </StaggerContainer>
 
               <ScaleIn delay={0.4}>
                 <PulseButton
-                  size="lg"
                   onClick={() => navigate('/host-onboarding')}
-                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3 text-lg"
                   pulseColor="rgba(6, 182, 212, 0.6)"
                   data-testid="button-create-first-listing"
                 >
@@ -167,7 +166,7 @@ export default function HostDashboard() {
         </FadeIn>
 
         {/* Quick Stats - Aurora Tide */}
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <ScaleIn delay={0.1}>
             <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
@@ -223,10 +222,10 @@ export default function HostDashboard() {
               </div>
             </GlassCard>
           </ScaleIn>
-        </StaggerChildren>
+        </StaggerContainer>
 
         {/* Properties Grid - Aurora Tide */}
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {properties.map((property, index) => (
             <ScaleIn key={property.id} delay={index * 0.1}>
               <GlassCard depth={2} className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all">
@@ -311,10 +310,10 @@ export default function HostDashboard() {
               </GlassCard>
             </ScaleIn>
           ))}
-        </StaggerChildren>
+        </StaggerContainer>
 
         {/* Quick Actions - Aurora Tide */}
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ScaleIn delay={0.1}>
             <GlassCard
               depth={2}
@@ -350,7 +349,7 @@ export default function HostDashboard() {
               </div>
             </GlassCard>
           </ScaleIn>
-        </StaggerChildren>
+        </StaggerContainer>
       </div>
     </DashboardLayout>
   );
