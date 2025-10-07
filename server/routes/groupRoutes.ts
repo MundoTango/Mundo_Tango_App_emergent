@@ -486,22 +486,35 @@ router.post('/groups', isAuthenticated, async (req: any, res) => {
   }
 });
 
-// Join group
-router.post('/groups/:groupId/join', isAuthenticated, async (req: any, res) => {
+// Join group (unified endpoint accepting both ID and slug)
+router.post('/groups/:groupIdOrSlug/join', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
-    const groupId = parseInt(req.params.groupId);
+    const identifier = req.params.groupIdOrSlug;
     
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
+    }
+    
+    // Determine if identifier is numeric ID or slug
+    const isNumeric = !isNaN(Number(identifier));
+    const [group] = await db.select()
+      .from(groups)
+      .where(isNumeric 
+        ? eq(groups.id, parseInt(identifier))
+        : eq(groups.slug, identifier)
+      );
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
     }
     
     // Check if already member
     const [existingMember] = await db.select()
       .from(groupMembers)
       .where(and(
-        eq(groupMembers.groupId, groupId),
+        eq(groupMembers.groupId, group.id),
         eq(groupMembers.userId, user.id)
       ));
     
@@ -510,32 +523,45 @@ router.post('/groups/:groupId/join', isAuthenticated, async (req: any, res) => {
     }
     
     await db.insert(groupMembers).values({
-      groupId,
+      groupId: group.id,
       userId: user.id,
       role: 'member'
     });
     
-    res.json({ success: true, message: 'Joined group successfully' });
+    res.json({ success: true, message: 'Joined group successfully', group });
   } catch (error) {
     console.error('Error joining group:', error);
     res.status(500).json({ error: 'Failed to join group' });
   }
 });
 
-// Leave group
-router.post('/groups/:groupId/leave', isAuthenticated, async (req: any, res) => {
+// Leave group (unified endpoint accepting both ID and slug)
+router.post('/groups/:groupIdOrSlug/leave', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
     const user = await storage.getUserByReplitId(userId);
-    const groupId = parseInt(req.params.groupId);
+    const identifier = req.params.groupIdOrSlug;
     
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
     }
     
+    // Determine if identifier is numeric ID or slug
+    const isNumeric = !isNaN(Number(identifier));
+    const [group] = await db.select()
+      .from(groups)
+      .where(isNumeric 
+        ? eq(groups.id, parseInt(identifier))
+        : eq(groups.slug, identifier)
+      );
+    
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' });
+    }
+    
     await db.delete(groupMembers)
       .where(and(
-        eq(groupMembers.groupId, groupId),
+        eq(groupMembers.groupId, group.id),
         eq(groupMembers.userId, user.id)
       ));
     
@@ -723,10 +749,11 @@ router.get('/groups/:groupId/events', setUserContext, async (req, res) => {
   }
 });
 
-// ========== USER-NAMESPACED ENDPOINTS FOR FRONTEND COMPATIBILITY ==========
-// These endpoints map to the existing group endpoints but use slug-based routing
+// ========== DEPRECATED: USER-NAMESPACED ENDPOINTS ==========
+// These endpoints are deprecated in favor of unified /groups/:groupIdOrSlug/* endpoints
+// Maintained for backward compatibility during migration period
 
-// User join group by slug
+// DEPRECATED: Use POST /groups/:groupIdOrSlug/join instead
 router.post('/user/join-group/:slug', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
@@ -764,14 +791,19 @@ router.post('/user/join-group/:slug', isAuthenticated, async (req: any, res) => 
       role: 'member'
     });
     
-    res.json({ success: true, message: 'Joined group successfully' });
+    // Add deprecation warning in response
+    res.json({ 
+      success: true, 
+      message: 'Joined group successfully',
+      warning: 'This endpoint is deprecated. Please use POST /groups/:groupIdOrSlug/join instead'
+    });
   } catch (error) {
     console.error('Error joining group:', error);
     res.status(500).json({ error: 'Failed to join group' });
   }
 });
 
-// User leave group by slug
+// DEPRECATED: Use POST /groups/:groupIdOrSlug/leave instead
 router.post('/user/leave-group/:slug', isAuthenticated, async (req: any, res) => {
   try {
     const userId = req.user.claims.sub;
