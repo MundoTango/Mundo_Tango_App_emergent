@@ -44,6 +44,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
 import TripPlannerView from './TripPlannerView';
+import TripConfigurationWizard from '@/components/trip-planner/TripConfigurationWizard';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
