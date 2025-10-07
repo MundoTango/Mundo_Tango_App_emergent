@@ -24,6 +24,7 @@ export class ESAOpenSourceToolsRegistry {
 
   constructor() {
     this.registerPhase1Tools();
+    this.registerPhase2Tools();
   }
 
   private registerPhase1Tools() {
@@ -100,6 +101,51 @@ export class ESAOpenSourceToolsRegistry {
     });
   }
 
+  private registerPhase2Tools() {
+    // Track D: Workflow & Agent Enhancement
+    this.tools.set("temporal", {
+      layer: 57,
+      toolName: "Temporal",
+      status: "requires_setup",
+      reason: "Production-ready Node.js/TypeScript SDK available, needs @temporalio/* packages",
+      documentation: "Durable workflow orchestration - https://temporal.io",
+    });
+
+    this.tools.set("crewai", {
+      layer: 35,
+      toolName: "CrewAI",
+      status: "requires_setup",
+      reason: "Python-only framework, requires node-calls-python bridge or unofficial crewai-js SDK",
+      documentation: "Multi-agent orchestration - Alternative to LangGraph",
+    });
+
+    this.tools.set("activepieces", {
+      layer: 20,
+      toolName: "Activepieces",
+      status: "requires_setup",
+      reason: "TypeScript/Node.js automation platform, self-hostable via Docker",
+      documentation: "Open-source Zapier alternative - https://activepieces.com",
+    });
+
+    // Track E: Testing Enhancement
+    this.tools.set("bun-test", {
+      layer: 51,
+      toolName: "Bun Test",
+      status: "configured",
+      reason: "10-30x faster than Jest for sync tests, single-threaded (poor async performance)",
+      documentation: "Vitest recommended for best speed/stability balance",
+    });
+
+    // Track F: Real-time Optimization
+    this.tools.set("supabase-realtime", {
+      layer: 11,
+      toolName: "Supabase Realtime",
+      status: "active",
+      reason: "Already integrated, can optimize with broadcast patterns and reconnection logic",
+      documentation: "WebSocket broadcasts - https://supabase.com/docs/guides/realtime/broadcast",
+    });
+  }
+
   getToolStatus(toolId: string): ESAToolStatus | undefined {
     return this.tools.get(toolId);
   }
@@ -142,7 +188,7 @@ export class ESAOpenSourceToolsRegistry {
       total: this.getAllTools().length,
     };
 
-    console.log(`\n✅ Phase 1 Tools Summary:`);
+    console.log(`\n✅ ESA Open Source Tools Summary (Phase 1 + Phase 2):`);
     console.log(`   Active: ${summary.active}`);
     console.log(`   Configured: ${summary.configured}`);
     console.log(`   Total Registered: ${summary.total}\n`);
