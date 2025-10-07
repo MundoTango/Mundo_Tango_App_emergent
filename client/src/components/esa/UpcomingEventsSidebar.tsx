@@ -53,9 +53,6 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
     staleTime: 0,
     structuralSharing: false
   });
-
-  // Debug: log when eventsData changes
-  console.log('📊 [Sidebar] eventsData updated:', eventsData?.map((e: any) => ({ id: e.id, status: e.userRsvpStatus })));
   
   // Transform API data to component format with memoization
   const allEvents = useMemo(() => {
