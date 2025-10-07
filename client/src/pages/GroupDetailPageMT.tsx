@@ -1842,27 +1842,27 @@ export default function GroupDetailPageMT() {
                   <TooltipContent>Members</TooltipContent>
                 </Tooltip>
 
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => handleTabChange('community-hub')}
-                      className={`
-                        flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                        ${activeTab === 'community-hub' 
-                          ? 'border-pink-500 text-pink-600' 
-                          : 'border-transparent opacity-50 hover:opacity-100'
-                        }
-                      `}
-                      data-testid="tab-community-hub"
-                    >
-                      <Globe className="h-5 w-5" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>Community Hub</TooltipContent>
-                </Tooltip>
-
                 {group.type === 'city' && (
                   <>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => handleTabChange('plan-trip')}
+                          className={`
+                            flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                            ${activeTab === 'plan-trip' 
+                              ? 'border-pink-500 text-pink-600' 
+                              : 'border-transparent opacity-50 hover:opacity-100'
+                            }
+                          `}
+                          data-testid="tab-plan-trip"
+                        >
+                          <Plane className="h-5 w-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Plan Trip</TooltipContent>
+                    </Tooltip>
+
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -1899,25 +1899,6 @@ export default function GroupDetailPageMT() {
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>Recommendations</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          onClick={() => handleTabChange('plan-trip')}
-                          className={`
-                            flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                            ${activeTab === 'plan-trip' 
-                              ? 'border-pink-500 text-pink-600' 
-                              : 'border-transparent opacity-50 hover:opacity-100'
-                            }
-                          `}
-                          data-testid="tab-plan-trip"
-                        >
-                          <MapPin className="h-5 w-5" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent>Plan Trip</TooltipContent>
                     </Tooltip>
                   </>
                 )}
