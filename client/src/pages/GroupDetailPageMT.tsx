@@ -1418,12 +1418,10 @@ export default function GroupDetailPageMT() {
               <h3 className="font-semibold text-gray-900 mb-1">{statusText.title}</h3>
               <p className="text-gray-700">{statusText.description}</p>
             </div>
-            {statusText.action && (
+            {statusText.action && statusText.action !== 'Join Community' && (
               <Button
                 onClick={() => {
-                  if (statusText.action === 'Join Community') {
-                    joinGroupMutation.mutate();
-                  } else if (statusText.action === 'Follow City') {
+                  if (statusText.action === 'Follow City') {
                     followCityMutation.mutate();
                   } else if (statusText.action === 'Complete Guest Profile') {
                     setLocation('/guest-onboarding');
@@ -1458,7 +1456,7 @@ export default function GroupDetailPageMT() {
                   onClick={() => setLocation('/host-onboarding')}
                   className="mt-action-button mt-action-button-secondary"
                 >
-                  Start Host Onboarding
+                  Become a Host
                 </Button>
               </div>
             </div>
