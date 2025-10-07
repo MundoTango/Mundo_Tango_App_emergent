@@ -44,8 +44,6 @@ import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
-import TripPlannerView from './TripPlannerView';
-import TripConfigurationWizard from '@/components/trip-planner/TripConfigurationWizard';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -175,8 +173,6 @@ export default function GroupDetailPageMT() {
   // Post filtering state (used for context)
   const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
   
-  // Trip Planner Modal state
-  const [showTripPlannerModal, setShowTripPlannerModal] = useState(false);
   const [createPostModal, setCreatePostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
@@ -1396,76 +1392,12 @@ export default function GroupDetailPageMT() {
     );
   };
 
-  const renderTripPlannerTab = () => {
-    const cityCoords = group.city ? getCoordinatesForCity(group.city) : null;
-    
-    return (
-      <TripPlannerView
-        city={group.city || group.name}
-        country={group.country}
-        cityLat={cityCoords ? cityCoords[0] : undefined}
-        cityLng={cityCoords ? cityCoords[1] : undefined}
-        groupId={group.id}
-      />
-    );
-  };
-
   const renderCommunityHub = () => {
     // Get coordinates for the city
     const cityCenter = group.city ? getCoordinatesForCity(group.city) : [-34.6037, -58.3816];
 
     return (
       <div className="relative space-y-6">
-        {/* Minimized Trip Planner - Aurora Tide GlassCard Depth 2 */}
-        <GlassCard depth={2} className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                Plan Your Trip to {group.city}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Configure dates, budget, and interests to explore
-              </p>
-            </div>
-          </div>
-          
-          {/* Trip Configuration Wizard (expandable) */}
-          <TripConfigurationWizard
-            city={group.city || group.name}
-            groupId={group.id}
-          />
-        </GlassCard>
-
-        {/* Map Layers Section - Header with Filters */}
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Map Layers</h3>
-          <Button variant="outline" size="sm" className="gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </Button>
-        </div>
-
-        {/* Layer Toggles - Events, Housing, Recommendations */}
-        <div className="flex items-center gap-6 p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-500 rounded focus:ring-cyan-500" />
-            <Calendar className="h-5 w-5 text-cyan-500" />
-            <span className="text-sm font-medium">Events</span>
-          </label>
-          
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-teal-500 rounded focus:ring-teal-500" />
-            <Home className="h-5 w-5 text-teal-500" />
-            <span className="text-sm font-medium">Housing</span>
-          </label>
-          
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-500 rounded focus:ring-blue-500" />
-            <Star className="h-5 w-5 text-blue-500" />
-            <span className="text-sm font-medium">Recommendations</span>
-          </label>
-        </div>
-
         {/* Interactive Map with Layers */}
         <GlassCard depth={2} className="p-0 overflow-hidden h-[600px]">
           <CommunityMapWithLayers
@@ -1928,43 +1860,6 @@ export default function GroupDetailPageMT() {
                 name: group?.type === 'city' ? group.city : group.name
               }}
             />
-          </div>
-        </div>
-      )}
-
-      {/* Trip Planner Modal - Aurora Tide Glassmorphic Overlay */}
-      {showTripPlannerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-          <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto">
-            {/* Glassmorphic Modal Container */}
-            <div className="relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-cyan-200/30 dark:border-cyan-500/30 p-8">
-              {/* Close Button */}
-              <button
-                onClick={() => setShowTripPlannerModal(false)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100/80 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors z-10"
-                data-testid="button-close-trip-modal"
-                aria-label="Close trip planner"
-              >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              
-              {/* Trip Configuration Wizard */}
-              <TripConfigurationWizard
-                city={group.city || group.name}
-                country={group.country}
-                onConfigComplete={(config) => {
-                  console.log('[Trip Planner] Configuration complete:', config);
-                  // TODO: Filter map by trip dates and preferences
-                  setShowTripPlannerModal(false);
-                  toast({
-                    title: "Trip Configuration Saved",
-                    description: `Planning your ${config.tripDuration}-day trip to ${group.city || group.name}!`
-                  });
-                }}
-              />
-            </div>
           </div>
         </div>
       )}

@@ -22,6 +22,7 @@ interface GuestProfileData {
   dietaryRestrictions: string[];
   languagesSpoken: string[];
   travelInterests: string[];
+  travelStyle: string;
   emergencyContact: {
     name: string;
     phone: string;
@@ -53,6 +54,7 @@ export function GuestOnboardingFlow() {
     dietaryRestrictions: [],
     languagesSpoken: [],
     travelInterests: [],
+    travelStyle: '',
     emergencyContact: {
       name: '',
       phone: '',
@@ -353,6 +355,34 @@ export function GuestOnboardingFlow() {
                   );
                 })}
               </div>
+            </div>
+
+            <div data-testid="section-travel-style">
+              <Label htmlFor="travelStyle" className="text-slate-700 dark:text-slate-300">
+                {t('housing.guest_onboarding.travel_style', 'Travel Style')}
+              </Label>
+              <Select
+                value={profileData.travelStyle}
+                onValueChange={(value) => setProfileData(prev => ({ ...prev, travelStyle: value }))}
+              >
+                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
+                  <SelectValue placeholder={t('housing.guest_onboarding.travel_style_placeholder', 'Select your travel style')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="solo-travel" data-testid="option-travel-style-solo-travel">
+                    {t('housing.guest_onboarding.travel_style_solo', 'Solo Travel')}
+                  </SelectItem>
+                  <SelectItem value="couples" data-testid="option-travel-style-couples">
+                    {t('housing.guest_onboarding.travel_style_couples', 'Couples')}
+                  </SelectItem>
+                  <SelectItem value="groups" data-testid="option-travel-style-groups">
+                    {t('housing.guest_onboarding.travel_style_groups', 'Groups')}
+                  </SelectItem>
+                  <SelectItem value="family" data-testid="option-travel-style-family">
+                    {t('housing.guest_onboarding.travel_style_family', 'Family')}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         );
