@@ -206,7 +206,13 @@ export function TripFiltersBar({ config, onChange }: TripFiltersBarProps) {
 
 #### 4. `UnifiedTripMap.tsx` (Map with Layer Toggles)
 ```typescript
-export function UnifiedTripMap({ config, layers, center }: UnifiedTripMapProps) {
+import { createCustomMarker, MARKER_ICONS, MAP_COLORS } from '@/utils/leafletConfig';
+import UnifiedMapBase, { useMapMarkers } from '@/components/maps/UnifiedMapBase';
+
+export function UnifiedTripMap({ config, layers, center, onAddToItinerary }: UnifiedTripMapProps) {
+  const [map, setMap] = useState<L.Map | null>(null);
+  const { clearMarkers, addMarker, fitBoundsToMarkers } = useMapMarkers();
+  
   const { data: events } = useQuery({ 
     queryKey: ['/api/events', config],
     enabled: layers.events 
@@ -220,44 +226,146 @@ export function UnifiedTripMap({ config, layers, center }: UnifiedTripMapProps) 
     enabled: layers.recommendations 
   });
   
+  useEffect(() => {
+    if (!map) return;
+    clearMarkers();
+    
+    // EVENTS: Use existing calendar icon (like EventMap.tsx)
+    if (layers.events) {
+      events?.forEach(event => {
+        if (event.latitude && event.longitude) {
+          const icon = createCustomMarker(MAP_COLORS.event, MARKER_ICONS.calendar);
+          const marker = L.marker([event.latitude, event.longitude], { icon }).addTo(map);
+          
+          // Popup with event card + "Add to Itinerary" button
+          const popupContent = `
+            <div class="p-3 min-w-[280px]">
+              <h3 class="font-semibold text-lg mb-2">${event.title}</h3>
+              <div class="text-sm text-gray-600 space-y-1 mb-3">
+                <div>${new Date(event.startDate).toLocaleDateString()}</div>
+                <div>${event.location}</div>
+              </div>
+              <div class="flex gap-2">
+                <button data-action="view-details" data-id="${event.id}" data-type="event"
+                  class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90">
+                  View Details
+                </button>
+                <button data-action="add-itinerary" data-id="${event.id}" data-type="event"
+                  class="flex-1 bg-white dark:bg-gray-800 border border-cyan-500 text-cyan-600 px-3 py-1.5 rounded-lg text-sm hover:bg-cyan-50">
+                  Add to Trip
+                </button>
+              </div>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+          addMarker(marker);
+        }
+      });
+    }
+    
+    // HOUSING: Use existing home icon (like HousingMap.tsx)
+    if (layers.housing) {
+      housing?.forEach(home => {
+        if (home.lat && home.lng) {
+          const icon = createCustomMarker(MAP_COLORS.housing, MARKER_ICONS.home);
+          const marker = L.marker([home.lat, home.lng], { icon }).addTo(map);
+          
+          const popupContent = `
+            <div class="p-3 min-w-[280px]">
+              <h3 class="font-semibold text-lg mb-2">${home.title}</h3>
+              <div class="text-sm text-gray-600 space-y-1 mb-3">
+                <div>${home.address}</div>
+                <div>$${home.pricePerNight}/night • ${home.maxGuests} guests</div>
+              </div>
+              <div class="flex gap-2">
+                <button data-action="view-details" data-id="${home.id}" data-type="housing"
+                  class="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90">
+                  View Details
+                </button>
+                <button data-action="add-itinerary" data-id="${home.id}" data-type="housing"
+                  class="flex-1 bg-white dark:bg-gray-800 border border-turquoise-500 text-turquoise-600 px-3 py-1.5 rounded-lg text-sm hover:bg-turquoise-50">
+                  Add to Trip
+                </button>
+              </div>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+          addMarker(marker);
+        }
+      });
+    }
+    
+    // RECOMMENDATIONS: Use existing star icon (like RecommendationsMap.tsx)
+    if (layers.recommendations) {
+      recommendations?.forEach(rec => {
+        if (rec.lat && rec.lng) {
+          const icon = createCustomMarker(MAP_COLORS.recommendation, MARKER_ICONS.star);
+          const marker = L.marker([rec.lat, rec.lng], { icon }).addTo(map);
+          
+          const popupContent = `
+            <div class="p-3 min-w-[280px]">
+              <h3 class="font-semibold text-lg mb-2">${rec.title}</h3>
+              <div class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-2">
+                ${rec.type}
+              </div>
+              <div class="text-sm text-gray-600 mb-3">${rec.address || rec.city}</div>
+              <div class="flex gap-2">
+                <button data-action="view-details" data-id="${rec.id}" data-type="recommendation"
+                  class="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90">
+                  View Details
+                </button>
+                <button data-action="add-itinerary" data-id="${rec.id}" data-type="recommendation"
+                  class="flex-1 bg-white dark:bg-gray-800 border border-pink-500 text-pink-600 px-3 py-1.5 rounded-lg text-sm hover:bg-pink-50">
+                  Add to Trip
+                </button>
+              </div>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+          addMarker(marker);
+        }
+      });
+    }
+    
+    // Handle button clicks via event delegation
+    map.on('popupopen', () => {
+      document.querySelectorAll('[data-action="view-details"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = target.dataset.id;
+          const type = target.dataset.type;
+          // Navigate to detail page
+          window.location.href = `/${type}s/${id}`;
+        });
+      });
+      
+      document.querySelectorAll('[data-action="add-itinerary"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const id = parseInt(target.dataset.id!);
+          const type = target.dataset.type as 'event' | 'housing' | 'recommendation';
+          onAddToItinerary({ id, type });
+        });
+      });
+    });
+    
+    fitBoundsToMarkers(map);
+  }, [map, events, housing, recommendations, layers]);
+  
   return (
-    <MapContainer center={center} zoom={13} className="h-[600px]">
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      
-      {/* Layer-specific markers with custom icons */}
-      {layers.events && events?.map(event => (
-        <Marker 
-          key={`event-${event.id}`}
-          position={[event.latitude, event.longitude]}
-          icon={eventMarkerIcon}
-        >
-          <Popup><EventPopupCard event={event} /></Popup>
-        </Marker>
-      ))}
-      
-      {layers.housing && housing?.map(home => (
-        <Marker 
-          key={`housing-${home.id}`}
-          position={[home.latitude, home.longitude]}
-          icon={housingMarkerIcon}
-        >
-          <Popup><HousingPopupCard home={home} /></Popup>
-        </Marker>
-      ))}
-      
-      {layers.recommendations && recommendations?.map(rec => (
-        <Marker 
-          key={`rec-${rec.id}`}
-          position={[rec.latitude, rec.longitude]}
-          icon={recommendationMarkerIcon}
-        >
-          <Popup><RecommendationPopupCard rec={rec} /></Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <UnifiedMapBase 
+      center={center}
+      zoom={13}
+      onMapReady={setMap}
+    />
   );
 }
 ```
+
+**Marker Icons (Reusing Existing):**
+- **Events:** 📅 Calendar icon (`MARKER_ICONS.calendar`, cyan gradient)
+- **Housing:** 🏠 Home icon (`MARKER_ICONS.home`, turquoise gradient)  
+- **Recommendations:** ⭐ Star icon (`MARKER_ICONS.star`, pink gradient)
 
 #### 5. `MapLayerToggles.tsx` (Layer Visibility Control)
 ```typescript
