@@ -49,7 +49,10 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
       });
       const result = await response.json();
       return result.data || [];
-    }
+    },
+    staleTime: 0, // Always refetch on mount (Sept 30, 2025 fix)
+    gcTime: 5 * 60 * 1000, // Keep in cache for 5 minutes
+    structuralSharing: false // ESA Layer 14: Force re-renders when RSVP status changes
   });
   
   // Transform API data to component format
