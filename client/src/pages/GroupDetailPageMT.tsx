@@ -43,6 +43,7 @@ import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
+import TripPlannerView from './TripPlannerView';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -1390,6 +1391,20 @@ export default function GroupDetailPageMT() {
     );
   };
 
+  const renderTripPlannerTab = () => {
+    const cityCoords = group.city ? getCoordinatesForCity(group.city) : null;
+    
+    return (
+      <TripPlannerView
+        city={group.city || group.name}
+        country={group.country}
+        cityLat={cityCoords ? cityCoords[0] : undefined}
+        cityLng={cityCoords ? cityCoords[1] : undefined}
+        groupId={group.id}
+      />
+    );
+  };
+
   const renderCommunityHub = () => {
     // Get coordinates for the city
     const cityCenter = group.city ? getCoordinatesForCity(group.city) : [-34.6037, -58.3816];
@@ -1885,6 +1900,25 @@ export default function GroupDetailPageMT() {
                       </TooltipTrigger>
                       <TooltipContent>Recommendations</TooltipContent>
                     </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => handleTabChange('plan-trip')}
+                          className={`
+                            flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
+                            ${activeTab === 'plan-trip' 
+                              ? 'border-pink-500 text-pink-600' 
+                              : 'border-transparent opacity-50 hover:opacity-100'
+                            }
+                          `}
+                          data-testid="tab-plan-trip"
+                        >
+                          <MapPin className="h-5 w-5" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Plan Trip</TooltipContent>
+                    </Tooltip>
                   </>
                 )}
               </nav>
@@ -1899,6 +1933,7 @@ export default function GroupDetailPageMT() {
             {activeTab === 'community-hub' && renderCommunityHub()}
             {activeTab === 'housing' && group.type === 'city' && renderHousingTab()}
             {activeTab === 'recommendations' && group.type === 'city' && renderRecommendationsTab()}
+            {activeTab === 'plan-trip' && group.type === 'city' && renderTripPlannerTab()}
           </div>
         </div> {/* Close max-w-7xl mx-auto px-4 py-6 */}
       

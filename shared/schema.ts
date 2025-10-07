@@ -3186,6 +3186,26 @@ export const insertItineraryItemSchema = createInsertSchema(itineraryItems).omit
   createdAt: true,
 });
 
+// Relations for travel planning
+export const travelPlansRelations = relations(travelPlans, ({ one, many }) => ({
+  user: one(users, {
+    fields: [travelPlans.userId],
+    references: [users.id]
+  }),
+  city: one(groups, {
+    fields: [travelPlans.cityId],
+    references: [groups.id]
+  }),
+  itineraryItems: many(itineraryItems)
+}));
+
+export const itineraryItemsRelations = relations(itineraryItems, ({ one }) => ({
+  travelPlan: one(travelPlans, {
+    fields: [itineraryItems.travelPlanId],
+    references: [travelPlans.id]
+  })
+}));
+
 // Types for travel planning
 export type TravelPlan = typeof travelPlans.$inferSelect;
 export type InsertTravelPlan = z.infer<typeof insertTravelPlanSchema>;
