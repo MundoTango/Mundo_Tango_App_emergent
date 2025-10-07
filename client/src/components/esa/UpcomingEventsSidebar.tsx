@@ -44,19 +44,15 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
   const { data: eventsData, isLoading } = useQuery({
     queryKey: ['/api/events/feed'],
     queryFn: async () => {
-      console.log('📡 [Sidebar Query] Fetching events for sidebar...');
       const response = await fetch('/api/events/feed?limit=20&visibility=public', {
         credentials: 'include'
       });
       const result = await response.json();
-      console.log('✅ [Sidebar Query] Received events:', result.data?.length || 0);
       return result.data || [];
     },
     staleTime: 0,
     structuralSharing: false
   });
-  
-  console.log('🎯 [Sidebar] Component rendered, query status:', { isLoading, hasData: !!eventsData });
   
   // Transform API data to component format
   const allEvents = eventsData?.map((event: any) => ({
