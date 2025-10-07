@@ -3,6 +3,8 @@ import { agentLearningService } from '../services/AgentLearningCaptureService';
 import { agentOrchestrator } from '../services/LangGraphAgentOrchestrator';
 import { learningLoop } from '../services/ContinuousLearningLoop';
 import { crossDomainLearning } from '../services/CrossDomainLearningService';
+import { agentJobRouter } from '../services/AgentJobRouter';
+import { esaPatternDetector } from '../services/ESALayerPatternDetector';
 import { db } from '../db';
 import { agentLearnings, agentCollaborationLog } from '../../shared/schema';
 import { desc, gt } from 'drizzle-orm';
@@ -132,6 +134,53 @@ agentLearningRouter.post('/broadcast-learning', async (req, res) => {
       collaborationId,
       message: `Learning broadcast to ${learnings[0].agentDomains?.length || 0} agents`
     });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+agentLearningRouter.get('/stats', async (req, res) => {
+  try {
+    const learnings = await db.select().from(agentLearnings);
+    const jobStats = await agentJobRouter.getJobStats();
+    
+    res.json({
+      totalPatterns: learnings.length,
+      highConfidence: learnings.filter(l => parseFloat(l.confidence || '0') >= 0.9).length,
+      jobQueue: jobStats,
+      workerStatus: 'active'
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+agentLearningRouter.post('/detect-patterns', async (req, res) => {
+  try {
+    const layer = req.body.layer as string;
+    
+    let patterns;
+    if (layer === 'business') {
+      patterns = await esaPatternDetector.detectBusinessLogicPatterns();
+    } else if (layer === 'ai') {
+      patterns = await esaPatternDetector.detectAIInfrastructurePatterns();
+    } else if (layer === 'platform') {
+      patterns = await esaPatternDetector.detectPlatformEnhancementPatterns();
+    } else {
+      patterns = await esaPatternDetector.runFullDetection();
+    }
+    
+    res.json({ success: true, patterns, count: patterns.length });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+agentLearningRouter.post('/enqueue-job', async (req, res) => {
+  try {
+    const { module, operation, payload, priority } = req.body;
+    const jobId = await agentJobRouter.enqueueJob(module, operation, payload, priority);
+    res.json({ success: true, jobId });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
