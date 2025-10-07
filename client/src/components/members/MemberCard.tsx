@@ -25,6 +25,7 @@ interface MemberCardProps {
     id: number;
     userId: number;
     username: string;
+    fullName?: string;
     profilePicture?: string | null;
     tangoRoles?: string[];
     leaderLevel?: number;
@@ -46,9 +47,9 @@ export function MemberCard({ member }: MemberCardProps) {
         {/* Avatar */}
         <Link href={`/profile/${member.username}`}>
           <Avatar className="h-12 w-12 cursor-pointer hover:ring-2 hover:ring-cyan-500 transition-all">
-            <AvatarImage src={member.profilePicture || undefined} alt={member.username} />
+            <AvatarImage src={member.profilePicture || undefined} alt={member.fullName || member.username} />
             <AvatarFallback className="bg-gradient-to-br from-turquoise-500 to-blue-500 text-white font-semibold">
-              {member.username[0].toUpperCase()}
+              {(member.fullName || member.username)[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </Link>
@@ -57,7 +58,7 @@ export function MemberCard({ member }: MemberCardProps) {
         <div className="flex-1 min-w-0">
           <Link href={`/profile/${member.username}`}>
             <h3 className="font-semibold bg-gradient-to-r from-turquoise-500 to-blue-500 bg-clip-text text-transparent hover:from-cyan-600 hover:to-blue-600 transition-all cursor-pointer truncate">
-              {member.username}
+              {member.fullName || member.username}
             </h3>
           </Link>
           
