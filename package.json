@@ -54,6 +54,8 @@
     "generate-translations:docs": "tsx server/scripts/generateTranslations.ts --docs-only"
   },
   "dependencies": {
+    "@arizeai/openinference-instrumentation-openai": "^3.2.3",
+    "@arizeai/openinference-semantic-conventions": "^2.1.2",
     "@axe-core/playwright": "^4.10.2",
     "@capacitor/android": "^7.4.2",
     "@capacitor/app": "^7.0.1",
@@ -262,6 +264,8 @@
     "jest-performance-testing": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^3.0.1",
+    "langfuse": "^3.38.5",
+    "langfuse-node": "^3.38.5",
     "leaflet": "^1.9.4",
     "lighthouse": "^12.8.2",
     "llamaindex": "^0.12.0",
