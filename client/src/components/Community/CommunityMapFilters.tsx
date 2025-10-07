@@ -153,7 +153,7 @@ export default function CommunityMapFilters({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-96 p-0 border-cyan-200/30 dark:border-cyan-500/30" align="end">
+        <PopoverContent className="w-96 p-0 border-cyan-200/30 dark:border-cyan-500/30 z-[1000]" align="end">
           <GlassCard depth={1} className="border-0">
             <FiltersContent 
               filters={filters} 
