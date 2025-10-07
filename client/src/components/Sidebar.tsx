@@ -22,7 +22,8 @@ import {
   Crown,
   Settings,
   MessageCircle,
-  Brain
+  Brain,
+  Star
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -66,6 +67,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
       icon: <Calendar className="w-5 h-5" />,
       title: t('navigation.events'),
       link: "/events",
+    },
+    {
+      icon: <Star className="w-5 h-5" />,
+      title: t('navigation.recommendations', 'Recommendations'),
+      link: "/recommendations",
     },
     {
       icon: <Mail className="w-5 h-5" />,
