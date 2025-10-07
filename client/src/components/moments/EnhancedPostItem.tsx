@@ -80,12 +80,14 @@ interface Post {
 interface PostItemProps {
   post: Post;
   currentUserId?: string; // ESA Framework Layer 4: Current authenticated user ID
-  onLike: (postId: number) => void;
+  onLike: ((postId: number) => void) | ((post: Post) => void); // Accept both formats for compatibility
   onShare: (post: Post) => void;
   onEdit?: (post: Post) => void; // ESA Layer 7: Handle edit in parent with unified composer
   onDelete?: (postId: number) => void; // Callback after successful deletion
   apiBasePath?: string; // API endpoint base path (default: '/api/posts')
   cacheKeys?: string[]; // Cache keys to invalidate on mutations (default: ['/api/posts/feed', '/api/posts'])
+  onComment?: (postId: number) => void; // Optional comment handler
+  onBookmark?: (postId: number) => void; // Optional bookmark handler
 }
 
 function EnhancedPostItem({ 
