@@ -18,6 +18,7 @@ import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/useDebounce';
 import { initializeLeaflet } from '@/utils/leafletConfig';
+import { GlassCard } from '@/components/ui/glass-card';
 
 // ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
