@@ -42,6 +42,7 @@ import { MagneticButton, PulseButton } from '@/components/interactions/MicroInte
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { MembersList, RoleChangeModal } from '@/components/members';
+import Confetti from 'react-confetti';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -87,6 +88,20 @@ export default function GroupDetailPageMT() {
   const { user } = useAuth();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('posts');
+  
+  // Aurora Tide: Confetti state for join celebration (Layer 22)
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  
+  // Track window size for confetti
+  useEffect(() => {
+    const updateWindowSize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    updateWindowSize();
+    window.addEventListener('resize', updateWindowSize);
+    return () => window.removeEventListener('resize', updateWindowSize);
+  }, []);
   
   // Aurora Tide: GSAP Scroll Reveal for housing statistics cards
   const housingCardsRef = useScrollReveal('.housing-stat-card', {
@@ -415,6 +430,10 @@ export default function GroupDetailPageMT() {
         description: `You are now a member of ${group?.name}`,
       });
       queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+      
+      // Aurora Tide: Trigger confetti celebration (Layer 22)
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 5000); // 5 seconds of confetti
       
       // Emit Socket.io event for real-time updates
       if (socketRef.current && group?.id && user) {
@@ -1645,6 +1664,18 @@ export default function GroupDetailPageMT() {
 
   return (
     <>
+      {/* Aurora Tide: Confetti celebration on join (Layer 22) */}
+      {showConfetti && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={500}
+          gravity={0.3}
+          colors={['#06B6D4', '#0D448A', '#8E142E', '#14B8A6', '#F472B6']}
+        />
+      )}
+      
       <Helmet>
         {/* Primary Meta Tags */}
         <title>{pageTitle}</title>
@@ -1828,14 +1859,16 @@ export default function GroupDetailPageMT() {
                         </Button>
                       </>
                     ) : (
-                      <Button
+                      <MagneticButton
+                        strength={0.3}
                         onClick={() => joinGroupMutation.mutate()}
                         disabled={joinGroupMutation.isPending}
                         className="mt-action-button mt-action-button-primary"
+                        data-testid="button-join-group"
                       >
                         <UserPlus className="h-4 w-4" />
-                        Join Group
-                      </Button>
+                        {t('groups.joinGroup', 'Join Group')}
+                      </MagneticButton>
                     )}
                   </>
                 )}
