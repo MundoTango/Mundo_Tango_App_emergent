@@ -14,10 +14,6 @@ export function useEventRSVP() {
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      // FIRST: Check what queries exist in cache BEFORE cancelling
-      const allQueriesInCache = queryClient.getQueryCache().getAll();
-      console.log('🔍 [RSVP] All queries in cache:', allQueriesInCache.map(q => ({ key: q.queryKey, state: q.state.status })));
-      
       // Save all previous data for rollback BEFORE cancelling
       const previousData = new Map();
       queryClient.getQueriesData({ 
@@ -35,9 +31,7 @@ export function useEventRSVP() {
         }
       });
       
-      console.log('💾 [RSVP] Saved', previousData.size, 'queries before cancel');
-      
-      // THEN: Cancel all event-related queries (unified approach)
+      // Cancel all event-related queries (unified approach)
       await queryClient.cancelQueries({ 
         predicate: (query) => {
           const key = query.queryKey;
@@ -74,25 +68,18 @@ export function useEventRSVP() {
       };
       
       // Apply optimistic updates to all event queries
-      console.log('🔧 [RSVP] Updating', previousData.size, 'queries');
       previousData.forEach(({ queryKey }) => {
         queryClient.setQueryData(queryKey, (old: any) => {
-          if (!old) {
-            console.log('⚠️ [RSVP] No data for query:', queryKey);
-            return old;
-          }
+          if (!old) return old;
           
           // Handle different response formats
           const dataArray = old?.data || old;
           
           if (Array.isArray(dataArray)) {
             const updated = dataArray.map(updateEvent);
-            const result = old?.data ? { ...old, data: updated } : updated;
-            console.log('✅ [RSVP] Updated query:', queryKey, 'Updated event', eventId, 'to status:', status);
-            return result;
+            return old?.data ? { ...old, data: updated } : updated;
           }
           
-          console.log('⚠️ [RSVP] Data not array for query:', queryKey);
           return old;
         });
       });

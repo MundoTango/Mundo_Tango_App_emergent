@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { queryClient } from '../lib/fresh-query-client';
-import { apiRequest } from '../lib/queryClient';
+import { queryClient, apiRequest } from '../lib/queryClient';
 import DashboardLayout from '../layouts/DashboardLayout';
 import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar';
 import { Button } from '../components/ui/button';
