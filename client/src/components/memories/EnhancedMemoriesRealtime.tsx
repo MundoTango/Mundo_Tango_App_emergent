@@ -10,6 +10,7 @@ import ModernLoadingState from '@/components/modern/ModernLoadingState';
 import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { Heart, MessageCircle, Share2, Eye, Sparkles } from 'lucide-react';
+import { usePostLike } from '@/hooks/usePostLike';
 
 interface Post {
   id: number;
@@ -33,6 +34,8 @@ interface Post {
   aiEnhanced?: boolean;
   sentiment?: 'positive' | 'neutral' | 'negative';
   engagementScore?: number;
+  isLiked?: boolean; // ESA Layer 7: Track per-user like status
+  likes?: number; // For compatibility with standardized hook
 }
 
 interface AIEnhancementResult {
@@ -179,31 +182,29 @@ export default function EnhancedMemoriesRealtime() {
     },
   });
 
-  // Real-time like functionality
-  const likePostMutation = useMutation({
-    mutationFn: async (postId: number) => {
-      const response = await apiRequest(`/api/posts/${postId}/like`, 'POST');
-      
-      // Emit real-time like event
-      if (memorySocket.socket && user) {
-        const post = posts?.find((p: Post) => p.id === postId);
-        if (post) {
-          memorySocket.emitLike({
-            memoryId: postId.toString(),
-            userId: user.id.toString(),
-            username: user.name,
-            memoryOwnerId: post.userId.toString()
-          });
-        }
-      }
-      
-      return response;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
-      // Real-time UI update will be handled by socket events
-    },
-  });
+  // ESA Layer 7 & 14: Use standardized like hook with real-time events
+  const { mutate: toggleLike, isPending: isLiking } = usePostLike();
+  
+  const handleLikePost = (postId: number) => {
+    const post = posts?.find((p: Post) => p.id === postId);
+    if (!post) return;
+    
+    // ESA Layer 7 & 14: Use per-user like status, NOT aggregate count
+    toggleLike({ 
+      postId, 
+      isLiked: post.isLiked || false // Actual per-user like status
+    });
+    
+    // Emit real-time like event
+    if (memorySocket.socket && user) {
+      memorySocket.emitLike({
+        memoryId: postId.toString(),
+        userId: user.id.toString(),
+        username: user.name,
+        memoryOwnerId: post.userId.toString()
+      });
+    }
+  };
 
   // Handle real-time events
   useEffect(() => {
@@ -251,9 +252,7 @@ export default function EnhancedMemoriesRealtime() {
     });
   };
 
-  const handleLike = (postId: number) => {
-    likePostMutation.mutate(postId);
-  };
+  // Removed - using handleLikePost above with standardized hook
 
   const handleComment = (postId: number) => {
     // This will be enhanced with real-time commenting
@@ -417,7 +416,7 @@ export default function EnhancedMemoriesRealtime() {
               <div key={post.id} className="relative">
                 <EnhancedPostItem
                   post={post}
-                  onLike={handleLike}
+                  onLike={handleLikePost}
                   onComment={handleComment}
                   onShare={handleShare}
                   onBookmark={handleBookmark}

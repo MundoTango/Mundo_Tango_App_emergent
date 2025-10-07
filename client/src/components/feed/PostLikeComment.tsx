@@ -27,6 +27,8 @@ import {
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
+import { usePostLike } from "@/hooks/usePostLike";
+import { useCommentMutation } from "@/hooks/useCommentMutation";
 
 interface Post {
   id: number;
@@ -85,44 +87,11 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
   
   const commentInputRef = useRef<HTMLInputElement>(null);
 
-  // Like post mutation
-  const likePostMutation = useMutation({
-    mutationFn: async () => {
-      if (localPost.isLiked) {
-        return fetch(`/api/post/unlike/${localPost.id}`, { method: "DELETE" }).then(res => res.json());
-      } else {
-        return fetch(`/api/post/like/${localPost.id}`, { method: "POST" }).then(res => res.json());
-      }
-    },
-    onSuccess: () => {
-      setLocalPost(prev => ({
-        ...prev,
-        isLiked: !prev.isLiked,
-        likes: prev.isLiked ? prev.likes - 1 : prev.likes + 1
-      }));
-      queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
-    },
-  });
+  // ESA Layer 7 & 14: Use standardized like hook
+  const { mutate: toggleLike, isPending: isLiking } = usePostLike();
 
-  // Comment mutation
-  const commentMutation = useMutation({
-    mutationFn: async (content: string) => {
-      return fetch("/api/post/comment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          post_id: localPost.id,
-          comment: content
-        })
-      }).then(res => res.json());
-    },
-    onSuccess: () => {
-      setCommentText("");
-      loadComments();
-      setLocalPost(prev => ({ ...prev, comments: prev.comments + 1 }));
-      queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
-    },
-  });
+  // ESA Layer 7 & 14: Use standardized comment hook
+  const { mutate: addComment, isPending: isCommenting } = useCommentMutation('create');
 
   // Share post mutation
   const shareMutation = useMutation({
@@ -186,7 +155,13 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
   };
 
   const handleLike = () => {
-    likePostMutation.mutate();
+    toggleLike({ postId: localPost.id, isLiked: localPost.isLiked });
+    // Update local state for instant UI feedback (hook handles cache)
+    setLocalPost(prev => ({
+      ...prev,
+      isLiked: !prev.isLiked,
+      likes: prev.isLiked ? prev.likes - 1 : prev.likes + 1
+    }));
   };
 
   const handleComment = () => {
@@ -200,7 +175,13 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
 
   const handleCommentSubmit = () => {
     if (commentText.trim()) {
-      commentMutation.mutate(commentText);
+      addComment({ 
+        postId: localPost.id, 
+        content: commentText 
+      });
+      setCommentText("");
+      loadComments();
+      setLocalPost(prev => ({ ...prev, comments: prev.comments + 1 }));
     }
   };
 
@@ -394,8 +375,9 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
                 <Button
                   size="sm"
                   onClick={handleCommentSubmit}
-                  disabled={!commentText.trim() || commentMutation.isPending}
+                  disabled={!commentText.trim() || isCommenting}
                   className="bg-red-600 hover:bg-red-700"
+                  data-testid={`button-comment-submit-${localPost.id}`}
                 >
                   <Send className="h-4 w-4" />
                 </Button>
