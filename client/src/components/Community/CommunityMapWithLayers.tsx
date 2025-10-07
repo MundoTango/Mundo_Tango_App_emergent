@@ -171,12 +171,12 @@ export default function CommunityMapWithLayers({
       </div>
 
       {/* Map Container - ESA Layer 8 + 22 Unified Map */}
-      <div className="relative rounded-lg overflow-hidden h-[700px] z-0">
+      <div className="relative rounded-lg overflow-hidden h-[650px] z-0">
         <MapContainer
         center={center}
         zoom={13}
         className="h-full w-full rounded-lg"
-        style={{ height: '700px', width: '100%' }}
+        style={{ height: '650px', width: '100%' }}
       >
         <ChangeView center={center} zoom={13} />
         <TileLayer
