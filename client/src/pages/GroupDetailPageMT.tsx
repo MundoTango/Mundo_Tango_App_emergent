@@ -172,6 +172,9 @@ export default function GroupDetailPageMT() {
   
   // Post filtering state (used for context)
   const [mentionFilter, setMentionFilter] = useState<'all' | 'residents' | 'visitors' | 'members' | 'non-members' | 'friends'>('all');
+  
+  // Trip Planner Modal state
+  const [showTripPlannerModal, setShowTripPlannerModal] = useState(false);
   const [createPostModal, setCreatePostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isPostCreatorExpanded, setIsPostCreatorExpanded] = useState(false);
@@ -1421,7 +1424,7 @@ export default function GroupDetailPageMT() {
     const statusText = CityRbacService.getStatusDisplayText(userContext, group.city || group.name);
 
     return (
-      <div className="space-y-6">
+      <div className="relative space-y-6">
         {/* Status Banner */}
         <div className={`rounded-lg p-4 border ${
           userContext.isLocal 
@@ -1513,6 +1516,25 @@ export default function GroupDetailPageMT() {
             )}
           </>
         )}
+
+        {/* Floating Action Button - Plan a Trip (Aurora Tide Design) */}
+        <button
+          onClick={() => setShowTripPlannerModal(true)}
+          className="fixed bottom-8 right-8 z-40 group"
+          data-testid="fab-plan-trip"
+          aria-label="Plan a Trip"
+        >
+          <div className="relative">
+            {/* Pulsing background animation */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full opacity-75 group-hover:opacity-100 animate-pulse"></div>
+            
+            {/* Main button */}
+            <div className="relative flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 group-hover:scale-110">
+              <Plane className="h-6 w-6" />
+              <span className="font-semibold text-lg">Plan a Trip</span>
+            </div>
+          </div>
+        </button>
       </div>
     );
   };
@@ -1847,20 +1869,20 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() => handleTabChange('plan-trip')}
+                          onClick={() => handleTabChange('community-hub')}
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
-                            ${activeTab === 'plan-trip' 
+                            ${activeTab === 'community-hub' 
                               ? 'border-pink-500 text-pink-600' 
                               : 'border-transparent opacity-50 hover:opacity-100'
                             }
                           `}
-                          data-testid="tab-plan-trip"
+                          data-testid="tab-community-hub"
                         >
-                          <Plane className="h-5 w-5" />
+                          <Globe className="h-5 w-5" />
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent>Plan Trip</TooltipContent>
+                      <TooltipContent>Community Hub</TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
@@ -1911,7 +1933,7 @@ export default function GroupDetailPageMT() {
             {activeTab === 'members' && renderMembersTab()}
             {activeTab === 'events' && renderEventsTab()}
             {activeTab === 'posts' && renderPostsTab()}
-            {activeTab === 'plan-trip' && group.type === 'city' && renderTripPlannerTab()}
+            {activeTab === 'community-hub' && group.type === 'city' && renderCommunityHub()}
             {activeTab === 'housing' && group.type === 'city' && renderHousingTab()}
             {activeTab === 'recommendations' && group.type === 'city' && renderRecommendationsTab()}
           </div>
@@ -1966,6 +1988,43 @@ export default function GroupDetailPageMT() {
                 name: group?.type === 'city' ? group.city : group.name
               }}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Trip Planner Modal - Aurora Tide Glassmorphic Overlay */}
+      {showTripPlannerModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
+          <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto">
+            {/* Glassmorphic Modal Container */}
+            <div className="relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-cyan-200/30 dark:border-cyan-500/30 p-8">
+              {/* Close Button */}
+              <button
+                onClick={() => setShowTripPlannerModal(false)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100/80 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors z-10"
+                data-testid="button-close-trip-modal"
+                aria-label="Close trip planner"
+              >
+                <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              {/* Trip Configuration Wizard */}
+              <TripConfigurationWizard
+                city={group.city || group.name}
+                country={group.country}
+                onConfigComplete={(config) => {
+                  console.log('[Trip Planner] Configuration complete:', config);
+                  // TODO: Filter map by trip dates and preferences
+                  setShowTripPlannerModal(false);
+                  toast({
+                    title: "Trip Configuration Saved",
+                    description: `Planning your ${config.tripDuration}-day trip to ${group.city || group.name}!`
+                  });
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
