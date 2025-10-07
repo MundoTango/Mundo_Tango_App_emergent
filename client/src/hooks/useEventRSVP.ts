@@ -14,20 +14,11 @@ export function useEventRSVP() {
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      // Cancel all event-related queries (unified approach)
-      await queryClient.cancelQueries({ 
-        predicate: (query) => {
-          const key = query.queryKey;
-          // Match all event queries: /api/events/feed (with or without groupId), /api/events/upcoming, /api/user/events/*
-          return Array.isArray(key) && (
-            key[0] === '/api/events/feed' ||
-            key[0] === '/api/events/upcoming' ||
-            key[0] === '/api/user/events'
-          );
-        }
-      });
+      // FIRST: Check what queries exist in cache BEFORE cancelling
+      const allQueriesInCache = queryClient.getQueryCache().getAll();
+      console.log('🔍 [RSVP] All queries in cache:', allQueriesInCache.map(q => ({ key: q.queryKey, state: q.state.status })));
       
-      // Save all previous data for rollback
+      // Save all previous data for rollback BEFORE cancelling
       const previousData = new Map();
       queryClient.getQueriesData({ 
         predicate: (query) => {
@@ -41,6 +32,21 @@ export function useEventRSVP() {
       }).forEach(([queryKey, data]) => {
         if (data) {
           previousData.set(JSON.stringify(queryKey), { queryKey, data });
+        }
+      });
+      
+      console.log('💾 [RSVP] Saved', previousData.size, 'queries before cancel');
+      
+      // THEN: Cancel all event-related queries (unified approach)
+      await queryClient.cancelQueries({ 
+        predicate: (query) => {
+          const key = query.queryKey;
+          // Match all event queries: /api/events/feed (with or without groupId), /api/events/upcoming, /api/user/events/*
+          return Array.isArray(key) && (
+            key[0] === '/api/events/feed' ||
+            key[0] === '/api/events/upcoming' ||
+            key[0] === '/api/user/events'
+          );
         }
       });
       
