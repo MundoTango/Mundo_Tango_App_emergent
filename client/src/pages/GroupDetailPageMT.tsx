@@ -41,7 +41,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { MembersList, RoleChangeModal } from '@/components/members';
+import { MembersList } from '@/components/members';
 import Confetti from 'react-confetti';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
@@ -151,15 +151,6 @@ export default function GroupDetailPageMT() {
   // Member data state
   const [memberData, setMemberData] = useState<any[]>([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
-  
-  // Role change modal state (ESA Layer 22: Group Management)
-  const [roleChangeModal, setRoleChangeModal] = useState<{
-    open: boolean;
-    userId?: number;
-    username?: string;
-    currentRole?: 'member' | 'moderator' | 'admin' | 'owner';
-    targetRole?: 'member' | 'moderator' | 'admin';
-  }>({ open: false });
   
   // Event filtering state
   const [eventFilters, setEventFilters] = useState({
@@ -504,74 +495,6 @@ export default function GroupDetailPageMT() {
     },
   });
 
-  // Role change mutation (ESA Layer 22: Group Management)
-  const changeRoleMutation = useMutation({
-    mutationFn: async ({ userId, newRole }: { userId: number; newRole: 'member' | 'moderator' | 'admin' }) => {
-      const response = await apiRequest(`/api/groups/${group?.id}/members/${userId}/role`, {
-        method: 'PATCH',
-        body: JSON.stringify({ role: newRole }),
-      });
-      return response;
-    },
-    onSuccess: () => {
-      toast({
-        title: t('members.roleChange.success', 'Role Updated'),
-        description: t('members.roleChange.successDescription', 'Member role has been successfully updated'),
-      });
-      // Refresh member data
-      if (activeTab === 'members' && slug) {
-        fetch(`/api/groups/${slug}/members`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              setMemberData(data.data);
-            }
-          });
-      }
-      queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
-    },
-    onError: () => {
-      toast({
-        title: t('common.error', 'Error'),
-        description: t('members.roleChange.error', 'Failed to update member role'),
-        variant: 'destructive',
-      });
-    },
-  });
-
-  // Remove member mutation (ESA Layer 22: Group Management)
-  const removeMemberMutation = useMutation({
-    mutationFn: async (userId: number) => {
-      const response = await apiRequest(`/api/groups/${group?.id}/members/${userId}`, {
-        method: 'DELETE',
-      });
-      return response;
-    },
-    onSuccess: () => {
-      toast({
-        title: t('members.remove.success', 'Member Removed'),
-        description: t('members.remove.successDescription', 'Member has been removed from the group'),
-      });
-      // Refresh member data
-      if (activeTab === 'members' && slug) {
-        fetch(`/api/groups/${slug}/members`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              setMemberData(data.data);
-            }
-          });
-      }
-      queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
-    },
-    onError: () => {
-      toast({
-        title: t('common.error', 'Error'),
-        description: t('members.remove.error', 'Failed to remove member'),
-        variant: 'destructive',
-      });
-    },
-  });
 
   // Loading state
   if (isLoading) {
@@ -736,67 +659,32 @@ export default function GroupDetailPageMT() {
   );
 
   const renderMembersTab = () => {
-    // Transform member data to match MembersList component interface
-    const transformedMembers = memberData.map((member: any) => ({
+    // Filter to show ONLY home community residents (user.city === group.city)
+    const homeResidents = memberData.filter((member: any) => {
+      const memberCity = member.user?.city || '';
+      const groupCity = group?.city || '';
+      return memberCity.toLowerCase() === groupCity.toLowerCase();
+    });
+
+    // Transform member data to include tango roles
+    const transformedMembers = homeResidents.map((member: any) => ({
       id: member.id || member.user?.id,
       userId: member.user?.id || member.userId,
       username: member.user?.username || member.username,
       fullName: member.user?.name || member.user?.fullName,
       profilePicture: member.user?.profileImage || member.user?.profilePicture,
-      role: member.role || 'member',
-      status: member.status || 'active',
+      tangoRoles: member.user?.tangoRoles || [],
+      leaderLevel: member.user?.leaderLevel || 0,
+      followerLevel: member.user?.followerLevel || 0,
       joinedAt: member.joinedAt ? new Date(member.joinedAt) : new Date(),
     }));
 
-    // Handle role change from dropdown
-    const handleRoleChange = (userId: number) => {
-      const member = memberData.find((m: any) => m.user?.id === userId || m.userId === userId);
-      if (!member) return;
-
-      setRoleChangeModal({
-        open: true,
-        userId,
-        username: member.user?.username || member.username,
-        currentRole: member.role || 'member',
-        targetRole: 'member', // Will be set in dropdown
-      });
-    };
-
-    // Handle member removal
-    const handleRemoveMember = (userId: number) => {
-      if (confirm(t('members.remove.confirm', 'Are you sure you want to remove this member?'))) {
-        removeMemberMutation.mutate(userId);
-      }
-    };
-
     return (
       <div className="space-y-6">
-        {/* New Aurora Tide MembersList Component */}
+        {/* Aurora Tide MembersList Component - Tango Roles Only */}
         <MembersList
           members={transformedMembers}
-          currentUserId={user?.id}
-          currentUserRole={memberRole}
           isLoading={loadingMembers}
-          onRoleChange={handleRoleChange}
-          onRemoveMember={handleRemoveMember}
-        />
-
-        {/* Role Change Modal */}
-        <RoleChangeModal
-          open={roleChangeModal.open}
-          onOpenChange={(open) => setRoleChangeModal({ ...roleChangeModal, open })}
-          memberUsername={roleChangeModal.username || ''}
-          currentRole={roleChangeModal.currentRole || 'member'}
-          targetRole={roleChangeModal.targetRole || 'member'}
-          onConfirm={() => {
-            if (roleChangeModal.userId && roleChangeModal.targetRole) {
-              changeRoleMutation.mutate({
-                userId: roleChangeModal.userId,
-                newRole: roleChangeModal.targetRole,
-              });
-            }
-          }}
-          isLoading={changeRoleMutation.isPending}
         />
       </div>
     );

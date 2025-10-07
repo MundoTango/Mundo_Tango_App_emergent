@@ -1,10 +1,23 @@
+/**
+ * MemberCard Component - Tango Role Display
+ * ESA Layer 22: Group Management
+ * Aurora Tide Design System - Full Compliance
+ * 
+ * Features:
+ * - GlassCard components with depth-1
+ * - RoleEmojiDisplay for tango roles
+ * - MT Ocean Theme gradients
+ * - i18next internationalization
+ * - Dark mode support
+ * - No admin features - public view only
+ */
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/glass/GlassComponents";
-import { MemberActionsDropdown } from "./MemberActionsDropdown";
+import { RoleEmojiDisplay } from "@/components/ui/RoleEmojiDisplay";
 import { useTranslation } from "react-i18next";
-import { UserCheck, MessageCircle } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Link } from "wouter";
 
 interface MemberCardProps {
@@ -13,34 +26,15 @@ interface MemberCardProps {
     userId: number;
     username: string;
     profilePicture?: string | null;
-    role: 'member' | 'moderator' | 'admin' | 'owner';
+    tangoRoles?: string[];
+    leaderLevel?: number;
+    followerLevel?: number;
     joinedAt: Date;
-    status?: string;
   };
-  currentUserRole?: string;
-  onRoleChange?: (userId: number) => void;
-  onRemove?: (userId: number) => void;
 }
 
-export function MemberCard({ member, currentUserRole, onRoleChange, onRemove }: MemberCardProps) {
+export function MemberCard({ member }: MemberCardProps) {
   const { t } = useTranslation();
-  
-  const canManage = currentUserRole === 'admin' || currentUserRole === 'owner';
-  const isCurrentUserOwner = currentUserRole === 'owner';
-  
-  // Role badge colors (MT Ocean Theme gradients)
-  const getRoleBadgeClass = (role: string) => {
-    switch (role) {
-      case 'owner':
-        return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0';
-      case 'admin':
-        return 'bg-gradient-to-r from-orange-500 to-red-500 text-white border-0';
-      case 'moderator':
-        return 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-0';
-      default:
-        return 'bg-gradient-to-r from-turquoise-500 to-blue-500 text-white border-0';
-    }
-  };
 
   return (
     <GlassCard 
@@ -48,74 +42,56 @@ export function MemberCard({ member, currentUserRole, onRoleChange, onRemove }: 
       className="p-4 hover:border-cyan-500/50 dark:hover:border-cyan-400/30 transition-all duration-500 group"
       data-testid={`card-member-${member.id}`}
     >
-        <div className="flex items-center gap-3">
-          {/* Avatar */}
+      <div className="flex items-center gap-3">
+        {/* Avatar */}
+        <Link href={`/profile/${member.username}`}>
+          <Avatar className="h-12 w-12 cursor-pointer hover:ring-2 hover:ring-cyan-500 transition-all">
+            <AvatarImage src={member.profilePicture || undefined} alt={member.username} />
+            <AvatarFallback className="bg-gradient-to-br from-turquoise-500 to-blue-500 text-white font-semibold">
+              {member.username[0].toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        </Link>
+        
+        {/* Member Info */}
+        <div className="flex-1 min-w-0">
           <Link href={`/profile/${member.username}`}>
-            <Avatar className="h-12 w-12 cursor-pointer hover:ring-2 hover:ring-cyan-500 transition-all">
-              <AvatarImage src={member.profilePicture || undefined} alt={member.username} />
-              <AvatarFallback className="bg-gradient-to-br from-turquoise-500 to-blue-500 text-white font-semibold">
-                {member.username[0].toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+            <h3 className="font-semibold bg-gradient-to-r from-turquoise-500 to-blue-500 bg-clip-text text-transparent hover:from-cyan-600 hover:to-blue-600 transition-all cursor-pointer truncate">
+              {member.username}
+            </h3>
           </Link>
           
-          {/* Member Info */}
-          <div className="flex-1 min-w-0">
-            <Link href={`/profile/${member.username}`}>
-              <h3 className="font-semibold bg-gradient-to-r from-turquoise-500 to-blue-500 bg-clip-text text-transparent hover:from-cyan-600 hover:to-blue-600 transition-all cursor-pointer truncate">
-                {member.username}
-              </h3>
-            </Link>
-            
-            <div className="flex items-center gap-2 mt-1">
-              <Badge className={getRoleBadgeClass(member.role)}>
-                {t(`members.role.${member.role}`, member.role)}
-              </Badge>
-              
-              {member.status === 'pending' && (
-                <Badge variant="outline" className="text-yellow-600 dark:text-yellow-400 border-yellow-500/30">
-                  {t('members.status.pending', 'Pending')}
-                </Badge>
-              )}
-            </div>
-            
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {t('members.joinedAt', 'Joined {{date}}', { 
-                date: new Date(member.joinedAt).toLocaleDateString() 
-              })}
-            </p>
+          {/* Tango Role Emojis */}
+          <div className="mt-1">
+            <RoleEmojiDisplay
+              tangoRoles={member.tangoRoles}
+              leaderLevel={member.leaderLevel}
+              followerLevel={member.followerLevel}
+              size="md"
+              maxRoles={5}
+            />
           </div>
           
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2">
-            {/* Message Button */}
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20"
-              data-testid={`button-message-${member.id}`}
-            >
-              <MessageCircle className="h-4 w-4" />
-            </Button>
-            
-            {/* Admin Actions Dropdown (if current user can manage) */}
-            {canManage && (
-              <MemberActionsDropdown
-                memberId={member.id}
-                memberUsername={member.username}
-                currentRole={member.role}
-                currentUserRole={currentUserRole || ''}
-                onChangeRole={(newRole) => onRoleChange?.(member.userId)}
-                onRemove={() => onRemove?.(member.userId)}
-              />
-            )}
-            
-            {/* Friend/Connection Status (if applicable) */}
-            {member.status === 'active' && (
-              <UserCheck className="h-4 w-4 text-green-500" data-testid={`icon-member-active-${member.id}`} />
-            )}
-          </div>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            {t('members.joinedAt', 'Joined {{date}}', { 
+              date: new Date(member.joinedAt).toLocaleDateString() 
+            })}
+          </p>
         </div>
-      </GlassCard>
+        
+        {/* View Profile Button */}
+        <Link href={`/profile/${member.username}`}>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            className="hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 gap-2"
+            data-testid={`button-view-profile-${member.id}`}
+          >
+            <Eye className="h-4 w-4" />
+            <span className="hidden sm:inline">{t('members.viewProfile', 'View Profile')}</span>
+          </Button>
+        </Link>
+      </div>
+    </GlassCard>
   );
 }
