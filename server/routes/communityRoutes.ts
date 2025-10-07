@@ -24,8 +24,8 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
         id: events.id,
         title: events.title,
         description: events.description,
-        lat: events.lat,
-        lng: events.lng,
+        latitude: events.latitude,
+        longitude: events.longitude,
         location: events.location,
         address: events.address,
         startDate: events.startDate,
@@ -48,21 +48,26 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
       .limit(50);
 
     eventsData.forEach((event) => {
-      if (event.lat && event.lng) {
-        mapItems.push({
-          id: event.id,
-          type: 'event',
-          title: event.title,
-          description: event.description || `Event at ${event.location}`,
-          latitude: event.lat,
-          longitude: event.lng,
-          address: event.address || event.location,
-          metadata: {
-            date: event.startDate,
-            price: event.price ? `${event.currency || '$'}${event.price}` : 'Free',
-            attendeeCount: event.attendeeCount,
-          },
-        });
+      if (event.latitude && event.longitude) {
+        const lat = parseFloat(event.latitude);
+        const lng = parseFloat(event.longitude);
+        
+        if (!isNaN(lat) && !isNaN(lng)) {
+          mapItems.push({
+            id: event.id,
+            type: 'event',
+            title: event.title,
+            description: event.description || `Event at ${event.location}`,
+            latitude: lat,
+            longitude: lng,
+            address: event.address || event.location,
+            metadata: {
+              date: event.startDate,
+              price: event.price ? `${event.currency || '$'}${event.price}` : 'Free',
+              attendeeCount: event.attendeeCount,
+            },
+          });
+        }
       }
     });
 
