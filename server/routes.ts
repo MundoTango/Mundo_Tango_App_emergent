@@ -3721,7 +3721,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const end = new Date(endDate as string);
 
       // Fetch events during trip dates
-      const events = await db.query.events.findMany({
+      const tripEvents = await db.query.events.findMany({
         where: and(
           eq(events.city, city as string),
           gte(events.startDate, start),
@@ -3732,7 +3732,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Fetch available housing in the city
-      const housing = await db.query.hostHomes.findMany({
+      const tripHousing = await db.query.hostHomes.findMany({
         where: eq(hostHomes.city, city as string),
         with: {
           host: {
@@ -3748,7 +3748,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Fetch recommendations in the city
-      let recommendationsQuery = db.query.recommendations.findMany({
+      const tripRecommendations = await db.query.recommendations.findMany({
         where: eq(recommendations.city, city as string),
         with: {
           user: {
@@ -3763,23 +3763,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         limit: 50
       });
 
-      // Filter by interests if provided
-      if (interests) {
-        const interestArray = Array.isArray(interests) ? interests : [interests];
-        // Note: This is simplified - in production you'd want to match interests to recommendation types/tags
-      }
-
-      const recommendationsList = await recommendationsQuery;
-
       res.json({
-        events,
-        housing,
-        recommendations: recommendationsList,
+        events: tripEvents,
+        housing: tripHousing,
+        recommendations: tripRecommendations,
         meta: {
           city,
           startDate,
           endDate,
-          totalResults: events.length + housing.length + recommendationsList.length
+          totalResults: tripEvents.length + tripHousing.length + tripRecommendations.length
         }
       });
     } catch (error: any) {
