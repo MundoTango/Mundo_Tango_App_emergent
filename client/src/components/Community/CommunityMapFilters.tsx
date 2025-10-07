@@ -209,8 +209,8 @@ function FiltersContent({
   activeFiltersCount: number;
 }) {
   return (
-    <div className="space-y-6">
-      {/* Events Section */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Events Column */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <Calendar className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
@@ -306,7 +306,7 @@ function FiltersContent({
         </div>
       </div>
 
-      {/* Housing Section */}
+      {/* Housing Column */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <Home className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
@@ -383,7 +383,7 @@ function FiltersContent({
         </div>
       </div>
 
-      {/* Recommendations Section */}
+      {/* Recommendations Column */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-cyan-200/30 dark:border-cyan-500/30">
           <MapPin className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
