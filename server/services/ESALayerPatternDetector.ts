@@ -36,13 +36,7 @@ await db.insert(eventRsvps)
     });
 
     for (const pattern of patterns) {
-      await agentJobRouter.enqueueJob({
-        module: 'memory',
-        operation: 'capture-learning',
-        payload: { learning: pattern },
-        priority: 5,
-        maxAttempts: 3
-      });
+      await agentJobRouter.enqueueJob('memory', 'capture-learning', { learning: pattern }, 5, 3);
     }
 
     return patterns;
@@ -81,13 +75,7 @@ const context = [summary, ...recentMessages];`,
     });
 
     for (const pattern of patterns) {
-      await agentJobRouter.enqueueJob({
-        module: 'memory',
-        operation: 'capture-learning',
-        payload: { learning: pattern },
-        priority: 7,
-        maxAttempts: 3
-      });
+      await agentJobRouter.enqueueJob('memory', 'capture-learning', { learning: pattern }, 7, 3);
     }
 
     return patterns;
@@ -125,13 +113,7 @@ i18n.use(Backend).init({
     });
 
     for (const pattern of patterns) {
-      await agentJobRouter.enqueueJob({
-        module: 'memory',
-        operation: 'capture-learning',
-        payload: { learning: pattern },
-        priority: 6,
-        maxAttempts: 3
-      });
+      await agentJobRouter.enqueueJob('memory', 'capture-learning', { learning: pattern }, 6, 3);
     }
 
     return patterns;

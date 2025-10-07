@@ -3,52 +3,52 @@ import { sql } from "drizzle-orm";
 
 interface AgentJob {
   id?: number;
-  module: string;
-  operation: string;
-  payload: Record<string, any>;
+  agentId?: string;
+  jobName: string;
+  data: Record<string, any>;
   priority: number;
-  status: 'queued' | 'processing' | 'completed' | 'failed';
+  status: 'queued' | 'running' | 'done' | 'failed';
   attempts: number;
   maxAttempts: number;
-  scheduledFor?: Date;
-  createdAt?: Date;
+  scheduledAt?: Date;
 }
 
 export class AgentJobRouter {
-  async enqueueJob(job: Omit<AgentJob, 'id' | 'status' | 'attempts' | 'createdAt'>) {
+  async enqueueJob(module: string, operation: string, payload: Record<string, any>, priority: number = 5, maxAttempts: number = 3) {
+    const jobName = `${module}.${operation}`;
+    
     const result = await db.execute(sql`
-      INSERT INTO agent_jobs (module, operation, payload, priority, status, attempts, max_attempts, scheduled_for)
+      INSERT INTO agent_jobs (job_name, data, priority, status, attempts, max_attempts, scheduled_at)
       VALUES (
-        ${job.module},
-        ${job.operation},
-        ${JSON.stringify(job.payload)}::jsonb,
-        ${job.priority},
+        ${jobName},
+        ${JSON.stringify(payload)}::jsonb,
+        ${priority},
         'queued',
         0,
-        ${job.maxAttempts},
-        ${job.scheduledFor || null}
+        ${maxAttempts},
+        NOW()
       )
       RETURNING id
     `);
     
-    console.log(`[Agent Router] Enqueued job: ${job.module}.${job.operation}`);
+    console.log(`[Agent Router] Enqueued: ${jobName} (priority: ${priority})`);
     return result.rows[0]?.id;
   }
 
   async dequeueJob(workerPrefix: string): Promise<AgentJob | null> {
     const result = await db.execute(sql`
       UPDATE agent_jobs
-      SET status = 'processing', attempts = attempts + 1
+      SET status = 'running', attempts = attempts + 1, processed_at = NOW()
       WHERE id = (
         SELECT id FROM agent_jobs
         WHERE status = 'queued'
-          AND module LIKE ${workerPrefix + '%'}
-          AND (scheduled_for IS NULL OR scheduled_for <= NOW())
-        ORDER BY priority DESC, created_at ASC
+          AND job_name LIKE ${workerPrefix + '%'}
+          AND (scheduled_at IS NULL OR scheduled_at <= NOW())
+        ORDER BY priority ASC, created_at ASC
         FOR UPDATE SKIP LOCKED
         LIMIT 1
       )
-      RETURNING id, module, operation, payload, attempts, max_attempts
+      RETURNING id, job_name, data, attempts, max_attempts, priority
     `);
 
     if (result.rows.length === 0) return null;
@@ -56,48 +56,50 @@ export class AgentJobRouter {
     const job = result.rows[0];
     return {
       id: job.id,
-      module: job.module,
-      operation: job.operation,
-      payload: job.payload,
+      jobName: job.job_name,
+      data: job.data,
       attempts: job.attempts,
       maxAttempts: job.max_attempts,
-      priority: 0,
-      status: 'processing'
+      priority: job.priority,
+      status: 'running'
     };
   }
 
   async completeJob(jobId: number, result: any) {
     await db.execute(sql`
       UPDATE agent_jobs
-      SET status = 'completed', result = ${JSON.stringify(result)}::jsonb, completed_at = NOW()
+      SET status = 'done', result = ${JSON.stringify(result)}::jsonb, completed_at = NOW()
       WHERE id = ${jobId}
     `);
+    console.log(`[Agent Router] ✅ Completed job ${jobId}`);
   }
 
   async failJob(jobId: number, error: string, shouldRetry: boolean = true) {
     if (shouldRetry) {
       await db.execute(sql`
         UPDATE agent_jobs
-        SET status = 'queued', error = ${error}, scheduled_for = NOW() + INTERVAL '5 minutes'
+        SET status = 'queued', error = ${error}, scheduled_at = NOW() + INTERVAL '5 minutes'
         WHERE id = ${jobId} AND attempts < max_attempts
       `);
+      console.log(`[Agent Router] 🔄 Retrying job ${jobId}`);
     } else {
       await db.execute(sql`
         UPDATE agent_jobs
-        SET status = 'failed', error = ${error}
+        SET status = 'failed', error = ${error}, completed_at = NOW()
         WHERE id = ${jobId}
       `);
+      console.log(`[Agent Router] ❌ Failed job ${jobId}`);
     }
   }
 
-  async getJobStats(module?: string) {
-    const filter = module ? sql`WHERE module LIKE ${module + '%'}` : sql``;
+  async getJobStats(prefix?: string) {
+    const filter = prefix ? sql`WHERE job_name LIKE ${prefix + '%'}` : sql``;
     
     const result = await db.execute(sql`
       SELECT 
         status,
-        COUNT(*) as count,
-        AVG(EXTRACT(EPOCH FROM (completed_at - created_at))) as avg_duration
+        COUNT(*)::int as count,
+        AVG(EXTRACT(EPOCH FROM (completed_at - created_at)))::float as avg_duration
       FROM agent_jobs
       ${filter}
       GROUP BY status
