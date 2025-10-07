@@ -6,8 +6,12 @@
  * across all 61 ESA layers.
  */
 
-// Phase 1 tool imports disabled pending package installation
-// import { lanceDBService } from "./LanceDBService"; // Disabled: vectordb package install pending
+// Phase 3 tool imports
+import { lanceDBService } from "./LanceDBService";
+import { llamaIndexService } from "./LlamaIndexService";
+import { knowledgeGraphService } from "./KnowledgeGraphService";
+
+// Phase 1 tool imports (disabled pending packages)
 // import { langfuseService } from "./LangfuseService"; // Disabled: langfuse package install pending
 // import { arizePhoenixService } from "./ArizePhoenixService"; // Disabled: @arizeai packages install pending
 
@@ -25,14 +29,15 @@ export class ESAOpenSourceToolsRegistry {
   constructor() {
     this.registerPhase1Tools();
     this.registerPhase2Tools();
+    this.registerPhase3Tools();
   }
 
   private registerPhase1Tools() {
     this.tools.set("lancedb", {
       layer: 26,
       toolName: "LanceDB",
-      status: "requires_setup",
-      reason: "vectordb npm package installation pending",
+      status: "configured",
+      reason: "@lancedb/lancedb package installed, ready to initialize",
       documentation: "server/services/LanceDBService.ts",
     });
 
@@ -146,6 +151,29 @@ export class ESAOpenSourceToolsRegistry {
     });
   }
 
+  private registerPhase3Tools() {
+    // Track G: Knowledge Graph
+    this.tools.set("knowledge-graph", {
+      layer: 44,
+      toolName: "Knowledge Graph (PostgreSQL)",
+      status: "active",
+      reason: "Implemented using recursive CTEs, no external dependencies",
+      documentation: "server/services/KnowledgeGraphService.ts",
+    });
+
+    // Track H: Memory & RAG
+    this.tools.set("llamaindex", {
+      layer: 36,
+      toolName: "LlamaIndex",
+      status: "configured",
+      reason: "RAG service created, ready for document ingestion",
+      documentation: "server/services/LlamaIndexService.ts",
+    });
+
+    // Track I: Vector Storage (updated from Phase 1)
+    // LanceDB status updated above to "configured"
+  }
+
   getToolStatus(toolId: string): ESAToolStatus | undefined {
     return this.tools.get(toolId);
   }
@@ -169,18 +197,31 @@ export class ESAOpenSourceToolsRegistry {
   }
 
   async initializeAllTools(): Promise<void> {
-    console.log("\n🚀 Initializing ESA Open Source Tools (Phase 1)...\n");
+    console.log("\n🚀 Initializing ESA Open Source Tools (Phases 1-3)...\n");
 
-    // LanceDB disabled pending vectordb package installation
-    // try {
-    //   await lanceDBService.initialize();
-    //   this.tools.set("lancedb", {
-    //     ...this.tools.get("lancedb")!,
-    //     status: "active",
-    //   });
-    // } catch (error) {
-    //   console.error("Failed to initialize LanceDB:", error);
-    // }
+    // Phase 3: Initialize LanceDB
+    try {
+      await lanceDBService.initialize();
+      this.tools.set("lancedb", {
+        ...this.tools.get("lancedb")!,
+        status: "active",
+        reason: "Vector database operational",
+      });
+    } catch (error) {
+      console.error("⚠️  LanceDB initialization failed (non-critical):", error);
+    }
+
+    // Phase 3: Initialize LlamaIndex
+    try {
+      await llamaIndexService.initialize();
+      this.tools.set("llamaindex", {
+        ...this.tools.get("llamaindex")!,
+        status: "active",
+        reason: "RAG service operational",
+      });
+    } catch (error) {
+      console.error("⚠️  LlamaIndex initialization failed (non-critical):", error);
+    }
 
     const summary = {
       active: this.getActiveTools().length,
@@ -188,7 +229,7 @@ export class ESAOpenSourceToolsRegistry {
       total: this.getAllTools().length,
     };
 
-    console.log(`\n✅ ESA Open Source Tools Summary (Phase 1 + Phase 2):`);
+    console.log(`\n✅ ESA Open Source Tools Summary (Phases 1-3):`);
     console.log(`   Active: ${summary.active}`);
     console.log(`   Configured: ${summary.configured}`);
     console.log(`   Total Registered: ${summary.total}\n`);

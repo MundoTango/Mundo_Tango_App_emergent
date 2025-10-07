@@ -1,8 +1,7 @@
-import * as lancedb from "vectordb";
-import { Table } from "vectordb";
+import { connect, Connection, Table } from "@lancedb/lancedb";
 
 /**
- * LanceDB Vector Storage Service
+ * LanceDB Vector Storage Service (Phase 3)
  * ESA Layer 26 - Local vector database for recommendations and semantic search
  * 
  * Features:
@@ -10,23 +9,31 @@ import { Table } from "vectordb";
  * - Multimodal support (text, images, metadata)
  * - Zero-copy access for performance
  * - Automatic versioning
+ * - Updated to @lancedb/lancedb (latest SDK)
  */
 
 export class LanceDBService {
-  private db: any;
+  private db: Connection | null = null;
   private tables: Map<string, Table<any>> = new Map();
   private dbPath: string;
+  private initialized: boolean = false;
 
   constructor(dbPath: string = "./data/lancedb") {
     this.dbPath = dbPath;
   }
 
+  isEnabled(): boolean {
+    return this.initialized;
+  }
+
   async initialize(): Promise<void> {
     try {
-      this.db = await lancedb.connect(this.dbPath);
+      this.db = await connect(this.dbPath);
+      this.initialized = true;
       console.log(`✅ LanceDB initialized at ${this.dbPath}`);
     } catch (error) {
       console.error("❌ Failed to initialize LanceDB:", error);
+      this.initialized = false;
       throw error;
     }
   }
@@ -36,9 +43,11 @@ export class LanceDBService {
     data: T[],
     overwrite: boolean = false
   ): Promise<Table<T>> {
+    if (!this.db) throw new Error("LanceDB not initialized");
+    
     try {
       const mode = overwrite ? "overwrite" : "create";
-      const table = await this.db.createTable(name, data, { mode });
+      const table = await this.db.createTable({ name, data, mode });
       this.tables.set(name, table);
       console.log(`✅ LanceDB table "${name}" created with ${data.length} records`);
       return table;
@@ -49,6 +58,8 @@ export class LanceDBService {
   }
 
   async openTable<T extends Record<string, any>>(name: string): Promise<Table<T>> {
+    if (!this.db) throw new Error("LanceDB not initialized");
+    
     if (this.tables.has(name)) {
       return this.tables.get(name) as Table<T>;
     }
@@ -89,7 +100,7 @@ export class LanceDBService {
         .limit(limit)
         .toArray();
       
-      return results as T[];
+      return results;
     } catch (error) {
       console.error(`❌ Vector search failed on "${tableName}":`, error);
       throw error;
@@ -97,6 +108,8 @@ export class LanceDBService {
   }
 
   async listTables(): Promise<string[]> {
+    if (!this.db) return [];
+    
     try {
       const tableNames = await this.db.tableNames();
       return tableNames;
@@ -107,6 +120,8 @@ export class LanceDBService {
   }
 
   async deleteTable(name: string): Promise<void> {
+    if (!this.db) throw new Error("LanceDB not initialized");
+    
     try {
       await this.db.dropTable(name);
       this.tables.delete(name);
