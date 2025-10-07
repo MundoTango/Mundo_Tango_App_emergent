@@ -3,7 +3,7 @@
 // Event awareness widget for contextual community engagement
 
 import { Calendar, ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTheme } from '@/lib/theme/theme-provider';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
 import { useQuery } from '@tanstack/react-query';
@@ -53,20 +53,26 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
     staleTime: 0,
     structuralSharing: false
   });
+
+  // Debug: log when eventsData changes
+  console.log('📊 [Sidebar] eventsData updated:', eventsData?.map((e: any) => ({ id: e.id, status: e.userRsvpStatus })));
   
-  // Transform API data to component format
-  const allEvents = eventsData?.map((event: any) => ({
-    id: event.id.toString(),
-    title: event.title,
-    type: event.event_type || 'milonga',
-    date: event.startDate || event.start_date || event.date,
-    time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
-    location: event.location || event.city || 'Location TBA',
-    city: event.city,
-    attendees: event.current_attendees || event.rsvpCounts?.going || 0,
-    userRsvpStatus: event.userRsvpStatus || null,
-    isFeatured: event.is_featured || false
-  })) || [];
+  // Transform API data to component format with memoization
+  const allEvents = useMemo(() => {
+    if (!eventsData) return [];
+    return eventsData.map((event: any) => ({
+      id: event.id.toString(),
+      title: event.title,
+      type: event.event_type || 'milonga',
+      date: event.startDate || event.start_date || event.date,
+      time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
+      location: event.location || event.city || 'Location TBA',
+      city: event.city,
+      attendees: event.current_attendees || event.rsvpCounts?.going || 0,
+      userRsvpStatus: event.userRsvpStatus || null,
+      isFeatured: event.is_featured || false
+    }));
+  }, [eventsData]);
 
   // Categorize events (NEW ORDER: RSVP'ed → Your City → Events You Follow → Cities You Follow)
   const rsvpedEvents = allEvents.filter((e: Event) => 

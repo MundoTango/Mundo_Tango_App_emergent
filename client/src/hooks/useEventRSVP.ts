@@ -68,18 +68,25 @@ export function useEventRSVP() {
       };
       
       // Apply optimistic updates to all event queries
+      console.log('🔧 [RSVP] Updating', previousData.size, 'queries');
       previousData.forEach(({ queryKey }) => {
         queryClient.setQueryData(queryKey, (old: any) => {
-          if (!old) return old;
+          if (!old) {
+            console.log('⚠️ [RSVP] No data for query:', queryKey);
+            return old;
+          }
           
           // Handle different response formats
           const dataArray = old?.data || old;
           
           if (Array.isArray(dataArray)) {
             const updated = dataArray.map(updateEvent);
-            return old?.data ? { ...old, data: updated } : updated;
+            const result = old?.data ? { ...old, data: updated } : updated;
+            console.log('✅ [RSVP] Updated query:', queryKey, 'Updated event', eventId, 'to status:', status);
+            return result;
           }
           
+          console.log('⚠️ [RSVP] Data not array for query:', queryKey);
           return old;
         });
       });
