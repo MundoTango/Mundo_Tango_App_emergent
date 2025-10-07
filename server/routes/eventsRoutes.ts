@@ -294,7 +294,9 @@ router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
   try {
     const { id: eventId } = req.params;
     const userId = req.user?.id;
+    console.log('✅ [RSVP Endpoint] Parsing request body...');
     const validatedData = rsvpSchema.parse(req.body);
+    console.log('✅ [RSVP Endpoint] Validation passed:', validatedData);
 
     if (!userId) {
       console.log('❌ [RSVP Endpoint] No userId found');
@@ -302,34 +304,40 @@ router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
     }
 
     // Check if RSVP already exists
+    console.log('🔍 [RSVP Endpoint] Checking for existing RSVP...');
     const existingRsvp = await db
       .select()
       .from(eventRsvps)
       .where(and(eq(eventRsvps.eventId, parseInt(eventId)), eq(eventRsvps.userId, userId)))
       .limit(1);
+    console.log('🔍 [RSVP Endpoint] Existing RSVP:', existingRsvp.length > 0 ? 'found' : 'not found');
 
     let rsvp = null;
     
     // If status is null, remove the RSVP (toggle off)
     if (validatedData.status === null) {
+      console.log('🗑️ [RSVP Endpoint] Removing RSVP...');
       if (existingRsvp.length > 0) {
         await db
           .delete(eventRsvps)
           .where(eq(eventRsvps.id, existingRsvp[0].id));
       }
-      // Return null to indicate RSVP was removed
+      console.log('✅ [RSVP Endpoint] RSVP removed successfully');
       return res.json({ success: true, data: { status: null } });
     }
 
     // Otherwise, create or update RSVP
     if (existingRsvp.length > 0) {
+      console.log('🔄 [RSVP Endpoint] Updating existing RSVP...');
       // Update existing RSVP
       [rsvp] = await db
         .update(eventRsvps)
         .set({ status: validatedData.status, updatedAt: new Date() })
         .where(eq(eventRsvps.id, existingRsvp[0].id))
         .returning();
+      console.log('✅ [RSVP Endpoint] RSVP updated:', rsvp);
     } else {
+      console.log('➕ [RSVP Endpoint] Creating new RSVP...');
       // Create new RSVP
       [rsvp] = await db
         .insert(eventRsvps)
@@ -339,6 +347,7 @@ router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
           status: validatedData.status
         })
         .returning();
+      console.log('✅ [RSVP Endpoint] RSVP created:', rsvp);
     }
 
     // Notify about RSVP change
@@ -349,9 +358,10 @@ router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
       console.log('RSVP updated for event:', eventId);
     }
 
+    console.log('📤 [RSVP Endpoint] Sending success response');
     res.json({ success: true, data: rsvp });
   } catch (error) {
-    console.error('Error creating/updating RSVP:', error);
+    console.error('❌ [RSVP Endpoint] Error:', error);
     res.status(400).json({ success: false, error: 'Failed to process RSVP' });
   }
 });
