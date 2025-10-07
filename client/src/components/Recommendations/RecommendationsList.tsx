@@ -48,7 +48,6 @@ interface Recommendation {
   priceLevel?: string | 1 | 2 | 3 | 4;
   tags?: string[];
   photos?: string[];
-  postId?: number | null; // Link to the memory/post
 }
 
 interface RecommendationsListProps {
