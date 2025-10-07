@@ -16,6 +16,7 @@ router.get('/recommendations', async (req: any, res) => {
     const {
       city,
       type,
+      categories, // Journey R5: Multi-select categories support
       priceLevel,
       minRating,
       tags,
@@ -38,7 +39,12 @@ router.get('/recommendations', async (req: any, res) => {
     // Build base query filters
     const baseFilters: any = {};
     if (city) baseFilters.city = city as string;
-    if (type) baseFilters.type = type as string;
+    // Journey R5: Support categories array (preferred) or fallback to single type
+    if (categories) {
+      baseFilters.categories = Array.isArray(categories) ? categories : [categories];
+    } else if (type) {
+      baseFilters.type = type as string;
+    }
     if (priceLevel) baseFilters.priceLevel = priceLevel as string;
     if (minRating) baseFilters.minRating = parseInt(minRating as string);
     if (tags) {
