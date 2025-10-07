@@ -23,9 +23,11 @@ interface TangoRoleMetricsProps {
     leaderLevel?: number;
     followerLevel?: number;
   }>;
+  selectedRoles?: string[];
+  onRoleToggle?: (roleId: string) => void;
 }
 
-export const TangoRoleMetrics = ({ members }: TangoRoleMetricsProps) => {
+export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: TangoRoleMetricsProps) => {
   const { t } = useTranslation();
 
   // Calculate role counts
@@ -95,10 +97,10 @@ export const TangoRoleMetrics = ({ members }: TangoRoleMetricsProps) => {
             {t('members.roleMetrics.title', 'Community Roles')}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            {t('members.roleMetrics.subtitle', '{{total}} members with {{assignments}} role assignments', {
-              total: totalMembers,
-              assignments: totalRoleAssignments
-            })}
+            {selectedRoles.length > 0 
+              ? t('members.roleMetrics.filtering', 'Click roles to filter • {{count}} selected', { count: selectedRoles.length })
+              : t('members.roleMetrics.subtitle', 'Click roles to filter members')
+            }
           </p>
         </div>
       </div>
@@ -122,32 +124,53 @@ export const TangoRoleMetrics = ({ members }: TangoRoleMetricsProps) => {
               </span>
             </div>
 
-            {/* Role Cards */}
+            {/* Role Cards - Clickable Filters */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
               {categoryData.roles
-                .filter(role => role.count > 0)
-                .map(role => (
-                  <GlassCard
-                    key={role.id}
-                    depth={1}
-                    className="role-metric-card p-3 hover:border-cyan-500/50 dark:hover:border-cyan-400/30 transition-all duration-300 group"
-                    data-testid={`card-role-metric-${role.id}`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl group-hover:scale-110 transition-transform duration-200">
-                        {role.emoji}
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-gray-700 dark:text-gray-300 truncate">
-                          {t(`members.tangoRole.${role.id}`, role.name)}
-                        </p>
-                        <p className="text-lg font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
-                          {role.count}
-                        </p>
-                      </div>
-                    </div>
-                  </GlassCard>
-                ))}
+                .filter(role => role.count > 0 && role.id !== 'dancer') // Hide generic "dancer" since we have leader/follower/both
+                .map(role => {
+                  const isSelected = selectedRoles.includes(role.id);
+                  return (
+                    <button
+                      key={role.id}
+                      onClick={() => onRoleToggle?.(role.id)}
+                      className="text-left w-full"
+                      data-testid={`button-filter-role-${role.id}`}
+                    >
+                      <GlassCard
+                        depth={isSelected ? 2 : 1}
+                        className={`role-metric-card p-3 transition-all duration-300 group ${
+                          isSelected 
+                            ? 'border-cyan-500 dark:border-cyan-400 bg-cyan-500/10 dark:bg-cyan-400/10' 
+                            : 'hover:border-cyan-500/50 dark:hover:border-cyan-400/30'
+                        }`}
+                        data-testid={`card-role-metric-${role.id}`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl group-hover:scale-110 transition-transform duration-200">
+                            {role.emoji}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs font-medium truncate ${
+                              isSelected 
+                                ? 'text-cyan-700 dark:text-cyan-300' 
+                                : 'text-gray-700 dark:text-gray-300'
+                            }`}>
+                              {t(`members.tangoRole.${role.id}`, role.name)}
+                            </p>
+                            <p className={`text-lg font-bold ${
+                              isSelected
+                                ? 'text-cyan-600 dark:text-cyan-400'
+                                : 'bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent'
+                            }`}>
+                              {role.count}
+                            </p>
+                          </div>
+                        </div>
+                      </GlassCard>
+                    </button>
+                  );
+                })}
             </div>
           </div>
         );
