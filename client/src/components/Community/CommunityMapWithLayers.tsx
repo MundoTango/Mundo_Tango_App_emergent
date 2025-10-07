@@ -160,9 +160,9 @@ export default function CommunityMapWithLayers({
   }
 
   return (
-    <div className="flex flex-col h-full w-full space-y-4">
+    <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 max-h-[350px] overflow-y-auto">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-3 max-h-[200px] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-4">
           {/* Layer Toggles */}
           <div className="flex items-center gap-3">
@@ -200,7 +200,7 @@ export default function CommunityMapWithLayers({
           </div>
 
           {/* Filters */}
-          <div className="flex-1">
+          <div className="w-full">
             <CommunityMapFilters 
               filters={filters} 
               onFiltersChange={setFilters} 
@@ -211,12 +211,12 @@ export default function CommunityMapWithLayers({
       </div>
 
       {/* Map Container */}
-      <div className="flex-1 relative rounded-lg overflow-hidden">
+      <div className="relative rounded-lg overflow-hidden h-[400px]">
         <MapContainer
         center={center}
         zoom={13}
         className="h-full w-full rounded-lg"
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '400px', width: '100%' }}
       >
         <ChangeView center={center} zoom={13} />
         <TileLayer
