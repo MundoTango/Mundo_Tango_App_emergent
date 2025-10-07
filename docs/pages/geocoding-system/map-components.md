@@ -79,6 +79,38 @@ export default function MapWithLegend() {
 }
 ```
 
+### 4. Community Hub Map (Multi-Layer with Filters)
+
+**NEW (Oct 2025)** - Unified map with 3-layer filtering system and icon-matched markers.
+
+```typescript
+import CommunityMapWithLayers from '@/components/Community/CommunityMapWithLayers';
+
+export default function CommunityHubTab({ group }) {
+  const cityCenter = group.city ? getCoordinatesForCity(group.city) : [-34.6037, -58.3816];
+  
+  return (
+    <div className="h-[900px]">
+      <CommunityMapWithLayers
+        groupSlug={group.slug}
+        city={group.city}
+        country={group.country}
+        center={cityCenter}
+      />
+    </div>
+  );
+}
+```
+
+**Features:**
+- 3-layer visualization (Events, Housing, Recommendations)
+- Icon-matched markers (Calendar/Home/MapPin) with MT Ocean gradients
+- Glassmorphic filter bar with 12 filter options
+- Real-time API integration
+- Aurora Tide design compliance
+
+**See:** `docs/pages/community/journey-community-hub-complete-oct-2025.md` for full implementation details.
+
 ---
 
 ## Components Reference
