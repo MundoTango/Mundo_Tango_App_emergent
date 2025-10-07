@@ -162,61 +162,21 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-3 relative z-10">
-        <div className="flex flex-wrap items-center gap-4">
-          {/* Layer Toggles */}
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Layers:</span>
-            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-events">
-              <input
-                type="checkbox"
-                checked={activeLayers.events}
-                onChange={(e) => setActiveLayers(prev => ({ ...prev, events: e.target.checked }))}
-                className="rounded border-gray-300"
-              />
-              <div className="w-3 h-3 bg-gradient-to-br from-red-500 to-pink-500 rounded-full"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Events</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-housing">
-              <input
-                type="checkbox"
-                checked={activeLayers.housing}
-                onChange={(e) => setActiveLayers(prev => ({ ...prev, housing: e.target.checked }))}
-                className="rounded border-gray-300"
-              />
-              <div className="w-3 h-3 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Housing</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-recommendations">
-              <input
-                type="checkbox"
-                checked={activeLayers.recommendations}
-                onChange={(e) => setActiveLayers(prev => ({ ...prev, recommendations: e.target.checked }))}
-                className="rounded border-gray-300"
-              />
-              <div className="w-3 h-3 bg-gradient-to-br from-pink-500 to-red-500 rounded-full"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Recommendations</span>
-            </label>
-          </div>
-
-          {/* Filters */}
-          <div className="w-full">
-            <CommunityMapFilters 
-              filters={filters} 
-              onFiltersChange={setFilters} 
-              compact={false} 
-            />
-          </div>
-        </div>
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-10">
+        <CommunityMapFilters 
+          filters={filters} 
+          onFiltersChange={setFilters} 
+          compact={false} 
+        />
       </div>
 
-      {/* Map Container */}
-      <div className="relative rounded-lg overflow-hidden h-[400px] z-0">
+      {/* Map Container - ESA Layer 8 + 22 Unified Map */}
+      <div className="relative rounded-lg overflow-hidden h-[700px] z-0">
         <MapContainer
         center={center}
         zoom={13}
         className="h-full w-full rounded-lg"
-        style={{ height: '400px', width: '100%' }}
+        style={{ height: '700px', width: '100%' }}
       >
         <ChangeView center={center} zoom={13} />
         <TileLayer
