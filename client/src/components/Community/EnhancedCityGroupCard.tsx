@@ -1,6 +1,8 @@
 import React from 'react';
 import { Users, Calendar, MapPin, ArrowRight, Globe, Heart, Music } from 'lucide-react';
 import { Link } from 'wouter';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
 
 interface EnhancedCityGroupCardProps {
   group: {
@@ -26,6 +28,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
   onJoin, 
   onLeave 
 }) => {
+  const { t } = useTranslation();
   const imageUrl = group.imageUrl || group.image_url;
   
   // Default Buenos Aires image if no image is provided
@@ -113,8 +116,9 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
             </div>
           </div>
           
-          {/* Action Button */}
-          <button
+          {/* Action Button - Aurora Tide MagneticButton */}
+          <MagneticButton
+            strength={0.3}
             className={`w-full py-3 px-4 rounded-xl font-medium transition-all ${
               group.isJoined 
                 ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -125,9 +129,10 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
               e.stopPropagation();
               group.isJoined ? onLeave?.() : onJoin?.();
             }}
+            data-testid={group.isJoined ? "button-leave-city-group" : "button-join-city-community"}
           >
-            {group.isJoined ? 'Leave Group' : 'Join Community'}
-          </button>
+            {group.isJoined ? t('groups.leaveGroup', 'Leave Group') : t('groups.joinCommunity', 'Join Community')}
+          </MagneticButton>
         </div>
       </div>
     </Link>

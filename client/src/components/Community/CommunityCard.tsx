@@ -1,5 +1,7 @@
 import React from 'react';
 import { Users, Calendar, MapPin } from 'lucide-react';
+import { MagneticButton } from '@/components/interactions/MicroInteractions';
+import { useTranslation } from 'react-i18next';
 
 interface CommunityCardProps {
   community: {
@@ -23,6 +25,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
   onLeave,
   onClick 
 }) => {
+  const { t } = useTranslation();
   // Fallback image for city groups
   const getCityFallbackImage = (name: string) => {
     if (name.toLowerCase().includes('buenos aires')) {
@@ -104,9 +107,10 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
             </div>
           </div>
 
-          {/* Join/Leave Button with gradient */}
-          <button
-            className={`px-4 py-1.5 rounded-full font-medium text-sm transition-all transform hover:scale-105 ${
+          {/* Join/Leave Button with gradient - Aurora Tide MagneticButton */}
+          <MagneticButton
+            strength={0.3}
+            className={`px-4 py-1.5 rounded-full font-medium text-sm transition-all ${
               community.isJoined 
                 ? 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300'
                 : 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white hover:shadow-lg'
@@ -117,9 +121,10 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
                 ? onLeave?.() 
                 : onJoin?.();
             }}
+            data-testid={community.isJoined ? "button-leave-community" : "button-join-community"}
           >
-            {community.isJoined ? 'Leave' : 'Join'}
-          </button>
+            {community.isJoined ? t('community.leave', 'Leave') : t('community.join', 'Join')}
+          </MagneticButton>
         </div>
       </div>
     </div>
