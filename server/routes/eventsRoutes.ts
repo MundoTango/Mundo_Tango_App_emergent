@@ -183,9 +183,6 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
     const offset = (parseInt(page as string) - 1) * parseInt(limit as string);
     const userId = (req as any).user?.id; // Optional user ID from session
     
-    // ESA Layer 22: Debug group filtering
-    console.log('🎯 [Events API] Fetching events with groupId:', groupId, 'Type:', typeof groupId);
-    
     // Build where conditions
     const whereConditions = [];
     whereConditions.push(eq(events.visibility, visibility as any));
@@ -199,11 +196,8 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
       const groupIdValue = Array.isArray(groupId) ? groupId[0] : groupId;
       const groupIdNum = parseInt(groupIdValue as string);
       if (!isNaN(groupIdNum)) {
-        console.log('✅ [Events API] Filtering by groupId:', groupIdNum);
         whereConditions.push(eq(events.groupId, groupIdNum));
       }
-    } else {
-      console.log('⚠️ [Events API] No groupId filter - returning all events');
     }
 
     let query = db
