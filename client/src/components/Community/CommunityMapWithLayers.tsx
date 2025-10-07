@@ -162,7 +162,7 @@ export default function CommunityMapWithLayers({
   return (
     <div className="relative h-full w-full">
       {/* Layer Toggle Controls */}
-      <div className="absolute top-4 left-4 z-10 bg-white dark:bg-slate-900 rounded-lg shadow-lg p-3 space-y-2 border border-cyan-200/30 dark:border-cyan-500/30">
+      <div className="absolute top-4 left-4 z-[1000] bg-white dark:bg-slate-900 rounded-lg shadow-lg p-3 space-y-2 border border-cyan-200/30 dark:border-cyan-500/30">
         <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Layers</p>
         <div className="space-y-2">
           <label className="flex items-center space-x-2 cursor-pointer" data-testid="layer-toggle-events">
@@ -199,7 +199,7 @@ export default function CommunityMapWithLayers({
       </div>
 
       {/* Filter Controls */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 right-4 z-[1000]">
         <CommunityMapFilters 
           filters={filters} 
           onFiltersChange={setFilters} 
