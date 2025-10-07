@@ -25,6 +25,7 @@ import CommunityToolbar from '@/components/CommunityToolbar';
 import HostHomesList from '@/components/Housing/HostHomesList';
 import HousingMap from '@/components/maps/HousingMap';
 import RecommendationsList from '@/components/Recommendations/RecommendationsList';
+import CommunityMapWithLayers from '@/components/Community/CommunityMapWithLayers';
 import { GuestOnboardingEntrance } from '@/components/GuestOnboarding/GuestOnboardingEntrance';
 import { CityRbacService } from '@/services/cityRbacService';
 import VisitorAlerts from '@/components/VisitorAlerts';
@@ -1412,130 +1413,68 @@ export default function GroupDetailPageMT() {
   const renderCommunityHub = () => {
     // Get coordinates for the city
     const cityCenter = group.city ? getCoordinatesForCity(group.city) : [-34.6037, -58.3816];
-    
-    // Get user's city context using RBAC
-    const userContext = CityRbacService.getUserCityContext(
-      user,
-      group.city || '',
-      userMemberships,
-      userFollowing,
-      group.id
-    );
-
-    const statusText = CityRbacService.getStatusDisplayText(userContext, group.city || group.name);
 
     return (
       <div className="relative space-y-6">
-        {/* Status Banner */}
-        <div className={`rounded-lg p-4 border ${
-          userContext.isLocal 
-            ? 'bg-gradient-to-r from-green-50 to-turquoise-50 border-green-200' 
-            : 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200'
-        }`}>
-          <div className="flex items-center justify-between">
+        {/* Minimized Trip Planner - Aurora Tide GlassCard Depth 2 */}
+        <GlassCard depth={2} className="p-6">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{statusText.title}</h3>
-              <p className="text-gray-700">{statusText.description}</p>
+              <h3 className="text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
+                Plan Your Trip to {group.city}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Configure dates, budget, and interests to explore
+              </p>
             </div>
-            {statusText.action && statusText.action !== 'Join Community' && (
-              <Button
-                onClick={() => {
-                  if (statusText.action === 'Follow City') {
-                    followCityMutation.mutate();
-                  } else if (statusText.action === 'Complete Guest Profile') {
-                    setLocation('/guest-onboarding');
-                  } else if (statusText.action === 'Consider becoming a host') {
-                    setLocation('/host-onboarding');
-                  }
-                }}
-                className="mt-action-button mt-action-button-primary"
-              >
-                {statusText.action}
-              </Button>
-            )}
           </div>
+          
+          {/* Trip Configuration Wizard (expandable) */}
+          <TripConfigurationWizard
+            city={group.city || group.name}
+            groupId={group.id}
+          />
+        </GlassCard>
+
+        {/* Map Layers Section - Header with Filters */}
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Map Layers</h3>
+          <Button variant="outline" size="sm" className="gap-2">
+            <Filter className="h-4 w-4" />
+            Filters
+          </Button>
         </div>
 
-        {/* Show guest onboarding for visitors without profile */}
-        {userContext.isVisitor && !userContext.hasGuestProfile && (
-          <GuestOnboardingEntrance />
-        )}
+        {/* Layer Toggles - Events, Housing, Recommendations */}
+        <div className="flex items-center gap-6 p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-500 rounded focus:ring-cyan-500" />
+            <Calendar className="h-5 w-5 text-cyan-500" />
+            <span className="text-sm font-medium">Events</span>
+          </label>
+          
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" defaultChecked className="w-4 h-4 text-teal-500 rounded focus:ring-teal-500" />
+            <Home className="h-5 w-5 text-teal-500" />
+            <span className="text-sm font-medium">Housing</span>
+          </label>
+          
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-500 rounded focus:ring-blue-500" />
+            <Star className="h-5 w-5 text-blue-500" />
+            <span className="text-sm font-medium">Recommendations</span>
+          </label>
+        </div>
 
-        {/* Show host onboarding option for locals without host profile */}
-        {userContext.isLocal && !userContext.hasHostProfile && (
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-6">
-            <div className="flex items-start gap-4">
-              <Home className="h-8 w-8 text-purple-600 mt-1" />
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900 mb-2">Become a Host</h3>
-                <p className="text-gray-700 mb-4">
-                  Share your home with visiting dancers and earn extra income while building connections.
-                </p>
-                <Button
-                  onClick={() => setLocation('/host-onboarding')}
-                  className="mt-action-button mt-action-button-secondary"
-                >
-                  Become a Host
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Show community features for qualified users */}
-        {(userContext.isLocal || userContext.hasGuestProfile) && (
-          <>
-            <CommunityToolbar 
-              city={group.city} 
-              groupSlug={group.slug}
-              userContext={userContext}
-            />
-            
-            {/* Context-specific messaging */}
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-lg p-4">
-              <div className="flex items-center gap-2">
-                <Info className="h-5 w-5 text-gray-600" />
-                <p className="text-gray-700">
-                  {userContext.isLocal ? (
-                    <>
-                      As a local, you can see visitors coming to town and offer to guide them. 
-                      Check the map for upcoming visitors!
-                    </>
-                  ) : (
-                    <>
-                      Browse available host homes, local recommendations, and events in {group.city}. 
-                      Your guest profile allows you to request stays!
-                    </>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            {/* Visitor alerts for locals */}
-            {userContext.privileges.canSeeVisitors && (
-              <VisitorAlerts cityId={group.id} />
-            )}
-          </>
-        )}
-
-        {/* Floating Action Button - Plan a Trip (Aurora Tide Design) */}
-        <button
-          onClick={() => setShowTripPlannerModal(true)}
-          className="fixed bottom-8 right-8 z-40 group"
-          data-testid="fab-plan-trip"
-          aria-label="Plan a Trip"
-        >
-          <div className="relative">
-            {/* Pulsing background animation */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full opacity-75 group-hover:opacity-100 animate-pulse"></div>
-            
-            {/* Main button */}
-            <div className="relative flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 group-hover:scale-110">
-              <Plane className="h-6 w-6" />
-              <span className="font-semibold text-lg">Plan a Trip</span>
-            </div>
-          </div>
-        </button>
+        {/* Interactive Map with Layers */}
+        <GlassCard depth={2} className="p-0 overflow-hidden h-[600px]">
+          <CommunityMapWithLayers
+            groupSlug={group.slug}
+            city={group.city}
+            country={group.country}
+            center={cityCenter as [number, number]}
+          />
+        </GlassCard>
       </div>
     );
   };
