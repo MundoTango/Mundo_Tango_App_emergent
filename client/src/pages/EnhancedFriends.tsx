@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
+import { useFriendRequest } from '@/hooks/useFriendRequest';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -173,46 +174,8 @@ export default function EnhancedFriendsPage() {
   const requests = requestsData?.data || [];
   const suggestions = suggestionsData?.data || [];
 
-  // Send friend request mutation
-  const sendFriendRequestMutation = useMutation({
-    mutationFn: async (user: Friend) => {
-      const response = await fetch('/api/friends/requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          friend_identifier: user.username,
-          sender_notes: requestNote
-        })
-      });
-      
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to send friend request');
-      }
-      
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Success",
-        description: "Friend request sent successfully!",
-      });
-      setShowSendRequestModal(false);
-      setSelectedUser(null);
-      setRequestNote('');
-      queryClient.invalidateQueries({ queryKey: ['/api/friends/requests'] });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to send friend request",
-        variant: "destructive",
-      });
-    }
-  });
+  // ESA Layer 7 & 14: Use standardized friend request hook
+  const { mutate: sendFriendRequest, isPending: isSendingRequest } = useFriendRequest('send');
 
   // Fuzzy search setup
   const fuse = useMemo(() => {
@@ -276,28 +239,7 @@ export default function EnhancedFriendsPage() {
     return sorted;
   }, [searchResults, selectedFilter, selectedSort]);
 
-  // Send friend request mutation
-  const sendRequestMutation = useMutation({
-    mutationFn: async ({ friendId, notes }: { friendId: string; notes: string }) => {
-      const response = await fetch('/api/friend/send-friend-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ friend_id: friendId, sender_notes: notes })
-      });
-      
-      if (!response.ok) throw new Error('Failed to send friend request');
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: '🎉 Friend request sent!',
-        description: 'Your friend request has been sent successfully.'
-      });
-      setShowSendRequestModal(false);
-      setSelectedUser(null);
-      setRequestNote('');
-    }
-  });
+  // Removed duplicate mutation - using useFriendRequest hook above
 
   // Handle drag and drop
   const handleDragEnd = (result: DropResult) => {
@@ -786,20 +728,32 @@ export default function EnhancedFriendsPage() {
                 </Button>
                 <Button
                   onClick={() => {
-                    if (selectedUser?.username) {
-                      sendFriendRequestMutation.mutate(selectedUser);
+                    if (selectedUser?.id) {
+                      sendFriendRequest(
+                        { 
+                          friendId: Number(selectedUser.id), 
+                          note: requestNote 
+                        },
+                        {
+                          onSuccess: () => {
+                            setShowSendRequestModal(false);
+                            setSelectedUser(null);
+                            setRequestNote('');
+                          }
+                        }
+                      );
                     } else {
                       toast({
                         title: "Error",
-                        description: "Please enter a username or email",
+                        description: "Please enter a username or email to send friend request",
                         variant: "destructive"
                       });
                     }
                   }}
-                  disabled={!selectedUser?.username || sendFriendRequestMutation.isPending}
+                  disabled={!selectedUser?.id || isSendingRequest}
                   className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
                 >
-                  {sendFriendRequestMutation.isPending ? (
+                  {isSendingRequest ? (
                     <>
                       <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                       Sending...
