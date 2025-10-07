@@ -3186,6 +3186,12 @@ export const insertAgentCollaborationLogSchema = createInsertSchema(agentCollabo
   createdAt: true,
 });
 
+// Types for agent learning tables
+export type AgentLearning = typeof agentLearnings.$inferSelect;
+export type InsertAgentLearning = z.infer<typeof insertAgentLearningSchema>;
+export type AgentCollaboration = typeof agentCollaborationLog.$inferSelect;
+export type InsertAgentCollaboration = z.infer<typeof insertAgentCollaborationLogSchema>;
+
 // Types for agent messages and token usage
 export type AgentMessage = typeof agentMessages.$inferSelect;
 export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
