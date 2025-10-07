@@ -106,7 +106,9 @@ export default function EnhancedMemoriesRealtime() {
           
           if (enhanceResponse.ok) {
             aiResults = await enhanceResponse.json();
-            finalContent = aiResults.enhancedContent;
+            if (aiResults) {
+              finalContent = aiResults.enhancedContent;
+            }
             toast.success('✨ AI enhanced your memory!', { id: 'ai-enhance' });
           } else {
             toast.dismiss('ai-enhance');
@@ -257,7 +259,7 @@ export default function EnhancedMemoriesRealtime() {
   const handleComment = (postId: number) => {
     // This will be enhanced with real-time commenting
     console.log('Comment on post:', postId);
-    toast.info('💬 Real-time comments coming soon!');
+    toast('💬 Real-time comments coming soon!');
   };
 
   const handleShare = (postId: number) => {
@@ -283,7 +285,7 @@ export default function EnhancedMemoriesRealtime() {
 
   const handleBookmark = (postId: number) => {
     console.log('Bookmark post:', postId);
-    toast.info('🔖 Bookmarking coming soon!');
+    toast('🔖 Bookmarking coming soon!');
   };
 
   const handleAddTag = (tag: string) => {
@@ -412,11 +414,27 @@ export default function EnhancedMemoriesRealtime() {
           {isLoading ? (
             <ModernLoadingState type="posts" />
           ) : posts && posts.length > 0 ? (
-            posts.map((post: Post) => (
+            posts.map((post: Post) => {
+              // Map to EnhancedPostItem's expected Post format
+              // Preserve optimistic 'likes' value from hook, fallback to likesCount
+              const mappedPost = {
+                ...post,
+                imageUrl: post.imageUrl ?? undefined, // Convert null to undefined
+                videoUrl: post.videoUrl ?? undefined,
+                likes: post.likes ?? post.likesCount, // Preserve optimistic updates
+                commentsCount: post.commentsCount,
+              };
+              
+              const handleLikeWrapper = (arg: any) => {
+                const postId = typeof arg === 'number' ? arg : arg.id;
+                handleLikePost(postId);
+              };
+
+              return (
               <div key={post.id} className="relative">
                 <EnhancedPostItem
-                  post={post}
-                  onLike={handleLikePost}
+                  post={mappedPost as any}
+                  onLike={handleLikeWrapper as any}
                   onComment={handleComment}
                   onShare={handleShare}
                   onBookmark={handleBookmark}
@@ -430,7 +448,8 @@ export default function EnhancedMemoriesRealtime() {
                   </div>
                 )}
               </div>
-            ))
+              );
+            })
           ) : (
             <div className="text-center py-16">
               <div className="bg-white/40 backdrop-blur-sm rounded-3xl shadow-lg border border-white/30 p-12">
