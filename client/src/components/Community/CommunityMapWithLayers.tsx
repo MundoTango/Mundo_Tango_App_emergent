@@ -162,7 +162,7 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col h-full w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 max-h-[350px] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-4">
           {/* Layer Toggles */}
           <div className="flex items-center gap-3">
