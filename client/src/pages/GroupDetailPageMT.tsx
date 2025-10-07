@@ -241,13 +241,19 @@ export default function GroupDetailPageMT() {
   const group: any = groupData?.id ? groupData : null;
   
   // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
-  // MUST come after group is defined to avoid ReferenceError
+  // ESA Layer 22: Fetch all events and filter by groupId on frontend (workaround for query timing issue)
   const { data: eventsResponse, isLoading: loadingEvents } = useQuery<any>({
     queryKey: ['/api/events/feed', { groupId: group?.id }],
     enabled: activeTab === 'events' && !!group?.id
   });
   
-  const events = eventsResponse?.data || [];
+  // ESA Layer 22: Client-side filter to ensure only events from this group are shown
+  const events = React.useMemo(() => {
+    const allEvents = eventsResponse?.data || [];
+    if (!group?.id) return [];
+    // Filter events by group_id to ensure only this group's events are shown
+    return allEvents.filter((event: any) => event.group_id === group.id || event.groupId === group.id);
+  }, [eventsResponse, group?.id]);
   
   // Fetch housing data for housing tab (city groups only)
   const { data: housingData, isLoading: loadingHousing } = useQuery<any>({
