@@ -1,5 +1,5 @@
-import * as lancedb from "@lancedb/lancedb";
-import { Table } from "@lancedb/lancedb";
+import * as lancedb from "vectordb";
+import { Table } from "vectordb";
 
 /**
  * LanceDB Vector Storage Service
