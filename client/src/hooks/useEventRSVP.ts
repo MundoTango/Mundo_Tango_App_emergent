@@ -7,21 +7,13 @@ export function useEventRSVP() {
 
   return useMutation({
     mutationFn: async ({ eventId, status }: { eventId: string; status: 'going' | 'interested' | 'maybe' | 'not_going' | null }) => {
-      console.log('🚀 [RSVP Mutation] Starting mutation:', { eventId, status });
       const result = await apiRequest(`/api/events/${eventId}/rsvp`, {
         method: 'POST',
         body: { status }
       });
-      console.log('✅ [RSVP Mutation] Mutation successful:', result);
       return result;
     },
     onMutate: async ({ eventId, status }) => {
-      console.log('🔄 [RSVP Mutation] onMutate called:', { eventId, status });
-      
-      // DEBUG: Log all queries in cache
-      const allQueries = queryClient.getQueryCache().getAll();
-      console.log('🔍 [RSVP Debug] All queries in cache:', allQueries.map(q => q.queryKey));
-      
       // Cancel all event-related queries (unified approach)
       await queryClient.cancelQueries({ 
         predicate: (query) => {
@@ -76,39 +68,27 @@ export function useEventRSVP() {
       };
       
       // Apply optimistic updates to all event queries
-      console.log(`📊 [RSVP Mutation] Found ${previousData.size} queries to update`);
       previousData.forEach(({ queryKey }) => {
-        console.log('🔧 [RSVP Mutation] Updating query:', queryKey);
         queryClient.setQueryData(queryKey, (old: any) => {
-          if (!old) {
-            console.log('⚠️ [RSVP Mutation] No old data for query:', queryKey);
-            return old;
-          }
+          if (!old) return old;
           
           // Handle different response formats
           const dataArray = old?.data || old;
-          console.log('📦 [RSVP Mutation] Data structure:', { hasDataProp: !!old?.data, isArray: Array.isArray(dataArray), length: dataArray?.length });
           
           if (Array.isArray(dataArray)) {
             const updated = dataArray.map(updateEvent);
-            const result = old?.data ? { ...old, data: updated } : updated;
-            console.log('✨ [RSVP Mutation] Updated data for query:', queryKey);
-            return result;
+            return old?.data ? { ...old, data: updated } : updated;
           }
           
-          console.log('⚠️ [RSVP Mutation] Data is not an array:', typeof dataArray);
           return old;
         });
       });
       
-      console.log('✅ [RSVP Mutation] Optimistic update complete');
       return { previousData };
     },
     onError: (err, variables, context) => {
-      console.error('❌ [RSVP Mutation] Error occurred:', err);
       // Rollback all optimistic updates on error
       if (context?.previousData) {
-        console.log('🔙 [RSVP Mutation] Rolling back optimistic updates');
         context.previousData.forEach(({ queryKey, data }: any) => {
           queryClient.setQueryData(queryKey, data);
         });
@@ -120,8 +100,6 @@ export function useEventRSVP() {
       });
     },
     onSuccess: (data, { eventId, status }) => {
-      console.log('🎉 [RSVP Mutation] onSuccess called:', { eventId, status, data });
-      
       if (status === null) {
         toast({
           title: "RSVP Removed",
@@ -140,7 +118,6 @@ export function useEventRSVP() {
       }
       
       // ESA Layer 14: Invalidate all event-related queries with immediate refetch
-      console.log('🔄 [RSVP Mutation] Invalidating queries...');
       queryClient.invalidateQueries({ 
         predicate: (query) => {
           const key = query.queryKey;
