@@ -100,7 +100,9 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
         title: "Event created!",
         description: "Your event has been successfully created.",
       });
+      // ESA Layer 14: Invalidate all event-related queries for immediate UI update
       queryClient.invalidateQueries({ queryKey: ['/api/events'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/events/feed'] });
       form.reset();
       setImageUrl('');
       setGalleryImages([]);

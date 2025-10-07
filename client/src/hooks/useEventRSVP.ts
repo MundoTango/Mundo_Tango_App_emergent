@@ -116,7 +116,7 @@ export function useEventRSVP() {
         });
       }
       
-      // Invalidate all event-related queries to refetch from server (unified approach)
+      // ESA Layer 14: Invalidate all event-related queries with immediate refetch
       queryClient.invalidateQueries({ 
         predicate: (query) => {
           const key = query.queryKey;
@@ -126,7 +126,8 @@ export function useEventRSVP() {
             key[0] === `/api/events/${eventId}` ||
             key[0] === '/api/user/events'
           );
-        }
+        },
+        refetchType: 'active' // Force immediate refetch of active queries
       });
     }
   });
