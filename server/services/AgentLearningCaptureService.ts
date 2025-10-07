@@ -2,7 +2,6 @@ import { db } from "../db";
 import { agentLearnings, insertAgentLearningSchema } from "../../shared/schema";
 import type { AgentLearning as AgentLearningType } from "../../shared/schema";
 import { eq, desc, and, gt } from "drizzle-orm";
-import type { AutoDocumentationEngine } from "./AutoDocumentationEngine";
 
 export interface LearningPattern {
   pattern: string;
@@ -19,14 +18,9 @@ export interface LearningPattern {
 }
 
 export class AgentLearningCaptureService {
-  private autoDocEngine: AutoDocumentationEngine | null = null;
-
   private async getAutoDocEngine() {
-    if (!this.autoDocEngine) {
-      const { AutoDocumentationEngine } = await import("./AutoDocumentationEngine");
-      this.autoDocEngine = new AutoDocumentationEngine();
-    }
-    return this.autoDocEngine;
+    const { AutoDocumentationEngine } = await import("./AutoDocumentationEngine");
+    return new AutoDocumentationEngine();
   }
 
   async captureLearning(learning: LearningPattern): Promise<number> {

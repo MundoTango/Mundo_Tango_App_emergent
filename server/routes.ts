@@ -79,6 +79,7 @@ import translationRoutes from "./routes/translationRoutes"; // ESA Layer 53: Int
 import lifeCeoAgentRoutes from "./routes/lifeCeoAgentRoutes"; // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o
 import { integrateESAAgentSystem, registerTestEndpoints } from "./esa-agents/server-integration"; // ESA 61x21 Multi-Agent System
 import communityRoutes from "./routes/communityRoutes"; // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
+import { agentLearningRouter } from "./routes/agent-learning"; // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -180,6 +181,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', recommendationsRoutes); // ESA LIFE CEO 61x21 - User-Generated Recommendations (Layer 28)
   app.use(communityRoutes); // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
+  app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
   // ESA Layer 58: Cloudinary routes removed per user request
@@ -3942,6 +3944,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('⚠️ ESA Agent System initialization failed:', error);
     // Continue without agent system - non-critical for core functionality
+  }
+
+  // 🧠 ESA Agent Learning System - Self-Improving Intelligence
+  // Initialize agent learning with LangGraph orchestration + auto-documentation
+  try {
+    const { agentLearningInitializer } = await import('./services/AgentLearningInitializer');
+    await agentLearningInitializer.initialize();
+  } catch (error) {
+    console.error('⚠️ Agent Learning System initialization failed:', error);
+    // Continue without learning system - non-critical
   }
 
   // Production Health Check Endpoints for Autoscaling

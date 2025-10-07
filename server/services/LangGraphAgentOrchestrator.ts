@@ -1,11 +1,10 @@
-import { StateGraph, MessagesAnnotation, Annotation } from "@langchain/langgraph";
+import { StateGraph, Annotation } from "@langchain/langgraph";
 import { MemorySaver } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { agentLearningService } from "./AgentLearningCaptureService";
 import { crossDomainLearning } from "./CrossDomainLearningService";
 
 const AgentStateAnnotation = Annotation.Root({
-  ...MessagesAnnotation.spec,
   agentDomain: Annotation<string>,
   task: Annotation<string>,
   pattern: Annotation<any>,
@@ -122,7 +121,6 @@ export class LangGraphAgentOrchestrator {
     const app = this.workflow.compile({ checkpointer: this.memory });
 
     const result = await app.invoke({
-      messages: [],
       task: input.task,
       pattern: input.pattern,
       files: input.files || [],
