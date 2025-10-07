@@ -41,6 +41,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { MembersList, RoleChangeModal } from '@/components/members';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
 
@@ -135,6 +136,15 @@ export default function GroupDetailPageMT() {
   // Member data state
   const [memberData, setMemberData] = useState<any[]>([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
+  
+  // Role change modal state (ESA Layer 22: Group Management)
+  const [roleChangeModal, setRoleChangeModal] = useState<{
+    open: boolean;
+    userId?: number;
+    username?: string;
+    currentRole?: 'member' | 'moderator' | 'admin' | 'owner';
+    targetRole?: 'member' | 'moderator' | 'admin';
+  }>({ open: false });
   
   // Event filtering state
   const [eventFilters, setEventFilters] = useState({
@@ -475,6 +485,75 @@ export default function GroupDetailPageMT() {
     },
   });
 
+  // Role change mutation (ESA Layer 22: Group Management)
+  const changeRoleMutation = useMutation({
+    mutationFn: async ({ userId, newRole }: { userId: number; newRole: 'member' | 'moderator' | 'admin' }) => {
+      const response = await apiRequest(`/api/groups/${group?.id}/members/${userId}/role`, {
+        method: 'PATCH',
+        body: JSON.stringify({ role: newRole }),
+      });
+      return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: t('members.roleChange.success', 'Role Updated'),
+        description: t('members.roleChange.successDescription', 'Member role has been successfully updated'),
+      });
+      // Refresh member data
+      if (activeTab === 'members' && slug) {
+        fetch(`/api/groups/${slug}/members`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              setMemberData(data.data);
+            }
+          });
+      }
+      queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+    },
+    onError: () => {
+      toast({
+        title: t('common.error', 'Error'),
+        description: t('members.roleChange.error', 'Failed to update member role'),
+        variant: 'destructive',
+      });
+    },
+  });
+
+  // Remove member mutation (ESA Layer 22: Group Management)
+  const removeMemberMutation = useMutation({
+    mutationFn: async (userId: number) => {
+      const response = await apiRequest(`/api/groups/${group?.id}/members/${userId}`, {
+        method: 'DELETE',
+      });
+      return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: t('members.remove.success', 'Member Removed'),
+        description: t('members.remove.successDescription', 'Member has been removed from the group'),
+      });
+      // Refresh member data
+      if (activeTab === 'members' && slug) {
+        fetch(`/api/groups/${slug}/members`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              setMemberData(data.data);
+            }
+          });
+      }
+      queryClient.invalidateQueries({ queryKey: [`/api/groups/${slug}`] });
+    },
+    onError: () => {
+      toast({
+        title: t('common.error', 'Error'),
+        description: t('members.remove.error', 'Failed to remove member'),
+        variant: 'destructive',
+      });
+    },
+  });
+
   // Loading state
   if (isLoading) {
     return (
@@ -638,83 +717,68 @@ export default function GroupDetailPageMT() {
   );
 
   const renderMembersTab = () => {
-    // Filter to show only professional members (teachers, organizers, DJs, etc.)
-    const professionalRoles = ['teacher', 'organizer', 'dj', 'performer', 'musician', 'photographer', 'videographer'];
-    
-    // Filter professional members
-    const professionalMembers = memberData.filter(member => 
-      member.tangoRoles?.some((role: string) => professionalRoles.includes(role))
-    );
-    
+    // Transform member data to match MembersList component interface
+    const transformedMembers = memberData.map((member: any) => ({
+      id: member.id || member.user?.id,
+      userId: member.user?.id || member.userId,
+      username: member.user?.username || member.username,
+      fullName: member.user?.name || member.user?.fullName,
+      profilePicture: member.user?.profileImage || member.user?.profilePicture,
+      role: member.role || 'member',
+      status: member.status || 'active',
+      joinedAt: member.joinedAt ? new Date(member.joinedAt) : new Date(),
+    }));
+
+    // Handle role change from dropdown
+    const handleRoleChange = (userId: number) => {
+      const member = memberData.find((m: any) => m.user?.id === userId || m.userId === userId);
+      if (!member) return;
+
+      setRoleChangeModal({
+        open: true,
+        userId,
+        username: member.user?.username || member.username,
+        currentRole: member.role || 'member',
+        targetRole: 'member', // Will be set in dropdown
+      });
+    };
+
+    // Handle member removal
+    const handleRemoveMember = (userId: number) => {
+      if (confirm(t('members.remove.confirm', 'Are you sure you want to remove this member?'))) {
+        removeMemberMutation.mutate(userId);
+      }
+    };
+
     return (
       <div className="space-y-6">
-        {/* Member Search */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h3 className="text-lg font-semibold">Professional Members</h3>
-            <p className="text-sm text-gray-500">
-              {professionalMembers.length} professionals • {memberData.length} total members
-            </p>
-          </div>
-          {isAdmin && (
-            <Button className="mt-action-button mt-action-button-primary">
-              <UserPlus className="h-4 w-4" />
-              Invite Members
-            </Button>
-          )}
-        </div>
+        {/* New Aurora Tide MembersList Component */}
+        <MembersList
+          members={transformedMembers}
+          currentUserId={user?.id}
+          currentUserRole={memberRole}
+          isLoading={loadingMembers}
+          onRoleChange={handleRoleChange}
+          onRemoveMember={handleRemoveMember}
+        />
 
-        {/* Professional Members Grid */}
-        {loadingMembers ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-pink-500"></div>
-          </div>
-        ) : professionalMembers.length > 0 ? (
-          <div className="mt-members-grid">
-            {professionalMembers.map((member: any) => (
-              <div 
-                key={member.user.id} 
-                className="mt-member-card"
-                onClick={() => setLocation(`/u/${member.user.username}`)}
-              >
-                <div className="mt-member-avatar">
-                  {member.user.profileImage ? (
-                    <img src={member.user.profileImage} alt={member.user.name} className="w-full h-full rounded-full object-cover" />
-                  ) : (
-                    member.user.name.charAt(0)
-                  )}
-                </div>
-                <div className="mt-member-info">
-                  <p className="mt-member-name">{member.user.name}</p>
-                  {member.tangoRoles && member.tangoRoles.length > 0 && (
-                    <RoleEmojiDisplay 
-                      tangoRoles={member.tangoRoles} 
-                      leaderLevel={member.user.leaderLevel}
-                      followerLevel={member.user.followerLevel}
-                      size="sm"
-                      maxRoles={5}
-                      className="mt-1"
-                    />
-                  )}
-                  <p className="text-xs text-gray-500 mt-1">
-                    Joined {new Date(member.joinedAt).toLocaleDateString()}
-                  </p>
-                </div>
-                {member.role === 'admin' && (
-                  <span className="mt-member-badge">Admin</span>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="mt-empty-state">
-            <Users className="mt-empty-icon" />
-            <h3 className="mt-empty-title">No professional members yet</h3>
-            <p className="mt-empty-description">
-              Teachers, organizers, and other professionals will appear here when they join.
-            </p>
-          </div>
-        )}
+        {/* Role Change Modal */}
+        <RoleChangeModal
+          open={roleChangeModal.open}
+          onOpenChange={(open) => setRoleChangeModal({ ...roleChangeModal, open })}
+          memberUsername={roleChangeModal.username || ''}
+          currentRole={roleChangeModal.currentRole || 'member'}
+          targetRole={roleChangeModal.targetRole || 'member'}
+          onConfirm={() => {
+            if (roleChangeModal.userId && roleChangeModal.targetRole) {
+              changeRoleMutation.mutate({
+                userId: roleChangeModal.userId,
+                newRole: roleChangeModal.targetRole,
+              });
+            }
+          }}
+          isLoading={changeRoleMutation.isPending}
+        />
       </div>
     );
   };
