@@ -131,7 +131,8 @@ export const queryClient = new QueryClient({
       queryFn: getQueryFn({ on401: "throw" }),
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: 0, // Allow immediate updates after mutations
+      staleTime: 0, // Allow immediate updates after mutations (Sept 30, 2025 fix)
+      gcTime: 30 * 60 * 1000, // ESA Layer 14: Keep cache for 30min to prevent premature garbage collection
       retry: false,
     },
     mutations: {
