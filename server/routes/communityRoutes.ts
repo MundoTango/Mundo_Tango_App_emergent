@@ -10,13 +10,52 @@ const router = Router();
 // Aggregates Events, Housing, and Recommendations with coordinates for unified map display
 router.get('/api/community/map-data', optionalAuth, async (req, res) => {
   try {
-    const { city, country, groupSlug } = req.query;
+    const { 
+      city, 
+      country, 
+      groupSlug,
+      // Event filters
+      eventType,
+      startDate,
+      endDate,
+      hasSpace,
+      // Housing filters
+      roomType,
+      minGuests,
+      connectionLevel,
+      // Recommendations filters
+      cuisine,
+      category,
+      priceLevel
+    } = req.query;
 
     if (!city) {
       return res.status(400).json({ error: 'City parameter is required' });
     }
 
     const mapItems: any[] = [];
+
+    // Build event filters
+    const eventFilters = [
+      sql`LOWER(${events.city}) = LOWER(${city as string})`,
+      gte(events.startDate, new Date())
+    ];
+
+    if (eventType && eventType !== 'all') {
+      eventFilters.push(eq(events.eventType, eventType as string));
+    }
+
+    if (startDate) {
+      eventFilters.push(gte(events.startDate, new Date(startDate as string)));
+    }
+
+    if (endDate) {
+      eventFilters.push(lte(events.endDate, new Date(endDate as string)));
+    }
+
+    if (hasSpace === 'true') {
+      eventFilters.push(sql`${events.maxAttendees} > ${events.currentAttendees}`);
+    }
 
     // Fetch Events with coordinates (ESA Layer 23 - Event Management)
     const eventsData = await db
@@ -32,6 +71,9 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
         endDate: events.endDate,
         price: events.price,
         currency: events.currency,
+        eventType: events.eventType,
+        maxAttendees: events.maxAttendees,
+        currentAttendees: events.currentAttendees,
         attendeeCount: sql<number>`(
           SELECT COUNT(*) FROM ${eventRsvps} 
           WHERE ${eventRsvps.eventId} = ${events.id} 
@@ -39,12 +81,7 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
         )`.as('attendeeCount'),
       })
       .from(events)
-      .where(
-        and(
-          sql`LOWER(${events.city}) = LOWER(${city as string})`,
-          gte(events.startDate, new Date())
-        )
-      )
+      .where(and(...eventFilters))
       .limit(50);
 
     eventsData.forEach((event) => {
@@ -71,6 +108,30 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
       }
     });
 
+    // Build housing filters
+    const housingFilters = [
+      sql`LOWER(${hostHomes.city}) = LOWER(${city as string})`,
+      eq(hostHomes.isActive, true)
+    ];
+
+    if (minGuests && minGuests !== 'all') {
+      housingFilters.push(gte(hostHomes.maxGuests, parseInt(minGuests as string)));
+    }
+
+    if (connectionLevel && connectionLevel !== 'all') {
+      // Filter by whoCanBook connection level
+      const levelMap: { [key: string]: string[] } = {
+        '1st_degree': ['1st_degree', 'friends_only'],
+        '2nd_degree': ['1st_degree', '2nd_degree', 'friends_only'],
+        '3rd_degree': ['1st_degree', '2nd_degree', '3rd_degree', 'friends_only']
+      };
+      const allowedLevels = levelMap[connectionLevel as string] || ['anyone'];
+      housingFilters.push(sql`${hostHomes.whoCanBook} IN (${sql.raw(allowedLevels.map(l => `'${l}'`).join(','))}, 'anyone')`);
+    }
+
+    // Note: roomType is not in the schema, so we skip that filter for now
+    // In the future, this could be added as a new column to hostHomes table
+
     // Fetch Housing with coordinates (ESA Layer 28 - Marketplace/Booking System)
     const housingData = await db
       .select({
@@ -86,12 +147,7 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
         whoCanBook: hostHomes.whoCanBook,
       })
       .from(hostHomes)
-      .where(
-        and(
-          sql`LOWER(${hostHomes.city}) = LOWER(${city as string})`,
-          eq(hostHomes.isActive, true)
-        )
-      )
+      .where(and(...housingFilters))
       .limit(50);
 
     housingData.forEach((home) => {
@@ -113,6 +169,23 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
       }
     });
 
+    // Build recommendations filters
+    const recommendationFilters = [
+      sql`LOWER(${recommendations.city}) = LOWER(${city as string})`
+    ];
+
+    if (cuisine && cuisine !== 'all') {
+      recommendationFilters.push(sql`LOWER(${recommendations.cuisine}) = LOWER(${cuisine as string})`);
+    }
+
+    if (category && category !== 'all') {
+      recommendationFilters.push(eq(recommendations.type, category as string));
+    }
+
+    if (priceLevel && priceLevel !== 'all') {
+      recommendationFilters.push(eq(recommendations.priceLevel, priceLevel as string));
+    }
+
     // Fetch Recommendations with coordinates (ESA Layer 27 - Recommendations System)
     const recommendationsData = await db
       .select({
@@ -124,12 +197,13 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
         address: recommendations.address,
         type: recommendations.type,
         priceLevel: recommendations.priceLevel,
+        cuisine: recommendations.cuisine,
         rating: recommendations.rating,
         googleRating: recommendations.googleRating,
         mtRating: recommendations.mtRating,
       })
       .from(recommendations)
-      .where(sql`LOWER(${recommendations.city}) = LOWER(${city as string})`)
+      .where(and(...recommendationFilters))
       .limit(50);
 
     recommendationsData.forEach((rec) => {
@@ -145,6 +219,7 @@ router.get('/api/community/map-data', optionalAuth, async (req, res) => {
           metadata: {
             category: rec.type,
             priceRange: rec.priceLevel,
+            cuisine: rec.cuisine,
             rating: rec.mtRating || rec.rating || rec.googleRating,
           },
         });
