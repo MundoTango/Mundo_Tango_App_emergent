@@ -1232,6 +1232,7 @@ export class DatabaseStorage implements IStorage {
   async getRecommendationsByFilters(filters: {
     city?: string;
     type?: string;
+    categories?: string[]; // Journey R5: Multi-select categories
     priceLevel?: string;
     minRating?: number;
     tags?: string[];
@@ -1244,7 +1245,12 @@ export class DatabaseStorage implements IStorage {
     if (filters.city) {
       conditions.push(eq(recommendations.city, filters.city));
     }
-    if (filters.type) {
+    // Journey R5: Support categories array (preferred) or fallback to single type
+    if (filters.categories && filters.categories.length > 0) {
+      conditions.push(
+        inArray(recommendations.type, filters.categories)
+      );
+    } else if (filters.type) {
       conditions.push(eq(recommendations.type, filters.type));
     }
     if (filters.priceLevel) {

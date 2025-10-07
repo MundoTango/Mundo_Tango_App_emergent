@@ -64,7 +64,9 @@ interface FilterState {
   localStatus: 'all' | 'local' | 'visitor';
   originCountry?: string;
   cuisine?: string; // For restaurant ranking
-  type?: string;
+  city?: string; // Journey R4: City filter
+  categories?: string[]; // Journey R5: Multi-select categories
+  type?: string; // Deprecated - use categories instead
   priceLevel?: string;
   minRating?: number;
   tags?: string[];
