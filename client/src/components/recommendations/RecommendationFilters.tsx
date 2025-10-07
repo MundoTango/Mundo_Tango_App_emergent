@@ -11,7 +11,9 @@ interface FilterState {
   localStatus: 'all' | 'local' | 'visitor';
   originCountry?: string;
   cuisine?: string; // For restaurant ranking (not filtering)
-  type?: string;
+  city?: string; // Journey R4: City filter
+  categories?: string[]; // Journey R5: Multi-select categories
+  type?: string; // Deprecated - use categories instead
   priceLevel?: string;
   minRating?: number;
   tags?: string[];
@@ -201,6 +203,36 @@ export default function RecommendationFilters({
               })}
             </div>
           </div>
+
+          {/* Journey R4: City Filter */}
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <MapPin className="h-4 w-4 text-turquoise-600" />
+              City
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={filters.city || ''}
+                onChange={(e) => updateFilter('city', e.target.value || undefined)}
+                placeholder="e.g., Buenos Aires, Paris, Tokyo..."
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
+                data-testid="input-city-filter"
+              />
+              {filters.city && (
+                <button
+                  onClick={() => updateFilter('city', undefined)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-turquoise-600"
+                  data-testid="button-clear-city-filter"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Filter recommendations by city
+            </p>
+          </div>
           </div>
 
           {/* Column 2: Experience Details */}
@@ -209,31 +241,61 @@ export default function RecommendationFilters({
               Experience Details
             </h4>
 
-          {/* Category Filter (moved to top of column 2) */}
+          {/* Journey R5: Category Multi-Select Filter */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <Tag className="h-4 w-4 text-turquoise-600" />
-              Category
+              Categories
+              {filters.categories && filters.categories.length > 0 && (
+                <span className="ml-2 px-2 py-0.5 bg-turquoise-100 dark:bg-turquoise-900/30 text-turquoise-700 dark:text-turquoise-300 text-xs rounded-full">
+                  {filters.categories.length}
+                </span>
+              )}
             </label>
-            <select
-              value={filters.type || ''}
-              onChange={(e) => updateFilter('type', e.target.value || undefined)}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              data-testid="select-category"
-            >
-              <option value="">All categories</option>
-              <option value="restaurant">🍽️ Restaurants</option>
-              <option value="cafe">☕ Cafés</option>
-              <option value="bar">🍷 Bars</option>
-              <option value="hotel">🏨 Hotels</option>
-              <option value="venue">🎭 Venues</option>
-              <option value="shop">🛍️ Shops</option>
-              <option value="activity">⚽ Activities</option>
-            </select>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { value: 'restaurant', label: 'Restaurants', icon: '🍽️' },
+                { value: 'cafe', label: 'Cafés', icon: '☕' },
+                { value: 'bar', label: 'Bars', icon: '🍷' },
+                { value: 'hotel', label: 'Hotels', icon: '🏨' },
+                { value: 'venue', label: 'Venues', icon: '🎭' },
+                { value: 'shop', label: 'Shops', icon: '🛍️' },
+                { value: 'activity', label: 'Activities', icon: '⚽' },
+                { value: 'other', label: 'Other', icon: '📍' }
+              ].map((category) => {
+                const isActive = filters.categories?.includes(category.value) || false;
+                return (
+                  <button
+                    key={category.value}
+                    onClick={() => {
+                      const current = filters.categories || [];
+                      const updated = isActive
+                        ? current.filter(c => c !== category.value)
+                        : [...current, category.value];
+                      updateFilter('categories', updated.length > 0 ? updated : undefined);
+                    }}
+                    className={`
+                      flex items-center gap-2 px-3 py-2 rounded-lg border transition-all text-sm font-medium
+                      ${isActive
+                        ? 'bg-gradient-to-br from-turquoise-400 to-ocean-500 text-white border-turquoise-500 shadow-lg'
+                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-turquoise-400'
+                      }
+                    `}
+                    data-testid={`filter-category-${category.value}`}
+                  >
+                    <span>{category.icon}</span>
+                    <span className="truncate">{category.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Select multiple categories to filter recommendations
+            </p>
           </div>
 
           {/* Dynamic: Cuisine (restaurants) OR Cultural Expertise (all others) */}
-          {filters.type === 'restaurant' ? (
+          {filters.categories?.includes('restaurant') ? (
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 <Globe className="h-4 w-4 text-turquoise-600" />
