@@ -61,7 +61,18 @@ export const MembersList = ({
       let matchesRole = true;
       if (tangoRoleFilter !== "all" && member.tangoRoles) {
         const processedRoles = processDancerRoles(member.tangoRoles, member.leaderLevel, member.followerLevel);
-        matchesRole = processedRoles.includes(tangoRoleFilter);
+        
+        // Smart filtering: switch dancers show up in leader AND follower filters
+        if (tangoRoleFilter === 'dancer_leader') {
+          // Show leaders AND switch dancers (both)
+          matchesRole = processedRoles.includes('dancer_leader') || processedRoles.includes('dancer_switch');
+        } else if (tangoRoleFilter === 'dancer_follower') {
+          // Show followers AND switch dancers (both)
+          matchesRole = processedRoles.includes('dancer_follower') || processedRoles.includes('dancer_switch');
+        } else {
+          // Exact match for all other roles
+          matchesRole = processedRoles.includes(tangoRoleFilter);
+        }
       }
       
       return matchesSearch && matchesRole;
