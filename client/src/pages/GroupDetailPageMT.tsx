@@ -1411,7 +1411,7 @@ export default function GroupDetailPageMT() {
     return (
       <div className="relative space-y-6">
         {/* Interactive Map with Layers */}
-        <GlassCard depth={2} className="p-0 overflow-hidden h-[650px]">
+        <GlassCard depth={2} className="p-0 overflow-hidden h-[900px]">
           <CommunityMapWithLayers
             groupSlug={group.slug}
             city={group.city}
