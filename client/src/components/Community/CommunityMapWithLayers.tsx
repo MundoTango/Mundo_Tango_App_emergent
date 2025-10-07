@@ -195,7 +195,7 @@ export default function CommunityMapWithLayers({
                 className="rounded border-gray-300"
               />
               <div className="w-3 h-3 bg-gradient-to-br from-pink-500 to-red-500 rounded-full"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-400">Places</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Recommendations</span>
             </label>
           </div>
 
