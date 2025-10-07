@@ -189,16 +189,22 @@ export default function GroupDetailPageMT() {
   // Fetch member details with roles when members tab is active
   React.useEffect(() => {
     if (activeTab === 'members' && slug) {
+      console.log('🎯 [Members Tab] Fetching members for group:', slug);
       setLoadingMembers(true);
       fetch(`/api/groups/${slug}/members`)
         .then(res => res.json())
         .then(data => {
+          console.log('✅ [Members Tab] Received data:', data);
           if (data.success) {
+            console.log(`👥 [Members Tab] Setting ${data.data.length} members to state`);
             setMemberData(data.data);
           }
           setLoadingMembers(false);
         })
-        .catch(() => setLoadingMembers(false));
+        .catch((error) => {
+          console.error('❌ [Members Tab] Fetch error:', error);
+          setLoadingMembers(false);
+        });
     }
   }, [activeTab, slug]);
   
@@ -659,15 +665,12 @@ export default function GroupDetailPageMT() {
   );
 
   const renderMembersTab = () => {
-    // Filter to show ONLY home community residents (user.city === group.city)
-    const homeResidents = memberData.filter((member: any) => {
-      const memberCity = member.user?.city || '';
-      const groupCity = group?.city || '';
-      return memberCity.toLowerCase() === groupCity.toLowerCase();
-    });
-
+    // ESA Layer 22: Backend API already filters by city (user.city === group.city)
+    // No need for frontend filtering - use API data directly
+    console.log(`📊 [Members Tab] Rendering with ${memberData.length} members:`, memberData);
+    
     // Transform member data to include tango roles
-    const transformedMembers = homeResidents.map((member: any) => ({
+    const transformedMembers = memberData.map((member: any) => ({
       id: member.id || member.user?.id,
       userId: member.user?.id || member.userId,
       username: member.user?.username || member.username,
