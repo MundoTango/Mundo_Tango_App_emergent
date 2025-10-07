@@ -19,11 +19,10 @@ import { StaggerContainer, StaggerItem } from "@/components/animations/FramerMot
 import { MemberCard } from "./MemberCard";
 import { TangoRoleMetrics } from "./TangoRoleMetrics";
 import { useTranslation } from "react-i18next";
-import { Users, Search, Filter } from "lucide-react";
+import { Users, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useMemo } from "react";
-import { TANGO_ROLES, processDancerRoles } from "@/utils/tangoRoles";
+import { processDancerRoles } from "@/utils/tangoRoles";
 
 interface Member {
   id: number;
@@ -48,36 +47,45 @@ export const MembersList = ({
 }: MembersListProps) => {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
-  const [tangoRoleFilter, setTangoRoleFilter] = useState<string>("all");
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
 
-  // Filter members by search and tango role
+  // Toggle role selection
+  const toggleRoleFilter = (roleId: string) => {
+    setSelectedRoles(prev => 
+      prev.includes(roleId) 
+        ? prev.filter(r => r !== roleId)
+        : [...prev, roleId]
+    );
+  };
+
+  // Filter members by search and tango role (multi-select)
   const filteredMembers = useMemo(() => {
     return members.filter(member => {
       const matchesSearch = searchQuery === "" || 
         member.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
         member.fullName?.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // Tango role filtering
+      // Tango role filtering (multi-select)
       let matchesRole = true;
-      if (tangoRoleFilter !== "all" && member.tangoRoles) {
+      if (selectedRoles.length > 0 && member.tangoRoles) {
         const processedRoles = processDancerRoles(member.tangoRoles, member.leaderLevel, member.followerLevel);
         
-        // Smart filtering: switch dancers show up in leader AND follower filters
-        if (tangoRoleFilter === 'dancer_leader') {
-          // Show leaders AND switch dancers (both)
-          matchesRole = processedRoles.includes('dancer_leader') || processedRoles.includes('dancer_switch');
-        } else if (tangoRoleFilter === 'dancer_follower') {
-          // Show followers AND switch dancers (both)
-          matchesRole = processedRoles.includes('dancer_follower') || processedRoles.includes('dancer_switch');
-        } else {
-          // Exact match for all other roles
-          matchesRole = processedRoles.includes(tangoRoleFilter);
-        }
+        // Member must have at least one of the selected roles
+        matchesRole = selectedRoles.some(selectedRole => {
+          // Smart filtering: switch dancers show up in leader AND follower filters
+          if (selectedRole === 'dancer_leader') {
+            return processedRoles.includes('dancer_leader') || processedRoles.includes('dancer_switch');
+          } else if (selectedRole === 'dancer_follower') {
+            return processedRoles.includes('dancer_follower') || processedRoles.includes('dancer_switch');
+          } else {
+            return processedRoles.includes(selectedRole);
+          }
+        });
       }
       
       return matchesSearch && matchesRole;
     });
-  }, [members, searchQuery, tangoRoleFilter]);
+  }, [members, searchQuery, selectedRoles]);
 
   if (isLoading) {
     return (
@@ -106,12 +114,15 @@ export const MembersList = ({
         </div>
       </div>
 
-      {/* Tango Role Metrics */}
-      <TangoRoleMetrics members={members} />
+      {/* Tango Role Metrics - Clickable Filters */}
+      <TangoRoleMetrics 
+        members={members} 
+        selectedRoles={selectedRoles}
+        onRoleToggle={toggleRoleFilter}
+      />
 
-      {/* Filters */}
+      {/* Search Filter */}
       <div className="flex flex-col sm:flex-row gap-3">
-        {/* Search Input */}
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
           <Input
@@ -123,30 +134,15 @@ export const MembersList = ({
             data-testid="input-search-members"
           />
         </div>
-
-        {/* Tango Role Filter */}
-        <div className="flex items-center gap-2 sm:w-64">
-          <Filter className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <Select value={tangoRoleFilter} onValueChange={setTangoRoleFilter}>
-            <SelectTrigger 
-              className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
-              data-testid="select-tango-role-filter"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="max-h-80">
-              <SelectItem value="all">{t('members.filter.allRoles', 'All Roles')}</SelectItem>
-              {TANGO_ROLES.map(role => (
-                <SelectItem key={role.id} value={role.id}>
-                  <span className="flex items-center gap-2">
-                    <span>{role.emoji}</span>
-                    <span>{t(`members.tangoRole.${role.id}`, role.name)}</span>
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {selectedRoles.length > 0 && (
+          <button
+            onClick={() => setSelectedRoles([])}
+            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            data-testid="button-clear-filters"
+          >
+            {t('members.clearFilters', 'Clear Filters')} ({selectedRoles.length})
+          </button>
+        )}
       </div>
 
       {/* Members Grid */}
@@ -155,7 +151,7 @@ export const MembersList = ({
           <div className="text-center py-12" data-testid="empty-members-state">
             <Users className="h-12 w-12 text-gray-400 dark:text-gray-600 mx-auto mb-3" />
             <p className="text-gray-600 dark:text-gray-400">
-              {searchQuery || tangoRoleFilter !== "all"
+              {searchQuery || selectedRoles.length > 0
                 ? t('members.empty.filtered', 'No members match your filters')
                 : t('members.empty.default', 'No members yet')}
             </p>
