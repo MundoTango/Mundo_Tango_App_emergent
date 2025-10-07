@@ -290,12 +290,14 @@ router.get('/api/events/feed', optionalAuth, async (req, res) => {
 
 // RSVP to event
 router.post('/api/events/:id/rsvp', authMiddleware, async (req, res) => {
+  console.log('🎯 [RSVP Endpoint] Request received:', { eventId: req.params.id, body: req.body, userId: req.user?.id });
   try {
     const { id: eventId } = req.params;
     const userId = req.user?.id;
     const validatedData = rsvpSchema.parse(req.body);
 
     if (!userId) {
+      console.log('❌ [RSVP Endpoint] No userId found');
       return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
