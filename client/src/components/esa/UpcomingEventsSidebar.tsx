@@ -44,16 +44,20 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
   const { data: eventsData, isLoading } = useQuery({
     queryKey: ['/api/events/feed'],
     queryFn: async () => {
+      console.log('📡 [Sidebar Query] Fetching events for sidebar...');
       const response = await fetch('/api/events/feed?limit=20&visibility=public', {
         credentials: 'include'
       });
       const result = await response.json();
+      console.log('✅ [Sidebar Query] Received events:', result.data?.length || 0);
       return result.data || [];
     },
     staleTime: 0, // Always refetch on mount (Sept 30, 2025 fix)
     gcTime: 5 * 60 * 1000, // Keep in cache for 5 minutes
     structuralSharing: false // ESA Layer 14: Force re-renders when RSVP status changes
   });
+  
+  console.log('🎯 [Sidebar] Component rendered, query status:', { isLoading, hasData: !!eventsData });
   
   // Transform API data to component format
   const allEvents = eventsData?.map((event: any) => ({
