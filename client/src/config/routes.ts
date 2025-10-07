@@ -229,6 +229,13 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading booking calendar...',
     description: 'Host calendar management'
   },
+  {
+    path: '/recommendations',
+    component: lazy(() => import('@/pages/RecommendationsBrowsePage')),
+    mode: 'production',
+    loadingMessage: 'Loading recommendations...',
+    description: 'Browse recommendations marketplace - Journey R2'
+  },
 
   // ========== Social Features Routes ==========
   {
