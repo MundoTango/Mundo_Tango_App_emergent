@@ -86,18 +86,27 @@ export default function RecommendationsList({
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
 
   // Fetch recommendations with comprehensive filters
+  // Journey R4: City filter support
+  const cityToUse = filters.city || city;
+  
   const { data: apiResponse, isLoading } = useQuery({
-    queryKey: ['/api/recommendations', { city, groupSlug, ...filters }],
+    queryKey: ['/api/recommendations', { city: cityToUse, groupSlug, ...filters }],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (city) params.append('city', city);
+      if (cityToUse) params.append('city', cityToUse);
       if (groupSlug) params.append('groupSlug', groupSlug);
       if (filters.connectionDegree !== 'anyone') params.append('connectionDegree', filters.connectionDegree);
       if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
       if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
       if (filters.originCountry) params.append('originCountry', filters.originCountry);
       if (filters.cuisine) params.append('cuisine', filters.cuisine); // For intelligent ranking
-      if (filters.type) params.append('type', filters.type);
+      // Journey R5: Category multi-select support
+      if (filters.categories && filters.categories.length > 0) {
+        filters.categories.forEach(cat => params.append('categories', cat));
+      } else if (filters.type) {
+        // Backward compatibility with old type field
+        params.append('type', filters.type);
+      }
       if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
       if (filters.minRating) params.append('minRating', filters.minRating.toString());
       if (filters.tags && filters.tags.length > 0) {
@@ -108,7 +117,7 @@ export default function RecommendationsList({
       if (!response.ok) throw new Error('Failed to fetch recommendations');
       return await response.json();
     },
-    enabled: !!city || !!groupSlug
+    enabled: !!cityToUse || !!groupSlug
   });
 
   const recommendations = apiResponse?.data || [];
