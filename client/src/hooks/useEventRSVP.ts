@@ -17,6 +17,11 @@ export function useEventRSVP() {
     },
     onMutate: async ({ eventId, status }) => {
       console.log('🔄 [RSVP Mutation] onMutate called:', { eventId, status });
+      
+      // DEBUG: Log all queries in cache
+      const allQueries = queryClient.getQueryCache().getAll();
+      console.log('🔍 [RSVP Debug] All queries in cache:', allQueries.map(q => q.queryKey));
+      
       // Cancel all event-related queries (unified approach)
       await queryClient.cancelQueries({ 
         predicate: (query) => {
