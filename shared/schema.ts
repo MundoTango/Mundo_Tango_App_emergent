@@ -3132,3 +3132,62 @@ export type AgentMessage = typeof agentMessages.$inferSelect;
 export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
 export type AgentTokenUsage = typeof agentTokenUsage.$inferSelect;
 export type InsertAgentTokenUsage = z.infer<typeof insertAgentTokenUsageSchema>;
+
+// Travel Plans table for Community Hub Trip Planner
+export const travelPlans = pgTable("travel_plans", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  cityId: integer("city_id").references(() => groups.id),
+  city: varchar("city", { length: 255 }).notNull(),
+  country: varchar("country", { length: 255 }),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  tripDuration: integer("trip_duration").notNull(), // In days
+  budget: varchar("budget", { length: 50 }), // low, medium, high, luxury
+  interests: text("interests").array().default([]),
+  travelStyle: varchar("travel_style", { length: 50 }), // solo, couple, group, family
+  status: varchar("status", { length: 50 }).default('planning'), // planning, confirmed, completed, cancelled
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_travel_plans_user_id").on(table.userId),
+  index("idx_travel_plans_city").on(table.city),
+  index("idx_travel_plans_dates").on(table.startDate, table.endDate),
+  index("idx_travel_plans_status").on(table.status),
+]);
+
+// Itinerary Items table (Many-to-Many with polymorphic relations)
+export const itineraryItems = pgTable("itinerary_items", {
+  id: serial("id").primaryKey(),
+  travelPlanId: integer("travel_plan_id").notNull().references(() => travelPlans.id),
+  day: integer("day").notNull(), // 0-indexed day of trip
+  period: varchar("period", { length: 20 }).notNull(), // morning, afternoon, evening, night
+  itemType: varchar("item_type", { length: 50 }).notNull(), // event, housing, recommendation
+  itemId: integer("item_id").notNull(), // Polymorphic FK to events/housing/recommendations
+  notes: text("notes"),
+  order: integer("order").default(0),
+  createdAt: timestamp("created_at").defaultNow()
+}, (table) => [
+  index("idx_itinerary_items_travel_plan_id").on(table.travelPlanId),
+  index("idx_itinerary_items_day").on(table.day),
+  index("idx_itinerary_items_item_type_id").on(table.itemType, table.itemId),
+]);
+
+// Insert schemas for travel planning
+export const insertTravelPlanSchema = createInsertSchema(travelPlans).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertItineraryItemSchema = createInsertSchema(itineraryItems).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for travel planning
+export type TravelPlan = typeof travelPlans.$inferSelect;
+export type InsertTravelPlan = z.infer<typeof insertTravelPlanSchema>;
+export type ItineraryItem = typeof itineraryItems.$inferSelect;
+export type InsertItineraryItem = z.infer<typeof insertItineraryItemSchema>;
