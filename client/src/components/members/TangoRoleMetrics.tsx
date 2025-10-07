@@ -12,7 +12,6 @@
  * - Shows counts for all 20 tango roles
  */
 
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { GlassCard } from "@/components/glass/GlassComponents";
 import { useTranslation } from "react-i18next";
 import { TANGO_ROLES, ROLE_CATEGORIES, TangoRole } from "@/utils/tangoRoles";
@@ -28,16 +27,6 @@ interface TangoRoleMetricsProps {
 
 export const TangoRoleMetrics = ({ members }: TangoRoleMetricsProps) => {
   const { t } = useTranslation();
-
-  // GSAP Scroll Reveal - Stagger animation for metric cards
-  const containerRef = useScrollReveal('.role-metric-card', {
-    opacity: 0,
-    y: 20,
-    stagger: 0.08,
-  }, {
-    once: true,
-    start: 'top 90%',
-  });
 
   // Calculate role counts
   const roleCounts = useMemo(() => {
@@ -98,7 +87,7 @@ export const TangoRoleMetrics = ({ members }: TangoRoleMetricsProps) => {
   const totalRoleAssignments = Object.values(roleCounts).reduce((sum, count) => sum + count, 0);
 
   return (
-    <div className="space-y-6" ref={containerRef} data-testid="container-tango-role-metrics">
+    <div className="space-y-6" data-testid="container-tango-role-metrics">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

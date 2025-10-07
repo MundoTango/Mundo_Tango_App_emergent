@@ -15,7 +15,6 @@
  * - Data-testid attributes for testing
  */
 
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { StaggerContainer, StaggerItem } from "@/components/animations/FramerMotionWrappers";
 import { MemberCard } from "./MemberCard";
 import { TangoRoleMetrics } from "./TangoRoleMetrics";
@@ -50,16 +49,6 @@ export const MembersList = ({
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [tangoRoleFilter, setTangoRoleFilter] = useState<string>("all");
-
-  // GSAP Scroll Reveal - Stagger animation for cards
-  const containerRef = useScrollReveal('.member-card-item', {
-    opacity: 0,
-    y: 30,
-    stagger: 0.15,
-  }, {
-    once: true,
-    start: 'top 85%',
-  });
 
   // Filter members by search and tango role
   const filteredMembers = useMemo(() => {
