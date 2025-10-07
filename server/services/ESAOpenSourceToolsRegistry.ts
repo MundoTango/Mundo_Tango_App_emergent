@@ -30,6 +30,7 @@ export class ESAOpenSourceToolsRegistry {
     this.registerPhase1Tools();
     this.registerPhase2Tools();
     this.registerPhase3Tools();
+    this.registerPhase4Tools();
   }
 
   private registerPhase1Tools() {
@@ -111,9 +112,9 @@ export class ESAOpenSourceToolsRegistry {
     this.tools.set("temporal", {
       layer: 57,
       toolName: "Temporal",
-      status: "requires_setup",
-      reason: "Production-ready Node.js/TypeScript SDK available, needs @temporalio/* packages",
-      documentation: "Durable workflow orchestration - https://temporal.io",
+      status: "configured",
+      reason: "@temporalio/* packages installed, ready for workflow execution",
+      documentation: "server/services/TemporalService.ts",
     });
 
     this.tools.set("crewai", {
@@ -174,6 +175,32 @@ export class ESAOpenSourceToolsRegistry {
     // LanceDB status updated above to "configured"
   }
 
+  private registerPhase4Tools() {
+    // Track J: Observability Stack
+    this.tools.set("opentelemetry", {
+      layer: 48,
+      toolName: "OpenTelemetry",
+      status: "configured",
+      reason: "SDK installed with auto-instrumentation for HTTP, Express, PostgreSQL",
+      documentation: "server/services/OpenTelemetryService.ts",
+    });
+
+    // Track K: Workflow Orchestration
+    // Temporal already registered in Phase 2
+
+    // Track L: Testing & Performance
+    // Bun Test already registered in Phase 2
+
+    // Track M: Real-time Optimization
+    this.tools.set("realtime-optimization", {
+      layer: 11,
+      toolName: "Realtime Optimization",
+      status: "configured",
+      reason: "Exponential backoff reconnection and broadcast patterns implemented",
+      documentation: "server/services/RealtimeOptimizationService.ts",
+    });
+  }
+
   getToolStatus(toolId: string): ESAToolStatus | undefined {
     return this.tools.get(toolId);
   }
@@ -197,7 +224,7 @@ export class ESAOpenSourceToolsRegistry {
   }
 
   async initializeAllTools(): Promise<void> {
-    console.log("\n🚀 Initializing ESA Open Source Tools (Phases 1-3)...\n");
+    console.log("\n🚀 Initializing ESA Open Source Tools (Phases 1-4)...\n");
 
     // Phase 3: Initialize LanceDB
     try {
@@ -229,7 +256,7 @@ export class ESAOpenSourceToolsRegistry {
       total: this.getAllTools().length,
     };
 
-    console.log(`\n✅ ESA Open Source Tools Summary (Phases 1-3):`);
+    console.log(`\n✅ ESA Open Source Tools Summary (Phases 1-4):`);
     console.log(`   Active: ${summary.active}`);
     console.log(`   Configured: ${summary.configured}`);
     console.log(`   Total Registered: ${summary.total}\n`);
