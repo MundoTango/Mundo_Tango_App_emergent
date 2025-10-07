@@ -64,7 +64,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
     mutationFn: async () => {
       if (!tripConfig) throw new Error('No trip configuration');
 
-      return await apiRequest('/api/travel-plans', {
+      const response = await apiRequest('/api/travel-plans', {
         method: 'POST',
         body: JSON.stringify({
           cityId: groupId,
@@ -79,8 +79,9 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
           status: 'planning'
         })
       });
+      return await response.json();
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       setCurrentTravelPlanId(data.id);
       toast({
         title: 'Trip Saved!',
