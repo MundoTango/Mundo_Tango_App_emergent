@@ -590,6 +590,15 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
       return res.status(404).json({ error: 'Group not found' });
     }
     
+    // ESA Layer 22: Filter members to show only home community residents
+    // Only include members where user.city matches group.city (case-insensitive)
+    const whereConditions = [eq(groupMembers.groupId, group.id)];
+    
+    // For city groups, filter by city (home community residents only)
+    if (group.type === 'city' && group.city) {
+      whereConditions.push(sql`LOWER(${users.city}) = LOWER(${group.city})`);
+    }
+    
     const members = await db.select({
       user: users,
       role: groupMembers.role,
@@ -597,7 +606,7 @@ router.get('/groups/:groupId/members', setUserContext, async (req, res) => {
     })
     .from(groupMembers)
     .innerJoin(users, eq(users.id, groupMembers.userId))
-    .where(eq(groupMembers.groupId, group.id))
+    .where(and(...whereConditions))
     .orderBy(desc(groupMembers.joinedAt));
     
     res.json({ success: true, data: members });
