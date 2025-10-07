@@ -114,7 +114,7 @@ export function useEventRSVP() {
         variant: "destructive"
       });
     },
-    onSuccess: async (data, { eventId, status }) => {
+    onSuccess: (data, { eventId, status }) => {
       console.log('🎉 [RSVP Mutation] onSuccess called:', { eventId, status, data });
       
       if (status === null) {
