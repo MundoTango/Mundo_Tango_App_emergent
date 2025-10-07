@@ -219,7 +219,8 @@ export default function EnhancedEventsPage() {
     staleTime: 5 * 60 * 1000, // Data is fresh for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
     refetchOnWindowFocus: false, // Don't refetch when switching tabs
-    refetchOnMount: 'always' // Always refetch on mount
+    refetchOnMount: 'always', // Always refetch on mount
+    structuralSharing: false // ESA Layer 14: Force re-renders when RSVP status changes
   });
 
   const events = eventsData?.data || [];
