@@ -3276,3 +3276,73 @@ export type TravelPlan = typeof travelPlans.$inferSelect;
 export type InsertTravelPlan = z.infer<typeof insertTravelPlanSchema>;
 export type ItineraryItem = typeof itineraryItems.$inferSelect;
 export type InsertItineraryItem = z.infer<typeof insertItineraryItemSchema>;
+
+// Knowledge Graph Tables (ESA Layer 44)
+// PostgreSQL-based graph implementation using recursive CTEs
+export const knowledgeGraphNodes = pgTable("knowledge_graph_nodes", {
+  id: serial("id").primaryKey(),
+  nodeType: varchar("node_type", { length: 100 }).notNull(), // user, recommendation, event, group, concept, skill
+  entityId: integer("entity_id"), // FK to actual entity (user, recommendation, etc.)
+  label: varchar("label", { length: 255 }).notNull(),
+  properties: jsonb("properties").default({}),
+  embedding: jsonb("embedding"), // Vector embedding for semantic search
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+}, (table) => [
+  index("idx_kg_nodes_type").on(table.nodeType),
+  index("idx_kg_nodes_entity").on(table.nodeType, table.entityId),
+  index("idx_kg_nodes_label").on(table.label),
+]);
+
+export const knowledgeGraphEdges = pgTable("knowledge_graph_edges", {
+  id: serial("id").primaryKey(),
+  sourceNodeId: integer("source_node_id").notNull().references(() => knowledgeGraphNodes.id),
+  targetNodeId: integer("target_node_id").notNull().references(() => knowledgeGraphNodes.id),
+  relationshipType: varchar("relationship_type", { length: 100 }).notNull(), // likes, knows, visited, recommends, belongs_to
+  weight: real("weight").default(1.0), // Relationship strength
+  properties: jsonb("properties").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+  bidirectional: boolean("bidirectional").default(false)
+}, (table) => [
+  index("idx_kg_edges_source").on(table.sourceNodeId),
+  index("idx_kg_edges_target").on(table.targetNodeId),
+  index("idx_kg_edges_type").on(table.relationshipType),
+  index("idx_kg_edges_source_target").on(table.sourceNodeId, table.targetNodeId),
+]);
+
+// Insert schemas for knowledge graph
+export const insertKnowledgeGraphNodeSchema = createInsertSchema(knowledgeGraphNodes).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertKnowledgeGraphEdgeSchema = createInsertSchema(knowledgeGraphEdges).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Relations for knowledge graph
+export const knowledgeGraphNodesRelations = relations(knowledgeGraphNodes, ({ many }) => ({
+  outgoingEdges: many(knowledgeGraphEdges, { relationName: 'source' }),
+  incomingEdges: many(knowledgeGraphEdges, { relationName: 'target' })
+}));
+
+export const knowledgeGraphEdgesRelations = relations(knowledgeGraphEdges, ({ one }) => ({
+  sourceNode: one(knowledgeGraphNodes, {
+    fields: [knowledgeGraphEdges.sourceNodeId],
+    references: [knowledgeGraphNodes.id],
+    relationName: 'source'
+  }),
+  targetNode: one(knowledgeGraphNodes, {
+    fields: [knowledgeGraphEdges.targetNodeId],
+    references: [knowledgeGraphNodes.id],
+    relationName: 'target'
+  })
+}));
+
+// Types for knowledge graph
+export type KnowledgeGraphNode = typeof knowledgeGraphNodes.$inferSelect;
+export type InsertKnowledgeGraphNode = z.infer<typeof insertKnowledgeGraphNodeSchema>;
+export type KnowledgeGraphEdge = typeof knowledgeGraphEdges.$inferSelect;
+export type InsertKnowledgeGraphEdge = z.infer<typeof insertKnowledgeGraphEdgeSchema>;
