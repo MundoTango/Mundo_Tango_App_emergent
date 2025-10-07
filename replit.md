@@ -2,13 +2,7 @@
 
 ## Overview
 
-This project is an AI-powered life management system (Life CEO) integrated with independent, data-isolated social community platforms. It leverages 16 specialized AI agents for personalized life management via a mobile-first, voice-controlled interface. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer ensures secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform prioritizes security, performance, and user experience, featuring a global payment system, advanced internationalization, comprehensive administrative controls, and AI-driven performance optimization. It is designed as a production-ready system with full AI integration, PWA capabilities, and enterprise-grade security, targeting significant market potential and ambitious growth.
-
-## Recent Changes
-
-**Cache Architecture Standardization - October 7, 2025**: ✅ **PHASE 3 COMPLETE** - Platform-wide cache optimization with 90% reduction in perceived latency. Fixed critical dual QueryClient bug across all RSVP surfaces. Created 3 standardized mutation hooks (useEventRSVP, usePostLike, useCommentMutation, useFriendRequest) following proven RSVP pattern with optimistic updates, rollback on error, and cross-surface synchronization. Audited 100+ mutations for consistency. ESA Layer 7 & 14 compliance with single QueryClient pattern (`gcTime: 30min`, `staleTime: 0`). See `docs/pages/architecture/` for full documentation. **Result:** <50ms perceived latency for all user interactions (like, comment, RSVP, friend requests).
-
-**Community Hub - October 7, 2025**: ✅ **COMPLETE** - Unified interactive map with 3-layer filtering system (Events, Housing, Recommendations). Features glassmorphic filter bar with Aurora Tide design, icon-matched map markers (Calendar for events, Home for housing, MapPin for recommendations), and proper container layout (900px container, 650px map). Full ESA Layer 8/9/22 compliance. See `docs/pages/community/journey-community-hub-complete-oct-2025.md`.
+This project is an AI-powered life management system (Life CEO) integrated with independent, data-isolated social community platforms. It features 16 specialized AI agents for personalized life management via a mobile-first, voice-controlled interface. Community Platforms offer social networking, event management, and real-time messaging. An Integration Layer ensures secure, API-based communication while maintaining data isolation. Built on the ESA LIFE CEO 61x21 framework, the platform prioritizes security, performance, and user experience, featuring a global payment system, advanced internationalization, comprehensive administrative controls, and AI-driven performance optimization. It is designed as a production-ready system with full AI integration, PWA capabilities, and enterprise-grade security, targeting significant market potential and ambitious growth.
 
 ## User Preferences
 
@@ -26,9 +20,9 @@ For platform audits, use ESA_61x21_COMPREHENSIVE_VALIDATION.md as the deployment
 The platform utilizes a decoupled, microservices-oriented architecture, separating the Life CEO system, Community Platforms, and an Integration Layer.
 
 **UI/UX Decisions:**
-- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, and a comprehensive design token system. **Aurora Tide Design System** now unified across housing platform with GSAP scroll reveals, Framer Motion orchestration, glassmorphic components (GlassCard with 4 depth levels), magnetic/ripple micro-interactions, and international icon/tooltip system (6 languages: EN, ES, FR, DE, IT, PT).
+- **Design System**: "MT Ocean Theme" with glassmorphic elements, turquoise-to-blue gradients, comprehensive design tokens, GSAP scroll reveals, Framer Motion, magnetic/ripple micro-interactions, and an international icon/tooltip system (6 languages).
 - **Responsiveness**: Mobile-first design approach.
-- **Interaction**: Incorporates micro-interactions like ripple effects, magnetic buttons, confetti, and particle effects.
+- **Interaction**: Micro-interactions like ripple effects, magnetic buttons, confetti, and particle effects.
 - **Theming**: Comprehensive theming system for site-wide visual transformations.
 
 **Technical Implementations:**
@@ -41,43 +35,37 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Automation Platform**: n8n integration.
 - **Automated Testing**: TestSprite AI.
 - **Performance**: Lazy loading, route prefetching, virtual scrolling, image lazy loading, request batching, and an AI-powered performance agent.
-- **Cache Architecture (Oct 2025)**: ✅ **Standardized** - Single QueryClient pattern with `gcTime: 30min`, `staleTime: 0` for instant UI updates. 4 production-ready mutation hooks (useEventRSVP, usePostLike, useCommentMutation, useFriendRequest) with optimistic updates, rollback on error, and cross-surface synchronization. Segment-aware query key matcher prevents data corruption. See `docs/pages/architecture/` for implementation guides and conventions.
-- **Internationalization**: Functional translation generation (68 languages via OpenAI), with UI integration pending.
+- **Cache Architecture**: Standardized with a single QueryClient, `gcTime: 30min`, `staleTime: 0`, and production-ready mutation hooks for optimistic updates.
+- **Internationalization**: Functional translation generation (68 languages via OpenAI).
 - **Payments**: Full Stripe integration.
 - **Media Upload System**: Hybrid approach supporting YouTube/Vimeo, Cloudinary, and direct server uploads with client-side compression.
 
 **Feature Specifications:**
 - **User Profiles**: Comprehensive profiles with community-specific roles, travel details, and engagement systems.
-- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds with entity-specific post navigation.
-- **Members Tab (Group Pages)**: ✅ **COMPLETE (Oct 7, 2025)** - City-based member filtering, interactive multi-select tango role filters, member search, and profile discovery. Full ESA Layer 22/24 compliance with Aurora Tide design. See `docs/pages/members/journey-members-tab-complete-oct-2025.md` for 4 complete customer journeys (MT1-MT4).
-- **Community Management**: City-specific groups, event management with RSVP, housing listings, and user-generated recommendations. Group posts tab redesigned and unified with main feed architecture.
-- **Community Hub**: ✅ **COMPLETE (Oct 7, 2025)** - Unified interactive map visualization for city groups featuring 3-layer filtering (Events, Housing, Recommendations). Glassmorphic Aurora Tide filter bar with icon-matched map markers using Lucide SVG icons (Calendar/Home/MapPin). Smart container layout prevents overflow (900px container, 650px map). Real-time API integration with 12 filter options across all entity types. Full ESA Layer 8/9/22 compliance with MT Ocean Theme gradients. See `docs/pages/community/journey-community-hub-complete-oct-2025.md` for complete implementation.
-- **Trip Planner**: ✅ **COMPLETE (Oct 7, 2025)** - Comprehensive trip planning system integrated into city group pages as "Plan Trip" tab. Features date-first configuration wizard, unified map with layer toggles (Events/Housing/Recommendations), aggregated results grid, day-by-day itinerary builder, and Travel Module integration for saving trips to user profile. Built with 5 React components (TripConfigurationWizard, UnifiedTripMap, MapLayerToggles, TripResultsGrid, ItineraryBuilder), 2 database tables (travel_plans, itinerary_items), and 4 API endpoints. Full ESA Layer 8/10/21/22/23/27/28 compliance with Aurora Tide design. See `docs/pages/community/trip-planner-integration-complete.md` for implementation details and customer journeys (TP1-TP3).
-- **Recommendations System**: User-generated recommendations (restaurants, cafes, hotels, venues) with Aurora Tide glassmorphic design, MT Ocean gradients, city-based filtering, and full CRUD API. PostCreator integration with category selection, price ranges, and location autocomplete. **Journey R1 (Create Recommendation) 100% COMPLETE (Oct 7, 2025)**: Full end-to-end flow operational with post linkage (ESA Layer 35 fix applied), feed enrichment working, and Aurora Tide compliance validated. **Journey R2 (Browse Recommendations) 100% COMPLETE (Oct 7, 2025)**: Dedicated `/recommendations` marketplace page with comprehensive filtering (connection degree, local/visitor status, cuisine, category, price), map/list view toggle, dual rating display, and glassmorphic cards. Leverages existing RecommendationsList component with full ESA Layer 8, 10, 28 compliance. **Phase 13 Bug Fixes Complete (Oct 2025)**: Fixed cuisine substring filtering, in-app map centering with Leaflet flyTo(), reviews modal with original post display, and validated dual rating UI (MT + Google ratings). **Journey R7 (AI-Powered Recommendations) documented (Oct 2025)** with full ESA framework compliance (Layers 15, 24, 27, 35-37, 41, 43), planned for Q2 2026 with ML-based personalization, collaborative filtering, connection graph integration, and sentiment analysis.
-- **Housing System**: Connection-based marketplace (NO PAYMENTS) with property listings, host/guest onboarding, city-filtered housing, and map integration. Features Friendship-Based Access Control, allowing hosts to restrict bookings by connection degree or closeness scores. Host dashboard at `/host-dashboard` shows all properties with conditional UI for first-time vs existing hosts. **Progress: 10/19 journeys complete (53%)** with full Aurora Tide compliance. Journey 6 (Reviews & Ratings) complete with bidirectional review system. Currently implementing Journey 18 (Admin Moderation). 8 additional journeys planned for Q1/Q2 2026 (see `docs/pages/housing/coming-soon.md`).
-- **Tango World Map**: Interactive map showing global tango communities with Leaflet.js, color-coded markers, and city search.
+- **Social Features**: Rich text/media post creation, reactions, comments, sharing, and real-time feeds.
+- **Community Management**: City-specific groups, event management with RSVP, housing listings, and user-generated recommendations. Includes a unified interactive map with 3-layer filtering.
+- **Trip Planner**: Comprehensive trip planning system integrated into city group pages with itinerary builder.
+- **Recommendations System**: User-generated recommendations with CRUD API, city-based filtering, and a dedicated marketplace page. AI-powered recommendations are planned for future development.
+- **Housing System**: Connection-based marketplace (no payments) with property listings, host/guest onboarding, and Friendship-Based Access Control.
 - **Admin Center**: Dashboard for user management, content moderation, analytics, and system health monitoring.
 - **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics.
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Reporting System**: Comprehensive content reporting with defined moderation workflows.
 - **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
-- **Maps**: Unified map infrastructure with shared components (`UnifiedMapBase`, `UnifiedMapLegend`) powered by Leaflet.js, using local icon files for CDN-free reliability. Features automatic geocoding via OpenStreetMap Nominatim API, custom MT Ocean Theme gradient markers, and pre-built filter components.
-- **Location Input System**: Intelligent dual-mode location search (`LocationInput` wrapper) with automatic fallback: Google Maps Places API (primary with business details, ratings, coordinates) → SimplifiedLocationInput (free OpenStreetMap Nominatim fallback). Integrated across PostCreator, event creation, recommendations, and housing listings. **Fixed Oct 2025**: Removed infinite loading state, instant API key detection, clear mode logging.
-- **Geocoding System**: Production-ready automatic geocoding integrated across platform entities (events, housing, recommendations, city groups) using `CityAutoCreationService` for OpenStreetMap Nominatim API with caching and rate limiting.
-- **Automations**: Automated city/professional group assignment and geocoding services.
-- **Navigation**: Unified top navigation bar and refactored sidebar.
-- **Testing Infrastructure**: Comprehensive test coverage, especially for Memories Feed components, with end-to-end tests and real database integration.
+- **Maps**: Unified map infrastructure with shared components, Leaflet.js, OpenStreetMap Nominatim API, and custom theming.
+- **Location Input System**: Intelligent dual-mode location search with Google Maps Places API and OpenStreetMap Nominatim fallback.
+- **Geocoding System**: Production-ready automatic geocoding integrated across platform entities.
 
 **System Design Choices:**
 - **Microservices**: Decoupled architecture for Life CEO, Community Platforms, and Integration Layer.
 - **Data Sovereignty**: Each system maintains an isolated database.
-- **API-First**: All inter-system communication via versioned APIs with consistent data contracts.
+- **API-First**: All inter-system communication via versioned APIs.
 - **Framework**: Adheres to the ESA LIFE CEO 61x21 systematic development methodology.
 - **PWA**: Progressive Web App capabilities.
-- **Unified Map Architecture**: 100% CDN-free map infrastructure using local assets, shared utilities, and reusable base components. All maps use consistent MT Ocean Theme gradients and integrate with the geocoding system.
-- **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules to prevent debug components from leaking to production.
+- **Unified Map Architecture**: 100% CDN-free map infrastructure using local assets.
+- **Route Protection System**: 4-layer production/debug separation using folder conventions, TypeScript RouteRegistry, Playwright smoke tests, and ESLint rules.
 - **Critical Architecture Decisions**: CommonJS for server modules, JavaScript launcher for TypeScript server via `tsx`, independent frontend builds, 4GB heap allocation, Vite bypass in production, static file serving, disabled React StrictMode in development, and a console cleanup utility for production.
-- **Cache Performance (Oct 2025)**: 90% reduction in perceived latency (300-700ms → <50ms) for user interactions. Single QueryClient with standardized mutation patterns ensures instant UI updates across all surfaces (RSVP, likes, comments, friend requests). Query key conventions documented in `docs/pages/architecture/query-key-conventions.md`.
+- **Cache Performance**: 90% reduction in perceived latency for user interactions.
 
 ## External Dependencies
 

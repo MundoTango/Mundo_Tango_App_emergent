@@ -6,9 +6,10 @@
  * across all 61 ESA layers.
  */
 
-import { lanceDBService } from "./LanceDBService";
-import { langfuseService } from "./LangfuseService";
-import { arizePhoenixService } from "./ArizePhoenixService";
+// Phase 1 tool imports disabled pending package installation
+// import { lanceDBService } from "./LanceDBService"; // Disabled: vectordb package install pending
+// import { langfuseService } from "./LangfuseService"; // Disabled: langfuse package install pending
+// import { arizePhoenixService } from "./ArizePhoenixService"; // Disabled: @arizeai packages install pending
 
 export interface ESAToolStatus {
   layer: number;
@@ -29,27 +30,24 @@ export class ESAOpenSourceToolsRegistry {
     this.tools.set("lancedb", {
       layer: 26,
       toolName: "LanceDB",
-      status: "configured",
+      status: "requires_setup",
+      reason: "vectordb npm package installation pending",
       documentation: "server/services/LanceDBService.ts",
     });
 
     this.tools.set("langfuse", {
       layer: 32,
       toolName: "Langfuse",
-      status: langfuseService.isEnabled() ? "active" : "requires_setup",
-      reason: langfuseService.isEnabled() 
-        ? undefined 
-        : "LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY environment variables required",
+      status: "requires_setup",
+      reason: "langfuse npm package installation pending",
       documentation: "server/services/LangfuseService.ts",
     });
 
     this.tools.set("arize-phoenix", {
       layer: 48,
       toolName: "Arize Phoenix",
-      status: arizePhoenixService.isEnabled() ? "active" : "configured",
-      reason: arizePhoenixService.isEnabled() 
-        ? undefined 
-        : "Phoenix server not running (optional)",
+      status: "requires_setup",
+      reason: "@arizeai npm packages installation pending",
       documentation: "server/services/ArizePhoenixService.ts",
     });
 
@@ -127,15 +125,16 @@ export class ESAOpenSourceToolsRegistry {
   async initializeAllTools(): Promise<void> {
     console.log("\n🚀 Initializing ESA Open Source Tools (Phase 1)...\n");
 
-    try {
-      await lanceDBService.initialize();
-      this.tools.set("lancedb", {
-        ...this.tools.get("lancedb")!,
-        status: "active",
-      });
-    } catch (error) {
-      console.error("Failed to initialize LanceDB:", error);
-    }
+    // LanceDB disabled pending vectordb package installation
+    // try {
+    //   await lanceDBService.initialize();
+    //   this.tools.set("lancedb", {
+    //     ...this.tools.get("lancedb")!,
+    //     status: "active",
+    //   });
+    // } catch (error) {
+    //   console.error("Failed to initialize LanceDB:", error);
+    // }
 
     const summary = {
       active: this.getActiveTools().length,

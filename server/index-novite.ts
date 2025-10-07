@@ -323,6 +323,14 @@ const startServer = async () => {
     const PORT = Number(process.env.PORT) || (process.env.NODE_ENV === 'production' ? 80 : 5000);
     console.log(`🌐 Starting server on port ${PORT}`);
 
+    // Initialize ESA Open Source Tools (Phase 1)
+    try {
+      const { esaToolsRegistry } = await import('./services/ESAOpenSourceToolsRegistry');
+      await esaToolsRegistry.initializeAllTools();
+    } catch (error) {
+      console.error('⚠️  Failed to initialize ESA tools:', error);
+    }
+
     httpServer.listen(PORT, '0.0.0.0', (error?: Error) => {
       if (error) {
         console.error('❌ Failed to bind to port:', error);
