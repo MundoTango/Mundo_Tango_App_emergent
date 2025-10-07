@@ -2,8 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/glass/GlassComponents";
+import { MemberActionsDropdown } from "./MemberActionsDropdown";
 import { useTranslation } from "react-i18next";
-import { MoreVertical, UserCheck, MessageCircle } from "lucide-react";
+import { UserCheck, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
 
 interface MemberCardProps {
@@ -97,17 +98,16 @@ export function MemberCard({ member, currentUserRole, onRoleChange, onRemove }: 
               <MessageCircle className="h-4 w-4" />
             </Button>
             
-            {/* Admin Actions (if current user can manage) */}
-            {canManage && member.role !== 'owner' && (
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => onRoleChange?.(member.userId)}
-                className="hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20"
-                data-testid={`dropdown-member-actions-${member.id}`}
-              >
-                <MoreVertical className="h-4 w-4" />
-              </Button>
+            {/* Admin Actions Dropdown (if current user can manage) */}
+            {canManage && (
+              <MemberActionsDropdown
+                memberId={member.id}
+                memberUsername={member.username}
+                currentRole={member.role}
+                currentUserRole={currentUserRole || ''}
+                onChangeRole={(newRole) => onRoleChange?.(member.userId)}
+                onRemove={() => onRemove?.(member.userId)}
+              />
             )}
             
             {/* Friend/Connection Status (if applicable) */}
