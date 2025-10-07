@@ -1911,10 +1911,9 @@ export default function GroupDetailPageMT() {
             {activeTab === 'members' && renderMembersTab()}
             {activeTab === 'events' && renderEventsTab()}
             {activeTab === 'posts' && renderPostsTab()}
-            {activeTab === 'community-hub' && renderCommunityHub()}
+            {activeTab === 'plan-trip' && group.type === 'city' && renderTripPlannerTab()}
             {activeTab === 'housing' && group.type === 'city' && renderHousingTab()}
             {activeTab === 'recommendations' && group.type === 'city' && renderRecommendationsTab()}
-            {activeTab === 'plan-trip' && group.type === 'city' && renderTripPlannerTab()}
           </div>
         </div> {/* Close max-w-7xl mx-auto px-4 py-6 */}
       
