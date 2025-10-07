@@ -160,55 +160,59 @@ export default function CommunityMapWithLayers({
   }
 
   return (
-    <div className="relative h-full w-full">
-      {/* Layer Toggle Controls */}
-      <div className="absolute top-4 left-4 z-[1000] bg-white dark:bg-slate-900 rounded-lg shadow-lg p-3 space-y-2 border border-cyan-200/30 dark:border-cyan-500/30">
-        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Layers</p>
-        <div className="space-y-2">
-          <label className="flex items-center space-x-2 cursor-pointer" data-testid="layer-toggle-events">
-            <input
-              type="checkbox"
-              checked={activeLayers.events}
-              onChange={(e) => setActiveLayers(prev => ({ ...prev, events: e.target.checked }))}
-              className="rounded"
+    <div className="flex flex-col h-full w-full space-y-4">
+      {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4">
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Layer Toggles */}
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Layers:</span>
+            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-events">
+              <input
+                type="checkbox"
+                checked={activeLayers.events}
+                onChange={(e) => setActiveLayers(prev => ({ ...prev, events: e.target.checked }))}
+                className="rounded border-gray-300"
+              />
+              <div className="w-3 h-3 bg-gradient-to-br from-red-500 to-pink-500 rounded-full"></div>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Events</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-housing">
+              <input
+                type="checkbox"
+                checked={activeLayers.housing}
+                onChange={(e) => setActiveLayers(prev => ({ ...prev, housing: e.target.checked }))}
+                className="rounded border-gray-300"
+              />
+              <div className="w-3 h-3 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full"></div>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Housing</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer" data-testid="layer-toggle-recommendations">
+              <input
+                type="checkbox"
+                checked={activeLayers.recommendations}
+                onChange={(e) => setActiveLayers(prev => ({ ...prev, recommendations: e.target.checked }))}
+                className="rounded border-gray-300"
+              />
+              <div className="w-3 h-3 bg-gradient-to-br from-pink-500 to-red-500 rounded-full"></div>
+              <span className="text-sm text-gray-600 dark:text-gray-400">Places</span>
+            </label>
+          </div>
+
+          {/* Filters */}
+          <div className="flex-1">
+            <CommunityMapFilters 
+              filters={filters} 
+              onFiltersChange={setFilters} 
+              compact={false} 
             />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Events</span>
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-          </label>
-          <label className="flex items-center space-x-2 cursor-pointer" data-testid="layer-toggle-housing">
-            <input
-              type="checkbox"
-              checked={activeLayers.housing}
-              onChange={(e) => setActiveLayers(prev => ({ ...prev, housing: e.target.checked }))}
-              className="rounded"
-            />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Housing</span>
-            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-          </label>
-          <label className="flex items-center space-x-2 cursor-pointer" data-testid="layer-toggle-recommendations">
-            <input
-              type="checkbox"
-              checked={activeLayers.recommendations}
-              onChange={(e) => setActiveLayers(prev => ({ ...prev, recommendations: e.target.checked }))}
-              className="rounded"
-            />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Places</span>
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          </label>
+          </div>
         </div>
       </div>
 
-      {/* Filter Controls */}
-      <div className="absolute top-4 right-4 z-[1000]">
-        <CommunityMapFilters 
-          filters={filters} 
-          onFiltersChange={setFilters} 
-          compact={true} 
-        />
-      </div>
-
       {/* Map Container */}
-      <MapContainer
+      <div className="flex-1 relative rounded-lg overflow-hidden">
+        <MapContainer
         center={center}
         zoom={13}
         className="h-full w-full rounded-lg"
@@ -254,6 +258,7 @@ export default function CommunityMapWithLayers({
           </Marker>
         ))}
       </MapContainer>
+      </div>
     </div>
   );
 }
