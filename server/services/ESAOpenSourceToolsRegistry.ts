@@ -11,9 +11,9 @@ import { lanceDBService } from "./LanceDBService";
 import { llamaIndexService } from "./LlamaIndexService";
 import { knowledgeGraphService } from "./KnowledgeGraphService";
 
-// Phase 1 tool imports (disabled pending packages)
-// import { langfuseService } from "./LangfuseService"; // Disabled: langfuse package install pending
-// import { arizePhoenixService } from "./ArizePhoenixService"; // Disabled: @arizeai packages install pending
+// Phase 4 tool imports
+import { langfuseService } from "./LangfuseService";
+import { arizePhoenixService } from "./ArizePhoenixService";
 
 export interface ESAToolStatus {
   layer: number;
@@ -45,16 +45,16 @@ export class ESAOpenSourceToolsRegistry {
     this.tools.set("langfuse", {
       layer: 32,
       toolName: "Langfuse",
-      status: "requires_setup",
-      reason: "langfuse npm package installation pending",
+      status: "configured",
+      reason: "Packages installed, ready for API key configuration",
       documentation: "server/services/LangfuseService.ts",
     });
 
     this.tools.set("arize-phoenix", {
       layer: 48,
       toolName: "Arize Phoenix",
-      status: "requires_setup",
-      reason: "@arizeai npm packages installation pending",
+      status: "configured",
+      reason: "OpenTelemetry instrumentation active, Phoenix server optional",
       documentation: "server/services/ArizePhoenixService.ts",
     });
 
@@ -248,6 +248,24 @@ export class ESAOpenSourceToolsRegistry {
       });
     } catch (error) {
       console.error("⚠️  LlamaIndex initialization failed (non-critical):", error);
+    }
+
+    // Phase 4: Check Langfuse status
+    if (langfuseService.isEnabled()) {
+      this.tools.set("langfuse", {
+        ...this.tools.get("langfuse")!,
+        status: "active",
+        reason: "LLM observability active",
+      });
+    }
+
+    // Phase 4: Check Arize Phoenix status
+    if (arizePhoenixService.isEnabled()) {
+      this.tools.set("arize-phoenix", {
+        ...this.tools.get("arize-phoenix")!,
+        status: "active",
+        reason: "OpenTelemetry tracing active",
+      });
     }
 
     const summary = {
