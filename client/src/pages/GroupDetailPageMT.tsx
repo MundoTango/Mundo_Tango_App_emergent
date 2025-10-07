@@ -81,14 +81,26 @@ interface GroupPost {
 
 export default function GroupDetailPageMT() {
   const { slug: rawSlug } = useParams();
-  // Clean slug by decoding URL encoding and removing any query parameters
+  // Clean slug by decoding URL encoding and extract tab parameter
   const decodedSlug = rawSlug ? decodeURIComponent(rawSlug) : rawSlug;
-  const slug = decodedSlug?.split('?')[0] || decodedSlug;
+  const [slugPart, queryPart] = (decodedSlug || '').split('?');
+  const slug = slugPart || decodedSlug;
+  
+  // Extract tab from query part or URL
+  const extractTab = () => {
+    if (queryPart) {
+      const match = queryPart.match(/tab=([^&]+)/);
+      if (match) return match[1];
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('tab') || 'posts';
+  };
+  
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState('posts');
+  const [activeTab, setActiveTab] = useState(extractTab());
   
   // Aurora Tide: Confetti state for join celebration (Layer 22)
   const [showConfetti, setShowConfetti] = useState(false);
