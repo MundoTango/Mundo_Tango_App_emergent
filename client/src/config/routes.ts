@@ -648,6 +648,13 @@ export const debugRoutes: RouteConfig[] = [
     loadingMessage: 'Loading modern memories...',
     description: 'Modern memories debug (Pierre Dubois interface)'
   },
+  {
+    path: '/agent-learning',
+    component: lazy(() => import('@/pages/AgentLearningDashboard')),
+    mode: 'debug',
+    loadingMessage: 'Loading AGI dashboard...',
+    description: 'Real-time agent learning dashboard - ESA Layers 11, 18, 48'
+  },
 ];
 
 /**
