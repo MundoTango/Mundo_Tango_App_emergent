@@ -242,9 +242,11 @@ export default function GroupDetailPageMT() {
   
   // Fetch group events using unified /api/events/feed endpoint (same as Upcoming Events)
   // ESA Layer 22: Fetch all events and filter by groupId on frontend (workaround for query timing issue)
+  // ESA Layer 14: Disable structural sharing to ensure RSVP mutations trigger re-renders
   const { data: eventsResponse, isLoading: loadingEvents } = useQuery<any>({
     queryKey: ['/api/events/feed', { groupId: group?.id }],
-    enabled: activeTab === 'events' && !!group?.id
+    enabled: activeTab === 'events' && !!group?.id,
+    structuralSharing: false // Force re-renders when RSVP status changes
   });
   
   // ESA Layer 22: Client-side filter to ensure only events from this group are shown
