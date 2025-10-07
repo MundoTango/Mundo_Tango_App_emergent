@@ -23,7 +23,7 @@ import { setupUpload } from "./middleware/upload";
 import { streamingUpload, cleanupUploadedFiles } from "./middleware/streamingUpload";
 import { fastUploadHandler, getUploadStatus, getQueueStats } from "./middleware/fastUpload";
 import { storage } from "./storage";
-import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, insertHostReviewSchema, insertGuestReviewSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, guestBookings, recommendations, notifications } from "../shared/schema";
+import { insertUserSchema, insertPostSchema, insertEventSchema, insertChatRoomSchema, insertChatMessageSchema, insertCustomRoleRequestSchema, insertGuestProfileSchema, insertGuestBookingSchema, insertHostReviewSchema, insertGuestReviewSchema, insertTravelPlanSchema, insertItineraryItemSchema, roles, userProfiles, userRoles, groups, users, events, eventRsvps, groupMembers, follows, posts, hostHomes, guestBookings, recommendations, notifications, travelPlans, itineraryItems } from "../shared/schema";
 // Removed homeAmenities, homePhotos import to fix duplicate export issue
 import { z } from "zod";
 import { SocketService } from "./services/socketService";
@@ -39,7 +39,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomBytes } from "crypto";
 import { db, pool } from "./db";
-import { eq, sql, desc, and, isNotNull, count, inArray, gt, gte, lte, or, ilike } from "drizzle-orm";
+import { eq, sql, desc, asc, and, isNotNull, count, inArray, gt, gte, lte, or, ilike } from "drizzle-orm";
 import { uploadChunk, completeUpload, getUploadStatus as getChunkUploadStatus } from "./middleware/chunkHandler";
 import { uploadMedia, uploadMediaWithMetadata, deleteMedia, deleteMediaWithMetadata, getSignedUrl, initializeStorageBucket } from "./services/uploadService";
 import { setUserContext } from "./middleware/tenantMiddleware";
@@ -3701,6 +3701,228 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: 'Geocoding failed',
         message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
       });
+    }
+  });
+
+  // ============================================================================
+  // TRIP PLANNER ENDPOINTS - Community Hub Trip Planning (ESA Layer 22, 23, 27, 28)
+  // ============================================================================
+
+  // Get trip planning results based on configuration
+  app.get('/api/trip-planner/results', setUserContext, async (req: any, res) => {
+    try {
+      const { city, startDate, endDate, budget, interests } = req.query;
+
+      if (!city || !startDate || !endDate) {
+        return res.status(400).json({ error: 'City, start date, and end date are required' });
+      }
+
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+
+      // Fetch events during trip dates
+      const events = await db.query.events.findMany({
+        where: and(
+          eq(events.city, city as string),
+          gte(events.startDate, start),
+          lte(events.startDate, end)
+        ),
+        orderBy: [asc(events.startDate)],
+        limit: 50
+      });
+
+      // Fetch available housing in the city
+      const housing = await db.query.hostHomes.findMany({
+        where: eq(hostHomes.city, city as string),
+        with: {
+          host: {
+            columns: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              profileImage: true
+            }
+          }
+        },
+        limit: 30
+      });
+
+      // Fetch recommendations in the city
+      let recommendationsQuery = db.query.recommendations.findMany({
+        where: eq(recommendations.city, city as string),
+        with: {
+          user: {
+            columns: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              profileImage: true
+            }
+          }
+        },
+        limit: 50
+      });
+
+      // Filter by interests if provided
+      if (interests) {
+        const interestArray = Array.isArray(interests) ? interests : [interests];
+        // Note: This is simplified - in production you'd want to match interests to recommendation types/tags
+      }
+
+      const recommendationsList = await recommendationsQuery;
+
+      res.json({
+        events,
+        housing,
+        recommendations: recommendationsList,
+        meta: {
+          city,
+          startDate,
+          endDate,
+          totalResults: events.length + housing.length + recommendationsList.length
+        }
+      });
+    } catch (error: any) {
+      console.error('❌ Trip planner results error:', error);
+      res.status(500).json({ error: 'Failed to fetch trip results' });
+    }
+  });
+
+  // Create a new travel plan
+  app.post('/api/travel-plans', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const validatedData = insertTravelPlanSchema.parse({
+        ...req.body,
+        userId
+      });
+
+      const [travelPlan] = await db.insert(travelPlans).values(validatedData).returning();
+
+      res.status(201).json(travelPlan);
+    } catch (error: any) {
+      console.error('❌ Create travel plan error:', error);
+      res.status(500).json({ error: 'Failed to create travel plan' });
+    }
+  });
+
+  // Get user's travel plans
+  app.get('/api/travel-plans', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const userPlans = await db.query.travelPlans.findMany({
+        where: eq(travelPlans.userId, userId),
+        orderBy: [desc(travelPlans.startDate)],
+        with: {
+          itineraryItems: true
+        }
+      });
+
+      res.json(userPlans);
+    } catch (error: any) {
+      console.error('❌ Get travel plans error:', error);
+      res.status(500).json({ error: 'Failed to fetch travel plans' });
+    }
+  });
+
+  // Get a specific travel plan with full details
+  app.get('/api/travel-plans/:id', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      const planId = parseInt(req.params.id);
+
+      if (!userId) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const plan = await db.query.travelPlans.findFirst({
+        where: and(
+          eq(travelPlans.id, planId),
+          eq(travelPlans.userId, userId)
+        ),
+        with: {
+          itineraryItems: true
+        }
+      });
+
+      if (!plan) {
+        return res.status(404).json({ error: 'Travel plan not found' });
+      }
+
+      res.json(plan);
+    } catch (error: any) {
+      console.error('❌ Get travel plan error:', error);
+      res.status(500).json({ error: 'Failed to fetch travel plan' });
+    }
+  });
+
+  // Add item to itinerary
+  app.post('/api/itinerary-items', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      const validatedData = insertItineraryItemSchema.parse(req.body);
+
+      // Verify the travel plan belongs to the user
+      const plan = await db.query.travelPlans.findFirst({
+        where: and(
+          eq(travelPlans.id, validatedData.travelPlanId),
+          eq(travelPlans.userId, userId)
+        )
+      });
+
+      if (!plan) {
+        return res.status(404).json({ error: 'Travel plan not found' });
+      }
+
+      const [item] = await db.insert(itineraryItems).values(validatedData).returning();
+
+      res.status(201).json(item);
+    } catch (error: any) {
+      console.error('❌ Add itinerary item error:', error);
+      res.status(500).json({ error: 'Failed to add itinerary item' });
+    }
+  });
+
+  // Remove item from itinerary
+  app.delete('/api/itinerary-items/:id', setUserContext, async (req: any, res) => {
+    try {
+      const userId = req.user?.id;
+      const itemId = parseInt(req.params.id);
+
+      if (!userId) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+
+      // Verify the item belongs to a plan owned by the user
+      const item = await db.query.itineraryItems.findFirst({
+        where: eq(itineraryItems.id, itemId),
+        with: {
+          travelPlan: true
+        }
+      });
+
+      if (!item || item.travelPlan.userId !== userId) {
+        return res.status(404).json({ error: 'Itinerary item not found' });
+      }
+
+      await db.delete(itineraryItems).where(eq(itineraryItems.id, itemId));
+
+      res.status(204).send();
+    } catch (error: any) {
+      console.error('❌ Remove itinerary item error:', error);
+      res.status(500).json({ error: 'Failed to remove itinerary item' });
     }
   });
 
