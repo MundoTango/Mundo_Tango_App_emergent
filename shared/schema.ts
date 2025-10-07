@@ -3127,6 +3127,65 @@ export const insertAgentTokenUsageSchema = createInsertSchema(agentTokenUsage).o
   createdAt: true,
 });
 
+// ESA Layer 36/37/44: Agent Learning System - Persistent knowledge capture
+export const agentLearnings = pgTable("agent_learnings", {
+  id: serial("id").primaryKey(),
+  pattern: varchar("pattern", { length: 255 }).notNull(), // e.g., "segment-aware-query-matching"
+  problem: text("problem").notNull(),
+  solution: text("solution").notNull(),
+  esaLayers: text("esa_layers").array(), // ["7", "14"]
+  agentDomains: text("agent_domains").array(), // ["infrastructure", "frontend"]
+  codeExample: text("code_example"),
+  confidence: numeric("confidence", { precision: 3, scale: 2 }), // 0.00-1.00
+  successMetrics: jsonb("success_metrics"), // { latencyReduction: "90%", ... }
+  discoveredBy: varchar("discovered_by", { length: 100 }), // "architect", "user", "agent"
+  relatedPatterns: text("related_patterns").array(),
+  appliedTo: jsonb("applied_to"), // Files/components where pattern was applied
+  validatedAt: timestamp("validated_at"),
+  documentedAt: timestamp("documented_at"), // When auto-documented to docs/pages
+  documentationPath: varchar("documentation_path", { length: 500 }), // Path to generated doc
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_learnings_pattern").on(table.pattern),
+  index("idx_agent_learnings_confidence").on(table.confidence),
+  index("idx_agent_learnings_validated_at").on(table.validatedAt),
+  index("idx_agent_learnings_created_at").on(table.createdAt),
+]);
+
+// ESA Layer 46: Agent Collaboration tracking for cross-domain learning
+export const agentCollaborationLog = pgTable("agent_collaboration_log", {
+  id: serial("id").primaryKey(),
+  collaborationId: varchar("collaboration_id", { length: 100 }).notNull().unique(),
+  initiatorAgent: varchar("initiator_agent", { length: 100 }).notNull(),
+  participantAgents: text("participant_agents").array(),
+  goal: text("goal").notNull(),
+  status: varchar("status", { length: 20 }).default('active'), // 'active', 'completed', 'failed'
+  tasks: jsonb("tasks"), // Task breakdown with assignments
+  result: jsonb("result"), // Aggregated results
+  knowledgeShared: jsonb("knowledge_shared"), // What each agent learned
+  duration: integer("duration"), // milliseconds
+  startTime: timestamp("start_time").defaultNow(),
+  endTime: timestamp("end_time"),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_agent_collab_initiator").on(table.initiatorAgent),
+  index("idx_agent_collab_status").on(table.status),
+  index("idx_agent_collab_start_time").on(table.startTime),
+]);
+
+// Insert schemas for agent learning tables
+export const insertAgentLearningSchema = createInsertSchema(agentLearnings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentCollaborationLogSchema = createInsertSchema(agentCollaborationLog).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types for agent messages and token usage
 export type AgentMessage = typeof agentMessages.$inferSelect;
 export type InsertAgentMessage = z.infer<typeof insertAgentMessageSchema>;
