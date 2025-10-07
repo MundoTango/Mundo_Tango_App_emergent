@@ -202,7 +202,7 @@ export default function EnhancedEventsPage() {
     document.getElementById('event-search')?.focus();
   });
 
-  // Fetch events with performance optimizations
+  // Fetch events with ESA Layer 14 cache configuration
   const { data: eventsData, isLoading: eventsLoading, refetch } = useQuery<EventApiResponse>({
     queryKey: ['/api/events/feed', {
       search: searchQuery,
@@ -215,12 +215,8 @@ export default function EnhancedEventsPage() {
       tab: activeTab
     }],
     enabled: true,
-    // Performance optimizations
-    staleTime: 5 * 60 * 1000, // Data is fresh for 5 minutes
-    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
-    refetchOnWindowFocus: false, // Don't refetch when switching tabs
-    refetchOnMount: 'always', // Always refetch on mount
-    structuralSharing: false // ESA Layer 14: Force re-renders when RSVP status changes
+    staleTime: 0,
+    structuralSharing: false
   });
 
   const events = eventsData?.data || [];

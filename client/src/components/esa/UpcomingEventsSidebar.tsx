@@ -52,9 +52,8 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
       console.log('✅ [Sidebar Query] Received events:', result.data?.length || 0);
       return result.data || [];
     },
-    staleTime: 0, // Always refetch on mount (Sept 30, 2025 fix)
-    gcTime: 5 * 60 * 1000, // Keep in cache for 5 minutes
-    structuralSharing: false // ESA Layer 14: Force re-renders when RSVP status changes
+    staleTime: 0,
+    structuralSharing: false
   });
   
   console.log('🎯 [Sidebar] Component rendered, query status:', { isLoading, hasData: !!eventsData });
