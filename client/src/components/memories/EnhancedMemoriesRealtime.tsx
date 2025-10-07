@@ -254,38 +254,42 @@ export default function EnhancedMemoriesRealtime() {
     });
   };
 
-  // Removed - using handleLikePost above with standardized hook
+  // Removed old handleComment - now defined with handleShare/handleBookmark below
 
-  const handleComment = (postId: number) => {
-    // This will be enhanced with real-time commenting
-    console.log('Comment on post:', postId);
-    toast('💬 Real-time comments coming soon!');
-  };
-
-  const handleShare = (postId: number) => {
-    if (memorySocket.socket && user) {
-      const post = posts?.find((p: Post) => p.id === postId);
-      if (post) {
-        memorySocket.emitShare({
-          memoryId: postId.toString(),
-          userId: user.id.toString(),
-          username: user.name,
-          memoryOwnerId: post.userId.toString()
-        });
-        
-        toast.success('Memory shared! 🔄', {
-          style: {
-            background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
-            color: 'white',
-          }
-        });
-      }
+  const handleShare = (arg: any) => {
+    // Handle both post object and postId
+    const postId = typeof arg === 'number' ? arg : arg?.id;
+    const post = posts?.find((p: Post) => p.id === postId);
+    
+    if (memorySocket.socket && user && post) {
+      memorySocket.emitShare({
+        memoryId: postId.toString(),
+        userId: user.id.toString(),
+        username: user.name,
+        memoryOwnerId: post.userId.toString()
+      });
+      
+      toast.success('Memory shared! 🔄', {
+        style: {
+          background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
+          color: 'white',
+        }
+      });
     }
   };
 
-  const handleBookmark = (postId: number) => {
+  const handleBookmark = (arg: any) => {
+    // Handle both post object and postId
+    const postId = typeof arg === 'number' ? arg : arg?.id;
     console.log('Bookmark post:', postId);
     toast('🔖 Bookmarking coming soon!');
+  };
+
+  const handleComment = (arg: any) => {
+    // Handle both post object and postId
+    const postId = typeof arg === 'number' ? arg : arg?.id;
+    console.log('Comment on post:', postId);
+    toast('💬 Real-time comments coming soon!');
   };
 
   const handleAddTag = (tag: string) => {
@@ -435,9 +439,9 @@ export default function EnhancedMemoriesRealtime() {
                 <EnhancedPostItem
                   post={mappedPost as any}
                   onLike={handleLikeWrapper as any}
-                  onComment={handleComment}
-                  onShare={handleShare}
-                  onBookmark={handleBookmark}
+                  onComment={handleComment as any}
+                  onShare={handleShare as any}
+                  onBookmark={handleBookmark as any}
                 />
                 
                 {/* Real-time Engagement Overlay */}
