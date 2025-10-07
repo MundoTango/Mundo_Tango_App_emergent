@@ -104,8 +104,8 @@ export const MembersList = ({
             <Users className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-count">
-              {t('members.title', 'Home Community Residents')} ({filteredMembers.length})
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-title">
+              {t('members.title', 'Home Community Residents')}
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {t('members.subtitle', 'Connect with fellow tangueros')}
