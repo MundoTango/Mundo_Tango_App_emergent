@@ -30,6 +30,38 @@ import { useToast } from '@/hooks/use-toast';
  * deleteComment({ commentId: 456, postId: 123 });
  */
 
+/**
+ * Helper: Check if queryKey contains a specific postId
+ * Segment-aware matcher that respects number equality and object fields
+ * Prevents false matches (e.g., postId 12 won't match postId 112)
+ */
+function queryKeyContainsPostId(queryKey: any[], postId: number): boolean {
+  for (const segment of queryKey) {
+    // Check if segment is the postId directly (number equality)
+    if (segment === postId || segment === String(postId)) {
+      return true;
+    }
+    
+    // Check if segment is a string containing the postId (e.g., '/api/posts/123/comments')
+    if (typeof segment === 'string') {
+      // Use word boundaries to prevent substring matches (12 vs 112)
+      const regex = new RegExp(`\\b${postId}\\b`);
+      if (regex.test(segment)) {
+        return true;
+      }
+    }
+    
+    // Check if segment is an object with postId field
+    if (typeof segment === 'object' && segment !== null) {
+      if (segment.postId === postId || segment.postId === String(postId)) {
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
 interface CreateCommentParams {
   postId: number;
   content: string;
@@ -138,11 +170,12 @@ export function useCommentMutation(type: CommentMutationType) {
         
         // Add comment to ALL comment list queries for this post (handle pagination/filter variants)
         previousData.forEach(({ queryKey }) => {
-          // Check ALL segments of queryKey for postId (handles ['/api/posts/123/comments'], ['/api/comments', {postId: 123}], etc.)
+          // Use segment-aware matcher to prevent false matches (e.g., postId 12 vs 112)
           const keyString = JSON.stringify(queryKey);
-          const isCommentQuery = keyString.includes('/comments') && keyString.includes(String(postId));
+          const hasComments = keyString.includes('/comments');
+          const hasPostId = queryKeyContainsPostId(queryKey, postId);
           
-          if (isCommentQuery) {
+          if (hasComments && hasPostId) {
             queryClient.setQueryData(queryKey, (old: any) => {
               if (!old) return [tempComment];
               const comments = old?.data || old || [];
@@ -193,11 +226,12 @@ export function useCommentMutation(type: CommentMutationType) {
         
         // Remove comment from ALL comment list queries for this post (handle pagination/filter variants)
         previousData.forEach(({ queryKey }) => {
-          // Check ALL segments of queryKey for postId (handles ['/api/posts/123/comments'], ['/api/comments', {postId: 123}], etc.)
+          // Use segment-aware matcher to prevent false matches (e.g., postId 12 vs 112)
           const keyString = JSON.stringify(queryKey);
-          const isCommentQuery = keyString.includes('/comments') && keyString.includes(String(postId));
+          const hasComments = keyString.includes('/comments');
+          const hasPostId = queryKeyContainsPostId(queryKey, postId);
           
-          if (isCommentQuery) {
+          if (hasComments && hasPostId) {
             queryClient.setQueryData(queryKey, (old: any) => {
               if (!old) return old;
               const comments = old?.data || old || [];
@@ -248,11 +282,12 @@ export function useCommentMutation(type: CommentMutationType) {
         
         // Update comment content in ALL comment list queries for this post (handle pagination/filter variants)
         previousData.forEach(({ queryKey }) => {
-          // Check ALL segments of queryKey for postId (handles ['/api/posts/123/comments'], ['/api/comments', {postId: 123}], etc.)
+          // Use segment-aware matcher to prevent false matches (e.g., postId 12 vs 112)
           const keyString = JSON.stringify(queryKey);
-          const isCommentQuery = keyString.includes('/comments') && keyString.includes(String(postId));
+          const hasComments = keyString.includes('/comments');
+          const hasPostId = queryKeyContainsPostId(queryKey, postId);
           
-          if (isCommentQuery) {
+          if (hasComments && hasPostId) {
             queryClient.setQueryData(queryKey, (old: any) => {
               if (!old) return old;
               const comments = old?.data || old || [];
