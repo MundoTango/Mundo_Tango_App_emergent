@@ -67,7 +67,7 @@ export function TileSelect({
             <button
               key={option.value}
               type="button"
-              onClick={() = data-testid="button-element"> handleToggle(option.value)}
+              onClick={() => handleToggle(option.value)}
               disabled={isDisabled}
               className={cn(
                 "relative p-4 border-2 rounded-xl text-left transition-all duration-200 group",
@@ -97,7 +97,7 @@ export function TileSelect({
                   <span className="font-medium text-sm">{option.label}</span>
                 </div>
                 {option.description && (
-                  <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-400">
+                  <p className="text-xs text-gray-600 leading-relaxed">
                     {option.description}
                   </p>
                 )}

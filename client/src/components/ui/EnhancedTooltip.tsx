@@ -139,7 +139,7 @@ export const EnhancedTooltip: React.FC<EnhancedTooltipProps> = ({
             transform hover:scale-105 transition-all duration-300
           `}>
             {/* Sparkle Animation */}
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-70 animate-ping dark:bg-neutral-900"></div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-70 animate-ping"></div>
             <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-yellow-300 rounded-full opacity-60 animate-pulse"></div>
             
             {/* Main Content */}

@@ -4,13 +4,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-// LAYER 9 - UI Framework Agent: MT Ocean Theme Gradients (Design Tokens)
+// LAYER 9 - UI Framework Agent: MT Ocean Theme Gradients
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-ocean-300 to-ocean-700 text-white hover:from-ocean-400 hover:to-ocean-800 shadow-lg transform hover:scale-105",
+        default: "bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white hover:from-[#4FD1C5] hover:to-[#0C4A60] shadow-lg transform hover:scale-105",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

@@ -3,8 +3,6 @@ import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 import MTButton from '../buttons/MTButton';
 import { applyGlassmorphism } from '@/styles/mt-ocean-theme';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 export interface MTModalProps {
   isOpen: boolean;
@@ -82,7 +80,10 @@ const MTModal: React.FC<MTModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
-      <GlassCard depth={1} className="absolute inset-0 animate-fadeIn">
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fadeIn"
+        onClick={closeOnOverlayClick ? onClose : undefined}
+      />
 
       {/* Modal */}
       <div

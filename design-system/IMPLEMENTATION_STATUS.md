@@ -112,14 +112,10 @@
 
 ## 📋 Week 2-4 Roadmap
 
-### Week 2: Audit & Discovery (COMPLETED) ✅
-- [x] Workstream 4: Animation Standardization
-- [x] Workstream 6: Documentation System (Ladle)
-- [x] Fix critical friction points identified in journey mapping
-- [x] Motion library installed with 11 animation variants
-- [x] 17 Ladle stories created (animations, glass, tokens)
-- [x] UX optimization components (ProgressIndicator, InlineValidation)
-- [x] Onboarding friction analysis tool created
+### Week 2: Audit & Discovery (In Progress)
+- [ ] Workstream 4: Animation Standardization
+- [ ] Workstream 6: Documentation System (Ladle)
+- [ ] Fix critical friction points identified in journey mapping
 
 ### Week 3: Implementation
 - [ ] Workstream 7: Accessibility Enforcement (WCAG 2.1 AA)

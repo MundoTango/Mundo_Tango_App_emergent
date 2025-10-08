@@ -5,8 +5,6 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
 import { ErrorHub } from '@shared/resilience/errorHub';
 import { AlertCircle, RefreshCw } from 'lucide-react';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 interface Props {
   children: ReactNode;
@@ -88,7 +86,7 @@ export class ResilientBoundary extends Component<Props, State> {
       return (
         <div className="min-h-[200px] flex items-center justify-center p-6">
           <div className="max-w-md w-full">
-            <GlassCard depth={1} className="border border-red-200 rounded-lg p-6 shadow-lg">
+            <div className="bg-white/90 backdrop-blur-sm border border-red-200 rounded-lg p-6 shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <AlertCircle className="w-6 h-6 text-red-500" />

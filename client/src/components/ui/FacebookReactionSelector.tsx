@@ -95,7 +95,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
 
       {/* Reaction Picker */}
       {showReactions && (
-        <div className="absolute bottom-full left-0 mb-3 bg-white rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100 dark:bg-neutral-900" data-testid={`popover-reactions-${postId}`}>
+        <div className="absolute bottom-full left-0 mb-3 bg-white rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200 border border-gray-100" data-testid={`popover-reactions-${postId}`}>
           <div className="grid grid-cols-6 gap-1">
             {FACEBOOK_REACTIONS.map((reaction) => (
               <button
@@ -119,7 +119,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
             ))}
           </div>
           {/* Tooltip arrow */}
-          <div className="absolute -bottom-2 left-4 w-4 h-4 bg-white border-r border-b border-gray-100 transform rotate-45 dark:bg-neutral-900"></div>
+          <div className="absolute -bottom-2 left-4 w-4 h-4 bg-white border-r border-b border-gray-100 transform rotate-45"></div>
         </div>
       )}
     </div>
