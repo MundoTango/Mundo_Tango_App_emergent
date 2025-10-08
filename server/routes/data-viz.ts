@@ -4,14 +4,12 @@
  */
 
 import { Router } from 'express';
+import { getExpertAgent } from '../esa-agents/agent-system';
 
 const router = Router();
 
-// In-memory reference to the Data Viz Expert agent
-let dataVizExpertAgent: any = null;
-
-export function setDataVizExpertAgent(agent: any) {
-  dataVizExpertAgent = agent;
+function getAgent() {
+  return getExpertAgent('data_viz');
 }
 
 /**
@@ -20,7 +18,10 @@ export function setDataVizExpertAgent(agent: any) {
  */
 router.get('/status', async (req, res) => {
   try {
-    if (!dataVizExpertAgent) {
+    const agent = getAgent();
+    console.log('📊 [Data Viz Status] Agent check:', { hasAgent: !!agent, agentType: agent?.constructor?.name });
+    if (!agent) {
+      console.log('📊 [Data Viz Status] Agent is null or undefined!');
       return res.status(503).json({ error: 'Data Viz Expert not initialized' });
     }
 
@@ -48,11 +49,12 @@ router.get('/status', async (req, res) => {
  */
 router.post('/analyze', async (req, res) => {
   try {
-    if (!dataVizExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Data Viz Expert not initialized' });
     }
 
-    const analysis = await dataVizExpertAgent.execute('analyzeCharts', {});
+    const analysis = await agent.execute('analyzeCharts', {});
     res.json({ analysis });
   } catch (error) {
     console.error('[Data Viz Expert] Analyze error:', error);
@@ -66,12 +68,13 @@ router.post('/analyze', async (req, res) => {
  */
 router.post('/suggest-chart', async (req, res) => {
   try {
-    if (!dataVizExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Data Viz Expert not initialized' });
     }
 
     const { dataType, purpose } = req.body;
-    const suggestion = await dataVizExpertAgent.execute('suggestChart', { dataType, purpose });
+    const suggestion = await agent.execute('suggestChart', { dataType, purpose });
     res.json(suggestion);
   } catch (error) {
     console.error('[Data Viz Expert] Suggest chart error:', error);
@@ -85,11 +88,12 @@ router.post('/suggest-chart', async (req, res) => {
  */
 router.get('/metrics', async (req, res) => {
   try {
-    if (!dataVizExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Data Viz Expert not initialized' });
     }
 
-    const metrics = await dataVizExpertAgent.execute('getDashboardMetrics', {});
+    const metrics = await agent.execute('getDashboardMetrics', {});
     res.json(metrics);
   } catch (error) {
     console.error('[Data Viz Expert] Metrics error:', error);
@@ -103,12 +107,13 @@ router.get('/metrics', async (req, res) => {
  */
 router.post('/optimize', async (req, res) => {
   try {
-    if (!dataVizExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Data Viz Expert not initialized' });
     }
 
     const { chartId } = req.body;
-    const optimizations = await dataVizExpertAgent.execute('optimizePerformance', { chartId });
+    const optimizations = await agent.execute('optimizePerformance', { chartId });
     res.json(optimizations);
   } catch (error) {
     console.error('[Data Viz Expert] Optimize error:', error);
