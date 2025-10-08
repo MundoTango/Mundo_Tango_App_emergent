@@ -178,14 +178,14 @@ export default function PostCreator({
 
   // Predefined tags with emojis
   const predefinedTags = [
-    { value: 'milonga', label: 'Milonga', emoji: '💃' },
-    { value: 'practica', label: 'Práctica', emoji: '🎯' },
-    { value: 'performance', label: 'Performance', emoji: '🎭' },
-    { value: 'workshop', label: 'Workshop', emoji: '📚' },
-    { value: 'festival', label: 'Festival', emoji: '🎪' },
-    { value: 'travel', label: 'Travel', emoji: '✈️' },
-    { value: 'music', label: 'Music', emoji: '🎵' },
-    { value: 'fashion', label: 'Fashion', emoji: '👗' }
+    { value: 'milonga', label: t('memories.categories.milonga'), emoji: '💃' },
+    { value: 'practica', label: t('memories.categories.practica'), emoji: '🎯' },
+    { value: 'performance', label: t('memories.categories.performance'), emoji: '🎭' },
+    { value: 'workshop', label: t('memories.categories.workshop'), emoji: '📚' },
+    { value: 'festival', label: t('memories.categories.festival'), emoji: '🎪' },
+    { value: 'travel', label: t('memories.categories.travel'), emoji: '✈️' },
+    { value: 'music', label: t('memories.categories.music'), emoji: '🎵' },
+    { value: 'fashion', label: t('memories.categories.fashion'), emoji: '👗' }
   ];
 
   // Handle location selection from Google Maps
@@ -1536,7 +1536,7 @@ export default function PostCreator({
                           >
                             <div className="text-xl mb-1">{price}</div>
                             <div className="text-xs font-medium">
-                              {price === '$' ? 'Budget' : price === '$$' ? 'Moderate' : 'Luxury'}
+                              {price === '$' ? t('memories.price.budget') : price === '$$' ? t('memories.price.moderate') : t('memories.price.luxury')}
                             </div>
                           </button>
                         ))}
