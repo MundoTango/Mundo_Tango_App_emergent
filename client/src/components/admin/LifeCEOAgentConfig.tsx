@@ -144,9 +144,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                     variant="ghost"
                     onClick={()  => {
                       setEditingConfig(null);
-                      setNewConfigData('');
-                    }}
-                  >
+                      setNewConfigData('') }}>
                     <X className="w-4 h-4 mr-1" />
                     Cancel
                   </Button>
@@ -157,9 +155,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   variant="ghost"
                   onClick={()  => {
                     setEditingConfig(config);
-                    setNewConfigData(JSON.stringify(config.config_data, null, 2));
-                  }}
-                >
+                    setNewConfigData(JSON.stringify(config.config_data, null, 2)) }}>
                   <Edit className="w-4 h-4 mr-1" />
                   Edit
                 </Button>

@@ -267,9 +267,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                       documentId: selectedDocument.id,
                       status: 'approved',
                       notes: reviewNotes,
-                    });
-                  }}
-                >
+                    }) }}>
                   <Check className="w-4 h-4 mr-1" />
                   Approve
                 </Button>
@@ -281,9 +279,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                       documentId: selectedDocument.id,
                       status: 'rejected',
                       notes: reviewNotes,
-                    });
-                  }}
-                >
+                    }) }}>
                   <X className="w-4 h-4 mr-1" />
                   Reject
                 </Button>
@@ -291,9 +287,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                   variant="outline"
                   onClick={()  => {
                     setSelectedDocument(null);
-                    setReviewNotes('');
-                  }}
-                >
+                    setReviewNotes('') }}>
                   Cancel
                 </Button>
               </div>

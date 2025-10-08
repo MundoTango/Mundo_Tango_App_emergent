@@ -518,9 +518,7 @@ const PromoCodesAdmin: React.FC = () => {
                       const newTiers = formData.applicableTiers.includes(tier)
                         ? formData.applicableTiers.filter(t => t !== tier)
                         : [...formData.applicableTiers, tier];
-                      setFormData({ ...formData, applicableTiers: newTiers });
-                    }}
-                  >
+                      setFormData({ ...formData, applicableTiers: newTiers }) }}>
                     {tier}
                   </Badge>
                 ))}

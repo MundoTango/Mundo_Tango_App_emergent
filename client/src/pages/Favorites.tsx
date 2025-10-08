@@ -151,9 +151,7 @@ export default function Favorites() {
           className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={(e) => {
             e.stopPropagation();
-            removeFavorite.mutate({ itemId: item.itemId, itemType: item.itemType });
-          }}
-        >
+            removeFavorite.mutate({ itemId: item.itemId, itemType: item.itemType }) }}>
           <X className="h-4 w-4" />
         </Button>
 
@@ -279,9 +277,7 @@ export default function Favorites() {
                 onClick={() => {
                   const items = favorites?.filter(f => selectedItems.includes(f.id.toString()))
                     .map(f => ({ itemId: f.itemId, itemType: f.itemType })) || [];
-                  bulkRemove.mutate(items);
-                }}
-              >
+                  bulkRemove.mutate(items) }}>
                 Remove Selected
               </Button>
             </div>

@@ -142,9 +142,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
                   className="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-1"
                   onClick={()  => {
                     // In a real app, this would navigate to the specific step
-                    console.log(`Edit ${section.title}`);
-                  }}
-                >
+                    console.log(`Edit ${section.title}`) }}>
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>

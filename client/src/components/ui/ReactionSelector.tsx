@@ -95,9 +95,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
             setIsHovering(false);
             setTimeout(() => {
               if (!isHovering) setShowReactions(false);
-            }, 300);
-          }}
-        >
+            }, 300) }}>
           <span className="text-lg transition-transform group-hover:scale-110">
             {getCurrentReactionEmoji()}
           </span>
@@ -114,9 +112,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => {
             setIsHovering(false);
-            setTimeout(() => setShowReactions(false), 200);
-          }}
-        >
+            setTimeout(() => setShowReactions(false), 200) }}>
           <div className="flex items-center">
             {REACTION_TYPES.map((reaction) => (
               <button

@@ -210,7 +210,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
       {/* Privacy Settings Modal */}
       {showPrivacySettings && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <GlassCard depth={1} className="fixed inset-0" setShowPrivacySettings(false)} />
+          <GlassCard depth={1} className="fixed inset-0" onClick={() => setShowPrivacySettings(false)} />
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy Settings</h3>

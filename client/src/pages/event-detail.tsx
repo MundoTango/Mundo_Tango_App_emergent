@@ -290,9 +290,7 @@ export default function EventDetailPage() {
                       title: "Link copied!",
                       description: "Event link has been copied to clipboard.",
                     });
-                  });
-                }}
-              >
+                  }) }}>
                 <Share2 className="h-4 w-4" />
               </Button>
               

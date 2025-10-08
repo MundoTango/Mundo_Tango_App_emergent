@@ -484,9 +484,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                   className="p-1 h-6 w-6"
                   onClick={(e)  => {
                     e.stopPropagation();
-                    onToggleExpand(item.id);
-                  }}
-                >
+                    onToggleExpand(item.id) }}>
                   {item.isExpanded ? (
                     <ChevronDown className="h-4 w-4" />
                   ) : (

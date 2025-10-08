@@ -442,7 +442,7 @@ export default function EnhancedFriendsPage() {
             <Select
               value={selectedSort}
               onChange={(newValue)> {
-                if (newValue) setSelectedSort(newValue);
+                if (newValue) { setSelectedSort(newValue); }
               }}
               options={sortOptions}
               className="w-48"
@@ -729,9 +729,7 @@ export default function EnhancedFriendsPage() {
                   onClick={()  => {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
-                    setRequestNote('');
-                  }}
-                >
+                    setRequestNote('') }}>
                   Cancel
                 </Button>
                 <Button

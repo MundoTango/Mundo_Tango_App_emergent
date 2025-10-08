@@ -163,9 +163,7 @@ export default function StoryHighlights({
                 variant="outline"
                 onClick={()  => {
                   setCreateDialogOpen(false);
-                  setNewHighlightTitle('');
-                }}
-              >
+                  setNewHighlightTitle('') }}>
                 Cancel
               </Button>
               <Button

@@ -178,9 +178,7 @@ export default function GroupsPage() {
                           className="w-full rounded-lg bg-green-100 text-green-800 border border-green-200 py-2 text-sm font-medium"
                           onClick={(e)  => {
                             e.stopPropagation();
-                            setLocation(`/groups/${group.slug}`);
-                          }}
-                        >
+                            setLocation(`/groups/${group.slug}`) }}>
                           ✓ Member - View Group
                         </button>
                       ) : (

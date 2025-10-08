@@ -248,9 +248,7 @@ export function FriendRequestList() {
                 variant="outline"
                 onClick={()  => {
                   setShowAcceptDialog(false);
-                  setAcceptMessage('');
-                }}
-              >
+                  setAcceptMessage('') }}>
                 Cancel
               </Button>
               <Button

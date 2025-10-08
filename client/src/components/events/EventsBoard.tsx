@@ -107,9 +107,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                         variant="outline"
                         onClick={()  => {
                           setSelectedEvent(event);
-                          setShowDelegationPanel(true);
-                        }}
-                      >
+                          setShowDelegationPanel(true) }}>
                         <Settings className="w-4 h-4 mr-1" />
                         Manage
                       </Button>

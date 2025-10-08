@@ -121,9 +121,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
                   e.currentTarget.style.backgroundColor = '';
-                  e.currentTarget.style.boxShadow = '';
-                }}
-              >
+                  e.currentTarget.style.boxShadow = '' }}>
                 {reaction.text}
               </button>
             ))}

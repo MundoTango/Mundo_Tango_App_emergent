@@ -383,9 +383,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                       className="text-sm text-turquoise-600 hover:text-turquoise-700 font-medium"
                       onClick={(e)  => {
                         e.stopPropagation();
-                        setExpandedRole(expanded ? null : role.id);
-                      }}
-                    >
+                        setExpandedRole(expanded ? null : role.id) }}>
                       {expanded ? 'Hide details' : 'Show details'} →
                     </button>
 

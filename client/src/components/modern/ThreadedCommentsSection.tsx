@@ -318,8 +318,7 @@ export default function ThreadedCommentsSection({
               >
                 <form onSubmit={(e) => {
                   e.preventDefault();
-                  handleSubmitReply(commentId);
-                }}>
+                  handleSubmitReply(commentId) }}>
                   <div className="flex gap-2">
                     <input
                       type="text"
