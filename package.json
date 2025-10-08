@@ -78,7 +78,8 @@
     "fix:page-titles": "node design-system/scripts/fix-page-titles.js",
     "fix:contrast": "node design-system/scripts/fix-contrast.js",
     "fix:keyboard": "node design-system/scripts/fix-keyboard-support.js",
-    "fix:all-a11y": "npm run fix:page-titles && npm run fix:contrast && npm run fix:keyboard"
+    "fix:all-a11y": "npm run fix:page-titles && npm run fix:contrast && npm run fix:keyboard",
+    "recover:complete": "node design-system/scripts/complete-recovery.js"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",
