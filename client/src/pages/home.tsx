@@ -74,7 +74,7 @@ export default function Home() {
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
             onClick={handleCloseSidebar}
-          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCloseSidebar(e); } }}>
+
         )}
         
         <main className={`flex-1 transition-all duration-300 ${

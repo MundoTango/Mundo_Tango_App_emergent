@@ -11,6 +11,7 @@ import { useMonitoring } from '@/hooks/useMonitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { monitoring } from '@/services/monitoring';
 import { CheckCircle, XCircle, AlertCircle, Activity, Shield, BarChart, Eye } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function MonitoringTest() {
   const { trackEvent, trackPageView, captureException } = useMonitoring();
@@ -262,7 +263,6 @@ export default function MonitoringTest() {
               {Object.entries(testResults).map(([key, value]) => {
                 if (key.includes('error') || key.includes('details')) {
                   return null;
-import { Helmet } from 'react-helmet';
                 }
                 
                 const isSuccess = value === true;

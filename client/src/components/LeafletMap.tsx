@@ -128,10 +128,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                   const slug = city.slug || `tango-${(city.city || city.name).toLowerCase().replace(/\s+/g, '-')}-${(city.country || '').toLowerCase().replace(/\s+/g, '-')}`;
                   window.location.href = `/groups/${slug}`;
                 }}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
-                  onCityClick?.(city);
-                  // Navigate to city group page using slug
-                  const slug = city.slug || `tango-${(city.city || city.name).toLowerCase().replace(/\s+/g, '-'); } }}>
+              >
                 <h3 className="font-bold text-lg bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
                   {city.city || city.name}
                 </h3>

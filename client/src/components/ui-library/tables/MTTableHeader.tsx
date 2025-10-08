@@ -114,7 +114,7 @@ export default function MTTableHeader({
           className="absolute right-0 top-0 h-full w-1 cursor-col-resize hover:bg-teal-400/50 transition-colors"
           onMouseDown={handleMouseDown}
           onClick={(e) => e.stopPropagation()}
-        / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
+
       )}
     </th>
   );

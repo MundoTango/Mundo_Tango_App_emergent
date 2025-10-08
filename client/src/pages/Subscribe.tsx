@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Link, useLocation } from 'wouter';
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuth } from '@/hooks/useAuth';
+import { Helmet } from 'react-helmet';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
@@ -99,7 +100,6 @@ const Subscribe: React.FC = () => {
         description: "Stripe is not configured. Please contact support.",
         variant: "destructive"
       });
-import { Helmet } from 'react-helmet';
       return;
     }
 

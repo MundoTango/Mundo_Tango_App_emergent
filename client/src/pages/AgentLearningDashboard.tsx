@@ -45,14 +45,7 @@ export default function AgentLearningDashboard() {
       refetchPatterns();
     }, 3000);
 
-    return (
-    <>
-      <Helmet>
-        <title>Agent Learning Dashboard | Life CEO</title>
-      </Helmet>
-      
-    </>
-  ) => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [autoRefresh, refetchStats, refetchPatterns]);
 
   const queuedJobs = stats?.jobQueue?.find(q => q.status === 'queued')?.count || 0;
@@ -60,7 +53,11 @@ export default function AgentLearningDashboard() {
   const completedJobs = stats?.jobQueue?.find(q => q.status === 'done')?.count || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+    <>
+      <Helmet>
+        <title>Agent Learning Dashboard | Life CEO</title>
+      </Helmet>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -245,5 +242,6 @@ export default function AgentLearningDashboard() {
         </Card>
       </div>
     </div>
+    </>
   );
 }
