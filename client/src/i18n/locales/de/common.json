@@ -15,6 +15,7 @@
     "profile": "Profil",
     "events": "Veranstaltungen",
     "community": "Gemeinschaft",
+    "tangoCommunity": "Tango-Gemeinschaft",
     "messages": "Nachrichten",
     "friends": "Freunde",
     "groups": "Gruppen",
@@ -24,7 +25,9 @@
     "logout": "Abmelden",
     "search": "Suche",
     "notifications": "Benachrichtigungen",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "roleInvitations": "Rolleneinladungen",
+    "recommendations": "Empfehlungen"
   },
   "actions": {
     "save": "Speichern",
@@ -333,6 +336,20 @@
     "noFollowedEvents": "Keine Veranstaltungen von Gruppen, denen Sie folgen",
     "noFollowedCitiesEvents": "Keine Veranstaltungen in Städten, denen Sie folgen",
     "viewAllEvents": "Alle Veranstaltungen anzeigen"
+  },
+  "search": {
+    "searching": "Suchen...",
+    "posts": "Beiträge",
+    "events": "Veranstaltungen",
+    "groups": "Gruppen",
+    "users": "Benutzer",
+    "noResults": "Keine Ergebnisse gefunden"
+  },
+  "community": {
+    "globalDancers": "Weltweite Tänzer",
+    "activeEvents": "Aktive Veranstaltungen",
+    "totalGroups": "Tango-Gruppen",
+    "globalCommunity": "Weltweite Tango-Gemeinschaft"
   },
   "housing": {
     "reviews": {
