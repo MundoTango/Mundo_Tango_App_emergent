@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Sparkles } from 'lucide-react';
 import { useTheme } from '@/lib/theme/theme-provider';
 import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use existing auth
-// NOTE: useTranslation removed - Layer 53 is broken, using English strings
+import { useTranslation } from 'react-i18next';
 
 // RESILIENCE IMPORTS - Platform-wide protection
 import { withResilience } from '@/components/resilient/ResilientBoundary';
@@ -33,7 +33,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 // Core component without error boundary
 function ESAMemoryFeedCore() {
-  // NOTE: Translation hook removed - Layer 53 is broken, using English strings directly
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { currentTheme } = useTheme();
   const { user } = useAuth(); // ESA Framework Layer 4: Get authenticated user
@@ -65,8 +65,8 @@ function ESAMemoryFeedCore() {
     mutationFn: (formData: FormData) => postsAPI.createPost(formData),
     onSuccess: (_data, formData) => {
       toast({ 
-        title: "Memory Shared",
-        description: "Your memory has been shared successfully"
+        title: t('memories.memoryShared'),
+        description: t('memories.memorySharedDesc')
       });
       // ESA Layer 5: Invalidate feed queries
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
@@ -82,8 +82,8 @@ function ESAMemoryFeedCore() {
     },
     onError: (error: any) => {
       toast({ 
-        title: "Error",
-        description: error.message || "Upload failed",
+        title: t('memories.error'),
+        description: error.message || t('memories.uploadFailed'),
         variant: "destructive"
       });
     }
@@ -167,13 +167,13 @@ function ESAMemoryFeedCore() {
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-teal-500" aria-hidden="true" />
                 <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
-                  Memories
+                  {t('memories.title')}
                 </span>
               </h1>
               {/* Track C: Accessibility - Keyboard shortcuts hint for screen readers */}
               <div className="hidden sm:block text-xs text-gray-500 dark:text-gray-400" aria-label="Keyboard shortcuts">
-                <span className="sr-only">Keyboard shortcuts: </span>
-                <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Ctrl+N</kbd> New post
+                <span className="sr-only">{t('memories.keyboardShortcuts')}</span>
+                <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Ctrl+N</kbd> {t('memories.newPost')}
               </div>
             </div>
           </div>
