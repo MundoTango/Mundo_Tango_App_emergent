@@ -163,24 +163,31 @@ function ESAMemoryFeedCore() {
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           {/* Page Header - Feed Only */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center mb-4">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Sparkles className="h-6 w-6 text-teal-500" />
-                Memories
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Sparkles className="h-6 w-6 text-teal-500" aria-hidden="true" />
+                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                  Memories
+                </span>
               </h1>
+              {/* Track C: Accessibility - Keyboard shortcuts hint for screen readers */}
+              <div className="hidden sm:block text-xs text-gray-500 dark:text-gray-400" aria-label="Keyboard shortcuts">
+                <span className="sr-only">Keyboard shortcuts: </span>
+                <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Ctrl+N</kbd> New post
+              </div>
             </div>
           </div>
 
           {/* Main Content Area */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
               {/* Main Content - Grid or Feed View */}
-              <div className="lg:col-span-2">
-                <div className="space-y-6">
+              <main className="lg:col-span-2" role="main" aria-label="Memories feed">
+                <div className="space-y-4 lg:space-y-6">
                   {/* Post Creator - Always visible per ESA Framework */}
                   {!showCreateModal && (
                     <FadeIn delay={0.1}>
-                      <GlassCard depth={2} className="overflow-hidden">
+                      <GlassCard depth={2} className="overflow-hidden" role="region" aria-label="Create new memory">
                         <PostCreator 
                       user={{
                         id: parseInt(currentUserId) || 1,
@@ -295,7 +302,13 @@ function ESAMemoryFeedCore() {
                   
                   {/* Posts Display */}
                   {/* Posts Feed - Context-Based Mode (PostFeed handles all fetching/pagination) */}
-                  <div ref={feedContainerRef} className="memory-feed-container">
+                  <section 
+                    ref={feedContainerRef} 
+                    className="memory-feed-container"
+                    role="feed"
+                    aria-label="Memory posts feed"
+                    aria-live="polite"
+                  >
                     <PostFeed 
                       context={feedContext}
                       showFilters={true}
@@ -303,21 +316,26 @@ function ESAMemoryFeedCore() {
                       currentUserId={currentUserId}
                       onEdit={handleEditPost}
                     />
-                  </div>
+                  </section>
                 </div>
-              </div>
+              </main>
 
               {/* Right Sidebar - Events */}
-              <div className="lg:col-span-1">
+              <aside 
+                className="lg:col-span-1 hidden lg:block" 
+                role="complementary" 
+                aria-label="Upcoming events sidebar"
+              >
                 <Suspense fallback={
-                  <div className="animate-pulse">
+                  <div className="animate-pulse" role="status" aria-label="Loading events">
                     <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4" />
                     <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+                    <span className="sr-only">Loading upcoming events...</span>
                   </div>
                 }>
                   <UpcomingEventsSidebar />
                 </Suspense>
-              </div>
+              </aside>
             </div>
           </div>
         </div>
