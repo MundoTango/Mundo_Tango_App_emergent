@@ -4,14 +4,12 @@
  */
 
 import { Router } from 'express';
+import { getExpertAgent } from '../esa-agents/agent-system';
 
 const router = Router();
 
-// In-memory reference to the Code Quality Expert agent
-let codeQualityExpertAgent: any = null;
-
-export function setCodeQualityExpertAgent(agent: any) {
-  codeQualityExpertAgent = agent;
+function getAgent() {
+  return getExpertAgent('code_quality');
 }
 
 /**
@@ -20,7 +18,8 @@ export function setCodeQualityExpertAgent(agent: any) {
  */
 router.get('/status', async (req, res) => {
   try {
-    if (!codeQualityExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Code Quality Expert not initialized' });
     }
 
@@ -48,12 +47,13 @@ router.get('/status', async (req, res) => {
  */
 router.post('/lint', async (req, res) => {
   try {
-    if (!codeQualityExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Code Quality Expert not initialized' });
     }
 
     const { files } = req.body;
-    const issues = await codeQualityExpertAgent.execute('lint', { files });
+    const issues = await agent.execute('lint', { files });
     res.json({ issues });
   } catch (error) {
     console.error('[Code Quality Expert] Lint error:', error);
@@ -67,11 +67,12 @@ router.post('/lint', async (req, res) => {
  */
 router.get('/security', async (req, res) => {
   try {
-    if (!codeQualityExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Code Quality Expert not initialized' });
     }
 
-    const vulnerabilities = await codeQualityExpertAgent.execute('checkSecurity', {});
+    const vulnerabilities = await agent.execute('checkSecurity', {});
     res.json({ vulnerabilities });
   } catch (error) {
     console.error('[Code Quality Expert] Security check error:', error);
@@ -85,11 +86,12 @@ router.get('/security', async (req, res) => {
  */
 router.get('/analysis', async (req, res) => {
   try {
-    if (!codeQualityExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Code Quality Expert not initialized' });
     }
 
-    const analysis = await codeQualityExpertAgent.execute('analyzeQuality', {});
+    const analysis = await agent.execute('analyzeQuality', {});
     res.json(analysis);
   } catch (error) {
     console.error('[Code Quality Expert] Analysis error:', error);
@@ -103,12 +105,13 @@ router.get('/analysis', async (req, res) => {
  */
 router.post('/suggest-fixes', async (req, res) => {
   try {
-    if (!codeQualityExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Code Quality Expert not initialized' });
     }
 
     const { file } = req.body;
-    const fixes = await codeQualityExpertAgent.execute('suggestFixes', { file });
+    const fixes = await agent.execute('suggestFixes', { file });
     res.json(fixes);
   } catch (error) {
     console.error('[Code Quality Expert] Suggest fixes error:', error);

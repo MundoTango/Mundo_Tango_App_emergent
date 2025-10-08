@@ -5,15 +5,12 @@
 
 import { Router } from 'express';
 import type { Request, Response } from 'express';
+import { getExpertAgent } from '../esa-agents/agent-system';
 
 const router = Router();
 
-// In-memory reference to the AI Research Expert agent
-// Will be injected when the agent system initializes
-let aiExpertAgent: any = null;
-
-export function setAIExpertAgent(agent: any) {
-  aiExpertAgent = agent;
+function getAgent() {
+  return getExpertAgent('ai_research');
 }
 
 /**
@@ -22,13 +19,14 @@ export function setAIExpertAgent(agent: any) {
  */
 router.get('/news', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
     const { limit = 20, category } = req.query;
     
-    const news = await aiExpertAgent.execute('getLatestNews', {
+    const news = await agent.execute('getLatestNews', {
       limit: Number(limit),
       category,
     });
@@ -50,13 +48,14 @@ router.get('/news', async (req: Request, res: Response) => {
  */
 router.get('/trending', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
     const { language = 'typescript', topic = 'ai', limit = 10 } = req.query;
     
-    const repos = await aiExpertAgent.execute('searchTrending', {
+    const repos = await agent.execute('searchTrending', {
       language,
       topic,
       limit: Number(limit),
@@ -79,11 +78,12 @@ router.get('/trending', async (req: Request, res: Response) => {
  */
 router.get('/brief', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
-    const brief = await aiExpertAgent.execute('generateBrief', {});
+    const brief = await agent.execute('generateBrief', {});
     
     res.json({
       success: true,
@@ -101,7 +101,8 @@ router.get('/brief', async (req: Request, res: Response) => {
  */
 router.post('/evaluate-framework', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
@@ -111,7 +112,7 @@ router.post('/evaluate-framework', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Framework name required' });
     }
     
-    const evaluation = await aiExpertAgent.execute('evaluateFramework', {
+    const evaluation = await agent.execute('evaluateFramework', {
       framework,
     });
     
@@ -131,7 +132,8 @@ router.post('/evaluate-framework', async (req: Request, res: Response) => {
  */
 router.post('/find-alternatives', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
@@ -141,7 +143,7 @@ router.post('/find-alternatives', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Tool and category required' });
     }
     
-    const alternatives = await aiExpertAgent.execute('findAlternatives', {
+    const alternatives = await agent.execute('findAlternatives', {
       tool,
       category,
     });
@@ -162,18 +164,19 @@ router.post('/find-alternatives', async (req: Request, res: Response) => {
  */
 router.post('/critique-esa', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
     // Queue the critique job
-    await aiExpertAgent.addJob('critique_esa', {});
+    await agent.addJob('critique_esa', {});
     
     // Wait a moment for processing
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Get the critique from shared state
-    const critique = await aiExpertAgent.getSharedState('esa_framework_critique');
+    const critique = await agent.getSharedState('esa_framework_critique');
     
     res.json({
       success: true,
@@ -191,20 +194,21 @@ router.post('/critique-esa', async (req: Request, res: Response) => {
  */
 router.post('/discover-tools', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
     const { category = 'ai-agents', limit = 20 } = req.body;
     
     // Queue the discovery job
-    await aiExpertAgent.addJob('discover_tools', { category, limit });
+    await agent.addJob('discover_tools', { category, limit });
     
     // Wait for processing
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     // Get discoveries from shared state
-    const discoveries = await aiExpertAgent.getSharedState('tool_discoveries');
+    const discoveries = await agent.getSharedState('tool_discoveries');
     
     res.json({
       success: true,
@@ -222,12 +226,13 @@ router.post('/discover-tools', async (req: Request, res: Response) => {
  */
 router.post('/aggregate-news', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'AI Expert not initialized' });
     }
     
     // Queue the aggregation job
-    const job = await aiExpertAgent.addJob('aggregate_ai_news', {});
+    const job = await agent.addJob('aggregate_ai_news', {});
     
     res.json({
       success: true,
@@ -246,7 +251,8 @@ router.post('/aggregate-news', async (req: Request, res: Response) => {
  */
 router.get('/status', async (req: Request, res: Response) => {
   try {
-    if (!aiExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ 
         error: 'AI Expert not initialized',
         initialized: false,
@@ -257,9 +263,9 @@ router.get('/status', async (req: Request, res: Response) => {
       success: true,
       initialized: true,
       agent: {
-        id: aiExpertAgent.id,
-        name: aiExpertAgent.name,
-        layers: aiExpertAgent.layers,
+        id: agent.id,
+        name: agent.name,
+        layers: agent.layers,
       },
       capabilities: [
         'RSS News Aggregation (7 sources, unlimited, free)',
