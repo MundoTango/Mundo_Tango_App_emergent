@@ -3,94 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpBackend from 'i18next-http-backend';
 
-// Import translation files
-import enCommon from '@/i18n/locales/en/common.json';
-import enEvents from '@/i18n/locales/en/events.json';
-import enSocial from '@/i18n/locales/en/social.json';
-import enAgents from '@/i18n/locales/en/agents.json';
-import enPlaceholders from '@/i18n/locales/en/placeholders.json';
-
-import esCommon from '@/i18n/locales/es/common.json';
-import esEvents from '@/i18n/locales/es/events.json';
-import esSocial from '@/i18n/locales/es/social.json';
-import esAgents from '@/i18n/locales/es/agents.json';
-
-import frCommon from '@/i18n/locales/fr/common.json';
-import itCommon from '@/i18n/locales/it/common.json';
-import ptCommon from '@/i18n/locales/pt/common.json';
-
-// Translation resources organized by namespace
-const resources = {
-  en: {
-    common: enCommon,
-    events: enEvents,
-    social: enSocial,
-    agents: enAgents,
-    placeholders: enPlaceholders
-  },
-  es: {
-    common: esCommon,
-    events: esEvents,
-    social: esSocial,
-    agents: esAgents
-  },
-  fr: {
-    common: frCommon
-  },
-  de: {
-    // German translations (using English as fallback for now)
-    common: {
-      app: {
-        name: 'Mundo Tango',
-        tagline: 'Die globale Tango-Community',
-        welcome: 'Willkommen bei Mundo Tango'
-      },
-      navigation: {
-        home: 'Startseite',
-        feed: 'Feed',
-        profile: 'Profil',
-        events: 'Veranstaltungen',
-        community: 'Gemeinschaft',
-        messages: 'Nachrichten',
-        friends: 'Freunde',
-        groups: 'Gruppen',
-        memories: 'Erinnerungen',
-        settings: 'Einstellungen',
-        admin: 'Admin',
-        logout: 'Abmelden',
-        search: 'Suchen',
-        notifications: 'Benachrichtigungen',
-        help: 'Hilfe'
-      },
-      actions: {
-        save: 'Speichern',
-        cancel: 'Abbrechen',
-        delete: 'Löschen',
-        edit: 'Bearbeiten',
-        add: 'Hinzufügen',
-        create: 'Erstellen',
-        update: 'Aktualisieren',
-        submit: 'Senden',
-        confirm: 'Bestätigen',
-        close: 'Schließen',
-        back: 'Zurück',
-        next: 'Weiter',
-        previous: 'Vorherige',
-        upload: 'Hochladen',
-        download: 'Herunterladen',
-        share: 'Teilen',
-        viewAll: 'Alle anzeigen'
-      }
-    }
-  },
-  it: {
-    common: itCommon
-  },
-  pt: {
-    common: ptCommon
-  }
-};
-
 // Supported languages with metadata
 export const supportedLanguages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', direction: 'ltr' },
@@ -105,10 +17,19 @@ export const supportedLanguages = [
 export const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
 
 i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
+  .use(HttpBackend) // Load translations from server (lazy loading)
+  .use(LanguageDetector) // Detect user language
+  .use(initReactI18next) // Pass i18n instance to react-i18next
   .init({
-    resources,
+    // Use HttpBackend to load translations on-demand
+    backend: {
+      loadPath: '/i18n/locales/{{lng}}/{{ns}}.json',
+      // Retry failed requests
+      requestOptions: {
+        cache: 'default'
+      }
+    },
+    
     defaultNS: 'common',
     fallbackLng: 'en',
     debug: false,
@@ -117,7 +38,7 @@ i18n
       escapeValue: false // React already escapes values
     },
 
-    // Detection order
+    // Detection order - check localStorage first, then browser settings
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
@@ -128,12 +49,17 @@ i18n
     returnEmptyString: false,
     returnNull: false,
     
-    // Namespace behavior
+    // Available namespaces
     ns: ['common', 'events', 'social', 'agents', 'placeholders'],
     
-    // React options
+    // React options - ENABLE SUSPENSE for proper loading
     react: {
-      useSuspense: false
+      useSuspense: true, // Wait for translations to load before rendering
+      bindI18n: 'languageChanged loaded', // Re-render on language change
+      bindI18nStore: 'added removed',
+      transEmptyNodeValue: '',
+      transSupportBasicHtmlNodes: true,
+      transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p']
     }
   });
 
