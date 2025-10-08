@@ -177,7 +177,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
             </div>
             <div className="flex items-center gap-2">
               <Users className="w-3 h-3 flex-shrink-0" />
-              <span>{event.attendees} {t('events.attending')}</span>
+              <span>{t('events.attendeeCount', { count: event.attendees })}</span>
               {event.userRsvpStatus === 'going' && (
                 <span 
                   style={{ background: 'rgba(94, 234, 212, 0.24)', color: '#0F766E' }}
