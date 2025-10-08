@@ -331,6 +331,14 @@ const startServer = async () => {
       console.error('⚠️  Failed to initialize ESA tools:', error);
     }
 
+    // ESA LIFE CEO 61x21 - AI Research Expert: Daily Intelligence Scheduler
+    try {
+      const { startAIResearchScheduler } = await import('./jobs/ai-research-scheduler');
+      startAIResearchScheduler();
+    } catch (error) {
+      console.error('⚠️  Failed to start AI Research scheduler:', error);
+    }
+
     httpServer.listen(PORT, '0.0.0.0', (error?: Error) => {
       if (error) {
         console.error('❌ Failed to bind to port:', error);

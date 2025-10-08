@@ -274,10 +274,40 @@ router.get('/status', async (req: Request, res: Response) => {
         rss: ['HuggingFace', 'Google AI', 'VentureBeat AI', 'The Verge AI', 'Analytics Vidhya', 'OpenAI Blog', 'Anthropic News'],
         apis: ['GitHub API (free)', 'Tavily API (optional)'],
       },
+      scheduler: {
+        enabled: true,
+        schedule: 'Daily at 3:00 PM',
+        cron: '0 15 * * *',
+        description: 'Automated intelligence scans run daily at 3pm',
+      },
     });
   } catch (error: any) {
     console.error('AI Expert status error:', error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/ai-expert/trigger-daily-scan
+ * Manually trigger the daily intelligence scan (for testing)
+ */
+router.post('/trigger-daily-scan', async (req: Request, res: Response) => {
+  try {
+    const { triggerManualScan } = await import('../jobs/ai-research-scheduler');
+    const brief = await triggerManualScan();
+    
+    res.json({
+      success: true,
+      message: 'Daily intelligence scan completed successfully',
+      timestamp: new Date().toISOString(),
+      brief,
+    });
+  } catch (error: any) {
+    console.error('AI Expert manual scan error:', error);
+    res.status(500).json({ 
+      error: 'Failed to run daily scan',
+      message: error.message,
+    });
   }
 });
 
