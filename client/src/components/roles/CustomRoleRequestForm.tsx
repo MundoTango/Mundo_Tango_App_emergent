@@ -114,7 +114,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
           {errors.submit && (
             <Alert variant="destructive">
               <AlertDescription>{errors.submit}</AlertDescription>
@@ -123,7 +123,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
 
           <div className="space-y-2">
             <Label htmlFor="roleName">Role Name *</Label>
-            <Input
+            <Input data-testid="input-element"
               id="roleName"
               type="text"
               value={roleName}
@@ -142,7 +142,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
 
           <div className="space-y-2">
             <Label htmlFor="roleDescription">Role Description *</Label>
-            <Textarea
+            <Textarea data-testid="textarea-element"
               id="roleDescription"
               value={roleDescription}
               onChange={(e) => setRoleDescription(e.target.value)}
@@ -170,7 +170,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
           </div>
 
           <div className="flex gap-3 pt-4">
-            <Button
+            <Button data-testid="button-flex"
               type="submit"
               disabled={submitMutation.isPending}
               className="flex-1"
@@ -189,7 +189,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             </Button>
             
             {onCancel && (
-              <Button
+              <Button data-testid="button-cancel"
                 type="button"
                 variant="outline"
                 onClick={onCancel}

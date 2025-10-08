@@ -52,7 +52,7 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
   const glowEffect = glow ? 'hover:shadow-[0_0_20px_rgba(94,234,212,0.5)]' : '';
 
   return (
-    <button
+    <button data-testid="button-element"
       ref={ref}
       className={cn(
         baseClasses,

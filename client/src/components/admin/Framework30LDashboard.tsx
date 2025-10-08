@@ -710,7 +710,7 @@ const Framework30LDashboard: React.FC = () => {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button 
+          <Button data-testid="button-from" 
             onClick={generateReport}
             disabled={isGeneratingReport}
             className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
@@ -718,7 +718,7 @@ const Framework30LDashboard: React.FC = () => {
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
           </Button>
-          <Button 
+          <Button data-testid="button-element" 
             onClick={runSelfAnalysis}
             disabled={isRunningAnalysis}
             variant="outline"
@@ -776,7 +776,7 @@ const Framework30LDashboard: React.FC = () => {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {frameworkData.map((layer) => (
-                  <button
+                  <button data-testid="button-element"
                     key={layer.id}
                     onClick={() => setSelectedLayer(layer.id)}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${

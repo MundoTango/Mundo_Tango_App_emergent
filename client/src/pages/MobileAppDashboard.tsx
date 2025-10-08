@@ -251,7 +251,7 @@ const MobileAppDashboard: React.FC = () => {
                   </Alert>
                   
                   {installPrompt && (
-                    <Button 
+                    <Button data-testid="button-w" 
                       onClick={handleInstallClick}
                       className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
                       size="lg"
@@ -305,7 +305,7 @@ const MobileAppDashboard: React.FC = () => {
                       <p className="text-sm text-gray-600">Receive event reminders and updates</p>
                     </div>
                   </div>
-                  <Button
+                  <Button data-testid="button-element"
                     onClick={handleNotificationPermission}
                     disabled={pushPermission === 'granted'}
                     variant={pushPermission === 'granted' ? 'default' : 'outline'}
@@ -407,7 +407,7 @@ const MobileAppDashboard: React.FC = () => {
                 <p className="text-xs text-gray-500">24% of 500MB quota</p>
               </div>
 
-              <Button 
+              <Button data-testid="button-w" 
                 onClick={handleUpdateCheck}
                 variant="outline"
                 className="w-full"
@@ -481,7 +481,7 @@ const MobileAppDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full">
+                <Button data-testid="button-w" variant="outline" className="w-full">
                   Clear Offline Cache
                 </Button>
               </div>
@@ -544,10 +544,10 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Advanced */}
                 <div>
                   <h4 className="font-medium mb-3">Advanced</h4>
-                  <Button variant="outline" className="w-full mb-2">
+                  <Button data-testid="button-w" variant="outline" className="w-full mb-2">
                     Export App Data
                   </Button>
-                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700">
+                  <Button data-testid="button-w" variant="outline" className="w-full text-red-600 hover:text-red-700">
                     Reset App
                   </Button>
                 </div>

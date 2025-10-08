@@ -224,7 +224,7 @@ const PromoCodesAdmin: React.FC = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Promo Code Management</h1>
             <p className="text-gray-600">Create and manage discount codes for subscriptions</p>
           </div>
-          <Button
+          <Button data-testid="button-from"
             onClick={() => {
               resetForm();
               setEditingPromo(null);
@@ -330,7 +330,7 @@ const PromoCodesAdmin: React.FC = () => {
                           <code className="font-mono bg-gray-100 px-2 py-1 rounded">
                             {promo.code}
                           </code>
-                          <Button
+                          <Button data-testid="button-element"
                             variant="ghost"
                             size="icon"
                             onClick={() => copyToClipboard(promo.code)}
@@ -371,14 +371,14 @@ const PromoCodesAdmin: React.FC = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <Button
+                          <Button data-testid="button-element"
                             variant="ghost"
                             size="icon"
                             onClick={() => handleEdit(promo)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button
+                          <Button data-testid="button-hover-text"
                             variant="ghost"
                             size="icon"
                             onClick={() => deletePromoMutation.mutate(promo.id)}
@@ -414,7 +414,7 @@ const PromoCodesAdmin: React.FC = () => {
           <div className="space-y-4">
             <div>
               <Label htmlFor="code">Promo Code</Label>
-              <Input
+              <Input data-testid="input-mt"
                 id="code"
                 value={formData.code}
                 onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
@@ -426,7 +426,7 @@ const PromoCodesAdmin: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="type">Discount Type</Label>
-                <Select
+                <Select data-testid="select-element"
                   value={formData.type}
                   onValueChange={(value) => setFormData({ ...formData, type: value })}
                 >
@@ -442,7 +442,7 @@ const PromoCodesAdmin: React.FC = () => {
 
               <div>
                 <Label htmlFor="value">Value</Label>
-                <Input
+                <Input data-testid="input-mt"
                   id="value"
                   type="number"
                   value={formData.value}
@@ -455,7 +455,7 @@ const PromoCodesAdmin: React.FC = () => {
 
             <div>
               <Label htmlFor="description">Description</Label>
-              <Input
+              <Input data-testid="input-mt"
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -467,7 +467,7 @@ const PromoCodesAdmin: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="validFrom">Valid From</Label>
-                <Input
+                <Input data-testid="input-mt"
                   id="validFrom"
                   type="date"
                   value={formData.validFrom}
@@ -478,7 +478,7 @@ const PromoCodesAdmin: React.FC = () => {
 
               <div>
                 <Label htmlFor="validUntil">Valid Until (Optional)</Label>
-                <Input
+                <Input data-testid="input-mt"
                   id="validUntil"
                   type="date"
                   value={formData.validUntil}
@@ -490,7 +490,7 @@ const PromoCodesAdmin: React.FC = () => {
 
             <div>
               <Label htmlFor="usageLimit">Usage Limit (Optional)</Label>
-              <Input
+              <Input data-testid="input-mt"
                 id="usageLimit"
                 type="number"
                 value={formData.usageLimit}
@@ -532,10 +532,10 @@ const PromoCodesAdmin: React.FC = () => {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
+            <Button data-testid="button-cancel" variant="outline" onClick={() => setShowCreateDialog(false)}>
               Cancel
             </Button>
-            <Button
+            <Button data-testid="button-from"
               onClick={handleSubmit}
               disabled={createPromoMutation.isPending || updatePromoMutation.isPending}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"

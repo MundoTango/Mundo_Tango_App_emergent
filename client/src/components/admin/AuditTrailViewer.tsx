@@ -243,7 +243,7 @@ export default function AuditTrailViewer() {
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
+          <Input data-testid="input-pl"
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -252,7 +252,7 @@ export default function AuditTrailViewer() {
         </div>
         
         <div className="flex gap-3">
-          <Select value={actionFilter} onValueChange={setActionFilter}>
+          <Select data-testid="select-element" value={actionFilter} onValueChange={setActionFilter}>
             <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
@@ -266,7 +266,7 @@ export default function AuditTrailViewer() {
             </SelectContent>
           </Select>
 
-          <Select value={severityFilter} onValueChange={setSeverityFilter}>
+          <Select data-testid="select-element" value={severityFilter} onValueChange={setSeverityFilter}>
             <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
@@ -279,7 +279,7 @@ export default function AuditTrailViewer() {
             </SelectContent>
           </Select>
 
-          <Button
+          <Button data-testid="button-rounded"
             onClick={exportAuditLog}
             variant="outline"
             className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"

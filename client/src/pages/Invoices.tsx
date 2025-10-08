@@ -163,7 +163,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
       </div>
 
       <div className="mt-4 flex justify-center">
-        <Button
+        <Button data-testid="button-from"
           onClick={downloadPDF}
           className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
         >
@@ -227,7 +227,7 @@ const Invoices: React.FC = () => {
                 <CardTitle>Invoice History</CardTitle>
                 <CardDescription>All your past and current invoices</CardDescription>
               </div>
-              <Button
+              <Button data-testid="button-element"
                 variant="outline"
                 onClick={() => refetch()}
                 disabled={isLoading}
@@ -296,7 +296,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
 
   return (
     <>
-      <Button
+      <Button data-testid="button-element"
         variant="outline"
         size="sm"
         onClick={() => setIsOpen(true)}
@@ -311,7 +311,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Invoice Details</h2>
-                <Button
+                <Button data-testid="button"
                   variant="ghost"
                   size="sm"
                   onClick={() => setIsOpen(false)}

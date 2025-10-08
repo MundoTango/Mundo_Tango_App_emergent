@@ -179,16 +179,16 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline">
+            <Button data-testid="button-view-live-metrics-da" variant="outline">
               View Live Metrics Dashboard
             </Button>
-            <Button variant="outline">
+            <Button data-testid="button-check-system-health" variant="outline">
               Check System Health
             </Button>
-            <Button variant="outline">
+            <Button data-testid="button-scale-resources" variant="outline">
               Scale Resources
             </Button>
-            <Button variant="outline">
+            <Button data-testid="button-emergency-rollback" variant="outline">
               Emergency Rollback
             </Button>
           </div>

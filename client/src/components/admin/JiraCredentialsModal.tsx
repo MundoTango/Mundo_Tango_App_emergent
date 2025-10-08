@@ -71,7 +71,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="instanceUrl">JIRA Instance URL</Label>
-            <Input
+            <Input data-testid="input-element"
               id="instanceUrl"
               placeholder="https://yourcompany.atlassian.net"
               value={credentials.instanceUrl}
@@ -82,7 +82,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
           
           <div className="grid gap-2">
             <Label htmlFor="email">Email Address</Label>
-            <Input
+            <Input data-testid="input-element"
               id="email"
               type="email"
               placeholder="your.email@company.com"
@@ -94,7 +94,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
           
           <div className="grid gap-2">
             <Label htmlFor="apiToken">API Token</Label>
-            <Input
+            <Input data-testid="input-element"
               id="apiToken"
               type="password"
               placeholder="Your JIRA API token"
@@ -102,7 +102,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               onChange={(e) => setCredentials({ ...credentials, apiToken: e.target.value })}
             />
             <p className="text-xs text-gray-500">
-              Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline">
+              Generate from: <a data-testid="a-hover-underline" href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline">
                 Atlassian Account Settings
               </a>
             </p>
@@ -110,7 +110,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
           
           <div className="grid gap-2">
             <Label htmlFor="projectKey">Project Key</Label>
-            <Input
+            <Input data-testid="input-element"
               id="projectKey"
               placeholder="MT"
               value={credentials.projectKey}
@@ -134,10 +134,10 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
         </div>
         
         <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={onClose}>
+          <Button data-testid="button-cancel" variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button
+          <Button data-testid="button-from"
             onClick={handleTest}
             disabled={!credentials.instanceUrl || !credentials.email || !credentials.apiToken || !credentials.projectKey || testing}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"

@@ -144,7 +144,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Plus className="h-8 w-8 text-gray-600" />
                 </div>
                 <span className="text-xs text-gray-600">Add Story</span>
-                <input
+                <input data-testid="input-hidden"
                   type="file"
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
@@ -174,7 +174,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Plus className="h-8 w-8 text-gray-600" />
                 </div>
                 <span className="text-xs text-gray-600">Add Story</span>
-                <input
+                <input data-testid="input-hidden"
                   type="file"
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
@@ -227,7 +227,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                       </p>
                     </div>
                   </div>
-                  <Button
+                  <Button data-testid="button-hover-bg"
                     variant="ghost"
                     size="sm"
                     onClick={() => setSelectedStoryIndex(null)}
@@ -267,7 +267,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
 
                 {/* Navigation */}
                 {selectedStoryIndex > 0 && (
-                  <Button
+                  <Button data-testid="button-absolute"
                     variant="ghost"
                     size="sm"
                     onClick={() => navigateStory('prev')}
@@ -278,7 +278,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 )}
                 
                 {selectedStoryIndex < userGroups.length - 1 && (
-                  <Button
+                  <Button data-testid="button-absolute"
                     variant="ghost"
                     size="sm"
                     onClick={() => navigateStory('next')}

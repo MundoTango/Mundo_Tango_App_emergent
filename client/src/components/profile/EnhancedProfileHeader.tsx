@@ -227,14 +227,14 @@ export default function EnhancedProfileHeader({
         <div className="absolute top-4 right-4 flex gap-2">
           {isOwnProfile && (
             <>
-              <input
+              <input data-testid="input-hidden"
                 ref={coverInputRef}
                 type="file"
                 accept="image/*"
                 onChange={handleCoverUpload}
                 className="hidden"
               />
-              <Button
+              <Button data-testid="button-from"
                 onClick={() => coverInputRef.current?.click()}
                 variant="secondary"
                 size="sm"
@@ -246,7 +246,7 @@ export default function EnhancedProfileHeader({
               </Button>
             </>
           )}
-          <Button
+          <Button data-testid="button-backdrop"
             onClick={handleShare}
             variant="secondary"
             size="sm"
@@ -275,14 +275,14 @@ export default function EnhancedProfileHeader({
                 
                 {isOwnProfile && (
                   <>
-                    <input
+                    <input data-testid="input-hidden"
                       ref={profileInputRef}
                       type="file"
                       accept="image/*"
                       onChange={handleProfileUpload}
                       className="hidden"
                     />
-                    <Button
+                    <Button data-testid="button-absolute"
                       onClick={() => profileInputRef.current?.click()}
                       variant="secondary"
                       size="icon"
@@ -350,14 +350,14 @@ export default function EnhancedProfileHeader({
             <div className="flex flex-wrap gap-3">
               {isOwnProfile ? (
                 <>
-                  <Button 
+                  <Button data-testid="button-from" 
                     onClick={onEditProfile}
                     className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                   >
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Profile
                   </Button>
-                  <Button 
+                  <Button data-testid="button-hover-bg" 
                     variant="outline" 
                     onClick={handleViewAsVisitor}
                     className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
@@ -368,7 +368,7 @@ export default function EnhancedProfileHeader({
                 </>
               ) : (
                 <>
-                  <Button 
+                  <Button data-testid="button-element" 
                     onClick={handleFollow}
                     variant={isFollowing ? "outline" : "default"}
                     className={isFollowing ? "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" : "bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"}
@@ -385,11 +385,11 @@ export default function EnhancedProfileHeader({
                       </>
                     )}
                   </Button>
-                  <Button variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                  <Button data-testid="button-hover-bg" variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                     <Mail className="mr-2 h-4 w-4" />
                     Message
                   </Button>
-                  <Button variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                  <Button data-testid="button-hover-bg" variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </>
@@ -452,7 +452,7 @@ export default function EnhancedProfileHeader({
             {user.socialLinks && Object.keys(user.socialLinks).length > 0 && (
               <div className="flex items-center gap-3">
                 {user.socialLinks.instagram && (
-                  <a 
+                  <a data-testid="a-hover-text" 
                     href={`https://instagram.com/${user.socialLinks.instagram}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -462,7 +462,7 @@ export default function EnhancedProfileHeader({
                   </a>
                 )}
                 {user.socialLinks.facebook && (
-                  <a 
+                  <a data-testid="a-hover-text" 
                     href={user.socialLinks.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -472,7 +472,7 @@ export default function EnhancedProfileHeader({
                   </a>
                 )}
                 {user.socialLinks.twitter && (
-                  <a 
+                  <a data-testid="a-hover-text" 
                     href={`https://twitter.com/${user.socialLinks.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -482,13 +482,13 @@ export default function EnhancedProfileHeader({
                   </a>
                 )}
                 {user.socialLinks.website && (
-                  <a 
+                  <a data-testid="a-hover-text" 
                     href={user.socialLinks.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-turquoise-600 transition-colors"
                   >
-                    <Link className="h-5 w-5" />
+                    <Link data-testid="link-h" className="h-5 w-5" />
                   </a>
                 )}
               </div>

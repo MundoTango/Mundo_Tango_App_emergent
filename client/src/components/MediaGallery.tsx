@@ -161,7 +161,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-              <Input
+              <Input data-testid="input-pl"
                 placeholder="Search media..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -169,7 +169,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
               />
             </div>
             
-            <Select value={folderFilter} onValueChange={setFolderFilter}>
+            <Select data-testid="select-element" value={folderFilter} onValueChange={setFolderFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="All Folders" />
               </SelectTrigger>
@@ -184,7 +184,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             </Select>
 
             {showVisibilityFilter && (
-              <Select value={visibilityFilter} onValueChange={setVisibilityFilter}>
+              <Select data-testid="select-element" value={visibilityFilter} onValueChange={setVisibilityFilter}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Visibility" />
                 </SelectTrigger>
@@ -251,7 +251,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                       </span>
                     </div>
                   </div>
-                  <Button
+                  <Button data-testid="button-opacity"
                     variant="ghost"
                     size="sm"
                     onClick={() => handleDelete(asset.id)}

@@ -66,7 +66,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Minimum stay */}
       <div>
         <Label htmlFor="minimumStay">Minimum nights per stay</Label>
-        <select
+        <select data-testid="select-mt"
           id="minimumStay"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.minimumStay || 1}
@@ -86,7 +86,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Advance notice */}
       <div>
         <Label htmlFor="advanceNotice">How much notice do you need?</Label>
-        <select
+        <select data-testid="select-mt"
           id="advanceNotice"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.advanceNotice || 'same_day'}
@@ -103,7 +103,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Booking window */}
       <div>
         <Label htmlFor="bookingWindow">How far in advance can guests book?</Label>
-        <select
+        <select data-testid="select-mt"
           id="bookingWindow"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.bookingWindow || '3_months'}
@@ -121,7 +121,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="checkInTime">Check-in time</Label>
-          <select
+          <select data-testid="select-mt"
             id="checkInTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkInTime || '15:00'}
@@ -139,7 +139,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
         </div>
         <div>
           <Label htmlFor="checkOutTime">Check-out time</Label>
-          <select
+          <select data-testid="select-mt"
             id="checkOutTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkOutTime || '11:00'}
@@ -172,7 +172,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           
           <div className="space-y-3">
             <label className="flex items-center gap-3 cursor-pointer">
-              <input
+              <input data-testid="input-element"
                 type="radio"
                 name="availability"
                 value="always"
@@ -187,7 +187,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             </label>
             
             <label className="flex items-center gap-3 cursor-pointer">
-              <input
+              <input data-testid="input-element"
                 type="radio"
                 name="availability"
                 value="sometimes"

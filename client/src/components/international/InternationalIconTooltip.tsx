@@ -152,7 +152,7 @@ const InternationalIconTooltip = ({
   return (
     <div className={cn('relative inline-block', className)}>
       {/* Icon Button */}
-      <button
+      <button data-testid="button-element"
         ref={iconRef}
         type="button"
         onClick={handleToggle}

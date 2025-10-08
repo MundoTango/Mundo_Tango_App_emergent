@@ -211,21 +211,21 @@ export default function MonitoringTest() {
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
             {!hasConsent && (
-              <Button onClick={requestConsent} variant="default">
+              <Button data-testid="button-request-consent" onClick={requestConsent} variant="default">
                 Request Consent
               </Button>
             )}
-            <Button onClick={() => setShowPrivacySettings(true)} variant="outline">
+            <Button data-testid="button-privacy-settings" onClick={() => setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
-            <Button 
+            <Button data-testid="button-from" 
               onClick={runTests} 
               disabled={isTestRunning || !hasConsent}
               className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
             >
               {isTestRunning ? 'Running Tests...' : 'Run All Tests'}
             </Button>
-            <Button 
+            <Button data-testid="button-trigger-test-error" 
               onClick={triggerTestError} 
               variant="destructive"
               disabled={!hasConsent}

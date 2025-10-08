@@ -492,7 +492,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
         <CardHeader>
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">{item.title}</h2>
-            <Button variant="outline" onClick={onClose}>Close</Button>
+            <Button data-testid="button-close" variant="outline" onClick={onClose}>Close</Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -640,11 +640,11 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
 
           {/* Expand/Collapse Controls */}
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={expandAll}>
+            <Button data-testid="button-element" variant="outline" size="sm" onClick={expandAll}>
               <ChevronDown className="h-4 w-4 mr-1" />
               Expand All
             </Button>
-            <Button variant="outline" size="sm" onClick={collapseAll}>
+            <Button data-testid="button-element" variant="outline" size="sm" onClick={collapseAll}>
               <ChevronRight className="h-4 w-4 mr-1" />
               Collapse All
             </Button>
@@ -653,7 +653,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           {/* Team Filter */}
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Team:</span>
-            <select
+            <select data-testid="select-px"
               className="px-3 py-1 border rounded-md bg-white dark:bg-gray-800"
               value={filterTeam}
               onChange={(e) => setFilterTeam(e.target.value)}
@@ -674,7 +674,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
 
           {/* Show Completed Toggle */}
           <label className="flex items-center gap-2">
-            <input
+            <input data-testid="input-rounded"
               type="checkbox"
               checked={showCompleted}
               onChange={(e) => setShowCompleted(e.target.checked)}

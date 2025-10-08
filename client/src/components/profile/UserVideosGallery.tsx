@@ -55,7 +55,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
       <div className="space-y-4">
         {isOwnProfile && (
           <div className="flex justify-end">
-            <Button
+            <Button data-testid="button-from"
               onClick={() => setShowUploadDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
             >

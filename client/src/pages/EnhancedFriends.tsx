@@ -344,7 +344,7 @@ export default function EnhancedFriendsPage() {
             <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
           </div>
           <div className="flex gap-2">
-            <Button
+            <Button data-testid="button-hover-bg"
               onClick={exportFriendsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
@@ -352,7 +352,7 @@ export default function EnhancedFriendsPage() {
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
-            <Button
+            <Button data-testid="button-from"
               onClick={() => setShowSendRequestModal(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
@@ -413,7 +413,7 @@ export default function EnhancedFriendsPage() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
+              <Input data-testid="input-pl"
                 id="friend-search"
                 type="text"
                 placeholder="Search friends by name, username, or location... (Cmd+F)"
@@ -422,7 +422,7 @@ export default function EnhancedFriendsPage() {
                 className="pl-10"
               />
             </div>
-            <Select
+            <Select data-testid="select-w"
               value={selectedFilter}
               onChange={(newValue) => {
                 if (newValue) setSelectedFilter(newValue);
@@ -431,7 +431,7 @@ export default function EnhancedFriendsPage() {
               className="w-48"
               placeholder="Filter by..."
             />
-            <Select
+            <Select data-testid="select-w"
               value={selectedSort}
               onChange={(newValue) => {
                 if (newValue) setSelectedSort(newValue);
@@ -441,14 +441,14 @@ export default function EnhancedFriendsPage() {
               placeholder="Sort by..."
             />
             <div className="flex gap-2">
-              <Button
+              <Button data-testid="button-element"
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('grid')}
               >
                 <Grid className="w-4 h-4" />
               </Button>
-              <Button
+              <Button data-testid="button-element"
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('list')}
@@ -630,11 +630,11 @@ export default function EnhancedFriendsPage() {
                                         </div>
                                       </div>
                                       <div className="flex gap-1">
-                                        <Button size="icon" variant="ghost">
+                                        <Button data-testid="button-element" size="icon" variant="ghost">
                                           <MessageCircle className="w-4 h-4" />
                                         </Button>
                                         <div className="relative group">
-                                          <Button size="icon" variant="ghost">
+                                          <Button data-testid="button-element" size="icon" variant="ghost">
                                             <Share2 className="w-4 h-4" />
                                           </Button>
                                           <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
@@ -696,7 +696,7 @@ export default function EnhancedFriendsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Username or Email
                 </label>
-                <Input
+                <Input data-testid="input-w"
                   type="text"
                   placeholder="Enter username or email"
                   className="w-full"
@@ -707,7 +707,7 @@ export default function EnhancedFriendsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Add a personal note (optional)
                 </label>
-                <Textarea
+                <Textarea data-testid="textarea-w"
                   placeholder="Hi! I'd love to connect..."
                   value={requestNote}
                   onChange={(e) => setRequestNote(e.target.value)}
@@ -716,7 +716,7 @@ export default function EnhancedFriendsPage() {
                 />
               </div>
               <div className="flex justify-end gap-2">
-                <Button
+                <Button data-testid="button-cancel"
                   variant="outline"
                   onClick={() => {
                     setShowSendRequestModal(false);
@@ -726,7 +726,7 @@ export default function EnhancedFriendsPage() {
                 >
                   Cancel
                 </Button>
-                <Button
+                <Button data-testid="button-from"
                   onClick={() => {
                     if (selectedUser?.id) {
                       sendFriendRequest(

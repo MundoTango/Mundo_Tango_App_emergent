@@ -104,7 +104,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             Events Calendar
           </h3>
           <div className="flex gap-2">
-            <Button
+            <Button data-testid="button-element"
               size="sm"
               variant={view === 'month' ? 'default' : 'outline'}
               onClick={() => setView('month')}
@@ -113,7 +113,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               <Calendar className="h-4 w-4 mr-1" />
               Month
             </Button>
-            <Button
+            <Button data-testid="button-element"
               size="sm"
               variant={view === 'week' ? 'default' : 'outline'}
               onClick={() => setView('week')}
@@ -122,7 +122,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               <Grid className="h-4 w-4 mr-1" />
               Week
             </Button>
-            <Button
+            <Button data-testid="button-element"
               size="sm"
               variant={view === 'day' ? 'default' : 'outline'}
               onClick={() => setView('day')}
@@ -249,7 +249,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                 )}
               </div>
               
-              <Button 
+              <Button data-testid="button-w" 
                 className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-600"
                 onClick={() => {
                   window.location.href = `/events/${selectedEvent.id}`;

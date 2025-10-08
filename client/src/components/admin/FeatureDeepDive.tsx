@@ -149,7 +149,7 @@ export function FeatureDeepDive() {
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
+            <Input data-testid="input-pl"
               placeholder="Search features..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -157,7 +157,7 @@ export function FeatureDeepDive() {
             />
           </div>
 
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <Select data-testid="select-element" value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
@@ -169,7 +169,7 @@ export function FeatureDeepDive() {
             </SelectContent>
           </Select>
 
-          <Select value={teamFilter} onValueChange={setTeamFilter}>
+          <Select data-testid="select-element" value={teamFilter} onValueChange={setTeamFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by team" />
             </SelectTrigger>

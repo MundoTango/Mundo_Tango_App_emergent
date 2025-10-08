@@ -127,7 +127,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
         ))}
         
         {visitors.length > 3 && (
-          <Button
+          <Button data-testid="button-w"
             variant="outline"
             className="w-full border-orange-300 text-orange-700 hover:bg-orange-50"
             onClick={() => setLocation(`/cities/${cityId}/visitors`)}

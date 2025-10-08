@@ -263,7 +263,7 @@ export default function GoogleMapsAutocomplete({
         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
           <Search className="w-4 h-4" />
         </div>
-        <Input
+        <Input data-testid="input-pl"
           ref={inputRef}
           type="text"
           value={inputValue}
@@ -273,7 +273,7 @@ export default function GoogleMapsAutocomplete({
           className="pl-10 pr-10 py-3 w-full border-gray-200 focus:border-pink-300 focus:ring-pink-100 rounded-lg"
         />
         {inputValue && (
-          <Button
+          <Button data-testid="button-absolute"
             type="button"
             variant="ghost"
             size="sm"

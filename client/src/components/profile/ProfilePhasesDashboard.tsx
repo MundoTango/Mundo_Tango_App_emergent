@@ -120,7 +120,7 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {phases.map((phase) => (
-              <button
+              <button data-testid="button-element"
                 key={phase.id}
                 onClick={() => phase.component && setActivePhase(phase.id)}
                 disabled={!phase.component}

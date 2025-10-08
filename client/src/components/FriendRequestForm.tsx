@@ -93,8 +93,8 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Form data-testid="form-element" {...form}>
+          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="didWeDance"
@@ -131,7 +131,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                         Where did you dance?
                       </FormLabel>
                       <FormControl>
-                        <Input
+                        <Input data-testid="input-glassmorphic"
                           placeholder="Milonga name, event, or city"
                           {...field}
                           className="glassmorphic-input"
@@ -151,7 +151,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                         Share your dance story
                       </FormLabel>
                       <FormControl>
-                        <Textarea
+                        <Textarea data-testid="textarea-glassmorphic"
                           placeholder="What was memorable about dancing together?"
                           className="glassmorphic-input min-h-[80px]"
                           {...field}
@@ -170,7 +170,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 <FormItem>
                   <FormLabel>Your message</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <Textarea data-testid="textarea-glassmorphic"
                       placeholder="Add a personal message..."
                       className="glassmorphic-input min-h-[100px]"
                       {...field}
@@ -190,7 +190,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 <FormItem>
                   <FormLabel>Private note (optional)</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <Textarea data-testid="textarea-glassmorphic"
                       placeholder="Add a note for yourself..."
                       className="glassmorphic-input min-h-[60px]"
                       {...field}
@@ -204,7 +204,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
             />
 
             <div className="flex justify-end gap-3">
-              <Button
+              <Button data-testid="button-cancel"
                 type="button"
                 variant="outline"
                 onClick={onCancel}
@@ -212,7 +212,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
               >
                 Cancel
               </Button>
-              <Button
+              <Button data-testid="button-from"
                 type="submit"
                 disabled={sendFriendRequestMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-lg transition-all duration-300"

@@ -330,7 +330,7 @@ const OriginalEnhancedPostCreator: React.FC<{
           <div className="flex-1 space-y-4">
             {/* Main Input */}
             <div className="relative">
-              <textarea
+              <textarea data-testid="textarea-w"
                 ref={textareaRef}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -359,7 +359,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       )}
                     >
                       {emotion} {emotionData?.label}
-                      <button
+                      <button data-testid="button-ml"
                         onClick={() => setSelectedEmotions(prev => prev.filter(e => e !== emotion))}
                         className="ml-2 hover:opacity-70"
                       >
@@ -417,7 +417,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                           </div>
                         )}
                       </div>
-                      <button
+                      <button data-testid="button-absolute"
                         onClick={() => {
                           // Clean up URL when removing media
                           if (isFile) {
@@ -449,7 +449,7 @@ const OriginalEnhancedPostCreator: React.FC<{
               <div className="flex items-center gap-2">
                 {/* Emoji Picker */}
                 <div className="relative">
-                  <Button
+                  <Button data-testid="button-hover-text"
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
@@ -479,7 +479,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 </div>
 
                 {/* Media Upload */}
-                <input
+                <input data-testid="input-hidden"
                   type="file"
                   id="media-upload"
                   className="hidden"
@@ -488,7 +488,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   onChange={handleFileUpload}
                 />
                 <label htmlFor="media-upload">
-                  <Button
+                  <Button data-testid="button-hover-text"
                     variant="ghost"
                     size="sm"
                     className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3"
@@ -502,7 +502,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 </label>
 
                 {/* Location */}
-                <Button
+                <Button data-testid="button-hover-text"
                   variant="ghost"
                   size="sm"
                   onClick={() => {
@@ -529,7 +529,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 </Button>
 
                 {/* Tags */}
-                <Button
+                <Button data-testid="button-hover-text"
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
@@ -541,7 +541,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 {/* Emotions */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button
+                    <Button data-testid="button-hover-text"
                       variant="ghost"
                       size="sm"
                       className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50"
@@ -552,7 +552,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <DropdownMenuContent className="w-64 p-4">
                     <div className="grid grid-cols-4 gap-2">
                       {emotionOptions.map((emotion) => (
-                        <button
+                        <button data-testid="button-element"
                           key={emotion.emoji}
                           onClick={() => {
                             if (selectedEmotions.includes(emotion.emoji)) {
@@ -577,7 +577,7 @@ const OriginalEnhancedPostCreator: React.FC<{
               </div>
 
               {/* Post Button */}
-              <Button
+              <Button data-testid="button-from"
                 onClick={handlePost}
                 disabled={isPosting || (!content.trim() && media.length === 0)}
                 className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600 shadow-lg"
@@ -603,7 +603,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <div>
                     <label className="text-sm text-gray-600 mb-1 block">Tags</label>
                     <div className="flex flex-wrap gap-2">
-                      <Input
+                      <Input data-testid="input-flex"
                         placeholder="Add tags..."
                         className="flex-1 min-w-[150px]"
                         onKeyPress={(e) => {
@@ -620,7 +620,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       {tags.map((tag, index) => (
                         <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                           #{tag}
-                          <button
+                          <button data-testid="button-ml"
                             onClick={() => setTags(prev => prev.filter((_, i) => i !== index))}
                             className="ml-1"
                           >
@@ -640,7 +640,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                         { value: 'friends', icon: Users, label: 'Friends' },
                         { value: 'private', icon: Lock, label: 'Only Me' }
                       ].map((option) => (
-                        <button
+                        <button data-testid="button-element"
                           key={option.value}
                           onClick={() => setVisibility(option.value as any)}
                           className={cn(
@@ -717,7 +717,7 @@ export const EnhancedMemoryCard: React.FC<{
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm">
+              <Button data-testid="button-element" variant="ghost" size="sm">
                 <MoreHorizontal className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -778,7 +778,7 @@ export const EnhancedMemoryCard: React.FC<{
             <div className="flex items-center gap-4">
               {/* Like/Reactions */}
               <div className="relative">
-                <button
+                <button data-testid="button-element"
                   onClick={() => handleReaction('❤️')}
                   onMouseEnter={() => setShowReactions(true)}
                   onMouseLeave={() => setShowReactions(false)}
@@ -798,7 +798,7 @@ export const EnhancedMemoryCard: React.FC<{
                     className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn"
                   >
                     {reactionOptions.map((reaction) => (
-                      <button
+                      <button data-testid="button-p"
                         key={reaction.emoji}
                         onClick={() => handleReaction(reaction.emoji)}
                         className="p-1.5 hover:bg-gray-100 rounded-full hover:scale-110 active:scale-90 transition-transform"
@@ -811,7 +811,7 @@ export const EnhancedMemoryCard: React.FC<{
               </div>
 
               {/* Comments */}
-              <button
+              <button data-testid="button-flex"
                 onClick={() => setShowComments(!showComments)}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
               >
@@ -820,7 +820,7 @@ export const EnhancedMemoryCard: React.FC<{
               </button>
 
               {/* Share */}
-              <button
+              <button data-testid="button-flex"
                 onClick={() => onInteraction('share')}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
               >
@@ -829,7 +829,7 @@ export const EnhancedMemoryCard: React.FC<{
             </div>
 
             {/* Save */}
-            <button
+            <button data-testid="button-p"
               onClick={() => onInteraction('save')}
               className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
             >
@@ -844,7 +844,7 @@ export const EnhancedMemoryCard: React.FC<{
             >
                 {/* Comment Input */}
                 <div className="flex gap-2">
-                  <Input
+                  <Input data-testid="input-flex"
                     placeholder="Add a comment..."
                     className="flex-1"
                     onKeyPress={(e) => {
@@ -855,7 +855,7 @@ export const EnhancedMemoryCard: React.FC<{
                       }
                     }}
                   />
-                  <Button size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white">
+                  <Button data-testid="button-from" size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white">
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>

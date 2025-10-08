@@ -152,7 +152,7 @@ export function ValidationDashboard() {
         
         {/* Action Buttons */}
         <div className="flex gap-4 mt-4">
-          <Button
+          <Button data-testid="button-from"
             onClick={() => runValidation.mutate()}
             disabled={isRunning}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
@@ -169,14 +169,14 @@ export function ValidationDashboard() {
               </>
             )}
           </Button>
-          <Button
+          <Button data-testid="button-run-phase-1-layers"
             onClick={() => runValidation.mutate({ start: 1, end: 10 })}
             variant="outline"
             disabled={isRunning}
           >
             Run Phase 1 (Layers 1-10)
           </Button>
-          <Button
+          <Button data-testid="button-element"
             onClick={() => updateJira.mutate(Object.values(results))}
             variant="outline"
             disabled={Object.keys(results).length === 0}

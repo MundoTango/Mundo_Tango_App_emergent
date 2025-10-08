@@ -109,8 +109,8 @@ export default function CodeOfConduct() {
         </Card>
 
         {/* Community Guidelines */}
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Form data-testid="form-element" {...form}>
+          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
               {/* Be Respectful */}
               <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-pink-50">
@@ -372,7 +372,7 @@ export default function CodeOfConduct() {
             <div className="pt-6 text-center">
               <div className="relative inline-block group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-pink-400 via-cyan-400 to-blue-400 rounded-xl blur opacity-75 group-hover:opacity-100 group-hover:blur-sm transition duration-300"></div>
-                <Button
+                <Button data-testid="button-relative"
                   type="submit"
                   disabled={acceptCodeOfConductMutation.isPending}
                   className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"

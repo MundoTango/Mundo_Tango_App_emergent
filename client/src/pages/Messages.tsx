@@ -196,7 +196,7 @@ export default function Messages() {
             <div className="p-4 border-b border-gray-200">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
+                <Input data-testid="input-pl"
                   placeholder="Search conversations..."
                   className="pl-10 glassmorphic-input"
                 />
@@ -262,7 +262,7 @@ export default function Messages() {
               {/* Header */}
               <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
                 <div className="flex items-center space-x-3">
-                  <button
+                  <button data-testid="button-md-hidden"
                     onClick={() => setSelectedConversation(null)}
                     className="md:hidden"
                   >
@@ -314,14 +314,14 @@ export default function Messages() {
 
               {/* Input */}
               <div className="p-4 border-t border-gray-200">
-                <form
+                <form data-testid="form-flex"
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSendMessage();
                   }}
                   className="flex space-x-2"
                 >
-                  <Input
+                  <Input data-testid="input-flex"
                     value={message}
                     onChange={(e) => {
                       setMessage(e.target.value);
@@ -330,7 +330,7 @@ export default function Messages() {
                     placeholder="Type a message..."
                     className="flex-1 glassmorphic-input"
                   />
-                  <Button
+                  <Button data-testid="button-from"
                     type="submit"
                     disabled={!message.trim() || sendMessageMutation.isPending}
                     className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"

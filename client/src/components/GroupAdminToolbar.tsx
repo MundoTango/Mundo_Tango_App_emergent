@@ -151,7 +151,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
         
         <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="border-red-200 text-red-700 hover:bg-red-50">
+            <Button data-testid="button-hover-bg" variant="outline" size="sm" className="border-red-200 text-red-700 hover:bg-red-50">
               <Settings className="h-4 w-4 mr-2" />
               Group Management
             </Button>
@@ -192,7 +192,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <span>Pending Requests:</span>
                         <span className="font-semibold">3</span>
                       </div>
-                      <Button 
+                      <Button data-testid="button-w" 
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canManageMembers}
@@ -219,7 +219,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <span>Reports:</span>
                         <span className="font-semibold text-orange-600">1</span>
                       </div>
-                      <Button 
+                      <Button data-testid="button-w" 
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canModerateContent}
@@ -246,7 +246,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <span>Engagement Rate:</span>
                         <span className="font-semibold">78%</span>
                       </div>
-                      <Button 
+                      <Button data-testid="button-w" 
                         size="sm" 
                         className="w-full mt-2"
                         disabled={!permissions.canViewAnalytics}
@@ -265,7 +265,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      <Button 
+                      <Button data-testid="button-flex" 
                         variant="outline" 
                         size="sm"
                         disabled={!permissions.canManageEvents}
@@ -274,7 +274,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <Calendar className="h-4 w-4" />
                         <span>Create Event</span>
                       </Button>
-                      <Button 
+                      <Button data-testid="button-flex" 
                         variant="outline" 
                         size="sm"
                         disabled={!permissions.canModifyGroup}
@@ -283,7 +283,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <Image className="h-4 w-4" />
                         <span>Update Photo</span>
                       </Button>
-                      <Button 
+                      <Button data-testid="button-flex" 
                         variant="outline" 
                         size="sm"
                         disabled={!permissions.canManageMembers}
@@ -292,7 +292,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         <UserPlus className="h-4 w-4" />
                         <span>Invite Members</span>
                       </Button>
-                      <Button 
+                      <Button data-testid="button-flex" 
                         variant="outline" 
                         size="sm"
                         disabled={!permissions.canChangeSettings}
@@ -332,8 +332,8 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                                 <div className="text-xs text-gray-500">@{request.username}</div>
                               </div>
                               <div className="flex space-x-1">
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs">Accept</Button>
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs">Decline</Button>
+                                <Button data-testid="button-h" size="sm" variant="outline" className="h-7 px-2 text-xs">Accept</Button>
+                                <Button data-testid="button-h" size="sm" variant="outline" className="h-7 px-2 text-xs">Decline</Button>
                               </div>
                             </div>
                           ))}
@@ -347,15 +347,15 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         </h4>
                         <div className="space-y-2">
                           <div className="flex items-center space-x-2">
-                            <Input 
+                            <Input data-testid="input-flex" 
                               placeholder="Search members..." 
                               className="flex-1 h-8" 
                             />
-                            <Button size="sm" variant="outline" className="h-8">
+                            <Button data-testid="button-h" size="sm" variant="outline" className="h-8">
                               Search
                             </Button>
                           </div>
-                          <Select>
+                          <Select data-testid="select-element">
                             <SelectTrigger className="h-8">
                               <SelectValue placeholder="Assign role to member" />
                             </SelectTrigger>
@@ -372,28 +372,28 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                     <div>
                       <h4 className="font-semibold mb-2">Member Actions</h4>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                        <Button 
+                        <Button data-testid="button-bulk-invite" 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
                         >
                           Bulk Invite
                         </Button>
-                        <Button 
+                        <Button data-testid="button-export-members" 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
                         >
                           Export Members
                         </Button>
-                        <Button 
+                        <Button data-testid="button-promote-member" 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canPromoteMembers}
                         >
                           Promote Member
                         </Button>
-                        <Button 
+                        <Button data-testid="button-remove-member" 
                           variant="outline" 
                           size="sm"
                           disabled={!permissions.canManageMembers}
@@ -446,7 +446,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                       <div className="space-y-4">
                         <div>
                           <label className="text-sm font-medium">Group Name</label>
-                          <Input 
+                          <Input data-testid="input-mt" 
                             defaultValue={group.name} 
                             disabled={!permissions.canChangeSettings}
                             className="mt-1"
@@ -454,7 +454,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         </div>
                         <div>
                           <label className="text-sm font-medium">Description</label>
-                          <Textarea 
+                          <Textarea data-testid="textarea-mt" 
                             defaultValue={group.description} 
                             disabled={!permissions.canChangeSettings}
                             className="mt-1"
@@ -465,7 +465,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                       <div className="space-y-4">
                         <div>
                           <label className="text-sm font-medium">Privacy Level</label>
-                          <Select disabled={!permissions.canChangeSettings}>
+                          <Select data-testid="select-element" disabled={!permissions.canChangeSettings}>
                             <SelectTrigger className="mt-1">
                               <SelectValue placeholder={group.isPrivate ? "Private" : "Public"} />
                             </SelectTrigger>
@@ -478,7 +478,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                         </div>
                         <div>
                           <label className="text-sm font-medium">Member Approval</label>
-                          <Select disabled={!permissions.canChangeSettings}>
+                          <Select data-testid="select-element" disabled={!permissions.canChangeSettings}>
                             <SelectTrigger className="mt-1">
                               <SelectValue placeholder="Auto-approve" />
                             </SelectTrigger>
@@ -494,7 +494,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                     
                     {permissions.canChangeSettings && (
                       <div className="pt-4 border-t">
-                        <Button className="bg-blue-600 hover:bg-blue-700">
+                        <Button data-testid="button-hover-bg" className="bg-blue-600 hover:bg-blue-700">
                           Save Settings
                         </Button>
                       </div>

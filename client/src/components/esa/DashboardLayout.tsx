@@ -151,8 +151,8 @@ export default function DashboardLayout({
                 const isActive = location === item.path;
                 
                 return (
-                  <Link key={item.path} href={item.path}>
-                    <a className={cn(
+                  <Link data-testid="link-element" key={item.path} href={item.path}>
+                    <a data-testid="a-element" className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                       "hover:translate-x-1",
                       theme === 'light'
@@ -217,7 +217,7 @@ export default function DashboardLayout({
               </div>
               
               {/* Mundo Tango Button */}
-              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+              <button data-testid="button-w" className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
                 Mundo Tango
               </button>
             </div>

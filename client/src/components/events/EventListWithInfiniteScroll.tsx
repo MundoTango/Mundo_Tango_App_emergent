@@ -312,7 +312,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
 
               {/* Action Buttons */}
               <div className="flex gap-2 pt-2">
-                <Button
+                <Button data-testid="button-going"
                   size="sm"
                   variant={event.userStatus === 'going' ? 'default' : 'outline'}
                   onClick={(e) => {
@@ -323,7 +323,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                 >
                   Going
                 </Button>
-                <Button
+                <Button data-testid="button-interested"
                   size="sm"
                   variant={event.userStatus === 'interested' ? 'default' : 'outline'}
                   onClick={(e) => {

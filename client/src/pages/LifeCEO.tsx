@@ -120,7 +120,7 @@ export default function LifeCEO() {
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button
+            <Button data-testid="button-element"
               variant="ghost"
               size="icon"
               onClick={() => setLocation('/profile-switcher')}
@@ -135,7 +135,7 @@ export default function LifeCEO() {
           
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
-            <button
+            <button data-testid="button-en"
               onClick={() => setLanguage('en')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' 
@@ -145,7 +145,7 @@ export default function LifeCEO() {
             >
               EN
             </button>
-            <button
+            <button data-testid="button-es"
               onClick={() => setLanguage('es')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' 
@@ -183,7 +183,7 @@ export default function LifeCEO() {
         <Card className="p-8 mb-6">
           <div className="text-center">
             {/* Recording Button */}
-            <button
+            <button data-testid="button-element"
               onClick={toggleRecording}
               disabled={isProcessing}
               className={`w-32 h-32 rounded-full transition-all transform ${

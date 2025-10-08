@@ -191,7 +191,7 @@ export function FriendRequestList() {
                   )}
 
                   <div className="flex items-center gap-2 pt-2">
-                    <Button
+                    <Button data-testid="button-from"
                       size="sm"
                       onClick={() => {
                         setSelectedRequest(request);
@@ -202,7 +202,7 @@ export function FriendRequestList() {
                       <Check className="mr-1 h-4 w-4" />
                       Accept
                     </Button>
-                    <Button
+                    <Button data-testid="button-element"
                       size="sm"
                       variant="outline"
                       onClick={() => rejectMutation.mutate(request.id)}
@@ -210,7 +210,7 @@ export function FriendRequestList() {
                       <X className="mr-1 h-4 w-4" />
                       Decline
                     </Button>
-                    <Button
+                    <Button data-testid="button-element"
                       size="sm"
                       variant="ghost"
                       onClick={() => snoozeMutation.mutate({ requestId: request.id, days: 7 })}
@@ -237,14 +237,14 @@ export function FriendRequestList() {
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <Textarea
+            <Textarea data-testid="textarea-glassmorphic"
               placeholder="Add a welcome message (optional)..."
               value={acceptMessage}
               onChange={(e) => setAcceptMessage(e.target.value)}
               className="glassmorphic-input min-h-[100px]"
             />
             <div className="flex justify-end gap-3">
-              <Button
+              <Button data-testid="button-cancel"
                 variant="outline"
                 onClick={() => {
                   setShowAcceptDialog(false);
@@ -253,7 +253,7 @@ export function FriendRequestList() {
               >
                 Cancel
               </Button>
-              <Button
+              <Button data-testid="button-from"
                 onClick={handleAccept}
                 disabled={acceptMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"

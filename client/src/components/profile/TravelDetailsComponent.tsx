@@ -155,7 +155,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
           Travel Details
         </h3>
         {isOwnProfile && (
-          <Button
+          <Button data-testid="button-from"
             onClick={() => setShowAddModal(true)}
             size="sm"
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
@@ -174,7 +174,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
             {isOwnProfile ? "You haven't added any travel details yet." : "No travel details available."}
           </p>
           {isOwnProfile && (
-            <Button
+            <Button data-testid="button-hover-bg"
               onClick={() => setShowAddModal(true)}
               variant="outline"
               className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20"
@@ -375,7 +375,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
         {/* Actions */}
         {isOwnProfile && (
           <div className="flex items-center gap-1 ml-4">
-            <Button
+            <Button data-testid="button-h"
               variant="ghost"
               size="sm"
               onClick={onEdit}
@@ -383,7 +383,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
             >
               <Edit2 className="w-4 h-4" />
             </Button>
-            <Button
+            <Button data-testid="button-h"
               variant="ghost"
               size="sm"
               onClick={onDelete}
