@@ -118,7 +118,7 @@ const MemoriesDebug: React.FC = () => {
 
         <div style={{ marginBottom: '20px' }}>
           <h2>🧹 Cache Control</h2>
-          <button data-testid="button-clear-all-caches-r" 
+          <button 
             onClick={clearCaches}
             style={{
               background: '#DC2626',
@@ -147,7 +147,7 @@ const MemoriesDebug: React.FC = () => {
         <div style={{ marginBottom: '20px' }}>
           <h2>🔗 Quick Actions</h2>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <a data-testid="a-go-to-memories" 
+            <a 
               href="/memories" 
               style={{ 
                 background: '#5EEAD4', 
@@ -160,7 +160,7 @@ const MemoriesDebug: React.FC = () => {
             >
               Go to /memories
             </a>
-            <a data-testid="a-go-to-timeline-red" 
+            <a 
               href="/timeline" 
               style={{ 
                 background: '#14B8A6', 
@@ -172,7 +172,7 @@ const MemoriesDebug: React.FC = () => {
             >
               Go to /timeline (redirect test)
             </a>
-            <button data-testid="button-hard-reload" 
+            <button 
               onClick={() => window.location.reload()}
               style={{
                 background: '#0F766E',

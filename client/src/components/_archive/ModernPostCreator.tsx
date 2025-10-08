@@ -342,7 +342,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               <p className="text-sm text-gray-500">@{user?.username}</p>
             </div>
           </div>
-          <Button data-testid="button-hover-text"
+          <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(false)}
@@ -354,14 +354,14 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
 
         {/* Editor Type Toggle */}
         <div className="flex items-center space-x-2 mb-4">
-          <Button data-testid="button-simple"
+          <Button
             variant={!useRichEditor ? "default" : "outline"}
             size="sm"
             onClick={() => setUseRichEditor(false)}
           >
             Simple
           </Button>
-          <Button data-testid="button-rich-text"
+          <Button
             variant={useRichEditor ? "default" : "outline"}
             size="sm"
             onClick={() => setUseRichEditor(true)}
@@ -383,7 +383,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               style={{ minHeight: '120px' }}
             />
           ) : (
-            <textarea data-testid="textarea-w"
+            <textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
               placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
@@ -426,7 +426,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
                       />
                     )}
                   </div>
-                  <Button data-testid="button-absolute"
+                  <Button
                     variant="destructive"
                     size="sm"
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -443,7 +443,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         {/* Embed Input */}
         {showEmbedInput && (
           <div className="mb-4">
-            <input data-testid="input-w"
+            <input
               type="url"
               placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
               value={embedUrl}
@@ -468,7 +468,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {/* Media Upload */}
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
@@ -478,7 +478,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </Button>
             
             {/* Video Upload */}
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
@@ -488,7 +488,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </Button>
 
             {/* Location */}
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               className="text-green-600 hover:text-green-700 hover:bg-green-50"
@@ -497,7 +497,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </Button>
 
             {/* Emoji */}
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
@@ -507,19 +507,19 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </Button>
 
             {/* Embed */}
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => setShowEmbedInput(!showEmbedInput)}
               className="text-purple-600 hover:text-purple-700 hover:bg-purple-50"
             >
-              <Link data-testid="link-h" className="h-5 w-5" />
+              <Link className="h-5 w-5" />
             </Button>
           </div>
 
           <div className="flex items-center space-x-3">
             {/* Visibility Selector */}
-            <select data-testid="select-px"
+            <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
               className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -530,7 +530,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </select>
 
             {/* Submit Button */}
-            <Button data-testid="button-from"
+            <Button
               onClick={handleSubmit}
               disabled={createPostMutation.isPending || (!content.trim() && !richContent.trim())}
               className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6"
@@ -551,7 +551,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         </div>
 
         {/* Hidden File Input */}
-        <input data-testid="input-hidden"
+        <input
           ref={fileInputRef}
           type="file"
           multiple

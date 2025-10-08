@@ -164,7 +164,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
     <div className="space-y-6">
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
-        <button data-testid="button-element"
+        <button
           onClick={() => setActiveTab('resume')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'resume'
@@ -176,7 +176,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
           Tango Resume
         </button>
         {isOwnProfile && (
-          <button data-testid="button-element"
+          <button
             onClick={() => setActiveTab('invitations')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'invitations'
@@ -370,7 +370,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                     </div>
                     
                     <div className="flex gap-2">
-                      <Button data-testid="button-hover-bg"
+                      <Button
                         size="sm"
                         onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
                         disabled={updateInvitationMutation.isPending}
@@ -379,7 +379,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                         <CheckCircle className="w-4 h-4 mr-1" />
                         Accept
                       </Button>
-                      <Button data-testid="button-hover-bg"
+                      <Button
                         size="sm"
                         variant="outline"
                         onClick={() => handleInvitationResponse(invitation.id, 'declined')}

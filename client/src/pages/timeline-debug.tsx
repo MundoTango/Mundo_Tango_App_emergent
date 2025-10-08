@@ -22,10 +22,10 @@ export default function TimelineDebug() {
       <div style={{ marginTop: '40px', padding: '20px', backgroundColor: 'white', borderRadius: '10px' }}>
         <h2 style={{ fontSize: '32px', marginBottom: '10px' }}>Available Routes:</h2>
         <ul style={{ fontSize: '20px', lineHeight: '1.8' }}>
-          <li><a data-testid="a-home" href="/" style={{ color: 'blue' }}>/ - Home</a></li>
-          <li><a data-testid="a-moments-moments" href="/moments" style={{ color: 'blue' }}>/moments - Moments</a></li>
-          <li><a data-testid="a-enhanced-timeline" href="/enhanced-timeline" style={{ color: 'blue' }}>/enhanced-timeline - Enhanced Timeline V2</a></li>
-          <li><a data-testid="a-timeline-v2-test" href="/timeline-v2" style={{ color: 'blue' }}>/timeline-v2 - Test Route</a></li>
+          <li><a href="/" style={{ color: 'blue' }}>/ - Home</a></li>
+          <li><a href="/moments" style={{ color: 'blue' }}>/moments - Moments</a></li>
+          <li><a href="/enhanced-timeline" style={{ color: 'blue' }}>/enhanced-timeline - Enhanced Timeline V2</a></li>
+          <li><a href="/timeline-v2" style={{ color: 'blue' }}>/timeline-v2 - Test Route</a></li>
         </ul>
       </div>
     </div>

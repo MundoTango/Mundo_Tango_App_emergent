@@ -290,7 +290,7 @@ export function InternalUploader({
     <div className={`space-y-4 ${className}`}>
       {/* Upload Button */}
       <div className="flex flex-col space-y-3">
-        <Button data-testid="button-flex"
+        <Button
           onClick={handleFileSelect}
           disabled={isUploading}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105"
@@ -309,7 +309,7 @@ export function InternalUploader({
           )}
         </Button>
 
-        <input data-testid="input-hidden"
+        <input
           ref={fileInputRef}
           type="file"
           accept={accept}
@@ -361,7 +361,7 @@ export function InternalUploader({
                   )}
                   
                   {/* Remove button */}
-                  <button data-testid="button-absolute"
+                  <button
                     onClick={() => removeFile(file.id)}
                     className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
                   >

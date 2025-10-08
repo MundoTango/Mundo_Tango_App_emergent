@@ -511,7 +511,7 @@ const JiraExportDashboard: React.FC = () => {
               </p>
             </div>
             
-            <Button data-testid="button-from"
+            <Button
               onClick={handleExport}
               disabled={isExporting}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
@@ -563,7 +563,7 @@ const JiraExportDashboard: React.FC = () => {
               <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto">
                 Connect directly to your JIRA instance to create issues in real-time using the 40x20s framework mapping.
               </p>
-              <Button data-testid="button-from" 
+              <Button 
                 onClick={() => setShowCredentialsModal(true)}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
               >
@@ -583,7 +583,7 @@ const JiraExportDashboard: React.FC = () => {
                     Ready to create {stats.totalItems} items directly in JIRA
                   </p>
                 </div>
-                <Button data-testid="button-element" 
+                <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => setShowCredentialsModal(true)}
@@ -622,7 +622,7 @@ const JiraExportDashboard: React.FC = () => {
                 </div>
               )}
               
-              <Button data-testid="button-w" 
+              <Button 
                 onClick={createIssuesInJira}
                 disabled={isCreatingInJira}
                 className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"

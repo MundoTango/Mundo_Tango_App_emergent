@@ -238,7 +238,7 @@ export default function ConsentReviewBoard() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input data-testid="input-pl"
+          <Input
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -246,7 +246,7 @@ export default function ConsentReviewBoard() {
           />
         </div>
         
-        <Select data-testid="select-element" value={statusFilter} onValueChange={setStatusFilter}>
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
@@ -370,7 +370,7 @@ export default function ConsentReviewBoard() {
               )}
 
               <div className="flex justify-end gap-3">
-                <Button data-testid="button-rounded"
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={() => {
@@ -425,7 +425,7 @@ export default function ConsentReviewBoard() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Review Notes</label>
-                <Textarea data-testid="textarea-rounded"
+                <Textarea
                   placeholder="Add your review notes here..."
                   value={reviewNotes}
                   onChange={(e) => setReviewNotes(e.target.value)}
@@ -436,7 +436,7 @@ export default function ConsentReviewBoard() {
 
               {selectedRequest.status === 'pending' && (
                 <div className="flex gap-3">
-                  <Button data-testid="button-flex"
+                  <Button
                     variant="outline"
                     onClick={() => handleReview('deny')}
                     disabled={reviewConsentMutation.isPending}
@@ -445,7 +445,7 @@ export default function ConsentReviewBoard() {
                     <XCircle className="h-4 w-4 mr-2" />
                     Deny Request
                   </Button>
-                  <Button data-testid="button-flex"
+                  <Button
                     onClick={() => handleReview('approve')}
                     disabled={reviewConsentMutation.isPending}
                     className="flex-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
@@ -457,7 +457,7 @@ export default function ConsentReviewBoard() {
               )}
 
               {selectedRequest.status !== 'pending' && (
-                <Button data-testid="button-w"
+                <Button
                   variant="outline"
                   onClick={() => setIsReviewDialogOpen(false)}
                   className="w-full rounded-xl"

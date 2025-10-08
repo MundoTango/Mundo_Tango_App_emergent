@@ -127,7 +127,7 @@ export function Phase50x21ValidationDashboard() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Phase 2: Registration → Authentication → Profile Flow</CardTitle>
-                <Button data-testid="button-from"
+                <Button
                   onClick={runPhase2Validation}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-500"
@@ -270,7 +270,7 @@ export function Phase50x21ValidationDashboard() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Phase 3: Load Testing & Performance Analysis</CardTitle>
-                <Button data-testid="button-from"
+                <Button
                   onClick={runPhase3LoadTesting}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-purple-500 to-pink-500"

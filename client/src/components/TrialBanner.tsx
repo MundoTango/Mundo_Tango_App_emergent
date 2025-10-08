@@ -72,7 +72,7 @@ const TrialBanner: React.FC = () => {
     if (completed) {
       return (
         <div className="text-red-600 font-semibold">
-          Trial Expired - <Link data-testid="link-underline" href="/subscribe" className="underline">Subscribe Now</Link>
+          Trial Expired - <Link href="/subscribe" className="underline">Subscribe Now</Link>
         </div>
       );
     } else {
@@ -184,8 +184,8 @@ const TrialBanner: React.FC = () => {
 
                 {/* CTA */}
                 <div className="flex items-center gap-3">
-                  <Link data-testid="link-element" href="/subscribe">
-                    <Button data-testid="button-element" 
+                  <Link href="/subscribe">
+                    <Button 
                       className={`${
                         isLastDay ? 'bg-red-600 hover:bg-red-700' : 
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
@@ -199,7 +199,7 @@ const TrialBanner: React.FC = () => {
                     </Button>
                   </Link>
 
-                  <Button data-testid="button-hover-text"
+                  <Button
                     variant="ghost"
                     size="icon"
                     onClick={handleDismiss}

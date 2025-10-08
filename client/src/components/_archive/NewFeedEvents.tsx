@@ -80,7 +80,7 @@ const NewFeedEvents = () => {
             <div className="p-6 pb-4">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-500 to-cyan-600 text-sm">{title}</h3>
-                <Button data-testid="button-hover-text"
+                <Button
                   variant="ghost"
                   size="sm"
                   className="text-turquoise-600 hover:text-cyan-700 text-xs font-semibold transition-colors hover:bg-turquoise-50"

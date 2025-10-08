@@ -204,7 +204,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       {showVisibility && (
         <div className="space-y-2">
           <Label>Visibility</Label>
-          <Select data-testid="select-element" value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
+          <Select value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -233,14 +233,14 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             ))}
           </div>
           <div className="flex gap-2">
-            <Input data-testid="input-flex"
+            <Input
               value={newTag}
               onChange={(e) => setNewTag(e.target.value)}
               placeholder="Add a tag..."
               onKeyPress={(e) => e.key === 'Enter' && addTag()}
               className="flex-1"
             />
-            <Button data-testid="button-element" type="button" size="sm" onClick={addTag} disabled={!newTag.trim()}>
+            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()}>
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -256,7 +256,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           ${disabled || isUploading ? 'opacity-50 cursor-not-allowed' : ''}
         `}
       >
-        <input data-testid="input-element" {...getInputProps()} />
+        <input {...getInputProps()} />
         <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
         <p className="text-sm text-gray-600 mb-1">
           {isDragActive ? 'Drop files here...' : placeholder}
@@ -302,7 +302,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                     {(file.size / 1024).toFixed(1)} KB
                   </p>
                 </div>
-                <Button data-testid="button-hover-text"
+                <Button
                   type="button"
                   variant="ghost"
                   size="sm"

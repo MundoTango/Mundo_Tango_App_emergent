@@ -183,7 +183,7 @@ export function MemoryRoleManager() {
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
-              <Select data-testid="select-element"
+              <Select
                 value={selectedRole}
                 onValueChange={setSelectedRole}
               >
@@ -198,7 +198,7 @@ export function MemoryRoleManager() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button data-testid="button-switch-role" 
+              <Button 
                 onClick={() => switchRole.mutate(selectedRole)}
                 disabled={!selectedRole || switchRole.isPending}
               >
@@ -233,7 +233,7 @@ export function MemoryRoleManager() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">Level {circle.trust_level}</Badge>
-                    <Button data-testid="button-element" variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm">
                       <Settings className="h-4 w-4" />
                     </Button>
                   </div>
@@ -244,7 +244,7 @@ export function MemoryRoleManager() {
             <div className="text-center py-8 text-gray-500">
               <Users className="h-12 w-12 mx-auto mb-3 opacity-30" />
               <p>No trust circles established yet</p>
-              <Button data-testid="button-mt" variant="outline" className="mt-3">
+              <Button variant="outline" className="mt-3">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Trust Circle
               </Button>
@@ -265,7 +265,7 @@ export function MemoryRoleManager() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button data-testid="button-w" 
+          <Button 
             onClick={() => setShowCreateMemoryModal(true)}
             className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
           >
@@ -286,7 +286,7 @@ export function MemoryRoleManager() {
         <CardContent>
           <Dialog open={showCustomRoleModal} onOpenChange={setShowCustomRoleModal}>
             <DialogTrigger asChild>
-              <Button data-testid="button-w" variant="outline" className="w-full">
+              <Button variant="outline" className="w-full">
                 <Plus className="h-4 w-4 mr-2" />
                 Request Custom Memory Role
               </Button>
@@ -302,7 +302,7 @@ export function MemoryRoleManager() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="roleName">Role Name</Label>
-                  <input data-testid="input-w"
+                  <input
                     id="roleName"
                     type="text"
                     className="w-full p-2 border rounded-md"
@@ -314,7 +314,7 @@ export function MemoryRoleManager() {
 
                 <div className="space-y-2">
                   <Label htmlFor="description">Description & Justification</Label>
-                  <Textarea data-testid="textarea-element"
+                  <Textarea
                     id="description"
                     placeholder="Explain why you need this role and how you'll use these permissions..."
                     value={customRoleRequest.description}
@@ -387,13 +387,13 @@ export function MemoryRoleManager() {
                 </div>
 
                 <div className="flex justify-end gap-2 pt-4">
-                  <Button data-testid="button-cancel"
+                  <Button
                     variant="outline"
                     onClick={() => setShowCustomRoleModal(false)}
                   >
                     Cancel
                   </Button>
-                  <Button data-testid="button-element"
+                  <Button
                     onClick={() => submitCustomRole.mutate(customRoleRequest)}
                     disabled={!customRoleRequest.roleName || !customRoleRequest.description || submitCustomRole.isPending}
                   >

@@ -119,14 +119,14 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
       {showControls && (
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="flex items-center gap-3">
-            <button data-testid="button-hover-text"
+            <button
               onClick={togglePlay}
               className="text-white hover:text-turquoise-400 transition"
             >
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
             </button>
             
-            <input data-testid="input-flex"
+            <input
               type="range"
               min="0"
               max={duration}
@@ -139,14 +139,14 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
               {formatTime(currentTime)} / {formatTime(duration)}
             </span>
             
-            <button data-testid="button-hover-text"
+            <button
               onClick={toggleMute}
               className="text-white hover:text-turquoise-400 transition"
             >
               {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
             
-            <button data-testid="button-hover-text"
+            <button
               onClick={toggleFullscreen}
               className="text-white hover:text-turquoise-400 transition"
             >

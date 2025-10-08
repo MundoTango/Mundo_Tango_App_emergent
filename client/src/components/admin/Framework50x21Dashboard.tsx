@@ -807,7 +807,7 @@ const Framework50x21Dashboard: React.FC = () => {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button data-testid="button-from" 
+          <Button 
             onClick={generateReport}
             disabled={isGeneratingReport}
             className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
@@ -815,7 +815,7 @@ const Framework50x21Dashboard: React.FC = () => {
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
           </Button>
-          <Button data-testid="button-element" 
+          <Button 
             onClick={runSelfAnalysis}
             disabled={isRunningAnalysis}
             variant="outline"
@@ -873,7 +873,7 @@ const Framework50x21Dashboard: React.FC = () => {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {frameworkData.map((layer) => (
-                  <button data-testid="button-element"
+                  <button
                     key={layer.id}
                     onClick={() => setSelectedLayer(layer.id)}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${

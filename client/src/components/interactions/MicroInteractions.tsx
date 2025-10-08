@@ -121,7 +121,7 @@ const RippleButton = ({
   };
 
   return (
-    <button data-testid="button-element"
+    <button
       className={cn('relative overflow-hidden', className)}
       onClick={handleClick}
       {...props}

@@ -145,7 +145,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                 <Badge variant="destructive">{invitations.length}</Badge>
               )}
             </div>
-            <Button data-testid="button" variant="ghost" size="sm" onClick={onClose}>
+            <Button variant="ghost" size="sm" onClick={onClose}>
               ✕
             </Button>
           </CardTitle>
@@ -201,7 +201,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                       </div>
                       
                       <div className="flex flex-col gap-2 flex-shrink-0">
-                        <Button data-testid="button-hover-bg"
+                        <Button
                           size="sm"
                           onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
                           disabled={updateInvitationMutation.isPending}
@@ -210,7 +210,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                           <CheckCircle className="w-4 h-4 mr-1" />
                           Accept
                         </Button>
-                        <Button data-testid="button-hover-bg"
+                        <Button
                           size="sm"
                           variant="outline"
                           onClick={() => handleInvitationResponse(invitation.id, 'declined')}

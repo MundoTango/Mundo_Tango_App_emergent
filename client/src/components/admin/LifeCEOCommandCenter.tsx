@@ -204,14 +204,14 @@ const LifeCEOCommandCenter: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button data-testid="button-from" 
+            <Button 
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
               onClick={() => setActiveTab('agent')}
             >
               <Bot className="w-4 h-4 mr-2" />
               Chat with Agent
             </Button>
-            <Button data-testid="button-hover-bg" 
+            <Button 
               variant="outline" 
               className="border-turquoise-200 hover:bg-turquoise-50"
               onClick={() => setActiveTab('insights')}
@@ -219,7 +219,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               <Lightbulb className="w-4 h-4 mr-2" />
               View Insights
             </Button>
-            <Button data-testid="button-hover-bg" 
+            <Button 
               variant="outline"
               className="border-purple-200 hover:bg-purple-50"
               onClick={() => setActiveTab('framework')}
@@ -227,7 +227,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               <Layers className="w-4 h-4 mr-2" />
               Framework Status
             </Button>
-            <Button data-testid="button-hover-bg" 
+            <Button 
               variant="outline"
               className="border-blue-200 hover:bg-blue-50"
             >
@@ -246,7 +246,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               <CardTitle className="text-lg font-semibold text-gray-900">
                 Recent Agent Activity
               </CardTitle>
-              <Button data-testid="button-test-log"
+              <Button
                 size="sm"
                 variant="outline"
                 onClick={async () => {

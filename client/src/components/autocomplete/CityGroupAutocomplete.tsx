@@ -120,7 +120,7 @@ export default function CityGroupAutocomplete({
       
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-        <Input data-testid="input-pl"
+        <Input
           id="city-search"
           type="text"
           value={inputValue}
@@ -149,7 +149,7 @@ export default function CityGroupAutocomplete({
                 </div>
               )}
             </div>
-            <Button data-testid="button-hover-text"
+            <Button
               size="sm"
               variant="ghost"
               onClick={() => onSelect(null)}
@@ -175,7 +175,7 @@ export default function CityGroupAutocomplete({
               {cityGroups.map((cityGroup: CityGroup) => {
                 const { city, country } = parseCityName(cityGroup.name);
                 return (
-                  <button data-testid="button-w"
+                  <button
                     key={cityGroup.id}
                     onClick={() => handleSelectCity(cityGroup)}
                     className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -213,7 +213,7 @@ export default function CityGroupAutocomplete({
                 No cities found matching "{debouncedSearch}"
               </p>
               {allowCreate && (
-                <Button data-testid="button-w"
+                <Button
                   onClick={handleCreateNew}
                   variant="outline"
                   className="w-full"

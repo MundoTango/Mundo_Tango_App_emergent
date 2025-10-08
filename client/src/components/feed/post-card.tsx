@@ -154,7 +154,7 @@ export default function PostCard({ post }: PostCardProps) {
               </p>
             </div>
           </div>
-          <Button data-testid="button-hover-text" variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600">
+          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </div>
@@ -242,7 +242,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
         
         <div className="flex items-center justify-between">
-          <Button data-testid="button-element"
+          <Button
             variant="ghost"
             size="sm"
             onClick={handleLike}
@@ -253,7 +253,7 @@ export default function PostCard({ post }: PostCardProps) {
             <span>Like</span>
           </Button>
           
-          <Button data-testid="button-flex"
+          <Button
             variant="ghost"
             size="sm"
             onClick={() => setShowComments(!showComments)}
@@ -263,7 +263,7 @@ export default function PostCard({ post }: PostCardProps) {
             <span>Comment</span>
           </Button>
           
-          <Button data-testid="button-flex"
+          <Button
             variant="ghost"
             size="sm"
             onClick={handleShare}
@@ -283,14 +283,14 @@ export default function PostCard({ post }: PostCardProps) {
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <div className="flex-1 flex space-x-2">
-                <Textarea data-testid="textarea-resize"
+                <Textarea
                   placeholder="Write a comment..."
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   className="resize-none"
                   rows={2}
                 />
-                <Button data-testid="button-hover-bg"
+                <Button
                   size="sm"
                   onClick={handleComment}
                   disabled={commentMutation.isPending || !newComment.trim()}

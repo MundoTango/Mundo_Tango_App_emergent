@@ -31,7 +31,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
   return (
     <div className="bg-white h-16 border-b-2 border-gray-200 transition-all flex items-center gap-3 p-3 md:p-5 select-none">
       <div>
-        <Button data-testid="button-p"
+        <Button
           variant="ghost"
           size="icon"
           onClick={onMenuClick}
@@ -44,7 +44,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       <div className="flex-1 relative">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-          <Input data-testid="input-pl"
+          <Input
             placeholder="Search posts, events, people..."
             className="pl-10 bg-gray-50 border-gray-300 rounded-lg"
             value={searchQuery}
@@ -101,7 +101,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       <div className="mr-1 md:mr-4 flex items-center md:space-x-5">
         <div className="flex items-center gap-5">
           <div className="relative">
-            <Button data-testid="button-relative" variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative">
               <Users className="h-5 w-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 2
@@ -110,15 +110,15 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </div>
           
           <div>
-            <Button data-testid="button-element" variant="ghost" size="icon" asChild>
-              <Link data-testid="link-element" href="/messages">
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/messages">
                 <MessageCircle className="h-5 w-5 text-gray-600" />
               </Link>
             </Button>
           </div>
           
           <div className="relative">
-            <Button data-testid="button-relative" variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5 text-gray-600" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 3

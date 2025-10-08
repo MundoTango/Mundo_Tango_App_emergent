@@ -103,7 +103,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
         <div className="space-y-3">
           <div>
             <Label htmlFor="airbnb-url">Airbnb listing URL (optional)</Label>
-            <input data-testid="input-mt"
+            <input
               id="airbnb-url"
               type="url"
               className="mt-1 w-full px-3 py-2 border rounded-md"
@@ -114,7 +114,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
           </div>
           <div>
             <Label htmlFor="vrbo-url">VRBO listing URL (optional)</Label>
-            <input data-testid="input-mt"
+            <input
               id="vrbo-url"
               type="url"
               className="mt-1 w-full px-3 py-2 border rounded-md"

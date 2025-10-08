@@ -116,7 +116,7 @@ const LifeCEOAgentConfig: React.FC = () => {
             <div className="flex space-x-2">
               {isEditing ? (
                 <>
-                  <Button data-testid="button-element"
+                  <Button
                     size="sm"
                     variant="outline"
                     onClick={() => {
@@ -139,7 +139,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                     <Check className="w-4 h-4 mr-1" />
                     Save
                   </Button>
-                  <Button data-testid="button-element"
+                  <Button
                     size="sm"
                     variant="ghost"
                     onClick={() => {
@@ -152,7 +152,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   </Button>
                 </>
               ) : (
-                <Button data-testid="button-element"
+                <Button
                   size="sm"
                   variant="ghost"
                   onClick={() => {
@@ -168,7 +168,7 @@ const LifeCEOAgentConfig: React.FC = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <Textarea data-testid="textarea-font"
+          <Textarea
             className="font-mono text-sm"
             rows={10}
             value={configDataStr}
@@ -190,7 +190,7 @@ const LifeCEOAgentConfig: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Agent Configuration</h2>
-        <Button data-testid="button-element">
+        <Button>
           <Plus className="w-4 h-4 mr-2" />
           Add Configuration
         </Button>

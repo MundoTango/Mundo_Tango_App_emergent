@@ -239,7 +239,7 @@ export default function RoleInvitations() {
           
           <Card className="glassmorphic-card">
             <CardContent className="p-4">
-              <Button data-testid="button-w"
+              <Button
                 onClick={() => setShowSendForm(!showSendForm)}
                 className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
               >
@@ -260,7 +260,7 @@ export default function RoleInvitations() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Username</label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     placeholder="Enter username..."
                     value={sendForm.username}
                     onChange={(e) => setSendForm({ ...sendForm, username: e.target.value })}
@@ -270,7 +270,7 @@ export default function RoleInvitations() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">Event</label>
-                  <Select data-testid="select-element"
+                  <Select
                     value={sendForm.eventId}
                     onValueChange={(value) => setSendForm({ ...sendForm, eventId: value })}
                   >
@@ -289,7 +289,7 @@ export default function RoleInvitations() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">Role</label>
-                  <Select data-testid="select-element"
+                  <Select
                     value={sendForm.role}
                     onValueChange={(value) => setSendForm({ ...sendForm, role: value })}
                   >
@@ -311,7 +311,7 @@ export default function RoleInvitations() {
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">Message (Optional)</label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     placeholder="Add a personal message..."
                     value={sendForm.message}
                     onChange={(e) => setSendForm({ ...sendForm, message: e.target.value })}
@@ -321,14 +321,14 @@ export default function RoleInvitations() {
               </div>
               
               <div className="flex gap-2 mt-4">
-                <Button data-testid="button-from"
+                <Button
                   onClick={handleSendInvitation}
                   disabled={sendInvitationMutation.isPending}
                   className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
                 >
                   {sendInvitationMutation.isPending ? 'Sending...' : 'Send Invitation'}
                 </Button>
-                <Button data-testid="button-cancel"
+                <Button
                   onClick={() => setShowSendForm(false)}
                   variant="outline"
                 >
@@ -413,7 +413,7 @@ export default function RoleInvitations() {
                           
                           {invitation.status === 'pending' && (
                             <div className="flex gap-2">
-                              <Button data-testid="button-from"
+                              <Button
                                 onClick={() => handleAccept(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
@@ -421,7 +421,7 @@ export default function RoleInvitations() {
                                 <CheckCircle className="w-4 h-4 mr-1" />
                                 Accept
                               </Button>
-                              <Button data-testid="button-hover-bg"
+                              <Button
                                 onClick={() => handleDecline(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 variant="outline"

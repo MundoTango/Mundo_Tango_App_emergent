@@ -247,7 +247,7 @@ const TravelPlanner: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="trip-name">Trip Name</Label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     id="trip-name"
                     placeholder="e.g., Summer Tango Tour 2025"
                     value={tripName}
@@ -257,7 +257,7 @@ const TravelPlanner: React.FC = () => {
                 </div>
                 <div>
                   <Label htmlFor="budget">Total Budget</Label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     id="budget"
                     type="number"
                     placeholder="0"
@@ -268,7 +268,7 @@ const TravelPlanner: React.FC = () => {
                 </div>
                 <div>
                   <Label htmlFor="travelers">Number of Travelers</Label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     id="travelers"
                     type="number"
                     min="1"
@@ -283,7 +283,7 @@ const TravelPlanner: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Destinations</h3>
-                  <Button data-testid="button-element"
+                  <Button
                     onClick={addDestination}
                     variant="outline"
                     size="sm"
@@ -313,7 +313,7 @@ const TravelPlanner: React.FC = () => {
                                 {dest.city || 'New Destination'}
                               </span>
                             </div>
-                            <Button data-testid="button-element"
+                            <Button
                               onClick={() => removeDestination(dest.id)}
                               variant="ghost"
                               size="sm"
@@ -326,7 +326,7 @@ const TravelPlanner: React.FC = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                               <Label>City</Label>
-                              <Input data-testid="input-glassmorphic"
+                              <Input
                                 placeholder="e.g., Buenos Aires"
                                 value={dest.city}
                                 onChange={(e) => updateDestination(dest.id, { city: e.target.value })}
@@ -335,7 +335,7 @@ const TravelPlanner: React.FC = () => {
                             </div>
                             <div>
                               <Label>Country</Label>
-                              <Input data-testid="input-glassmorphic"
+                              <Input
                                 placeholder="e.g., Argentina"
                                 value={dest.country}
                                 onChange={(e) => updateDestination(dest.id, { country: e.target.value })}
@@ -344,7 +344,7 @@ const TravelPlanner: React.FC = () => {
                             </div>
                             <div>
                               <Label>Start Date</Label>
-                              <Input data-testid="input-glassmorphic"
+                              <Input
                                 type="date"
                                 value={format(dest.startDate, 'yyyy-MM-dd')}
                                 onChange={(e) => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
@@ -353,7 +353,7 @@ const TravelPlanner: React.FC = () => {
                             </div>
                             <div>
                               <Label>End Date</Label>
-                              <Input data-testid="input-glassmorphic"
+                              <Input
                                 type="date"
                                 value={format(dest.endDate, 'yyyy-MM-dd')}
                                 onChange={(e) => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
@@ -362,7 +362,7 @@ const TravelPlanner: React.FC = () => {
                             </div>
                             <div className="md:col-span-2">
                               <Label>Accommodation</Label>
-                              <Input data-testid="input-glassmorphic"
+                              <Input
                                 placeholder="Hotel name or address"
                                 value={dest.accommodation || ''}
                                 onChange={(e) => updateDestination(dest.id, { accommodation: e.target.value })}
@@ -371,7 +371,7 @@ const TravelPlanner: React.FC = () => {
                             </div>
                             <div className="md:col-span-2">
                               <Label>Notes</Label>
-                              <Textarea data-testid="textarea-glassmorphic"
+                              <Textarea
                                 placeholder="Special notes for this destination"
                                 value={dest.notes || ''}
                                 onChange={(e) => updateDestination(dest.id, { notes: e.target.value })}
@@ -410,7 +410,7 @@ const TravelPlanner: React.FC = () => {
               {/* Save Button */}
               {destinations.length > 0 && (
                 <div className="flex justify-end gap-2">
-                  <Button data-testid="button-clear-all"
+                  <Button
                     variant="outline"
                     onClick={() => {
                       setDestinations([]);
@@ -421,7 +421,7 @@ const TravelPlanner: React.FC = () => {
                   >
                     Clear All
                   </Button>
-                  <Button data-testid="button-from"
+                  <Button
                     onClick={handleSaveTrip}
                     className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
                     disabled={saveTripMutation.isPending}
@@ -484,7 +484,7 @@ const TravelPlanner: React.FC = () => {
                                   {event.attendeeCount} attending
                                 </span>
                               </div>
-                              <Button data-testid="button-w"
+                              <Button
                                 variant="outline"
                                 size="sm"
                                 className="w-full mt-3"
@@ -560,7 +560,7 @@ const TravelPlanner: React.FC = () => {
                         <Hotel className="h-4 w-4 text-gray-600" />
                         <span>Accommodation</span>
                       </div>
-                      <Input data-testid="input-w"
+                      <Input
                         type="number"
                         placeholder="0"
                         className="w-32 glassmorphic-input"
@@ -571,7 +571,7 @@ const TravelPlanner: React.FC = () => {
                         <Plane className="h-4 w-4 text-gray-600" />
                         <span>Transportation</span>
                       </div>
-                      <Input data-testid="input-w"
+                      <Input
                         type="number"
                         placeholder="0"
                         className="w-32 glassmorphic-input"
@@ -582,7 +582,7 @@ const TravelPlanner: React.FC = () => {
                         <CalendarIcon className="h-4 w-4 text-gray-600" />
                         <span>Events & Classes</span>
                       </div>
-                      <Input data-testid="input-w"
+                      <Input
                         type="number"
                         placeholder="0"
                         className="w-32 glassmorphic-input"
@@ -593,7 +593,7 @@ const TravelPlanner: React.FC = () => {
                         <Heart className="h-4 w-4 text-gray-600" />
                         <span>Food & Entertainment</span>
                       </div>
-                      <Input data-testid="input-w"
+                      <Input
                         type="number"
                         placeholder="0"
                         className="w-32 glassmorphic-input"

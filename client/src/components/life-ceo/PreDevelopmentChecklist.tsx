@@ -112,7 +112,7 @@ export default function PreDevelopmentChecklist() {
                 Comprehensive system validation before starting development
               </p>
             </div>
-            <Button data-testid="button-from"
+            <Button
               onClick={runChecklist}
               disabled={isChecking}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
@@ -214,7 +214,7 @@ export default function PreDevelopmentChecklist() {
                           </div>
                           
                           {!result.passed && result.autoFixAvailable && (
-                            <Button data-testid="button-from"
+                            <Button
                               size="sm"
                               onClick={() => runAutoFix(category)}
                               disabled={autoFixing === category}

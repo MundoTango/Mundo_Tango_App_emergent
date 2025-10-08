@@ -189,7 +189,7 @@ export default function TangoCommunities() {
               <h1 className="text-3xl font-bold text-gray-900">Tango Communities</h1>
               <p className="text-gray-600 mt-2">Connect with tango dancers around the world</p>
             </div>
-            <Button data-testid="button-from"
+            <Button
               onClick={() => setShowCreateModal(true)}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
             >
@@ -248,7 +248,7 @@ export default function TangoCommunities() {
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input data-testid="input-pl"
+              <Input
                 type="text"
                 placeholder="Search communities by name, location, or description..."
                 value={searchQuery}
@@ -260,7 +260,7 @@ export default function TangoCommunities() {
               {categories.map(category => {
                 const Icon = category.icon;
                 return (
-                  <Button data-testid="button-element"
+                  <Button
                     key={category.value}
                     variant={selectedCategory === category.value ? 'default' : 'outline'}
                     size="sm"
@@ -318,7 +318,7 @@ export default function TangoCommunities() {
 
                 {/* Actions */}
                 <div className="flex gap-2">
-                  <Button data-testid="button-element"
+                  <Button
                     variant={community.isJoined ? 'outline' : 'default'}
                     size="sm"
                     className={community.isJoined 
@@ -328,7 +328,7 @@ export default function TangoCommunities() {
                   >
                     {community.isJoined ? 'Leave' : 'Join'} Community
                   </Button>
-                  <Button data-testid="button-view-details" 
+                  <Button 
                     variant="outline" 
                     size="sm"
                     onClick={() => window.open(`/groups/${community.slug || community.id}`, '_blank')}

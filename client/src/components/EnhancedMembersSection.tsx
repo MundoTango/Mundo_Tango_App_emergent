@@ -211,7 +211,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input data-testid="input-pl"
+          <Input
             placeholder="Search members..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -220,7 +220,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         </div>
 
         {/* Category Filter */}
-        <Select data-testid="select-element" value={selectedCategory} onValueChange={setSelectedCategory}>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger>
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
@@ -235,7 +235,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         </Select>
 
         {/* Role Filter */}
-        <Select data-testid="select-element" value={selectedRole} onValueChange={setSelectedRole}>
+        <Select value={selectedRole} onValueChange={setSelectedRole}>
           <SelectTrigger>
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
@@ -253,7 +253,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
       {/* Clear Filters */}
       {(searchTerm || selectedCategory !== 'all' || selectedRole !== 'all') && (
         <div className="mb-6">
-          <Button data-testid="button-hover-text"
+          <Button
             variant="outline"
             size="sm"
             onClick={() => {
@@ -284,7 +284,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         <div className="text-center py-12 text-gray-500">
           <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <p>No members found matching your filters</p>
-          <Button data-testid="button-mt"
+          <Button
             variant="outline"
             size="sm"
             onClick={() => {

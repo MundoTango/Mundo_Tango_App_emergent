@@ -386,7 +386,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
               Edit Profile
             </CardTitle>
             <div className="flex gap-2">
-              <Button data-testid="button-hover-bg" 
+              <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={handleCancel}
@@ -395,7 +395,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                 <X className="w-4 h-4 mr-1" />
                 Cancel
               </Button>
-              <Button data-testid="button-from" 
+              <Button 
                 size="sm" 
                 onClick={form.handleSubmit(onSubmit)}
                 disabled={updateProfileMutation.isPending}
@@ -408,8 +408,8 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           </div>
         </CardHeader>
         <CardContent className="p-8 bg-gradient-to-br from-white via-turquoise-50/30 to-cyan-50/30">
-          <Form data-testid="form-element" {...form}>
-            <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Step 1: Basic Info */}
               <div className="space-y-6 glassmorphic-card p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-turquoise-200/50">
                 <h3 className="text-xl font-bold flex items-center gap-3 mb-4">
@@ -429,7 +429,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                         How should we call you?
                       </FormLabel>
                       <FormControl>
-                        <Input data-testid="input-glassmorphic" 
+                        <Input 
                           {...field} 
                           placeholder="Your nickname" 
                           className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg"
@@ -567,7 +567,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                         What year did you start dancing tango?
                       </FormLabel>
                       <FormControl>
-                        <Select data-testid="select-element"
+                        <Select
                           value={field.value?.toString()}
                           onValueChange={(value) => field.onChange(parseInt(value))}
                         >
@@ -661,7 +661,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           </span>
         </CardTitle>
         {isOwnProfile && (
-          <Button data-testid="button-hover-bg"
+          <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsEditing(true)}

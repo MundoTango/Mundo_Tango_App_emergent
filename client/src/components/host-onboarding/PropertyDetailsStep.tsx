@@ -26,7 +26,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
       <div className="space-y-4">
         <div>
           <Label htmlFor="title">Give your place a title</Label>
-          <Input data-testid="input-mt"
+          <Input
             id="title"
             placeholder="Cozy downtown apartment with city views"
             value={data.title || ''}
@@ -39,7 +39,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
 
         <div>
           <Label htmlFor="description">Describe your place</Label>
-          <Textarea data-testid="textarea-mt"
+          <Textarea
             id="description"
             placeholder="Tell guests what makes your place special..."
             value={data.description || ''}
@@ -58,7 +58,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
           <div className="flex items-center justify-between">
             <span className="font-medium">Maximum guests</span>
             <div className="flex items-center gap-3">
-              <button data-testid="button-w"
+              <button
                 type="button"
                 onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)}
                 className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
@@ -66,7 +66,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                 <Minus className="w-4 h-4" />
               </button>
               <span className="w-12 text-center font-medium">{data.maxGuests || 1}</span>
-              <button data-testid="button-w"
+              <button
                 type="button"
                 onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)}
                 className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
@@ -90,7 +90,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <div className="flex items-center justify-between">
                 <span className="font-medium">{item.label}</span>
                 <div className="flex items-center gap-3">
-                  <button data-testid="button-w"
+                  <button
                     type="button"
                     onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
                     className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
@@ -98,7 +98,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="w-12 text-center font-medium">{data[item.field] || item.min}</span>
-                  <button data-testid="button-w"
+                  <button
                     type="button"
                     onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
                     className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
@@ -115,7 +115,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             <div className="flex items-center justify-between">
               <span className="font-medium">Bathrooms</span>
               <div className="flex items-center gap-3">
-                <button data-testid="button-w"
+                <button
                   type="button"
                   onClick={() => {
                     const current = data.bathrooms || 1;
@@ -127,7 +127,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                   <Minus className="w-4 h-4" />
                 </button>
                 <span className="w-12 text-center font-medium">{data.bathrooms || 1}</span>
-                <button data-testid="button-w"
+                <button
                   type="button"
                   onClick={() => {
                     const current = data.bathrooms || 1;

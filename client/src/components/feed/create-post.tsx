@@ -146,14 +146,14 @@ export default function CreatePost() {
           </Avatar>
           <div className="flex-1">
             {!isExpanded ? (
-              <button data-testid="button-w"
+              <button
                 onClick={() => setIsExpanded(true)}
                 className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300"
               >
                 Share your tango experience...
               </button>
             ) : (
-              <Textarea data-testid="textarea-resize"
+              <Textarea
                 placeholder="Share your tango experience..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -192,7 +192,7 @@ export default function CreatePost() {
 
         {previewUrls.length > 0 && (
           <div className="mb-4 relative">
-            <button data-testid="button-absolute"
+            <button
               onClick={removeFiles}
               className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10"
             >
@@ -223,7 +223,7 @@ export default function CreatePost() {
         <div className="flex items-center justify-between">
           <div className="flex space-x-4">
             <label className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 cursor-pointer transition-colors">
-              <input data-testid="input-hidden"
+              <input
                 type="file"
                 accept="image/*,video/*"
                 multiple
@@ -235,7 +235,7 @@ export default function CreatePost() {
               <span className="text-sm">Photo/Video</span>
             </label>
             
-            <Button data-testid="button-hover-text" variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors">
+            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors">
               <Calendar className="h-5 w-5 mr-2" />
               <span className="text-sm">Event</span>
             </Button>
@@ -243,7 +243,7 @@ export default function CreatePost() {
           
           {isExpanded && (
             <div className="flex space-x-2">
-              <Button data-testid="button-hover-bg"
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={() => {
@@ -257,7 +257,7 @@ export default function CreatePost() {
               >
                 Cancel
               </Button>
-              <Button data-testid="button-from"
+              <Button
                 size="sm"
                 onClick={handleSubmit}
                 disabled={isUploading}

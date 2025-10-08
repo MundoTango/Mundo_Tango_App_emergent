@@ -266,7 +266,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
           onClick={() => setSelectedItem(project)}
         >
           {hasChildren && (
-            <button data-testid="button-mr"
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 toggleExpanded(project.id);

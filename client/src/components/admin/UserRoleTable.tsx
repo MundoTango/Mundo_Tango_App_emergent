@@ -155,7 +155,7 @@ export default function UserRoleTable() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input data-testid="input-pl"
+          <Input
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -163,7 +163,7 @@ export default function UserRoleTable() {
           />
         </div>
         
-        <Select data-testid="select-element" value={roleFilter} onValueChange={setRoleFilter}>
+        <Select value={roleFilter} onValueChange={setRoleFilter}>
           <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
@@ -238,7 +238,7 @@ export default function UserRoleTable() {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <Button data-testid="button-rounded"
+                  <Button
                     variant="outline"
                     size="sm"
                     onClick={() => {
@@ -277,7 +277,7 @@ export default function UserRoleTable() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Primary Role</label>
-                  <Select data-testid="select-element" defaultValue={selectedUser.primaryRole}>
+                  <Select defaultValue={selectedUser.primaryRole}>
                     <SelectTrigger className="rounded-xl">
                       <SelectValue />
                     </SelectTrigger>
@@ -299,7 +299,7 @@ export default function UserRoleTable() {
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) => (
                       <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                        <input data-testid="input-rounded"
+                        <input
                           type="checkbox"
                           defaultChecked={selectedUser.roles.includes(role.id)}
                           className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -316,14 +316,14 @@ export default function UserRoleTable() {
               </div>
 
               <div className="flex gap-3">
-                <Button data-testid="button-flex"
+                <Button
                   variant="outline"
                   onClick={() => setIsEditDialogOpen(false)}
                   className="flex-1 rounded-xl"
                 >
                   Cancel
                 </Button>
-                <Button data-testid="button-flex"
+                <Button
                   onClick={() => {
                     toast({
                       title: "Success",

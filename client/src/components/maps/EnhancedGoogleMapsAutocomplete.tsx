@@ -434,7 +434,7 @@ export default function EnhancedGoogleMapsAutocomplete({
         <div className="flex gap-2">
           <div className="relative flex-1">
             <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input data-testid="input-pl"
+            <Input
               ref={inputRef}
               type="text"
               value={inputValue}
@@ -445,7 +445,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               disabled={!isLoaded}
             />
             {inputValue && (
-              <Button data-testid="button-absolute"
+              <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => {
@@ -461,7 +461,7 @@ export default function EnhancedGoogleMapsAutocomplete({
           </div>
           
           {isLoaded && (
-            <Button data-testid="button-whitespace"
+            <Button
               variant="outline"
               size="sm"
               onClick={useCurrentLocation}
@@ -491,7 +491,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               <p className="text-gray-600">📞 {selectedLocation.phoneNumber}</p>
             )}
             {selectedLocation.website && (
-              <a data-testid="a-hover-underline" href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+              <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                 🌐 Website
               </a>
             )}
@@ -503,7 +503,7 @@ export default function EnhancedGoogleMapsAutocomplete({
           <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
             <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Nearby places:</p>
             {nearbyPlaces.map((place, index) => (
-              <button data-testid="button-w"
+              <button
                 key={index}
                 onClick={() => {
                   const locationData = extractEnhancedLocationData(place);

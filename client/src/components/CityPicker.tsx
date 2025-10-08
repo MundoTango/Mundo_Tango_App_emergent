@@ -88,7 +88,7 @@ export default function CityPicker({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button data-testid="button-element"
+        <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}

@@ -195,7 +195,7 @@ export const EventTypesManager: React.FC = () => {
         </div>
         <div className="flex items-center gap-4">
           <label className="flex items-center gap-2">
-            <input data-testid="input-rounded"
+            <input
               type="checkbox"
               checked={showInactive}
               onChange={(e) => setShowInactive(e.target.checked)}
@@ -204,7 +204,7 @@ export const EventTypesManager: React.FC = () => {
             <span className="text-sm text-gray-600">Show inactive</span>
           </label>
           {!isCreating && (
-            <button data-testid="button-px"
+            <button
               onClick={() => setIsCreating(true)}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
             >
@@ -224,7 +224,7 @@ export const EventTypesManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Name *
               </label>
-              <input data-testid="input-w"
+              <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -236,7 +236,7 @@ export const EventTypesManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Icon
               </label>
-              <select data-testid="select-w"
+              <select
                 value={formData.icon}
                 onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -250,7 +250,7 @@ export const EventTypesManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Color
               </label>
-              <input data-testid="input-w"
+              <input
                 type="color"
                 value={formData.color}
                 onChange={(e) => setFormData({ ...formData, color: e.target.value })}
@@ -261,7 +261,7 @@ export const EventTypesManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Sort Order
               </label>
-              <input data-testid="input-w"
+              <input
                 type="number"
                 value={formData.sort_order}
                 onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
@@ -272,7 +272,7 @@ export const EventTypesManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Description
               </label>
-              <textarea data-testid="textarea-w"
+              <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -282,7 +282,7 @@ export const EventTypesManager: React.FC = () => {
             </div>
           </div>
           <div className="flex justify-end gap-2 mt-4">
-            <button data-testid="button-px"
+            <button
               onClick={() => {
                 setIsCreating(false);
                 resetForm();
@@ -291,7 +291,7 @@ export const EventTypesManager: React.FC = () => {
             >
               Cancel
             </button>
-            <button data-testid="button-px"
+            <button
               onClick={handleCreate}
               disabled={!formData.name || createMutation.isPending}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
@@ -333,14 +333,14 @@ export const EventTypesManager: React.FC = () => {
               <tr key={eventType.id} className={!eventType.is_active ? 'opacity-50' : ''}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-1">
-                    <button data-testid="button-p"
+                    <button
                       onClick={() => handleSortOrderChange(eventType.id, 'up')}
                       className="p-1 text-gray-400 hover:text-gray-600"
                       disabled={eventType.id === eventTypes[0]?.id}
                     >
                       <ChevronUp className="h-4 w-4" />
                     </button>
-                    <button data-testid="button-p"
+                    <button
                       onClick={() => handleSortOrderChange(eventType.id, 'down')}
                       className="p-1 text-gray-400 hover:text-gray-600"
                       disabled={eventType.id === eventTypes[eventTypes.length - 1]?.id}
@@ -351,7 +351,7 @@ export const EventTypesManager: React.FC = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {editingId === eventType.id ? (
-                    <input data-testid="input-px"
+                    <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -371,7 +371,7 @@ export const EventTypesManager: React.FC = () => {
                 </td>
                 <td className="px-6 py-4">
                   {editingId === eventType.id ? (
-                    <textarea data-testid="textarea-w"
+                    <textarea
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       className="w-full px-2 py-1 border border-gray-300 rounded"
@@ -404,13 +404,13 @@ export const EventTypesManager: React.FC = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-right">
                   {editingId === eventType.id ? (
                     <div className="flex items-center justify-end gap-2">
-                      <button data-testid="button-hover-text"
+                      <button
                         onClick={() => handleUpdate(eventType.id)}
                         className="text-green-600 hover:text-green-900"
                       >
                         <Save className="h-4 w-4" />
                       </button>
-                      <button data-testid="button-hover-text"
+                      <button
                         onClick={handleCancelEdit}
                         className="text-gray-600 hover:text-gray-900"
                       >
@@ -419,7 +419,7 @@ export const EventTypesManager: React.FC = () => {
                     </div>
                   ) : (
                     <div className="flex items-center justify-end gap-2">
-                      <button data-testid="button-hover-text"
+                      <button
                         onClick={() => handleEdit(eventType)}
                         className="text-indigo-600 hover:text-indigo-900"
                         disabled={eventType.is_system}
@@ -427,7 +427,7 @@ export const EventTypesManager: React.FC = () => {
                         <Edit className="h-4 w-4" />
                       </button>
                       {!eventType.is_system && eventType.is_active && (
-                        <button data-testid="button-hover-text"
+                        <button
                           onClick={() => deleteMutation.mutate(eventType.id)}
                           className="text-red-600 hover:text-red-900"
                         >

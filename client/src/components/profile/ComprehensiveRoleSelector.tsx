@@ -378,7 +378,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                     
                     <p className="text-sm text-gray-600 mb-2">{role.description}</p>
 
-                    <button data-testid="button-hover-text"
+                    <button
                       type="button"
                       className="text-sm text-turquoise-600 hover:text-turquoise-700 font-medium"
                       onClick={(e) => {

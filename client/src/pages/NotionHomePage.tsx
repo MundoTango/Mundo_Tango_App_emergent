@@ -168,14 +168,14 @@ export function NotionHomePage() {
             <div className="flex gap-4 items-center">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input data-testid="input-pl"
+                <Input
                   placeholder="Search stories, memories, and events..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
-              <Button data-testid="button-flex"
+              <Button
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
                 className="flex items-center gap-2"
@@ -184,7 +184,7 @@ export function NotionHomePage() {
                 Filters
               </Button>
               {(selectedType || selectedTone || selectedTags.length > 0) && (
-                <Button data-testid="button-clear-all" variant="ghost" onClick={clearFilters} size="sm">
+                <Button variant="ghost" onClick={clearFilters} size="sm">
                   Clear All
                 </Button>
               )}
@@ -197,7 +197,7 @@ export function NotionHomePage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <Label>Type</Label>
-                      <Select data-testid="select-element" value={selectedType} onValueChange={setSelectedType}>
+                      <Select value={selectedType} onValueChange={setSelectedType}>
                         <SelectTrigger>
                           <SelectValue placeholder="All types" />
                         </SelectTrigger>
@@ -214,7 +214,7 @@ export function NotionHomePage() {
 
                     <div>
                       <Label>Emotional Tone</Label>
-                      <Select data-testid="select-element" value={selectedTone} onValueChange={setSelectedTone}>
+                      <Select value={selectedTone} onValueChange={setSelectedTone}>
                         <SelectTrigger>
                           <SelectValue placeholder="All tones" />
                         </SelectTrigger>
@@ -233,7 +233,7 @@ export function NotionHomePage() {
                       <Label>Tags</Label>
                       <div className="flex flex-wrap gap-1 mt-1 max-h-24 overflow-y-auto">
                         {filterOptions?.tags.map(tag => (
-                          <Button data-testid="button-element"
+                          <Button
                             key={tag}
                             variant={selectedTags.includes(tag) ? "default" : "outline"}
                             size="sm"
@@ -283,7 +283,7 @@ export function NotionHomePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {typeEntries.map((entry, index) => (
-                    <Link data-testid="link-element" key={entry.id} href={`/${entry.slug}`}>
+                    <Link key={entry.id} href={`/${entry.slug}`}>
                       <Card 
                         className="group hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-4"
                         style={{ animationDelay: `${index * 100}ms` }}
@@ -360,7 +360,7 @@ export function NotionHomePage() {
               <p className="text-gray-600 mb-4">
                 Try adjusting your search terms or filters to find more stories.
               </p>
-              <Button data-testid="button-clear-all-filters" onClick={clearFilters} variant="outline">
+              <Button onClick={clearFilters} variant="outline">
                 Clear all filters
               </Button>
             </div>

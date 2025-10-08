@@ -253,7 +253,7 @@ export function Phase4ToolsDashboard() {
                   )}
                   
                   {tool.url && (
-                    <a data-testid="a-mt" 
+                    <a 
                       href={tool.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
@@ -280,7 +280,7 @@ export function Phase4ToolsDashboard() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) => (
-              <Button data-testid="button-w"
+              <Button
                 key={phase}
                 onClick={() => runLoadTest.mutate(phase)}
                 disabled={loadTestRunning}

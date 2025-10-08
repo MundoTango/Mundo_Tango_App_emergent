@@ -215,7 +215,7 @@ const LanguageSelector = ({
         </h3>
         <div className="space-y-2 max-h-96 overflow-y-auto">
           {supportedLanguages.map(lang => (
-            <button data-testid="button-element"
+            <button
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
               disabled={isChanging}
@@ -254,7 +254,7 @@ const LanguageSelector = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button data-testid="button-element" 
+        <Button 
           variant="ghost" 
           size="sm"
           className={`flex items-center gap-2 hover:glass-card hover:glass-depth-1 transition-all ${className}`}

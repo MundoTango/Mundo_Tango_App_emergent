@@ -23,7 +23,7 @@ export default function NotFound() {
           </div>
 
           <div className="space-y-3">
-            <Button data-testid="button-w"
+            <Button
               onClick={() => setLocation('/')}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
@@ -31,7 +31,7 @@ export default function NotFound() {
               Go to Homepage
             </Button>
             
-            <Button data-testid="button-w"
+            <Button
               onClick={() => window.history.back()}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
@@ -40,7 +40,7 @@ export default function NotFound() {
               Go Back
             </Button>
             
-            <Button data-testid="button-w"
+            <Button
               onClick={() => setLocation('/events')}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
@@ -53,7 +53,7 @@ export default function NotFound() {
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-500">
               Need help? Contact us at{' '}
-              <a data-testid="a-hover-underline" href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
                 support@mundotango.life
               </a>
             </p>

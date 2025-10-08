@@ -98,7 +98,7 @@ export default function ProfileHead({
         
         {/* Cover Photo Edit Button */}
         {isOwnProfile && (
-          <Button data-testid="button-absolute"
+          <Button
             variant="ghost"
             size="sm"
             className="absolute top-4 right-4 bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
@@ -121,7 +121,7 @@ export default function ProfileHead({
             </Avatar>
             
             {isOwnProfile && (
-              <Button data-testid="button-absolute"
+              <Button
                 variant="ghost"
                 size="sm"
                 className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2"
@@ -135,7 +135,7 @@ export default function ProfileHead({
           <div className="flex gap-3 mt-4 sm:mt-0">
             {isOwnProfile ? (
               <>
-                <Button data-testid="button-hover-bg" 
+                <Button 
                   variant="outline" 
                   onClick={onAddTravelDetails}
                   className="text-blue-600 border-blue-600 hover:bg-blue-50"
@@ -143,7 +143,7 @@ export default function ProfileHead({
                   <Plus className="mr-2 h-4 w-4" />
                   Add Travel Details
                 </Button>
-                <Button data-testid="button-hover-bg" 
+                <Button 
                   onClick={onEditProfile}
                   className="bg-blue-600 hover:bg-blue-700"
                 >
@@ -153,11 +153,11 @@ export default function ProfileHead({
               </>
             ) : (
               <>
-                <Button data-testid="button-element" variant="outline">
+                <Button variant="outline">
                   <Users className="mr-2 h-4 w-4" />
                   Add Friend
                 </Button>
-                <Button data-testid="button-message">
+                <Button>
                   Message
                 </Button>
               </>

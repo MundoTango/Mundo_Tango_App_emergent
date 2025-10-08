@@ -134,7 +134,7 @@ const AnalyticsDashboard: React.FC = () => {
             <p className="text-gray-600">Platform insights and performance metrics</p>
           </div>
           <div className="flex items-center gap-2">
-            <Select data-testid="select-element" value={timeRange} onValueChange={setTimeRange}>
+            <Select value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
@@ -145,7 +145,7 @@ const AnalyticsDashboard: React.FC = () => {
                 <SelectItem value="90d">Last 90 days</SelectItem>
               </SelectContent>
             </Select>
-            <Button data-testid="button-element"
+            <Button
               variant="outline"
               size="icon"
               onClick={handleRefresh}
@@ -153,7 +153,7 @@ const AnalyticsDashboard: React.FC = () => {
             >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             </Button>
-            <Button data-testid="button-element" variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExport}>
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>

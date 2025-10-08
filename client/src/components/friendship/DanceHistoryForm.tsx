@@ -140,8 +140,8 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
           </p>
         </div>
 
-        <Form data-testid="form-element" {...form}>
-          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {!partnerId && (
               <FormField
                 control={form.control}
@@ -153,7 +153,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       Dance Partner
                     </FormLabel>
                     <FormControl>
-                      <Input data-testid="input-element" 
+                      <Input 
                         type="number" 
                         placeholder="Enter partner ID" 
                         {...field}
@@ -177,7 +177,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       When did you dance?
                     </FormLabel>
                     <FormControl>
-                      <Input data-testid="input-glassmorphic" 
+                      <Input 
                         type="date" 
                         {...field}
                         className="glassmorphic-input"
@@ -198,7 +198,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       Where did you dance?
                     </FormLabel>
                     <FormControl>
-                      <Input data-testid="input-element" placeholder="Milonga name or location" {...field} />
+                      <Input placeholder="Milonga name or location" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -213,7 +213,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 <FormItem>
                   <FormLabel>Event Name (optional)</FormLabel>
                   <FormControl>
-                    <Input data-testid="input-element" placeholder="Festival, milonga, or práctica name" {...field} />
+                    <Input placeholder="Festival, milonga, or práctica name" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -225,7 +225,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Dance Style</FormLabel>
-                  <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select dance style" />
@@ -256,7 +256,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input data-testid="input-element" placeholder="Song name" {...field} />
+                        <Input placeholder="Song name" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -267,7 +267,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input data-testid="input-element" placeholder="Artist/Orchestra" {...field} />
+                        <Input placeholder="Artist/Orchestra" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -287,7 +287,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   <FormControl>
                     <div className="flex gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <button data-testid="button"
+                        <button
                           key={star}
                           type="button"
                           onClick={() => field.onChange(star)}
@@ -313,7 +313,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center gap-2">
-                    <input data-testid="input-rounded"
+                    <input
                       type="checkbox"
                       checked={field.value}
                       onChange={field.onChange}
@@ -335,7 +335,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   <FormItem>
                     <FormLabel>What made it special?</FormLabel>
                     <FormControl>
-                      <Textarea data-testid="textarea-min" 
+                      <Textarea 
                         placeholder="Describe what made this dance memorable..."
                         className="min-h-[100px]"
                         {...field}
@@ -353,7 +353,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 <FormItem>
                   <FormLabel>Additional Notes</FormLabel>
                   <FormControl>
-                    <Textarea data-testid="textarea-min" 
+                    <Textarea 
                       placeholder="Any other memories or details..."
                       className="min-h-[80px]"
                       {...field}
@@ -368,7 +368,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 <Camera className="w-4 h-4" />
                 Add Photos
               </label>
-              <input data-testid="input-file-mr"
+              <input
                 type="file"
                 multiple
                 accept="image/*"
@@ -389,7 +389,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
               )}
             </div>
 
-            <Button data-testid="button-w" 
+            <Button 
               type="submit" 
               className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
               disabled={createDanceHistoryMutation.isPending}

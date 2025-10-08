@@ -171,7 +171,7 @@ function DailyActivityView() {
         <div className="flex items-center gap-3">
           <Calendar className="h-6 w-6 text-blue-600" />
           <h2 className="text-2xl font-bold">Daily Activity</h2>
-          <input data-testid="input-px"
+          <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
             onChange={(e) => {
@@ -183,7 +183,7 @@ function DailyActivityView() {
           <Badge className="bg-blue-100 text-blue-800">
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
-          <button data-testid="button-p"
+          <button
             onClick={() => refetch()}
             disabled={isLoading}
             className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"

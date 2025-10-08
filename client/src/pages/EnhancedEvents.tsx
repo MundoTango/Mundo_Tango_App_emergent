@@ -350,7 +350,7 @@ export default function EnhancedEventsPage() {
             <p className="text-gray-600 mt-1">Discover and join tango events worldwide</p>
           </div>
           <div className="flex gap-2">
-            <Button data-testid="button-hover-bg"
+            <Button
               onClick={exportEventsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
@@ -358,7 +358,7 @@ export default function EnhancedEventsPage() {
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
-            <Button data-testid="button-from"
+            <Button
               onClick={() => setShowCreateDialog(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
@@ -420,7 +420,7 @@ export default function EnhancedEventsPage() {
             <div className="flex gap-4">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-turquoise-500 w-5 h-5" />
-                <Input data-testid="input-pl"
+                <Input
                   id="event-search"
                   type="text"
                   placeholder="Search events... (Cmd+/)"
@@ -431,7 +431,7 @@ export default function EnhancedEventsPage() {
               </div>
               <div className="flex gap-2">
                 {viewOptions.map(option => (
-                  <Button data-testid="button-element"
+                  <Button
                     key={option.value}
                     variant={viewMode === option.value ? 'default' : 'outline'}
                     size="icon"
@@ -450,7 +450,7 @@ export default function EnhancedEventsPage() {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Select data-testid="select-element" value={categoryFilter} onValueChange={setCategoryFilter}>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -466,7 +466,7 @@ export default function EnhancedEventsPage() {
                 </SelectContent>
               </Select>
 
-              <Select data-testid="select-element" value={levelFilter} onValueChange={setLevelFilter}>
+              <Select value={levelFilter} onValueChange={setLevelFilter}>
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Level" />
                 </SelectTrigger>
@@ -479,7 +479,7 @@ export default function EnhancedEventsPage() {
                 </SelectContent>
               </Select>
 
-              <Select data-testid="select-element" value={priceFilter} onValueChange={setPriceFilter}>
+              <Select value={priceFilter} onValueChange={setPriceFilter}>
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
@@ -490,7 +490,7 @@ export default function EnhancedEventsPage() {
                 </SelectContent>
               </Select>
 
-              <Button data-testid="button-element"
+              <Button
                 variant={showVirtualOnly ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setShowVirtualOnly(!showVirtualOnly)}
@@ -503,7 +503,7 @@ export default function EnhancedEventsPage() {
                 Virtual Only
               </Button>
 
-              <Button data-testid="button-hover-bg"
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
@@ -598,21 +598,21 @@ export default function EnhancedEventsPage() {
             <div className="mb-4 flex justify-between items-center">
               <h2 className="text-xl font-semibold">Calendar View</h2>
               <div className="flex gap-2">
-                <Button data-testid="button-month"
+                <Button
                   size="sm"
                   variant={calendarView === 'month' ? 'default' : 'outline'}
                   onClick={() => setCalendarView('month')}
                 >
                   Month
                 </Button>
-                <Button data-testid="button-week"
+                <Button
                   size="sm"
                   variant={calendarView === 'week' ? 'default' : 'outline'}
                   onClick={() => setCalendarView('week')}
                 >
                   Week
                 </Button>
-                <Button data-testid="button-day"
+                <Button
                   size="sm"
                   variant={calendarView === 'day' ? 'default' : 'outline'}
                   onClick={() => setCalendarView('day')}

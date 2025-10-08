@@ -39,7 +39,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
       {/* Currency selection */}
       <div>
         <Label htmlFor="currency">Currency</Label>
-        <select data-testid="select-mt"
+        <select
           id="currency"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.currency || 'USD'}
@@ -60,7 +60,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <span className="text-gray-500">{selectedCurrency?.symbol}</span>
           </div>
-          <Input data-testid="input-pl"
+          <Input
             id="basePrice"
             type="number"
             min="0"
@@ -83,7 +83,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <span className="text-gray-500">{selectedCurrency?.symbol}</span>
           </div>
-          <Input data-testid="input-pl"
+          <Input
             id="cleaningFee"
             type="number"
             min="0"
@@ -134,7 +134,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             </div>
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
-                <Input data-testid="input-element"
+                <Input
                   type="number"
                   min="0"
                   max="100"
@@ -161,7 +161,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             </div>
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
-                <Input data-testid="input-element"
+                <Input
                   type="number"
                   min="0"
                   max="100"

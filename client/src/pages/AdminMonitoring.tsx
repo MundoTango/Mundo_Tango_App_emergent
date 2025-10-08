@@ -109,7 +109,7 @@ export default function AdminMonitoring() {
           <p className="text-gray-500">ESA LIFE CEO 61x21 - Real-time monitoring dashboard</p>
         </div>
         <div className="flex gap-4">
-          <Button data-testid="button-gap"
+          <Button
             variant={autoRefresh ? 'default' : 'outline'}
             onClick={() => setAutoRefresh(!autoRefresh)}
             className="gap-2"
@@ -117,7 +117,7 @@ export default function AdminMonitoring() {
             {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" /> : <Clock className="w-4 h-4" />}
             {autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF'}
           </Button>
-          <select data-testid="select-px"
+          <select
             value={selectedTimeRange}
             onChange={(e) => setSelectedTimeRange(e.target.value)}
             className="px-4 py-2 border rounded-md"

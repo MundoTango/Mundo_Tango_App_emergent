@@ -32,7 +32,7 @@ export function SessionRecordingNotice() {
             Your privacy is protected - sensitive data is automatically redacted.
           </p>
         </div>
-        <button data-testid="button-dismiss"
+        <button
           onClick={handleDismiss}
           className="text-gray-400 hover:text-gray-600"
           aria-label="Dismiss"

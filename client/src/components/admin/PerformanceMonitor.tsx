@@ -173,7 +173,7 @@ const PerformanceMonitor: React.FC = () => {
           </h2>
           <p className="text-gray-600 mt-1">Real-time performance metrics and optimization tracking</p>
         </div>
-        <Button data-testid="button-from" 
+        <Button 
           onClick={runPerformanceTests}
           disabled={isRunningTests}
           className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"

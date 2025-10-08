@@ -120,7 +120,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
           </DialogTitle>
         </DialogHeader>
 
-        <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <EventAutocomplete
@@ -150,7 +150,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
 
             <div className="space-y-2">
               <Label htmlFor="eventType">Event Type</Label>
-              <Select data-testid="select-element" 
+              <Select 
                 value={formData.eventType} 
                 onValueChange={(value) => handleInputChange('eventType', value)}
               >
@@ -200,7 +200,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="startDate">Start Date *</Label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input data-testid="input-pl"
+                <Input
                   id="startDate"
                   type="date"
                   value={formData.startDate}
@@ -215,7 +215,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="endDate">End Date *</Label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input data-testid="input-pl"
+                <Input
                   id="endDate"
                   type="date"
                   value={formData.endDate}
@@ -231,7 +231,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
-              <Select data-testid="select-element" 
+              <Select 
                 value={formData.status} 
                 onValueChange={(value: any) => handleInputChange('status', value)}
               >
@@ -251,7 +251,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
 
             <div className="space-y-2">
               <Label htmlFor="visibility">Visibility</Label>
-              <Select data-testid="select-element" 
+              <Select 
                 value={formData.isPublic ? 'public' : 'private'} 
                 onValueChange={(value) => handleInputChange('isPublic', value === 'public')}
               >
@@ -269,7 +269,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
 
           <div className="space-y-2">
             <Label htmlFor="notes">Notes</Label>
-            <Textarea data-testid="textarea-element"
+            <Textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => handleInputChange('notes', e.target.value)}
@@ -279,7 +279,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button data-testid="button-cancel"
+            <Button
               type="button"
               variant="outline"
               onClick={onClose}
@@ -287,7 +287,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
             >
               Cancel
             </Button>
-            <Button data-testid="button-from"
+            <Button
               type="submit"
               disabled={createTravelDetailMutation.isPending}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"

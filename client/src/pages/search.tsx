@@ -76,7 +76,7 @@ export default function SearchPage() {
           {/* Search Input */}
           <div className="relative">
             <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <input data-testid="input-w"
+            <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -85,7 +85,7 @@ export default function SearchPage() {
               autoFocus
             />
             {searchQuery && (
-              <button data-testid="button-absolute"
+              <button
                 onClick={() => setSearchQuery('')}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
               >
@@ -99,7 +99,7 @@ export default function SearchPage() {
             {filters.map((filter) => {
               const Icon = filter.icon;
               return (
-                <button data-testid="button-element"
+                <button
                   key={filter.value}
                   onClick={() => setActiveFilter(filter.value as any)}
                   className={`px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
@@ -148,7 +148,7 @@ export default function SearchPage() {
         {searchResults?.results && searchResults.results.length > 0 && (
           <div className="space-y-4">
             {searchResults.results.map((result: SearchResult) => (
-              <Link data-testid="link-element" key={`${result.type}-${result.id}`} href={result.link}>
+              <Link key={`${result.type}-${result.id}`} href={result.link}>
                 <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-2xl p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                   <div className="flex items-start gap-4">
                     {/* Icon or Image */}

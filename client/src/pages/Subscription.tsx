@@ -101,7 +101,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
   };
 
   return (
-    <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="p-4 border rounded-lg">
         <CardElement
           options={{
@@ -120,7 +120,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
           }}
         />
       </div>
-      <Button data-testid="button-w"
+      <Button
         type="submit"
         disabled={!stripe || subscribeMutation.isPending || isProcessing}
         className="w-full"
@@ -256,7 +256,7 @@ export default function Subscription() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button data-testid="button-w"
+                  <Button
                     className="w-full"
                     variant={isCurrentPlan ? "outline" : "default"}
                     disabled={isCurrentPlan}
@@ -287,7 +287,7 @@ export default function Subscription() {
               </Elements>
             </CardContent>
             <CardFooter>
-              <Button data-testid="button-w"
+              <Button
                 variant="outline"
                 className="w-full"
                 onClick={() => {
