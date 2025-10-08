@@ -70,7 +70,7 @@
     "ladle:preview": "ladle preview",
     "migrate:tokens": "node design-system/scripts/migrate-to-tokens.js",
     "migrate:dark-mode": "node design-system/scripts/add-dark-mode.js",
-    "migrate:testids": "node design-system/scripts/add-testids.js",
+    "migrate:testids": "node design-system/scripts/add-testids-ast.js",
     "migrate:glasscard": "node design-system/scripts/migrate-glasscard.js",
     "migrate:all": "npm run migrate:tokens && npm run migrate:dark-mode && npm run migrate:testids",
     "lint:a11y": "eslint --config .eslintrc.accessibility.json client/src --ext .tsx,.jsx",
