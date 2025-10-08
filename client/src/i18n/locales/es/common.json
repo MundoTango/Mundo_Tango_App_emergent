@@ -238,7 +238,22 @@
     },
     "feed": {
       "searchPlaceholder": "Buscar publicaciones...",
-      "addTag": "Agregar etiqueta..."
+      "addTag": "Agregar etiqueta...",
+      "allPosts": "Todas las Publicaciones",
+      "residence": "Residencia",
+      "visitor": "Visitante",
+      "friends": "Amigos",
+      "filters": "Filtros",
+      "filterByTags": "Filtrar por Etiquetas",
+      "comingSoon": "PRÓXIMAMENTE",
+      "clearDates": "Limpiar fechas",
+      "updatingFeed": "Actualizando feed...",
+      "post": "publicación",
+      "posts": "publicaciones",
+      "filteredBy": "Filtrado por",
+      "tag": "etiqueta",
+      "tags": "etiquetas",
+      "all": "Todas"
     }
   },
   "events": {

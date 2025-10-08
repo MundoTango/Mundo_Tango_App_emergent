@@ -249,7 +249,22 @@
     },
     "feed": {
       "searchPlaceholder": "Search posts...",
-      "addTag": "Add tag..."
+      "addTag": "Add tag...",
+      "allPosts": "All Posts",
+      "residence": "Residence",
+      "visitor": "Visitor",
+      "friends": "Friends",
+      "filters": "Filters",
+      "filterByTags": "Filter by Tags",
+      "comingSoon": "COMING SOON",
+      "clearDates": "Clear dates",
+      "updatingFeed": "Updating feed...",
+      "post": "post",
+      "posts": "posts",
+      "filteredBy": "Filtered by",
+      "tag": "tag",
+      "tags": "tags",
+      "all": "All"
     }
   },
   "events": {
