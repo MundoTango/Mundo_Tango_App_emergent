@@ -11,6 +11,7 @@
     "tryAgainLater": "Please try again later."
   },
   "navigation": {
+    "menu": "Menu",
     "home": "Home",
     "feed": "Feed",
     "profile": "Profile",
