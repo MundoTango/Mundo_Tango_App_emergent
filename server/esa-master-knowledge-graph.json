@@ -1073,6 +1073,35 @@
           "throughput": "50 research queries/hour",
           "availability": "99.0%"
         }
+      },
+      "11_ui_ux_expert": {
+        "id": "ui_ux",
+        "name": "UI/UX & Graphic Design Expert",
+        "layers": [9, 10, 47, 54, 55],
+        "responsibilities": [
+          "Manage Aurora Tide Design System (glassmorphic components, animations, micro-interactions)",
+          "Monitor component usage and suggest consolidations",
+          "Audit accessibility compliance (WCAG 2.1 AA/AAA standards)",
+          "Verify dark mode and i18n coverage across components",
+          "Analyze design patterns and consistency",
+          "Optimize UI performance (render time, bundle size)",
+          "Suggest component improvements and new variants",
+          "Evaluate open source design tools (Penpot, Storybook, axe-core)",
+          "Generate design system reports and documentation"
+        ],
+        "state_management": "Component cache with periodic scans",
+        "communication": ["File system analysis", "GitHub API", "Playwright visual tests"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "2GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to cached component data",
+        "performance_sla": {
+          "latency": "<2s for component scans",
+          "throughput": "100 component audits/hour",
+          "availability": "99.0%"
+        }
       }
     },
     
