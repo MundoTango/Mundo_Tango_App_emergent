@@ -11,6 +11,8 @@ import { apiRequest } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { Heart, MessageCircle, Share2, Eye, Sparkles } from 'lucide-react';
 import { usePostLike } from '@/hooks/usePostLike';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 interface Post {
   id: number;
@@ -318,7 +320,7 @@ export default function EnhancedMemoriesRealtime() {
       <ModernMemoriesHeader onCreatePost={() => setShowComposer(true)} />
       
       {/* Real-time Status Bar */}
-      <div className="bg-white/20 backdrop-blur-sm border-b border-white/30">
+      <GlassCard depth={1} className="border-b border-white/30"
         <div className="max-w-4xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Connection Status */}
@@ -359,8 +361,8 @@ export default function EnhancedMemoriesRealtime() {
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Enhanced Post Composer Modal */}
         {showComposer && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-            <div className="max-w-2xl w-full max-h-[90vh] overflow-auto bg-white/95 backdrop-blur-md rounded-2xl border border-white/30">
+          <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            <GlassCard depth={2} className="max-w-2xl w-full max-h-[90vh] overflow-auto rounded-2xl border border-white/30"
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-semibold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
@@ -399,7 +401,7 @@ export default function EnhancedMemoriesRealtime() {
 
         {/* Live Activity Feed */}
         {liveUpdates.likes.length > 0 && (
-          <div className="mb-6 p-4 bg-white/30 backdrop-blur-sm rounded-xl border border-white/40">
+          <GlassCard depth={1} className="mb-6 p-4 rounded-xl border border-white/40"
             <h3 className="text-sm font-medium text-gray-700 mb-2">Live Activity</h3>
             <div className="space-y-1">
               {liveUpdates.likes.slice(-3).map((like, index) => (
@@ -456,7 +458,7 @@ export default function EnhancedMemoriesRealtime() {
             })
           ) : (
             <div className="text-center py-16">
-              <div className="bg-white/40 backdrop-blur-sm rounded-3xl shadow-lg border border-white/30 p-12">
+              <GlassCard depth={1} className="rounded-3xl shadow-lg border border-white/30 p-12"
                 <div className="mb-6">
                   <div className="w-24 h-24 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-3xl 
                                 flex items-center justify-center mx-auto mb-4">

@@ -9,6 +9,8 @@ import { ConsentModal } from './ConsentModal';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Shield, Eye, BarChart, X } from 'lucide-react';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 interface MonitoringContextValue {
   hasConsent: boolean;
@@ -208,7 +210,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
       {/* Privacy Settings Modal */}
       {showPrivacySettings && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="privacy-modal">
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPrivacySettings(false)} />
+          <GlassCard depth={1} className="fixed inset-0" setShowPrivacySettings(false)} />
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy Settings</h3>

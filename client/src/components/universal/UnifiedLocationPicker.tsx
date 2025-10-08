@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { MapPin, Loader, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLocationBias } from '@/contexts/LocationBiasContext';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 type LocationDetails = {
   name: string;
@@ -520,11 +522,8 @@ export default function UnifiedLocationPicker({
       </div>
 
       {showSuggestions && suggestions.length > 0 && (
-        <div
-          ref={dropdownRef}
-          className="absolute z-popover w-full mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg 
+        <GlassCard depth={2} className="absolute z-popover w-full mt-2 dark:bg-gray-800/95 
             border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden"
-        >
           <div className="max-h-80 overflow-y-auto">
             {suggestions.map((suggestion, index) => (
               <div

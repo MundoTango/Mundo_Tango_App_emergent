@@ -86,7 +86,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
               : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500'
             }
           `}
-          onClick={() => currentReaction ? onReact('') : onReact('love')}
+          onClick={() = data-testid="button-element"> currentReaction ? onReact('') : onReact('love')}
           onMouseEnter={() => {
             setIsHovering(true);
             setTimeout(() => setShowReactions(true), 500);
@@ -110,7 +110,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
       {/* Reaction Picker Popup */}
       {showReactions && (
         <div 
-          className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50"
+          className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50 dark:bg-neutral-900"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => {
             setIsHovering(false);
@@ -126,7 +126,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
                   hover:scale-110 hover:bg-gray-50
                   ${currentReaction === reaction.id ? 'bg-blue-50' : ''}
                 `}
-                onClick={() => handleReactionClick(reaction.id)}
+                onClick={() = data-testid="button-element"> handleReactionClick(reaction.id)}
                 title={reaction.label}
               >
                 <span className="text-lg">

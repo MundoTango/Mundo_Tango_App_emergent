@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 interface Memory {
   id: string;
@@ -127,7 +129,7 @@ export default function MemoryGrid({
                     
                     {/* Media count indicator */}
                     {memory.media.length > 1 && (
-                      <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs">
+                      <GlassCard depth={1} className="absolute top-2 right-2 text-white px-2 py-1 rounded-full text-xs"
                         +{memory.media.length - 1}
                       </div>
                     )}

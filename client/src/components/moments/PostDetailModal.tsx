@@ -16,6 +16,8 @@ import { apiRequest } from '@/lib/queryClient';
 import { RoleEmojiDisplay } from '@/components/ui/RoleEmojiDisplay';
 import { supabase } from '@/services/supabaseClient';
 import { renderWithMentions } from '@/utils/renderWithMentions';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 interface Post {
   id: number;
@@ -296,7 +298,7 @@ export default function PostDetailModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4"
       <div 
         className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
