@@ -466,8 +466,8 @@ const PostFeed = memo(({
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to update like",
+        title: t('memories.actions.error'),
+        description: t('memories.actions.failedToUpdateLike'),
         variant: "destructive",
       });
     },

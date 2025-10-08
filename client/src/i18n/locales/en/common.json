@@ -305,11 +305,27 @@
       "linkCopyFailed": "Failed to copy link",
       "pleaseTryAgain": "Please try again"
     },
+    "categories": {
+      "milonga": "Milonga",
+      "practica": "Práctica",
+      "performance": "Performance",
+      "workshop": "Workshop",
+      "festival": "Festival",
+      "travel": "Travel",
+      "music": "Music",
+      "fashion": "Fashion"
+    },
+    "price": {
+      "budget": "Budget",
+      "moderate": "Moderate",
+      "luxury": "Luxury"
+    },
     "actions": {
       "postDeleted": "Post deleted",
       "postDeletedDesc": "The post has been removed",
       "error": "Error",
       "errorDesc": "Something went wrong",
+      "failedToUpdateLike": "Failed to update like",
       "reportSubmitted": "Report submitted",
       "reportSubmittedDesc": "Thank you for helping keep our community safe",
       "userBlocked": "User blocked",
