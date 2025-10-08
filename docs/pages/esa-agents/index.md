@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with 9 specialized agent domains and 16 Life CEO sub-agents, all integrated with OpenAI GPT-4o.
+The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distributed agent framework that powers the Life CEO platform with 9 core agent domains, 6 specialized expert agents (10-15), and 16 Life CEO sub-agents, all integrated with OpenAI GPT-4o.
 
 ## System Architecture
 
@@ -22,6 +22,10 @@ The ESA 61x21 Multi-Agent System is a production-ready, PostgreSQL-based distrib
 
 10. **AI Research Expert** - Monitors AI ecosystem using free RSS feeds and GitHub API, discovers open-source tools, critiques framework decisions
 11. **UI/UX Design Expert** - Manages Aurora Tide Design System, ensures accessibility compliance (WCAG 2.1), optimizes component usage and dark mode coverage
+12. **Data Visualization Expert** - Chart analysis and optimization, dashboard performance auditing, visualization accessibility checks using ECharts (Apache 2.0) and Victory (MIT)
+13. **Content & Media Expert** - Image optimization (WebP conversion), video processing (transcoding, thumbnails), media usage analysis using Sharp (Apache 2.0) and FFmpeg.wasm (LGPL 2.1)
+14. **Code Quality Expert** - ESLint and TypeScript linting, security vulnerability scanning, code complexity analysis using ESLint (MIT) and SonarQube Community (LGPL)
+15. **Developer Experience Expert** - Test coverage analysis, documentation completeness checks, developer tooling audit using Vitest (MIT) and Storybook (MIT)
 
 ### Life CEO Sub-Agents (16 Total)
 
@@ -120,6 +124,19 @@ Navigate to: `/admin/agent-metrics`
 - `POST /api/life-ceo/agents/:agentId/message` - Send message (requires auth)
 - `POST /api/life-ceo/agents/:agentId/stream` - Stream response (requires auth)
 - `POST /api/life-ceo/test/:agentId` - Test endpoint (dev only)
+
+### Expert Agents (10-15)
+- `GET /api/ai-expert/status` - AI Research Expert status and capabilities
+- `GET /api/ai-expert/news` - Get latest AI news from RSS feeds
+- `GET /api/ai-expert/trending` - Get trending GitHub repositories
+- `POST /api/ai-expert/evaluate-tool` - Evaluate tool against ESA criteria
+- `GET /api/ui-ux/status` - UI/UX Expert status and capabilities
+- `GET /api/ui-ux/components` - Get Aurora Tide components
+- `POST /api/ui-ux/audit/accessibility` - Run accessibility audit
+- `GET /api/data-viz/status` - Data Viz Expert status and capabilities
+- `GET /api/content-media/status` - Content/Media Expert status and capabilities
+- `GET /api/code-quality/status` - Code Quality Expert status and capabilities
+- `GET /api/dev-experience/status` - Dev Experience Expert status and capabilities
 
 ## Architecture Decisions
 
