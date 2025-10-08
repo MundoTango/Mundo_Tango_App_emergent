@@ -1045,6 +1045,34 @@
           "throughput": "10000 coordinations/min",
           "availability": "99.99%"
         }
+      },
+      "10_ai_research_expert": {
+        "id": "ai_research",
+        "name": "AI Research & Innovation Expert",
+        "layers": [31, 32, 35, 36, 37, 38, 44, 45, 58],
+        "responsibilities": [
+          "Monitor AI ecosystem for emerging tools and frameworks",
+          "Research open source alternatives to commercial solutions",
+          "Evaluate technology fit for ESA 61x21 framework",
+          "Provide competitive intelligence on AI platforms",
+          "Aggregate AI news from multiple RSS sources",
+          "Track trending repositories on GitHub",
+          "Critique and improve ESA_MASTER_ORCHESTRATION.md",
+          "Discover and evaluate AI tools for platform enhancement"
+        ],
+        "state_management": "Cache-backed with periodic refresh",
+        "communication": ["RSS feeds", "GitHub API", "Tavily API (optional)", "OpenAI API"],
+        "resource_requirements": {
+          "cpu": "2 cores",
+          "memory": "2GB",
+          "scaling": "Horizontal"
+        },
+        "failure_recovery": "Graceful fallback to cached intelligence",
+        "performance_sla": {
+          "latency": "<3s for web research",
+          "throughput": "50 research queries/hour",
+          "availability": "99.0%"
+        }
       }
     },
     
