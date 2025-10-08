@@ -7,7 +7,8 @@
     "error": "Error",
     "success": "Success",
     "warning": "Warning",
-    "info": "Information"
+    "info": "Information",
+    "tryAgainLater": "Please try again later."
   },
   "navigation": {
     "home": "Home",
@@ -245,6 +246,9 @@
     "memorySharedDesc": "Your memory has been shared successfully",
     "error": "Error",
     "uploadFailed": "Upload failed",
+    "edit": {
+      "title": "Edit Your Memory"
+    },
     "creator": {
       "sharePlaceholder": "Share a tango memory...",
       "editPlaceholder": "Edit your memory...",
@@ -267,7 +271,13 @@
       "filteredBy": "Filtered by",
       "tag": "tag",
       "tags": "tags",
-      "all": "All"
+      "all": "All",
+      "noMemories": "No Memories Yet",
+      "noResidents": "No posts from residents in your city yet. Check back later!",
+      "noVisitors": "No posts from visitors found. Check back when travelers visit your city!",
+      "noFriends": "No posts from your friends yet. Connect with more dancers to see their posts here!",
+      "noTaggedPosts": "No posts found with the tags: {{tags}}",
+      "noSearchResults": "No memories found matching \"{{query}}\". Try different keywords."
     },
     "post": {
       "seeFriendship": "See Friendship",
@@ -335,7 +345,24 @@
     "noEventsInCity": "No events in your city",
     "noFollowedEvents": "No events from groups you follow",
     "noFollowedCitiesEvents": "No events in cities you follow",
-    "viewAllEvents": "View All Events"
+    "viewAllEvents": "View All Events",
+    "attending": "attending",
+    "dateTBA": "Date TBA",
+    "locationTBA": "Location TBA",
+    "rsvp": {
+      "markAsAttending": "Mark as attending",
+      "markAsInterested": "Mark as interested",
+      "markAsMaybe": "Mark as maybe",
+      "markAsNotGoing": "Mark as not going",
+      "youreGoing": "You're Going",
+      "interested": "Interested",
+      "maybe": "Maybe"
+    },
+    "errorLoading": "Unable to load events",
+    "pastEvents": "Past Events",
+    "noEvents": "No events yet",
+    "noEventsOwn": "Start organizing or attending tango events to see them here.",
+    "noEventsOther": "No events to display."
   },
   "search": {
     "searching": "Searching...",
