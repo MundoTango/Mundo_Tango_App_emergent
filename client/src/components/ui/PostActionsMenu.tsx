@@ -41,6 +41,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { useTranslation } from 'react-i18next';
 
 interface PostActionsMenuProps {
   post: {
@@ -59,6 +60,7 @@ interface PostActionsMenuProps {
 }
 
 export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -92,8 +94,8 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onSuccess: () => {
       toast({
-        title: "Post deleted",
-        description: "Your post has been deleted successfully.",
+        title: t('memories.actions.postDeleted'),
+        description: t('memories.actions.postDeletedDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
@@ -101,8 +103,8 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to delete post. Please try again.",
+        title: t('memories.actions.error'),
+        description: t('memories.actions.errorDesc'),
         variant: "destructive",
       });
     },
@@ -123,16 +125,16 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onSuccess: () => {
       toast({
-        title: "Report submitted",
-        description: "Thank you for reporting this content. Our team will review it.",
+        title: t('memories.actions.reportSubmitted'),
+        description: t('memories.actions.reportSubmittedDesc'),
       });
       setShowReportDialog(false);
       setReportReason('');
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to submit report. Please try again.",
+        title: t('memories.actions.error'),
+        description: t('memories.actions.errorDesc'),
         variant: "destructive",
       });
     },
@@ -147,15 +149,15 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onSuccess: () => {
       toast({
-        title: "User blocked",
-        description: `You will no longer see posts from ${post.user.name}.`,
+        title: t('memories.actions.userBlocked'),
+        description: t('memories.actions.userBlockedDesc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to block user. Please try again.",
+        title: t('memories.actions.error'),
+        description: t('memories.actions.errorDesc'),
         variant: "destructive",
       });
     },
@@ -166,12 +168,12 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
       const url = `${window.location.origin}/post/${post.id}`;
       await navigator.clipboard.writeText(url);
       toast({
-        title: "Link copied",
-        description: "Post link has been copied to your clipboard.",
+        title: t('memories.actions.linkCopied'),
+        description: t('memories.actions.linkCopiedDesc'),
       });
     } catch (error) {
       toast({
-        title: "Error",
+        title: t('memories.actions.error'),
         description: "Failed to copy link to clipboard.",
         variant: "destructive",
       });
@@ -185,26 +187,26 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
         body: { postId: post.id }
       });
       toast({
-        title: "Post saved",
-        description: "Post has been saved to your collection.",
+        title: t('memories.actions.postSaved'),
+        description: t('memories.actions.postSavedDesc'),
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to save post. Please try again.",
+        title: t('memories.actions.error'),
+        description: t('memories.actions.errorDesc'),
         variant: "destructive",
       });
     }
   };
 
   const reportReasons = [
-    'Spam or misleading content',
-    'Harassment or bullying',
-    'Inappropriate content',
-    'Copyright infringement',
-    'Violence or dangerous content',
-    'Hate speech',
-    'Other'
+    t('memories.actions.reportReasons.spam'),
+    t('memories.actions.reportReasons.harassment'),
+    t('memories.actions.reportReasons.inappropriate'),
+    t('memories.actions.reportReasons.copyright'),
+    t('memories.actions.reportReasons.violence'),
+    t('memories.actions.reportReasons.hate'),
+    t('memories.actions.reportReasons.other')
   ];
 
   return (
@@ -318,7 +320,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? "Deleting..." : "Delete"}
+              {deleteMutation.isPending ? t('memories.actions.deleting') : t('memories.actions.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
