@@ -26,6 +26,7 @@ import { PostActionsMenu } from '@/components/ui/PostActionsMenu';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 interface Post {
   id: number; // Using integer as stored in database
@@ -100,6 +101,7 @@ function EnhancedPostItem({
   apiBasePath = '/api/posts',
   cacheKeys = ['/api/posts/feed', '/api/posts']
 }: PostItemProps) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -793,10 +795,10 @@ function EnhancedPostItem({
                     href={`/friendship/${post.user.id}`}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-gradient-to-r from-teal-500/10 to-cyan-600/10 text-teal-600 hover:from-teal-500/20 hover:to-cyan-600/20 hover:text-teal-700 transition-all duration-200 border border-teal-200/30 hover:border-teal-300/50"
                     data-testid={`button-see-friendship-${post.user.id}`}
-                    title={`View friendship details with ${post.user?.name}`}
+                    title={t('memories.post.viewFriendshipWith', { name: post.user?.name })}
                   >
                     <Users className="h-5 w-5" />
-                    <span>See Friendship</span>
+                    <span>{t('memories.post.seeFriendship')}</span>
                   </Link>
                 );
               }
@@ -816,7 +818,7 @@ function EnhancedPostItem({
             <SimpleCommentEditor
               postId={post.id}
               onSubmit={(content) => handleComment(content, [])}
-              placeholder="Write a thoughtful comment..."
+              placeholder={t('memories.post.commentPlaceholder')}
             />
 
             {/* Existing Comments */}
@@ -825,16 +827,16 @@ function EnhancedPostItem({
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
                     <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                      {getAvatarFallback(comment.user?.name || 'Anonymous')}
+                      {getAvatarFallback(comment.user?.name || t('memories.post.anonymous'))}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-gray-900">{comment.user?.name || 'Anonymous'}</span>
+                        <span className="font-medium text-gray-900">{comment.user?.name || t('memories.post.anonymous')}</span>
                         <span className="text-xs text-gray-500">
                           {(() => {
                             const commentDate = comment.createdAt ? new Date(comment.createdAt) : new Date();
                             if (isNaN(commentDate.getTime())) {
-                              return 'recently';
+                              return t('memories.post.recently');
                             }
                             return formatDistanceToNow(commentDate, { addSuffix: true });
                           })()}
@@ -857,7 +859,7 @@ function EnhancedPostItem({
         {showShareOptions && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
-              <h3 className="text-xl font-bold mb-4">Share Post</h3>
+              <h3 className="text-xl font-bold mb-4">{t('memories.share.sharePost')}</h3>
               
               <div className="space-y-3">
                 {/* Share to Timeline */}
@@ -869,8 +871,8 @@ function EnhancedPostItem({
                     <Share2 className="h-5 w-5 text-blue-600" />
                   </div>
                   <div className="text-left">
-                    <p className="font-medium">Share to Timeline</p>
-                    <p className="text-sm text-gray-600">Share this post on your timeline</p>
+                    <p className="font-medium">{t('memories.share.shareToTimeline')}</p>
+                    <p className="text-sm text-gray-600">{t('memories.share.shareToTimelineDesc')}</p>
                   </div>
                 </button>
 
@@ -886,8 +888,8 @@ function EnhancedPostItem({
                     <MessageCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div className="text-left">
-                    <p className="font-medium">Share with Comment</p>
-                    <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
+                    <p className="font-medium">{t('memories.share.shareWithComment')}</p>
+                    <p className="text-sm text-gray-600">{t('memories.share.shareWithCommentDesc')}</p>
                   </div>
                 </button>
 
@@ -915,12 +917,12 @@ function EnhancedPostItem({
                         textArea.remove();
                       }
                       
-                      toast({ title: "Link copied to clipboard!" });
+                      toast({ title: t('memories.share.linkCopied') });
                       setShowShareOptions(false);
                     } catch (error) {
                       toast({ 
-                        title: "Failed to copy link",
-                        description: "Please try again" 
+                        title: t('memories.share.linkCopyFailed'),
+                        description: t('memories.share.pleaseTryAgain') 
                       });
                     }
                   }}
@@ -930,8 +932,8 @@ function EnhancedPostItem({
                     <Share2 className="h-5 w-5 text-purple-600" />
                   </div>
                   <div className="text-left">
-                    <p className="font-medium">Copy Link</p>
-                    <p className="text-sm text-gray-600">Copy post link to clipboard</p>
+                    <p className="font-medium">{t('memories.share.copyLink')}</p>
+                    <p className="text-sm text-gray-600">{t('memories.share.copyLinkDesc')}</p>
                   </div>
                 </button>
               </div>
@@ -940,7 +942,7 @@ function EnhancedPostItem({
                 onClick={() => setShowShareOptions(false)}
                 className="mt-4 w-full p-2 text-gray-600 hover:text-gray-800 transition-colors"
               >
-                Cancel
+                {t('memories.share.cancel')}
               </button>
             </div>
           </div>
@@ -952,14 +954,14 @@ function EnhancedPostItem({
             <div className="bg-white rounded-2xl p-6 w-96 max-w-[90vw] shadow-2xl">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-green-600" />
-                Share with Comment
+                {t('memories.share.shareWithComment')}
               </h3>
               
               {/* Original Post Preview */}
               <div className="bg-gray-50 p-4 rounded-lg mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-pink-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    {getAvatarFallback(post.user?.name || 'Anonymous')}
+                    {getAvatarFallback(post.user?.name || t('memories.post.anonymous'))}
                   </div>
                   <span className="font-medium text-sm">{post.user?.name}</span>
                 </div>
@@ -971,12 +973,12 @@ function EnhancedPostItem({
               {/* Comment Input */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Add your thoughts (optional):
+                  {t('memories.share.addThoughtsOptional')}
                 </label>
                 <textarea
                   value={shareComment}
                   onChange={(e) => setShareComment(e.target.value)}
-                  placeholder="What do you think about this?"
+                  placeholder={t('memories.share.whatDoYouThink')}
                   className="w-full p-3 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={3}
                 />
@@ -991,7 +993,7 @@ function EnhancedPostItem({
                   }}
                   className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
                 >
-                  Cancel
+                  {t('memories.share.cancel')}
                 </button>
                 <button
                   onClick={() => {
@@ -1001,7 +1003,7 @@ function EnhancedPostItem({
                   }}
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl transition-colors"
                 >
-                  Share
+                  {t('memories.share.share')}
                 </button>
               </div>
             </div>
