@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Camera, Video, MapPin, Globe, Users, Lock, X, ImageIcon } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 // Temporary auth mock for layout testing
 const useAuthContext = () => ({
@@ -178,7 +176,9 @@ export default function TrangoTechPostComposer() {
       {/* TrangoTech Modal - Expanded Composer */}
       {showExpandedComposer && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          <GlassCard depth={1} className="absolute inset-0" setShowExpandedComposer(false)}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowExpandedComposer(false)}
           />
           <div 
             className="relative bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10"

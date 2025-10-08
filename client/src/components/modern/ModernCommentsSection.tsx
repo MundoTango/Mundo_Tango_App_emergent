@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Send, User, MoreVertical, Edit2, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 interface Comment {
   id: number;
@@ -75,7 +73,7 @@ export default function ModernCommentsSection({
   };
 
   return (
-    <GlassCard depth={1} className="rounded-2xl p-4 border border-white/10">
+    <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-4 border border-white/10" data-testid="comments-section">
       {/* Comments List */}
       <div className="space-y-3 max-h-96 overflow-y-auto mb-4">
         <AnimatePresence>
@@ -128,7 +126,7 @@ export default function ModernCommentsSection({
                         </button>
                         
                         {showActions === comment.id && (
-                          <GlassCard depth={3} className="absolute right-0 top-8 rounded-xl shadow-xl border border-white/20 py-1 z-10">
+                          <div className="absolute right-0 top-8 bg-white/10 backdrop-blur-xl rounded-xl shadow-xl border border-white/20 py-1 z-10">
                             <button
                               onClick={() => handleEditComment(comment)}
                               className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-white/80 text-sm w-full text-left"

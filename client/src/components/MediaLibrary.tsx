@@ -3,8 +3,6 @@ import { X, Plus, Image, Video, FileText, Search, Tag, Calendar } from 'lucide-r
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import tagMedia from '../utils/tagMedia';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 interface MediaAsset {
   id: string;
@@ -214,7 +212,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
   };
 
   return (
-    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">

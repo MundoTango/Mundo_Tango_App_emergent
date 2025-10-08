@@ -31,8 +31,6 @@ import {
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { toast } from '@/hooks/use-toast';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 // Agent icon mapping
 const AGENT_ICONS = {
@@ -193,7 +191,7 @@ export const LifeCEODashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header - MT Ocean Theme */}
-      <GlassCard depth={1} className="p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-200/20">
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-sm border border-cyan-200/20">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">

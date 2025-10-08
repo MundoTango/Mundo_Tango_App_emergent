@@ -8,8 +8,6 @@ import { Shield, Eye, BarChart, AlertCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 interface ConsentModalProps {
   onAccept: (analytics: boolean, sessionRecording: boolean, errorTracking: boolean) => void;
@@ -36,7 +34,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4" data-testid="consent-modal">
       {/* Backdrop */}
-      <GlassCard depth={1} className="fixed inset-0">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
       
       {/* Modal */}
       <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4 transform transition-all animate-in slide-in-from-bottom-5 sm:slide-in-from-bottom-0 duration-300">

@@ -19,8 +19,6 @@ import { cn } from '@/lib/utils';
 import { useDebounce } from '@/hooks/useDebounce';
 import { initializeLeaflet } from '@/utils/leafletConfig';
 import { GlassCard } from '@/components/ui/glass-card';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 // ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
@@ -517,7 +515,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           interactive={true}
           keepInView={true}
         >
-          <GlassCard depth={2} className="relative p-0 min-w-[320px] max-w-[360px] bg-gradient-to-br from-turquoise-500/10 via-cyan-500/10 to-blue-500/10 rounded-xl border border-turquoise-300/30 shadow-2xl overflow-hidden">
+          <div className="relative p-0 min-w-[320px] max-w-[360px] bg-gradient-to-br from-turquoise-500/10 via-cyan-500/10 to-blue-500/10 backdrop-blur-lg rounded-xl border border-turquoise-300/30 shadow-2xl overflow-hidden">
             {/* Animated gradient border effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-turquoise-400 via-cyan-400 to-blue-400 opacity-20 animate-pulse" />
             
@@ -563,7 +561,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                     {/* Statistics Grid with glassmorphic cards */}
                     <div className="grid grid-cols-2 gap-3">
                       {/* People Count */}
-                      <GlassCard depth={1} className="rounded-xl p-3 border border-white/20 shadow-lg transition-all group">
+                      <div className="bg-white/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-turquoise-500 to-cyan-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Users className="h-4 w-4 text-white" />
@@ -578,7 +576,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Events Count */}
-                      <GlassCard depth={1} className="rounded-xl p-3 border border-white/20 shadow-lg transition-all group">
+                      <div className="bg-white/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Calendar className="h-4 w-4 text-white" />
@@ -593,7 +591,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Housing Hosts Count */}
-                      <GlassCard depth={1} className="rounded-xl p-3 border border-white/20 shadow-lg transition-all group">
+                      <div className="bg-white/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-teal-500 to-green-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Home className="h-4 w-4 text-white" />
@@ -608,7 +606,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                       </div>
                       
                       {/* Recommendations Count */}
-                      <GlassCard depth={1} className="rounded-xl p-3 border border-white/20 shadow-lg transition-all group">
+                      <div className="bg-white/40 backdrop-blur-md rounded-xl p-3 border border-white/20 shadow-lg hover:bg-white/50 transition-all group">
                         <div className="flex items-center gap-2">
                           <div className="p-2 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg shadow-md group-hover:scale-110 transition-transform">
                             <Star className="h-4 w-4 text-white" />
@@ -843,7 +841,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         )}
         
         {isLoading && (
-          <GlassCard depth={1} className="absolute inset-0 flex items-center justify-center z-[999]">
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-[999]">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-500 mx-auto mb-4"></div>
               <p className="text-gray-600">Loading map data...</p>

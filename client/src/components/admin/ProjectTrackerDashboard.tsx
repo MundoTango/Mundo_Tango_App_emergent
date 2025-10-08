@@ -24,8 +24,6 @@ import {
 import { useProjects, useProjectMetrics, useCreateProject, useUpdateProject } from '@/hooks/useProjects';
 import { toast } from '@/hooks/use-toast';
 import type { Project } from '@shared/schema';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 // ESA 61x21 Framework Definitions - All 61 Layers
 const LAYER_DEFINITIONS = [
@@ -176,7 +174,7 @@ const ProjectTrackerDashboard: React.FC = () => {
         <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <GlassCard depth={1} className="p-2 rounded-lg">
+              <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                 <GitCommit className="h-6 w-6 text-white" />
               </div>
               <div>

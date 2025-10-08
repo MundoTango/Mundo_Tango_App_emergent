@@ -42,8 +42,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { GlassCard } from '@/components/glass/GlassComponents';
-
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -128,7 +126,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50/30 via-cyan-50/20 to-blue-50/30">
       {/* Top Navigation Bar */}
-      <GlassCard depth={1} className="fixed top-0 left-0 right-0 h-16 border-b border-teal-100 z-40">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-sm border-b border-teal-100 z-40">
         <div className="flex items-center justify-between h-full px-6">
           {/* Left Section */}
           <div className="flex items-center gap-4">

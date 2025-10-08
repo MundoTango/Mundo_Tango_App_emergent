@@ -69,10 +69,10 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
     <div className={`relative ${className}`}>
       {/* Main Like Button */}
       <button
-        onClick={() = data-testid="button-element"> setShowDropdown(!showDropdown)}
+        onClick={() => setShowDropdown(!showDropdown)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105 dark:bg-neutral-800"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105"
       >
         <span style={{ display: 'inline-block', width: '20px', textAlign: 'center' }}>
           {currentReactionData ? currentReactionData.text : '👍'}
@@ -85,7 +85,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Simple Dropdown */}
       {showDropdown && (
         <div 
-          className="absolute bg-white border border-gray-200 rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out dark:bg-neutral-900"
+          className="absolute bg-white border border-gray-200 rounded-lg shadow-2xl p-1 transition-all duration-300 ease-out"
           style={{ 
             zIndex: 99999,
             width: '180px',
@@ -101,7 +101,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
             {SIMPLE_REACTIONS.map((reaction, index) => (
               <button
                 key={reaction.id}
-                onClick={() = data-testid="button-element"> {
+                onClick={() => {
                   onReact(reaction.id);
                   setShowDropdown(false);
                 }}
@@ -134,7 +134,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Reaction Count */}
       {totalReactions > 0 && (
         <div className="mt-1">
-          <span className="text-sm text-gray-600 dark:text-neutral-400">{totalReactions} reactions</span>
+          <span className="text-sm text-gray-600">{totalReactions} reactions</span>
         </div>
       )}
     </div>
