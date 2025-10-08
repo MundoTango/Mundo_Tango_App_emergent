@@ -47,7 +47,7 @@ export function SimpleCommentEditor({
         <textarea
           ref={inputRef}
           value={content}
-          onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+          onChange={(e)> setContent(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 placeholder-gray-400 dark:text-neutral-100"

@@ -482,7 +482,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                   variant="ghost"
                   size="sm"
                   className="p-1 h-6 w-6"
-                  onClick={(e) = data-testid="button-p-1"> {
+                  onClick={(e)> {
                     e.stopPropagation();
                     onToggleExpand(item.id);
                   }}
@@ -541,7 +541,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
               {/* Blockers indicator */}
               {item.blockers.length > 0 && (
                 <div className="flex items-center gap-1 text-xs text-red-600">
-                  <AlertTriangle className="h-3 w-3" / data-testid="link-h-3">
+                  <AlertTriangle className="h-3 w-3" />
                   <span>{item.blockers.length} blocker{item.blockers.length > 1 ? 's' : ''}</span>
                 </div>
               )}

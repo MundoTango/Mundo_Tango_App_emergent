@@ -218,7 +218,7 @@ export default function RoleManagement() {
                         key={perm}
                         variant="outline"
                         size="sm"
-                        onClick={() = data-testid="button-element"> checkPermission(perm)}
+                        onClick={()> checkPermission(perm)}
                       >
                         Test {perm.replace(/_/g, ' ')}
                       </Button>
@@ -247,10 +247,10 @@ export default function RoleManagement() {
               <div>
                 <label className="text-sm font-medium">Select User</label>
                 <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
-                  <SelectTrigger data-testid="select-element">
-                    <SelectValue placeholder="Choose a user" / data-testid="select-element">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a user" />
                   </SelectTrigger>
-                  <SelectContent data-testid="select-element">
+                  <SelectContent>
                     {users.map(user => (
                       <SelectItem key={user.id} value={user.id.toString()} data-testid="select-element">
                         <div className="flex items-center gap-2">
@@ -269,10 +269,10 @@ export default function RoleManagement() {
               <div>
                 <label className="text-sm font-medium">New Role</label>
                 <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
-                  <SelectTrigger data-testid="select-element">
-                    <SelectValue placeholder="Choose a role" / data-testid="select-element">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a role" />
                   </SelectTrigger>
-                  <SelectContent data-testid="select-element">
+                  <SelectContent>
                     {['admin', 'organizer', 'teacher', 'dancer', 'guest'].map(role => (
                       <SelectItem key={role} value={role} data-testid="select-element">
                         <div className="flex items-center gap-2">

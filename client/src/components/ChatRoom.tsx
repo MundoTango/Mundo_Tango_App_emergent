@@ -225,7 +225,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             <div className="flex -space-x-2">
               {getOnlineUsers().slice(0, 5).map(user => (
                 <Avatar key={user.userId} className="w-6 h-6 border-2 border-white" data-testid="link-w-6">
-                  <AvatarImage src={user.profileImage} alt={user.username} / data-testid="link-element">
+                  <AvatarImage src={user.profileImage} alt={user.username} />
                   <AvatarFallback className="text-xs" data-testid="link-text-xs">
                     {user.username.charAt(0).toUpperCase()}
                   </AvatarFallback>
@@ -254,7 +254,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                 >
                   {!isOwnMessage && (
                     <Avatar className="w-8 h-8 flex-shrink-0" data-testid="link-w-8">
-                      <AvatarImage src={message.user?.profileImage} alt={message.user?.name} / data-testid="link-element">
+                      <AvatarImage src={message.user?.profileImage} alt={message.user?.name} />
                       <AvatarFallback className="text-sm" data-testid="link-text-sm">
                         {(message.user?.name || message.user?.username || 'U').charAt(0).toUpperCase()}
                       </AvatarFallback>
@@ -287,7 +287,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                   
                   {isOwnMessage && (
                     <Avatar className="w-8 h-8 flex-shrink-0" data-testid="link-w-8">
-                      <AvatarImage src={currentUser.profileImage} alt={currentUser.name} / data-testid="link-element">
+                      <AvatarImage src={currentUser.profileImage} alt={currentUser.name} />
                       <AvatarFallback className="text-sm" data-testid="link-text-sm">
                         {currentUser.name.charAt(0).toUpperCase()}
                       </AvatarFallback>
@@ -303,7 +303,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                 <div className="flex -space-x-1">
                   {getTypingUsers().slice(0, 3).map(user => (
                     <Avatar key={user.userId} className="w-5 h-5 border border-white" data-testid="link-w-5">
-                      <AvatarImage src={user.profileImage} alt={user.username} / data-testid="link-element">
+                      <AvatarImage src={user.profileImage} alt={user.username} />
                       <AvatarFallback className="text-xs" data-testid="link-text-xs">
                         {user.username.charAt(0).toUpperCase()}
                       </AvatarFallback>
@@ -335,7 +335,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           <Input
             ref={inputRef}
             value={newMessage}
-            onChange={(e) = data-testid="input-element"> handleTyping(e.target.value)}
+            onChange={(e)> handleTyping(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={isConnected ? "Type a message..." : "Connecting..."}
             disabled={!isConnected || isSending}

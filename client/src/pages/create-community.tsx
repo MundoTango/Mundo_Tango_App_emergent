@@ -126,10 +126,10 @@ export default function CreateCommunityPage() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() = data-testid="button-element"> setLocation('/groups')}
+            onClick={()> setLocation('/groups')}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors dark:text-neutral-100"
           >
-            <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
+            <ArrowLeft className="h-5 w-5" />
             Back to Communities
           </button>
           
@@ -173,7 +173,7 @@ export default function CreateCommunityPage() {
                   onChange={handleImageUpload}
                   className="absolute inset-0 opacity-0 cursor-pointer"
                   disabled={uploadingImage}
-                / data-testid="input-absolute">
+                />
               </div>
             </div>
 
@@ -192,7 +192,7 @@ export default function CreateCommunityPage() {
                         {...field}
                         placeholder="e.g., Buenos Aires Tango Collective"
                         className="rounded-lg"
-                      / data-testid="input-rounded-lg">
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -210,7 +210,7 @@ export default function CreateCommunityPage() {
                         {...field}
                         placeholder="Tell us about your community..."
                         className="rounded-lg min-h-[100px]"
-                      / data-testid="textarea-rounded-lg">
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -227,10 +227,10 @@ export default function CreateCommunityPage() {
                       <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger className="rounded-lg" data-testid="select-rounded-lg">
-                            <SelectValue placeholder="Select type" / data-testid="select-element">
+                            <SelectValue placeholder="Select type" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           <SelectItem value="city" data-testid="select-element">
                             <div className="flex items-center gap-2">
                               <MapPin className="h-4 w-4" />
@@ -263,10 +263,10 @@ export default function CreateCommunityPage() {
                       <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger className="rounded-lg" data-testid="select-rounded-lg">
-                            <SelectValue placeholder="Select privacy" / data-testid="select-element">
+                            <SelectValue placeholder="Select privacy" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           <SelectItem value="public" data-testid="select-element">
                             <div className="flex items-center gap-2">
                               <Globe className="h-4 w-4" />
@@ -302,7 +302,7 @@ export default function CreateCommunityPage() {
                         {...field}
                         placeholder="Where is your community based?"
                         className="rounded-lg"
-                      / data-testid="input-rounded-lg">
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -315,7 +315,7 @@ export default function CreateCommunityPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() = data-testid="button-element"> setLocation('/groups')}
+                onClick={()> setLocation('/groups')}
                 className="rounded-lg"
               >
                 Cancel

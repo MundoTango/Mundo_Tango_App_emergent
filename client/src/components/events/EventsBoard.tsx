@@ -105,7 +105,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() = data-testid="button-element"> {
+                        onClick={()> {
                           setSelectedEvent(event);
                           setShowDelegationPanel(true);
                         }}
@@ -128,7 +128,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
               Manage your recurring events here. You can create weekly milongas, monthly workshops, or any repeating event pattern.
             </p>
             <Button
-              onClick={() = data-testid="button-element"> setShowRecurringManager(true)}
+              onClick={()> setShowRecurringManager(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500"
             >
               Create New Series

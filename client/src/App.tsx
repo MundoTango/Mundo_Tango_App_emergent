@@ -175,7 +175,7 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider data-testid="link-element">
+      <AuthProvider>
         <ThemeProvider>
           <CsrfProvider>
             <TenantProvider>

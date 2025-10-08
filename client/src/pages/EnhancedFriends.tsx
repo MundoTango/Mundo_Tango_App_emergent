@@ -361,7 +361,7 @@ export default function EnhancedFriendsPage() {
               Export
             </Button>
             <Button
-              onClick={() = data-testid="button-element"> setShowSendRequestModal(true)}
+              onClick={()> setShowSendRequestModal(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <UserPlus className="w-4 h-4 mr-2" />
@@ -405,7 +405,7 @@ export default function EnhancedFriendsPage() {
           </Card>
           <Card className="p-4 bg-gradient-to-r from-purple-50 to-turquoise-50 glassmorphic-card hover:scale-105 transition-transform">
             <div className="flex items-center gap-3">
-              <Activity className="w-8 h-8 text-purple-600" / data-testid="link-w-8">
+              <Activity className="w-8 h-8 text-purple-600" />
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {recentActivities.length}
@@ -426,13 +426,13 @@ export default function EnhancedFriendsPage() {
                 type="text"
                 placeholder="Search friends by name, username, or location... (Cmd+F)"
                 value={searchQuery}
-                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                onChange={(e)> setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
             <Select
               value={selectedFilter}
-              onChange={(newValue) = data-testid="select-element"> {
+              onChange={(newValue)> {
                 if (newValue) setSelectedFilter(newValue);
               }}
               options={filterOptions}
@@ -441,7 +441,7 @@ export default function EnhancedFriendsPage() {
             />
             <Select
               value={selectedSort}
-              onChange={(newValue) = data-testid="select-element"> {
+              onChange={(newValue)> {
                 if (newValue) setSelectedSort(newValue);
               }}
               options={sortOptions}
@@ -452,14 +452,14 @@ export default function EnhancedFriendsPage() {
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() = data-testid="button-element"> setViewMode('grid')}
+                onClick={()> setViewMode('grid')}
               >
                 <Grid className="w-4 h-4" />
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() = data-testid="button-element"> setViewMode('list')}
+                onClick={()> setViewMode('list')}
               >
                 <List className="w-4 h-4" />
               </Button>
@@ -473,7 +473,7 @@ export default function EnhancedFriendsPage() {
           <div className="lg:col-span-1">
             <Card className="p-4">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2 dark:text-neutral-100">
-                <Activity className="w-5 h-5 text-turquoise-600" / data-testid="link-w-5">
+                <Activity className="w-5 h-5 text-turquoise-600" />
                 Friend Activity
               </h3>
               <div className="space-y-3">
@@ -708,7 +708,7 @@ export default function EnhancedFriendsPage() {
                   type="text"
                   placeholder="Enter username or email"
                   className="w-full"
-                  onChange={(e) = data-testid="input-w-full"> setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
+                  onChange={(e)> setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
                 />
               </div>
               <div>
@@ -718,7 +718,7 @@ export default function EnhancedFriendsPage() {
                 <Textarea
                   placeholder="Hi! I'd love to connect..."
                   value={requestNote}
-                  onChange={(e) = data-testid="textarea-element"> setRequestNote(e.target.value)}
+                  onChange={(e)> setRequestNote(e.target.value)}
                   rows={3}
                   className="w-full"
                 />
@@ -726,7 +726,7 @@ export default function EnhancedFriendsPage() {
               <div className="flex justify-end gap-2">
                 <Button
                   variant="outline"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');
@@ -735,7 +735,7 @@ export default function EnhancedFriendsPage() {
                   Cancel
                 </Button>
                 <Button
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     if (selectedUser?.id) {
                       sendFriendRequest(
                         { 

@@ -141,13 +141,13 @@ export default function CreatePost() {
       <CardContent className="p-4">
         <div className="flex items-center space-x-3 mb-4">
           <Avatar className="w-10 h-10 ring-2 ring-turquoise-200" data-testid="link-w-10">
-            <AvatarImage src={user?.profileImage || ""} alt={user?.name} / data-testid="link-element">
+            <AvatarImage src={user?.profileImage || ""} alt={user?.name} />
             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">{user?.name?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
             {!isExpanded ? (
               <button
-                onClick={() = data-testid="button-element"> setIsExpanded(true)}
+                onClick={()> setIsExpanded(true)}
                 className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300"
               >
                 Share your tango experience...
@@ -156,7 +156,7 @@ export default function CreatePost() {
               <Textarea
                 placeholder="Share your tango experience..."
                 value={content}
-                onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+                onChange={(e)> setContent(e.target.value)}
                 className="resize-none border-none p-0 text-base placeholder:text-turquoise-400 focus-visible:ring-0 bg-transparent"
                 rows={3}
               />
@@ -230,7 +230,7 @@ export default function CreatePost() {
                 onChange={handleFileSelect}
                 className="hidden"
                 disabled={isUploading}
-              / data-testid="input-hidden">
+              />
               <ImageIcon className="h-5 w-5" />
               <span className="text-sm">Photo/Video</span>
             </label>
@@ -246,7 +246,7 @@ export default function CreatePost() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() = data-testid="button-element"> {
+                onClick={()> {
                   setIsExpanded(false);
                   setContent("");
                   removeFiles();

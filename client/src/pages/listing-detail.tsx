@@ -696,7 +696,7 @@ export default function ListingDetail() {
 
             {/* Location */}
             {home.lat && home.lng && (
-              <Card data-testid="section-location">
+              <Card>
                 <CardContent className="pt-6">
                   <h2 className="text-2xl font-bold mb-4">Location</h2>
                   <p className="text-gray-600 mb-4">{home.address}</p>

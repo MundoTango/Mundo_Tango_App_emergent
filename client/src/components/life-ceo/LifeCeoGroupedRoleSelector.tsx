@@ -261,7 +261,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                           "w-full mt-3",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e) = data-testid="button-element"> {
+                        onClick={(e)> {
                           e.stopPropagation();
                           handleAgentToggle(agent.id);
                         }}

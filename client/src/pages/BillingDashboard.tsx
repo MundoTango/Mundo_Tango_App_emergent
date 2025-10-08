@@ -187,8 +187,8 @@ const BillingDashboard: React.FC = () => {
 
                 {status === 'cancelling' && (
                   <Alert className="bg-yellow-50 border-yellow-200" data-testid="link-bg-yellow-50">
-                    <AlertCircle className="h-4 w-4 text-yellow-600" / data-testid="link-h-4">
-                    <AlertDescription data-testid="link-element">
+                    <AlertCircle className="h-4 w-4 text-yellow-600" />
+                    <AlertDescription>
                       Your subscription is set to cancel on {format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy')}. 
                       You'll retain access until then.
                     </AlertDescription>
@@ -205,7 +205,7 @@ const BillingDashboard: React.FC = () => {
                       </Link>
                       <Button 
                         variant="destructive"
-                        onClick={() = data-testid="button-element"> {
+                        onClick={()> {
                           if (confirm('Are you sure you want to cancel your subscription?')) {
                             cancelSubscriptionMutation.mutate();
                           }
@@ -224,7 +224,7 @@ const BillingDashboard: React.FC = () => {
                     </>
                   ) : status === 'cancelling' ? (
                     <Button 
-                      onClick={() = data-testid="button-element"> resumeSubscriptionMutation.mutate()}
+                      onClick={()> resumeSubscriptionMutation.mutate()}
                       disabled={resumeSubscriptionMutation.isPending}
                     >
                       {resumeSubscriptionMutation.isPending ? (
@@ -263,7 +263,7 @@ const BillingDashboard: React.FC = () => {
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                onClick={() = data-testid="button-bg-gradient-to-r"> toast({ 
+                onClick={()> toast({ 
                   title: "Coming Soon", 
                   description: "Payment method management will be available soon." 
                 })}
@@ -293,7 +293,7 @@ const BillingDashboard: React.FC = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() = data-testid="button-element"> {
+                      onClick={()> {
                         if (confirm('Are you sure you want to remove this payment method?')) {
                           deletePaymentMethodMutation.mutate(method.id);
                         }
@@ -343,7 +343,7 @@ const BillingDashboard: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() = data-testid="button-element"> window.open(invoice.invoicePdf, '_blank')}
+                        onClick={()> window.open(invoice.invoicePdf, '_blank')}
                       >
                         <Download className="w-4 h-4" />
                       </Button>

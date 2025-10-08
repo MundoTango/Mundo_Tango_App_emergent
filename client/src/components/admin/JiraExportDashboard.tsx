@@ -485,18 +485,18 @@ const JiraExportDashboard: React.FC = () => {
             </TabsList>
             
             <TabsContent value="json" className="mt-4">
-              <Alert data-testid="link-element">
-                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-                <AlertDescription data-testid="link-element">
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
                   JSON format is recommended for JIRA REST API import. Includes full hierarchy and metadata.
                 </AlertDescription>
               </Alert>
             </TabsContent>
             
             <TabsContent value="csv" className="mt-4">
-              <Alert data-testid="link-element">
-                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-                <AlertDescription data-testid="link-element">
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
                   CSV format for JIRA's External System Import. Flattened structure with basic fields.
                 </AlertDescription>
               </Alert>
@@ -541,7 +541,7 @@ const JiraExportDashboard: React.FC = () => {
           
           {exportStatus === 'error' && (
             <Alert className="mt-4 border-red-200 bg-red-50" data-testid="link-mt-4">
-              <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
+              <AlertCircle className="h-4 w-4 text-red-600" />
               <AlertDescription className="text-red-700" data-testid="link-text-red-700">
                 Export failed. Please try again.
               </AlertDescription>
@@ -564,7 +564,7 @@ const JiraExportDashboard: React.FC = () => {
                 Connect directly to your JIRA instance to create issues in real-time using the 40x20s framework mapping.
               </p>
               <Button 
-                onClick={() = data-testid="button-element"> setShowCredentialsModal(true)}
+                onClick={()> setShowCredentialsModal(true)}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
               >
                 <Key className="w-4 h-4 mr-2" />
@@ -586,7 +586,7 @@ const JiraExportDashboard: React.FC = () => {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() = data-testid="button-element"> setShowCredentialsModal(true)}
+                  onClick={()> setShowCredentialsModal(true)}
                 >
                   <Key className="w-3 h-3 mr-1" />
                   Update
@@ -600,7 +600,7 @@ const JiraExportDashboard: React.FC = () => {
                   'border-blue-200 bg-blue-50'
                 }`} data-testid="link-element">
                   {jiraStatus.type === 'success' && <CheckCircle2 className="h-4 w-4 text-green-600" />}
-                  {jiraStatus.type === 'error' && <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">}
+                  {jiraStatus.type === 'error' && <AlertCircle className="h-4 w-4 text-red-600" />}
                   {jiraStatus.type === 'info' && <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />}
                   <AlertDescription className={`${
                     jiraStatus.type === 'success' ? 'text-green-700' :

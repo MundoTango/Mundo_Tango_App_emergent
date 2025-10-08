@@ -14,7 +14,7 @@ const AccordionItem = React.forwardRef<
     ref={ref}
     className={cn("border-b", className)}
     {...props}
-  / data-testid="link-element">
+  />
 ))
 AccordionItem.displayName = "AccordionItem"
 

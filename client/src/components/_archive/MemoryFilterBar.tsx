@@ -202,7 +202,7 @@ export default function MemoryFilterBar({
               </Typography>
             </Box>
             <FormControl fullWidth size="small">
-              <InputLabel data-testid="input-element">Select Event</InputLabel>
+              <InputLabel>Select Event</InputLabel>
               <Select
                 value={filters.event || ''}
                 onChange={handleEventChange}

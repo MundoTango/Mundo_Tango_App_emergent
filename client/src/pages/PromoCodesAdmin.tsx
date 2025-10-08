@@ -231,7 +231,7 @@ const PromoCodesAdmin: React.FC = () => {
             <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
           </div>
           <Button
-            onClick={() = data-testid="button-element"> {
+            onClick={()> {
               resetForm();
               setEditingPromo(null);
               setShowCreateDialog(true);
@@ -339,7 +339,7 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() = data-testid="button-element"> copyToClipboard(promo.code)}
+                            onClick={()> copyToClipboard(promo.code)}
                           >
                             <Copy className="h-4 w-4" />
                           </Button>
@@ -380,14 +380,14 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() = data-testid="button-element"> handleEdit(promo)}
+                            onClick={()> handleEdit(promo)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() = data-testid="button-element"> deletePromoMutation.mutate(promo.id)}
+                            onClick={()> deletePromoMutation.mutate(promo.id)}
                             className="text-red-600 hover:text-red-700"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -423,7 +423,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, code: e.target.value.toUpperCase() })}
+                onChange={(e)> setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                 placeholder="SUMMER2025"
                 className="mt-1"
               />
@@ -434,12 +434,12 @@ const PromoCodesAdmin: React.FC = () => {
                 <Label htmlFor="type">Discount Type</Label>
                 <Select
                   value={formData.type}
-                  onValueChange={(value) = data-testid="select-element"> setFormData({ ...formData, type: value })}
+                  onValueChange={(value)> setFormData({ ...formData, type: value })}
                 >
                   <SelectTrigger className="mt-1" data-testid="select-mt-1">
-                    <SelectValue / data-testid="select-element">
+                    <SelectValue />
                   </SelectTrigger>
-                  <SelectContent data-testid="select-element">
+                  <SelectContent>
                     <SelectItem value="percentage" data-testid="select-element">Percentage</SelectItem>
                     <SelectItem value="fixed" data-testid="select-element">Fixed Amount</SelectItem>
                   </SelectContent>
@@ -452,7 +452,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="value"
                   type="number"
                   value={formData.value}
-                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, value: Number(e.target.value) })}
+                  onChange={(e)> setFormData({ ...formData, value: Number(e.target.value) })}
                   placeholder={formData.type === 'percentage' ? '20' : '10'}
                   className="mt-1"
                 />
@@ -464,7 +464,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="description"
                 value={formData.description}
-                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, description: e.target.value })}
+                onChange={(e)> setFormData({ ...formData, description: e.target.value })}
                 placeholder="Summer sale discount"
                 className="mt-1"
               />
@@ -477,7 +477,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validFrom"
                   type="date"
                   value={formData.validFrom}
-                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, validFrom: e.target.value })}
+                  onChange={(e)> setFormData({ ...formData, validFrom: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -488,7 +488,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validUntil"
                   type="date"
                   value={formData.validUntil}
-                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, validUntil: e.target.value })}
+                  onChange={(e)> setFormData({ ...formData, validUntil: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -500,7 +500,7 @@ const PromoCodesAdmin: React.FC = () => {
                 id="usageLimit"
                 type="number"
                 value={formData.usageLimit}
-                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, usageLimit: e.target.value })}
+                onChange={(e)> setFormData({ ...formData, usageLimit: e.target.value })}
                 placeholder="100"
                 className="mt-1"
               />
@@ -538,7 +538,7 @@ const PromoCodesAdmin: React.FC = () => {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() = data-testid="button-element"> setShowCreateDialog(false)}>
+            <Button variant="outline" onClick={()> setShowCreateDialog(false)}>
               Cancel
             </Button>
             <Button

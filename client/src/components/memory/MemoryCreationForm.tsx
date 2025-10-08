@@ -280,7 +280,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Input
               id="title"
               value={title}
-              onChange={(e) = data-testid="input-element"> setTitle(e.target.value)}
+              onChange={(e)> setTitle(e.target.value)}
               placeholder="What would you like to call this memory?"
               className="text-lg"
             />
@@ -292,7 +292,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Textarea
               id="content"
               value={content}
-              onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+              onChange={(e)> setContent(e.target.value)}
               placeholder="Describe this memory... What happened? How did it feel?"
               className="min-h-[100px]"
             />
@@ -392,7 +392,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <div className="relative">
               <Input
                 value={userSearchQuery}
-                onChange={(e) = data-testid="input-element"> {
+                onChange={(e)> {
                   setUserSearchQuery(e.target.value);
                   searchUsers(e.target.value);
                   setShowUserSearch(true);
@@ -435,7 +435,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                     >
                       {user.username}
                       {!user.hasConsent && (
-                        <AlertTriangle className="w-3 h-3 text-orange-500" / data-testid="link-w-3">
+                        <AlertTriangle className="w-3 h-3 text-orange-500" />
                       )}
                       <X
                         className="w-3 h-3 cursor-pointer hover:text-red-500"
@@ -451,7 +451,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             {needsConsent && (
               <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
                 <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5" / data-testid="link-w-5">
+                  <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5" />
                   <div>
                     <div className="font-medium text-orange-800">Consent Required</div>
                     <div className="text-sm text-orange-700">
@@ -467,10 +467,10 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           <div className="space-y-2">
             <Label>Visibility</Label>
             <Select value={visibilityTier} onValueChange={setVisibilityTier} data-testid="select-element">
-              <SelectTrigger data-testid="select-element">
-                <SelectValue / data-testid="select-element">
+              <SelectTrigger>
+                <SelectValue />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 {VISIBILITY_TIERS.map((tier) => (
                   <SelectItem key={tier.value} value={tier.value} data-testid="select-element">
                     <div>

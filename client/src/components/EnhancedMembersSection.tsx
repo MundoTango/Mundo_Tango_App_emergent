@@ -214,17 +214,17 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Input
             placeholder="Search members..."
             value={searchTerm}
-            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            onChange={(e)> setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
 
         {/* Category Filter */}
         <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
-          <SelectTrigger data-testid="select-element">
-            <SelectValue placeholder="Filter by category" / data-testid="select-element">
+          <SelectTrigger>
+            <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
-          <SelectContent data-testid="select-element">
+          <SelectContent>
             <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
             {Object.entries(ROLE_CATEGORIES).map(([key, category]) => (
               <SelectItem key={key} value={key} data-testid="select-element">
@@ -236,10 +236,10 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
 
         {/* Role Filter */}
         <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
-          <SelectTrigger data-testid="select-element">
-            <SelectValue placeholder="Filter by role" / data-testid="select-element">
+          <SelectTrigger>
+            <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
-          <SelectContent data-testid="select-element">
+          <SelectContent>
             <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
             {availableRoles.map((role) => (
               <SelectItem key={role.id} value={role.id} data-testid="select-element">
@@ -256,7 +256,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={() = data-testid="button-element"> {
+            onClick={()> {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');
@@ -287,7 +287,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={() = data-testid="button-element"> {
+            onClick={()> {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');

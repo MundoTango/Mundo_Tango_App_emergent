@@ -37,7 +37,7 @@ const PerformanceMonitor: React.FC = () => {
     lcp: [],
     fid: []
   });
-  const [apiPerformance, setApiPerformance] = useState<ApiPerformance data-testid="link-element">({
+  const [apiPerformance, setApiPerformance] = useState<ApiPerformance>({
     singleCall: 0,
     parallelCalls: 0,
     cachePerformance: 0
@@ -168,7 +168,7 @@ const PerformanceMonitor: React.FC = () => {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3 dark:text-neutral-200">
-            <Activity className="w-7 h-7 text-turquoise-600" / data-testid="link-w-7">
+            <Activity className="w-7 h-7 text-turquoise-600" />
             Performance Monitor
           </h2>
           <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Real-time performance metrics and optimization tracking</p>
@@ -301,7 +301,7 @@ const PerformanceMonitor: React.FC = () => {
             <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
-                  <Activity className="w-4 h-4 text-blue-600" / data-testid="link-w-4">
+                  <Activity className="w-4 h-4 text-blue-600" />
                   Parallel API Calls (3)
                 </CardTitle>
               </CardHeader>
@@ -414,7 +414,7 @@ const PerformanceMonitor: React.FC = () => {
       <Card className="border-turquoise-200 bg-gradient-to-br from-turquoise-50 to-blue-50">
         <CardHeader>
           <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
-            <AlertCircle className="w-5 h-5 text-turquoise-600" / data-testid="link-w-5">
+            <AlertCircle className="w-5 h-5 text-turquoise-600" />
             Performance Insights
           </CardTitle>
         </CardHeader>

@@ -135,7 +135,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
             <Input
               placeholder="Search users by name or username..."
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -172,10 +172,10 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
 
           {/* Role Selection */}
           <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
-            <SelectTrigger data-testid="select-element">
-              <SelectValue placeholder="Select a role for this event" / data-testid="select-element">
+            <SelectTrigger>
+              <SelectValue placeholder="Select a role for this event" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               {TANGO_ROLES.map((role) => (
                 <SelectItem key={role} value={role} data-testid="select-element">
                   {role}

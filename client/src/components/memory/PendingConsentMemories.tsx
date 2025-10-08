@@ -180,7 +180,7 @@ export default function PendingConsentMemories() {
     return (
       <div className="container mx-auto p-6">
         <Paper elevation={2} sx={{ p: 4, textAlign: 'center', backgroundColor: '#fef2f2' }}>
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" / data-testid="link-h-12">
+          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
           <Typography variant="h6" color="error" gutterBottom>
             Failed to Load Pending Memories
           </Typography>
@@ -413,7 +413,7 @@ export default function PendingConsentMemories() {
                           <Button
                             variant="outlined"
                             size="medium"
-                            onClick={() = data-testid="button-element"> handleConsentAction(memory.id, 'deny')}
+                            onClick={()> handleConsentAction(memory.id, 'deny')}
                             disabled={isProcessing}
                             sx={{
                               color: '#dc2626',
@@ -431,7 +431,7 @@ export default function PendingConsentMemories() {
                         <Button
                           variant="contained"
                           size="medium"
-                          onClick={() = data-testid="button-element"> handleConsentAction(memory.id, 'approve')}
+                          onClick={()> handleConsentAction(memory.id, 'approve')}
                           disabled={isProcessing}
                           sx={{
                             backgroundColor: '#16a34a',

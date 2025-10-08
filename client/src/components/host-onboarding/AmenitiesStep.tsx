@@ -173,7 +173,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
               checked={data.wheelchairAccessible || false}
               onCheckedChange={(checked) => updateData({ wheelchairAccessible: checked })}
             />
-            <Accessibility className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" / data-testid="link-w-5">
+            <Accessibility className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
             <span className="text-sm">Wheelchair accessible</span>
           </label>
         </div>

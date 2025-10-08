@@ -55,9 +55,9 @@ export default function ProfileSwitcher() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() = data-testid="button-element"> window.history.back()}
+            onClick={()> window.history.back()}
           >
-            <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
+            <ArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="text-lg font-semibold">Switch Profile</h1>
         </div>
@@ -85,7 +85,7 @@ export default function ProfileSwitcher() {
           {profiles.map((profile) => (
             <button
               key={profile.id}
-              onClick={() = data-testid="button-element"> handleProfileSwitch(profile)}
+              onClick={()> handleProfileSwitch(profile)}
               className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
                 activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''
               }`}
@@ -123,7 +123,7 @@ export default function ProfileSwitcher() {
         <div className="bg-white rounded-xl p-4 shadow-sm space-y-3 dark:bg-neutral-900">
           {isSuperAdmin && (
             <button
-              onClick={() = data-testid="button-element"> setLocation('/life-ceo')}
+              onClick={()> setLocation('/life-ceo')}
               className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
             >
               <Brain className="h-5 w-5 text-purple-500" />
@@ -131,7 +131,7 @@ export default function ProfileSwitcher() {
             </button>
           )}
           <button
-            onClick={() = data-testid="button-element"> setLocation('/memories')}
+            onClick={()> setLocation('/memories')}
             className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
           >
             <Globe className="h-5 w-5 text-blue-500" />

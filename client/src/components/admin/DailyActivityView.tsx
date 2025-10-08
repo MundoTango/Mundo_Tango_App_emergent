@@ -129,11 +129,11 @@ function DailyActivityView() {
 
   const getActivityIcon = (type: ActivityItem['type']) => {
     switch (type) {
-      case 'created': return <Activity className="h-4 w-4 text-green-500" / data-testid="link-h-4">;
+      case 'created': return <Activity className="h-4 w-4 text-green-500" />;
       case 'updated': return <Code2 className="h-4 w-4 text-blue-500" />;
       case 'completed': return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
       case 'reviewed': return <FileText className="h-4 w-4 text-purple-500" />;
-      case 'blocked': return <AlertCircle className="h-4 w-4 text-red-500" / data-testid="link-h-4">;
+      case 'blocked': return <AlertCircle className="h-4 w-4 text-red-500" />;
     }
   };
 
@@ -174,7 +174,7 @@ function DailyActivityView() {
           <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
-            onChange={(e) = data-testid="input-element"> {
+            onChange={(e)> {
               const newDate = new Date(e.target.value + 'T00:00:00');
               setSelectedDate(newDate);
             }}
@@ -184,7 +184,7 @@ function DailyActivityView() {
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
-            onClick={() = data-testid="button-element"> refetch()}
+            onClick={()> refetch()}
             disabled={isLoading}
             className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50 dark:bg-neutral-800"
             title="Refresh activities"
@@ -212,7 +212,7 @@ function DailyActivityView() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5" / data-testid="link-h-5">
+            <Activity className="h-5 w-5" />
             Activity Timeline
             {isLoading && <span className="text-sm font-normal text-gray-500">(Loading...)</span>}
           </CardTitle>
@@ -228,7 +228,7 @@ function DailyActivityView() {
           ) : todayActivities.length === 0 ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <Activity className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto" / data-testid="link-h-8">
+                <Activity className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto" />
                 <p className="text-gray-500">No activities recorded for this date</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Activities will appear here as you work on projects</p>
               </div>

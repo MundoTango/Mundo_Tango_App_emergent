@@ -219,7 +219,7 @@ export default function DatabaseSecurity() {
               <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Monitor and manage database security policies, audit logs, and compliance</p>
             </div>
             <Button
-              onClick={() = data-testid="button-element"> runHealthCheckMutation.mutate()}
+              onClick={()> runHealthCheckMutation.mutate()}
               disabled={runHealthCheckMutation.isPending}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
             >
@@ -270,7 +270,7 @@ export default function DatabaseSecurity() {
                     {formatTimestamp(mockMetrics.lastHealthCheck)}
                   </p>
                 </div>
-                <Activity className="w-8 h-8 text-green-600" / data-testid="link-w-8">
+                <Activity className="w-8 h-8 text-green-600" />
               </div>
             </Card>
 
@@ -444,14 +444,14 @@ export default function DatabaseSecurity() {
                           {table.rls ? (
                             <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
                           ) : (
-                            <AlertTriangle className="w-5 h-5 text-yellow-600 mx-auto" / data-testid="link-w-5">
+                            <AlertTriangle className="w-5 h-5 text-yellow-600 mx-auto" />
                           )}
                         </td>
                         <td className="text-center py-3 px-4">
                           {table.audit ? (
                             <CheckCircle className="w-5 h-5 text-green-600 mx-auto" />
                           ) : (
-                            <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400 mx-auto" / data-testid="link-w-5">
+                            <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400 mx-auto" />
                           )}
                         </td>
                         <td className="text-center py-3 px-4">
@@ -465,7 +465,7 @@ export default function DatabaseSecurity() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() = data-testid="button-element"> setSelectedTable(table.name)}
+                            onClick={()> setSelectedTable(table.name)}
                           >
                             Configure
                           </Button>
@@ -499,10 +499,10 @@ export default function DatabaseSecurity() {
                       type="text"
                       placeholder="Enter user ID or email"
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    / data-testid="input-w-full">
+                    />
                   </div>
                   <Button
-                    onClick={() = data-testid="button-element"> exportGDPRDataMutation.mutate(1)}
+                    onClick={()> exportGDPRDataMutation.mutate(1)}
                     disabled={exportGDPRDataMutation.isPending}
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
                   >
@@ -529,7 +529,7 @@ export default function DatabaseSecurity() {
                       type="text"
                       placeholder="Enter user ID or email"
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    / data-testid="input-w-full">
+                    />
                   </div>
                   <Button
                     variant="destructive"

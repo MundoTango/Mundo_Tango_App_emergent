@@ -280,7 +280,7 @@ export default function EnhancedPostFeedSimple({
               </p>
               {post.content.length > 200 && (
                 <button
-                  onClick={() = data-testid="button-element"> toggleExpanded(post.id)}
+                  onClick={()> toggleExpanded(post.id)}
                   className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors"
                 >
                   {isExpanded ? 'Show less' : 'Show more'}
@@ -388,7 +388,7 @@ export default function EnhancedPostFeedSimple({
                   onMouseLeave={() => setHoveredReaction(null)}
                 >
                   <button
-                    onClick={() = data-testid="button-element"> onReaction?.(post.id, 'like')}
+                    onClick={()> onReaction?.(post.id, 'like')}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
                       theme === 'light' 
@@ -411,7 +411,7 @@ export default function EnhancedPostFeedSimple({
                         return (
                           <button
                             key={reaction.type}
-                            onClick={() = data-testid="button-element"> {
+                            onClick={()> {
                               onReaction?.(post.id, reaction.type);
                               setHoveredReaction(null);
                             }}
@@ -430,7 +430,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Comment */}
                 <button
-                  onClick={() = data-testid="button-element"> onComment?.(post.id)}
+                  onClick={()> onComment?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
                     theme === 'light' 
@@ -444,7 +444,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Share */}
                 <button
-                  onClick={() = data-testid="button-element"> onShare?.(post.id)}
+                  onClick={()> onShare?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",
                     theme === 'light' 

@@ -438,7 +438,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={(e) = data-testid="input-element"> setInputValue(e.target.value)}
+              onChange={(e)> setInputValue(e.target.value)}
               placeholder={placeholder}
               className="pl-10 pr-10"
               required={required}
@@ -448,7 +448,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() = data-testid="button-element"> {
+                onClick={()> {
                   setInputValue('');
                   setSelectedLocation(null);
                   onClear?.();
@@ -505,7 +505,7 @@ export default function EnhancedGoogleMapsAutocomplete({
             {nearbyPlaces.map((place, index) => (
               <button
                 key={index}
-                onClick={() = data-testid="button-element"> {
+                onClick={()> {
                   const locationData = extractEnhancedLocationData(place);
                   setSelectedLocation(locationData);
                   setInputValue(locationData.name || locationData.formattedAddress);

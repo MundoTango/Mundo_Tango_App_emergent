@@ -382,7 +382,7 @@ export default function EnhancedRoleManager() {
                           key={perm}
                           variant="outline"
                           size="sm"
-                          onClick={() = data-testid="button-element"> checkPermission(perm)}
+                          onClick={()> checkPermission(perm)}
                         >
                           Test {perm.replace(/_/g, ' ')}
                         </Button>
@@ -479,10 +479,10 @@ export default function EnhancedRoleManager() {
                     <div>
                       <label className="text-sm font-medium">Select User</label>
                       <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="Choose a user" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choose a user" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           {users.map(user => (
                             <SelectItem key={user.id} value={user.id.toString()} data-testid="select-element">
                               <div className="flex items-center gap-2">
@@ -500,10 +500,10 @@ export default function EnhancedRoleManager() {
                     <div>
                       <label className="text-sm font-medium">Role to Assign</label>
                       <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="Choose a role" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choose a role" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           {allRoles.map(role => (
                             <SelectItem key={role.name} value={role.name} data-testid="select-element">
                               <div className="flex items-center gap-2">
@@ -567,7 +567,7 @@ export default function EnhancedRoleManager() {
                                       <span>{role.replace(/_/g, ' ')}</span>
                                       {role !== 'guest' && (
                                         <button
-                                          onClick={() = data-testid="button-element"> removeRole(user.id, role)}
+                                          onClick={()> removeRole(user.id, role)}
                                           className="ml-1 text-red-500 hover:text-red-700"
                                           title="Remove role"
                                         >
@@ -620,7 +620,7 @@ export default function EnhancedRoleManager() {
                     key={permission}
                     variant="outline"
                     size="sm"
-                    onClick={() = data-testid="button-element"> checkPermission(permission)}
+                    onClick={()> checkPermission(permission)}
                     className="justify-start text-left h-auto p-3"
                   >
                     <div>

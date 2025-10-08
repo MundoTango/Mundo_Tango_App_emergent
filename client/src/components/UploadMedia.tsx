@@ -204,11 +204,11 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       {showVisibility && (
         <div className="space-y-2">
           <Label>Visibility</Label>
-          <Select value={currentVisibility} onValueChange={(value) = data-testid="select-element"> setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
-            <SelectTrigger data-testid="select-element">
-              <SelectValue / data-testid="select-element">
+          <Select value={currentVisibility} onValueChange={(value)> setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
+            <SelectTrigger>
+              <SelectValue />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="public" data-testid="select-element">Public - Everyone can see</SelectItem>
               <SelectItem value="mutual" data-testid="select-element">Mutual - Only friends can see</SelectItem>
               <SelectItem value="private" data-testid="select-element">Private - Only you can see</SelectItem>
@@ -235,7 +235,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           <div className="flex gap-2">
             <Input
               value={newTag}
-              onChange={(e) = data-testid="input-element"> setNewTag(e.target.value)}
+              onChange={(e)> setNewTag(e.target.value)}
               placeholder="Add a tag..."
               onKeyPress={(e) => e.key === 'Enter' && addTag()}
               className="flex-1"
@@ -256,7 +256,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           ${disabled || isUploading ? 'opacity-50 cursor-not-allowed' : ''}
         `}
       >
-        <input {...getInputProps()} / data-testid="input-element">
+        <input {...getInputProps()} />
         <Upload className="w-8 h-8 mx-auto mb-2 text-gray-600 dark:text-gray-400" />
         <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">
           {isDragActive ? 'Drop files here...' : placeholder}
@@ -306,7 +306,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() = data-testid="button-element"> removeFile(index)}
+                  onClick={()> removeFile(index)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <X className="w-4 h-4" />

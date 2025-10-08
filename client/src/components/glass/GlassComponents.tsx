@@ -426,7 +426,7 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           className
         )}
         {...props}
-      / data-testid="input-element">
+      />
     );
   }
 );
@@ -466,7 +466,7 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
           className
         )}
         {...props}
-      / data-testid="textarea-element">
+      />
     );
   }
 );

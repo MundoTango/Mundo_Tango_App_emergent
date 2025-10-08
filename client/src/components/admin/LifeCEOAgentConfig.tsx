@@ -119,7 +119,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() = data-testid="button-element"> {
+                    onClick={()> {
                       try {
                         const parsedData = JSON.parse(newConfigData);
                         saveConfigMutation.mutate({
@@ -142,7 +142,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() = data-testid="button-element"> {
+                    onClick={()> {
                       setEditingConfig(null);
                       setNewConfigData('');
                     }}
@@ -155,7 +155,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     setEditingConfig(config);
                     setNewConfigData(JSON.stringify(config.config_data, null, 2));
                   }}
@@ -172,7 +172,7 @@ const LifeCEOAgentConfig: React.FC = () => {
             className="font-mono text-sm"
             rows={10}
             value={configDataStr}
-            onChange={(e) = data-testid="textarea-font-mono"> setNewConfigData(e.target.value)}
+            onChange={(e)> setNewConfigData(e.target.value)}
             readOnly={!isEditing}
           />
         </CardContent>
@@ -190,7 +190,7 @@ const LifeCEOAgentConfig: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Agent Configuration</h2>
-        <Button data-testid="button-element">
+        <Button>
           <Plus className="w-4 h-4 mr-2" />
           Add Configuration
         </Button>

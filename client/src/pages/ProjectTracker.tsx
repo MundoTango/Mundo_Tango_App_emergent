@@ -193,8 +193,8 @@ const ProjectTracker: React.FC = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'passed': return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'warning': return <AlertCircle className="h-5 w-5 text-yellow-500" / data-testid="link-h-5">;
-      case 'failed': return <AlertCircle className="h-5 w-5 text-red-500" / data-testid="link-h-5">;
+      case 'warning': return <AlertCircle className="h-5 w-5 text-yellow-500" />;
+      case 'failed': return <AlertCircle className="h-5 w-5 text-red-500" />;
       default: return <Clock className="h-5 w-5 text-gray-500" />;
     }
   };
@@ -290,7 +290,7 @@ const ProjectTracker: React.FC = () => {
                   <p className="text-3xl font-bold">{auditResults.length}</p>
                   <p className="text-sm text-orange-100">All operational</p>
                 </div>
-                <Activity className="h-8 w-8 text-orange-100" / data-testid="link-h-8">
+                <Activity className="h-8 w-8 text-orange-100" />
               </div>
             </CardContent>
           </Card>
@@ -364,7 +364,7 @@ const ProjectTracker: React.FC = () => {
                     <Button
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       size="sm"
-                      onClick={() = data-testid="button-element"> setSelectedFilter('all')}
+                      onClick={()> setSelectedFilter('all')}
                     >
                       All ({projects.length})
                     </Button>
@@ -373,7 +373,7 @@ const ProjectTracker: React.FC = () => {
                         key={status}
                         variant={selectedFilter === status ? 'default' : 'outline'}
                         size="sm"
-                        onClick={() = data-testid="button-element"> setSelectedFilter(status)}
+                        onClick={()> setSelectedFilter(status)}
                       >
                         {status} ({count})
                       </Button>

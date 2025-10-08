@@ -459,7 +459,7 @@ interface SuccessPopProps {
 }
 
 export const SuccessPop = ({ children, show, className = '' }: SuccessPopProps) => (
-  <AnimatePresence data-testid="link-element">
+  <AnimatePresence>
     {show && (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

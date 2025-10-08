@@ -48,7 +48,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             placeholder="Search posts, events, people..."
             className="pl-10 bg-gray-50 border-gray-300 rounded-lg dark:bg-neutral-800"
             value={searchQuery}
-            onChange={(e) = data-testid="input-pl-10"> setSearchQuery(e.target.value)}
+            onChange={(e)> setSearchQuery(e.target.value)}
           />
           {searchQuery && (
             <div className="absolute w-full max-h-96 overflow-y-auto left-0 top-full mt-1 bg-white rounded-lg border border-gray-200 shadow-lg z-50 dark:bg-neutral-900">
@@ -134,7 +134,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 <AvatarImage 
                   src={user?.profileImage || "/images/user-placeholder.jpeg"} 
                   className="object-cover"
-                / data-testid="link-object-cover">
+                />
                 <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>

@@ -64,7 +64,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
             type="text"
             placeholder="Search friends..."
             value={searchQuery}
-            onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+            onChange={(e)> setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -78,7 +78,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <Avatar className="h-12 w-12" data-testid="link-h-12">
-                      <AvatarImage src={friend.profileImage} alt={friend.name} / data-testid="link-element">
+                      <AvatarImage src={friend.profileImage} alt={friend.name} />
                       <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
                         {friend.name?.charAt(0) || 'U'}
                       </AvatarFallback>

@@ -155,7 +155,7 @@ const profile = await response.json();`}
               <span className="text-sm">User guide covers all profile functionality</span>
             </div>
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-yellow-600" / data-testid="link-w-4">
+              <AlertCircle className="w-4 h-4 text-yellow-600" />
               <span className="text-sm">Integration guide needs completion</span>
             </div>
           </div>

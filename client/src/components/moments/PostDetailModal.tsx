@@ -440,7 +440,7 @@ export default function PostDetailModal({
               {/* Interaction Buttons */}
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() = data-testid="button-element"> onLike(post.id)}
+                  onClick={()> onLike(post.id)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group dark:bg-neutral-800"
                 >
                   <Heart 
@@ -465,7 +465,7 @@ export default function PostDetailModal({
                 </button>
 
                 <button
-                  onClick={() = data-testid="button-element"> onShare(post)}
+                  onClick={()> onShare(post)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 dark:bg-neutral-800"
                 >
                   <Share2 className="h-5 w-5 text-gray-500" />
@@ -538,7 +538,7 @@ export default function PostDetailModal({
                   <input
                     type="text"
                     value={newComment}
-                    onChange={(e) = data-testid="input-element"> setNewComment(e.target.value)}
+                    onChange={(e)> setNewComment(e.target.value)}
                     placeholder="Add a comment..."
                     className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-neutral-800"
                     disabled={commentMutation.isPending}

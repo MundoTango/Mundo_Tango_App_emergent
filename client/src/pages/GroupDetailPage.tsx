@@ -109,7 +109,7 @@ export default function GroupDetailPage() {
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold mb-2">Group not found</h2>
           <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">This group may have been removed or you don't have access.</p>
-          <Button onClick={() = data-testid="button-element"> setLocation('/groups')}>Back to Groups</Button>
+          <Button onClick={()> setLocation('/groups')}>Back to Groups</Button>
         </div>
       </DashboardLayout>
     );
@@ -130,10 +130,10 @@ export default function GroupDetailPage() {
           
           <div className="mt-group-header-content">
             <button
-              onClick={() = data-testid="button-element"> setLocation('/groups')}
+              onClick={()> setLocation('/groups')}
               className="flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
             >
-              <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
+              <ArrowLeft className="h-5 w-5" />
               Back to Groups
             </button>
 
@@ -171,7 +171,7 @@ export default function GroupDetailPage() {
                   {group.isMember ? (
                     <>
                       <Button
-                        onClick={() = data-testid="button-element"> leaveGroupMutation.mutate()}
+                        onClick={()> leaveGroupMutation.mutate()}
                         variant="outline"
                         className="bg-white/10 border-white/20 text-white hover:bg-white/20 dark:bg-neutral-900"
                       >
@@ -179,7 +179,7 @@ export default function GroupDetailPage() {
                       </Button>
                       {group.isAdmin && (
                         <Button
-                          onClick={() = data-testid="button-element"> setLocation(`/groups/${slug}/edit`)}
+                          onClick={()> setLocation(`/groups/${slug}/edit`)}
                           className="bg-white text-gray-900 hover:bg-gray-100 dark:bg-neutral-900"
                         >
                           <Settings className="h-4 w-4 mr-2" />
@@ -189,7 +189,7 @@ export default function GroupDetailPage() {
                     </>
                   ) : (
                     <Button
-                      onClick={() = data-testid="button-element"> joinGroupMutation.mutate()}
+                      onClick={()> joinGroupMutation.mutate()}
                       className="bg-white text-gray-900 hover:bg-gray-100 dark:bg-neutral-900"
                     >
                       <UserPlus className="h-4 w-4 mr-2" />
@@ -243,9 +243,9 @@ export default function GroupDetailPage() {
             {group.isMember && (
               <Card className="p-4">
                 <div className="flex gap-3">
-                  <Avatar data-testid="link-element">
-                    <AvatarImage src="/api/placeholder/40/40" / data-testid="link-element">
-                    <AvatarFallback data-testid="link-element">U</AvatarFallback>
+                  <Avatar>
+                    <AvatarImage src="/api/placeholder/40/40" />
+                    <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
                     <button className="w-full text-left px-4 py-2 bg-gray-100 rounded-lg text-gray-500 hover:bg-gray-200 dark:bg-neutral-800" data-testid="button-w-full">
@@ -275,9 +275,9 @@ export default function GroupDetailPage() {
               {[1, 2, 3].map((i) => (
                 <Card key={i} className="p-6">
                   <div className="flex items-start gap-3 mb-4">
-                    <Avatar data-testid="link-element">
-                      <AvatarImage src={`/api/placeholder/40/40?${i}`} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">M{i}</AvatarFallback>
+                    <Avatar>
+                      <AvatarImage src={`/api/placeholder/40/40?${i}`} />
+                      <AvatarFallback>M{i}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
                       <h4 className="font-semibold">Member {i}</h4>
@@ -313,8 +313,8 @@ export default function GroupDetailPage() {
                 <Card key={i} className="p-4">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-12 w-12" data-testid="link-h-12">
-                      <AvatarImage src={`/api/placeholder/48/48?${i}`} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">M{i}</AvatarFallback>
+                      <AvatarImage src={`/api/placeholder/48/48?${i}`} />
+                      <AvatarFallback>M{i}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
                       <h4 className="font-semibold">Member {i}</h4>

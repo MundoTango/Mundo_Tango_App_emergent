@@ -940,7 +940,7 @@ export function PlatformFeatureDeepDive() {
           type="text"
           placeholder="Search features, components, APIs, or tables..."
           value={searchTerm}
-          onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+          onChange={(e)> setSearchTerm(e.target.value)}
           className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
         />
       </div>
@@ -953,7 +953,7 @@ export function PlatformFeatureDeepDive() {
             {filteredFeatures.map((feature) => (
               <button
                 key={feature.name}
-                onClick={() = data-testid="button-element"> setSelectedFeature(feature.name)}
+                onClick={()> setSelectedFeature(feature.name)}
                 className={`w-full text-left p-3 rounded-lg transition-colors ${
                   selectedFeature === feature.name
                     ? 'bg-blue-50 border border-blue-200'
@@ -966,7 +966,7 @@ export function PlatformFeatureDeepDive() {
                   <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(feature.status)}`}>
                     {feature.status}
                   </span>
-                  <ArrowRight className="h-3 w-3 text-gray-600 dark:text-gray-400" / data-testid="link-h-3">
+                  <ArrowRight className="h-3 w-3 text-gray-600 dark:text-gray-400" />
                 </div>
               </button>
             ))}
@@ -1221,7 +1221,7 @@ export function PlatformFeatureDeepDive() {
                         <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
                           {selectedFeatureData.performance.bottlenecks.map((bottleneck, index) => (
                             <li key={index} className="flex items-center gap-2">
-                              <AlertTriangle className="h-3 w-3 text-yellow-500" / data-testid="link-h-3">
+                              <AlertTriangle className="h-3 w-3 text-yellow-500" />
                               {bottleneck}
                             </li>
                           ))}
@@ -1286,7 +1286,7 @@ export function PlatformFeatureDeepDive() {
                       {selectedFeatureData.documentation.readmeExists ? (
                         <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-1" />
                       ) : (
-                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" / data-testid="link-h-6">
+                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" />
                       )}
                       <div className="text-xs">README</div>
                     </div>
@@ -1294,7 +1294,7 @@ export function PlatformFeatureDeepDive() {
                       {selectedFeatureData.documentation.apiDocs ? (
                         <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-1" />
                       ) : (
-                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" / data-testid="link-h-6">
+                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" />
                       )}
                       <div className="text-xs">API Docs</div>
                     </div>
@@ -1302,7 +1302,7 @@ export function PlatformFeatureDeepDive() {
                       {selectedFeatureData.documentation.typeDefinitions ? (
                         <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-1" />
                       ) : (
-                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" / data-testid="link-h-6">
+                        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-1" />
                       )}
                       <div className="text-xs">Types</div>
                     </div>

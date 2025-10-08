@@ -89,7 +89,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 <AvatarImage 
                   src={user?.profileImage || "/images/user-placeholder.jpeg"} 
                   className="object-cover"
-                / data-testid="link-object-cover">
+                />
                 <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>
@@ -102,7 +102,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
             <Button 
               variant="ghost" 
               size="sm"
-              onClick={() = data-testid="button-element"> onCreatePost()}
+              onClick={()> onCreatePost()}
               className="flex items-center gap-2 text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
             >
               <VisibilityIcon className="h-4 w-4" />
@@ -116,14 +116,14 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
             <Input
               placeholder="What's on your mind?"
               className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500 dark:border-neutral-700"
-              onClick={() = data-testid="input-w-full"> onCreatePost()}
+              onClick={()> onCreatePost()}
               readOnly
             />
             <Button
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
-              onClick={() = data-testid="button-absolute"> onCreatePost()}
+              onClick={()> onCreatePost()}
             >
               <Smile className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </Button>
@@ -138,7 +138,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={() = data-testid="button-flex"> onCreatePost("LOCATION")}
+                onClick={()> onCreatePost("LOCATION")}
               >
                 <MapPin className="h-4 w-4" />
                 Location
@@ -147,7 +147,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={() = data-testid="button-flex"> onCreatePost("MEDIA")}
+                onClick={()> onCreatePost("MEDIA")}
               >
                 <ImageIcon className="h-4 w-4" />
                 Image/Video
@@ -156,14 +156,14 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={() = data-testid="button-flex"> onCreatePost("ACTIVITY")}
+                onClick={()> onCreatePost("ACTIVITY")}
               >
                 <Star className="h-4 w-4" />
                 Activity
               </Button>
             </div>
             <Button
-              onClick={() = data-testid="button-element"> onCreatePost()}
+              onClick={()> onCreatePost()}
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold"
             >
               Post

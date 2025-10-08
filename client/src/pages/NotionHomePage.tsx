@@ -177,13 +177,13 @@ export function NotionHomePage() {
                 <Input
                   placeholder="Search stories, memories, and events..."
                   value={searchTerm}
-                  onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+                  onChange={(e)> setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
               <Button
                 variant="outline"
-                onClick={() = data-testid="button-element"> setShowFilters(!showFilters)}
+                onClick={()> setShowFilters(!showFilters)}
                 className="flex items-center gap-2"
               >
                 <Filter className="w-4 h-4" />
@@ -204,10 +204,10 @@ export function NotionHomePage() {
                     <div>
                       <Label>Type</Label>
                       <Select value={selectedType} onValueChange={setSelectedType} data-testid="select-element">
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="All types" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="All types" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           <SelectItem value="" data-testid="select-element">All types</SelectItem>
                           {filterOptions?.types.map(type => (
                             <SelectItem key={type} value={type} data-testid="select-element">
@@ -221,10 +221,10 @@ export function NotionHomePage() {
                     <div>
                       <Label>Emotional Tone</Label>
                       <Select value={selectedTone} onValueChange={setSelectedTone} data-testid="select-element">
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="All tones" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="All tones" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           <SelectItem value="" data-testid="select-element">All tones</SelectItem>
                           {filterOptions?.emotionalTones.map(tone => (
                             <SelectItem key={tone} value={tone} data-testid="select-element">
@@ -243,7 +243,7 @@ export function NotionHomePage() {
                             key={tag}
                             variant={selectedTags.includes(tag) ? "default" : "outline"}
                             size="sm"
-                            onClick={() = data-testid="button-element"> handleTagToggle(tag)}
+                            onClick={()> handleTagToggle(tag)}
                             className="text-xs"
                           >
                             {tag}

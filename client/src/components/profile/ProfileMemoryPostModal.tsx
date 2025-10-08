@@ -102,7 +102,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
               <div className="mt-4 text-center">
                 <Button
                   variant="ghost"
-                  onClick={() = data-testid="button-element"> setSelectedPrompt('custom')}
+                  onClick={()> setSelectedPrompt('custom')}
                   className="text-turquoise-600 hover:text-turquoise-700"
                 >
                   Or write your own memory...
@@ -132,7 +132,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
               <div className="mt-4 flex justify-start">
                 <Button
                   variant="ghost"
-                  onClick={() = data-testid="button-element"> setSelectedPrompt(null)}
+                  onClick={()> setSelectedPrompt(null)}
                   className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   ← Back to prompts

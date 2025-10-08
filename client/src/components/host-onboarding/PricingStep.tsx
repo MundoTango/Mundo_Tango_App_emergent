@@ -43,7 +43,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           id="currency"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.currency || 'USD'}
-          onChange={(e) = data-testid="select-mt-1"> updateData({ currency: e.target.value })}
+          onChange={(e)> updateData({ currency: e.target.value })}
         >
           {CURRENCIES.map((currency) => (
             <option key={currency.code} value={currency.code}>
@@ -68,7 +68,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             placeholder="0"
             className="pl-10"
             value={data.basePrice || ''}
-            onChange={(e) = data-testid="input-pl-10"> updateData({ basePrice: parseFloat(e.target.value) || 0 })}
+            onChange={(e)> updateData({ basePrice: parseFloat(e.target.value) || 0 })}
           />
         </div>
         <p className="text-xs text-gray-500 mt-1">
@@ -91,7 +91,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             placeholder="0"
             className="pl-10"
             value={data.cleaningFee || ''}
-            onChange={(e) = data-testid="input-pl-10"> updateData({ cleaningFee: parseFloat(e.target.value) || 0 })}
+            onChange={(e)> updateData({ cleaningFee: parseFloat(e.target.value) || 0 })}
           />
         </div>
         <p className="text-xs text-gray-500 mt-1">
@@ -140,7 +140,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   max="100"
                   placeholder="10"
                   value={data.weeklyDiscount || ''}
-                  onChange={(e) = data-testid="input-element"> updateData({ weeklyDiscount: parseInt(e.target.value) || 0 })}
+                  onChange={(e)> updateData({ weeklyDiscount: parseInt(e.target.value) || 0 })}
                 />
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
               </div>
@@ -167,7 +167,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   max="100"
                   placeholder="20"
                   value={data.monthlyDiscount || ''}
-                  onChange={(e) = data-testid="input-element"> updateData({ monthlyDiscount: parseInt(e.target.value) || 0 })}
+                  onChange={(e)> updateData({ monthlyDiscount: parseInt(e.target.value) || 0 })}
                 />
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
               </div>

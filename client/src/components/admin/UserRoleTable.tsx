@@ -158,16 +158,16 @@ export default function UserRoleTable() {
           <Input
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
-            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            onChange={(e)> setSearchTerm(e.target.value)}
             className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
         <Select value={roleFilter} onValueChange={setRoleFilter} data-testid="select-element">
           <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-full">
-            <SelectValue placeholder="Filter by role" / data-testid="select-element">
+            <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
-          <SelectContent data-testid="select-element">
+          <SelectContent>
             <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
             <SelectItem value="super_admin" data-testid="select-element">Super Admin</SelectItem>
             <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
@@ -241,7 +241,7 @@ export default function UserRoleTable() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() = data-testid="button-element"> {
+                    onClick={()> {
                       setSelectedUser(user);
                       setIsEditDialogOpen(true);
                     }}
@@ -279,9 +279,9 @@ export default function UserRoleTable() {
                   <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Primary Role</label>
                   <Select defaultValue={selectedUser.primaryRole} data-testid="select-element">
                     <SelectTrigger className="rounded-xl" data-testid="select-rounded-xl">
-                      <SelectValue / data-testid="select-element">
+                      <SelectValue />
                     </SelectTrigger>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       {mockRoles.map((role: Role) => (
                         <SelectItem key={role.id} value={role.id} data-testid="select-element">
                           <div className="flex items-center gap-2">
@@ -303,7 +303,7 @@ export default function UserRoleTable() {
                           type="checkbox"
                           defaultChecked={selectedUser.roles.includes(role.id)}
                           className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-neutral-600"
-                        / data-testid="input-rounded">
+                        />
                         <div className="flex items-center gap-2">
                           {getRoleIcon(role.id)}
                           <span className="text-sm font-medium">{role.name}</span>
@@ -318,13 +318,13 @@ export default function UserRoleTable() {
               <div className="flex gap-3">
                 <Button
                   variant="outline"
-                  onClick={() = data-testid="button-element"> setIsEditDialogOpen(false)}
+                  onClick={()> setIsEditDialogOpen(false)}
                   className="flex-1 rounded-xl"
                 >
                   Cancel
                 </Button>
                 <Button
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     toast({
                       title: "Success",
                       description: "User roles updated successfully"

@@ -121,10 +121,10 @@ export default function HierarchyDashboard() {
 
   if (!metrics) {
     return (
-      <Alert data-testid="link-element">
-        <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-        <AlertTitle data-testid="link-element">No Metrics Available</AlertTitle>
-        <AlertDescription data-testid="link-element">
+      <Alert>
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>No Metrics Available</AlertTitle>
+        <AlertDescription>
           The evolution service is still analyzing your project structure.
         </AlertDescription>
       </Alert>
@@ -146,7 +146,7 @@ export default function HierarchyDashboard() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() = data-testid="button-element"> setAutoRefresh(!autoRefresh)}
+            onClick={()> setAutoRefresh(!autoRefresh)}
           >
             {autoRefresh ? 'Disable' : 'Enable'} Auto-refresh
           </Button>
@@ -258,10 +258,10 @@ export default function HierarchyDashboard() {
 
         <TabsContent value="suggestions" className="space-y-4">
           {metrics.suggestions.length === 0 ? (
-            <Alert data-testid="link-element">
+            <Alert>
               <CheckCircle className="h-4 w-4" />
-              <AlertTitle data-testid="link-element">No Suggestions</AlertTitle>
-              <AlertDescription data-testid="link-element">
+              <AlertTitle>No Suggestions</AlertTitle>
+              <AlertDescription>
                 Your project structure looks good! No improvements needed at this time.
               </AlertDescription>
             </Alert>
@@ -289,10 +289,10 @@ export default function HierarchyDashboard() {
 
         <TabsContent value="issues" className="space-y-4">
           {metrics.hierarchy.misplacedFiles.length > 0 && (
-            <Alert data-testid="link-element">
-              <AlertTriangle className="h-4 w-4" / data-testid="link-h-4">
-              <AlertTitle data-testid="link-element">Misplaced Files</AlertTitle>
-              <AlertDescription data-testid="link-element">
+            <Alert>
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Misplaced Files</AlertTitle>
+              <AlertDescription>
                 <p className="mb-2">
                   {metrics.hierarchy.misplacedFiles.length} files appear to be in the wrong location:
                 </p>
@@ -309,10 +309,10 @@ export default function HierarchyDashboard() {
           )}
 
           {metrics.hierarchy.orphanedFiles.length > 0 && (
-            <Alert data-testid="link-element">
-              <Archive className="h-4 w-4" / data-testid="link-h-4">
-              <AlertTitle data-testid="link-element">Orphaned Files</AlertTitle>
-              <AlertDescription data-testid="link-element">
+            <Alert>
+              <Archive className="h-4 w-4" />
+              <AlertTitle>Orphaned Files</AlertTitle>
+              <AlertDescription>
                 <p className="mb-2">
                   {metrics.hierarchy.orphanedFiles.length} files have no connections to other files:
                 </p>
@@ -330,10 +330,10 @@ export default function HierarchyDashboard() {
 
           {metrics.hierarchy.misplacedFiles.length === 0 && 
            metrics.hierarchy.orphanedFiles.length === 0 && (
-            <Alert data-testid="link-element">
+            <Alert>
               <CheckCircle className="h-4 w-4" />
-              <AlertTitle data-testid="link-element">No Issues Found</AlertTitle>
-              <AlertDescription data-testid="link-element">
+              <AlertTitle>No Issues Found</AlertTitle>
+              <AlertDescription>
                 Your project structure has no detected issues.
               </AlertDescription>
             </Alert>

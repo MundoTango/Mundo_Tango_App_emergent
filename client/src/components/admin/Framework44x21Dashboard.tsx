@@ -255,7 +255,7 @@ const Framework44x21Dashboard: React.FC = () => {
   const getStatusIcon = (progress: number) => {
     if (progress >= 90) return <CheckCircle className="h-4 w-4" />;
     if (progress >= 70) return <Clock className="h-4 w-4" />;
-    return <AlertCircle className="h-4 w-4" / data-testid="link-h-4">;
+    return <AlertCircle className="h-4 w-4" />;
   };
 
   return (
@@ -308,7 +308,7 @@ const Framework44x21Dashboard: React.FC = () => {
                 <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Overall Progress</p>
                 <p className="text-2xl font-bold">{frameworkStats.overallProgress}%</p>
               </div>
-              <Activity className="h-8 w-8 text-orange-500" / data-testid="link-h-8">
+              <Activity className="h-8 w-8 text-orange-500" />
             </div>
             <Progress value={frameworkStats.overallProgress} className="mt-2" />
           </CardContent>

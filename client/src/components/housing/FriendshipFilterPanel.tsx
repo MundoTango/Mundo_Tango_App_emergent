@@ -46,7 +46,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
       <CardContent className="space-y-4">
         <RadioGroup value={selectedFilter} onValueChange={setSelectedFilter} data-testid="radiogroup-friendship-filter">
           <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-            <RadioGroupItem value="all" id="all-hosts" data-testid="radio-all-hosts" />
+            <RadioGroupItem value="all" id="all-hosts" />
             <div className="flex-1">
               <Label htmlFor="all-hosts" className="font-medium cursor-pointer">
                 All properties
@@ -58,7 +58,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
           </div>
 
           <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-            <RadioGroupItem value="1st_degree" id="1st-filter" data-testid="radio-1st-filter" />
+            <RadioGroupItem value="1st_degree" id="1st-filter" />
             <div className="flex-1">
               <Label htmlFor="1st-filter" className="font-medium cursor-pointer flex items-center gap-2">
                 <Heart className="w-4 h-4 text-pink-500" />
@@ -71,7 +71,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
           </div>
 
           <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-            <RadioGroupItem value="2nd_degree" id="2nd-filter" data-testid="radio-2nd-filter" />
+            <RadioGroupItem value="2nd_degree" id="2nd-filter" />
             <div className="flex-1">
               <Label htmlFor="2nd-filter" className="font-medium cursor-pointer flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-500" />
@@ -84,7 +84,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
           </div>
 
           <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-            <RadioGroupItem value="3rd_degree" id="3rd-filter" data-testid="radio-3rd-filter" />
+            <RadioGroupItem value="3rd_degree" id="3rd-filter" />
             <div className="flex-1">
               <Label htmlFor="3rd-filter" className="font-medium cursor-pointer flex items-center gap-2">
                 <Users className="w-4 h-4 text-purple-500" />

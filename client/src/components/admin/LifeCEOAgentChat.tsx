@@ -232,7 +232,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
         <CardHeader className="pb-3">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
-              <Avatar data-testid="link-element">
+              <Avatar>
                 <AvatarFallback className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white" data-testid="link-bg-gradient-to-r">
                   <Bot className="w-5 h-5" />
                 </AvatarFallback>
@@ -293,7 +293,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
           <div className="flex space-x-2">
             <Input
               value={inputMessage}
-              onChange={(e) = data-testid="input-element"> setInputMessage(e.target.value)}
+              onChange={(e)> setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message or use voice..."
               disabled={isLoading}
@@ -310,7 +310,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
             <Button
               variant="outline"
               size="icon"
-              onClick={isSpeaking ? stopSpeaking : () = data-testid="button-element"> {}}
+              onClick={isSpeaking ? stopSpeaking : ()> {}}
               disabled={!isSpeaking && messages.filter(m => m.role === 'assistant').length === 0}
             >
               {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}

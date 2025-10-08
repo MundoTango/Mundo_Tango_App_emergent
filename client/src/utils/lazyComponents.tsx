@@ -33,7 +33,7 @@ class LazyErrorBoundary extends React.Component<
         <div className="flex flex-col items-center justify-center min-h-[200px] text-center p-4">
           <p className="text-red-500 mb-2">Failed to load component</p>
           <button
-            onClick={() = data-testid="button-element"> window.location.reload()}
+            onClick={()> window.location.reload()}
             className="px-4 py-2 bg-turquoise-500 text-white rounded hover:bg-turquoise-600 transition-colors"
           >
             Reload Page

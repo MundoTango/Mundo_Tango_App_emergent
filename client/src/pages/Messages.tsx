@@ -207,7 +207,7 @@ export default function Messages() {
                 <Input
                   placeholder="Search conversations..."
                   className="pl-10 glassmorphic-input"
-                / data-testid="input-pl-10">
+                />
               </div>
             </div>
             
@@ -229,9 +229,9 @@ export default function Messages() {
                    role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedConversation(conversation.id)(e); } }}>
                     <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <Avatar data-testid="link-element">
-                          <AvatarImage src={conversation.user.profileImage} / data-testid="link-element">
-                          <AvatarFallback data-testid="link-element">{conversation.user.name[0]}</AvatarFallback>
+                        <Avatar>
+                          <AvatarImage src={conversation.user.profileImage} />
+                          <AvatarFallback>{conversation.user.name[0]}</AvatarFallback>
                         </Avatar>
                         {conversation.user.isOnline && (
                           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
@@ -271,14 +271,14 @@ export default function Messages() {
               <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50 dark:border-neutral-700">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={() = data-testid="button-element"> setSelectedConversation(null)}
+                    onClick={()> setSelectedConversation(null)}
                     className="md:hidden"
                   >
-                    <ArrowLeft className="w-5 h-5" / data-testid="link-w-5">
+                    <ArrowLeft className="w-5 h-5" />
                   </button>
-                  <Avatar data-testid="link-element">
-                    <AvatarImage src={conversations.find((c: Conversation) = data-testid="link-element"> c.id === selectedConversation)?.user.profileImage} />
-                    <AvatarFallback data-testid="link-element">
+                  <Avatar>
+                    <AvatarImage src={conversations.find((c: Conversation)> c.id === selectedConversation)?.user.profileImage} />
+                    <AvatarFallback>
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name[0]}
                     </AvatarFallback>
                   </Avatar>
@@ -331,7 +331,7 @@ export default function Messages() {
                 >
                   <Input
                     value={message}
-                    onChange={(e) = data-testid="input-element"> {
+                    onChange={(e)> {
                       setMessage(e.target.value);
                       handleTyping();
                     }}

@@ -192,7 +192,7 @@ export default function AuditTrailViewer() {
     switch (severity) {
       case 'low': return <CheckCircle className="h-3 w-3" />;
       case 'medium': return <Eye className="h-3 w-3" />;
-      case 'high': return <AlertTriangle className="h-3 w-3" / data-testid="link-h-3">;
+      case 'high': return <AlertTriangle className="h-3 w-3" />;
       case 'critical': return <XCircle className="h-3 w-3" />;
       default: return <FileText className="h-3 w-3" />;
     }
@@ -246,7 +246,7 @@ export default function AuditTrailViewer() {
           <Input
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
-            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            onChange={(e)> setSearchTerm(e.target.value)}
             className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
@@ -254,9 +254,9 @@ export default function AuditTrailViewer() {
         <div className="flex gap-3">
           <Select value={actionFilter} onValueChange={setActionFilter} data-testid="select-element">
             <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
-              <SelectValue placeholder="Filter by action" / data-testid="select-element">
+              <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="all" data-testid="select-element">All Actions</SelectItem>
               <SelectItem value="create" data-testid="select-element">Create</SelectItem>
               <SelectItem value="update" data-testid="select-element">Update</SelectItem>
@@ -268,9 +268,9 @@ export default function AuditTrailViewer() {
 
           <Select value={severityFilter} onValueChange={setSeverityFilter} data-testid="select-element">
             <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
-              <SelectValue placeholder="Filter by severity" / data-testid="select-element">
+              <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="all" data-testid="select-element">All Severities</SelectItem>
               <SelectItem value="low" data-testid="select-element">Low</SelectItem>
               <SelectItem value="medium" data-testid="select-element">Medium</SelectItem>
@@ -323,7 +323,7 @@ export default function AuditTrailViewer() {
         <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-orange-200 rounded-xl">
-              <AlertTriangle className="h-5 w-5 text-orange-700" / data-testid="link-h-5">
+              <AlertTriangle className="h-5 w-5 text-orange-700" />
             </div>
             <div>
               <div className="text-2xl font-bold text-orange-900">

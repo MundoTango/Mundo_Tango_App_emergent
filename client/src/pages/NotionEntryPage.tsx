@@ -136,8 +136,8 @@ export function NotionEntryPage() {
               The story you're looking for doesn't exist or may have been removed.
             </p>
             <Link href="/notion" data-testid="link-element">
-              <Button data-testid="button-element">
-                <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
+              <Button>
+                <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Stories
               </Button>
             </Link>
@@ -154,7 +154,7 @@ export function NotionEntryPage() {
         <div className="max-w-4xl mx-auto px-6 py-6">
           <Link href="/notion" data-testid="link-element">
             <Button variant="ghost" className="mb-4" data-testid="button-mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
+              <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Stories
             </Button>
           </Link>
@@ -325,7 +325,7 @@ export function NotionEntryPage() {
               <CardContent className="p-4">
                 <Link href="/notion" data-testid="link-element">
                   <Button variant="outline" className="w-full" data-testid="button-w-full">
-                    <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
                     Explore More Stories
                   </Button>
                 </Link>

@@ -367,7 +367,7 @@ export default function EnhancedEventsPage() {
               Export
             </Button>
             <Button
-              onClick={() = data-testid="button-element"> setShowCreateDialog(true)}
+              onClick={()> setShowCreateDialog(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -433,7 +433,7 @@ export default function EnhancedEventsPage() {
                   type="text"
                   placeholder="Search events... (Cmd+/)"
                   value={searchQuery}
-                  onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                  onChange={(e)> setSearchQuery(e.target.value)}
                   className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20"
                 />
               </div>
@@ -443,7 +443,7 @@ export default function EnhancedEventsPage() {
                     key={option.value}
                     variant={viewMode === option.value ? 'default' : 'outline'}
                     size="icon"
-                    onClick={() = data-testid="button-element"> setViewMode(option.value as any)}
+                    onClick={()> setViewMode(option.value as any)}
                     data-tooltip-id="view-tooltip"
                     data-tooltip-content={option.label}
                     className={viewMode === option.value 
@@ -460,9 +460,9 @@ export default function EnhancedEventsPage() {
             <div className="flex flex-wrap gap-2">
               <Select value={categoryFilter} onValueChange={setCategoryFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
-                  <SelectValue placeholder="Category" / data-testid="select-element">
+                  <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
                   <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
                   <SelectItem value="class" data-testid="select-element">Class</SelectItem>
@@ -476,9 +476,9 @@ export default function EnhancedEventsPage() {
 
               <Select value={levelFilter} onValueChange={setLevelFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
-                  <SelectValue placeholder="Level" / data-testid="select-element">
+                  <SelectValue placeholder="Level" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="all" data-testid="select-element">All Levels</SelectItem>
                   <SelectItem value="beginner" data-testid="select-element">Beginner</SelectItem>
                   <SelectItem value="intermediate" data-testid="select-element">Intermediate</SelectItem>
@@ -489,9 +489,9 @@ export default function EnhancedEventsPage() {
 
               <Select value={priceFilter} onValueChange={setPriceFilter} data-testid="select-element">
                 <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
-                  <SelectValue placeholder="Price" / data-testid="select-element">
+                  <SelectValue placeholder="Price" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="all" data-testid="select-element">Any Price</SelectItem>
                   <SelectItem value="free" data-testid="select-element">Free</SelectItem>
                   <SelectItem value="paid" data-testid="select-element">Paid</SelectItem>
@@ -501,7 +501,7 @@ export default function EnhancedEventsPage() {
               <Button
                 variant={showVirtualOnly ? 'default' : 'outline'}
                 size="sm"
-                onClick={() = data-testid="button-element"> setShowVirtualOnly(!showVirtualOnly)}
+                onClick={()> setShowVirtualOnly(!showVirtualOnly)}
                 className={showVirtualOnly 
                   ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' 
                   : 'border-turquoise-200 hover:bg-turquoise-50'
@@ -514,7 +514,7 @@ export default function EnhancedEventsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() = data-testid="button-element"> refetch()}
+                onClick={()> refetch()}
                 className="border-turquoise-200 hover:bg-turquoise-50"
               >
                 <RefreshCw className="w-4 h-4 mr-1" />
@@ -609,21 +609,21 @@ export default function EnhancedEventsPage() {
                 <Button
                   size="sm"
                   variant={calendarView === 'month' ? 'default' : 'outline'}
-                  onClick={() = data-testid="button-element"> setCalendarView('month')}
+                  onClick={()> setCalendarView('month')}
                 >
                   Month
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'week' ? 'default' : 'outline'}
-                  onClick={() = data-testid="button-element"> setCalendarView('week')}
+                  onClick={()> setCalendarView('week')}
                 >
                   Week
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'day' ? 'default' : 'outline'}
-                  onClick={() = data-testid="button-element"> setCalendarView('day')}
+                  onClick={()> setCalendarView('day')}
                 >
                   Day
                 </Button>

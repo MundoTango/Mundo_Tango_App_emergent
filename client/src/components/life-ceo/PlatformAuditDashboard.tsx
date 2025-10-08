@@ -177,7 +177,7 @@ export const PlatformAuditDashboard: React.FC = () => {
     switch (trend) {
       case 'improving': return <TrendingUp className="w-4 h-4 text-green-500" />;
       case 'declining': return <TrendingDown className="w-4 h-4 text-red-500" />;
-      default: return <Activity className="w-4 h-4 text-gray-500" / data-testid="link-w-4">;
+      default: return <Activity className="w-4 h-4 text-gray-500" />;
     }
   };
 
@@ -239,14 +239,14 @@ export const PlatformAuditDashboard: React.FC = () => {
       <Card className="border-red-200 bg-red-50/50">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-red-800">
-            <AlertTriangle className="w-5 h-5" / data-testid="link-w-5">
+            <AlertTriangle className="w-5 h-5" />
             Critical Actions Required
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
-              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" / data-testid="link-w-5">
+              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium text-gray-900 dark:text-neutral-100">Create Comprehensive Settings Page</p>
                 <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
@@ -256,7 +256,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               <Badge variant="destructive">Week 1</Badge>
             </div>
             <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
-              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" / data-testid="link-w-5">
+              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium text-gray-900 dark:text-neutral-100">Fix Security Vulnerabilities</p>
                 <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
@@ -266,7 +266,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               <Badge variant="destructive">Week 1</Badge>
             </div>
             <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
-              <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" / data-testid="link-w-5">
+              <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium text-gray-900 dark:text-neutral-100">Implement Image Optimization</p>
                 <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">

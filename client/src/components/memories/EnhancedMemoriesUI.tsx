@@ -333,7 +333,7 @@ const OriginalEnhancedPostCreator: React.FC<{
               <textarea
                 ref={textareaRef}
                 value={content}
-                onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+                onChange={(e)> setContent(e.target.value)}
                 placeholder="✨ Share your tango moment..."
                 className="w-full min-h-[100px] p-4 bg-white/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300 dark:bg-neutral-900"
                 style={{ height: 'auto' }}
@@ -360,7 +360,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     >
                       {emotion} {emotionData?.label}
                       <button
-                        onClick={() = data-testid="button-element"> setSelectedEmotions(prev => prev.filter(e => e !== emotion))}
+                        onClick={()> setSelectedEmotions(prev => prev.filter(e => e !== emotion))}
                         className="ml-2 hover:opacity-70"
                       >
                         <X className="w-3 h-3" />
@@ -418,7 +418,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                         )}
                       </div>
                       <button
-                        onClick={() = data-testid="button-element"> {
+                        onClick={()> {
                           // Clean up URL when removing media
                           if (isFile) {
                             const key = `${file.name}-${index}`;
@@ -452,7 +452,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)}
+                    onClick={()> setShowEmojiPicker(!showEmojiPicker)}
                     className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                   >
                     <Smile className="w-5 h-5" />
@@ -486,7 +486,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   multiple
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
-                / data-testid="input-hidden">
+                />
                 <label htmlFor="media-upload">
                   <Button
                     variant="ghost"
@@ -505,7 +505,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     navigator.geolocation.getCurrentPosition(
                       (position) => {
                         setLocation('📍 Current Location');
@@ -532,7 +532,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() = data-testid="button-element"> setShowAdvancedOptions(!showAdvancedOptions)}
+                  onClick={()> setShowAdvancedOptions(!showAdvancedOptions)}
                   className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   <Tag className="w-5 h-5" />
@@ -554,7 +554,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       {emotionOptions.map((emotion) => (
                         <button
                           key={emotion.emoji}
-                          onClick={() = data-testid="button-element"> {
+                          onClick={()> {
                             if (selectedEmotions.includes(emotion.emoji)) {
                               setSelectedEmotions(prev => prev.filter(e => e !== emotion.emoji));
                             } else {
@@ -606,7 +606,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       <Input
                         placeholder="Add tags..."
                         className="flex-1 min-w-[150px]"
-                        onKeyPress={(e) = data-testid="input-flex-1"> {
+                        onKeyPress={(e)> {
                           if (e.key === 'Enter') {
                             e.preventDefault();
                             const input = e.target as HTMLInputElement;
@@ -621,7 +621,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                         <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                           #{tag}
                           <button
-                            onClick={() = data-testid="button-element"> setTags(prev => prev.filter((_, i) => i !== index))}
+                            onClick={()> setTags(prev => prev.filter((_, i) => i !== index))}
                             className="ml-1"
                           >
                             <X className="w-3 h-3" />
@@ -642,7 +642,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       ].map((option) => (
                         <button
                           key={option.value}
-                          onClick={() = data-testid="button-element"> setVisibility(option.value as any)}
+                          onClick={()> setVisibility(option.value as any)}
                           className={cn(
                             "flex items-center gap-2 px-4 py-2 rounded-lg transition-all",
                             visibility === option.value
@@ -779,7 +779,7 @@ export const EnhancedMemoryCard: React.FC<{
               {/* Like/Reactions */}
               <div className="relative">
                 <button
-                  onClick={() = data-testid="button-element"> handleReaction('❤️')}
+                  onClick={()> handleReaction('❤️')}
                   onMouseEnter={() => setShowReactions(true)}
                   onMouseLeave={() => setShowReactions(false)}
                   className={cn(
@@ -800,7 +800,7 @@ export const EnhancedMemoryCard: React.FC<{
                     {reactionOptions.map((reaction) => (
                       <button
                         key={reaction.emoji}
-                        onClick={() = data-testid="button-element"> handleReaction(reaction.emoji)}
+                        onClick={()> handleReaction(reaction.emoji)}
                         className="p-1.5 hover:bg-gray-100 rounded-full hover:scale-110 active:scale-90 transition-transform dark:bg-neutral-800"
                       >
                         <span className="text-xl">{reaction.emoji}</span>
@@ -812,7 +812,7 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Comments */}
               <button
-                onClick={() = data-testid="button-element"> setShowComments(!showComments)}
+                onClick={()> setShowComments(!showComments)}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -821,7 +821,7 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Share */}
               <button
-                onClick={() = data-testid="button-element"> onInteraction('share')}
+                onClick={()> onInteraction('share')}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
               >
                 <Share2 className="w-4 h-4" />
@@ -830,7 +830,7 @@ export const EnhancedMemoryCard: React.FC<{
 
             {/* Save */}
             <button
-              onClick={() = data-testid="button-element"> onInteraction('save')}
+              onClick={()> onInteraction('save')}
               className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
             >
               <Bookmark className="w-4 h-4" />
@@ -847,7 +847,7 @@ export const EnhancedMemoryCard: React.FC<{
                   <Input
                     placeholder="Add a comment..."
                     className="flex-1"
-                    onKeyPress={(e) = data-testid="input-flex-1"> {
+                    onKeyPress={(e)> {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         onInteraction('comment', { text: (e.target as HTMLInputElement).value });

@@ -130,7 +130,7 @@ export function TestSpriteIntegration() {
   });
 
   // Health check
-  const { data: healthStatus } = useQuery<ApiResponse data-testid="link-element">({
+  const { data: healthStatus } = useQuery<ApiResponse>({
     queryKey: ['/api/testsprite/health'],
     refetchInterval: 60000, // Check health every minute
   });
@@ -156,7 +156,7 @@ export function TestSpriteIntegration() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'passed': return <CheckCircle className="h-4 w-4" />;
-      case 'failed': return <AlertCircle className="h-4 w-4" / data-testid="link-h-4">;
+      case 'failed': return <AlertCircle className="h-4 w-4" />;
       case 'running': return <Clock className="h-4 w-4" />;
       default: return <RefreshCw className="h-4 w-4" />;
     }
@@ -268,7 +268,7 @@ export function TestSpriteIntegration() {
           </div>
           
           <Button 
-            onClick={() = data-testid="button-element"> triggerTests.mutate(selectedSuite)}
+            onClick={()> triggerTests.mutate(selectedSuite)}
             disabled={triggerTests.isPending}
             className="w-full"
           >

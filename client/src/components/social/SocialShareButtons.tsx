@@ -110,7 +110,7 @@ export default function SocialShareButtons({
     return (
       <div className={`relative ${className}`}>
         <button
-          onClick={() = data-testid="button-element"> setShowShareMenu(!showShareMenu)}
+          onClick={()> setShowShareMenu(!showShareMenu)}
           className="flex items-center space-x-1 px-3 py-2 text-gray-600 hover:text-gray-800 transition-colors dark:text-neutral-200"
         >
           <Share2 className="h-4 w-4" />
@@ -122,7 +122,7 @@ export default function SocialShareButtons({
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold text-gray-900 dark:text-neutral-100">Share this post</h4>
               <button
-                onClick={() = data-testid="button-element"> setShowShareMenu(false)}
+                onClick={()> setShowShareMenu(false)}
                 className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
               >
                 ×
@@ -147,7 +147,7 @@ export default function SocialShareButtons({
                   value={shareUrl}
                   readOnly
                   className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 dark:bg-neutral-800"
-                / data-testid="input-flex-1">
+                />
                 <button
                   onClick={copyToClipboard}
                   className="flex items-center space-x-1 px-3 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
@@ -188,7 +188,7 @@ export default function SocialShareButtons({
         title="Copy link"
        data-testid="button-group">
         <div className="p-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-neutral-800">
-          {copied ? <Check className="h-4 w-4 text-green-600" /> : <Link className="h-4 w-4" / data-testid="link-h-4">}
+          {copied ? <Check className="h-4 w-4 text-green-600" /> : <Link className="h-4 w-4" />}
         </div>
         {showLabels && (
           <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap dark:text-neutral-600 dark:text-neutral-400">

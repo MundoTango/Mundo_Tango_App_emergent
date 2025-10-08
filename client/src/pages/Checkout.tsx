@@ -98,15 +98,15 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
 
       {errorMessage && (
         <Alert variant="destructive" data-testid="link-element">
-          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-          <AlertDescription data-testid="link-element">{errorMessage}</AlertDescription>
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
       )}
 
       <div className="flex gap-4">
         <Link href="/subscribe" data-testid="link-element">
           <Button type="button" variant="outline" className="flex items-center gap-2" data-testid="button-flex">
-            <ArrowLeft className="w-4 h-4" / data-testid="link-w-4">
+            <ArrowLeft className="w-4 h-4" />
             Back to Plans
           </Button>
         </Link>
@@ -224,8 +224,8 @@ const Checkout: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
         <div className="max-w-md mx-auto px-4">
           <Alert variant="destructive" data-testid="link-element">
-            <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-            <AlertDescription data-testid="link-element">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
               {error?.message || 'Failed to initialize payment. Please try again.'}
             </AlertDescription>
           </Alert>
@@ -297,7 +297,7 @@ const Checkout: React.FC = () => {
                         id="promo"
                         placeholder="Enter code"
                         value={promoCode}
-                        onChange={(e) = data-testid="input-element"> setPromoCode(e.target.value)}
+                        onChange={(e)> setPromoCode(e.target.value)}
                         className="flex-1"
                       />
                       <Button

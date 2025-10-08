@@ -96,7 +96,7 @@ export default function NovuNotificationSystem({
           {notification.data?.actionUrl && (
             <button 
               className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
-              onClick={() = data-testid="button-text-sm"> window.location.href = notification.data.actionUrl}
+              onClick={()> window.location.href = notification.data.actionUrl}
             >
               View →
             </button>

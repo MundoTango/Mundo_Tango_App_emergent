@@ -93,12 +93,12 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
               <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Users</div>
             </div>
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
-              <Activity className="w-6 h-6 text-green-500 mx-auto mb-1" / data-testid="link-w-6">
+              <Activity className="w-6 h-6 text-green-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.requestsPerSecond}</div>
               <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Requests/sec</div>
             </div>
             <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
-              <AlertCircle className="w-6 h-6 text-red-500 mx-auto mb-1" / data-testid="link-w-6">
+              <AlertCircle className="w-6 h-6 text-red-500 mx-auto mb-1" />
               <div className="text-2xl font-bold">{metrics.errorRate.toFixed(2)}%</div>
               <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Error Rate</div>
             </div>
@@ -199,7 +199,7 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
       {metrics.status === 'live' && metrics.errorRate < 0.1 && (
         <Alert className="border-green-200 bg-green-50" data-testid="link-border-green-200">
           <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertDescription data-testid="link-element">
+          <AlertDescription>
             <div className="font-medium text-green-800">Profile System Operating Normally</div>
             <div className="text-sm text-green-700 mt-1">
               All systems are functioning within expected parameters. Error rate is minimal at {metrics.errorRate.toFixed(2)}%.

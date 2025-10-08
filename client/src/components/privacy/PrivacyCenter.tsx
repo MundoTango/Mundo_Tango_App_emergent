@@ -263,9 +263,9 @@ export default function PrivacyCenter() {
                 </div>
               ))}
               
-              <Alert data-testid="link-element">
-                <AlertTriangle className="h-4 w-4" / data-testid="link-h-4">
-                <AlertDescription data-testid="link-element">
+              <Alert>
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription>
                   Changes to your consent preferences will take effect immediately. 
                   Some features may be limited if you disable certain cookie types.
                 </AlertDescription>

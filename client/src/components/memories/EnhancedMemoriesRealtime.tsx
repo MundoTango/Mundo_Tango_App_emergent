@@ -344,7 +344,7 @@ export default function EnhancedMemoriesRealtime() {
           <div className="flex items-center gap-2">
             <Sparkles className={`w-4 h-4 ${aiEnhancementEnabled ? 'text-purple-500' : 'text-gray-600 dark:text-gray-400'}`} />
             <button
-              onClick={() = data-testid="button-element"> setAiEnhancementEnabled(!aiEnhancementEnabled)}
+              onClick={()> setAiEnhancementEnabled(!aiEnhancementEnabled)}
               className={`text-sm px-3 py-1 rounded-full transition-colors ${
                 aiEnhancementEnabled 
                   ? 'bg-purple-100 text-purple-700' 
@@ -376,7 +376,7 @@ export default function EnhancedMemoriesRealtime() {
                       </div>
                     )}
                     <button
-                      onClick={() = data-testid="button-element"> setShowComposer(false)}
+                      onClick={()> setShowComposer(false)}
                       className="text-gray-600 dark:text-gray-400 hover:text-gray-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                     >
                       ✕
@@ -477,7 +477,7 @@ export default function EnhancedMemoriesRealtime() {
                     }
                   </p>
                   <button
-                    onClick={() = data-testid="button-element"> setShowComposer(true)}
+                    onClick={()> setShowComposer(true)}
                     className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
                              text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl 
                              transform hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 mx-auto"

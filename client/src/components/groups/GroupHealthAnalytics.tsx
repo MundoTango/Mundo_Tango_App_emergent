@@ -38,7 +38,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
 
   if (healthLoading || insightsLoading) {
     return (
-      <Card data-testid="card-analytics-loading">
+      <Card>
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -50,7 +50,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
 
   if (!healthMetrics || !insights) {
     return (
-      <Card data-testid="card-analytics-error">
+      <Card>
         <CardContent className="pt-6">
           <div className="flex items-center justify-center py-8 text-muted-foreground">
             <AlertCircle className="mr-2 h-5 w-5" />
@@ -75,7 +75,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
 
   return (
     <div className="space-y-6" data-testid="container-group-analytics">
-      <Card data-testid="card-health-overview">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             Group Health Score

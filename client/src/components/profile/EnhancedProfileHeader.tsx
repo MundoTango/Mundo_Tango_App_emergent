@@ -233,9 +233,9 @@ export default function EnhancedProfileHeader({
                 accept="image/*"
                 onChange={handleCoverUpload}
                 className="hidden"
-              / data-testid="input-hidden">
+              />
               <Button
-                onClick={() = data-testid="button-element"> coverInputRef.current?.click()}
+                onClick={()> coverInputRef.current?.click()}
                 variant="secondary"
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transform transition-all hover:-translate-y-0.5 border-0"
@@ -267,7 +267,7 @@ export default function EnhancedProfileHeader({
               <div className="relative">
                 <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl" data-testid="link-h-32">
                   {/* ESA LIFE CEO 56x21 - Fixed profile image with fallback */}
-                  <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} / data-testid="link-element">
+                  <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} />
                   <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white" data-testid="link-text-3xl">
                     {user.name?.[0] || user.username?.[0]}
                   </AvatarFallback>
@@ -281,9 +281,9 @@ export default function EnhancedProfileHeader({
                       accept="image/*"
                       onChange={handleProfileUpload}
                       className="hidden"
-                    / data-testid="input-hidden">
+                    />
                     <Button
-                      onClick={() = data-testid="button-element"> profileInputRef.current?.click()}
+                      onClick={()> profileInputRef.current?.click()}
                       variant="secondary"
                       size="icon"
                       className="absolute bottom-0 right-0 rounded-full shadow-lg bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white border-2 border-white transform transition-all hover:scale-110"
@@ -488,7 +488,7 @@ export default function EnhancedProfileHeader({
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-turquoise-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
                    data-testid="link-text-gray-600">
-                    <Link className="h-5 w-5" / data-testid="link-h-5">
+                    <Link className="h-5 w-5" />
                   </a>
                 )}
               </div>

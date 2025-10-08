@@ -91,7 +91,7 @@ export class ResilientBoundary extends Component<Props, State> {
             <GlassCard depth={1} className="border border-red-200 rounded-lg p-6 shadow-lg"
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <AlertCircle className="w-6 h-6 text-red-500" / data-testid="link-w-6">
+                  <AlertCircle className="w-6 h-6 text-red-500" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-red-800 mb-2">
@@ -122,7 +122,7 @@ export class ResilientBoundary extends Component<Props, State> {
                     )}
                     
                     <button
-                      onClick={() = data-testid="button-element"> window.location.reload()}
+                      onClick={()> window.location.reload()}
                       className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
                     >
                       Reload Page

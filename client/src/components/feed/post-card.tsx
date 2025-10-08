@@ -144,7 +144,7 @@ export default function PostCard({ post }: PostCardProps) {
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12 ring-2 ring-turquoise-200" data-testid="link-w-12">
               {/* ESA LIFE CEO 61x21 - Fixed profile image with fallback */}
-              <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} / data-testid="link-element">
+              <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} />
               <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div>
@@ -256,7 +256,7 @@ export default function PostCard({ post }: PostCardProps) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() = data-testid="button-element"> setShowComments(!showComments)}
+            onClick={()> setShowComments(!showComments)}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
           >
             <MessageCircle className="h-5 w-5" />
@@ -280,13 +280,13 @@ export default function PostCard({ post }: PostCardProps) {
             {/* Add Comment */}
             <div className="flex space-x-3">
               <Avatar className="w-8 h-8" data-testid="link-w-8">
-                <AvatarFallback data-testid="link-element">U</AvatarFallback>
+                <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <div className="flex-1 flex space-x-2">
                 <Textarea
                   placeholder="Write a comment..."
                   value={newComment}
-                  onChange={(e) = data-testid="textarea-element"> setNewComment(e.target.value)}
+                  onChange={(e)> setNewComment(e.target.value)}
                   className="resize-none"
                   rows={2}
                 />
@@ -307,8 +307,8 @@ export default function PostCard({ post }: PostCardProps) {
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex space-x-3">
                     <Avatar className="w-8 h-8" data-testid="link-w-8">
-                      <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
+                      <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} />
+                      <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
                       <div className="bg-gray-100 rounded-lg p-3 dark:bg-neutral-800">

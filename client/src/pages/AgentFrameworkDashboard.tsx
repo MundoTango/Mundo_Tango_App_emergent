@@ -108,7 +108,7 @@ export default function AgentFrameworkDashboard() {
       case 'excellent': return <CheckCircle className="h-5 w-5 text-green-500" />;
       case 'good': return <CheckCircle className="h-5 w-5 text-blue-500" />;
       case 'needs-improvement': return <Clock className="h-5 w-5 text-yellow-500" />;
-      case 'critical': return <AlertCircle className="h-5 w-5 text-red-500" / data-testid="link-h-5">;
+      case 'critical': return <AlertCircle className="h-5 w-5 text-red-500" />;
       default: return <Settings className="h-5 w-5 text-gray-500" />;
     }
   };
@@ -152,7 +152,7 @@ export default function AgentFrameworkDashboard() {
           <Card className="border-red-200">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-700">
-                <AlertCircle className="h-5 w-5" / data-testid="link-h-5">
+                <AlertCircle className="h-5 w-5" />
                 Error Loading Framework
               </CardTitle>
             </CardHeader>

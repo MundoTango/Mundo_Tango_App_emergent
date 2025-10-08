@@ -222,7 +222,7 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
       {/* Data Protection Officer */}
       <Alert className="border-blue-200 bg-blue-50" data-testid="link-border-blue-200">
         <Globe className="h-4 w-4" />
-        <AlertDescription data-testid="link-element">
+        <AlertDescription>
           <div className="font-medium mb-1">Data Protection Officer</div>
           <div className="text-sm">
             For compliance inquiries, contact: dpo@mundotango.life

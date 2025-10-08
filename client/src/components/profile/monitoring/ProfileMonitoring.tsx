@@ -74,7 +74,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
     return <AlertTriangle className={`w-4 h-4 ${
       severity === 'critical' ? 'text-red-600' :
       severity === 'warning' ? 'text-yellow-600' : 'text-blue-600'
-    }`} / data-testid="link-element">;
+    }`} />;
   };
 
   return (
@@ -163,7 +163,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
                 fill="#3b82f6" 
                 fillOpacity={0.3}
                 name="Response Time (ms)"
-              / data-testid="link-element">
+              />
             </AreaChart>
           </ResponsiveContainer>
         </CardContent>

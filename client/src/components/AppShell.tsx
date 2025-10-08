@@ -44,7 +44,7 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="app-shell relative min-h-screen">
       {/* Network Status Indicator */}
-      <AnimatePresence data-testid="link-element">
+      <AnimatePresence>
         {showOfflineToast && !isOnline && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -68,7 +68,7 @@ export function AppShell({ children }: AppShellProps) {
       {/* PWA Components */}
       <InstallPrompt />
       <UpdatePrompt />
-      <AutoUpdateChecker / data-testid="link-element">
+      <AutoUpdateChecker />
 
       {/* Offline Indicator (persistent) */}
       {!isOnline && (

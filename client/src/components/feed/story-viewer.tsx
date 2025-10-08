@@ -149,7 +149,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
                   className="hidden"
-                / data-testid="input-hidden">
+                />
               </label>
             </div>
             <div className="flex-1 flex items-center justify-center">
@@ -179,7 +179,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   accept="image/*,video/*"
                   onChange={handleFileUpload}
                   className="hidden"
-                / data-testid="input-hidden">
+                />
               </label>
             </div>
 
@@ -192,8 +192,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleStoryClick(index)(e); } }}>
                 <div className="story-ring">
                   <Avatar className="w-14 h-14" data-testid="link-w-14">
-                    <AvatarImage src={group.user.profileImage} alt={group.user.name} / data-testid="link-element">
-                    <AvatarFallback data-testid="link-element">{group.user.name.charAt(0)}</AvatarFallback>
+                    <AvatarImage src={group.user.profileImage} alt={group.user.name} />
+                    <AvatarFallback>{group.user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                 </div>
                 <span className="text-xs text-gray-600 mt-1 truncate max-w-[64px] dark:text-neutral-600 dark:text-neutral-400">
@@ -215,8 +215,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Avatar className="w-8 h-8" data-testid="link-w-8">
-                      <AvatarImage src={userGroups[selectedStoryIndex].user.profileImage} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">{userGroups[selectedStoryIndex].user.name.charAt(0)}</AvatarFallback>
+                      <AvatarImage src={userGroups[selectedStoryIndex].user.profileImage} />
+                      <AvatarFallback>{userGroups[selectedStoryIndex].user.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <h4 className="text-white text-sm font-medium">
@@ -230,7 +230,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> setSelectedStoryIndex(null)}
+                    onClick={()> setSelectedStoryIndex(null)}
                     className="text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <X className="h-5 w-5" />
@@ -270,7 +270,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> navigateStory('prev')}
+                    onClick={()> navigateStory('prev')}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -281,7 +281,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> navigateStory('next')}
+                    onClick={()> navigateStory('next')}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
                   >
                     <ChevronRight className="h-6 w-6" />

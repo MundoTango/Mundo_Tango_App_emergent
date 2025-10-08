@@ -85,14 +85,14 @@ export default function SearchPage() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               placeholder="Search for users, posts, events, or groups..."
               className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-white/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg dark:bg-neutral-900"
               autoFocus
             />
             {searchQuery && (
               <button
-                onClick={() = data-testid="button-element"> setSearchQuery('')}
+                onClick={()> setSearchQuery('')}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
               >
                 <X className="h-5 w-5 text-gray-600 dark:text-gray-400" />
@@ -107,7 +107,7 @@ export default function SearchPage() {
               return (
                 <button
                   key={filter.value}
-                  onClick={() = data-testid="button-element"> setActiveFilter(filter.value as any)}
+                  onClick={()> setActiveFilter(filter.value as any)}
                   className={`px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
                     activeFilter === filter.value
                       ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg'

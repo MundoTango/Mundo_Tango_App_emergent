@@ -302,7 +302,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             placeholder="123 Main Street"
             value={data.address || ''}
             onChange={handleAddressChange}
-            onFocus={() = data-testid="input-element"> data.address && searchAddressSuggestions(data.address)}
+            onFocus={()> data.address && searchAddressSuggestions(data.address)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             className="mt-1"
           />
@@ -320,7 +320,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
                   <button
                     key={index}
                     type="button"
-                    onClick={() = data-testid="button-element"> handleSuggestionSelect(suggestion)}
+                    onClick={()> handleSuggestionSelect(suggestion)}
                     className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0 dark:bg-neutral-800"
                   >
                     <p className="text-sm font-medium text-gray-900 line-clamp-1 dark:text-neutral-100">
@@ -349,7 +349,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="city"
               placeholder="San Francisco"
               value={data.city || ''}
-              onChange={(e) = data-testid="input-element"> updateData({ city: e.target.value })}
+              onChange={(e)> updateData({ city: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -359,7 +359,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="state"
               placeholder="California"
               value={data.state || ''}
-              onChange={(e) = data-testid="input-element"> updateData({ state: e.target.value })}
+              onChange={(e)> updateData({ state: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -372,7 +372,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="country"
               placeholder="United States"
               value={data.country || ''}
-              onChange={(e) = data-testid="input-element"> updateData({ country: e.target.value })}
+              onChange={(e)> updateData({ country: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -382,7 +382,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="zipCode"
               placeholder="94105"
               value={data.zipCode || ''}
-              onChange={(e) = data-testid="input-element"> updateData({ zipCode: e.target.value })}
+              onChange={(e)> updateData({ zipCode: e.target.value })}
               className="mt-1"
             />
           </div>

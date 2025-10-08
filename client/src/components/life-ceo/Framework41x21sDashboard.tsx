@@ -160,7 +160,7 @@ export default function Framework41x21sDashboard() {
 
           <Alert className="mb-6 border-turquoise-200 bg-turquoise-50" data-testid="link-mb-6">
             <Sparkles className="h-4 w-4 text-turquoise-600" />
-            <AlertDescription data-testid="link-element">
+            <AlertDescription>
               <strong className="text-turquoise-800">Framework Evolution:</strong> Added Layers 42-44 and Phases 0 & 21 based on 4 days of intensive development learnings.
             </AlertDescription>
           </Alert>
@@ -239,7 +239,7 @@ export default function Framework41x21sDashboard() {
                         </div>
                         <div className="flex items-center gap-2">
                           {phase.status === 'complete' && <CheckCircle className="w-5 h-5 text-green-600" />}
-                          {phase.status === 'in-progress' && <AlertCircle className="w-5 h-5 text-blue-600 animate-pulse" / data-testid="link-w-5">}
+                          {phase.status === 'in-progress' && <AlertCircle className="w-5 h-5 text-blue-600 animate-pulse" />}
                         </div>
                       </div>
                     </CardContent>

@@ -133,7 +133,7 @@ export default function GlobalStatistics() {
                   key={period}
                   variant={selectedPeriod === period ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() = data-testid="button-element"> setSelectedPeriod(period)}
+                  onClick={()> setSelectedPeriod(period)}
                   className={selectedPeriod === period 
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
                     : ''}
@@ -152,7 +152,7 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Users</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +12.3%
                   </p>
                 </div>
@@ -166,11 +166,11 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Users</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.activeUsers)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +8.7%
                   </p>
                 </div>
-                <Activity className="w-8 h-8 text-emerald-600" / data-testid="link-w-8">
+                <Activity className="w-8 h-8 text-emerald-600" />
               </div>
             </Card>
 
@@ -180,7 +180,7 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Events</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalEvents)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +15.4%
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Communities</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalCommunities)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +6.2%
                   </p>
                 </div>
@@ -208,7 +208,7 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Posts</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalPosts)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +23.8%
                   </p>
                 </div>
@@ -222,7 +222,7 @@ export default function GlobalStatistics() {
                   <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Friendships</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{formatNumber(mockStats.totalFriendships)}</p>
                   <p className="text-xs text-green-600 flex items-center mt-1">
-                    <ArrowUp className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                    <ArrowUp className="w-3 h-3 mr-1" />
                     +18.5%
                   </p>
                 </div>

@@ -314,7 +314,7 @@ export default function LiveStreaming() {
               <div>
                 <label className="text-sm font-medium">Category</label>
                 <Select value={streamCategory} onValueChange={setStreamCategory}>
-                  <SelectTrigger data-testid="select-stream-category">
+                  <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

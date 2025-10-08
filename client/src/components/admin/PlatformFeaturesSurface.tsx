@@ -538,7 +538,7 @@ export function PlatformFeaturesSurface() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center space-x-2">
-              <Activity className="h-5 w-5 text-orange-500" / data-testid="link-h-5">
+              <Activity className="h-5 w-5 text-orange-500" />
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">In Progress</p>
                 <p className="text-2xl font-bold">{inProgressFeatures}</p>
@@ -605,7 +605,7 @@ export function PlatformFeaturesSurface() {
               type="text"
               placeholder="Search across all 11 layers of platform features..."
               value={searchTerm}
-              onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+              onChange={(e)> setSearchTerm(e.target.value)}
               className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
             />
           </div>

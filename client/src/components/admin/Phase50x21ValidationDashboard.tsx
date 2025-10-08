@@ -72,7 +72,7 @@ export function Phase50x21ValidationDashboard() {
       case 'failed':
         return <XCircle className="h-5 w-5 text-red-500" />;
       case 'warning':
-        return <AlertCircle className="h-5 w-5 text-yellow-500" / data-testid="link-h-5">;
+        return <AlertCircle className="h-5 w-5 text-yellow-500" />;
       default:
         return <div className="h-5 w-5 rounded-full border-2 border-gray-300 dark:border-neutral-600" />;
     }
@@ -171,7 +171,7 @@ export function Phase50x21ValidationDashboard() {
                     </Card>
                     <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100">
                       <div className="flex items-center gap-2">
-                        <Activity className="h-8 w-8 text-blue-600" / data-testid="link-h-8">
+                        <Activity className="h-8 w-8 text-blue-600" />
                         <div>
                           <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Success Rate</p>
                           <p className="text-2xl font-bold text-blue-700">
@@ -242,8 +242,8 @@ export function Phase50x21ValidationDashboard() {
                   {/* Recommendations */}
                   {phase2Results.recommendations && (
                     <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200" data-testid="link-bg-gradient-to-r">
-                      <AlertCircle className="h-4 w-4 text-turquoise-600" / data-testid="link-h-4">
-                      <AlertDescription data-testid="link-element">
+                      <AlertCircle className="h-4 w-4 text-turquoise-600" />
+                      <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Recommendations:</p>
                         <ul className="space-y-1">
                           {phase2Results.recommendations.map((rec: string, idx: number) => (
@@ -305,7 +305,7 @@ export function Phase50x21ValidationDashboard() {
                     </Card>
                     <Card className="p-4 bg-gradient-to-br from-yellow-50 to-yellow-100">
                       <div className="flex items-center gap-2">
-                        <AlertCircle className="h-8 w-8 text-yellow-600" / data-testid="link-h-8">
+                        <AlertCircle className="h-8 w-8 text-yellow-600" />
                         <div>
                           <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Warnings</p>
                           <p className="text-2xl font-bold text-yellow-700">{phase3Results.summary?.warnings || 0}</p>
@@ -417,7 +417,7 @@ export function Phase50x21ValidationDashboard() {
                   {phase3Results.recommendations && (
                     <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200" data-testid="link-bg-gradient-to-r">
                       <Shield className="h-4 w-4 text-purple-600" />
-                      <AlertDescription data-testid="link-element">
+                      <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Performance Recommendations:</p>
                         <ul className="space-y-1">
                           {phase3Results.recommendations.map((rec: string, idx: number) => (

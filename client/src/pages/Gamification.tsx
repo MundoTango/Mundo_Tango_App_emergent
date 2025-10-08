@@ -596,7 +596,7 @@ export default function Gamification() {
           <h2 className="text-2xl font-bold mb-4">Your Statistics</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card data-testid="stats-posts">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Camera className="mr-2 h-4 w-4" />
@@ -608,7 +608,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card data-testid="stats-events">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Calendar className="mr-2 h-4 w-4" />
@@ -620,7 +620,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card data-testid="stats-streams">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Zap className="mr-2 h-4 w-4" />
@@ -632,7 +632,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card data-testid="stats-videos">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Music className="mr-2 h-4 w-4" />
@@ -644,7 +644,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card data-testid="stats-helpful">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Heart className="mr-2 h-4 w-4" />
@@ -656,7 +656,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card data-testid="stats-achievements">
+            <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Award className="mr-2 h-4 w-4" />

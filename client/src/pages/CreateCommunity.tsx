@@ -145,7 +145,7 @@ export default function CreateCommunity() {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) = data-testid="input-element"> setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e)> setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Buenos Aires Tango Community"
                     className="glassmorphic-input"
                     required
@@ -156,12 +156,12 @@ export default function CreateCommunity() {
                   <Label htmlFor="type">Community Type *</Label>
                   <Select 
                     value={formData.type} 
-                    onValueChange={(value) = data-testid="select-element"> setFormData({ ...formData, type: value })}
+                    onValueChange={(value)> setFormData({ ...formData, type: value })}
                   >
                     <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
-                      <SelectValue / data-testid="select-element">
+                      <SelectValue />
                     </SelectTrigger>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       {COMMUNITY_TYPES.map(type => (
                         <SelectItem key={type.value} value={type.value} data-testid="select-element">
                           <div className="flex items-center gap-2">
@@ -179,7 +179,7 @@ export default function CreateCommunity() {
                   <Textarea
                     id="description"
                     value={formData.description}
-                    onChange={(e) = data-testid="textarea-element"> setFormData({ ...formData, description: e.target.value })}
+                    onChange={(e)> setFormData({ ...formData, description: e.target.value })}
                     placeholder="Describe your community's purpose and what makes it unique..."
                     className="glassmorphic-input min-h-[120px]"
                     required
@@ -198,7 +198,7 @@ export default function CreateCommunity() {
                       <Input
                         id="city"
                         value={formData.city}
-                        onChange={(e) = data-testid="input-element"> setFormData({ ...formData, city: e.target.value })}
+                        onChange={(e)> setFormData({ ...formData, city: e.target.value })}
                         placeholder="Buenos Aires"
                         className="glassmorphic-input"
                       />
@@ -209,7 +209,7 @@ export default function CreateCommunity() {
                       <Input
                         id="country"
                         value={formData.country}
-                        onChange={(e) = data-testid="input-element"> setFormData({ ...formData, country: e.target.value })}
+                        onChange={(e)> setFormData({ ...formData, country: e.target.value })}
                         placeholder="Argentina"
                         className="glassmorphic-input"
                       />
@@ -228,7 +228,7 @@ export default function CreateCommunity() {
                     <button
                       key={category}
                       type="button"
-                      onClick={() = data-testid="button-element"> toggleCategory(category)}
+                      onClick={()> toggleCategory(category)}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         formData.categories.includes(category)
                           ? 'border-turquoise-500 bg-turquoise-50 text-turquoise-700'
@@ -284,7 +284,7 @@ export default function CreateCommunity() {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Community Rules (Optional)</h3>
                 <Textarea
                   value={formData.rules}
-                  onChange={(e) = data-testid="textarea-element"> setFormData({ ...formData, rules: e.target.value })}
+                  onChange={(e)> setFormData({ ...formData, rules: e.target.value })}
                   placeholder="Add any specific rules or guidelines for your community members..."
                   className="glassmorphic-input min-h-[100px]"
                 />
@@ -302,7 +302,7 @@ export default function CreateCommunity() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() = data-testid="button-element"> setLocation('/groups')}
+                  onClick={()> setLocation('/groups')}
                   className="flex-1"
                 >
                   Cancel

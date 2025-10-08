@@ -157,7 +157,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                         type="number" 
                         placeholder="Enter partner ID" 
                         {...field}
-                        onChange={e = data-testid="input-element"> field.onChange(parseInt(e.target.value))}
+                        onChange={e> field.onChange(parseInt(e.target.value))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -181,7 +181,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                         type="date" 
                         {...field}
                         className="glassmorphic-input"
-                      / data-testid="input-glassmorphic-input">
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -198,7 +198,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       Where did you dance?
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Milonga name or location" {...field} / data-testid="input-element">
+                      <Input placeholder="Milonga name or location" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -213,7 +213,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 <FormItem>
                   <FormLabel>Event Name (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="Festival, milonga, or práctica name" {...field} / data-testid="input-element">
+                    <Input placeholder="Festival, milonga, or práctica name" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -227,11 +227,11 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   <FormLabel>Dance Style</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                     <FormControl>
-                      <SelectTrigger data-testid="select-element">
-                        <SelectValue placeholder="Select dance style" / data-testid="select-element">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select dance style" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       <SelectItem value="tango" data-testid="select-element">Tango</SelectItem>
                       <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
                       <SelectItem value="vals" data-testid="select-element">Vals</SelectItem>
@@ -256,7 +256,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Song name" {...field} / data-testid="input-element">
+                        <Input placeholder="Song name" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -267,7 +267,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Artist/Orchestra" {...field} / data-testid="input-element">
+                        <Input placeholder="Artist/Orchestra" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -290,7 +290,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                         <button
                           key={star}
                           type="button"
-                          onClick={() = data-testid="button-element"> field.onChange(star)}
+                          onClick={()> field.onChange(star)}
                           className={`text-2xl ${
                             star <= field.value 
                               ? 'text-yellow-500' 
@@ -318,7 +318,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       checked={field.value}
                       onChange={field.onChange}
                       className="rounded border-gray-300"
-                    / data-testid="input-rounded">
+                    />
                     <FormLabel className="cursor-pointer">
                       This was a special moment
                     </FormLabel>
@@ -339,7 +339,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                         placeholder="Describe what made this dance memorable..."
                         className="min-h-[100px]"
                         {...field}
-                      / data-testid="textarea-min-h-[100px]">
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -357,7 +357,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                       placeholder="Any other memories or details..."
                       className="min-h-[80px]"
                       {...field}
-                    / data-testid="textarea-min-h-[80px]">
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -374,7 +374,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 accept="image/*"
                 onChange={handlePhotoUpload}
                 className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-turquoise-50 file:text-turquoise-700 hover:file:bg-turquoise-100"
-              / data-testid="input-file:mr-4">
+              />
               {uploadedPhotos.length > 0 && (
                 <div className="flex gap-2 flex-wrap mt-2">
                   {uploadedPhotos.map((url, idx) => (

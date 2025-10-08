@@ -150,7 +150,7 @@ export function Friends() {
                   <Input
                     placeholder="Search friends..."
                     value={searchQuery}
-                    onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                    onChange={(e)> setSearchQuery(e.target.value)}
                     className="pl-10 glassmorphic-input"
                   />
                 </div>
@@ -179,7 +179,7 @@ export function Friends() {
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
                           <Avatar className="h-12 w-12 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer" data-testid="link-h-12">
-                            <AvatarImage src={friend.friend.profileImage} / data-testid="link-element">
+                            <AvatarImage src={friend.friend.profileImage} />
                             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
                               {friend.friend.name?.[0] || 'U'}
                             </AvatarFallback>
@@ -264,7 +264,7 @@ export function Friends() {
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
                           <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50 hover:ring-turquoise-300 transition-all cursor-pointer" data-testid="link-h-16">
-                            <AvatarImage src={suggestion.profileImage} / data-testid="link-element">
+                            <AvatarImage src={suggestion.profileImage} />
                             <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white text-lg" data-testid="link-bg-gradient-to-br">
                               {suggestion.name?.[0] || 'U'}
                             </AvatarFallback>
@@ -308,7 +308,7 @@ export function Friends() {
                       </div>
                       <Button
                         size="sm"
-                        onClick={() = data-testid="button-element"> handleSendRequest(suggestion)}
+                        onClick={()> handleSendRequest(suggestion)}
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md"
                       >
                         <UserPlus className="mr-1 h-4 w-4" />

@@ -242,7 +242,7 @@ export default function FriendsPage() {
             <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Connect with dancers in your community</p>
           </div>
           <Button
-            onClick={() = data-testid="button-element"> setShowSendRequestModal(true)}
+            onClick={()> setShowSendRequestModal(true)}
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
           >
             <UserPlus className="w-4 h-4 mr-2" />
@@ -293,7 +293,7 @@ export default function FriendsPage() {
               type="text"
               placeholder="Search friends by name or username..."
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -312,7 +312,7 @@ export default function FriendsPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() = data-testid="button-element"> setActiveTab(tab.id)}
+                  onClick={()> setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-3 font-medium transition-colors ${
                     activeTab === tab.id
                       ? 'text-turquoise-600 border-b-2 border-turquoise-600'
@@ -369,7 +369,7 @@ export default function FriendsPage() {
                       <div className="flex gap-2">
                         <Button
                           size="sm"
-                          onClick={() = data-testid="button-element"> handleAcceptRequest(request)}
+                          onClick={()> handleAcceptRequest(request)}
                           className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                         >
                           <Check className="w-4 h-4 mr-1" />
@@ -378,7 +378,7 @@ export default function FriendsPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() = data-testid="button-element"> handleDeclineRequest(request)}
+                          onClick={()> handleDeclineRequest(request)}
                         >
                           <X className="w-4 h-4 mr-1" />
                           Decline
@@ -475,7 +475,7 @@ export default function FriendsPage() {
                 <Input
                   type="text"
                   placeholder="Type a name or username..."
-                  onChange={(e) = data-testid="input-element"> searchUsers(e.target.value)}
+                  onChange={(e)> searchUsers(e.target.value)}
                 />
               </div>
 
@@ -518,7 +518,7 @@ export default function FriendsPage() {
                   <Textarea
                     placeholder="Hi! I'd love to connect..."
                     value={requestNote}
-                    onChange={(e) = data-testid="textarea-element"> setRequestNote(e.target.value)}
+                    onChange={(e)> setRequestNote(e.target.value)}
                     rows={3}
                   />
                 </div>
@@ -536,7 +536,7 @@ export default function FriendsPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');

@@ -460,7 +460,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
         <Button
           variant="outline"
           size="sm"
-          onClick={() = data-testid="button-element"> setShowCapabilities(!showCapabilities)}
+          onClick={()> setShowCapabilities(!showCapabilities)}
         >
           <Layers className="w-4 h-4 mr-2" />
           {showCapabilities ? 'Hide' : 'Show'} Capabilities
@@ -505,7 +505,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <CardTitle className="text-lg">Framework Assistant</CardTitle>
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-green-100 text-green-800">
-                <Activity className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                <Activity className="w-3 h-3 mr-1" />
                 Active
               </Badge>
               <Badge variant="secondary">
@@ -589,7 +589,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <div className="flex gap-2">
               <Textarea
                 value={input}
-                onChange={(e) = data-testid="textarea-element"> setInput(e.target.value)}
+                onChange={(e)> setInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -628,7 +628,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={() = data-testid="button-element"> setInput('Check security compliance for the entire platform')}
+              onClick={()> setInput('Check security compliance for the entire platform')}
             >
               <Shield className="w-4 h-4 mr-2" />
               Security Check
@@ -636,15 +636,15 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={() = data-testid="button-element"> setInput('Run performance analysis and optimization recommendations')}
+              onClick={()> setInput('Run performance analysis and optimization recommendations')}
             >
-              <Activity className="w-4 h-4 mr-2" / data-testid="link-w-4">
+              <Activity className="w-4 h-4 mr-2" />
               Performance
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() = data-testid="button-element"> setInput('Generate API documentation for all endpoints')}
+              onClick={()> setInput('Generate API documentation for all endpoints')}
             >
               <BookOpen className="w-4 h-4 mr-2" />
               Documentation
@@ -652,7 +652,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={() = data-testid="button-element"> setInput('Prepare for production deployment')}
+              onClick={()> setInput('Prepare for production deployment')}
             >
               <Gauge className="w-4 h-4 mr-2" />
               Deploy Check

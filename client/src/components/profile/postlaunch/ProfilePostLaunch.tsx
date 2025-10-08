@@ -112,7 +112,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
                     stroke="#8b5cf6" 
                     fill="#8b5cf6" 
                     fillOpacity={0.3}
-                  / data-testid="link-element">
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </TabsContent>

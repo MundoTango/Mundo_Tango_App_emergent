@@ -104,7 +104,7 @@ const SubscriptionManagement: React.FC = () => {
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">Feature Flag → Subscription Tier Mapping</h3>
             <Button
-              onClick={() = data-testid="button-element"> editMode ? saveChanges() : setEditMode(true)}
+              onClick={()> editMode ? saveChanges() : setEditMode(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
             >
               {editMode ? (
@@ -307,7 +307,7 @@ const SubscriptionManagement: React.FC = () => {
                   </div>
                 )) || (
                   <div className="text-center text-gray-500 py-8">
-                    <Activity className="w-12 h-12 mx-auto mb-2 text-gray-600 dark:text-gray-300" / data-testid="link-w-12">
+                    <Activity className="w-12 h-12 mx-auto mb-2 text-gray-600 dark:text-gray-300" />
                     No recent activity
                   </div>
                 )}

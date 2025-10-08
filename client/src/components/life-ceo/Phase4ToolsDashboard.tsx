@@ -157,7 +157,7 @@ export function Phase4ToolsDashboard() {
       case 'partial':
         return <Clock className="w-5 h-5 text-yellow-500" />;
       case 'failed':
-        return <AlertCircle className="w-5 h-5 text-red-500" / data-testid="link-w-5">;
+        return <AlertCircle className="w-5 h-5 text-red-500" />;
       default:
         return null;
     }
@@ -282,7 +282,7 @@ export function Phase4ToolsDashboard() {
             {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) => (
               <Button
                 key={phase}
-                onClick={() = data-testid="button-element"> runLoadTest.mutate(phase)}
+                onClick={()> runLoadTest.mutate(phase)}
                 disabled={loadTestRunning}
                 variant="outline"
                 className="w-full"

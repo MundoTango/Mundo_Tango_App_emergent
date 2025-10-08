@@ -142,9 +142,9 @@ const AnalyticsDashboard: React.FC = () => {
           <div className="flex items-center gap-2">
             <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
               <SelectTrigger className="w-32" data-testid="select-w-32">
-                <SelectValue / data-testid="select-element">
+                <SelectValue />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="24h" data-testid="select-element">Last 24h</SelectItem>
                 <SelectItem value="7d" data-testid="select-element">Last 7 days</SelectItem>
                 <SelectItem value="30d" data-testid="select-element">Last 30 days</SelectItem>
@@ -223,7 +223,7 @@ const AnalyticsDashboard: React.FC = () => {
                 <p className="text-xs text-green-600 mt-1">+5.2% from last period</p>
               </div>
               <div className="p-3 rounded-full bg-purple-100">
-                <Activity className="h-6 w-6 text-purple-600" / data-testid="link-h-6">
+                <Activity className="h-6 w-6 text-purple-600" />
               </div>
             </div>
           </CardContent>
@@ -274,7 +274,7 @@ const AnalyticsDashboard: React.FC = () => {
                     fill="#38b2ac" 
                     fillOpacity={0.3}
                     name="Active Users"
-                  / data-testid="link-element">
+                  />
                   <Area 
                     type="monotone" 
                     dataKey="newUsers" 
@@ -282,7 +282,7 @@ const AnalyticsDashboard: React.FC = () => {
                     fill="#06b6d4" 
                     fillOpacity={0.3}
                     name="New Users"
-                  / data-testid="link-element">
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -499,7 +499,7 @@ const AnalyticsDashboard: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-green-500" / data-testid="link-h-5">
+                <Activity className="h-5 w-5 text-green-500" />
                 System Performance
               </CardTitle>
               <CardDescription>

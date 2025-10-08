@@ -58,7 +58,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
           <input
             type="text"
             value={tagInput}
-            onChange={(e) = data-testid="input-element"> setTagInput(e.target.value)}
+            onChange={(e)> setTagInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter tag name and press Enter..."
             className="w-full pl-14 pr-6 py-5 bg-gradient-to-br from-blue-50/30 to-teal-50/30 
@@ -95,7 +95,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
                 <Tag className="w-4 h-4" />
                 <span className="font-bold text-lg">{tag}</span>
                 <button
-                  onClick={() = data-testid="button-element"> onRemoveTag(tag)}
+                  onClick={()> onRemoveTag(tag)}
                   className="ml-2 p-2 rounded-xl text-coral-500 hover:text-red-500 
                            hover:bg-red-50 transition-all duration-300 hover:scale-110"
                 >

@@ -173,9 +173,9 @@ export default function SystemStatsPanel() {
         <div className="flex gap-3">
           <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
             <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
-              <SelectValue placeholder="Select time range" / data-testid="select-element">
+              <SelectValue placeholder="Select time range" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="24h" data-testid="select-element">Last 24 Hours</SelectItem>
               <SelectItem value="7d" data-testid="select-element">Last 7 Days</SelectItem>
               <SelectItem value="30d" data-testid="select-element">Last 30 Days</SelectItem>

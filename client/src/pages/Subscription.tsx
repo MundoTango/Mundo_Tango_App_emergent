@@ -268,7 +268,7 @@ export default function Subscription() {
                     className="w-full"
                     variant={isCurrentPlan ? "outline" : "default"}
                     disabled={isCurrentPlan}
-                    onClick={() = data-testid="button-w-full"> handleSelectTier(tierKey)}
+                    onClick={()> handleSelectTier(tierKey)}
                   >
                     {isCurrentPlan ? "Current Plan" : tierKey === 'free' ? "Downgrade" : "Upgrade"}
                   </Button>
@@ -298,7 +298,7 @@ export default function Subscription() {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() = data-testid="button-w-full"> {
+                onClick={()> {
                   setShowPaymentForm(false);
                   setSelectedTier(null);
                 }}
