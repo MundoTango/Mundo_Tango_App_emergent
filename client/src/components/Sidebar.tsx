@@ -281,7 +281,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               Mundo Tango
             </div>
             <div className="text-xs text-ocean-muted">
-              Global Tango Community
+              {t('community.globalCommunity')}
             </div>
           </div>
         </nav>
