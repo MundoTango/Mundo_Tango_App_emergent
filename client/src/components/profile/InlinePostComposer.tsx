@@ -99,7 +99,7 @@ export default function InlinePostComposer({
           <div className="relative">
             <Textarea
               value={content}
-              onChange={(e)  => setContent(e.target.value)}
+              onChange={(e) => setContent(e.target.value)}
               placeholder={placeholder}
               className={cn(
                 "resize-none border-turquoise-200 focus:border-turquoise-400 transition-all",
@@ -121,7 +121,7 @@ export default function InlinePostComposer({
             <>
               {/* Quick Tags */}
               <div className="space-y-2">
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Add tags:</div>
+                <div className="text-sm text-gray-600">Add tags:</div>
                 <div className="flex flex-wrap gap-2">
                   {quickTags.map((tag) => (
                     <Button
@@ -134,7 +134,7 @@ export default function InlinePostComposer({
                           ? "bg-turquoise-500 hover:bg-turquoise-600 text-white" 
                           : "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
                       )}
-                      onClick={()  => tags.includes(tag) ? removeTag(tag) : addTag(tag)}
+                      onClick={() => tags.includes(tag) ? removeTag(tag) : addTag(tag)}
                     >
                       #{tag}
                     </Button>
@@ -152,7 +152,7 @@ export default function InlinePostComposer({
                     >
                       #{tag}
                       <button
-                        onClick={()  => removeTag(tag)}
+                        onClick={() => removeTag(tag)}
                         className="hover:text-turquoise-900"
                       >
                         <X className="h-3 w-3" />
@@ -168,7 +168,7 @@ export default function InlinePostComposer({
                 <input
                   type="text"
                   value={location}
-                  onChange={(e)  => setLocation(e.target.value)}
+                  onChange={(e) => setLocation(e.target.value)}
                   placeholder="Add location (optional)"
                   className="flex-1 text-sm px-2 py-1 border border-turquoise-200 rounded-md focus:outline-none focus:border-turquoise-400"
                 />
@@ -199,7 +199,7 @@ export default function InlinePostComposer({
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
-                onClick={()  => setIsExpanded(!isExpanded)}
+                onClick={() => setIsExpanded(!isExpanded)}
               >
                 <Tag className="h-4 w-4" />
               </Button>
@@ -210,13 +210,13 @@ export default function InlinePostComposer({
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={()  => {
+                  onClick={() => {
                     setIsExpanded(false);
                     setContent('');
                     setTags([]);
                     setLocation('');
                   }}
-                  className="h-8 text-gray-600 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
+                  className="h-8 text-gray-600 hover:text-gray-700"
                 >
                   Cancel
                 </Button>

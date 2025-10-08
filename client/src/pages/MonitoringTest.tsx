@@ -11,7 +11,6 @@ import { useMonitoring } from '@/hooks/useMonitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { monitoring } from '@/services/monitoring';
 import { CheckCircle, XCircle, AlertCircle, Activity, Shield, BarChart, Eye } from 'lucide-react';
-import { Helmet } from 'react-helmet';
 
 export default function MonitoringTest() {
   const { trackEvent, trackPageView, captureException } = useMonitoring();
@@ -121,15 +120,10 @@ export default function MonitoringTest() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Monitoring Test | Life CEO</title>
-      </Helmet>
-      
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Monitoring Test Page</h1>
-        <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">ESA Layer 48 - Performance Monitoring Agent</p>
+        <p className="text-gray-600 dark:text-gray-400">ESA Layer 48 - Performance Monitoring Agent</p>
       </div>
 
       {/* Status Overview */}
@@ -137,7 +131,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Shield className="w-4 h-4 text-ocean-500" />
+              <Shield className="w-4 h-4 text-teal-500" />
               Consent Status
             </CardTitle>
           </CardHeader>
@@ -161,7 +155,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="w-4 h-4 text-ocean-500" />
+              <Activity className="w-4 h-4 text-teal-500" />
               Initialization
             </CardTitle>
           </CardHeader>
@@ -185,7 +179,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <BarChart className="w-4 h-4 text-ocean-500" />
+              <BarChart className="w-4 h-4 text-teal-500" />
               Services
             </CardTitle>
           </CardHeader>
@@ -193,15 +187,15 @@ export default function MonitoringTest() {
             <div className="text-sm space-y-1">
               <div className="flex items-center gap-1">
                 <div className={`w-2 h-2 rounded-full ${import.meta.env.VITE_SENTRY_DSN ? 'bg-green-500' : 'bg-gray-300'}`} />
-                <span className="text-gray-600 dark:text-gray-600 dark:text-gray-400">Sentry</span>
+                <span className="text-gray-600 dark:text-gray-400">Sentry</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className={`w-2 h-2 rounded-full ${import.meta.env.VITE_POSTHOG_API_KEY ? 'bg-green-500' : 'bg-gray-300'}`} />
-                <span className="text-gray-600 dark:text-gray-600 dark:text-gray-400">PostHog</span>
+                <span className="text-gray-600 dark:text-gray-400">PostHog</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className={`w-2 h-2 rounded-full ${import.meta.env.VITE_OPENREPLAY_PROJECT_KEY ? 'bg-green-500' : 'bg-gray-300'}`} />
-                <span className="text-gray-600 dark:text-gray-600 dark:text-gray-400">OpenReplay</span>
+                <span className="text-gray-600 dark:text-gray-400">OpenReplay</span>
               </div>
             </div>
           </CardContent>
@@ -221,7 +215,7 @@ export default function MonitoringTest() {
                 Request Consent
               </Button>
             )}
-            <Button onClick={()  => setShowPrivacySettings(true)} variant="outline">
+            <Button onClick={() => setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
             <Button 
@@ -270,7 +264,7 @@ export default function MonitoringTest() {
                 
                 return (
                   <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-800">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {displayKey}
                     </span>
                     <div className="flex items-center gap-2">
@@ -280,7 +274,7 @@ export default function MonitoringTest() {
                         <XCircle className="w-5 h-5 text-red-500" />
                       )}
                       {typeof value === 'string' && value !== 'true' && value !== 'false' && (
-                        <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">{value}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{value}</span>
                       )}
                     </div>
                   </div>
@@ -303,7 +297,7 @@ export default function MonitoringTest() {
                 .filter(([key]) => key.includes('details'))
                 .map(([key, value]) => (
                   <div key={key} className="mt-2 p-2 rounded bg-gray-100 dark:bg-gray-800">
-                    <p className="text-xs font-mono text-gray-600 dark:text-gray-600 dark:text-gray-400">{value as string}</p>
+                    <p className="text-xs font-mono text-gray-600 dark:text-gray-400">{value as string}</p>
                   </div>
                 ))}
             </div>
@@ -311,7 +305,5 @@ export default function MonitoringTest() {
         </Card>
       )}
     </div>
-  
-    </>
   );
 }

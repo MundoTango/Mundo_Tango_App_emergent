@@ -49,7 +49,6 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 interface PromoCode {
   id: string;
@@ -218,20 +217,15 @@ const PromoCodesAdmin: React.FC = () => {
   const tiers = ['basic', 'enthusiast', 'professional', 'enterprise'];
 
   return (
-    <>
-      <Helmet>
-        <title>Promo Codes Admin | Life CEO</title>
-      </Helmet>
-      
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Promo Code Management</h1>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Promo Code Management</h1>
+            <p className="text-gray-600">Create and manage discount codes for subscriptions</p>
           </div>
           <Button
-            onClick={()  => {
+            onClick={() => {
               resetForm();
               setEditingPromo(null);
               setShowCreateDialog(true);
@@ -249,7 +243,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Codes</p>
+                  <p className="text-sm text-gray-600">Active Codes</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.filter((p: PromoCode) => p.isActive).length || 0}
                   </p>
@@ -263,7 +257,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Uses</p>
+                  <p className="text-sm text-gray-600">Total Uses</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.reduce((sum: number, p: PromoCode) => sum + p.usageCount, 0) || 0}
                   </p>
@@ -277,7 +271,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg Discount</p>
+                  <p className="text-sm text-gray-600">Avg Discount</p>
                   <p className="text-2xl font-bold">15%</p>
                 </div>
                 <Percent className="h-8 w-8 text-orange-500" />
@@ -289,7 +283,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Revenue Impact</p>
+                  <p className="text-sm text-gray-600">Revenue Impact</p>
                   <p className="text-2xl font-bold">$2,450</p>
                 </div>
                 <DollarSign className="h-8 w-8 text-green-500" />
@@ -311,9 +305,9 @@ const PromoCodesAdmin: React.FC = () => {
               </div>
             ) : (!promoCodes || promoCodes.length === 0) ? (
               <div className="text-center py-8">
-                <Gift className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-4" />
+                <Gift className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <p className="text-gray-500">No promo codes yet</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Create your first promo code to get started</p>
+                <p className="text-sm text-gray-400 mt-2">Create your first promo code to get started</p>
               </div>
             ) : (
               <Table>
@@ -333,13 +327,13 @@ const PromoCodesAdmin: React.FC = () => {
                     <TableRow key={promo.id}>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <code className="font-mono bg-gray-100 px-2 py-1 rounded dark:bg-neutral-800">
+                          <code className="font-mono bg-gray-100 px-2 py-1 rounded">
                             {promo.code}
                           </code>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()  => copyToClipboard(promo.code)}
+                            onClick={() => copyToClipboard(promo.code)}
                           >
                             <Copy className="h-4 w-4" />
                           </Button>
@@ -372,7 +366,7 @@ const PromoCodesAdmin: React.FC = () => {
                         {promo.isActive ? (
                           <Badge className="bg-green-100 text-green-700">Active</Badge>
                         ) : (
-                          <Badge className="bg-gray-100 text-gray-700 dark:bg-neutral-800">Inactive</Badge>
+                          <Badge className="bg-gray-100 text-gray-700">Inactive</Badge>
                         )}
                       </TableCell>
                       <TableCell>
@@ -380,14 +374,14 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()  => handleEdit(promo)}
+                            onClick={() => handleEdit(promo)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()  => deletePromoMutation.mutate(promo.id)}
+                            onClick={() => deletePromoMutation.mutate(promo.id)}
                             className="text-red-600 hover:text-red-700"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -423,7 +417,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e)  => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
+                onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                 placeholder="SUMMER2025"
                 className="mt-1"
               />
@@ -434,7 +428,7 @@ const PromoCodesAdmin: React.FC = () => {
                 <Label htmlFor="type">Discount Type</Label>
                 <Select
                   value={formData.type}
-                  onValueChange={(value)> setFormData({ ...formData, type: value })}
+                  onValueChange={(value) => setFormData({ ...formData, type: value })}
                 >
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -452,7 +446,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="value"
                   type="number"
                   value={formData.value}
-                  onChange={(e)  => setFormData({ ...formData, value: Number(e.target.value) })}
+                  onChange={(e) => setFormData({ ...formData, value: Number(e.target.value) })}
                   placeholder={formData.type === 'percentage' ? '20' : '10'}
                   className="mt-1"
                 />
@@ -464,7 +458,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="description"
                 value={formData.description}
-                onChange={(e)  => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Summer sale discount"
                 className="mt-1"
               />
@@ -477,7 +471,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validFrom"
                   type="date"
                   value={formData.validFrom}
-                  onChange={(e)  => setFormData({ ...formData, validFrom: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, validFrom: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -488,7 +482,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validUntil"
                   type="date"
                   value={formData.validUntil}
-                  onChange={(e)  => setFormData({ ...formData, validUntil: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, validUntil: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -500,7 +494,7 @@ const PromoCodesAdmin: React.FC = () => {
                 id="usageLimit"
                 type="number"
                 value={formData.usageLimit}
-                onChange={(e)  => setFormData({ ...formData, usageLimit: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, usageLimit: e.target.value })}
                 placeholder="100"
                 className="mt-1"
               />
@@ -518,7 +512,9 @@ const PromoCodesAdmin: React.FC = () => {
                       const newTiers = formData.applicableTiers.includes(tier)
                         ? formData.applicableTiers.filter(t => t !== tier)
                         : [...formData.applicableTiers, tier];
-                      setFormData({ ...formData, applicableTiers: newTiers }) }}>
+                      setFormData({ ...formData, applicableTiers: newTiers });
+                    }}
+                  >
                     {tier}
                   </Badge>
                 ))}
@@ -536,7 +532,7 @@ const PromoCodesAdmin: React.FC = () => {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={()  => setShowCreateDialog(false)}>
+            <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
               Cancel
             </Button>
             <Button
@@ -557,8 +553,6 @@ const PromoCodesAdmin: React.FC = () => {
         </DialogContent>
       </Dialog>
     </div>
-  
-    </>
   );
 };
 

@@ -30,11 +30,11 @@ const ThemeManager: React.FC = () => {
       {!isExpanded ? (
         // Collapsed Theme Toggle Button
         <button
-          onClick={()  => setIsExpanded(true)}
+          onClick={() => setIsExpanded(true)}
           className="bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
           title="Change Theme"
         >
-          <Palette className="w-6 h-6 text-gray-600 dark:text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" />
+          <Palette className="w-6 h-6 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" />
         </button>
       ) : (
         // Expanded Theme Selector
@@ -48,8 +48,8 @@ const ThemeManager: React.FC = () => {
               </h3>
             </div>
             <button
-              onClick={()  => setIsExpanded(false)}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300 transition-colors"
+              onClick={() => setIsExpanded(false)}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               ✕
             </button>
@@ -66,7 +66,7 @@ const ThemeManager: React.FC = () => {
                 <div className="font-medium text-gray-900 dark:text-white">
                   {currentTheme.name}
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
                   {currentTheme.description}
                 </div>
               </div>
@@ -78,7 +78,7 @@ const ThemeManager: React.FC = () => {
             <div key={category} className="mb-4">
               <div className="flex items-center gap-2 mb-2">
                 {getCategoryIcon(category)}
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 capitalize">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 capitalize">
                   {category}
                 </h4>
               </div>
@@ -87,7 +87,7 @@ const ThemeManager: React.FC = () => {
                 {themes.map((theme) => (
                   <button
                     key={theme.id}
-                    onClick={()  => setTheme(theme.id)}
+                    onClick={() => setTheme(theme.id)}
                     className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
                       currentTheme.id === theme.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
@@ -103,7 +103,7 @@ const ThemeManager: React.FC = () => {
                         {theme.name}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 text-left">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 text-left">
                       {theme.description}
                     </p>
                   </button>
@@ -116,13 +116,13 @@ const ThemeManager: React.FC = () => {
           <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
             <div className="flex gap-2">
               <button
-                onClick={()  => setTheme('mundo-tango')}
+                onClick={() => setTheme('mundo-tango')}
                 className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-lg hover:from-pink-600 hover:to-blue-600 transition-all"
               >
                 Default
               </button>
               <button
-                onClick={()  => setTheme('life-ceo')}
+                onClick={() => setTheme('life-ceo')}
                 className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all"
               >
                 Executive

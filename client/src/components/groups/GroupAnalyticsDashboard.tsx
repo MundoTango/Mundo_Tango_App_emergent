@@ -22,9 +22,9 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   
   if (isLoading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6" data-testid="analytics-loading">
         {[1, 2, 3].map(i => (
-          <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse dark:bg-neutral-800" />
+          <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
         ))}
       </div>
     );
@@ -50,12 +50,12 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   const getSentimentIcon = (sentiment: string) => {
     if (sentiment === 'positive') return <TrendingUp className="h-5 w-5 text-green-600" />;
     if (sentiment === 'negative') return <TrendingDown className="h-5 w-5 text-red-600" />;
-    return <Activity className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
+    return <Activity className="h-5 w-5 text-gray-600" />;
   };
   
   return (
-    <div className="space-y-6">
-      <Card>
+    <div className="space-y-6" data-testid="analytics-dashboard">
+      <Card data-testid="health-score-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5" />
@@ -78,36 +78,36 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
       </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
+        <Card data-testid="engagement-card">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <MessageCircle className="h-8 w-8 text-blue-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Posts per Day</div>
+                <div className="text-sm text-gray-600">Posts per Day</div>
                 <div className="text-2xl font-bold">{health.postsPerDay.toFixed(1)}</div>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card data-testid="growth-card">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <Users className="h-8 w-8 text-green-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">New Members/Week</div>
+                <div className="text-sm text-gray-600">New Members/Week</div>
                 <div className="text-2xl font-bold">{health.newMembersPerWeek}</div>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card data-testid="engagement-score-card">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <Activity className="h-8 w-8 text-purple-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Engagement Score</div>
+                <div className="text-sm text-gray-600">Engagement Score</div>
                 <div className="text-2xl font-bold">{health.engagementScore}/100</div>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
         </Card>
       </div>
       
-      <Card>
+      <Card data-testid="peak-activity-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
@@ -126,7 +126,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           <div className="space-y-2">
             {insights.peakActivityTimes.length > 0 ? (
               insights.peakActivityTimes.map((time: any, index: number) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800"
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                      data-testid={`peak-time-${index}`}>
                   <span className="font-medium">
                     {time.hour}:00 - {time.hour + 1}:00
@@ -141,7 +141,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
         </CardContent>
       </Card>
       
-      <Card>
+      <Card data-testid="top-contributors-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -152,7 +152,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           <div className="space-y-2">
             {insights.topContributors.length > 0 ? (
               insights.topContributors.map((contributor: any, index: number) => (
-                <div key={contributor.userId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800"
+                <div key={contributor.userId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                      data-testid={`contributor-${contributor.userId}`}>
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
@@ -176,7 +176,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
       </Card>
       
       {insights.trendingTopics.length > 0 && (
-        <Card>
+        <Card data-testid="trending-topics-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5" />

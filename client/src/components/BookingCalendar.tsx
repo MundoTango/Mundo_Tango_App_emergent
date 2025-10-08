@@ -156,22 +156,22 @@ export function BookingCalendar({
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Legend */}
-          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-white border border-gray-300 dark:bg-neutral-900"></div>
-              <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Available</span>
+              <div className="w-6 h-6 rounded bg-white border border-gray-300"></div>
+              <span className="text-sm text-gray-700">Available</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-yellow-100 border border-yellow-300"></div>
-              <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Pending</span>
+              <span className="text-sm text-gray-700">Pending</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-green-100 border border-green-300"></div>
-              <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Approved</span>
+              <span className="text-sm text-gray-700">Approved</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-red-100 border border-red-300"></div>
-              <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Blocked</span>
+              <span className="text-sm text-gray-700">Blocked</span>
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export function BookingCalendar({
               modifiers={modifiers}
               modifiersStyles={modifiersStyles}
               className="rounded-md border"
-             
+              data-testid="calendar-availability"
             />
           </div>
 
@@ -194,7 +194,7 @@ export function BookingCalendar({
               onClick={() => setIsBlockingDialogOpen(true)}
               variant="outline"
               className="gap-2"
-             
+              data-testid="button-block-dates"
             >
               <Plus className="w-4 h-4" />
               Block Dates
@@ -291,7 +291,7 @@ export function BookingCalendar({
 
       {/* Block Dates Dialog */}
       <Dialog open={isBlockingDialogOpen} onOpenChange={setIsBlockingDialogOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md" data-testid="dialog-block-dates">
           <DialogHeader>
             <DialogTitle>Block Dates</DialogTitle>
             <DialogDescription>
@@ -309,7 +309,7 @@ export function BookingCalendar({
                   value={blockStartDate ? format(blockStartDate, 'yyyy-MM-dd') : ''}
                   onChange={(e) => setBlockStartDate(e.target.value ? new Date(e.target.value) : undefined)}
                   className="mt-2"
-                 
+                  data-testid="input-block-start-date"
                 />
               </div>
               <div>
@@ -321,7 +321,7 @@ export function BookingCalendar({
                   onChange={(e) => setBlockEndDate(e.target.value ? new Date(e.target.value) : undefined)}
                   min={blockStartDate ? format(blockStartDate, 'yyyy-MM-dd') : undefined}
                   className="mt-2"
-                 
+                  data-testid="input-block-end-date"
                 />
               </div>
             </div>
@@ -335,7 +335,7 @@ export function BookingCalendar({
                 placeholder="e.g., Personal use, Maintenance, Renovation"
                 rows={3}
                 className="mt-2"
-               
+                data-testid="textarea-block-reason"
               />
             </div>
 
@@ -357,7 +357,7 @@ export function BookingCalendar({
                 setBlockReason('');
               }}
               disabled={isUpdating}
-             
+              data-testid="button-cancel-block"
             >
               Cancel
             </Button>
@@ -365,7 +365,7 @@ export function BookingCalendar({
               onClick={handleAddBlockedDates}
               disabled={!blockStartDate || !blockEndDate || isUpdating}
               className="bg-red-600 hover:bg-red-700"
-             
+              data-testid="button-confirm-block"
             >
               {isUpdating ? 'Blocking...' : 'Block Dates'}
             </Button>

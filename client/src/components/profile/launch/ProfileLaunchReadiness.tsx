@@ -56,7 +56,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
       case 'in-progress':
         return <Clock className="w-4 h-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
+        return <AlertCircle className="w-4 h-4 text-gray-400" />;
     }
   };
 
@@ -95,13 +95,13 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
           </div>
           <Progress value={metrics.overallReadiness} className="h-4 mb-4" />
           <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="font-medium">Critical Tasks</div>
               <div className="text-2xl font-bold mt-1">
                 {metrics.criticalTasksComplete}/{metrics.criticalTasksTotal}
               </div>
             </div>
-            <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-3 bg-white/70 rounded-lg">
               <div className="font-medium">Est. Launch Date</div>
               <div className="text-lg font-bold mt-1">
                 {metrics.estimatedLaunchDate.toLocaleDateString()}
@@ -119,12 +119,12 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
         <CardContent>
           <div className="space-y-3">
             {checklist.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   {getStatusIcon(item.status)}
                   <div>
                     <div className="font-medium">{item.task}</div>
-                    <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{item.category}</div>
+                    <div className="text-sm text-gray-600">{item.category}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Integration Tests</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">All 245 tests passing</div>
+              <div className="text-sm text-gray-600">All 245 tests passing</div>
             </div>
             <div className={`p-4 rounded-lg ${
               metrics.rollbackPlanReady ? 'bg-green-50' : 'bg-yellow-50'
@@ -167,21 +167,21 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Rollback Plan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tested and documented</div>
+              <div className="text-sm text-gray-600">Tested and documented</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Performance Baseline</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Sub-100ms response time</div>
+              <div className="text-sm text-gray-600">Sub-100ms response time</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Security Scan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">No vulnerabilities found</div>
+              <div className="text-sm text-gray-600">No vulnerabilities found</div>
             </div>
           </div>
         </CardContent>

@@ -127,13 +127,13 @@ export default function EventAutocomplete({
       )}
       
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
         <Input
           id="event-search"
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          onFocus={()  => setIsOpen(true)}
+          onFocus={() => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           placeholder={placeholder}
           className="pl-10"
@@ -150,7 +150,7 @@ export default function EventAutocomplete({
                 <span className="text-xl">{getEventTypeEmoji(value.eventType)}</span>
                 <span className="font-medium text-gray-900 dark:text-gray-100">{value.title}</span>
               </div>
-              <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   <span>{formatEventDate(value.startDate)}</span>
@@ -172,7 +172,7 @@ export default function EventAutocomplete({
             <Button
               size="sm"
               variant="ghost"
-              onClick={()  => onSelect(null)}
+              onClick={() => onSelect(null)}
               className="text-gray-500 hover:text-gray-700"
             >
               Clear
@@ -195,7 +195,7 @@ export default function EventAutocomplete({
               {events.map((event: Event) => (
                 <button
                   key={event.id}
-                  onClick={()  => handleSelectEvent(event)}
+                  onClick={() => handleSelectEvent(event)}
                   className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
                   <div className="flex items-start gap-3">
@@ -204,7 +204,7 @@ export default function EventAutocomplete({
                       <div className="font-medium text-gray-900 dark:text-gray-100">
                         {event.title}
                       </div>
-                      <div className="flex items-center gap-3 mt-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-3 mt-1 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           <span>{formatEventDate(event.startDate)}</span>

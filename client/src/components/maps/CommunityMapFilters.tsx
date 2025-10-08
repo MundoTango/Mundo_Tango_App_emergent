@@ -48,7 +48,7 @@ export default function CommunityMapFilters({
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="relative">
+          <Button variant="outline" size="sm" className="relative" data-testid="button-community-filters">
             <Filter className="h-4 w-4 mr-2" />
             Filters
             {activeFiltersCount > 0 && (
@@ -84,7 +84,7 @@ export default function CommunityMapFilters({
             variant="ghost" 
             size="sm" 
             onClick={clearFilters}
-           
+            data-testid="button-clear-community-filters"
           >
             <X className="h-4 w-4 mr-1" />
             Clear ({activeFiltersCount})
@@ -132,7 +132,7 @@ function FiltersContent({
           placeholder="Search by city name..."
           value={filters.search}
           onChange={(e) => updateFilter('search', e.target.value)}
-         
+          data-testid="input-community-search"
         />
       </div>
 
@@ -143,7 +143,7 @@ function FiltersContent({
             <Users className="h-4 w-4" />
             Member Count
           </Label>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground" data-testid="text-member-range">
             {filters.memberRange[0]} - {filters.memberRange[1]}
           </span>
         </div>
@@ -154,7 +154,7 @@ function FiltersContent({
           value={filters.memberRange}
           onValueChange={(value) => updateFilter('memberRange', value as [number, number])}
           className="w-full"
-         
+          data-testid="slider-member-range"
         />
       </div>
 
@@ -165,7 +165,7 @@ function FiltersContent({
             <Calendar className="h-4 w-4" />
             Event Count
           </Label>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground" data-testid="text-event-range">
             {filters.eventRange[0]} - {filters.eventRange[1]}
           </span>
         </div>
@@ -176,7 +176,7 @@ function FiltersContent({
           value={filters.eventRange}
           onValueChange={(value) => updateFilter('eventRange', value as [number, number])}
           className="w-full"
-         
+          data-testid="slider-event-range"
         />
       </div>
     </div>

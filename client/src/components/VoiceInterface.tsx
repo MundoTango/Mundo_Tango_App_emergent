@@ -374,13 +374,13 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Bot className="w-5 h-5 text-ocean-500" />
+                  <Bot className="w-5 h-5 text-teal-500" />
                   <span className="font-semibold">Voice Assistant</span>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={()  => setIsExpanded(false)}
+                  onClick={() => setIsExpanded(false)}
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -390,7 +390,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
                 {isProcessing ? (
                   <div className="flex items-center justify-center h-full">
-                    <Loader2 className="w-5 h-5 animate-spin text-ocean-500" />
+                    <Loader2 className="w-5 h-5 animate-spin text-teal-500" />
                   </div>
                 ) : (
                   <div>
@@ -400,12 +400,12 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                       </p>
                     )}
                     {interimTranscript && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                      <p className="text-sm text-gray-400 italic">
                         {interimTranscript}
                       </p>
                     )}
                     {!transcript && !interimTranscript && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                      <p className="text-sm text-gray-400 italic">
                         {isListening ? 'Listening...' : 'Click the microphone to start'}
                       </p>
                     )}
@@ -447,7 +447,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={()  => textToSpeech.stop()}
+                  onClick={() => textToSpeech.stop()}
                   disabled={!isSpeaking}
                 >
                   {isSpeaking ? (
@@ -484,7 +484,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={()  => setShowSettings(true)}
+                  onClick={() => setShowSettings(true)}
                 >
                   <Settings className="w-4 h-4" />
                 </Button>
@@ -622,7 +622,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={()  => speakResponse("Hello! This is a test of the voice settings.")}
+                onClick={() => speakResponse("Hello! This is a test of the voice settings.")}
               >
                 Test Voice Settings
               </Button>

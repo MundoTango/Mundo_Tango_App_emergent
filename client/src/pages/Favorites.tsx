@@ -15,7 +15,6 @@ import { useToast } from '@/hooks/use-toast';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { format } from 'date-fns';
 import DashboardLayout from '@/components/esa/DashboardLayout';
-import { Helmet } from 'react-helmet';
 
 interface FavoriteItem {
   id: number;
@@ -116,11 +115,6 @@ export default function Favorites() {
     const isSelected = selectedItems.includes(item.id.toString());
     
     return (
-    <>
-      <Helmet>
-        <title>Favorites | Life CEO</title>
-      </Helmet>
-      
       <Card 
         key={`${item.itemType}-${item.itemId}`}
         className={cn(
@@ -151,7 +145,9 @@ export default function Favorites() {
           className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={(e) => {
             e.stopPropagation();
-            removeFavorite.mutate({ itemId: item.itemId, itemType: item.itemType }) }}>
+            removeFavorite.mutate({ itemId: item.itemId, itemType: item.itemType });
+          }}
+        >
           <X className="h-4 w-4" />
         </Button>
 
@@ -224,15 +220,13 @@ export default function Favorites() {
           
           <p className={cn(
             "text-xs mt-2",
-            theme === 'dark' ? "text-slate-500" : "text-gray-600 dark:text-gray-400"
+            theme === 'dark' ? "text-slate-500" : "text-gray-400"
           )}>
             Saved {format(new Date(item.createdAt), 'MMM dd, yyyy')}
           </p>
         </CardContent>
       </Card>
-    
-    </>
-  );
+    );
   };
 
   return (
@@ -277,7 +271,9 @@ export default function Favorites() {
                 onClick={() => {
                   const items = favorites?.filter(f => selectedItems.includes(f.id.toString()))
                     .map(f => ({ itemId: f.itemId, itemType: f.itemType })) || [];
-                  bulkRemove.mutate(items) }}>
+                  bulkRemove.mutate(items);
+                }}
+              >
                 Remove Selected
               </Button>
             </div>
@@ -290,12 +286,12 @@ export default function Favorites() {
             "grid w-full max-w-md grid-cols-6",
             theme === 'dark' ? "bg-slate-800" : "bg-gray-100"
           )}>
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="events">Events</TabsTrigger>
-            <TabsTrigger value="people">People</TabsTrigger>
-            <TabsTrigger value="groups">Groups</TabsTrigger>
-            <TabsTrigger value="memories">Memories</TabsTrigger>
+            <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
+            <TabsTrigger value="posts" data-testid="tab-posts">Posts</TabsTrigger>
+            <TabsTrigger value="events" data-testid="tab-events">Events</TabsTrigger>
+            <TabsTrigger value="people" data-testid="tab-people">People</TabsTrigger>
+            <TabsTrigger value="groups" data-testid="tab-groups">Groups</TabsTrigger>
+            <TabsTrigger value="memories" data-testid="tab-memories">Memories</TabsTrigger>
           </TabsList>
         </Tabs>
 
@@ -317,7 +313,7 @@ export default function Favorites() {
             "p-12 text-center",
             theme === 'dark' ? "bg-slate-900/50" : "bg-white"
           )}>
-            <Heart className="h-16 w-16 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
+            <Heart className="h-16 w-16 mx-auto mb-4 text-gray-400" />
             <h3 className="text-xl font-semibold mb-2">No favorites yet</h3>
             <p className={cn(
               "text-sm mb-6",

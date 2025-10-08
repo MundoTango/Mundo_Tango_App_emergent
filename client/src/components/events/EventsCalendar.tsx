@@ -107,7 +107,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'month' ? 'default' : 'outline'}
-              onClick={()  => setView('month')}
+              onClick={() => setView('month')}
               className={view === 'month' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <Calendar className="h-4 w-4 mr-1" />
@@ -116,7 +116,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'week' ? 'default' : 'outline'}
-              onClick={()  => setView('week')}
+              onClick={() => setView('week')}
               className={view === 'week' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <Grid className="h-4 w-4 mr-1" />
@@ -125,7 +125,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             <Button
               size="sm"
               variant={view === 'day' ? 'default' : 'outline'}
-              onClick={()  => setView('day')}
+              onClick={() => setView('day')}
               className={view === 'day' ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' : ''}
             >
               <List className="h-4 w-4 mr-1" />
@@ -149,15 +149,13 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                     setSelectedEvent(event);
                     if (onEventClick) onEventClick(event);
                   }}
-                  className="p-4 rounded-lg border border-gray-200 hover:border-turquoise-400 cursor-pointer transition-all dark:border-neutral-700"
+                  className="p-4 rounded-lg border border-gray-200 hover:border-turquoise-400 cursor-pointer transition-all"
                   style={{ borderLeft: `4px solid ${getEventColor(event)}` }}
-                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
-                    setSelectedEvent(event);
-                    if (onEventClick) onEventClick(event);(e); } }}>
+                >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{event.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                      <h4 className="font-semibold text-gray-900">{event.title}</h4>
+                      <p className="text-sm text-gray-600 mt-1">
                         {format(new Date(event.startDate), 'MMM d, yyyy h:mm a')}
                       </p>
                       {event.location && (
@@ -178,8 +176,8 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
         </div>
 
         {/* Event Legend */}
-        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Event Types</h4>
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <h4 className="text-sm font-medium text-gray-700 mb-2">Event Types</h4>
           <div className="flex flex-wrap gap-2">
             {[
               { type: 'milonga', color: '#38b2ac', label: 'Milonga' },
@@ -195,7 +193,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                   className="w-3 h-3 rounded-full" 
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{label}</span>
+                <span className="text-xs text-gray-600">{label}</span>
               </div>
             ))}
           </div>
@@ -229,23 +227,23 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               )}
               
               <div className="space-y-2">
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{selectedEvent.description}</p>
+                <p className="text-sm text-gray-600">{selectedEvent.description}</p>
                 
                 <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  <Calendar className="h-4 w-4 text-gray-400" />
                   <span>{format(new Date(selectedEvent.startDate), 'PPP p')}</span>
                 </div>
                 
                 {selectedEvent.location && (
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">📍</span>
+                    <span className="text-gray-400">📍</span>
                     <span>{selectedEvent.location}</span>
                   </div>
                 )}
                 
                 {selectedEvent.price && (
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">💵</span>
+                    <span className="text-gray-400">💵</span>
                     <span>{selectedEvent.currency} {selectedEvent.price}</span>
                   </div>
                 )}
@@ -253,8 +251,10 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               
               <Button 
                 className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-600"
-                onClick={()  => {
-                  window.location.href = `/events/${selectedEvent.id}` }}>
+                onClick={() => {
+                  window.location.href = `/events/${selectedEvent.id}`;
+                }}
+              >
                 View Full Details
               </Button>
             </div>

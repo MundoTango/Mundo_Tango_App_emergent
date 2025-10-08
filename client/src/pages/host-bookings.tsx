@@ -38,7 +38,6 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GuestReviewForm } from '../components/reviews/GuestReviewForm';
 import { Star } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { Helmet } from 'react-helmet';
 
 interface BookingWithDetails {
   id: number;
@@ -172,21 +171,14 @@ export default function HostBookings() {
     switch (status) {
       case 'pending':
         return (
-    <>
-      <Helmet>
-        <title>Host Bookings | Life CEO</title>
-      </Helmet>
-      
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/40 dark:to-amber-900/40 border border-yellow-200/50 dark:border-yellow-500/30">
             <Clock className="w-3 h-3 text-yellow-700 dark:text-yellow-400" />
             <span className="text-sm font-medium text-yellow-700 dark:text-yellow-300">{t('housing.host_bookings.status_pending', 'Pending')}</span>
           </div>
-        
-    </>
-  );
+        );
       case 'approved':
         return (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 border border-cyan-200/50 dark:border-ocean-500/30">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 border border-cyan-200/50 dark:border-cyan-500/30">
             <CheckCircle className="w-3 h-3 text-cyan-700 dark:text-cyan-400" />
             <span className="text-sm font-medium text-cyan-700 dark:text-cyan-300">{t('housing.host_bookings.status_approved', 'Approved')}</span>
           </div>
@@ -263,7 +255,7 @@ export default function HostBookings() {
       <ScaleIn key={booking.id} delay={0.05}>
         <GlassCard 
           depth={2} 
-          className="overflow-hidden border-cyan-200/30 dark:border-ocean-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+          className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
           data-testid={`card-host-booking-${booking.id}`}
         >
           <div className="flex flex-col md:flex-row">
@@ -298,7 +290,7 @@ export default function HostBookings() {
               </div>
 
               {/* Guest Info */}
-              <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/20 dark:border-ocean-500/20 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
+              <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/20 dark:border-cyan-500/20 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                 <div className="flex items-center gap-3">
                   {booking.guest.profileImage ? (
                     <img src={booking.guest.profileImage} alt={booking.guest.name} className="w-10 h-10 rounded-full ring-2 ring-cyan-200 dark:ring-cyan-700" />
@@ -319,7 +311,7 @@ export default function HostBookings() {
               {/* Booking Info Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                  <Calendar className="w-4 h-4 text-ocean-500 dark:text-cyan-400" />
+                  <Calendar className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
                   <div className="text-sm">
                     <p className="font-medium">{t('housing.host_bookings.check_in', 'Check-in')}: {format(new Date(booking.checkInDate), 'MMM dd, yyyy')}</p>
                     <p className="font-medium">{t('housing.host_bookings.check_out', 'Check-out')}: {format(new Date(booking.checkOutDate), 'MMM dd, yyyy')}</p>
@@ -333,7 +325,7 @@ export default function HostBookings() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                  <Users className="w-4 h-4 text-ocean-500 dark:text-cyan-400" />
+                  <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
                   <div className="text-sm">
                     <p className="font-medium">
                       {t('housing.host_bookings.guests', {
@@ -366,7 +358,7 @@ export default function HostBookings() {
 
               {/* Host Response (if any) */}
               {booking.hostResponse && (
-                <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-ocean-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
+                <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                   <div className="flex items-start gap-2">
                     <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400 mt-1" />
                     <div className="flex-1">
@@ -435,27 +427,27 @@ export default function HostBookings() {
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
           <FadeIn>
-            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <Link href="/housing-marketplace">
                     <MagneticButton
                       strength={0.15}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
-                     
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                      data-testid="button-back-marketplace"
                     >
                       <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                     </MagneticButton>
                   </Link>
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-bookings">
                       {t('housing.host_bookings.title', 'Host Dashboard')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
                       {t('housing.host_bookings.subtitle', 'Manage booking requests for your properties')}
                     </p>
                   </div>
-                  <GlassCard depth={1} className="p-4 text-center border-cyan-200/20 dark:border-ocean-500/20">
+                  <GlassCard depth={1} className="p-4 text-center border-cyan-200/20 dark:border-cyan-500/20">
                     <p className="text-sm text-slate-500 dark:text-slate-400">{t('housing.host_bookings.total_bookings', 'Total bookings')}</p>
                     <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent">{bookings.length}</p>
                   </GlassCard>
@@ -467,12 +459,12 @@ export default function HostBookings() {
           {/* Tabbed Interface */}
           <ScaleIn delay={0.1}>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-              <div className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 p-2 rounded-2xl">
+              <div className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 p-2 rounded-2xl">
                 <TabsList className="grid w-full grid-cols-4 bg-transparent gap-2">
                   <TabsTrigger 
                     value="pending" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                   
+                    data-testid="tab-pending"
                   >
                     <Clock className="w-4 h-4" />
                     {t('housing.host_bookings.tab_pending', 'Pending')} ({pendingBookings.length})
@@ -480,7 +472,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="approved" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                   
+                    data-testid="tab-approved"
                   >
                     <CheckCircle className="w-4 h-4" />
                     {t('housing.host_bookings.tab_approved', 'Approved')} ({approvedBookings.length})
@@ -488,7 +480,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="rejected" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                   
+                    data-testid="tab-rejected"
                   >
                     <XCircle className="w-4 h-4" />
                     {t('housing.host_bookings.tab_rejected', 'Rejected')} ({rejectedBookings.length})
@@ -496,7 +488,7 @@ export default function HostBookings() {
                   <TabsTrigger 
                     value="all" 
                     className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
-                   
+                    data-testid="tab-all"
                   >
                     <Filter className="w-4 h-4" />
                     {t('housing.host_bookings.tab_all', 'All')} ({bookings.length})
@@ -508,7 +500,7 @@ export default function HostBookings() {
               <TabsContent value="pending" className="space-y-6">
                 {pendingBookings.length === 0 ? (
                   <ScaleIn delay={0.2}>
-                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30">
                       <Clock className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t('housing.host_bookings.no_pending_title', 'No pending requests')}</h3>
                       <p className="text-slate-600 dark:text-slate-400">{t('housing.host_bookings.no_pending_desc', "You're all caught up! New booking requests will appear here.")}</p>
@@ -531,7 +523,7 @@ export default function HostBookings() {
               <TabsContent value="approved" className="space-y-6">
                 {approvedBookings.length === 0 ? (
                   <ScaleIn delay={0.2}>
-                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30">
                       <CheckCircle className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t('housing.host_bookings.no_approved_title', 'No approved bookings')}</h3>
                       <p className="text-slate-600 dark:text-slate-400">{t('housing.host_bookings.no_approved_desc', 'Approved bookings will appear here.')}</p>
@@ -548,7 +540,7 @@ export default function HostBookings() {
               <TabsContent value="rejected" className="space-y-6">
                 {rejectedBookings.length === 0 ? (
                   <ScaleIn delay={0.2}>
-                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30">
                       <XCircle className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t('housing.host_bookings.no_rejected_title', 'No rejected bookings')}</h3>
                       <p className="text-slate-600 dark:text-slate-400">{t('housing.host_bookings.no_rejected_desc', 'Rejected bookings will appear here.')}</p>
@@ -565,7 +557,7 @@ export default function HostBookings() {
               <TabsContent value="all" className="space-y-6">
                 {bookings.length === 0 ? (
                   <ScaleIn delay={0.2}>
-                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30">
                       <Home className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t('housing.host_bookings.no_bookings_title', 'No bookings yet')}</h3>
                       <p className="text-slate-600 dark:text-slate-400">{t('housing.host_bookings.no_bookings_desc', 'Booking requests for your properties will appear here.')}</p>
@@ -592,7 +584,7 @@ export default function HostBookings() {
             }
           }}
         >
-          <DialogContent className="max-w-md glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
+          <DialogContent className="max-w-md glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-respond-booking">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {responseAction === 'approve' 
@@ -620,7 +612,7 @@ export default function HostBookings() {
                   placeholder={responseAction === 'approve' 
                     ? t('housing.host_bookings.message_placeholder_approve', 'Welcome the guest and provide any additional details...')
                     : t('housing.host_bookings.message_placeholder_reject', 'Explain why you cannot accept this booking...')}
-                 
+                  data-testid="textarea-host-response"
                 />
               </div>
             </div>
@@ -635,7 +627,7 @@ export default function HostBookings() {
                 disabled={respondToBookingMutation.isPending}
                 strength={0.15}
                 className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-               
+                data-testid="button-cancel-response"
               >
                 {t('housing.host_bookings.cancel', 'Cancel')}
               </MagneticButton>
@@ -643,7 +635,7 @@ export default function HostBookings() {
                 onClick={handleSubmitResponse}
                 disabled={respondToBookingMutation.isPending}
                 className={`px-4 py-2 text-white rounded-xl ${responseAction === 'approve' ? 'bg-gradient-to-r from-cyan-500 to-teal-500' : 'bg-gradient-to-r from-red-500 to-rose-500'}`}
-               
+                data-testid="button-submit-response"
               >
                 {respondToBookingMutation.isPending 
                   ? t('housing.host_bookings.sending', 'Sending...') 
@@ -657,7 +649,7 @@ export default function HostBookings() {
 
         {/* Review Dialog */}
         <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
-          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-review-guest">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.host_bookings.review_dialog_title', 'Review Your Guest')}
@@ -668,7 +660,7 @@ export default function HostBookings() {
             </DialogHeader>
             {bookingToReview && (
               <div className="mt-4">
-                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg">
+                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     {bookingToReview.guest.profileImage ? (
                       <img

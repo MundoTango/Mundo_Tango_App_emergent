@@ -24,7 +24,6 @@ import {
   CheckCircle,
   Settings
 } from 'lucide-react';
-import { Helmet } from 'react-helmet';
 
 export default function MonitoringDashboard() {
   const { trackEvent, trackAgentInteraction, getFeatureFlag } = useMonitoring();
@@ -77,11 +76,6 @@ export default function MonitoringDashboard() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Monitoring Dashboard | Life CEO</title>
-      </Helmet>
-      
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-teal-50 to-cyan-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
@@ -90,7 +84,7 @@ export default function MonitoringDashboard() {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               ESA Monitoring Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               OpenReplay & PostHog Analytics Integration
             </p>
           </div>
@@ -98,7 +92,7 @@ export default function MonitoringDashboard() {
             <Button
               variant="outline"
               onClick={() => setShowPrivacySettings(true)}
-             
+              data-testid="button-privacy"
             >
               <Settings className="w-4 h-4 mr-2" />
               Privacy Settings
@@ -106,7 +100,7 @@ export default function MonitoringDashboard() {
             <Button
               onClick={testMonitoring}
               className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-             
+              data-testid="button-test"
             >
               <Zap className="w-4 h-4 mr-2" />
               Test Monitoring
@@ -118,7 +112,7 @@ export default function MonitoringDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <Shield className="w-5 h-5 text-ocean-500" />
+              <Shield className="w-5 h-5 text-teal-500" />
               <span>Privacy & Consent Status</span>
             </CardTitle>
           </CardHeader>
@@ -138,14 +132,14 @@ export default function MonitoringDashboard() {
                     </>
                   )}
                 </Badge>
-                <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
                   {hasConsent 
                     ? "Analytics, session recording, and error tracking are enabled"
                     : "User consent required for monitoring services"}
                 </span>
               </div>
               {!hasConsent && (
-                <Button onClick={requestConsent} size="sm">
+                <Button onClick={requestConsent} size="sm" data-testid="button-enable-monitoring">
                   Enable Monitoring
                 </Button>
               )}
@@ -241,7 +235,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Brain className="w-5 h-5 text-ocean-500" />
+                  <Brain className="w-5 h-5 text-teal-500" />
                   <span>Life CEO Agent Tracking</span>
                 </CardTitle>
                 <CardDescription>
@@ -323,7 +317,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Eye className="w-5 h-5 text-ocean-500" />
+                  <Eye className="w-5 h-5 text-teal-500" />
                   <span>Session Analytics</span>
                 </CardTitle>
                 <CardDescription>
@@ -337,31 +331,31 @@ export default function MonitoringDashboard() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '100%' }}></div>
+                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '100%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Landing (100%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '75%' }}></div>
+                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '75%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Registration (75%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '45%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Profile Complete (45%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '20%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Host Onboarding (20%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '12%' }}></div>
+                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '12%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">First Listing (12%)</span>
                       </div>
@@ -374,7 +368,5 @@ export default function MonitoringDashboard() {
         </Tabs>
       </div>
     </div>
-  
-    </>
   );
 }

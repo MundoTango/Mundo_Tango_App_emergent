@@ -63,7 +63,7 @@ export default function MTFormTextarea<
         return (
           <FormItem className={cn('space-y-2', className)}>
             {label && (
-              <FormLabel className="text-sm font-medium text-gray-700 flex items-center justify-between dark:text-neutral-600 dark:text-neutral-300">
+              <FormLabel className="text-sm font-medium text-gray-700 flex items-center justify-between">
                 <span className="flex items-center gap-1">
                   {label}
                   {required && <span className="text-red-500">*</span>}
@@ -71,7 +71,7 @@ export default function MTFormTextarea<
                 {showCount && maxLength && (
                   <span className={cn(
                     'text-xs',
-                    charCount > maxLength * 0.9 ? 'text-orange-500' : 'text-gray-600 dark:text-gray-400'
+                    charCount > maxLength * 0.9 ? 'text-orange-500' : 'text-gray-400'
                   )}>
                     {charCount} / {maxLength}
                   </span>

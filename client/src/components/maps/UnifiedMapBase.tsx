@@ -78,7 +78,7 @@ export default function UnifiedMapBase({
 
   return (
     <div className="relative h-full w-full">
-      <div ref={mapContainerRef} className={className} />
+      <div ref={mapContainerRef} className={className} data-testid="unified-map-container" />
       {children}
     </div>
   );

@@ -67,20 +67,20 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <Users className="w-8 h-8 text-pink-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.socialReach.toLocaleString()}</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Social Reach</div>
+              <div className="text-sm text-gray-600">Social Reach</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <Target className="w-8 h-8 text-purple-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.engagementRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Engagement Rate</div>
+              <div className="text-sm text-gray-600">Engagement Rate</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <TrendingUp className="w-8 h-8 text-blue-500 mx-auto mb-2" />
               <div className="text-2xl font-bold">{metrics.conversionRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Conversion Rate</div>
+              <div className="text-sm text-gray-600">Conversion Rate</div>
             </div>
           </div>
         </CardContent>
@@ -100,19 +100,19 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
           <Progress value={metrics.influencerScore} className="h-4 mb-4" />
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Profile Completeness</div>
+              <div className="text-gray-600">Profile Completeness</div>
               <div className="font-medium">95%</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Content Quality</div>
+              <div className="text-gray-600">Content Quality</div>
               <div className="font-medium">88%</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Audience Growth</div>
+              <div className="text-gray-600">Audience Growth</div>
               <div className="font-medium">+12% monthly</div>
             </div>
             <div>
-              <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Share Count</div>
+              <div className="text-gray-600">Share Count</div>
               <div className="font-medium">{metrics.shareCount}</div>
             </div>
           </div>
@@ -181,7 +181,7 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-4">
             {campaigns.map((campaign, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{campaign.name}</h4>
                   <Button size="sm" variant="outline">
@@ -191,15 +191,15 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-sm">
                   <div>
-                    <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Impressions</div>
+                    <div className="text-gray-600">Impressions</div>
                     <div className="font-medium">{campaign.impressions.toLocaleString()}</div>
                   </div>
                   <div>
-                    <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Clicks</div>
+                    <div className="text-gray-600">Clicks</div>
                     <div className="font-medium">{campaign.clicks}</div>
                   </div>
                   <div>
-                    <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">CTR</div>
+                    <div className="text-gray-600">CTR</div>
                     <div className="font-medium">{((campaign.clicks / campaign.impressions) * 100).toFixed(2)}%</div>
                   </div>
                 </div>

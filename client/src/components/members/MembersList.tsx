@@ -89,14 +89,14 @@ export const MembersList = ({
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-500"></div>
+      <div className="flex items-center justify-center py-12" data-testid="loading-members">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="container-members-list">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -104,10 +104,10 @@ export const MembersList = ({
             <Users className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-title">
               {t('members.title', 'Home Community Residents')}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               {t('members.subtitle', 'Connect with fellow tangueros')}
             </p>
           </div>
@@ -124,21 +124,21 @@ export const MembersList = ({
       {/* Search Filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400 dark:text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
           <Input
             type="text"
             placeholder={t('members.search.placeholder', 'Search members...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-ocean-500 dark:focus:border-cyan-400"
-           
+            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
+            data-testid="input-search-members"
           />
         </div>
         {selectedRoles.length > 0 && (
           <button
             onClick={() => setSelectedRoles([])}
-            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
-           
+            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            data-testid="button-clear-filters"
           >
             {t('members.clearFilters', 'Clear Filters')} ({selectedRoles.length})
           </button>
@@ -148,9 +148,9 @@ export const MembersList = ({
       {/* Members Grid */}
       <div>
         {filteredMembers.length === 0 ? (
-          <div className="text-center py-12">
-            <Users className="h-12 w-12 text-gray-600 dark:text-gray-400 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+          <div className="text-center py-12" data-testid="empty-members-state">
+            <Users className="h-12 w-12 text-gray-400 dark:text-gray-600 mx-auto mb-3" />
+            <p className="text-gray-600 dark:text-gray-400">
               {searchQuery || selectedRoles.length > 0
                 ? t('members.empty.filtered', 'No members match your filters')
                 : t('members.empty.default', 'No members yet')}

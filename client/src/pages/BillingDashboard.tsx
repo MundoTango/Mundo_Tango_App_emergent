@@ -21,7 +21,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Link, useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 const BillingDashboard: React.FC = () => {
   const { toast } = useToast();
@@ -108,17 +107,10 @@ const BillingDashboard: React.FC = () => {
 
   if (subscriptionLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Billing Dashboard | Life CEO</title>
-      </Helmet>
-      
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
       </div>
-    
-    </>
-  );
+    );
   }
 
   const subscription = subscriptionData?.subscription;
@@ -138,8 +130,8 @@ const BillingDashboard: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Billing & Subscription</h1>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Manage your subscription and payment methods</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Billing & Subscription</h1>
+          <p className="text-gray-600">Manage your subscription and payment methods</p>
         </div>
 
         {/* Current Subscription */}
@@ -172,7 +164,7 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-semibold text-lg capitalize">{subscription.tier} Plan</p>
-                    <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">${subscription.amount / 100}/month</p>
+                    <p className="text-gray-600">${subscription.amount / 100}/month</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-gray-500">Next billing date</p>
@@ -205,7 +197,7 @@ const BillingDashboard: React.FC = () => {
                       </Link>
                       <Button 
                         variant="destructive"
-                        onClick={()  => {
+                        onClick={() => {
                           if (confirm('Are you sure you want to cancel your subscription?')) {
                             cancelSubscriptionMutation.mutate();
                           }
@@ -224,7 +216,7 @@ const BillingDashboard: React.FC = () => {
                     </>
                   ) : status === 'cancelling' ? (
                     <Button 
-                      onClick={()  => resumeSubscriptionMutation.mutate()}
+                      onClick={() => resumeSubscriptionMutation.mutate()}
                       disabled={resumeSubscriptionMutation.isPending}
                     >
                       {resumeSubscriptionMutation.isPending ? (
@@ -241,7 +233,7 @@ const BillingDashboard: React.FC = () => {
               </>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">You don't have an active subscription</p>
+                <p className="text-gray-600 mb-4">You don't have an active subscription</p>
                 <Link href="/subscribe">
                   <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
                     View Plans
@@ -263,7 +255,7 @@ const BillingDashboard: React.FC = () => {
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                onClick={()  => toast({ 
+                onClick={() => toast({ 
                   title: "Coming Soon", 
                   description: "Payment method management will be available soon." 
                 })}
@@ -277,9 +269,9 @@ const BillingDashboard: React.FC = () => {
             {paymentMethods.length > 0 ? (
               <div className="space-y-3">
                 {paymentMethods.map((method) => (
-                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
+                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center gap-3">
-                      <CreditCard className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      <CreditCard className="w-5 h-5 text-gray-400" />
                       <div>
                         <p className="font-medium">•••• {method.last4}</p>
                         <p className="text-sm text-gray-500">
@@ -293,7 +285,7 @@ const BillingDashboard: React.FC = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={()  => {
+                      onClick={() => {
                         if (confirm('Are you sure you want to remove this payment method?')) {
                           deletePaymentMethodMutation.mutate(method.id);
                         }
@@ -321,9 +313,9 @@ const BillingDashboard: React.FC = () => {
             {invoices.length > 0 ? (
               <div className="space-y-2">
                 {invoices.map((invoice) => (
-                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
+                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center gap-3">
-                      <Calendar className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      <Calendar className="w-5 h-5 text-gray-400" />
                       <div>
                         <p className="font-medium">
                           ${invoice.amount / 100} - {format(new Date(invoice.created * 1000), 'MMMM d, yyyy')}
@@ -343,7 +335,7 @@ const BillingDashboard: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={()  => window.open(invoice.invoicePdf, '_blank')}
+                        onClick={() => window.open(invoice.invoicePdf, '_blank')}
                       >
                         <Download className="w-4 h-4" />
                       </Button>
@@ -359,7 +351,7 @@ const BillingDashboard: React.FC = () => {
 
         {/* Help Section */}
         <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-gray-600">
             Need help with billing?{' '}
             <a 
               href="mailto:support@mundotango.life" 

@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, CheckCircle, Clock, Trophy, Zap, Brain, Shield, Settings } from 'lucide-react';
-import { Helmet } from 'react-helmet';
 
 interface FrameworkStatus {
   framework: {
@@ -125,11 +124,6 @@ export default function AgentFrameworkDashboard() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Agent Framework Dashboard | Life CEO</title>
-      </Helmet>
-      
       <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-50 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center h-64">
@@ -140,9 +134,7 @@ export default function AgentFrameworkDashboard() {
           </div>
         </div>
       </div>
-    
-    </>
-  );
+    );
   }
 
   if (error) {
@@ -197,7 +189,7 @@ export default function AgentFrameworkDashboard() {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+          <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Framework Completion</CardTitle>
             </CardHeader>
@@ -212,7 +204,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-blue-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+          <Card className="border-blue-200 bg-white/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-blue-700">System Compliance</CardTitle>
             </CardHeader>
@@ -227,7 +219,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-green-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+          <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-green-700">Achievements</CardTitle>
             </CardHeader>
@@ -242,7 +234,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-purple-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+          <Card className="border-purple-200 bg-white/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-purple-700">Critical Issues</CardTitle>
             </CardHeader>
@@ -265,7 +257,7 @@ export default function AgentFrameworkDashboard() {
         </div>
 
         {/* Framework Categories */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-teal-900">
               <Brain className="h-5 w-5" />
@@ -310,7 +302,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Achievements */}
-        <Card className="border-yellow-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+        <Card className="border-yellow-200 bg-white/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-yellow-900">
               <Trophy className="h-5 w-5" />
@@ -342,7 +334,7 @@ export default function AgentFrameworkDashboard() {
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">
+                  <p className="text-xs text-gray-600 mb-3">
                     {achievement.description}
                   </p>
                   <div className="mb-2">
@@ -379,7 +371,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Recent Completions */}
-        <Card className="border-green-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+        <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-green-900">
               <Zap className="h-5 w-5" />
@@ -437,7 +429,7 @@ export default function AgentFrameworkDashboard() {
         </div>
 
         {/* Framework Summary */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
+        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-teal-900">🚀 Framework Summary</CardTitle>
           </CardHeader>

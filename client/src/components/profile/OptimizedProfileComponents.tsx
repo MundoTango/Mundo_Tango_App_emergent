@@ -41,7 +41,7 @@ export const ListFallback = memo(() => (
 export const PostFeedFallback = memo(() => (
   <div className="space-y-4">
     {[...Array(3)].map((_, i) => (
-      <div key={i} className="bg-white rounded-lg p-4 space-y-3 dark:bg-neutral-900">
+      <div key={i} className="bg-white rounded-lg p-4 space-y-3">
         <div className="flex items-center space-x-3">
           <Skeleton className="h-10 w-10 rounded-full" />
           <div className="space-y-2">
@@ -62,10 +62,10 @@ export const StatCard = memo(({ icon: Icon, label, value }: {
   label: string;
   value: number | string;
 }) => (
-  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
     <Icon className="h-5 w-5 text-turquoise-500" />
     <div>
-      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{label}</p>
+      <p className="text-sm text-gray-600">{label}</p>
       <p className="font-semibold">{value}</p>
     </div>
   </div>
@@ -105,7 +105,7 @@ export const LazyImage = memo(({ src, alt, className }: {
         <Skeleton className="absolute inset-0" />
       )}
       {error ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-600 dark:text-gray-400 dark:bg-neutral-800">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400">
           <span>Failed to load</span>
         </div>
       ) : (

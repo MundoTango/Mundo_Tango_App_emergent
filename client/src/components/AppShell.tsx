@@ -242,7 +242,7 @@ export function PullToRefresh({ onRefresh, children }: PullToRefreshProps) {
         }}
       >
         <div className={cn(
-          "rounded-full bg-ocean-500 flex items-center justify-center",
+          "rounded-full bg-teal-500 flex items-center justify-center",
           isRefreshing ? "animate-spin" : "",
           pullDistance > THRESHOLD ? "bg-teal-600" : ""
         )}

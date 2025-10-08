@@ -34,7 +34,6 @@ import {
   ChevronRight,
   Info
 } from "lucide-react";
-import { Helmet } from 'react-helmet';
 
 interface TripDestination {
   id: string;
@@ -158,18 +157,13 @@ const TravelPlanner: React.FC = () => {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Travel Planner | Life CEO</title>
-      </Helmet>
-      
     <div className="container mx-auto p-6 max-w-7xl">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Tango Travel Planner
         </h1>
-        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Plan your tango journey across cities and events worldwide</p>
+        <p className="text-gray-600">Plan your tango journey across cities and events worldwide</p>
       </div>
 
       {/* User Travel Stats */}
@@ -179,7 +173,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Cities Visited</p>
+                  <p className="text-sm text-gray-600">Cities Visited</p>
                   <p className="text-2xl font-bold">{travelHistory?.citiesVisited || 0}</p>
                 </div>
                 <MapPin className="h-8 w-8 text-turquoise-500" />
@@ -191,10 +185,10 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events Attended</p>
+                  <p className="text-sm text-gray-600">Events Attended</p>
                   <p className="text-2xl font-bold">{travelHistory?.eventsAttended || 0}</p>
                 </div>
-                <CalendarIcon className="h-8 w-8 text-ocean-500" />
+                <CalendarIcon className="h-8 w-8 text-cyan-500" />
               </div>
             </CardContent>
           </Card>
@@ -203,7 +197,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Countries</p>
+                  <p className="text-sm text-gray-600">Countries</p>
                   <p className="text-2xl font-bold">{travelHistory?.countries || 0}</p>
                 </div>
                 <Globe className="h-8 w-8 text-blue-500" />
@@ -215,7 +209,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Next Trip</p>
+                  <p className="text-sm text-gray-600">Next Trip</p>
                   <p className="text-2xl font-bold">
                     {travelHistory?.nextTrip ? format(new Date(travelHistory.nextTrip), 'MMM d') : 'None'}
                   </p>
@@ -257,7 +251,7 @@ const TravelPlanner: React.FC = () => {
                     id="trip-name"
                     placeholder="e.g., Summer Tango Tour 2025"
                     value={tripName}
-                    onChange={(e)  => setTripName(e.target.value)}
+                    onChange={(e) => setTripName(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -268,7 +262,7 @@ const TravelPlanner: React.FC = () => {
                     type="number"
                     placeholder="0"
                     value={budget}
-                    onChange={(e)  => setBudget(e.target.value)}
+                    onChange={(e) => setBudget(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -279,7 +273,7 @@ const TravelPlanner: React.FC = () => {
                     type="number"
                     min="1"
                     value={travelers}
-                    onChange={(e)  => setTravelers(e.target.value)}
+                    onChange={(e) => setTravelers(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -320,7 +314,7 @@ const TravelPlanner: React.FC = () => {
                               </span>
                             </div>
                             <Button
-                              onClick={()  => removeDestination(dest.id)}
+                              onClick={() => removeDestination(dest.id)}
                               variant="ghost"
                               size="sm"
                               className="text-red-500"
@@ -335,7 +329,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="e.g., Buenos Aires"
                                 value={dest.city}
-                                onChange={(e)  => updateDestination(dest.id, { city: e.target.value })}
+                                onChange={(e) => updateDestination(dest.id, { city: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -344,7 +338,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="e.g., Argentina"
                                 value={dest.country}
-                                onChange={(e)  => updateDestination(dest.id, { country: e.target.value })}
+                                onChange={(e) => updateDestination(dest.id, { country: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -353,7 +347,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 type="date"
                                 value={format(dest.startDate, 'yyyy-MM-dd')}
-                                onChange={(e)  => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
+                                onChange={(e) => updateDestination(dest.id, { startDate: new Date(e.target.value) })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -362,7 +356,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 type="date"
                                 value={format(dest.endDate, 'yyyy-MM-dd')}
-                                onChange={(e)  => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
+                                onChange={(e) => updateDestination(dest.id, { endDate: new Date(e.target.value) })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -371,7 +365,7 @@ const TravelPlanner: React.FC = () => {
                               <Input
                                 placeholder="Hotel name or address"
                                 value={dest.accommodation || ''}
-                                onChange={(e)  => updateDestination(dest.id, { accommodation: e.target.value })}
+                                onChange={(e) => updateDestination(dest.id, { accommodation: e.target.value })}
                                 className="glassmorphic-input"
                               />
                             </div>
@@ -380,7 +374,7 @@ const TravelPlanner: React.FC = () => {
                               <Textarea
                                 placeholder="Special notes for this destination"
                                 value={dest.notes || ''}
-                                onChange={(e)  => updateDestination(dest.id, { notes: e.target.value })}
+                                onChange={(e) => updateDestination(dest.id, { notes: e.target.value })}
                                 className="glassmorphic-input min-h-[80px]"
                               />
                             </div>
@@ -389,7 +383,7 @@ const TravelPlanner: React.FC = () => {
                           {/* Events for this destination */}
                           {dest.city && (
                             <div className="mt-4">
-                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
+                              <p className="text-sm text-gray-600 mb-2">
                                 {dest.events?.length || 0} tango events during your stay
                               </p>
                               {dest.events?.length > 0 && (
@@ -418,11 +412,13 @@ const TravelPlanner: React.FC = () => {
                 <div className="flex justify-end gap-2">
                   <Button
                     variant="outline"
-                    onClick={()  => {
+                    onClick={() => {
                       setDestinations([]);
                       setTripName('');
                       setBudget('');
-                      setTravelers('1') }}>
+                      setTravelers('1');
+                    }}
+                  >
                     Clear All
                   </Button>
                   <Button
@@ -443,7 +439,7 @@ const TravelPlanner: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <CalendarIcon className="h-5 w-5 text-ocean-500" />
+                <CalendarIcon className="h-5 w-5 text-cyan-500" />
                 Tango Events Along Your Route
               </CardTitle>
               <CardDescription>
@@ -477,7 +473,7 @@ const TravelPlanner: React.FC = () => {
                                 <h4 className="font-medium">{event.title}</h4>
                                 <Badge variant="secondary">{event.eventType}</Badge>
                               </div>
-                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{event.location}</p>
+                              <p className="text-sm text-gray-600 mb-2">{event.location}</p>
                               <div className="flex items-center gap-4 text-sm text-gray-500">
                                 <span className="flex items-center gap-1">
                                   <CalendarIcon className="h-3 w-3" />
@@ -492,7 +488,7 @@ const TravelPlanner: React.FC = () => {
                                 variant="outline"
                                 size="sm"
                                 className="w-full mt-3"
-                                onClick={()  => updateDestination(dest.id, {
+                                onClick={() => updateDestination(dest.id, {
                                   events: [...(dest.events || []), event]
                                 })}
                               >
@@ -528,7 +524,7 @@ const TravelPlanner: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card className="bg-green-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Budget</p>
+                      <p className="text-sm text-gray-600">Total Budget</p>
                       <p className="text-2xl font-bold text-green-600">
                         ${budget || '0'}
                       </p>
@@ -536,7 +532,7 @@ const TravelPlanner: React.FC = () => {
                   </Card>
                   <Card className="bg-blue-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Per Person</p>
+                      <p className="text-sm text-gray-600">Per Person</p>
                       <p className="text-2xl font-bold text-blue-600">
                         ${budget ? Math.round(parseFloat(budget) / parseInt(travelers)) : '0'}
                       </p>
@@ -544,7 +540,7 @@ const TravelPlanner: React.FC = () => {
                   </Card>
                   <Card className="bg-purple-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Per Day</p>
+                      <p className="text-sm text-gray-600">Per Day</p>
                       <p className="text-2xl font-bold text-purple-600">
                         ${budget && destinations.length ? 
                           Math.round(parseFloat(budget) / destinations.reduce((acc, d) => 
@@ -559,9 +555,9 @@ const TravelPlanner: React.FC = () => {
                 <div>
                   <h3 className="font-semibold mb-3">Estimated Costs by Category</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Hotel className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                        <Hotel className="h-4 w-4 text-gray-600" />
                         <span>Accommodation</span>
                       </div>
                       <Input
@@ -570,9 +566,9 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Plane className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                        <Plane className="h-4 w-4 text-gray-600" />
                         <span>Transportation</span>
                       </div>
                       <Input
@@ -581,9 +577,9 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <CalendarIcon className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                        <CalendarIcon className="h-4 w-4 text-gray-600" />
                         <span>Events & Classes</span>
                       </div>
                       <Input
@@ -592,9 +588,9 @@ const TravelPlanner: React.FC = () => {
                         className="w-32 glassmorphic-input"
                       />
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <div className="flex items-center gap-2">
-                        <Heart className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                        <Heart className="h-4 w-4 text-gray-600" />
                         <span>Food & Entertainment</span>
                       </div>
                       <Input
@@ -624,7 +620,7 @@ const TravelPlanner: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-gray-500">
-                <Briefcase className="h-12 w-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
+                <Briefcase className="h-12 w-12 mx-auto mb-3 text-gray-300" />
                 <p>No saved trips yet</p>
                 <p className="text-sm mt-1">Create your first trip in the Itinerary tab</p>
               </div>
@@ -633,8 +629,6 @@ const TravelPlanner: React.FC = () => {
         </TabsContent>
       </Tabs>
     </div>
-  
-    </>
   );
 };
 

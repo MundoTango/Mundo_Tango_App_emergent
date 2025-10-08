@@ -118,7 +118,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
               </AvatarFallback>
             </Avatar>
           ) : (
-            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center dark:bg-neutral-800">
+            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
               {getTypeIcon(suggestion.type)}
             </div>
           )}
@@ -126,7 +126,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="font-medium text-gray-900 truncate dark:text-neutral-100">
+          <div className="font-medium text-gray-900 truncate">
             {highlightedDisplay}
           </div>
           {suggestion.status && (
@@ -293,13 +293,13 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         style={{ minHeight: `${rows * 1.5}rem` }}
       />
       
       {/* Suggestions dropdown */}
       {showSuggestions && filteredSuggestions.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto dark:bg-neutral-900">
+        <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
           {filteredSuggestions.map((suggestion, index) => (
             <div
               key={suggestion.id}
@@ -307,10 +307,8 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                 e.stopPropagation();
                 selectSuggestion(suggestion);
               }}
-              className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:bg-neutral-800"
-             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => {
-                e.stopPropagation();
-                selectSuggestion(suggestion);(e); } }}>
+              className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50"
+            >
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
                 {suggestion.avatar ? (
@@ -321,7 +319,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                     </AvatarFallback>
                   </Avatar>
                 ) : (
-                  <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center dark:bg-neutral-800">
+                  <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
                     {suggestion.type === 'user' && <Users className="h-4 w-4 text-blue-500" />}
                     {suggestion.type === 'event' && <Calendar className="h-4 w-4 text-green-500" />}
                     {suggestion.type === 'group' && <UsersRound className="h-4 w-4 text-purple-500" />}
@@ -331,7 +329,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-gray-900 truncate dark:text-neutral-100">
+                <div className="font-medium text-gray-900 truncate">
                   {suggestion.display}
                 </div>
                 {suggestion.status && (

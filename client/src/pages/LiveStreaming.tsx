@@ -32,7 +32,6 @@ import {
 } from "lucide-react";
 import { useSocket } from "@/contexts/socket-context";
 import { format } from "date-fns";
-import { Helmet } from 'react-helmet';
 
 interface Stream {
   id: string;
@@ -233,14 +232,7 @@ export default function LiveStreaming() {
       }
     });
 
-    return (
-    <>
-      <Helmet>
-        <title>Live Streaming | Life CEO</title>
-      </Helmet>
-      
-    </>
-  ) => {
+    return () => {
       socket.off("stream:chat-message");
       socket.off("webrtc:answer");
       socket.off("webrtc:ice-candidate");
@@ -269,18 +261,18 @@ export default function LiveStreaming() {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-7xl">
+    <div className="container mx-auto p-4 max-w-7xl" data-testid="live-streaming-page">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Live Streaming</h1>
-          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-gray-400 mt-2">
             Watch live Tango performances, lessons, and social events
           </p>
         </div>
         
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-red-600 hover:bg-red-700">
+            <Button className="bg-red-600 hover:bg-red-700" data-testid="button-go-live">
               <Video className="mr-2 h-4 w-4" />
               Go Live
             </Button>
@@ -296,7 +288,7 @@ export default function LiveStreaming() {
                   value={streamTitle}
                   onChange={(e) => setStreamTitle(e.target.value)}
                   placeholder="Enter stream title"
-                 
+                  data-testid="input-stream-title"
                 />
               </div>
               
@@ -307,14 +299,14 @@ export default function LiveStreaming() {
                   onChange={(e) => setStreamDescription(e.target.value)}
                   placeholder="Describe your stream"
                   rows={3}
-                 
+                  data-testid="input-stream-description"
                 />
               </div>
               
               <div>
                 <label className="text-sm font-medium">Category</label>
                 <Select value={streamCategory} onValueChange={setStreamCategory}>
-                  <SelectTrigger>
+                  <SelectTrigger data-testid="select-stream-category">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -332,7 +324,7 @@ export default function LiveStreaming() {
                   type="datetime-local"
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
-                 
+                  data-testid="input-scheduled-date"
                 />
               </div>
               
@@ -350,7 +342,7 @@ export default function LiveStreaming() {
                     });
                   }}
                   disabled={!streamTitle || createStreamMutation.isPending}
-                 
+                  data-testid="button-create-stream"
                 >
                   {scheduledDate ? "Schedule Stream" : "Start Streaming"}
                 </Button>
@@ -366,7 +358,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "all" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("all")}
-         
+          data-testid="filter-all"
         >
           All
         </Button>
@@ -374,7 +366,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "lesson" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("lesson")}
-         
+          data-testid="filter-lesson"
         >
           <Tv className="mr-1 h-3 w-3" />
           Lessons
@@ -383,7 +375,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "performance" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("performance")}
-         
+          data-testid="filter-performance"
         >
           <Music className="mr-1 h-3 w-3" />
           Performances
@@ -392,7 +384,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "milonga" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("milonga")}
-         
+          data-testid="filter-milonga"
         >
           <PartyPopper className="mr-1 h-3 w-3" />
           Milongas
@@ -401,11 +393,11 @@ export default function LiveStreaming() {
 
       <Tabs defaultValue="live" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="live">
+          <TabsTrigger value="live" data-testid="tab-live">
             <Radio className="mr-2 h-4 w-4" />
             Live Now
           </TabsTrigger>
-          <TabsTrigger value="scheduled">
+          <TabsTrigger value="scheduled" data-testid="tab-scheduled">
             <Calendar className="mr-2 h-4 w-4" />
             Scheduled
           </TabsTrigger>
@@ -423,7 +415,7 @@ export default function LiveStreaming() {
                       <img src={stream.thumbnailUrl} alt={stream.title} className="w-full h-full object-cover" />
                     ) : (
                       <div className="flex items-center justify-center h-full">
-                        <Video className="h-12 w-12 text-gray-600 dark:text-gray-400" />
+                        <Video className="h-12 w-12 text-gray-400" />
                       </div>
                     )}
                     <Badge className="absolute top-2 left-2 bg-red-600">
@@ -445,7 +437,7 @@ export default function LiveStreaming() {
                       />
                       <div className="flex-1">
                         <h3 className="font-semibold line-clamp-1">{stream.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{stream.host.name}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{stream.host.name}</p>
                         <div className="flex items-center space-x-2 mt-1">
                           {getCategoryIcon(stream.category)}
                           <span className="text-xs text-gray-500">{stream.category}</span>
@@ -461,9 +453,9 @@ export default function LiveStreaming() {
             </div>
           ) : (
             <Card className="p-8 text-center">
-              <Video className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+              <Video className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Live Streams</h3>
-              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Be the first to go live and share your Tango passion!
               </p>
             </Card>
@@ -481,7 +473,7 @@ export default function LiveStreaming() {
                     <div className="flex justify-between items-start">
                       <div>
                         <CardTitle className="text-lg line-clamp-1">{stream.title}</CardTitle>
-                        <div className="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center mt-2 text-sm text-gray-600 dark:text-gray-400">
                           <Clock className="mr-1 h-3 w-3" />
                           {stream.scheduledAt && format(new Date(stream.scheduledAt), "MMM dd, h:mm a")}
                         </div>
@@ -490,7 +482,7 @@ export default function LiveStreaming() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
                       {stream.description}
                     </p>
                     <div className="flex items-center space-x-3">
@@ -510,9 +502,9 @@ export default function LiveStreaming() {
             </div>
           ) : (
             <Card className="p-8 text-center">
-              <Calendar className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+              <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Scheduled Streams</h3>
-              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Schedule your stream to let the community know when you'll be live
               </p>
             </Card>
@@ -530,7 +522,7 @@ export default function LiveStreaming() {
                 autoPlay
                 muted
                 className="w-full h-full object-contain"
-               
+                data-testid="video-stream"
               />
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
                 <div className="flex space-x-2">
@@ -547,7 +539,7 @@ export default function LiveStreaming() {
                 <Button
                   variant="destructive"
                   onClick={stopStreaming}
-                 
+                  data-testid="button-end-stream"
                 >
                   End Stream
                 </Button>
@@ -576,7 +568,7 @@ export default function LiveStreaming() {
                     onChange={(e) => setChatInput(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && sendChatMessage()}
                     placeholder="Type a message..."
-                   
+                    data-testid="input-chat"
                   />
                   <Button onClick={sendChatMessage} size="icon">
                     <MessageCircle className="h-4 w-4" />

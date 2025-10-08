@@ -203,7 +203,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                       <div className="flex flex-col gap-2 flex-shrink-0">
                         <Button
                           size="sm"
-                          onClick={()  => handleInvitationResponse(invitation.id, 'accepted')}
+                          onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
                           disabled={updateInvitationMutation.isPending}
                           className="bg-green-600 hover:bg-green-700 text-white"
                         >
@@ -213,7 +213,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={()  => handleInvitationResponse(invitation.id, 'declined')}
+                          onClick={() => handleInvitationResponse(invitation.id, 'declined')}
                           disabled={updateInvitationMutation.isPending}
                           className="border-red-200 text-red-600 hover:bg-red-50"
                         >

@@ -68,29 +68,29 @@ export const ProfileSecurityLayer: React.FC<{ userId: number }> = ({ userId }) =
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Security Score</span>
+                <span className="text-sm text-gray-600">Security Score</span>
                 <Badge className="bg-green-600">{securityMetrics.securityScore}%</Badge>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">CSP Violations</span>
+                <span className="text-sm text-gray-600">CSP Violations</span>
                 <span className="font-medium">{securityMetrics.cspViolations}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">XSS Attempts Blocked</span>
+                <span className="text-sm text-gray-600">XSS Attempts Blocked</span>
                 <span className="font-medium">{securityMetrics.xssAttempts}</span>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">SQL Injection Blocked</span>
+                <span className="text-sm text-gray-600">SQL Injection Blocked</span>
                 <span className="font-medium">{securityMetrics.sqlInjectionAttempts}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Rate Limit Hits</span>
+                <span className="text-sm text-gray-600">Rate Limit Hits</span>
                 <span className="font-medium">{securityMetrics.rateLimitHits}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Last Security Scan</span>
+                <span className="text-sm text-gray-600">Last Security Scan</span>
                 <span className="text-xs">{securityMetrics.lastSecurityScan.toLocaleString()}</span>
               </div>
             </div>

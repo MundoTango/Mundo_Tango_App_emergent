@@ -280,7 +280,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Input
               id="title"
               value={title}
-              onChange={(e)  => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="What would you like to call this memory?"
               className="text-lg"
             />
@@ -292,7 +292,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Textarea
               id="content"
               value={content}
-              onChange={(e)  => setContent(e.target.value)}
+              onChange={(e) => setContent(e.target.value)}
               placeholder="Describe this memory... What happened? How did it feel?"
               className="min-h-[100px]"
             />
@@ -364,7 +364,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               allowManualEntry={true}
             />
             {location && (
-              <div className="flex items-center text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <div className="flex items-center text-sm text-gray-600">
                 <MapPin className="w-4 h-4 mr-2" />
                 {location.formattedAddress}
               </div>
@@ -392,7 +392,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <div className="relative">
               <Input
                 value={userSearchQuery}
-                onChange={(e)  => {
+                onChange={(e) => {
                   setUserSearchQuery(e.target.value);
                   searchUsers(e.target.value);
                   setShowUserSearch(true);
@@ -400,17 +400,17 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                 placeholder="Search by username or email..."
                 className="pr-10"
               />
-              <Users className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+              <Users className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               
               {/* Search Results */}
               {showUserSearch && searchedUsers.length > 0 && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto dark:bg-neutral-900">
+                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
                   {searchedUsers.map((user) => (
                     <div
                       key={user.id}
-                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0 dark:bg-neutral-800"
+                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
                       onClick={() => addCoTaggedUser(user)}
-                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => addCoTaggedUser(user); } }}>
+                    >
                       <div className="font-medium">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                     </div>

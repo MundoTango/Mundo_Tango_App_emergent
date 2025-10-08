@@ -41,7 +41,6 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
 import { format, subDays, startOfMonth, endOfMonth } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 // MT ocean theme colors
 const COLORS = ['#14b8a6', '#06b6d4', '#0891b2', '#0e7490', '#155e75'];
@@ -66,17 +65,12 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
   const isPositive = change > 0;
   
   return (
-    <>
-      <Helmet>
-        <title>Subscription Analytics | Life CEO</title>
-      </Helmet>
-      
     <Card className="glassmorphic-card">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
+            <p className="text-sm text-gray-600 mb-1">{title}</p>
+            <h3 className="text-2xl font-bold text-gray-900">
               {prefix}{value}
             </h3>
             <div className="flex items-center gap-1 mt-2">
@@ -97,8 +91,6 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
         </div>
       </CardContent>
     </Card>
-  
-    </>
   );
 };
 
@@ -164,8 +156,8 @@ const SubscriptionAnalytics: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Subscription Analytics</h1>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Monitor your subscription performance and growth metrics</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Subscription Analytics</h1>
+            <p className="text-gray-600">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">
             <Select value={timeRange} onValueChange={setTimeRange}>

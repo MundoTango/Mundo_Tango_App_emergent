@@ -191,7 +191,7 @@ export function RichTextCommentEditor({
 
         {/* Placeholder text display */}
         {!content && !isExpanded && (
-          <div className="absolute text-gray-600 dark:text-gray-400 pointer-events-none">
+          <div className="absolute text-gray-400 pointer-events-none">
             {placeholder}
           </div>
         )}
@@ -223,7 +223,7 @@ export function RichTextCommentEditor({
                   flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
                   ${content.trim() 
                     ? 'bg-pink-500 text-white hover:bg-pink-600' 
-                    : 'bg-gray-100 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }
                 `}
                 data-testid={`button-submit-comment-editor-${postId}`}

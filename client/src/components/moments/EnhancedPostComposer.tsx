@@ -385,7 +385,7 @@ export default function EnhancedPostComposer({
     };
 
     return (
-      <div key={index} className="relative mb-4 border border-gray-200 rounded-lg overflow-hidden dark:border-neutral-700">
+      <div key={index} className="relative mb-4 border border-gray-200 rounded-lg overflow-hidden">
         <button
           onClick={() => removeEmbed(index)}
           className="absolute top-2 right-2 z-10 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
@@ -408,14 +408,14 @@ export default function EnhancedPostComposer({
   // Skip collapsed view entirely when editing to ensure rich text editor is always available
   if (!showExpandedComposer && !editMode && !existingPost) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6 dark:bg-neutral-900">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
             onClick={() => setShowExpandedComposer(true)}
-            className="flex-1 text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-gray-500 transition-colors dark:bg-neutral-800"
+            className="flex-1 text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-gray-500 transition-colors"
           >
             Share your tango moment...
           </button>
@@ -451,14 +451,14 @@ export default function EnhancedPostComposer({
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6 dark:bg-neutral-900">
+    <div data-testid="enhanced-composer" className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <div>
-            <p className="font-semibold text-gray-900 dark:text-neutral-100">{user?.name}</p>
+            <p className="font-semibold text-gray-900">{user?.name}</p>
             <p className="text-sm text-gray-500">@{user?.username}</p>
           </div>
         </div>
@@ -471,7 +471,7 @@ export default function EnhancedPostComposer({
               setShowExpandedComposer(false);
             }
           }}
-          className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
+          className="text-gray-400 hover:text-gray-600"
         >
           <X className="h-5 w-5" />
         </button>
@@ -481,7 +481,7 @@ export default function EnhancedPostComposer({
       <div className="mb-4">
         <Suspense fallback={
           <div className="w-full">
-            <div className="animate-pulse bg-gray-100 rounded-lg p-4 min-h-[200px] dark:bg-neutral-800">
+            <div className="animate-pulse bg-gray-100 rounded-lg p-4 min-h-[200px]">
               <div className="h-8 bg-gray-200 rounded mb-2"></div>
               <div className="space-y-2">
                 <div className="h-4 bg-gray-200 rounded w-3/4"></div>
@@ -498,14 +498,14 @@ export default function EnhancedPostComposer({
             modules={modules}
             formats={formats}
             placeholder="What's happening in your tango world?"
-            className="bg-white dark:bg-neutral-900"
+            className="bg-white"
           />
         </Suspense>
       </div>
 
       {/* Emoji Picker */}
       {showEmojiPicker && (
-        <div className="mb-4 p-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-neutral-800">
+        <div className="mb-4 p-3 border border-gray-200 rounded-lg bg-gray-50">
           <div className="grid grid-cols-10 gap-2">
             {commonEmojis.map((emoji, index) => (
               <button
@@ -528,7 +528,7 @@ export default function EnhancedPostComposer({
             value={embedUrl}
             onChange={(e) => setEmbedUrl(e.target.value)}
             placeholder="Paste Instagram, Twitter, YouTube, TikTok, or Facebook URL..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:border-neutral-600"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />
           <button
             onClick={handleAddEmbed}
@@ -543,7 +543,7 @@ export default function EnhancedPostComposer({
       {/* Media Embeds Preview */}
       {mediaEmbeds.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Embedded Media:</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">Embedded Media:</h4>
           {mediaEmbeds.map((embed, index) => renderMediaEmbed(embed, index))}
         </div>
       )}
@@ -551,13 +551,13 @@ export default function EnhancedPostComposer({
       {/* Location Input */}
       <div className="mb-4">
         <div className="flex items-center space-x-2">
-          <MapPin className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          <MapPin className="h-4 w-4 text-gray-400" />
           <input
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Add location..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:border-neutral-600"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />
         </div>
       </div>
@@ -567,14 +567,14 @@ export default function EnhancedPostComposer({
         <div className="flex space-x-2">
           <button
             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-            className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors dark:bg-neutral-800"
+            className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors"
           >
             <Smile className="h-4 w-4" />
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors dark:bg-neutral-800">
+          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors">
             <Camera className="h-4 w-4" />
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors dark:bg-neutral-800">
+          <button className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors">
             <Video className="h-4 w-4" />
           </button>
         </div>
@@ -584,7 +584,7 @@ export default function EnhancedPostComposer({
           <select
             value={visibility}
             onChange={(e) => setVisibility(e.target.value as 'public' | 'friends' | 'private')}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:border-neutral-600"
+            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           >
             <option value="public">🌍 Public</option>
             <option value="friends">👥 Friends</option>

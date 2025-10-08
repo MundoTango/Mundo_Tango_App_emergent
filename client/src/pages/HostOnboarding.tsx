@@ -21,7 +21,6 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { MagneticButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { Helmet } from 'react-helmet';
 
 interface OnboardingData {
   // Property basics
@@ -245,16 +244,11 @@ export default function HostOnboarding() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Host Onboarding | Life CEO</title>
-      </Helmet>
-      
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-slate-900 dark:to-slate-800">
         {/* Aurora Tide Header */}
         <FadeIn>
-          <GlassCard depth={2} className="border-b border-cyan-200/30 dark:border-ocean-500/30 sticky top-0 z-10">
+          <GlassCard depth={2} className="border-b border-cyan-200/30 dark:border-cyan-500/30 sticky top-0 z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
@@ -273,8 +267,8 @@ export default function HostOnboarding() {
                   <MagneticButton
                     onClick={() => setLocation('/host-dashboard')}
                     strength={0.15}
-                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                   
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                    data-testid="button-save-exit"
                   >
                     {t('housing.host_onboarding.save_exit', 'Save & Exit')}
                   </MagneticButton>
@@ -287,13 +281,13 @@ export default function HostOnboarding() {
         {/* Aurora Tide Progress Bar */}
         <div ref={progressRef}>
           <ScaleIn delay={0.1}>
-            <div className="progress-indicator bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-ocean-500/30">
+            <div className="progress-indicator bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative h-1 bg-slate-200 dark:bg-slate-700">
                   <div 
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
                     style={{ width: `${progressPercentage}%` }}
-                   
+                    data-testid="onboarding-progress-bar"
                   />
                 </div>
               </div>
@@ -302,7 +296,7 @@ export default function HostOnboarding() {
         </div>
 
       {/* Aurora Tide Step Indicators */}
-      <div ref={stepsRef} className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-ocean-500/30">
+      <div ref={stepsRef} className="bg-white/50 dark:bg-slate-800/50 border-b border-cyan-200/30 dark:border-cyan-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <StaggerContainer className="flex justify-between py-4 overflow-x-auto">
             {STEPS.map((step, index) => {
@@ -353,8 +347,8 @@ export default function HostOnboarding() {
         <ScaleIn delay={0.2}>
           <GlassCard 
             depth={3} 
-            className="border-cyan-200/30 dark:border-ocean-500/30 p-6"
-           
+            className="border-cyan-200/30 dark:border-cyan-500/30 p-6"
+            data-testid="onboarding-step-content"
           >
             {renderStep()}
           </GlassCard>
@@ -366,8 +360,8 @@ export default function HostOnboarding() {
             onClick={previousStep}
             disabled={currentStep === 0}
             strength={currentStep === 0 ? 0 : 0.15}
-            className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 px-6 py-2 text-slate-700 dark:text-slate-300 disabled:opacity-50"
-           
+            className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-2 text-slate-700 dark:text-slate-300 disabled:opacity-50"
+            data-testid="button-previous"
           >
             {t('housing.host_onboarding.previous', 'Previous')}
           </MagneticButton>
@@ -395,7 +389,7 @@ export default function HostOnboarding() {
                 disabled={createHostHomeMutation.isPending}
                 className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
                 pulseColor="rgba(6, 182, 212, 0.6)"
-               
+                data-testid="button-submit"
               >
                 {createHostHomeMutation.isPending 
                   ? t('housing.host_onboarding.submitting', 'Submitting...') 
@@ -408,7 +402,7 @@ export default function HostOnboarding() {
               onClick={nextStep}
               className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
               pulseColor="rgba(6, 182, 212, 0.6)"
-             
+              data-testid="button-continue"
             >
               {t('housing.host_onboarding.continue', 'Continue')}
             </PulseButton>
@@ -417,7 +411,5 @@ export default function HostOnboarding() {
       </div>
       </div>
     </DashboardLayout>
-  
-    </>
   );
 }

@@ -12,7 +12,6 @@ import { FriendRequestForm } from '@/components/FriendRequestForm';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Users, UserPlus, Search, MessageCircle, MoreVertical, UserCheck } from 'lucide-react';
 import { Link } from 'wouter';
-import { Helmet } from 'react-helmet';
 
 interface Friend {
   id: number;
@@ -97,11 +96,6 @@ export function Friends() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Friends | Life CEO</title>
-      </Helmet>
-      
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">
@@ -150,7 +144,7 @@ export function Friends() {
                   <Input
                     placeholder="Search friends..."
                     value={searchQuery}
-                    onChange={(e)  => setSearchQuery(e.target.value)}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 glassmorphic-input"
                   />
                 </div>
@@ -160,7 +154,7 @@ export function Friends() {
               {friendsLoading ? (
                 <div className="space-y-4">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-neutral-900">
+                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
                       <div className="h-12 w-12 rounded-full bg-gray-200" />
                       <div className="flex-1 space-y-2">
                         <div className="h-4 w-32 bg-gray-200 rounded" />
@@ -174,7 +168,7 @@ export function Friends() {
                   {filteredFriends.map((friend: Friend) => (
                     <div
                       key={friend.id}
-                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300 dark:bg-neutral-900"
+                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300"
                     >
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${friend.friend.username}`}>
@@ -245,7 +239,7 @@ export function Friends() {
               {suggestionsLoading ? (
                 <div className="space-y-4">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-neutral-900">
+                    <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
                       <div className="h-16 w-16 rounded-full bg-gray-200" />
                       <div className="flex-1 space-y-2">
                         <div className="h-4 w-32 bg-gray-200 rounded" />
@@ -259,7 +253,7 @@ export function Friends() {
                   {suggestions.map((suggestion: SuggestedFriend) => (
                     <div
                       key={suggestion.id}
-                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300 dark:bg-neutral-900"
+                      className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300"
                     >
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${suggestion.username}`}>
@@ -308,7 +302,7 @@ export function Friends() {
                       </div>
                       <Button
                         size="sm"
-                        onClick={()  => handleSendRequest(suggestion)}
+                        onClick={() => handleSendRequest(suggestion)}
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md"
                       >
                         <UserPlus className="mr-1 h-4 w-4" />
@@ -350,8 +344,6 @@ export function Friends() {
         </DialogContent>
       </Dialog>
     </div>
-  
-    </>
   );
 }
 

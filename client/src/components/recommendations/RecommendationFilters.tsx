@@ -59,7 +59,7 @@ export default function RecommendationFilters({
   return (
     <div
       className={`glass-card glass-depth-2 rounded-xl p-6 mt-ocean-gradient border border-white/20 backdrop-blur-md ${className}`}
-     
+      data-testid="recommendation-filters"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -84,8 +84,8 @@ export default function RecommendationFilters({
               variant="ghost"
               size="sm"
               onClick={resetFilters}
-              className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:text-turquoise-600"
-             
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-turquoise-600"
+              data-testid="button-reset-filters"
             >
               Reset all
             </Button>
@@ -93,12 +93,12 @@ export default function RecommendationFilters({
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
-           
+            data-testid="button-toggle-filters"
           >
             {isExpanded ? (
-              <ChevronUp className="h-5 w-5 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
+              <ChevronUp className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             ) : (
-              <ChevronDown className="h-5 w-5 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
+              <ChevronDown className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             )}
           </button>
         </div>
@@ -115,7 +115,7 @@ export default function RecommendationFilters({
 
           {/* Connection Level Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <Users className="h-4 w-4 text-turquoise-600" />
               Connection Level
             </label>
@@ -137,7 +137,7 @@ export default function RecommendationFilters({
                       flex items-center gap-2 px-4 py-2 rounded-lg border transition-all
                       ${isActive
                         ? 'bg-gradient-to-br from-turquoise-400 to-ocean-500 text-white border-turquoise-500 shadow-lg'
-                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:border-turquoise-400'
+                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-turquoise-400'
                       }
                     `}
                     data-testid={`filter-connection-${option.value}`}
@@ -152,7 +152,7 @@ export default function RecommendationFilters({
             {/* Closeness Score (shown when custom_closeness selected) */}
             {filters.connectionDegree === 'custom_closeness' && (
               <div className="mt-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border border-turquoise-200 dark:border-turquoise-800">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2 block">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                   Minimum Closeness Score
                 </label>
                 <input
@@ -162,9 +162,9 @@ export default function RecommendationFilters({
                   value={filters.minClosenessScore || 50}
                   onChange={(e) => updateFilter('minClosenessScore', parseInt(e.target.value))}
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                 
+                  data-testid="input-closeness-score"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Higher scores mean closer friendships (0-100)
                 </p>
               </div>
@@ -173,7 +173,7 @@ export default function RecommendationFilters({
 
           {/* Local vs Visitor Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <MapPin className="h-4 w-4 text-turquoise-600" />
               Recommended By
             </label>
@@ -192,7 +192,7 @@ export default function RecommendationFilters({
                       px-4 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
                         ? 'bg-gradient-to-br from-turquoise-400 to-ocean-500 text-white border-turquoise-500 shadow-lg'
-                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:border-turquoise-400'
+                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-turquoise-400'
                       }
                     `}
                     data-testid={`filter-local-${option.value}`}
@@ -206,7 +206,7 @@ export default function RecommendationFilters({
 
           {/* Journey R4: City Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <MapPin className="h-4 w-4 text-turquoise-600" />
               City
             </label>
@@ -217,19 +217,19 @@ export default function RecommendationFilters({
                 onChange={(e) => updateFilter('city', e.target.value || undefined)}
                 placeholder="e.g., Buenos Aires, Paris, Tokyo..."
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-               
+                data-testid="input-city-filter"
               />
               {filters.city && (
                 <button
                   onClick={() => updateFilter('city', undefined)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-turquoise-600"
-                 
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-turquoise-600"
+                  data-testid="button-clear-city-filter"
                 >
                   ✕
                 </button>
               )}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Filter recommendations by city
             </p>
           </div>
@@ -243,7 +243,7 @@ export default function RecommendationFilters({
 
           {/* Journey R5: Category Multi-Select Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <Tag className="h-4 w-4 text-turquoise-600" />
               Categories
               {filters.categories && filters.categories.length > 0 && (
@@ -278,7 +278,7 @@ export default function RecommendationFilters({
                       flex items-center gap-2 px-3 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
                         ? 'bg-gradient-to-br from-turquoise-400 to-ocean-500 text-white border-turquoise-500 shadow-lg'
-                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:border-turquoise-400'
+                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-turquoise-400'
                       }
                     `}
                     data-testid={`filter-category-${category.value}`}
@@ -289,7 +289,7 @@ export default function RecommendationFilters({
                 );
               })}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Select multiple categories to filter recommendations
             </p>
           </div>
@@ -297,7 +297,7 @@ export default function RecommendationFilters({
           {/* Dynamic: Cuisine (restaurants) OR Cultural Expertise (all others) */}
           {filters.categories?.includes('restaurant') ? (
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 <Globe className="h-4 w-4 text-turquoise-600" />
                 Cuisine
               </label>
@@ -305,7 +305,7 @@ export default function RecommendationFilters({
                 value={filters.cuisine || ''}
                 onChange={(e) => updateFilter('cuisine', e.target.value || undefined)}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-               
+                data-testid="select-cuisine"
               >
                 <option value="">All cuisines</option>
                 <option value="Italian">🇮🇹 Italian</option>
@@ -325,13 +325,13 @@ export default function RecommendationFilters({
                 <option value="Middle Eastern">🌍 Middle Eastern</option>
                 <option value="Fusion">🌐 Fusion</option>
               </select>
-              <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 🎯 Ranks higher when recommended by people from that culture (e.g., Italian restaurants from Italian users)
               </p>
             </div>
           ) : (
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 <Globe className="h-4 w-4 text-turquoise-600" />
                 Cultural Expertise
               </label>
@@ -339,7 +339,7 @@ export default function RecommendationFilters({
               value={filters.originCountry || ''}
               onChange={(e) => updateFilter('originCountry', e.target.value || undefined)}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-             
+              data-testid="select-origin-country"
             >
               <option value="">All countries</option>
               <option value="Argentina">🇦🇷 Argentina</option>
@@ -360,7 +360,7 @@ export default function RecommendationFilters({
                 </option>
               ))}
               </select>
-              <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Filter by recommender's cultural background (e.g., Korean friends for authentic spots)
               </p>
             </div>
@@ -368,7 +368,7 @@ export default function RecommendationFilters({
 
           {/* Price Level Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <DollarSign className="h-4 w-4 text-turquoise-600" />
               Price Level
             </label>
@@ -384,7 +384,7 @@ export default function RecommendationFilters({
                       px-4 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
                         ? 'bg-gradient-to-br from-turquoise-400 to-ocean-500 text-white border-turquoise-500 shadow-lg'
-                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:border-turquoise-400'
+                        : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-turquoise-400'
                       }
                     `}
                     data-testid={`filter-price-${value}`}
@@ -398,7 +398,7 @@ export default function RecommendationFilters({
 
           {/* Rating Filter */}
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <Star className="h-4 w-4 text-turquoise-600" />
               Minimum Rating
             </label>
@@ -411,9 +411,9 @@ export default function RecommendationFilters({
                 value={filters.minRating || 0}
                 onChange={(e) => updateFilter('minRating', parseFloat(e.target.value) || undefined)}
                 className="flex-1 accent-turquoise-600"
-               
+                data-testid="input-min-rating"
               />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 w-12 text-right">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 w-12 text-right">
                 {filters.minRating ? `${filters.minRating}+` : 'Any'}
               </span>
             </div>

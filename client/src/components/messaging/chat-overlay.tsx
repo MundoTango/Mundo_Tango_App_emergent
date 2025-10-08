@@ -64,16 +64,16 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             variant="ghost" 
             size="sm" 
             onClick={onClose}
-            className="text-white hover:text-gray-200 hover:bg-white/10 dark:bg-neutral-900"
+            className="text-white hover:text-gray-200 hover:bg-white/10"
           >
             <X className="h-6 w-6" />
           </Button>
         </div>
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
+        <div className="p-4 border-b border-gray-200">
           <div className="relative">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-600 dark:text-gray-400" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search conversations..."
               className="pl-9"
@@ -122,7 +122,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
                       </h4>
                       <div className="flex items-center space-x-1">
                         {room.lastMessageTimestamp && (
-                          <span className="text-xs text-gray-600 dark:text-gray-400">
+                          <span className="text-xs text-gray-400">
                             {formatTimeAgo(room.lastMessageTimestamp)}
                           </span>
                         )}
@@ -144,10 +144,10 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             ))
           ) : (
             <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-              <div className="text-gray-600 dark:text-gray-400 mb-4">
+              <div className="text-gray-400 mb-4">
                 <MessageCircle className="h-16 w-16 mx-auto" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">No messages yet</h3>
+              <h3 className="text-lg font-semibold text-gray-600 mb-2">No messages yet</h3>
               <p className="text-gray-500 text-sm">
                 Start a conversation with other tango dancers!
               </p>

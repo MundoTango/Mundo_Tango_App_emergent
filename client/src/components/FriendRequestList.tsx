@@ -174,7 +174,7 @@ export function FriendRequestList() {
                         </p>
                       )}
                       {request.danceStory && (
-                        <p className="text-sm text-gray-600 mt-2 ml-6 italic dark:text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 mt-2 ml-6 italic">
                           "{request.danceStory}"
                         </p>
                       )}
@@ -182,7 +182,7 @@ export function FriendRequestList() {
                   )}
 
                   {request.senderMessage && (
-                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50 dark:bg-neutral-900">
+                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
                       <p className="text-sm flex items-start gap-2">
                         <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                         <span>{request.senderMessage}</span>
@@ -193,7 +193,7 @@ export function FriendRequestList() {
                   <div className="flex items-center gap-2 pt-2">
                     <Button
                       size="sm"
-                      onClick={()  => {
+                      onClick={() => {
                         setSelectedRequest(request);
                         setShowAcceptDialog(true);
                       }}
@@ -205,7 +205,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={()  => rejectMutation.mutate(request.id)}
+                      onClick={() => rejectMutation.mutate(request.id)}
                     >
                       <X className="mr-1 h-4 w-4" />
                       Decline
@@ -213,7 +213,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={()  => snoozeMutation.mutate({ requestId: request.id, days: 7 })}
+                      onClick={() => snoozeMutation.mutate({ requestId: request.id, days: 7 })}
                     >
                       <Clock className="mr-1 h-4 w-4" />
                       Snooze
@@ -240,15 +240,17 @@ export function FriendRequestList() {
             <Textarea
               placeholder="Add a welcome message (optional)..."
               value={acceptMessage}
-              onChange={(e)  => setAcceptMessage(e.target.value)}
+              onChange={(e) => setAcceptMessage(e.target.value)}
               className="glassmorphic-input min-h-[100px]"
             />
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
-                onClick={()  => {
+                onClick={() => {
                   setShowAcceptDialog(false);
-                  setAcceptMessage('') }}>
+                  setAcceptMessage('');
+                }}
+              >
                 Cancel
               </Button>
               <Button

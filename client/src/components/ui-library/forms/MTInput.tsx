@@ -39,7 +39,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
     'w-full transition-all duration-300',
     'focus:outline-none focus:ring-2 focus:ring-teal-400/50 dark:focus:ring-teal-600/50',
     'disabled:opacity-50 disabled:cursor-not-allowed',
-    'placeholder:text-gray-600 dark:text-gray-400 dark:placeholder:text-gray-500'
+    'placeholder:text-gray-400 dark:placeholder:text-gray-500'
   );
 
   const variants = {
@@ -88,14 +88,14 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           {label}
         </label>
       )}
       
       <div className="relative">
         {icon && iconPosition === 'left' && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-600 dark:text-gray-400">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
             {icon}
           </div>
         )}
@@ -115,13 +115,13 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
             error && 'border-red-500 dark:border-red-500 focus:ring-red-500/50',
             className
           )}
-          onFocus={()  => setIsFocused(true)}
+          onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           {...props}
         />
 
         {icon && iconPosition === 'right' && !showPasswordToggle && !showClearButton && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-600 dark:text-gray-400">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
             {icon}
           </div>
         )}
@@ -129,8 +129,8 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
         {type === 'password' && showPasswordToggle && (
           <button
             type="button"
-            onClick={()  => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
@@ -140,7 +140,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
           <button
             type="button"
             onClick={onClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,7 +154,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
       )}
 
       {helperText && !error && (
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {helperText}
         </p>
       )}

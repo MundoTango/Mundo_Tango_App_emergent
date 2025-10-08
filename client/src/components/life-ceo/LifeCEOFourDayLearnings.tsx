@@ -141,7 +141,7 @@ const LifeCEOFourDayLearnings: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.totalLearnings}</p>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">New Patterns</p>
+            <p className="text-sm text-gray-600">New Patterns</p>
           </CardContent>
         </Card>
 
@@ -151,7 +151,7 @@ const LifeCEOFourDayLearnings: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.appliedLearnings}</p>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Applied</p>
+            <p className="text-sm text-gray-600">Applied</p>
           </CardContent>
         </Card>
 
@@ -161,7 +161,7 @@ const LifeCEOFourDayLearnings: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.performanceGain}%</p>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Performance Gain</p>
+            <p className="text-sm text-gray-600">Performance Gain</p>
           </CardContent>
         </Card>
 
@@ -171,7 +171,7 @@ const LifeCEOFourDayLearnings: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.issuesResolved}</p>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Issues Resolved</p>
+            <p className="text-sm text-gray-600">Issues Resolved</p>
           </CardContent>
         </Card>
       </div>
@@ -199,19 +199,19 @@ const LifeCEOFourDayLearnings: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{learning.description}</p>
+                <p className="text-sm text-gray-600">{learning.description}</p>
                 
-                <div className="bg-gray-50 rounded-lg p-3 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Pattern:</p>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs font-semibold text-gray-700 mb-1">Pattern:</p>
                   <Code className="w-4 h-4 inline mr-1 text-gray-500" />
-                  <code className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{learning.pattern}</code>
+                  <code className="text-xs text-gray-600">{learning.pattern}</code>
                 </div>
 
                 <div>
-                  <p className="text-xs font-semibold text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Applied Solutions:</p>
+                  <p className="text-xs font-semibold text-gray-700 mb-2">Applied Solutions:</p>
                   <ul className="space-y-1">
                     {learning.examples.map((example, idx) => (
-                      <li key={idx} className="text-xs text-gray-600 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-400">
+                      <li key={idx} className="text-xs text-gray-600 flex items-center gap-1">
                         <CheckCircle className="w-3 h-3 text-green-500" />
                         {example}
                       </li>
@@ -259,7 +259,7 @@ const LifeCEOFourDayLearnings: React.FC = () => {
           </div>
           
           <div className="mt-6 p-4 bg-turquoise-50/50 rounded-lg">
-            <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+            <p className="text-sm text-gray-700">
               <strong>Next Evolution:</strong> Life CEO will automatically apply these patterns to prevent similar issues, reducing resolution time from hours to minutes.
             </p>
           </div>

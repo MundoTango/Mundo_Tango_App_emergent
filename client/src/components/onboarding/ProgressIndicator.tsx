@@ -15,7 +15,7 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator = ({ steps, currentStep }: ProgressIndicatorProps) => {
   return (
-    <div className="w-full py-6">
+    <div className="w-full py-6" data-testid="progress-indicator">
       <div className="flex items-center justify-between">
         {steps.map((step, index) => (
           <div key={step.id} className="flex items-center flex-1">
@@ -44,7 +44,7 @@ export const ProgressIndicator = ({ steps, currentStep }: ProgressIndicatorProps
                   </div>
                 ) : (
                   <Circle 
-                    className="w-8 h-8 text-neutral-600 dark:text-neutral-300 dark:text-neutral-600"
+                    className="w-8 h-8 text-neutral-300 dark:text-neutral-600"
                     data-testid={`step-pending-${step.id}`}
                   />
                 )}

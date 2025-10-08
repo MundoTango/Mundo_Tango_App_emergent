@@ -28,7 +28,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Helmet } from 'react-helmet';
 
 interface Invoice {
   id: string;
@@ -57,7 +56,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
 
     const canvas = await html2canvas(invoiceRef.current, {
       scale: 2,
-      backgroundColor: 'var(--color-neutral-0)'
+      backgroundColor: '#ffffff'
     });
     
     const imgData = canvas.toDataURL('image/png');
@@ -71,12 +70,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
 
   return (
     <>
-      <Helmet>
-        <title>Invoices | Life CEO</title>
-      </Helmet>
-      
-    <>
-      <div ref={invoiceRef} className="bg-white p-8 rounded-lg shadow-sm dark:bg-neutral-900">
+      <div ref={invoiceRef} className="bg-white p-8 rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
@@ -87,7 +81,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
           </div>
           <div className="text-right">
             <h2 className="text-xl font-semibold">INVOICE</h2>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">#{invoice.number}</p>
+            <p className="text-gray-600">#{invoice.number}</p>
             <p className="text-sm text-gray-500 mt-2">
               Date: {format(new Date(invoice.date), 'MMMM dd, yyyy')}
             </p>
@@ -99,19 +93,19 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
         {/* Billing Information */}
         <div className="grid grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Bill To:</h3>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{userInfo?.firstName} {userInfo?.lastName}</p>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{userInfo?.email}</p>
+            <h3 className="font-semibold text-gray-700 mb-2">Bill To:</h3>
+            <p className="text-gray-600">{userInfo?.firstName} {userInfo?.lastName}</p>
+            <p className="text-gray-600">{userInfo?.email}</p>
           </div>
           <div className="text-right">
-            <h3 className="font-semibold text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Payment Details:</h3>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <h3 className="font-semibold text-gray-700 mb-2">Payment Details:</h3>
+            <p className="text-gray-600">
               Status: <span className={invoice.status === 'paid' ? 'text-green-600' : 'text-red-600'}>
                 {invoice.status.toUpperCase()}
               </span>
             </p>
             {invoice.paymentMethod && (
-              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-gray-600">
                 {invoice.paymentMethod.brand} •••• {invoice.paymentMethod.last4}
               </p>
             )}
@@ -162,7 +156,7 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500 dark:border-neutral-700">
+        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
           <p>Thank you for your subscription!</p>
           <p className="mt-2">Questions? Contact support@mundotango.life</p>
         </div>
@@ -177,8 +171,6 @@ const InvoiceDocument: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoic
           Download PDF
         </Button>
       </div>
-    </>
-  
     </>
   );
 };
@@ -224,8 +216,8 @@ const Invoices: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Invoices & Receipts</h1>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">View and download your subscription invoices</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Invoices & Receipts</h1>
+          <p className="text-gray-600">View and download your subscription invoices</p>
         </div>
 
         <Card className="glassmorphic-card">
@@ -237,7 +229,7 @@ const Invoices: React.FC = () => {
               </div>
               <Button
                 variant="outline"
-                onClick={()  => refetch()}
+                onClick={() => refetch()}
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -255,19 +247,19 @@ const Invoices: React.FC = () => {
               </div>
             ) : (!invoices || (invoices as Invoice[]).length === 0) ? (
               <div className="text-center py-8">
-                <FileText className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-4" />
+                <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <p className="text-gray-500">No invoices yet</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Your invoices will appear here after your first payment</p>
+                <p className="text-sm text-gray-400 mt-2">Your invoices will appear here after your first payment</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {(invoices as Invoice[])?.map((invoice: Invoice) => (
                   <div
                     key={invoice.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
+                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex items-center gap-4">
-                      <FileText className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+                      <FileText className="h-8 w-8 text-gray-400" />
                       <div>
                         <div className="flex items-center gap-2">
                           <p className="font-medium">Invoice #{invoice.number}</p>
@@ -307,7 +299,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
       <Button
         variant="outline"
         size="sm"
-        onClick={()  => setIsOpen(true)}
+        onClick={() => setIsOpen(true)}
       >
         <FileText className="h-4 w-4 mr-1" />
         View
@@ -315,14 +307,14 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto dark:bg-neutral-900">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Invoice Details</h2>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={()  => setIsOpen(false)}
+                  onClick={() => setIsOpen(false)}
                 >
                   ✕
                 </Button>

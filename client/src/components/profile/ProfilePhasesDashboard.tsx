@@ -91,21 +91,21 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
               <Progress value={overallProgress} className="h-4" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-              <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
+              <div className="text-center p-3 bg-white/70 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">10</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Completed</div>
+                <div className="text-sm text-gray-600">Completed</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
+              <div className="text-center p-3 bg-white/70 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">6</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">In Progress</div>
+                <div className="text-sm text-gray-600">In Progress</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
-                <div className="text-2xl font-bold text-gray-600 dark:text-neutral-600 dark:text-neutral-400">4</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending</div>
+              <div className="text-center p-3 bg-white/70 rounded-lg">
+                <div className="text-2xl font-bold text-gray-600">4</div>
+                <div className="text-sm text-gray-600">Pending</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
+              <div className="text-center p-3 bg-white/70 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">40L</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Framework</div>
+                <div className="text-sm text-gray-600">Framework</div>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
             {phases.map((phase) => (
               <button
                 key={phase.id}
-                onClick={()  => phase.component && setActivePhase(phase.id)}
+                onClick={() => phase.component && setActivePhase(phase.id)}
                 disabled={!phase.component}
                 className={`p-3 rounded-lg border-2 transition-all ${
                   activePhase === phase.id ? 'border-turquoise-500 bg-turquoise-50' : 'border-gray-200 hover:border-gray-300'
@@ -136,7 +136,7 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-sm truncate">{phase.name}</div>
-                  <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{phase.progress}% complete</div>
+                  <div className="text-xs text-gray-600">{phase.progress}% complete</div>
                 </div>
               </button>
             ))}
@@ -147,7 +147,7 @@ export const ProfilePhasesDashboard: React.FC<{ userId: number }> = ({ userId })
       {/* Active Phase Content */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 mb-4">
-          <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <ChevronRight className="w-5 h-5 text-gray-400" />
           <h2 className="text-xl font-semibold">Phase {activePhase}: {currentPhase.name}</h2>
           <Badge className={getStatusColor(currentPhase.status)}>
             {currentPhase.status}

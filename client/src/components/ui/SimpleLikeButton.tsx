@@ -69,7 +69,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
     <div className={`relative ${className}`}>
       {/* Main Like Button */}
       <button
-        onClick={()  => setShowDropdown(!showDropdown)}
+        onClick={() = data-testid="button-element"> setShowDropdown(!showDropdown)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105 dark:bg-neutral-800"
@@ -101,7 +101,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
             {SIMPLE_REACTIONS.map((reaction, index) => (
               <button
                 key={reaction.id}
-                onClick={()  => {
+                onClick={() = data-testid="button-element"> {
                   onReact(reaction.id);
                   setShowDropdown(false);
                 }}
@@ -121,7 +121,9 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
                   e.currentTarget.style.backgroundColor = '';
-                  e.currentTarget.style.boxShadow = '' }}>
+                  e.currentTarget.style.boxShadow = '';
+                }}
+              >
                 {reaction.text}
               </button>
             ))}
@@ -132,7 +134,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Reaction Count */}
       {totalReactions > 0 && (
         <div className="mt-1">
-          <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{totalReactions} reactions</span>
+          <span className="text-sm text-gray-600 dark:text-neutral-400">{totalReactions} reactions</span>
         </div>
       )}
     </div>

@@ -27,7 +27,6 @@ import {
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Helmet } from 'react-helmet';
 
 // ESA Framework: Enhanced Role Invitations tied to Events
 interface RoleInvitation {
@@ -190,11 +189,6 @@ export default function RoleInvitations() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Role Invitations | Life CEO</title>
-      </Helmet>
-      
     <DashboardLayout>
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
@@ -202,7 +196,7 @@ export default function RoleInvitations() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Role Invitations
           </h1>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Manage your event role invitations and send new ones</p>
+          <p className="text-gray-600">Manage your event role invitations and send new ones</p>
         </div>
 
         {/* Stats Cards */}
@@ -211,7 +205,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pending</p>
+                  <p className="text-sm text-gray-600">Pending</p>
                   <p className="text-2xl font-bold">{stats.pending}</p>
                 </div>
                 <Clock className="w-8 h-8 text-yellow-500" />
@@ -223,7 +217,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Accepted</p>
+                  <p className="text-sm text-gray-600">Accepted</p>
                   <p className="text-2xl font-bold">{stats.accepted}</p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-500" />
@@ -235,7 +229,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Invitations</p>
+                  <p className="text-sm text-gray-600">Total Invitations</p>
                   <p className="text-2xl font-bold">{stats.total}</p>
                 </div>
                 <Bell className="w-8 h-8 text-turquoise-500" />
@@ -246,7 +240,7 @@ export default function RoleInvitations() {
           <Card className="glassmorphic-card">
             <CardContent className="p-4">
               <Button
-                onClick={()  => setShowSendForm(!showSendForm)}
+                onClick={() => setShowSendForm(!showSendForm)}
                 className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
               >
                 <Send className="w-4 h-4 mr-2" />
@@ -269,7 +263,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Enter username..."
                     value={sendForm.username}
-                    onChange={(e)  => setSendForm({ ...sendForm, username: e.target.value })}
+                    onChange={(e) => setSendForm({ ...sendForm, username: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -278,7 +272,7 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Event</label>
                   <Select
                     value={sendForm.eventId}
-                    onValueChange={(value)> setSendForm({ ...sendForm, eventId: value })}
+                    onValueChange={(value) => setSendForm({ ...sendForm, eventId: value })}
                   >
                     <SelectTrigger className="glassmorphic-input">
                       <SelectValue placeholder="Select event..." />
@@ -297,7 +291,7 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Role</label>
                   <Select
                     value={sendForm.role}
-                    onValueChange={(value)> setSendForm({ ...sendForm, role: value })}
+                    onValueChange={(value) => setSendForm({ ...sendForm, role: value })}
                   >
                     <SelectTrigger className="glassmorphic-input">
                       <SelectValue placeholder="Select role..." />
@@ -320,7 +314,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Add a personal message..."
                     value={sendForm.message}
-                    onChange={(e)  => setSendForm({ ...sendForm, message: e.target.value })}
+                    onChange={(e) => setSendForm({ ...sendForm, message: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -335,7 +329,7 @@ export default function RoleInvitations() {
                   {sendInvitationMutation.isPending ? 'Sending...' : 'Send Invitation'}
                 </Button>
                 <Button
-                  onClick={()  => setShowSendForm(false)}
+                  onClick={() => setShowSendForm(false)}
                   variant="outline"
                 >
                   Cancel
@@ -361,14 +355,14 @@ export default function RoleInvitations() {
               </div>
             ) : invitations?.length === 0 ? (
               <Card className="glassmorphic-card p-12 text-center">
-                <Bell className="w-16 h-16 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+                <Bell className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">
                   {activeTab === 'pending' ? 'No Pending Invitations' : 
                    activeTab === 'accepted' ? 'No Accepted Invitations' :
                    activeTab === 'declined' ? 'No Declined Invitations' :
                    'No Invitations'}
                 </h3>
-                <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-gray-600">
                   {activeTab === 'pending' ? "You'll see new role invitations here when organizers invite you." :
                    activeTab === 'accepted' ? "Invitations you've accepted will appear here." :
                    activeTab === 'declined' ? "Invitations you've declined will appear here." :
@@ -389,14 +383,14 @@ export default function RoleInvitations() {
                               {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                               {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}
                             </Badge>
-                            <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                            <span className="text-sm text-gray-600">
                               Invited by {invitation.inviterName}
                             </span>
                           </div>
                           
                           <h3 className="text-lg font-semibold mb-2">{invitation.eventTitle}</h3>
                           
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {formatDate(invitation.eventStartDate)}
@@ -412,15 +406,15 @@ export default function RoleInvitations() {
                           </div>
                           
                           {invitation.message && (
-                            <div className="p-3 bg-gray-50 rounded-lg mb-4 dark:bg-neutral-800">
-                              <p className="text-sm text-gray-700 italic dark:text-neutral-600 dark:text-neutral-300">"{invitation.message}"</p>
+                            <div className="p-3 bg-gray-50 rounded-lg mb-4">
+                              <p className="text-sm text-gray-700 italic">"{invitation.message}"</p>
                             </div>
                           )}
                           
                           {invitation.status === 'pending' && (
                             <div className="flex gap-2">
                               <Button
-                                onClick={()  => handleAccept(invitation)}
+                                onClick={() => handleAccept(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                               >
@@ -428,7 +422,7 @@ export default function RoleInvitations() {
                                 Accept
                               </Button>
                               <Button
-                                onClick={()  => handleDecline(invitation)}
+                                onClick={() => handleDecline(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 variant="outline"
                                 className="border-red-200 text-red-600 hover:bg-red-50"
@@ -458,7 +452,5 @@ export default function RoleInvitations() {
         </Tabs>
       </div>
     </DashboardLayout>
-  
-    </>
   );
 }

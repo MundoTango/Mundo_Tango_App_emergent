@@ -138,7 +138,7 @@ const TenantSwitcher = () => {
               </div>
             </div>
             {currentTenant.id === tenant.id && (
-              <Check className="w-4 h-4 text-ocean-500" />
+              <Check className="w-4 h-4 text-teal-500" />
             )}
           </DropdownMenuItem>
         ))}

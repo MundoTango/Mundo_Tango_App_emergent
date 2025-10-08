@@ -47,7 +47,6 @@ import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { apiRequest } from '@/lib/queryClient';
 import { cn } from '@/lib/utils';
-import { Helmet } from 'react-helmet';
 
 // Help request categories
 const HELP_CATEGORIES = [
@@ -277,17 +276,10 @@ export default function TTfilesHelpCenter() {
     };
     
     return (
-    <>
-      <Helmet>
-        <title>Ttfiles Help Center | Life CEO</title>
-      </Helmet>
-      
       <Badge className={cn('border', styles[urgency as keyof typeof styles])}>
         {urgency.charAt(0).toUpperCase() + urgency.slice(1)}
       </Badge>
-    
-    </>
-  );
+    );
   };
 
   const getStatusBadge = (status: string) => {
@@ -319,8 +311,8 @@ export default function TTfilesHelpCenter() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">TTfiles Help Center</h1>
-              <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+              <h1 className="text-3xl font-bold text-gray-900">TTfiles Help Center</h1>
+              <p className="text-gray-600 mt-1">
                 Community support for dancers - ask for help or report issues
               </p>
             </div>
@@ -344,7 +336,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Brief description of what you need help with"
                         value={newHelpRequest.title}
-                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
+                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
                       />
                     </div>
 
@@ -352,7 +344,7 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Category *</label>
                       <Select
                         value={newHelpRequest.category}
-                        onValueChange={(value)> setNewHelpRequest({ ...newHelpRequest, category: value })}
+                        onValueChange={(value) => setNewHelpRequest({ ...newHelpRequest, category: value })}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />
@@ -375,7 +367,7 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Provide more details about your request..."
                         value={newHelpRequest.description}
-                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
+                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
                         rows={4}
                       />
                     </div>
@@ -385,7 +377,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="e.g., Buenos Aires, Paris, New York"
                         value={newHelpRequest.location}
-                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
+                        onChange={(e) => setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
                       />
                     </div>
 
@@ -393,7 +385,7 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Urgency Level</label>
                       <Select
                         value={newHelpRequest.urgency}
-                        onValueChange={(value: any)> setNewHelpRequest({ ...newHelpRequest, urgency: value })}
+                        onValueChange={(value: any) => setNewHelpRequest({ ...newHelpRequest, urgency: value })}
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -408,7 +400,7 @@ export default function TTfilesHelpCenter() {
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={()  => setShowCreateHelp(false)}>
+                      <Button variant="outline" onClick={() => setShowCreateHelp(false)}>
                         Cancel
                       </Button>
                       <Button
@@ -442,7 +434,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Enter the ID of the memory to report"
                         value={reportData.memoryId}
-                        onChange={(e)  => setReportData({ ...reportData, memoryId: e.target.value })}
+                        onChange={(e) => setReportData({ ...reportData, memoryId: e.target.value })}
                       />
                     </div>
 
@@ -450,7 +442,7 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Report Type *</label>
                       <Select
                         value={reportData.reportType}
-                        onValueChange={(value)> setReportData({ ...reportData, reportType: value })}
+                        onValueChange={(value) => setReportData({ ...reportData, reportType: value })}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select report type" />
@@ -483,13 +475,13 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Please provide any additional context..."
                         value={reportData.description}
-                        onChange={(e)  => setReportData({ ...reportData, description: e.target.value })}
+                        onChange={(e) => setReportData({ ...reportData, description: e.target.value })}
                         rows={3}
                       />
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={()  => setShowReportDialog(false)}>
+                      <Button variant="outline" onClick={() => setShowReportDialog(false)}>
                         Cancel
                       </Button>
                       <Button
@@ -522,11 +514,11 @@ export default function TTfilesHelpCenter() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 h-4 w-4" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                         <Input
                           placeholder="Search help requests..."
                           value={searchQuery}
-                          onChange={(e)  => setSearchQuery(e.target.value)}
+                          onChange={(e) => setSearchQuery(e.target.value)}
                           className="pl-10"
                         />
                       </div>
@@ -571,9 +563,9 @@ export default function TTfilesHelpCenter() {
               ) : helpRequests?.length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
-                    <HelpCircle className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
+                    <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">No help requests found</p>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
+                    <p className="text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -597,12 +589,12 @@ export default function TTfilesHelpCenter() {
                               )}
                             </div>
                             
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
                               {request.title}
                             </h3>
                             
                             {request.description && (
-                              <p className="text-gray-600 mb-3 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
+                              <p className="text-gray-600 mb-3 line-clamp-2">
                                 {request.description}
                               </p>
                             )}
@@ -645,12 +637,12 @@ export default function TTfilesHelpCenter() {
               {myHelpRequests?.length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
-                    <HelpCircle className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
+                    <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                     <p className="text-gray-500">You haven't created any help requests yet</p>
                     <Button 
                       className="mt-4" 
                       variant="outline"
-                      onClick={()  => setShowCreateHelp(true)}
+                      onClick={() => setShowCreateHelp(true)}
                     >
                       Create your first request
                     </Button>
@@ -671,7 +663,7 @@ export default function TTfilesHelpCenter() {
                               </Badge>
                             </div>
                             
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
                               {request.title}
                             </h3>
                             
@@ -723,14 +715,14 @@ export default function TTfilesHelpCenter() {
                     </div>
                   ) : reportedMemories?.length === 0 ? (
                     <div className="text-center py-8">
-                      <Shield className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
+                      <Shield className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                       <p className="text-gray-500">No reported content</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
+                      <p className="text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
                       {reportedMemories?.map((report: MemoryReport) => (
-                        <div key={report.id} className="border border-gray-200 rounded-lg p-4 dark:border-neutral-700">
+                        <div key={report.id} className="border border-gray-200 rounded-lg p-4">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <div className="flex items-center gap-3 mb-2">
@@ -750,8 +742,8 @@ export default function TTfilesHelpCenter() {
                               </div>
                               
                               {report.memory && (
-                                <div className="bg-gray-50 rounded p-3 mb-3 dark:bg-neutral-800">
-                                  <p className="text-sm text-gray-600 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
+                                <div className="bg-gray-50 rounded p-3 mb-3">
+                                  <p className="text-sm text-gray-600 line-clamp-2">
                                     "{report.memory.content}"
                                   </p>
                                   <p className="text-xs text-gray-500 mt-1">
@@ -761,7 +753,7 @@ export default function TTfilesHelpCenter() {
                               )}
                               
                               {report.description && (
-                                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
+                                <p className="text-sm text-gray-600 mb-2">
                                   Report reason: {report.description}
                                 </p>
                               )}

@@ -69,7 +69,6 @@ import { Progress } from '@/components/ui/progress';
 import { Layers, CreditCard } from 'lucide-react';
 import SubscriptionManagement from '@/components/admin/SubscriptionManagement';
 import { TestSpriteIntegration } from '@/components/admin/TestSpriteIntegration';
-import { Helmet } from 'react-helmet';
 
 // ESA LIFE CEO 61x21 - Phase 19: Admin Dashboard Types
 interface AdminStats {
@@ -508,11 +507,6 @@ const AdminCenter = memo(() => {
     };
 
     return (
-    <>
-      <Helmet>
-        <title>Admin Center | Life CEO</title>
-      </Helmet>
-      
       <div className="glassmorphic-card backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-turquoise-100/50 shadow-lg hover:shadow-xl transition-all">
         <div className="flex items-center justify-between mb-3 sm:mb-4">
           <h3 className="font-semibold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent text-sm sm:text-base">{title}</h3>
@@ -533,9 +527,7 @@ const AdminCenter = memo(() => {
           />
         </div>
       </div>
-    
-    </>
-  );
+    );
   };
 
   const renderOverview = () => (
@@ -551,8 +543,8 @@ const AdminCenter = memo(() => {
         <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           <GlassCard 
             depth={2}
-            className="border-cyan-200/30 dark:border-ocean-500/30"
-           
+            className="border-cyan-200/30 dark:border-cyan-500/30"
+            data-testid="stat-total-users"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg sm:rounded-xl">
@@ -572,7 +564,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-teal-200/30 dark:border-teal-500/30"
-           
+            data-testid="stat-active-users"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg sm:rounded-xl">
@@ -592,7 +584,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-blue-200/30 dark:border-blue-500/30"
-           
+            data-testid="stat-total-events"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl">
@@ -612,7 +604,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-purple-200/30 dark:border-purple-500/30"
-           
+            data-testid="stat-system-health"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg sm:rounded-xl">
@@ -641,8 +633,8 @@ const AdminCenter = memo(() => {
             <MagneticButton 
               onClick={() => setSelectedTab('users')}
               strength={0.15}
-              className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 p-5 text-left group"
-             
+              className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 p-5 text-left group"
+              data-testid="button-manage-users"
             >
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6 text-white" />
@@ -655,7 +647,7 @@ const AdminCenter = memo(() => {
               onClick={() => setSelectedTab('compliance')}
               strength={0.15}
               className="glass-card glass-depth-2 border-teal-200/30 dark:border-teal-500/30 p-5 text-left group"
-             
+              data-testid="button-compliance-center"
             >
               <div className="p-3 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Shield className="w-6 h-6 text-white" />
@@ -668,7 +660,7 @@ const AdminCenter = memo(() => {
               onClick={() => setSelectedTab('system')}
               strength={0.15}
               className="glass-card glass-depth-2 border-blue-200/30 dark:border-blue-500/30 p-5 text-left group"
-             
+              data-testid="button-system-health"
             >
               <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Activity className="w-6 h-6 text-white" />
@@ -681,7 +673,7 @@ const AdminCenter = memo(() => {
               onClick={() => window.location.href = '/ttfiles-demo'}
               strength={0.15}
               className="glass-card glass-depth-2 bg-gradient-to-r from-purple-500 to-pink-500 p-5 text-left group border-purple-200/30 dark:border-purple-500/30"
-             
+              data-testid="button-ttfiles-demo"
             >
               <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Code className="w-6 h-6 text-white" />
@@ -981,7 +973,7 @@ const AdminCenter = memo(() => {
               onKeyDown={(e) => e.key === 'Enter' && fetchUsers()}
               className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <Users className="w-4 h-4 text-gray-600 dark:text-gray-400 absolute left-3 top-3" />
+            <Users className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
           </div>
           <select
             value={userFilter}
@@ -1143,7 +1135,7 @@ const AdminCenter = memo(() => {
               <h3 className="text-xl font-bold text-gray-900">User Details</h3>
               <button
                 onClick={() => setShowUserModal(false)}
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600"
               >
                 <Ban className="w-5 h-5" />
               </button>
@@ -1213,7 +1205,7 @@ const AdminCenter = memo(() => {
               onKeyDown={(e) => e.key === 'Enter' && fetchFlaggedContent()}
               className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
-            <FileText className="w-4 h-4 text-gray-600 dark:text-gray-400 absolute left-3 top-3" />
+            <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
           </div>
           <select
             value={contentFilter}
@@ -1378,7 +1370,7 @@ const AdminCenter = memo(() => {
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
             onClick={() => setShowContentModal(false)}
-
+          />
           
           {/* Right Panel - Gmail Style */}
           <div className={`fixed top-0 right-0 h-full w-[480px] bg-white shadow-2xl z-50 transform transition-all duration-300 ease-out ${
@@ -1395,7 +1387,7 @@ const AdminCenter = memo(() => {
                 </div>
                 <button
                   onClick={() => setShowContentModal(false)}
-                  className="text-gray-600 dark:text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>

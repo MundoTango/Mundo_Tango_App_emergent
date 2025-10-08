@@ -165,7 +165,7 @@ const TrialBanner: React.FC = () => {
 
                     {/* Progress */}
                     <div className="flex items-center gap-2 min-w-[200px]">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Trial Progress:</span>
+                      <span className="text-sm text-gray-600">Trial Progress:</span>
                       <Progress value={progress} className="h-2 flex-1" />
                       <span className="text-sm font-medium">{Math.round(progress)}%</span>
                     </div>
@@ -190,8 +190,10 @@ const TrialBanner: React.FC = () => {
                         isLastDay ? 'bg-red-600 hover:bg-red-700' : 
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
                       } text-white`}
-                      onClick={()  => {
-                        if (!isLastDay) setShowConfetti(true) }}>
+                      onClick={() => {
+                        if (!isLastDay) setShowConfetti(true);
+                      }}
+                    >
                       {isLastDay ? 'Subscribe Now' : 'Upgrade to Pro'}
                       <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
@@ -201,7 +203,7 @@ const TrialBanner: React.FC = () => {
                     variant="ghost"
                     size="icon"
                     onClick={handleDismiss}
-                    className="text-gray-500 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
+                    className="text-gray-500 hover:text-gray-700"
                   >
                     <X className="w-4 h-4" />
                   </Button>
@@ -211,7 +213,7 @@ const TrialBanner: React.FC = () => {
 
             {/* Benefits reminder */}
             {isUrgent && (
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-neutral-700">
+              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex items-center justify-center gap-8 text-sm">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-600" />

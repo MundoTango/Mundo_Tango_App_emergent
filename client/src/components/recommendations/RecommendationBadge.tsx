@@ -87,7 +87,7 @@ export default function RecommendationBadge({
       {city && (
         <div 
           className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400"
-         
+          data-testid="badge-location"
         >
           <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
           <span>

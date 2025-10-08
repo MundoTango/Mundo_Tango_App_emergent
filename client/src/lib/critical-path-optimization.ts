@@ -90,7 +90,7 @@ export function optimizeFirstPaint() {
   const criticalCSS = `
     body { margin: 0; font-family: -apple-system, system-ui, sans-serif; }
     .loading-spinner { display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .app-container { min-height: 100vh; background: var(--color-neutral-100); }
+    .app-container { min-height: 100vh; background: #f5f5f5; }
     .dashboard-layout { display: flex; }
     .sidebar { width: 240px; background: white; }
     .main-content { flex: 1; padding: 20px; }

@@ -300,9 +300,9 @@ export default function PostDetailModal({
   return (
     <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4"
       <div 
-        className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200 dark:bg-neutral-900"
+        className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
-       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
+      >
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
@@ -320,7 +320,7 @@ export default function PostDetailModal({
             )}
             
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{post.user.name}</h3>
+              <h3 className="font-semibold text-gray-900">{post.user.name}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>@{post.user.username}</span>
                 <span>•</span>
@@ -340,7 +340,7 @@ export default function PostDetailModal({
 
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="h-5 w-5 text-gray-500" />
           </button>
@@ -373,7 +373,7 @@ export default function PostDetailModal({
           <div className="lg:w-96 flex flex-col">
             {/* Post Content */}
             <div className="p-4 border-b border-gray-100">
-              <p className="text-gray-900 text-base leading-relaxed mb-3 dark:text-neutral-100">
+              <p className="text-gray-900 text-base leading-relaxed mb-3">
                 {renderWithMentions(post.content)}
               </p>
 
@@ -402,8 +402,8 @@ export default function PostDetailModal({
 
               {/* Reused Media Section */}
               {reusedMedia.length > 0 && (
-                <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500 dark:bg-neutral-800">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Shared Media</h4>
+                <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Shared Media</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {reusedMedia.map((media, index) => (
                       <div key={media.id} className="relative group">
@@ -440,8 +440,8 @@ export default function PostDetailModal({
               {/* Interaction Buttons */}
               <div className="flex items-center gap-4">
                 <button
-                  onClick={()  => onLike(post.id)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group dark:bg-neutral-800"
+                  onClick={() => onLike(post.id)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
                 >
                   <Heart 
                     className={`h-5 w-5 transition-all duration-200 ${
@@ -457,7 +457,7 @@ export default function PostDetailModal({
                   </span>
                 </button>
 
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 dark:bg-neutral-800">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200">
                   <MessageCircle className="h-5 w-5 text-gray-500" />
                   <span className="text-gray-500 text-sm font-medium">
                     {comments.length}
@@ -465,8 +465,8 @@ export default function PostDetailModal({
                 </button>
 
                 <button
-                  onClick={()  => onShare(post)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 dark:bg-neutral-800"
+                  onClick={() => onShare(post)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200"
                 >
                   <Share2 className="h-5 w-5 text-gray-500" />
                   <span className="text-gray-500 text-sm font-medium">Share</span>
@@ -500,9 +500,9 @@ export default function PostDetailModal({
                         </div>
                       )}
                       <div className="flex-1">
-                        <div className="bg-gray-50 rounded-lg px-3 py-2 dark:bg-neutral-800">
+                        <div className="bg-gray-50 rounded-lg px-3 py-2">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm text-gray-900 dark:text-neutral-100">
+                            <span className="font-medium text-sm text-gray-900">
                               {comment.user.name}
                             </span>
                             <RoleEmojiDisplay 
@@ -517,7 +517,7 @@ export default function PostDetailModal({
                               {formatDistanceToNow(new Date(comment.createdAt))} ago
                             </span>
                           </div>
-                          <p className="text-sm text-gray-700 leading-relaxed dark:text-neutral-600 dark:text-neutral-300">
+                          <p className="text-sm text-gray-700 leading-relaxed">
                             {renderWithMentions(comment.content)}
                           </p>
                         </div>
@@ -538,9 +538,9 @@ export default function PostDetailModal({
                   <input
                     type="text"
                     value={newComment}
-                    onChange={(e)  => setNewComment(e.target.value)}
+                    onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-neutral-800"
+                    className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     disabled={commentMutation.isPending}
                   />
                   <button

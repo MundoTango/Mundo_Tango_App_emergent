@@ -68,21 +68,21 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <div className="text-3xl font-bold text-purple-600">{metrics.adoptionRate}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Adoption Rate</div>
+              <div className="text-sm text-gray-600">Adoption Rate</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <div className="text-3xl font-bold text-blue-600">{metrics.userSatisfaction}/5</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">User Satisfaction</div>
+              <div className="text-sm text-gray-600">User Satisfaction</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <div className="text-3xl font-bold text-green-600">{metrics.performanceScore}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Performance Score</div>
+              <div className="text-sm text-gray-600">Performance Score</div>
             </div>
-            <div className="text-center p-4 bg-white/70 rounded-lg dark:bg-neutral-900">
+            <div className="text-center p-4 bg-white/70 rounded-lg">
               <div className="text-3xl font-bold text-orange-600">{positiveFeedbackPercent}%</div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Positive Feedback</div>
+              <div className="text-sm text-gray-600">Positive Feedback</div>
             </div>
           </div>
         </CardContent>
@@ -148,7 +148,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
               <div key={index}>
                 <div className="flex justify-between mb-2">
                   <span className="font-medium">{feature.feature}</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{feature.usage}%</span>
+                  <span className="text-sm text-gray-600">{feature.usage}%</span>
                 </div>
                 <Progress value={feature.usage} className="h-2" />
               </div>
@@ -180,9 +180,9 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
               <span className="font-medium">Positive Feedback</span>
               <Badge className="bg-green-100 text-green-800">{metrics.userFeedback[0].count}</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="font-medium">Neutral Feedback</span>
-              <Badge className="bg-gray-100 text-gray-800 dark:bg-neutral-800">{metrics.userFeedback[1].count}</Badge>
+              <Badge className="bg-gray-100 text-gray-800">{metrics.userFeedback[1].count}</Badge>
             </div>
             <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
               <span className="font-medium">Negative Feedback</span>
@@ -200,10 +200,10 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-4">
             {performanceImprovement.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
                   <div className="font-medium">{item.metric}</div>
-                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <div className="text-sm text-gray-600">
                     {item.before}ms → {item.after}ms
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
                   <div className="text-2xl font-bold text-green-600">
                     {((1 - item.after / item.before) * 100).toFixed(0)}%
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Improvement</div>
+                  <div className="text-sm text-gray-600">Improvement</div>
                 </div>
               </div>
             ))}
@@ -266,21 +266,21 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
               <Badge className="bg-green-600 mt-0.5">1</Badge>
               <div>
                 <div className="font-medium">Enhance Guest Profile Adoption</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Current usage at 65% - implement onboarding tutorial</div>
+                <div className="text-sm text-gray-600">Current usage at 65% - implement onboarding tutorial</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Badge className="bg-green-600 mt-0.5">2</Badge>
               <div>
                 <div className="font-medium">Optimize Memory Post Creation</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Users report friction in the posting flow</div>
+                <div className="text-sm text-gray-600">Users report friction in the posting flow</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Badge className="bg-green-600 mt-0.5">3</Badge>
               <div>
                 <div className="font-medium">Implement A/B Testing Framework</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Test new features with small user groups first</div>
+                <div className="text-sm text-gray-600">Test new features with small user groups first</div>
               </div>
             </div>
           </div>

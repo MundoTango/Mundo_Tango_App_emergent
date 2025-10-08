@@ -52,7 +52,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
     <div className="space-y-4">
       {/* Header with filter */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">New Feeds</h2>
+        <h2 className="text-2xl font-bold text-gray-900">New Feeds</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
@@ -80,7 +80,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
       </div>
 
       {/* Post creation card */}
-      <Card className="bg-white shadow-sm dark:bg-neutral-900">
+      <Card className="bg-white shadow-sm">
         <CardContent className="p-6">
           {/* User info and visibility */}
           <div className="flex justify-between items-start mb-4">
@@ -95,15 +95,15 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 </AvatarFallback>
               </Avatar>
               <div>
-                <div className="text-sm font-semibold text-gray-900 dark:text-neutral-100">{user?.name}</div>
+                <div className="text-sm font-semibold text-gray-900">{user?.name}</div>
                 <div className="text-sm text-gray-500">@{user?.username}</div>
               </div>
             </div>
             <Button 
               variant="ghost" 
               size="sm"
-              onClick={()  => onCreatePost()}
-              className="flex items-center gap-2 text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
+              onClick={() => onCreatePost()}
+              className="flex items-center gap-2 text-gray-700"
             >
               <VisibilityIcon className="h-4 w-4" />
               <span className="font-semibold">Public</span>
@@ -115,21 +115,21 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
           <div className="relative mb-6">
             <Input
               placeholder="What's on your mind?"
-              className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500 dark:border-neutral-700"
-              onClick={()  => onCreatePost()}
+              className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500"
+              onClick={() => onCreatePost()}
               readOnly
             />
             <Button
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
-              onClick={()  => onCreatePost()}
+              onClick={() => onCreatePost()}
             >
-              <Smile className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <Smile className="h-5 w-5 text-gray-400" />
             </Button>
           </div>
 
-          <hr className="my-4 border-gray-200 dark:border-neutral-700" />
+          <hr className="my-4 border-gray-200" />
 
           {/* Action buttons */}
           <div className="flex items-center justify-between">
@@ -137,8 +137,8 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()  => onCreatePost("LOCATION")}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                onClick={() => onCreatePost("LOCATION")}
               >
                 <MapPin className="h-4 w-4" />
                 Location
@@ -146,8 +146,8 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()  => onCreatePost("MEDIA")}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                onClick={() => onCreatePost("MEDIA")}
               >
                 <ImageIcon className="h-4 w-4" />
                 Image/Video
@@ -155,15 +155,15 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()  => onCreatePost("ACTIVITY")}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                onClick={() => onCreatePost("ACTIVITY")}
               >
                 <Star className="h-4 w-4" />
                 Activity
               </Button>
             </div>
             <Button
-              onClick={()  => onCreatePost()}
+              onClick={() => onCreatePost()}
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold"
             >
               Post

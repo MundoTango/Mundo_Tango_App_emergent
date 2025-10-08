@@ -46,9 +46,9 @@ const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({
 
   return (
     <div 
-      className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group dark:border-neutral-700"
+      className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
       onClick={handleClick}
-     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(e); } }}>
+    >
       {/* Clean profile image without emoji badge */}
       <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
         {member.profileImage ? (
@@ -60,7 +60,7 @@ const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors dark:text-neutral-100">
+          <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors">
             {member.name}
           </p>
           {member.role === 'admin' && (
@@ -104,7 +104,7 @@ const CategorySection: React.FC<{
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
         <span className="text-lg">{categoryInfo.emoji}</span>
-        <h4 className="text-md font-semibold text-gray-800 dark:text-neutral-200">{categoryInfo.name}</h4>
+        <h4 className="text-md font-semibold text-gray-800">{categoryInfo.name}</h4>
         <Badge variant="outline" className={`text-xs ${categoryInfo.color}`}>
           {members.length}
         </Badge>
@@ -194,13 +194,13 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
   }, [enhancedMembers]);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 dark:bg-neutral-900">
+    <div className="bg-white rounded-xl shadow-sm p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
-          <Users className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+          <Users className="h-5 w-5 text-gray-600" />
           <h3 className="text-lg font-semibold">Members</h3>
-          <Badge variant="outline" className="bg-gray-50 text-gray-700 dark:bg-neutral-800">
+          <Badge variant="outline" className="bg-gray-50 text-gray-700">
             {filteredMembers.length} of {memberCount}
           </Badge>
         </div>
@@ -210,11 +210,11 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
             placeholder="Search members..."
             value={searchTerm}
-            onChange={(e)  => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -256,12 +256,12 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={()  => {
+            onClick={() => {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');
             }}
-            className="text-gray-600 hover:text-gray-800 dark:text-neutral-200"
+            className="text-gray-600 hover:text-gray-800"
           >
             Clear Filters
           </Button>
@@ -282,12 +282,12 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         </div>
       ) : (
         <div className="text-center py-12 text-gray-500">
-          <Users className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
+          <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <p>No members found matching your filters</p>
           <Button
             variant="outline"
             size="sm"
-            onClick={()  => {
+            onClick={() => {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');

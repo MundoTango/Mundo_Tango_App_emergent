@@ -203,8 +203,8 @@ export default function AuditTrailViewer() {
     if (action.includes('update') || action.includes('edit')) return <Edit3 className="h-4 w-4 text-blue-600" />;
     if (action.includes('delete') || action.includes('remove')) return <Trash2 className="h-4 w-4 text-red-600" />;
     if (action.includes('login') || action.includes('auth')) return <Shield className="h-4 w-4 text-purple-600" />;
-    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
-    return <FileText className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
+    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600" />;
+    return <FileText className="h-4 w-4 text-gray-600" />;
   };
 
   const filteredEvents = mockAuditEvents.filter(event => {
@@ -242,18 +242,18 @@ export default function AuditTrailViewer() {
       {/* Filters and controls */}
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
-            onChange={(e)  => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
           />
         </div>
         
         <div className="flex gap-3">
           <Select value={actionFilter} onValueChange={setActionFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
             <SelectContent>
@@ -267,7 +267,7 @@ export default function AuditTrailViewer() {
           </Select>
 
           <Select value={severityFilter} onValueChange={setSeverityFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
             <SelectContent>
@@ -282,7 +282,7 @@ export default function AuditTrailViewer() {
           <Button
             onClick={exportAuditLog}
             variant="outline"
-            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
+            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
           >
             <Download className="h-4 w-4 mr-2" />
             Export
@@ -352,15 +352,15 @@ export default function AuditTrailViewer() {
       {/* Audit events list */}
       <div className="space-y-3">
         {filteredEvents.map((event) => (
-          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow dark:bg-neutral-900">
+          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-50 rounded-xl dark:bg-neutral-800">
+                <div className="p-2 bg-gray-50 rounded-xl">
                   {getActionIcon(event.action)}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
+                    <h3 className="font-semibold text-gray-900">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
                     <Badge className={`${getSeverityBadge(event.severity)} border`}>
                       <div className="flex items-center gap-1">
                         {getSeverityIcon(event.severity)}
@@ -368,7 +368,7 @@ export default function AuditTrailViewer() {
                       </div>
                     </Badge>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <div className="text-sm text-gray-600">
                     Resource: <span className="font-medium">{event.resource}</span>
                     {event.resourceId > 0 && <span className="ml-1">#{event.resourceId}</span>}
                   </div>
@@ -383,25 +383,25 @@ export default function AuditTrailViewer() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center gap-2 text-sm">
-                <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Actor:</span>
+                <User className="h-4 w-4 text-gray-400" />
+                <span className="text-gray-600">Actor:</span>
                 <span className="font-medium">{event.actor.name}</span>
                 <span className="text-gray-500">(@{event.actor.username})</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <Shield className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">IP:</span>
+                <Shield className="h-4 w-4 text-gray-400" />
+                <span className="text-gray-600">IP:</span>
                 <span className="font-mono text-xs">{event.ipAddress}</span>
               </div>
             </div>
 
             {event.details && Object.keys(event.details).length > 0 && (
-              <div className="bg-gray-50 rounded-xl p-4 dark:bg-neutral-800">
-                <div className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Event Details:</div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="text-sm font-medium text-gray-700 mb-2">Event Details:</div>
                 <div className="space-y-1">
                   {Object.entries(event.details).map(([key, value]) => (
                     <div key={key} className="text-sm">
-                      <span className="text-gray-600 capitalize dark:text-neutral-600 dark:text-neutral-400">{key.replace(/_/g, ' ')}:</span>
+                      <span className="text-gray-600 capitalize">{key.replace(/_/g, ' ')}:</span>
                       <span className="font-medium ml-2">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                       </span>
@@ -416,9 +416,9 @@ export default function AuditTrailViewer() {
 
       {filteredEvents.length === 0 && (
         <div className="text-center py-12">
-          <FileText className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">No audit events found</h3>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try adjusting your filters or search terms</p>
+          <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No audit events found</h3>
+          <p className="text-gray-600">Try adjusting your filters or search terms</p>
         </div>
       )}
     </div>

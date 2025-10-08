@@ -10,7 +10,6 @@ import { Check, Sparkles, Building2, Crown, ArrowRight, X } from 'lucide-react';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { Helmet } from 'react-helmet';
 
 // ESA LIFE CEO 61x21 - Phase 18: Pricing Page
 
@@ -72,11 +71,6 @@ export default function PricingPage() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Pricing | Life CEO</title>
-      </Helmet>
-      
       <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10 p-8">
         <div className="mx-auto max-w-7xl">
           <div className="animate-pulse space-y-8">
@@ -89,9 +83,7 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
-    
-    </>
-  );
+    );
   }
 
   const tiers = tiersData?.tiers || {};
@@ -100,13 +92,13 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b dark:bg-neutral-900">
+      <div className="bg-white/80 backdrop-blur-sm border-b">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
               Choose Your Plan
             </h1>
-            <p className="mt-4 text-lg text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <p className="mt-4 text-lg text-gray-600">
               Unlock the full potential of ESA LIFE CEO 61x21
             </p>
             
@@ -119,7 +111,7 @@ export default function PricingPage() {
                 id="billing-toggle"
                 checked={billingCycle === 'annual'}
                 onCheckedChange={(checked) => setBillingCycle(checked ? 'annual' : 'monthly')}
-               
+                data-testid="switch-billing-cycle"
               />
               <Label htmlFor="billing-toggle" className={billingCycle === 'annual' ? 'font-semibold' : ''}>
                 Annual
@@ -134,7 +126,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Free Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow dark:border-neutral-700">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 Free
@@ -165,7 +157,7 @@ export default function PricingPage() {
                   className="w-full" 
                   variant="outline"
                   onClick={() => handleSubscribe('free')}
-                 
+                  data-testid="button-subscribe-free"
                 >
                   Get Started
                 </Button>
@@ -218,7 +210,7 @@ export default function PricingPage() {
                   className="w-full bg-[#5EEAD4] hover:bg-[#5EEAD4]/90 text-white"
                   onClick={() => handleSubscribe('pro')}
                   disabled={subscribeMutation.isPending}
-                 
+                  data-testid="button-subscribe-pro"
                 >
                   {subscribeMutation.isPending ? 'Processing...' : 'Subscribe Now'}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -228,7 +220,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Business Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow dark:border-neutral-700">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-600" />
@@ -269,7 +261,7 @@ export default function PricingPage() {
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => handleSubscribe('business')}
                   disabled={subscribeMutation.isPending}
-                 
+                  data-testid="button-subscribe-business"
                 >
                   {subscribeMutation.isPending ? 'Processing...' : 'Subscribe Now'}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -305,7 +297,7 @@ export default function PricingPage() {
               <Button 
                 className="w-full bg-gray-900 hover:bg-gray-800 text-white"
                 onClick={() => handleSubscribe('enterprise')}
-               
+                data-testid="button-contact-sales"
               >
                 Contact Sales
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -378,7 +370,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I change plans anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600">
                   Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and are prorated.
                 </p>
               </CardContent>
@@ -388,7 +380,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Is there a free trial?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600">
                   Yes, all paid plans come with a 14-day free trial. No credit card required to start.
                 </p>
               </CardContent>
@@ -398,7 +390,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">What payment methods do you accept?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600">
                   We accept all major credit cards, debit cards, and support multiple currencies (USD, EUR, GBP).
                 </p>
               </CardContent>
@@ -408,7 +400,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I cancel anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600">
                   Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
                 </p>
               </CardContent>

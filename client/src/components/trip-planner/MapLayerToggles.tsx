@@ -24,7 +24,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
 
   return (
     <Card className="p-4 glass-card-depth-1">
-      <h3 className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-600 dark:text-gray-300">
+      <h3 className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">
         Map Layers
       </h3>
       <div className="space-y-3">
@@ -39,7 +39,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-events"
             checked={layers.events}
             onCheckedChange={() => handleToggle('events')}
-           
+            data-testid="toggle-layer-events"
           />
         </div>
 
@@ -54,7 +54,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-housing"
             checked={layers.housing}
             onCheckedChange={() => handleToggle('housing')}
-           
+            data-testid="toggle-layer-housing"
           />
         </div>
 
@@ -69,7 +69,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-recommendations"
             checked={layers.recommendations}
             onCheckedChange={() => handleToggle('recommendations')}
-           
+            data-testid="toggle-layer-recommendations"
           />
         </div>
       </div>

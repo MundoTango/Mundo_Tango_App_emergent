@@ -8,7 +8,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { CheckCircle, AlertCircle, Clock, BarChart3, Activity, Target, Layers, Users } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 interface Project {
   id: string;
@@ -224,11 +223,6 @@ const ProjectTracker: React.FC = () => {
     : projects.filter(p => p.status === selectedFilter);
 
   return (
-    <>
-      <Helmet>
-        <title>Project Tracker | Life CEO</title>
-      </Helmet>
-      
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
@@ -236,7 +230,7 @@ const ProjectTracker: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
             ESA LIFE CEO 61x21 Project Tracker
           </h1>
-          <p className="text-gray-600 text-lg dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-gray-600 text-lg">
             Comprehensive platform audit and project management dashboard
           </p>
         </div>
@@ -334,7 +328,7 @@ const ProjectTracker: React.FC = () => {
                       <CardContent className="pt-0">
                         <Progress value={(result.score / result.maxScore) * 100} className="mb-3" />
                         <ScrollArea className="h-24">
-                          <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
+                          <ul className="text-sm text-gray-600 space-y-1">
                             {result.details.map((detail, i) => (
                               <li key={i} className="flex items-start gap-2">
                                 <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
@@ -364,7 +358,7 @@ const ProjectTracker: React.FC = () => {
                     <Button
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       size="sm"
-                      onClick={()  => setSelectedFilter('all')}
+                      onClick={() => setSelectedFilter('all')}
                     >
                       All ({projects.length})
                     </Button>
@@ -373,7 +367,7 @@ const ProjectTracker: React.FC = () => {
                         key={status}
                         variant={selectedFilter === status ? 'default' : 'outline'}
                         size="sm"
-                        onClick={()  => setSelectedFilter(status)}
+                        onClick={() => setSelectedFilter(status)}
                       >
                         {status} ({count})
                       </Button>
@@ -410,7 +404,7 @@ const ProjectTracker: React.FC = () => {
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-gray-600 mb-3 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">{project.description}</p>
+                          <p className="text-sm text-gray-600 mb-3 line-clamp-2">{project.description}</p>
                           <div className="space-y-2">
                             <div className="flex items-center justify-between text-sm">
                               <span>Progress</span>
@@ -435,7 +429,7 @@ const ProjectTracker: React.FC = () => {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <Users className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
+                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-2" />
                     <p className="text-gray-500">No projects found for the selected filter</p>
                   </div>
                 )}
@@ -504,19 +498,19 @@ const ProjectTracker: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <p className="text-2xl font-bold text-blue-600">{metrics.totalProjects}</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Projects</p>
+                    <p className="text-sm text-gray-600">Total Projects</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-green-600">{metrics.avgCompletion?.toFixed(1) || 0}%</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg Completion</p>
+                    <p className="text-sm text-gray-600">Avg Completion</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-purple-600">{metrics.totalEstimatedHours || 0}h</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Est. Hours</p>
+                    <p className="text-sm text-gray-600">Est. Hours</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-orange-600">{metrics.totalActualHours || 0}h</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Actual Hours</p>
+                    <p className="text-sm text-gray-600">Actual Hours</p>
                   </div>
                 </div>
               </CardContent>
@@ -525,8 +519,6 @@ const ProjectTracker: React.FC = () => {
         </Tabs>
       </div>
     </div>
-  
-    </>
   );
 };
 

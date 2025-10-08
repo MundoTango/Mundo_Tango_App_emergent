@@ -25,7 +25,7 @@ export default function UnifiedMapLegend({
   return (
     <div 
       className={`absolute ${positionClasses[position]} bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 z-[1000] min-w-[150px]`}
-     
+      data-testid="map-legend"
     >
       <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-white">
         {title}
@@ -34,7 +34,7 @@ export default function UnifiedMapLegend({
         {items.map((item, index) => (
           <div 
             key={index} 
-            className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-300"
+            className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300"
           >
             <div 
               className={`w-4 h-4 bg-gradient-to-r from-${item.color} to-cyan-500 rounded-full flex-shrink-0`}

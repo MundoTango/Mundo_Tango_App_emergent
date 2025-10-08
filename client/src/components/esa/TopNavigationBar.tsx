@@ -53,12 +53,12 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           )}>
             <Search className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5",
-              theme === 'light' ? "text-gray-600 dark:text-gray-400" : "text-slate-400"
+              theme === 'light' ? "text-gray-400" : "text-slate-400"
             )} />
             <input
               type="text"
               value={searchQuery}
-              onChange={(e)  => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search events, people, memories..."
               className={cn(
                 "w-full pl-12 pr-4 py-2.5 bg-transparent outline-none transition-colors",
@@ -159,7 +159,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           {/* Profile Dropdown */}
           <div className="relative">
             <button
-              onClick={()  => setIsProfileOpen(!isProfileOpen)}
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
               className={cn(
                 "flex items-center gap-2 p-1.5 rounded-lg transition-all",
                 theme === 'light'
@@ -182,7 +182,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                 <div 
                   className="fixed inset-0 z-40" 
                   onClick={() => setIsProfileOpen(false)}
-
+                />
                 <div className={cn(
                   "absolute right-0 mt-2 w-64 rounded-xl shadow-xl border z-50",
                   theme === 'light'

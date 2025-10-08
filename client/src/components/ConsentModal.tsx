@@ -34,7 +34,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4" data-testid="consent-modal">
       {/* Backdrop */}
       <GlassCard depth={1} className="fixed inset-0"
       
@@ -47,7 +47,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy & Analytics</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">Help us improve your experience</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Help us improve your experience</p>
           </div>
         </div>
 
@@ -66,12 +66,12 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           {/* Analytics Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <BarChart className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+              <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="analytics-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Product Analytics
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   Understand how you use our features to improve the platform
                 </p>
               </div>
@@ -80,19 +80,19 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="analytics-toggle"
               checked={analytics}
               onCheckedChange={setAnalytics}
-             
+              data-testid="switch-analytics"
             />
           </div>
 
           {/* Session Recording Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <Eye className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+              <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="session-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Session Recording
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   Help us identify and fix user experience issues
                 </p>
               </div>
@@ -101,19 +101,19 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="session-toggle"
               checked={sessionRecording}
               onCheckedChange={setSessionRecording}
-             
+              data-testid="switch-session"
             />
           </div>
 
           {/* Error Tracking Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+              <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="error-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Error Tracking
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   Automatically report technical issues for faster resolution
                 </p>
               </div>
@@ -122,7 +122,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
               id="error-toggle"
               checked={errorTracking}
               onCheckedChange={setErrorTracking}
-             
+              data-testid="switch-errors"
             />
           </div>
         </div>
@@ -133,7 +133,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
             variant="outline"
             onClick={handleRejectAll}
             className="flex-1"
-           
+            data-testid="button-reject-all"
           >
             Reject All
           </Button>
@@ -142,14 +142,14 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
             onClick={handleAcceptSelected}
             disabled={!analytics && !sessionRecording && !errorTracking}
             className="flex-1"
-           
+            data-testid="button-accept-selected"
           >
             Accept Selected
           </Button>
           <Button
             onClick={handleAcceptAll}
             className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-           
+            data-testid="button-accept-all"
           >
             Accept All
           </Button>
@@ -157,7 +157,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
 
         {/* Footer */}
         <div className="text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation and analyze site usage.
           </p>
         </div>

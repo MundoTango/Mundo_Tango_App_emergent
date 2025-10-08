@@ -43,8 +43,8 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">Unable to load videos</h3>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load videos</h3>
+          <p className="text-gray-600">Please try again later.</p>
         </CardContent>
       </Card>
     );
@@ -56,7 +56,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
         {isOwnProfile && (
           <div className="flex justify-end">
             <Button
-              onClick={()  => setShowUploadDialog(true)}
+              onClick={() => setShowUploadDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -83,7 +83,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Video className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+                        <Video className="h-8 w-8 text-gray-400" />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
@@ -97,9 +97,9 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
         ) : (
           <Card className="glassmorphic-card">
             <CardContent className="p-12 text-center">
-              <Video className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No videos yet</h3>
-              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <Video className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No videos yet</h3>
+              <p className="text-gray-600">
                 {isOwnProfile
                   ? 'Start sharing your tango performances by uploading your first video.'
                   : 'No videos to display.'}
@@ -141,7 +141,7 @@ export function UserVideosGallery({ userId, isOwnProfile }: UserVideosGalleryPro
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Video upload functionality coming soon.</p>
+            <p className="text-sm text-gray-600">Video upload functionality coming soon.</p>
           </div>
         </DialogContent>
       </Dialog>

@@ -204,7 +204,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       {showVisibility && (
         <div className="space-y-2">
           <Label>Visibility</Label>
-          <Select value={currentVisibility} onValueChange={(value)> setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
+          <Select value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -235,7 +235,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           <div className="flex gap-2">
             <Input
               value={newTag}
-              onChange={(e)  => setNewTag(e.target.value)}
+              onChange={(e) => setNewTag(e.target.value)}
               placeholder="Add a tag..."
               onKeyPress={(e) => e.key === 'Enter' && addTag()}
               className="flex-1"
@@ -257,11 +257,11 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
         `}
       >
         <input {...getInputProps()} />
-        <Upload className="w-8 h-8 mx-auto mb-2 text-gray-600 dark:text-gray-400" />
-        <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">
+        <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+        <p className="text-sm text-gray-600 mb-1">
           {isDragActive ? 'Drop files here...' : placeholder}
         </p>
-        <p className="text-xs text-gray-600 dark:text-gray-400">
+        <p className="text-xs text-gray-400">
           Max {maxSize}MB • {maxDimensions.width}x{maxDimensions.height}px • {acceptedTypes.join(', ')}
         </p>
       </div>
@@ -285,7 +285,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             {uploadedFiles.map((file, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-neutral-800"
+                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50"
               >
                 {showPreview && previews[file.originalName] ? (
                   <img
@@ -306,7 +306,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={()  => removeFile(index)}
+                  onClick={() => removeFile(index)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <X className="w-4 h-4" />

@@ -2,17 +2,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Home, Search, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
-import { Helmet } from 'react-helmet';
 
 export default function NotFound() {
   const [, setLocation] = useLocation();
 
   return (
-    <>
-      <Helmet>
-        <title>Not Found | Life CEO</title>
-      </Helmet>
-      
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
       <Card className="w-full max-w-md mx-4 glassmorphic-card">
         <CardContent className="pt-8 pb-6 text-center">
@@ -23,14 +17,14 @@ export default function NotFound() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
               404 - Page Not Found
             </h1>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <p className="text-gray-600">
               We couldn't find the page you're looking for. It might have been moved or doesn't exist.
             </p>
           </div>
 
           <div className="space-y-3">
             <Button
-              onClick={()  => setLocation('/')}
+              onClick={() => setLocation('/')}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
               <Home className="w-4 h-4 mr-2" />
@@ -38,7 +32,7 @@ export default function NotFound() {
             </Button>
             
             <Button
-              onClick={()  => window.history.back()}
+              onClick={() => window.history.back()}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
             >
@@ -47,7 +41,7 @@ export default function NotFound() {
             </Button>
             
             <Button
-              onClick={()  => setLocation('/events')}
+              onClick={() => setLocation('/events')}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
             >
@@ -56,7 +50,7 @@ export default function NotFound() {
             </Button>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-neutral-700">
+          <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-500">
               Need help? Contact us at{' '}
               <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
@@ -67,7 +61,5 @@ export default function NotFound() {
         </CardContent>
       </Card>
     </div>
-  
-    </>
   );
 }

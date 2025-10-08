@@ -108,7 +108,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
           "flex items-center justify-center",
           "overflow-hidden"
         )}
-       
+        data-testid="button-create-memory"
       >
         {/* Ripple Effect Background */}
         <div className="absolute inset-0">

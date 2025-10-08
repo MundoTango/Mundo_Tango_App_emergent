@@ -3,7 +3,6 @@ import { useLocation } from 'wouter';
 import { ArrowLeft, Globe, Brain, ChevronRight, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { Helmet } from 'react-helmet';
 
 export default function ProfileSwitcher() {
   const [, setLocation] = useLocation();
@@ -43,19 +42,14 @@ export default function ProfileSwitcher() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Profile Switcher | Life CEO</title>
-      </Helmet>
-      
-    <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-neutral-900">
+      <div className="bg-white border-b border-gray-200 px-4 py-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            onClick={()  => window.history.back()}
+            onClick={() => window.history.back()}
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
@@ -65,7 +59,7 @@ export default function ProfileSwitcher() {
 
       {/* Current User Info */}
       <div className="px-4 py-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm dark:bg-neutral-900">
+        <div className="bg-white rounded-xl p-4 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold">
               {user?.name?.[0] || 'S'}
@@ -85,7 +79,7 @@ export default function ProfileSwitcher() {
           {profiles.map((profile) => (
             <button
               key={profile.id}
-              onClick={()  => handleProfileSwitch(profile)}
+              onClick={() => handleProfileSwitch(profile)}
               className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
                 activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''
               }`}
@@ -96,11 +90,11 @@ export default function ProfileSwitcher() {
                     {profile.icon}
                   </div>
                   <div className="text-left">
-                    <h3 className="font-medium text-gray-900 dark:text-neutral-100">{profile.name}</h3>
+                    <h3 className="font-medium text-gray-900">{profile.name}</h3>
                     <p className="text-sm text-gray-500">{profile.description}</p>
                   </div>
                 </div>
-                <ChevronRight className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                <ChevronRight className="h-5 w-5 text-gray-400" />
               </div>
             </button>
           ))}
@@ -109,8 +103,8 @@ export default function ProfileSwitcher() {
 
       {/* Create New Profile */}
       <div className="px-4 pb-6">
-        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors dark:bg-neutral-800">
-          <div className="flex items-center justify-center gap-3 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors">
+          <div className="flex items-center justify-center gap-3 text-gray-600">
             <Plus className="h-5 w-5" />
             <span className="font-medium">Create New Profile</span>
           </div>
@@ -120,19 +114,19 @@ export default function ProfileSwitcher() {
       {/* Quick Actions */}
       <div className="px-4 pb-6">
         <h2 className="text-sm font-medium text-gray-500 mb-3">QUICK ACTIONS</h2>
-        <div className="bg-white rounded-xl p-4 shadow-sm space-y-3 dark:bg-neutral-900">
+        <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
           {isSuperAdmin && (
             <button
-              onClick={()  => setLocation('/life-ceo')}
-              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
+              onClick={() => setLocation('/life-ceo')}
+              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <Brain className="h-5 w-5 text-purple-500" />
               <span className="text-sm font-medium">Open Life CEO Voice Assistant</span>
             </button>
           )}
           <button
-            onClick={()  => setLocation('/memories')}
-            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
+            onClick={() => setLocation('/memories')}
+            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
           >
             <Globe className="h-5 w-5 text-blue-500" />
             <span className="text-sm font-medium">Return to Mundo Tango</span>
@@ -140,7 +134,5 @@ export default function ProfileSwitcher() {
         </div>
       </div>
     </div>
-  
-    </>
   );
 }

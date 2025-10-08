@@ -329,7 +329,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                             type="number" 
                             placeholder="Leave empty for unlimited"
                             {...field}
-                            onChange={(e)  => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                            onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
                           />
                         </FormControl>
                       </FormItem>
@@ -759,7 +759,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           <FormControl>
                             <Input 
                               placeholder="tango, milonga, buenos aires (comma separated)"
-                              onChange={(e)  => {
+                              onChange={(e) => {
                                 const tags = e.target.value.split(',').map(t => t.trim()).filter(Boolean);
                                 field.onChange(tags);
                               }}
@@ -777,7 +777,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
             </Tabs>
 
             <div className="flex justify-end space-x-4">
-              <Button type="button" variant="outline" onClick={()  => onOpenChange(false)}>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
               <Button 

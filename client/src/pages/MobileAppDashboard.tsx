@@ -28,7 +28,6 @@ import {
   Shield,
   Gauge
 } from "lucide-react";
-import { Helmet } from 'react-helmet';
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -88,14 +87,7 @@ const MobileAppDashboard: React.FC = () => {
       });
     }
 
-    return (
-    <>
-      <Helmet>
-        <title>Mobile App Dashboard | Life CEO</title>
-      </Helmet>
-      
-    </>
-  ) => {
+    return () => {
       window.removeEventListener('beforeinstallprompt', handleInstallPrompt);
       window.removeEventListener('online', updateOnlineStatus);
       window.removeEventListener('offline', updateOnlineStatus);
@@ -152,7 +144,7 @@ const MobileAppDashboard: React.FC = () => {
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Mobile App Dashboard
         </h1>
-        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Manage your Progressive Web App experience and mobile features</p>
+        <p className="text-gray-600">Manage your Progressive Web App experience and mobile features</p>
       </div>
 
       {/* Status Overview */}
@@ -161,7 +153,7 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">App Status</p>
+                <p className="text-sm text-gray-600">App Status</p>
                 <p className="text-2xl font-bold">
                   {isInstalled ? 'Installed' : 'Web Version'}
                 </p>
@@ -177,7 +169,7 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Connection</p>
+                <p className="text-sm text-gray-600">Connection</p>
                 <p className="text-2xl font-bold">
                   {isOnline ? networkType.toUpperCase() : 'Offline'}
                 </p>
@@ -197,7 +189,7 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Battery</p>
+                <p className="text-sm text-gray-600">Battery</p>
                 <p className="text-2xl font-bold">
                   {batteryLevel !== null ? `${Math.round(batteryLevel)}%` : 'N/A'}
                 </p>
@@ -213,7 +205,7 @@ const MobileAppDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Notifications</p>
+                <p className="text-sm text-gray-600">Notifications</p>
                 <p className="text-2xl font-bold capitalize">
                   {pushPermission}
                 </p>
@@ -271,7 +263,7 @@ const MobileAppDashboard: React.FC = () => {
                   
                   <div className="space-y-2">
                     <h4 className="font-semibold">Manual Installation Steps:</h4>
-                    <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
                       <li>Open browser menu (⋮ or ⋯)</li>
                       <li>Look for "Add to Home Screen" or "Install App"</li>
                       <li>Follow the prompts to install</li>
@@ -283,7 +275,7 @@ const MobileAppDashboard: React.FC = () => {
                 <div className="text-center py-8">
                   <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">App Installed Successfully!</h3>
-                  <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">You're enjoying the full PWA experience</p>
+                  <p className="text-gray-600">You're enjoying the full PWA experience</p>
                 </div>
               )}
             </CardContent>
@@ -310,7 +302,7 @@ const MobileAppDashboard: React.FC = () => {
                     <Bell className="h-5 w-5 text-turquoise-600" />
                     <div>
                       <p className="font-medium">Push Notifications</p>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Receive event reminders and updates</p>
+                      <p className="text-sm text-gray-600">Receive event reminders and updates</p>
                     </div>
                   </div>
                   <Button
@@ -328,7 +320,7 @@ const MobileAppDashboard: React.FC = () => {
                     <WifiOff className="h-5 w-5 text-cyan-600" />
                     <div>
                       <p className="font-medium">Offline Mode</p>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Access content without internet</p>
+                      <p className="text-sm text-gray-600">Access content without internet</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Active</Badge>
@@ -340,7 +332,7 @@ const MobileAppDashboard: React.FC = () => {
                     <Share2 className="h-5 w-5 text-blue-600" />
                     <div>
                       <p className="font-medium">App Shortcuts</p>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Quick access from home screen</p>
+                      <p className="text-sm text-gray-600">Quick access from home screen</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Available</Badge>
@@ -352,7 +344,7 @@ const MobileAppDashboard: React.FC = () => {
                     <RefreshCw className="h-5 w-5 text-indigo-600" />
                     <div>
                       <p className="font-medium">Background Sync</p>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Sync data when back online</p>
+                      <p className="text-sm text-gray-600">Sync data when back online</p>
                     </div>
                   </div>
                   <Badge variant="secondary">Enabled</Badge>
@@ -379,7 +371,7 @@ const MobileAppDashboard: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Page Load Time</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">2.1s</span>
+                  <span className="text-sm text-gray-600">2.1s</span>
                 </div>
                 <Progress value={79} className="h-2" />
                 <p className="text-xs text-gray-500">Target: Under 3 seconds</p>
@@ -389,7 +381,7 @@ const MobileAppDashboard: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Cache Hit Rate</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">87%</span>
+                  <span className="text-sm text-gray-600">87%</span>
                 </div>
                 <Progress value={87} className="h-2" />
                 <p className="text-xs text-gray-500">Higher is better</p>
@@ -399,7 +391,7 @@ const MobileAppDashboard: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Offline Coverage</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">65%</span>
+                  <span className="text-sm text-gray-600">65%</span>
                 </div>
                 <Progress value={65} className="h-2" />
                 <p className="text-xs text-gray-500">Pages available offline</p>
@@ -409,7 +401,7 @@ const MobileAppDashboard: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-sm font-medium">Storage Usage</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">124 MB</span>
+                  <span className="text-sm text-gray-600">124 MB</span>
                 </div>
                 <Progress value={24} className="h-2" />
                 <p className="text-xs text-gray-500">24% of 500MB quota</p>
@@ -445,19 +437,19 @@ const MobileAppDashboard: React.FC = () => {
                 <div>
                   <h4 className="font-medium mb-3">Cached Content</h4>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Profile Data</span>
                       <Badge variant="secondary">Synced</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Recent Posts</span>
                       <Badge variant="secondary">50 items</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Event Details</span>
                       <Badge variant="secondary">12 events</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                       <span className="text-sm">Images</span>
                       <Badge variant="secondary">234 files</Badge>
                     </div>

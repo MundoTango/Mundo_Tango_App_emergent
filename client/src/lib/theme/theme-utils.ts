@@ -180,7 +180,7 @@ export const getThemeColor = (
     current = current?.[part];
   }
   
-  return current || 'hsl(0, 0%, 0%)';
+  return current || '#000000';
 };
 
 // Generate gradient from theme colors

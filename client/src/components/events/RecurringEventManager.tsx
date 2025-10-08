@@ -202,7 +202,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>First Event Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)  => {
+                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -219,7 +219,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Series End Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)  => {
+                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e) => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -265,7 +265,7 @@ export default function RecurringEventManager() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Recurrence Pattern</FormLabel>
-                    <Select onValueChange={(value)> {
+                    <Select onValueChange={(value) => {
                       field.onChange(value);
                       generatePreviewDates(form.getValues());
                     }} defaultValue={field.value}>
@@ -317,7 +317,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Max Attendees</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e)  => field.onChange(parseInt(e.target.value))} />
+                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e) => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -331,7 +331,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Price (USD)</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e)  => field.onChange(parseFloat(e.target.value))} />
+                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e) => field.onChange(parseFloat(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -350,7 +350,7 @@ export default function RecurringEventManager() {
                     <FormItem className="flex items-center justify-between">
                       <div className="space-y-0.5">
                         <FormLabel>Create Event Page</FormLabel>
-                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create a dedicated page for this event series</p>
+                        <p className="text-sm text-gray-600">Create a dedicated page for this event series</p>
                       </div>
                       <FormControl>
                         <Switch checked={field.value} onCheckedChange={(checked) => {
@@ -370,7 +370,7 @@ export default function RecurringEventManager() {
                       <FormItem className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <FormLabel>Allow Community Posts</FormLabel>
-                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Let attendees post on the event page</p>
+                          <p className="text-sm text-gray-600">Let attendees post on the event page</p>
                         </div>
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -382,7 +382,7 @@ export default function RecurringEventManager() {
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={()  => form.reset()}>
+                <Button type="button" variant="outline" onClick={() => form.reset()}>
                   Cancel
                 </Button>
                 <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending}>

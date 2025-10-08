@@ -56,7 +56,6 @@ import {
   CheckCircle2,
   BarChart
 } from 'lucide-react';
-import { Helmet } from 'react-helmet';
 
 interface NotificationSettings {
   emailNotifications: boolean;
@@ -375,17 +374,10 @@ const UserSettings: React.FC = () => {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>User Settings | Life CEO</title>
-      </Helmet>
-      
       <div className="flex items-center justify-center min-h-screen">
         <RefreshCw className="w-8 h-8 animate-spin text-turquoise-600" />
       </div>
-    
-    </>
-  );
+    );
   }
 
   return (
@@ -402,7 +394,7 @@ const UserSettings: React.FC = () => {
       {/* Search and Actions Bar */}
       <div className="mb-6 flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             type="text"
             placeholder="Search settings..."
@@ -815,12 +807,12 @@ const UserSettings: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <BarChart className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+                      <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="product-analytics" className="text-sm font-medium cursor-pointer">
                           Product Analytics
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           Understand how you use our features to improve the platform
                         </p>
                       </div>
@@ -830,18 +822,18 @@ const UserSettings: React.FC = () => {
                       checked={privacy.shareAnalytics}
                       onCheckedChange={(checked) => handlePrivacyChange('shareAnalytics', checked)}
                       className="mt-switch"
-                     
+                      data-testid="switch-analytics"
                     />
                   </div>
 
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <Eye className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+                      <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="session-recording" className="text-sm font-medium cursor-pointer">
                           Session Recording
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           Help us identify and fix user experience issues
                         </p>
                       </div>
@@ -851,18 +843,18 @@ const UserSettings: React.FC = () => {
                       checked={privacy.dataExportEnabled}
                       onCheckedChange={(checked) => handlePrivacyChange('dataExportEnabled', checked)}
                       className="mt-switch"
-                     
+                      data-testid="switch-session"
                     />
                   </div>
 
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <AlertCircle className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
+                      <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="error-tracking" className="text-sm font-medium cursor-pointer">
                           Error Tracking
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           Automatically report technical issues for faster resolution
                         </p>
                       </div>
@@ -872,11 +864,11 @@ const UserSettings: React.FC = () => {
                       checked={privacy.thirdPartySharing}
                       onCheckedChange={(checked) => handlePrivacyChange('thirdPartySharing', checked)}
                       className="mt-switch"
-                     
+                      data-testid="switch-errors"
                     />
                   </div>
 
-                  <div className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                     <Lock className="w-3 h-3 inline mr-1" />
                     Your data is encrypted and never sold. You can change these settings anytime in your privacy preferences.
                   </div>

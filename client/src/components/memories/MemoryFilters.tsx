@@ -112,7 +112,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         <div className="flex gap-2 mb-4 flex-wrap">
           <Button
             variant={filterType === 'all' ? 'default' : 'outline'}
-            onClick={()  => setFilterType('all')}
+            onClick={() => setFilterType('all')}
             className={`flex items-center gap-2 ${
               filterType === 'all' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -125,7 +125,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
           
           <Button
             variant={filterType === 'following' ? 'default' : 'outline'}
-            onClick={()  => setFilterType('following')}
+            onClick={() => setFilterType('following')}
             className={`flex items-center gap-2 ${
               filterType === 'following' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -138,7 +138,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
           
           <Button
             variant={filterType === 'nearby' ? 'default' : 'outline'}
-            onClick={()  => setFilterType('nearby')}
+            onClick={() => setFilterType('nearby')}
             className={`flex items-center gap-2 ${
               filterType === 'nearby' 
                 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
@@ -153,8 +153,8 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         {/* Filter by Tags Section */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Tag className="h-4 w-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+            <Tag className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Filter by Tags
             </span>
           </div>
@@ -164,7 +164,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
             <Input
               placeholder="Add tag to filter memories..."
               value={tagInput}
-              onChange={(e)  => setTagInput(e.target.value)}
+              onChange={(e) => setTagInput(e.target.value)}
               onKeyPress={handleKeyPress}
               className="flex-1 bg-white/70 dark:bg-gray-800/70 border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400"
             />
@@ -211,7 +211,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         {/* Active Filters Summary */}
         {(tags.length > 0 || filterType !== 'all') && (
           <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+            <div className="text-xs text-gray-500 dark:text-gray-400">
               Active filters: {filterType !== 'all' && (
                 <span className="capitalize font-medium">{filterType}</span>
               )}

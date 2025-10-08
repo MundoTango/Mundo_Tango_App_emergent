@@ -170,7 +170,7 @@ export default function MTInfiniteList<T = any>({
               )}
               onClick={() => onItemClick?.(item, index)}
               data-testid={`${testId}-item-${key}`}
-             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => onItemClick?.(item, index)(e); } }}>
+            >
               {renderItem(item, index)}
             </div>
           );
@@ -249,7 +249,7 @@ export default function MTInfiniteList<T = any>({
 function DefaultLoadingComponent() {
   return (
     <div className="flex items-center gap-2">
-      <Loader2 className="w-5 h-5 animate-spin text-ocean-500" />
+      <Loader2 className="w-5 h-5 animate-spin text-teal-500" />
       <span className="text-gray-500">Loading more...</span>
     </div>
   );
@@ -277,7 +277,7 @@ function DefaultErrorComponent({
       {retryCount < maxRetries && (
         <button
           onClick={onRetry}
-          className="px-4 py-2 bg-ocean-500 hover:bg-teal-600 text-white rounded-lg transition-colors"
+          className="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-colors"
         >
           Retry ({retryCount}/{maxRetries})
         </button>

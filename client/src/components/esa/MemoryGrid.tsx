@@ -150,11 +150,11 @@ export default function MemoryGrid({
                       <p className="font-medium text-sm text-gray-900 dark:text-white">
                         {memory.author.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         @{memory.author.username}
                       </p>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
                       {formatDistanceToNow(new Date(memory.createdAt), { addSuffix: true })}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function MemoryGrid({
                   {(memory.location || memory.tags) && (
                     <div className="flex flex-wrap gap-2 mb-3">
                       {memory.location && (
-                        <span className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                        <span className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
                           <MapPin className="h-3 w-3" />
                           {memory.location}
                         </span>
@@ -189,7 +189,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={()  => onReaction(memory.id, 'like')}
+                      onClick={() => onReaction(memory.id, 'like')}
                       className={cn(
                         "gap-1.5 hover:bg-red-50 dark:hover:bg-red-900/20",
                         memory.isLiked && "text-red-500"
@@ -202,7 +202,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={()  => onComment(memory.id)}
+                      onClick={() => onComment(memory.id)}
                       className="gap-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                     >
                       <MessageCircle className="h-4 w-4" />
@@ -212,7 +212,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={()  => onShare(memory.id)}
+                      onClick={() => onShare(memory.id)}
                       className="gap-1.5 hover:bg-green-50 dark:hover:bg-green-900/20"
                     >
                       <Share2 className="h-4 w-4" />
@@ -243,7 +243,7 @@ export default function MemoryGrid({
 
       {/* No more memories message */}
       {!hasMore && memories.length > 0 && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-600 dark:text-gray-400">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
           <p>You've reached the end of memories</p>
           <p className="text-sm mt-1">Create new memories to share!</p>
         </div>

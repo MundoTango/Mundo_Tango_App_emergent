@@ -160,7 +160,7 @@ export default function RoleManagement() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Role-Based Authentication System</h1>
-        <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
+        <p className="text-gray-600 mt-2">
           Manage user roles and permissions across the Mundo Tango platform
         </p>
       </div>
@@ -192,7 +192,7 @@ export default function RoleManagement() {
                   <Badge className={getRoleColor(currentUserRole.role)}>
                     {currentUserRole.role.toUpperCase()}
                   </Badge>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <span className="text-sm text-gray-600">
                     {currentUserRole.displayName || 'No display name'}
                   </span>
                 </div>
@@ -218,7 +218,7 @@ export default function RoleManagement() {
                         key={perm}
                         variant="outline"
                         size="sm"
-                        onClick={()  => checkPermission(perm)}
+                        onClick={() => checkPermission(perm)}
                       >
                         Test {perm.replace(/_/g, ' ')}
                       </Button>
@@ -319,7 +319,7 @@ export default function RoleManagement() {
                     {getRoleIcon(user.role)}
                     <div>
                       <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username}</p>
+                      <p className="text-sm text-gray-600">@{user.username}</p>
                       {isAdmin && <p className="text-xs text-gray-500">{user.email}</p>}
                     </div>
                   </div>

@@ -148,7 +148,7 @@ export default function PostCard({ post }: PostCardProps) {
               <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div>
-              <h4 className="font-semibold text-gray-800 dark:text-neutral-200">{post.user?.name || 'Unknown User'}</h4>
+              <h4 className="font-semibold text-gray-800">{post.user?.name || 'Unknown User'}</h4>
               <p className="text-sm text-turquoise-600">
                 {formatTimeAgo(post.createdAt)} • @{post.user?.username}
               </p>
@@ -163,7 +163,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Post Content */}
       <CardContent className="p-4">
         {post.content && (
-          <p className="text-gray-700 mb-4 whitespace-pre-wrap dark:text-neutral-600 dark:text-neutral-300">{post.content}</p>
+          <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
         )}
         
         {/* ESA LIFE CEO 61x21 - Display media files with proper video detection */}
@@ -256,7 +256,7 @@ export default function PostCard({ post }: PostCardProps) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={()  => setShowComments(!showComments)}
+            onClick={() => setShowComments(!showComments)}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
           >
             <MessageCircle className="h-5 w-5" />
@@ -286,7 +286,7 @@ export default function PostCard({ post }: PostCardProps) {
                 <Textarea
                   placeholder="Write a comment..."
                   value={newComment}
-                  onChange={(e)  => setNewComment(e.target.value)}
+                  onChange={(e) => setNewComment(e.target.value)}
                   className="resize-none"
                   rows={2}
                 />
@@ -311,9 +311,9 @@ export default function PostCard({ post }: PostCardProps) {
                       <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="bg-gray-100 rounded-lg p-3 dark:bg-neutral-800">
+                      <div className="bg-gray-100 rounded-lg p-3">
                         <h5 className="font-medium text-sm text-tango-black">{comment.user?.name}</h5>
-                        <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{comment.content}</p>
+                        <p className="text-sm text-gray-700">{comment.content}</p>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">
                         {formatTimeAgo(comment.createdAt)}

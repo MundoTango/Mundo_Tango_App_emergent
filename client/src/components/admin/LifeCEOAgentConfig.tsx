@@ -119,7 +119,7 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={()  => {
+                    onClick={() => {
                       try {
                         const parsedData = JSON.parse(newConfigData);
                         saveConfigMutation.mutate({
@@ -142,9 +142,11 @@ const LifeCEOAgentConfig: React.FC = () => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={()  => {
+                    onClick={() => {
                       setEditingConfig(null);
-                      setNewConfigData('') }}>
+                      setNewConfigData('');
+                    }}
+                  >
                     <X className="w-4 h-4 mr-1" />
                     Cancel
                   </Button>
@@ -153,9 +155,11 @@ const LifeCEOAgentConfig: React.FC = () => {
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={()  => {
+                  onClick={() => {
                     setEditingConfig(config);
-                    setNewConfigData(JSON.stringify(config.config_data, null, 2)) }}>
+                    setNewConfigData(JSON.stringify(config.config_data, null, 2));
+                  }}
+                >
                   <Edit className="w-4 h-4 mr-1" />
                   Edit
                 </Button>
@@ -168,7 +172,7 @@ const LifeCEOAgentConfig: React.FC = () => {
             className="font-mono text-sm"
             rows={10}
             value={configDataStr}
-            onChange={(e)  => setNewConfigData(e.target.value)}
+            onChange={(e) => setNewConfigData(e.target.value)}
             readOnly={!isEditing}
           />
         </CardContent>

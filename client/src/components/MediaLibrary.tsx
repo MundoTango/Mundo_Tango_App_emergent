@@ -222,7 +222,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Media Library
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Select existing media to attach to this memory
             </p>
           </div>
@@ -237,12 +237,12 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
         {/* Search */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               placeholder="Search by filename or folder..."
               value={searchTerm}
-              onChange={(e)  => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -253,12 +253,12 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
           {isLoading ? (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-              <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-2">Loading media library...</p>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">Loading media library...</p>
             </div>
           ) : filteredMedia.length === 0 ? (
             <div className="text-center py-8">
-              <Image className="w-12 h-12 text-gray-600 dark:text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
+              <Image className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+              <p className="text-gray-500 dark:text-gray-400">
                 {searchTerm ? 'No media found matching your search' : 'No media files in your library'}
               </p>
             </div>
@@ -282,7 +282,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                     <div 
                       onClick={() => toggleMediaSelection(media.id)}
                       className="cursor-pointer aspect-video rounded-t-xl overflow-hidden bg-gray-100 dark:bg-gray-700 relative group"
-                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => toggleMediaSelection(media.id); } }}>
+                    >
                       {media.contentType.startsWith('image/') ? (
                         <img
                           src={media.url}
@@ -320,14 +320,14 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                       <div className="p-4 bg-white dark:bg-gray-800 rounded-b-xl border-t border-gray-100 dark:border-gray-700">
                         {/* Caption Input */}
                         <div className="mb-3">
-                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-1">
+                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Custom Caption
                           </label>
                           <input
                             type="text"
                             placeholder="Add a caption for this reuse..."
                             value={metadata?.caption || ''}
-                            onChange={(e)  => updateMediaMetadata(media.id, { caption: e.target.value })}
+                            onChange={(e) => updateMediaMetadata(media.id, { caption: e.target.value })}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
@@ -335,7 +335,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
                         {/* Tags Section */}
                         <div className="mb-3">
-                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-1">
+                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Tags
                           </label>
                           
@@ -350,7 +350,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                   <button
-                                    onClick={(e)  => {
+                                    onClick={(e) => {
                                       e.stopPropagation();
                                       removeTagFromMedia(media.id, tag);
                                     }}
@@ -369,7 +369,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               type="text"
                               placeholder="Add tag..."
                               value={tagInput}
-                              onChange={(e)  => {
+                              onChange={(e) => {
                                 const newInput = new Map(newTagInput);
                                 newInput.set(media.id, e.target.value);
                                 setNewTagInput(newInput);
@@ -384,7 +384,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
-                              onClick={(e)  => {
+                              onClick={(e) => {
                                 e.stopPropagation();
                                 addTagToMedia(media.id, tagInput);
                               }}
@@ -397,7 +397,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
                         {/* Sort Order */}
                         <div className="flex items-center gap-2">
-                          <label className="text-xs font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+                          <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
                             Sort Order:
                           </label>
                           <input
@@ -405,7 +405,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             min="0"
                             max="100"
                             value={metadata?.sortOrder || 0}
-                            onChange={(e)  => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
+                            onChange={(e) => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
                             onClick={(e) => e.stopPropagation()}
                             className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                           />
@@ -420,10 +420,10 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                           {media.originalFilename}
                         </p>
                         <div className="flex items-center justify-between mt-1">
-                          <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
                             {formatFileSize(media.size)}
                           </span>
-                          <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 capitalize">
+                          <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
                             {media.folder}
                           </span>
                         </div>
@@ -438,13 +438,13 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
         {/* Footer */}
         <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-          <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {selectedMedia.size} file(s) selected
           </p>
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
               Cancel
             </button>

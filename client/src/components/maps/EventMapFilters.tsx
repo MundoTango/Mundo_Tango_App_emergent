@@ -58,7 +58,7 @@ export default function EventMapFilters({
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="relative">
+          <Button variant="outline" size="sm" className="relative" data-testid="button-map-filters">
             <Filter className="h-4 w-4 mr-2" />
             Filters
             {activeFiltersCount > 0 && (
@@ -92,7 +92,7 @@ export default function EventMapFilters({
             variant="ghost" 
             size="sm" 
             onClick={clearFilters}
-           
+            data-testid="button-clear-filters"
           >
             <X className="h-4 w-4 mr-1" />
             Clear ({activeFiltersCount})
@@ -129,7 +129,7 @@ function FiltersContent({
           value={filters.eventType} 
           onValueChange={(value) => updateFilter('eventType', value)}
         >
-          <SelectTrigger id="event-type">
+          <SelectTrigger id="event-type" data-testid="select-event-type">
             <SelectValue placeholder="Select event type" />
           </SelectTrigger>
           <SelectContent>
@@ -152,7 +152,7 @@ function FiltersContent({
                 variant="outline" 
                 size="sm" 
                 className="justify-start text-left font-normal"
-               
+                data-testid="button-start-date"
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 {filters.startDate ? format(filters.startDate, 'MMM dd') : 'Start'}
@@ -174,7 +174,7 @@ function FiltersContent({
                 variant="outline" 
                 size="sm" 
                 className="justify-start text-left font-normal"
-               
+                data-testid="button-end-date"
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 {filters.endDate ? format(filters.endDate, 'MMM dd') : 'End'}
@@ -206,7 +206,7 @@ function FiltersContent({
           id="has-space"
           checked={filters.hasSpace}
           onCheckedChange={(checked) => updateFilter('hasSpace', checked)}
-         
+          data-testid="switch-has-space"
         />
       </div>
     </div>

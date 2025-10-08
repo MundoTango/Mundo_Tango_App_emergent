@@ -485,14 +485,14 @@ export default function UnifiedLocationPicker({
   return (
     <div className="relative w-full">
       <div className="relative">
-        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400" />
+        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         <input
           ref={inputRef}
           type="text"
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={()  => value && suggestions.length > 0 && setShowSuggestions(true)}
+          onFocus={() => value && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={initState === 'loading' ? 'Loading...' : placeholder}
           disabled={initState === 'loading'}
           required={required}
@@ -503,18 +503,18 @@ export default function UnifiedLocationPicker({
             transition-all duration-200 ${className}`}
         />
         {isLoading && (
-          <Loader className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400 animate-spin" />
+          <Loader className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 animate-spin" />
         )}
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={()  => {
+            onClick={() => {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);
               inputRef.current?.focus();
             }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
             <X className="w-5 h-5" />
           </button>
@@ -535,7 +535,7 @@ export default function UnifiedLocationPicker({
                     : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                   }
                   ${index !== suggestions.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleSuggestionClick(suggestion); } }}>
+              >
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -543,13 +543,13 @@ export default function UnifiedLocationPicker({
                       {suggestion.structured_formatting?.main_text || suggestion.description}
                     </p>
                     {suggestion.structured_formatting?.secondary_text && (
-                      <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 truncate mt-0.5">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">
                         {suggestion.structured_formatting.secondary_text}
                       </p>
                     )}
                     <div className="flex items-center gap-2 mt-1">
                       {suggestion.isLocal && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-ocean-500/30">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
                           ⭐ Platform Recommendation
                         </span>
                       )}

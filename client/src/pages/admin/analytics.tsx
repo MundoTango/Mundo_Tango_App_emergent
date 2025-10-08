@@ -68,7 +68,6 @@ import {
 } from 'lucide-react';
 import { format, subDays, startOfMonth, endOfMonth } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { Helmet } from 'react-helmet';
 
 interface AnalyticsData {
   userMetrics: {
@@ -193,14 +192,14 @@ export default function AdminAnalyticsPage() {
     <Card className={cn("border-l-4", color)}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+          <CardTitle className="text-sm font-medium text-gray-600">
             {title}
           </CardTitle>
-          <Icon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+          <Icon className="w-4 h-4 text-gray-400" />
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{value}</div>
+        <div className="text-2xl font-bold text-gray-900">{value}</div>
         {change !== undefined && (
           <div className="flex items-center mt-2 text-sm">
             {change > 0 ? (
@@ -222,11 +221,6 @@ export default function AdminAnalyticsPage() {
   );
 
   return (
-    <>
-      <Helmet>
-        <title>Analytics | Life CEO</title>
-      </Helmet>
-      
     <AdminLayout>
       <div className="space-y-6">
         {/* Header */}
@@ -235,14 +229,14 @@ export default function AdminAnalyticsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Analytics Dashboard
             </h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+            <p className="text-gray-600 mt-1">
               Comprehensive platform insights and metrics
             </p>
           </div>
           
           <div className="flex items-center gap-3">
             <Select value={dateRange} onValueChange={setDateRange}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-40" data-testid="date-range-selector">
                 <SelectValue placeholder="Select range" />
               </SelectTrigger>
               <SelectContent>
@@ -280,7 +274,7 @@ export default function AdminAnalyticsPage() {
             value={`$${analytics?.revenueMetrics?.mrr?.toLocaleString() || '0'}`}
             change={12.5}
             icon={DollarSign}
-            color="border-ocean-500"
+            color="border-cyan-500"
           />
           <MetricCard
             title="Active Users"
@@ -353,7 +347,7 @@ export default function AdminAnalyticsPage() {
                       return (
                         <div key={week} className="space-y-2">
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{week}</span>
+                            <span className="text-gray-600">{week}</span>
                             <span className="font-medium">{retention}%</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -369,11 +363,11 @@ export default function AdminAnalyticsPage() {
                   
                   <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t">
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg. Retention</p>
+                      <p className="text-sm text-gray-600">Avg. Retention</p>
                       <p className="text-xl font-bold text-teal-600">62.5%</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Churn Rate</p>
+                      <p className="text-sm text-gray-600">Churn Rate</p>
                       <p className="text-xl font-bold text-red-600">37.5%</p>
                     </div>
                   </div>
@@ -411,7 +405,7 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg. Session Duration</p>
+                      <p className="text-sm text-gray-600">Avg. Session Duration</p>
                       <p className="text-2xl font-bold">5m 32s</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
@@ -419,7 +413,7 @@ export default function AdminAnalyticsPage() {
                       </Badge>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Pages per Session</p>
+                      <p className="text-sm text-gray-600">Pages per Session</p>
                       <p className="text-2xl font-bold">4.2</p>
                       <Badge variant="outline" className="text-green-600">
                         <TrendingUp className="w-3 h-3 mr-1" />
@@ -429,7 +423,7 @@ export default function AdminAnalyticsPage() {
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">Active Users</p>
+                    <p className="text-sm text-gray-600 mb-3">Active Users</p>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-sm">Daily (DAU)</span>
@@ -502,7 +496,7 @@ export default function AdminAnalyticsPage() {
                     {['#tango', '#milonga', '#buenosaires', '#tangoargentino', '#tangodance'].map((tag, idx) => (
                       <div key={tag} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Hash className="w-4 h-4 text-ocean-500" />
+                          <Hash className="w-4 h-4 text-teal-500" />
                           <span className="text-sm font-medium">{tag}</span>
                         </div>
                         <Badge variant="outline">
@@ -522,25 +516,25 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg. Likes per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Likes per Post</span>
                       <span className="font-bold">24.5</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg. Comments per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Comments per Post</span>
                       <span className="font-bold">8.3</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Avg. Shares per Post</span>
+                      <span className="text-sm text-gray-600">Avg. Shares per Post</span>
                       <span className="font-bold">3.7</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Posts per User</span>
+                      <span className="text-sm text-gray-600">Posts per User</span>
                       <span className="font-bold">2.1</span>
                     </div>
                   </div>
                   
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Top Performing Post</p>
+                    <p className="text-sm text-gray-600 mb-2">Top Performing Post</p>
                     <div className="p-3 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg">
                       <p className="text-sm font-medium text-teal-700">
                         "First milonga after lockdown..."
@@ -629,7 +623,7 @@ export default function AdminAnalyticsPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">MRR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">MRR</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$21,800</p>
@@ -642,7 +636,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">ARR</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">ARR</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$261,600</p>
@@ -655,7 +649,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">ARPU</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">ARPU</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$19.82</p>
@@ -668,7 +662,7 @@ export default function AdminAnalyticsPage() {
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">LTV</CardTitle>
+                  <CardTitle className="text-sm text-gray-600">LTV</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">$237.84</p>
@@ -741,7 +735,7 @@ export default function AdminAnalyticsPage() {
                 <CardContent className="space-y-2">
                   {['18-24', '25-34', '35-44', '45-54', '55+'].map((age, idx) => (
                     <div key={age} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{age}</span>
+                      <span className="text-gray-600">{age}</span>
                       <div className="flex items-center gap-2">
                         <div className="w-24 bg-gray-200 rounded-full h-2">
                           <div 
@@ -772,7 +766,7 @@ export default function AdminAnalyticsPage() {
                     { lang: 'Portuguese', pct: 3 },
                   ].map((item) => (
                     <div key={item.lang} className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{item.lang}</span>
+                      <span className="text-gray-600">{item.lang}</span>
                       <Badge variant="outline">{item.pct}%</Badge>
                     </div>
                   ))}
@@ -787,15 +781,15 @@ export default function AdminAnalyticsPage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Female</span>
+                      <span className="text-sm text-gray-600">Female</span>
                       <span className="font-bold">52%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Male</span>
+                      <span className="text-sm text-gray-600">Male</span>
                       <span className="font-bold">46%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Other</span>
+                      <span className="text-sm text-gray-600">Other</span>
                       <span className="font-bold">2%</span>
                     </div>
                   </div>
@@ -814,7 +808,5 @@ export default function AdminAnalyticsPage() {
         </Tabs>
       </div>
     </AdminLayout>
-  
-    </>
   );
 }

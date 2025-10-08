@@ -78,14 +78,14 @@ const ProjectSwitcher: React.FC = () => {
   return (
     <div className="relative">
       <button
-        onClick={()  => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 rounded-lg bg-gradient-to-r ${currentProject.color} text-white hover:shadow-lg transition-all duration-200`}
       >
         <div className="flex items-center space-x-1 sm:space-x-2">
           {currentProject.icon}
           <span className="font-medium text-xs sm:text-sm hidden sm:inline">{currentProject.name}</span>
           {currentProject.badge && (
-            <span className="bg-white/20 text-xs px-1 sm:px-1.5 py-0.5 rounded-full dark:bg-neutral-900">
+            <span className="bg-white/20 text-xs px-1 sm:px-1.5 py-0.5 rounded-full">
               {currentProject.badge}
             </span>
           )}
@@ -99,13 +99,13 @@ const ProjectSwitcher: React.FC = () => {
           <div 
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
-
+          />
           
           {/* Dropdown */}
-          <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden dark:bg-neutral-900">
-            <div className="p-4 bg-gray-50 border-b border-gray-200 dark:bg-neutral-800">
-              <h3 className="font-semibold text-gray-900 dark:text-neutral-100">Switch Project</h3>
-              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Choose your active workspace</p>
+          <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
+            <div className="p-4 bg-gray-50 border-b border-gray-200">
+              <h3 className="font-semibold text-gray-900">Switch Project</h3>
+              <p className="text-sm text-gray-600">Choose your active workspace</p>
             </div>
 
             <div className="p-2">
@@ -115,7 +115,7 @@ const ProjectSwitcher: React.FC = () => {
                 return (
                   <button
                     key={project.id}
-                    onClick={()  => switchProject(project)}
+                    onClick={() => switchProject(project)}
                     className={`w-full p-3 rounded-lg transition-all duration-200 group ${
                       isCurrent 
                         ? 'bg-blue-50 border border-blue-200' 
@@ -130,7 +130,7 @@ const ProjectSwitcher: React.FC = () => {
                         
                         <div className="text-left">
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-900 dark:text-neutral-100">{project.name}</span>
+                            <span className="font-medium text-gray-900">{project.name}</span>
                             {project.badge && (
                               <span className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs px-2 py-0.5 rounded-full">
                                 {project.badge}
@@ -142,12 +142,12 @@ const ProjectSwitcher: React.FC = () => {
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{project.description}</p>
+                          <p className="text-sm text-gray-600">{project.description}</p>
                         </div>
                       </div>
 
                       {!isCurrent && (
-                        <ArrowRight className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
+                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
                       )}
                     </div>
                   </button>
@@ -155,8 +155,8 @@ const ProjectSwitcher: React.FC = () => {
               })}
             </div>
 
-            <div className="p-4 bg-gray-50 border-t border-gray-200 dark:bg-neutral-800">
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <div className="p-4 bg-gray-50 border-t border-gray-200">
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Crown className="w-4 h-4" />
                 <span>Life CEO System - AI Agent Management</span>
               </div>

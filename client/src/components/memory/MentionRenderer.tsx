@@ -35,7 +35,7 @@ const MentionLink: React.FC<MentionLinkProps> = ({
   const mentionData = parseMentionUrl(href || '');
   
   if (!mentionData) {
-    return <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{children}</span>;
+    return <span className="text-gray-600">{children}</span>;
   }
 
   const { type, id } = mentionData;
@@ -109,14 +109,14 @@ const MentionRenderer: React.FC<MentionRendererProps> = ({
     
     // Enhanced strong text
     strong: ({ children }: { children: React.ReactNode }) => (
-      <strong className="font-semibold text-gray-900 dark:text-neutral-100">
+      <strong className="font-semibold text-gray-900">
         {children}
       </strong>
     ),
     
     // Enhanced emphasis
     em: ({ children }: { children: React.ReactNode }) => (
-      <em className="italic text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+      <em className="italic text-gray-700">
         {children}
       </em>
     ),
@@ -135,7 +135,7 @@ const MentionRenderer: React.FC<MentionRendererProps> = ({
     ),
     
     li: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-gray-800 dark:text-neutral-200">
+      <li className="text-gray-800">
         {children}
       </li>
     ),
@@ -143,7 +143,7 @@ const MentionRenderer: React.FC<MentionRendererProps> = ({
     // Enhanced blockquotes
     blockquote: ({ children }: { children: React.ReactNode }) => (
       <blockquote className="border-l-4 border-blue-200 pl-4 py-2 mb-3 bg-blue-50 rounded-r-md">
-        <div className="text-gray-700 italic dark:text-neutral-600 dark:text-neutral-300">
+        <div className="text-gray-700 italic">
           {children}
         </div>
       </blockquote>
@@ -155,7 +155,7 @@ const MentionRenderer: React.FC<MentionRendererProps> = ({
       
       if (isInline) {
         return (
-          <code className="px-1.5 py-0.5 bg-gray-100 text-gray-800 rounded-md text-sm font-mono dark:bg-neutral-800">
+          <code className="px-1.5 py-0.5 bg-gray-100 text-gray-800 rounded-md text-sm font-mono">
             {children}
           </code>
         );

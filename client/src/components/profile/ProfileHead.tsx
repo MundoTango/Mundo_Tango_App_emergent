@@ -124,7 +124,7 @@ export default function ProfileHead({
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2 dark:bg-neutral-900"
+                className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2"
               >
                 <Camera className="h-4 w-4" />
               </Button>
@@ -170,7 +170,7 @@ export default function ProfileHead({
           {/* Name and Roles */}
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">
+              <h1 className="text-3xl font-bold text-gray-900">
                 {user.name}
               </h1>
               <div className="flex items-center">
@@ -186,7 +186,7 @@ export default function ProfileHead({
             </div>
             
             {/* Username and Location */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <div className="flex flex-wrap items-center gap-4 text-gray-600">
               <span>@{user.username}</span>
               {user.city && (
                 <div className="flex items-center gap-1">
@@ -203,7 +203,7 @@ export default function ProfileHead({
 
           {/* Bio */}
           {user.bio && (
-            <p className="text-gray-700 max-w-2xl dark:text-neutral-600 dark:text-neutral-300">
+            <p className="text-gray-700 max-w-2xl">
               {user.bio}
             </p>
           )}
@@ -212,7 +212,7 @@ export default function ProfileHead({
           {(user.yearsOfDancing || user.leaderLevel || user.followerLevel) && (
             <div className="flex flex-wrap gap-4 text-sm">
               {user.yearsOfDancing && (
-                <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1 dark:bg-neutral-800">
+                <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1">
                   <span className="font-medium">Dancing:</span>
                   <span>{user.yearsOfDancing} years</span>
                 </div>
@@ -255,7 +255,7 @@ export default function ProfileHead({
           {/* Languages */}
           {user.languages && user.languages.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Languages:</span>
+              <span className="text-sm font-medium text-gray-700">Languages:</span>
               {user.languages.map((language) => (
                 <Badge key={language} variant="secondary" className="capitalize">
                   {language}

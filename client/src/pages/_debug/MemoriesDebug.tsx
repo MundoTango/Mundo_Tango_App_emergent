@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 const MemoriesDebug: React.FC = () => {
   const componentInfo = {
@@ -79,11 +78,6 @@ const MemoriesDebug: React.FC = () => {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Memories Debug | Life CEO</title>
-      </Helmet>
-      
     <div style={{ 
       minHeight: '100vh', 
       padding: '20px', 
@@ -179,7 +173,7 @@ const MemoriesDebug: React.FC = () => {
               Go to /timeline (redirect test)
             </a>
             <button 
-              onClick={()  => window.location.reload()}
+              onClick={() => window.location.reload()}
               style={{
                 background: '#0F766E',
                 color: 'white',
@@ -199,8 +193,6 @@ const MemoriesDebug: React.FC = () => {
         </div>
       </div>
     </div>
-  
-    </>
   );
 };
 

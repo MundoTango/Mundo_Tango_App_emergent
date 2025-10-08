@@ -198,7 +198,7 @@ export default function EnhancedGoogleMapsAutocomplete({
             scale: 8,
             fillColor: '#4285F4',
             fillOpacity: 1,
-            strokeColor: 'var(--color-neutral-0)',
+            strokeColor: '#ffffff',
             strokeWeight: 2,
           },
           title: 'Your location'
@@ -433,12 +433,12 @@ export default function EnhancedGoogleMapsAutocomplete({
       <div className="relative">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={(e)  => setInputValue(e.target.value)}
+              onChange={(e) => setInputValue(e.target.value)}
               placeholder={placeholder}
               className="pl-10 pr-10"
               required={required}
@@ -448,7 +448,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={()  => {
+                onClick={() => {
                   setInputValue('');
                   setSelectedLocation(null);
                   onClear?.();
@@ -483,12 +483,12 @@ export default function EnhancedGoogleMapsAutocomplete({
           <div className="mt-2 p-3 bg-purple-50 rounded-lg text-sm">
             <p className="font-semibold">{selectedLocation.name}</p>
             {selectedLocation.rating && (
-              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-gray-600">
                 Rating: {'⭐'.repeat(Math.round(selectedLocation.rating))} ({selectedLocation.rating})
               </p>
             )}
             {selectedLocation.phoneNumber && (
-              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">📞 {selectedLocation.phoneNumber}</p>
+              <p className="text-gray-600">📞 {selectedLocation.phoneNumber}</p>
             )}
             {selectedLocation.website && (
               <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
@@ -500,12 +500,12 @@ export default function EnhancedGoogleMapsAutocomplete({
 
         {/* Nearby places suggestions */}
         {showSuggestions && nearbyPlaces.length > 0 && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-neutral-900">
-            <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b dark:text-neutral-600 dark:text-neutral-300">Nearby places:</p>
+          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
+            <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Nearby places:</p>
             {nearbyPlaces.map((place, index) => (
               <button
                 key={index}
-                onClick={()  => {
+                onClick={() => {
                   const locationData = extractEnhancedLocationData(place);
                   setSelectedLocation(locationData);
                   setInputValue(locationData.name || locationData.formattedAddress);
@@ -513,7 +513,7 @@ export default function EnhancedGoogleMapsAutocomplete({
                   setShowSuggestions(false);
                   if (showMap) updateMap(locationData);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm dark:bg-neutral-800"
+                className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm"
               >
                 <p className="font-medium">{place.name}</p>
                 <p className="text-gray-500">{place.vicinity}</p>
@@ -527,7 +527,7 @@ export default function EnhancedGoogleMapsAutocomplete({
       {showMap && (
         <div 
           ref={mapRef} 
-          className="w-full h-64 rounded-lg border border-gray-200 dark:border-neutral-700"
+          className="w-full h-64 rounded-lg border border-gray-200"
           style={{ minHeight: '250px' }}
         />
       )}

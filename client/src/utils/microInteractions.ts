@@ -67,7 +67,7 @@ export const createRipple = (event: React.MouseEvent<HTMLElement>) => {
 export const createConfetti = () => {
   if (prefersReducedMotion()) return;
   
-  const colors = ['#ff0080', '#ff8c00', '#ffd700', '#32cd32', 'var(--color-ocean-400)', '#9370db'];
+  const colors = ['#ff0080', '#ff8c00', '#ffd700', '#32cd32', '#00ced1', '#9370db'];
   const confettiCount = 30;
   
   for (let i = 0; i < confettiCount; i++) {

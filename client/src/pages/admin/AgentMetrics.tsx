@@ -69,7 +69,6 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { queryClient } from '@/lib/queryClient';
-import { Helmet } from 'react-helmet';
 
 // Color scheme for agents
 const AGENT_COLORS = {
@@ -189,14 +188,7 @@ export default function AgentMetrics() {
         queryClient.invalidateQueries({ queryKey: ['/api/esa-agents/health'] });
         queryClient.invalidateQueries({ queryKey: ['/api/esa-agents/analytics'] });
       }, refreshInterval);
-      return (
-    <>
-      <Helmet>
-        <title>Agent Metrics | Life CEO</title>
-      </Helmet>
-      
-    </>
-  ) => clearInterval(interval);
+      return () => clearInterval(interval);
     }
   }, [autoRefresh, refreshInterval]);
 
@@ -272,7 +264,7 @@ export default function AgentMetrics() {
               variant="outline"
               size="sm"
               onClick={() => setAutoRefresh(!autoRefresh)}
-             
+              data-testid="button-auto-refresh"
             >
               {autoRefresh ? 'Pause' : 'Resume'} Refresh
             </Button>

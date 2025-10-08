@@ -10,7 +10,7 @@ export const GlassCardDepths: Story = () => (
       {[1, 2, 3].map((depth) => (
         <GlassCard key={depth} depth={depth as 1 | 2 | 3} className="p-6">
           <h3 className="text-lg font-semibold mb-3">Depth {depth}</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-300">
             Glassmorphic card with depth level {depth}. Higher depth creates stronger glass effect.
           </p>
         </GlassCard>
@@ -32,7 +32,7 @@ export const GlassCardWithContent: Story = () => (
               type="email" 
               placeholder="Enter your email"
               className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-             
+              data-testid="input-email"
             />
           </div>
           <div>
@@ -41,12 +41,12 @@ export const GlassCardWithContent: Story = () => (
               type="password" 
               placeholder="Enter your password"
               className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-             
+              data-testid="input-password"
             />
           </div>
           <Button 
             className="w-full bg-white/20 hover:bg-white/30 border border-white/30"
-           
+            data-testid="button-submit"
           >
             Sign In
           </Button>
@@ -62,12 +62,12 @@ export const GlassCardLayering: Story = () => (
     <div className="max-w-2xl mx-auto">
       <GlassCard depth={1} className="p-6">
         <h3 className="text-xl font-bold mb-4">Parent Card (Depth 1)</h3>
-        <p className="mb-4 text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
+        <p className="mb-4 text-neutral-700 dark:text-neutral-300">
           This demonstrates how glass cards can be layered for depth hierarchy.
         </p>
         <GlassCard depth={2} className="p-4">
           <h4 className="font-semibold mb-2">Nested Card (Depth 2)</h4>
-          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-300">
             Higher depth values create stronger glass effects for visual hierarchy.
           </p>
         </GlassCard>
@@ -84,7 +84,7 @@ export const GlassCardGrid: Story = () => (
         <GlassCard key={i} depth={2} className="p-6 hover:scale-105 transition-transform">
           <div className="text-4xl mb-3">🎨</div>
           <h3 className="text-lg font-semibold mb-2">Feature {i + 1}</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-neutral-700 dark:text-neutral-300">
             Beautiful glassmorphic card with hover effect and consistent styling.
           </p>
         </GlassCard>
@@ -100,13 +100,13 @@ export const DarkModeGlassCards: Story = () => (
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <GlassCard depth={2} className="p-6">
           <h3 className="text-lg font-semibold mb-3 text-white">Dark Mode Card</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-neutral-300">
             Glass cards automatically adapt to dark mode with appropriate transparency and blur values.
           </p>
         </GlassCard>
         <GlassCard depth={3} className="p-6">
           <h3 className="text-lg font-semibold mb-3 text-white">Stronger Glass Effect</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-neutral-300">
             Depth 3 provides maximum glass effect for important content areas in dark mode.
           </p>
         </GlassCard>

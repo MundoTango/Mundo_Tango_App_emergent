@@ -51,7 +51,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import PostFeed from '@/components/moments/PostFeed';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
-import { Helmet } from 'react-helmet';
 
 interface EventDetail {
   id: number;
@@ -199,11 +198,6 @@ export default function EventDetailPage() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Event Detail | Life CEO</title>
-      </Helmet>
-      
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="p-12">
@@ -215,9 +209,7 @@ export default function EventDetailPage() {
           </CardContent>
         </Card>
       </div>
-    
-    </>
-  );
+    );
   }
 
   if (!event) {
@@ -225,9 +217,9 @@ export default function EventDetailPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="p-12 text-center">
-            <AlertCircle className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+            <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Event not found</h2>
-            <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">This event may have been deleted or you don't have permission to view it.</p>
+            <p className="text-gray-600 mb-4">This event may have been deleted or you don't have permission to view it.</p>
             <Button onClick={() => window.history.back()}>
               Back
             </Button>
@@ -255,7 +247,7 @@ export default function EventDetailPage() {
             {/* Event Badges */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2">
               {event.isVirtual && (
-                <Badge className="bg-ocean-500/90 text-white">
+                <Badge className="bg-cyan-500/90 text-white">
                   <Video className="mr-1 h-3 w-3" />
                   Virtual Event
                 </Badge>
@@ -267,7 +259,7 @@ export default function EventDetailPage() {
                 </Badge>
               )}
               {event.eventType && (
-                <Badge className="bg-white/90 text-gray-800 dark:bg-neutral-900">
+                <Badge className="bg-white/90 text-gray-800">
                   {event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
                 </Badge>
               )}
@@ -278,7 +270,7 @@ export default function EventDetailPage() {
               <Button 
                 variant="ghost" 
                 size="sm"
-                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 dark:bg-neutral-900"
+                className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                 onClick={() => {
                   navigator.share({
                     title: event.title,
@@ -290,7 +282,9 @@ export default function EventDetailPage() {
                       title: "Link copied!",
                       description: "Event link has been copied to clipboard.",
                     });
-                  }) }}>
+                  });
+                }}
+              >
                 <Share2 className="h-4 w-4" />
               </Button>
               
@@ -299,7 +293,7 @@ export default function EventDetailPage() {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 dark:bg-neutral-900"
+                    className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                     onClick={() => setShowEditDialog(true)}
                   >
                     <Edit className="h-4 w-4" />
@@ -351,7 +345,7 @@ export default function EventDetailPage() {
               <CardTitle>About this event</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{event.description}</p>
+              <p className="text-gray-700">{event.description}</p>
               
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div>
@@ -360,7 +354,7 @@ export default function EventDetailPage() {
                     {safeFormatDate(event.startDate, 'MMM d, yyyy', 'Date TBA')} • {safeFormatTime(event.startDate, '20:00')}
                   </p>
                   {event.endDate && (
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-gray-600">
                       to {safeFormatTime(event.endDate, 'Time TBA')}
                     </p>
                   )}
@@ -424,20 +418,20 @@ export default function EventDetailPage() {
           <Card>
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="w-full">
-                <TabsTrigger value="attendees" className="flex-1">
+                <TabsTrigger value="attendees" className="flex-1" data-testid="tab-attendees">
                   <Users className="mr-2 h-4 w-4" />
                   Attendees ({event.currentAttendees || 0})
                 </TabsTrigger>
-                <TabsTrigger value="discussion" className="flex-1">
+                <TabsTrigger value="discussion" className="flex-1" data-testid="tab-discussion">
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Discussion
                 </TabsTrigger>
-                <TabsTrigger value="posts" className="flex-1">
+                <TabsTrigger value="posts" className="flex-1" data-testid="tab-posts">
                   <FileText className="mr-2 h-4 w-4" />
                   Posts
                 </TabsTrigger>
                 {isEventOwner && (
-                  <TabsTrigger value="analytics" className="flex-1">
+                  <TabsTrigger value="analytics" className="flex-1" data-testid="tab-analytics">
                     <BarChart3 className="mr-2 h-4 w-4" />
                     Analytics
                   </TabsTrigger>
@@ -484,7 +478,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                     
+                      data-testid="filter-all-posts"
                     >
                       All Posts
                     </button>
@@ -495,7 +489,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                     
+                      data-testid="filter-participants"
                     >
                       Participants Only
                     </button>
@@ -506,7 +500,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                     
+                      data-testid="filter-guests"
                     >
                       Guests Only
                     </button>
@@ -535,7 +529,7 @@ export default function EventDetailPage() {
                                   {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
                                 </span>
                               </div>
-                              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{post.content}</p>
+                              <p className="text-gray-700">{post.content}</p>
                               {post.imageUrl && (
                                 <img 
                                   src={post.imageUrl} 
@@ -550,7 +544,7 @@ export default function EventDetailPage() {
                     </div>
                   ) : (
                     <div className="text-center py-12">
-                      <MessageSquare className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-3" />
+                      <MessageSquare className="mx-auto h-12 w-12 text-gray-400 mb-3" />
                       <p className="text-gray-500">
                         No posts yet for this filter. Start the discussion!
                       </p>
@@ -572,7 +566,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                     
+                      data-testid="posts-filter-all"
                     >
                       All Posts
                     </Button>
@@ -585,7 +579,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                     
+                      data-testid="posts-filter-participants"
                     >
                       Participants
                     </Button>
@@ -598,7 +592,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                     
+                      data-testid="posts-filter-guests"
                     >
                       Guests
                     </Button>
@@ -706,7 +700,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'going' ? null : 'going' 
                     })}
                     disabled={rsvpMutation.isPending}
-                   
+                    data-testid="button-rsvp-going"
                   >
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Going
@@ -719,7 +713,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'interested' ? null : 'interested' 
                     })}
                     disabled={rsvpMutation.isPending}
-                   
+                    data-testid="button-rsvp-interested"
                   >
                     <Star className="mr-2 h-4 w-4" />
                     Interested
@@ -732,7 +726,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'maybe' ? null : 'maybe' 
                     })}
                     disabled={rsvpMutation.isPending}
-                   
+                    data-testid="button-rsvp-maybe"
                   >
                     <AlertCircle className="mr-2 h-4 w-4" />
                     Maybe
