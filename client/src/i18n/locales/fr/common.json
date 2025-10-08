@@ -27,7 +27,8 @@
     "notifications": "Notifications",
     "help": "Aide",
     "roleInvitations": "Invitations de Rôle",
-    "recommendations": "Recommandations"
+    "recommendations": "Recommandations",
+    "menu": "Menu"
   },
   "actions": {
     "save": "Enregistrer",
@@ -335,7 +336,26 @@
     "noEventsInCity": "Aucun événement dans votre ville",
     "noFollowedEvents": "Aucun événement des groupes que vous suivez",
     "noFollowedCitiesEvents": "Aucun événement dans les villes que vous suivez",
-    "viewAllEvents": "Voir tous les événements"
+    "viewAllEvents": "Voir tous les événements",
+    "attending": "participant",
+    "attendeeCount": "{{count}} participant",
+    "attendeeCount_plural": "{{count}} participants",
+    "dateTBA": "Date à confirmer",
+    "locationTBA": "Lieu à confirmer",
+    "rsvp": {
+      "markAsAttending": "Marquer comme participant",
+      "markAsInterested": "Marquer comme intéressé",
+      "markAsMaybe": "Marquer comme peut-être",
+      "markAsNotGoing": "Marquer comme non participant",
+      "youreGoing": "Vous y allez",
+      "interested": "Intéressé",
+      "maybe": "Peut-être"
+    },
+    "errorLoading": "Impossible de charger les événements",
+    "pastEvents": "Événements passés",
+    "noEvents": "Aucun événement pour le moment",
+    "noEventsOwn": "Commencez à organiser ou à assister à des événements de tango pour les voir ici.",
+    "noEventsOther": "Aucun événement à afficher."
   },
   "search": {
     "searching": "Recherche en cours...",
@@ -346,9 +366,12 @@
     "noResults": "Aucun résultat trouvé"
   },
   "community": {
+    "globalStatistics": "Statistiques Mondiales",
     "globalDancers": "Danseurs Mondiaux",
     "activeEvents": "Événements Actifs",
     "totalGroups": "Groupes de Tango",
+    "communities": "Communautés",
+    "yourCity": "Votre Ville",
     "globalCommunity": "Communauté Mondiale de Tango"
   },
   "housing": {
