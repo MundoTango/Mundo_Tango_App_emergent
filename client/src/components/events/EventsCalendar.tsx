@@ -254,9 +254,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               <Button 
                 className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-600"
                 onClick={()  => {
-                  window.location.href = `/events/${selectedEvent.id}`;
-                }}
-              >
+                  window.location.href = `/events/${selectedEvent.id}` }}>
                 View Full Details
               </Button>
             </div>

@@ -300,9 +300,7 @@ export default function Subscription() {
                 className="w-full"
                 onClick={()  => {
                   setShowPaymentForm(false);
-                  setSelectedTier(null);
-                }}
-              >
+                  setSelectedTier(null) }}>
                 Cancel
               </Button>
             </CardFooter>

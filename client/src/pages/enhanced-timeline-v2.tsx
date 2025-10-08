@@ -390,8 +390,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
                 <>
                   <DropdownMenuItem onClick={() => {
                     // Edit functionality - could open modal or navigate to edit page
-                    toast({ title: "Edit functionality coming soon!" });
-                  }}>
+                    toast({ title: "Edit functionality coming soon!" }) }}>
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Post
                   </DropdownMenuItem>

@@ -270,9 +270,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                             className="h-6 w-6"
                             onClick={(e)  => {
                               e.stopPropagation();
-                              flipCard(role.id);
-                            }}
-                          >
+                              flipCard(role.id) }}>
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
@@ -287,9 +285,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                         )}
                         onClick={(e)  => {
                           e.stopPropagation();
-                          handleRoleToggle(role.id);
-                        }}
-                      >
+                          handleRoleToggle(role.id) }}>
                         {isSelected ? 'Selected' : 'Select'}
                       </Button>
                     </CardContent>

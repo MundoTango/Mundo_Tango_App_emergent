@@ -170,7 +170,7 @@ export default function MTGridList({
        role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
           if (item.disabled) return;
           if (item.onClick) item.onClick();
-          else if (onItemClick) onItemClick(item, index, e); }}>
+          else if (onItemClick) onItemClick(item, index, e) }}>
         {/* Selection Checkbox */}
         {selectable && (
           <div className="absolute top-2 left-2 z-10">

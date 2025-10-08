@@ -328,9 +328,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                   variant={event.userStatus === 'interested' ? 'default' : 'outline'}
                   onClick={(e)  => {
                     e.stopPropagation();
-                    handleEventAction(event.id, 'interested');
-                  }}
-                >
+                    handleEventAction(event.id, 'interested') }}>
                   Interested
                 </Button>
               </div>

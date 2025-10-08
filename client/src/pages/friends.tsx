@@ -540,9 +540,7 @@ export default function FriendsPage() {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');
-                    setSearchResults([]);
-                  }}
-                >
+                    setSearchResults([]) }}>
                   Cancel
                 </Button>
               </div>

@@ -191,9 +191,7 @@ const TrialBanner: React.FC = () => {
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
                       } text-white`}
                       onClick={()  => {
-                        if (!isLastDay) setShowConfetti(true);
-                      }}
-                    >
+                        if (!isLastDay) setShowConfetti(true) }}>
                       {isLastDay ? 'Subscribe Now' : 'Upgrade to Pro'}
                       <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>

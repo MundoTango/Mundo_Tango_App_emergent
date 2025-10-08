@@ -311,9 +311,7 @@ export default function Onboarding() {
                         name="RoleSelector"
                         onError={(error, errorInfo) => {
                           console.error('RoleSelector Error Boundary caught:', error);
-                          console.error('Error Info:', errorInfo);
-                        }}
-                      >
+                          console.error('Error Info:', errorInfo) }}>
                         <GroupedRoleSelector
                           selectedRoles={field.value || []}
                           onRoleChange={(roles) => {

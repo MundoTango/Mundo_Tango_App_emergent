@@ -422,9 +422,7 @@ const TravelPlanner: React.FC = () => {
                       setDestinations([]);
                       setTripName('');
                       setBudget('');
-                      setTravelers('1');
-                    }}
-                  >
+                      setTravelers('1') }}>
                     Clear All
                   </Button>
                   <Button

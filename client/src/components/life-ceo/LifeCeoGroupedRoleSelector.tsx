@@ -263,9 +263,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                         )}
                         onClick={(e)  => {
                           e.stopPropagation();
-                          handleAgentToggle(agent.id);
-                        }}
-                      >
+                          handleAgentToggle(agent.id) }}>
                         {isSelected ? 'Selected' : 'Select'}
                       </Button>
                     </CardContent>
