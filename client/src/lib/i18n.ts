@@ -64,6 +64,7 @@ i18n
     resources,
     defaultNS: 'common',
     fallbackLng: 'en',
+    lng: 'en', // Force English as default
     debug: false,
     
     interpolation: {
