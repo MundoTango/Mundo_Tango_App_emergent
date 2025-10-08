@@ -674,7 +674,7 @@ export default function PostCreator({
         });
       } else {
         toast({
-          title: "AI enhancement unavailable",
+          title: t('postCreator.aiUnavailable'),
           description: result.message || 'Could not enhance content',
           variant: "default"
         });
@@ -682,7 +682,7 @@ export default function PostCreator({
     } catch (error) {
       console.error('Enhancement error:', error);
       toast({
-        title: "Failed to enhance content",
+        title: t('postCreator.aiEnhanceFailed'),
         description: 'An error occurred. Please try again later.',
         variant: "destructive"
       });
@@ -697,7 +697,7 @@ export default function PostCreator({
     setShowEnhancement(false);
     setEnhancedContent(''); // Clear enhanced content after use
     toast({
-      title: "Enhanced content applied!",
+      title: t('postCreator.aiEnhanced'),
     });
   };
 
@@ -711,8 +711,8 @@ export default function PostCreator({
 
     if (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0) {
       toast({
-        title: "Please add content",
-        description: "Your post can't be empty.",
+        title: t('postCreator.emptyPost'),
+        description: t('postCreator.emptyPostDesc'),
         variant: "destructive"
       });
       return;
@@ -721,8 +721,8 @@ export default function PostCreator({
     // Don't allow submission while uploading
     if (isUploading) {
       toast({
-        title: "Upload in progress",
-        description: "Please wait for the upload to complete",
+        title: t('postCreator.uploadInProgress'),
+        description: t('postCreator.uploadInProgressDesc'),
         variant: "destructive"
       });
       return;
@@ -768,8 +768,8 @@ export default function PostCreator({
 
       // Show success notification
       toast({
-        title: "Memory created! 🎉",
-        description: "Your moment has been shared",
+        title: t('postCreator.memoryCreated'),
+        description: t('postCreator.memoryCreatedDesc'),
       });
 
       // Trigger confetti
@@ -926,7 +926,7 @@ export default function PostCreator({
       console.error('Media processing failed:', error);
       toast({
         title: "⚠️ Processing issue",
-        description: "Some formats couldn't be converted, using originals",
+        description: t('postCreator.formatWarning'),
         variant: "destructive"
       });
       
@@ -1152,8 +1152,8 @@ export default function PostCreator({
                     <div className="flex items-center gap-2">
                       <span className="text-xl">✨</span>
                       <div>
-                        <p className="font-bold text-sm">Discover Hidden Gems</p>
-                        <p className="text-xs text-amber-200">Share your treasure map with the community</p>
+                        <p className="font-bold text-sm">{t('postCreator.hiddenGems')}</p>
+                        <p className="text-xs text-amber-200">{t('postCreator.hiddenGemsDesc')}</p>
                       </div>
                     </div>
                   </TooltipContent>
@@ -1184,7 +1184,7 @@ export default function PostCreator({
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-xl">🏷️</span>
-                      <p className="font-bold text-sm">#add tags to your memory</p>
+                      <p className="font-bold text-sm">{t('postCreator.addTags')}</p>
                     </div>
                   </TooltipContent>
                 </Tooltip>
@@ -1338,10 +1338,10 @@ export default function PostCreator({
                       <span className="text-xl">✨</span>
                       <div>
                         <p className="font-bold text-sm">
-                          {createPostMutation.isPending || isUploading ? 'Sharing...' : editMode ? 'Save Changes' : 'Share Memory'}
+                          {createPostMutation.isPending || isUploading ? t('postCreator.sharing') : editMode ? t('postCreator.saveChanges') : t('postCreator.shareMemory')}
                         </p>
                         <p className="text-xs text-turquoise-200">
-                          {(!content.trim() && internalMediaUrls.length === 0) ? 'Write something first' : 'Share with the community'}
+                          {(!content.trim() && internalMediaUrls.length === 0) ? t('postCreator.writeFirst') : t('postCreator.shareWithCommunity')}
                         </p>
                       </div>
                     </div>
@@ -1366,8 +1366,8 @@ export default function PostCreator({
                 >
                   <div className="flex flex-col items-center space-y-2">
                     <Globe className={`h-6 w-6 ${visibility === 'public' ? 'text-white' : 'text-green-600'}`} />
-                    <span className="text-sm font-semibold">Public</span>
-                    <span className="text-xs opacity-75">Everyone</span>
+                    <span className="text-sm font-semibold">{t('postCreator.public')}</span>
+                    <span className="text-xs opacity-75">{t('postCreator.everyone')}</span>
                   </div>
                   {visibility === 'public' && (
                     <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -1387,8 +1387,8 @@ export default function PostCreator({
                 >
                   <div className="flex flex-col items-center space-y-2">
                     <Users className={`h-6 w-6 ${visibility === 'friends' ? 'text-white' : 'text-blue-600'}`} />
-                    <span className="text-sm font-semibold">Friends</span>
-                    <span className="text-xs opacity-75">Friends only</span>
+                    <span className="text-sm font-semibold">{t('postCreator.friends')}</span>
+                    <span className="text-xs opacity-75">{t('postCreator.friendsOnly')}</span>
                   </div>
                   {visibility === 'friends' && (
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -1408,8 +1408,8 @@ export default function PostCreator({
                 >
                   <div className="flex flex-col items-center space-y-2">
                     <Lock className={`h-6 w-6 ${visibility === 'private' ? 'text-white' : 'text-gray-600'}`} />
-                    <span className="text-sm font-semibold">Private</span>
-                    <span className="text-xs opacity-75">Only me</span>
+                    <span className="text-sm font-semibold">{t('postCreator.private')}</span>
+                    <span className="text-xs opacity-75">{t('postCreator.onlyMe')}</span>
                   </div>
                   {visibility === 'private' && (
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
