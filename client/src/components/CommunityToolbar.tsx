@@ -150,7 +150,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
             {/* Layer Toggles */}
             <div className="flex gap-4 mt-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input data-testid="input-rounded"
+                <input
                   type="checkbox"
                   checked={mapLayers.events}
                   onChange={(e) => setMapLayers({ ...mapLayers, events: e.target.checked })}
@@ -160,7 +160,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 Events
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input data-testid="input-rounded"
+                <input
                   type="checkbox"
                   checked={mapLayers.housing}
                   onChange={(e) => setMapLayers({ ...mapLayers, housing: e.target.checked })}
@@ -170,7 +170,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 Housing
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input data-testid="input-rounded"
+                <input
                   type="checkbox"
                   checked={mapLayers.recommendations}
                   onChange={(e) => setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
@@ -188,13 +188,13 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <div>
                   <label className="text-sm font-medium mb-2 block">Date Range</label>
                   <div className="flex gap-2">
-                    <input data-testid="input-flex"
+                    <input
                       type="date"
                       className="flex-1 rounded-md border px-3 py-2"
                       onChange={(e) => setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })}
                     />
                     <span className="self-center">to</span>
-                    <input data-testid="input-flex"
+                    <input
                       type="date"
                       className="flex-1 rounded-md border px-3 py-2"
                       onChange={(e) => setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })}
@@ -207,7 +207,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                   <div>
                     <label className="text-sm font-medium mb-2 block">Event Filters</label>
                     <div className="grid grid-cols-3 gap-2">
-                      <select data-testid="select-rounded"
+                      <select
                         value={eventFilters.category}
                         onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
                         className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
@@ -218,7 +218,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                         <option value="workshop">Workshop</option>
                         <option value="festival">Festival</option>
                       </select>
-                      <select data-testid="select-rounded"
+                      <select
                         value={eventFilters.priceRange}
                         onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
                         className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
@@ -229,7 +229,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                         <option value="20-50">$20-50</option>
                         <option value="50+">$50+</option>
                       </select>
-                      <select data-testid="select-rounded"
+                      <select
                         value={eventFilters.timeOfDay}
                         onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
                         className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
@@ -248,7 +248,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 {(mapLayers.housing || mapLayers.recommendations) && (
                   <div>
                     <label className="text-sm font-medium mb-2 block">Friend Connections</label>
-                    <select data-testid="select-w"
+                    <select
                       value={friendFilter}
                       onChange={(e) => setFriendFilter(e.target.value as any)}
                       className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"
@@ -265,7 +265,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 {mapLayers.recommendations && (
                   <div>
                     <label className="text-sm font-medium mb-2 block">Recommendation Type</label>
-                    <select data-testid="select-w"
+                    <select
                       value={recommendationType}
                       onChange={(e) => setRecommendationType(e.target.value as any)}
                       className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300"

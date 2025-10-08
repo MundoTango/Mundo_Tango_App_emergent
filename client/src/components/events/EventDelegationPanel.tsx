@@ -159,7 +159,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
           </span>
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button data-testid="button-from" size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
+              <Button size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
                 <UserCheck className="w-4 h-4 mr-2" />
                 Add Admin
               </Button>
@@ -171,7 +171,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
               <div className="space-y-4 mt-4">
                 <div>
                   <Label>Search Users</Label>
-                  <Input data-testid="input-glassmorphic"
+                  <Input
                     placeholder="Search by name or username..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -181,7 +181,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 
                 <div>
                   <Label>Role</Label>
-                  <Select data-testid="select-element" value={selectedRole} onValueChange={(value: 'admin' | 'moderator') => setSelectedRole(value)}>
+                  <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator') => setSelectedRole(value)}>
                     <SelectTrigger className="glassmorphic-input">
                       <SelectValue />
                     </SelectTrigger>
@@ -206,7 +206,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                             <p className="text-sm text-gray-600">@{user.username}</p>
                           </div>
                         </div>
-                        <Button data-testid="button-add"
+                        <Button
                           size="sm"
                           onClick={() => addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
                           disabled={addAdminMutation.isPending}
@@ -248,7 +248,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                   </div>
                   
                   {admin.role !== 'owner' && admin.userId !== currentUserId && (
-                    <Button data-testid="button-hover-text"
+                    <Button
                       size="sm"
                       variant="ghost"
                       onClick={() => removeAdminMutation.mutate(admin.id)}

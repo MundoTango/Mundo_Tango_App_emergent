@@ -181,7 +181,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             </div>
 
             {/* Menu */}
-            <Button data-testid="button-h" variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </div>
@@ -230,7 +230,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
           <div className="flex items-center">
             {/* Reaction button */}
             <div className="relative flex-1">
-              <Button data-testid="button-w"
+              <Button
                 variant="ghost"
                 size="sm"
                 onMouseEnter={() => setShowReactionPicker(true)}
@@ -255,7 +255,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                   onMouseLeave={() => setShowReactionPicker(false)}
                 >
                   {reactions.map((reaction) => (
-                    <button data-testid="button-hover-scale"
+                    <button
                       key={reaction.name}
                       onClick={() => handleReaction(reaction.name)}
                       className="hover:scale-125 transition-transform p-1"
@@ -269,7 +269,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             </div>
 
             {/* Comment button */}
-            <Button data-testid="button-flex"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => setShowComments(!showComments)}
@@ -283,7 +283,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             </Button>
 
             {/* Share button */}
-            <Button data-testid="button-flex"
+            <Button
               variant="ghost"
               size="sm"
               onClick={() => setShowShareDialog(true)}
@@ -304,7 +304,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                 {getAvatarInitials(user?.name || 'U')}
               </div>
               <div className="flex-1 flex gap-2">
-                <Textarea data-testid="textarea-flex"
+                <Textarea
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   placeholder="Write a comment..."
@@ -316,7 +316,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                     }
                   }}
                 />
-                <Button data-testid="button-element"
+                <Button
                   size="sm"
                   onClick={handleComment}
                   disabled={!commentText.trim() || commentMutation.isPending}
@@ -341,8 +341,8 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                       </div>
                       <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
                         <span>{formatDistanceToNow(new Date(comment.createdAt))} ago</span>
-                        <button data-testid="button-hover-underline" className="hover:underline">Like</button>
-                        <button data-testid="button-hover-underline" className="hover:underline">Reply</button>
+                        <button className="hover:underline">Like</button>
+                        <button className="hover:underline">Reply</button>
                       </div>
                     </div>
                   </div>
@@ -361,7 +361,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
           </DialogHeader>
           
           <div className="space-y-4">
-            <Textarea data-testid="textarea-min"
+            <Textarea
               value={shareText}
               onChange={(e) => setShareText(e.target.value)}
               placeholder="Say something about this..."
@@ -380,10 +380,10 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             </div>
 
             <div className="flex justify-end gap-2">
-              <Button data-testid="button-cancel" variant="outline" onClick={() => setShowShareDialog(false)}>
+              <Button variant="outline" onClick={() => setShowShareDialog(false)}>
                 Cancel
               </Button>
-              <Button data-testid="button-share" onClick={handleShare} disabled={shareMutation.isPending}>
+              <Button onClick={handleShare} disabled={shareMutation.isPending}>
                 Share
               </Button>
             </div>

@@ -169,8 +169,8 @@ const Subscribe: React.FC = () => {
           <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
             <p className="text-gray-700">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
-              <Link data-testid="link-element" href="/settings/billing">
-                <a data-testid="a-ml" className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline">
+              <Link href="/settings/billing">
+                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline">
                   Manage billing
                 </a>
               </Link>
@@ -235,7 +235,7 @@ const Subscribe: React.FC = () => {
                   {/* Action Button */}
                   <div className="pt-4">
                     {isCurrentPlan ? (
-                      <Button data-testid="button-w" 
+                      <Button 
                         className="w-full" 
                         variant="outline"
                         disabled
@@ -243,7 +243,7 @@ const Subscribe: React.FC = () => {
                         Current Plan
                       </Button>
                     ) : tier.key === 'free' ? (
-                      <Button data-testid="button-w" 
+                      <Button 
                         className="w-full" 
                         variant="outline"
                         onClick={() => setLocation('/settings/billing')}
@@ -251,7 +251,7 @@ const Subscribe: React.FC = () => {
                         Downgrade
                       </Button>
                     ) : (
-                      <Button data-testid="button-w" 
+                      <Button 
                         className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
                         onClick={() => handleSubscribe(tier.key)}
                         disabled={createSubscriptionMutation.isPending && selectedTier === tier.key}
@@ -275,7 +275,7 @@ const Subscribe: React.FC = () => {
         <div className="mt-12 text-center">
           <p className="text-gray-600">
             Questions about our plans?{' '}
-            <a data-testid="a-hover-text" 
+            <a 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
             >

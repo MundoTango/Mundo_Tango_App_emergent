@@ -60,7 +60,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
         {/* Header */}
         <div className="bg-tango-red text-white p-4 flex items-center justify-between">
           <h3 className="font-semibold">Messages</h3>
-          <Button data-testid="button-hover-text" 
+          <Button 
             variant="ghost" 
             size="sm" 
             onClick={onClose}
@@ -74,7 +74,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
         <div className="p-4 border-b border-gray-200">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-            <Input data-testid="input-pl"
+            <Input
               placeholder="Search conversations..."
               className="pl-9"
             />
@@ -157,7 +157,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
 
         {/* New Message Button */}
         <div className="p-4 border-t border-gray-100">
-          <Button data-testid="button-w" className="w-full bg-tango-red hover:bg-tango-red/90">
+          <Button className="w-full bg-tango-red hover:bg-tango-red/90">
             <Plus className="h-4 w-4 mr-2" />
             New Message
           </Button>

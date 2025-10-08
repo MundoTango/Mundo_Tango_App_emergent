@@ -98,7 +98,7 @@ const TTfilesDemo = () => {
 
         {/* Back Button */}
         <div className="text-center mt-8">
-          <button data-testid="button-tt" 
+          <button 
             className="tt-btn tt-btn-secondary"
             onClick={() => setLocation('/admin')}
           >

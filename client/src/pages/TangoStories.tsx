@@ -141,7 +141,7 @@ export default function TangoStories() {
         <div className="flex gap-4 mb-8">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input data-testid="input-pl"
+            <Input
               type="text"
               placeholder="Search stories..."
               value={searchQuery}
@@ -149,7 +149,7 @@ export default function TangoStories() {
               className="pl-10 glassmorphic-input"
             />
           </div>
-          <Button data-testid="button-from"
+          <Button
             onClick={() => setShowCreateModal(true)}
             className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
           >
@@ -163,7 +163,7 @@ export default function TangoStories() {
           <h3 className="text-lg font-semibold mb-4">Popular Topics</h3>
           <div className="flex flex-wrap gap-2">
             {popularTags.map(tag => (
-              <Button data-testid="button-element"
+              <Button
                 key={tag}
                 variant={selectedTag === tag ? "default" : "outline"}
                 size="sm"
@@ -186,7 +186,7 @@ export default function TangoStories() {
             <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
             <p className="text-gray-600 mb-4">Be the first to share your tango journey!</p>
-            <Button data-testid="button-from"
+            <Button
               onClick={() => setShowCreateModal(true)}
               className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
@@ -210,7 +210,7 @@ export default function TangoStories() {
                         </p>
                       </div>
                     </div>
-                    <Button data-testid="button-element" variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm">
                       <Share2 className="w-4 h-4" />
                     </Button>
                   </div>
@@ -240,7 +240,7 @@ export default function TangoStories() {
 
                   {/* Engagement Stats */}
                   <div className="flex items-center gap-4 pt-4 border-t">
-                    <Button data-testid="button-element"
+                    <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => likeStoryMutation.mutate(story.id)}
@@ -249,11 +249,11 @@ export default function TangoStories() {
                       <Heart className={`w-4 h-4 mr-1 ${story.isLiked ? 'fill-current' : ''}`} />
                       {story.likes}
                     </Button>
-                    <Button data-testid="button-element" variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm">
                       <MessageCircle className="w-4 h-4 mr-1" />
                       {story.comments}
                     </Button>
-                    <Button data-testid="button-element" variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm">
                       <Share2 className="w-4 h-4 mr-1" />
                       {story.shares}
                     </Button>
@@ -275,7 +275,7 @@ export default function TangoStories() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">Title</label>
-                    <Input data-testid="input-glassmorphic"
+                    <Input
                       value={newStory.title}
                       onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
                       placeholder="Give your story a title..."
@@ -285,7 +285,7 @@ export default function TangoStories() {
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Your Story</label>
-                    <Textarea data-testid="textarea-glassmorphic"
+                    <Textarea
                       value={newStory.content}
                       onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
                       placeholder="Share your tango journey, memorable moments, or lessons learned..."
@@ -295,7 +295,7 @@ export default function TangoStories() {
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Location (Optional)</label>
-                    <Input data-testid="input-glassmorphic"
+                    <Input
                       value={newStory.location}
                       onChange={(e) => setNewStory({ ...newStory, location: e.target.value })}
                       placeholder="Buenos Aires, Argentina"
@@ -307,7 +307,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Tags</label>
                     <div className="flex flex-wrap gap-2">
                       {popularTags.map(tag => (
-                        <Button data-testid="button-element"
+                        <Button
                           key={tag}
                           type="button"
                           variant={newStory.tags.includes(tag) ? "default" : "outline"}
@@ -329,14 +329,14 @@ export default function TangoStories() {
                   </div>
 
                   <div className="flex gap-4 pt-4">
-                    <Button data-testid="button-flex"
+                    <Button
                       onClick={handleCreateStory}
                       disabled={createStoryMutation.isPending}
                       className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
                     >
                       {createStoryMutation.isPending ? 'Publishing...' : 'Publish Story'}
                     </Button>
-                    <Button data-testid="button-flex"
+                    <Button
                       onClick={() => setShowCreateModal(false)}
                       variant="outline"
                       className="flex-1"

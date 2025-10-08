@@ -100,7 +100,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
                 ))}
               </div>
               <div className="mt-4 text-center">
-                <Button data-testid="button-hover-text"
+                <Button
                   variant="ghost"
                   onClick={() => setSelectedPrompt('custom')}
                   className="text-turquoise-600 hover:text-turquoise-700"
@@ -130,7 +130,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
               />
 
               <div className="mt-4 flex justify-start">
-                <Button data-testid="button-back-to-prompts"
+                <Button
                   variant="ghost"
                   onClick={() => setSelectedPrompt(null)}
                   className="text-gray-600"

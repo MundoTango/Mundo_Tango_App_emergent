@@ -119,14 +119,14 @@ export default function FriendshipPage() {
             </div>
 
             <div className="flex gap-3">
-              <Button data-testid="button-from"
+              <Button
                 onClick={() => setShowDanceHistoryForm(true)}
                 className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600"
               >
                 <Music className="w-4 h-4 mr-2" />
                 Add Dance Memory
               </Button>
-              <Button data-testid="button-glassmorphic" variant="outline" className="glassmorphic-button">
+              <Button variant="outline" className="glassmorphic-button">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>

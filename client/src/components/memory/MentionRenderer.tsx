@@ -63,7 +63,7 @@ const MentionLink: React.FC<MentionLinkProps> = ({
   };
 
   return (
-    <Link data-testid="link-element" href={route}>
+    <Link href={route}>
       <span 
         onClick={handleClick}
         className={`

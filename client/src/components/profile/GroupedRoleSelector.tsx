@@ -173,7 +173,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
       {/* Category Navigator */}
       <div className="relative">
         <div className="flex items-center justify-between mb-4">
-          <Button data-testid="button-hover-bg"
+          <Button
             variant="ghost"
             size="icon"
             onClick={prevCategory}
@@ -190,7 +190,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             <p className="text-sm text-gray-600">{currentCategory.description}</p>
           </div>
 
-          <Button data-testid="button-hover-bg"
+          <Button
             variant="ghost"
             size="icon"
             onClick={nextCategory}
@@ -203,7 +203,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
         {/* Category Progress Dots */}
         <div className="flex justify-center gap-2 mb-6">
           {roleCategories.map((_, index) => (
-            <button data-testid="button-element"
+            <button
               key={index}
               onClick={() => {
                 setCurrentCategoryIndex(index);
@@ -264,7 +264,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                       <div>
                         <div className="flex items-start justify-between mb-2">
                           <h5 className="font-semibold text-lg">{role.label}</h5>
-                          <Button data-testid="button-h"
+                          <Button
                             size="icon"
                             variant="ghost"
                             className="h-6 w-6"
@@ -278,7 +278,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                         </div>
                         <p className="text-sm text-gray-600 mb-4">{role.description}</p>
                       </div>
-                      <Button data-testid="button-element"
+                      <Button
                         variant={isSelected ? "default" : "outline"}
                         size="sm"
                         className={cn(

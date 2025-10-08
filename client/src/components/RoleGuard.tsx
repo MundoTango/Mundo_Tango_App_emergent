@@ -162,7 +162,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
                   {availableRoutes
                     .filter(route => route.route !== location)
                     .map(route => (
-                    <button data-testid="button-border"
+                    <button
                       key={route.route}
                       onClick={() => switchRole(route.route)}
                       className="text-sm bg-white border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors"

@@ -257,7 +257,7 @@ export default function EnhancedCommentsSystem({
   // Render comment actions
   const renderCommentActions = (comment: Comment, nestingLevel: number) => (
     <div className="flex items-center space-x-4 mt-2">
-      <button data-testid="button-element"
+      <button
         onClick={() => handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'like')}
         className={`flex items-center space-x-1 text-sm transition-colors ${
           comment.isLiked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
@@ -267,7 +267,7 @@ export default function EnhancedCommentsSystem({
         <span>{comment.likes}</span>
       </button>
 
-      <button data-testid="button-element"
+      <button
         onClick={() => handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'dislike')}
         className={`flex items-center space-x-1 text-sm transition-colors ${
           comment.isDisliked ? 'text-blue-500' : 'text-gray-500 hover:text-blue-500'
@@ -278,7 +278,7 @@ export default function EnhancedCommentsSystem({
       </button>
 
       {allowNesting && nestingLevel < maxNestingLevel && (
-        <button data-testid="button-flex"
+        <button
           onClick={() => setReplyingTo(comment.id)}
           className="flex items-center space-x-1 text-sm text-gray-500 hover:text-blue-500 transition-colors"
         >
@@ -289,7 +289,7 @@ export default function EnhancedCommentsSystem({
 
       {comment.userId === user?.id && (
         <>
-          <button data-testid="button-flex"
+          <button
             onClick={() => {
               setEditingComment(comment.id);
               setEditContent(comment.content);
@@ -299,7 +299,7 @@ export default function EnhancedCommentsSystem({
             <Edit3 className="h-4 w-4" />
             <span>Edit</span>
           </button>
-          <button data-testid="button-flex"
+          <button
             onClick={() => deleteCommentMutation.mutate(comment.id)}
             className="flex items-center space-x-1 text-sm text-gray-500 hover:text-red-500 transition-colors"
           >
@@ -310,7 +310,7 @@ export default function EnhancedCommentsSystem({
       )}
 
       {enableModeration && comment.userId !== user?.id && (
-        <button data-testid="button-flex"
+        <button
           onClick={() => reportCommentMutation.mutate({ commentId: comment.id, reason: 'inappropriate' })}
           className="flex items-center space-x-1 text-sm text-gray-500 hover:text-orange-500 transition-colors"
         >
@@ -320,7 +320,7 @@ export default function EnhancedCommentsSystem({
       )}
 
       {comment.replyCount > 0 && (
-        <button data-testid="button-hover-text"
+        <button
           onClick={() => toggleReplies(comment.id)}
           className="text-sm text-blue-500 hover:text-blue-600 transition-colors"
         >
@@ -341,7 +341,7 @@ export default function EnhancedCommentsSystem({
         <div className="flex space-x-3">
           {renderAvatar(user as any)}
           <div className="flex-1">
-            <textarea data-testid="textarea-w"
+            <textarea
               value={currentContent}
               onChange={(e) => setCurrentContent(e.target.value)}
               placeholder={placeholder}
@@ -354,7 +354,7 @@ export default function EnhancedCommentsSystem({
                 <p className="text-sm font-medium text-gray-700 mb-2">Popular GIFs:</p>
                 <div className="grid grid-cols-3 gap-2">
                   {popularGifs.map((gifUrl, index) => (
-                    <button data-testid="button-aspect"
+                    <button
                       key={index}
                       onClick={() => handleSubmitComment(currentContent, parentId, gifUrl)}
                       className="aspect-square rounded-lg overflow-hidden hover:ring-2 hover:ring-pink-500 transition-all"
@@ -368,18 +368,18 @@ export default function EnhancedCommentsSystem({
             
             <div className="flex items-center justify-between mt-2">
               <div className="flex space-x-2">
-                <button data-testid="button-flex"
+                <button
                   onClick={() => setShowGifs(!showGifs)}
                   className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-pink-600 transition-colors"
                 >
                   <Gift className="h-4 w-4" />
                   <span>GIF</span>
                 </button>
-                <button data-testid="button-flex" className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-blue-600 transition-colors">
                   <Smile className="h-4 w-4" />
                   <span>Emoji</span>
                 </button>
-                <button data-testid="button-flex" className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-green-600 transition-colors">
+                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-green-600 transition-colors">
                   <AtSign className="h-4 w-4" />
                   <span>Mention</span>
                 </button>
@@ -387,14 +387,14 @@ export default function EnhancedCommentsSystem({
               
               <div className="flex space-x-2">
                 {isReply && (
-                  <button data-testid="button-px"
+                  <button
                     onClick={() => setReplyingTo(null)}
                     className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
                   >
                     Cancel
                   </button>
                 )}
-                <button data-testid="button-px"
+                <button
                   onClick={() => handleSubmitComment(currentContent, parentId)}
                   disabled={!currentContent.trim() || createCommentMutation.isPending}
                   className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium transition-colors"
@@ -430,28 +430,28 @@ export default function EnhancedCommentsSystem({
                     <span className="text-xs text-gray-400">(edited)</span>
                   )}
                 </div>
-                <button data-testid="button-hover-text" className="text-gray-400 hover:text-gray-600">
+                <button className="text-gray-400 hover:text-gray-600">
                   <MoreHorizontal className="h-4 w-4" />
                 </button>
               </div>
               
               {isEditing ? (
                 <div className="space-y-2">
-                  <textarea data-testid="textarea-w"
+                  <textarea
                     value={editContent}
                     onChange={(e) => setEditContent(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                     rows={2}
                   />
                   <div className="flex space-x-2">
-                    <button data-testid="button-px"
+                    <button
                       onClick={() => handleEditComment(comment.id, editContent)}
                       disabled={!editContent.trim() || updateCommentMutation.isPending}
                       className="px-3 py-1 bg-pink-600 text-white rounded text-sm hover:bg-pink-700 disabled:opacity-50"
                     >
                       Save
                     </button>
-                    <button data-testid="button-px"
+                    <button
                       onClick={() => {
                         setEditingComment(null);
                         setEditContent('');

@@ -282,7 +282,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
       >
         <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 text-red-600 font-bold text-xl gap-6">
           <div>
-            <Button data-testid="button-lg-hidden"
+            <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
@@ -297,7 +297,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
         <nav className="mt-4">
           {/* User Profile Section */}
           <div className="px-4 mb-6">
-            <Link data-testid="link-element" href="/profile?tab=memories">
+            <Link href="/profile?tab=memories">
               <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
                 <Avatar className="h-10 w-10">
                   <AvatarImage
@@ -347,7 +347,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                   <span className="text-xs">{isExpanded ? '−' : '+'}</span>
                 </div>
                 {isExpanded && section.routes.map(({ icon, title, link }, index) => (
-                  <Link data-testid="link-element" href={link} key={index}>
+                  <Link href={link} key={index}>
                     <div className="py-1 cursor-pointer select-none">
                       <div
                         onClick={handleLinkClick}

@@ -140,7 +140,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
-            <Input data-testid="input-element"
+            <Input
               placeholder="Search tags..."
               value={searchTag}
               onChange={(e) => setSearchTag(e.target.value)}
@@ -150,7 +150,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                 }
               }}
             />
-            <Button data-testid="button-element"
+            <Button
               onClick={() => searchTag.trim() && addTagFilter(searchTag.trim().toLowerCase())}
               disabled={!searchTag.trim()}
             >
@@ -226,7 +226,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                 )}
                 
                 {onMediaSelect && (
-                  <Button data-testid="button-absolute"
+                  <Button
                     size="sm"
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => onMediaSelect(media)}
@@ -261,7 +261,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
 
                 {/* Add New Tag */}
                 <div className="flex gap-2">
-                  <Input data-testid="input-element"
+                  <Input
                     placeholder="Add tag..."
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
@@ -272,7 +272,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                     }}
                     className="text-sm"
                   />
-                  <Button data-testid="button-element"
+                  <Button
                     size="sm"
                     onClick={() => handleAddTag(media.id, newTag)}
                     disabled={!newTag.trim() || addTagMutation.isPending}

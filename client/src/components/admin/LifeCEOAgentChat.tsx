@@ -243,7 +243,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
               </div>
               <Badge className="bg-green-100 text-green-800">Active</Badge>
             </div>
-            <Button data-testid="button-element" variant="ghost" size="sm">
+            <Button variant="ghost" size="sm">
               <Settings className="w-4 h-4" />
             </Button>
           </div>
@@ -291,7 +291,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
       <Card>
         <CardContent className="p-4">
           <div className="flex space-x-2">
-            <Input data-testid="input-flex"
+            <Input
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
@@ -299,7 +299,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
               disabled={isLoading}
               className="flex-1"
             />
-            <Button data-testid="button-element"
+            <Button
               variant="outline"
               size="icon"
               onClick={toggleListening}
@@ -307,7 +307,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
             >
               {isListening ? <MicOff className="w-4 h-4 text-red-500" /> : <Mic className="w-4 h-4" />}
             </Button>
-            <Button data-testid="button-element"
+            <Button
               variant="outline"
               size="icon"
               onClick={isSpeaking ? stopSpeaking : () => {}}
@@ -315,7 +315,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
             >
               {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </Button>
-            <Button data-testid="button-element" onClick={sendMessage} disabled={isLoading || !inputMessage.trim()}>
+            <Button onClick={sendMessage} disabled={isLoading || !inputMessage.trim()}>
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </Button>
           </div>

@@ -23,7 +23,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
         <div className="bg-white rounded-lg shadow-xl p-6 max-w-lg w-full mx-4 pointer-events-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">{title}</h2>
-            <button data-testid="button-p"
+            <button
               onClick={onClose}
               className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
             >
@@ -35,7 +35,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
             <p>This is a minimal test modal to verify modal functionality.</p>
             <p>If you can see this, the modal system is working.</p>
             
-            <button data-testid="button-w"
+            <button
               onClick={onClose}
               className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >

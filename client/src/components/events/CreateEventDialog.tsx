@@ -155,8 +155,8 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
           </DialogDescription>
         </DialogHeader>
 
-        <Form data-testid="form-element" {...form}>
-          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid grid-cols-5 w-full">
                 <TabsTrigger value="basic">Basic Info</TabsTrigger>
@@ -174,7 +174,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormItem>
                       <FormLabel>Event Title</FormLabel>
                       <FormControl>
-                        <Input data-testid="input-element" placeholder="Tango Night at La Viruta" {...field} />
+                        <Input placeholder="Tango Night at La Viruta" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,7 +188,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea data-testid="textarea-min" 
+                        <Textarea 
                           placeholder="Describe your event..." 
                           className="min-h-[100px]"
                           {...field} 
@@ -205,7 +205,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Event Type</FormLabel>
-                      <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select event type" />
@@ -230,7 +230,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Level</FormLabel>
-                      <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select level" />
@@ -257,7 +257,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                       <FormItem>
                         <FormLabel>Start Date & Time</FormLabel>
                         <FormControl>
-                          <Input data-testid="input-element" type="datetime-local" {...field} />
+                          <Input type="datetime-local" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -271,7 +271,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                       <FormItem>
                         <FormLabel>End Date & Time</FormLabel>
                         <FormControl>
-                          <Input data-testid="input-element" type="datetime-local" {...field} />
+                          <Input type="datetime-local" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -325,7 +325,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                       <FormItem className="flex-1">
                         <FormLabel>Max Attendees (optional)</FormLabel>
                         <FormControl>
-                          <Input data-testid="input-element" 
+                          <Input 
                             type="number" 
                             placeholder="Leave empty for unlimited"
                             {...field}
@@ -381,7 +381,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                               <FormItem>
                                 <FormLabel>Ticket Price</FormLabel>
                                 <FormControl>
-                                  <Input data-testid="input-element" 
+                                  <Input 
                                     type="number" 
                                     placeholder="25.00"
                                     {...field} 
@@ -398,7 +398,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Currency</FormLabel>
-                                <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
                                   <FormControl>
                                     <SelectTrigger>
                                       <SelectValue />
@@ -424,7 +424,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                               <FormItem>
                                 <FormLabel>Early Bird Price (optional)</FormLabel>
                                 <FormControl>
-                                  <Input data-testid="input-element" 
+                                  <Input 
                                     type="number" 
                                     placeholder="20.00"
                                     {...field} 
@@ -441,7 +441,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                               <FormItem>
                                 <FormLabel>Early Bird Deadline</FormLabel>
                                 <FormControl>
-                                  <Input data-testid="input-element" type="datetime-local" {...field} />
+                                  <Input type="datetime-local" {...field} />
                                 </FormControl>
                               </FormItem>
                             )}
@@ -455,7 +455,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                             <FormItem>
                               <FormLabel>External Ticket URL (optional)</FormLabel>
                               <FormControl>
-                                <Input data-testid="input-element" 
+                                <Input 
                                   type="url" 
                                   placeholder="https://eventbrite.com/..."
                                   {...field} 
@@ -514,7 +514,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Platform</FormLabel>
-                              <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                   <SelectTrigger>
                                     <SelectValue placeholder="Select platform" />
@@ -539,7 +539,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                             <FormItem>
                               <FormLabel>Meeting URL</FormLabel>
                               <FormControl>
-                                <Input data-testid="input-element" 
+                                <Input 
                                   type="url" 
                                   placeholder="https://zoom.us/..."
                                   {...field} 
@@ -596,7 +596,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Repeat Pattern</FormLabel>
-                              <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                   <SelectTrigger>
                                     <SelectValue placeholder="Select pattern" />
@@ -621,7 +621,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                             <FormItem>
                               <FormLabel>End Repeat Date</FormLabel>
                               <FormControl>
-                                <Input data-testid="input-element" type="date" {...field} />
+                                <Input type="date" {...field} />
                               </FormControl>
                               <FormDescription>
                                 When should the recurring events stop?
@@ -757,7 +757,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                         <FormItem>
                           <FormLabel>Tags</FormLabel>
                           <FormControl>
-                            <Input data-testid="input-element" 
+                            <Input 
                               placeholder="tango, milonga, buenos aires (comma separated)"
                               onChange={(e) => {
                                 const tags = e.target.value.split(',').map(t => t.trim()).filter(Boolean);
@@ -777,10 +777,10 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
             </Tabs>
 
             <div className="flex justify-end space-x-4">
-              <Button data-testid="button-cancel" type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
-              <Button data-testid="button-from" 
+              <Button 
                 type="submit" 
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
                 disabled={createEventMutation.isPending}

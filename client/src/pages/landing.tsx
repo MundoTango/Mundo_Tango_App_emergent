@@ -166,7 +166,7 @@ export default function Landing() {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
-          <Button data-testid="button-from" 
+          <Button 
             onClick={() => window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
           >
@@ -187,13 +187,13 @@ export default function Landing() {
             and immerse yourself in the beautiful world of Argentine Tango.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button data-testid="button-from" 
+            <Button 
               onClick={() => window.location.href = '/api/login'}
               className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Start Your Tango Journey
             </Button>
-            <Button data-testid="button-hover-bg" 
+            <Button 
               variant="outline" 
               className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
             >
@@ -298,7 +298,7 @@ export default function Landing() {
             Whether you're a beginner taking your first steps or a seasoned dancer, 
             Mundo Tango welcomes you with open arms.
           </p>
-          <Button data-testid="button-from" 
+          <Button 
             onClick={() => window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
           >

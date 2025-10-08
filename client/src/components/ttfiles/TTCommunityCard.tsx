@@ -149,7 +149,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
 
       {/* Card Footer */}
       <div className="tt-card-footer">
-        <button data-testid="button-element" 
+        <button 
           className={`w-full ${isJoined ? 'tt-btn tt-btn-outline' : 'tt-btn tt-btn-primary'}`}
           onClick={handleJoin}
         >

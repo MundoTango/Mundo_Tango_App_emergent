@@ -17,8 +17,8 @@ const LifeCEOAgentDetail: React.FC = () => {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <Link data-testid="link-element" href="/life-ceo">
-              <Button data-testid="button-gap" variant="ghost" size="sm" className="gap-2">
+            <Link href="/life-ceo">
+              <Button variant="ghost" size="sm" className="gap-2">
                 <ChevronLeft className="w-4 h-4" />
                 Back to Life CEO Portal
               </Button>

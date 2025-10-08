@@ -113,8 +113,8 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Form data-testid="form-element" {...form}>
-          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
             {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -125,7 +125,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   <FormItem>
                     <FormLabel>First Name</FormLabel>
                     <FormControl>
-                      <Input data-testid="input-element" placeholder="Enter first name" {...field} />
+                      <Input placeholder="Enter first name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,7 +139,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   <FormItem>
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
-                      <Input data-testid="input-element" placeholder="Enter last name" {...field} />
+                      <Input placeholder="Enter last name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -155,7 +155,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea data-testid="textarea-min" 
+                    <Textarea 
                       placeholder="Tell us about yourself..."
                       className="min-h-[100px]"
                       {...field}
@@ -182,7 +182,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   <div className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <MapPin className="w-4 h-4 text-blue-600" />
                     <span className="text-sm text-blue-800 flex-1">{selectedLocation}</span>
-                    <button data-testid="button-hover-text"
+                    <button
                       type="button"
                       onClick={clearLocation}
                       className="text-blue-600 hover:text-blue-800"
@@ -198,7 +198,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
             {/* Action Buttons */}
             <div className="flex justify-end space-x-3 pt-6">
               {onCancel && (
-                <Button data-testid="button-cancel"
+                <Button
                   type="button"
                   variant="outline"
                   onClick={onCancel}
@@ -208,7 +208,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                 </Button>
               )}
               
-              <Button data-testid="button-flex"
+              <Button
                 type="submit"
                 disabled={updateProfileMutation.isPending}
                 className="flex items-center gap-2"

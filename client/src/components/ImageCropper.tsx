@@ -199,7 +199,7 @@ export default function ImageCropper({
 
             {/* Rotation control */}
             <div className="flex items-center gap-4">
-              <Button data-testid="button-hover-bg"
+              <Button
                 type="button"
                 variant="outline"
                 size="sm"
@@ -224,7 +224,7 @@ export default function ImageCropper({
         </div>
 
         <DialogFooter>
-          <Button data-testid="button-element"
+          <Button
             type="button"
             variant="outline"
             onClick={onClose}
@@ -233,7 +233,7 @@ export default function ImageCropper({
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
-          <Button data-testid="button-from"
+          <Button
             onClick={handleCrop}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
           >

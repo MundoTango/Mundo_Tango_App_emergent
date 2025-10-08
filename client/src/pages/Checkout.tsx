@@ -77,7 +77,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
   };
 
   return (
-    <form data-testid="form-space" onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="glassmorphic-card p-6 rounded-lg">
         <PaymentElement 
           options={{
@@ -98,14 +98,14 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
       )}
 
       <div className="flex gap-4">
-        <Link data-testid="link-element" href="/subscribe">
-          <Button data-testid="button-flex" type="button" variant="outline" className="flex items-center gap-2">
+        <Link href="/subscribe">
+          <Button type="button" variant="outline" className="flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" />
             Back to Plans
           </Button>
         </Link>
         
-        <Button data-testid="button-flex" 
+        <Button 
           type="submit" 
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
@@ -221,8 +221,8 @@ const Checkout: React.FC = () => {
               {error?.message || 'Failed to initialize payment. Please try again.'}
             </AlertDescription>
           </Alert>
-          <Link data-testid="link-mt" href="/subscribe" className="mt-4 inline-block">
-            <Button data-testid="button-back-to-plans" variant="outline">Back to Plans</Button>
+          <Link href="/subscribe" className="mt-4 inline-block">
+            <Button variant="outline">Back to Plans</Button>
           </Link>
         </div>
       </div>
@@ -285,14 +285,14 @@ const Checkout: React.FC = () => {
                   <div className="space-y-2 pt-4">
                     <Label htmlFor="promo">Have a promo code?</Label>
                     <div className="flex gap-2">
-                      <Input data-testid="input-flex"
+                      <Input
                         id="promo"
                         placeholder="Enter code"
                         value={promoCode}
                         onChange={(e) => setPromoCode(e.target.value)}
                         className="flex-1"
                       />
-                      <Button data-testid="button-element"
+                      <Button
                         onClick={handleApplyPromo}
                         disabled={applyPromoMutation.isPending || !promoCode.trim()}
                         variant="outline"

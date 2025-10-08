@@ -277,7 +277,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Title */}
           <div className="space-y-2">
             <Label htmlFor="title">Title *</Label>
-            <Input data-testid="input-element"
+            <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -289,7 +289,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Content */}
           <div className="space-y-2">
             <Label htmlFor="content">Description *</Label>
-            <Textarea data-testid="textarea-min"
+            <Textarea
               id="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -330,7 +330,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Label>Date</Label>
             <Popover>
               <PopoverTrigger asChild>
-                <Button data-testid="button-element"
+                <Button
                   variant="outline"
                   className={cn(
                     "w-full justify-start text-left font-normal",
@@ -390,7 +390,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             
             {/* Search Input */}
             <div className="relative">
-              <Input data-testid="input-pr"
+              <Input
                 value={userSearchQuery}
                 onChange={(e) => {
                   setUserSearchQuery(e.target.value);
@@ -466,7 +466,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Visibility Tier */}
           <div className="space-y-2">
             <Label>Visibility</Label>
-            <Select data-testid="select-element" value={visibilityTier} onValueChange={setVisibilityTier}>
+            <Select value={visibilityTier} onValueChange={setVisibilityTier}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -485,10 +485,10 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button data-testid="button-cancel" variant="outline" onClick={onClose} disabled={loading}>
+            <Button variant="outline" onClick={onClose} disabled={loading}>
               Cancel
             </Button>
-            <Button data-testid="button-from" 
+            <Button 
               onClick={handleSubmit} 
               disabled={loading}
               className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"

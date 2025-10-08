@@ -906,7 +906,7 @@ export function PlatformFeatureDeepDive() {
     isExpanded: boolean; 
     onClick: () => void;
   }) => (
-    <button data-testid="button-w"
+    <button
       onClick={onClick}
       className="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
     >
@@ -936,7 +936,7 @@ export function PlatformFeatureDeepDive() {
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-        <input data-testid="input-w"
+        <input
           type="text"
           placeholder="Search features, components, APIs, or tables..."
           value={searchTerm}
@@ -951,7 +951,7 @@ export function PlatformFeatureDeepDive() {
           <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-2 max-h-[800px] overflow-y-auto">
             <h2 className="font-semibold text-gray-900 mb-3">Platform Features</h2>
             {filteredFeatures.map((feature) => (
-              <button data-testid="button-element"
+              <button
                 key={feature.name}
                 onClick={() => setSelectedFeature(feature.name)}
                 className={`w-full text-left p-3 rounded-lg transition-colors ${

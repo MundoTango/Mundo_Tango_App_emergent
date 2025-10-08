@@ -132,7 +132,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           {/* User Search */}
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <Input data-testid="input-pl"
+            <Input
               placeholder="Search users by name or username..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -171,7 +171,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           )}
 
           {/* Role Selection */}
-          <Select data-testid="select-element" value={selectedRole} onValueChange={setSelectedRole}>
+          <Select value={selectedRole} onValueChange={setSelectedRole}>
             <SelectTrigger>
               <SelectValue placeholder="Select a role for this event" />
             </SelectTrigger>
@@ -185,7 +185,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           </Select>
 
           {/* Invite Button */}
-          <Button data-testid="button-w"
+          <Button
             onClick={handleInviteUser}
             disabled={!selectedUserId || !selectedRole || inviteUserMutation.isPending}
             className="w-full bg-[#8E142E] hover:bg-[#6B0F22]"

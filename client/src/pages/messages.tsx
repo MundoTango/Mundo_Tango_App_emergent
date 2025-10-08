@@ -97,7 +97,7 @@ export default function Messages() {
                   <div className="p-4 border-b border-gray-200">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
-                      <Button data-testid="button-hover-bg" size="sm" className="bg-tango-red hover:bg-tango-red/90">
+                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
@@ -105,7 +105,7 @@ export default function Messages() {
                     {/* Search */}
                     <div className="relative">
                       <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-                      <Input data-testid="input-pl"
+                      <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}

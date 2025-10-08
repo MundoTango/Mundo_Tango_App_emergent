@@ -135,14 +135,14 @@ export default function HierarchyDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button data-testid="button-element"
+          <Button
             variant="outline"
             size="sm"
             onClick={() => setAutoRefresh(!autoRefresh)}
           >
             {autoRefresh ? 'Disable' : 'Enable'} Auto-refresh
           </Button>
-          <Button data-testid="button-element"
+          <Button
             variant="outline"
             size="sm"
             onClick={fetchMetrics}

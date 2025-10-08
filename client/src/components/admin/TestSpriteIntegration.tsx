@@ -267,7 +267,7 @@ export function TestSpriteIntegration() {
             ))}
           </div>
           
-          <Button data-testid="button-w" 
+          <Button 
             onClick={() => triggerTests.mutate(selectedSuite)}
             disabled={triggerTests.isPending}
             className="w-full"
@@ -291,7 +291,7 @@ export function TestSpriteIntegration() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Recent Test Results</CardTitle>
-          <Button data-testid="button-element" 
+          <Button 
             onClick={handleRefresh}
             variant="outline" 
             size="sm"

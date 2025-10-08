@@ -128,7 +128,7 @@ export default function EventAutocomplete({
       
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-        <Input data-testid="input-pl"
+        <Input
           id="event-search"
           type="text"
           value={inputValue}
@@ -169,7 +169,7 @@ export default function EventAutocomplete({
                 )}
               </div>
             </div>
-            <Button data-testid="button-hover-text"
+            <Button
               size="sm"
               variant="ghost"
               onClick={() => onSelect(null)}
@@ -193,7 +193,7 @@ export default function EventAutocomplete({
           {!isLoading && events && events.length > 0 && (
             <div className="py-1">
               {events.map((event: Event) => (
-                <button data-testid="button-w"
+                <button
                   key={event.id}
                   onClick={() => handleSelectEvent(event)}
                   className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -235,7 +235,7 @@ export default function EventAutocomplete({
                 No events found matching "{debouncedSearch}"
               </p>
               {allowCreate && (
-                <Button data-testid="button-w"
+                <Button
                   onClick={handleCreateNew}
                   variant="outline"
                   className="w-full"

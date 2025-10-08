@@ -173,7 +173,7 @@ export const EventDiscoveryFeed: React.FC = () => {
           <p className="text-gray-600 mt-1">Find amazing tango events near you</p>
         </div>
         
-        <Button data-testid="button-element"
+        <Button
           variant="outline"
           onClick={() => setShowFilters(!showFilters)}
           className="bg-white/50 border-white/30"
@@ -189,7 +189,7 @@ export const EventDiscoveryFeed: React.FC = () => {
           {/* Search Bar */}
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input data-testid="input-pl"
+            <Input
               placeholder="Search events..."
               value={filters.search}
               onChange={(e) => updateFilter('search', e.target.value)}
@@ -205,7 +205,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
                     Location
                   </label>
-                  <Input data-testid="input-element"
+                  <Input
                     placeholder="City or venue..."
                     value={filters.location}
                     onChange={(e) => updateFilter('location', e.target.value)}
@@ -217,7 +217,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
                     Start Date
                   </label>
-                  <Input data-testid="input-element"
+                  <Input
                     type="date"
                     value={filters.startDate}
                     onChange={(e) => updateFilter('startDate', e.target.value)}
@@ -229,7 +229,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <label className="text-sm font-medium text-gray-700 mb-2 block">
                     End Date
                   </label>
-                  <Input data-testid="input-element"
+                  <Input
                     type="date"
                     value={filters.endDate}
                     onChange={(e) => updateFilter('endDate', e.target.value)}
@@ -244,7 +244,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {popularTags.map((tag) => (
-                    <Button data-testid="button-element"
+                    <Button
                       key={tag}
                       variant={filters.tags.includes(tag) ? 'default' : 'outline'}
                       size="sm"
@@ -274,7 +274,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                       📍 {filters.location} ×
                     </Badge>
                   )}
-                  <Button data-testid="button-clear-all" variant="ghost" size="sm" onClick={clearFilters}>
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
                     Clear all
                   </Button>
                 </div>
@@ -301,7 +301,7 @@ export const EventDiscoveryFeed: React.FC = () => {
             <p className="text-gray-500 text-center mb-4">
               Try adjusting your filters or search terms
             </p>
-            <Button data-testid="button-clear-filters" onClick={clearFilters} variant="outline">
+            <Button onClick={clearFilters} variant="outline">
               Clear Filters
             </Button>
           </CardContent>
@@ -332,7 +332,7 @@ export const EventDiscoveryFeed: React.FC = () => {
           {/* Load More */}
           {hasMore && (
             <div className="flex justify-center">
-              <Button data-testid="button-element"
+              <Button
                 onClick={() => fetchEvents(false)}
                 disabled={loadingMore}
                 variant="outline"

@@ -271,7 +271,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 )}
               </div>
             </div>
-            <Button data-testid="button-hover-text"
+            <Button
               variant="ghost"
               size="sm"
               onClick={handleClose}
@@ -291,7 +291,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               { id: 'development', label: 'Development Work', icon: Code2 },
               { id: 'reviews', label: 'Human Reviews', icon: Users }
             ].map((tab) => (
-              <button data-testid="button-element"
+              <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
@@ -472,7 +472,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                                   <div className="space-y-1">
                                     {phase.codeRefs.map((ref, i) => (
                                       <div key={i} className="flex items-center gap-2 text-xs">
-                                        <Link data-testid="link-h" className="h-3 w-3 text-blue-500" />
+                                        <Link className="h-3 w-3 text-blue-500" />
                                         <code className="bg-gray-100 px-2 py-1 rounded">{ref}</code>
                                       </div>
                                     ))}
@@ -482,12 +482,12 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               
                               {/* Action buttons */}
                               <div className="flex gap-2 mt-4">
-                                <Button data-testid="button-element" variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs">
                                   <Eye className="h-3 w-3 mr-1" />
                                   View Details
                                 </Button>
                                 {phase.status === 'in progress' && (
-                                  <Button data-testid="button-element" variant="outline" size="sm" className="text-xs">
+                                  <Button variant="outline" size="sm" className="text-xs">
                                     <Github className="h-3 w-3 mr-1" />
                                     View Code
                                   </Button>
@@ -554,7 +554,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           </div>
                           
                           {review.status === 'pending' && (
-                            <Button data-testid="button-w" 
+                            <Button 
                               variant="outline" 
                               size="sm" 
                               className="w-full text-xs"
@@ -588,10 +588,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               Last updated: {new Date().toLocaleDateString()}
             </div>
             <div className="flex gap-3">
-              <Button data-testid="button-close" variant="outline" onClick={handleClose}>
+              <Button variant="outline" onClick={handleClose}>
                 Close
               </Button>
-              <Button data-testid="button-hover-bg" className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 <Star className="h-4 w-4 mr-2" />
                 Mark as Favorite
               </Button>

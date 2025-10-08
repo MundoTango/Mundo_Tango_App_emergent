@@ -258,7 +258,7 @@ export default function EnhancedPostFeedSimple({
                     </div>
                   </div>
                 </div>
-                <button data-testid="button-element" className={cn(
+                <button className={cn(
                   "p-2 rounded-lg transition-colors",
                   theme === 'light' 
                     ? "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
@@ -279,7 +279,7 @@ export default function EnhancedPostFeedSimple({
                 {renderWithMentions(post.content)}
               </p>
               {post.content.length > 200 && (
-                <button data-testid="button-hover-text"
+                <button
                   onClick={() => toggleExpanded(post.id)}
                   className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors"
                 >
@@ -387,7 +387,7 @@ export default function EnhancedPostFeedSimple({
                   onMouseEnter={() => setHoveredReaction(post.id)}
                   onMouseLeave={() => setHoveredReaction(null)}
                 >
-                  <button data-testid="button-element"
+                  <button
                     onClick={() => onReaction?.(post.id, 'like')}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
@@ -409,7 +409,7 @@ export default function EnhancedPostFeedSimple({
                       {reactions.map(reaction => {
                         const Icon = reaction.icon;
                         return (
-                          <button data-testid="button-element"
+                          <button
                             key={reaction.type}
                             onClick={() => {
                               onReaction?.(post.id, reaction.type);
@@ -429,7 +429,7 @@ export default function EnhancedPostFeedSimple({
                 </div>
 
                 {/* Comment */}
-                <button data-testid="button-element"
+                <button
                   onClick={() => onComment?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
@@ -443,7 +443,7 @@ export default function EnhancedPostFeedSimple({
                 </button>
 
                 {/* Share */}
-                <button data-testid="button-element"
+                <button
                   onClick={() => onShare?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",

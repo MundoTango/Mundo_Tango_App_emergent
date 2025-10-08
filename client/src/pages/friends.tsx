@@ -233,7 +233,7 @@ export default function FriendsPage() {
             <h1 className="text-3xl font-bold text-gray-900">Friends</h1>
             <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
           </div>
-          <Button data-testid="button-from"
+          <Button
             onClick={() => setShowSendRequestModal(true)}
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
           >
@@ -281,7 +281,7 @@ export default function FriendsPage() {
         <Card className="mb-6 p-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input data-testid="input-pl"
+            <Input
               type="text"
               placeholder="Search friends by name or username..."
               value={searchQuery}
@@ -302,7 +302,7 @@ export default function FriendsPage() {
             ].map((tab) => {
               const Icon = tab.icon;
               return (
-                <button data-testid="button-element"
+                <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-3 font-medium transition-colors ${
@@ -359,7 +359,7 @@ export default function FriendsPage() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button data-testid="button-from"
+                        <Button
                           size="sm"
                           onClick={() => handleAcceptRequest(request)}
                           className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
@@ -367,7 +367,7 @@ export default function FriendsPage() {
                           <Check className="w-4 h-4 mr-1" />
                           Accept
                         </Button>
-                        <Button data-testid="button-element"
+                        <Button
                           size="sm"
                           variant="outline"
                           onClick={() => handleDeclineRequest(request)}
@@ -431,7 +431,7 @@ export default function FriendsPage() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button data-testid="button-element" size="sm" variant="outline">
+                        <Button size="sm" variant="outline">
                           <MessageCircle className="w-4 h-4" />
                         </Button>
                       </div>
@@ -464,7 +464,7 @@ export default function FriendsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Search for users
                 </label>
-                <Input data-testid="input-element"
+                <Input
                   type="text"
                   placeholder="Type a name or username..."
                   onChange={(e) => searchUsers(e.target.value)}
@@ -507,7 +507,7 @@ export default function FriendsPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Add a note (optional)
                   </label>
-                  <Textarea data-testid="textarea-element"
+                  <Textarea
                     placeholder="Hi! I'd love to connect..."
                     value={requestNote}
                     onChange={(e) => setRequestNote(e.target.value)}
@@ -518,7 +518,7 @@ export default function FriendsPage() {
 
               {/* Actions */}
               <div className="flex gap-2">
-                <Button data-testid="button-flex"
+                <Button
                   onClick={handleSendRequest}
                   disabled={!selectedUser || sendRequestMutation.isPending}
                   className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
@@ -526,7 +526,7 @@ export default function FriendsPage() {
                   <Send className="w-4 h-4 mr-2" />
                   Send Request
                 </Button>
-                <Button data-testid="button-cancel"
+                <Button
                   variant="outline"
                   onClick={() => {
                     setShowSendRequestModal(false);

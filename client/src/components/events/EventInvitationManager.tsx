@@ -116,7 +116,7 @@ export default function EventInvitationManager() {
           
           {invitation.status === 'pending' && (
             <div className="flex space-x-2 ml-4">
-              <Button data-testid="button-hover-bg"
+              <Button
                 size="sm"
                 onClick={() => handleAccept(invitation.id)}
                 disabled={updateStatusMutation.isPending}
@@ -125,7 +125,7 @@ export default function EventInvitationManager() {
                 <CheckCircle className="h-4 w-4 mr-1" />
                 Accept
               </Button>
-              <Button data-testid="button-hover-bg"
+              <Button
                 size="sm"
                 variant="outline"
                 onClick={() => handleDecline(invitation.id)}

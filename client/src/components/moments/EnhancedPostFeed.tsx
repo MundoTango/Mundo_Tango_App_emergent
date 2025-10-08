@@ -276,7 +276,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
 
         <div className="flex flex-wrap gap-3 mb-6">
           {['all', 'following', 'nearby'].map((filter) => (
-            <button data-testid="button-element"
+            <button
               key={filter}
               onClick={() => setFilterBy(filter as any)}
               className={`
@@ -306,7 +306,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
           <div className="flex gap-3">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-indigo-400" />
-              <input data-testid="input-w"
+              <input
                 type="text"
                 value={tagInput}
                 onChange={(e) => setTagInput(e.target.value)}
@@ -315,7 +315,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                 className="w-full pl-12 pr-4 py-3 bg-white/80 border border-indigo-200/50 rounded-2xl text-gray-900 placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all"
               />
             </div>
-            <button data-testid="button-px"
+            <button
               onClick={addTag}
               disabled={!tagInput.trim()}
               className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-300"
@@ -334,7 +334,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                   className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition-colors"
                 >
                   #{tag}
-                  <button data-testid="button-p"
+                  <button
                     onClick={() => removeTag(tag)}
                     className="p-0.5 hover:bg-indigo-200 rounded-full transition-colors"
                   >
@@ -400,7 +400,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                 }
               </p>
               {filterTags.length > 0 && (
-                <button data-testid="button-inline"
+                <button
                   onClick={() => setFilterTags([])}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
                 >

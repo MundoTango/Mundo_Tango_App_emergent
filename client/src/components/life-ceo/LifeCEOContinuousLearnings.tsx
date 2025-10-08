@@ -167,7 +167,7 @@ export default function LifeCEOContinuousLearnings() {
               </CardDescription>
             </div>
             <div className="flex gap-2">
-              <Button data-testid="button-element"
+              <Button
                 variant={isCapturing ? "default" : "outline"}
                 size="sm"
                 onClick={() => setIsCapturing(!isCapturing)}
@@ -185,7 +185,7 @@ export default function LifeCEOContinuousLearnings() {
                   </>
                 )}
               </Button>
-              <Button data-testid="button-element"
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
@@ -338,7 +338,7 @@ export default function LifeCEOContinuousLearnings() {
                                         Applied
                                       </Badge>
                                     )}
-                                    <Button data-testid="button-element"
+                                    <Button
                                       size="sm"
                                       variant="ghost"
                                       onClick={() => sendToJiraMutation.mutate(learning)}

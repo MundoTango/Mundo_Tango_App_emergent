@@ -377,7 +377,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   <Bot className="w-5 h-5 text-teal-500" />
                   <span className="font-semibold">Voice Assistant</span>
                 </div>
-                <Button data-testid="button-element"
+                <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsExpanded(false)}
@@ -428,7 +428,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
               {/* Controls */}
               <div className="flex gap-2">
-                <Button data-testid="button-element"
+                <Button
                   variant={isListening ? "default" : "outline"}
                   size="icon"
                   onClick={toggleListening}
@@ -444,7 +444,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   )}
                 </Button>
 
-                <Button data-testid="button-element"
+                <Button
                   variant="outline"
                   size="icon"
                   onClick={() => textToSpeech.stop()}
@@ -459,7 +459,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button data-testid="button-element" variant="outline" size="icon">
+                    <Button variant="outline" size="icon">
                       <Languages className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -481,7 +481,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                <Button data-testid="button-element"
+                <Button
                   variant="outline"
                   size="icon"
                   onClick={() => setShowSettings(true)}
@@ -619,7 +619,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
             {/* Test Voice */}
             <div>
-              <Button data-testid="button-w"
+              <Button
                 variant="outline"
                 className="w-full"
                 onClick={() => speakResponse("Hello! This is a test of the voice settings.")}

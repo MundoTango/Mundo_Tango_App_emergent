@@ -285,7 +285,7 @@ export default function SecurityDemo() {
               </div>
             ))}
             
-            <Button data-testid="button-w" onClick={runAllTests} className="w-full" size="lg">
+            <Button onClick={runAllTests} className="w-full" size="lg">
               Run All Security Tests
             </Button>
           </CardContent>
@@ -305,12 +305,12 @@ export default function SecurityDemo() {
             <div>
               <label className="text-sm font-medium">Chat Message Test</label>
               <div className="flex gap-2 mt-1">
-                <Input data-testid="input-element"
+                <Input
                   placeholder="Enter test message"
                   value={chatMessage}
                   onChange={(e) => setChatMessage(e.target.value)}
                 />
-                <Button data-testid="button-send" onClick={testChatAccess} size="sm">
+                <Button onClick={testChatAccess} size="sm">
                   Send
                 </Button>
               </div>
@@ -319,13 +319,13 @@ export default function SecurityDemo() {
             <div>
               <label className="text-sm font-medium">Friend ID for Testing</label>
               <div className="flex gap-2 mt-1">
-                <Input data-testid="input-element"
+                <Input
                   type="number"
                   placeholder="Enter friend user ID"
                   value={selectedFriend}
                   onChange={(e) => setSelectedFriend(e.target.value)}
                 />
-                <Button data-testid="button-element" onClick={testFriendRequest} size="sm">
+                <Button onClick={testFriendRequest} size="sm">
                   <Heart className="h-4 w-4" />
                 </Button>
               </div>
@@ -334,13 +334,13 @@ export default function SecurityDemo() {
             <div>
               <label className="text-sm font-medium">Event Feedback (Safety Report)</label>
               <div className="flex gap-2 mt-1">
-                <Textarea data-testid="textarea-element"
+                <Textarea
                   placeholder="Enter safety concern"
                   value={eventFeedback}
                   onChange={(e) => setEventFeedback(e.target.value)}
                   rows={2}
                 />
-                <Button data-testid="button-report" onClick={testEventFeedback} size="sm">
+                <Button onClick={testEventFeedback} size="sm">
                   Report
                 </Button>
               </div>
@@ -349,12 +349,12 @@ export default function SecurityDemo() {
             <div>
               <label className="text-sm font-medium">Memory Title for Tagging</label>
               <div className="flex gap-2 mt-1">
-                <Input data-testid="input-element"
+                <Input
                   placeholder="Enter memory title"
                   value={memoryTitle}
                   onChange={(e) => setMemoryTitle(e.target.value)}
                 />
-                <Button data-testid="button-element" onClick={testMemoryTagging} size="sm">
+                <Button onClick={testMemoryTagging} size="sm">
                   <Calendar className="h-4 w-4" />
                 </Button>
               </div>
@@ -382,7 +382,7 @@ export default function SecurityDemo() {
               ))
             )}
           </div>
-          <Button data-testid="button-mt" 
+          <Button 
             onClick={() => setLogs([])} 
             variant="outline" 
             size="sm" 

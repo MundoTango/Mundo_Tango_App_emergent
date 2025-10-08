@@ -76,7 +76,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             <p className="text-gray-600">Professional experience in the tango community</p>
           </div>
           <div className="flex space-x-2">
-            <Button data-testid="button-flex"
+            <Button
               variant="outline"
               onClick={handleShareResume}
               className="flex items-center space-x-2"
@@ -84,7 +84,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
               <Share2 className="h-4 w-4" />
               <span>Share</span>
             </Button>
-            <Button data-testid="button-hover-bg"
+            <Button
               onClick={handleDownloadPDF}
               className="bg-[#8E142E] hover:bg-[#6B0F22] flex items-center space-x-2"
             >

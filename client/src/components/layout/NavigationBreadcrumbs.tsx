@@ -183,7 +183,7 @@ export default function NavigationBreadcrumbs() {
                     </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
-                      <Link data-testid="link-hover-text" 
+                      <Link 
                         href={item.href} 
                         className="text-gray-600 hover:text-gray-900 transition-colors"
                       >

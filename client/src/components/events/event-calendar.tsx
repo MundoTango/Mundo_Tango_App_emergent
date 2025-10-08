@@ -88,14 +88,14 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 {monthNames[currentMonth]} {currentYear}
               </CardTitle>
               <div className="flex space-x-2">
-                <Button data-testid="button-element"
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={() => navigateMonth('prev')}
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <Button data-testid="button-element"
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={() => navigateMonth('next')}
@@ -125,7 +125,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 const hasEvents = dayEvents.length > 0;
 
                 return (
-                  <button data-testid="button-element"
+                  <button
                     key={index}
                     onClick={() => setSelectedDate(date)}
                     className={`
@@ -208,7 +208,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                         <Badge variant="secondary" className="text-xs">
                           {event.currentAttendees} attending
                         </Badge>
-                        <Button data-testid="button-hover-bg" size="sm" className="bg-tango-red hover:bg-tango-red/90">
+                        <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
                           View Details
                         </Button>
                       </div>

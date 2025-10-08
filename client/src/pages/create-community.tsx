@@ -119,7 +119,7 @@ export default function CreateCommunityPage() {
       <div className="max-w-3xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <button data-testid="button-flex"
+          <button
             onClick={() => setLocation('/groups')}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
           >
@@ -141,8 +141,8 @@ export default function CreateCommunityPage() {
         </div>
 
         {/* Form */}
-        <Form data-testid="form-element" {...form}>
-          <form data-testid="form-space" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Cover Image */}
             <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
@@ -161,7 +161,7 @@ export default function CreateCommunityPage() {
                     </div>
                   )}
                 </div>
-                <input data-testid="input-absolute"
+                <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
@@ -182,7 +182,7 @@ export default function CreateCommunityPage() {
                   <FormItem>
                     <FormLabel className="text-sm font-medium">Community Name</FormLabel>
                     <FormControl>
-                      <Input data-testid="input-rounded"
+                      <Input
                         {...field}
                         placeholder="e.g., Buenos Aires Tango Collective"
                         className="rounded-lg"
@@ -200,7 +200,7 @@ export default function CreateCommunityPage() {
                   <FormItem>
                     <FormLabel className="text-sm font-medium">Description</FormLabel>
                     <FormControl>
-                      <Textarea data-testid="textarea-rounded"
+                      <Textarea
                         {...field}
                         placeholder="Tell us about your community..."
                         className="rounded-lg min-h-[100px]"
@@ -218,7 +218,7 @@ export default function CreateCommunityPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Community Type</FormLabel>
-                      <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select type" />
@@ -254,7 +254,7 @@ export default function CreateCommunityPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Privacy</FormLabel>
-                      <Select data-testid="select-element" onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select privacy" />
@@ -292,7 +292,7 @@ export default function CreateCommunityPage() {
                   <FormItem>
                     <FormLabel className="text-sm font-medium">Location</FormLabel>
                     <FormControl>
-                      <Input data-testid="input-rounded"
+                      <Input
                         {...field}
                         placeholder="Where is your community based?"
                         className="rounded-lg"
@@ -306,7 +306,7 @@ export default function CreateCommunityPage() {
 
             {/* Submit Button */}
             <div className="flex justify-end gap-4">
-              <Button data-testid="button-rounded"
+              <Button
                 type="button"
                 variant="outline"
                 onClick={() => setLocation('/groups')}
@@ -314,7 +314,7 @@ export default function CreateCommunityPage() {
               >
                 Cancel
               </Button>
-              <Button data-testid="button-from"
+              <Button
                 type="submit"
                 disabled={createCommunityMutation.isPending}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg px-6"

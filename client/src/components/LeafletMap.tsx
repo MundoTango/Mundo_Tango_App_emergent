@@ -143,7 +143,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                     <span className="text-gray-600">events</span>
                   </div>
                 </div>
-                <button data-testid="button-mt" className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
+                <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
                   View Group
                 </button>
               </div>
@@ -179,7 +179,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                   <span className="text-gray-600">events</span>
                 </div>
               </div>
-              <button data-testid="button-mt" className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
+              <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
                 View Group
               </button>
             </div>

@@ -378,7 +378,7 @@ export default function EnhancedRoleManager() {
                     <h4 className="font-medium">Test Key Permissions:</h4>
                     <div className="flex gap-2 flex-wrap">
                       {['create_events', 'moderate_content', 'manage_users', 'upload_media', 'create_posts'].map(perm => (
-                        <Button data-testid="button-test"
+                        <Button
                           key={perm}
                           variant="outline"
                           size="sm"
@@ -478,7 +478,7 @@ export default function EnhancedRoleManager() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="text-sm font-medium">Select User</label>
-                      <Select data-testid="select-element" value={selectedUser} onValueChange={setSelectedUser}>
+                      <Select value={selectedUser} onValueChange={setSelectedUser}>
                         <SelectTrigger>
                           <SelectValue placeholder="Choose a user" />
                         </SelectTrigger>
@@ -499,7 +499,7 @@ export default function EnhancedRoleManager() {
 
                     <div>
                       <label className="text-sm font-medium">Role to Assign</label>
-                      <Select data-testid="select-element" value={selectedRole} onValueChange={setSelectedRole}>
+                      <Select value={selectedRole} onValueChange={setSelectedRole}>
                         <SelectTrigger>
                           <SelectValue placeholder="Choose a role" />
                         </SelectTrigger>
@@ -518,7 +518,7 @@ export default function EnhancedRoleManager() {
                     </div>
 
                     <div className="flex items-end">
-                      <Button data-testid="button-w" 
+                      <Button 
                         onClick={assignRole} 
                         disabled={updating || !selectedUser || !selectedRole}
                         className="w-full"
@@ -566,7 +566,7 @@ export default function EnhancedRoleManager() {
                                       {getRoleIcon(role)}
                                       <span>{role.replace(/_/g, ' ')}</span>
                                       {role !== 'guest' && (
-                                        <button data-testid="button-ml"
+                                        <button
                                           onClick={() => removeRole(user.id, role)}
                                           className="ml-1 text-red-500 hover:text-red-700"
                                           title="Remove role"
@@ -616,7 +616,7 @@ export default function EnhancedRoleManager() {
                   'organize_tours', 'offer_wellness_services', 'create_educational_content',
                   'manage_accommodations', 'curate_memories', 'handle_reports'
                 ].map(permission => (
-                  <Button data-testid="button-justify"
+                  <Button
                     key={permission}
                     variant="outline"
                     size="sm"

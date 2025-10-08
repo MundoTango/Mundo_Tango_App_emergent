@@ -128,7 +128,7 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
             {/* Action Buttons */}
             <div className="flex gap-3">
               {isOwnProfile ? (
-                <button data-testid="button-tt" 
+                <button 
                   className="tt-btn tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100"
                   onClick={onEditProfile}
                 >
@@ -136,13 +136,13 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
                 </button>
               ) : (
                 <>
-                  <button data-testid="button-element" 
+                  <button 
                     className={`tt-btn ${isFollowing ? 'tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100' : 'bg-white text-gray-900 hover:bg-gray-100'}`}
                     onClick={onFollow}
                   >
                     {isFollowing ? 'Following' : 'Follow'}
                   </button>
-                  <button data-testid="button-tt" 
+                  <button 
                     className="tt-btn tt-btn-outline bg-transparent text-white border-white hover:bg-white hover:text-gray-900"
                     onClick={onMessage}
                   >

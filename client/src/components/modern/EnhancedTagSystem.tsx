@@ -133,7 +133,7 @@ export default function EnhancedTagSystem({
                   {activeTags.length} active filter{activeTags.length > 1 ? 's' : ''}
                 </span>
               </div>
-              <button data-testid="button-hover-text"
+              <button
                 onClick={onClearAll}
                 className="text-sm text-gray-500 hover:text-red-500 transition-colors"
               >
@@ -149,7 +149,7 @@ export default function EnhancedTagSystem({
             <div className="flex-1 relative group">
               <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 
                               group-focus-within:text-cyan-500 transition-colors duration-300" />
-              <input data-testid="input-w"
+              <input
                 type="text"
                 value={tagInput}
                 onChange={(e) => {
@@ -166,7 +166,7 @@ export default function EnhancedTagSystem({
                          transition-all duration-300"
               />
             </div>
-            <button data-testid="button-mt"
+            <button
               onClick={() => handleAddTag()}
               disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
               className="mt-ocean-gradient hover:opacity-90 
@@ -190,7 +190,7 @@ export default function EnhancedTagSystem({
                 className="absolute z-10 w-full mt-2 glassmorphic rounded-2xl shadow-2xl overflow-hidden"
               >
                 {suggestedTags.map((tag) => (
-                  <button data-testid="button-w"
+                  <button
                     key={tag}
                     onClick={() => handleAddTag(tag)}
                     className="w-full px-5 py-3 text-left hover:bg-cyan-50 dark:hover:bg-cyan-900/20 
@@ -221,7 +221,7 @@ export default function EnhancedTagSystem({
                 >
                   <Tag className="w-4 h-4" />
                   <span className="font-bold text-lg">{tag}</span>
-                  <button data-testid="button-ml"
+                  <button
                     onClick={() => onRemoveTag(tag)}
                     className="ml-2 p-2 rounded-xl text-cyan-500 hover:text-red-500 
                              hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 hover:scale-110"
@@ -250,7 +250,7 @@ export default function EnhancedTagSystem({
           {/* Category Selector */}
           <div className="flex gap-2">
             {(['trending', 'recent', 'popular'] as const).map((category) => (
-              <button data-testid="button-element"
+              <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
@@ -384,7 +384,7 @@ export default function EnhancedTagSystem({
           </p>
           <div className="flex flex-wrap gap-2">
             {['milonga', 'performance', 'class', 'social', 'vals', 'practica', 'festival', 'workshop'].map((suggestion) => (
-              <button data-testid="button-element"
+              <button
                 key={suggestion}
                 onClick={() => handleAddTag(suggestion)}
                 disabled={activeTags.includes(suggestion)}
@@ -415,7 +415,7 @@ export default function EnhancedTagSystem({
                 Live tag activity • {liveUpdates.comments.length} new posts with tags
               </p>
             </div>
-            <button data-testid="button-hover-text" className="text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300">
+            <button className="text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300">
               View all
             </button>
           </div>

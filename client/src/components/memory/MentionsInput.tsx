@@ -286,7 +286,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
   return (
     <div className={`mentions-container relative ${className}`}>
-      <textarea data-testid="textarea-w"
+      <textarea
         ref={textareaRef}
         value={value}
         onChange={handleTextChange}

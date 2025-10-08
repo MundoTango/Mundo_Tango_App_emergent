@@ -314,7 +314,7 @@ export default function ResumePage() {
         {/* Export Controls */}
         <div className="flex items-center space-x-2">
           {/* Copy Public Link Button */}
-          <Button data-testid="button-hover-bg"
+          <Button
             onClick={handleCopyPublicLink}
             className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded flex items-center space-x-1"
           >
@@ -324,7 +324,7 @@ export default function ResumePage() {
           
           {/* Format Dropdown */}
           <div className="relative">
-            <Button data-testid="button-flex"
+            <Button
               variant="outline"
               onClick={() => setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
               className="flex items-center space-x-1"
@@ -335,7 +335,7 @@ export default function ResumePage() {
           </div>
           
           {/* Download Button */}
-          <Button data-testid="button-px"
+          <Button
             onClick={handleExport}
             disabled={!resumeData?.data?.length || isExporting}
             className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
