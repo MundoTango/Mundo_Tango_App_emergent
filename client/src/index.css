@@ -1969,7 +1969,7 @@ body {
   backdrop-filter: blur(10px) !important;
   border-radius: 16px !important;
   box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
-  border: 1px solid rgba(56, 178, 172, 0.2) !important;
+  border: 1px solid hsl(177 72% 56% / 0.2) !important;
 }
 
 .enhanced-map-popup .leaflet-popup-tip {
@@ -1979,7 +1979,7 @@ body {
 .map-marker-enhanced.cluster {
   width: 48px !important;
   height: 48px !important;
-  background: linear-gradient(135deg, #38b2ac, #06b6d4) !important;
+  background: linear-gradient(135deg, hsl(177, 72%, 56%), hsl(210, 100%, 56%)) !important;
 }
 
 .marker-icon {
