@@ -49,7 +49,7 @@ import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 // See client/src/config/routes.ts for the complete route configuration
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
-const LoadingFallback = ({ message = {t('states.loading', 'Loading...')} }: { message?: string }) => (
+const LoadingFallback = ({ message = 'Loading...' }: { message?: string }) => (
   <div style={{ 
     minHeight: '100vh', 
     display: 'flex', 
