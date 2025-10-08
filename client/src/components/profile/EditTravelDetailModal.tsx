@@ -47,7 +47,7 @@ interface TravelDetailForm {
 
 const eventTypes = [
 {
-  const { t } = useTranslation(); value: 'festival', label: 'Festival' },
+  value: 'festival', label: 'Festival' },
 { value: 'marathon', label: 'Marathon' },
 { value: 'workshop', label: 'Workshop' },
 { value: 'conference', label: 'Conference' },
@@ -97,14 +97,14 @@ export const EditTravelDetailModal: React.FC<EditTravelDetailModalProps> = ({ is
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Travel detail updated successfully"
       });
       onClose();
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to update travel detail",
         variant: "destructive"
       });

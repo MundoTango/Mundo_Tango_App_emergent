@@ -242,7 +242,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
               type="text"
               placeholder="Search by filename or folder..."
               value={searchTerm}
-              onChange={(e) = aria-label="Input field"> setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)} aria-label="Input field"
               className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -327,7 +327,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             type="text"
                             placeholder="Add a caption for this reuse..."
                             value={metadata?.caption || ''}
-                            onChange={(e) = aria-label="Input field"> updateMediaMetadata(media.id, { caption: e.target.value })}
+                            onChange={(e) => updateMediaMetadata(media.id, { caption: e.target.value)} aria-label="Input field"}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
@@ -350,10 +350,9 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                   <button
-                                    onClick={(e) = aria-label="Button"> {
+                                    onClick={(e) => {
                                       e.stopPropagation();
-                                      removeTagFromMedia(media.id, tag);
-                                    }}
+                                      removeTagFromMedia(media.id, tag);}} aria-label="Button"
                                     className="ml-1 hover:text-red-500"
                                   >
                                     <X className="w-3 h-3" />
@@ -369,11 +368,10 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               type="text"
                               placeholder="Add tag..."
                               value={tagInput}
-                              onChange={(e) = aria-label="Input field"> {
+                              onChange={(e) => {
                                 const newInput = new Map(newTagInput);
                                 newInput.set(media.id, e.target.value);
-                                setNewTagInput(newInput);
-                              }}
+                                setNewTagInput(newInput);}} aria-label="Input field"
                               onKeyPress={(e) => {
                                 if (e.key === 'Enter') {
                                   e.preventDefault();
@@ -384,10 +382,9 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
-                              onClick={(e) = aria-label="Button"> {
+                              onClick={(e) => {
                                 e.stopPropagation();
-                                addTagToMedia(media.id, tagInput);
-                              }}
+                                addTagToMedia(media.id, tagInput);}} aria-label="Button"
                               className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                             >
                               Add
@@ -405,7 +402,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             min="0"
                             max="100"
                             value={metadata?.sortOrder || 0}
-                            onChange={(e) = aria-label="Input field"> updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
+                            onChange={(e) => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0} aria-label="Input field")}
                             onClick={(e) => e.stopPropagation()}
                             className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                           />

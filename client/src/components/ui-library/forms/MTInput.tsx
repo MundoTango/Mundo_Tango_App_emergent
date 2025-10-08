@@ -115,7 +115,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
             error && 'border-red-500 dark:border-red-500 focus:ring-red-500/50',
             className
           )}
-          onFocus={() = aria-label="Input field"> setIsFocused(true)}
+          onFocus={() => setIsFocused(true)} aria-label="Input field"
           onBlur={() => setIsFocused(false)}
           {...props} data-testid="input-element" />
 

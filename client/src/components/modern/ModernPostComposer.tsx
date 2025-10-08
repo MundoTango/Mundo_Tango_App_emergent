@@ -192,7 +192,7 @@ export default function ModernPostComposer({
               <button
                 onClick={() => {
                   setSelectedMedia(null);
-                  setExistingMediaUrl(null);} aria-label="Button"}
+                  setExistingMediaUrl(null);}} aria-label="Button"
                 className="p-3 rounded-2xl text-blue-400 hover:text-red-500 hover:bg-red-50 
                          transition-all duration-300 hover:scale-110"
               >
@@ -211,7 +211,8 @@ export default function ModernPostComposer({
                 accept="image/*"
                 onChange={handleMediaSelect}
                 className="hidden"
-              / aria-label="Input field">
+              aria-label="Input field"
+            />
               <div className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-coral-50 text-coral-600 
                             hover:bg-coral-100 hover:text-coral-700 font-bold transition-all duration-300 
                             transform hover:scale-105 shadow-lg hover:shadow-xl">
@@ -238,7 +239,7 @@ export default function ModernPostComposer({
                      flex items-center space-x-3 group"
            aria-label="Button">
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            <span>{editMode ? {t('actions.save', 'Save')} : 'Post'}</span>
+            <span>{editMode ? t('actions.save', 'Save') : 'Post'}</span>
           </button>
         </div>
       </div>

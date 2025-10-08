@@ -208,12 +208,11 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                     <input
                     type="checkbox"
                     checked={formData.tangoRoles.includes(role.value)}
-                    onChange={(e) = aria-label="Input field"> {
+                    onChange={(e) => {
                       if (e.target.checked) {
                         setFormData((prev) => ({
                           ...prev,
-                          tangoRoles: [...prev.tangoRoles, role.value]
-                        }));
+                          tangoRoles: [...prev.tangoRoles, role.value]} aria-label="Input field"));
                       } else {
                         setFormData((prev) => ({
                           ...prev,

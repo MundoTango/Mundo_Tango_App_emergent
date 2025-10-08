@@ -37,7 +37,7 @@ interface CommunityFormData {
 
 const COMMUNITY_TYPES = [
 {
-  const { t } = useTranslation(); value: 'city', label: 'City Group', icon: MapPin },
+  value: 'city', label: 'City Group', icon: MapPin },
 { value: 'practice', label: 'Practice Group', icon: Code },
 { value: 'professional', label: 'Professional Network', icon: Users },
 { value: 'music', label: 'Music & DJs', icon: Music },
@@ -90,7 +90,7 @@ export default function CreateCommunity() {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || 'Failed to create community. Please try again.',
         variant: 'destructive'
       });

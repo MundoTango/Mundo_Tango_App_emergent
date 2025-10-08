@@ -156,7 +156,7 @@ const InternationalIconTooltip = ({
         ref={iconRef}
         type="button"
         onClick={handleToggle}
-        onMouseEnter={() = aria-label="Button"> !isTouchDevice && setIsVisible(true)}
+        onMouseEnter={() => !isTouchDevice && setIsVisible(true)} aria-label="Button"
         onMouseLeave={() => !isTouchDevice && setIsVisible(false)}
         onFocus={() => setIsVisible(true)}
         onBlur={() => setIsVisible(false)}

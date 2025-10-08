@@ -447,7 +447,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             type="url"
             placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
             value={embedUrl}
-            onChange={(e) = aria-label="Input field"> setEmbedUrl(e.target.value)}
+            onChange={(e) => setEmbedUrl(e.target.value)} aria-label="Input field"
             className="w-full px-4 py-2 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" data-testid="input-url" />
 
           </div>
@@ -556,7 +556,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           type="file"
           multiple
           accept="image/*,video/*"
-          onChange={(e) = aria-label="Input field"> handleFileUpload(e.target.files)}
+          onChange={(e) => handleFileUpload(e.target.files)} aria-label="Input field"
           className="hidden" data-testid="input-file" />
 
       </div>

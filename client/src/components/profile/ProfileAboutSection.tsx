@@ -224,7 +224,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
     },
     onSuccess: (response) => {
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Profile updated successfully"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/users/', user.id] });
@@ -233,7 +233,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to update profile",
         variant: "destructive"
       });

@@ -208,7 +208,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to send message. Please try again.',
         variant: 'destructive'
       });

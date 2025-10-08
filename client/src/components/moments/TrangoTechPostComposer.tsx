@@ -55,13 +55,13 @@ export default function TrangoTechPostComposer() {
       });
       setShowExpandedComposer(false);
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Your post has been shared!",
       });
     },
     onError: (error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to create post. Please try again.",
         variant: "destructive",
       });
@@ -225,7 +225,7 @@ export default function TrangoTechPostComposer() {
                     type="text"
                     placeholder="Add location..."
                     value={newPost.location}
-                    onChange={(e) = aria-label="Input field"> setNewPost(prev => ({ ...prev, location: e.target.value }))}
+                    onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value)} aria-label="Input field")}
                     className="flex-1 outline-none"
                   />
                 </div>
@@ -241,7 +241,8 @@ export default function TrangoTechPostComposer() {
                         accept="image/*"
                         onChange={handleImageUpload}
                         className="hidden"
-                      / aria-label="Input field">
+              aria-label="Input field"
+            />
                     </label>
                     
                     <label className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-blue-50 border border-blue-200 rounded-lg cursor-pointer transition-colors">
@@ -252,7 +253,8 @@ export default function TrangoTechPostComposer() {
                         accept="video/*"
                         onChange={handleVideoUpload}
                         className="hidden"
-                      / aria-label="Input field">
+              aria-label="Input field"
+            />
                     </label>
                   </div>
                     

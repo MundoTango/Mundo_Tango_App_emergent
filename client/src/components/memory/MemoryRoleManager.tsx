@@ -69,7 +69,7 @@ export function MemoryRoleManager() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to submit custom role request.",
         variant: "destructive"
       });
@@ -455,7 +455,7 @@ export function MemoryRoleManager() {
         onClose={() => setShowCreateMemoryModal(false)}
         onMemoryCreated={(memory) => {
           toast({
-            title: {t('states.success', 'Success')},
+            title: t('states.success', 'Success'),
             description: "Memory created successfully!"
           });
           setShowCreateMemoryModal(false);

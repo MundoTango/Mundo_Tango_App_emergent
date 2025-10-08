@@ -48,13 +48,12 @@ interface SidebarProps {
 // Organized navigation structure for ESA LIFE CEO 61x21 platform (72 pages)
 const SIDEBAR_SECTIONS = [
 {
-  const { t } = useTranslation();
   title: "Main",
   routes: [
   { title: "Feed", icon: <Home className="w-5 h-5" />, link: "/memories" },
-  { title: {t('navigation.profile', 'Profile')}, icon: <User className="w-5 h-5" />, link: "/profile" },
-  { title: {t('actions.search', 'Search')}, icon: <Search className="w-5 h-5" />, link: "/search" },
-  { title: {t('navigation.settings', 'Settings')}, icon: <Settings className="w-5 h-5" />, link: "/settings" },
+  { title: t('navigation.profile', 'Profile'), icon: <User className="w-5 h-5" />, link: "/profile" },
+  { title: t('actions.search', 'Search'), icon: <Search className="w-5 h-5" />, link: "/search" },
+  { title: t('navigation.settings', 'Settings'), icon: <Settings className="w-5 h-5" />, link: "/settings" },
   { title: "Notifications", icon: <Bell className="w-5 h-5" />, link: "/notifications" }]
 
 },

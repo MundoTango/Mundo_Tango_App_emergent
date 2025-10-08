@@ -107,7 +107,7 @@ export default function PostComposer() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to share your moment. Please try again.",
         variant: "destructive"
       });
@@ -269,7 +269,7 @@ export default function PostComposer() {
                     type="text"
                     placeholder="Add tags (comma separated)"
                     value={newPost.tags}
-                    onChange={(e) = aria-label="Input field"> setNewPost((prev) => ({ ...prev, tags: e.target.value }))}
+                    onChange={(e) => setNewPost((prev) => ({ ...prev, tags: e.target.value)} aria-label="Input field")}
                     className="w-full pl-10 pr-3 py-3 border border-[var(--color-border)] rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all" data-testid="input-text" />
 
                   </div>
@@ -279,7 +279,7 @@ export default function PostComposer() {
                     type="text"
                     placeholder="Add location"
                     value={newPost.location}
-                    onChange={(e) = aria-label="Input field"> setNewPost((prev) => ({ ...prev, location: e.target.value }))}
+                    onChange={(e) => setNewPost((prev) => ({ ...prev, location: e.target.value)} aria-label="Input field")}
                     className="w-full pl-10 pr-3 py-3 border border-[var(--color-border)] rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all" data-testid="input-text" />
 
                   </div>
@@ -312,7 +312,7 @@ export default function PostComposer() {
                           <button
                       onClick={() => {
                         if (media.id) {
-                          removeReusedMedia(media.id);} aria-label="Button" else {
+                          removeReusedMedia(media.id);} else {
                           setUploadedMedia((prev) => prev.filter((_, i) => i !== index));
                         }
                       }}

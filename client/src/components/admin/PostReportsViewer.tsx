@@ -60,7 +60,7 @@ export function PostReportsViewer() {
       refetch();
     } catch (error) {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to update report",
         variant: "destructive"
       });

@@ -54,7 +54,7 @@ export const EventTypesManager: React.FC = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/event-types'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: 'Event type created successfully'
       });
       setIsCreating(false);
@@ -62,7 +62,7 @@ export const EventTypesManager: React.FC = () => {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || 'Failed to create event type',
         variant: 'destructive'
       });
@@ -200,7 +200,7 @@ export const EventTypesManager: React.FC = () => {
             <input
               type="checkbox"
               checked={showInactive}
-              onChange={(e) = aria-label="Input field"> setShowInactive(e.target.checked)}
+              onChange={(e) => setShowInactive(e.target.checked)} aria-label="Input field"
               className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
 
             <span className="text-sm text-gray-600 dark:text-gray-300">Show inactive</span>
@@ -229,7 +229,7 @@ export const EventTypesManager: React.FC = () => {
               <input
               type="text"
               value={formData.name}
-              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value)} aria-label="Input field"}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500"
               placeholder="e.g., Workshop" data-testid="input-text" />
 
@@ -255,7 +255,7 @@ export const EventTypesManager: React.FC = () => {
               <input
               type="color"
               value={formData.color}
-              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, color: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, color: e.target.value)} aria-label="Input field"}
               className="w-full h-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded-lg" data-testid="input-color" />
 
             </div>
@@ -266,7 +266,7 @@ export const EventTypesManager: React.FC = () => {
               <input
               type="number"
               value={formData.sort_order}
-              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
+              onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0} aria-label="Input field")}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500" data-testid="input-number" />
 
             </div>
@@ -287,7 +287,7 @@ export const EventTypesManager: React.FC = () => {
             <button
             onClick={() => {
               setIsCreating(false);
-              resetForm();} aria-label="Button"}
+              resetForm();}} aria-label="Button"
             className="px-4 py-2 text-[var(--color-text-secondary)] bg-[var(--color-neutral-100)] rounded-lg hover:bg-gray-200 dark:bg-gray-700" data-testid="button-px-4">
 
               Cancel
@@ -355,7 +355,7 @@ export const EventTypesManager: React.FC = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) = aria-label="Input field"> setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value)} aria-label="Input field"}
                   className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded" data-testid="input-text" /> :
 
 

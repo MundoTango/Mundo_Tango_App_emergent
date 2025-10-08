@@ -168,7 +168,7 @@ export default function InlinePostComposer({
                 <input
                 type="text"
                 value={location}
-                onChange={(e) = aria-label="Input field"> setLocation(e.target.value)}
+                onChange={(e) => setLocation(e.target.value)} aria-label="Input field"
                 placeholder="Add location (optional)"
                 className="flex-1 text-sm px-2 py-1 border border-turquoise-200 rounded-md focus:outline-none focus:border-turquoise-400" data-testid="input-text" />
 

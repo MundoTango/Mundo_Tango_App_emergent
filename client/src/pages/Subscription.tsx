@@ -46,7 +46,7 @@ const SubscriptionForm = ({ tier, onSuccess }: {tier: string;onSuccess: () => vo
     onSuccess: async (data) => {
       if (!stripe || !elements) {
         toast({
-          title: {t('states.error', 'Error')},
+          title: t('states.error', 'Error'),
           description: "Stripe not initialized",
           variant: "destructive"
         });

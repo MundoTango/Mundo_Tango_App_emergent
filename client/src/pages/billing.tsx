@@ -68,7 +68,7 @@ export default function BillingDashboard() {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || 'Failed to cancel subscription',
         variant: 'destructive'
       });

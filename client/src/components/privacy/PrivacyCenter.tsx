@@ -105,7 +105,7 @@ export default function PrivacyCenter() {
     } catch (error) {
       console.error('Error loading privacy data:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to load privacy settings",
         variant: "destructive"
       });
@@ -145,7 +145,7 @@ export default function PrivacyCenter() {
       ));
 
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: `Privacy preference updated for ${consentType}`
       });
     } catch (error) {

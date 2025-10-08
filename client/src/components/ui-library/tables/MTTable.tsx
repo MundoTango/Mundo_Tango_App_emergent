@@ -171,7 +171,8 @@ export default function MTTable<T = any>({
                     onChange={handleSelectAll}
                     className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
                     data-testid={`${testId}-select-all`}
-                  / aria-label="Input field">
+              aria-label="Input field"
+            />
                 </th>
               )}
               {columns.map((column) => (
@@ -248,7 +249,7 @@ export default function MTTable<T = any>({
                       <input
                         type="checkbox"
                         checked={selectedRows.has(rowIndex)}
-                        onChange={(e) = aria-label="Input field"> handleSelectRow(rowIndex, e)}
+                        onChange={(e) => handleSelectRow(rowIndex, e)} aria-label="Input field"
                         onClick={(e) => e.stopPropagation()}
                         className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
                         data-testid={`${testId}-select-${rowIndex}`}

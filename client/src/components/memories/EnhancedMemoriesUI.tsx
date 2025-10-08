@@ -556,7 +556,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                         key={emotion.emoji}
                         onClick={() => {
                           if (selectedEmotions.includes(emotion.emoji)) {
-                            setSelectedEmotions((prev) => prev.filter((e) => e !== emotion.emoji));} aria-label="Button" else {
+                            setSelectedEmotions((prev) => prev.filter((e) => e !== emotion.emoji));} else {
                             setSelectedEmotions((prev) => [...prev, emotion.emoji]);
                           }
                         }}

@@ -103,7 +103,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
                 key={reaction.id}
                 onClick={() => {
                   onReact(reaction.id);
-                  setShowDropdown(false);} aria-label="Button"}
+                  setShowDropdown(false);}} aria-label="Button"
                 className="flex items-center justify-center p-1 rounded hover:bg-blue-50 transition-all duration-200 hover:scale-125 hover:rotate-12 group"
                 style={{ 
                   width: '40px', 

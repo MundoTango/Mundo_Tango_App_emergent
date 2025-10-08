@@ -336,7 +336,7 @@ function ESAMemoryFeedCore() {
             <button
               onClick={() => {
                 setShowEditModal(false);
-                setEditingPost(null);} aria-label="Button"}
+                setEditingPost(null);}} aria-label="Button"
               className="absolute top-4 right-4 p-2 rounded-full bg-[var(--color-neutral-100)] hover:bg-gray-200 dark:bg-gray-700 transition-colors"
             >
               <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

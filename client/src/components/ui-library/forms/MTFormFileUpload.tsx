@@ -193,7 +193,8 @@ export default function MTFormFileUpload<
                   onChange={handleChange}
                   disabled={disabled}
                   className="hidden"
-                / aria-label="Input field">
+              aria-label="Input field"
+            />
                 
                 <div className="text-center">
                   <Upload className={cn(
@@ -239,10 +240,9 @@ export default function MTFormFileUpload<
                     </div>
                     <button
                       type="button"
-                      onClick={(e) = aria-label="Button"> {
+                      onClick={(e) => {
                         e.stopPropagation();
-                        removeFile(index);
-                      }}
+                        removeFile(index);}} aria-label="Button"
                       className="p-1 rounded-full hover:bg-gray-200 dark:bg-gray-700 transition-colors"
                       data-testid={`remove-file-${index}`}
                     >

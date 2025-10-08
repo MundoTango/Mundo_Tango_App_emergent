@@ -77,7 +77,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
     },
     onError: (error: Error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message,
         variant: "destructive"
       });

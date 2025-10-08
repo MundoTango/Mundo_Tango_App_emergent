@@ -157,7 +157,7 @@ export default function ModernCommentsSection({
                       <input
                         type="text"
                         value={editingContent}
-                        onChange={(e) = aria-label="Input field"> setEditingContent(e.target.value)}
+                        onChange={(e) => setEditingContent(e.target.value)} aria-label="Input field"
                         onKeyPress={(e) => e.key === 'Enter' && handleSaveEdit(comment.id)}
                         className="flex-1 bg-[var(--color-surface)] dark:bg-gray-900/5 border border-white/10 rounded-lg px-2 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-400/50"
                         autoFocus
@@ -173,7 +173,7 @@ export default function ModernCommentsSection({
                       <button
                         onClick={() => {
                           setEditingCommentId(null);
-                          setEditingContent('');} aria-label="Button"}
+                          setEditingContent('');}} aria-label="Button"
                         className="px-2 py-1 bg-[var(--color-surface)] dark:bg-gray-900/10 hover:bg-[var(--color-surface)] dark:bg-gray-900/20 text-white/60 rounded-lg text-sm"
                         data-testid={`button-cancel-edit-${comment.id}`}
                       >
@@ -213,7 +213,7 @@ export default function ModernCommentsSection({
         <input
           type="text"
           value={newComment}
-          onChange={(e) = aria-label="Input field"> setNewComment(e.target.value)}
+          onChange={(e) => setNewComment(e.target.value)} aria-label="Input field"
           placeholder="Write a comment..."
           className="flex-1 px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-teal-400/50 focus:border-teal-400/50"
           disabled={isAddingComment}

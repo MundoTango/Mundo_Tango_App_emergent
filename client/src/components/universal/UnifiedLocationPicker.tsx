@@ -63,8 +63,8 @@ export default function UnifiedLocationPicker({
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
-  const {
-  const { t } = useTranslation(); toast } = useToast();
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const { userLocation, locationCity, locationCountry } = useLocationBias();
 
   const validateCoordinates = (coords: any): boolean => {
@@ -494,8 +494,8 @@ export default function UnifiedLocationPicker({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() = aria-label="Input field"> value && suggestions.length > 0 && setShowSuggestions(true)}
-          placeholder={initState === 'loading' ? {t('states.loading', 'Loading...')} : placeholder}
+          onFocus={() => value && suggestions.length > 0 && setShowSuggestions(true)} aria-label="Input field"
+          placeholder={initState === 'loading' ? t('states.loading', 'Loading...') : placeholder}
           disabled={initState === 'loading'}
           required={required}
           className={`pl-10 pr-10 py-3 w-full border border-[var(--color-border)] dark:border-gray-700 rounded-xl 
@@ -514,7 +514,7 @@ export default function UnifiedLocationPicker({
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);
-              inputRef.current?.focus();} aria-label="Button"}
+              inputRef.current?.focus();}} aria-label="Button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
             <X className="w-5 h-5" />

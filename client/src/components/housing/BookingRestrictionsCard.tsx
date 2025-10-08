@@ -40,7 +40,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to update booking restrictions',
         variant: 'destructive',
       });

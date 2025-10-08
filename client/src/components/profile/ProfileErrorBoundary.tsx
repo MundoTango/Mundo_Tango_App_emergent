@@ -46,7 +46,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
     if (typeof window !== 'undefined' && window.plausible) {
       window.plausible({t('states.error', 'Error')}, {
         props: {
-          component: {t('navigation.profile', 'Profile')},
+          component: t('navigation.profile', 'Profile'),
           error: error.message,
           stack: errorInfo.componentStack
         }

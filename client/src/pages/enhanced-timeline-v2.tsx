@@ -479,7 +479,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
               <button
                 onClick={() => {
                   const comment = prompt("Add a comment to your share:");
-                  if (comment !== null) handleShare(comment);} aria-label="Button"}
+                  if (comment !== null) handleShare(comment);}} aria-label="Button"
                 className="w-full p-3 text-left hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors"
               >
                 <p className="font-medium">Share with Comment</p>

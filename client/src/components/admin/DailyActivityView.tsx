@@ -174,10 +174,9 @@ function DailyActivityView() {
           <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
-            onChange={(e) = aria-label="Input field"> {
+            onChange={(e) => {
               const newDate = new Date(e.target.value + 'T00:00:00');
-              setSelectedDate(newDate);
-            }}
+              setSelectedDate(newDate);}} aria-label="Input field"
             className="px-3 py-1 border rounded-md text-sm" data-testid="input-date" />
 
           <Badge className="bg-blue-100 text-blue-800">

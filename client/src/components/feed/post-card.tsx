@@ -67,7 +67,7 @@ export default function PostCard({ post }: PostCardProps) {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to update like",
         variant: "destructive"
       });

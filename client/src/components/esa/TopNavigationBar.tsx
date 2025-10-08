@@ -59,7 +59,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} aria-label="Input field"
               placeholder="Search events, people, memories..."
               className={cn(
                 "w-full pl-12 pr-4 py-2.5 bg-transparent outline-none transition-colors",

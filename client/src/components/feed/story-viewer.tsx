@@ -91,7 +91,7 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to upload story",
         variant: "destructive"
       });

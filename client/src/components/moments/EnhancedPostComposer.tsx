@@ -280,7 +280,7 @@ export default function EnhancedPostComposer({
     },
     onError: (error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to create post. Please try again.",
         variant: "destructive"
       });
@@ -468,7 +468,7 @@ export default function EnhancedPostComposer({
           onClick={() => {
             // ESA Layer 7: In edit mode or when modal is used, close the modal entirely
             if (editMode || existingPost || onClose) {
-              onClose?.();} aria-label="Button" else {
+              onClose?.();} else {
               setShowExpandedComposer(false);
             }
           }}
@@ -527,7 +527,7 @@ export default function EnhancedPostComposer({
           <input
             type="text"
             value={embedUrl}
-            onChange={(e) = aria-label="Input field"> setEmbedUrl(e.target.value)}
+            onChange={(e) => setEmbedUrl(e.target.value)} aria-label="Input field"
             placeholder="Paste Instagram, Twitter, YouTube, TikTok, or Facebook URL..."
             className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />
@@ -556,7 +556,7 @@ export default function EnhancedPostComposer({
           <input
             type="text"
             value={location}
-            onChange={(e) = aria-label="Input field"> setLocation(e.target.value)}
+            onChange={(e) => setLocation(e.target.value)} aria-label="Input field"
             placeholder="Add location..."
             className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
           />

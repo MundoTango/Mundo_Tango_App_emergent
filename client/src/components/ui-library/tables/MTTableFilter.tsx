@@ -188,7 +188,7 @@ function FilterInput({
         <input
           type="date"
           value={value}
-          onChange={(e) = aria-label="Input field"> onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
           className={inputClass}
           data-testid={testId}
         />
@@ -199,7 +199,7 @@ function FilterInput({
         <input
           type="number"
           value={value}
-          onChange={(e) = aria-label="Input field"> onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
           placeholder="Filter..."
           className={inputClass}
           data-testid={testId}
@@ -211,7 +211,7 @@ function FilterInput({
         <input
           type="text"
           value={value}
-          onChange={(e) = aria-label="Input field"> onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)} aria-label="Input field"
           placeholder="Filter..."
           className={inputClass}
           data-testid={testId}

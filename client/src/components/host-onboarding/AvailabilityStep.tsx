@@ -177,7 +177,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="always"
                 checked={data.availabilityType === 'always'}
-                onChange={() = aria-label="Input field"> updateData({ availabilityType: 'always' })}
+                onChange={() => updateData({ availabilityType: 'always'} aria-label="Input field")}
                 className="text-pink-500" data-testid="input-radio" />
 
               <div>
@@ -192,7 +192,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="sometimes"
                 checked={data.availabilityType === 'sometimes' || !data.availabilityType}
-                onChange={() = aria-label="Input field"> updateData({ availabilityType: 'sometimes' })}
+                onChange={() => updateData({ availabilityType: 'sometimes'} aria-label="Input field")}
                 className="text-pink-500" data-testid="input-radio" />
 
               <div>

@@ -82,7 +82,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
     },
     onError: (error: Error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to like post",
         variant: "destructive",
       });
@@ -105,7 +105,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
       setCommentText('');
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Comment added",
       });
     },
@@ -236,7 +236,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                 <input
                   type="text"
                   value={commentText}
-                  onChange={(e) = aria-label="Input field"> setCommentText(e.target.value)}
+                  onChange={(e) => setCommentText(e.target.value)} aria-label="Input field"
                   placeholder="Add a comment..."
                   className="flex-1 px-3 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onKeyPress={(e) => {

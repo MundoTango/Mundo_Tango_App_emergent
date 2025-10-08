@@ -149,7 +149,7 @@ const EnhancedPostFeed = React.memo(({
     },
     onError: (error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to update like",
         variant: "destructive",
       });

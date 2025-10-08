@@ -292,7 +292,7 @@ export default function EnhancedCommentsSystem({
           <button
         onClick={() => {
           setEditingComment(comment.id);
-          setEditContent(comment.content);} aria-label="Button"}
+          setEditContent(comment.content);}} aria-label="Button"
         className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 hover:text-green-500 transition-colors" data-testid="button-flex">
 
             <Edit3 className="h-4 w-4" />
@@ -453,7 +453,7 @@ export default function EnhancedCommentsSystem({
                     <button
                     onClick={() => {
                       setEditingComment(null);
-                      setEditContent('');} aria-label="Button"}
+                      setEditContent('');}} aria-label="Button"
                     className="px-3 py-1 text-gray-600 rounded text-sm hover:text-gray-800 dark:text-gray-100" data-testid="button-px-3">
 
                       Cancel

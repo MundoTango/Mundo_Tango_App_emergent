@@ -45,7 +45,7 @@ interface Phase {
 const layers: Layer[] = [
   // Original 40 layers
   {
-  const { t } = useTranslation(); id: 1, name: 'Foundation', description: 'Database, core infrastructure', icon: Database, progress: 95 },
+  id: 1, name: 'Foundation', description: 'Database, core infrastructure', icon: Database, progress: 95 },
   { id: 2, name: 'Database & ORM', description: 'Drizzle ORM, PostgreSQL', icon: Database, progress: 90 },
   { id: 3, name: 'Authentication', description: 'Session-based auth, OAuth', icon: Shield, progress: 85 },
   { id: 4, name: 'User Management', description: 'Profiles, roles, permissions', icon: Shield, progress: 88 },
@@ -61,7 +61,7 @@ const layers: Layer[] = [
     enhancements: ['Real data integration protocol', 'Loading state requirements'] },
   { id: 11, name: 'Analytics', description: 'Metrics, tracking, insights', icon: TrendingUp, progress: 75 },
   { id: 12, name: 'Content Management', description: 'Posts, media, moderation', icon: Activity, progress: 85 },
-  { id: 13, name: {t('actions.search', 'Search')}, description: 'Full-text search, filtering', icon: Activity, progress: 70 },
+  { id: 13, name: t('actions.search', 'Search'), description: 'Full-text search, filtering', icon: Activity, progress: 70 },
   { id: 14, name: 'Communication', description: 'Real-time chat, notifications', icon: Activity, progress: 80 },
   { id: 15, name: 'Environmental Infrastructure', description: 'Redis, caching, CDN', icon: Globe, progress: 85,
     enhancements: ['Mandatory cache fallbacks', 'DISABLE_REDIS support'] },

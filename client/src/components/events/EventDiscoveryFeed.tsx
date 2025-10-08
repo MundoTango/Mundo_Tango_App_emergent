@@ -126,7 +126,7 @@ export const EventDiscoveryFeed: React.FC = () => {
     } catch (error) {
       console.error('Error fetching events:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to load events',
         variant: 'destructive'
       });
@@ -340,7 +340,7 @@ export const EventDiscoveryFeed: React.FC = () => {
             variant="outline"
             className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="button-bg-[var(--color-surface)] dark:bg-gray-900-50">
 
-                {loadingMore ? {t('states.loading', 'Loading...')} : 'Load More Events'}
+                {loadingMore ? t('states.loading', 'Loading...') : 'Load More Events'}
               </Button>
             </div>
         }

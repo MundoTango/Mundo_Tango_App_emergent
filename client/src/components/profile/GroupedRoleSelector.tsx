@@ -207,7 +207,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             key={index}
             onClick={() => {
               setCurrentCategoryIndex(index);
-              setFlippedCards(new Set());} aria-label="Button"}
+              setFlippedCards(new Set());}} aria-label="Button"
             className={cn(
               "w-2 h-2 rounded-full transition-all duration-300",
               index === currentCategoryIndex ?

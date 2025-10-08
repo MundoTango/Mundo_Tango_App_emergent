@@ -153,7 +153,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <input
                   type="checkbox"
                   checked={mapLayers.events}
-                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, events: e.target.checked })}
+                  onChange={(e) => setMapLayers({ ...mapLayers, events: e.target.checked} aria-label="Input field")}
                   className="rounded" data-testid="input-checkbox" />
 
                 <Calendar className="h-4 w-4 text-[var(--color-primary)]" />
@@ -163,7 +163,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <input
                   type="checkbox"
                   checked={mapLayers.housing}
-                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, housing: e.target.checked })}
+                  onChange={(e) => setMapLayers({ ...mapLayers, housing: e.target.checked} aria-label="Input field")}
                   className="rounded" data-testid="input-checkbox" />
 
                 <Home className="h-4 w-4 text-green-500" />
@@ -173,7 +173,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <input
                   type="checkbox"
                   checked={mapLayers.recommendations}
-                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
+                  onChange={(e) => setMapLayers({ ...mapLayers, recommendations: e.target.checked} aria-label="Input field")}
                   className="rounded" data-testid="input-checkbox" />
 
                 <Star className="h-4 w-4 text-blue-600" />
@@ -191,13 +191,13 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <input
                     type="date"
                     className="flex-1 rounded-md border px-3 py-2"
-                    onChange={(e) = aria-label="Input field"> setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })} data-testid="input-date" />
+                    onChange={(e) => setDateFilter({ ...dateFilter, startDate: new Date(e.target.value)} aria-label="Input field")} data-testid="input-date" />
 
                     <span className="self-center">to</span>
                     <input
                     type="date"
                     className="flex-1 rounded-md border px-3 py-2"
-                    onChange={(e) = aria-label="Input field"> setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })} data-testid="input-date" />
+                    onChange={(e) => setDateFilter({ ...dateFilter, endDate: new Date(e.target.value)} aria-label="Input field")} data-testid="input-date" />
 
                   </div>
                 </div>

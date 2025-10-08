@@ -113,7 +113,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to create event. Please try again.",
         variant: "destructive"
       });

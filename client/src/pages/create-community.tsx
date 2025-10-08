@@ -82,7 +82,7 @@ export default function CreateCommunityPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message,
         variant: 'destructive'
       });

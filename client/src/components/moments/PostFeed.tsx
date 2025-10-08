@@ -112,7 +112,6 @@ interface PostFeedProps {
  * Supports both legacy controlled mode (posts prop) and new smart mode (context prop)
  */
 const PostFeed = memo(({
-  const { t } = useTranslation(); 
   posts: propsPosts,
   context,
   showFilters = false,
@@ -124,6 +123,7 @@ const PostFeed = memo(({
   onLoadMore,
   hasMore: externalHasMore = false
 }: PostFeedProps) => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -468,7 +468,7 @@ const PostFeed = memo(({
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to update like",
         variant: "destructive",
       });
@@ -539,7 +539,7 @@ const PostFeed = memo(({
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)} aria-label="Input field"
                 placeholder="Search posts..."
                 className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface)] dark:bg-gray-900/80 rounded-2xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
@@ -650,7 +650,7 @@ const PostFeed = memo(({
                   <input
                     type="text"
                     value={tagInput}
-                    onChange={(e) = aria-label="Input field"> setTagInput(e.target.value)}
+                    onChange={(e) => setTagInput(e.target.value)} aria-label="Input field"
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
                     placeholder="Add tag..."
                     className="px-3 py-1 bg-[var(--color-neutral-100)] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
@@ -669,7 +669,7 @@ const PostFeed = memo(({
                     <input
                       type="date"
                       value={startDate}
-                      onChange={(e) = aria-label="Input field"> setStartDate(e.target.value)}
+                      onChange={(e) => setStartDate(e.target.value)} aria-label="Input field"
                       className="w-full px-3 py-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
@@ -678,7 +678,7 @@ const PostFeed = memo(({
                     <input
                       type="date"
                       value={endDate}
-                      onChange={(e) = aria-label="Input field"> setEndDate(e.target.value)}
+                      onChange={(e) => setEndDate(e.target.value)} aria-label="Input field"
                       className="w-full px-3 py-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
@@ -687,7 +687,7 @@ const PostFeed = memo(({
                   <button
                     onClick={() => {
                       setStartDate('');
-                      setEndDate('');} aria-label="Button"}
+                      setEndDate('');}} aria-label="Button"
                     className="mt-2 text-xs text-red-600 hover:text-red-700"
                   >
                     Clear dates

@@ -17,7 +17,7 @@ const LoadingFallback = () => (
 // Error boundary for lazy loaded components
 class LazyErrorBoundary extends React.Component<
   {
-  const { t } = useTranslation(); children: React.ReactNode },
+  children: React.ReactNode },
   { hasError: boolean }
 > {
   constructor(props: { children: React.ReactNode }) {

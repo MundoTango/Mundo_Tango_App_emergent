@@ -102,7 +102,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
     } catch (error) {
       console.error('Error loading events:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to load more events',
         variant: 'destructive'
       });
@@ -129,7 +129,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
     try {
       await apiRequest('POST', `/api/events/${eventId}/rsvp`, { status: action });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: `You're ${action} to this event!`
       });
 

@@ -49,7 +49,7 @@ export default function PricingPage() {
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || 'Failed to start subscription',
         variant: 'destructive'
       });

@@ -94,10 +94,9 @@ export default function MTTableHeader({
             {/* Filter Indicator */}
             {filterable && (
               <button
-                onClick={(e) = aria-label="Button"> {
+                onClick={(e) => {
                   e.stopPropagation();
-                  onFilter?.();
-                }}
+                  onFilter?.();}} aria-label="Button"
                 className="inline-flex shrink-0 p-1 rounded hover:bg-teal-200/50 dark:hover:bg-teal-700/50 transition-colors"
                 data-testid={`${testId}-filter`}
               >

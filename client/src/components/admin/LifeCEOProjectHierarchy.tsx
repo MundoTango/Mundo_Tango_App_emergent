@@ -267,10 +267,9 @@ const LifeCEOProjectHierarchy: React.FC = () => {
 
           {hasChildren &&
           <button
-            onClick={(e) = aria-label="Button"> {
+            onClick={(e) => {
               e.stopPropagation();
-              toggleExpanded(project.id);
-            }}
+              toggleExpanded(project.id);}} aria-label="Button"
             className="mr-1" data-testid="button-mr-1">
 
               {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}

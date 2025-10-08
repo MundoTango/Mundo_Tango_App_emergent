@@ -154,10 +154,9 @@ export default function EnhancedTagSystem({
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) = aria-label="Input field"> {
+                onChange={(e) => {
                   setTagInput(e.target.value);
-                  setShowSuggestions(e.target.value.length > 0);
-                }}
+                  setShowSuggestions(e.target.value.length > 0);}} aria-label="Input field"
                 onKeyDown={handleKeyPress}
                 onFocus={() => setShowSuggestions(tagInput.length > 0)}
                 placeholder="Search or add tags..."

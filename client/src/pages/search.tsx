@@ -79,7 +79,7 @@ export default function SearchPage() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} aria-label="Input field"
               placeholder="Search for users, posts, events, or groups..."
               className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg"
               autoFocus data-testid="input-text" />

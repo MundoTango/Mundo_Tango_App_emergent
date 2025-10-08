@@ -307,7 +307,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                       <button
                         onClick={() => {
                           onEdit?.(post);  // ESA Framework: Trigger parent edit handler
-                          setShowMenu(false);} aria-label="Button"}
+                          setShowMenu(false);}} aria-label="Button"
                         className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                         data-testid="button-edit"
                       >
@@ -336,7 +336,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   <button
                     onClick={() => {
                       setShowReportDialog(true);
-                      setShowMenu(false);} aria-label="Button"}
+                      setShowMenu(false);}} aria-label="Button"
                     className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                     data-testid="button-report"
                   >

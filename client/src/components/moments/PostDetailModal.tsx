@@ -93,7 +93,7 @@ export default function PostDetailModal({
 
   // Fetch post comments - FIXED: Use memories endpoint
   const {
-  const { t } = useTranslation(); data: comments = [], isLoading: commentsLoading } = useQuery({
+  data: comments = [], isLoading: commentsLoading } = useQuery({
     queryKey: ['/api/memories', post.id, 'comments'],
     queryFn: async () => {
       const response = await fetch(`/api/memories/${post.id}/comments`, {
@@ -121,7 +121,7 @@ export default function PostDetailModal({
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to post comment. Please try again.",
         variant: "destructive",
       });
@@ -540,7 +540,7 @@ export default function PostDetailModal({
                   <input
                     type="text"
                     value={newComment}
-                    onChange={(e) = aria-label="Input field"> setNewComment(e.target.value)}
+                    onChange={(e) => setNewComment(e.target.value)} aria-label="Input field"
                     placeholder="Add a comment..."
                     className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     disabled={commentMutation.isPending}

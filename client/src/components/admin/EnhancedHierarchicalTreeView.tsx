@@ -677,7 +677,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <input
               type="checkbox"
               checked={showCompleted}
-              onChange={(e) = aria-label="Input field"> setShowCompleted(e.target.checked)}
+              onChange={(e) => setShowCompleted(e.target.checked)} aria-label="Input field"
               className="rounded" data-testid="input-checkbox" />
 
             Show Completed

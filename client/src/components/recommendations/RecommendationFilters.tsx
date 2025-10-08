@@ -160,7 +160,7 @@ export default function RecommendationFilters({
                   min="0"
                   max="100"
                   value={filters.minClosenessScore || 50}
-                  onChange={(e) = aria-label="Input field"> updateFilter('minClosenessScore', parseInt(e.target.value))}
+                  onChange={(e) => updateFilter('minClosenessScore', parseInt(e.target.value))} aria-label="Input field"
                   className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white"
                   data-testid="input-closeness-score"
                 />
@@ -214,7 +214,7 @@ export default function RecommendationFilters({
               <input
                 type="text"
                 value={filters.city || ''}
-                onChange={(e) = aria-label="Input field"> updateFilter('city', e.target.value || undefined)}
+                onChange={(e) => updateFilter('city', e.target.value || undefined)} aria-label="Input field"
                 placeholder="e.g., Buenos Aires, Paris, Tokyo..."
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                 data-testid="input-city-filter"
@@ -272,7 +272,7 @@ export default function RecommendationFilters({
                       const updated = isActive
                         ? current.filter(c => c !== category.value)
                         : [...current, category.value];
-                      updateFilter('categories', updated.length > 0 ? updated : undefined);} aria-label="Button"}
+                      updateFilter('categories', updated.length > 0 ? updated : undefined);}} aria-label="Button"
                     className={`
                       flex items-center gap-2 px-3 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
@@ -408,7 +408,7 @@ export default function RecommendationFilters({
                 max="5"
                 step="0.5"
                 value={filters.minRating || 0}
-                onChange={(e) = aria-label="Input field"> updateFilter('minRating', parseFloat(e.target.value) || undefined)}
+                onChange={(e) => updateFilter('minRating', parseFloat(e.target.value) || undefined)} aria-label="Input field"
                 className="flex-1 accent-turquoise-600"
                 data-testid="input-min-rating"
               />
