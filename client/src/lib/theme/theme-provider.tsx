@@ -19,7 +19,7 @@ export const themes: Record<string, ThemeConfig> = {
     description: 'Turquoise to blue gradient inspired by ocean depths',
     category: 'business',
     tokens: defaultTokens,
-    preview: 'linear-gradient(135deg, #38b2ac, #3182ce)',
+    preview: 'linear-gradient(135deg, hsl(177, 72%, 56%), hsl(218, 100%, 34%))', // ocean-seafoam-400 to ocean-teal-500
   },
   'life-ceo': {
     id: 'life-ceo',
@@ -73,7 +73,7 @@ export const themes: Record<string, ThemeConfig> = {
           100: '#fde68a',
           200: '#fcd34d',
           300: '#fbbf24',
-          400: '#f59e0b',
+          400: 'hsl(38, 92%, 50%)', // amber-500
           500: '#d97706',
           600: '#b45309',
           700: '#92400e',
@@ -109,7 +109,7 @@ export const themes: Record<string, ThemeConfig> = {
         },
       },
     },
-    preview: 'linear-gradient(135deg, #f59e0b, #3b82f6, #ef4444)',
+    preview: 'linear-gradient(135deg, hsl(38, 92%, 50%), hsl(217, 91%, 60%), hsl(0, 84%, 60%))', // amber, blue, red
   },
   'zen-minimal': {
     id: 'zen-minimal',
