@@ -26,7 +26,7 @@ interface SubscriptionStatus {
   hasActiveSubscription: boolean;
 }
 
-const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => void }) => {
+const SubscriptionForm = ({ tier, onSuccess }: {tier: string;onSuccess: () => void;}) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
@@ -46,7 +46,7 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         toast({
           title: "Error",
           description: "Stripe not initialized",
-          variant: "destructive",
+          variant: "destructive"
         });
         return;
       }
@@ -56,17 +56,17 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         toast({
           title: "Error",
           description: "Card element not found",
-          variant: "destructive",
+          variant: "destructive"
         });
         return;
       }
 
       setIsProcessing(true);
-      
+
       const { error, paymentIntent } = await stripe.confirmCardPayment(data.clientSecret, {
         payment_method: {
-          card: cardElement,
-        },
+          card: cardElement
+        }
       });
 
       setIsProcessing(false);
@@ -75,12 +75,12 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         toast({
           title: "Payment Failed",
           description: error.message,
-          variant: "destructive",
+          variant: "destructive"
         });
       } else if (paymentIntent?.status === 'succeeded') {
         toast({
           title: "Success!",
-          description: "Your subscription is now active",
+          description: "Your subscription is now active"
         });
         onSuccess();
       }
@@ -89,9 +89,9 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
       toast({
         title: "Error",
         description: error.message || "Failed to create subscription",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -110,38 +110,38 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
                 fontSize: '16px',
                 color: '#424770',
                 '::placeholder': {
-                  color: '#aab7c4',
-                },
+                  color: '#aab7c4'
+                }
               },
               invalid: {
-                color: '#9e2146',
-              },
-            },
-          }}
-        />
+                color: '#9e2146'
+              }
+            }
+          }} />
+
       </div>
       <Button
         type="submit"
         disabled={!stripe || subscribeMutation.isPending || isProcessing}
-        className="w-full"
-      >
-        {subscribeMutation.isPending || isProcessing ? (
-          <>
+        className="w-full" data-testid="button-submit">
+
+        {subscribeMutation.isPending || isProcessing ?
+        <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Processing...
-          </>
-        ) : (
-          <>
+          </> :
+
+        <>
             <CreditCard className="mr-2 h-4 w-4" />
             Subscribe Now
           </>
-        )}
+        }
       </Button>
       <p className="text-xs text-muted-foreground text-center">
         Test with card: 4242 4242 4242 4242 (any future expiry, any CVC)
       </p>
-    </form>
-  );
+    </form>);
+
 };
 
 export default function Subscription() {
@@ -151,12 +151,12 @@ export default function Subscription() {
 
   // Fetch subscription tiers
   const { data: tiersData, isLoading: tiersLoading } = useQuery({
-    queryKey: ['/api/payments/subscription-tiers'],
+    queryKey: ['/api/payments/subscription-tiers']
   });
 
   // Fetch current subscription status
   const { data: statusData, isLoading: statusLoading, refetch: refetchStatus } = useQuery({
-    queryKey: ['/api/payments/subscription'],
+    queryKey: ['/api/payments/subscription']
   });
 
   const tiers = (tiersData as any)?.data || {};
@@ -169,14 +169,14 @@ export default function Subscription() {
     basic: 'border-blue-300',
     enthusiast: 'border-purple-300',
     professional: 'border-orange-300',
-    enterprise: 'border-red-300',
+    enterprise: 'border-red-300'
   };
 
   const handleSelectTier = (tierKey: string) => {
     if (tierKey === 'free') {
       toast({
         title: "Free Plan",
-        description: "You're already on the free plan",
+        description: "You're already on the free plan"
       });
       return;
     }
@@ -195,8 +195,8 @@ export default function Subscription() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -206,36 +206,36 @@ export default function Subscription() {
         <p className="text-xl text-muted-foreground">
           Unlock premium features and take your experience to the next level
         </p>
-        {hasActiveSubscription && (
-          <Badge className="mt-4" variant="default">
+        {hasActiveSubscription &&
+        <Badge className="mt-4" variant="default">
             Current Plan: {currentSubscription?.metadata?.tier || 'Unknown'}
           </Badge>
-        )}
+        }
       </div>
 
-      {!showPaymentForm ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      {!showPaymentForm ?
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {tierOrder.map((tierKey) => {
-            const tier = tiers[tierKey];
-            if (!tier) return null;
+          const tier = tiers[tierKey];
+          if (!tier) return null;
 
-            const isCurrentPlan = currentSubscription?.metadata?.tier === tierKey || (!hasActiveSubscription && tierKey === 'free');
-            const price = tier.price / 100; // Convert cents to dollars
+          const isCurrentPlan = currentSubscription?.metadata?.tier === tierKey || !hasActiveSubscription && tierKey === 'free';
+          const price = tier.price / 100; // Convert cents to dollars
 
-            return (
-              <Card
-                key={tierKey}
-                className={cn(
-                  "relative overflow-hidden transition-all hover:shadow-lg",
-                  tierColors[tierKey as keyof typeof tierColors],
-                  isCurrentPlan && "ring-2 ring-primary"
-                )}
-              >
-                {isCurrentPlan && (
-                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold">
+          return (
+            <Card
+              key={tierKey}
+              className={cn(
+                "relative overflow-hidden transition-all hover:shadow-lg",
+                tierColors[tierKey as keyof typeof tierColors],
+                isCurrentPlan && "ring-2 ring-primary"
+              )}>
+
+                {isCurrentPlan &&
+              <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold">
                     Current
                   </div>
-                )}
+              }
                 <CardHeader>
                   <CardTitle className="capitalize">{tier.name}</CardTitle>
                   <CardDescription>
@@ -247,30 +247,30 @@ export default function Subscription() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    {tier.features.map((feature: string, index: number) => (
-                      <li key={index} className="flex items-start">
+                    {tier.features.map((feature: string, index: number) =>
+                  <li key={index} className="flex items-start">
                         <Check className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                         <span className="text-sm">{feature.replace(/_/g, ' ')}</span>
                       </li>
-                    ))}
+                  )}
                   </ul>
                 </CardContent>
                 <CardFooter>
                   <Button
-                    className="w-full"
-                    variant={isCurrentPlan ? "outline" : "default"}
-                    disabled={isCurrentPlan}
-                    onClick={() => handleSelectTier(tierKey)}
-                  >
+                  className="w-full"
+                  variant={isCurrentPlan ? "outline" : "default"}
+                  disabled={isCurrentPlan}
+                  onClick={() => handleSelectTier(tierKey)} data-testid="button-w-full">
+
                     {isCurrentPlan ? "Current Plan" : tierKey === 'free' ? "Downgrade" : "Upgrade"}
                   </Button>
                 </CardFooter>
-              </Card>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="max-w-md mx-auto">
+              </Card>);
+
+        })}
+        </div> :
+
+      <div className="max-w-md mx-auto">
           <Card>
             <CardHeader>
               <CardTitle>Complete Your Subscription</CardTitle>
@@ -280,27 +280,27 @@ export default function Subscription() {
             </CardHeader>
             <CardContent>
               <Elements stripe={stripePromise}>
-                <SubscriptionForm 
-                  tier={selectedTier!} 
-                  onSuccess={handlePaymentSuccess}
-                />
+                <SubscriptionForm
+                tier={selectedTier!}
+                onSuccess={handlePaymentSuccess} />
+
               </Elements>
             </CardContent>
             <CardFooter>
               <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  setShowPaymentForm(false);
-                  setSelectedTier(null);
-                }}
-              >
+              variant="outline"
+              className="w-full"
+              onClick={() => {
+                setShowPaymentForm(false);
+                setSelectedTier(null);
+              }} data-testid="button-w-full">
+
                 Cancel
               </Button>
             </CardFooter>
           </Card>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

@@ -22,7 +22,7 @@ interface CampaignData {
   conversions: number;
 }
 
-export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
+export const ProfileMarketing: React.FC<{userId: number;}> = ({ userId }) => {
   const [metrics] = useState<MarketingMetrics>({
     socialReach: 25400,
     engagementRate: 4.2,
@@ -33,27 +33,27 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
   });
 
   const [campaigns] = useState<CampaignData[]>([
-    { name: 'Summer Tango Festival', impressions: 12000, clicks: 480, conversions: 24 },
-    { name: 'Profile Launch Campaign', impressions: 8500, clicks: 340, conversions: 17 },
-    { name: 'Social Media Boost', impressions: 4900, clicks: 245, conversions: 12 }
-  ]);
+  { name: 'Summer Tango Festival', impressions: 12000, clicks: 480, conversions: 24 },
+  { name: 'Profile Launch Campaign', impressions: 8500, clicks: 340, conversions: 17 },
+  { name: 'Social Media Boost', impressions: 4900, clicks: 245, conversions: 12 }]
+  );
 
   const [socialChannels] = useState([
-    { name: 'Instagram', value: 45, color: '#E4405F' },
-    { name: 'Facebook', value: 30, color: '#1877F2' },
-    { name: 'Twitter', value: 15, color: '#1DA1F2' },
-    { name: 'LinkedIn', value: 10, color: '#0A66C2' }
-  ]);
+  { name: 'Instagram', value: 45, color: '#E4405F' },
+  { name: 'Facebook', value: 30, color: '#1877F2' },
+  { name: 'Twitter', value: 15, color: '#1DA1F2' },
+  { name: 'LinkedIn', value: 10, color: '#0A66C2' }]
+  );
 
   const [engagementTrend] = useState([
-    { day: 'Mon', rate: 3.8 },
-    { day: 'Tue', rate: 4.1 },
-    { day: 'Wed', rate: 4.5 },
-    { day: 'Thu', rate: 4.2 },
-    { day: 'Fri', rate: 4.8 },
-    { day: 'Sat', rate: 5.1 },
-    { day: 'Sun', rate: 4.7 }
-  ]);
+  { day: 'Mon', rate: 3.8 },
+  { day: 'Tue', rate: 4.1 },
+  { day: 'Wed', rate: 4.5 },
+  { day: 'Thu', rate: 4.2 },
+  { day: 'Fri', rate: 4.8 },
+  { day: 'Sat', rate: 5.1 },
+  { day: 'Sun', rate: 4.7 }]
+  );
 
   return (
     <div className="space-y-6">
@@ -134,11 +134,11 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
-                label={({ name, value }) => `${name}: ${value}%`}
-              >
-                {socialChannels.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
+                label={({ name, value }) => `${name}: ${value}%`}>
+
+                {socialChannels.map((entry, index) =>
+                <Cell key={`cell-${index}`} fill={entry.color} />
+                )}
               </Pie>
               <Tooltip />
             </PieChart>
@@ -158,13 +158,13 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
               <XAxis dataKey="day" />
               <YAxis />
               <Tooltip />
-              <Line 
-                type="monotone" 
-                dataKey="rate" 
-                stroke="#ec4899" 
+              <Line
+                type="monotone"
+                dataKey="rate"
+                stroke="#ec4899"
                 strokeWidth={2}
-                dot={{ fill: '#ec4899' }}
-              />
+                dot={{ fill: '#ec4899' }} />
+
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -180,11 +180,11 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {campaigns.map((campaign, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            {campaigns.map((campaign, index) =>
+            <div key={index} className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{campaign.name}</h4>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" data-testid="button-element">
                     <Share2 className="w-3 h-3 mr-1" />
                     Share
                   </Button>
@@ -200,11 +200,11 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
                   </div>
                   <div>
                     <div className="text-gray-600">CTR</div>
-                    <div className="font-medium">{((campaign.clicks / campaign.impressions) * 100).toFixed(2)}%</div>
+                    <div className="font-medium">{(campaign.clicks / campaign.impressions * 100).toFixed(2)}%</div>
                   </div>
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </CardContent>
       </Card>
@@ -235,6 +235,6 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };

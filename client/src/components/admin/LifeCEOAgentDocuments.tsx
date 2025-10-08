@@ -6,8 +6,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+  CardTitle } from
+'@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -25,8 +25,8 @@ import {
   X,
   Clock,
   AlertCircle,
-  Download,
-} from 'lucide-react';
+  Download } from
+'lucide-react';
 
 interface AgentDocument {
   id: number;
@@ -54,7 +54,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
   // Fetch agent documents
   const { data: documents, isLoading } = useQuery({
     queryKey: [`/api/life-ceo/agents/${agentId}/documents`],
-    enabled: !!agentId,
+    enabled: !!agentId
   });
 
   // Upload document mutation
@@ -63,7 +63,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
       const response = await fetch(`/api/life-ceo/agents/${agentId}/documents/upload`, {
         method: 'POST',
         body: formData,
-        credentials: 'include',
+        credentials: 'include'
       });
       if (!response.ok) throw new Error('Upload failed');
       return response.json();
@@ -71,7 +71,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
     onSuccess: () => {
       toast({
         title: 'Document uploaded',
-        description: 'Document has been uploaded successfully and is pending review.',
+        description: 'Document has been uploaded successfully and is pending review.'
       });
       queryClient.invalidateQueries({ queryKey: [`/api/life-ceo/agents/${agentId}/documents`] });
     },
@@ -79,28 +79,28 @@ const LifeCEOAgentDocuments: React.FC = () => {
       toast({
         title: 'Upload failed',
         description: error.message,
-        variant: 'destructive',
+        variant: 'destructive'
       });
-    },
+    }
   });
 
   // Review document mutation
   const reviewDocumentMutation = useMutation({
-    mutationFn: async ({ documentId, status, notes }: { documentId: number; status: string; notes: string }) => {
+    mutationFn: async ({ documentId, status, notes }: {documentId: number;status: string;notes: string;}) => {
       return apiRequest('POST', `/api/life-ceo/agents/${agentId}/documents/${documentId}/review`, {
         status,
-        review_notes: notes,
+        review_notes: notes
       });
     },
     onSuccess: () => {
       toast({
         title: 'Document reviewed',
-        description: 'Document review has been submitted.',
+        description: 'Document review has been submitted.'
       });
       queryClient.invalidateQueries({ queryKey: [`/api/life-ceo/agents/${agentId}/documents`] });
       setSelectedDocument(null);
       setReviewNotes('');
-    },
+    }
   });
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -118,9 +118,9 @@ const LifeCEOAgentDocuments: React.FC = () => {
       'application/pdf': ['.pdf'],
       'text/plain': ['.txt'],
       'text/markdown': ['.md'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
     },
-    maxSize: 10 * 1024 * 1024, // 10MB
+    maxSize: 10 * 1024 * 1024 // 10MB
   });
 
   const getStatusBadge = (status: string) => {
@@ -128,7 +128,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
       pending_review: { color: 'bg-yellow-100 text-yellow-800', icon: Clock },
       reviewed: { color: 'bg-blue-100 text-blue-800', icon: Eye },
       approved: { color: 'bg-green-100 text-green-800', icon: Check },
-      rejected: { color: 'bg-red-100 text-red-800', icon: X },
+      rejected: { color: 'bg-red-100 text-red-800', icon: X }
     };
 
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending_review;
@@ -138,8 +138,8 @@ const LifeCEOAgentDocuments: React.FC = () => {
       <Badge className={config.color}>
         <Icon className="w-3 h-3 mr-1" />
         {status.replace('_', ' ')}
-      </Badge>
-    );
+      </Badge>);
+
   };
 
   return (
@@ -153,19 +153,19 @@ const LifeCEOAgentDocuments: React.FC = () => {
             <div
               {...getRootProps()}
               className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
-              }`}
-            >
-              <input {...getInputProps()} />
+              isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`
+              }>
+
+              <input {...getInputProps()} data-testid="input-element" />
               <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-              {isDragActive ? (
-                <p className="text-blue-600">Drop the files here...</p>
-              ) : (
-                <>
+              {isDragActive ?
+              <p className="text-blue-600">Drop the files here...</p> :
+
+              <>
                   <p className="text-gray-600 mb-2">Drag & drop documents here, or click to select</p>
                   <p className="text-sm text-gray-500">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
                 </>
-              )}
+              }
             </div>
           </CardContent>
         </Card>
@@ -173,15 +173,15 @@ const LifeCEOAgentDocuments: React.FC = () => {
 
       {/* Documents list */}
       <div className="space-y-4">
-        {isLoading ? (
-          <Card>
+        {isLoading ?
+        <Card>
             <CardContent className="py-8 text-center text-gray-500">
               Loading documents...
             </CardContent>
-          </Card>
-        ) : documents && documents.length > 0 ? (
-          documents.map((doc: AgentDocument) => (
-            <Card key={doc.id}>
+          </Card> :
+        documents && documents.length > 0 ?
+        documents.map((doc: AgentDocument) =>
+        <Card key={doc.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div className="space-y-1">
@@ -200,49 +200,49 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                {doc.review_notes && (
-                  <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                {doc.review_notes &&
+            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-1">Review Notes:</p>
                     <p className="text-sm text-gray-600">{doc.review_notes}</p>
                   </div>
-                )}
+            }
                 <div className="flex space-x-2">
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" data-testid="button-element">
                     <Eye className="w-4 h-4 mr-1" />
                     View
                   </Button>
-                  {doc.status === 'pending_review' && (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setSelectedDocument(doc)}
-                    >
+                  {doc.status === 'pending_review' &&
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setSelectedDocument(doc)} data-testid="button-element">
+
                       <Edit className="w-4 h-4 mr-1" />
                       Review
                     </Button>
-                  )}
-                  <Button size="sm" variant="outline">
+              }
+                  <Button size="sm" variant="outline" data-testid="button-element">
                     <Download className="w-4 h-4 mr-1" />
                     Download
                   </Button>
                 </div>
               </CardContent>
             </Card>
-          ))
-        ) : (
-          <Card>
+        ) :
+
+        <Card>
             <CardContent className="py-8 text-center text-gray-500">
               <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
               <p>No documents uploaded yet</p>
               <p className="text-sm mt-2">Upload documents to build the agent's knowledge base</p>
             </CardContent>
           </Card>
-        )}
+        }
       </div>
 
       {/* Review modal */}
-      {selectedDocument && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      {selectedDocument &&
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <Card className="w-full max-w-lg">
             <CardHeader>
               <CardTitle>Review Document</CardTitle>
@@ -252,57 +252,57 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <div>
                 <label className="text-sm font-medium">Review Notes</label>
                 <Textarea
-                  value={reviewNotes}
-                  onChange={(e) => setReviewNotes(e.target.value)}
-                  placeholder="Add your review notes here..."
-                  rows={4}
-                  className="mt-1"
-                />
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                placeholder="Add your review notes here..."
+                rows={4}
+                className="mt-1" data-testid="textarea-mt-1" />
+
               </div>
               <div className="flex space-x-2">
                 <Button
-                  className="flex-1"
-                  onClick={() => {
-                    reviewDocumentMutation.mutate({
-                      documentId: selectedDocument.id,
-                      status: 'approved',
-                      notes: reviewNotes,
-                    });
-                  }}
-                >
+                className="flex-1"
+                onClick={() => {
+                  reviewDocumentMutation.mutate({
+                    documentId: selectedDocument.id,
+                    status: 'approved',
+                    notes: reviewNotes
+                  });
+                }} data-testid="button-flex-1">
+
                   <Check className="w-4 h-4 mr-1" />
                   Approve
                 </Button>
                 <Button
-                  variant="destructive"
-                  className="flex-1"
-                  onClick={() => {
-                    reviewDocumentMutation.mutate({
-                      documentId: selectedDocument.id,
-                      status: 'rejected',
-                      notes: reviewNotes,
-                    });
-                  }}
-                >
+                variant="destructive"
+                className="flex-1"
+                onClick={() => {
+                  reviewDocumentMutation.mutate({
+                    documentId: selectedDocument.id,
+                    status: 'rejected',
+                    notes: reviewNotes
+                  });
+                }} data-testid="button-flex-1">
+
                   <X className="w-4 h-4 mr-1" />
                   Reject
                 </Button>
                 <Button
-                  variant="outline"
-                  onClick={() => {
-                    setSelectedDocument(null);
-                    setReviewNotes('');
-                  }}
-                >
+                variant="outline"
+                onClick={() => {
+                  setSelectedDocument(null);
+                  setReviewNotes('');
+                }} data-testid="button-element">
+
                   Cancel
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default LifeCEOAgentDocuments;

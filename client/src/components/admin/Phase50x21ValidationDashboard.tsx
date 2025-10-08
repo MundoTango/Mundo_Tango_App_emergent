@@ -5,11 +5,11 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  PlayCircle, CheckCircle, XCircle, AlertCircle, Loader2, 
+import {
+  PlayCircle, CheckCircle, XCircle, AlertCircle, Loader2,
   Zap, Database, Users, Globe, Activity, TrendingUp,
-  BarChart3, Timer, Shield, Cpu
-} from 'lucide-react';
+  BarChart3, Timer, Shield, Cpu } from
+'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 
 interface Phase2Result {
@@ -130,25 +130,25 @@ export function Phase50x21ValidationDashboard() {
                 <Button
                   onClick={runPhase2Validation}
                   disabled={isRunning}
-                  className="bg-gradient-to-r from-turquoise-500 to-cyan-500"
-                >
-                  {isRunning ? (
-                    <>
+                  className="bg-gradient-to-r from-turquoise-500 to-cyan-500" data-testid="button-bg-gradient-to-r">
+
+                  {isRunning ?
+                  <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Running Tests...
-                    </>
-                  ) : (
-                    <>
+                    </> :
+
+                  <>
                       <PlayCircle className="mr-2 h-4 w-4" />
                       Run Phase 2 Validation
                     </>
-                  )}
+                  }
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-              {phase2Results ? (
-                <div className="space-y-6">
+              {phase2Results ?
+              <div className="space-y-6">
                   {/* Summary Stats */}
                   <div className="grid grid-cols-4 gap-4">
                     <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100">
@@ -204,24 +204,24 @@ export function Phase50x21ValidationDashboard() {
                   <Card className="p-4">
                     <h3 className="font-semibold mb-3">Automation Status</h3>
                     <div className="grid grid-cols-2 gap-4">
-                      {phase2Results.summary?.automationStatus && Object.entries(phase2Results.summary.automationStatus).map(([key, value]) => (
-                        <div key={key} className="flex items-center gap-2">
-                          {value ? (
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                          ) : (
-                            <XCircle className="h-5 w-5 text-red-500" />
-                          )}
+                      {phase2Results.summary?.automationStatus && Object.entries(phase2Results.summary.automationStatus).map(([key, value]) =>
+                    <div key={key} className="flex items-center gap-2">
+                          {value ?
+                      <CheckCircle className="h-5 w-5 text-green-500" /> :
+
+                      <XCircle className="h-5 w-5 text-red-500" />
+                      }
                           <span className="text-sm">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
                         </div>
-                      ))}
+                    )}
                     </div>
                   </Card>
 
                   {/* Test Results */}
                   <div className="space-y-2">
                     <h3 className="font-semibold">Test Results</h3>
-                    {phase2Results.results?.map((result: Phase2Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                    {phase2Results.results?.map((result: Phase2Result, idx: number) =>
+                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.passed ? 'passed' : 'failed')}
                           <div>
@@ -236,30 +236,30 @@ export function Phase50x21ValidationDashboard() {
                           <p className="text-xs text-gray-500 mt-1">{result.duration}ms</p>
                         </div>
                       </div>
-                    ))}
+                  )}
                   </div>
 
                   {/* Recommendations */}
-                  {phase2Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200">
+                  {phase2Results.recommendations &&
+                <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200">
                       <AlertCircle className="h-4 w-4 text-turquoise-600" />
                       <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Recommendations:</p>
                         <ul className="space-y-1">
-                          {phase2Results.recommendations.map((rec: string, idx: number) => (
-                            <li key={idx} className="text-sm">{rec}</li>
-                          ))}
+                          {phase2Results.recommendations.map((rec: string, idx: number) =>
+                      <li key={idx} className="text-sm">{rec}</li>
+                      )}
                         </ul>
                       </AlertDescription>
                     </Alert>
-                  )}
-                </div>
-              ) : (
-                <div className="text-center py-12 text-gray-500">
+                }
+                </div> :
+
+              <div className="text-center py-12 text-gray-500">
                   <Database className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Run Phase 2 validation to see results</p>
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
         </TabsContent>
@@ -273,25 +273,25 @@ export function Phase50x21ValidationDashboard() {
                 <Button
                   onClick={runPhase3LoadTesting}
                   disabled={isRunning}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500"
-                >
-                  {isRunning ? (
-                    <>
+                  className="bg-gradient-to-r from-purple-500 to-pink-500" data-testid="button-bg-gradient-to-r">
+
+                  {isRunning ?
+                  <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Running Load Tests...
-                    </>
-                  ) : (
-                    <>
+                    </> :
+
+                  <>
                       <Zap className="mr-2 h-4 w-4" />
                       Run Phase 3 Load Testing
                     </>
-                  )}
+                  }
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-              {phase3Results ? (
-                <div className="space-y-6">
+              {phase3Results ?
+              <div className="space-y-6">
                   {/* Summary Stats */}
                   <div className="grid grid-cols-4 gap-4">
                     <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100">
@@ -338,15 +338,15 @@ export function Phase50x21ValidationDashboard() {
                   <Card className="p-4">
                     <h3 className="font-semibold mb-4">Performance by Category</h3>
                     <div className="space-y-3">
-                      {phase3Results.summary?.categories && Object.entries(phase3Results.summary.categories).map(([category, score]) => (
-                        <div key={category} className="space-y-1">
+                      {phase3Results.summary?.categories && Object.entries(phase3Results.summary.categories).map(([category, score]) =>
+                    <div key={category} className="space-y-1">
                           <div className="flex justify-between text-sm">
                             <span className="capitalize">{category}</span>
                             <span className="font-semibold">{(score as number).toFixed(1)}%</span>
                           </div>
                           <Progress value={score as number} className="h-2" />
                         </div>
-                      ))}
+                    )}
                     </div>
                   </Card>
 
@@ -390,8 +390,8 @@ export function Phase50x21ValidationDashboard() {
                   {/* Test Results */}
                   <div className="space-y-2">
                     <h3 className="font-semibold">Load Test Results</h3>
-                    {phase3Results.results?.map((result: Phase3Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                    {phase3Results.results?.map((result: Phase3Result, idx: number) =>
+                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.status)}
                           <div>
@@ -410,34 +410,34 @@ export function Phase50x21ValidationDashboard() {
                           </Badge>
                         </div>
                       </div>
-                    ))}
+                  )}
                   </div>
 
                   {/* Recommendations */}
-                  {phase3Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+                  {phase3Results.recommendations &&
+                <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
                       <Shield className="h-4 w-4 text-purple-600" />
                       <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Performance Recommendations:</p>
                         <ul className="space-y-1">
-                          {phase3Results.recommendations.map((rec: string, idx: number) => (
-                            <li key={idx} className="text-sm">{rec}</li>
-                          ))}
+                          {phase3Results.recommendations.map((rec: string, idx: number) =>
+                      <li key={idx} className="text-sm">{rec}</li>
+                      )}
                         </ul>
                       </AlertDescription>
                     </Alert>
-                  )}
-                </div>
-              ) : (
-                <div className="text-center py-12 text-gray-500">
+                }
+                </div> :
+
+              <div className="text-center py-12 text-gray-500">
                   <Zap className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Run Phase 3 load testing to see performance results</p>
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }

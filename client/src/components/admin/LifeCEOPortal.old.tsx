@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { 
-  Brain, 
-  Crown, 
-  Zap, 
-  Calendar, 
-  Activity, 
+import {
+  Brain,
+  Crown,
+  Zap,
+  Calendar,
+  Activity,
   Database,
   Settings,
   Eye,
@@ -24,8 +24,8 @@ import {
   MessageSquare,
   TrendingUp,
   FileText,
-  Target
-} from 'lucide-react';
+  Target } from
+'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -52,29 +52,29 @@ const LifeCEOPortal: React.FC = () => {
   };
 
   const activeAgents = [
-    { id: 'life_ceo', name: 'Life CEO', status: 'active', type: 'orchestrator' },
-    { id: 'mundo_tango_ceo', name: 'Mundo Tango CEO', status: 'active', type: 'project_manager' },
-    { id: 'finance_ceo', name: 'Finance CEO', status: 'active', type: 'financial_manager' },
-    { id: 'travel_ceo', name: 'Travel CEO', status: 'active', type: 'travel_manager' },
-    { id: 'modeling_agent', name: 'Modeling Agent', status: 'active', type: 'content_manager' },
-    { id: 'security_agent', name: 'Security Agent', status: 'active', type: 'security_manager' },
-    { id: 'memory_agent', name: 'Memory Agent', status: 'active', type: 'memory_manager' },
-    { id: 'voice_agent', name: 'Voice Agent', status: 'paused', type: 'voice_manager' }
-  ];
+  { id: 'life_ceo', name: 'Life CEO', status: 'active', type: 'orchestrator' },
+  { id: 'mundo_tango_ceo', name: 'Mundo Tango CEO', status: 'active', type: 'project_manager' },
+  { id: 'finance_ceo', name: 'Finance CEO', status: 'active', type: 'financial_manager' },
+  { id: 'travel_ceo', name: 'Travel CEO', status: 'active', type: 'travel_manager' },
+  { id: 'modeling_agent', name: 'Modeling Agent', status: 'active', type: 'content_manager' },
+  { id: 'security_agent', name: 'Security Agent', status: 'active', type: 'security_manager' },
+  { id: 'memory_agent', name: 'Memory Agent', status: 'active', type: 'memory_manager' },
+  { id: 'voice_agent', name: 'Voice Agent', status: 'paused', type: 'voice_manager' }];
+
 
   const recentActivity = [
-    { time: '10:00 AM', agent: 'Life CEO', action: 'Daily review initiated', type: 'system' },
-    { time: '09:45 AM', agent: 'Memory Agent', action: 'Indexed 15 new memories', type: 'data' },
-    { time: '09:30 AM', agent: 'Finance CEO', action: 'Budget analysis completed', type: 'analysis' },
-    { time: '09:15 AM', agent: 'Travel CEO', action: 'Flight options researched', type: 'research' }
-  ];
+  { time: '10:00 AM', agent: 'Life CEO', action: 'Daily review initiated', type: 'system' },
+  { time: '09:45 AM', agent: 'Memory Agent', action: 'Indexed 15 new memories', type: 'data' },
+  { time: '09:30 AM', agent: 'Finance CEO', action: 'Budget analysis completed', type: 'analysis' },
+  { time: '09:15 AM', agent: 'Travel CEO', action: 'Flight options researched', type: 'research' }];
+
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'paused': return 'bg-yellow-100 text-yellow-800';
-      case 'failed': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active':return 'bg-green-100 text-green-800';
+      case 'paused':return 'bg-yellow-100 text-yellow-800';
+      case 'failed':return 'bg-red-100 text-red-800';
+      default:return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -170,8 +170,8 @@ const LifeCEOPortal: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {activeAgents.map((agent) => (
-                <div key={agent.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              {activeAgents.map((agent) =>
+              <div key={agent.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                       {agent.name.charAt(0)}
@@ -185,12 +185,12 @@ const LifeCEOPortal: React.FC = () => {
                     <Badge className={getStatusColor(agent.status)}>
                       {agent.status}
                     </Badge>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       {agent.status === 'active' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                     </Button>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>
@@ -205,8 +205,8 @@ const LifeCEOPortal: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+              {recentActivity.map((activity, index) =>
+              <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
                     <div className="text-sm font-medium">{activity.action}</div>
@@ -216,7 +216,7 @@ const LifeCEOPortal: React.FC = () => {
                     {activity.type}
                   </Badge>
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>
@@ -233,17 +233,17 @@ const LifeCEOPortal: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700">
+            <Button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700" data-testid="button-bg-gradient-to-r">
               <Calendar className="w-4 h-4 mr-2" />
               Trigger Daily Review
             </Button>
             
-            <Button variant="outline">
+            <Button variant="outline" data-testid="button-element">
               <RefreshCw className="w-4 h-4 mr-2" />
               Sync All Agents
             </Button>
             
-            <Button variant="outline">
+            <Button variant="outline" data-testid="button-element">
               <Eye className="w-4 h-4 mr-2" />
               View Memory Store
             </Button>
@@ -259,30 +259,30 @@ const LifeCEOPortal: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" data-testid="button-h-auto">
               <GitCommit className="w-6 h-6" />
               <span className="text-sm">Agent Logs</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" data-testid="button-h-auto">
               <Database className="w-6 h-6" />
               <span className="text-sm">Memory Bank</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" data-testid="button-h-auto">
               <Shield className="w-6 h-6" />
               <span className="text-sm">Security</span>
             </Button>
             
-            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+            <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" data-testid="button-h-auto">
               <BarChart3 className="w-6 h-6" />
               <span className="text-sm">Analytics</span>
             </Button>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };
 
 export default LifeCEOPortal;

@@ -8,16 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { 
-  ImageIcon, 
-  MapPin, 
-  Star, 
-  ChevronDown, 
-  Globe, 
+import {
+  ImageIcon,
+  MapPin,
+  Star,
+  ChevronDown,
+  Globe,
   Smile,
   Users,
-  Lock
-} from "lucide-react";
+  Lock } from
+"lucide-react";
 
 interface WhatsOnYourMindProps {
   visibility: string;
@@ -27,22 +27,22 @@ interface WhatsOnYourMindProps {
 
 const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYourMindProps) => {
   const { user } = useAuth();
-  
+
   const { control, formState: { errors } } = useForm({
     mode: "onChange",
     defaultValues: {
-      mindDescription: "",
-    },
+      mindDescription: ""
+    }
   });
 
   const visibilityOptions = [
-    { value: "Public", icon: Globe, label: "Public" },
-    { value: "Friend", icon: Users, label: "Friends" },
-    { value: "Private", icon: Lock, label: "Private" }
-  ];
+  { value: "Public", icon: Globe, label: "Public" },
+  { value: "Friend", icon: Users, label: "Friends" },
+  { value: "Private", icon: Lock, label: "Private" }];
+
 
   const getVisibilityIcon = (type: string) => {
-    const option = visibilityOptions.find(opt => opt.value === type);
+    const option = visibilityOptions.find((opt) => opt.value === type);
     return option ? option.icon : Globe;
   };
 
@@ -55,22 +55,22 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
         <h2 className="text-2xl font-bold text-gray-900">New Feeds</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
+            <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600" data-testid="button-bg-red-600">
               {visibility || "ALL"}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {visibilityOptions.map((option) => (
-              <DropdownMenuItem
-                key={option.value}
-                onClick={() => setVisibility(option.value)}
-                className="flex items-center gap-2"
-              >
+            {visibilityOptions.map((option) =>
+            <DropdownMenuItem
+              key={option.value}
+              onClick={() => setVisibility(option.value)}
+              className="flex items-center gap-2">
+
                 <option.icon className="h-4 w-4" />
                 {option.label}
               </DropdownMenuItem>
-            ))}
+            )}
             <DropdownMenuItem onClick={() => setVisibility("All")}>
               <Globe className="h-4 w-4 mr-2" />
               All
@@ -86,10 +86,10 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-3 cursor-pointer">
               <Avatar className="h-10 w-10">
-                <AvatarImage 
-                  src={user?.profileImage || "/images/user-placeholder.jpeg"} 
-                  className="object-cover"
-                />
+                <AvatarImage
+                  src={user?.profileImage || "/images/user-placeholder.jpeg"}
+                  className="object-cover" />
+
                 <AvatarFallback className="bg-red-600 text-white">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>
@@ -99,12 +99,12 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 <div className="text-sm text-gray-500">@{user?.username}</div>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => onCreatePost()}
-              className="flex items-center gap-2 text-gray-700"
-            >
+              className="flex items-center gap-2 text-gray-700" data-testid="button-flex">
+
               <VisibilityIcon className="h-4 w-4" />
               <span className="font-semibold">Public</span>
               <ChevronDown className="h-4 w-4" />
@@ -117,14 +117,14 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
               placeholder="What's on your mind?"
               className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500"
               onClick={() => onCreatePost()}
-              readOnly
-            />
+              readOnly data-testid="input-w-full" />
+
             <Button
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
-              onClick={() => onCreatePost()}
-            >
+              onClick={() => onCreatePost()} data-testid="button-absolute">
+
               <Smile className="h-5 w-5 text-gray-400" />
             </Button>
           </div>
@@ -138,8 +138,8 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-                onClick={() => onCreatePost("LOCATION")}
-              >
+                onClick={() => onCreatePost("LOCATION")} data-testid="button-flex">
+
                 <MapPin className="h-4 w-4" />
                 Location
               </Button>
@@ -147,8 +147,8 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-                onClick={() => onCreatePost("MEDIA")}
-              >
+                onClick={() => onCreatePost("MEDIA")} data-testid="button-flex">
+
                 <ImageIcon className="h-4 w-4" />
                 Image/Video
               </Button>
@@ -156,23 +156,23 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-                onClick={() => onCreatePost("ACTIVITY")}
-              >
+                onClick={() => onCreatePost("ACTIVITY")} data-testid="button-flex">
+
                 <Star className="h-4 w-4" />
                 Activity
               </Button>
             </div>
             <Button
               onClick={() => onCreatePost()}
-              className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold"
-            >
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold" data-testid="button-bg-red-600">
+
               Post
             </Button>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };
 
 export default WhatsOnYourMind;

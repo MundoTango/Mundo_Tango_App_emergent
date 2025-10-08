@@ -25,8 +25,8 @@ export default function NotFound() {
           <div className="space-y-3">
             <Button
               onClick={() => setLocation('/')}
-              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-            >
+              className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-w-full">
+
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
             </Button>
@@ -34,8 +34,8 @@ export default function NotFound() {
             <Button
               onClick={() => window.history.back()}
               variant="outline"
-              className="w-full border-turquoise-200 hover:bg-turquoise-50"
-            >
+              className="w-full border-turquoise-200 hover:bg-turquoise-50" data-testid="button-w-full">
+
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
             </Button>
@@ -43,8 +43,8 @@ export default function NotFound() {
             <Button
               onClick={() => setLocation('/events')}
               variant="ghost"
-              className="w-full hover:bg-turquoise-50"
-            >
+              className="w-full hover:bg-turquoise-50" data-testid="button-w-full">
+
               <Search className="w-4 h-4 mr-2" />
               Browse Events
             </Button>
@@ -53,13 +53,13 @@ export default function NotFound() {
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-500">
               Need help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="a-text-turquoise-600">
                 support@mundotango.life
               </a>
             </p>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

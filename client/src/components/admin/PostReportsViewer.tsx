@@ -52,13 +52,13 @@ export function PostReportsViewer() {
 
       if (!response.ok) throw new Error('Failed to update report');
 
-      toast({ 
+      toast({
         title: "Report updated",
         description: `Report marked as ${status}`
       });
       refetch();
     } catch (error) {
-      toast({ 
+      toast({
         title: "Error",
         description: "Failed to update report",
         variant: "destructive"
@@ -75,16 +75,16 @@ export function PostReportsViewer() {
       <div className="flex flex-col items-center justify-center p-12 text-gray-500">
         <Flag className="h-12 w-12 mb-4 text-gray-300" />
         <p>No reports to review</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-6">Post Reports</h2>
       
-      {reports.map((report: PostReport) => (
-        <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+      {reports.map((report: PostReport) =>
+      <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
           {/* Report Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -110,11 +110,11 @@ export function PostReportsViewer() {
           </div>
 
           {/* Report Description */}
-          {report.description && (
-            <div className="bg-gray-50 rounded-lg p-3">
+          {report.description &&
+        <div className="bg-gray-50 rounded-lg p-3">
               <p className="text-sm text-gray-700">{report.description}</p>
             </div>
-          )}
+        }
 
           {/* Reported Post */}
           <div className="border-l-4 border-red-200 pl-4 space-y-2">
@@ -123,33 +123,33 @@ export function PostReportsViewer() {
           </div>
 
           {/* Actions */}
-          {report.status === 'pending' && (
-            <div className="flex items-center gap-3 pt-4 border-t">
+          {report.status === 'pending' &&
+        <div className="flex items-center gap-3 pt-4 border-t">
               <button
-                onClick={() => handleUpdateStatus(report.id, 'resolved', 'deleted')}
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-              >
+            onClick={() => handleUpdateStatus(report.id, 'resolved', 'deleted')}
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" data-testid="button-flex">
+
                 <XCircle className="h-4 w-4" />
                 Delete Post
               </button>
               <button
-                onClick={() => handleUpdateStatus(report.id, 'resolved', 'warned')}
-                className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-              >
+            onClick={() => handleUpdateStatus(report.id, 'resolved', 'warned')}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors" data-testid="button-flex">
+
                 <AlertCircle className="h-4 w-4" />
                 Warn User
               </button>
               <button
-                onClick={() => handleUpdateStatus(report.id, 'dismissed')}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
+            onClick={() => handleUpdateStatus(report.id, 'dismissed')}
+            className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" data-testid="button-flex">
+
                 <CheckCircle className="h-4 w-4" />
                 Dismiss
               </button>
             </div>
-          )}
+        }
         </div>
-      ))}
-    </div>
-  );
+      )}
+    </div>);
+
 }

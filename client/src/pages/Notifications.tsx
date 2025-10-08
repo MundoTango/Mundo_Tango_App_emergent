@@ -76,7 +76,7 @@ export default function Notifications() {
       queryClient.invalidateQueries({ queryKey: ['/api/notifications'] });
       toast({
         title: data.title,
-        description: data.message,
+        description: data.message
       });
     });
 
@@ -93,15 +93,15 @@ export default function Notifications() {
     queryFn: async () => {
       const params = new URLSearchParams();
       if (filter === 'unread') params.append('unread', 'true');
-      
+
       const response = await fetch(`/api/notifications?${params}`, {
         credentials: 'include'
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch notifications');
       }
-      
+
       return response.json();
     },
     refetchInterval: 30000 // Refresh every 30 seconds
@@ -152,7 +152,7 @@ export default function Notifications() {
       queryClient.invalidateQueries({ queryKey: ['/api/notifications/count'] });
       toast({
         title: "All notifications marked as read",
-        description: "Your notification inbox is now clear",
+        description: "Your notification inbox is now clear"
       });
     }
   });
@@ -175,7 +175,7 @@ export default function Notifications() {
       queryClient.invalidateQueries({ queryKey: ['/api/notifications'] });
       queryClient.invalidateQueries({ queryKey: ['/api/notifications/count'] });
       toast({
-        title: "Notification deleted",
+        title: "Notification deleted"
       });
     }
   });
@@ -187,7 +187,7 @@ export default function Notifications() {
     if (!notification.isRead) {
       markAsReadMutation.mutate(notification.id);
     }
-    
+
     if (notification.actionUrl) {
       window.location.href = notification.actionUrl;
     }
@@ -213,17 +213,17 @@ export default function Notifications() {
               </div>
             </div>
             
-            {unreadCount > 0 && (
-              <Button
-                onClick={() => markAllAsReadMutation.mutate()}
-                variant="outline"
-                className="bg-white/50 backdrop-blur-sm hover:bg-white/70"
-                disabled={markAllAsReadMutation.isPending}
-              >
+            {unreadCount > 0 &&
+            <Button
+              onClick={() => markAllAsReadMutation.mutate()}
+              variant="outline"
+              className="bg-white/50 backdrop-blur-sm hover:bg-white/70"
+              disabled={markAllAsReadMutation.isPending} data-testid="button-bg-white-50">
+
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Mark all as read
               </Button>
-            )}
+            }
           </div>
         </div>
 
@@ -235,51 +235,51 @@ export default function Notifications() {
             </TabsTrigger>
             <TabsTrigger value="unread" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#5EEAD4] data-[state=active]:to-[#155E75] data-[state=active]:text-white">
               Unread
-              {unreadCount > 0 && (
-                <Badge className="ml-2 bg-red-500 text-white">
+              {unreadCount > 0 &&
+              <Badge className="ml-2 bg-red-500 text-white">
                   {unreadCount}
                 </Badge>
-              )}
+              }
             </TabsTrigger>
           </TabsList>
         </Tabs>
 
         {/* Notifications List */}
         <ScrollArea className="h-[600px] pr-4">
-          {isLoading ? (
-            <div className="flex items-center justify-center h-64">
+          {isLoading ?
+          <div className="flex items-center justify-center h-64">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#5EEAD4]"></div>
-            </div>
-          ) : notifications.length === 0 ? (
-            <Card className="p-12 text-center bg-white/50 backdrop-blur-sm border-white/20">
+            </div> :
+          notifications.length === 0 ?
+          <Card className="p-12 text-center bg-white/50 backdrop-blur-sm border-white/20">
               <Bell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-lg font-semibold mb-2">No notifications</h3>
               <p className="text-muted-foreground">
                 {filter === 'unread' ? "You're all caught up!" : "You don't have any notifications yet"}
               </p>
-            </Card>
-          ) : (
-            <div className="space-y-3">
+            </Card> :
+
+          <div className="space-y-3">
               {notifications.map((notification: Notification) => {
-                const Icon = notificationIcons[notification.type];
-                const gradientColor = notificationColors[notification.type];
-                
-                return (
-                  <Card
-                    key={notification.id}
-                    className={cn(
-                      "p-4 cursor-pointer transition-all duration-200 hover:shadow-lg",
-                      "bg-gradient-to-r backdrop-blur-sm border-white/20",
-                      !notification.isRead && "border-l-4 border-l-[#5EEAD4]",
-                      gradientColor
-                    )}
-                    onClick={() => handleNotificationClick(notification)}
-                  >
+              const Icon = notificationIcons[notification.type];
+              const gradientColor = notificationColors[notification.type];
+
+              return (
+                <Card
+                  key={notification.id}
+                  className={cn(
+                    "p-4 cursor-pointer transition-all duration-200 hover:shadow-lg",
+                    "bg-gradient-to-r backdrop-blur-sm border-white/20",
+                    !notification.isRead && "border-l-4 border-l-[#5EEAD4]",
+                    gradientColor
+                  )}
+                  onClick={() => handleNotificationClick(notification)}>
+
                     <div className="flex items-start gap-3">
                       <div className={cn(
-                        "p-2 rounded-full",
-                        !notification.isRead ? "bg-gradient-to-br from-[#5EEAD4] to-[#155E75] text-white" : "bg-gray-100 text-gray-600"
-                      )}>
+                      "p-2 rounded-full",
+                      !notification.isRead ? "bg-gradient-to-br from-[#5EEAD4] to-[#155E75] text-white" : "bg-gray-100 text-gray-600"
+                    )}>
                         <Icon className="h-4 w-4" />
                       </div>
                       
@@ -287,15 +287,15 @@ export default function Notifications() {
                         <div className="flex items-start justify-between">
                           <div>
                             <h4 className={cn(
-                              "font-semibold",
-                              !notification.isRead && "text-foreground"
-                            )}>
+                            "font-semibold",
+                            !notification.isRead && "text-foreground"
+                          )}>
                               {notification.title}
                             </h4>
                             <p className={cn(
-                              "text-sm mt-1",
-                              notification.isRead ? "text-muted-foreground" : "text-foreground/90"
-                            )}>
+                            "text-sm mt-1",
+                            notification.isRead ? "text-muted-foreground" : "text-foreground/90"
+                          )}>
                               {notification.message}
                             </p>
                             <p className="text-xs text-muted-foreground mt-2">
@@ -304,41 +304,41 @@ export default function Notifications() {
                           </div>
                           
                           <div className="flex items-center gap-1">
-                            {!notification.isRead && (
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  markAsReadMutation.mutate(notification.id);
-                                }}
-                                className="h-8 w-8 hover:bg-white/50"
-                              >
+                            {!notification.isRead &&
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              markAsReadMutation.mutate(notification.id);
+                            }}
+                            className="h-8 w-8 hover:bg-white/50" data-testid="button-h-8">
+
                                 <Check className="h-4 w-4" />
                               </Button>
-                            )}
+                          }
                             <Button
-                              size="icon"
-                              variant="ghost"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                deleteNotificationMutation.mutate(notification.id);
-                              }}
-                              className="h-8 w-8 hover:bg-red-100 hover:text-red-600"
-                            >
+                            size="icon"
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteNotificationMutation.mutate(notification.id);
+                            }}
+                            className="h-8 w-8 hover:bg-red-100 hover:text-red-600" data-testid="button-h-8">
+
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </Card>
-                );
-              })}
+                  </Card>);
+
+            })}
             </div>
-          )}
+          }
         </ScrollArea>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

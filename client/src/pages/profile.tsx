@@ -29,17 +29,17 @@ import {
   LazyTravelDetailsComponent,
   LazyGuestProfileDisplay,
   GalleryFallback,
-  ListFallback
-} from '@/components/profile/OptimizedProfileComponents';
+  ListFallback } from
+'@/components/profile/OptimizedProfileComponents';
 import PostFeed from '@/components/moments/PostFeed';
 
 // Phase 5: Production Hardening imports
 import ProfileErrorBoundary from '@/components/profile/ProfileErrorBoundary';
 import { withRetry, withTimeout } from '@/utils/retryLogic';
 import { measureComponentRender, measureApiCall } from '@/utils/performanceMonitor';
-import { 
-  ProfileHeaderFallback, 
-  PostsFallback, 
+import {
+  ProfileHeaderFallback,
+  PostsFallback,
   TravelDetailsFallback,
   EventsFallback,
   PhotosFallback,
@@ -48,8 +48,8 @@ import {
   ExperienceFallback,
   GuestProfileFallback,
   OfflineIndicator,
-  NetworkErrorRetry
-} from '@/components/profile/ProfileFallbacks';
+  NetworkErrorRetry } from
+'@/components/profile/ProfileFallbacks';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -64,7 +64,7 @@ export default function Profile() {
     }
     return 'memories';
   };
-  
+
   const [activeTab, setActiveTab] = useState(getInitialTab());
   const [showMemoryPostModal, setShowMemoryPostModal] = useState(false);
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
@@ -73,7 +73,7 @@ export default function Profile() {
   // Track component performance and handle URL parameter changes
   useEffect(() => {
     const stopMeasure = measureComponentRender('Profile');
-    
+
     // ESA LIFE CEO 56x21 - Update tab when URL changes
     const handleUrlChange = () => {
       const params = new URLSearchParams(window.location.search);
@@ -82,7 +82,7 @@ export default function Profile() {
         setActiveTab(tab);
       }
     };
-    
+
     window.addEventListener('popstate', handleUrlChange);
     return () => {
       stopMeasure();
@@ -95,10 +95,10 @@ export default function Profile() {
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
-    
+
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-    
+
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
@@ -117,7 +117,7 @@ export default function Profile() {
             5000
           )
         );
-        
+
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const result = await response.json();
         tracker.complete(response.status);
@@ -143,7 +143,7 @@ export default function Profile() {
             5000
           )
         );
-        
+
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const result = await response.json();
         tracker.complete(response.status);
@@ -168,7 +168,7 @@ export default function Profile() {
   const handleAddTravelDetails = () => {
     toast({
       title: "Travel Details",
-      description: "Travel details functionality coming soon.",
+      description: "Travel details functionality coming soon."
     });
   };
 
@@ -178,8 +178,8 @@ export default function Profile() {
         <div className="flex items-center justify-center h-64">
           <p className="text-gray-500">Loading profile...</p>
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   return (
@@ -194,8 +194,8 @@ export default function Profile() {
             user={user}
             stats={statsData || {}}
             isOwnProfile={true}
-            onEditProfile={handleEditProfile}
-          />
+            onEditProfile={handleEditProfile} />
+
 
         {/* Story Highlights - REMOVED per user request */}
 
@@ -203,66 +203,66 @@ export default function Profile() {
         <div className="bg-white rounded-lg shadow-sm">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
-              <TabsTrigger 
-                value="about" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="about"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <UserCircle className="mr-2 h-4 w-4" />
                 <span className="font-medium">About</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="posts" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="posts"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <span className="font-medium">Memories</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="events" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="events"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Calendar className="mr-2 h-4 w-4" />
                 <span className="font-medium">Events</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="travel" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="travel"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Globe className="mr-2 h-4 w-4" />
                 <span className="font-medium">Travel</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="photos" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="photos"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Camera className="mr-2 h-4 w-4" />
                 <span className="font-medium">Photos</span>
               </TabsTrigger>
 
-              <TabsTrigger 
-                value="friends" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="friends"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Users className="mr-2 h-4 w-4" />
                 <span className="font-medium">Friends</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="experience" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="experience"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Star className="mr-2 h-4 w-4" />
                 <span className="font-medium">Experience</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="guest-profile" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="guest-profile"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <UserCheck className="mr-2 h-4 w-4" />
                 <span className="font-medium">Guest Profile</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="engagement" 
-                className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4"
-              >
+              <TabsTrigger
+                  value="engagement"
+                  className="data-[state=active]:border-b-2 data-[state=active]:border-turquoise-500 rounded-none px-6 py-4">
+
                 <Sparkles className="mr-2 h-4 w-4" />
                 <span className="font-medium">Engagement</span>
               </TabsTrigger>
@@ -272,12 +272,12 @@ export default function Profile() {
                 {/* About Section with Guest Profile Tab */}
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                   <div className="lg:col-span-3">
-                    <ProfileAboutSection 
-                      user={user} 
-                      isOwnProfile={true}
-                      currentUserId={user?.id}
-                      isFriend={false}
-                    />
+                    <ProfileAboutSection
+                        user={user}
+                        isOwnProfile={true}
+                        currentUserId={user?.id}
+                        isFriend={false} />
+
                   </div>
                   
                   {/* Guest Profile in Side Panel */}
@@ -287,43 +287,43 @@ export default function Profile() {
                         <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-4">
                           Guest Profile
                         </h3>
-                        {guestProfileError ? (
+                        {guestProfileError ?
                           <div className="text-center p-4">
                             <p className="text-sm text-red-600">Error loading guest profile</p>
-                          </div>
-                        ) : guestProfileLoading ? (
+                          </div> :
+                          guestProfileLoading ?
                           <div className="animate-pulse space-y-2">
                             <div className="h-3 bg-gray-200 rounded w-3/4"></div>
                             <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                          </div>
-                        ) : guestProfile ? (
+                          </div> :
+                          guestProfile ?
                           <div className="space-y-3">
                             <div className="flex items-center gap-2">
                               <UserCheck className="w-4 h-4 text-green-500" />
                               <span className="text-sm text-green-600">Verified Guest</span>
                             </div>
                             <p className="text-xs text-gray-600">Ready to request stays with hosts</p>
-                            <Button 
-                              size="sm" 
+                            <Button
+                              size="sm"
                               variant="outline"
-                              className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                            >
+                              className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-w-full">
+
                               View Full Profile
                             </Button>
-                          </div>
-                        ) : (
+                          </div> :
+
                           <div className="text-center space-y-3">
                             <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
                             <p className="text-xs text-gray-600">Create your guest profile to be housed by Hosts in the global tango community</p>
-                            <Button 
+                            <Button
                               size="sm"
                               onClick={() => setLocation('/guest-onboarding')}
-                              className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                            >
+                              className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-w-full">
+
                               Create Profile
                             </Button>
                           </div>
-                        )}
+                          }
                       </CardContent>
                     </Card>
                   </div>
@@ -340,27 +340,27 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">About</h3>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => setActiveTab('about')}
-                            className="text-xs text-turquoise-600 hover:text-turquoise-700"
-                          >
+                          <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setActiveTab('about')}
+                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+
                             Edit
                           </Button>
                         </div>
                         <p className="text-sm text-gray-600 line-clamp-3 mb-3">
                           {(user as any)?.bio || "Share your tango story..."}
                         </p>
-                        {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 && (
+                        {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 &&
                           <div className="flex flex-wrap gap-1">
-                            {(typeof (user as any).tangoRoles === 'string' ? JSON.parse((user as any).tangoRoles) : (user as any).tangoRoles).slice(0, 2).map((role: string) => (
-                              <Badge key={role} variant="secondary" className="text-xs bg-turquoise-100 text-turquoise-700">
+                            {(typeof (user as any).tangoRoles === 'string' ? JSON.parse((user as any).tangoRoles) : (user as any).tangoRoles).slice(0, 2).map((role: string) =>
+                            <Badge key={role} variant="secondary" className="text-xs bg-turquoise-100 text-turquoise-700">
                                 {role.replace('_', ' ')}
                               </Badge>
-                            ))}
+                            )}
                           </div>
-                        )}
+                          }
                       </CardContent>
                     </Card>
 
@@ -369,12 +369,12 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Travel</h3>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => setActiveTab('travel')}
-                            className="text-xs text-turquoise-600 hover:text-turquoise-700"
-                          >
+                          <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setActiveTab('travel')}
+                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+
                             View
                           </Button>
                         </div>
@@ -400,12 +400,12 @@ export default function Profile() {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <h3 className="font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Friends</h3>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => setActiveTab('friends')}
-                            className="text-xs text-turquoise-600 hover:text-turquoise-700"
-                          >
+                          <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setActiveTab('friends')}
+                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+
                             View All
                           </Button>
                         </div>
@@ -415,11 +415,11 @@ export default function Profile() {
                           </p>
                           {/* Friend Avatars Preview */}
                           <div className="flex -space-x-2">
-                            {[1,2,3].map((i) => (
+                            {[1, 2, 3].map((i) =>
                               <div key={i} className="w-6 h-6 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-full border-2 border-white flex items-center justify-center">
                                 <Users className="w-3 h-3 text-turquoise-600" />
                               </div>
-                            ))}
+                              )}
                           </div>
                         </div>
                       </CardContent>
@@ -429,29 +429,29 @@ export default function Profile() {
                   {/* Main Feed Area */}
                   <div className="lg:col-span-3 space-y-4">
                     {/* Beautiful Post Creator - Same as Main Memories Feed */}
-                    <PostCreator 
-                      context={{ type: 'memory' }}
-                      user={user || undefined}
-                      onPostCreated={() => {
-                        setRefreshKey(prev => prev + 1);
-                        queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
-                      }}
-                    />
+                    <PostCreator
+                        context={{ type: 'memory' }}
+                        user={user || undefined}
+                        onPostCreated={() => {
+                          setRefreshKey((prev) => prev + 1);
+                          queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
+                        }} />
+
                     
                     {/* Unified PostFeed - Integrated with platform architecture */}
-                    {user?.id ? (
-                      <PostFeed 
+                    {user?.id ?
+                      <PostFeed
                         key={refreshKey}
-                        context={{ 
-                          type: 'profile', 
-                          userId: user.id 
-                        }}
-                      />
-                    ) : (
+                        context={{
+                          type: 'profile',
+                          userId: user.id
+                        }} /> :
+
+
                       <div className="flex items-center justify-center py-12">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500"></div>
                       </div>
-                    )}
+                      }
                   </div>
                 </div>
               </TabsContent>
@@ -464,11 +464,11 @@ export default function Profile() {
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                         Tango Events
                       </h3>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                      >
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
                         <Calendar className="w-4 h-4 mr-2" />
                         Create Event
                       </Button>
@@ -508,10 +508,10 @@ export default function Profile() {
                         <p className="text-turquoise-600 text-sm mb-4">
                           Start attending milongas, workshops, and festivals to see them here.
                         </p>
-                        <Button 
-                          className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() => setActiveTab('about')}
-                        >
+                        <Button
+                            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+                            onClick={() => setActiveTab('about')} data-testid="button-bg-gradient-to-r">
+
                           Explore Events
                         </Button>
                       </div>
@@ -522,10 +522,10 @@ export default function Profile() {
 
               <TabsContent value="travel" className="space-y-4">
                 <Suspense fallback={<TravelDetailsFallback />}>
-                  <LazyTravelDetailsComponent 
-                    userId={user?.id || 0} 
-                    isOwnProfile={true} 
-                  />
+                  <LazyTravelDetailsComponent
+                      userId={user?.id || 0}
+                      isOwnProfile={true} />
+
                 </Suspense>
               </TabsContent>
 
@@ -538,11 +538,11 @@ export default function Profile() {
                         Media Gallery
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photo
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50">
+                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Video
                         </Button>
@@ -551,32 +551,32 @@ export default function Profile() {
                     
                     {/* Media Filter Tabs */}
                     <div className="flex items-center gap-2 mb-6">
-                      <Button 
-                        variant="default" 
-                        size="sm"
-                        className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
-                      >
+                      <Button
+                          variant="default"
+                          size="sm"
+                          className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
                         All Media
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                      >
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
                         📸 Photos Only
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-cyan-200 text-cyan-700 hover:bg-cyan-50"
-                      >
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
+
                         🎥 Videos Only
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-purple-200 text-purple-700 hover:bg-purple-50"
-                      >
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-purple-200 text-purple-700 hover:bg-purple-50" data-testid="button-border-purple-200">
+
                         🎵 Dance Videos
                       </Button>
                     </div>
@@ -584,30 +584,30 @@ export default function Profile() {
                     {/* Media Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                       {/* Sample Media Items */}
-                      {[1, 2, 3, 4, 5, 6].map((item) => (
+                      {[1, 2, 3, 4, 5, 6].map((item) =>
                         <div key={item} className="relative group aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-turquoise-100 to-cyan-100 hover:shadow-lg transition-all cursor-pointer">
                           <div className="absolute inset-0 flex items-center justify-center">
-                            {item % 3 === 0 ? (
-                              <Video className="w-8 h-8 text-turquoise-600" />
-                            ) : (
-                              <Camera className="w-8 h-8 text-cyan-600" />
-                            )}
+                            {item % 3 === 0 ?
+                            <Video className="w-8 h-8 text-turquoise-600" /> :
+
+                            <Camera className="w-8 h-8 text-cyan-600" />
+                            }
                           </div>
                           <div className="absolute bottom-2 left-2 right-2">
-                            <Badge 
-                              variant="secondary" 
-                              className="text-xs bg-white/80 text-gray-700"
-                            >
+                            <Badge
+                              variant="secondary"
+                              className="text-xs bg-white/80 text-gray-700">
+
                               {item % 3 === 0 ? "Video" : "Photo"}
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white" data-testid="button-h-8">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
                         </div>
-                      ))}
+                        )}
                     </div>
 
                     {/* Empty State */}
@@ -621,18 +621,18 @@ export default function Profile() {
                         Upload photos and videos of your tango experiences, performances, and memories.
                       </p>
                       <div className="flex items-center justify-center gap-2">
-                        <Button 
-                          size="sm"
-                          className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                        >
+                        <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
+
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photos
                         </Button>
-                        <Button 
-                          size="sm"
-                          variant="outline"
-                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                        >
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
                           <Video className="w-4 h-4 mr-2" />
                           Upload Videos
                         </Button>
@@ -651,10 +651,10 @@ export default function Profile() {
                     <p className="text-gray-600 mb-4">
                       We've combined photos and videos into one place with smart filtering.
                     </p>
-                    <Button 
-                      className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                      onClick={() => setActiveTab('photos')}
-                    >
+                    <Button
+                        className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+                        onClick={() => setActiveTab('photos')} data-testid="button-bg-gradient-to-r">
+
                       View Media Gallery
                     </Button>
                   </CardContent>
@@ -729,7 +729,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200">
+                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200" data-testid="button-text-turquoise-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -753,7 +753,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200">
+                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200" data-testid="button-text-cyan-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -777,7 +777,7 @@ export default function Profile() {
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
+                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200" data-testid="button-text-purple-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -807,10 +807,10 @@ export default function Profile() {
                         <p className="text-turquoise-600 text-sm mb-4">
                           When event organizers select you for roles and you accept, they'll automatically appear here as professional experience.
                         </p>
-                        <Button 
-                          className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() => setActiveTab('events')}
-                        >
+                        <Button
+                            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
+                            onClick={() => setActiveTab('events')} data-testid="button-bg-gradient-to-r">
+
                           Browse Events
                         </Button>
                       </div>
@@ -820,9 +820,9 @@ export default function Profile() {
               </TabsContent>
 
               <TabsContent value="guest-profile" className="space-y-4">
-                {guestProfileError ? (
-                  <NetworkErrorRetry onRetry={() => queryClient.invalidateQueries({ queryKey: ['/api/guest-profiles'] })} />
-                ) : guestProfileLoading ? (
+                {guestProfileError ?
+                  <NetworkErrorRetry onRetry={() => queryClient.invalidateQueries({ queryKey: ['/api/guest-profiles'] })} /> :
+                  guestProfileLoading ?
                   <Card className="glassmorphic-card">
                     <CardContent className="p-6">
                       <div className="animate-pulse space-y-4">
@@ -831,13 +831,13 @@ export default function Profile() {
                         <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                       </div>
                     </CardContent>
-                  </Card>
-                ) : guestProfile ? (
-                  <GuestProfileDisplay 
-                    profile={guestProfile} 
-                    isOwnProfile={true}
-                  />
-                ) : (
+                  </Card> :
+                  guestProfile ?
+                  <GuestProfileDisplay
+                    profile={guestProfile}
+                    isOwnProfile={true} /> :
+
+
                   <Card className="glassmorphic-card">
                     <CardContent className="p-12 text-center">
                       <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
@@ -845,12 +845,12 @@ export default function Profile() {
                       <p className="text-gray-600 mb-4">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
-                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
+                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="a-inline-flex">
                         Create Guest Profile
                       </a>
                     </CardContent>
                   </Card>
-                )}
+                  }
               </TabsContent>
 
               {/* NEW: Engagement Features Tab */}
@@ -864,25 +864,25 @@ export default function Profile() {
       
       {/* Memory Post Modal */}
       <ProfileMemoryPostModal
-        isOpen={showMemoryPostModal}
-        onClose={() => setShowMemoryPostModal(false)}
-        onMemoryCreated={() => {
-          setShowMemoryPostModal(false);
-          queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
-          toast({
-            title: "Memory Posted!",
-            description: "Your memory has been shared successfully.",
-          });
-        }}
-      />
+          isOpen={showMemoryPostModal}
+          onClose={() => setShowMemoryPostModal(false)}
+          onMemoryCreated={() => {
+            setShowMemoryPostModal(false);
+            queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
+            toast({
+              title: "Memory Posted!",
+              description: "Your memory has been shared successfully."
+            });
+          }} />
+
       
       {/* Edit Profile Modal */}
       <EditProfileModal
-        open={showEditProfileModal}
-        onClose={() => setShowEditProfileModal(false)}
-        user={user}
-      />
+          open={showEditProfileModal}
+          onClose={() => setShowEditProfileModal(false)}
+          user={user} />
+
     </DashboardLayout>
-    </ProfileErrorBoundary>
-  );
+    </ProfileErrorBoundary>);
+
 }

@@ -16,32 +16,32 @@ interface SecurityTest {
 
 export default function SecurityDemo() {
   const [tests, setTests] = useState<SecurityTest[]>([
-    {
-      name: 'User Context Security',
-      description: 'Verify user context is properly set for database operations',
-      status: 'pending'
-    },
-    {
-      name: 'Chat Room Access Control',
-      description: 'Test that users can only access authorized chat rooms',
-      status: 'pending'
-    },
-    {
-      name: 'Friend Request Email',
-      description: 'Send friend request with email notification',
-      status: 'pending'
-    },
-    {
-      name: 'Event Feedback Security',
-      description: 'Submit event feedback with safety reporting',
-      status: 'pending'
-    },
-    {
-      name: 'Memory Tagging Email',
-      description: 'Tag user in memory with email notification',
-      status: 'pending'
-    }
-  ]);
+  {
+    name: 'User Context Security',
+    description: 'Verify user context is properly set for database operations',
+    status: 'pending'
+  },
+  {
+    name: 'Chat Room Access Control',
+    description: 'Test that users can only access authorized chat rooms',
+    status: 'pending'
+  },
+  {
+    name: 'Friend Request Email',
+    description: 'Send friend request with email notification',
+    status: 'pending'
+  },
+  {
+    name: 'Event Feedback Security',
+    description: 'Submit event feedback with safety reporting',
+    status: 'pending'
+  },
+  {
+    name: 'Memory Tagging Email',
+    description: 'Tag user in memory with email notification',
+    status: 'pending'
+  }]
+  );
 
   const [chatMessage, setChatMessage] = useState('');
   const [eventFeedback, setEventFeedback] = useState('');
@@ -50,25 +50,25 @@ export default function SecurityDemo() {
   const [logs, setLogs] = useState<string[]>([]);
 
   const addLog = (message: string) => {
-    setLogs(prev => [...prev, `${new Date().toLocaleTimeString()}: ${message}`]);
+    setLogs((prev) => [...prev, `${new Date().toLocaleTimeString()}: ${message}`]);
   };
 
   const updateTestStatus = (testName: string, status: SecurityTest['status'], result?: string) => {
-    setTests(prev => prev.map(test => 
-      test.name === testName ? { ...test, status, result } : test
+    setTests((prev) => prev.map((test) =>
+    test.name === testName ? { ...test, status, result } : test
     ));
   };
 
   const testUserContext = async () => {
     updateTestStatus('User Context Security', 'testing');
     addLog('Testing user context security...');
-    
+
     try {
       const response = await fetch('/api/auth/user', {
         method: 'GET',
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const userData = await response.json();
         addLog(`User context verified for: ${userData.name} (ID: ${userData.id})`);
@@ -85,7 +85,7 @@ export default function SecurityDemo() {
   const testChatAccess = async () => {
     updateTestStatus('Chat Room Access Control', 'testing');
     addLog('Testing chat room access control...');
-    
+
     if (!chatMessage.trim()) {
       updateTestStatus('Chat Room Access Control', 'failed', 'Message required');
       return;
@@ -98,7 +98,7 @@ export default function SecurityDemo() {
         credentials: 'include',
         body: JSON.stringify({ content: chatMessage })
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         addLog(`Chat message sent successfully to security test room`);
@@ -117,7 +117,7 @@ export default function SecurityDemo() {
   const testFriendRequest = async () => {
     updateTestStatus('Friend Request Email', 'testing');
     addLog('Testing friend request with email notification...');
-    
+
     if (!selectedFriend) {
       updateTestStatus('Friend Request Email', 'failed', 'Friend ID required');
       return;
@@ -130,7 +130,7 @@ export default function SecurityDemo() {
         credentials: 'include',
         body: JSON.stringify({ friendId: parseInt(selectedFriend) })
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         addLog(`Friend request sent successfully with email notification`);
@@ -149,7 +149,7 @@ export default function SecurityDemo() {
   const testEventFeedback = async () => {
     updateTestStatus('Event Feedback Security', 'testing');
     addLog('Testing event feedback with safety reporting...');
-    
+
     if (!eventFeedback.trim()) {
       updateTestStatus('Event Feedback Security', 'failed', 'Feedback content required');
       return;
@@ -160,13 +160,13 @@ export default function SecurityDemo() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           type: 'safety_report',
           content: eventFeedback,
           rating: 1
         })
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         addLog(`Safety report submitted successfully - organizer will be notified`);
@@ -185,7 +185,7 @@ export default function SecurityDemo() {
   const testMemoryTagging = async () => {
     updateTestStatus('Memory Tagging Email', 'testing');
     addLog('Testing memory tagging with email notification...');
-    
+
     if (!memoryTitle.trim() || !selectedFriend) {
       updateTestStatus('Memory Tagging Email', 'failed', 'Memory title and friend required');
       return;
@@ -196,12 +196,12 @@ export default function SecurityDemo() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           taggedUserId: parseInt(selectedFriend),
           memoryTitle: memoryTitle
         })
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         addLog(`User tagged in memory successfully with email notification`);
@@ -220,23 +220,23 @@ export default function SecurityDemo() {
   const runAllTests = async () => {
     addLog('Starting comprehensive security test suite...');
     await testUserContext();
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await testChatAccess();
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await testFriendRequest();
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await testEventFeedback();
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await testMemoryTagging();
     addLog('Security test suite completed');
   };
 
   const getStatusColor = (status: SecurityTest['status']) => {
     switch (status) {
-      case 'passed': return 'bg-green-100 text-green-800 border-green-200';
-      case 'failed': return 'bg-red-100 text-red-800 border-red-200';
-      case 'testing': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'passed':return 'bg-green-100 text-green-800 border-green-200';
+      case 'failed':return 'bg-red-100 text-red-800 border-red-200';
+      case 'testing':return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      default:return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -270,22 +270,22 @@ export default function SecurityDemo() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {tests.map((test, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+            {tests.map((test, index) =>
+            <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                 <div className="flex-1">
                   <h4 className="font-medium">{test.name}</h4>
                   <p className="text-sm text-gray-600">{test.description}</p>
-                  {test.result && (
-                    <p className="text-xs text-gray-500 mt-1">{test.result}</p>
-                  )}
+                  {test.result &&
+                <p className="text-xs text-gray-500 mt-1">{test.result}</p>
+                }
                 </div>
                 <Badge className={getStatusColor(test.status)}>
                   {test.status}
                 </Badge>
               </div>
-            ))}
+            )}
             
-            <Button onClick={runAllTests} className="w-full" size="lg">
+            <Button onClick={runAllTests} className="w-full" size="lg" data-testid="button-w-full">
               Run All Security Tests
             </Button>
           </CardContent>
@@ -308,9 +308,9 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter test message"
                   value={chatMessage}
-                  onChange={(e) => setChatMessage(e.target.value)}
-                />
-                <Button onClick={testChatAccess} size="sm">
+                  onChange={(e) => setChatMessage(e.target.value)} data-testid="input-element" />
+
+                <Button onClick={testChatAccess} size="sm" data-testid="button-element">
                   Send
                 </Button>
               </div>
@@ -323,9 +323,9 @@ export default function SecurityDemo() {
                   type="number"
                   placeholder="Enter friend user ID"
                   value={selectedFriend}
-                  onChange={(e) => setSelectedFriend(e.target.value)}
-                />
-                <Button onClick={testFriendRequest} size="sm">
+                  onChange={(e) => setSelectedFriend(e.target.value)} data-testid="input-number" />
+
+                <Button onClick={testFriendRequest} size="sm" data-testid="button-element">
                   <Heart className="h-4 w-4" />
                 </Button>
               </div>
@@ -338,9 +338,9 @@ export default function SecurityDemo() {
                   placeholder="Enter safety concern"
                   value={eventFeedback}
                   onChange={(e) => setEventFeedback(e.target.value)}
-                  rows={2}
-                />
-                <Button onClick={testEventFeedback} size="sm">
+                  rows={2} data-testid="textarea-element" />
+
+                <Button onClick={testEventFeedback} size="sm" data-testid="button-element">
                   Report
                 </Button>
               </div>
@@ -352,9 +352,9 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter memory title"
                   value={memoryTitle}
-                  onChange={(e) => setMemoryTitle(e.target.value)}
-                />
-                <Button onClick={testMemoryTagging} size="sm">
+                  onChange={(e) => setMemoryTitle(e.target.value)} data-testid="input-element" />
+
+                <Button onClick={testMemoryTagging} size="sm" data-testid="button-element">
                   <Calendar className="h-4 w-4" />
                 </Button>
               </div>
@@ -372,22 +372,22 @@ export default function SecurityDemo() {
         </CardHeader>
         <CardContent>
           <div className="bg-gray-50 p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-sm">
-            {logs.length === 0 ? (
-              <p className="text-gray-500">No security events logged yet...</p>
-            ) : (
-              logs.map((log, index) => (
-                <div key={index} className="mb-1">
+            {logs.length === 0 ?
+            <p className="text-gray-500">No security events logged yet...</p> :
+
+            logs.map((log, index) =>
+            <div key={index} className="mb-1">
                   {log}
                 </div>
-              ))
-            )}
+            )
+            }
           </div>
-          <Button 
-            onClick={() => setLogs([])} 
-            variant="outline" 
-            size="sm" 
-            className="mt-2"
-          >
+          <Button
+            onClick={() => setLogs([])}
+            variant="outline"
+            size="sm"
+            className="mt-2" data-testid="button-mt-2">
+
             Clear Logs
           </Button>
         </CardContent>
@@ -399,6 +399,6 @@ export default function SecurityDemo() {
           real-time access controls, email notifications, audit logging, and rate limiting.
         </p>
       </div>
-    </div>
-  );
+    </div>);
+
 }

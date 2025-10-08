@@ -8,11 +8,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Smartphone, 
-  Download, 
-  Bell, 
-  Wifi, 
+import {
+  Smartphone,
+  Download,
+  Bell,
+  Wifi,
   WifiOff,
   Battery,
   Zap,
@@ -26,12 +26,12 @@ import {
   Activity,
   Globe,
   Shield,
-  Gauge
-} from "lucide-react";
+  Gauge } from
+"lucide-react";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  userChoice: Promise<{outcome: 'accepted' | 'dismissed';}>;
 }
 
 const MobileAppDashboard: React.FC = () => {
@@ -42,7 +42,7 @@ const MobileAppDashboard: React.FC = () => {
   const [pushPermission, setPushPermission] = useState<NotificationPermission>('default');
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [networkType, setNetworkType] = useState<string>('unknown');
-  
+
   // PWA installation detection
   useEffect(() => {
     // Check if already installed
@@ -99,15 +99,15 @@ const MobileAppDashboard: React.FC = () => {
 
     installPrompt.prompt();
     const { outcome } = await installPrompt.userChoice;
-    
+
     if (outcome === 'accepted') {
       setIsInstalled(true);
       toast({
         title: "App Installed!",
-        description: "Mundo Tango has been added to your home screen",
+        description: "Mundo Tango has been added to your home screen"
       });
     }
-    
+
     setInstallPrompt(null);
   };
 
@@ -115,11 +115,11 @@ const MobileAppDashboard: React.FC = () => {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
       setPushPermission(permission);
-      
+
       if (permission === 'granted') {
         toast({
           title: "Notifications Enabled",
-          description: "You'll now receive push notifications",
+          description: "You'll now receive push notifications"
         });
       }
     }
@@ -127,11 +127,11 @@ const MobileAppDashboard: React.FC = () => {
 
   const handleUpdateCheck = () => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.ready.then(registration => {
+      navigator.serviceWorker.ready.then((registration) => {
         registration.update();
         toast({
           title: "Checking for updates...",
-          description: "We'll notify you if an update is available",
+          description: "We'll notify you if an update is available"
         });
       });
     }
@@ -175,11 +175,11 @@ const MobileAppDashboard: React.FC = () => {
                 </p>
               </div>
               <div className={`p-3 rounded-full ${isOnline ? 'bg-turquoise-100' : 'bg-red-100'}`}>
-                {isOnline ? (
-                  <Wifi className="h-6 w-6 text-turquoise-600" />
-                ) : (
-                  <WifiOff className="h-6 w-6 text-red-600" />
-                )}
+                {isOnline ?
+                <Wifi className="h-6 w-6 text-turquoise-600" /> :
+
+                <WifiOff className="h-6 w-6 text-red-600" />
+                }
               </div>
             </div>
           </CardContent>
@@ -241,8 +241,8 @@ const MobileAppDashboard: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {!isInstalled ? (
-                <>
+              {!isInstalled ?
+              <>
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
@@ -250,16 +250,16 @@ const MobileAppDashboard: React.FC = () => {
                     </AlertDescription>
                   </Alert>
                   
-                  {installPrompt && (
-                    <Button 
-                      onClick={handleInstallClick}
-                      className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-                      size="lg"
-                    >
+                  {installPrompt &&
+                <Button
+                  onClick={handleInstallClick}
+                  className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
+                  size="lg" data-testid="button-w-full">
+
                       <Download className="mr-2 h-5 w-5" />
                       Install Mundo Tango App
                     </Button>
-                  )}
+                }
                   
                   <div className="space-y-2">
                     <h4 className="font-semibold">Manual Installation Steps:</h4>
@@ -270,14 +270,14 @@ const MobileAppDashboard: React.FC = () => {
                       <li>Find Mundo Tango on your home screen</li>
                     </ol>
                   </div>
-                </>
-              ) : (
-                <div className="text-center py-8">
+                </> :
+
+              <div className="text-center py-8">
                   <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">App Installed Successfully!</h3>
                   <p className="text-gray-600">You're enjoying the full PWA experience</p>
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
         </TabsContent>
@@ -308,8 +308,8 @@ const MobileAppDashboard: React.FC = () => {
                   <Button
                     onClick={handleNotificationPermission}
                     disabled={pushPermission === 'granted'}
-                    variant={pushPermission === 'granted' ? 'default' : 'outline'}
-                  >
+                    variant={pushPermission === 'granted' ? 'default' : 'outline'} data-testid="button-element">
+
                     {pushPermission === 'granted' ? 'Enabled' : 'Enable'}
                   </Button>
                 </div>
@@ -407,11 +407,11 @@ const MobileAppDashboard: React.FC = () => {
                 <p className="text-xs text-gray-500">24% of 500MB quota</p>
               </div>
 
-              <Button 
+              <Button
                 onClick={handleUpdateCheck}
                 variant="outline"
-                className="w-full"
-              >
+                className="w-full" data-testid="button-w-full">
+
                 <RefreshCw className="mr-2 h-4 w-4" />
                 Check for App Updates
               </Button>
@@ -481,7 +481,7 @@ const MobileAppDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" data-testid="button-w-full">
                   Clear Offline Cache
                 </Button>
               </div>
@@ -544,10 +544,10 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Advanced */}
                 <div>
                   <h4 className="font-medium mb-3">Advanced</h4>
-                  <Button variant="outline" className="w-full mb-2">
+                  <Button variant="outline" className="w-full mb-2" data-testid="button-w-full">
                     Export App Data
                   </Button>
-                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700">
+                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700" data-testid="button-w-full">
                     Reset App
                   </Button>
                 </div>
@@ -556,8 +556,8 @@ const MobileAppDashboard: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 };
 
 export default MobileAppDashboard;

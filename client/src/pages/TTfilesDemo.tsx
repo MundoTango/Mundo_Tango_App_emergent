@@ -48,11 +48,11 @@ const TTfilesDemo = () => {
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">TTProfileHead Component</h2>
           <div className="rounded-lg overflow-hidden shadow-lg">
-            <TTProfileHead 
-              user={sampleUser}
-              isOwnProfile={true}
-              onEditProfile={() => alert('Edit profile clicked')}
-            />
+            <TTProfileHead
+                user={sampleUser}
+                isOwnProfile={true}
+                onEditProfile={() => alert('Edit profile clicked')} />
+
           </div>
         </div>
 
@@ -60,55 +60,55 @@ const TTfilesDemo = () => {
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">TTCommunityCard Components</h2>
           <div className="tt-grid tt-grid-cols-4">
-            <TTCommunityCard 
-              {...sampleCommunity}
-              onJoin={(id) => alert(`Join community ${id}`)}
-              onClick={() => alert('Community card clicked')}
-            />
-            <TTCommunityCard 
-              id="2"
-              name="Milonga Organizers Network"
-              description="Connect with milonga organizers across Buenos Aires to coordinate events and share resources."
-              memberCount={245}
-              category="Professional"
-              activeEvents={8}
-              rating={4.9}
-              isJoined={true}
-            />
-            <TTCommunityCard 
-              id="3"
-              name="Tango Musicians Guild"
-              description="A community for tango musicians, DJs, and orchestra members to collaborate and perform."
-              memberCount={512}
-              category="Music"
-              activeEvents={15}
-              location="Argentina"
-            />
-            <TTCommunityCard 
-              id="4"
-              name="Tango Practice Group"
-              description="Find practice partners and join informal practice sessions throughout the city."
-              memberCount={1823}
-              category="Practice"
-              activeEvents={31}
-              rating={4.6}
-            />
+            <TTCommunityCard
+                {...sampleCommunity}
+                onJoin={(id) => alert(`Join community ${id}`)}
+                onClick={() => alert('Community card clicked')} />
+
+            <TTCommunityCard
+                id="2"
+                name="Milonga Organizers Network"
+                description="Connect with milonga organizers across Buenos Aires to coordinate events and share resources."
+                memberCount={245}
+                category="Professional"
+                activeEvents={8}
+                rating={4.9}
+                isJoined={true} />
+
+            <TTCommunityCard
+                id="3"
+                name="Tango Musicians Guild"
+                description="A community for tango musicians, DJs, and orchestra members to collaborate and perform."
+                memberCount={512}
+                category="Music"
+                activeEvents={15}
+                location="Argentina" />
+
+            <TTCommunityCard
+                id="4"
+                name="Tango Practice Group"
+                description="Find practice partners and join informal practice sessions throughout the city."
+                memberCount={1823}
+                category="Practice"
+                activeEvents={31}
+                rating={4.6} />
+
           </div>
         </div>
 
         {/* Back Button */}
         <div className="text-center mt-8">
-          <button 
-            className="tt-btn tt-btn-secondary"
-            onClick={() => setLocation('/admin')}
-          >
+          <button
+              className="tt-btn tt-btn-secondary"
+              onClick={() => setLocation('/admin')} data-testid="button-tt-btn">
+
             Back to Admin Center
           </button>
         </div>
         </div>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 };
 
 export default TTfilesDemo;

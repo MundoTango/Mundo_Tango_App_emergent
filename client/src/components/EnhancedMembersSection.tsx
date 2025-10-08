@@ -37,25 +37,25 @@ interface EnhancedMember extends GroupMember {
   allTangoRoles?: TangoRole[];
 }
 
-const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({ member, onClick }) => {
+const MemberCard: React.FC<{member: EnhancedMember;onClick: () => void;}> = ({ member, onClick }) => {
   const [, setLocation] = useLocation();
-  
+
   const handleClick = () => {
     setLocation(`/u/${member.username}`);
   };
 
   return (
-    <div 
+    <div
       className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
+
       {/* Clean profile image without emoji badge */}
       <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
-        {member.profileImage ? (
-          <img src={member.profileImage} alt={member.name} className="w-12 h-12 rounded-full object-cover" />
-        ) : (
-          member.name.charAt(0).toUpperCase()
-        )}
+        {member.profileImage ?
+        <img src={member.profileImage} alt={member.name} className="w-12 h-12 rounded-full object-cover" /> :
+
+        member.name.charAt(0).toUpperCase()
+        }
       </div>
       
       <div className="flex-1 min-w-0">
@@ -63,40 +63,40 @@ const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({
           <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors">
             {member.name}
           </p>
-          {member.role === 'admin' && (
-            <div title="Group Admin">
+          {member.role === 'admin' &&
+          <div title="Group Admin">
               <Crown className="h-3 w-3 text-yellow-500" />
             </div>
-          )}
+          }
         </div>
         <p className="text-xs text-gray-500 truncate">@{member.username}</p>
         
         {/* Clean emoji-only role indicators with hover tooltips */}
         <div className="flex items-center mt-2">
-          <RoleEmojiDisplay 
-            tangoRoles={member.tangoRoles} 
+          <RoleEmojiDisplay
+            tangoRoles={member.tangoRoles}
             leaderLevel={member.leaderLevel}
             followerLevel={member.followerLevel}
             fallbackRole="dancer"
             size="lg"
-            maxRoles={4}
-          />
+            maxRoles={4} />
+
           
-          {member.role !== 'member' && (
-            <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 ml-2">
+          {member.role !== 'member' &&
+          <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 ml-2">
               {member.role}
             </Badge>
-          )}
+          }
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
-const CategorySection: React.FC<{ 
-  category: string; 
-  members: EnhancedMember[]; 
-  categoryInfo: { name: string; emoji: string; color: string } 
+const CategorySection: React.FC<{
+  category: string;
+  members: EnhancedMember[];
+  categoryInfo: {name: string;emoji: string;color: string;};
 }> = ({ category, members, categoryInfo }) => {
   if (members.length === 0) return null;
 
@@ -110,21 +110,21 @@ const CategorySection: React.FC<{
         </Badge>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {members.map((member) => (
-          <MemberCard 
-            key={`${category}-${member.userId}`} 
-            member={member} 
-            onClick={() => {}} 
-          />
-        ))}
+        {members.map((member) =>
+        <MemberCard
+          key={`${category}-${member.userId}`}
+          member={member}
+          onClick={() => {}} />
+
+        )}
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
-export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({ 
-  members, 
-  memberCount 
+export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
+  members,
+  memberCount
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -132,17 +132,17 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
 
   // Enhanced members with tango role mapping from user profile data
   const enhancedMembers: EnhancedMember[] = useMemo(() => {
-    return members.map(member => {
+    return members.map((member) => {
       // Use tangoRoles from user profile if available, otherwise fallback to role mapping
-      const primaryTangoRole = member.tangoRoles && member.tangoRoles.length > 0 
-        ? member.tangoRoles[0] 
-        : member.role;
-      
+      const primaryTangoRole = member.tangoRoles && member.tangoRoles.length > 0 ?
+      member.tangoRoles[0] :
+      member.role;
+
       // Map all tangoRoles to role objects for multi-role support
-      const allTangoRoles = member.tangoRoles && member.tangoRoles.length > 0
-        ? member.tangoRoles.map(roleId => getTangoRoleById(roleId)).filter((role): role is TangoRole => role !== undefined)
-        : [mapUserRoleToTangoRole(primaryTangoRole)];
-      
+      const allTangoRoles = member.tangoRoles && member.tangoRoles.length > 0 ?
+      member.tangoRoles.map((roleId) => getTangoRoleById(roleId)).filter((role): role is TangoRole => role !== undefined) :
+      [mapUserRoleToTangoRole(primaryTangoRole)];
+
       return {
         ...member,
         tangoRole: mapUserRoleToTangoRole(primaryTangoRole),
@@ -158,27 +158,27 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(member => 
-        member.name.toLowerCase().includes(searchLower) ||
-        member.username.toLowerCase().includes(searchLower) ||
-        member.tangoRole.name.toLowerCase().includes(searchLower)
+      filtered = filtered.filter((member) =>
+      member.name.toLowerCase().includes(searchLower) ||
+      member.username.toLowerCase().includes(searchLower) ||
+      member.tangoRole.name.toLowerCase().includes(searchLower)
       );
     }
 
     // Category filter
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(member => member.tangoRole.category === selectedCategory);
+      filtered = filtered.filter((member) => member.tangoRole.category === selectedCategory);
     }
 
     // Role filter
     if (selectedRole !== 'all') {
-      filtered = filtered.filter(member => member.tangoRole.id === selectedRole);
+      filtered = filtered.filter((member) => member.tangoRole.id === selectedRole);
     }
 
     // Group by category
     const byCategory: Record<string, EnhancedMember[]> = {};
-    Object.keys(ROLE_CATEGORIES).forEach(category => {
-      byCategory[category] = filtered.filter(member => member.tangoRole.category === category);
+    Object.keys(ROLE_CATEGORIES).forEach((category) => {
+      byCategory[category] = filtered.filter((member) => member.tangoRole.category === category);
     });
 
     return {
@@ -189,8 +189,8 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
 
   // Get unique roles for filter dropdown
   const availableRoles = useMemo(() => {
-    const roleSet = new Set(enhancedMembers.map(member => member.tangoRole.id));
-    return TANGO_ROLES.filter(role => roleSet.has(role.id));
+    const roleSet = new Set(enhancedMembers.map((member) => member.tangoRole.id));
+    return TANGO_ROLES.filter((role) => roleSet.has(role.id));
   }, [enhancedMembers]);
 
   return (
@@ -215,89 +215,89 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
             placeholder="Search members..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
+            className="pl-10" data-testid="input-pl-10" />
+
         </div>
 
         {/* Category Filter */}
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+        <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
           <SelectTrigger>
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
-            {Object.entries(ROLE_CATEGORIES).map(([key, category]) => (
-              <SelectItem key={key} value={key}>
+            {Object.entries(ROLE_CATEGORIES).map(([key, category]) =>
+            <SelectItem key={key} value={key}>
                 {category.emoji} {category.name}
               </SelectItem>
-            ))}
+            )}
           </SelectContent>
         </Select>
 
         {/* Role Filter */}
-        <Select value={selectedRole} onValueChange={setSelectedRole}>
+        <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
           <SelectTrigger>
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Roles</SelectItem>
-            {availableRoles.map((role) => (
-              <SelectItem key={role.id} value={role.id}>
+            {availableRoles.map((role) =>
+            <SelectItem key={role.id} value={role.id}>
                 {role.emoji} {role.name}
               </SelectItem>
-            ))}
+            )}
           </SelectContent>
         </Select>
       </div>
 
       {/* Clear Filters */}
-      {(searchTerm || selectedCategory !== 'all' || selectedRole !== 'all') && (
-        <div className="mb-6">
+      {(searchTerm || selectedCategory !== 'all' || selectedRole !== 'all') &&
+      <div className="mb-6">
           <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setSearchTerm('');
-              setSelectedCategory('all');
-              setSelectedRole('all');
-            }}
-            className="text-gray-600 hover:text-gray-800"
-          >
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            setSearchTerm('');
+            setSelectedCategory('all');
+            setSelectedRole('all');
+          }}
+          className="text-gray-600 hover:text-gray-800" data-testid="button-text-gray-600">
+
             Clear Filters
           </Button>
         </div>
-      )}
+      }
 
       {/* Members organized by category */}
-      {filteredMembers.length > 0 ? (
-        <div className="space-y-8">
-          {Object.entries(ROLE_CATEGORIES).map(([category, categoryInfo]) => (
-            <CategorySection
-              key={category}
-              category={category}
-              members={membersByCategory[category] || []}
-              categoryInfo={categoryInfo}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-12 text-gray-500">
+      {filteredMembers.length > 0 ?
+      <div className="space-y-8">
+          {Object.entries(ROLE_CATEGORIES).map(([category, categoryInfo]) =>
+        <CategorySection
+          key={category}
+          category={category}
+          members={membersByCategory[category] || []}
+          categoryInfo={categoryInfo} />
+
+        )}
+        </div> :
+
+      <div className="text-center py-12 text-gray-500">
           <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <p>No members found matching your filters</p>
           <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setSearchTerm('');
-              setSelectedCategory('all');
-              setSelectedRole('all');
-            }}
-            className="mt-2"
-          >
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            setSearchTerm('');
+            setSelectedCategory('all');
+            setSelectedRole('all');
+          }}
+          className="mt-2" data-testid="button-mt-2">
+
             Clear Filters
           </Button>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };

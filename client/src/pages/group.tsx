@@ -58,14 +58,14 @@ interface GroupPageData {
 }
 
 export default function GroupPage() {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams<{slug: string;}>();
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { data: groupData, isLoading, error } = useQuery<GroupPageData>({
     queryKey: ['/api/groups', slug],
-    enabled: !!slug,
+    enabled: !!slug
   });
 
   const joinGroupMutation = useMutation({
@@ -77,7 +77,7 @@ export default function GroupPage() {
     onSuccess: (response: any) => {
       toast({
         title: response.data?.newMember ? "Welcome to the group! 🎉" : "You're already a member",
-        description: response.message || "Successfully joined the group",
+        description: response.message || "Successfully joined the group"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/groups', slug] });
     },
@@ -85,9 +85,9 @@ export default function GroupPage() {
       toast({
         title: "Failed to join group",
         description: error.message || "An error occurred",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   if (isLoading) {
@@ -99,8 +99,8 @@ export default function GroupPage() {
             <p className="text-gray-600 text-lg">Loading group...</p>
           </div>
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   if (error || !groupData) {
@@ -112,8 +112,8 @@ export default function GroupPage() {
             <p className="text-gray-600">The group you're looking for doesn't exist or has been removed.</p>
           </div>
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   const { group, recentMemories, upcomingEvents, currentUserMembership, stats } = groupData;
@@ -142,8 +142,8 @@ export default function GroupPage() {
               
               {/* Membership Actions */}
               <div className="text-right">
-                {isCurrentUserMember ? (
-                  <div className="space-y-3">
+                {isCurrentUserMember ?
+                <div className="space-y-3">
                     <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-lg px-4 py-2">
                       <Users className="h-4 w-4 mr-2" />
                       {currentUserMembership.role === 'admin' ? 'Group Admin' : 'Member'}
@@ -151,18 +151,18 @@ export default function GroupPage() {
                     <div className="text-white/80 text-sm">
                       Joined {new Date(currentUserMembership.joinedAt).toLocaleDateString()}
                     </div>
-                  </div>
-                ) : (
-                  <Button
-                    onClick={() => joinGroupMutation.mutate()}
-                    disabled={joinGroupMutation.isPending}
-                    className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
-                    size="lg"
-                  >
+                  </div> :
+
+                <Button
+                  onClick={() => joinGroupMutation.mutate()}
+                  disabled={joinGroupMutation.isPending}
+                  className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
+                  size="lg" data-testid="button-bg-white-20">
+
                     <UserPlus className="h-5 w-5 mr-2" />
                     {joinGroupMutation.isPending ? "Joining..." : "Join Group"}
                   </Button>
-                )}
+                }
               </div>
             </div>
           </div>
@@ -203,8 +203,8 @@ export default function GroupPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {group.members.slice(0, 8).map((member) => (
-                    <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                  {group.members.slice(0, 8).map((member) =>
+                  <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={member.user.profileImage || undefined} />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-indigo-500 text-white">
@@ -214,20 +214,20 @@ export default function GroupPage() {
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-gray-900 truncate">{member.user.name}</div>
                         <div className="text-sm text-gray-500">@{member.user.username}</div>
-                        {member.role === 'admin' && (
-                          <Badge variant="outline" className="text-xs mt-1">Admin</Badge>
-                        )}
+                        {member.role === 'admin' &&
+                      <Badge variant="outline" className="text-xs mt-1">Admin</Badge>
+                      }
                       </div>
                     </div>
-                  ))}
+                  )}
                   
-                  {group.members.length > 8 && (
-                    <div className="text-center pt-4">
-                      <Button variant="ghost" className="text-coral-600 hover:text-coral-700">
+                  {group.members.length > 8 &&
+                  <div className="text-center pt-4">
+                      <Button variant="ghost" className="text-coral-600 hover:text-coral-700" data-testid="button-text-coral-600">
                         View All Members
                       </Button>
                     </div>
-                  )}
+                  }
                 </CardContent>
               </Card>
             </div>
@@ -243,10 +243,10 @@ export default function GroupPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {upcomingEvents.length > 0 ? (
-                    <div className="space-y-4">
-                      {upcomingEvents.map((event) => (
-                        <div key={event.id} className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
+                  {upcomingEvents.length > 0 ?
+                  <div className="space-y-4">
+                      {upcomingEvents.map((event) =>
+                    <div key={event.id} className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
                           <div className="flex items-start justify-between">
                             <div>
                               <h3 className="font-semibold text-gray-900 mb-1">{event.title}</h3>
@@ -261,14 +261,14 @@ export default function GroupPage() {
                             </Badge>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 text-gray-500">
+                    )}
+                    </div> :
+
+                  <div className="text-center py-8 text-gray-500">
                       <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
                       <p>No upcoming events in this area</p>
                     </div>
-                  )}
+                  }
                 </CardContent>
               </Card>
 
@@ -283,71 +283,71 @@ export default function GroupPage() {
                   </h2>
                 </div>
                 
-                {recentMemories.length > 0 ? (
-                  <div className="space-y-6">
+                {recentMemories.length > 0 ?
+                <div className="space-y-6">
                     {recentMemories.map((memory: any, index: number) => {
-                      // Transform memory data to match EnhancedPostItem expected format
-                      const transformedPost = {
-                        id: memory.id || index,
-                        content: memory.content || memory.description || '',
-                        imageUrl: memory.imageUrl,
-                        videoUrl: memory.videoUrl,
-                        userId: memory.userId,
-                        createdAt: memory.createdAt || new Date().toISOString(),
-                        user: memory.user || {
-                          id: memory.userId || 0,
-                          name: memory.userName || 'Anonymous',
-                          username: memory.userUsername || 'user',
-                          profileImage: memory.userProfileImage,
-                          tangoRoles: memory.userRoles || []
-                        },
-                        likes: memory.likes || 0,
-                        comments: memory.comments || 0,
-                        isLiked: memory.isLiked || false,
-                        hashtags: memory.hashtags || [],
-                        location: memory.location,
-                        hasConsent: memory.hasConsent || true,
-                        mentions: memory.mentions || [],
-                        emotionTags: memory.emotionTags || []
-                      };
-                      
-                      return (
-                        <EnhancedPostItem 
-                          key={memory.id || index} 
-                          post={transformedPost}
-                          onLike={(postId: number) => {
-                            // Handle like functionality for group memories
-                            console.log('Liked memory:', postId);
-                            // TODO: Implement memory like API
-                          }}
-                          onShare={(post: any) => {
-                            // Handle share functionality for group memories
-                            console.log('Shared memory:', post);
-                            // TODO: Implement memory share functionality
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="text-center py-16 bg-gradient-to-br from-indigo-50 to-coral-50 rounded-3xl border border-indigo-100/50">
+                    // Transform memory data to match EnhancedPostItem expected format
+                    const transformedPost = {
+                      id: memory.id || index,
+                      content: memory.content || memory.description || '',
+                      imageUrl: memory.imageUrl,
+                      videoUrl: memory.videoUrl,
+                      userId: memory.userId,
+                      createdAt: memory.createdAt || new Date().toISOString(),
+                      user: memory.user || {
+                        id: memory.userId || 0,
+                        name: memory.userName || 'Anonymous',
+                        username: memory.userUsername || 'user',
+                        profileImage: memory.userProfileImage,
+                        tangoRoles: memory.userRoles || []
+                      },
+                      likes: memory.likes || 0,
+                      comments: memory.comments || 0,
+                      isLiked: memory.isLiked || false,
+                      hashtags: memory.hashtags || [],
+                      location: memory.location,
+                      hasConsent: memory.hasConsent || true,
+                      mentions: memory.mentions || [],
+                      emotionTags: memory.emotionTags || []
+                    };
+
+                    return (
+                      <EnhancedPostItem
+                        key={memory.id || index}
+                        post={transformedPost}
+                        onLike={(postId: number) => {
+                          // Handle like functionality for group memories
+                          console.log('Liked memory:', postId);
+                          // TODO: Implement memory like API
+                        }}
+                        onShare={(post: any) => {
+                          // Handle share functionality for group memories
+                          console.log('Shared memory:', post);
+                          // TODO: Implement memory share functionality
+                        }} />);
+
+
+                  })}
+                  </div> :
+
+                <div className="text-center py-16 bg-gradient-to-br from-indigo-50 to-coral-50 rounded-3xl border border-indigo-100/50">
                     <div className="max-w-sm mx-auto">
                       <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-coral-400 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Heart className="h-10 w-10 text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-gray-800 mb-2">No memories shared yet</h3>
                       <p className="text-gray-600 mb-6">Be the first to share a tango memory with this group!</p>
-                      <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white">
+                      <Button className="bg-gradient-to-r from-indigo-500 to-coral-500 hover:from-indigo-600 hover:to-coral-600 text-white" data-testid="button-bg-gradient-to-r">
                         Share a Memory
                       </Button>
                     </div>
                   </div>
-                )}
+                }
               </div>
             </div>
           </div>
         </div>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

@@ -11,7 +11,7 @@ const MemoriesDebug: React.FC = () => {
     serviceWorkerActive: 'serviceWorker' in navigator && navigator.serviceWorker.controller !== null,
     cacheAPI: 'caches' in window,
     userAgent: navigator.userAgent,
-    lastModified: document.lastModified,
+    lastModified: document.lastModified
   };
 
   const checkComponents = async () => {
@@ -19,7 +19,7 @@ const MemoriesDebug: React.FC = () => {
       ModernMemoriesPage: false,
       EnhancedMemoriesRealtime: false,
       PostCreator: false,
-      EnhancedMemoriesUI: false,
+      EnhancedMemoriesUI: false
     };
 
     // Check if components can be dynamically imported
@@ -63,31 +63,31 @@ const MemoriesDebug: React.FC = () => {
   const clearCaches = async () => {
     if ('caches' in window) {
       const cacheNames = await caches.keys();
-      await Promise.all(cacheNames.map(name => caches.delete(name)));
+      await Promise.all(cacheNames.map((name) => caches.delete(name)));
       console.log('✅ Cleared all caches:', cacheNames);
     }
-    
+
     if ('serviceWorker' in navigator) {
       const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(registrations.map(reg => reg.unregister()));
+      await Promise.all(registrations.map((reg) => reg.unregister()));
       console.log('✅ Unregistered service workers');
     }
-    
+
     // Force reload
     window.location.reload();
   };
 
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      padding: '20px', 
+    <div style={{
+      minHeight: '100vh',
+      padding: '20px',
       fontFamily: 'monospace',
       background: 'linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)',
       color: 'white'
     }}>
-      <div style={{ 
-        background: 'rgba(0,0,0,0.8)', 
-        padding: '20px', 
+      <div style={{
+        background: 'rgba(0,0,0,0.8)',
+        padding: '20px',
         borderRadius: '10px',
         maxWidth: '800px',
         margin: '0 auto'
@@ -103,22 +103,22 @@ const MemoriesDebug: React.FC = () => {
 
         <div style={{ marginBottom: '20px' }}>
           <h2>🧩 Component Status</h2>
-          {componentStatus ? (
-            <div>
-              {Object.entries(componentStatus).map(([name, available]) => (
-                <div key={name} style={{ margin: '5px 0' }}>
+          {componentStatus ?
+          <div>
+              {Object.entries(componentStatus).map(([name, available]) =>
+            <div key={name} style={{ margin: '5px 0' }}>
                   {available ? '✅' : '❌'} {name}
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div>Loading component status...</div>
-          )}
+            )}
+            </div> :
+
+          <div>Loading component status...</div>
+          }
         </div>
 
         <div style={{ marginBottom: '20px' }}>
           <h2>🧹 Cache Control</h2>
-          <button 
+          <button
             onClick={clearCaches}
             style={{
               background: '#DC2626',
@@ -128,8 +128,8 @@ const MemoriesDebug: React.FC = () => {
               borderRadius: '5px',
               cursor: 'pointer',
               fontSize: '16px'
-            }}
-          >
+            }} data-testid="button-element">
+
             Clear All Caches & Reload
           </button>
         </div>
@@ -147,32 +147,32 @@ const MemoriesDebug: React.FC = () => {
         <div style={{ marginBottom: '20px' }}>
           <h2>🔗 Quick Actions</h2>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <a 
-              href="/memories" 
-              style={{ 
-                background: '#5EEAD4', 
-                color: '#155E75', 
-                padding: '10px 15px', 
-                textDecoration: 'none', 
+            <a
+              href="/memories"
+              style={{
+                background: '#5EEAD4',
+                color: '#155E75',
+                padding: '10px 15px',
+                textDecoration: 'none',
                 borderRadius: '5px',
                 fontWeight: 'bold'
-              }}
-            >
+              }} data-testid="a-element">
+
               Go to /memories
             </a>
-            <a 
-              href="/timeline" 
-              style={{ 
-                background: '#14B8A6', 
-                color: 'white', 
-                padding: '10px 15px', 
-                textDecoration: 'none', 
+            <a
+              href="/timeline"
+              style={{
+                background: '#14B8A6',
+                color: 'white',
+                padding: '10px 15px',
+                textDecoration: 'none',
                 borderRadius: '5px'
-              }}
-            >
+              }} data-testid="a-element">
+
               Go to /timeline (redirect test)
             </a>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               style={{
                 background: '#0F766E',
@@ -181,8 +181,8 @@ const MemoriesDebug: React.FC = () => {
                 border: 'none',
                 borderRadius: '5px',
                 cursor: 'pointer'
-              }}
-            >
+              }} data-testid="button-element">
+
               Hard Reload
             </button>
           </div>
@@ -192,8 +192,8 @@ const MemoriesDebug: React.FC = () => {
           This diagnostic page will help identify caching issues. Remove after debugging.
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default MemoriesDebug;

@@ -16,20 +16,20 @@ import { Button } from '@/components/ui/button';
 
 // Form schema with 23L validation patterns
 const createCommunitySchema = z.object({
-  name: z.string()
-    .min(3, 'Community name must be at least 3 characters')
-    .max(50, 'Community name must not exceed 50 characters')
-    .regex(/^[a-zA-Z0-9\s\-&]+$/, 'Only letters, numbers, spaces, hyphens, and & are allowed'),
-  description: z.string()
-    .min(10, 'Description must be at least 10 characters')
-    .max(500, 'Description must not exceed 500 characters'),
+  name: z.string().
+  min(3, 'Community name must be at least 3 characters').
+  max(50, 'Community name must not exceed 50 characters').
+  regex(/^[a-zA-Z0-9\s\-&]+$/, 'Only letters, numbers, spaces, hyphens, and & are allowed'),
+  description: z.string().
+  min(10, 'Description must be at least 10 characters').
+  max(500, 'Description must not exceed 500 characters'),
   type: z.enum(['city', 'professional', 'music', 'practice', 'festival', 'social']),
   roleType: z.string().optional(),
   privacy: z.enum(['public', 'private']),
   location: z.string().optional(),
   city: z.string().optional(),
   country: z.string().optional(),
-  imageUrl: z.string().optional(),
+  imageUrl: z.string().optional()
 });
 
 type CreateCommunityFormData = z.infer<typeof createCommunitySchema>;
@@ -50,8 +50,8 @@ export default function CreateCommunityPage() {
       location: '',
       city: '',
       country: '',
-      imageUrl: '',
-    },
+      imageUrl: ''
+    }
   });
 
   const createCommunityMutation = useMutation({
@@ -60,20 +60,20 @@ export default function CreateCommunityPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
-      
+
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to create community');
       }
-      
+
       return response.json();
     },
     onSuccess: (data) => {
       toast({
         title: 'Community created!',
-        description: `${data.data.name} has been created successfully.`,
+        description: `${data.data.name} has been created successfully.`
       });
       // Navigate to the new community page
       setLocation(`/groups/${data.data.slug}`);
@@ -82,9 +82,9 @@ export default function CreateCommunityPage() {
       toast({
         title: 'Error',
         description: error.message,
-        variant: 'destructive',
+        variant: 'destructive'
       });
-    },
+    }
   });
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,7 +110,7 @@ export default function CreateCommunityPage() {
     } else if (data.type === 'music') {
       data.roleType = 'dj';
     }
-    
+
     createCommunityMutation.mutate(data);
   };
 
@@ -121,8 +121,8 @@ export default function CreateCommunityPage() {
         <div className="mb-8">
           <button
             onClick={() => setLocation('/groups')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
-          >
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors" data-testid="button-flex">
+
             <ArrowLeft className="h-5 w-5" />
             Back to Communities
           </button>
@@ -148,26 +148,26 @@ export default function CreateCommunityPage() {
               <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
               <div className="relative">
                 <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
-                  {imagePreview ? (
-                    <img
-                      src={imagePreview}
-                      alt="Community cover"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                  {imagePreview ?
+                  <img
+                    src={imagePreview}
+                    alt="Community cover"
+                    className="w-full h-full object-cover" /> :
+
+
+                  <div className="flex flex-col items-center justify-center h-full text-gray-400">
                       <Upload className="h-12 w-12 mb-2" />
                       <p className="text-sm">Upload a cover image</p>
                     </div>
-                  )}
+                  }
                 </div>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                  disabled={uploadingImage}
-                />
+                  disabled={uploadingImage} data-testid="input-file" />
+
               </div>
             </div>
 
@@ -178,47 +178,47 @@ export default function CreateCommunityPage() {
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
-                  <FormItem>
+                render={({ field }) =>
+                <FormItem>
                     <FormLabel className="text-sm font-medium">Community Name</FormLabel>
                     <FormControl>
                       <Input
-                        {...field}
-                        placeholder="e.g., Buenos Aires Tango Collective"
-                        className="rounded-lg"
-                      />
+                      {...field}
+                      placeholder="e.g., Buenos Aires Tango Collective"
+                      className="rounded-lg" data-testid="input-rounded-lg" />
+
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
-              />
+                } />
+
 
               <FormField
                 control={form.control}
                 name="description"
-                render={({ field }) => (
-                  <FormItem>
+                render={({ field }) =>
+                <FormItem>
                     <FormLabel className="text-sm font-medium">Description</FormLabel>
                     <FormControl>
                       <Textarea
-                        {...field}
-                        placeholder="Tell us about your community..."
-                        className="rounded-lg min-h-[100px]"
-                      />
+                      {...field}
+                      placeholder="Tell us about your community..."
+                      className="rounded-lg min-h-[100px]" data-testid="textarea-rounded-lg" />
+
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
-              />
+                } />
+
 
               <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="type"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel className="text-sm font-medium">Community Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select type" />
@@ -245,16 +245,16 @@ export default function CreateCommunityPage() {
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <FormField
                   control={form.control}
                   name="privacy"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel className="text-sm font-medium">Privacy</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select privacy" />
@@ -277,8 +277,8 @@ export default function CreateCommunityPage() {
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
               </div>
             </div>
 
@@ -288,20 +288,20 @@ export default function CreateCommunityPage() {
               <FormField
                 control={form.control}
                 name="location"
-                render={({ field }) => (
-                  <FormItem>
+                render={({ field }) =>
+                <FormItem>
                     <FormLabel className="text-sm font-medium">Location</FormLabel>
                     <FormControl>
                       <Input
-                        {...field}
-                        placeholder="Where is your community based?"
-                        className="rounded-lg"
-                      />
+                      {...field}
+                      placeholder="Where is your community based?"
+                      className="rounded-lg" data-testid="input-rounded-lg" />
+
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
-              />
+                } />
+
             </div>
 
             {/* Submit Button */}
@@ -310,21 +310,21 @@ export default function CreateCommunityPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setLocation('/groups')}
-                className="rounded-lg"
-              >
+                className="rounded-lg" data-testid="button-button">
+
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={createCommunityMutation.isPending}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg px-6"
-              >
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg px-6" data-testid="button-submit">
+
                 {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
               </Button>
             </div>
           </form>
         </Form>
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

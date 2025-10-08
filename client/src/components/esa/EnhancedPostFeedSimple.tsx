@@ -4,11 +4,11 @@
 
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { 
-  Heart, MessageCircle, Share2, MoreHorizontal, 
+import {
+  Heart, MessageCircle, Share2, MoreHorizontal,
   MapPin, Tag, Globe, Users, Lock,
-  ThumbsUp, Laugh, Star, Frown
-} from 'lucide-react';
+  ThumbsUp, Laugh, Star, Frown } from
+'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/theme-context';
 import { renderWithMentions } from '@/utils/renderWithMentions';
@@ -67,8 +67,8 @@ interface EnhancedPostFeedSimpleProps {
   currentUserId?: string | number;
 }
 
-export default function EnhancedPostFeedSimple({ 
-  posts = [], 
+export default function EnhancedPostFeedSimple({
+  posts = [],
   onReaction,
   onComment,
   onShare,
@@ -83,11 +83,11 @@ export default function EnhancedPostFeedSimple({
   const [menuOpenPost, setMenuOpenPost] = useState<string | null>(null);
 
   const reactions = [
-    { type: 'like', icon: ThumbsUp, color: 'text-blue-400', bgColor: 'bg-blue-400/20' },
-    { type: 'love', icon: Heart, color: 'text-red-400', bgColor: 'bg-red-400/20' },
-    { type: 'laugh', icon: Laugh, color: 'text-yellow-400', bgColor: 'bg-yellow-400/20' },
-    { type: 'wow', icon: Star, color: 'text-purple-400', bgColor: 'bg-purple-400/20' }
-  ];
+  { type: 'like', icon: ThumbsUp, color: 'text-blue-400', bgColor: 'bg-blue-400/20' },
+  { type: 'love', icon: Heart, color: 'text-red-400', bgColor: 'bg-red-400/20' },
+  { type: 'laugh', icon: Laugh, color: 'text-yellow-400', bgColor: 'bg-yellow-400/20' },
+  { type: 'wow', icon: Star, color: 'text-purple-400', bgColor: 'bg-purple-400/20' }];
+
 
   const visibilityIcons = {
     public: { icon: Globe, color: 'text-emerald-400' },
@@ -96,7 +96,7 @@ export default function EnhancedPostFeedSimple({
   };
 
   const toggleExpanded = (postId: string) => {
-    setExpandedPosts(prev => {
+    setExpandedPosts((prev) => {
       const next = new Set(prev);
       if (next.has(postId)) {
         next.delete(postId);
@@ -152,7 +152,7 @@ export default function EnhancedPostFeedSimple({
     if (post.imageUrl) urls.push(post.imageUrl);
     if (post.videoUrl) urls.push(post.videoUrl);
     if (post.media) {
-      urls.push(...post.media.map(m => m.url));
+      urls.push(...post.media.map((m) => m.url));
     }
     return urls;
   };
@@ -207,35 +207,35 @@ export default function EnhancedPostFeedSimple({
         const mediaUrls = getMediaUrls(post);
         const tags = getPostTags(post);
         const isAuthor = currentUserId && (author.id === currentUserId || author.id?.toString() === currentUserId?.toString());
-        
+
         return (
           <article
             key={post.id}
             className={cn(
               "backdrop-blur-xl rounded-xl border overflow-hidden transition-all duration-300 shadow-xl",
-              theme === 'light' 
-                ? "bg-white border-gray-200 hover:border-gray-300" 
-                : "bg-slate-900/50 border-slate-800/50 hover:border-slate-700/50"
-            )}
-          >
+              theme === 'light' ?
+              "bg-white border-gray-200 hover:border-gray-300" :
+              "bg-slate-900/50 border-slate-800/50 hover:border-slate-700/50"
+            )}>
+
             {/* Post Header */}
             <div className="p-4 pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  {author.avatar ? (
-                    <img 
-                      src={author.avatar} 
-                      alt={author.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className={cn(
-                      "w-10 h-10 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#155E75] flex items-center justify-center font-bold",
-                      "text-white"
-                    )}>
+                  {author.avatar ?
+                  <img
+                    src={author.avatar}
+                    alt={author.name}
+                    className="w-10 h-10 rounded-full object-cover" /> :
+
+
+                  <div className={cn(
+                    "w-10 h-10 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#155E75] flex items-center justify-center font-bold",
+                    "text-white"
+                  )}>
                       {author.name.charAt(0)}
                     </div>
-                  )}
+                  }
                   <div>
                     <div className="flex items-center gap-2">
                       <span className={cn(
@@ -260,10 +260,10 @@ export default function EnhancedPostFeedSimple({
                 </div>
                 <button className={cn(
                   "p-2 rounded-lg transition-colors",
-                  theme === 'light' 
-                    ? "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                )}>
+                  theme === 'light' ?
+                  "text-gray-500 hover:text-gray-900 hover:bg-gray-100" :
+                  "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                )} data-testid="button-element">
                   <MoreHorizontal className="w-5 h-5" />
                 </button>
               </div>
@@ -278,102 +278,102 @@ export default function EnhancedPostFeedSimple({
               )}>
                 {renderWithMentions(post.content)}
               </p>
-              {post.content.length > 200 && (
-                <button
-                  onClick={() => toggleExpanded(post.id)}
-                  className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors"
-                >
+              {post.content.length > 200 &&
+              <button
+                onClick={() => toggleExpanded(post.id)}
+                className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors" data-testid="button-text-cyan-400">
+
                   {isExpanded ? 'Show less' : 'Show more'}
                 </button>
-              )}
+              }
             </div>
 
             {/* Media Section */}
-            {mediaUrls.length > 0 && (
-              <div className="px-4 pb-3">
+            {mediaUrls.length > 0 &&
+            <div className="px-4 pb-3">
                 <div className="grid grid-cols-2 gap-2">
-                  {mediaUrls.slice(0, 4).map((url, index) => (
-                    <div key={index} className="relative">
-                      {url.match(/\.(mp4|webm|mov|avi)$/i) ? (
-                        <video
-                          src={url}
-                          controls
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
-                      ) : (
-                        <img
-                          src={url}
-                          alt={`Media ${index + 1}`}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
-                      )}
-                      {mediaUrls.length > 4 && index === 3 && (
-                        <div className={cn(
-                          "absolute inset-0 rounded-lg flex items-center justify-center text-white text-2xl font-bold",
-                          "bg-black/50"
-                        )}>
+                  {mediaUrls.slice(0, 4).map((url, index) =>
+                <div key={index} className="relative">
+                      {url.match(/\.(mp4|webm|mov|avi)$/i) ?
+                  <video
+                    src={url}
+                    controls
+                    className="w-full h-48 object-cover rounded-lg" /> :
+
+
+                  <img
+                    src={url}
+                    alt={`Media ${index + 1}`}
+                    className="w-full h-48 object-cover rounded-lg" />
+
+                  }
+                      {mediaUrls.length > 4 && index === 3 &&
+                  <div className={cn(
+                    "absolute inset-0 rounded-lg flex items-center justify-center text-white text-2xl font-bold",
+                    "bg-black/50"
+                  )}>
                           +{mediaUrls.length - 4}
                         </div>
-                      )}
+                  }
                     </div>
-                  ))}
+                )}
                 </div>
               </div>
-            )}
+            }
 
             {/* Location & Tags */}
-            {(post.location || tags.length > 0) && (
-              <div className="px-4 pb-3 space-y-2">
-                {post.location && (
-                  <div className="flex items-center gap-2 text-sm text-cyan-400">
+            {(post.location || tags.length > 0) &&
+            <div className="px-4 pb-3 space-y-2">
+                {post.location &&
+              <div className="flex items-center gap-2 text-sm text-cyan-400">
                     <MapPin className="w-4 h-4" />
                     <span>{post.location}</span>
                   </div>
-                )}
-                {tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {tags.map(tag => (
-                      <span
-                        key={tag}
-                        className={cn(
-                          "px-2 py-1 text-xs rounded-full flex items-center gap-1",
-                          theme === 'light' 
-                            ? "bg-gray-100 text-gray-600"
-                            : "bg-slate-800/50 text-slate-300"
-                        )}
-                      >
+              }
+                {tags.length > 0 &&
+              <div className="flex flex-wrap gap-2">
+                    {tags.map((tag) =>
+                <span
+                  key={tag}
+                  className={cn(
+                    "px-2 py-1 text-xs rounded-full flex items-center gap-1",
+                    theme === 'light' ?
+                    "bg-gray-100 text-gray-600" :
+                    "bg-slate-800/50 text-slate-300"
+                  )}>
+
                         <Tag className="w-3 h-3" />
                         {tag}
                       </span>
-                    ))}
-                  </div>
                 )}
+                  </div>
+              }
               </div>
-            )}
+            }
 
             {/* Reactions Summary */}
-            {(stats.likes > 0 || stats.comments > 0 || stats.shares > 0) && (
-              <div className="px-4 pb-3 flex items-center justify-between">
+            {(stats.likes > 0 || stats.comments > 0 || stats.shares > 0) &&
+            <div className="px-4 pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                  {stats.likes > 0 && (
-                    <div className={cn(
-                      "flex items-center gap-1 px-2 py-1 rounded-full text-xs",
-                      "bg-blue-400/20"
-                    )}>
+                  {stats.likes > 0 &&
+                <div className={cn(
+                  "flex items-center gap-1 px-2 py-1 rounded-full text-xs",
+                  "bg-blue-400/20"
+                )}>
                       <ThumbsUp className={cn("w-3 h-3", "text-blue-400")} />
                       <span className={theme === 'light' ? "text-gray-900" : "text-white"}>{stats.likes}</span>
                     </div>
-                  )}
+                }
                 </div>
                 <div className={cn(
-                  "flex items-center gap-3 text-xs",
-                  theme === 'light' ? "text-gray-500" : "text-slate-400"
-                )}>
+                "flex items-center gap-3 text-xs",
+                theme === 'light' ? "text-gray-500" : "text-slate-400"
+              )}>
                   {stats.comments > 0 && <span>{stats.comments} comments</span>}
                   {stats.shares > 0 && <span>{stats.shares} shares</span>}
                 </div>
               </div>
-            )}
+            }
 
             {/* Actions Bar */}
             <div className={cn(
@@ -382,50 +382,50 @@ export default function EnhancedPostFeedSimple({
             )}>
               <div className="flex items-center">
                 {/* Reactions */}
-                <div 
+                <div
                   className="relative flex-1"
                   onMouseEnter={() => setHoveredReaction(post.id)}
-                  onMouseLeave={() => setHoveredReaction(null)}
-                >
+                  onMouseLeave={() => setHoveredReaction(null)}>
+
                   <button
                     onClick={() => onReaction?.(post.id, 'like')}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
-                      theme === 'light' 
-                        ? "text-gray-500 hover:text-cyan-600 hover:bg-gray-100"
-                        : "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
-                    )}
-                  >
+                      theme === 'light' ?
+                      "text-gray-500 hover:text-cyan-600 hover:bg-gray-100" :
+                      "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
+                    )} data-testid="button-element">
+
                     <Heart className="w-5 h-5" />
                     <span className="text-sm font-medium">React</span>
                   </button>
                   
                   {/* Reaction Picker */}
-                  {hoveredReaction === post.id && (
-                    <div className={cn(
-                      "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 flex items-center gap-2 rounded-full p-2 shadow-xl animate-in slide-in-from-bottom-2",
-                      theme === 'light' ? "bg-white border border-gray-200" : "bg-slate-800"
-                    )}>
-                      {reactions.map(reaction => {
-                        const Icon = reaction.icon;
-                        return (
-                          <button
-                            key={reaction.type}
-                            onClick={() => {
-                              onReaction?.(post.id, reaction.type);
-                              setHoveredReaction(null);
-                            }}
-                            className={cn(
-                              "p-2 rounded-full transition-all hover:scale-125",
-                              reaction.bgColor
-                            )}
-                          >
+                  {hoveredReaction === post.id &&
+                  <div className={cn(
+                    "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 flex items-center gap-2 rounded-full p-2 shadow-xl animate-in slide-in-from-bottom-2",
+                    theme === 'light' ? "bg-white border border-gray-200" : "bg-slate-800"
+                  )}>
+                      {reactions.map((reaction) => {
+                      const Icon = reaction.icon;
+                      return (
+                        <button
+                          key={reaction.type}
+                          onClick={() => {
+                            onReaction?.(post.id, reaction.type);
+                            setHoveredReaction(null);
+                          }}
+                          className={cn(
+                            "p-2 rounded-full transition-all hover:scale-125",
+                            reaction.bgColor
+                          )} data-testid="button-element">
+
                             <Icon className={cn("w-5 h-5", reaction.color)} />
-                          </button>
-                        );
-                      })}
+                          </button>);
+
+                    })}
                     </div>
-                  )}
+                  }
                 </div>
 
                 {/* Comment */}
@@ -433,11 +433,11 @@ export default function EnhancedPostFeedSimple({
                   onClick={() => onComment?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
-                    theme === 'light' 
-                      ? "text-gray-500 hover:text-cyan-600 hover:bg-gray-100 border-gray-200"
-                      : "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30 border-slate-800/50"
-                  )}
-                >
+                    theme === 'light' ?
+                    "text-gray-500 hover:text-cyan-600 hover:bg-gray-100 border-gray-200" :
+                    "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30 border-slate-800/50"
+                  )} data-testid="button-element">
+
                   <MessageCircle className="w-5 h-5" />
                   <span className="text-sm font-medium">Comment</span>
                 </button>
@@ -447,29 +447,29 @@ export default function EnhancedPostFeedSimple({
                   onClick={() => onShare?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",
-                    theme === 'light' 
-                      ? "text-gray-500 hover:text-cyan-600 hover:bg-gray-100"
-                      : "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
-                  )}
-                >
+                    theme === 'light' ?
+                    "text-gray-500 hover:text-cyan-600 hover:bg-gray-100" :
+                    "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
+                  )} data-testid="button-element">
+
                   <Share2 className="w-5 h-5" />
                   <span className="text-sm font-medium">Share</span>
                 </button>
               </div>
             </div>
-          </article>
-        );
+          </article>);
+
       })}
 
       {/* No posts message */}
-      {posts.length === 0 && (
-        <div className={cn(
-          "text-center py-12",
-          theme === 'light' ? "text-gray-500" : "text-slate-400"
-        )}>
+      {posts.length === 0 &&
+      <div className={cn(
+        "text-center py-12",
+        theme === 'light' ? "text-gray-500" : "text-slate-400"
+      )}>
           <p className="text-lg">No memories yet. Be the first to share!</p>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

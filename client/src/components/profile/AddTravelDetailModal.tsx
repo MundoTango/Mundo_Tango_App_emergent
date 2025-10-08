@@ -31,20 +31,20 @@ interface TravelDetailForm {
 }
 
 const eventTypes = [
-  { value: 'festival', label: 'Festival' },
-  { value: 'marathon', label: 'Marathon' },
-  { value: 'workshop', label: 'Workshop' },
-  { value: 'conference', label: 'Conference' },
-  { value: 'vacation', label: 'Vacation' },
-  { value: 'competition', label: 'Competition' },
-  { value: 'performance', label: 'Performance' },
-  { value: 'other', label: 'Other' }
-];
+{ value: 'festival', label: 'Festival' },
+{ value: 'marathon', label: 'Marathon' },
+{ value: 'workshop', label: 'Workshop' },
+{ value: 'conference', label: 'Conference' },
+{ value: 'vacation', label: 'Vacation' },
+{ value: 'competition', label: 'Competition' },
+{ value: 'performance', label: 'Performance' },
+{ value: 'other', label: 'Other' }];
+
 
 export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOpen, onClose }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   const [formData, setFormData] = useState<TravelDetailForm>({
     eventName: '',
     eventType: '',
@@ -56,7 +56,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     notes: '',
     isPublic: true
   });
-  
+
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [selectedCityGroup, setSelectedCityGroup] = useState<any>(null);
 
@@ -71,7 +71,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
         title: "Success",
-        description: "Travel detail added successfully",
+        description: "Travel detail added successfully"
       });
       onClose();
       resetForm();
@@ -80,7 +80,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
       toast({
         title: "Error",
         description: error.message || "Failed to add travel detail",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -107,7 +107,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
   };
 
   const handleInputChange = (field: keyof TravelDetailForm, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -144,25 +144,25 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   }
                 }}
                 placeholder="Search for an event or type a new name"
-                allowCreate={true}
-              />
+                allowCreate={true} />
+
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="eventType">Event Type</Label>
-              <Select 
-                value={formData.eventType} 
-                onValueChange={(value) => handleInputChange('eventType', value)}
-              >
+              <Select
+                value={formData.eventType}
+                onValueChange={(value) => handleInputChange('eventType', value)} data-testid="select-element">
+
                 <SelectTrigger>
                   <SelectValue placeholder="Select event type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {eventTypes.map(type => (
-                    <SelectItem key={type.value} value={type.value}>
+                  {eventTypes.map((type) =>
+                  <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
-                  ))}
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -179,7 +179,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                     handleInputChange('country', details.country);
                   } else {
                     // Handle free text input
-                    const parts = value.split(',').map(p => p.trim());
+                    const parts = value.split(',').map((p) => p.trim());
                     if (parts.length >= 2) {
                       handleInputChange('city', parts[0] || '');
                       handleInputChange('country', parts[parts.length - 1] || '');
@@ -190,8 +190,8 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   }
                 }}
                 placeholder="Enter city, country (e.g., Buenos Aires, Argentina)"
-                className="w-full"
-              />
+                className="w-full" />
+
             </div>
           </div>
 
@@ -206,8 +206,8 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   value={formData.startDate}
                   onChange={(e) => handleInputChange('startDate', e.target.value)}
                   className="pl-10"
-                  required
-                />
+                  required data-testid="input-startdate" />
+
               </div>
             </div>
 
@@ -222,8 +222,8 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   onChange={(e) => handleInputChange('endDate', e.target.value)}
                   className="pl-10"
                   required
-                  min={formData.startDate}
-                />
+                  min={formData.startDate} data-testid="input-enddate" />
+
               </div>
             </div>
           </div>
@@ -231,10 +231,10 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
-              <Select 
-                value={formData.status} 
-                onValueChange={(value: any) => handleInputChange('status', value)}
-              >
+              <Select
+                value={formData.status}
+                onValueChange={(value: any) => handleInputChange('status', value)} data-testid="select-element">
+
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -251,10 +251,10 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
 
             <div className="space-y-2">
               <Label htmlFor="visibility">Visibility</Label>
-              <Select 
-                value={formData.isPublic ? 'public' : 'private'} 
-                onValueChange={(value) => handleInputChange('isPublic', value === 'public')}
-              >
+              <Select
+                value={formData.isPublic ? 'public' : 'private'}
+                onValueChange={(value) => handleInputChange('isPublic', value === 'public')} data-testid="select-element">
+
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -274,8 +274,8 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               value={formData.notes}
               onChange={(e) => handleInputChange('notes', e.target.value)}
               placeholder="Any additional details about your travel..."
-              rows={3}
-            />
+              rows={3} data-testid="textarea-notes" />
+
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
@@ -283,20 +283,20 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               type="button"
               variant="outline"
               onClick={onClose}
-              disabled={createTravelDetailMutation.isPending}
-            >
+              disabled={createTravelDetailMutation.isPending} data-testid="button-button">
+
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={createTravelDetailMutation.isPending}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-            >
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-submit">
+
               {createTravelDetailMutation.isPending ? 'Adding...' : 'Add Travel Detail'}
             </Button>
           </div>
         </form>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>);
+
 };

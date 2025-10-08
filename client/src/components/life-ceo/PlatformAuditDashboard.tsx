@@ -18,8 +18,8 @@ import {
   RefreshCw,
   ChevronRight,
   AlertCircle,
-  BarChart3
-} from 'lucide-react';
+  BarChart3 } from
+'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -42,115 +42,115 @@ export const PlatformAuditDashboard: React.FC = () => {
   const [lastAuditDate] = useState(new Date().toISOString());
 
   const auditSections: AuditSection[] = [
-    {
-      name: 'Memories Feed',
-      score: 92,
-      status: 'excellent',
-      icon: <Image className="w-5 h-5" />,
-      trend: 'improving',
-      issues: [
-        'No infinite scroll (pagination only)',
-        'Missing real-time updates',
-        'No post editing capability'
-      ],
-      recommendations: [
-        'Implement infinite scroll with virtual scrolling',
-        'Add WebSocket for real-time updates',
-        'Enable post editing with version history',
-        'Add draft saving capability'
-      ]
-    },
-    {
-      name: 'City Groups',
-      score: 90,
-      status: 'excellent',
-      icon: <MapPin className="w-5 h-5" />,
-      trend: 'improving',
-      issues: [
-        'Map slow with 100+ markers',
-        'Limited mobile map experience'
-      ],
-      recommendations: [
-        'Add map marker clustering',
-        'Enhance mobile map UX with touch gestures',
-        'Add offline map caching'
-      ]
-    },
-    {
-      name: 'User Profile',
-      score: 85,
-      status: 'excellent',
-      icon: <Users className="w-5 h-5" />,
-      trend: 'improving',
-      issues: [
-        'Large bundle size (31MB)',
-        'No image compression pipeline',
-        'Limited mobile editing UI'
-      ],
-      recommendations: [
-        'Implement progressive image optimization',
-        'Add code splitting for profile components',
-        'Enhance mobile editing experience',
-        'Profile completion gamification'
-      ]
-    },
-    {
-      name: 'User Settings',
-      score: 62,
-      status: 'needs-work',
-      icon: <Settings className="w-5 h-5" />,
-      trend: 'declining',
-      issues: [
-        'No dedicated settings page',
-        'Settings scattered across profile',
-        'No email preferences control',
-        'No theme or language selection'
-      ],
-      recommendations: [
-        'Create comprehensive settings page',
-        'Implement notification controls',
-        'Add theme selection',
-        'Create settings API documentation'
-      ]
-    },
-    {
-      name: 'Performance',
-      score: 82,
-      status: 'good',
-      icon: <Zap className="w-5 h-5" />,
-      trend: 'improving',
-      issues: [
-        'Page load 3.2s (target <3s)',
-        'Redis connection errors (using fallback)',
-        'High memory usage (frequent GC)',
-        'Cache hit rate 60-70%'
-      ],
-      recommendations: [
-        'Fix Redis lazy initialization',
-        'Implement memory profiling',
-        'Optimize component rerenders',
-        'Add service worker caching'
-      ]
-    },
-    {
-      name: 'Security',
-      score: 82,
-      status: 'good',
-      icon: <Shield className="w-5 h-5" />,
-      trend: 'improving',
-      issues: [
-        '24 tables without RLS',
-        'No 2FA support',
-        'SOC 2 compliance at 70%'
-      ],
-      recommendations: [
-        'Enable RLS on remaining 24 tables',
-        'Implement 2FA authentication',
-        'Complete SOC 2 Type II compliance',
-        'Add Sentry error monitoring'
-      ]
-    }
-  ];
+  {
+    name: 'Memories Feed',
+    score: 92,
+    status: 'excellent',
+    icon: <Image className="w-5 h-5" />,
+    trend: 'improving',
+    issues: [
+    'No infinite scroll (pagination only)',
+    'Missing real-time updates',
+    'No post editing capability'],
+
+    recommendations: [
+    'Implement infinite scroll with virtual scrolling',
+    'Add WebSocket for real-time updates',
+    'Enable post editing with version history',
+    'Add draft saving capability']
+
+  },
+  {
+    name: 'City Groups',
+    score: 90,
+    status: 'excellent',
+    icon: <MapPin className="w-5 h-5" />,
+    trend: 'improving',
+    issues: [
+    'Map slow with 100+ markers',
+    'Limited mobile map experience'],
+
+    recommendations: [
+    'Add map marker clustering',
+    'Enhance mobile map UX with touch gestures',
+    'Add offline map caching']
+
+  },
+  {
+    name: 'User Profile',
+    score: 85,
+    status: 'excellent',
+    icon: <Users className="w-5 h-5" />,
+    trend: 'improving',
+    issues: [
+    'Large bundle size (31MB)',
+    'No image compression pipeline',
+    'Limited mobile editing UI'],
+
+    recommendations: [
+    'Implement progressive image optimization',
+    'Add code splitting for profile components',
+    'Enhance mobile editing experience',
+    'Profile completion gamification']
+
+  },
+  {
+    name: 'User Settings',
+    score: 62,
+    status: 'needs-work',
+    icon: <Settings className="w-5 h-5" />,
+    trend: 'declining',
+    issues: [
+    'No dedicated settings page',
+    'Settings scattered across profile',
+    'No email preferences control',
+    'No theme or language selection'],
+
+    recommendations: [
+    'Create comprehensive settings page',
+    'Implement notification controls',
+    'Add theme selection',
+    'Create settings API documentation']
+
+  },
+  {
+    name: 'Performance',
+    score: 82,
+    status: 'good',
+    icon: <Zap className="w-5 h-5" />,
+    trend: 'improving',
+    issues: [
+    'Page load 3.2s (target <3s)',
+    'Redis connection errors (using fallback)',
+    'High memory usage (frequent GC)',
+    'Cache hit rate 60-70%'],
+
+    recommendations: [
+    'Fix Redis lazy initialization',
+    'Implement memory profiling',
+    'Optimize component rerenders',
+    'Add service worker caching']
+
+  },
+  {
+    name: 'Security',
+    score: 82,
+    status: 'good',
+    icon: <Shield className="w-5 h-5" />,
+    trend: 'improving',
+    issues: [
+    '24 tables without RLS',
+    'No 2FA support',
+    'SOC 2 compliance at 70%'],
+
+    recommendations: [
+    'Enable RLS on remaining 24 tables',
+    'Implement 2FA authentication',
+    'Complete SOC 2 Type II compliance',
+    'Add Sentry error monitoring']
+
+  }];
+
 
   const overallScore = Math.round(
     auditSections.reduce((sum, section) => sum + section.score, 0) / auditSections.length
@@ -158,11 +158,11 @@ export const PlatformAuditDashboard: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'excellent': return 'text-green-600 bg-green-50 border-green-200';
-      case 'good': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'needs-work': return 'text-red-600 bg-red-50 border-red-200';
-      case 'critical': return 'text-red-800 bg-red-100 border-red-300';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'excellent':return 'text-green-600 bg-green-50 border-green-200';
+      case 'good':return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'needs-work':return 'text-red-600 bg-red-50 border-red-200';
+      case 'critical':return 'text-red-800 bg-red-100 border-red-300';
+      default:return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
 
@@ -175,21 +175,21 @@ export const PlatformAuditDashboard: React.FC = () => {
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case 'improving': return <TrendingUp className="w-4 h-4 text-green-500" />;
-      case 'declining': return <TrendingDown className="w-4 h-4 text-red-500" />;
-      default: return <Activity className="w-4 h-4 text-gray-500" />;
+      case 'improving':return <TrendingUp className="w-4 h-4 text-green-500" />;
+      case 'declining':return <TrendingDown className="w-4 h-4 text-red-500" />;
+      default:return <Activity className="w-4 h-4 text-gray-500" />;
     }
   };
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     // Simulate refresh
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsRefreshing(false);
   };
 
-  const renderOverview = () => (
-    <div className="space-y-6">
+  const renderOverview = () =>
+  <div className="space-y-6">
       {/* Overall Health Score */}
       <Card className="bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200">
         <CardHeader>
@@ -206,12 +206,12 @@ export const PlatformAuditDashboard: React.FC = () => {
         <CardContent>
           <Progress value={overallScore} className="h-4 mb-4" />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-            {auditSections.map((section) => (
-              <div
-                key={section.name}
-                className="flex items-center justify-between p-3 bg-white/70 rounded-lg cursor-pointer hover:shadow-md transition-all"
-                onClick={() => setSelectedSection(section.name.toLowerCase().replace(' ', '-'))}
-              >
+            {auditSections.map((section) =>
+          <div
+            key={section.name}
+            className="flex items-center justify-between p-3 bg-white/70 rounded-lg cursor-pointer hover:shadow-md transition-all"
+            onClick={() => setSelectedSection(section.name.toLowerCase().replace(' ', '-'))}>
+
                 <div className="flex items-center gap-2">
                   <div className={`p-2 rounded-lg ${getStatusColor(section.status)}`}>
                     {section.icon}
@@ -230,7 +230,7 @@ export const PlatformAuditDashboard: React.FC = () => {
                   </Badge>
                 </div>
               </div>
-            ))}
+          )}
           </div>
         </CardContent>
       </Card>
@@ -320,11 +320,11 @@ export const PlatformAuditDashboard: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 
-  const renderSectionDetail = (section: AuditSection) => (
-    <div className="space-y-6">
+
+  const renderSectionDetail = (section: AuditSection) =>
+  <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
@@ -363,12 +363,12 @@ export const PlatformAuditDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {section.issues.map((issue, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {section.issues.map((issue, index) =>
+            <li key={index} className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 text-red-500 mt-0.5" />
                   <span className="text-sm text-gray-700">{issue}</span>
                 </li>
-              ))}
+            )}
             </ul>
           </CardContent>
         </Card>
@@ -383,12 +383,12 @@ export const PlatformAuditDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {section.recommendations.map((rec, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {section.recommendations.map((rec, index) =>
+            <li key={index} className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 text-green-500 mt-0.5" />
                   <span className="text-sm text-gray-700">{rec}</span>
                 </li>
-              ))}
+            )}
             </ul>
           </CardContent>
         </Card>
@@ -423,8 +423,8 @@ export const PlatformAuditDashboard: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
+
 
   return (
     <div className="space-y-6">
@@ -441,8 +441,8 @@ export const PlatformAuditDashboard: React.FC = () => {
         <Button
           onClick={handleRefresh}
           disabled={isRefreshing}
-          className="bg-gradient-to-r from-turquoise-600 to-cyan-600 text-white"
-        >
+          className="bg-gradient-to-r from-turquoise-600 to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
           <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
           Refresh Audit
         </Button>
@@ -464,16 +464,16 @@ export const PlatformAuditDashboard: React.FC = () => {
           {renderOverview()}
         </TabsContent>
 
-        {auditSections.map((section) => (
-          <TabsContent
-            key={section.name}
-            value={section.name.toLowerCase().replace(' ', '-')}
-            className="mt-6"
-          >
+        {auditSections.map((section) =>
+        <TabsContent
+          key={section.name}
+          value={section.name.toLowerCase().replace(' ', '-')}
+          className="mt-6">
+
             {renderSectionDetail(section)}
           </TabsContent>
-        ))}
+        )}
       </Tabs>
-    </div>
-  );
+    </div>);
+
 };

@@ -39,17 +39,17 @@ export default function ImageCropper({
 
   const getCroppedImg = async () => {
     if (!imgRef.current) return;
-    
+
     // Use completedCrop if available, otherwise convert current crop to pixels
     let cropToUse = completedCrop;
     if (!cropToUse) {
       const { width, height } = imgRef.current;
       cropToUse = {
         unit: 'px',
-        x: crop.unit === '%' ? (crop.x * width) / 100 : crop.x,
-        y: crop.unit === '%' ? (crop.y * height) / 100 : crop.y,
-        width: crop.unit === '%' ? (crop.width * width) / 100 : crop.width,
-        height: crop.unit === '%' ? (crop.height * height) / 100 : crop.height
+        x: crop.unit === '%' ? crop.x * width / 100 : crop.x,
+        y: crop.unit === '%' ? crop.y * height / 100 : crop.y,
+        width: crop.unit === '%' ? crop.width * width / 100 : crop.width,
+        height: crop.unit === '%' ? crop.height * height / 100 : crop.height
       };
     }
 
@@ -64,7 +64,7 @@ export default function ImageCropper({
     canvas.height = cropToUse.height;
 
     ctx.save();
-    
+
     if (cropShape === 'round') {
       ctx.beginPath();
       ctx.arc(
@@ -108,16 +108,16 @@ export default function ImageCropper({
         const { width, height } = imgRef.current;
         const cropInPixels: PixelCrop = {
           unit: 'px',
-          x: crop.unit === '%' ? (crop.x * width) / 100 : crop.x,
-          y: crop.unit === '%' ? (crop.y * height) / 100 : crop.y,
-          width: crop.unit === '%' ? (crop.width * width) / 100 : crop.width,
-          height: crop.unit === '%' ? (crop.height * height) / 100 : crop.height
+          x: crop.unit === '%' ? crop.x * width / 100 : crop.x,
+          y: crop.unit === '%' ? crop.y * height / 100 : crop.y,
+          width: crop.unit === '%' ? crop.width * width / 100 : crop.width,
+          height: crop.unit === '%' ? crop.height * height / 100 : crop.height
         };
         setCompletedCrop(cropInPixels);
         // Wait for state update
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
-      
+
       const croppedFile = await getCroppedImg();
       if (croppedFile) {
         onCropComplete(croppedFile);
@@ -151,8 +151,8 @@ export default function ImageCropper({
               onChange={(c) => setCrop(c)}
               onComplete={(c) => setCompletedCrop(c)}
               aspect={aspectRatio}
-              className="max-w-full"
-            >
+              className="max-w-full">
+
               <img
                 ref={imgRef}
                 src={imageUrl}
@@ -176,8 +176,8 @@ export default function ImageCropper({
                       y: (height - cropHeight) / 2
                     });
                   }
-                }}
-              />
+                }} />
+
             </ReactCrop>
           </div>
 
@@ -192,8 +192,8 @@ export default function ImageCropper({
                 min={0.5}
                 max={3}
                 step={0.1}
-                className="flex-1"
-              />
+                className="flex-1" />
+
               <span className="text-sm text-gray-600 w-12">{zoom[0].toFixed(1)}x</span>
             </div>
 
@@ -204,8 +204,8 @@ export default function ImageCropper({
                 variant="outline"
                 size="sm"
                 onClick={handleRotate}
-                className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-              >
+                className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-button">
+
                 <RotateCw className="w-4 h-4 mr-2" />
                 Rotate 90°
               </Button>
@@ -216,9 +216,9 @@ export default function ImageCropper({
           {/* Tips */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <p className="text-sm text-blue-700">
-              {cropShape === 'round' 
-                ? 'Drag to position your image within the circle. Use zoom to fill the area.'
-                : 'Drag the corners to resize, or drag inside to reposition the crop area.'}
+              {cropShape === 'round' ?
+              'Drag to position your image within the circle. Use zoom to fill the area.' :
+              'Drag the corners to resize, or drag inside to reposition the crop area.'}
             </p>
           </div>
         </div>
@@ -228,20 +228,20 @@ export default function ImageCropper({
             type="button"
             variant="outline"
             onClick={onClose}
-            className="border-gray-300"
-          >
+            className="border-gray-300" data-testid="button-button">
+
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
           <Button
             onClick={handleCrop}
-            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-          >
+            className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
+
             <Download className="w-4 h-4 mr-2" />
             Apply & Save
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>);
+
 }

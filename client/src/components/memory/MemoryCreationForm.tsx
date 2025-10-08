@@ -31,23 +31,23 @@ interface CoTaggedUser {
 }
 
 const EMOTION_TAGS = [
-  'joy', 'passion', 'nostalgia', 'connection', 'elegance', 'intimacy',
-  'vulnerability', 'power', 'grace', 'melancholy', 'euphoria', 'tension',
-  'release', 'discovery', 'growth', 'challenge', 'triumph', 'flow'
-];
+'joy', 'passion', 'nostalgia', 'connection', 'elegance', 'intimacy',
+'vulnerability', 'power', 'grace', 'melancholy', 'euphoria', 'tension',
+'release', 'discovery', 'growth', 'challenge', 'triumph', 'flow'];
+
 
 const VISIBILITY_TIERS = [
-  { value: 'public', label: 'Public', description: 'Visible to everyone' },
-  { value: 'friends', label: 'Friends', description: 'Only visible to your friends' },
-  { value: 'trusted', label: 'Trusted Circle', description: 'Visible to your trusted circle' },
-  { value: 'private', label: 'Private', description: 'Only visible to you' }
-];
+{ value: 'public', label: 'Public', description: 'Visible to everyone' },
+{ value: 'friends', label: 'Friends', description: 'Only visible to your friends' },
+{ value: 'trusted', label: 'Trusted Circle', description: 'Visible to your trusted circle' },
+{ value: 'private', label: 'Private', description: 'Only visible to you' }];
+
 
 export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: MemoryCreationFormProps) {
   const { user } = useAuthContext();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  
+
   // Form state
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -84,9 +84,9 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
 
   // Check consent requirements when co-tagged users change
   useEffect(() => {
-    const usersNeedingConsent = coTaggedUsers.filter(user => !user.hasConsent);
+    const usersNeedingConsent = coTaggedUsers.filter((user) => !user.hasConsent);
     setNeedsConsent(usersNeedingConsent.length > 0);
-    setConsentWarningUsers(usersNeedingConsent.map(user => user.username));
+    setConsentWarningUsers(usersNeedingConsent.map((user) => user.username));
   }, [coTaggedUsers]);
 
   const addEmotionTag = (tag: string) => {
@@ -96,18 +96,18 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
   };
 
   const removeEmotionTag = (tag: string) => {
-    setEmotionTags(emotionTags.filter(t => t !== tag));
+    setEmotionTags(emotionTags.filter((t) => t !== tag));
   };
 
   const searchUsers = async (query: string) => {
     if (query.length < 2) return;
-    
+
     try {
       const response = await apiRequest('GET', `/api/users/search?q=${encodeURIComponent(query)}`);
       if (response.success) {
         // Filter out current user and already tagged users
-        const filteredUsers = response.data.filter((u: any) => 
-          u.id !== user?.id && !coTaggedUsers.find(tagged => tagged.id === u.id)
+        const filteredUsers = response.data.filter((u: any) =>
+        u.id !== user?.id && !coTaggedUsers.find((tagged) => tagged.id === u.id)
         );
         setSearchedUsers(filteredUsers);
       }
@@ -120,14 +120,14 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
     try {
       // Check if user has pre-approved consent for this type of content
       const consentResponse = await apiRequest('GET', `/api/memory/consent-check/${selectedUser.id}?visibility=${visibilityTier}`);
-      
+
       const newUser: CoTaggedUser = {
         id: selectedUser.id,
         username: selectedUser.username,
         name: selectedUser.name,
         hasConsent: consentResponse.hasConsent || false
       };
-      
+
       setCoTaggedUsers([...coTaggedUsers, newUser]);
       setUserSearchQuery('');
       setSearchedUsers([]);
@@ -146,7 +146,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
   };
 
   const removeCoTaggedUser = (userId: number) => {
-    setCoTaggedUsers(coTaggedUsers.filter(user => user.id !== userId));
+    setCoTaggedUsers(coTaggedUsers.filter((user) => user.id !== userId));
   };
 
   const handleLocationSelect = (locationData: any) => {
@@ -207,8 +207,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           longitude: location.longitude,
           place_id: location.placeId || null
         } : null,
-        media_urls: mediaFiles.map(file => file.url),
-        co_tagged_users: coTaggedUsers.map(user => user.id),
+        media_urls: mediaFiles.map((file) => file.url),
+        co_tagged_users: coTaggedUsers.map((user) => user.id),
         consent_required: needsConsent,
         trust_circle_level: visibilityTier === 'trusted' ? 3 : 1 // Default trust level
       };
@@ -218,9 +218,9 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
       if (response.success) {
         toast({
           title: 'Memory Created Successfully',
-          description: needsConsent 
-            ? `Memory saved! Consent requests sent to ${consentWarningUsers.join(', ')}.`
-            : 'Your memory has been saved and is now visible based on your privacy settings.',
+          description: needsConsent ?
+          `Memory saved! Consent requests sent to ${consentWarningUsers.join(', ')}.` :
+          'Your memory has been saved and is now visible based on your privacy settings.'
         });
 
         // Log successful memory creation
@@ -241,7 +241,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
       }
     } catch (error) {
       console.error('Error creating memory:', error);
-      
+
       // Log failed memory creation
       await apiRequest('POST', '/api/memory/audit', {
         action_type: 'create',
@@ -282,8 +282,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="What would you like to call this memory?"
-              className="text-lg"
-            />
+              className="text-lg" data-testid="input-title" />
+
           </div>
 
           {/* Content */}
@@ -294,34 +294,34 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Describe this memory... What happened? How did it feel?"
-              className="min-h-[100px]"
-            />
+              className="min-h-[100px]" data-testid="textarea-content" />
+
           </div>
 
           {/* Emotion Tags */}
           <div className="space-y-3">
             <Label>Emotion Tags * (Select all that apply)</Label>
             <div className="flex flex-wrap gap-2">
-              {EMOTION_TAGS.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant={emotionTags.includes(tag) ? "default" : "outline"}
-                  className={cn(
-                    "cursor-pointer transition-all",
-                    emotionTags.includes(tag) 
-                      ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white" 
-                      : "hover:bg-gray-100"
-                  )}
-                  onClick={() => 
-                    emotionTags.includes(tag) ? removeEmotionTag(tag) : addEmotionTag(tag)
-                  }
-                >
+              {EMOTION_TAGS.map((tag) =>
+              <Badge
+                key={tag}
+                variant={emotionTags.includes(tag) ? "default" : "outline"}
+                className={cn(
+                  "cursor-pointer transition-all",
+                  emotionTags.includes(tag) ?
+                  "bg-gradient-to-r from-pink-500 to-blue-500 text-white" :
+                  "hover:bg-gray-100"
+                )}
+                onClick={() =>
+                emotionTags.includes(tag) ? removeEmotionTag(tag) : addEmotionTag(tag)
+                }>
+
                   {tag}
-                  {emotionTags.includes(tag) && (
-                    <X className="w-3 h-3 ml-1" />
-                  )}
+                  {emotionTags.includes(tag) &&
+                <X className="w-3 h-3 ml-1" />
+                }
                 </Badge>
-              ))}
+              )}
             </div>
           </div>
 
@@ -335,8 +335,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                   className={cn(
                     "w-full justify-start text-left font-normal",
                     !selectedDate && "text-muted-foreground"
-                  )}
-                >
+                  )} data-testid="button-element">
+
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {selectedDate ? format(selectedDate, "PPP") : "Select date"}
                 </Button>
@@ -346,8 +346,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                   mode="single"
                   selected={selectedDate}
                   onSelect={(date) => date && setSelectedDate(date)}
-                  initialFocus
-                />
+                  initialFocus />
+
               </PopoverContent>
             </Popover>
           </div>
@@ -361,14 +361,14 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                 setLocation(details ? { ...details, formattedAddress: loc } : { formattedAddress: loc });
               }}
               placeholder="Where did this happen?"
-              allowManualEntry={true}
-            />
-            {location && (
-              <div className="flex items-center text-sm text-gray-600">
+              allowManualEntry={true} />
+
+            {location &&
+            <div className="flex items-center text-sm text-gray-600">
                 <MapPin className="w-4 h-4 mr-2" />
                 {location.formattedAddress}
               </div>
-            )}
+            }
           </div>
 
           {/* Media Upload */}
@@ -380,8 +380,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               folder="memories"
               tags={emotionTags}
               visibility={visibilityTier as "public" | "private" | "mutual"}
-              context="memory_creation"
-            />
+              context="memory_creation" />
+
           </div>
 
           {/* Co-Tagged Users */}
@@ -398,58 +398,58 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                   setShowUserSearch(true);
                 }}
                 placeholder="Search by username or email..."
-                className="pr-10"
-              />
+                className="pr-10" data-testid="input-pr-10" />
+
               <Users className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               
               {/* Search Results */}
-              {showUserSearch && searchedUsers.length > 0 && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
-                  {searchedUsers.map((user) => (
-                    <div
-                      key={user.id}
-                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
-                      onClick={() => addCoTaggedUser(user)}
-                    >
+              {showUserSearch && searchedUsers.length > 0 &&
+              <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
+                  {searchedUsers.map((user) =>
+                <div
+                  key={user.id}
+                  className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                  onClick={() => addCoTaggedUser(user)}>
+
                       <div className="font-medium">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                     </div>
-                  ))}
+                )}
                 </div>
-              )}
+              }
             </div>
 
             {/* Tagged Users */}
-            {coTaggedUsers.length > 0 && (
-              <div className="space-y-2">
+            {coTaggedUsers.length > 0 &&
+            <div className="space-y-2">
                 <div className="text-sm font-medium">Tagged Users:</div>
                 <div className="flex flex-wrap gap-2">
-                  {coTaggedUsers.map((user) => (
-                    <Badge
-                      key={user.id}
-                      variant="outline"
-                      className={cn(
-                        "flex items-center gap-1",
-                        !user.hasConsent && "border-orange-300 bg-orange-50"
-                      )}
-                    >
+                  {coTaggedUsers.map((user) =>
+                <Badge
+                  key={user.id}
+                  variant="outline"
+                  className={cn(
+                    "flex items-center gap-1",
+                    !user.hasConsent && "border-orange-300 bg-orange-50"
+                  )}>
+
                       {user.username}
-                      {!user.hasConsent && (
-                        <AlertTriangle className="w-3 h-3 text-orange-500" />
-                      )}
+                      {!user.hasConsent &&
+                  <AlertTriangle className="w-3 h-3 text-orange-500" />
+                  }
                       <X
-                        className="w-3 h-3 cursor-pointer hover:text-red-500"
-                        onClick={() => removeCoTaggedUser(user.id)}
-                      />
+                    className="w-3 h-3 cursor-pointer hover:text-red-500"
+                    onClick={() => removeCoTaggedUser(user.id)} />
+
                     </Badge>
-                  ))}
+                )}
                 </div>
               </div>
-            )}
+            }
 
             {/* Consent Warning */}
-            {needsConsent && (
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+            {needsConsent &&
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5" />
                   <div>
@@ -460,44 +460,44 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                   </div>
                 </div>
               </div>
-            )}
+            }
           </div>
 
           {/* Visibility Tier */}
           <div className="space-y-2">
             <Label>Visibility</Label>
-            <Select value={visibilityTier} onValueChange={setVisibilityTier}>
+            <Select value={visibilityTier} onValueChange={setVisibilityTier} data-testid="select-element">
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {VISIBILITY_TIERS.map((tier) => (
-                  <SelectItem key={tier.value} value={tier.value}>
+                {VISIBILITY_TIERS.map((tier) =>
+                <SelectItem key={tier.value} value={tier.value}>
                     <div>
                       <div className="font-medium">{tier.label}</div>
                       <div className="text-sm text-gray-500">{tier.description}</div>
                     </div>
                   </SelectItem>
-                ))}
+                )}
               </SelectContent>
             </Select>
           </div>
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button variant="outline" onClick={onClose} disabled={loading}>
+            <Button variant="outline" onClick={onClose} disabled={loading} data-testid="button-element">
               Cancel
             </Button>
-            <Button 
-              onClick={handleSubmit} 
+            <Button
+              onClick={handleSubmit}
               disabled={loading}
-              className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"
-            >
+              className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600" data-testid="button-bg-gradient-to-r">
+
               {loading ? 'Creating...' : 'Create Memory'}
             </Button>
           </div>
         </div>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>);
+
 }

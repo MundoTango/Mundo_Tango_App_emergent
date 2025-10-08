@@ -34,7 +34,7 @@ export default function RoleManagement() {
   const [selectedUser, setSelectedUser] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [updating, setUpdating] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [message, setMessage] = useState<{type: 'success' | 'error';text: string;} | null>(null);
 
   const roleIcons = {
     admin: Crown,
@@ -62,7 +62,7 @@ export default function RoleManagement() {
       const response = await fetch('/api/roles/me', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         setCurrentUserRole(result.data);
@@ -78,7 +78,7 @@ export default function RoleManagement() {
       const response = await fetch('/api/roles/users', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
         setUsers(result.data.users || []);
@@ -110,7 +110,7 @@ export default function RoleManagement() {
       });
 
       const result = await response.json();
-      
+
       if (response.ok) {
         setMessage({ type: 'success', text: `User role updated to ${selectedRole}` });
         setSelectedUser('');
@@ -131,12 +131,12 @@ export default function RoleManagement() {
       const response = await fetch(`/api/roles/permissions/check?permission=${permission}`, {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const result = await response.json();
-        setMessage({ 
-          type: result.data.hasPermission ? 'success' : 'error', 
-          text: `Permission '${permission}': ${result.data.hasPermission ? 'Granted' : 'Denied'}` 
+        setMessage({
+          type: result.data.hasPermission ? 'success' : 'error',
+          text: `Permission '${permission}': ${result.data.hasPermission ? 'Granted' : 'Denied'}`
         });
       }
     } catch (error) {
@@ -165,13 +165,13 @@ export default function RoleManagement() {
         </p>
       </div>
 
-      {message && (
-        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
+      {message &&
+      <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
           <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'}>
             {message.text}
           </AlertDescription>
         </Alert>
-      )}
+      }
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
@@ -185,8 +185,8 @@ export default function RoleManagement() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {currentUserRole ? (
-              <div className="space-y-4">
+            {currentUserRole ?
+            <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   {getRoleIcon(currentUserRole.role)}
                   <Badge className={getRoleColor(currentUserRole.role)}>
@@ -200,40 +200,40 @@ export default function RoleManagement() {
                 <div>
                   <h4 className="font-medium mb-2">Permissions:</h4>
                   <div className="grid grid-cols-2 gap-2 text-sm">
-                    {Object.entries(currentUserRole.permissions).map(([perm, has]) => (
-                      <div key={perm} className={`p-2 rounded border ${has ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
+                    {Object.entries(currentUserRole.permissions).map(([perm, has]) =>
+                  <div key={perm} className={`p-2 rounded border ${has ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
                         <span className={has ? 'text-green-800' : 'text-gray-600'}>
                           {perm.replace(/_/g, ' ')}
                         </span>
                       </div>
-                    ))}
+                  )}
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <h4 className="font-medium">Test Permissions:</h4>
                   <div className="flex gap-2 flex-wrap">
-                    {['manage_users', 'create_events', 'moderate_content'].map(perm => (
-                      <Button
-                        key={perm}
-                        variant="outline"
-                        size="sm"
-                        onClick={() => checkPermission(perm)}
-                      >
+                    {['manage_users', 'create_events', 'moderate_content'].map((perm) =>
+                  <Button
+                    key={perm}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => checkPermission(perm)} data-testid="button-element">
+
                         Test {perm.replace(/_/g, ' ')}
                       </Button>
-                    ))}
+                  )}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <p className="text-gray-500">Loading role information...</p>
-            )}
+              </div> :
+
+            <p className="text-gray-500">Loading role information...</p>
+            }
           </CardContent>
         </Card>
 
-        {isAdmin && (
-          <Card>
+        {isAdmin &&
+        <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Crown className="h-5 w-5" />
@@ -246,13 +246,13 @@ export default function RoleManagement() {
             <CardContent className="space-y-4">
               <div>
                 <label className="text-sm font-medium">Select User</label>
-                <Select value={selectedUser} onValueChange={setSelectedUser}>
+                <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a user" />
                   </SelectTrigger>
                   <SelectContent>
-                    {users.map(user => (
-                      <SelectItem key={user.id} value={user.id.toString()}>
+                    {users.map((user) =>
+                  <SelectItem key={user.id} value={user.id.toString()}>
                         <div className="flex items-center gap-2">
                           {getRoleIcon(user.role)}
                           <span>{user.name} ({user.username})</span>
@@ -261,40 +261,40 @@ export default function RoleManagement() {
                           </Badge>
                         </div>
                       </SelectItem>
-                    ))}
+                  )}
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
                 <label className="text-sm font-medium">New Role</label>
-                <Select value={selectedRole} onValueChange={setSelectedRole}>
+                <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
                   <SelectTrigger>
                     <SelectValue placeholder="Choose a role" />
                   </SelectTrigger>
                   <SelectContent>
-                    {['admin', 'organizer', 'teacher', 'dancer', 'guest'].map(role => (
-                      <SelectItem key={role} value={role}>
+                    {['admin', 'organizer', 'teacher', 'dancer', 'guest'].map((role) =>
+                  <SelectItem key={role} value={role}>
                         <div className="flex items-center gap-2">
                           {getRoleIcon(role)}
                           <span>{role.charAt(0).toUpperCase() + role.slice(1)}</span>
                         </div>
                       </SelectItem>
-                    ))}
+                  )}
                   </SelectContent>
                 </Select>
               </div>
 
-              <Button 
-                onClick={updateUserRole} 
-                disabled={updating || !selectedUser || !selectedRole}
-                className="w-full"
-              >
+              <Button
+              onClick={updateUserRole}
+              disabled={updating || !selectedUser || !selectedRole}
+              className="w-full" data-testid="button-w-full">
+
                 {updating ? 'Updating...' : 'Update Role'}
               </Button>
             </CardContent>
           </Card>
-        )}
+        }
       </div>
 
       <Card>
@@ -309,12 +309,12 @@ export default function RoleManagement() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {loading ? (
-            <p className="text-center text-gray-500">Loading users...</p>
-          ) : users.length > 0 ? (
-            <div className="space-y-3">
-              {users.map(user => (
-                <div key={user.id} className="flex items-center justify-between p-3 border rounded-lg">
+          {loading ?
+          <p className="text-center text-gray-500">Loading users...</p> :
+          users.length > 0 ?
+          <div className="space-y-3">
+              {users.map((user) =>
+            <div key={user.id} className="flex items-center justify-between p-3 border rounded-lg">
                   <div className="flex items-center gap-3">
                     {getRoleIcon(user.role)}
                     <div>
@@ -327,20 +327,20 @@ export default function RoleManagement() {
                     <Badge className={getRoleColor(user.role)}>
                       {user.role}
                     </Badge>
-                    {!user.isActive && (
-                      <Badge variant="outline" className="text-red-600 border-red-200">
+                    {!user.isActive &&
+                <Badge variant="outline" className="text-red-600 border-red-200">
                         Inactive
                       </Badge>
-                    )}
+                }
                   </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500">
+            )}
+            </div> :
+
+          <p className="text-center text-gray-500">
               {isAdmin ? 'No users found' : 'Access restricted - Admin role required'}
             </p>
-          )}
+          }
         </CardContent>
       </Card>
 
@@ -350,6 +350,6 @@ export default function RoleManagement() {
           Each role has specific permissions for platform features and content management.
         </p>
       </div>
-    </div>
-  );
+    </div>);
+
 }

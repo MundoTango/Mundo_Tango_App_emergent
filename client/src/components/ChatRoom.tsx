@@ -54,7 +54,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
   const [isPresent, setIsPresent] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(null);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -102,9 +102,9 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
 
   const handleNewMessage = (message: ChatMessage) => {
     console.log('💬 New message received:', message);
-    setMessages(prev => {
+    setMessages((prev) => {
       // Avoid duplicates
-      if (prev.some(m => m.id === message.id)) {
+      if (prev.some((m) => m.id === message.id)) {
         return prev;
       }
       return [...prev, message];
@@ -124,7 +124,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
 
   const handlePresenceUpdate = (users: PresenceUser[]) => {
     console.log('👻 Presence updated:', users);
-    setPresenceUsers(users.filter(u => u.userId !== currentUser.id));
+    setPresenceUsers(users.filter((u) => u.userId !== currentUser.id));
   };
 
   const handleSendMessage = async () => {
@@ -134,7 +134,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
     try {
       await onSendMessage(newMessage.trim());
       setNewMessage('');
-      
+
       // Track message sent
       if (window.plausible) {
         window.plausible('Chat Message Sent', {
@@ -188,11 +188,11 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
   };
 
   const getTypingUsers = () => {
-    return presenceUsers.filter(user => user.isTyping);
+    return presenceUsers.filter((user) => user.isTyping);
   };
 
   const getOnlineUsers = () => {
-    return presenceUsers.filter(user => {
+    return presenceUsers.filter((user) => {
       const lastSeen = new Date(user.lastSeen);
       const now = new Date();
       const diffMinutes = (now.getTime() - lastSeen.getTime()) / (1000 * 60);
@@ -219,26 +219,26 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
         </div>
         
         {/* Online Users */}
-        {getOnlineUsers().length > 0 && (
-          <div className="flex items-center gap-2 mt-2">
+        {getOnlineUsers().length > 0 &&
+        <div className="flex items-center gap-2 mt-2">
             <span className="text-sm text-gray-500">Online:</span>
             <div className="flex -space-x-2">
-              {getOnlineUsers().slice(0, 5).map(user => (
-                <Avatar key={user.userId} className="w-6 h-6 border-2 border-white">
+              {getOnlineUsers().slice(0, 5).map((user) =>
+            <Avatar key={user.userId} className="w-6 h-6 border-2 border-white">
                   <AvatarImage src={user.profileImage} alt={user.username} />
                   <AvatarFallback className="text-xs">
                     {user.username.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-              ))}
-              {getOnlineUsers().length > 5 && (
-                <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs">
+            )}
+              {getOnlineUsers().length > 5 &&
+            <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs">
                   +{getOnlineUsers().length - 5}
                 </div>
-              )}
+            }
             </div>
           </div>
-        )}
+        }
       </CardHeader>
 
       {/* Messages Area */}
@@ -250,71 +250,71 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
               return (
                 <div
                   key={message.id}
-                  className={`flex gap-3 ${isOwnMessage ? 'justify-end' : 'justify-start'}`}
-                >
-                  {!isOwnMessage && (
-                    <Avatar className="w-8 h-8 flex-shrink-0">
+                  className={`flex gap-3 ${isOwnMessage ? 'justify-end' : 'justify-start'}`}>
+
+                  {!isOwnMessage &&
+                  <Avatar className="w-8 h-8 flex-shrink-0">
                       <AvatarImage src={message.user?.profileImage} alt={message.user?.name} />
                       <AvatarFallback className="text-sm">
                         {(message.user?.name || message.user?.username || 'U').charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                  )}
+                  }
                   
                   <div className={`max-w-[70%] ${isOwnMessage ? 'order-first' : ''}`}>
-                    {!isOwnMessage && (
-                      <div className="flex items-center gap-2 mb-1">
+                    {!isOwnMessage &&
+                    <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-medium">{message.user?.name || message.user?.username}</span>
                         <span className="text-xs text-gray-500">{formatMessageTime(message.createdAt)}</span>
                       </div>
-                    )}
+                    }
                     
                     <div
                       className={`px-3 py-2 rounded-lg ${
-                        isOwnMessage
-                          ? 'bg-blue-500 text-white rounded-br-sm'
-                          : 'bg-gray-100 text-gray-900 rounded-bl-sm'
-                      }`}
-                    >
+                      isOwnMessage ?
+                      'bg-blue-500 text-white rounded-br-sm' :
+                      'bg-gray-100 text-gray-900 rounded-bl-sm'}`
+                      }>
+
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                      {isOwnMessage && (
-                        <span className="text-xs text-blue-100 block mt-1">
+                      {isOwnMessage &&
+                      <span className="text-xs text-blue-100 block mt-1">
                           {formatMessageTime(message.createdAt)}
                         </span>
-                      )}
+                      }
                     </div>
                   </div>
                   
-                  {isOwnMessage && (
-                    <Avatar className="w-8 h-8 flex-shrink-0">
+                  {isOwnMessage &&
+                  <Avatar className="w-8 h-8 flex-shrink-0">
                       <AvatarImage src={currentUser.profileImage} alt={currentUser.name} />
                       <AvatarFallback className="text-sm">
                         {currentUser.name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                  )}
-                </div>
-              );
+                  }
+                </div>);
+
             })}
             
             {/* Typing Indicators */}
-            {getTypingUsers().length > 0 && (
-              <div className="flex items-center gap-2 text-sm text-gray-500 px-2">
+            {getTypingUsers().length > 0 &&
+            <div className="flex items-center gap-2 text-sm text-gray-500 px-2">
                 <div className="flex -space-x-1">
-                  {getTypingUsers().slice(0, 3).map(user => (
-                    <Avatar key={user.userId} className="w-5 h-5 border border-white">
+                  {getTypingUsers().slice(0, 3).map((user) =>
+                <Avatar key={user.userId} className="w-5 h-5 border border-white">
                       <AvatarImage src={user.profileImage} alt={user.username} />
                       <AvatarFallback className="text-xs">
                         {user.username.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                  ))}
+                )}
                 </div>
                 <span className="italic">
-                  {getTypingUsers().length === 1
-                    ? `${getTypingUsers()[0].username} is typing...`
-                    : `${getTypingUsers().length} people are typing...`
-                  }
+                  {getTypingUsers().length === 1 ?
+                `${getTypingUsers()[0].username} is typing...` :
+                `${getTypingUsers().length} people are typing...`
+                }
                 </span>
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -322,7 +322,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
               </div>
-            )}
+            }
             
             <div ref={messagesEndRef} />
           </div>
@@ -339,23 +339,23 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             onKeyPress={handleKeyPress}
             placeholder={isConnected ? "Type a message..." : "Connecting..."}
             disabled={!isConnected || isSending}
-            className="flex-1"
-          />
+            className="flex-1" data-testid="input-flex-1" />
+
           <Button
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || !isConnected || isSending}
-            size="sm"
-          >
-            {isSending ? (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Send className="w-4 h-4" />
-            )}
+            size="sm" data-testid="button-element">
+
+            {isSending ?
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> :
+
+            <Send className="w-4 h-4" />
+            }
           </Button>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default ChatRoom;

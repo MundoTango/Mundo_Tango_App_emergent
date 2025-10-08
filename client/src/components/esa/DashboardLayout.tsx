@@ -4,11 +4,11 @@
 
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'wouter';
-import { 
-  Home, Users, UserPlus, MessageSquare, 
+import {
+  Home, Users, UserPlus, MessageSquare,
   Users2, Calendar, Mail, Briefcase, Building2,
-  TrendingUp, Heart, MapPin, Globe, Sparkles
-} from 'lucide-react';
+  TrendingUp, Heart, MapPin, Globe, Sparkles } from
+'lucide-react';
 import { cn } from '@/lib/utils';
 import UnifiedTopBar from '@/components/navigation/UnifiedTopBar';
 import { useTheme } from '@/contexts/theme-context';
@@ -21,25 +21,25 @@ interface DashboardLayoutProps {
   showStats?: boolean;
 }
 
-export default function DashboardLayout({ 
-  children, 
+export default function DashboardLayout({
+  children,
   headerSection,
   sidebarContent,
   showStats = true
 }: DashboardLayoutProps) {
   const [location] = useLocation();
   const { theme, toggleTheme } = useTheme();
-  
+
   const navigationItems = [
-    { path: '/', label: 'Memories', icon: Home },
-    { path: '/favorites', label: 'Favorites', icon: Heart },
-    { path: '/tango-communities', label: 'Tango Community', icon: Users },
-    { path: '/friends', label: 'Friends', icon: UserPlus },
-    { path: '/messages', label: 'Messages', icon: MessageSquare },
-    { path: '/groups', label: 'Groups', icon: Users2 },
-    { path: '/events', label: 'Events', icon: Calendar },
-    { path: '/role-invitations', label: 'Role Invitations', icon: Mail }
-  ];
+  { path: '/', label: 'Memories', icon: Home },
+  { path: '/favorites', label: 'Favorites', icon: Heart },
+  { path: '/tango-communities', label: 'Tango Community', icon: Users },
+  { path: '/friends', label: 'Friends', icon: UserPlus },
+  { path: '/messages', label: 'Messages', icon: MessageSquare },
+  { path: '/groups', label: 'Groups', icon: Users2 },
+  { path: '/events', label: 'Events', icon: Calendar },
+  { path: '/role-invitations', label: 'Role Invitations', icon: Mail }];
+
 
   // Fetch real global statistics from API
   const { data: globalStats, isLoading: statsLoading, error: statsError } = useQuery({
@@ -56,7 +56,7 @@ export default function DashboardLayout({
     },
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
-    retry: 2,
+    retry: 2
   });
 
   // Format numbers with K/M suffix
@@ -77,44 +77,44 @@ export default function DashboardLayout({
   };
 
   const communityStats = [
-    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
-    { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
-    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
-    { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }
-  ];
+  { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
+  { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
+  { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
+  { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }];
+
 
   return (
     <div className={cn(
       "min-h-screen transition-colors",
-      theme === 'light'
-        ? "bg-gradient-to-br from-gray-50 to-white"
-        : "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+      theme === 'light' ?
+      "bg-gradient-to-br from-gray-50 to-white" :
+      "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
     )}>
       {/* Unified Top Navigation Bar */}
-      <UnifiedTopBar 
-        theme={theme} 
+      <UnifiedTopBar
+        theme={theme}
         onThemeToggle={toggleTheme}
-        showMenuButton={false}
-      />
+        showMenuButton={false} />
+
       
       {/* MT Ocean Theme Gradient Overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-[#5EEAD4]/5 via-transparent to-[#155E75]/5 pointer-events-none" />
       
       {/* Glassmorphic Background Elements */}
-      {theme === 'dark' && (
-        <>
+      {theme === 'dark' &&
+      <>
           <div className="fixed top-20 left-10 w-72 h-72 bg-[#5EEAD4]/10 rounded-full blur-3xl animate-pulse" />
           <div className="fixed bottom-20 right-10 w-96 h-96 bg-[#155E75]/10 rounded-full blur-3xl animate-pulse delay-700" />
         </>
-      )}
+      }
       
       <div className="relative flex">
         {/* Left Sidebar - Navigation & Stats */}
         <aside className={cn(
           "w-72 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-r flex flex-col",
-          theme === 'light'
-            ? "bg-white/80 border-gray-200"
-            : "bg-slate-900/50 border-slate-800/50"
+          theme === 'light' ?
+          "bg-white/80 border-gray-200" :
+          "bg-slate-900/50 border-slate-800/50"
         )}>
           {/* Pierre Dubois Profile */}
           <div className={cn(
@@ -149,105 +149,105 @@ export default function DashboardLayout({
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location === item.path;
-                
+
                 return (
-                  <Link key={item.path} href={item.path}>
+                  <Link key={item.path} href={item.path} data-testid="link-element">
                     <a className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                       "hover:translate-x-1",
-                      theme === 'light'
-                        ? "hover:bg-gray-100"
-                        : "hover:bg-slate-800/50",
-                      isActive 
-                        ? theme === 'light'
-                          ? "bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 border-l-4 border-purple-500"
-                          : "bg-gradient-to-r from-[#5EEAD4]/20 to-[#155E75]/20 text-cyan-400 border-l-4 border-cyan-400"
-                        : theme === 'light'
-                          ? "text-gray-600 hover:text-gray-900"
-                          : "text-slate-300 hover:text-white"
-                    )}>
+                      theme === 'light' ?
+                      "hover:bg-gray-100" :
+                      "hover:bg-slate-800/50",
+                      isActive ?
+                      theme === 'light' ?
+                      "bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 border-l-4 border-purple-500" :
+                      "bg-gradient-to-r from-[#5EEAD4]/20 to-[#155E75]/20 text-cyan-400 border-l-4 border-cyan-400" :
+                      theme === 'light' ?
+                      "text-gray-600 hover:text-gray-900" :
+                      "text-slate-300 hover:text-white"
+                    )} data-testid="a-element">
                       <Icon className="w-5 h-5" />
                       <span className="font-medium">{item.label}</span>
-                      {isActive && (
-                        <Sparkles className="w-4 h-4 ml-auto animate-pulse" />
-                      )}
+                      {isActive &&
+                      <Sparkles className="w-4 h-4 ml-auto animate-pulse" />
+                      }
                     </a>
-                  </Link>
-                );
+                  </Link>);
+
               })}
             </div>
           </nav>
 
           {/* Community Stats */}
-          {showStats && (
-            <div className={cn(
-              "p-6 border-t",
-              theme === 'light' ? "border-gray-200" : "border-slate-800/50"
-            )}>
+          {showStats &&
+          <div className={cn(
+            "p-6 border-t",
+            theme === 'light' ? "border-gray-200" : "border-slate-800/50"
+          )}>
               <h3 className={cn(
-                "text-sm font-semibold uppercase tracking-wider mb-4",
-                theme === 'light' ? "text-gray-500" : "text-slate-400"
-              )}>
+              "text-sm font-semibold uppercase tracking-wider mb-4",
+              theme === 'light' ? "text-gray-500" : "text-slate-400"
+            )}>
                 GLOBAL STATISTICS
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {communityStats.map((stat) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div key={stat.label} className={cn(
-                      "rounded-lg p-3 backdrop-blur-sm",
-                      theme === 'light'
-                        ? "bg-gray-100"
-                        : "bg-slate-800/30"
-                    )}>
+                const Icon = stat.icon;
+                return (
+                  <div key={stat.label} className={cn(
+                    "rounded-lg p-3 backdrop-blur-sm",
+                    theme === 'light' ?
+                    "bg-gray-100" :
+                    "bg-slate-800/30"
+                  )}>
                       <div className="flex items-center gap-2 mb-1">
                         <Icon className={cn("w-4 h-4", stat.color)} />
                         <span className={cn(
-                          "text-2xl font-bold",
-                          theme === 'light' ? "text-gray-900" : "text-white"
-                        )}>{stat.value}</span>
+                        "text-2xl font-bold",
+                        theme === 'light' ? "text-gray-900" : "text-white"
+                      )}>{stat.value}</span>
                       </div>
                       <div className={cn(
-                        "text-xs",
-                        theme === 'light' ? "text-gray-500" : "text-slate-400"
-                      )}>{stat.label}</div>
-                    </div>
-                  );
-                })}
+                      "text-xs",
+                      theme === 'light' ? "text-gray-500" : "text-slate-400"
+                    )}>{stat.label}</div>
+                    </div>);
+
+              })}
               </div>
               
               {/* Mundo Tango Button */}
-              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" data-testid="button-w-full">
                 Mundo Tango
               </button>
             </div>
-          )}
+          }
         </aside>
 
         {/* Main Content Area */}
         <main className="flex-1 flex">
           <div className="flex-1 max-w-4xl mx-auto">
-            {headerSection && (
-              <div className="mb-6">
+            {headerSection &&
+            <div className="mb-6">
                 {headerSection}
               </div>
-            )}
+            }
             {children}
           </div>
           
           {/* Right Sidebar */}
-          {sidebarContent && (
-            <aside className={cn(
-              "w-80 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-l p-6",
-              theme === 'light'
-                ? "bg-white/80 border-gray-200"
-                : "bg-slate-900/30 border-slate-800/50"
-            )}>
+          {sidebarContent &&
+          <aside className={cn(
+            "w-80 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-l p-6",
+            theme === 'light' ?
+            "bg-white/80 border-gray-200" :
+            "bg-slate-900/30 border-slate-800/50"
+          )}>
               {sidebarContent}
             </aside>
-          )}
+          }
         </main>
       </div>
-    </div>
-  );
+    </div>);
+
 }

@@ -92,32 +92,32 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
         glowEffect,
         className
       )}
-      {...props}
-    >
-      {icon && (
-        <span className="flex-shrink-0">
+      {...props}>
+
+      {icon &&
+      <span className="flex-shrink-0">
           {icon}
         </span>
-      )}
+      }
       {children}
-      {removable && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove?.();
-          }}
-          className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors"
-        >
+      {removable &&
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove?.();
+        }}
+        className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors" data-testid="button-ml-1">
+
           <X className={cn(
-            'flex-shrink-0',
-            size === 'sm' && 'w-3 h-3',
-            size === 'md' && 'w-3.5 h-3.5',
-            size === 'lg' && 'w-4 h-4'
-          )} />
+          'flex-shrink-0',
+          size === 'sm' && 'w-3 h-3',
+          size === 'md' && 'w-3.5 h-3.5',
+          size === 'lg' && 'w-4 h-4'
+        )} />
         </button>
-      )}
-    </span>
-  );
+      }
+    </span>);
+
 });
 
 MTBadge.displayName = 'MTBadge';

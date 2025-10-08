@@ -25,15 +25,15 @@ export default function InlinePostComposer({
   const [isExpanded, setIsExpanded] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [location, setLocation] = useState('');
-  
+
   const createPostMutation = useMutation({
     mutationFn: async (postData: any) => {
       const response = await apiRequest('/api/posts', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: postData,
+        body: postData
       });
       const data = await response.json();
       return data;
@@ -47,7 +47,7 @@ export default function InlinePostComposer({
       queryClient.invalidateQueries({ queryKey: ['/api/user/posts'] });
       toast({
         title: "Memory shared!",
-        description: "Your post has been published successfully.",
+        description: "Your post has been published successfully."
       });
       onPostCreated?.();
     },
@@ -55,7 +55,7 @@ export default function InlinePostComposer({
       toast({
         title: "Failed to share",
         description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -65,7 +65,7 @@ export default function InlinePostComposer({
       toast({
         title: "Empty post",
         description: "Please write something to share.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
@@ -86,7 +86,7 @@ export default function InlinePostComposer({
   };
 
   const removeTag = (tag: string) => {
-    setTags(tags.filter(t => t !== tag));
+    setTags(tags.filter((t) => t !== tag));
   };
 
   const quickTags = ['dance', 'milonga', 'practice', 'performance', 'festival', 'lesson', 'travel'];
@@ -105,76 +105,76 @@ export default function InlinePostComposer({
                 "resize-none border-turquoise-200 focus:border-turquoise-400 transition-all",
                 isExpanded ? "min-h-[120px]" : "min-h-[60px]"
               )}
-              onFocus={() => setIsExpanded(true)}
-            />
+              onFocus={() => setIsExpanded(true)} data-testid="textarea-element" />
+
             
             {/* Character Count */}
-            {content.length > 0 && (
-              <div className="absolute bottom-2 right-2 text-xs text-gray-500">
+            {content.length > 0 &&
+            <div className="absolute bottom-2 right-2 text-xs text-gray-500">
                 {content.length}/500
               </div>
-            )}
+            }
           </div>
 
           {/* Expanded Options */}
-          {isExpanded && (
-            <>
+          {isExpanded &&
+          <>
               {/* Quick Tags */}
               <div className="space-y-2">
                 <div className="text-sm text-gray-600">Add tags:</div>
                 <div className="flex flex-wrap gap-2">
-                  {quickTags.map((tag) => (
-                    <Button
-                      key={tag}
-                      size="sm"
-                      variant={tags.includes(tag) ? "default" : "outline"}
-                      className={cn(
-                        "h-7 text-xs",
-                        tags.includes(tag) 
-                          ? "bg-turquoise-500 hover:bg-turquoise-600 text-white" 
-                          : "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                      )}
-                      onClick={() => tags.includes(tag) ? removeTag(tag) : addTag(tag)}
-                    >
+                  {quickTags.map((tag) =>
+                <Button
+                  key={tag}
+                  size="sm"
+                  variant={tags.includes(tag) ? "default" : "outline"}
+                  className={cn(
+                    "h-7 text-xs",
+                    tags.includes(tag) ?
+                    "bg-turquoise-500 hover:bg-turquoise-600 text-white" :
+                    "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
+                  )}
+                  onClick={() => tags.includes(tag) ? removeTag(tag) : addTag(tag)} data-testid="button-element">
+
                       #{tag}
                     </Button>
-                  ))}
+                )}
                 </div>
               </div>
 
               {/* Selected Tags Display */}
-              {tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <div
-                      key={tag}
-                      className="flex items-center gap-1 px-2 py-1 bg-turquoise-100 text-turquoise-700 rounded-full text-xs"
-                    >
+              {tags.length > 0 &&
+            <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) =>
+              <div
+                key={tag}
+                className="flex items-center gap-1 px-2 py-1 bg-turquoise-100 text-turquoise-700 rounded-full text-xs">
+
                       #{tag}
                       <button
-                        onClick={() => removeTag(tag)}
-                        className="hover:text-turquoise-900"
-                      >
+                  onClick={() => removeTag(tag)}
+                  className="hover:text-turquoise-900" data-testid="button-hover-text-turquoise-900">
+
                         <X className="h-3 w-3" />
                       </button>
                     </div>
-                  ))}
-                </div>
               )}
+                </div>
+            }
 
               {/* Location Input */}
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-turquoise-600" />
                 <input
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Add location (optional)"
-                  className="flex-1 text-sm px-2 py-1 border border-turquoise-200 rounded-md focus:outline-none focus:border-turquoise-400"
-                />
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Add location (optional)"
+                className="flex-1 text-sm px-2 py-1 border border-turquoise-200 rounded-md focus:outline-none focus:border-turquoise-400" data-testid="input-text" />
+
               </div>
             </>
-          )}
+          }
 
           {/* Action Buttons */}
           <div className="flex items-center justify-between">
@@ -183,66 +183,66 @@ export default function InlinePostComposer({
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
-                disabled
-              >
+                disabled data-testid="button-h-8">
+
                 <Image className="h-4 w-4" />
               </Button>
               <Button
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
-                disabled
-              >
+                disabled data-testid="button-h-8">
+
                 <Video className="h-4 w-4" />
               </Button>
               <Button
                 size="sm"
                 variant="ghost"
                 className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
-                onClick={() => setIsExpanded(!isExpanded)}
-              >
+                onClick={() => setIsExpanded(!isExpanded)} data-testid="button-h-8">
+
                 <Tag className="h-4 w-4" />
               </Button>
             </div>
 
             <div className="flex items-center gap-2">
-              {isExpanded && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => {
-                    setIsExpanded(false);
-                    setContent('');
-                    setTags([]);
-                    setLocation('');
-                  }}
-                  className="h-8 text-gray-600 hover:text-gray-700"
-                >
+              {isExpanded &&
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  setIsExpanded(false);
+                  setContent('');
+                  setTags([]);
+                  setLocation('');
+                }}
+                className="h-8 text-gray-600 hover:text-gray-700" data-testid="button-h-8">
+
                   Cancel
                 </Button>
-              )}
+              }
               <Button
                 size="sm"
                 onClick={handleSubmit}
                 disabled={!content.trim() || createPostMutation.isPending}
-                className="h-8 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white disabled:opacity-50"
-              >
-                {createPostMutation.isPending ? (
-                  <span className="flex items-center gap-2">
+                className="h-8 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white disabled:opacity-50" data-testid="button-h-8">
+
+                {createPostMutation.isPending ?
+                <span className="flex items-center gap-2">
                     <div className="h-3 w-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Sharing...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
+                  </span> :
+
+                <span className="flex items-center gap-2">
                     <Send className="h-3 w-3" />
                     Share
                   </span>
-                )}
+                }
               </Button>
             </div>
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }

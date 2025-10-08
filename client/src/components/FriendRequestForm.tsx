@@ -22,7 +22,7 @@ const friendRequestSchema = z.object({
   danceStory: z.string().optional(),
   senderPrivateNote: z.string().optional(),
   senderMessage: z.string().min(1, 'Please add a message'),
-  mediaUrls: z.array(z.string()).optional(),
+  mediaUrls: z.array(z.string()).optional()
 });
 
 type FriendRequestFormData = z.infer<typeof friendRequestSchema>;
@@ -45,20 +45,20 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
       receiverId,
       didWeDance: false,
       senderMessage: `Hi ${receiverName}, I'd love to connect with you!`,
-      mediaUrls: [],
-    },
+      mediaUrls: []
+    }
   });
 
   const sendFriendRequestMutation = useMutation({
-    mutationFn: (data: FriendRequestFormData) => 
-      apiRequest('/api/friend-requests/send', {
-        method: 'POST',
-        body: data,
-      }),
+    mutationFn: (data: FriendRequestFormData) =>
+    apiRequest('/api/friend-requests/send', {
+      method: 'POST',
+      body: data
+    }),
     onSuccess: () => {
       toast({
         title: "Friend Request Sent!",
-        description: `Your friend request to ${receiverName} has been sent.`,
+        description: `Your friend request to ${receiverName} has been sent.`
       });
       queryClient.invalidateQueries({ queryKey: ['/api/friend-requests'] });
       onSuccess?.();
@@ -67,15 +67,15 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message || "Failed to send friend request",
+        description: error.message || "Failed to send friend request"
       });
-    },
+    }
   });
 
   const onSubmit = (data: FriendRequestFormData) => {
     sendFriendRequestMutation.mutate({
       ...data,
-      mediaUrls: uploadedMedia,
+      mediaUrls: uploadedMedia
     });
   };
 
@@ -98,14 +98,14 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
             <FormField
               control={form.control}
               name="didWeDance"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              render={({ field }) =>
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      className="border-turquoise-300"
-                    />
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    className="border-turquoise-300" />
+
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>
@@ -116,107 +116,107 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                     </FormDescription>
                   </div>
                 </FormItem>
-              )}
-            />
+              } />
 
-            {form.watch('didWeDance') && (
-              <>
+
+            {form.watch('didWeDance') &&
+            <>
                 <FormField
-                  control={form.control}
-                  name="danceLocation"
-                  render={({ field }) => (
-                    <FormItem>
+                control={form.control}
+                name="danceLocation"
+                render={({ field }) =>
+                <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-turquoise-500" />
                         Where did you dance?
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Milonga name, event, or city"
-                          {...field}
-                          className="glassmorphic-input"
-                        />
+                      placeholder="Milonga name, event, or city"
+                      {...field}
+                      className="glassmorphic-input" data-testid="input-glassmorphic-input" />
+
                       </FormControl>
                     </FormItem>
-                  )}
-                />
+                } />
+
 
                 <FormField
-                  control={form.control}
-                  name="danceStory"
-                  render={({ field }) => (
-                    <FormItem>
+                control={form.control}
+                name="danceStory"
+                render={({ field }) =>
+                <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <Music className="h-4 w-4 text-turquoise-500" />
                         Share your dance story
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="What was memorable about dancing together?"
-                          className="glassmorphic-input min-h-[80px]"
-                          {...field}
-                        />
+                      placeholder="What was memorable about dancing together?"
+                      className="glassmorphic-input min-h-[80px]"
+                      {...field} data-testid="textarea-glassmorphic-input" />
+
                       </FormControl>
                     </FormItem>
-                  )}
-                />
+                } />
+
               </>
-            )}
+            }
 
             <FormField
               control={form.control}
               name="senderMessage"
-              render={({ field }) => (
-                <FormItem>
+              render={({ field }) =>
+              <FormItem>
                   <FormLabel>Your message</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Add a personal message..."
-                      className="glassmorphic-input min-h-[100px]"
-                      {...field}
-                    />
+                    placeholder="Add a personal message..."
+                    className="glassmorphic-input min-h-[100px]"
+                    {...field} data-testid="textarea-glassmorphic-input" />
+
                   </FormControl>
                   <FormDescription>
                     This message will be visible to {receiverName}
                   </FormDescription>
                 </FormItem>
-              )}
-            />
+              } />
+
 
             <FormField
               control={form.control}
               name="senderPrivateNote"
-              render={({ field }) => (
-                <FormItem>
+              render={({ field }) =>
+              <FormItem>
                   <FormLabel>Private note (optional)</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Add a note for yourself..."
-                      className="glassmorphic-input min-h-[60px]"
-                      {...field}
-                    />
+                    placeholder="Add a note for yourself..."
+                    className="glassmorphic-input min-h-[60px]"
+                    {...field} data-testid="textarea-glassmorphic-input" />
+
                   </FormControl>
                   <FormDescription>
                     Only you can see this note
                   </FormDescription>
                 </FormItem>
-              )}
-            />
+              } />
+
 
             <div className="flex justify-end gap-3">
               <Button
                 type="button"
                 variant="outline"
                 onClick={onCancel}
-                disabled={sendFriendRequestMutation.isPending}
-              >
+                disabled={sendFriendRequestMutation.isPending} data-testid="button-button">
+
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={sendFriendRequestMutation.isPending}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-lg transition-all duration-300"
-              >
+                className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-lg transition-all duration-300" data-testid="button-submit">
+
                 <Send className="mr-2 h-4 w-4" />
                 Send Request
               </Button>
@@ -224,6 +224,6 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
           </form>
         </Form>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }

@@ -16,13 +16,13 @@ import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 
 const codeOfConductSchema = z.object({
-  respectfulBehavior: z.boolean().refine(val => val === true, "You must agree to be respectful"),
-  friendlyEnvironment: z.boolean().refine(val => val === true, "You must agree to keep it friendly"),
-  consentRequired: z.boolean().refine(val => val === true, "You must agree to share with consent"),
-  appropriateContent: z.boolean().refine(val => val === true, "You must agree to keep content appropriate"),
-  reportingPolicy: z.boolean().refine(val => val === true, "You must agree to report problems gently"),
-  communityValues: z.boolean().refine(val => val === true, "You must agree to build something good together"),
-  termsOfService: z.boolean().refine(val => val === true, "You must agree to the terms of service and privacy policy"),
+  respectfulBehavior: z.boolean().refine((val) => val === true, "You must agree to be respectful"),
+  friendlyEnvironment: z.boolean().refine((val) => val === true, "You must agree to keep it friendly"),
+  consentRequired: z.boolean().refine((val) => val === true, "You must agree to share with consent"),
+  appropriateContent: z.boolean().refine((val) => val === true, "You must agree to keep content appropriate"),
+  reportingPolicy: z.boolean().refine((val) => val === true, "You must agree to report problems gently"),
+  communityValues: z.boolean().refine((val) => val === true, "You must agree to build something good together"),
+  termsOfService: z.boolean().refine((val) => val === true, "You must agree to the terms of service and privacy policy")
 });
 
 type CodeOfConductData = z.infer<typeof codeOfConductSchema>;
@@ -46,8 +46,8 @@ export default function CodeOfConduct() {
       appropriateContent: false,
       reportingPolicy: false,
       communityValues: false,
-      termsOfService: false,
-    },
+      termsOfService: false
+    }
   });
 
   const acceptCodeOfConductMutation = useMutation({
@@ -61,7 +61,7 @@ export default function CodeOfConduct() {
     onSuccess: () => {
       toast({
         title: "Welcome to Mundo Tango!",
-        description: "You've successfully joined our community. Let's start dancing!",
+        description: "You've successfully joined our community. Let's start dancing!"
       });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       // Navigation will be handled automatically by App.tsx routing logic
@@ -70,9 +70,9 @@ export default function CodeOfConduct() {
       toast({
         title: "Error",
         description: error.message || "Failed to accept code of conduct. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
-    },
+    }
   });
 
   const onSubmit = (data: CodeOfConductData) => {
@@ -129,13 +129,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="respectfulBehavior"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-pink-200 p-3 bg-pink-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-pink-200 p-3 bg-pink-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -144,8 +144,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
 
@@ -166,13 +166,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="friendlyEnvironment"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-blue-200 p-3 bg-blue-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-blue-200 p-3 bg-blue-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -181,8 +181,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
 
@@ -203,13 +203,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="consentRequired"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-green-200 p-3 bg-green-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-green-200 p-3 bg-green-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -218,8 +218,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
 
@@ -240,13 +240,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="appropriateContent"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-purple-200 p-3 bg-purple-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-purple-200 p-3 bg-purple-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -255,8 +255,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
 
@@ -277,13 +277,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="reportingPolicy"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-orange-200 p-3 bg-orange-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-orange-200 p-3 bg-orange-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -292,8 +292,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
 
@@ -314,13 +314,13 @@ export default function CodeOfConduct() {
                   <FormField
                     control={form.control}
                     name="communityValues"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-cyan-200 p-3 bg-cyan-50/50">
+                    render={({ field }) =>
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-cyan-200 p-3 bg-cyan-50/50">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="text-sm font-medium text-gray-700">
@@ -329,8 +329,8 @@ export default function CodeOfConduct() {
                           <FormMessage />
                         </div>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </CardContent>
               </Card>
             </div>
@@ -345,13 +345,13 @@ export default function CodeOfConduct() {
                 <FormField
                   control={form.control}
                   name="termsOfService"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 p-4 bg-gray-50/50">
+                  render={({ field }) =>
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 p-4 bg-gray-50/50">
                       <FormControl>
                         <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        checked={field.value}
+                        onCheckedChange={field.onChange} />
+
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-base font-medium text-gray-800">
@@ -363,8 +363,8 @@ export default function CodeOfConduct() {
                         <FormMessage />
                       </div>
                     </FormItem>
-                  )}
-                />
+                  } />
+
               </CardContent>
             </Card>
 
@@ -375,21 +375,21 @@ export default function CodeOfConduct() {
                 <Button
                   type="submit"
                   disabled={acceptCodeOfConductMutation.isPending}
-                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
-                >
+                  className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50" data-testid="button-submit">
+
                   <span className="flex items-center justify-center gap-3">
-                    {acceptCodeOfConductMutation.isPending ? (
-                      <>
+                    {acceptCodeOfConductMutation.isPending ?
+                    <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         Joining Community...
-                      </>
-                    ) : (
-                      <>
+                      </> :
+
+                    <>
                         <CheckCircle className="w-5 h-5 group-hover:animate-pulse" />
                         Join Mundo Tango Community
                         <Heart className="w-5 h-5 group-hover:animate-bounce text-pink-200" />
                       </>
-                    )}
+                    }
                   </span>
                 </Button>
               </div>
@@ -410,6 +410,6 @@ export default function CodeOfConduct() {
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>);
+
 }

@@ -4,20 +4,20 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
-import { 
-  Bell, 
-  CheckCircle, 
-  XCircle, 
-  Calendar, 
-  MapPin, 
+import {
+  Bell,
+  CheckCircle,
+  XCircle,
+  Calendar,
+  MapPin,
   Users,
   Music,
   Mic,
   Star,
   Camera,
   Globe,
-  Award
-} from 'lucide-react';
+  Award } from
+'lucide-react';
 
 interface RoleInvitation {
   id: number;
@@ -41,7 +41,7 @@ const ROLE_ICONS = {
   host: <Globe className="w-4 h-4" />,
   photographer: <Camera className="w-4 h-4" />,
   organizer: <Calendar className="w-4 h-4" />,
-  volunteer: <Award className="w-4 h-4" />,
+  volunteer: <Award className="w-4 h-4" />
 };
 
 interface RoleInvitationNotificationSystemProps {
@@ -62,16 +62,16 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
       return result.data || [];
     },
     enabled: isOpen,
-    refetchInterval: 30000, // Refetch every 30 seconds when open
+    refetchInterval: 30000 // Refetch every 30 seconds when open
   });
 
   // Accept/decline invitation mutation
   const updateInvitationMutation = useMutation({
-    mutationFn: async ({ participantId, status }: { participantId: number; status: 'accepted' | 'declined' }) => {
+    mutationFn: async ({ participantId, status }: {participantId: number;status: 'accepted' | 'declined';}) => {
       const response = await fetch(`/api/event-participants/${participantId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status })
       });
       if (!response.ok) throw new Error('Failed to update invitation');
       return response.json();
@@ -79,12 +79,12 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
     onSuccess: (_, { status }) => {
       queryClient.invalidateQueries({ queryKey: ['/api/users/me/event-invitations'] });
       queryClient.invalidateQueries({ queryKey: ['/api/users', 'accepted-roles'] });
-      
-      toast({ 
+
+      toast({
         title: status === 'accepted' ? 'Role accepted!' : 'Invitation declined',
-        description: status === 'accepted' 
-          ? 'The role has been added to your resume and the organizer has been notified.'
-          : 'The organizer has been notified of your decision.',
+        description: status === 'accepted' ?
+        'The role has been added to your resume and the organizer has been notified.' :
+        'The organizer has been notified of your decision.'
       });
 
       // Auto-close notification panel if no more pending invitations
@@ -93,12 +93,12 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
       }
     },
     onError: (error: Error) => {
-      toast({ 
-        title: 'Failed to respond to invitation', 
+      toast({
+        title: 'Failed to respond to invitation',
         description: error.message,
         variant: 'destructive'
       });
-    },
+    }
   });
 
   // Show desktop notification for new invitations
@@ -109,7 +109,7 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
         new Notification('New Event Role Invitation', {
           body: `You've been invited to be a ${latestInvitation.role} at ${latestInvitation.eventTitle}`,
           icon: '/favicon.ico',
-          tag: `invitation-${latestInvitation.id}`,
+          tag: `invitation-${latestInvitation.id}`
         });
       } else if (Notification.permission !== 'denied') {
         Notification.requestPermission();
@@ -141,11 +141,11 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
             <div className="flex items-center gap-2">
               <Bell className="w-5 h-5" />
               Role Invitations
-              {invitations?.length > 0 && (
-                <Badge variant="destructive">{invitations.length}</Badge>
-              )}
+              {invitations?.length > 0 &&
+              <Badge variant="destructive">{invitations.length}</Badge>
+              }
             </div>
-            <Button variant="ghost" size="sm" onClick={onClose}>
+            <Button variant="ghost" size="sm" onClick={onClose} data-testid="button-element">
               ✕
             </Button>
           </CardTitle>
@@ -153,26 +153,26 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
         
         <CardContent className="p-0">
           <div className="max-h-[60vh] overflow-y-auto">
-            {isLoading ? (
-              <div className="p-6 space-y-4">
-                {Array.from({ length: 2 }).map((_, i) => (
-                  <div key={i} className="animate-pulse">
+            {isLoading ?
+            <div className="p-6 space-y-4">
+                {Array.from({ length: 2 }).map((_, i) =>
+              <div key={i} className="animate-pulse">
                     <div className="h-4 bg-muted rounded mb-2" />
                     <div className="h-3 bg-muted rounded w-2/3" />
                   </div>
-                ))}
-              </div>
-            ) : invitations?.length > 0 ? (
-              <div className="divide-y">
-                {invitations.map((invitation: RoleInvitation) => (
-                  <div key={invitation.id} className="p-6 hover:bg-muted/30 transition-colors">
+              )}
+              </div> :
+            invitations?.length > 0 ?
+            <div className="divide-y">
+                {invitations.map((invitation: RoleInvitation) =>
+              <div key={invitation.id} className="p-6 hover:bg-muted/30 transition-colors">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2">
-                          <Badge 
-                            variant="outline" 
-                            className="flex items-center gap-1 bg-orange-50 text-orange-700 border-orange-200"
-                          >
+                          <Badge
+                        variant="outline"
+                        className="flex items-center gap-1 bg-orange-50 text-orange-700 border-orange-200">
+
                             {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                             {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}
                           </Badge>
@@ -202,39 +202,39 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
                       
                       <div className="flex flex-col gap-2 flex-shrink-0">
                         <Button
-                          size="sm"
-                          onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
-                          disabled={updateInvitationMutation.isPending}
-                          className="bg-green-600 hover:bg-green-700 text-white"
-                        >
+                      size="sm"
+                      onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
+                      disabled={updateInvitationMutation.isPending}
+                      className="bg-green-600 hover:bg-green-700 text-white" data-testid="button-bg-green-600">
+
                           <CheckCircle className="w-4 h-4 mr-1" />
                           Accept
                         </Button>
                         <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleInvitationResponse(invitation.id, 'declined')}
-                          disabled={updateInvitationMutation.isPending}
-                          className="border-red-200 text-red-600 hover:bg-red-50"
-                        >
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleInvitationResponse(invitation.id, 'declined')}
+                      disabled={updateInvitationMutation.isPending}
+                      className="border-red-200 text-red-600 hover:bg-red-50" data-testid="button-border-red-200">
+
                           <XCircle className="w-4 h-4 mr-1" />
                           Decline
                         </Button>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-8 text-center text-muted-foreground">
+              )}
+              </div> :
+
+            <div className="p-8 text-center text-muted-foreground">
                 <Bell className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <h3 className="text-lg font-semibold mb-2">No pending invitations</h3>
                 <p>You'll see event role invitations here when organizers invite you to participate.</p>
               </div>
-            )}
+            }
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

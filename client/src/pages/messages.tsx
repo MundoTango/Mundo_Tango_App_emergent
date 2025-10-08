@@ -28,7 +28,7 @@ export default function Messages() {
   const [searchQuery, setSearchQuery] = useState("");
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (savedTheme as 'light' | 'dark') || 'light';
+    return savedTheme as 'light' | 'dark' || 'light';
   });
   const { sendMessage } = useSocket();
 
@@ -49,13 +49,13 @@ export default function Messages() {
     queryFn: async () => {
       const response = await fetch('/api/chat/rooms', {
         headers: {
-          'Authorization': `Bearer ${getAuthToken()}`,
-        },
+          'Authorization': `Bearer ${getAuthToken()}`
+        }
       });
       if (!response.ok) throw new Error('Failed to fetch chat rooms');
       const data = await response.json();
       return data.data;
-    },
+    }
   });
 
   // Listen for new messages
@@ -73,16 +73,16 @@ export default function Messages() {
   }, []);
 
   const filteredRooms = chatRooms.filter((room: ChatRoomType) =>
-    room.title.toLowerCase().includes(searchQuery.toLowerCase())
+  room.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="min-h-screen bg-tango-gray">
-      <UnifiedTopBar 
+      <UnifiedTopBar
         theme={theme}
         onThemeToggle={toggleTheme}
-        showMenuButton={false}
-      />
+        showMenuButton={false} />
+
       
       <div className="pt-16 pb-20 lg:pb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -97,7 +97,7 @@ export default function Messages() {
                   <div className="p-4 border-b border-gray-200">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
-                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
+                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
@@ -109,17 +109,17 @@ export default function Messages() {
                         placeholder="Search conversations..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9"
-                      />
+                        className="pl-9" data-testid="input-pl-9" />
+
                     </div>
                   </div>
 
                   {/* Chat Rooms List */}
                   <div className="flex-1 overflow-y-auto">
-                    {isLoading ? (
-                      <div className="space-y-1">
-                        {[...Array(8)].map((_, i) => (
-                          <div key={i} className="p-4 animate-pulse">
+                    {isLoading ?
+                    <div className="space-y-1">
+                        {[...Array(8)].map((_, i) =>
+                      <div key={i} className="p-4 animate-pulse">
                             <div className="flex items-center space-x-3">
                               <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
                               <div className="flex-1 space-y-2">
@@ -128,28 +128,28 @@ export default function Messages() {
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    ) : filteredRooms.length > 0 ? (
-                      filteredRooms.map((room: ChatRoomType) => (
-                        <div
-                          key={room.id}
-                          onClick={() => setSelectedRoom(room)}
-                          className={`p-4 border-b border-gray-100 hover:bg-tango-gray cursor-pointer transition-colors ${
-                            selectedRoom?.id === room.id ? 'bg-tango-gray' : ''
-                          }`}
-                        >
+                      )}
+                      </div> :
+                    filteredRooms.length > 0 ?
+                    filteredRooms.map((room: ChatRoomType) =>
+                    <div
+                      key={room.id}
+                      onClick={() => setSelectedRoom(room)}
+                      className={`p-4 border-b border-gray-100 hover:bg-tango-gray cursor-pointer transition-colors ${
+                      selectedRoom?.id === room.id ? 'bg-tango-gray' : ''}`
+                      }>
+
                           <div className="flex items-center space-x-3">
-                            {room.type === 'group' ? (
-                              <div className="w-12 h-12 bg-tango-red rounded-full flex items-center justify-center text-white font-semibold">
+                            {room.type === 'group' ?
+                        <div className="w-12 h-12 bg-tango-red rounded-full flex items-center justify-center text-white font-semibold">
                                 {room.title.substring(0, 2).toUpperCase()}
-                              </div>
-                            ) : (
-                              <Avatar className="w-12 h-12">
+                              </div> :
+
+                        <Avatar className="w-12 h-12">
                                 <AvatarImage src={room.imageUrl} alt={room.title} />
                                 <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
                               </Avatar>
-                            )}
+                        }
                             
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between">
@@ -157,33 +157,33 @@ export default function Messages() {
                                   {room.title}
                                 </h4>
                                 <div className="flex items-center space-x-1">
-                                  {room.lastMessageTimestamp && (
-                                    <span className="text-xs text-gray-400">
+                                  {room.lastMessageTimestamp &&
+                              <span className="text-xs text-gray-400">
                                       {new Date(room.lastMessageTimestamp).toLocaleTimeString('en', {
-                                        hour: 'numeric',
-                                        minute: '2-digit',
-                                        hour12: true
-                                      })}
+                                  hour: 'numeric',
+                                  minute: '2-digit',
+                                  hour12: true
+                                })}
                                     </span>
-                                  )}
-                                  {room.unreadCount > 0 && (
-                                    <span className="bg-tango-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                              }
+                                  {room.unreadCount > 0 &&
+                              <span className="bg-tango-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                       {room.unreadCount > 9 ? '9+' : room.unreadCount}
                                     </span>
-                                  )}
+                              }
                                 </div>
                               </div>
-                              {room.lastMessage && (
-                                <p className="text-xs text-gray-500 truncate mt-1">
+                              {room.lastMessage &&
+                          <p className="text-xs text-gray-500 truncate mt-1">
                                   {room.lastMessage}
                                 </p>
-                              )}
+                          }
                             </div>
                           </div>
                         </div>
-                      ))
-                    ) : (
-                      <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                    ) :
+
+                    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                         <div className="text-gray-400 mb-4">
                           <MessageCircle className="h-16 w-16 mx-auto" />
                         </div>
@@ -191,13 +191,13 @@ export default function Messages() {
                           {searchQuery ? 'No conversations found' : 'No messages yet'}
                         </h3>
                         <p className="text-gray-500 text-sm">
-                          {searchQuery 
-                            ? 'Try adjusting your search terms'
-                            : 'Start a conversation with other tango dancers!'
-                          }
+                          {searchQuery ?
+                        'Try adjusting your search terms' :
+                        'Start a conversation with other tango dancers!'
+                        }
                         </p>
                       </div>
-                    )}
+                    }
                   </div>
                 </CardContent>
               </Card>
@@ -205,13 +205,13 @@ export default function Messages() {
 
             {/* Chat Window */}
             <div className={`lg:col-span-2 ${selectedRoom ? 'block' : 'hidden lg:block'}`}>
-              {selectedRoom ? (
-                <ChatRoom 
-                  room={selectedRoom} 
-                  onBack={() => setSelectedRoom(null)}
-                />
-              ) : (
-                <Card className="card-shadow h-full">
+              {selectedRoom ?
+              <ChatRoom
+                room={selectedRoom}
+                onBack={() => setSelectedRoom(null)} /> :
+
+
+              <Card className="card-shadow h-full">
                   <CardContent className="flex items-center justify-center h-full">
                     <div className="text-center">
                       <div className="text-gray-400 mb-4">
@@ -226,7 +226,7 @@ export default function Messages() {
                     </div>
                   </CardContent>
                 </Card>
-              )}
+              }
             </div>
           </div>
         </div>
@@ -234,6 +234,6 @@ export default function Messages() {
 
       {/* Mobile Navigation */}
       <MobileNav onOpenChat={() => {}} />
-    </div>
-  );
+    </div>);
+
 }

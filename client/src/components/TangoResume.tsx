@@ -19,13 +19,13 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
   // Get user's resume data
   const { data: resumeData, isLoading } = useQuery({
     queryKey: ['/api/users', userId, 'resume'],
-    queryFn: () => apiRequest(`/api/users/${userId}/resume`),
+    queryFn: () => apiRequest(`/api/users/${userId}/resume`)
   });
 
   const handleDownloadPDF = () => {
     toast({
       title: 'PDF Download',
-      description: 'PDF download feature coming soon',
+      description: 'PDF download feature coming soon'
     });
   };
 
@@ -34,7 +34,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
     navigator.clipboard.writeText(shareUrl);
     toast({
       title: 'Link copied',
-      description: 'Resume link copied to clipboard',
+      description: 'Resume link copied to clipboard'
     });
   };
 
@@ -42,8 +42,8 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
     return (
       <div className="flex items-center justify-center py-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
-      </div>
-    );
+      </div>);
+
   }
 
   const resume = resumeData?.data?.resume || [];
@@ -57,43 +57,43 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             {isOwnProfile ? 'No accepted roles yet' : 'No public resume available'}
           </h3>
           <p className="text-gray-500">
-            {isOwnProfile 
-              ? 'Accept event role invitations to build your tango resume' 
-              : 'This user has not accepted any public event roles yet'}
+            {isOwnProfile ?
+            'Accept event role invitations to build your tango resume' :
+            'This user has not accepted any public event roles yet'}
           </p>
         </CardContent>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
     <div className="space-y-6">
       {/* Header with actions */}
-      {isOwnProfile && (
-        <div className="flex justify-between items-center">
+      {isOwnProfile &&
+      <div className="flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">My Tango Resume</h2>
             <p className="text-gray-600">Professional experience in the tango community</p>
           </div>
           <div className="flex space-x-2">
             <Button
-              variant="outline"
-              onClick={handleShareResume}
-              className="flex items-center space-x-2"
-            >
+            variant="outline"
+            onClick={handleShareResume}
+            className="flex items-center space-x-2" data-testid="button-flex">
+
               <Share2 className="h-4 w-4" />
               <span>Share</span>
             </Button>
             <Button
-              onClick={handleDownloadPDF}
-              className="bg-[#8E142E] hover:bg-[#6B0F22] flex items-center space-x-2"
-            >
+            onClick={handleDownloadPDF}
+            className="bg-[#8E142E] hover:bg-[#6B0F22] flex items-center space-x-2" data-testid="button-bg-8e142e">
+
               <Download className="h-4 w-4" />
               <span>Download PDF</span>
             </Button>
           </div>
         </div>
-      )}
+      }
 
       {/* Resume Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -125,10 +125,10 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-gray-900">Professional Experience</h3>
         
-        {resume
-          .sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime())
-          .map((event: any) => (
-            <Card key={event.eventId} className="overflow-hidden">
+        {resume.
+        sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime()).
+        map((event: any) =>
+        <Card key={event.eventId} className="overflow-hidden">
               <CardHeader className="bg-gradient-to-r from-[#8E142E] to-[#6B0F22] text-white">
                 <div className="flex justify-between items-start">
                   <div>
@@ -152,11 +152,11 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
               
               <CardContent className="p-4">
                 <div className="space-y-3">
-                  {event.roles.map((role: any, index: number) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                    >
+                  {event.roles.map((role: any, index: number) =>
+              <div
+                key={index}
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-[#8E142E] rounded-full flex items-center justify-center">
                           <User className="h-4 w-4 text-white" />
@@ -173,11 +173,11 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                         <div className="font-medium">{role.inviterName}</div>
                       </div>
                     </div>
-                  ))}
+              )}
                 </div>
               </CardContent>
             </Card>
-          ))}
+        )}
       </div>
 
       {/* Skills Summary */}
@@ -187,26 +187,26 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {Array.from(new Set(resume.flatMap((event: any) => 
-              event.roles.map((role: any) => role.role)
+            {Array.from(new Set(resume.flatMap((event: any) =>
+            event.roles.map((role: any) => role.role)
             ))).map((role: string) => {
-              const count = resume
-                .flatMap((event: any) => event.roles)
-                .filter((r: any) => r.role === role).length;
-              
+              const count = resume.
+              flatMap((event: any) => event.roles).
+              filter((r: any) => r.role === role).length;
+
               return (
                 <Badge
                   key={role}
                   variant="outline"
-                  className="px-3 py-1 text-sm border-[#8E142E] text-[#8E142E]"
-                >
+                  className="px-3 py-1 text-sm border-[#8E142E] text-[#8E142E]">
+
                   {role} ({count})
-                </Badge>
-              );
+                </Badge>);
+
             })}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

@@ -25,8 +25,8 @@ import {
   Users,
   Zap,
   Target,
-  Calendar
-} from 'lucide-react';
+  Calendar } from
+'lucide-react';
 
 interface Learning {
   id: string;
@@ -55,7 +55,7 @@ export default function LifeCEOContinuousLearnings() {
   // Fetch learnings
   const { data: learnings, refetch } = useQuery<Learning[]>({
     queryKey: ['/api/life-ceo/learnings'],
-    refetchInterval: isCapturing ? 30000 : false, // Auto-refresh every 30s when capturing
+    refetchInterval: isCapturing ? 30000 : false // Auto-refresh every 30s when capturing
   });
 
   // Send to Jira mutation
@@ -64,7 +64,7 @@ export default function LifeCEOContinuousLearnings() {
       const response = await fetch('/api/life-ceo/jira-export', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           type: 'learning',
@@ -76,14 +76,14 @@ export default function LifeCEOContinuousLearnings() {
     onSuccess: () => {
       toast({
         title: "Sent to Jira",
-        description: "Learning exported to Jira successfully",
+        description: "Learning exported to Jira successfully"
       });
     },
     onError: (error) => {
       toast({
         title: "Export Failed",
         description: "Failed to send to Jira",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -98,7 +98,7 @@ export default function LifeCEOContinuousLearnings() {
         await fetch('/api/life-ceo/capture-learnings', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             sources: ['system_logs', 'user_interactions', 'performance_metrics', 'error_reports']
@@ -123,7 +123,7 @@ export default function LifeCEOContinuousLearnings() {
       insight: Lightbulb,
       error: AlertCircle,
       success: CheckCircle,
-      optimization: TrendingUp,
+      optimization: TrendingUp
     };
     return icons[category] || Brain;
   };
@@ -133,16 +133,16 @@ export default function LifeCEOContinuousLearnings() {
       low: 'bg-blue-100 text-blue-700',
       medium: 'bg-yellow-100 text-yellow-700',
       high: 'bg-orange-100 text-orange-700',
-      critical: 'bg-red-100 text-red-700',
+      critical: 'bg-red-100 text-red-700'
     };
     return colors[impact] || 'bg-gray-100 text-gray-700';
   };
 
-  const filteredLearnings = learnings?.filter(learning => 
-    activeCategory === 'all' || learning.category === activeCategory
+  const filteredLearnings = learnings?.filter((learning) =>
+  activeCategory === 'all' || learning.category === activeCategory
   ) || [];
 
-  const categories = ['all', ...new Set(learnings?.map(l => l.category) || [])];
+  const categories = ['all', ...new Set(learnings?.map((l) => l.category) || [])];
 
   // Group learnings by date
   const groupedLearnings = filteredLearnings.reduce((groups, learning) => {
@@ -171,25 +171,25 @@ export default function LifeCEOContinuousLearnings() {
                 variant={isCapturing ? "default" : "outline"}
                 size="sm"
                 onClick={() => setIsCapturing(!isCapturing)}
-                className={isCapturing ? "bg-green-500 hover:bg-green-600" : ""}
-              >
-                {isCapturing ? (
-                  <>
+                className={isCapturing ? "bg-green-500 hover:bg-green-600" : ""} data-testid="button-element">
+
+                {isCapturing ?
+                <>
                     <Activity className="w-4 h-4 mr-2 animate-pulse" />
                     Capturing
-                  </>
-                ) : (
-                  <>
+                  </> :
+
+                <>
                     <RefreshCw className="w-4 h-4 mr-2" />
                     Start Capture
                   </>
-                )}
+                }
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => refetch()}
-              >
+                onClick={() => refetch()} data-testid="button-element">
+
                 <RefreshCw className="w-4 h-4" />
               </Button>
             </div>
@@ -217,7 +217,7 @@ export default function LifeCEOContinuousLearnings() {
               <div>
                 <p className="text-sm text-gray-600">Applied</p>
                 <p className="text-2xl font-bold">
-                  {learnings?.filter(l => l.applied).length || 0}
+                  {learnings?.filter((l) => l.applied).length || 0}
                 </p>
               </div>
               <CheckCircle className="w-8 h-8 text-green-500" />
@@ -231,7 +231,7 @@ export default function LifeCEOContinuousLearnings() {
               <div>
                 <p className="text-sm text-gray-600">High Impact</p>
                 <p className="text-2xl font-bold">
-                  {learnings?.filter(l => l.impact === 'high' || l.impact === 'critical').length || 0}
+                  {learnings?.filter((l) => l.impact === 'high' || l.impact === 'critical').length || 0}
                 </p>
               </div>
               <TrendingUp className="w-8 h-8 text-orange-500" />
@@ -245,8 +245,8 @@ export default function LifeCEOContinuousLearnings() {
               <div>
                 <p className="text-sm text-gray-600">Today</p>
                 <p className="text-2xl font-bold">
-                  {learnings?.filter(l => 
-                    new Date(l.timestamp).toDateString() === new Date().toDateString()
+                  {learnings?.filter((l) =>
+                  new Date(l.timestamp).toDateString() === new Date().toDateString()
                   ).length || 0}
                 </p>
               </div>
@@ -259,34 +259,34 @@ export default function LifeCEOContinuousLearnings() {
       {/* Category Tabs */}
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
         <TabsList className="flex flex-wrap h-auto gap-2 bg-white/50 p-2">
-          {categories.map(category => (
-            <TabsTrigger
-              key={category}
-              value={category}
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
-            >
+          {categories.map((category) =>
+          <TabsTrigger
+            key={category}
+            value={category}
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white">
+
               {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
               <Badge className="ml-2" variant="secondary">
-                {category === 'all' 
-                  ? learnings?.length || 0
-                  : learnings?.filter(l => l.category === category).length || 0
-                }
+                {category === 'all' ?
+              learnings?.length || 0 :
+              learnings?.filter((l) => l.category === category).length || 0
+              }
               </Badge>
             </TabsTrigger>
-          ))}
+          )}
         </TabsList>
 
         <TabsContent value={activeCategory} className="mt-6">
           <ScrollArea className="h-[600px]">
             <div className="space-y-6">
-              {Object.entries(groupedLearnings).map(([date, dayLearnings]) => (
-                <div key={date}>
+              {Object.entries(groupedLearnings).map(([date, dayLearnings]) =>
+              <div key={date}>
                   <h3 className="text-lg font-semibold mb-3 text-gray-700">{date}</h3>
                   <div className="space-y-3">
                     {dayLearnings.map((learning) => {
-                      const Icon = getCategoryIcon(learning.category);
-                      return (
-                        <Card key={learning.id} className="glassmorphic-card hover:shadow-lg transition-shadow">
+                    const Icon = getCategoryIcon(learning.category);
+                    return (
+                      <Card key={learning.id} className="glassmorphic-card hover:shadow-lg transition-shadow">
                           <CardContent className="p-4">
                             <div className="flex items-start gap-4">
                               <div className={`p-2 rounded-lg ${getImpactColor(learning.impact)} bg-opacity-20`}>
@@ -300,50 +300,50 @@ export default function LifeCEOContinuousLearnings() {
                                     
                                     {/* Tags */}
                                     <div className="flex flex-wrap gap-2 mt-2">
-                                      {learning.tags.map(tag => (
-                                        <Badge key={tag} variant="outline" className="text-xs">
+                                      {learning.tags.map((tag) =>
+                                    <Badge key={tag} variant="outline" className="text-xs">
                                           {tag}
                                         </Badge>
-                                      ))}
+                                    )}
                                     </div>
 
                                     {/* Metrics if available */}
-                                    {learning.metrics && (
-                                      <div className="mt-3 p-2 bg-gray-50 rounded">
+                                    {learning.metrics &&
+                                  <div className="mt-3 p-2 bg-gray-50 rounded">
                                         <p className="text-xs font-medium text-gray-700">
                                           Improvement: {learning.metrics.improvement}
                                         </p>
                                       </div>
-                                    )}
+                                  }
 
                                     {/* Automated Actions */}
-                                    {learning.automatedActions && learning.automatedActions.length > 0 && (
-                                      <div className="mt-2">
+                                    {learning.automatedActions && learning.automatedActions.length > 0 &&
+                                  <div className="mt-2">
                                         <p className="text-xs font-medium text-gray-700">Automated Actions:</p>
                                         <ul className="text-xs text-gray-600 ml-4 list-disc">
-                                          {learning.automatedActions.map((action, idx) => (
-                                            <li key={idx}>{action}</li>
-                                          ))}
+                                          {learning.automatedActions.map((action, idx) =>
+                                      <li key={idx}>{action}</li>
+                                      )}
                                         </ul>
                                       </div>
-                                    )}
+                                  }
                                   </div>
                                   
                                   <div className="flex items-center gap-2 ml-4">
                                     <Badge className={getImpactColor(learning.impact)}>
                                       {learning.impact}
                                     </Badge>
-                                    {learning.applied && (
-                                      <Badge className="bg-green-100 text-green-700">
+                                    {learning.applied &&
+                                  <Badge className="bg-green-100 text-green-700">
                                         Applied
                                       </Badge>
-                                    )}
+                                  }
                                     <Button
-                                      size="sm"
-                                      variant="ghost"
-                                      onClick={() => sendToJiraMutation.mutate(learning)}
-                                      disabled={sendToJiraMutation.isPending}
-                                    >
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={() => sendToJiraMutation.mutate(learning)}
+                                    disabled={sendToJiraMutation.isPending} data-testid="button-element">
+
                                       <Send className="w-4 h-4" />
                                     </Button>
                                   </div>
@@ -362,26 +362,26 @@ export default function LifeCEOContinuousLearnings() {
                               </div>
                             </div>
                           </CardContent>
-                        </Card>
-                      );
-                    })}
+                        </Card>);
+
+                  })}
                   </div>
                 </div>
-              ))}
+              )}
               
-              {filteredLearnings.length === 0 && (
-                <div className="text-center py-12">
+              {filteredLearnings.length === 0 &&
+              <div className="text-center py-12">
                   <Brain className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                   <p className="text-gray-500">No learnings captured yet</p>
                   <p className="text-sm text-gray-400 mt-1">
                     The system is continuously monitoring for insights
                   </p>
                 </div>
-              )}
+              }
             </div>
           </ScrollArea>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 }

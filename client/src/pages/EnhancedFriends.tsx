@@ -16,24 +16,24 @@ import AvatarGroup from 'react-avatar-group';
 import Fuse from 'fuse.js';
 import Select from 'react-select';
 import { animated, useSpring } from 'react-spring';
-import { 
-  FacebookShareButton, 
-  TwitterShareButton, 
+import {
+  FacebookShareButton,
+  TwitterShareButton,
   WhatsappShareButton,
   FacebookIcon,
   TwitterIcon,
-  WhatsappIcon 
-} from 'react-share';
+  WhatsappIcon } from
+'react-share';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import LazyLoad from 'react-lazyload';
-import { 
-  Search, 
-  UserPlus, 
-  Users, 
-  MessageCircle, 
-  Check, 
-  X, 
+import {
+  Search,
+  UserPlus,
+  Users,
+  MessageCircle,
+  Check,
+  X,
   Clock,
   UserCheck,
   Send,
@@ -51,14 +51,14 @@ import {
   ArrowUpDown,
   Zap,
   TrendingUp,
-  RefreshCw
-} from 'lucide-react';
+  RefreshCw } from
+'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
+  DialogTitle } from
+'@/components/ui/dialog';
 
 interface Friend {
   id: string;
@@ -101,21 +101,21 @@ interface RequestApiResponse {
 }
 
 const filterOptions = [
-  { value: 'all', label: 'All Friends' },
-  { value: 'online', label: 'Online Only' },
-  { value: 'dancers', label: 'Dancers' },
-  { value: 'teachers', label: 'Teachers' },
-  { value: 'organizers', label: 'Organizers' },
-  { value: 'performers', label: 'Performers' },
-  { value: 'location', label: 'By Location' }
-];
+{ value: 'all', label: 'All Friends' },
+{ value: 'online', label: 'Online Only' },
+{ value: 'dancers', label: 'Dancers' },
+{ value: 'teachers', label: 'Teachers' },
+{ value: 'organizers', label: 'Organizers' },
+{ value: 'performers', label: 'Performers' },
+{ value: 'location', label: 'By Location' }];
+
 
 const sortOptions = [
-  { value: 'name', label: 'Name (A-Z)' },
-  { value: 'recent', label: 'Recently Active' },
-  { value: 'mutual', label: 'Mutual Friends' },
-  { value: 'location', label: 'Location' }
-];
+{ value: 'name', label: 'Name (A-Z)' },
+{ value: 'recent', label: 'Recently Active' },
+{ value: 'mutual', label: 'Mutual Friends' },
+{ value: 'location', label: 'Location' }];
+
 
 export default function EnhancedFriendsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -189,7 +189,7 @@ export default function EnhancedFriendsPage() {
   // Search friends with fuzzy matching
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return friends;
-    return fuse.search(searchQuery).map(result => result.item);
+    return fuse.search(searchQuery).map((result) => result.item);
   }, [searchQuery, fuse, friends]);
 
   // Filter and sort friends
@@ -199,19 +199,19 @@ export default function EnhancedFriendsPage() {
     // Apply filters
     switch (selectedFilter.value) {
       case 'online':
-        filtered = filtered.filter(f => f.isOnline);
+        filtered = filtered.filter((f) => f.isOnline);
         break;
       case 'dancers':
-        filtered = filtered.filter(f => f.tangoRoles?.includes('dancer'));
+        filtered = filtered.filter((f) => f.tangoRoles?.includes('dancer'));
         break;
       case 'teachers':
-        filtered = filtered.filter(f => f.tangoRoles?.includes('teacher'));
+        filtered = filtered.filter((f) => f.tangoRoles?.includes('teacher'));
         break;
       case 'organizers':
-        filtered = filtered.filter(f => f.tangoRoles?.includes('organizer'));
+        filtered = filtered.filter((f) => f.tangoRoles?.includes('organizer'));
         break;
       case 'performers':
-        filtered = filtered.filter(f => f.tangoRoles?.includes('performer'));
+        filtered = filtered.filter((f) => f.tangoRoles?.includes('performer'));
         break;
     }
 
@@ -249,19 +249,19 @@ export default function EnhancedFriendsPage() {
     const destinationGroup = result.destination.droppableId;
     const sourceGroup = result.source.droppableId;
 
-    setFriendGroups(prev => {
+    setFriendGroups((prev) => {
       const newGroups = { ...prev };
-      
+
       // Remove from source group
       if (sourceGroup !== 'all') {
-        newGroups[sourceGroup] = newGroups[sourceGroup].filter(id => id !== friendId);
+        newGroups[sourceGroup] = newGroups[sourceGroup].filter((id) => id !== friendId);
       }
-      
+
       // Add to destination group
       if (destinationGroup !== 'all' && !newGroups[destinationGroup].includes(friendId)) {
         newGroups[destinationGroup] = [...newGroups[destinationGroup], friendId];
       }
-      
+
       return newGroups;
     });
 
@@ -274,15 +274,15 @@ export default function EnhancedFriendsPage() {
   // Export friends to CSV
   const exportFriendsToCSV = () => {
     const csvContent = [
-      ['Name', 'Username', 'Location', 'Roles', 'Mutual Friends'].join(','),
-      ...friends.map(f => [
-        f.name,
-        f.username,
-        f.location || '',
-        (f.tangoRoles || []).join(';'),
-        f.mutualFriends || 0
-      ].join(','))
-    ].join('\n');
+    ['Name', 'Username', 'Location', 'Roles', 'Mutual Friends'].join(','),
+    ...friends.map((f) => [
+    f.name,
+    f.username,
+    f.location || '',
+    (f.tangoRoles || []).join(';'),
+    f.mutualFriends || 0].
+    join(','))].
+    join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -307,14 +307,14 @@ export default function EnhancedFriendsPage() {
   };
 
   // Friend activity feed
-  const recentActivities = friends
-    .filter(f => f.lastActivity)
-    .sort((a, b) => {
-      const aTime = a.lastActivity?.timestamp || '0';
-      const bTime = b.lastActivity?.timestamp || '0';
-      return bTime.localeCompare(aTime);
-    })
-    .slice(0, 10);
+  const recentActivities = friends.
+  filter((f) => f.lastActivity).
+  sort((a, b) => {
+    const aTime = a.lastActivity?.timestamp || '0';
+    const bTime = b.lastActivity?.timestamp || '0';
+    return bTime.localeCompare(aTime);
+  }).
+  slice(0, 10);
 
   if (friendsLoading || requestsLoading) {
     return (
@@ -322,14 +322,14 @@ export default function EnhancedFriendsPage() {
         <div className="max-w-7xl mx-auto p-6">
           <Skeleton height={60} className="mb-6" />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            {[...Array(4)].map((_, i) => (
-              <Skeleton key={i} height={100} />
-            ))}
+            {[...Array(4)].map((_, i) =>
+            <Skeleton key={i} height={100} />
+            )}
           </div>
           <Skeleton height={400} />
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   return (
@@ -347,15 +347,15 @@ export default function EnhancedFriendsPage() {
             <Button
               onClick={exportFriendsToCSV}
               variant="outline"
-              className="border-turquoise-200 hover:bg-turquoise-50"
-            >
+              className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
               onClick={() => setShowSendRequestModal(true)}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-            >
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
               <UserPlus className="w-4 h-4 mr-2" />
               Add Friends
             </Button>
@@ -419,8 +419,8 @@ export default function EnhancedFriendsPage() {
                 placeholder="Search friends by name, username, or location... (Cmd+F)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
+                className="pl-10" data-testid="input-friend-search" />
+
             </div>
             <Select
               value={selectedFilter}
@@ -429,8 +429,8 @@ export default function EnhancedFriendsPage() {
               }}
               options={filterOptions}
               className="w-48"
-              placeholder="Filter by..."
-            />
+              placeholder="Filter by..." data-testid="select-w-48" />
+
             <Select
               value={selectedSort}
               onChange={(newValue) => {
@@ -438,21 +438,21 @@ export default function EnhancedFriendsPage() {
               }}
               options={sortOptions}
               className="w-48"
-              placeholder="Sort by..."
-            />
+              placeholder="Sort by..." data-testid="select-w-48" />
+
             <div className="flex gap-2">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() => setViewMode('grid')}
-              >
+                onClick={() => setViewMode('grid')} data-testid="button-element">
+
                 <Grid className="w-4 h-4" />
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() => setViewMode('list')}
-              >
+                onClick={() => setViewMode('list')} data-testid="button-element">
+
                 <List className="w-4 h-4" />
               </Button>
             </div>
@@ -469,8 +469,8 @@ export default function EnhancedFriendsPage() {
                 Friend Activity
               </h3>
               <div className="space-y-3">
-                {recentActivities.map((friend) => (
-                  <LazyLoad key={friend.id} height={60} once>
+                {recentActivities.map((friend) =>
+                <LazyLoad key={friend.id} height={60} once>
                     <div className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                       <div className="w-8 h-8 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                         {friend.name?.charAt(0)}
@@ -488,7 +488,7 @@ export default function EnhancedFriendsPage() {
                       </div>
                     </div>
                   </LazyLoad>
-                ))}
+                )}
               </div>
             </Card>
           </div>
@@ -499,21 +499,21 @@ export default function EnhancedFriendsPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 {/* Friend Groups */}
                 {[
-                  { id: 'favorites', title: 'Favorites', icon: Star, color: 'yellow' },
-                  { id: 'closeCircle', title: 'Close Circle', icon: Heart, color: 'rose' },
-                  { id: 'professional', title: 'Professional', icon: Zap, color: 'purple' }
-                ].map((group) => (
-                  <Droppable key={group.id} droppableId={group.id}>
-                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-                      <Card
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className={`p-4 min-h-[100px] transition-all ${
-                          snapshot.isDraggingOver 
-                            ? `bg-${group.color}-50 border-${group.color}-300 scale-105` 
-                            : ''
-                        }`}
-                      >
+                { id: 'favorites', title: 'Favorites', icon: Star, color: 'yellow' },
+                { id: 'closeCircle', title: 'Close Circle', icon: Heart, color: 'rose' },
+                { id: 'professional', title: 'Professional', icon: Zap, color: 'purple' }].
+                map((group) =>
+                <Droppable key={group.id} droppableId={group.id}>
+                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) =>
+                  <Card
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className={`p-4 min-h-[100px] transition-all ${
+                    snapshot.isDraggingOver ?
+                    `bg-${group.color}-50 border-${group.color}-300 scale-105` :
+                    ''}`
+                    }>
+
                         <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
                           <group.icon className={`w-4 h-4 text-${group.color}-600`} />
                           {group.title}
@@ -523,90 +523,90 @@ export default function EnhancedFriendsPage() {
                         </h4>
                         <div className="space-y-2">
                           {friendGroups[group.id]?.map((friendId, index) => {
-                            const friend = friends.find(f => f.id === friendId);
-                            if (!friend) return null;
-                            return (
-                              <Draggable
-                                key={friendId}
-                                draggableId={friendId}
-                                index={index}
-                              >
-                                {(provided: DraggableProvided) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="bg-white p-2 rounded-lg border text-sm"
-                                  >
+                        const friend = friends.find((f) => f.id === friendId);
+                        if (!friend) return null;
+                        return (
+                          <Draggable
+                            key={friendId}
+                            draggableId={friendId}
+                            index={index}>
+
+                                {(provided: DraggableProvided) =>
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              className="bg-white p-2 rounded-lg border text-sm">
+
                                     {friend.name}
                                   </div>
-                                )}
-                              </Draggable>
-                            );
-                          })}
+                            }
+                              </Draggable>);
+
+                      })}
                           {provided.placeholder}
                         </div>
                       </Card>
-                    )}
+                  }
                   </Droppable>
-                ))}
+                )}
               </div>
 
               {/* All Friends List */}
               <Droppable droppableId="all">
-                {(provided: DroppableProvided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    id="scrollableDiv"
-                    style={{ height: '600px', overflow: 'auto' }}
-                  >
+                {(provided: DroppableProvided) =>
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  id="scrollableDiv"
+                  style={{ height: '600px', overflow: 'auto' }}>
+
                     <InfiniteScroll
-                      dataLength={filteredAndSortedFriends.length}
-                      next={loadMoreFriends}
-                      hasMore={hasMore}
-                      loader={
-                        <div className="text-center py-4">
+                    dataLength={filteredAndSortedFriends.length}
+                    next={loadMoreFriends}
+                    hasMore={hasMore}
+                    loader={
+                    <div className="text-center py-4">
                           <Skeleton height={100} count={3} />
                         </div>
-                      }
-                      endMessage={
-                        <p className="text-center py-4 text-gray-500">
+                    }
+                    endMessage={
+                    <p className="text-center py-4 text-gray-500">
                           <b>🎉 You've seen all your friends!</b>
                         </p>
-                      }
-                      scrollableTarget="scrollableDiv"
-                    >
+                    }
+                    scrollableTarget="scrollableDiv">
+
                       <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-4' : 'space-y-4'}>
-                        {filteredAndSortedFriends.map((friend, index) => (
-                          <Draggable
-                            key={friend.id}
-                            draggableId={friend.id}
-                            index={index}
-                          >
-                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
+                        {filteredAndSortedFriends.map((friend, index) =>
+                      <Draggable
+                        key={friend.id}
+                        draggableId={friend.id}
+                        index={index}>
+
+                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) =>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}>
+
                                 <LazyLoad height={150} once>
-                                  <Card 
-                                    className={`p-4 transition-all ${
-                                      snapshot.isDragging 
-                                        ? 'shadow-2xl scale-105 rotate-2' 
-                                        : 'hover:shadow-lg'
-                                    }`}
-                                  >
+                                  <Card
+                              className={`p-4 transition-all ${
+                              snapshot.isDragging ?
+                              'shadow-2xl scale-105 rotate-2' :
+                              'hover:shadow-lg'}`
+                              }>
+
                                     <div className="flex items-start justify-between">
                                       <div className="flex gap-4">
                                         <div className="relative">
                                           <div className="w-12 h-12 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
                                             {friend.name?.charAt(0) || 'U'}
                                           </div>
-                                          {friend.isOnline && (
-                                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
-                                          )}
+                                          {friend.isOnline &&
+                                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+                                    }
                                         </div>
                                         <div className="flex-1">
                                           <h4 className="font-semibold text-gray-900">{friend.name}</h4>
@@ -616,43 +616,43 @@ export default function EnhancedFriendsPage() {
                                             {friend.location}
                                           </p>
                                           <div className="flex gap-2 mt-2">
-                                            {friend.tangoRoles?.map(role => (
-                                              <Badge key={role} variant="outline" className="text-xs border-turquoise-200">
+                                            {friend.tangoRoles?.map((role) =>
+                                      <Badge key={role} variant="outline" className="text-xs border-turquoise-200">
                                                 {role}
                                               </Badge>
-                                            ))}
+                                      )}
                                           </div>
-                                          {friend.mutualFriends && friend.mutualFriends > 0 && (
-                                            <p className="text-xs text-gray-500 mt-2">
+                                          {friend.mutualFriends && friend.mutualFriends > 0 &&
+                                    <p className="text-xs text-gray-500 mt-2">
                                               {friend.mutualFriends} mutual friends
                                             </p>
-                                          )}
+                                    }
                                         </div>
                                       </div>
                                       <div className="flex gap-1">
-                                        <Button size="icon" variant="ghost">
+                                        <Button size="icon" variant="ghost" data-testid="button-element">
                                           <MessageCircle className="w-4 h-4" />
                                         </Button>
                                         <div className="relative group">
-                                          <Button size="icon" variant="ghost">
+                                          <Button size="icon" variant="ghost" data-testid="button-element">
                                             <Share2 className="w-4 h-4" />
                                           </Button>
                                           <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
                                             <FacebookShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                            >
+                                        url={`https://mundotango.life/profile/${friend.username}`}>
+
                                               <FacebookIcon size={24} round />
                                             </FacebookShareButton>
                                             <TwitterShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                              title={`Check out ${friend.name} on Mundo Tango!`}
-                                            >
+                                        url={`https://mundotango.life/profile/${friend.username}`}
+                                        title={`Check out ${friend.name} on Mundo Tango!`}>
+
                                               <TwitterIcon size={24} round />
                                             </TwitterShareButton>
                                             <WhatsappShareButton
-                                              url={`https://mundotango.life/profile/${friend.username}`}
-                                              title={`Check out ${friend.name} on Mundo Tango!`}
-                                            >
+                                        url={`https://mundotango.life/profile/${friend.username}`}
+                                        title={`Check out ${friend.name} on Mundo Tango!`}>
+
                                               <WhatsappIcon size={24} round />
                                             </WhatsappShareButton>
                                           </div>
@@ -662,14 +662,14 @@ export default function EnhancedFriendsPage() {
                                   </Card>
                                 </LazyLoad>
                               </div>
-                            )}
+                        }
                           </Draggable>
-                        ))}
+                      )}
                       </div>
                       {provided.placeholder}
                     </InfiniteScroll>
                   </div>
-                )}
+                }
               </Droppable>
             </DragDropContext>
           </div>
@@ -700,8 +700,8 @@ export default function EnhancedFriendsPage() {
                   type="text"
                   placeholder="Enter username or email"
                   className="w-full"
-                  onChange={(e) => setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
-                />
+                  onChange={(e) => setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)} data-testid="input-text" />
+
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -712,8 +712,8 @@ export default function EnhancedFriendsPage() {
                   value={requestNote}
                   onChange={(e) => setRequestNote(e.target.value)}
                   rows={3}
-                  className="w-full"
-                />
+                  className="w-full" data-testid="textarea-w-full" />
+
               </div>
               <div className="flex justify-end gap-2">
                 <Button
@@ -722,17 +722,17 @@ export default function EnhancedFriendsPage() {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');
-                  }}
-                >
+                  }} data-testid="button-element">
+
                   Cancel
                 </Button>
                 <Button
                   onClick={() => {
                     if (selectedUser?.id) {
                       sendFriendRequest(
-                        { 
-                          friendId: Number(selectedUser.id), 
-                          note: requestNote 
+                        {
+                          friendId: Number(selectedUser.id),
+                          note: requestNote
                         },
                         {
                           onSuccess: () => {
@@ -751,25 +751,25 @@ export default function EnhancedFriendsPage() {
                     }
                   }}
                   disabled={!selectedUser?.id || isSendingRequest}
-                  className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-                >
-                  {isSendingRequest ? (
-                    <>
+                  className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
+                  {isSendingRequest ?
+                  <>
                       <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                       Sending...
-                    </>
-                  ) : (
-                    <>
+                    </> :
+
+                  <>
                       <Send className="w-4 h-4 mr-2" />
                       Send Request
                     </>
-                  )}
+                  }
                 </Button>
               </div>
             </div>
           </DialogContent>
         </Dialog>
       </animated.div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

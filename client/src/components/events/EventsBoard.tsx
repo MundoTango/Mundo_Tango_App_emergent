@@ -25,14 +25,14 @@ interface Event {
   maxAttendees: number;
 }
 
-export default function EventsBoard({ currentUserId }: { currentUserId: number }) {
+export default function EventsBoard({ currentUserId }: {currentUserId: number;}) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [showRecurringManager, setShowRecurringManager] = useState(false);
   const [showDelegationPanel, setShowDelegationPanel] = useState(false);
 
   // Fetch user's events
   const { data: myEvents, isLoading } = useQuery<Event[]>({
-    queryKey: ['/api/events/my-events'],
+    queryKey: ['/api/events/my-events']
   });
 
   const isEventOwner = (event: Event) => event.userId === currentUserId;
@@ -45,7 +45,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         </h1>
         <Dialog open={showRecurringManager} onOpenChange={setShowRecurringManager}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
+            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
               <Plus className="w-4 h-4 mr-2" />
               Create Recurring Events
             </Button>
@@ -64,12 +64,12 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         </TabsList>
 
         <TabsContent value="my-events">
-          {isLoading ? (
-            <p>Loading events...</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {myEvents?.map((event) => (
-                <Card key={event.id} className="glassmorphic-card p-4 hover:shadow-lg transition-shadow">
+          {isLoading ?
+          <p>Loading events...</p> :
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {myEvents?.map((event) =>
+            <Card key={event.id} className="glassmorphic-card p-4 hover:shadow-lg transition-shadow">
                   <div className="mb-3">
                     <h3 className="font-semibold text-lg text-gray-800">{event.title}</h3>
                     <Badge className="bg-turquoise-100 text-turquoise-800">
@@ -92,33 +92,33 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                     </div>
                   </div>
 
-                  {event.isEventPage && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
+                  {event.isEventPage &&
+              <div className="mt-3 pt-3 border-t border-gray-200">
                       <p className="text-xs text-gray-500">
                         Event Page: {event.allowEventPagePosts ? 'Posts allowed' : 'Posts disabled'}
                       </p>
                     </div>
-                  )}
+              }
 
-                  {isEventOwner(event) && (
-                    <div className="mt-4 flex gap-2">
+                  {isEventOwner(event) &&
+              <div className="mt-4 flex gap-2">
                       <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => {
-                          setSelectedEvent(event);
-                          setShowDelegationPanel(true);
-                        }}
-                      >
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setSelectedEvent(event);
+                    setShowDelegationPanel(true);
+                  }} data-testid="button-element">
+
                         <Settings className="w-4 h-4 mr-1" />
                         Manage
                       </Button>
                     </div>
-                  )}
+              }
                 </Card>
-              ))}
+            )}
             </div>
-          )}
+          }
         </TabsContent>
 
         <TabsContent value="recurring">
@@ -129,8 +129,8 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
             </p>
             <Button
               onClick={() => setShowRecurringManager(true)}
-              className="bg-gradient-to-r from-turquoise-400 to-cyan-500"
-            >
+              className="bg-gradient-to-r from-turquoise-400 to-cyan-500" data-testid="button-bg-gradient-to-r">
+
               Create New Series
             </Button>
           </div>
@@ -152,15 +152,15 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
           <DialogHeader>
             <DialogTitle>Event Administration - {selectedEvent?.title}</DialogTitle>
           </DialogHeader>
-          {selectedEvent && (
-            <EventDelegationPanel
-              eventId={selectedEvent.id}
-              isOwner={isEventOwner(selectedEvent)}
-              currentUserId={currentUserId}
-            />
-          )}
+          {selectedEvent &&
+          <EventDelegationPanel
+            eventId={selectedEvent.id}
+            isOwner={isEventOwner(selectedEvent)}
+            currentUserId={currentUserId} />
+
+          }
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>);
+
 }

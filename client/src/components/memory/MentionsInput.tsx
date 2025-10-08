@@ -6,12 +6,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Users, Calendar, UsersRound } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
-import { 
-  MentionData, 
-  MENTION_MARKUP, 
-  formatMentionSuggestions, 
-  filterMentions 
-} from '../../utils/mentionUtils';
+import {
+  MentionData,
+  MENTION_MARKUP,
+  formatMentionSuggestions,
+  filterMentions } from
+'../../utils/mentionUtils';
 
 interface MentionsInputProps {
   value: string;
@@ -43,13 +43,13 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
     queryKey: ['/api/search/mentions', searchQuery],
     queryFn: () => apiRequest(`/api/search/mentions?q=${encodeURIComponent(searchQuery)}`),
     enabled: searchQuery.length >= 2,
-    staleTime: 30000, // Cache for 30 seconds
+    staleTime: 30000 // Cache for 30 seconds
   });
 
   // Format data for react-mentions
   const mentionSuggestions = useMemo(() => {
     if (!searchData) return [];
-    
+
     const { users = [], events = [], groups = [] } = searchData as SearchResponse;
     return formatMentionSuggestions(users, events, groups);
   }, [searchData]);
@@ -57,7 +57,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
   // Handle mention search with debouncing
   const handleMentionSearch = useCallback((query: string, callback: Function) => {
     setSearchQuery(query);
-    
+
     // Return filtered suggestions immediately for better UX
     if (mentionSuggestions.length > 0) {
       const filtered = filterMentions(mentionSuggestions, query);
@@ -69,12 +69,12 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
   // Custom suggestion renderer
   const renderSuggestion = useCallback((
-    suggestion: MentionData,
-    search: string,
-    highlightedDisplay: React.ReactNode,
-    index: number,
-    focused: boolean
-  ) => {
+  suggestion: MentionData,
+  search: string,
+  highlightedDisplay: React.ReactNode,
+  index: number,
+  focused: boolean) =>
+  {
     const getTypeIcon = (type: string) => {
       switch (type) {
         case 'user':
@@ -102,26 +102,26 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
     };
 
     return (
-      <div 
+      <div
         className={`
           flex items-center gap-3 px-3 py-2 cursor-pointer transition-colors
           ${focused ? 'bg-blue-100' : 'hover:bg-gray-50'}
-        `}
-      >
+        `}>
+
         {/* Avatar or Icon */}
         <div className="flex-shrink-0">
-          {suggestion.avatar ? (
-            <Avatar className="h-8 w-8">
+          {suggestion.avatar ?
+          <Avatar className="h-8 w-8">
               <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
               <AvatarFallback>
                 {suggestion.display.substring(0, 2).toUpperCase()}
               </AvatarFallback>
-            </Avatar>
-          ) : (
-            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+            </Avatar> :
+
+          <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
               {getTypeIcon(suggestion.type)}
             </div>
-          )}
+          }
         </div>
 
         {/* Content */}
@@ -129,22 +129,22 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
           <div className="font-medium text-gray-900 truncate">
             {highlightedDisplay}
           </div>
-          {suggestion.status && (
-            <div className="text-sm text-gray-500 truncate">
+          {suggestion.status &&
+          <div className="text-sm text-gray-500 truncate">
               {suggestion.status}
             </div>
-          )}
+          }
         </div>
 
         {/* Type Badge */}
-        <Badge 
-          variant="secondary" 
-          className={`${getTypeColor(suggestion.type)} capitalize text-xs`}
-        >
+        <Badge
+          variant="secondary"
+          className={`${getTypeColor(suggestion.type)} capitalize text-xs`}>
+
           {suggestion.type}
         </Badge>
-      </div>
-    );
+      </div>);
+
   }, []);
 
   // Handle content change
@@ -162,9 +162,9 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
       borderRadius: '8px',
       minHeight: `${rows * 1.5}rem`,
       outline: 'none',
-      transition: 'border-color 0.2s ease',
+      transition: 'border-color 0.2s ease'
     },
-    
+
     '&multiLine': {
       control: {
         fontFamily: 'inherit',
@@ -173,13 +173,13 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         border: '1px solid #e5e7eb',
         borderRadius: '8px',
         fontSize: '14px',
-        lineHeight: '1.5',
+        lineHeight: '1.5'
       },
       highlighter: {
         padding: '12px 16px',
         border: '1px solid transparent',
         fontSize: '14px',
-        lineHeight: '1.5',
+        lineHeight: '1.5'
       },
       input: {
         padding: '12px 16px',
@@ -188,8 +188,8 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         lineHeight: '1.5',
         outline: 'none',
         resize: 'vertical',
-        minHeight: `${rows * 1.5}rem`,
-      },
+        minHeight: `${rows * 1.5}rem`
+      }
     },
 
     suggestions: {
@@ -201,16 +201,16 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         maxHeight: '200px',
         overflowY: 'auto',
         fontSize: '14px',
-        zIndex: 50,
+        zIndex: 50
       },
       item: {
         padding: '0px',
         borderBottom: '1px solid #f3f4f6',
         '&focused': {
-          backgroundColor: '#eff6ff',
-        },
-      },
-    },
+          backgroundColor: '#eff6ff'
+        }
+      }
+    }
   };
 
   // ESA-44x21s: Temporary fallback textarea implementation
@@ -223,7 +223,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
     const newValue = e.target.value;
     const caret = e.target.selectionStart;
     setCaretPosition(caret);
-    
+
     // Check if @ was typed
     if (caret > 0 && newValue[caret - 1] === '@') {
       setShowSuggestions(true);
@@ -239,28 +239,28 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         setShowSuggestions(false);
       }
     }
-    
+
     onChange(newValue);
   }, [onChange, showSuggestions]);
 
   // Handle suggestion selection
   const selectSuggestion = useCallback((suggestion: MentionData) => {
     if (!textareaRef.current) return;
-    
+
     const textarea = textareaRef.current;
     const text = textarea.value;
     const beforeCaret = text.substring(0, caretPosition);
     const afterCaret = text.substring(caretPosition);
     const lastAtIndex = beforeCaret.lastIndexOf('@');
-    
+
     if (lastAtIndex !== -1) {
-      const newText = text.substring(0, lastAtIndex) + 
-                      `@${suggestion.display} ` + 
-                      afterCaret;
+      const newText = text.substring(0, lastAtIndex) +
+      `@${suggestion.display} ` +
+      afterCaret;
       onChange(newText);
       setShowSuggestions(false);
       setSearchQuery('');
-      
+
       // Set caret position after mention
       setTimeout(() => {
         const newCaretPos = lastAtIndex + suggestion.display.length + 2;
@@ -294,37 +294,37 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         disabled={disabled}
         rows={rows}
         className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        style={{ minHeight: `${rows * 1.5}rem` }}
-      />
+        style={{ minHeight: `${rows * 1.5}rem` }} data-testid="textarea-w-full" />
+
       
       {/* Suggestions dropdown */}
-      {showSuggestions && filteredSuggestions.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
-          {filteredSuggestions.map((suggestion, index) => (
-            <div
-              key={suggestion.id}
-              onClick={(e) => {
-                e.stopPropagation();
-                selectSuggestion(suggestion);
-              }}
-              className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50"
-            >
+      {showSuggestions && filteredSuggestions.length > 0 &&
+      <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+          {filteredSuggestions.map((suggestion, index) =>
+        <div
+          key={suggestion.id}
+          onClick={(e) => {
+            e.stopPropagation();
+            selectSuggestion(suggestion);
+          }}
+          className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50">
+
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
-                {suggestion.avatar ? (
-                  <Avatar className="h-8 w-8">
+                {suggestion.avatar ?
+            <Avatar className="h-8 w-8">
                     <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
                     <AvatarFallback>
                       {suggestion.display.substring(0, 2).toUpperCase()}
                     </AvatarFallback>
-                  </Avatar>
-                ) : (
-                  <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+                  </Avatar> :
+
+            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
                     {suggestion.type === 'user' && <Users className="h-4 w-4 text-blue-500" />}
                     {suggestion.type === 'event' && <Calendar className="h-4 w-4 text-green-500" />}
                     {suggestion.type === 'group' && <UsersRound className="h-4 w-4 text-purple-500" />}
                   </div>
-                )}
+            }
               </div>
 
               {/* Content */}
@@ -332,28 +332,28 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                 <div className="font-medium text-gray-900 truncate">
                   {suggestion.display}
                 </div>
-                {suggestion.status && (
-                  <div className="text-sm text-gray-500 truncate">
+                {suggestion.status &&
+            <div className="text-sm text-gray-500 truncate">
                     {suggestion.status}
                   </div>
-                )}
+            }
               </div>
 
               {/* Type Badge */}
-              <Badge 
-                variant="secondary" 
-                className={`capitalize text-xs ${
-                  suggestion.type === 'user' ? 'bg-blue-50 text-blue-700' :
-                  suggestion.type === 'event' ? 'bg-green-50 text-green-700' :
-                  'bg-purple-50 text-purple-700'
-                }`}
-              >
+              <Badge
+            variant="secondary"
+            className={`capitalize text-xs ${
+            suggestion.type === 'user' ? 'bg-blue-50 text-blue-700' :
+            suggestion.type === 'event' ? 'bg-green-50 text-green-700' :
+            'bg-purple-50 text-purple-700'}`
+            }>
+
                 {suggestion.type}
               </Badge>
             </div>
-          ))}
+        )}
         </div>
-      )}
+      }
       
       {/* Helper text */}
       <div className="mt-2 text-xs text-gray-500">
@@ -361,13 +361,13 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
       </div>
 
       {/* Loading indicator */}
-      {isLoading && searchQuery.length >= 2 && (
-        <div className="mt-2 text-xs text-blue-600">
+      {isLoading && searchQuery.length >= 2 &&
+      <div className="mt-2 text-xs text-blue-600">
           Searching for mentions...
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default MentionsInput;

@@ -1,21 +1,21 @@
 import { useState, useCallback, useRef, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { 
-  Image, 
-  Video, 
-  MapPin, 
-  Globe, 
-  Users, 
-  Lock, 
+import {
+  Image,
+  Video,
+  MapPin,
+  Globe,
+  Users,
+  Lock,
   X,
   Smile,
   Link,
   Send,
   Bold,
   Italic,
-  List
-} from 'lucide-react';
+  List } from
+'lucide-react';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -49,7 +49,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const [showEmbedInput, setShowEmbedInput] = useState(false);
   const [embedUrl, setEmbedUrl] = useState('');
   const [useRichEditor, setUseRichEditor] = useState(false);
-  
+
   const quillRef = useRef<ReactQuill>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
@@ -71,12 +71,12 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const quillModules = useMemo(() => ({
     toolbar: {
       container: [
-        [{ 'header': [1, 2, 3, false] }],
-        ['bold', 'italic', 'underline'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['link'],
-        ['clean']
-      ]
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link'],
+      ['clean']]
+
     }
   }), []);
 
@@ -95,12 +95,12 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
     '&multiLine': {
       control: {
         fontFamily: 'inherit',
-        minHeight: 120,
+        minHeight: 120
       },
       highlighter: {
         padding: 16,
         border: '1px solid transparent',
-        borderRadius: '12px',
+        borderRadius: '12px'
       },
       input: {
         padding: 16,
@@ -109,7 +109,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         outline: 0,
         fontSize: 16,
         resize: 'none' as const
-      },
+      }
     },
     suggestions: {
       list: {
@@ -127,10 +127,10 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         display: 'flex',
         alignItems: 'center',
         '&focused': {
-          backgroundColor: '#fef7ff',
-        },
-      },
-    },
+          backgroundColor: '#fef7ff'
+        }
+      }
+    }
   };
 
   // Handle content change for both editors
@@ -156,18 +156,18 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         quill.setSelection(range.index + emojiData.emoji.length);
       }
     } else {
-      setContent(prev => prev + emojiData.emoji);
+      setContent((prev) => prev + emojiData.emoji);
     }
   }, [useRichEditor]);
 
   // Handle file uploads with drag and drop
   const handleFileUpload = useCallback((files: FileList | null) => {
     if (!files) return;
-    
-    const validFiles = Array.from(files).filter(file => {
+
+    const validFiles = Array.from(files).filter((file) => {
       const isValidType = file.type.startsWith('image/') || file.type.startsWith('video/');
       const isValidSize = file.size <= 10 * 1024 * 1024; // 10MB limit
-      
+
       if (!isValidType) {
         toast({
           title: "Invalid file type",
@@ -176,7 +176,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         });
         return false;
       }
-      
+
       if (!isValidSize) {
         toast({
           title: "File too large",
@@ -185,22 +185,22 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
         });
         return false;
       }
-      
+
       return true;
     });
 
-    setUploadedFiles(prev => [...prev, ...validFiles]);
+    setUploadedFiles((prev) => [...prev, ...validFiles]);
   }, [toast]);
 
   // Remove uploaded file
   const removeFile = useCallback((index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
   // Extract mentions and hashtags from content
   const extractMentionsAndHashtags = useCallback((text: string) => {
-    const mentions = (text.match(/@(\w+)/g) || []).map(m => m.substring(1));
-    const hashtags = (text.match(/#(\w+)/g) || []).map(h => h.substring(1));
+    const mentions = (text.match(/@(\w+)/g) || []).map((m) => m.substring(1));
+    const hashtags = (text.match(/#(\w+)/g) || []).map((h) => h.substring(1));
     return { mentions, hashtags };
   }, []);
 
@@ -208,12 +208,12 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const detectSocialEmbeds = useCallback((text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urls = text.match(urlRegex) || [];
-    
-    return urls.filter(url => {
-      return url.includes('twitter.com') || 
-             url.includes('instagram.com') || 
-             url.includes('youtube.com') ||
-             url.includes('tiktok.com');
+
+    return urls.filter((url) => {
+      return url.includes('twitter.com') ||
+      url.includes('instagram.com') ||
+      url.includes('youtube.com') ||
+      url.includes('tiktok.com');
     });
   }, []);
 
@@ -221,7 +221,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const createPostMutation = useMutation({
     mutationFn: async (postData: any) => {
       const formData = new FormData();
-      
+
       // ESA Framework Layer 13: Enhanced post data format
       formData.append('content', postData.content);
       formData.append('location', postData.location || '');
@@ -236,7 +236,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
       // ESA Framework Layer 13: Use apiRequest for proper authentication
       const response = await apiRequest('/api/posts', {
         method: 'POST',
-        body: formData,
+        body: formData
       });
 
       return response.json();
@@ -244,9 +244,9 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
     onSuccess: () => {
       toast({
         title: "Post created successfully!",
-        description: "Your tango moment has been shared with the community.",
+        description: "Your tango moment has been shared with the community."
       });
-      
+
       // Reset form
       setContent('');
       setRichContent('');
@@ -256,7 +256,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
       setEmbedUrl('');
       setIsExpanded(false);
       setUseRichEditor(false);
-      
+
       // Invalidate posts cache
       queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
       onPostCreated?.();
@@ -274,7 +274,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const handleSubmit = useCallback(() => {
     const finalContent = useRichEditor ? content : content;
     const finalRichContent = useRichEditor ? richContent : null;
-    
+
     if (!finalContent.trim()) {
       toast({
         title: "Content required",
@@ -300,22 +300,22 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   }, [content, richContent, location, visibility, useRichEditor, extractMentionsAndHashtags, detectSocialEmbeds, createPostMutation, toast]);
 
   // Prepare mention data for MentionsInput
-  const mentionUsers = useMemo(() => 
-    users.map(user => ({
-      id: user.username,
-      display: `@${user.username}`,
-      name: user.name
-    }))
-  , [users]);
+  const mentionUsers = useMemo(() =>
+  users.map((user) => ({
+    id: user.username,
+    display: `@${user.username}`,
+    name: user.name
+  })),
+  [users]);
 
   if (!isExpanded) {
     return (
       <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
         <div className="p-6">
-          <div 
+          <div
             className="flex items-center space-x-4 cursor-pointer"
-            onClick={() => setIsExpanded(true)}
-          >
+            onClick={() => setIsExpanded(true)}>
+
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>
@@ -324,8 +324,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             </div>
           </div>
         </div>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
@@ -346,8 +346,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(false)}
-            className="text-gray-400 hover:text-gray-600"
-          >
+            className="text-gray-400 hover:text-gray-600" data-testid="button-text-gray-400">
+
             <X className="h-5 w-5" />
           </Button>
         </div>
@@ -357,41 +357,41 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           <Button
             variant={!useRichEditor ? "default" : "outline"}
             size="sm"
-            onClick={() => setUseRichEditor(false)}
-          >
+            onClick={() => setUseRichEditor(false)} data-testid="button-element">
+
             Simple
           </Button>
           <Button
             variant={useRichEditor ? "default" : "outline"}
             size="sm"
-            onClick={() => setUseRichEditor(true)}
-          >
+            onClick={() => setUseRichEditor(true)} data-testid="button-element">
+
             Rich Text
           </Button>
         </div>
 
         {/* Content Input */}
         <div className="mb-4">
-          {useRichEditor ? (
-            <ReactQuill
-              ref={quillRef}
-              theme="snow"
-              value={richContent}
-              onChange={handleRichContentChange}
-              modules={quillModules}
-              placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
-              style={{ minHeight: '120px' }}
-            />
-          ) : (
-            <textarea
-              value={content}
-              onChange={(e) => handleContentChange(e.target.value)}
-              placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              rows={4}
-              style={{ minHeight: '120px' }}
-            />
-          )}
+          {useRichEditor ?
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            value={richContent}
+            onChange={handleRichContentChange}
+            modules={quillModules}
+            placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
+            style={{ minHeight: '120px' }} /> :
+
+
+          <textarea
+            value={content}
+            onChange={(e) => handleContentChange(e.target.value)}
+            placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            rows={4}
+            style={{ minHeight: '120px' }} data-testid="textarea-w-full" />
+
+          }
         </div>
 
         {/* Location Input with Google Maps */}
@@ -401,68 +401,68 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             placeholder="Add location..."
             onChange={(loc) => setLocation(loc)}
             onClear={() => setLocation('')}
-            className="w-full"
-          />
+            className="w-full" />
+
         </div>
 
         {/* Media Previews */}
-        {uploadedFiles.length > 0 && (
-          <div className="mb-4">
+        {uploadedFiles.length > 0 &&
+        <div className="mb-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {uploadedFiles.map((file, index) => (
-                <div key={index} className="relative group">
+              {uploadedFiles.map((file, index) =>
+            <div key={index} className="relative group">
                   <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                    {file.type.startsWith('image/') ? (
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <video
-                        src={URL.createObjectURL(file)}
-                        className="w-full h-full object-cover"
-                        controls
-                      />
-                    )}
+                    {file.type.startsWith('image/') ?
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Preview"
+                  className="w-full h-full object-cover" /> :
+
+
+                <video
+                  src={URL.createObjectURL(file)}
+                  className="w-full h-full object-cover"
+                  controls />
+
+                }
                   </div>
                   <Button
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => removeFile(index)}
-                  >
+                variant="destructive"
+                size="sm"
+                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                onClick={() => removeFile(index)} data-testid="button-absolute">
+
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
-              ))}
+            )}
             </div>
           </div>
-        )}
+        }
 
         {/* Embed Input */}
-        {showEmbedInput && (
-          <div className="mb-4">
+        {showEmbedInput &&
+        <div className="mb-4">
             <input
-              type="url"
-              placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
-              value={embedUrl}
-              onChange={(e) => setEmbedUrl(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-            />
+            type="url"
+            placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
+            value={embedUrl}
+            onChange={(e) => setEmbedUrl(e.target.value)}
+            className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" data-testid="input-url" />
+
           </div>
-        )}
+        }
 
         {/* Emoji Picker */}
-        {showEmojiPicker && (
-          <div className="mb-4">
+        {showEmojiPicker &&
+        <div className="mb-4">
             <EmojiPicker
-              onEmojiClick={handleEmojiClick}
-              width="100%"
-              height={400}
-            />
+            onEmojiClick={handleEmojiClick}
+            width="100%"
+            height={400} />
+
           </div>
-        )}
+        }
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
@@ -472,8 +472,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               variant="ghost"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
-              className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
-            >
+              className="text-pink-600 hover:text-pink-700 hover:bg-pink-50" data-testid="button-text-pink-600">
+
               <Image className="h-5 w-5" />
             </Button>
             
@@ -482,8 +482,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               variant="ghost"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
-              className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-            >
+              className="text-blue-600 hover:text-blue-700 hover:bg-blue-50" data-testid="button-text-blue-600">
+
               <Video className="h-5 w-5" />
             </Button>
 
@@ -491,8 +491,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <Button
               variant="ghost"
               size="sm"
-              className="text-green-600 hover:text-green-700 hover:bg-green-50"
-            >
+              className="text-green-600 hover:text-green-700 hover:bg-green-50" data-testid="button-text-green-600">
+
               <MapPin className="h-5 w-5" />
             </Button>
 
@@ -501,8 +501,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               variant="ghost"
               size="sm"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="text-yellow-600 hover:text-yellow-700 hover:bg-yellow-50"
-            >
+              className="text-yellow-600 hover:text-yellow-700 hover:bg-yellow-50" data-testid="button-text-yellow-600">
+
               <Smile className="h-5 w-5" />
             </Button>
 
@@ -511,9 +511,9 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               variant="ghost"
               size="sm"
               onClick={() => setShowEmbedInput(!showEmbedInput)}
-              className="text-purple-600 hover:text-purple-700 hover:bg-purple-50"
-            >
-              <Link className="h-5 w-5" />
+              className="text-purple-600 hover:text-purple-700 hover:bg-purple-50" data-testid="button-text-purple-600">
+
+              <Link className="h-5 w-5" data-testid="link-h-5" />
             </Button>
           </div>
 
@@ -522,8 +522,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
-              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
-            >
+              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" data-testid="select-px-3">
+
               <option value="public">🌍 Public</option>
               <option value="friends">👥 Friends</option>
               <option value="private">🔒 Private</option>
@@ -532,20 +532,20 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             {/* Submit Button */}
             <Button
               onClick={handleSubmit}
-              disabled={createPostMutation.isPending || (!content.trim() && !richContent.trim())}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6"
-            >
-              {createPostMutation.isPending ? (
-                <div className="flex items-center space-x-2">
+              disabled={createPostMutation.isPending || !content.trim() && !richContent.trim()}
+              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6" data-testid="button-bg-gradient-to-r">
+
+              {createPostMutation.isPending ?
+              <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Posting...</span>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-2">
+                </div> :
+
+              <div className="flex items-center space-x-2">
                   <Send className="h-4 w-4" />
                   <span>Post</span>
                 </div>
-              )}
+              }
             </Button>
           </div>
         </div>
@@ -557,9 +557,9 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           multiple
           accept="image/*,video/*"
           onChange={(e) => handleFileUpload(e.target.files)}
-          className="hidden"
-        />
+          className="hidden" data-testid="input-file" />
+
       </div>
-    </Card>
-  );
+    </Card>);
+
 }

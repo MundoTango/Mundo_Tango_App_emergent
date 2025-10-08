@@ -8,21 +8,21 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  Search, 
-  UserPlus, 
-  Users, 
-  MessageCircle, 
-  Check, 
-  X, 
+import {
+  Search,
+  UserPlus,
+  Users,
+  MessageCircle,
+  Check,
+  X,
   Clock,
   UserCheck,
   Send,
   Heart,
   MapPin,
   Globe,
-  Music
-} from 'lucide-react';
+  Music } from
+'lucide-react';
 
 interface Friend {
   id: string;
@@ -85,42 +85,42 @@ export default function FriendsPage() {
       setSearchResults([]);
       return;
     }
-    
+
     // Mock search results
     const mockSearchResults: Friend[] = [
-      {
-        id: '6',
-        name: 'Laura Chen',
-        username: 'laura_tango',
-        location: 'San Francisco, USA',
-        tangoRoles: ['dancer'],
-        mutualFriends: 3
-      },
-      {
-        id: '7',
-        name: 'Roberto Diaz',
-        username: 'roberto_teacher',
-        location: 'Barcelona, Spain',
-        tangoRoles: ['teacher', 'performer'],
-        mutualFriends: 7
-      }
-    ];
-    
-    setSearchResults(mockSearchResults.filter(user => 
-      user.name.toLowerCase().includes(query.toLowerCase()) ||
-      user.username.toLowerCase().includes(query.toLowerCase())
+    {
+      id: '6',
+      name: 'Laura Chen',
+      username: 'laura_tango',
+      location: 'San Francisco, USA',
+      tangoRoles: ['dancer'],
+      mutualFriends: 3
+    },
+    {
+      id: '7',
+      name: 'Roberto Diaz',
+      username: 'roberto_teacher',
+      location: 'Barcelona, Spain',
+      tangoRoles: ['teacher', 'performer'],
+      mutualFriends: 7
+    }];
+
+
+    setSearchResults(mockSearchResults.filter((user) =>
+    user.name.toLowerCase().includes(query.toLowerCase()) ||
+    user.username.toLowerCase().includes(query.toLowerCase())
     ));
   };
 
   // Send friend request mutation
   const sendRequestMutation = useMutation({
-    mutationFn: async ({ friendId, notes }: { friendId: string; notes: string }) => {
+    mutationFn: async ({ friendId, notes }: {friendId: string;notes: string;}) => {
       const response = await fetch('/api/friend/send-friend-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ friend_id: friendId, sender_notes: notes })
       });
-      
+
       if (!response.ok) throw new Error('Failed to send friend request');
       return response.json();
     },
@@ -144,33 +144,33 @@ export default function FriendsPage() {
 
   // Update friend request status mutation
   const updateRequestMutation = useMutation({
-    mutationFn: async ({ requestId, status, notes }: { 
-      requestId: string; 
-      status: 'connected' | 'decline'; 
-      notes?: string 
-    }) => {
+    mutationFn: async ({ requestId, status, notes
+
+
+
+    }: {requestId: string;status: 'connected' | 'decline';notes?: string;}) => {
       const response = await fetch(`/api/friend/update-friend-request/${requestId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status, receiver_notes: notes })
       });
-      
+
       if (!response.ok) throw new Error('Failed to update request');
       return response.json();
     },
     onSuccess: (data, variables) => {
       toast({
         title: variables.status === 'connected' ? 'Friend added!' : 'Request declined',
-        description: variables.status === 'connected' 
-          ? 'You are now connected as friends.' 
-          : 'The friend request has been declined.'
+        description: variables.status === 'connected' ?
+        'You are now connected as friends.' :
+        'The friend request has been declined.'
       });
     }
   });
 
   const handleSendRequest = () => {
     if (!selectedUser) return;
-    
+
     sendRequestMutation.mutate({
       friendId: selectedUser.id,
       notes: requestNote
@@ -220,8 +220,8 @@ export default function FriendsPage() {
             </div>
           </div>
         </div>
-      </DashboardLayout>
-    );
+      </DashboardLayout>);
+
   }
 
   return (
@@ -235,8 +235,8 @@ export default function FriendsPage() {
           </div>
           <Button
             onClick={() => setShowSendRequestModal(true)}
-            className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-          >
+            className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
             <UserPlus className="w-4 h-4 mr-2" />
             Add Friends
           </Button>
@@ -286,8 +286,8 @@ export default function FriendsPage() {
               placeholder="Search friends by name or username..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+              className="pl-10" data-testid="input-text" />
+
           </div>
         </Card>
 
@@ -295,41 +295,41 @@ export default function FriendsPage() {
         <Card>
           <div className="flex border-b">
             {[
-              { id: 'all', label: 'All Friends', icon: Users },
-              { id: 'online', label: 'Online', icon: Globe },
-              { id: 'requests', label: 'Requests', icon: Clock },
-              { id: 'suggestions', label: 'Suggestions', icon: UserPlus }
-            ].map((tab) => {
+            { id: 'all', label: 'All Friends', icon: Users },
+            { id: 'online', label: 'Online', icon: Globe },
+            { id: 'requests', label: 'Requests', icon: Clock },
+            { id: 'suggestions', label: 'Suggestions', icon: UserPlus }].
+            map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-3 font-medium transition-colors ${
-                    activeTab === tab.id
-                      ? 'text-turquoise-600 border-b-2 border-turquoise-600'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
+                  activeTab === tab.id ?
+                  'text-turquoise-600 border-b-2 border-turquoise-600' :
+                  'text-gray-600 hover:text-gray-900'}`
+                  } data-testid="button-element">
+
                   <Icon className="w-4 h-4" />
                   {tab.label}
-                  {tab.id === 'requests' && requests.filter((r: FriendRequest) => r.status === 'pending').length > 0 && (
-                    <Badge className="ml-2 bg-rose-500 text-white">
+                  {tab.id === 'requests' && requests.filter((r: FriendRequest) => r.status === 'pending').length > 0 &&
+                  <Badge className="ml-2 bg-rose-500 text-white">
                       {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                     </Badge>
-                  )}
-                </button>
-              );
+                  }
+                </button>);
+
             })}
           </div>
 
           {/* Tab Content */}
           <div className="p-6">
-            {activeTab === 'requests' ? (
-              // Friend Requests Tab
-              <div className="space-y-4">
-                {requests.filter((r: FriendRequest) => r.status === 'pending').map((request: FriendRequest) => (
-                  <Card key={request.id} className="p-4">
+            {activeTab === 'requests' ?
+            // Friend Requests Tab
+            <div className="space-y-4">
+                {requests.filter((r: FriendRequest) => r.status === 'pending').map((request: FriendRequest) =>
+              <Card key={request.id} className="p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex gap-4">
                         <div className="w-12 h-12 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
@@ -344,65 +344,65 @@ export default function FriendsPage() {
                             <MapPin className="w-3 h-3" />
                             {request.friend_user?.location}
                           </p>
-                          {request.sender_notes && (
-                            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+                          {request.sender_notes &&
+                      <div className="mt-3 p-3 bg-gray-50 rounded-lg">
                               <p className="text-sm text-gray-700 italic">"{request.sender_notes}"</p>
                             </div>
-                          )}
+                      }
                           <div className="flex gap-2 mt-3">
-                            {request.friend_user?.tangoRoles?.map((role: string) => (
-                              <Badge key={role} variant="outline" className="text-xs">
+                            {request.friend_user?.tangoRoles?.map((role: string) =>
+                        <Badge key={role} variant="outline" className="text-xs">
                                 {role}
                               </Badge>
-                            ))}
+                        )}
                           </div>
                         </div>
                       </div>
                       <div className="flex gap-2">
                         <Button
-                          size="sm"
-                          onClick={() => handleAcceptRequest(request)}
-                          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
-                        >
+                      size="sm"
+                      onClick={() => handleAcceptRequest(request)}
+                      className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white" data-testid="button-bg-gradient-to-r">
+
                           <Check className="w-4 h-4 mr-1" />
                           Accept
                         </Button>
                         <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleDeclineRequest(request)}
-                        >
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleDeclineRequest(request)} data-testid="button-element">
+
                           <X className="w-4 h-4 mr-1" />
                           Decline
                         </Button>
                       </div>
                     </div>
                   </Card>
-                ))}
-                {requests.filter((r: FriendRequest) => r.status === 'pending').length === 0 && (
-                  <div className="text-center py-12">
+              )}
+                {requests.filter((r: FriendRequest) => r.status === 'pending').length === 0 &&
+              <div className="text-center py-12">
                     <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600">No pending friend requests</p>
                   </div>
-                )}
-              </div>
-            ) : (
-              // Friends List
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {getTabContent().filter((friend: any) => 
-                  friend.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  friend.username?.toLowerCase().includes(searchQuery.toLowerCase())
-                ).map((friend: any) => (
-                  <Card key={friend.id} className="p-4">
+              }
+              </div> :
+
+            // Friends List
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {getTabContent().filter((friend: any) =>
+              friend.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              friend.username?.toLowerCase().includes(searchQuery.toLowerCase())
+              ).map((friend: any) =>
+              <Card key={friend.id} className="p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex gap-4">
                         <div className="relative">
                           <div className="w-12 h-12 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
                             {friend.name?.charAt(0) || 'U'}
                           </div>
-                          {friend.isOnline && (
-                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                          )}
+                          {friend.isOnline &&
+                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                      }
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900">{friend.name}</h4>
@@ -412,50 +412,50 @@ export default function FriendsPage() {
                             {friend.location}
                           </p>
                           <div className="flex gap-2 mt-2">
-                            {friend.tangoRoles?.map((role: string) => (
-                              <Badge key={role} variant="outline" className="text-xs">
+                            {friend.tangoRoles?.map((role: string) =>
+                        <Badge key={role} variant="outline" className="text-xs">
                                 {role}
                               </Badge>
-                            ))}
+                        )}
                           </div>
-                          {friend.mutualFriends && (
-                            <p className="text-xs text-gray-500 mt-2">
+                          {friend.mutualFriends &&
+                      <p className="text-xs text-gray-500 mt-2">
                               {friend.mutualFriends} mutual friends
                             </p>
-                          )}
-                          {!friend.isOnline && friend.lastSeen && (
-                            <p className="text-xs text-gray-500 mt-1">
+                      }
+                          {!friend.isOnline && friend.lastSeen &&
+                      <p className="text-xs text-gray-500 mt-1">
                               Last seen {friend.lastSeen}
                             </p>
-                          )}
+                      }
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" data-testid="button-element">
                           <MessageCircle className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
                   </Card>
-                ))}
-                {getTabContent().length === 0 && (
-                  <div className="col-span-2 text-center py-12">
+              )}
+                {getTabContent().length === 0 &&
+              <div className="col-span-2 text-center py-12">
                     <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600">
-                      {activeTab === 'online' 
-                        ? 'No friends are online right now' 
-                        : 'You haven\'t added any friends yet'}
+                      {activeTab === 'online' ?
+                  'No friends are online right now' :
+                  'You haven\'t added any friends yet'}
                     </p>
                   </div>
-                )}
+              }
               </div>
-            )}
+            }
           </div>
         </Card>
 
         {/* Send Friend Request Modal */}
-        {showSendRequestModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        {showSendRequestModal &&
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <Card className="w-full max-w-md p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Send Friend Request</h3>
               
@@ -465,83 +465,83 @@ export default function FriendsPage() {
                   Search for users
                 </label>
                 <Input
-                  type="text"
-                  placeholder="Type a name or username..."
-                  onChange={(e) => searchUsers(e.target.value)}
-                />
+                type="text"
+                placeholder="Type a name or username..."
+                onChange={(e) => searchUsers(e.target.value)} data-testid="input-text" />
+
               </div>
 
               {/* Search Results */}
-              {searchResults.length > 0 && (
-                <div className="mb-4 max-h-48 overflow-y-auto">
-                  {searchResults.map(user => (
-                    <div
-                      key={user.id}
-                      onClick={() => setSelectedUser(user)}
-                      className={`p-3 border rounded-lg mb-2 cursor-pointer transition-colors ${
-                        selectedUser?.id === user.id 
-                          ? 'border-indigo-500 bg-indigo-50' 
-                          : 'hover:bg-gray-50'
-                      }`}
-                    >
+              {searchResults.length > 0 &&
+            <div className="mb-4 max-h-48 overflow-y-auto">
+                  {searchResults.map((user) =>
+              <div
+                key={user.id}
+                onClick={() => setSelectedUser(user)}
+                className={`p-3 border rounded-lg mb-2 cursor-pointer transition-colors ${
+                selectedUser?.id === user.id ?
+                'border-indigo-500 bg-indigo-50' :
+                'hover:bg-gray-50'}`
+                }>
+
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium">{user.name}</p>
                           <p className="text-sm text-gray-600">@{user.username}</p>
                           <p className="text-xs text-gray-500">{user.location}</p>
                         </div>
-                        {user.mutualFriends && (
-                          <Badge variant="outline" className="text-xs">
+                        {user.mutualFriends &&
+                  <Badge variant="outline" className="text-xs">
                             {user.mutualFriends} mutual
                           </Badge>
-                        )}
+                  }
                       </div>
                     </div>
-                  ))}
-                </div>
               )}
+                </div>
+            }
 
               {/* Selected User & Note */}
-              {selectedUser && (
-                <div className="mb-4">
+              {selectedUser &&
+            <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Add a note (optional)
                   </label>
                   <Textarea
-                    placeholder="Hi! I'd love to connect..."
-                    value={requestNote}
-                    onChange={(e) => setRequestNote(e.target.value)}
-                    rows={3}
-                  />
+                placeholder="Hi! I'd love to connect..."
+                value={requestNote}
+                onChange={(e) => setRequestNote(e.target.value)}
+                rows={3} data-testid="textarea-element" />
+
                 </div>
-              )}
+            }
 
               {/* Actions */}
               <div className="flex gap-2">
                 <Button
-                  onClick={handleSendRequest}
-                  disabled={!selectedUser || sendRequestMutation.isPending}
-                  className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                >
+                onClick={handleSendRequest}
+                disabled={!selectedUser || sendRequestMutation.isPending}
+                className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white" data-testid="button-flex-1">
+
                   <Send className="w-4 h-4 mr-2" />
                   Send Request
                 </Button>
                 <Button
-                  variant="outline"
-                  onClick={() => {
-                    setShowSendRequestModal(false);
-                    setSelectedUser(null);
-                    setRequestNote('');
-                    setSearchResults([]);
-                  }}
-                >
+                variant="outline"
+                onClick={() => {
+                  setShowSendRequestModal(false);
+                  setSelectedUser(null);
+                  setRequestNote('');
+                  setSearchResults([]);
+                }} data-testid="button-element">
+
                   Cancel
                 </Button>
               </div>
             </Card>
           </div>
-        )}
+        }
       </div>
-    </DashboardLayout>
-  );
+    </DashboardLayout>);
+
 }

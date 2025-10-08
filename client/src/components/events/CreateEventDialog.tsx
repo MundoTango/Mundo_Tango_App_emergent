@@ -27,11 +27,11 @@ const eventSchema = z.object({
   endDate: z.string().optional(),
   isPublic: z.boolean().default(true),
   maxAttendees: z.number().optional(),
-  
+
   // Enhanced fields
   eventType: z.string().optional(),
   level: z.string().optional(),
-  
+
   // Ticketing
   isPaid: z.boolean().default(false),
   price: z.string().optional(),
@@ -39,17 +39,17 @@ const eventSchema = z.object({
   ticketUrl: z.string().optional(),
   earlyBirdPrice: z.string().optional(),
   earlyBirdDeadline: z.string().optional(),
-  
+
   // Virtual event
   isVirtual: z.boolean().default(false),
   virtualPlatform: z.string().optional(),
   virtualUrl: z.string().optional(),
-  
+
   // Recurring event
   isRecurring: z.boolean().default(false),
   recurringPattern: z.string().optional(),
   recurringEndDate: z.string().optional(),
-  
+
   // Categories
   categories: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([])
@@ -69,7 +69,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [documents, setDocuments] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState('basic');
-  
+
   const form = useForm<EventFormData>({
     resolver: zodResolver(eventSchema),
     defaultValues: {
@@ -98,7 +98,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
     onSuccess: () => {
       toast({
         title: "Event created!",
-        description: "Your event has been successfully created.",
+        description: "Your event has been successfully created."
       });
       // ESA Layer 14: Invalidate all event-related queries for immediate UI update
       queryClient.invalidateQueries({ queryKey: ['/api/events'] });
@@ -113,7 +113,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
       toast({
         title: "Error",
         description: "Failed to create event. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
@@ -127,21 +127,21 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
   const isRecurring = form.watch('isRecurring');
 
   const eventCategories = [
-    'milonga', 'practica', 'class', 'workshop', 'festival', 
-    'marathon', 'social', 'performance', 'concert', 'other'
-  ];
+  'milonga', 'practica', 'class', 'workshop', 'festival',
+  'marathon', 'social', 'performance', 'concert', 'other'];
+
 
   const eventLevels = [
-    'beginner', 'intermediate', 'advanced', 'all_levels', 'master_class'
-  ];
+  'beginner', 'intermediate', 'advanced', 'all_levels', 'master_class'];
+
 
   const virtualPlatforms = [
-    'zoom', 'google_meet', 'teams', 'youtube', 'facebook', 'custom'
-  ];
+  'zoom', 'google_meet', 'teams', 'youtube', 'facebook', 'custom'];
+
 
   const recurringPatterns = [
-    'daily', 'weekly', 'biweekly', 'monthly', 'custom'
-  ];
+  'daily', 'weekly', 'biweekly', 'monthly', 'custom'];
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -170,171 +170,171 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                 <FormField
                   control={form.control}
                   name="title"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel>Event Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Tango Night at La Viruta" {...field} />
+                        <Input placeholder="Tango Night at La Viruta" {...field} data-testid="input-element" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <FormField
                   control={form.control}
                   name="description"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Describe your event..." 
-                          className="min-h-[100px]"
-                          {...field} 
-                        />
+                        <Textarea
+                        placeholder="Describe your event..."
+                        className="min-h-[100px]"
+                        {...field} data-testid="textarea-min-h-100px" />
+
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <FormField
                   control={form.control}
                   name="eventType"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel>Event Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select event type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {eventCategories.map(category => (
-                            <SelectItem key={category} value={category}>
+                          {eventCategories.map((category) =>
+                        <SelectItem key={category} value={category}>
                               {category.charAt(0).toUpperCase() + category.slice(1)}
                             </SelectItem>
-                          ))}
+                        )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <FormField
                   control={form.control}
                   name="level"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel>Level</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select level" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {eventLevels.map(level => (
-                            <SelectItem key={level} value={level}>
+                          {eventLevels.map((level) =>
+                        <SelectItem key={level} value={level}>
                               {level.replace('_', ' ').charAt(0).toUpperCase() + level.replace('_', ' ').slice(1)}
                             </SelectItem>
-                          ))}
+                        )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="startDate"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Start Date & Time</FormLabel>
                         <FormControl>
-                          <Input type="datetime-local" {...field} />
+                          <Input type="datetime-local" {...field} data-testid="input-datetime-local" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
 
                   <FormField
                     control={form.control}
                     name="endDate"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>End Date & Time</FormLabel>
                         <FormControl>
-                          <Input type="datetime-local" {...field} />
+                          <Input type="datetime-local" {...field} data-testid="input-datetime-local" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </div>
 
                 <FormField
                   control={form.control}
                   name="location"
-                  render={({ field }) => (
-                    <FormItem>
+                  render={({ field }) =>
+                  <FormItem>
                       <FormLabel>Location</FormLabel>
                       <FormControl>
                         <UnifiedLocationPicker
-                          value={field.value || ''}
-                          onChange={(loc) => field.onChange(loc)}
-                          placeholder="Search for event location..."
-                          searchTypes={['establishment', 'point_of_interest']}
-                          allowManualEntry={true}
-                        />
+                        value={field.value || ''}
+                        onChange={(loc) => field.onChange(loc)}
+                        placeholder="Search for event location..."
+                        searchTypes={['establishment', 'point_of_interest']}
+                        allowManualEntry={true} />
+
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
+                  } />
+
 
                 <div className="flex items-center space-x-4">
                   <FormField
                     control={form.control}
                     name="isPublic"
-                    render={({ field }) => (
-                      <FormItem className="flex items-center space-x-2">
+                    render={({ field }) =>
+                    <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          checked={field.value}
+                          onCheckedChange={field.onChange} />
+
                         </FormControl>
                         <FormLabel className="text-sm font-normal cursor-pointer">
                           Public Event
                         </FormLabel>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
 
                   <FormField
                     control={form.control}
                     name="maxAttendees"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
+                    render={({ field }) =>
+                    <FormItem className="flex-1">
                         <FormLabel>Max Attendees (optional)</FormLabel>
                         <FormControl>
-                          <Input 
-                            type="number" 
-                            placeholder="Leave empty for unlimited"
-                            {...field}
-                            onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                          />
+                          <Input
+                          type="number"
+                          placeholder="Leave empty for unlimited"
+                          {...field}
+                          onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)} data-testid="input-number" />
+
                         </FormControl>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                 </div>
               </TabsContent>
 
@@ -353,8 +353,8 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormField
                       control={form.control}
                       name="isPaid"
-                      render={({ field }) => (
-                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                      render={({ field }) =>
+                      <FormItem className="flex items-center justify-between rounded-lg border p-4">
                           <div className="space-y-0.5">
                             <FormLabel className="text-base">Paid Event</FormLabel>
                             <FormDescription>
@@ -363,42 +363,42 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           </div>
                           <FormControl>
                             <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
+                            checked={field.value}
+                            onCheckedChange={field.onChange} />
+
                           </FormControl>
                         </FormItem>
-                      )}
-                    />
+                      } />
 
-                    {isPaid && (
-                      <>
+
+                    {isPaid &&
+                    <>
                         <div className="grid grid-cols-2 gap-4">
                           <FormField
-                            control={form.control}
-                            name="price"
-                            render={({ field }) => (
-                              <FormItem>
+                          control={form.control}
+                          name="price"
+                          render={({ field }) =>
+                          <FormItem>
                                 <FormLabel>Ticket Price</FormLabel>
                                 <FormControl>
-                                  <Input 
-                                    type="number" 
-                                    placeholder="25.00"
-                                    {...field} 
-                                  />
+                                  <Input
+                                type="number"
+                                placeholder="25.00"
+                                {...field} data-testid="input-number" />
+
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
-                            )}
-                          />
+                          } />
+
 
                           <FormField
-                            control={form.control}
-                            name="currency"
-                            render={({ field }) => (
-                              <FormItem>
+                          control={form.control}
+                          name="currency"
+                          render={({ field }) =>
+                          <FormItem>
                                 <FormLabel>Currency</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                                   <FormControl>
                                     <SelectTrigger>
                                       <SelectValue />
@@ -412,63 +412,63 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                                   </SelectContent>
                                 </Select>
                               </FormItem>
-                            )}
-                          />
+                          } />
+
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                           <FormField
-                            control={form.control}
-                            name="earlyBirdPrice"
-                            render={({ field }) => (
-                              <FormItem>
+                          control={form.control}
+                          name="earlyBirdPrice"
+                          render={({ field }) =>
+                          <FormItem>
                                 <FormLabel>Early Bird Price (optional)</FormLabel>
                                 <FormControl>
-                                  <Input 
-                                    type="number" 
-                                    placeholder="20.00"
-                                    {...field} 
-                                  />
+                                  <Input
+                                type="number"
+                                placeholder="20.00"
+                                {...field} data-testid="input-number" />
+
                                 </FormControl>
                               </FormItem>
-                            )}
-                          />
+                          } />
+
 
                           <FormField
-                            control={form.control}
-                            name="earlyBirdDeadline"
-                            render={({ field }) => (
-                              <FormItem>
+                          control={form.control}
+                          name="earlyBirdDeadline"
+                          render={({ field }) =>
+                          <FormItem>
                                 <FormLabel>Early Bird Deadline</FormLabel>
                                 <FormControl>
-                                  <Input type="datetime-local" {...field} />
+                                  <Input type="datetime-local" {...field} data-testid="input-datetime-local" />
                                 </FormControl>
                               </FormItem>
-                            )}
-                          />
+                          } />
+
                         </div>
 
                         <FormField
-                          control={form.control}
-                          name="ticketUrl"
-                          render={({ field }) => (
-                            <FormItem>
+                        control={form.control}
+                        name="ticketUrl"
+                        render={({ field }) =>
+                        <FormItem>
                               <FormLabel>External Ticket URL (optional)</FormLabel>
                               <FormControl>
-                                <Input 
-                                  type="url" 
-                                  placeholder="https://eventbrite.com/..."
-                                  {...field} 
-                                />
+                                <Input
+                              type="url"
+                              placeholder="https://eventbrite.com/..."
+                              {...field} data-testid="input-url" />
+
                               </FormControl>
                               <FormDescription>
                                 If you're using an external ticketing service
                               </FormDescription>
                             </FormItem>
-                          )}
-                        />
+                        } />
+
                       </>
-                    )}
+                    }
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -488,8 +488,8 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormField
                       control={form.control}
                       name="isVirtual"
-                      render={({ field }) => (
-                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                      render={({ field }) =>
+                      <FormItem className="flex items-center justify-between rounded-lg border p-4">
                           <div className="space-y-0.5">
                             <FormLabel className="text-base">Virtual Event</FormLabel>
                             <FormDescription>
@@ -498,61 +498,61 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           </div>
                           <FormControl>
                             <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
+                            checked={field.value}
+                            onCheckedChange={field.onChange} />
+
                           </FormControl>
                         </FormItem>
-                      )}
-                    />
+                      } />
 
-                    {isVirtual && (
-                      <>
+
+                    {isVirtual &&
+                    <>
                         <FormField
-                          control={form.control}
-                          name="virtualPlatform"
-                          render={({ field }) => (
-                            <FormItem>
+                        control={form.control}
+                        name="virtualPlatform"
+                        render={({ field }) =>
+                        <FormItem>
                               <FormLabel>Platform</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                                 <FormControl>
                                   <SelectTrigger>
                                     <SelectValue placeholder="Select platform" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {virtualPlatforms.map(platform => (
-                                    <SelectItem key={platform} value={platform}>
+                                  {virtualPlatforms.map((platform) =>
+                              <SelectItem key={platform} value={platform}>
                                       {platform.charAt(0).toUpperCase() + platform.slice(1).replace('_', ' ')}
                                     </SelectItem>
-                                  ))}
+                              )}
                                 </SelectContent>
                               </Select>
                             </FormItem>
-                          )}
-                        />
+                        } />
+
 
                         <FormField
-                          control={form.control}
-                          name="virtualUrl"
-                          render={({ field }) => (
-                            <FormItem>
+                        control={form.control}
+                        name="virtualUrl"
+                        render={({ field }) =>
+                        <FormItem>
                               <FormLabel>Meeting URL</FormLabel>
                               <FormControl>
-                                <Input 
-                                  type="url" 
-                                  placeholder="https://zoom.us/..."
-                                  {...field} 
-                                />
+                                <Input
+                              type="url"
+                              placeholder="https://zoom.us/..."
+                              {...field} data-testid="input-url" />
+
                               </FormControl>
                               <FormDescription>
                                 The link attendees will use to join the event
                               </FormDescription>
                             </FormItem>
-                          )}
-                        />
+                        } />
+
                       </>
-                    )}
+                    }
                   </CardContent>
                 </Card>
 
@@ -570,8 +570,8 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormField
                       control={form.control}
                       name="isRecurring"
-                      render={({ field }) => (
-                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                      render={({ field }) =>
+                      <FormItem className="flex items-center justify-between rounded-lg border p-4">
                           <div className="space-y-0.5">
                             <FormLabel className="text-base">Recurring Event</FormLabel>
                             <FormDescription>
@@ -580,57 +580,57 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                           </div>
                           <FormControl>
                             <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
+                            checked={field.value}
+                            onCheckedChange={field.onChange} />
+
                           </FormControl>
                         </FormItem>
-                      )}
-                    />
+                      } />
 
-                    {isRecurring && (
-                      <>
+
+                    {isRecurring &&
+                    <>
                         <FormField
-                          control={form.control}
-                          name="recurringPattern"
-                          render={({ field }) => (
-                            <FormItem>
+                        control={form.control}
+                        name="recurringPattern"
+                        render={({ field }) =>
+                        <FormItem>
                               <FormLabel>Repeat Pattern</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
                                 <FormControl>
                                   <SelectTrigger>
                                     <SelectValue placeholder="Select pattern" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {recurringPatterns.map(pattern => (
-                                    <SelectItem key={pattern} value={pattern}>
+                                  {recurringPatterns.map((pattern) =>
+                              <SelectItem key={pattern} value={pattern}>
                                       {pattern.charAt(0).toUpperCase() + pattern.slice(1)}
                                     </SelectItem>
-                                  ))}
+                              )}
                                 </SelectContent>
                               </Select>
                             </FormItem>
-                          )}
-                        />
+                        } />
+
 
                         <FormField
-                          control={form.control}
-                          name="recurringEndDate"
-                          render={({ field }) => (
-                            <FormItem>
+                        control={form.control}
+                        name="recurringEndDate"
+                        render={({ field }) =>
+                        <FormItem>
                               <FormLabel>End Repeat Date</FormLabel>
                               <FormControl>
-                                <Input type="date" {...field} />
+                                <Input type="date" {...field} data-testid="input-date" />
                               </FormControl>
                               <FormDescription>
                                 When should the recurring events stop?
                               </FormDescription>
                             </FormItem>
-                          )}
-                        />
+                        } />
+
                       </>
-                    )}
+                    }
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -652,15 +652,15 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                       <UploadMedia
                         onUploadComplete={(url) => setImageUrl(url)}
                         accept="image/*"
-                        multiple={false}
-                      />
-                      {imageUrl && (
-                        <img 
-                          src={imageUrl} 
-                          alt="Event" 
-                          className="mt-2 w-full max-w-md rounded-lg"
-                        />
-                      )}
+                        multiple={false} />
+
+                      {imageUrl &&
+                      <img
+                        src={imageUrl}
+                        alt="Event"
+                        className="mt-2 w-full max-w-md rounded-lg" />
+
+                      }
                     </div>
 
                     <div>
@@ -669,22 +669,22 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                         Add multiple images to showcase your event
                       </FormDescription>
                       <UploadMedia
-                        onUploadComplete={(url) => setGalleryImages(prev => [...prev, url])}
+                        onUploadComplete={(url) => setGalleryImages((prev) => [...prev, url])}
                         accept="image/*"
-                        multiple={true}
-                      />
-                      {galleryImages.length > 0 && (
-                        <div className="grid grid-cols-4 gap-2 mt-2">
-                          {galleryImages.map((img, idx) => (
-                            <img 
-                              key={idx}
-                              src={img} 
-                              alt={`Gallery ${idx + 1}`} 
-                              className="w-full h-24 object-cover rounded"
-                            />
-                          ))}
+                        multiple={true} />
+
+                      {galleryImages.length > 0 &&
+                      <div className="grid grid-cols-4 gap-2 mt-2">
+                          {galleryImages.map((img, idx) =>
+                        <img
+                          key={idx}
+                          src={img}
+                          alt={`Gallery ${idx + 1}`}
+                          className="w-full h-24 object-cover rounded" />
+
+                        )}
                         </div>
-                      )}
+                      }
                     </div>
 
                     <div>
@@ -693,20 +693,20 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                         Add schedules, maps, or other helpful documents
                       </FormDescription>
                       <UploadMedia
-                        onUploadComplete={(url) => setDocuments(prev => [...prev, url])}
+                        onUploadComplete={(url) => setDocuments((prev) => [...prev, url])}
                         accept=".pdf,.doc,.docx"
-                        multiple={true}
-                      />
-                      {documents.length > 0 && (
-                        <div className="space-y-2 mt-2">
-                          {documents.map((doc, idx) => (
-                            <div key={idx} className="flex items-center gap-2">
+                        multiple={true} />
+
+                      {documents.length > 0 &&
+                      <div className="space-y-2 mt-2">
+                          {documents.map((doc, idx) =>
+                        <div key={idx} className="flex items-center gap-2">
                               <FileText className="h-4 w-4" />
                               <span className="text-sm">Document {idx + 1}</span>
                             </div>
-                          ))}
+                        )}
                         </div>
-                      )}
+                      }
                     </div>
                   </CardContent>
                 </Card>
@@ -724,73 +724,73 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
                     <FormField
                       control={form.control}
                       name="categories"
-                      render={({ field }) => (
-                        <FormItem>
+                      render={({ field }) =>
+                      <FormItem>
                           <FormLabel>Categories</FormLabel>
                           <FormDescription>
                             Select categories to help people discover your event
                           </FormDescription>
                           <div className="grid grid-cols-2 gap-2">
-                            {['social', 'educational', 'performance', 'competition', 'charity', 'cultural'].map(cat => (
-                              <label key={cat} className="flex items-center space-x-2">
+                            {['social', 'educational', 'performance', 'competition', 'charity', 'cultural'].map((cat) =>
+                          <label key={cat} className="flex items-center space-x-2">
                                 <Checkbox
-                                  checked={field.value?.includes(cat)}
-                                  onCheckedChange={(checked) => {
-                                    const updated = checked 
-                                      ? [...(field.value || []), cat]
-                                      : field.value?.filter(c => c !== cat) || [];
-                                    field.onChange(updated);
-                                  }}
-                                />
+                              checked={field.value?.includes(cat)}
+                              onCheckedChange={(checked) => {
+                                const updated = checked ?
+                                [...(field.value || []), cat] :
+                                field.value?.filter((c) => c !== cat) || [];
+                                field.onChange(updated);
+                              }} />
+
                                 <span className="text-sm">{cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
                               </label>
-                            ))}
+                          )}
                           </div>
                         </FormItem>
-                      )}
-                    />
+                      } />
+
 
                     <FormField
                       control={form.control}
                       name="tags"
-                      render={({ field }) => (
-                        <FormItem>
+                      render={({ field }) =>
+                      <FormItem>
                           <FormLabel>Tags</FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="tango, milonga, buenos aires (comma separated)"
-                              onChange={(e) => {
-                                const tags = e.target.value.split(',').map(t => t.trim()).filter(Boolean);
-                                field.onChange(tags);
-                              }}
-                            />
+                            <Input
+                            placeholder="tango, milonga, buenos aires (comma separated)"
+                            onChange={(e) => {
+                              const tags = e.target.value.split(',').map((t) => t.trim()).filter(Boolean);
+                              field.onChange(tags);
+                            }} data-testid="input-element" />
+
                           </FormControl>
                           <FormDescription>
                             Add tags to improve searchability
                           </FormDescription>
                         </FormItem>
-                      )}
-                    />
+                      } />
+
                   </CardContent>
                 </Card>
               </TabsContent>
             </Tabs>
 
             <div className="flex justify-end space-x-4">
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} data-testid="button-button">
                 Cancel
               </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
-                disabled={createEventMutation.isPending}
-              >
+                disabled={createEventMutation.isPending} data-testid="button-submit">
+
                 {createEventMutation.isPending ? 'Creating...' : 'Create Event'}
               </Button>
             </div>
           </form>
         </Form>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>);
+
 }

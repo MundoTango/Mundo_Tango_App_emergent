@@ -62,20 +62,20 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
         className
       )}
       disabled={disabled || isLoading}
-      {...props}
-    >
-      {isLoading && (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      )}
-      {!isLoading && icon && iconPosition === 'left' && (
-        <span className="mr-2">{icon}</span>
-      )}
+      {...props} data-testid="button-element">
+
+      {isLoading &&
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      }
+      {!isLoading && icon && iconPosition === 'left' &&
+      <span className="mr-2">{icon}</span>
+      }
       {children}
-      {!isLoading && icon && iconPosition === 'right' && (
-        <span className="ml-2">{icon}</span>
-      )}
-    </button>
-  );
+      {!isLoading && icon && iconPosition === 'right' &&
+      <span className="ml-2">{icon}</span>
+      }
+    </button>);
+
 });
 
 MTButton.displayName = 'MTButton';

@@ -51,64 +51,64 @@ export function FriendRequestList() {
     queryFn: async () => {
       const response = await apiRequest('/api/friend-requests/received');
       return response.data || [];
-    },
+    }
   });
 
   const acceptMutation = useMutation({
-    mutationFn: ({ requestId, message }: { requestId: number; message: string }) =>
-      apiRequest(`/api/friend-requests/${requestId}/accept`, {
-        method: 'POST',
-        body: { receiverMessage: message },
-      }),
+    mutationFn: ({ requestId, message }: {requestId: number;message: string;}) =>
+    apiRequest(`/api/friend-requests/${requestId}/accept`, {
+      method: 'POST',
+      body: { receiverMessage: message }
+    }),
     onSuccess: (_, { requestId }) => {
       toast({
         title: "Friend Request Accepted!",
-        description: "You are now connected.",
+        description: "You are now connected."
       });
       queryClient.invalidateQueries({ queryKey: ['/api/friend-requests/received'] });
       queryClient.invalidateQueries({ queryKey: ['/api/friends'] });
       setShowAcceptDialog(false);
       setSelectedRequest(null);
-    },
+    }
   });
 
   const rejectMutation = useMutation({
     mutationFn: (requestId: number) =>
-      apiRequest(`/api/friend-requests/${requestId}/reject`, {
-        method: 'POST',
-      }),
+    apiRequest(`/api/friend-requests/${requestId}/reject`, {
+      method: 'POST'
+    }),
     onSuccess: () => {
       toast({
         title: "Friend Request Declined",
-        description: "The request has been removed.",
+        description: "The request has been removed."
       });
       queryClient.invalidateQueries({ queryKey: ['/api/friend-requests/received'] });
-    },
+    }
   });
 
   const snoozeMutation = useMutation({
-    mutationFn: ({ requestId, days }: { requestId: number; days: number }) => {
+    mutationFn: ({ requestId, days }: {requestId: number;days: number;}) => {
       const snoozedUntil = new Date();
       snoozedUntil.setDate(snoozedUntil.getDate() + days);
       return apiRequest(`/api/friend-requests/${requestId}/snooze`, {
         method: 'POST',
-        body: { snoozedUntil: snoozedUntil.toISOString() },
+        body: { snoozedUntil: snoozedUntil.toISOString() }
       });
     },
     onSuccess: () => {
       toast({
         title: "Request Snoozed",
-        description: "You'll be reminded later.",
+        description: "You'll be reminded later."
       });
       queryClient.invalidateQueries({ queryKey: ['/api/friend-requests/received'] });
-    },
+    }
   });
 
   const handleAccept = () => {
     if (selectedRequest) {
       acceptMutation.mutate({
         requestId: selectedRequest.id,
-        message: acceptMessage,
+        message: acceptMessage
       });
     }
   };
@@ -116,13 +116,13 @@ export function FriendRequestList() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {[1, 2, 3].map((i) => (
-          <Card key={i} className="glassmorphic-card animate-pulse">
+        {[1, 2, 3].map((i) =>
+        <Card key={i} className="glassmorphic-card animate-pulse">
             <CardContent className="h-32" />
           </Card>
-        ))}
-      </div>
-    );
+        )}
+      </div>);
+
   }
 
   if (friendRequests.length === 0) {
@@ -132,15 +132,15 @@ export function FriendRequestList() {
           <UserPlus className="h-12 w-12 text-turquoise-400/50 mb-4" />
           <p className="text-muted-foreground">No pending friend requests</p>
         </CardContent>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
     <>
       <div className="space-y-4">
-        {friendRequests.map((request: FriendRequest) => (
-          <Card key={request.id} className="glassmorphic-card hover:shadow-lg transition-all duration-300">
+        {friendRequests.map((request: FriendRequest) =>
+        <Card key={request.id} className="glassmorphic-card hover:shadow-lg transition-all duration-300">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
                 <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50">
@@ -161,60 +161,60 @@ export function FriendRequestList() {
                     </p>
                   </div>
 
-                  {request.didWeDance && (
-                    <div className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 p-3 rounded-lg border border-turquoise-200/30">
+                  {request.didWeDance &&
+                <div className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 p-3 rounded-lg border border-turquoise-200/30">
                       <div className="flex items-center gap-2 mb-1">
                         <Music className="h-4 w-4 text-turquoise-600" />
                         <span className="text-sm font-medium text-turquoise-700">We danced together!</span>
                       </div>
-                      {request.danceLocation && (
-                        <p className="text-sm text-turquoise-600 flex items-center gap-1 ml-6">
+                      {request.danceLocation &&
+                  <p className="text-sm text-turquoise-600 flex items-center gap-1 ml-6">
                           <MapPin className="h-3 w-3" />
                           {request.danceLocation}
                         </p>
-                      )}
-                      {request.danceStory && (
-                        <p className="text-sm text-gray-600 mt-2 ml-6 italic">
+                  }
+                      {request.danceStory &&
+                  <p className="text-sm text-gray-600 mt-2 ml-6 italic">
                           "{request.danceStory}"
                         </p>
-                      )}
+                  }
                     </div>
-                  )}
+                }
 
-                  {request.senderMessage && (
-                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
+                  {request.senderMessage &&
+                <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
                       <p className="text-sm flex items-start gap-2">
                         <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                         <span>{request.senderMessage}</span>
                       </p>
                     </div>
-                  )}
+                }
 
                   <div className="flex items-center gap-2 pt-2">
                     <Button
-                      size="sm"
-                      onClick={() => {
-                        setSelectedRequest(request);
-                        setShowAcceptDialog(true);
-                      }}
-                      className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md"
-                    >
+                    size="sm"
+                    onClick={() => {
+                      setSelectedRequest(request);
+                      setShowAcceptDialog(true);
+                    }}
+                    className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-md" data-testid="button-bg-gradient-to-r">
+
                       <Check className="mr-1 h-4 w-4" />
                       Accept
                     </Button>
                     <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => rejectMutation.mutate(request.id)}
-                    >
+                    size="sm"
+                    variant="outline"
+                    onClick={() => rejectMutation.mutate(request.id)} data-testid="button-element">
+
                       <X className="mr-1 h-4 w-4" />
                       Decline
                     </Button>
                     <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => snoozeMutation.mutate({ requestId: request.id, days: 7 })}
-                    >
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => snoozeMutation.mutate({ requestId: request.id, days: 7 })} data-testid="button-element">
+
                       <Clock className="mr-1 h-4 w-4" />
                       Snooze
                     </Button>
@@ -223,7 +223,7 @@ export function FriendRequestList() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        )}
       </div>
 
       <Dialog open={showAcceptDialog} onOpenChange={setShowAcceptDialog}>
@@ -241,29 +241,29 @@ export function FriendRequestList() {
               placeholder="Add a welcome message (optional)..."
               value={acceptMessage}
               onChange={(e) => setAcceptMessage(e.target.value)}
-              className="glassmorphic-input min-h-[100px]"
-            />
+              className="glassmorphic-input min-h-[100px]" data-testid="textarea-glassmorphic-input" />
+
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
                 onClick={() => {
                   setShowAcceptDialog(false);
                   setAcceptMessage('');
-                }}
-              >
+                }} data-testid="button-element">
+
                 Cancel
               </Button>
               <Button
                 onClick={handleAccept}
                 disabled={acceptMutation.isPending}
-                className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
-              >
+                className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+
                 Accept Request
               </Button>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-    </>
-  );
+    </>);
+
 }

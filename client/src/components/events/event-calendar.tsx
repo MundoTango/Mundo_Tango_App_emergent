@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Calendar as CalendarIcon, 
-  Clock, 
-  MapPin 
-} from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Calendar as CalendarIcon,
+  Clock,
+  MapPin } from
+"lucide-react";
 
 interface Event {
   id: number;
@@ -34,7 +34,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
 
   // Get events for a specific date
   const getEventsForDate = (date: Date) => {
-    return events.filter(event => {
+    return events.filter((event) => {
       const eventDate = new Date(event.startDate);
       return eventDate.toDateString() === date.toDateString();
     });
@@ -71,9 +71,9 @@ export default function EventCalendar({ events }: EventCalendarProps) {
 
   const calendarDays = generateCalendarDays();
   const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+
 
   const selectedDateEvents = selectedDate ? getEventsForDate(selectedDate) : [];
 
@@ -91,15 +91,15 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => navigateMonth('prev')}
-                >
+                  onClick={() => navigateMonth('prev')} data-testid="button-element">
+
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => navigateMonth('next')}
-                >
+                  onClick={() => navigateMonth('next')} data-testid="button-element">
+
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -108,11 +108,11 @@ export default function EventCalendar({ events }: EventCalendarProps) {
           <CardContent>
             {/* Day Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="p-2 text-center text-sm font-medium text-gray-600">
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) =>
+              <div key={day} className="p-2 text-center text-sm font-medium text-gray-600">
                   {day}
                 </div>
-              ))}
+              )}
             </div>
 
             {/* Calendar Grid */}
@@ -134,16 +134,16 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                       ${isToday ? 'border-tango-red bg-tango-red/10' : 'border-gray-200'}
                       ${isSelected ? 'bg-tango-red text-white' : 'hover:bg-gray-50'}
                       ${hasEvents && !isSelected ? 'bg-blue-50 border-blue-200' : ''}
-                    `}
-                  >
+                    `} data-testid="button-element">
+
                     <div className="font-medium">{date.getDate()}</div>
-                    {hasEvents && (
-                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+                    {hasEvents &&
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
                         <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-white' : 'bg-tango-red'}`}></div>
                       </div>
-                    )}
-                  </button>
-                );
+                    }
+                  </button>);
+
               })}
             </div>
           </CardContent>
@@ -155,25 +155,25 @@ export default function EventCalendar({ events }: EventCalendarProps) {
         <Card className="card-shadow">
           <CardHeader>
             <CardTitle className="text-lg text-tango-black">
-              {selectedDate ? (
-                <>
+              {selectedDate ?
+              <>
                   Events for {selectedDate.toLocaleDateString('en', {
-                    weekday: 'long',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </>
-              ) : (
-                'Select a date'
-              )}
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+                </> :
+
+              'Select a date'
+              }
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {selectedDate ? (
-              selectedDateEvents.length > 0 ? (
-                <div className="space-y-4">
-                  {selectedDateEvents.map(event => (
-                    <div key={event.id} className="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
+            {selectedDate ?
+            selectedDateEvents.length > 0 ?
+            <div className="space-y-4">
+                  {selectedDateEvents.map((event) =>
+              <div key={event.id} className="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
                       <h4 className="font-medium text-tango-black mb-2">{event.title}</h4>
                       
                       <div className="space-y-1 text-sm text-gray-600">
@@ -181,10 +181,10 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                           <Clock className="h-3 w-3" />
                           <span>
                             {new Date(event.startDate).toLocaleTimeString('en', {
-                              hour: 'numeric',
-                              minute: '2-digit',
-                              hour12: true
-                            })}
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                      })}
                           </span>
                         </div>
                         
@@ -193,11 +193,11 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                           <span className="truncate">{event.location}</span>
                         </div>
                         
-                        {event.price && (
-                          <div className="flex items-center space-x-2">
+                        {event.price &&
+                  <div className="flex items-center space-x-2">
                             <span className="text-tango-red font-medium">{event.price}</span>
                           </div>
-                        )}
+                  }
                       </div>
 
                       <p className="text-xs text-gray-600 mt-2 line-clamp-2">
@@ -208,31 +208,31 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                         <Badge variant="secondary" className="text-xs">
                           {event.currentAttendees} attending
                         </Badge>
-                        <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
+                        <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
                           View Details
                         </Button>
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
+              )}
+                </div> :
+
+            <div className="text-center py-8">
                   <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
                   <p className="text-gray-600">No events on this date</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Why not create one?
                   </p>
-                </div>
-              )
-            ) : (
-              <div className="text-center py-8">
+                </div> :
+
+
+            <div className="text-center py-8">
                 <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
                 <p className="text-gray-600">Select a date to view events</p>
               </div>
-            )}
+            }
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>);
+
 }

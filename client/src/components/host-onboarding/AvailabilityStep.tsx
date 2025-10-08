@@ -18,16 +18,16 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
 
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
-    
-    const dateExists = selectedDates.some(d => d.toDateString() === date.toDateString());
+
+    const dateExists = selectedDates.some((d) => d.toDateString() === date.toDateString());
     let newDates;
-    
+
     if (dateExists) {
-      newDates = selectedDates.filter(d => d.toDateString() !== date.toDateString());
+      newDates = selectedDates.filter((d) => d.toDateString() !== date.toDateString());
     } else {
       newDates = [...selectedDates, date];
     }
-    
+
     setSelectedDates(newDates);
     updateData({ availableDates: newDates });
   };
@@ -58,8 +58,8 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           </div>
           <Switch
             checked={data.instantBook || false}
-            onCheckedChange={(checked) => updateData({ instantBook: checked })}
-          />
+            onCheckedChange={(checked) => updateData({ instantBook: checked })} />
+
         </div>
       </div>
 
@@ -70,13 +70,13 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="minimumStay"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.minimumStay || 1}
-          onChange={(e) => updateData({ minimumStay: parseInt(e.target.value) })}
-        >
-          {[1, 2, 3, 4, 5, 7, 14, 28].map((nights) => (
-            <option key={nights} value={nights}>
+          onChange={(e) => updateData({ minimumStay: parseInt(e.target.value) })} data-testid="select-minimumstay">
+
+          {[1, 2, 3, 4, 5, 7, 14, 28].map((nights) =>
+          <option key={nights} value={nights}>
               {nights} {nights === 1 ? 'night' : 'nights'}
             </option>
-          ))}
+          )}
         </select>
         <p className="text-xs text-gray-500 mt-1">
           Shorter stays mean more bookings, but also more turnovers
@@ -90,8 +90,8 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="advanceNotice"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.advanceNotice || 'same_day'}
-          onChange={(e) => updateData({ advanceNotice: e.target.value })}
-        >
+          onChange={(e) => updateData({ advanceNotice: e.target.value })} data-testid="select-advancenotice">
+
           <option value="same_day">Same day (up to 2 hours before)</option>
           <option value="1_day">At least 1 day</option>
           <option value="2_days">At least 2 days</option>
@@ -107,8 +107,8 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="bookingWindow"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.bookingWindow || '3_months'}
-          onChange={(e) => updateData({ bookingWindow: e.target.value })}
-        >
+          onChange={(e) => updateData({ bookingWindow: e.target.value })} data-testid="select-bookingwindow">
+
           <option value="3_months">3 months in advance</option>
           <option value="6_months">6 months in advance</option>
           <option value="9_months">9 months in advance</option>
@@ -125,15 +125,15 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             id="checkInTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkInTime || '15:00'}
-            onChange={(e) => updateData({ checkInTime: e.target.value })}
-          >
+            onChange={(e) => updateData({ checkInTime: e.target.value })} data-testid="select-checkintime">
+
             {Array.from({ length: 24 }, (_, i) => {
               const hour = i.toString().padStart(2, '0');
               return (
                 <option key={hour} value={`${hour}:00`}>
                   {i === 0 ? '12:00 AM' : i < 12 ? `${i}:00 AM` : i === 12 ? '12:00 PM' : `${i - 12}:00 PM`}
-                </option>
-              );
+                </option>);
+
             })}
           </select>
         </div>
@@ -143,15 +143,15 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             id="checkOutTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkOutTime || '11:00'}
-            onChange={(e) => updateData({ checkOutTime: e.target.value })}
-          >
+            onChange={(e) => updateData({ checkOutTime: e.target.value })} data-testid="select-checkouttime">
+
             {Array.from({ length: 24 }, (_, i) => {
               const hour = i.toString().padStart(2, '0');
               return (
                 <option key={hour} value={`${hour}:00`}>
                   {i === 0 ? '12:00 AM' : i < 12 ? `${i}:00 AM` : i === 12 ? '12:00 PM' : `${i - 12}:00 PM`}
-                </option>
-              );
+                </option>);
+
             })}
           </select>
         </div>
@@ -178,8 +178,8 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 value="always"
                 checked={data.availabilityType === 'always'}
                 onChange={() => updateData({ availabilityType: 'always' })}
-                className="text-pink-500"
-              />
+                className="text-pink-500" data-testid="input-radio" />
+
               <div>
                 <div className="font-medium">Always available</div>
                 <div className="text-xs text-gray-500">Your calendar is open for all future dates</div>
@@ -193,8 +193,8 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 value="sometimes"
                 checked={data.availabilityType === 'sometimes' || !data.availabilityType}
                 onChange={() => updateData({ availabilityType: 'sometimes' })}
-                className="text-pink-500"
-              />
+                className="text-pink-500" data-testid="input-radio" />
+
               <div>
                 <div className="font-medium">Sometimes available</div>
                 <div className="text-xs text-gray-500">You'll manually block dates when unavailable</div>
@@ -217,6 +217,6 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

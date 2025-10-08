@@ -22,7 +22,7 @@ const profileSchema = z.object({
   state: z.string().optional(),
   country: z.string().optional(),
   latitude: z.number().optional(),
-  longitude: z.number().optional(),
+  longitude: z.number().optional()
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -49,17 +49,17 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
       state: user?.state || '',
       country: user?.country || '',
       latitude: user?.latitude || undefined,
-      longitude: user?.longitude || undefined,
+      longitude: user?.longitude || undefined
     }
   });
 
   const updateProfileMutation = useMutation({
     mutationFn: (data: ProfileFormData) =>
-      apiRequest(`/api/user/profile`, 'PUT', data),
+    apiRequest(`/api/user/profile`, 'PUT', data),
     onSuccess: () => {
       toast({
         title: 'Profile Updated',
-        description: 'Your profile has been updated successfully.',
+        description: 'Your profile has been updated successfully.'
       });
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
       onUpdate?.();
@@ -68,24 +68,24 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
       toast({
         title: 'Update Failed',
         description: error.message || 'Failed to update profile.',
-        variant: 'destructive',
+        variant: 'destructive'
       });
-    },
+    }
   });
 
   const onSubmit = (data: ProfileFormData) => {
     updateProfileMutation.mutate(data);
   };
 
-  const handleLocationChange = (location: string, coordinates?: { lat: number; lng: number }, details?: any) => {
+  const handleLocationChange = (location: string, coordinates?: {lat: number;lng: number;}, details?: any) => {
     setSelectedLocation(location);
     form.setValue('location', location);
-    
+
     if (coordinates) {
       form.setValue('latitude', coordinates.lat);
       form.setValue('longitude', coordinates.lng);
     }
-    
+
     if (details) {
       // Extract city, state, country from details if available
       form.setValue('city', details.name || '');
@@ -121,50 +121,50 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
               <FormField
                 control={form.control}
                 name="firstName"
-                render={({ field }) => (
-                  <FormItem>
+                render={({ field }) =>
+                <FormItem>
                     <FormLabel>First Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter first name" {...field} />
+                      <Input placeholder="Enter first name" {...field} data-testid="input-element" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
-              />
+                } />
+
               
               <FormField
                 control={form.control}
                 name="lastName"
-                render={({ field }) => (
-                  <FormItem>
+                render={({ field }) =>
+                <FormItem>
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter last name" {...field} />
+                      <Input placeholder="Enter last name" {...field} data-testid="input-element" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
-              />
+                } />
+
             </div>
 
             {/* Bio Field */}
             <FormField
               control={form.control}
               name="bio"
-              render={({ field }) => (
-                <FormItem>
+              render={({ field }) =>
+              <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Tell us about yourself..."
-                      className="min-h-[100px]"
-                      {...field}
-                    />
+                    <Textarea
+                    placeholder="Tell us about yourself..."
+                    className="min-h-[100px]"
+                    {...field} data-testid="textarea-min-h-100px" />
+
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )}
-            />
+              } />
+
 
             {/* Unified Location Input */}
             <div className="space-y-4">
@@ -175,60 +175,60 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   placeholder="Search for your location..."
                   onChange={handleLocationChange}
                   className="w-full"
-                  allowManualEntry={true}
-                />
+                  allowManualEntry={true} />
+
                 
-                {selectedLocation && (
-                  <div className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                {selectedLocation &&
+                <div className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <MapPin className="w-4 h-4 text-blue-600" />
                     <span className="text-sm text-blue-800 flex-1">{selectedLocation}</span>
                     <button
-                      type="button"
-                      onClick={clearLocation}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
+                    type="button"
+                    onClick={clearLocation}
+                    className="text-blue-600 hover:text-blue-800" data-testid="button-button">
+
                       <X className="w-4 h-4" />
                     </button>
                   </div>
-                )}
+                }
               </div>
               <FormMessage />
             </div>
 
             {/* Action Buttons */}
             <div className="flex justify-end space-x-3 pt-6">
-              {onCancel && (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={onCancel}
-                  disabled={updateProfileMutation.isPending}
-                >
+              {onCancel &&
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                disabled={updateProfileMutation.isPending} data-testid="button-button">
+
                   Cancel
                 </Button>
-              )}
+              }
               
               <Button
                 type="submit"
                 disabled={updateProfileMutation.isPending}
-                className="flex items-center gap-2"
-              >
-                {updateProfileMutation.isPending ? (
-                  <>
+                className="flex items-center gap-2" data-testid="button-submit">
+
+                {updateProfileMutation.isPending ?
+                <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Saving...
-                  </>
-                ) : (
-                  <>
+                  </> :
+
+                <>
                     <Save className="w-4 h-4" />
                     Save Changes
                   </>
-                )}
+                }
               </Button>
             </div>
           </form>
         </Form>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }

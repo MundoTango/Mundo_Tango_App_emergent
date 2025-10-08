@@ -10,17 +10,17 @@ interface PricingStepProps {
 }
 
 const CURRENCIES = [
-  { code: 'USD', symbol: '$', name: 'US Dollar' },
-  { code: 'EUR', symbol: '€', name: 'Euro' },
-  { code: 'GBP', symbol: '£', name: 'British Pound' },
-  { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
-  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
-  { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
-  { code: 'ARS', symbol: 'AR$', name: 'Argentine Peso' },
-];
+{ code: 'USD', symbol: '$', name: 'US Dollar' },
+{ code: 'EUR', symbol: '€', name: 'Euro' },
+{ code: 'GBP', symbol: '£', name: 'British Pound' },
+{ code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+{ code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+{ code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
+{ code: 'ARS', symbol: 'AR$', name: 'Argentine Peso' }];
+
 
 export default function PricingStep({ data, updateData }: PricingStepProps) {
-  const selectedCurrency = CURRENCIES.find(c => c.code === (data.currency || 'USD'));
+  const selectedCurrency = CURRENCIES.find((c) => c.code === (data.currency || 'USD'));
 
   // Calculate suggested prices based on base price
   const basePrice = parseFloat(data.basePrice) || 0;
@@ -43,13 +43,13 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           id="currency"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.currency || 'USD'}
-          onChange={(e) => updateData({ currency: e.target.value })}
-        >
-          {CURRENCIES.map((currency) => (
-            <option key={currency.code} value={currency.code}>
+          onChange={(e) => updateData({ currency: e.target.value })} data-testid="select-currency">
+
+          {CURRENCIES.map((currency) =>
+          <option key={currency.code} value={currency.code}>
               {currency.symbol} - {currency.name}
             </option>
-          ))}
+          )}
         </select>
       </div>
 
@@ -68,8 +68,8 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             placeholder="0"
             className="pl-10"
             value={data.basePrice || ''}
-            onChange={(e) => updateData({ basePrice: parseFloat(e.target.value) || 0 })}
-          />
+            onChange={(e) => updateData({ basePrice: parseFloat(e.target.value) || 0 })} data-testid="input-baseprice" />
+
         </div>
         <p className="text-xs text-gray-500 mt-1">
           Guest price before taxes: {selectedCurrency?.symbol}{basePrice || 0}
@@ -91,8 +91,8 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             placeholder="0"
             className="pl-10"
             value={data.cleaningFee || ''}
-            onChange={(e) => updateData({ cleaningFee: parseFloat(e.target.value) || 0 })}
-          />
+            onChange={(e) => updateData({ cleaningFee: parseFloat(e.target.value) || 0 })} data-testid="input-cleaningfee" />
+
         </div>
         <p className="text-xs text-gray-500 mt-1">
           One-time fee charged to guests
@@ -100,8 +100,8 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
       </div>
 
       {/* Smart pricing suggestion */}
-      {basePrice > 0 && (
-        <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-4">
+      {basePrice > 0 &&
+      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-4">
           <div className="flex items-start gap-3">
             <DollarSign className="w-5 h-5 text-pink-600 mt-0.5" />
             <div>
@@ -114,7 +114,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             </div>
           </div>
         </div>
-      )}
+      }
 
       {/* Discounts */}
       <div>
@@ -140,8 +140,8 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   max="100"
                   placeholder="10"
                   value={data.weeklyDiscount || ''}
-                  onChange={(e) => updateData({ weeklyDiscount: parseInt(e.target.value) || 0 })}
-                />
+                  onChange={(e) => updateData({ weeklyDiscount: parseInt(e.target.value) || 0 })} data-testid="input-number" />
+
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
               <span className="text-sm text-gray-600">
@@ -167,8 +167,8 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
                   max="100"
                   placeholder="20"
                   value={data.monthlyDiscount || ''}
-                  onChange={(e) => updateData({ monthlyDiscount: parseInt(e.target.value) || 0 })}
-                />
+                  onChange={(e) => updateData({ monthlyDiscount: parseInt(e.target.value) || 0 })} data-testid="input-number" />
+
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
               <span className="text-sm text-gray-600">
@@ -194,6 +194,6 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
