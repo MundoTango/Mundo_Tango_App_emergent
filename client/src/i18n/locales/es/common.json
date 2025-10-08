@@ -254,6 +254,56 @@
       "tag": "etiqueta",
       "tags": "etiquetas",
       "all": "Todas"
+    },
+    "post": {
+      "seeFriendship": "Ver Amistad",
+      "viewFriendshipWith": "Ver detalles de amistad con {{name}}",
+      "anonymous": "Anónimo",
+      "recently": "recientemente",
+      "commentPlaceholder": "Escribe un comentario reflexivo...",
+      "commentButton": "Comentar",
+      "commentDefault": "Escribe un comentario..."
+    },
+    "share": {
+      "sharePost": "Compartir Publicación",
+      "shareToTimeline": "Compartir en Cronología",
+      "shareToTimelineDesc": "Comparte esta publicación en tu cronología",
+      "shareWithComment": "Compartir con Comentario",
+      "shareWithCommentDesc": "Agrega tus pensamientos al compartir",
+      "copyLink": "Copiar Enlace",
+      "copyLinkDesc": "Copiar enlace de la publicación al portapapeles",
+      "cancel": "Cancelar",
+      "addThoughtsOptional": "Agrega tus pensamientos (opcional):",
+      "whatDoYouThink": "¿Qué piensas sobre esto?",
+      "share": "Compartir",
+      "linkCopied": "¡Enlace copiado al portapapeles!",
+      "linkCopyFailed": "Error al copiar enlace",
+      "pleaseTryAgain": "Por favor, inténtalo de nuevo"
+    },
+    "actions": {
+      "postDeleted": "Publicación eliminada",
+      "postDeletedDesc": "La publicación ha sido eliminada",
+      "error": "Error",
+      "errorDesc": "Algo salió mal",
+      "reportSubmitted": "Reporte enviado",
+      "reportSubmittedDesc": "Gracias por ayudar a mantener nuestra comunidad segura",
+      "userBlocked": "Usuario bloqueado",
+      "userBlockedDesc": "Ya no verás publicaciones de este usuario",
+      "linkCopied": "Enlace copiado",
+      "linkCopiedDesc": "El enlace ha sido copiado a tu portapapeles",
+      "postSaved": "Publicación guardada",
+      "postSavedDesc": "La publicación ha sido guardada en tu colección",
+      "deleting": "Eliminando...",
+      "delete": "Eliminar",
+      "reportReasons": {
+        "spam": "Spam o contenido engañoso",
+        "harassment": "Acoso o intimidación",
+        "inappropriate": "Contenido inapropiado",
+        "copyright": "Infracción de derechos de autor",
+        "violence": "Violencia o contenido peligroso",
+        "hate": "Discurso de odio",
+        "other": "Otro"
+      }
     }
   },
   "events": {
