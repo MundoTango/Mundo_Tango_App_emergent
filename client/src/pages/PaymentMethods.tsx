@@ -129,8 +129,8 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
 
       {errorMessage && (
         <Alert variant="destructive" data-testid="link-element">
-          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-          <AlertDescription data-testid="link-element">{errorMessage}</AlertDescription>
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
       )}
 
@@ -256,7 +256,7 @@ const PaymentMethods: React.FC = () => {
               <CardDescription>Add or remove payment methods from your account</CardDescription>
             </div>
             <Button
-              onClick={() = data-testid="button-element"> setShowAddDialog(true)}
+              onClick={()> setShowAddDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -305,7 +305,7 @@ const PaymentMethods: React.FC = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() = data-testid="button-element"> setDefaultMutation.mutate(method.id)}
+                          onClick={()> setDefaultMutation.mutate(method.id)}
                           disabled={setDefaultMutation.isPending}
                         >
                           {setDefaultMutation.isPending ? (
@@ -321,7 +321,7 @@ const PaymentMethods: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() = data-testid="button-element"> handleDelete(method.id)}
+                        onClick={()> handleDelete(method.id)}
                         disabled={deletingId === method.id || method.is_default}
                         className="text-red-600 hover:text-red-700"
                       >
@@ -362,7 +362,7 @@ const PaymentMethods: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
           <Elements stripe={stripePromise}>
-            <AddPaymentMethodForm onSuccess={() = data-testid="link-element"> setShowAddDialog(false)} />
+            <AddPaymentMethodForm onSuccess={()> setShowAddDialog(false)} />
           </Elements>
         </DialogContent>
       </Dialog>

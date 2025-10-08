@@ -125,7 +125,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   <FormItem>
                     <FormLabel>First Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter first name" {...field} / data-testid="input-element">
+                      <Input placeholder="Enter first name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,7 +139,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   <FormItem>
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter last name" {...field} / data-testid="input-element">
+                      <Input placeholder="Enter last name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,7 +159,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                       placeholder="Tell us about yourself..."
                       className="min-h-[100px]"
                       {...field}
-                    / data-testid="textarea-min-h-[100px]">
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

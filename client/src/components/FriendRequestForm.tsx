@@ -135,7 +135,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                           placeholder="Milonga name, event, or city"
                           {...field}
                           className="glassmorphic-input"
-                        / data-testid="input-glassmorphic-input">
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -155,7 +155,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                           placeholder="What was memorable about dancing together?"
                           className="glassmorphic-input min-h-[80px]"
                           {...field}
-                        / data-testid="textarea-glassmorphic-input">
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -174,7 +174,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                       placeholder="Add a personal message..."
                       className="glassmorphic-input min-h-[100px]"
                       {...field}
-                    / data-testid="textarea-glassmorphic-input">
+                    />
                   </FormControl>
                   <FormDescription>
                     This message will be visible to {receiverName}
@@ -194,7 +194,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                       placeholder="Add a note for yourself..."
                       className="glassmorphic-input min-h-[60px]"
                       {...field}
-                    / data-testid="textarea-glassmorphic-input">
+                    />
                   </FormControl>
                   <FormDescription>
                     Only you can see this note

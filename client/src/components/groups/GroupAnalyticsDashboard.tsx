@@ -55,7 +55,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   
   return (
     <div className="space-y-6" data-testid="analytics-dashboard">
-      <Card data-testid="health-score-card">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5" />
@@ -78,7 +78,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
       </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card data-testid="engagement-card">
+        <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <MessageCircle className="h-8 w-8 text-blue-600" />
@@ -90,7 +90,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           </CardContent>
         </Card>
         
-        <Card data-testid="growth-card">
+        <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <Users className="h-8 w-8 text-green-600" />
@@ -102,7 +102,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
           </CardContent>
         </Card>
         
-        <Card data-testid="engagement-score-card">
+        <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <Activity className="h-8 w-8 text-purple-600" />
@@ -115,7 +115,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
         </Card>
       </div>
       
-      <Card data-testid="peak-activity-card">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
@@ -141,7 +141,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
         </CardContent>
       </Card>
       
-      <Card data-testid="top-contributors-card">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -176,7 +176,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
       </Card>
       
       {insights.trendingTopics.length > 0 && (
-        <Card data-testid="trending-topics-card">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5" />

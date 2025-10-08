@@ -304,17 +304,17 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog} data-testid="link-element">
-        <AlertDialogContent data-testid="link-element">
-          <AlertDialogHeader data-testid="link-element">
-            <AlertDialogTitle data-testid="link-element">Delete this post?</AlertDialogTitle>
-            <AlertDialogDescription data-testid="link-element">
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this post?</AlertDialogTitle>
+            <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your post and remove it from all feeds.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter data-testid="link-element">
-            <AlertDialogCancel data-testid="link-element">Cancel</AlertDialogCancel>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() = data-testid="link-element"> deleteMutation.mutate()}
+              onClick={()> deleteMutation.mutate()}
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
@@ -326,10 +326,10 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
 
       {/* Report Dialog */}
       <AlertDialog open={showReportDialog} onOpenChange={setShowReportDialog} data-testid="link-element">
-        <AlertDialogContent data-testid="link-element">
-          <AlertDialogHeader data-testid="link-element">
-            <AlertDialogTitle data-testid="link-element">Report this post</AlertDialogTitle>
-            <AlertDialogDescription data-testid="link-element">
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Report this post</AlertDialogTitle>
+            <AlertDialogDescription>
               Help us understand what's happening with this post. What issue are you reporting?
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -342,7 +342,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
                     name="reportReason"
                     value={reason}
                     checked={reportReason === reason}
-                    onChange={(e) = data-testid="input-element"> setReportReason(e.target.value)}
+                    onChange={(e)> setReportReason(e.target.value)}
                     className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500 dark:border-neutral-600"
                   />
                   <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{reason}</span>
@@ -350,10 +350,10 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
               ))}
             </div>
           </div>
-          <AlertDialogFooter data-testid="link-element">
-            <AlertDialogCancel onClick={() = data-testid="link-element"> setReportReason('')}>Cancel</AlertDialogCancel>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={()> setReportReason('')}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() = data-testid="link-element"> reportMutation.mutate({ reason: reportReason })}
+              onClick={()> reportMutation.mutate({ reason: reportReason })}
               disabled={!reportReason || reportMutation.isPending}
               className="bg-red-600 hover:bg-red-700"
             >

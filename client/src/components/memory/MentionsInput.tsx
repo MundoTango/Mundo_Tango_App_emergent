@@ -112,8 +112,8 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         <div className="flex-shrink-0">
           {suggestion.avatar ? (
             <Avatar className="h-8 w-8" data-testid="link-h-8">
-              <AvatarImage src={suggestion.avatar} alt={suggestion.display} / data-testid="link-element">
-              <AvatarFallback data-testid="link-element">
+              <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
+              <AvatarFallback>
                 {suggestion.display.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -295,7 +295,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         rows={rows}
         className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
         style={{ minHeight: `${rows * 1.5}rem` }}
-      / data-testid="textarea-w-full">
+      />
       
       {/* Suggestions dropdown */}
       {showSuggestions && filteredSuggestions.length > 0 && (
@@ -315,8 +315,8 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
               <div className="flex-shrink-0">
                 {suggestion.avatar ? (
                   <Avatar className="h-8 w-8" data-testid="link-h-8">
-                    <AvatarImage src={suggestion.avatar} alt={suggestion.display} / data-testid="link-element">
-                    <AvatarFallback data-testid="link-element">
+                    <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
+                    <AvatarFallback>
                       {suggestion.display.substring(0, 2).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>

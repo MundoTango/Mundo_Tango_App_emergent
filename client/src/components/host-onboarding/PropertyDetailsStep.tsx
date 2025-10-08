@@ -30,7 +30,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             id="title"
             placeholder="Cozy downtown apartment with city views"
             value={data.title || ''}
-            onChange={(e) = data-testid="input-element"> updateData({ title: e.target.value })}
+            onChange={(e)> updateData({ title: e.target.value })}
             className="mt-1"
             maxLength={255}
           />
@@ -43,7 +43,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             id="description"
             placeholder="Tell guests what makes your place special..."
             value={data.description || ''}
-            onChange={(e) = data-testid="textarea-element"> updateData({ description: e.target.value })}
+            onChange={(e)> updateData({ description: e.target.value })}
             className="mt-1 min-h-[120px]"
             maxLength={1000}
           />
@@ -60,7 +60,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() = data-testid="button-element"> handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)}
+                onClick={()> handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)}
                 className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400 dark:border-neutral-600"
               >
                 <Minus className="w-4 h-4" />
@@ -68,7 +68,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <span className="w-12 text-center font-medium">{data.maxGuests || 1}</span>
               <button
                 type="button"
-                onClick={() = data-testid="button-element"> handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)}
+                onClick={()> handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)}
                 className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400 dark:border-neutral-600"
               >
                 <Plus className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    onClick={() = data-testid="button-element"> handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
+                    onClick={()> handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
                     className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400 dark:border-neutral-600"
                   >
                     <Minus className="w-4 h-4" />
@@ -100,7 +100,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                   <span className="w-12 text-center font-medium">{data[item.field] || item.min}</span>
                   <button
                     type="button"
-                    onClick={() = data-testid="button-element"> handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
+                    onClick={()> handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
                     className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400 dark:border-neutral-600"
                   >
                     <Plus className="w-4 h-4" />
@@ -117,7 +117,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <div className="flex items-center gap-3">
                 <button
                   type="button"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     const current = data.bathrooms || 1;
                     const newValue = Math.max(0.5, current - 0.5);
                     updateData({ bathrooms: newValue });
@@ -129,7 +129,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                 <span className="w-12 text-center font-medium">{data.bathrooms || 1}</span>
                 <button
                   type="button"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     const current = data.bathrooms || 1;
                     const newValue = Math.min(10, current + 0.5);
                     updateData({ bathrooms: newValue });

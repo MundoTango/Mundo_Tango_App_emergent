@@ -203,7 +203,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
       case 'in_progress':
         return <Clock className="w-4 h-4 text-blue-500" />;
       case 'blocked':
-        return <AlertCircle className="w-4 h-4 text-red-500" / data-testid="link-w-4">;
+        return <AlertCircle className="w-4 h-4 text-red-500" />;
       default:
         return <Circle className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
     }
@@ -267,7 +267,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
          role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(project)(e); } }}>
           {hasChildren && (
             <button
-              onClick={(e) = data-testid="button-element"> {
+              onClick={(e)> {
                 e.stopPropagation();
                 toggleExpanded(project.id);
               }}

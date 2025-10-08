@@ -171,7 +171,7 @@ export function GlobalStatisticsDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Connections</CardTitle>
-            <Link2 className="h-4 w-4 text-muted-foreground" / data-testid="link-h-4">
+            <Link2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -260,7 +260,7 @@ export function GlobalStatisticsDashboard() {
               {realtimeData ? (
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="flex items-center space-x-4">
-                    <Activity className="h-8 w-8 text-green-500" / data-testid="link-h-8">
+                    <Activity className="h-8 w-8 text-green-500" />
                     <div>
                       <p className="text-sm font-medium">Active Users</p>
                       <p className="text-2xl font-bold">

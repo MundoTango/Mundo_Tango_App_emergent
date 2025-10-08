@@ -196,7 +196,7 @@ export default function TangoCommunities() {
               <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Connect with tango dancers around the world</p>
             </div>
             <Button
-              onClick={() = data-testid="button-element"> setShowCreateModal(true)}
+              onClick={()> setShowCreateModal(true)}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -258,7 +258,7 @@ export default function TangoCommunities() {
                 type="text"
                 placeholder="Search communities by name, location, or description..."
                 value={searchQuery}
-                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                onChange={(e)> setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -270,7 +270,7 @@ export default function TangoCommunities() {
                     key={category.value}
                     variant={selectedCategory === category.value ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() = data-testid="button-element"> setSelectedCategory(category.value)}
+                    onClick={()> setSelectedCategory(category.value)}
                     className={selectedCategory === category.value 
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
                       : ''}
@@ -330,14 +330,14 @@ export default function TangoCommunities() {
                     className={community.isJoined 
                       ? '' 
                       : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0'}
-                    onClick={() = data-testid="button-element"> handleToggleJoin(community)}
+                    onClick={()> handleToggleJoin(community)}
                   >
                     {community.isJoined ? 'Leave' : 'Join'} Community
                   </Button>
                   <Button 
                     variant="outline" 
                     size="sm"
-                    onClick={() = data-testid="button-element"> window.open(`/groups/${community.slug || community.id}`, '_blank')}
+                    onClick={()> window.open(`/groups/${community.slug || community.id}`, '_blank')}
                   >
                     View Details
                   </Button>

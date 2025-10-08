@@ -30,7 +30,7 @@ const ThemeManager: React.FC = () => {
       {!isExpanded ? (
         // Collapsed Theme Toggle Button
         <button
-          onClick={() = data-testid="button-element"> setIsExpanded(true)}
+          onClick={()> setIsExpanded(true)}
           className="bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
           title="Change Theme"
         >
@@ -48,7 +48,7 @@ const ThemeManager: React.FC = () => {
               </h3>
             </div>
             <button
-              onClick={() = data-testid="button-element"> setIsExpanded(false)}
+              onClick={()> setIsExpanded(false)}
               className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300 transition-colors"
             >
               ✕
@@ -87,7 +87,7 @@ const ThemeManager: React.FC = () => {
                 {themes.map((theme) => (
                   <button
                     key={theme.id}
-                    onClick={() = data-testid="button-element"> setTheme(theme.id)}
+                    onClick={()> setTheme(theme.id)}
                     className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
                       currentTheme.id === theme.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
@@ -116,13 +116,13 @@ const ThemeManager: React.FC = () => {
           <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
             <div className="flex gap-2">
               <button
-                onClick={() = data-testid="button-element"> setTheme('mundo-tango')}
+                onClick={()> setTheme('mundo-tango')}
                 className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-lg hover:from-pink-600 hover:to-blue-600 transition-all"
               >
                 Default
               </button>
               <button
-                onClick={() = data-testid="button-element"> setTheme('life-ceo')}
+                onClick={()> setTheme('life-ceo')}
                 className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all"
               >
                 Executive

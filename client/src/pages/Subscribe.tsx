@@ -254,14 +254,14 @@ import { Helmet } from 'react-helmet';
                       <Button 
                         className="w-full" 
                         variant="outline"
-                        onClick={() = data-testid="button-w-full"> setLocation('/settings/billing')}
+                        onClick={()> setLocation('/settings/billing')}
                       >
                         Downgrade
                       </Button>
                     ) : (
                       <Button 
                         className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                        onClick={() = data-testid="button-w-full"> handleSubscribe(tier.key)}
+                        onClick={()> handleSubscribe(tier.key)}
                         disabled={createSubscriptionMutation.isPending && selectedTier === tier.key}
                       >
                         {createSubscriptionMutation.isPending && selectedTier === tier.key

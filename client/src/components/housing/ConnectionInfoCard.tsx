@@ -38,7 +38,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
 
   if (!isConnected) {
     return (
-      <Card data-testid="card-connection-info">
+      <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <Users className="w-5 h-5" />
@@ -61,7 +61,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
   }
 
   return (
-    <Card data-testid="card-connection-info">
+    <Card>
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
           <Heart className="w-5 h-5 text-pink-500" />

@@ -163,7 +163,7 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
       {metrics.errorRate > 1 && (
         <Card className="border-yellow-200 bg-yellow-50/50">
           <CardContent className="flex items-start gap-3 p-4">
-            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" / data-testid="link-w-5">
+            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
             <div>
               <div className="font-medium text-yellow-800">Performance Alert</div>
               <div className="text-sm text-yellow-700 mt-1">

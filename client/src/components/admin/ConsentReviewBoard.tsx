@@ -241,16 +241,16 @@ export default function ConsentReviewBoard() {
           <Input
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
-            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            onChange={(e)> setSearchTerm(e.target.value)}
             className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
         <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
           <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-full">
-            <SelectValue placeholder="Filter by status" / data-testid="select-element">
+            <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
-          <SelectContent data-testid="select-element">
+          <SelectContent>
             <SelectItem value="all" data-testid="select-element">All Requests</SelectItem>
             <SelectItem value="pending" data-testid="select-element">Pending</SelectItem>
             <SelectItem value="approved" data-testid="select-element">Approved</SelectItem>
@@ -373,7 +373,7 @@ export default function ConsentReviewBoard() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     setSelectedRequest(request);
                     setIsReviewDialogOpen(true);
                   }}
@@ -428,7 +428,7 @@ export default function ConsentReviewBoard() {
                 <Textarea
                   placeholder="Add your review notes here..."
                   value={reviewNotes}
-                  onChange={(e) = data-testid="textarea-element"> setReviewNotes(e.target.value)}
+                  onChange={(e)> setReviewNotes(e.target.value)}
                   className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
                   rows={4}
                 />
@@ -438,7 +438,7 @@ export default function ConsentReviewBoard() {
                 <div className="flex gap-3">
                   <Button
                     variant="outline"
-                    onClick={() = data-testid="button-element"> handleReview('deny')}
+                    onClick={()> handleReview('deny')}
                     disabled={reviewConsentMutation.isPending}
                     className="flex-1 rounded-xl text-red-600 border-red-200 hover:bg-red-50"
                   >
@@ -446,7 +446,7 @@ export default function ConsentReviewBoard() {
                     Deny Request
                   </Button>
                   <Button
-                    onClick={() = data-testid="button-element"> handleReview('approve')}
+                    onClick={()> handleReview('approve')}
                     disabled={reviewConsentMutation.isPending}
                     className="flex-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
                   >
@@ -459,7 +459,7 @@ export default function ConsentReviewBoard() {
               {selectedRequest.status !== 'pending' && (
                 <Button
                   variant="outline"
-                  onClick={() = data-testid="button-element"> setIsReviewDialogOpen(false)}
+                  onClick={()> setIsReviewDialogOpen(false)}
                   className="w-full rounded-xl"
                 >
                   Close

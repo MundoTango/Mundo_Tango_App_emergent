@@ -41,7 +41,7 @@ const eventTypes = [
   { value: 'other', label: 'Other' }
 ];
 
-export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testid="link-element"> = ({ isOpen, onClose }) => {
+export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOpen, onClose }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
@@ -152,12 +152,12 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
               <Label htmlFor="eventType">Event Type</Label>
               <Select 
                 value={formData.eventType} 
-                onValueChange={(value) = data-testid="select-element"> handleInputChange('eventType', value)}
+                onValueChange={(value)> handleInputChange('eventType', value)}
               >
-                <SelectTrigger data-testid="select-element">
-                  <SelectValue placeholder="Select event type" / data-testid="select-element">
+                <SelectTrigger>
+                  <SelectValue placeholder="Select event type" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   {eventTypes.map(type => (
                     <SelectItem key={type.value} value={type.value} data-testid="select-element">
                       {type.label}
@@ -204,7 +204,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
                   id="startDate"
                   type="date"
                   value={formData.startDate}
-                  onChange={(e) = data-testid="input-element"> handleInputChange('startDate', e.target.value)}
+                  onChange={(e)> handleInputChange('startDate', e.target.value)}
                   className="pl-10"
                   required
                 />
@@ -219,7 +219,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
                   id="endDate"
                   type="date"
                   value={formData.endDate}
-                  onChange={(e) = data-testid="input-element"> handleInputChange('endDate', e.target.value)}
+                  onChange={(e)> handleInputChange('endDate', e.target.value)}
                   className="pl-10"
                   required
                   min={formData.startDate}
@@ -233,12 +233,12 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
               <Label htmlFor="status">Status</Label>
               <Select 
                 value={formData.status} 
-                onValueChange={(value: any) = data-testid="select-element"> handleInputChange('status', value)}
+                onValueChange={(value: any)> handleInputChange('status', value)}
               >
-                <SelectTrigger data-testid="select-element">
-                  <SelectValue / data-testid="select-element">
+                <SelectTrigger>
+                  <SelectValue />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="considering" data-testid="select-element">Considering</SelectItem>
                   <SelectItem value="planned" data-testid="select-element">Planned</SelectItem>
                   <SelectItem value="working" data-testid="select-element">Working</SelectItem>
@@ -253,12 +253,12 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
               <Label htmlFor="visibility">Visibility</Label>
               <Select 
                 value={formData.isPublic ? 'public' : 'private'} 
-                onValueChange={(value) = data-testid="select-element"> handleInputChange('isPublic', value === 'public')}
+                onValueChange={(value)> handleInputChange('isPublic', value === 'public')}
               >
-                <SelectTrigger data-testid="select-element">
-                  <SelectValue / data-testid="select-element">
+                <SelectTrigger>
+                  <SelectValue />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="public" data-testid="select-element">Public</SelectItem>
                   <SelectItem value="close_friends" data-testid="select-element">Close Friends</SelectItem>
                   <SelectItem value="private" data-testid="select-element">Private</SelectItem>
@@ -272,7 +272,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testi
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) = data-testid="textarea-element"> handleInputChange('notes', e.target.value)}
+              onChange={(e)> handleInputChange('notes', e.target.value)}
               placeholder="Any additional details about your travel..."
               rows={3}
             />

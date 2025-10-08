@@ -180,7 +180,7 @@ export default function GroupsPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Tango Communities</h1>
           <p className="text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">Connect with tango dancers around the world</p>
           <button
-            onClick={() = data-testid="button-element"> setLocation('/community-world-map')}
+            onClick={()> setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
           >
             View Community World Map →

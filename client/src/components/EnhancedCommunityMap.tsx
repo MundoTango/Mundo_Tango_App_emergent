@@ -691,7 +691,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                 type="text"
                 placeholder="Search locations..."
                 value={searchQuery}
-                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                onChange={(e)> setSearchQuery(e.target.value)}
                 className="pl-10 pr-4"
               />
             </div>
@@ -711,7 +711,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             {Object.entries(LAYER_CONFIG).filter(([key]) => key === 'cityGroup').map(([key, config]) => (
               <button
                 key={key}
-                onClick={() = data-testid="button-element"> toggleLayer(key as keyof typeof layerVisibility)}
+                onClick={()> toggleLayer(key as keyof typeof layerVisibility)}
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm",
                   layerVisibility[key as keyof typeof layerVisibility]
@@ -759,7 +759,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         <Button
           size="sm"
           variant="outline"
-          onClick={() = data-testid="button-element"> setShowClusters(!showClusters)}
+          onClick={()> setShowClusters(!showClusters)}
           className="glassmorphic-card"
           data-tooltip-id="cluster-tooltip"
           data-tooltip-content={showClusters ? "Disable clustering" : "Enable clustering"}

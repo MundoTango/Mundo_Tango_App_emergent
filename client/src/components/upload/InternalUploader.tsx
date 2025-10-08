@@ -316,7 +316,7 @@ export function InternalUploader({
           multiple={multiple}
           onChange={handleFileChange}
           className="hidden"
-        / data-testid="input-hidden">
+        />
 
         <p className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
@@ -362,7 +362,7 @@ export function InternalUploader({
                   
                   {/* Remove button */}
                   <button
-                    onClick={() = data-testid="button-element"> removeFile(file.id)}
+                    onClick={()> removeFile(file.id)}
                     className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
                   >
                     <X className="h-3 w-3" />

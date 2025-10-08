@@ -187,7 +187,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               onClick={onBack}
               className="lg:hidden p-1"
              data-testid="button-lg:hidden">
-              <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             
             {room.type === 'group' ? (
@@ -196,8 +196,8 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               </div>
             ) : (
               <Avatar className="w-10 h-10" data-testid="link-w-10">
-                <AvatarImage src={room.imageUrl} alt={room.title} / data-testid="link-element">
-                <AvatarFallback data-testid="link-element">{room.title.charAt(0)}</AvatarFallback>
+                <AvatarImage src={room.imageUrl} alt={room.title} />
+                <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
               </Avatar>
             )}
             
@@ -252,7 +252,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
                       <div className={`flex items-end space-x-2 max-w-xs lg:max-w-md ${isOwnMessage ? 'flex-row-reverse space-x-reverse' : ''}`}>
                         {!isOwnMessage && (
                           <Avatar className="w-6 h-6 mb-1" data-testid="link-w-6">
-                            <AvatarImage src={message.user?.profileImage} alt={message.user?.name} / data-testid="link-element">
+                            <AvatarImage src={message.user?.profileImage} alt={message.user?.name} />
                             <AvatarFallback className="text-xs" data-testid="link-text-xs">
                               {message.user?.name?.charAt(0) || 'U'}
                             </AvatarFallback>
@@ -296,7 +296,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             <Input
               placeholder="Type a message..."
               value={newMessage}
-              onChange={(e) = data-testid="input-element"> setNewMessage(e.target.value)}
+              onChange={(e)> setNewMessage(e.target.value)}
               className="pr-10"
             />
             <Button 

@@ -188,9 +188,9 @@ export function MemoryRoleManager() {
                 onValueChange={setSelectedRole}
                data-testid="select-element">
                 <SelectTrigger className="w-full" data-testid="select-w-full">
-                  <SelectValue placeholder="Select a role to switch to" / data-testid="select-element">
+                  <SelectValue placeholder="Select a role to switch to" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   {userRoles.availableRoles.map((role: any) => (
                     <SelectItem key={role.id} value={role.id} data-testid="select-element">
                       {role.name} (Level {role.memory_access_level})
@@ -199,7 +199,7 @@ export function MemoryRoleManager() {
                 </SelectContent>
               </Select>
               <Button 
-                onClick={() = data-testid="button-element"> switchRole.mutate(selectedRole)}
+                onClick={()> switchRole.mutate(selectedRole)}
                 disabled={!selectedRole || switchRole.isPending}
               >
                 Switch Role
@@ -266,7 +266,7 @@ export function MemoryRoleManager() {
         </CardHeader>
         <CardContent>
           <Button 
-            onClick={() = data-testid="button-element"> setShowCreateMemoryModal(true)}
+            onClick={()> setShowCreateMemoryModal(true)}
             className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -308,7 +308,7 @@ export function MemoryRoleManager() {
                     className="w-full p-2 border rounded-md"
                     placeholder="e.g., Memory Curator, Emotional Guide"
                     value={customRoleRequest.roleName}
-                    onChange={(e) = data-testid="input-w-full"> setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
+                    onChange={(e)> setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
                   />
                 </div>
 
@@ -318,7 +318,7 @@ export function MemoryRoleManager() {
                     id="description"
                     placeholder="Explain why you need this role and how you'll use these permissions..."
                     value={customRoleRequest.description}
-                    onChange={(e) = data-testid="textarea-element"> setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e)> setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
                     rows={4}
                   />
                 </div>
@@ -389,12 +389,12 @@ export function MemoryRoleManager() {
                 <div className="flex justify-end gap-2 pt-4">
                   <Button
                     variant="outline"
-                    onClick={() = data-testid="button-element"> setShowCustomRoleModal(false)}
+                    onClick={()> setShowCustomRoleModal(false)}
                   >
                     Cancel
                   </Button>
                   <Button
-                    onClick={() = data-testid="button-element"> submitCustomRole.mutate(customRoleRequest)}
+                    onClick={()> submitCustomRole.mutate(customRoleRequest)}
                     disabled={!customRoleRequest.roleName || !customRoleRequest.description || submitCustomRole.isPending}
                   >
                     {submitCustomRole.isPending ? 'Submitting...' : 'Submit Request'}

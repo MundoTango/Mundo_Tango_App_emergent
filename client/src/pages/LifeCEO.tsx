@@ -129,9 +129,9 @@ export default function LifeCEO() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() = data-testid="button-element"> setLocation('/profile-switcher')}
+              onClick={()> setLocation('/profile-switcher')}
             >
-              <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
               <h1 className="text-xl font-semibold text-gray-900 dark:text-neutral-100">Life CEO</h1>
@@ -142,7 +142,7 @@ export default function LifeCEO() {
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() = data-testid="button-element"> setLanguage('en')}
+              onClick={()> setLanguage('en')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' 
                   ? 'bg-purple-100 text-purple-700' 
@@ -152,7 +152,7 @@ export default function LifeCEO() {
               EN
             </button>
             <button
-              onClick={() = data-testid="button-element"> setLanguage('es')}
+              onClick={()> setLanguage('es')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' 
                   ? 'bg-purple-100 text-purple-700' 

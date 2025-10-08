@@ -114,7 +114,7 @@ export default function ProfileHead({
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between -mt-16 mb-6">
           <div className="relative">
             <Avatar className="h-32 w-32 border-4 border-white shadow-lg" data-testid="link-h-32">
-              <AvatarImage src={user.profileImage} / data-testid="link-element">
+              <AvatarImage src={user.profileImage} />
               <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white" data-testid="link-text-2xl">
                 {user.name?.[0] || user.username?.[0]}
               </AvatarFallback>
@@ -157,7 +157,7 @@ export default function ProfileHead({
                   <Users className="mr-2 h-4 w-4" />
                   Add Friend
                 </Button>
-                <Button data-testid="button-element">
+                <Button>
                   Message
                 </Button>
               </>

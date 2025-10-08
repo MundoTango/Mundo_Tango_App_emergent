@@ -293,7 +293,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() = data-testid="button-element"> setActiveTab(tab.id as any)}
+                onClick={()> setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
@@ -472,7 +472,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                                   <div className="space-y-1">
                                     {phase.codeRefs.map((ref, i) => (
                                       <div key={i} className="flex items-center gap-2 text-xs">
-                                        <Link className="h-3 w-3 text-blue-500" / data-testid="link-h-3">
+                                        <Link className="h-3 w-3 text-blue-500" />
                                         <code className="bg-gray-100 px-2 py-1 rounded dark:bg-neutral-800">{ref}</code>
                                       </div>
                                     ))}
@@ -558,7 +558,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               variant="outline" 
                               size="sm" 
                               className="w-full text-xs"
-                              onClick={() = data-testid="button-w-full"> onSignOff(review.area)}
+                              onClick={()> onSignOff(review.area)}
                             >
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Sign Off

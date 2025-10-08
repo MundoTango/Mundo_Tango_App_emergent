@@ -77,7 +77,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             <Input
               placeholder="Search conversations..."
               className="pl-9"
-            / data-testid="input-pl-9">
+            />
           </div>
         </div>
 
@@ -110,8 +110,8 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
                     </div>
                   ) : (
                     <Avatar className="w-12 h-12" data-testid="link-w-12">
-                      <AvatarImage src={room.imageUrl} alt={room.title} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">{room.title.charAt(0)}</AvatarFallback>
+                      <AvatarImage src={room.imageUrl} alt={room.title} />
+                      <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
                     </Avatar>
                   )}
                   

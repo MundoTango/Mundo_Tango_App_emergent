@@ -251,9 +251,9 @@ const MobileAppDashboard: React.FC = () => {
             <CardContent className="space-y-6">
               {!isInstalled ? (
                 <>
-                  <Alert data-testid="link-element">
-                    <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-                    <AlertDescription data-testid="link-element">
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
                       Installing the app provides offline access, push notifications, and faster performance
                     </AlertDescription>
                   </Alert>

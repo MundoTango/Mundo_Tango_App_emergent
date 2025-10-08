@@ -117,15 +117,15 @@ export default function AdminMonitoring() {
         <div className="flex gap-4">
           <Button
             variant={autoRefresh ? 'default' : 'outline'}
-            onClick={() = data-testid="button-element"> setAutoRefresh(!autoRefresh)}
+            onClick={()> setAutoRefresh(!autoRefresh)}
             className="gap-2"
           >
-            {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" / data-testid="link-w-4"> : <Clock className="w-4 h-4" />}
+            {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" /> : <Clock className="w-4 h-4" />}
             {autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF'}
           </Button>
           <select
             value={selectedTimeRange}
-            onChange={(e) = data-testid="select-element"> setSelectedTimeRange(e.target.value)}
+            onChange={(e)> setSelectedTimeRange(e.target.value)}
             className="px-4 py-2 border rounded-md"
           >
             <option value="1h">Last 1 hour</option>
@@ -154,7 +154,7 @@ export default function AdminMonitoring() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
-            <AlertCircle className="h-4 w-4 text-yellow-500" / data-testid="link-h-4">
+            <AlertCircle className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -279,7 +279,7 @@ export default function AdminMonitoring() {
                   <XAxis dataKey="time" />
                   <YAxis />
                   <Tooltip />
-                  <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" / data-testid="link-element">
+                  <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -446,7 +446,7 @@ export default function AdminMonitoring() {
                     <Alert key={alert.id} variant={
                       alert.severity === 'critical' ? 'destructive' : 'default'
                     } data-testid="link-element">
-                      <AlertTriangle className="h-4 w-4" / data-testid="link-h-4">
+                      <AlertTriangle className="h-4 w-4" />
                       <AlertTitle className="flex items-center justify-between" data-testid="link-flex">
                         <span>{alert.title}</span>
                         <Badge variant={
@@ -456,7 +456,7 @@ export default function AdminMonitoring() {
                           {alert.severity}
                         </Badge>
                       </AlertTitle>
-                      <AlertDescription data-testid="link-element">
+                      <AlertDescription>
                         <p>{alert.description}</p>
                         <p className="text-xs text-gray-500 mt-2">
                           {alert.category} • {format(new Date(alert.timestamp), 'PPpp')}

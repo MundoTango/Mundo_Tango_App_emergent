@@ -198,7 +198,7 @@ const LifeCEOPortal: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <Activity className="w-5 h-5" / data-testid="link-w-5">
+              <Activity className="w-5 h-5" />
               <span>Recent Activity</span>
             </CardTitle>
             <CardDescription>Latest actions from your AI agents</CardDescription>

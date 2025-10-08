@@ -250,9 +250,9 @@ export default function SecurityDemo() {
         </p>
       </div>
 
-      <Alert data-testid="link-element">
+      <Alert>
         <Lock className="h-4 w-4" />
-        <AlertDescription data-testid="link-element">
+        <AlertDescription>
           This demo tests Row Level Security policies, authentication middleware, 
           real-time chat access controls, and email notification system.
         </AlertDescription>
@@ -308,7 +308,7 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter test message"
                   value={chatMessage}
-                  onChange={(e) = data-testid="input-element"> setChatMessage(e.target.value)}
+                  onChange={(e)> setChatMessage(e.target.value)}
                 />
                 <Button onClick={testChatAccess} size="sm" data-testid="button-element">
                   Send
@@ -323,7 +323,7 @@ export default function SecurityDemo() {
                   type="number"
                   placeholder="Enter friend user ID"
                   value={selectedFriend}
-                  onChange={(e) = data-testid="input-element"> setSelectedFriend(e.target.value)}
+                  onChange={(e)> setSelectedFriend(e.target.value)}
                 />
                 <Button onClick={testFriendRequest} size="sm" data-testid="button-element">
                   <Heart className="h-4 w-4" />
@@ -337,7 +337,7 @@ export default function SecurityDemo() {
                 <Textarea
                   placeholder="Enter safety concern"
                   value={eventFeedback}
-                  onChange={(e) = data-testid="textarea-element"> setEventFeedback(e.target.value)}
+                  onChange={(e)> setEventFeedback(e.target.value)}
                   rows={2}
                 />
                 <Button onClick={testEventFeedback} size="sm" data-testid="button-element">
@@ -352,7 +352,7 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter memory title"
                   value={memoryTitle}
-                  onChange={(e) = data-testid="input-element"> setMemoryTitle(e.target.value)}
+                  onChange={(e)> setMemoryTitle(e.target.value)}
                 />
                 <Button onClick={testMemoryTagging} size="sm" data-testid="button-element">
                   <Calendar className="h-4 w-4" />
@@ -383,7 +383,7 @@ export default function SecurityDemo() {
             )}
           </div>
           <Button 
-            onClick={() = data-testid="button-element"> setLogs([])} 
+            onClick={()> setLogs([])} 
             variant="outline" 
             size="sm" 
             className="mt-2"

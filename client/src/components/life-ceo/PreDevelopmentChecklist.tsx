@@ -144,8 +144,8 @@ export default function PreDevelopmentChecklist() {
 
               {checklistData.blockers.length > 0 && (
                 <Alert className="mb-6 border-red-200 bg-red-50" data-testid="link-mb-6">
-                  <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
-                  <AlertDescription data-testid="link-element">
+                  <AlertCircle className="h-4 w-4 text-red-600" />
+                  <AlertDescription>
                     <strong className="text-red-800">Blockers Found:</strong>
                     <ul className="mt-2 space-y-1">
                       {checklistData.blockers.map((blocker, idx) => (
@@ -203,7 +203,7 @@ export default function PreDevelopmentChecklist() {
                                   <ul className="space-y-1">
                                     {result.suggestions.map((suggestion, idx) => (
                                       <li key={idx} className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
-                                        <ArrowRight className="w-3 h-3 inline mr-1 text-blue-500" / data-testid="link-w-3">
+                                        <ArrowRight className="w-3 h-3 inline mr-1 text-blue-500" />
                                         {suggestion}
                                       </li>
                                     ))}
@@ -216,7 +216,7 @@ export default function PreDevelopmentChecklist() {
                           {!result.passed && result.autoFixAvailable && (
                             <Button
                               size="sm"
-                              onClick={() = data-testid="button-element"> runAutoFix(category)}
+                              onClick={()> runAutoFix(category)}
                               disabled={autoFixing === category}
                               className="bg-gradient-to-r from-blue-500 to-purple-600"
                             >
@@ -250,7 +250,7 @@ export default function PreDevelopmentChecklist() {
                     </>
                   ) : (
                     <>
-                      <AlertCircle className="w-4 h-4 inline mr-1 text-orange-600" / data-testid="link-w-4">
+                      <AlertCircle className="w-4 h-4 inline mr-1 text-orange-600" />
                       Please resolve the blockers before starting development.
                     </>
                   )}

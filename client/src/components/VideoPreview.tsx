@@ -133,7 +133,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
               value={currentTime}
               onChange={handleSeek}
               className="flex-1"
-            / data-testid="input-flex-1">
+            />
             
             <span className="text-white text-sm">
               {formatTime(currentTime)} / {formatTime(duration)}

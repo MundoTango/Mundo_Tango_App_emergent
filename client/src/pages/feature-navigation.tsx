@@ -183,7 +183,7 @@ export default function FeatureNavigation() {
       case 'implemented':
         return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'partial':
-        return <AlertCircle className="w-5 h-5 text-yellow-500" / data-testid="link-w-5">;
+        return <AlertCircle className="w-5 h-5 text-yellow-500" />;
       case 'missing':
         return <XCircle className="w-5 h-5 text-red-500" />;
       default:
@@ -281,10 +281,10 @@ export default function FeatureNavigation() {
                 {feature.route && feature.status !== 'missing' && (
                   <Button 
                     className="w-full"
-                    onClick={() = data-testid="button-w-full"> setLocation(feature.route!)}
+                    onClick={()> setLocation(feature.route!)}
                   >
                     Navigate to Feature
-                    <ArrowRight className="w-4 h-4 ml-2" / data-testid="link-w-4">
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 )}
               </CardContent>

@@ -190,7 +190,7 @@ const TrialBanner: React.FC = () => {
                         isLastDay ? 'bg-red-600 hover:bg-red-700' : 
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
                       } text-white`}
-                      onClick={() = data-testid="button-element"> {
+                      onClick={()> {
                         if (!isLastDay) setShowConfetti(true);
                       }}
                     >

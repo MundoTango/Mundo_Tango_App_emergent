@@ -92,8 +92,8 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="w-16 h-16" data-testid="link-w-16">
-              <AvatarImage src={friendImage} alt={friendName || 'Friend'} / data-testid="link-element">
-              <AvatarFallback data-testid="link-element">{friendName?.[0] || 'F'}</AvatarFallback>
+              <AvatarImage src={friendImage} alt={friendName || 'Friend'} />
+              <AvatarFallback>{friendName?.[0] || 'F'}</AvatarFallback>
             </Avatar>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
@@ -265,7 +265,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
 
                     {event.type === 'milestone' && event.metadata?.milestoneType && (
                       <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-amber-400 to-orange-500 text-white">
-                        <Award className="w-3 h-3 mr-1" / data-testid="link-w-3">
+                        <Award className="w-3 h-3 mr-1" />
                         {event.metadata.milestoneType}
                       </div>
                     )}

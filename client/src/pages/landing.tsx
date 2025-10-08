@@ -175,7 +175,7 @@ export default function Landing() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
           <Button 
-            onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
+            onClick={()> window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Join the Community
@@ -196,7 +196,7 @@ export default function Landing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
+              onClick={()> window.location.href = '/api/login'}
               className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Start Your Tango Journey
@@ -307,7 +307,7 @@ export default function Landing() {
             Mundo Tango welcomes you with open arms.
           </p>
           <Button 
-            onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
+            onClick={()> window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Begin Your Journey Today

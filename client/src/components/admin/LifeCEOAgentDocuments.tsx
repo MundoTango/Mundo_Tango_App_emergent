@@ -156,7 +156,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             >
-              <input {...getInputProps()} / data-testid="input-element">
+              <input {...getInputProps()} />
               <Upload className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
               {isDragActive ? (
                 <p className="text-blue-600">Drop the files here...</p>
@@ -215,7 +215,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() = data-testid="button-element"> setSelectedDocument(doc)}
+                      onClick={()> setSelectedDocument(doc)}
                     >
                       <Edit className="w-4 h-4 mr-1" />
                       Review
@@ -253,7 +253,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <label className="text-sm font-medium">Review Notes</label>
                 <Textarea
                   value={reviewNotes}
-                  onChange={(e) = data-testid="textarea-element"> setReviewNotes(e.target.value)}
+                  onChange={(e)> setReviewNotes(e.target.value)}
                   placeholder="Add your review notes here..."
                   rows={4}
                   className="mt-1"
@@ -262,7 +262,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <div className="flex space-x-2">
                 <Button
                   className="flex-1"
-                  onClick={() = data-testid="button-flex-1"> {
+                  onClick={()> {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'approved',
@@ -276,7 +276,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <Button
                   variant="destructive"
                   className="flex-1"
-                  onClick={() = data-testid="button-flex-1"> {
+                  onClick={()> {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'rejected',
@@ -289,7 +289,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() = data-testid="button-element"> {
+                  onClick={()> {
                     setSelectedDocument(null);
                     setReviewNotes('');
                   }}

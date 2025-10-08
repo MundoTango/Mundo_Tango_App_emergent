@@ -68,7 +68,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
           <Label className="text-base font-medium">Who can book this property?</Label>
           <RadioGroup value={whoCanBook} onValueChange={setWhoCanBook} data-testid="radiogroup-who-can-book">
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="anyone" id="anyone" data-testid="radio-anyone" />
+              <RadioGroupItem value="anyone" id="anyone" />
               <div className="flex-1">
                 <Label htmlFor="anyone" className="font-medium cursor-pointer">
                   Anyone
@@ -80,7 +80,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="1st_degree" id="1st_degree" data-testid="radio-1st-degree" />
+              <RadioGroupItem value="1st_degree" id="1st_degree" />
               <div className="flex-1 space-y-1">
                 <Label htmlFor="1st_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Heart className="w-4 h-4 text-pink-500" />
@@ -93,7 +93,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="2nd_degree" id="2nd_degree" data-testid="radio-2nd-degree" />
+              <RadioGroupItem value="2nd_degree" id="2nd_degree" />
               <div className="flex-1">
                 <Label htmlFor="2nd_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Users className="w-4 h-4 text-blue-500" />
@@ -106,7 +106,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="3rd_degree" id="3rd_degree" data-testid="radio-3rd-degree" />
+              <RadioGroupItem value="3rd_degree" id="3rd_degree" />
               <div className="flex-1">
                 <Label htmlFor="3rd_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Users className="w-4 h-4 text-purple-500" />
@@ -119,7 +119,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="custom_closeness" id="custom_closeness" data-testid="radio-custom-closeness" />
+              <RadioGroupItem value="custom_closeness" id="custom_closeness" />
               <div className="flex-1 space-y-3">
                 <Label htmlFor="custom_closeness" className="font-medium cursor-pointer flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-500" />

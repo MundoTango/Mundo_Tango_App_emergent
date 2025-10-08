@@ -133,7 +133,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       case 'accepted': return <Check className="w-4 h-4 text-green-600" />;
       case 'declined': return <X className="w-4 h-4 text-red-600" />;
       case 'pending': return <Clock className="w-4 h-4 text-orange-600" />;
-      default: return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" / data-testid="link-w-4">;
+      default: return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -171,17 +171,17 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                 <Input
                   placeholder="Enter user ID or email..."
                   value={userIdentifier}
-                  onChange={(e) = data-testid="input-element"> setUserIdentifier(e.target.value)}
+                  onChange={(e)> setUserIdentifier(e.target.value)}
                 />
               </div>
               
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
                 <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
-                  <SelectTrigger data-testid="select-element">
-                    <SelectValue placeholder="Select role..." / data-testid="select-element">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select role..." />
                   </SelectTrigger>
-                  <SelectContent data-testid="select-element">
+                  <SelectContent>
                     {EVENT_ROLES.map((role) => (
                       <SelectItem key={role.value} value={role.value} data-testid="select-element">
                         <div>
@@ -272,7 +272,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() = data-testid="button-element"> handleStatusUpdate(participant.id, 'accepted')}
+                              onClick={()> handleStatusUpdate(participant.id, 'accepted')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <Check className="w-3 h-3" />
@@ -280,7 +280,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() = data-testid="button-element"> handleStatusUpdate(participant.id, 'declined')}
+                              onClick={()> handleStatusUpdate(participant.id, 'declined')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <X className="w-3 h-3" />

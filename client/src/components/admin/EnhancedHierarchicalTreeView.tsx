@@ -661,7 +661,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <select
               className="px-3 py-1 border rounded-md bg-white dark:bg-gray-800"
               value={filterTeam}
-              onChange={(e) = data-testid="select-px-3"> setFilterTeam(e.target.value)}
+              onChange={(e)> setFilterTeam(e.target.value)}
             >
               {getAllTeams.map(team => (
                 <option key={team} value={team}>
@@ -682,7 +682,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <input
               type="checkbox"
               checked={showCompleted}
-              onChange={(e) = data-testid="input-element"> setShowCompleted(e.target.checked)}
+              onChange={(e)> setShowCompleted(e.target.checked)}
               className="rounded"
             />
             Show Completed

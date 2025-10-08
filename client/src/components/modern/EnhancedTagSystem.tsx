@@ -152,7 +152,7 @@ export default function EnhancedTagSystem({
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) = data-testid="input-element"> {
+                onChange={(e)> {
                   setTagInput(e.target.value);
                   setShowSuggestions(e.target.value.length > 0);
                 }}
@@ -167,7 +167,7 @@ export default function EnhancedTagSystem({
               />
             </div>
             <button
-              onClick={() = data-testid="button-element"> handleAddTag()}
+              onClick={()> handleAddTag()}
               disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
               className="mt-ocean-gradient hover:opacity-90 
                        disabled:opacity-50 text-white px-8 py-5 rounded-2xl 
@@ -181,7 +181,7 @@ export default function EnhancedTagSystem({
           </div>
 
           {/* Suggestions Dropdown */}
-          <AnimatePresence data-testid="link-element">
+          <AnimatePresence>
             {showSuggestions && suggestedTags.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -192,7 +192,7 @@ export default function EnhancedTagSystem({
                 {suggestedTags.map((tag) => (
                   <button
                     key={tag}
-                    onClick={() = data-testid="button-element"> handleAddTag(tag)}
+                    onClick={()> handleAddTag(tag)}
                     className="w-full px-5 py-3 text-left hover:bg-cyan-50 dark:hover:bg-cyan-900/20 
                              transition-colors flex items-center justify-between group"
                   >
@@ -222,7 +222,7 @@ export default function EnhancedTagSystem({
                   <Tag className="w-4 h-4" />
                   <span className="font-bold text-lg">{tag}</span>
                   <button
-                    onClick={() = data-testid="button-element"> onRemoveTag(tag)}
+                    onClick={()> onRemoveTag(tag)}
                     className="ml-2 p-2 rounded-xl text-ocean-500 hover:text-red-500 
                              hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 hover:scale-110"
                   >
@@ -252,7 +252,7 @@ export default function EnhancedTagSystem({
             {(['trending', 'recent', 'popular'] as const).map((category) => (
               <button
                 key={category}
-                onClick={() = data-testid="button-element"> setSelectedCategory(category)}
+                onClick={()> setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
                   selectedCategory === category
                     ? 'mt-ocean-gradient text-white shadow-lg'
@@ -386,7 +386,7 @@ export default function EnhancedTagSystem({
             {['milonga', 'performance', 'class', 'social', 'vals', 'practica', 'festival', 'workshop'].map((suggestion) => (
               <button
                 key={suggestion}
-                onClick={() = data-testid="button-element"> handleAddTag(suggestion)}
+                onClick={()> handleAddTag(suggestion)}
                 disabled={activeTags.includes(suggestion)}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                   activeTags.includes(suggestion)

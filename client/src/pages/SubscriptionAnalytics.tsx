@@ -170,9 +170,9 @@ const SubscriptionAnalytics: React.FC = () => {
           <div className="flex items-center gap-4">
             <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
               <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
-                <SelectValue placeholder="Select time range" / data-testid="select-element">
+                <SelectValue placeholder="Select time range" />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="7d" data-testid="select-element">Last 7 days</SelectItem>
                 <SelectItem value="30d" data-testid="select-element">Last 30 days</SelectItem>
                 <SelectItem value="90d" data-testid="select-element">Last 90 days</SelectItem>
@@ -205,7 +205,7 @@ const SubscriptionAnalytics: React.FC = () => {
             title="Churn Rate"
             value={`${data.metrics.churnRate.value}%`}
             change={data.metrics.churnRate.change}
-            icon={<Activity className="w-6 h-6 text-orange-600" / data-testid="link-w-6">}
+            icon={<Activity className="w-6 h-6 text-orange-600" />}
           />
           <MetricCard
             title="Average Revenue per User"
@@ -259,7 +259,7 @@ const SubscriptionAnalytics: React.FC = () => {
                       fillOpacity={1}
                       fill="url(#colorRevenue)"
                       name="Revenue ($)"
-                    / data-testid="link-element">
+                    />
                     <Area
                       yAxisId="right"
                       type="monotone"
@@ -268,7 +268,7 @@ const SubscriptionAnalytics: React.FC = () => {
                       fillOpacity={1}
                       fill="url(#colorSubscribers)"
                       name="Subscribers"
-                    / data-testid="link-element">
+                    />
                   </AreaChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -325,14 +325,14 @@ const SubscriptionAnalytics: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                      <Award className="w-5 h-5 text-green-600" / data-testid="link-w-5">
+                      <Award className="w-5 h-5 text-green-600" />
                       <span>Net Revenue Retention</span>
                     </div>
                     <span className="font-semibold text-lg">112%</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                      <AlertCircle className="w-5 h-5 text-red-600" / data-testid="link-w-5">
+                      <AlertCircle className="w-5 h-5 text-red-600" />
                       <span>Failed Payments</span>
                     </div>
                     <span className="font-semibold text-lg">2.3%</span>

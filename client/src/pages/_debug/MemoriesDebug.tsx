@@ -179,7 +179,7 @@ import { Helmet } from 'react-helmet';
               Go to /timeline (redirect test)
             </a>
             <button 
-              onClick={() = data-testid="button-element"> window.location.reload()}
+              onClick={()> window.location.reload()}
               style={{
                 background: '#0F766E',
                 color: 'white',

@@ -65,7 +65,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
       <Card className="w-full max-w-2xl glassmorphic-card">
         <CardHeader className="text-center pb-4">
           <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <AlertTriangle className="h-10 w-10 text-red-600" / data-testid="link-h-10">
+            <AlertTriangle className="h-10 w-10 text-red-600" />
           </div>
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
             Oops! Something went wrong
@@ -130,7 +130,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
              data-testid="button-w-full">
               {reportSent ? (
                 <>
-                  <AlertTriangle className="w-4 h-4 mr-2 text-green-600" / data-testid="link-w-4">
+                  <AlertTriangle className="w-4 h-4 mr-2 text-green-600" />
                   Error Report Sent
                 </>
               ) : (

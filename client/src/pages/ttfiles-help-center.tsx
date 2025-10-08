@@ -344,7 +344,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Brief description of what you need help with"
                         value={newHelpRequest.title}
-                        onChange={(e) = data-testid="input-element"> setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
+                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
                       />
                     </div>
 
@@ -352,12 +352,12 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Category *</label>
                       <Select
                         value={newHelpRequest.category}
-                        onValueChange={(value) = data-testid="select-element"> setNewHelpRequest({ ...newHelpRequest, category: value })}
+                        onValueChange={(value)> setNewHelpRequest({ ...newHelpRequest, category: value })}
                       >
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="Select a category" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           {HELP_CATEGORIES.map(cat => (
                             <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
                               <div className="flex items-center gap-2">
@@ -375,7 +375,7 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Provide more details about your request..."
                         value={newHelpRequest.description}
-                        onChange={(e) = data-testid="textarea-element"> setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
+                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
                         rows={4}
                       />
                     </div>
@@ -385,7 +385,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="e.g., Buenos Aires, Paris, New York"
                         value={newHelpRequest.location}
-                        onChange={(e) = data-testid="input-element"> setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
+                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
                       />
                     </div>
 
@@ -393,12 +393,12 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Urgency Level</label>
                       <Select
                         value={newHelpRequest.urgency}
-                        onValueChange={(value: any) = data-testid="select-element"> setNewHelpRequest({ ...newHelpRequest, urgency: value })}
+                        onValueChange={(value: any)> setNewHelpRequest({ ...newHelpRequest, urgency: value })}
                       >
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           <SelectItem value="low" data-testid="select-element">Low - Can wait a few days</SelectItem>
                           <SelectItem value="medium" data-testid="select-element">Medium - Need help soon</SelectItem>
                           <SelectItem value="high" data-testid="select-element">High - Need help today</SelectItem>
@@ -408,7 +408,7 @@ export default function TTfilesHelpCenter() {
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={() = data-testid="button-element"> setShowCreateHelp(false)}>
+                      <Button variant="outline" onClick={()> setShowCreateHelp(false)}>
                         Cancel
                       </Button>
                       <Button
@@ -442,7 +442,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Enter the ID of the memory to report"
                         value={reportData.memoryId}
-                        onChange={(e) = data-testid="input-element"> setReportData({ ...reportData, memoryId: e.target.value })}
+                        onChange={(e)> setReportData({ ...reportData, memoryId: e.target.value })}
                       />
                     </div>
 
@@ -450,12 +450,12 @@ export default function TTfilesHelpCenter() {
                       <label className="text-sm font-medium mb-1 block">Report Type *</label>
                       <Select
                         value={reportData.reportType}
-                        onValueChange={(value) = data-testid="select-element"> setReportData({ ...reportData, reportType: value })}
+                        onValueChange={(value)> setReportData({ ...reportData, reportType: value })}
                       >
-                        <SelectTrigger data-testid="select-element">
-                          <SelectValue placeholder="Select report type" / data-testid="select-element">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select report type" />
                         </SelectTrigger>
-                        <SelectContent data-testid="select-element">
+                        <SelectContent>
                           {REPORT_CATEGORIES.map(cat => (
                             <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
                               <div className="flex items-center justify-between w-full">
@@ -483,13 +483,13 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Please provide any additional context..."
                         value={reportData.description}
-                        onChange={(e) = data-testid="textarea-element"> setReportData({ ...reportData, description: e.target.value })}
+                        onChange={(e)> setReportData({ ...reportData, description: e.target.value })}
                         rows={3}
                       />
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={() = data-testid="button-element"> setShowReportDialog(false)}>
+                      <Button variant="outline" onClick={()> setShowReportDialog(false)}>
                         Cancel
                       </Button>
                       <Button
@@ -526,16 +526,16 @@ export default function TTfilesHelpCenter() {
                         <Input
                           placeholder="Search help requests..."
                           value={searchQuery}
-                          onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                          onChange={(e)> setSearchQuery(e.target.value)}
                           className="pl-10"
                         />
                       </div>
                     </div>
                     <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
                       <SelectTrigger className="w-full sm:w-[200px]" data-testid="select-w-full">
-                        <SelectValue placeholder="All Categories" / data-testid="select-element">
+                        <SelectValue placeholder="All Categories" />
                       </SelectTrigger>
-                      <SelectContent data-testid="select-element">
+                      <SelectContent>
                         <SelectItem value="" data-testid="select-element">All Categories</SelectItem>
                         {HELP_CATEGORIES.map(cat => (
                           <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
@@ -546,9 +546,9 @@ export default function TTfilesHelpCenter() {
                     </Select>
                     <Select value={selectedUrgency} onValueChange={setSelectedUrgency} data-testid="select-element">
                       <SelectTrigger className="w-full sm:w-[150px]" data-testid="select-w-full">
-                        <SelectValue placeholder="All Urgency" / data-testid="select-element">
+                        <SelectValue placeholder="All Urgency" />
                       </SelectTrigger>
-                      <SelectContent data-testid="select-element">
+                      <SelectContent>
                         <SelectItem value="" data-testid="select-element">All Urgency</SelectItem>
                         <SelectItem value="emergency" data-testid="select-element">Emergency</SelectItem>
                         <SelectItem value="high" data-testid="select-element">High</SelectItem>
@@ -650,7 +650,7 @@ export default function TTfilesHelpCenter() {
                     <Button 
                       className="mt-4" 
                       variant="outline"
-                      onClick={() = data-testid="button-mt-4"> setShowCreateHelp(true)}
+                      onClick={()> setShowCreateHelp(true)}
                     >
                       Create your first request
                     </Button>

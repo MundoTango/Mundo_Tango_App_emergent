@@ -237,7 +237,7 @@ const Invoices: React.FC = () => {
               </div>
               <Button
                 variant="outline"
-                onClick={() = data-testid="button-element"> refetch()}
+                onClick={()> refetch()}
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -307,7 +307,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
       <Button
         variant="outline"
         size="sm"
-        onClick={() = data-testid="button-element"> setIsOpen(true)}
+        onClick={()> setIsOpen(true)}
       >
         <FileText className="h-4 w-4 mr-1" />
         View
@@ -322,7 +322,7 @@ const InvoiceModal: React.FC<{ invoice: Invoice; userInfo: any }> = ({ invoice, 
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() = data-testid="button-element"> setIsOpen(false)}
+                  onClick={()> setIsOpen(false)}
                 >
                   ✕
                 </Button>

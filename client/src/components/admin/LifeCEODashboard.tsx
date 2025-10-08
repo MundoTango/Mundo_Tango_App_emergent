@@ -253,7 +253,7 @@ export const LifeCEODashboard: React.FC = () => {
           <Card className="border-teal-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Success Rate</CardTitle>
-              <Activity className="h-4 w-4 text-ocean-500" / data-testid="link-h-4">
+              <Activity className="h-4 w-4 text-ocean-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-teal-600">
@@ -373,7 +373,7 @@ export const LifeCEODashboard: React.FC = () => {
               <div className="flex gap-2">
                 <Input
                   value={message}
-                  onChange={(e) = data-testid="input-element"> setMessage(e.target.value)}
+                  onChange={(e)> setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                   placeholder="Ask anything... I'm here to help optimize your life"
                   className="flex-1 border-cyan-300 focus:border-ocean-500"

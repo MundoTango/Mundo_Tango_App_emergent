@@ -263,7 +263,7 @@ export default function ResumePage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
-          <AlertCircle className="h-16 w-16 mx-auto mb-4 text-red-300" / data-testid="link-h-16">
+          <AlertCircle className="h-16 w-16 mx-auto mb-4 text-red-300" />
           <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">Unable to load resume</h3>
           <p className="text-red-600 mb-4">
             {error.message.includes('401') || error.message.includes('Authentication')
@@ -326,7 +326,7 @@ export default function ResumePage() {
             onClick={handleCopyPublicLink}
             className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded flex items-center space-x-1 dark:bg-neutral-800"
            data-testid="button-bg-gray-100">
-            <Link2 className="h-3 w-3" / data-testid="link-h-3">
+            <Link2 className="h-3 w-3" />
             <span>Copy Public Resume Link</span>
           </Button>
           
@@ -334,7 +334,7 @@ export default function ResumePage() {
           <div className="relative">
             <Button
               variant="outline"
-              onClick={() = data-testid="button-element"> setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
+              onClick={()> setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
               className="flex items-center space-x-1"
             >
               <span>{exportFormat}</span>

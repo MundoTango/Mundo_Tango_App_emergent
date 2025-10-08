@@ -174,18 +174,18 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                   <Input
                     placeholder="Search by name or username..."
                     value={searchTerm}
-                    onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+                    onChange={(e)> setSearchTerm(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
                 
                 <div>
                   <Label>Role</Label>
-                  <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator') = data-testid="select-element"> setSelectedRole(value)}>
+                  <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator')> setSelectedRole(value)}>
                     <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
-                      <SelectValue / data-testid="select-element">
+                      <SelectValue />
                     </SelectTrigger>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
                       <SelectItem value="moderator" data-testid="select-element">Moderator</SelectItem>
                     </SelectContent>
@@ -198,8 +198,8 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                       <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10" data-testid="link-w-10">
-                            <AvatarImage src={user.profileImage} / data-testid="link-element">
-                            <AvatarFallback data-testid="link-element">{user.name?.[0]}</AvatarFallback>
+                            <AvatarImage src={user.profileImage} />
+                            <AvatarFallback>{user.name?.[0]}</AvatarFallback>
                           </Avatar>
                           <div>
                             <p className="font-medium">{user.name}</p>
@@ -208,7 +208,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                         </div>
                         <Button
                           size="sm"
-                          onClick={() = data-testid="button-element"> addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
+                          onClick={()> addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
                           disabled={addAdminMutation.isPending}
                         >
                           Add
@@ -232,8 +232,8 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <Avatar className="w-12 h-12 ring-2 ring-turquoise-200" data-testid="link-w-12">
-                      <AvatarImage src={admin.user.profileImage || undefined} / data-testid="link-element">
-                      <AvatarFallback data-testid="link-element">{admin.user.name?.[0]}</AvatarFallback>
+                      <AvatarImage src={admin.user.profileImage || undefined} />
+                      <AvatarFallback>{admin.user.name?.[0]}</AvatarFallback>
                     </Avatar>
                     <div>
                       <div className="flex items-center gap-2">
@@ -251,7 +251,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={() = data-testid="button-element"> removeAdminMutation.mutate(admin.id)}
+                      onClick={()> removeAdminMutation.mutate(admin.id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <UserX className="w-4 h-4" />

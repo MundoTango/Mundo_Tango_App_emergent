@@ -106,7 +106,7 @@ export function LifeCeoPerformanceDashboard() {
         <Card className="glassmorphic-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-500" / data-testid="link-h-5">
+              <Activity className="h-5 w-5 text-blue-500" />
               DOM Loaded
             </CardTitle>
           </CardHeader>
@@ -177,7 +177,7 @@ export function LifeCeoPerformanceDashboard() {
             <Card className="glassmorphic-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5" / data-testid="link-h-5">
+                  <Activity className="h-5 w-5" />
                   Active Users
                 </CardTitle>
               </CardHeader>

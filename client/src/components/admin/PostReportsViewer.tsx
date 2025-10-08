@@ -126,21 +126,21 @@ export function PostReportsViewer() {
           {report.status === 'pending' && (
             <div className="flex items-center gap-3 pt-4 border-t">
               <button
-                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'resolved', 'deleted')}
+                onClick={()> handleUpdateStatus(report.id, 'resolved', 'deleted')}
                 className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
                 <XCircle className="h-4 w-4" />
                 Delete Post
               </button>
               <button
-                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'resolved', 'warned')}
+                onClick={()> handleUpdateStatus(report.id, 'resolved', 'warned')}
                 className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
               >
-                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+                <AlertCircle className="h-4 w-4" />
                 Warn User
               </button>
               <button
-                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'dismissed')}
+                onClick={()> handleUpdateStatus(report.id, 'dismissed')}
                 className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
                 <CheckCircle className="h-4 w-4" />

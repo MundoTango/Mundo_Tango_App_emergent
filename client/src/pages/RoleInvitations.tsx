@@ -57,7 +57,7 @@ const ROLE_ICONS = {
   host: <Globe className="w-4 h-4" />,
   photographer: <Camera className="w-4 h-4" />,
   organizer: <Calendar className="w-4 h-4" />,
-  volunteer: <Award className="w-4 h-4" / data-testid="link-w-4">,
+  volunteer: <Award className="w-4 h-4" />,
 };
 
 const ROLE_COLORS = {
@@ -246,7 +246,7 @@ export default function RoleInvitations() {
           <Card className="glassmorphic-card">
             <CardContent className="p-4">
               <Button
-                onClick={() = data-testid="button-element"> setShowSendForm(!showSendForm)}
+                onClick={()> setShowSendForm(!showSendForm)}
                 className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
               >
                 <Send className="w-4 h-4 mr-2" />
@@ -269,7 +269,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Enter username..."
                     value={sendForm.username}
-                    onChange={(e) = data-testid="input-element"> setSendForm({ ...sendForm, username: e.target.value })}
+                    onChange={(e)> setSendForm({ ...sendForm, username: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -278,12 +278,12 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Event</label>
                   <Select
                     value={sendForm.eventId}
-                    onValueChange={(value) = data-testid="select-element"> setSendForm({ ...sendForm, eventId: value })}
+                    onValueChange={(value)> setSendForm({ ...sendForm, eventId: value })}
                   >
                     <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
-                      <SelectValue placeholder="Select event..." / data-testid="select-element">
+                      <SelectValue placeholder="Select event..." />
                     </SelectTrigger>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       {myEvents?.map((event: any) => (
                         <SelectItem key={event.id} value={event.id.toString()} data-testid="select-element">
                           {event.title} - {formatDate(event.startDate)}
@@ -297,12 +297,12 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Role</label>
                   <Select
                     value={sendForm.role}
-                    onValueChange={(value) = data-testid="select-element"> setSendForm({ ...sendForm, role: value })}
+                    onValueChange={(value)> setSendForm({ ...sendForm, role: value })}
                   >
                     <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
-                      <SelectValue placeholder="Select role..." / data-testid="select-element">
+                      <SelectValue placeholder="Select role..." />
                     </SelectTrigger>
-                    <SelectContent data-testid="select-element">
+                    <SelectContent>
                       {Object.keys(ROLE_ICONS).map((role) => (
                         <SelectItem key={role} value={role} data-testid="select-element">
                           <div className="flex items-center gap-2">
@@ -320,7 +320,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Add a personal message..."
                     value={sendForm.message}
-                    onChange={(e) = data-testid="input-element"> setSendForm({ ...sendForm, message: e.target.value })}
+                    onChange={(e)> setSendForm({ ...sendForm, message: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -335,7 +335,7 @@ export default function RoleInvitations() {
                   {sendInvitationMutation.isPending ? 'Sending...' : 'Send Invitation'}
                 </Button>
                 <Button
-                  onClick={() = data-testid="button-element"> setShowSendForm(false)}
+                  onClick={()> setShowSendForm(false)}
                   variant="outline"
                 >
                   Cancel
@@ -420,7 +420,7 @@ export default function RoleInvitations() {
                           {invitation.status === 'pending' && (
                             <div className="flex gap-2">
                               <Button
-                                onClick={() = data-testid="button-element"> handleAccept(invitation)}
+                                onClick={()> handleAccept(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                               >
@@ -428,7 +428,7 @@ export default function RoleInvitations() {
                                 Accept
                               </Button>
                               <Button
-                                onClick={() = data-testid="button-element"> handleDecline(invitation)}
+                                onClick={()> handleDecline(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 variant="outline"
                                 className="border-red-200 text-red-600 hover:bg-red-50"

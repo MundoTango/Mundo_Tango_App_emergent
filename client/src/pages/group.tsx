@@ -162,7 +162,7 @@ export default function GroupPage() {
                   </div>
                 ) : (
                   <Button
-                    onClick={() = data-testid="button-element"> joinGroupMutation.mutate()}
+                    onClick={()> joinGroupMutation.mutate()}
                     disabled={joinGroupMutation.isPending}
                     className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm dark:bg-neutral-900"
                     size="lg"
@@ -214,7 +214,7 @@ export default function GroupPage() {
                   {group.members.slice(0, 8).map((member) => (
                     <div key={member.id} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800">
                       <Avatar className="h-10 w-10" data-testid="link-h-10">
-                        <AvatarImage src={member.user.profileImage || undefined} / data-testid="link-element">
+                        <AvatarImage src={member.user.profileImage || undefined} />
                         <AvatarFallback className="bg-gradient-to-br from-coral-400 to-indigo-500 text-white" data-testid="link-bg-gradient-to-br">
                           {member.user.name.charAt(0).toUpperCase()}
                         </AvatarFallback>

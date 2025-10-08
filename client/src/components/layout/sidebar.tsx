@@ -137,7 +137,7 @@ const SIDEBAR_SECTIONS = [
       { title: "Plans", icon: <FileText className="w-5 h-5" />, link: "/plans" },
       { title: "Payment Methods", icon: <CreditCard className="w-5 h-5" />, link: "/payment-methods" },
       { title: "Invoices", icon: <FileText className="w-5 h-5" />, link: "/invoices" },
-      { title: "Usage", icon: <Activity className="w-5 h-5" / data-testid="link-w-5">, link: "/usage" },
+      { title: "Usage", icon: <Activity className="w-5 h-5" />, link: "/usage" },
     ]
   },
   {
@@ -158,7 +158,7 @@ const SIDEBAR_SECTIONS = [
     title: "User Settings",
     routes: [
       { title: "Preferences", icon: <Settings className="w-5 h-5" />, link: "/preferences" },
-      { title: "Activity", icon: <Activity className="w-5 h-5" / data-testid="link-w-5">, link: "/activity" },
+      { title: "Activity", icon: <Activity className="w-5 h-5" />, link: "/activity" },
       { title: "Privacy", icon: <Shield className="w-5 h-5" />, link: "/privacy" },
       { title: "Data Export", icon: <FileText className="w-5 h-5" />, link: "/data-export" },
     ]
@@ -285,7 +285,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() = data-testid="button-element"> setIsOpen(false)}
+              onClick={()> setIsOpen(false)}
               className="lg:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -303,7 +303,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
                     className="object-cover"
-                  / data-testid="link-object-cover">
+                  />
                   <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
                     {user?.name?.charAt(0) || "U"}
                   </AvatarFallback>

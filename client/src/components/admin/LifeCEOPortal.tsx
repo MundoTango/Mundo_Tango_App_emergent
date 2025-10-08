@@ -73,8 +73,8 @@ const LifeCEOPortal: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center p-4">
         <Alert className="max-w-md" data-testid="link-max-w-md">
           <Lock className="h-4 w-4" />
-          <AlertTitle data-testid="link-element">Access Denied</AlertTitle>
-          <AlertDescription data-testid="link-element">
+          <AlertTitle>Access Denied</AlertTitle>
+          <AlertDescription>
             You don't have permission to access the Life CEO Portal. 
             Please contact your administrator for access.
           </AlertDescription>

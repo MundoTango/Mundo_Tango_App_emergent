@@ -235,7 +235,7 @@ const ProjectTrackerDashboard: React.FC = () => {
       {/* Action Buttons */}
       <div className="flex justify-end gap-2">
         <Button 
-          onClick={() = data-testid="button-element"> refetchProjects()}
+          onClick={()> refetchProjects()}
           variant="outline"
           className="flex items-center gap-2 border-cyan-300 text-cyan-700"
         >
@@ -263,16 +263,16 @@ const ProjectTrackerDashboard: React.FC = () => {
               <Input
                 placeholder="Search items..."
                 value={searchQuery}
-                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                onChange={(e)> setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
             
-            <Select value={selectedLayer?.toString() || 'all'} onValueChange={(value) = data-testid="select-element"> setSelectedLayer(value === 'all' ? null : parseInt(value))}>
-              <SelectTrigger data-testid="select-element">
-                <SelectValue placeholder="Select Layer" / data-testid="select-element">
+            <Select value={selectedLayer?.toString() || 'all'} onValueChange={(value)> setSelectedLayer(value === 'all' ? null : parseInt(value))}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Layer" />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="all" data-testid="select-element">All Layers</SelectItem>
                 {LAYER_DEFINITIONS.map(layer => (
                   <SelectItem key={layer.id} value={layer.id.toString()} data-testid="select-element">
@@ -283,10 +283,10 @@ const ProjectTrackerDashboard: React.FC = () => {
             </Select>
 
             <Select value={selectedType} onValueChange={setSelectedType} data-testid="select-element">
-              <SelectTrigger data-testid="select-element">
-                <SelectValue placeholder="Select Type" / data-testid="select-element">
+              <SelectTrigger>
+                <SelectValue placeholder="Select Type" />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="all" data-testid="select-element">All Types</SelectItem>
                 <SelectItem value="Feature" data-testid="select-element">Feature</SelectItem>
                 <SelectItem value="Framework" data-testid="select-element">Framework</SelectItem>
@@ -297,10 +297,10 @@ const ProjectTrackerDashboard: React.FC = () => {
             </Select>
 
             <Select value={selectedStatus} onValueChange={setSelectedStatus} data-testid="select-element">
-              <SelectTrigger data-testid="select-element">
-                <SelectValue placeholder="Status" / data-testid="select-element">
+              <SelectTrigger>
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="all" data-testid="select-element">All Status</SelectItem>
                 <SelectItem value="Completed" data-testid="select-element">Completed</SelectItem>
                 <SelectItem value="In Progress" data-testid="select-element">In Progress</SelectItem>
@@ -322,7 +322,7 @@ const ProjectTrackerDashboard: React.FC = () => {
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-cyan-700">Total Projects</CardTitle>
-              <Activity className="h-4 w-4 text-ocean-500" / data-testid="link-h-4">
+              <Activity className="h-4 w-4 text-ocean-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">

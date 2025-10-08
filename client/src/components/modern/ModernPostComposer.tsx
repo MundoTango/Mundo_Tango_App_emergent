@@ -133,7 +133,7 @@ export default function ModernPostComposer({
                 return (
                   <button
                     key={option.value}
-                    onClick={() = data-testid="button-element"> setVisibility(option.value)}
+                    onClick={()> setVisibility(option.value)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-medium text-sm
                               transition-all duration-200 border-2 ${
                                 visibility === option.value
@@ -154,7 +154,7 @@ export default function ModernPostComposer({
         <div className="mb-6">
           <textarea
             value={content}
-            onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+            onChange={(e)> setContent(e.target.value)}
             placeholder="What's on your mind?"
             className="w-full px-6 py-5 bg-gradient-to-br from-blue-50/30 to-teal-50/30 border-2 border-blue-200/50 
                      rounded-2xl resize-none focus:outline-none focus:ring-4 focus:ring-coral-200/50 
@@ -188,7 +188,7 @@ export default function ModernPostComposer({
                 </div>
               </div>
               <button
-                onClick={() = data-testid="button-element"> {
+                onClick={()> {
                   setSelectedMedia(null);
                   setExistingMediaUrl(null);
                 }}
@@ -210,7 +210,7 @@ export default function ModernPostComposer({
                 accept="image/*"
                 onChange={handleMediaSelect}
                 className="hidden"
-              / data-testid="input-hidden">
+              />
               <div className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-coral-50 text-coral-600 
                             hover:bg-coral-100 hover:text-coral-700 font-bold transition-all duration-300 
                             transform hover:scale-105 shadow-lg hover:shadow-xl">

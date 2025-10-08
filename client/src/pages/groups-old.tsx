@@ -80,7 +80,7 @@ export default function GroupsPage() {
               type="text"
               placeholder="Search groups..."
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               className="input-text pl-10 w-full"
             />
           </div>
@@ -92,7 +92,7 @@ export default function GroupsPage() {
             {['all', 'joined', 'suggested'].map((tab) => (
               <button
                 key={tab}
-                onClick={() = data-testid="button-element"> setActiveTab(tab)}
+                onClick={()> setActiveTab(tab)}
                 className={`px-6 py-3 font-medium capitalize transition-colors ${
                   activeTab === tab
                     ? 'text-btn-color border-b-2 border-btn-color'
@@ -176,7 +176,7 @@ export default function GroupsPage() {
                       {group.isJoined ? (
                         <button 
                           className="w-full rounded-lg bg-green-100 text-green-800 border border-green-200 py-2 text-sm font-medium"
-                          onClick={(e) = data-testid="button-w-full"> {
+                          onClick={(e)> {
                             e.stopPropagation();
                             setLocation(`/groups/${group.slug}`);
                           }}
@@ -190,7 +190,7 @@ export default function GroupsPage() {
                               ? 'border border-btn-color text-btn-color'
                               : 'bg-btn-color text-white'
                           }`}
-                          onClick={(e) = data-testid="button-element"> {
+                          onClick={(e)> {
                             e.stopPropagation();
                             // Handle join/request logic here
                           }}
@@ -345,7 +345,7 @@ function CityGroupAutomationDemo() {
                 type="text"
                 placeholder="e.g., Buenos Aires"
                 value={cityInput}
-                onChange={(e) = data-testid="input-element"> setCityInput(e.target.value)}
+                onChange={(e)> setCityInput(e.target.value)}
                 className="input-text w-full"
                 disabled={isLoading}
               />
@@ -359,7 +359,7 @@ function CityGroupAutomationDemo() {
                 type="text"
                 placeholder="e.g., Argentina"
                 value={countryInput}
-                onChange={(e) = data-testid="input-element"> setCountryInput(e.target.value)}
+                onChange={(e)> setCountryInput(e.target.value)}
                 className="input-text w-full"
                 disabled={isLoading}
               />

@@ -34,7 +34,7 @@ export function SimpleMediaUploader() {
           fontSize: '18px',
           width: '100%'
         }}
-      / data-testid="input-element">
+      />
       {files.length > 0 && (
         <div style={{ color: 'white', marginTop: '10px' }}>
           Selected {files.length} files:

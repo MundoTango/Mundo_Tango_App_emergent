@@ -135,16 +135,16 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={() = data-testid="button-element"> triggerError('sync')}
+              onClick={()> triggerError('sync')}
               disabled={loading}
               variant="destructive"
             >
-              <AlertTriangle className="mr-2 h-4 w-4" / data-testid="link-mr-2">
+              <AlertTriangle className="mr-2 h-4 w-4" />
               Trigger Sync Error
             </Button>
 
             <Button
-              onClick={() = data-testid="button-element"> triggerError('async')}
+              onClick={()> triggerError('async')}
               disabled={loading}
               variant="destructive"
             >
@@ -153,7 +153,7 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={() = data-testid="button-element"> triggerError('api')}
+              onClick={()> triggerError('api')}
               disabled={loading}
               variant="destructive"
             >
@@ -162,16 +162,16 @@ export function SentryErrorTester() {
             </Button>
 
             <Button
-              onClick={() = data-testid="button-element"> triggerError('reference')}
+              onClick={()> triggerError('reference')}
               disabled={loading}
               variant="destructive"
             >
-              <AlertTriangle className="mr-2 h-4 w-4" / data-testid="link-mr-2">
+              <AlertTriangle className="mr-2 h-4 w-4" />
               Trigger Reference Error
             </Button>
 
             <Button
-              onClick={() = data-testid="button-element"> triggerError('promise')}
+              onClick={()> triggerError('promise')}
               disabled={loading}
               variant="destructive"
             >

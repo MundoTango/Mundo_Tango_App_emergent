@@ -84,7 +84,7 @@ const NewFeedEvents = () => {
                   variant="ghost"
                   size="sm"
                   className="text-turquoise-600 hover:text-cyan-700 text-xs font-semibold transition-colors hover:bg-turquoise-50"
-                  onClick={() = data-testid="button-text-turquoise-600"> window.location.href = '/events'}
+                  onClick={()> window.location.href = '/events'}
                 >
                   See all
                 </Button>

@@ -164,7 +164,7 @@ export default function LiveGlobalStatistics() {
           </div>
           <div className="flex items-center gap-2">
             <Badge variant={isConnected ? "default" : "secondary"} className="gap-1">
-              <Activity className={`h-3 w-3 ${isConnected ? 'animate-pulse' : ''}`} / data-testid="link-element">
+              <Activity className={`h-3 w-3 ${isConnected ? 'animate-pulse' : ''}`} />
               {isConnected ? 'Live' : 'Offline'}
             </Badge>
             <span className="text-sm text-gray-500">
@@ -195,7 +195,7 @@ export default function LiveGlobalStatistics() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" / data-testid="link-h-4">
+              <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{formatNumber(statistics.users.active_users)}</div>

@@ -325,7 +325,7 @@ export default function Profile() {
                             <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create your guest profile to be housed by Hosts in the global tango community</p>
                             <Button 
                               size="sm"
-                              onClick={() = data-testid="button-element"> setLocation('/guest-onboarding')}
+                              onClick={()> setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                             >
                               Create Profile
@@ -351,7 +351,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() = data-testid="button-element"> setActiveTab('about')}
+                            onClick={()> setActiveTab('about')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             Edit
@@ -380,7 +380,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() = data-testid="button-element"> setActiveTab('travel')}
+                            onClick={()> setActiveTab('travel')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View
@@ -411,7 +411,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() = data-testid="button-element"> setActiveTab('friends')}
+                            onClick={()> setActiveTab('friends')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View All
@@ -518,7 +518,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('about')}
+                          onClick={()> setActiveTab('about')}
                         >
                           Explore Events
                         </Button>
@@ -661,7 +661,7 @@ export default function Profile() {
                     </p>
                     <Button 
                       className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                      onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('photos')}
+                      onClick={()> setActiveTab('photos')}
                     >
                       View Media Gallery
                     </Button>
@@ -817,7 +817,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('events')}
+                          onClick={()> setActiveTab('events')}
                         >
                           Browse Events
                         </Button>

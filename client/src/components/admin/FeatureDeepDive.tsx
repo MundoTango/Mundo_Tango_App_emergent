@@ -99,7 +99,7 @@ export function FeatureDeepDive() {
       case 'In Progress':
         return <Clock className="w-4 h-4 text-blue-500" />;
       case 'Blocked':
-        return <AlertCircle className="w-4 h-4 text-red-500" / data-testid="link-w-4">;
+        return <AlertCircle className="w-4 h-4 text-red-500" />;
       default:
         return <Layers className="w-4 h-4 text-gray-500" />;
     }
@@ -152,16 +152,16 @@ export function FeatureDeepDive() {
             <Input
               placeholder="Search features..."
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
 
           <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
             <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
-              <SelectValue placeholder="Filter by status" / data-testid="select-element">
+              <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="all" data-testid="select-element">All Statuses</SelectItem>
               {uniqueStatuses.map(status => (
                 <SelectItem key={status} value={status} data-testid="select-element">{status}</SelectItem>
@@ -171,9 +171,9 @@ export function FeatureDeepDive() {
 
           <Select value={teamFilter} onValueChange={setTeamFilter} data-testid="select-element">
             <SelectTrigger className="w-[180px]" data-testid="select-w-[180px]">
-              <SelectValue placeholder="Filter by team" / data-testid="select-element">
+              <SelectValue placeholder="Filter by team" />
             </SelectTrigger>
-            <SelectContent data-testid="select-element">
+            <SelectContent>
               <SelectItem value="all" data-testid="select-element">All Teams</SelectItem>
               {uniqueTeams.map(team => (
                 <SelectItem key={team} value={team} data-testid="select-element">{team}</SelectItem>

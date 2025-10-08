@@ -217,7 +217,7 @@ const LanguageSelector = ({
           {supportedLanguages.map(lang => (
             <button
               key={lang.code}
-              onClick={() = data-testid="button-element"> handleLanguageChange(lang.code)}
+              onClick={()> handleLanguageChange(lang.code)}
               disabled={isChanging}
               className={`
                 w-full p-3 rounded-lg text-left transition-all duration-200

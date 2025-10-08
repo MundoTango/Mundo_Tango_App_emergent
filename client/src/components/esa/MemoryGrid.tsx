@@ -89,7 +89,7 @@ export default function MemoryGrid({
     <div className="w-full">
       {/* Masonry Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-        <AnimatePresence data-testid="link-element">
+        <AnimatePresence>
           {memories.map((memory, index) => (
             <motion.div
               key={memory.id}
@@ -141,7 +141,7 @@ export default function MemoryGrid({
                   {/* Author Info */}
                   <div className="flex items-center gap-3 mb-3">
                     <Avatar className="h-8 w-8 ring-2 ring-teal-400/20" data-testid="link-h-8">
-                      <AvatarImage src={memory.author.avatar} / data-testid="link-element">
+                      <AvatarImage src={memory.author.avatar} />
                       <AvatarFallback className="bg-gradient-to-br from-teal-400 to-cyan-600 text-white" data-testid="link-bg-gradient-to-br">
                         {memory.author.name.charAt(0)}
                       </AvatarFallback>
@@ -189,7 +189,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() = data-testid="button-element"> onReaction(memory.id, 'like')}
+                      onClick={()> onReaction(memory.id, 'like')}
                       className={cn(
                         "gap-1.5 hover:bg-red-50 dark:hover:bg-red-900/20",
                         memory.isLiked && "text-red-500"
@@ -202,7 +202,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() = data-testid="button-element"> onComment(memory.id)}
+                      onClick={()> onComment(memory.id)}
                       className="gap-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                     >
                       <MessageCircle className="h-4 w-4" />
@@ -212,7 +212,7 @@ export default function MemoryGrid({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() = data-testid="button-element"> onShare(memory.id)}
+                      onClick={()> onShare(memory.id)}
                       className="gap-1.5 hover:bg-green-50 dark:hover:bg-green-900/20"
                     >
                       <Share2 className="h-4 w-4" />

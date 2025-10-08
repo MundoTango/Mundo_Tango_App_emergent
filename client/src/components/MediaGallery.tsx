@@ -164,16 +164,16 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
               <Input
                 placeholder="Search media..."
                 value={searchTerm}
-                onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+                onChange={(e)> setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
             
             <Select value={folderFilter} onValueChange={setFolderFilter} data-testid="select-element">
-              <SelectTrigger data-testid="select-element">
-                <SelectValue placeholder="All Folders" / data-testid="select-element">
+              <SelectTrigger>
+                <SelectValue placeholder="All Folders" />
               </SelectTrigger>
-              <SelectContent data-testid="select-element">
+              <SelectContent>
                 <SelectItem value="all" data-testid="select-element">All Folders</SelectItem>
                 {uniqueFolders.map(folder => (
                   <SelectItem key={folder} value={folder} data-testid="select-element">
@@ -185,10 +185,10 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
             {showVisibilityFilter && (
               <Select value={visibilityFilter} onValueChange={setVisibilityFilter} data-testid="select-element">
-                <SelectTrigger data-testid="select-element">
-                  <SelectValue placeholder="All Visibility" / data-testid="select-element">
+                <SelectTrigger>
+                  <SelectValue placeholder="All Visibility" />
                 </SelectTrigger>
-                <SelectContent data-testid="select-element">
+                <SelectContent>
                   <SelectItem value="all" data-testid="select-element">All Visibility</SelectItem>
                   <SelectItem value="public" data-testid="select-element">Public</SelectItem>
                   <SelectItem value="mutual" data-testid="select-element">Friends Only</SelectItem>
@@ -254,7 +254,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> handleDelete(asset.id)}
+                    onClick={()> handleDelete(asset.id)}
                     className="opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
                   >
                     <X className="w-4 h-4" />

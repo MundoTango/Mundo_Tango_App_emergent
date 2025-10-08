@@ -363,7 +363,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', duration: 0.5 }}
       >
-        <AnimatePresence data-testid="link-element">
+        <AnimatePresence>
           {isExpanded ? (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -380,7 +380,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() = data-testid="button-element"> setIsExpanded(false)}
+                  onClick={()> setIsExpanded(false)}
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -447,7 +447,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={() = data-testid="button-element"> textToSpeech.stop()}
+                  onClick={()> textToSpeech.stop()}
                   disabled={!isSpeaking}
                 >
                   {isSpeaking ? (
@@ -484,7 +484,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={() = data-testid="button-element"> setShowSettings(true)}
+                  onClick={()> setShowSettings(true)}
                 >
                   <Settings className="w-4 h-4" />
                 </Button>
@@ -622,7 +622,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() = data-testid="button-w-full"> speakResponse("Hello! This is a test of the voice settings.")}
+                onClick={()> speakResponse("Hello! This is a test of the voice settings.")}
               >
                 Test Voice Settings
               </Button>

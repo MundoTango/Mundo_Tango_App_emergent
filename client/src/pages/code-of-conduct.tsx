@@ -234,7 +234,7 @@ export default function CodeOfConduct() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-purple-100 rounded-full group-hover:bg-purple-200 transition-colors">
-                      <AlertTriangle className="w-6 h-6 text-purple-600" / data-testid="link-w-6">
+                      <AlertTriangle className="w-6 h-6 text-purple-600" />
                     </div>
                     <CardTitle className="text-xl text-purple-700">Don't Be Foul</CardTitle>
                   </div>

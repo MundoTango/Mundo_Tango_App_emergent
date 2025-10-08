@@ -78,7 +78,7 @@ const ProjectSwitcher: React.FC = () => {
   return (
     <div className="relative">
       <button
-        onClick={() = data-testid="button-element"> setIsOpen(!isOpen)}
+        onClick={()> setIsOpen(!isOpen)}
         className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 rounded-lg bg-gradient-to-r ${currentProject.color} text-white hover:shadow-lg transition-all duration-200`}
       >
         <div className="flex items-center space-x-1 sm:space-x-2">
@@ -115,7 +115,7 @@ const ProjectSwitcher: React.FC = () => {
                 return (
                   <button
                     key={project.id}
-                    onClick={() = data-testid="button-element"> switchProject(project)}
+                    onClick={()> switchProject(project)}
                     className={`w-full p-3 rounded-lg transition-all duration-200 group ${
                       isCurrent 
                         ? 'bg-blue-50 border border-blue-200' 
@@ -147,7 +147,7 @@ const ProjectSwitcher: React.FC = () => {
                       </div>
 
                       {!isCurrent && (
-                        <ArrowRight className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition-colors" / data-testid="link-w-4">
+                        <ArrowRight className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition-colors" />
                       )}
                     </div>
                   </button>

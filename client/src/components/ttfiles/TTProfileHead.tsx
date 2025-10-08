@@ -118,7 +118,7 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
                 </div>
                 {user.yearsOfDancing && (
                   <div className="flex items-center gap-1">
-                    <Award className="w-4 h-4" / data-testid="link-w-4">
+                    <Award className="w-4 h-4" />
                     <span>{user.yearsOfDancing} years dancing</span>
                   </div>
                 )}

@@ -56,7 +56,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
       case 'in-progress':
         return <Clock className="w-4 h-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" / data-testid="link-w-4">;
+        return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -212,8 +212,8 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
       {/* Launch Warnings */}
       {launchStatus !== 'ready' && (
         <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
-          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-          <AlertDescription data-testid="link-element">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
             <div className="font-medium mb-1">Launch Preparation Required</div>
             <div className="text-sm">
               Complete all critical tasks before launching. {metrics.criticalTasksTotal - metrics.criticalTasksComplete} critical tasks remaining.

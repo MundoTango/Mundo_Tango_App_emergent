@@ -292,7 +292,7 @@ export default function EnhancedPostCreator({
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
-            onClick={() = data-testid="button-element"> setShowExpandedComposer(true)}
+            onClick={()> setShowExpandedComposer(true)}
             className="flex-1 text-left px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-pink-50 hover:to-blue-50 rounded-full text-gray-600 hover:text-gray-800 transition-all duration-200 border border-gray-200 dark:text-neutral-200"
           >
             Share your tango moment...
@@ -323,7 +323,7 @@ export default function EnhancedPostCreator({
             Create Post
           </h2>
           <button
-            onClick={() = data-testid="button-element"> setShowExpandedComposer(false)}
+            onClick={()> setShowExpandedComposer(false)}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
           >
             <X className="w-5 h-5" />
@@ -341,7 +341,7 @@ export default function EnhancedPostCreator({
               <div className="flex items-center space-x-2">
                 <select
                   value={visibility}
-                  onChange={(e) = data-testid="select-element"> setVisibility(e.target.value as any)}
+                  onChange={(e)> setVisibility(e.target.value as any)}
                   className="text-sm text-gray-600 border border-gray-200 rounded-md px-2 py-1 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   <option value="public">🌍 Public</option>
@@ -356,7 +356,7 @@ export default function EnhancedPostCreator({
           <div className="mb-4">
             <textarea
               value={content}
-              onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+              onChange={(e)> setContent(e.target.value)}
               placeholder="What's happening in your tango world?"
               className="w-full min-h-[180px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:border-neutral-700"
               rows={6}
@@ -366,11 +366,11 @@ export default function EnhancedPostCreator({
           {/* Additional Actions */}
           <div className="flex items-center space-x-2 mb-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
             <div className="w-px h-6 bg-gray-300"></div>
-            <button onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <button onClick={()> setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <Smile className="w-4 h-4" />
             </button>
-            <button onClick={() = data-testid="button-element"> setShowMentionPicker(!showMentionPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
-              <AtSign className="w-4 h-4" / data-testid="link-w-4">
+            <button onClick={()> setShowMentionPicker(!showMentionPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <AtSign className="w-4 h-4" />
             </button>
             <button className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-p-2">
               <Hash className="w-4 h-4" />
@@ -387,7 +387,7 @@ export default function EnhancedPostCreator({
                 >
                   {mention.display}
                   <button
-                    onClick={() = data-testid="button-element"> removeMention(index)}
+                    onClick={()> removeMention(index)}
                     className="ml-2 text-blue-600 hover:text-blue-800"
                   >
                     <X className="w-3 h-3" />
@@ -407,7 +407,7 @@ export default function EnhancedPostCreator({
                       {embed.type} embed: {embed.preview}
                     </span>
                     <button
-                      onClick={() = data-testid="button-element"> removeMediaEmbed(index)}
+                      onClick={()> removeMediaEmbed(index)}
                       className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                     >
                       <X className="w-4 h-4" />
@@ -425,7 +425,7 @@ export default function EnhancedPostCreator({
                 <MapPin className="w-4 h-4 text-green-600" />
                 <span className="text-sm text-green-800">{location}</span>
                 <button
-                  onClick={() = data-testid="button-element"> setLocation('')}
+                  onClick={()> setLocation('')}
                   className="ml-auto text-green-600 hover:text-green-800"
                 >
                   <X className="w-4 h-4" />
@@ -441,7 +441,7 @@ export default function EnhancedPostCreator({
                 {['😀', '😍', '🔥', '❤️', '🎉', '👏', '💃', '🕺', '🎵', '🌟', '💯', '🙌'].map(emoji => (
                   <button
                     key={emoji}
-                    onClick={() = data-testid="button-element"> {
+                    onClick={()> {
                       setContent(prev => prev + emoji);
                       setShowEmojiPicker(false);
                     }}
@@ -461,7 +461,7 @@ export default function EnhancedPostCreator({
                 type="text"
                 placeholder="Type @username or #hashtag"
                 className="w-full p-2 border rounded"
-                onKeyPress={(e) = data-testid="input-w-full"> {
+                onKeyPress={(e)> {
                   if (e.key === 'Enter') {
                     handleMention(e.currentTarget.value);
                     e.currentTarget.value = '';
@@ -480,11 +480,11 @@ export default function EnhancedPostCreator({
               type="file"
               multiple
               accept="image/*,video/*"
-              onChange={(e) = data-testid="input-element"> e.target.files && handleFileUpload(e.target.files)}
+              onChange={(e)> e.target.files && handleFileUpload(e.target.files)}
               className="hidden"
             />
             <button
-              onClick={() = data-testid="button-element"> fileInputRef.current?.click()}
+              onClick={()> fileInputRef.current?.click()}
               disabled={isUploading}
               className="flex items-center space-x-2 px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors disabled:opacity-50"
             >
@@ -492,7 +492,7 @@ export default function EnhancedPostCreator({
               <span>Photo</span>
             </button>
             <button
-              onClick={() = data-testid="button-element"> {
+              onClick={()> {
                 const url = prompt('Enter social media URL (Instagram, Twitter, YouTube, TikTok):');
                 if (url) {
                   const embed = detectSocialMedia(url);
@@ -509,11 +509,11 @@ export default function EnhancedPostCreator({
               }}
               className="flex items-center space-x-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
             >
-              <Link className="w-4 h-4" / data-testid="link-w-4">
+              <Link className="w-4 h-4" />
               <span>Embed</span>
             </button>
             <button
-              onClick={() = data-testid="button-element"> {
+              onClick={()> {
                 const loc = prompt('Add location:');
                 if (loc) setLocation(loc);
               }}

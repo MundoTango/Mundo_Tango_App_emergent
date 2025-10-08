@@ -537,13 +537,13 @@ const PostFeed = memo(({
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                onChange={(e)> setSearchQuery(e.target.value)}
                 placeholder="Search posts..."
                 className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 dark:bg-neutral-900"
               />
               {searchQuery && (
                 <button
-                  onClick={() = data-testid="button-element"> setSearchQuery('')}
+                  onClick={()> setSearchQuery('')}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 >
                   <X className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
@@ -556,7 +556,7 @@ const PostFeed = memo(({
           {/* Filter Toggle */}
           {showFilters && (
           <button
-            onClick={() = data-testid="button-element"> setShowExpandedFilters(!showExpandedFilters)}
+            onClick={()> setShowExpandedFilters(!showExpandedFilters)}
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
@@ -571,7 +571,7 @@ const PostFeed = memo(({
               <div className="relative group">
                 <div className="flex gap-2">
                   <button
-                    onClick={() = data-testid="button-element"> setFilterBy('all')}
+                    onClick={()> setFilterBy('all')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'all'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -582,7 +582,7 @@ const PostFeed = memo(({
                     All Posts
                   </button>
                   <button
-                    onClick={() = data-testid="button-element"> setFilterBy('residents')}
+                    onClick={()> setFilterBy('residents')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'residents'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -593,7 +593,7 @@ const PostFeed = memo(({
                     Residence
                   </button>
                   <button
-                    onClick={() = data-testid="button-element"> setFilterBy('visitors')}
+                    onClick={()> setFilterBy('visitors')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'visitors'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -604,7 +604,7 @@ const PostFeed = memo(({
                     Visitor
                   </button>
                   <button
-                    onClick={() = data-testid="button-element"> setFilterBy('friends')}
+                    onClick={()> setFilterBy('friends')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'friends'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -638,7 +638,7 @@ const PostFeed = memo(({
                     >
                       #{tag}
                       <button
-                        onClick={() = data-testid="button-element"> handleRemoveTag(tag)}
+                        onClick={()> handleRemoveTag(tag)}
                         className="ml-1 hover:text-teal-900"
                       >
                         <X className="h-3 w-3" />
@@ -648,7 +648,7 @@ const PostFeed = memo(({
                   <input
                     type="text"
                     value={tagInput}
-                    onChange={(e) = data-testid="input-element"> setTagInput(e.target.value)}
+                    onChange={(e)> setTagInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
                     placeholder="Add tag..."
                     className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-neutral-800"
@@ -667,7 +667,7 @@ const PostFeed = memo(({
                     <input
                       type="date"
                       value={startDate}
-                      onChange={(e) = data-testid="input-element"> setStartDate(e.target.value)}
+                      onChange={(e)> setStartDate(e.target.value)}
                       className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm dark:bg-neutral-900"
                     />
                   </div>
@@ -676,14 +676,14 @@ const PostFeed = memo(({
                     <input
                       type="date"
                       value={endDate}
-                      onChange={(e) = data-testid="input-element"> setEndDate(e.target.value)}
+                      onChange={(e)> setEndDate(e.target.value)}
                       className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm dark:bg-neutral-900"
                     />
                   </div>
                 </div>
                 {(startDate || endDate) && (
                   <button
-                    onClick={() = data-testid="button-element"> {
+                    onClick={()> {
                       setStartDate('');
                       setEndDate('');
                     }}

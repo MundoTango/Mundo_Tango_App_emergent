@@ -271,7 +271,7 @@ export default function GoogleMapsAutocomplete({
           placeholder={placeholder}
           required={required}
           className="pl-10 pr-10 py-3 w-full border-gray-200 focus:border-pink-300 focus:ring-pink-100 rounded-lg dark:border-neutral-700"
-        / data-testid="input-pl-10">
+        />
         {inputValue && (
           <Button
             type="button"

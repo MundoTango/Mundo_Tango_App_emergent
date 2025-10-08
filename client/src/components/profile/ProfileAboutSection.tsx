@@ -179,7 +179,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
   const [showGoogleMaps, setShowGoogleMaps] = useState(false);
   
   // Initialize form with user data matching registration form structure
-  const form = useForm<AboutData data-testid="link-element">({
+  const form = useForm<AboutData>({
     resolver: zodResolver(aboutSchema),
     defaultValues: {
       nickname: user.name || '',
@@ -433,7 +433,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                           {...field} 
                           placeholder="Your nickname" 
                           className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg dark:bg-neutral-900"
-                        / data-testid="input-glassmorphic-input">
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -569,10 +569,10 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                       <FormControl>
                         <Select
                           value={field.value?.toString()}
-                          onValueChange={(value) = data-testid="select-element"> field.onChange(parseInt(value))}
+                          onValueChange={(value)> field.onChange(parseInt(value))}
                         >
                           <SelectTrigger className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg dark:bg-neutral-900" data-testid="select-glassmorphic-input">
-                            <SelectValue placeholder="Select year" / data-testid="select-element">
+                            <SelectValue placeholder="Select year" />
                           </SelectTrigger>
                           <SelectContent className="glassmorphic-card max-h-60 overflow-y-auto border border-turquoise-200/50" data-testid="select-glassmorphic-card">
                             {years.map((year) => (
@@ -664,7 +664,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() = data-testid="button-element"> setIsEditing(true)}
+            onClick={()> setIsEditing(true)}
             className="hover:bg-white/50 hover:shadow-md transition-all duration-300 dark:bg-neutral-900"
           >
             <Edit2 className="w-4 h-4 mr-1" />

@@ -116,7 +116,7 @@ export default function Messages() {
                       <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
-                        onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+                        onChange={(e)> setSearchQuery(e.target.value)}
                         className="pl-9"
                       />
                     </div>
@@ -154,8 +154,8 @@ export default function Messages() {
                               </div>
                             ) : (
                               <Avatar className="w-12 h-12" data-testid="link-w-12">
-                                <AvatarImage src={room.imageUrl} alt={room.title} / data-testid="link-element">
-                                <AvatarFallback data-testid="link-element">{room.title.charAt(0)}</AvatarFallback>
+                                <AvatarImage src={room.imageUrl} alt={room.title} />
+                                <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
                               </Avatar>
                             )}
                             

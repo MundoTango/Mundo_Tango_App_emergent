@@ -144,7 +144,7 @@ export function FriendRequestList() {
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
                 <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50" data-testid="link-h-16">
-                  <AvatarImage src={request.sender.profileImage} / data-testid="link-element">
+                  <AvatarImage src={request.sender.profileImage} />
                   <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
                     {request.sender.name?.[0] || 'U'}
                   </AvatarFallback>
@@ -193,7 +193,7 @@ export function FriendRequestList() {
                   <div className="flex items-center gap-2 pt-2">
                     <Button
                       size="sm"
-                      onClick={() = data-testid="button-element"> {
+                      onClick={()> {
                         setSelectedRequest(request);
                         setShowAcceptDialog(true);
                       }}
@@ -205,7 +205,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() = data-testid="button-element"> rejectMutation.mutate(request.id)}
+                      onClick={()> rejectMutation.mutate(request.id)}
                     >
                       <X className="mr-1 h-4 w-4" />
                       Decline
@@ -213,7 +213,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={() = data-testid="button-element"> snoozeMutation.mutate({ requestId: request.id, days: 7 })}
+                      onClick={()> snoozeMutation.mutate({ requestId: request.id, days: 7 })}
                     >
                       <Clock className="mr-1 h-4 w-4" />
                       Snooze
@@ -240,13 +240,13 @@ export function FriendRequestList() {
             <Textarea
               placeholder="Add a welcome message (optional)..."
               value={acceptMessage}
-              onChange={(e) = data-testid="textarea-element"> setAcceptMessage(e.target.value)}
+              onChange={(e)> setAcceptMessage(e.target.value)}
               className="glassmorphic-input min-h-[100px]"
             />
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
-                onClick={() = data-testid="button-element"> {
+                onClick={()> {
                   setShowAcceptDialog(false);
                   setAcceptMessage('');
                 }}

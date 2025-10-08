@@ -18,7 +18,7 @@ export default function NotFound() {
         <CardContent className="pt-8 pb-6 text-center">
           <div className="mb-6">
             <div className="w-20 h-20 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertCircle className="h-10 w-10 text-turquoise-600" / data-testid="link-h-10">
+              <AlertCircle className="h-10 w-10 text-turquoise-600" />
             </div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
               404 - Page Not Found
@@ -30,7 +30,7 @@ export default function NotFound() {
 
           <div className="space-y-3">
             <Button
-              onClick={() = data-testid="button-element"> setLocation('/')}
+              onClick={()> setLocation('/')}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
               <Home className="w-4 h-4 mr-2" />
@@ -38,16 +38,16 @@ export default function NotFound() {
             </Button>
             
             <Button
-              onClick={() = data-testid="button-element"> window.history.back()}
+              onClick={()> window.history.back()}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
+              <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
             </Button>
             
             <Button
-              onClick={() = data-testid="button-element"> setLocation('/events')}
+              onClick={()> setLocation('/events')}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
             >

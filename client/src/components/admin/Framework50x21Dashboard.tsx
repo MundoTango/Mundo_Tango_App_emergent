@@ -235,7 +235,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 10,
         name: "Deployment & Infrastructure",
-        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
+        icon: <Activity className="w-5 h-5" />,
         description: "Deployment pipeline, CI/CD, monitoring, infrastructure management, and preview reliability",
         detailedDescription: "This layer manages how the platform runs in production. It encompasses Replit's autoscale deployment infrastructure, PostgreSQL database with Neon serverless, environment configuration management, and automated deployment pipelines. Enhanced with preview environment health monitoring and HMR reliability tracking. The infrastructure ensures the platform stays online, performs well, and deploys updates smoothly without downtime.",
         progressExplanation: "65% reflects functional deployment with critical gaps. Basic deployment works on Replit, database performs well, but missing: Redis caching layer, APM tools (DataDog/New Relic), proper error tracking (Sentry), cloud migration path, and blue-green deployment strategy.",
@@ -333,7 +333,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 15,
         name: "Voice & Environmental Intelligence",
-        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
+        icon: <Activity className="w-5 h-5" />,
         description: "Voice processing, speech recognition, location services, and environmental awareness",
         detailedDescription: "This layer enables natural voice interactions and location awareness. It includes advanced audio processing with noise suppression, speech-to-text conversion, language detection, and sophisticated location services. Enhanced with location service abstraction using fallback chain pattern: Browser Geolocation → IP-based location → Manual input → Profile default. The system handles unclear audio, background noise, and provides mobile-first interfaces.",
         progressExplanation: "75% reflects solid capabilities with recent location improvements. Voice commands work well, location services use smart fallbacks with debouncing, noise suppression handles background sound. Remaining work: complete multilingual support and enhance environmental awareness.",
@@ -490,7 +490,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 23,
         name: "Business Continuity",
-        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
+        icon: <Activity className="w-5 h-5" />,
         description: "Disaster recovery, backup strategies, and business continuity planning",
         detailedDescription: "This layer ensures Mundo Tango can survive disasters and continue serving the community. It includes comprehensive disaster recovery plans, automated backup systems, incident response procedures, and public status pages. When catastrophe strikes, the platform can be restored quickly with minimal data loss.",
         progressExplanation: "35% indicates critical gaps in business continuity. Basic backup concepts exist, incident response is manual, but automated backups, tested disaster recovery plans, and comprehensive business continuity procedures are urgently needed for production readiness.",
@@ -562,7 +562,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 27,
         name: "Scalability Architecture",
-        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
+        icon: <Activity className="w-5 h-5" />,
         description: "Auto-scaling, load balancing, and distributed systems",
         detailedDescription: "This layer ensures the platform can handle growth from hundreds to millions of users. It implements horizontal scaling for handling traffic spikes, load balancing across multiple servers, caching strategies for performance, database sharding for data distribution, and microservices architecture for independent scaling.",
         progressExplanation: "55% reflects current single-server architecture with scalability plans in place. The platform works well for current load but needs infrastructure upgrades for auto-scaling, load balancing, and distributed architecture to handle massive growth.",
@@ -875,7 +875,7 @@ const Framework50x21Dashboard: React.FC = () => {
                 {frameworkData.map((layer) => (
                   <button
                     key={layer.id}
-                    onClick={() = data-testid="button-element"> setSelectedLayer(layer.id)}
+                    onClick={()> setSelectedLayer(layer.id)}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${
                       selectedLayer === layer.id 
                         ? 'border-turquoise-500 bg-turquoise-50' 
@@ -984,7 +984,7 @@ const Framework50x21Dashboard: React.FC = () => {
                       {frameworkData.find(l => l.id === selectedLayer)!.issues.length > 0 ? (
                         frameworkData.find(l => l.id === selectedLayer)!.issues.map((issue, idx) => (
                           <div key={idx} className="flex items-start gap-2">
-                            <AlertTriangle className="w-4 h-4 text-yellow-500 mt-0.5" / data-testid="link-w-4">
+                            <AlertTriangle className="w-4 h-4 text-yellow-500 mt-0.5" />
                             <span className="text-sm">{issue}</span>
                           </div>
                         ))
@@ -1005,7 +1005,7 @@ const Framework50x21Dashboard: React.FC = () => {
         <Card className="border-red-200 bg-red-50">
           <CardHeader>
             <CardTitle className="text-lg text-red-800 flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5" / data-testid="link-w-5">
+              <AlertTriangle className="w-5 h-5" />
               Critical Issues Requiring Attention
             </CardTitle>
           </CardHeader>

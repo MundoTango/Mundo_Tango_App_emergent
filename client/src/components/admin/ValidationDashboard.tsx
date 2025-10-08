@@ -153,7 +153,7 @@ export function ValidationDashboard() {
         {/* Action Buttons */}
         <div className="flex gap-4 mt-4">
           <Button
-            onClick={() = data-testid="button-element"> runValidation.mutate()}
+            onClick={()> runValidation.mutate()}
             disabled={isRunning}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
           >
@@ -170,14 +170,14 @@ export function ValidationDashboard() {
             )}
           </Button>
           <Button
-            onClick={() = data-testid="button-element"> runValidation.mutate({ start: 1, end: 10 })}
+            onClick={()> runValidation.mutate({ start: 1, end: 10 })}
             variant="outline"
             disabled={isRunning}
           >
             Run Phase 1 (Layers 1-10)
           </Button>
           <Button
-            onClick={() = data-testid="button-element"> updateJira.mutate(Object.values(results))}
+            onClick={()> updateJira.mutate(Object.values(results))}
             variant="outline"
             disabled={Object.keys(results).length === 0}
           >
@@ -270,7 +270,7 @@ export function ValidationDashboard() {
                       <div className="flex items-center gap-3">
                         {result.status === 'passed' && <CheckCircle className="h-5 w-5 text-green-500" />}
                         {result.status === 'failed' && <XCircle className="h-5 w-5 text-red-500" />}
-                        {result.status === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-500" / data-testid="link-h-5">}
+                        {result.status === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-500" />}
                         {result.status === 'running' && <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />}
                         {result.status === 'pending' && <div className="h-5 w-5 rounded-full border-2 border-gray-300 dark:border-neutral-600" />}
                         
@@ -307,8 +307,8 @@ export function ValidationDashboard() {
       {/* Recent Results */}
       {Object.values(results).some(r => r.status === 'failed') && (
         <Alert className="border-red-200 bg-red-50" data-testid="link-border-red-200">
-          <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
-          <AlertDescription data-testid="link-element">
+          <AlertCircle className="h-4 w-4 text-red-600" />
+          <AlertDescription>
             <p className="font-semibold text-red-800">Failed Tests Detected</p>
             <p className="text-sm text-red-700 mt-1">
               {Object.values(results).filter(r => r.status === 'failed').length} tests failed. 

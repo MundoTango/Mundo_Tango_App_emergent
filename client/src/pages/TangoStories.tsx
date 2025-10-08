@@ -151,12 +151,12 @@ export default function TangoStories() {
               type="text"
               placeholder="Search stories..."
               value={searchQuery}
-              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
+              onChange={(e)> setSearchQuery(e.target.value)}
               className="pl-10 glassmorphic-input"
             />
           </div>
           <Button
-            onClick={() = data-testid="button-element"> setShowCreateModal(true)}
+            onClick={()> setShowCreateModal(true)}
             className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
           >
             <PenTool className="w-4 h-4 mr-2" />
@@ -173,7 +173,7 @@ export default function TangoStories() {
                 key={tag}
                 variant={selectedTag === tag ? "default" : "outline"}
                 size="sm"
-                onClick={() = data-testid="button-element"> setSelectedTag(selectedTag === tag ? null : tag)}
+                onClick={()> setSelectedTag(selectedTag === tag ? null : tag)}
                 className={selectedTag === tag ? "bg-turquoise-600 hover:bg-turquoise-700" : ""}
               >
                 {tag}
@@ -193,7 +193,7 @@ export default function TangoStories() {
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
             <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">Be the first to share your tango journey!</p>
             <Button
-              onClick={() = data-testid="button-element"> setShowCreateModal(true)}
+              onClick={()> setShowCreateModal(true)}
               className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
               Share Your Story
@@ -249,7 +249,7 @@ export default function TangoStories() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() = data-testid="button-element"> likeStoryMutation.mutate(story.id)}
+                      onClick={()> likeStoryMutation.mutate(story.id)}
                       className={story.isLiked ? 'text-red-500' : ''}
                     >
                       <Heart className={`w-4 h-4 mr-1 ${story.isLiked ? 'fill-current' : ''}`} />
@@ -283,7 +283,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Title</label>
                     <Input
                       value={newStory.title}
-                      onChange={(e) = data-testid="input-element"> setNewStory({ ...newStory, title: e.target.value })}
+                      onChange={(e)> setNewStory({ ...newStory, title: e.target.value })}
                       placeholder="Give your story a title..."
                       className="glassmorphic-input"
                     />
@@ -293,7 +293,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Your Story</label>
                     <Textarea
                       value={newStory.content}
-                      onChange={(e) = data-testid="textarea-element"> setNewStory({ ...newStory, content: e.target.value })}
+                      onChange={(e)> setNewStory({ ...newStory, content: e.target.value })}
                       placeholder="Share your tango journey, memorable moments, or lessons learned..."
                       className="glassmorphic-input min-h-[200px]"
                     />
@@ -303,7 +303,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Location (Optional)</label>
                     <Input
                       value={newStory.location}
-                      onChange={(e) = data-testid="input-element"> setNewStory({ ...newStory, location: e.target.value })}
+                      onChange={(e)> setNewStory({ ...newStory, location: e.target.value })}
                       placeholder="Buenos Aires, Argentina"
                       className="glassmorphic-input"
                     />
@@ -318,7 +318,7 @@ export default function TangoStories() {
                           type="button"
                           variant={newStory.tags.includes(tag) ? "default" : "outline"}
                           size="sm"
-                          onClick={() = data-testid="button-element"> {
+                          onClick={()> {
                             setNewStory({
                               ...newStory,
                               tags: newStory.tags.includes(tag)
@@ -343,7 +343,7 @@ export default function TangoStories() {
                       {createStoryMutation.isPending ? 'Publishing...' : 'Publish Story'}
                     </Button>
                     <Button
-                      onClick={() = data-testid="button-element"> setShowCreateModal(false)}
+                      onClick={()> setShowCreateModal(false)}
                       variant="outline"
                       className="flex-1"
                     >

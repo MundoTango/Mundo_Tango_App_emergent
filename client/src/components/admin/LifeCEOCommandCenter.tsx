@@ -206,7 +206,7 @@ const LifeCEOCommandCenter: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Button 
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
-              onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('agent')}
+              onClick={()> setActiveTab('agent')}
             >
               <Bot className="w-4 h-4 mr-2" />
               Chat with Agent
@@ -214,7 +214,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <Button 
               variant="outline" 
               className="border-turquoise-200 hover:bg-turquoise-50"
-              onClick={() = data-testid="button-border-turquoise-200"> setActiveTab('insights')}
+              onClick={()> setActiveTab('insights')}
             >
               <Lightbulb className="w-4 h-4 mr-2" />
               View Insights
@@ -222,7 +222,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             <Button 
               variant="outline"
               className="border-purple-200 hover:bg-purple-50"
-              onClick={() = data-testid="button-border-purple-200"> setActiveTab('framework')}
+              onClick={()> setActiveTab('framework')}
             >
               <Layers className="w-4 h-4 mr-2" />
               Framework Status
@@ -231,7 +231,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               variant="outline"
               className="border-blue-200 hover:bg-blue-50"
              data-testid="button-border-blue-200">
-              <Activity className="w-4 h-4 mr-2" / data-testid="link-w-4">
+              <Activity className="w-4 h-4 mr-2" />
               View Reports
             </Button>
           </div>
@@ -249,7 +249,7 @@ const LifeCEOCommandCenter: React.FC = () => {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={async () = data-testid="button-element"> {
+                onClick={async ()> {
                   await activityLogger.logSystemOptimization(
                     'Manual Activity Test',
                     'Testing activity logging from Command Center',
@@ -390,7 +390,7 @@ const LifeCEOCommandCenter: React.FC = () => {
             value="dashboard" 
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center"
           >
-            <Activity className="w-4 h-4 mr-2" / data-testid="link-w-4">
+            <Activity className="w-4 h-4 mr-2" />
             Dashboard
           </TabsTrigger>
           <TabsTrigger 

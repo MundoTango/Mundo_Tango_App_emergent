@@ -492,7 +492,7 @@ export default function UnifiedLocationPicker({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() = data-testid="input-element"> value && suggestions.length > 0 && setShowSuggestions(true)}
+          onFocus={()> value && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={initState === 'loading' ? 'Loading...' : placeholder}
           disabled={initState === 'loading'}
           required={required}
@@ -508,7 +508,7 @@ export default function UnifiedLocationPicker({
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={() = data-testid="button-element"> {
+            onClick={()> {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);

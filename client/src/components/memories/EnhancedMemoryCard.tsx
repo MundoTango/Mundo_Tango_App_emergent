@@ -233,7 +233,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               <Button
                 variant="ghost"
                 size="sm"
-                onMouseEnter={() = data-testid="button-element"> setShowReactionPicker(true)}
+                onMouseEnter={()> setShowReactionPicker(true)}
                 onMouseLeave={() => setShowReactionPicker(false)}
                 className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
               >
@@ -257,7 +257,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                   {reactions.map((reaction) => (
                     <button
                       key={reaction.name}
-                      onClick={() = data-testid="button-element"> handleReaction(reaction.name)}
+                      onClick={()> handleReaction(reaction.name)}
                       className="hover:scale-125 transition-transform p-1"
                       title={reaction.name}
                     >
@@ -272,7 +272,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             <Button
               variant="ghost"
               size="sm"
-              onClick={() = data-testid="button-element"> setShowComments(!showComments)}
+              onClick={()> setShowComments(!showComments)}
               className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
             >
               <MessageCircle className="h-4 w-4" />
@@ -286,7 +286,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             <Button
               variant="ghost"
               size="sm"
-              onClick={() = data-testid="button-element"> setShowShareDialog(true)}
+              onClick={()> setShowShareDialog(true)}
               className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
             >
               <Share2 className="h-4 w-4" />
@@ -306,7 +306,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               <div className="flex-1 flex gap-2">
                 <Textarea
                   value={commentText}
-                  onChange={(e) = data-testid="textarea-element"> setCommentText(e.target.value)}
+                  onChange={(e)> setCommentText(e.target.value)}
                   placeholder="Write a comment..."
                   className="flex-1 min-h-[36px] py-2 resize-none"
                   onKeyDown={(e) => {
@@ -363,7 +363,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
           <div className="space-y-4">
             <Textarea
               value={shareText}
-              onChange={(e) = data-testid="textarea-element"> setShareText(e.target.value)}
+              onChange={(e)> setShareText(e.target.value)}
               placeholder="Say something about this..."
               className="min-h-[100px]"
             />
@@ -380,7 +380,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             </div>
 
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() = data-testid="button-element"> setShowShareDialog(false)}>
+              <Button variant="outline" onClick={()> setShowShareDialog(false)}>
                 Cancel
               </Button>
               <Button onClick={handleShare} disabled={shareMutation.isPending} data-testid="button-element">

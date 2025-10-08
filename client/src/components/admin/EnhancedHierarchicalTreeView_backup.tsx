@@ -132,7 +132,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() = data-testid="button-element"> toggleExpanded(item.id)}
+                    onClick={()> toggleExpanded(item.id)}
                     className="p-1"
                   >
                     {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -177,7 +177,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() = data-testid="button-element"> setSelectedItem(item)}
+                  onClick={()> setSelectedItem(item)}
                   className="ml-auto"
                 >
                   <Eye className="h-4 w-4 mr-1" />

@@ -160,7 +160,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="w-4 h-4 text-ocean-500" / data-testid="link-w-4">
+              <Activity className="w-4 h-4 text-ocean-500" />
               Initialization
             </CardTitle>
           </CardHeader>
@@ -220,7 +220,7 @@ export default function MonitoringTest() {
                 Request Consent
               </Button>
             )}
-            <Button onClick={() = data-testid="button-element"> setShowPrivacySettings(true)} variant="outline">
+            <Button onClick={()> setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
             <Button 
@@ -240,10 +240,10 @@ export default function MonitoringTest() {
           </div>
 
           {!hasConsent && (
-            <Alert data-testid="link-element">
-              <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-              <AlertTitle data-testid="link-element">Consent Required</AlertTitle>
-              <AlertDescription data-testid="link-element">
+            <Alert>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Consent Required</AlertTitle>
+              <AlertDescription>
                 Please grant consent to enable monitoring services and run tests.
               </AlertDescription>
             </Alert>
@@ -292,9 +292,9 @@ import { Helmet } from 'react-helmet';
                 .filter(([key]) => key.includes('error'))
                 .map(([key, value]) => (
                   <Alert key={key} variant="destructive" data-testid="link-element">
-                    <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
-                    <AlertTitle data-testid="link-element">{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
-                    <AlertDescription data-testid="link-element">{value as string}</AlertDescription>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
+                    <AlertDescription>{value as string}</AlertDescription>
                   </Alert>
                 ))}
               
