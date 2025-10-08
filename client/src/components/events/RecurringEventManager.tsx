@@ -142,18 +142,18 @@ export default function RecurringEventManager() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Event Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                          <SelectTrigger className="glassmorphic-input">
                             <SelectValue placeholder="Select event type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
-                          <SelectItem value="class" data-testid="select-element">Class</SelectItem>
-                          <SelectItem value="practica" data-testid="select-element">Práctica</SelectItem>
-                          <SelectItem value="festival" data-testid="select-element">Festival</SelectItem>
-                          <SelectItem value="workshop" data-testid="select-element">Workshop</SelectItem>
+                          <SelectItem value="milonga">Milonga</SelectItem>
+                          <SelectItem value="class">Class</SelectItem>
+                          <SelectItem value="practica">Práctica</SelectItem>
+                          <SelectItem value="festival">Festival</SelectItem>
+                          <SelectItem value="workshop">Workshop</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -202,7 +202,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>First Event Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)> {
+                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)  => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -219,7 +219,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Series End Date</FormLabel>
                       <FormControl>
-                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)> {
+                        <Input {...field} type="date" className="glassmorphic-input" onChange={(e)  => {
                           field.onChange(e);
                           generatePreviewDates(form.getValues());
                         }} />
@@ -270,15 +270,15 @@ export default function RecurringEventManager() {
                       generatePreviewDates(form.getValues());
                     }} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                        <SelectTrigger className="glassmorphic-input">
                           <SelectValue placeholder="Select recurrence" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="daily" data-testid="select-element">Daily</SelectItem>
-                        <SelectItem value="weekly" data-testid="select-element">Weekly</SelectItem>
-                        <SelectItem value="biweekly" data-testid="select-element">Every 2 Weeks</SelectItem>
-                        <SelectItem value="monthly" data-testid="select-element">Monthly</SelectItem>
+                        <SelectItem value="daily">Daily</SelectItem>
+                        <SelectItem value="weekly">Weekly</SelectItem>
+                        <SelectItem value="biweekly">Every 2 Weeks</SelectItem>
+                        <SelectItem value="monthly">Monthly</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -317,7 +317,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Max Attendees</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e)> field.onChange(parseInt(e.target.value))} />
+                        <Input {...field} type="number" className="glassmorphic-input" onChange={(e)  => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -331,7 +331,7 @@ export default function RecurringEventManager() {
                     <FormItem>
                       <FormLabel>Price (USD)</FormLabel>
                       <FormControl>
-                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e)> field.onChange(parseFloat(e.target.value))} />
+                        <Input {...field} type="number" step="0.01" className="glassmorphic-input" onChange={(e)  => field.onChange(parseFloat(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -382,10 +382,10 @@ export default function RecurringEventManager() {
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={()> form.reset()}>
+                <Button type="button" variant="outline" onClick={()  => form.reset()}>
                   Cancel
                 </Button>
-                <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending} data-testid="button-bg-gradient-to-r">
+                <Button type="submit" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" disabled={createRecurringEventsMutation.isPending}>
                   {createRecurringEventsMutation.isPending ? (
                     <>Creating Events...</>
                   ) : (

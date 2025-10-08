@@ -89,7 +89,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
   const totalRoleAssignments = Object.values(roleCounts).reduce((sum, count) => sum + count, 0);
 
   return (
-    <div className="space-y-6" data-testid="container-tango-role-metrics">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

@@ -295,7 +295,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                 size="sm"
                 onClick={() => setShowMenu(!showMenu)}
                 className="h-8 w-8 p-0 hover:bg-gray-100"
-                data-testid="button-menu"
+               
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
@@ -310,7 +310,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                           setShowMenu(false);
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
-                        data-testid="button-edit"
+                       
                       >
                         <Edit className="w-4 h-4 text-blue-600" />
                         Edit Post
@@ -328,7 +328,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                         }}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-red-50 text-red-600 flex items-center gap-2"
                         disabled={deleteMutation.isPending}
-                        data-testid="button-delete"
+                       
                       >
                         <Trash2 className="w-4 h-4" />
                         {deleteMutation.isPending ? 'Deleting...' : 'Delete Memory'}
@@ -341,7 +341,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                       setShowMenu(false);
                     }}
                     className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
-                    data-testid="button-report"
+                   
                   >
                     <Flag className="w-4 h-4 text-red-500" />
                     Report
@@ -565,7 +565,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   size="sm"
                   onClick={() => setShowComments(!showComments)}
                   className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
-                  data-testid="button-comment-toggle"
+                 
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="text-sm">
@@ -578,7 +578,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   size="sm"
                   onClick={onShare}
                   className="flex items-center gap-2 text-gray-600 hover:text-green-600"
-                  data-testid="button-share"
+                 
                 >
                   <Share2 className="w-4 h-4" />
                   <span className="text-sm">Share</span>
@@ -590,7 +590,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                     variant="ghost"
                     size="sm"
                     className="flex items-center gap-2 text-gray-600 hover:bg-gradient-to-r hover:from-turquoise hover:to-cobalt hover:text-white transition-all duration-300"
-                    data-testid="button-see-friendship"
+                   
                     asChild
                   >
                     <Link href={`/friendship/${post.user.id}`}>

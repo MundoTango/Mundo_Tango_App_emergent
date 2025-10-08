@@ -174,7 +174,7 @@ function DailyActivityView() {
           <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
-            onChange={(e)> {
+            onChange={(e)  => {
               const newDate = new Date(e.target.value + 'T00:00:00');
               setSelectedDate(newDate);
             }}
@@ -184,7 +184,7 @@ function DailyActivityView() {
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
-            onClick={()> refetch()}
+            onClick={()  => refetch()}
             disabled={isLoading}
             className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50 dark:bg-neutral-800"
             title="Refresh activities"

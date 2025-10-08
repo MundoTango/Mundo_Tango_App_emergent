@@ -39,7 +39,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-events"
             checked={layers.events}
             onCheckedChange={() => handleToggle('events')}
-            data-testid="toggle-layer-events"
+           
           />
         </div>
 
@@ -54,7 +54,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-housing"
             checked={layers.housing}
             onCheckedChange={() => handleToggle('housing')}
-            data-testid="toggle-layer-housing"
+           
           />
         </div>
 
@@ -69,7 +69,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
             id="layer-recommendations"
             checked={layers.recommendations}
             onCheckedChange={() => handleToggle('recommendations')}
-            data-testid="toggle-layer-recommendations"
+           
           />
         </div>
       </div>

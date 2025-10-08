@@ -171,15 +171,15 @@ export default function SystemStatsPanel() {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="flex gap-3">
-          <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
+          <Select value={timeRange} onValueChange={setTimeRange}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
               <SelectValue placeholder="Select time range" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="24h" data-testid="select-element">Last 24 Hours</SelectItem>
-              <SelectItem value="7d" data-testid="select-element">Last 7 Days</SelectItem>
-              <SelectItem value="30d" data-testid="select-element">Last 30 Days</SelectItem>
-              <SelectItem value="90d" data-testid="select-element">Last 90 Days</SelectItem>
+              <SelectItem value="24h">Last 24 Hours</SelectItem>
+              <SelectItem value="7d">Last 7 Days</SelectItem>
+              <SelectItem value="30d">Last 30 Days</SelectItem>
+              <SelectItem value="90d">Last 90 Days</SelectItem>
             </SelectContent>
           </Select>
 
@@ -188,7 +188,7 @@ export default function SystemStatsPanel() {
             disabled={refreshing}
             variant="outline"
             className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
-           data-testid="button-rounded-xl">
+          >
             <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
@@ -198,7 +198,7 @@ export default function SystemStatsPanel() {
           onClick={exportStats}
           variant="outline"
           className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
-         data-testid="button-rounded-xl">
+        >
           <Download className="h-4 w-4 mr-2" />
           Export Report
         </Button>

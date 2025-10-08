@@ -271,7 +271,7 @@ export default function HousingMarketplace() {
                 strength={0.3}
                 onClick={() => setShowCreateModal(true)}
                 className="aurora-gradient text-white hover:shadow-aurora transition-all duration-300 px-4 py-2 rounded-md font-medium flex items-center gap-2"
-                data-testid="button-list-space"
+               
               >
                 <Plus className="w-4 h-4" />
                 {t('housing.marketplace.list_your_space', 'List Your Space')}
@@ -351,7 +351,7 @@ export default function HousingMarketplace() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-ocean-500/50 transition-all"
-                    data-testid="input-search"
+                   
                   />
                 </div>
                 <div className="flex gap-2 flex-wrap">
@@ -372,7 +372,7 @@ export default function HousingMarketplace() {
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
                     className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-ocean-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
-                    data-testid="button-toggle-filters"
+                   
                   >
                     <Filter className="w-4 h-4 mr-1" />
                     {t('housing.marketplace.filters', 'Filters')} {activeFilterCount > 0 && `(${activeFilterCount})`}
@@ -383,7 +383,7 @@ export default function HousingMarketplace() {
                       size="sm"
                       onClick={clearFilters}
                       className="hover:glass-card hover:glass-depth-1"
-                      data-testid="button-clear-filters"
+                     
                     >
                       {t('housing.marketplace.clear_all', 'Clear all')}
                     </Button>
@@ -394,10 +394,10 @@ export default function HousingMarketplace() {
 
             {/* Expanded Filter Panel */}
             {showFilters && (
-              <Card className="p-6 bg-gray-50" data-testid="filter-panel">
+              <Card className="p-6 bg-gray-50">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Room Types */}
-                  <div data-testid="filter-room-types">
+                  <div>
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.room_type', 'Room Type')}</Label>
                     <div className="space-y-2">
                       {roomTypes.map(roomType => {
@@ -422,7 +422,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Price Range Slider */}
-                  <div data-testid="filter-price-range">
+                  <div>
                     <Label className="text-sm font-semibold mb-3 block">
                       {t('housing.marketplace.price_range', 'Price Range')} (${priceRange.min} - ${priceRange.max} {t('housing.marketplace.per_night', 'per night')})
                     </Label>
@@ -434,7 +434,7 @@ export default function HousingMarketplace() {
                         value={[priceRange.min, priceRange.max]}
                         onValueChange={(values) => setPriceRange({ min: values[0], max: values[1] })}
                         className="mt-2"
-                        data-testid="slider-price-range"
+                       
                       />
                       <div className="flex justify-between text-xs text-gray-600">
                         <span>$0</span>
@@ -444,7 +444,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Guests & Bedrooms */}
-                  <div data-testid="filter-capacity">
+                  <div>
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.capacity', 'Capacity')}</Label>
                     <div className="space-y-3">
                       <div>
@@ -455,18 +455,18 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                             disabled={guestCount <= 1}
-                            data-testid="button-guests-decrease"
+                           
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-guest-count">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium">
                             {guestCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setGuestCount(guestCount + 1)}
-                            data-testid="button-guests-increase"
+                           
                           >
                             +
                           </Button>
@@ -480,18 +480,18 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setBedroomCount(Math.max(0, bedroomCount - 1))}
                             disabled={bedroomCount <= 0}
-                            data-testid="button-bedrooms-decrease"
+                           
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium">
                             {bedroomCount === 0 ? t('housing.marketplace.any', 'Any') : bedroomCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setBedroomCount(bedroomCount + 1)}
-                            data-testid="button-bedrooms-increase"
+                           
                           >
                             +
                           </Button>
@@ -501,7 +501,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Amenities */}
-                  <div className="md:col-span-2 lg:col-span-3" data-testid="filter-amenities">
+                  <div className="md:col-span-2 lg:col-span-3">
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.amenities', 'Amenities')}</Label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                       {amenitiesList.map(amenity => (
@@ -528,7 +528,7 @@ export default function HousingMarketplace() {
 
           {/* Results Count */}
           <div className="mb-4">
-            <p className="text-gray-600" data-testid="text-results-count">
+            <p className="text-gray-600">
               {isLoading ? t('housing.marketplace.loading', 'Loading...') : t('housing.marketplace.showing_results', 'Showing {{count}} of {{total}} listings', { count: filteredListings.length, total: listings.length })}
               {!isLoading && activeFilterCount > 0 && ` ${t('housing.marketplace.with_filters', 'with {{count}} filter applied', { count: activeFilterCount })}`}
             </p>

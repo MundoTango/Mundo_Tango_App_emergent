@@ -187,7 +187,7 @@ export default function CommunityMapWithLayers({
       >
         <ChangeView center={center} zoom={13} />
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
@@ -217,7 +217,7 @@ export default function CommunityMapWithLayers({
                     {item.metadata.rating && <p>Rating: {item.metadata.rating}/5</p>}
                   </div>
                 )}
-                <Button size="sm" className="w-full mt-2" data-testid="button-w-full">
+                <Button size="sm" className="w-full mt-2">
                   View Details
                 </Button>
               </div>

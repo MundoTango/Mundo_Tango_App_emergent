@@ -179,16 +179,16 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               View Live Metrics Dashboard
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Check System Health
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Scale Resources
             </Button>
-            <Button variant="outline" data-testid="button-element">
+            <Button variant="outline">
               Emergency Rollback
             </Button>
           </div>
@@ -197,7 +197,7 @@ export const ProfileGoLive: React.FC<{ userId: number }> = ({ userId }) => {
 
       {/* Success Alert */}
       {metrics.status === 'live' && metrics.errorRate < 0.1 && (
-        <Alert className="border-green-200 bg-green-50" data-testid="link-border-green-200">
+        <Alert className="border-green-200 bg-green-50">
           <CheckCircle className="h-4 w-4 text-green-600" />
           <AlertDescription>
             <div className="font-medium text-green-800">Profile System Operating Normally</div>

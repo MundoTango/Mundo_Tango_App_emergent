@@ -55,7 +55,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
         <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">New Feeds</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600" data-testid="button-bg-red-600">
+            <Button variant="outline" className="bg-red-600 text-white hover:bg-red-700 border-red-600">
               {visibility || "ALL"}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
@@ -85,12 +85,12 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
           {/* User info and visibility */}
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-3 cursor-pointer">
-              <Avatar className="h-10 w-10" data-testid="link-h-10">
+              <Avatar className="h-10 w-10">
                 <AvatarImage 
                   src={user?.profileImage || "/images/user-placeholder.jpeg"} 
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
+                <AvatarFallback className="bg-red-600 text-white">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>
               </Avatar>
@@ -102,7 +102,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
             <Button 
               variant="ghost" 
               size="sm"
-              onClick={()> onCreatePost()}
+              onClick={()  => onCreatePost()}
               className="flex items-center gap-2 text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
             >
               <VisibilityIcon className="h-4 w-4" />
@@ -116,14 +116,14 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
             <Input
               placeholder="What's on your mind?"
               className="w-full py-3 pl-4 pr-12 border-gray-200 rounded-lg focus:border-red-500 focus:ring-red-500 dark:border-neutral-700"
-              onClick={()> onCreatePost()}
+              onClick={()  => onCreatePost()}
               readOnly
             />
             <Button
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
-              onClick={()> onCreatePost()}
+              onClick={()  => onCreatePost()}
             >
               <Smile className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </Button>
@@ -138,7 +138,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()> onCreatePost("LOCATION")}
+                onClick={()  => onCreatePost("LOCATION")}
               >
                 <MapPin className="h-4 w-4" />
                 Location
@@ -147,7 +147,7 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()> onCreatePost("MEDIA")}
+                onClick={()  => onCreatePost("MEDIA")}
               >
                 <ImageIcon className="h-4 w-4" />
                 Image/Video
@@ -156,14 +156,14 @@ const WhatsOnYourMind = ({ visibility, setVisibility, onCreatePost }: WhatsOnYou
                 variant="ghost"
                 size="sm"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800 dark:text-neutral-200"
-                onClick={()> onCreatePost("ACTIVITY")}
+                onClick={()  => onCreatePost("ACTIVITY")}
               >
                 <Star className="h-4 w-4" />
                 Activity
               </Button>
             </div>
             <Button
-              onClick={()> onCreatePost()}
+              onClick={()  => onCreatePost()}
               className="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-lg font-semibold"
             >
               Post

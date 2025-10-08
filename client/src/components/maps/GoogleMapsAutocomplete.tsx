@@ -279,7 +279,7 @@ export default function GoogleMapsAutocomplete({
             size="sm"
             onClick={handleClear}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
-           data-testid="button-absolute">
+          >
             <X className="w-4 h-4" />
           </Button>
         )}

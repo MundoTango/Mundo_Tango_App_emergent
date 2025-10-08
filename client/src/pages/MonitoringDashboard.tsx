@@ -98,7 +98,7 @@ export default function MonitoringDashboard() {
             <Button
               variant="outline"
               onClick={() => setShowPrivacySettings(true)}
-              data-testid="button-privacy"
+             
             >
               <Settings className="w-4 h-4 mr-2" />
               Privacy Settings
@@ -106,7 +106,7 @@ export default function MonitoringDashboard() {
             <Button
               onClick={testMonitoring}
               className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-              data-testid="button-test"
+             
             >
               <Zap className="w-4 h-4 mr-2" />
               Test Monitoring
@@ -145,7 +145,7 @@ export default function MonitoringDashboard() {
                 </span>
               </div>
               {!hasConsent && (
-                <Button onClick={requestConsent} size="sm" data-testid="button-enable-monitoring">
+                <Button onClick={requestConsent} size="sm">
                   Enable Monitoring
                 </Button>
               )}

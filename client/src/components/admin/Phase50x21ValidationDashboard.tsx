@@ -38,8 +38,8 @@ interface Phase3Result {
 export function Phase50x21ValidationDashboard() {
   const [activePhase, setActivePhase] = useState('phase2');
   const [isRunning, setIsRunning] = useState(false);
-  const [phase2Results, setPhase2Results] = useState<any data-testid="link-element">(null);
-  const [phase3Results, setPhase3Results] = useState<any data-testid="link-element">(null);
+  const [phase2Results, setPhase2Results] = useState<any>(null);
+  const [phase3Results, setPhase3Results] = useState<any>(null);
 
   const runPhase2Validation = async () => {
     setIsRunning(true);
@@ -131,7 +131,7 @@ export function Phase50x21ValidationDashboard() {
                   onClick={runPhase2Validation}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-500"
-                 data-testid="button-bg-gradient-to-r">
+                >
                   {isRunning ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -241,7 +241,7 @@ export function Phase50x21ValidationDashboard() {
 
                   {/* Recommendations */}
                   {phase2Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200" data-testid="link-bg-gradient-to-r">
+                    <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200">
                       <AlertCircle className="h-4 w-4 text-turquoise-600" />
                       <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Recommendations:</p>
@@ -274,7 +274,7 @@ export function Phase50x21ValidationDashboard() {
                   onClick={runPhase3LoadTesting}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-purple-500 to-pink-500"
-                 data-testid="button-bg-gradient-to-r">
+                >
                   {isRunning ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -415,7 +415,7 @@ export function Phase50x21ValidationDashboard() {
 
                   {/* Recommendations */}
                   {phase3Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200" data-testid="link-bg-gradient-to-r">
+                    <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
                       <Shield className="h-4 w-4 text-purple-600" />
                       <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Performance Recommendations:</p>

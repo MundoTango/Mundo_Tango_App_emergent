@@ -26,7 +26,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
   const isActive = currentFilter && currentFilter !== 'all';
 
   return (
-    <Card className="border-2 border-primary/10" data-testid="card-friendship-filter">
+    <Card className="border-2 border-primary/10">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
             <CardTitle>Filter by Connection</CardTitle>
           </div>
           {isActive && (
-            <Badge variant="default" className="bg-primary" data-testid="badge-filter-active">
+            <Badge variant="default" className="bg-primary">
               Active
             </Badge>
           )}
@@ -44,7 +44,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <RadioGroup value={selectedFilter} onValueChange={setSelectedFilter} data-testid="radiogroup-friendship-filter">
+        <RadioGroup value={selectedFilter} onValueChange={setSelectedFilter}>
           <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
             <RadioGroupItem value="all" id="all-hosts" />
             <div className="flex-1">
@@ -101,7 +101,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
           <Button 
             onClick={handleApplyFilter} 
             className="flex-1"
-            data-testid="button-apply-filter"
+           
           >
             <Filter className="w-4 h-4 mr-2" />
             Apply Filter
@@ -110,7 +110,7 @@ export function FriendshipFilterPanel({ onFilterChange, currentFilter }: Friends
             <Button 
               onClick={handleClearFilter} 
               variant="outline"
-              data-testid="button-clear-filter"
+             
             >
               <X className="w-4 h-4" />
             </Button>

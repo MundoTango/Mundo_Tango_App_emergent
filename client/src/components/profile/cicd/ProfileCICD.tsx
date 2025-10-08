@@ -79,7 +79,7 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
               <GitBranch className="w-5 h-5 text-green-600" />
               CI/CD Pipeline Status
             </div>
-            <Button size="sm" variant="outline" data-testid="button-element">
+            <Button size="sm" variant="outline">
               <Play className="w-3 h-3 mr-1" />
               Run Pipeline
             </Button>

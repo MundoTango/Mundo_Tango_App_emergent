@@ -235,7 +235,7 @@ export default function EnhancedProfileHeader({
                 className="hidden"
               />
               <Button
-                onClick={()> coverInputRef.current?.click()}
+                onClick={()  => coverInputRef.current?.click()}
                 variant="secondary"
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transform transition-all hover:-translate-y-0.5 border-0"
@@ -251,7 +251,7 @@ export default function EnhancedProfileHeader({
             variant="secondary"
             size="sm"
             className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/30 dark:bg-neutral-900"
-           data-testid="button-bg-white/20">
+          >
             <Share2 className="h-4 w-4" />
           </Button>
         </div>
@@ -265,10 +265,10 @@ export default function EnhancedProfileHeader({
             {/* Avatar Section */}
             <div className="flex items-end gap-4 mb-4 md:mb-0">
               <div className="relative">
-                <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl" data-testid="link-h-32">
+                <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl">
                   {/* ESA LIFE CEO 56x21 - Fixed profile image with fallback */}
                   <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} />
-                  <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white" data-testid="link-text-3xl">
+                  <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white">
                     {user.name?.[0] || user.username?.[0]}
                   </AvatarFallback>
                 </Avatar>
@@ -283,7 +283,7 @@ export default function EnhancedProfileHeader({
                       className="hidden"
                     />
                     <Button
-                      onClick={()> profileInputRef.current?.click()}
+                      onClick={()  => profileInputRef.current?.click()}
                       variant="secondary"
                       size="icon"
                       className="absolute bottom-0 right-0 rounded-full shadow-lg bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white border-2 border-white transform transition-all hover:scale-110"
@@ -353,7 +353,7 @@ export default function EnhancedProfileHeader({
                   <Button 
                     onClick={onEditProfile}
                     className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                   data-testid="button-bg-gradient-to-r">
+                  >
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Profile
                   </Button>
@@ -361,7 +361,7 @@ export default function EnhancedProfileHeader({
                     variant="outline" 
                     onClick={handleViewAsVisitor}
                     className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                   data-testid="button-border-turquoise-200">
+                  >
                     <Eye className="mr-2 h-4 w-4" />
                     {viewAsVisitor ? 'View as Owner' : 'View as Visitor'}
                   </Button>
@@ -372,7 +372,7 @@ export default function EnhancedProfileHeader({
                     onClick={handleFollow}
                     variant={isFollowing ? "outline" : "default"}
                     className={isFollowing ? "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" : "bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"}
-                   data-testid="button-element">
+                  >
                     {isFollowing ? (
                       <>
                         <Users className="mr-2 h-4 w-4" />
@@ -385,11 +385,11 @@ export default function EnhancedProfileHeader({
                       </>
                     )}
                   </Button>
-                  <Button variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                  <Button variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                     <Mail className="mr-2 h-4 w-4" />
                     Message
                   </Button>
-                  <Button variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                  <Button variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </>
@@ -457,7 +457,7 @@ export default function EnhancedProfileHeader({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-pink-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
-                   data-testid="link-text-gray-600">
+                  >
                     <Instagram className="h-5 w-5" />
                   </a>
                 )}
@@ -467,7 +467,7 @@ export default function EnhancedProfileHeader({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
-                   data-testid="link-text-gray-600">
+                  >
                     <Facebook className="h-5 w-5" />
                   </a>
                 )}
@@ -477,7 +477,7 @@ export default function EnhancedProfileHeader({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-blue-400 transition-colors dark:text-neutral-600 dark:text-neutral-400"
-                   data-testid="link-text-gray-600">
+                  >
                     <Twitter className="h-5 w-5" />
                   </a>
                 )}
@@ -487,7 +487,7 @@ export default function EnhancedProfileHeader({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-turquoise-600 transition-colors dark:text-neutral-600 dark:text-neutral-400"
-                   data-testid="link-text-gray-600">
+                  >
                     <Link className="h-5 w-5" />
                   </a>
                 )}

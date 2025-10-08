@@ -158,23 +158,23 @@ export default function UserRoleTable() {
           <Input
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
-            onChange={(e)> setSearchTerm(e.target.value)}
+            onChange={(e)  => setSearchTerm(e.target.value)}
             className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
-        <Select value={roleFilter} onValueChange={setRoleFilter} data-testid="select-element">
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-full">
+        <Select value={roleFilter} onValueChange={setRoleFilter}>
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
-            <SelectItem value="super_admin" data-testid="select-element">Super Admin</SelectItem>
-            <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
-            <SelectItem value="moderator" data-testid="select-element">Moderator</SelectItem>
-            <SelectItem value="organizer" data-testid="select-element">Organizer</SelectItem>
-            <SelectItem value="teacher" data-testid="select-element">Teacher</SelectItem>
-            <SelectItem value="dancer" data-testid="select-element">Dancer</SelectItem>
+            <SelectItem value="all">All Roles</SelectItem>
+            <SelectItem value="super_admin">Super Admin</SelectItem>
+            <SelectItem value="admin">Admin</SelectItem>
+            <SelectItem value="moderator">Moderator</SelectItem>
+            <SelectItem value="organizer">Organizer</SelectItem>
+            <SelectItem value="teacher">Teacher</SelectItem>
+            <SelectItem value="dancer">Dancer</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -241,7 +241,7 @@ export default function UserRoleTable() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={()> {
+                    onClick={()  => {
                       setSelectedUser(user);
                       setIsEditDialogOpen(true);
                     }}
@@ -277,13 +277,13 @@ export default function UserRoleTable() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Primary Role</label>
-                  <Select defaultValue={selectedUser.primaryRole} data-testid="select-element">
-                    <SelectTrigger className="rounded-xl" data-testid="select-rounded-xl">
+                  <Select defaultValue={selectedUser.primaryRole}>
+                    <SelectTrigger className="rounded-xl">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {mockRoles.map((role: Role) => (
-                        <SelectItem key={role.id} value={role.id} data-testid="select-element">
+                        <SelectItem key={role.id} value={role.id}>
                           <div className="flex items-center gap-2">
                             {getRoleIcon(role.id)}
                             <span className="capitalize">{role.name}</span>
@@ -318,13 +318,13 @@ export default function UserRoleTable() {
               <div className="flex gap-3">
                 <Button
                   variant="outline"
-                  onClick={()> setIsEditDialogOpen(false)}
+                  onClick={()  => setIsEditDialogOpen(false)}
                   className="flex-1 rounded-xl"
                 >
                   Cancel
                 </Button>
                 <Button
-                  onClick={()> {
+                  onClick={()  => {
                     toast({
                       title: "Success",
                       description: "User roles updated successfully"

@@ -103,7 +103,7 @@ export default function ModernPostComposer({
               onClick={onClose}
               className="p-3 rounded-2xl text-blue-400 hover:text-red-500 hover:bg-red-50 
                        transition-all duration-300 hover:scale-110"
-             data-testid="button-p-3">
+            >
               <X className="w-6 h-6" />
             </button>
           )}
@@ -133,7 +133,7 @@ export default function ModernPostComposer({
                 return (
                   <button
                     key={option.value}
-                    onClick={()> setVisibility(option.value)}
+                    onClick={()  => setVisibility(option.value)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-medium text-sm
                               transition-all duration-200 border-2 ${
                                 visibility === option.value
@@ -154,7 +154,7 @@ export default function ModernPostComposer({
         <div className="mb-6">
           <textarea
             value={content}
-            onChange={(e)> setContent(e.target.value)}
+            onChange={(e)  => setContent(e.target.value)}
             placeholder="What's on your mind?"
             className="w-full px-6 py-5 bg-gradient-to-br from-blue-50/30 to-teal-50/30 border-2 border-blue-200/50 
                      rounded-2xl resize-none focus:outline-none focus:ring-4 focus:ring-coral-200/50 
@@ -188,7 +188,7 @@ export default function ModernPostComposer({
                 </div>
               </div>
               <button
-                onClick={()> {
+                onClick={()  => {
                   setSelectedMedia(null);
                   setExistingMediaUrl(null);
                 }}
@@ -221,7 +221,7 @@ export default function ModernPostComposer({
             
             <button className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-teal-50 text-teal-600 
                              hover:bg-teal-100 hover:text-teal-700 font-bold transition-all duration-300 
-                             transform hover:scale-105 shadow-lg hover:shadow-xl" data-testid="button-flex">
+                             transform hover:scale-105 shadow-lg hover:shadow-xl">
               <MapPin className="w-5 h-5" />
               <span>Location</span>
             </button>
@@ -235,7 +235,7 @@ export default function ModernPostComposer({
                      font-bold text-lg shadow-2xl hover:shadow-coral-500/30 transform hover:-translate-y-1 
                      disabled:transform-none disabled:shadow-lg transition-all duration-300 
                      flex items-center space-x-3 group"
-           data-testid="button-bg-gradient-to-r">
+          >
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             <span>{editMode ? 'Save' : 'Post'}</span>
           </button>

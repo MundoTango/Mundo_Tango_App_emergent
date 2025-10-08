@@ -131,7 +131,7 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
                 <button 
                   className="tt-btn tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100 dark:bg-neutral-900"
                   onClick={onEditProfile}
-                 data-testid="button-tt-btn">
+                >
                   Edit Profile
                 </button>
               ) : (
@@ -139,13 +139,13 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
                   <button 
                     className={`tt-btn ${isFollowing ? 'tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100' : 'bg-white text-gray-900 hover:bg-gray-100'}`}
                     onClick={onFollow}
-                   data-testid="button-element">
+                  >
                     {isFollowing ? 'Following' : 'Follow'}
                   </button>
                   <button 
                     className="tt-btn tt-btn-outline bg-transparent text-white border-white hover:bg-white hover:text-gray-900 dark:bg-neutral-900"
                     onClick={onMessage}
-                   data-testid="button-tt-btn">
+                  >
                     <MessageCircle className="w-4 h-4" />
                     Message
                   </button>

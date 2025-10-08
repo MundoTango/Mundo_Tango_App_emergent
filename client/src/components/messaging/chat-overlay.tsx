@@ -65,7 +65,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             size="sm" 
             onClick={onClose}
             className="text-white hover:text-gray-200 hover:bg-white/10 dark:bg-neutral-900"
-           data-testid="button-text-white">
+          >
             <X className="h-6 w-6" />
           </Button>
         </div>
@@ -109,7 +109,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
                       {room.title.substring(0, 2).toUpperCase()}
                     </div>
                   ) : (
-                    <Avatar className="w-12 h-12" data-testid="link-w-12">
+                    <Avatar className="w-12 h-12">
                       <AvatarImage src={room.imageUrl} alt={room.title} />
                       <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
                     </Avatar>
@@ -157,7 +157,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
 
         {/* New Message Button */}
         <div className="p-4 border-t border-gray-100">
-          <Button className="w-full bg-tango-red hover:bg-tango-red/90" data-testid="button-w-full">
+          <Button className="w-full bg-tango-red hover:bg-tango-red/90">
             <Plus className="h-4 w-4 mr-2" />
             New Message
           </Button>

@@ -515,7 +515,7 @@ const JiraExportDashboard: React.FC = () => {
               onClick={handleExport}
               disabled={isExporting}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-             data-testid="button-bg-gradient-to-r">
+            >
               {isExporting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -531,18 +531,18 @@ const JiraExportDashboard: React.FC = () => {
           </div>
           
           {exportStatus === 'success' && (
-            <Alert className="mt-4 border-green-200 bg-green-50" data-testid="link-mt-4">
+            <Alert className="mt-4 border-green-200 bg-green-50">
               <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-700" data-testid="link-text-green-700">
+              <AlertDescription className="text-green-700">
                 Export successful! Your file has been downloaded.
               </AlertDescription>
             </Alert>
           )}
           
           {exportStatus === 'error' && (
-            <Alert className="mt-4 border-red-200 bg-red-50" data-testid="link-mt-4">
+            <Alert className="mt-4 border-red-200 bg-red-50">
               <AlertCircle className="h-4 w-4 text-red-600" />
-              <AlertDescription className="text-red-700" data-testid="link-text-red-700">
+              <AlertDescription className="text-red-700">
                 Export failed. Please try again.
               </AlertDescription>
             </Alert>
@@ -564,7 +564,7 @@ const JiraExportDashboard: React.FC = () => {
                 Connect directly to your JIRA instance to create issues in real-time using the 40x20s framework mapping.
               </p>
               <Button 
-                onClick={()> setShowCredentialsModal(true)}
+                onClick={()  => setShowCredentialsModal(true)}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
               >
                 <Key className="w-4 h-4 mr-2" />
@@ -586,7 +586,7 @@ const JiraExportDashboard: React.FC = () => {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={()> setShowCredentialsModal(true)}
+                  onClick={()  => setShowCredentialsModal(true)}
                 >
                   <Key className="w-3 h-3 mr-1" />
                   Update
@@ -598,7 +598,7 @@ const JiraExportDashboard: React.FC = () => {
                   jiraStatus.type === 'success' ? 'border-green-200 bg-green-50' :
                   jiraStatus.type === 'error' ? 'border-red-200 bg-red-50' :
                   'border-blue-200 bg-blue-50'
-                }`} data-testid="link-element">
+                }`}>
                   {jiraStatus.type === 'success' && <CheckCircle2 className="h-4 w-4 text-green-600" />}
                   {jiraStatus.type === 'error' && <AlertCircle className="h-4 w-4 text-red-600" />}
                   {jiraStatus.type === 'info' && <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />}
@@ -606,7 +606,7 @@ const JiraExportDashboard: React.FC = () => {
                     jiraStatus.type === 'success' ? 'text-green-700' :
                     jiraStatus.type === 'error' ? 'text-red-700' :
                     'text-blue-700'
-                  }`} data-testid="link-element">
+                  }`}>
                     {jiraStatus.message}
                   </AlertDescription>
                 </Alert>
@@ -626,7 +626,7 @@ const JiraExportDashboard: React.FC = () => {
                 onClick={createIssuesInJira}
                 disabled={isCreatingInJira}
                 className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
-               data-testid="button-w-full">
+              >
                 {isCreatingInJira ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />

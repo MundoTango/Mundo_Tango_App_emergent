@@ -452,7 +452,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
           maxHeight: '300px',
           overflowY: 'auto'
         }}
-        data-testid="input-mention"
+       
       />
       
       {/* Suggestion dropdown */}

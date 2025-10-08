@@ -99,7 +99,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
       className="rounded-lg border border-gray-200 dark:border-neutral-700"
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a> contributors'
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       
@@ -146,7 +146,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                     <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">events</span>
                   </div>
                 </div>
-                <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity" data-testid="button-mt-2">
+                <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
                   View Group
                 </button>
               </div>
@@ -183,7 +183,7 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                   <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">events</span>
                 </div>
               </div>
-              <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity" data-testid="button-mt-2">
+              <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity">
                 View Group
               </button>
             </div>

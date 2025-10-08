@@ -130,7 +130,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
           <Button
             variant="outline"
             className="w-full border-orange-300 text-orange-700 hover:bg-orange-50"
-            onClick={()> setLocation(`/cities/${cityId}/visitors`)}
+            onClick={()  => setLocation(`/cities/${cityId}/visitors`)}
           >
             View all {visitors.length} upcoming visitors
           </Button>

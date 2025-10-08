@@ -231,7 +231,7 @@ const PromoCodesAdmin: React.FC = () => {
             <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
           </div>
           <Button
-            onClick={()> {
+            onClick={()  => {
               resetForm();
               setEditingPromo(null);
               setShowCreateDialog(true);
@@ -339,7 +339,7 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()> copyToClipboard(promo.code)}
+                            onClick={()  => copyToClipboard(promo.code)}
                           >
                             <Copy className="h-4 w-4" />
                           </Button>
@@ -380,14 +380,14 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()> handleEdit(promo)}
+                            onClick={()  => handleEdit(promo)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={()> deletePromoMutation.mutate(promo.id)}
+                            onClick={()  => deletePromoMutation.mutate(promo.id)}
                             className="text-red-600 hover:text-red-700"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -423,7 +423,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e)> setFormData({ ...formData, code: e.target.value.toUpperCase() })}
+                onChange={(e)  => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                 placeholder="SUMMER2025"
                 className="mt-1"
               />
@@ -436,12 +436,12 @@ const PromoCodesAdmin: React.FC = () => {
                   value={formData.type}
                   onValueChange={(value)> setFormData({ ...formData, type: value })}
                 >
-                  <SelectTrigger className="mt-1" data-testid="select-mt-1">
+                  <SelectTrigger className="mt-1">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="percentage" data-testid="select-element">Percentage</SelectItem>
-                    <SelectItem value="fixed" data-testid="select-element">Fixed Amount</SelectItem>
+                    <SelectItem value="percentage">Percentage</SelectItem>
+                    <SelectItem value="fixed">Fixed Amount</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -452,7 +452,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="value"
                   type="number"
                   value={formData.value}
-                  onChange={(e)> setFormData({ ...formData, value: Number(e.target.value) })}
+                  onChange={(e)  => setFormData({ ...formData, value: Number(e.target.value) })}
                   placeholder={formData.type === 'percentage' ? '20' : '10'}
                   className="mt-1"
                 />
@@ -464,7 +464,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="description"
                 value={formData.description}
-                onChange={(e)> setFormData({ ...formData, description: e.target.value })}
+                onChange={(e)  => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Summer sale discount"
                 className="mt-1"
               />
@@ -477,7 +477,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validFrom"
                   type="date"
                   value={formData.validFrom}
-                  onChange={(e)> setFormData({ ...formData, validFrom: e.target.value })}
+                  onChange={(e)  => setFormData({ ...formData, validFrom: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -488,7 +488,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validUntil"
                   type="date"
                   value={formData.validUntil}
-                  onChange={(e)> setFormData({ ...formData, validUntil: e.target.value })}
+                  onChange={(e)  => setFormData({ ...formData, validUntil: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -500,7 +500,7 @@ const PromoCodesAdmin: React.FC = () => {
                 id="usageLimit"
                 type="number"
                 value={formData.usageLimit}
-                onChange={(e)> setFormData({ ...formData, usageLimit: e.target.value })}
+                onChange={(e)  => setFormData({ ...formData, usageLimit: e.target.value })}
                 placeholder="100"
                 className="mt-1"
               />
@@ -538,14 +538,14 @@ const PromoCodesAdmin: React.FC = () => {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={()> setShowCreateDialog(false)}>
+            <Button variant="outline" onClick={()  => setShowCreateDialog(false)}>
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
               disabled={createPromoMutation.isPending || updatePromoMutation.isPending}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-             data-testid="button-bg-gradient-to-r">
+            >
               {createPromoMutation.isPending || updatePromoMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

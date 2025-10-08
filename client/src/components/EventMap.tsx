@@ -64,7 +64,7 @@ export default function EventMap({ events, cityLat, cityLng, onEventClick }: Eve
               </div>
             </div>
             ${onEventClick ? `
-              <button class="mt-3 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" data-testid="button-element">
+              <button class="mt-3 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
                 View Details
               </button>
             ` : ''}

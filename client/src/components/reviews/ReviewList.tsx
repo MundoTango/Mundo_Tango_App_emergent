@@ -25,7 +25,7 @@ export function ReviewList({
   if (!reviews || reviews.length === 0) {
     return (
       <ScaleIn delay={0.1}>
-        <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30" data-testid="empty-reviews">
+        <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
           <div className="flex flex-col items-center gap-4">
             <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-ocean-500/30">
               <Star className="w-8 h-8 text-ocean-500 dark:text-cyan-400" />
@@ -39,7 +39,7 @@ export function ReviewList({
 
   return (
     <StaggerContainer staggerDelay={0.08}>
-      <div className="space-y-4" data-testid="review-list">
+      <div className="space-y-4">
         {reviews.map((review) => (
           <ReviewCard
             key={review.id}

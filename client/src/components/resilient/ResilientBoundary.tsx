@@ -115,14 +115,14 @@ export class ResilientBoundary extends Component<Props, State> {
                       <button
                         onClick={this.retry}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
-                       data-testid="button-inline-flex">
+                      >
                         <RefreshCw className="w-4 h-4" />
                         Try Again
                       </button>
                     )}
                     
                     <button
-                      onClick={()> window.location.reload()}
+                      onClick={()  => window.location.reload()}
                       className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
                     >
                       Reload Page

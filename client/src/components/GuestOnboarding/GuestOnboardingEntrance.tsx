@@ -90,7 +90,7 @@ export function GuestOnboardingEntrance() {
               </StaggerContainer>
 
               <ScaleIn delay={0.4}>
-                <GlassCard depth={1} className="p-6 mb-8 border-cyan-200/30 dark:border-ocean-500/30 bg-gradient-to-r from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30" data-testid="card-privacy-notice">
+                <GlassCard depth={1} className="p-6 mb-8 border-cyan-200/30 dark:border-ocean-500/30 bg-gradient-to-r from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                   <p className="text-center text-slate-700 dark:text-slate-300">
                     <strong className="text-cyan-700 dark:text-cyan-400">🔒 {t('housing.guest_entrance.privacy_title', 'Your privacy matters:')}</strong>{' '}
                     {t('housing.guest_entrance.privacy_text', 'Your profile information is only visible to you and helps us provide better recommendations. You control what you share.')}
@@ -102,7 +102,7 @@ export function GuestOnboardingEntrance() {
                 <PulseButton
                   onClick={() => setLocation('/guest-onboarding')}
                   className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold rounded-2xl shadow-lg shadow-cyan-500/30"
-                  data-testid="button-start-onboarding"
+                 
                 >
                   {t('housing.guest_entrance.button_start', 'Get Started - It only takes 2 minutes')}
                 </PulseButton>
@@ -110,7 +110,7 @@ export function GuestOnboardingEntrance() {
                   onClick={() => setLocation('/community')}
                   strength={0.2}
                   className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-8 py-4 text-lg text-slate-700 dark:text-slate-300 font-medium"
-                  data-testid="button-skip-onboarding"
+                 
                 >
                   {t('housing.guest_entrance.button_skip', 'Maybe Later')}
                 </MagneticButton>

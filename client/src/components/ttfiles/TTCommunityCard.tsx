@@ -152,7 +152,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         <button 
           className={`w-full ${isJoined ? 'tt-btn tt-btn-outline' : 'tt-btn tt-btn-primary'}`}
           onClick={handleJoin}
-         data-testid="button-element">
+        >
           {isJoined ? 'Leave Community' : 'Join Community'}
         </button>
       </div>

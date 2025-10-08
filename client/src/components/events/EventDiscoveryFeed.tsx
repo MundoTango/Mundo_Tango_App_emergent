@@ -175,7 +175,7 @@ export const EventDiscoveryFeed: React.FC = () => {
         
         <Button
           variant="outline"
-          onClick={()> setShowFilters(!showFilters)}
+          onClick={()  => setShowFilters(!showFilters)}
           className="bg-white/50 border-white/30 dark:bg-neutral-900"
         >
           <SlidersHorizontal className="h-4 w-4 mr-2" />
@@ -192,7 +192,7 @@ export const EventDiscoveryFeed: React.FC = () => {
             <Input
               placeholder="Search events..."
               value={filters.search}
-              onChange={(e)> updateFilter('search', e.target.value)}
+              onChange={(e)  => updateFilter('search', e.target.value)}
               className="pl-10 bg-white/50 border-white/30 dark:bg-neutral-900"
             />
           </div>
@@ -208,7 +208,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <Input
                     placeholder="City or venue..."
                     value={filters.location}
-                    onChange={(e)> updateFilter('location', e.target.value)}
+                    onChange={(e)  => updateFilter('location', e.target.value)}
                     className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
@@ -220,7 +220,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <Input
                     type="date"
                     value={filters.startDate}
-                    onChange={(e)> updateFilter('startDate', e.target.value)}
+                    onChange={(e)  => updateFilter('startDate', e.target.value)}
                     className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
@@ -232,7 +232,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   <Input
                     type="date"
                     value={filters.endDate}
-                    onChange={(e)> updateFilter('endDate', e.target.value)}
+                    onChange={(e)  => updateFilter('endDate', e.target.value)}
                     className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
@@ -248,7 +248,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                       key={tag}
                       variant={filters.tags.includes(tag) ? 'default' : 'outline'}
                       size="sm"
-                      onClick={()> filters.tags.includes(tag) ? removeTag(tag) : addTag(tag)}
+                      onClick={()  => filters.tags.includes(tag) ? removeTag(tag) : addTag(tag)}
                       className={filters.tags.includes(tag) 
                         ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' 
                         : 'bg-white/50 border-white/30'
@@ -274,7 +274,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                       📍 {filters.location} ×
                     </Badge>
                   )}
-                  <Button variant="ghost" size="sm" onClick={clearFilters} data-testid="button-element">
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
                     Clear all
                   </Button>
                 </div>
@@ -301,7 +301,7 @@ export const EventDiscoveryFeed: React.FC = () => {
             <p className="text-gray-500 text-center mb-4">
               Try adjusting your filters or search terms
             </p>
-            <Button onClick={clearFilters} variant="outline" data-testid="button-element">
+            <Button onClick={clearFilters} variant="outline">
               Clear Filters
             </Button>
           </CardContent>
@@ -333,7 +333,7 @@ export const EventDiscoveryFeed: React.FC = () => {
           {hasMore && (
             <div className="flex justify-center">
               <Button
-                onClick={()> fetchEvents(false)}
+                onClick={()  => fetchEvents(false)}
                 disabled={loadingMore}
                 variant="outline"
                 className="bg-white/50 border-white/30 dark:bg-neutral-900"

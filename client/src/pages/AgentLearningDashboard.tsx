@@ -75,7 +75,7 @@ export default function AgentLearningDashboard() {
             variant={autoRefresh ? "default" : "outline"}
             onClick={() => setAutoRefresh(!autoRefresh)}
             className="gap-2"
-            data-testid="button-toggle-refresh"
+           
           >
             <Activity className={`w-4 h-4 ${autoRefresh ? 'animate-pulse' : ''}`} />
             {autoRefresh ? 'Live Updates' : 'Paused'}
@@ -92,7 +92,7 @@ export default function AgentLearningDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white" data-testid="text-total-patterns">
+              <div className="text-3xl font-bold text-white">
                 {stats?.totalPatterns || 0}
               </div>
               <p className="text-xs text-purple-300 mt-1">Across all ESA layers</p>
@@ -107,7 +107,7 @@ export default function AgentLearningDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white" data-testid="text-high-confidence">
+              <div className="text-3xl font-bold text-white">
                 {stats?.highConfidence || 0}
               </div>
               <p className="text-xs text-purple-300 mt-1">≥90% confidence score</p>
@@ -123,7 +123,7 @@ export default function AgentLearningDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex items-baseline gap-2">
-                <div className="text-3xl font-bold text-white" data-testid="text-queued-jobs">{queuedJobs}</div>
+                <div className="text-3xl font-bold text-white">{queuedJobs}</div>
                 <div className="text-sm text-purple-300">queued</div>
               </div>
               <div className="flex items-center gap-2 mt-1">

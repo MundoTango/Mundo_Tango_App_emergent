@@ -315,7 +315,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                 <Button
                   size="sm"
                   variant={event.userStatus === 'going' ? 'default' : 'outline'}
-                  onClick={(e)> {
+                  onClick={(e)  => {
                     e.stopPropagation();
                     handleEventAction(event.id, 'going');
                   }}
@@ -326,7 +326,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                 <Button
                   size="sm"
                   variant={event.userStatus === 'interested' ? 'default' : 'outline'}
-                  onClick={(e)> {
+                  onClick={(e)  => {
                     e.stopPropagation();
                     handleEventAction(event.id, 'interested');
                   }}

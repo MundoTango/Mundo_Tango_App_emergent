@@ -261,13 +261,13 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           value={watchedFields.visibility}
           onValueChange={(value: 'public' | 'private' | 'group')> setValue('visibility', value)}
         >
-          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900" data-testid="select-bg-white/50">
+          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="public" data-testid="select-element">Public - Anyone can see and join</SelectItem>
-            <SelectItem value="private" data-testid="select-element">Private - Invite only</SelectItem>
-            <SelectItem value="group" data-testid="select-element">Group - Visible to group members</SelectItem>
+            <SelectItem value="public">Public - Anyone can see and join</SelectItem>
+            <SelectItem value="private">Private - Invite only</SelectItem>
+            <SelectItem value="group">Group - Visible to group members</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -288,7 +288,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
               type="button"
               variant="outline"
               size="sm"
-              onClick={()> addTag(tag)}
+              onClick={()  => addTag(tag)}
               className="bg-white/50 border-white/30 dark:bg-neutral-900"
             >
               + {tag}
@@ -307,14 +307,14 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           value={watchedFields.recurringPattern?.frequency || 'none'}
           onValueChange={(value)> setValue('recurringPattern.frequency', value as any)}
         >
-          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900" data-testid="select-bg-white/50">
+          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" data-testid="select-element">No Repetition</SelectItem>
-            <SelectItem value="daily" data-testid="select-element">Daily</SelectItem>
-            <SelectItem value="weekly" data-testid="select-element">Weekly</SelectItem>
-            <SelectItem value="monthly" data-testid="select-element">Monthly</SelectItem>
+            <SelectItem value="none">No Repetition</SelectItem>
+            <SelectItem value="daily">Daily</SelectItem>
+            <SelectItem value="weekly">Weekly</SelectItem>
+            <SelectItem value="monthly">Monthly</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -412,7 +412,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                   variant="outline"
                   onClick={prevStep}
                   className="bg-white/50 border-white/30 dark:bg-neutral-900"
-                 data-testid="button-bg-white/50">
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Previous
                 </Button>
@@ -423,7 +423,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                 variant="outline"
                 onClick={onCancel}
                 className="bg-white/50 border-white/30 dark:bg-neutral-900"
-               data-testid="button-bg-white/50">
+              >
                 Cancel
               </Button>
             </div>
@@ -434,7 +434,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                   type="button"
                   onClick={nextStep}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
-                 data-testid="button-bg-gradient-to-r">
+                >
                   Next
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
@@ -443,7 +443,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                   type="submit"
                   disabled={isSubmitting}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
-                 data-testid="button-bg-gradient-to-r">
+                >
                   {isSubmitting ? 'Creating...' : 'Create Event'}
                 </Button>
               )}

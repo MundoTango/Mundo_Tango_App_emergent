@@ -348,7 +348,7 @@ export default function EnhancedEventsPage() {
 
   return (
     <DashboardLayout>
-      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6" data-testid="link-max-w-7xl">
+      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -362,12 +362,12 @@ export default function EnhancedEventsPage() {
               onClick={exportEventsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
-             data-testid="button-border-turquoise-200">
+            >
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
-              onClick={()> setShowCreateDialog(true)}
+              onClick={()  => setShowCreateDialog(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -433,7 +433,7 @@ export default function EnhancedEventsPage() {
                   type="text"
                   placeholder="Search events... (Cmd+/)"
                   value={searchQuery}
-                  onChange={(e)> setSearchQuery(e.target.value)}
+                  onChange={(e)  => setSearchQuery(e.target.value)}
                   className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20"
                 />
               </div>
@@ -443,7 +443,7 @@ export default function EnhancedEventsPage() {
                     key={option.value}
                     variant={viewMode === option.value ? 'default' : 'outline'}
                     size="icon"
-                    onClick={()> setViewMode(option.value as any)}
+                    onClick={()  => setViewMode(option.value as any)}
                     data-tooltip-id="view-tooltip"
                     data-tooltip-content={option.label}
                     className={viewMode === option.value 
@@ -458,50 +458,50 @@ export default function EnhancedEventsPage() {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Select value={categoryFilter} onValueChange={setCategoryFilter} data-testid="select-element">
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
-                  <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
-                  <SelectItem value="class" data-testid="select-element">Class</SelectItem>
-                  <SelectItem value="workshop" data-testid="select-element">Workshop</SelectItem>
-                  <SelectItem value="festival" data-testid="select-element">Festival</SelectItem>
-                  <SelectItem value="performance" data-testid="select-element">Performance</SelectItem>
-                  <SelectItem value="practice" data-testid="select-element">Practice</SelectItem>
-                  <SelectItem value="social" data-testid="select-element">Social</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="milonga">Milonga</SelectItem>
+                  <SelectItem value="class">Class</SelectItem>
+                  <SelectItem value="workshop">Workshop</SelectItem>
+                  <SelectItem value="festival">Festival</SelectItem>
+                  <SelectItem value="performance">Performance</SelectItem>
+                  <SelectItem value="practice">Practice</SelectItem>
+                  <SelectItem value="social">Social</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select value={levelFilter} onValueChange={setLevelFilter} data-testid="select-element">
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+              <Select value={levelFilter} onValueChange={setLevelFilter}>
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Level" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all" data-testid="select-element">All Levels</SelectItem>
-                  <SelectItem value="beginner" data-testid="select-element">Beginner</SelectItem>
-                  <SelectItem value="intermediate" data-testid="select-element">Intermediate</SelectItem>
-                  <SelectItem value="advanced" data-testid="select-element">Advanced</SelectItem>
-                  <SelectItem value="all_levels" data-testid="select-element">Mixed</SelectItem>
+                  <SelectItem value="all">All Levels</SelectItem>
+                  <SelectItem value="beginner">Beginner</SelectItem>
+                  <SelectItem value="intermediate">Intermediate</SelectItem>
+                  <SelectItem value="advanced">Advanced</SelectItem>
+                  <SelectItem value="all_levels">Mixed</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select value={priceFilter} onValueChange={setPriceFilter} data-testid="select-element">
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+              <Select value={priceFilter} onValueChange={setPriceFilter}>
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all" data-testid="select-element">Any Price</SelectItem>
-                  <SelectItem value="free" data-testid="select-element">Free</SelectItem>
-                  <SelectItem value="paid" data-testid="select-element">Paid</SelectItem>
+                  <SelectItem value="all">Any Price</SelectItem>
+                  <SelectItem value="free">Free</SelectItem>
+                  <SelectItem value="paid">Paid</SelectItem>
                 </SelectContent>
               </Select>
 
               <Button
                 variant={showVirtualOnly ? 'default' : 'outline'}
                 size="sm"
-                onClick={()> setShowVirtualOnly(!showVirtualOnly)}
+                onClick={()  => setShowVirtualOnly(!showVirtualOnly)}
                 className={showVirtualOnly 
                   ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' 
                   : 'border-turquoise-200 hover:bg-turquoise-50'
@@ -514,7 +514,7 @@ export default function EnhancedEventsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={()> refetch()}
+                onClick={()  => refetch()}
                 className="border-turquoise-200 hover:bg-turquoise-50"
               >
                 <RefreshCw className="w-4 h-4 mr-1" />
@@ -609,21 +609,21 @@ export default function EnhancedEventsPage() {
                 <Button
                   size="sm"
                   variant={calendarView === 'month' ? 'default' : 'outline'}
-                  onClick={()> setCalendarView('month')}
+                  onClick={()  => setCalendarView('month')}
                 >
                   Month
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'week' ? 'default' : 'outline'}
-                  onClick={()> setCalendarView('week')}
+                  onClick={()  => setCalendarView('week')}
                 >
                   Week
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'day' ? 'default' : 'outline'}
-                  onClick={()> setCalendarView('day')}
+                  onClick={()  => setCalendarView('day')}
                 >
                   Day
                 </Button>

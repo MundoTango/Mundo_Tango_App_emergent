@@ -22,7 +22,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   
   if (isLoading) {
     return (
-      <div className="space-y-6" data-testid="analytics-loading">
+      <div className="space-y-6">
         {[1, 2, 3].map(i => (
           <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse dark:bg-neutral-800" />
         ))}
@@ -54,7 +54,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   };
   
   return (
-    <div className="space-y-6" data-testid="analytics-dashboard">
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

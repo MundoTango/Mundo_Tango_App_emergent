@@ -382,7 +382,7 @@ export default function CodeOfConduct() {
                   type="submit"
                   disabled={acceptCodeOfConductMutation.isPending}
                   className="relative w-full sm:w-auto min-w-[300px] h-14 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 hover:from-cyan-700 hover:via-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group-hover:shadow-cyan-500/25 disabled:hover:scale-100 disabled:opacity-50"
-                 data-testid="button-relative">
+                >
                   <span className="flex items-center justify-center gap-3">
                     {acceptCodeOfConductMutation.isPending ? (
                       <>

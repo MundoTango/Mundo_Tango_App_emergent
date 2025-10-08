@@ -133,7 +133,7 @@ export default function GlobalStatistics() {
                   key={period}
                   variant={selectedPeriod === period ? 'default' : 'outline'}
                   size="sm"
-                  onClick={()> setSelectedPeriod(period)}
+                  onClick={()  => setSelectedPeriod(period)}
                   className={selectedPeriod === period 
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0' 
                     : ''}

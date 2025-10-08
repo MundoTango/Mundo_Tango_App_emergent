@@ -185,7 +185,7 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
             onMouseEnter={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #4FDAD4 0%, #1F9BD6 100%)'}
             onMouseLeave={(e) => e.currentTarget.style.background = 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'}
             aria-label="View all upcoming events"
-            data-testid="button-view-all-events"
+           
           >
             View All Events
           </button>

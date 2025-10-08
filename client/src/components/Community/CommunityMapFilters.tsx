@@ -142,12 +142,12 @@ export default function CommunityMapFilters({
             variant="outline" 
             size="sm" 
             className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-cyan-200/30 dark:border-ocean-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-200" 
-            data-testid="button-community-map-filters"
+           
           >
             <Filter className="h-4 w-4 mr-2 text-cyan-600 dark:text-cyan-400" />
             <span className="text-slate-700 dark:text-slate-300">Filters</span>
             {activeFiltersCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-xs flex items-center justify-center font-medium shadow-lg" data-testid="badge-active-filters">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-xs flex items-center justify-center font-medium shadow-lg">
                 {activeFiltersCount}
               </span>
             )}
@@ -180,7 +180,7 @@ export default function CommunityMapFilters({
             size="sm" 
             onClick={clearFilters}
             className="text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50/50 dark:hover:bg-cyan-900/20 transition-colors"
-            data-testid="button-clear-all-filters"
+           
           >
             <X className="h-4 w-4 mr-1" />
             Clear All ({activeFiltersCount})
@@ -226,7 +226,7 @@ function FiltersContent({
             <SelectTrigger 
               id="event-type" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-event-type"
+             
             >
               <SelectValue placeholder="Select event type" />
             </SelectTrigger>
@@ -249,7 +249,7 @@ function FiltersContent({
                   variant="outline" 
                   size="sm" 
                   className="justify-start text-left font-normal bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
-                  data-testid="button-event-start-date"
+                 
                 >
                   <Calendar className="h-3 w-3 mr-2 text-cyan-600 dark:text-cyan-400" />
                   {filters.startDate ? format(filters.startDate, 'MMM dd') : 'Start'}
@@ -271,7 +271,7 @@ function FiltersContent({
                   variant="outline" 
                   size="sm" 
                   className="justify-start text-left font-normal bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300"
-                  data-testid="button-event-end-date"
+                 
                 >
                   <Calendar className="h-3 w-3 mr-2 text-cyan-600 dark:text-cyan-400" />
                   {filters.endDate ? format(filters.endDate, 'MMM dd') : 'End'}
@@ -301,7 +301,7 @@ function FiltersContent({
             id="has-space"
             checked={filters.hasSpace}
             onCheckedChange={(checked) => updateFilter('hasSpace', checked)}
-            data-testid="switch-has-space"
+           
           />
         </div>
       </div>
@@ -322,7 +322,7 @@ function FiltersContent({
             <SelectTrigger 
               id="room-type" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-room-type"
+             
             >
               <SelectValue placeholder="Select room type" />
             </SelectTrigger>
@@ -345,7 +345,7 @@ function FiltersContent({
             <SelectTrigger 
               id="min-guests" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-min-guests"
+             
             >
               <SelectValue placeholder="Select minimum guests" />
             </SelectTrigger>
@@ -368,7 +368,7 @@ function FiltersContent({
             <SelectTrigger 
               id="connection-level" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-connection-level"
+             
             >
               <SelectValue placeholder="Select connection level" />
             </SelectTrigger>
@@ -399,7 +399,7 @@ function FiltersContent({
             <SelectTrigger 
               id="cuisine" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-cuisine"
+             
             >
               <SelectValue placeholder="Select cuisine" />
             </SelectTrigger>
@@ -422,7 +422,7 @@ function FiltersContent({
             <SelectTrigger 
               id="category" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-category"
+             
             >
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
@@ -445,7 +445,7 @@ function FiltersContent({
             <SelectTrigger 
               id="price-level" 
               className="bg-white/50 dark:bg-slate-800/50 border-slate-200/50 dark:border-slate-700/50"
-              data-testid="select-price-level"
+             
             >
               <SelectValue placeholder="Select price level" />
             </SelectTrigger>

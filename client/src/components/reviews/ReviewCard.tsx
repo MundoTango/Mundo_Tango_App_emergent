@@ -263,7 +263,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                     onClick={() => setShowResponseForm(true)}
                     strength={0.2}
                     className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-cyan-700 dark:text-cyan-300"
-                    data-testid="button-respond"
+                   
                   >
                     {t('housing.reviews.respond_button', 'Respond')}
                   </MagneticButton>
@@ -275,14 +275,14 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                       placeholder={t('housing.reviews.response_placeholder', 'Write your response...')}
                       rows={3}
                       className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
-                      data-testid="input-response"
+                     
                     />
                     <div className="flex gap-2">
                       <PulseButton
                         onClick={handleSubmitResponse}
                         disabled={submitResponseMutation.isPending}
                         className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl"
-                        data-testid="button-submit-response"
+                       
                       >
                         {submitResponseMutation.isPending 
                           ? t('housing.reviews.posting', 'Posting...') 
@@ -292,7 +292,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                         onClick={() => setShowResponseForm(false)}
                         strength={0.15}
                         className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                        data-testid="button-cancel-response"
+                       
                       >
                         {t('housing.reviews.cancel', 'Cancel')}
                       </MagneticButton>

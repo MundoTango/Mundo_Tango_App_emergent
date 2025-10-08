@@ -177,8 +177,8 @@ import { Helmet } from 'react-helmet';
           <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
             <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
-              <Link href="/settings/billing" data-testid="link-element">
-                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline" data-testid="link-ml-2">
+              <Link href="/settings/billing">
+                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline">
                   Manage billing
                 </a>
               </Link>
@@ -247,21 +247,21 @@ import { Helmet } from 'react-helmet';
                         className="w-full" 
                         variant="outline"
                         disabled
-                       data-testid="button-w-full">
+                      >
                         Current Plan
                       </Button>
                     ) : tier.key === 'free' ? (
                       <Button 
                         className="w-full" 
                         variant="outline"
-                        onClick={()> setLocation('/settings/billing')}
+                        onClick={()  => setLocation('/settings/billing')}
                       >
                         Downgrade
                       </Button>
                     ) : (
                       <Button 
                         className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                        onClick={()> handleSubscribe(tier.key)}
+                        onClick={()  => handleSubscribe(tier.key)}
                         disabled={createSubscriptionMutation.isPending && selectedTier === tier.key}
                       >
                         {createSubscriptionMutation.isPending && selectedTier === tier.key
@@ -286,7 +286,7 @@ import { Helmet } from 'react-helmet';
             <a 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
-             data-testid="link-text-turquoise-600">
+            >
               Contact support
             </a>
           </p>

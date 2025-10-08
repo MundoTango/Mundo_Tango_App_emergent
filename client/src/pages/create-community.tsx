@@ -126,7 +126,7 @@ export default function CreateCommunityPage() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={()> setLocation('/groups')}
+            onClick={()  => setLocation('/groups')}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors dark:text-neutral-100"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -224,29 +224,29 @@ export default function CreateCommunityPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Community Type</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="rounded-lg" data-testid="select-rounded-lg">
+                          <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="city" data-testid="select-element">
+                          <SelectItem value="city">
                             <div className="flex items-center gap-2">
                               <MapPin className="h-4 w-4" />
                               City Group
                             </div>
                           </SelectItem>
-                          <SelectItem value="professional" data-testid="select-element">
+                          <SelectItem value="professional">
                             <div className="flex items-center gap-2">
                               <Users className="h-4 w-4" />
                               Professional
                             </div>
                           </SelectItem>
-                          <SelectItem value="music" data-testid="select-element">Music</SelectItem>
-                          <SelectItem value="practice" data-testid="select-element">Practice</SelectItem>
-                          <SelectItem value="festival" data-testid="select-element">Festival</SelectItem>
-                          <SelectItem value="social" data-testid="select-element">Social</SelectItem>
+                          <SelectItem value="music">Music</SelectItem>
+                          <SelectItem value="practice">Practice</SelectItem>
+                          <SelectItem value="festival">Festival</SelectItem>
+                          <SelectItem value="social">Social</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -260,20 +260,20 @@ export default function CreateCommunityPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Privacy</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="rounded-lg" data-testid="select-rounded-lg">
+                          <SelectTrigger className="rounded-lg">
                             <SelectValue placeholder="Select privacy" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="public" data-testid="select-element">
+                          <SelectItem value="public">
                             <div className="flex items-center gap-2">
                               <Globe className="h-4 w-4" />
                               Public
                             </div>
                           </SelectItem>
-                          <SelectItem value="private" data-testid="select-element">
+                          <SelectItem value="private">
                             <div className="flex items-center gap-2">
                               <Lock className="h-4 w-4" />
                               Private
@@ -315,7 +315,7 @@ export default function CreateCommunityPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={()> setLocation('/groups')}
+                onClick={()  => setLocation('/groups')}
                 className="rounded-lg"
               >
                 Cancel
@@ -324,7 +324,7 @@ export default function CreateCommunityPage() {
                 type="submit"
                 disabled={createCommunityMutation.isPending}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg px-6"
-               data-testid="button-bg-gradient-to-r">
+              >
                 {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
               </Button>
             </div>

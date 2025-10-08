@@ -35,7 +35,7 @@ export const PostsFallback = () => (
         </div>
         <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300">Unable to load posts</p>
         <button 
-          onClick={()> window.location.reload()}
+          onClick={()  => window.location.reload()}
           className="text-turquoise-600 hover:text-turquoise-700 text-sm font-medium"
         >
           Try refreshing the page
@@ -156,7 +156,7 @@ export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
       <button
         onClick={onRetry}
         className="px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-       data-testid="button-px-4">
+      >
         Try Again
       </button>
     </div>

@@ -26,7 +26,7 @@ export default function ModernDeleteConfirmModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          data-testid="modal-delete-confirm"
+         
         >
           {/* Backdrop */}
           <motion.div
@@ -35,7 +35,7 @@ export default function ModernDeleteConfirmModal({
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-gray-900"
             onClick={onClose}
-            data-testid="modal-backdrop"
+           
           />
 
           {/* Modal */}
@@ -71,7 +71,7 @@ export default function ModernDeleteConfirmModal({
                 onClick={onClose}
                 disabled={isDeleting}
                 className="flex-1 px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors disabled:opacity-50 dark:bg-neutral-900"
-                data-testid="button-cancel-delete"
+               
               >
                 Cancel
               </button>
@@ -79,7 +79,7 @@ export default function ModernDeleteConfirmModal({
                 onClick={onConfirm}
                 disabled={isDeleting}
                 className="flex-1 px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                data-testid="button-confirm-delete"
+               
               >
                 <Trash2 className="w-5 h-5" />
                 {isDeleting ? 'Deleting...' : 'Delete'}

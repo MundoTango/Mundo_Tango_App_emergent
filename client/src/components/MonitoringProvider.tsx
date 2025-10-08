@@ -162,7 +162,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
 
       {/* Consent Banner - Disabled - users manage privacy in settings */}
       {false && showConsentBanner && !hasConsent && (
-        <div className="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-500" data-testid="consent-banner">
+        <div className="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-500">
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4">
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
@@ -181,7 +181,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                     variant="outline"
                     onClick={() => setShowConsentBanner(false)}
                     className="text-xs"
-                    data-testid="button-later"
+                   
                   >
                     Later
                   </Button>
@@ -189,7 +189,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                     size="sm"
                     onClick={() => setShowConsentModal(true)}
                     className="text-xs bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-                    data-testid="button-enable"
+                   
                   >
                     Enable Analytics
                   </Button>
@@ -198,7 +198,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
               <button
                 onClick={() => setShowConsentBanner(false)}
                 className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300"
-                data-testid="button-close"
+               
               >
                 <X className="w-4 h-4" />
               </button>
@@ -209,7 +209,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
 
       {/* Privacy Settings Modal */}
       {showPrivacySettings && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="privacy-modal">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <GlassCard depth={1} className="fixed inset-0" setShowPrivacySettings(false)} />
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4">
             <div className="flex items-center justify-between">
@@ -269,7 +269,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   variant="destructive"
                   onClick={revokeConsent}
                   className="flex-1"
-                  data-testid="button-revoke"
+                 
                 >
                   Disable All Tracking
                 </Button>
@@ -277,7 +277,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 <Button
                   onClick={() => setShowConsentModal(true)}
                   className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-                  data-testid="button-enable-all"
+                 
                 >
                   Configure Analytics
                 </Button>

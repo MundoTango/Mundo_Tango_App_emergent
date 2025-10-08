@@ -223,7 +223,7 @@ export default function Notifications() {
             
             {unreadCount > 0 && (
               <Button
-                onClick={()> markAllAsReadMutation.mutate()}
+                onClick={()  => markAllAsReadMutation.mutate()}
                 variant="outline"
                 className="bg-white/50 backdrop-blur-sm hover:bg-white/70 dark:bg-neutral-900"
                 disabled={markAllAsReadMutation.isPending}
@@ -316,7 +316,7 @@ export default function Notifications() {
                               <Button
                                 size="icon"
                                 variant="ghost"
-                                onClick={(e)> {
+                                onClick={(e)  => {
                                   e.stopPropagation();
                                   markAsReadMutation.mutate(notification.id);
                                 }}
@@ -328,7 +328,7 @@ export default function Notifications() {
                             <Button
                               size="icon"
                               variant="ghost"
-                              onClick={(e)> {
+                              onClick={(e)  => {
                                 e.stopPropagation();
                                 deleteNotificationMutation.mutate(notification.id);
                               }}

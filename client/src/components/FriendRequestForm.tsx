@@ -209,14 +209,14 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 variant="outline"
                 onClick={onCancel}
                 disabled={sendFriendRequestMutation.isPending}
-               data-testid="button-element">
+              >
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={sendFriendRequestMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-lg transition-all duration-300"
-               data-testid="button-bg-gradient-to-r">
+              >
                 <Send className="mr-2 h-4 w-4" />
                 Send Request
               </Button>

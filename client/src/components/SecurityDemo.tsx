@@ -285,7 +285,7 @@ export default function SecurityDemo() {
               </div>
             ))}
             
-            <Button onClick={runAllTests} className="w-full" size="lg" data-testid="button-w-full">
+            <Button onClick={runAllTests} className="w-full" size="lg">
               Run All Security Tests
             </Button>
           </CardContent>
@@ -308,9 +308,9 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter test message"
                   value={chatMessage}
-                  onChange={(e)> setChatMessage(e.target.value)}
+                  onChange={(e)  => setChatMessage(e.target.value)}
                 />
-                <Button onClick={testChatAccess} size="sm" data-testid="button-element">
+                <Button onClick={testChatAccess} size="sm">
                   Send
                 </Button>
               </div>
@@ -323,9 +323,9 @@ export default function SecurityDemo() {
                   type="number"
                   placeholder="Enter friend user ID"
                   value={selectedFriend}
-                  onChange={(e)> setSelectedFriend(e.target.value)}
+                  onChange={(e)  => setSelectedFriend(e.target.value)}
                 />
-                <Button onClick={testFriendRequest} size="sm" data-testid="button-element">
+                <Button onClick={testFriendRequest} size="sm">
                   <Heart className="h-4 w-4" />
                 </Button>
               </div>
@@ -337,10 +337,10 @@ export default function SecurityDemo() {
                 <Textarea
                   placeholder="Enter safety concern"
                   value={eventFeedback}
-                  onChange={(e)> setEventFeedback(e.target.value)}
+                  onChange={(e)  => setEventFeedback(e.target.value)}
                   rows={2}
                 />
-                <Button onClick={testEventFeedback} size="sm" data-testid="button-element">
+                <Button onClick={testEventFeedback} size="sm">
                   Report
                 </Button>
               </div>
@@ -352,9 +352,9 @@ export default function SecurityDemo() {
                 <Input
                   placeholder="Enter memory title"
                   value={memoryTitle}
-                  onChange={(e)> setMemoryTitle(e.target.value)}
+                  onChange={(e)  => setMemoryTitle(e.target.value)}
                 />
-                <Button onClick={testMemoryTagging} size="sm" data-testid="button-element">
+                <Button onClick={testMemoryTagging} size="sm">
                   <Calendar className="h-4 w-4" />
                 </Button>
               </div>
@@ -383,7 +383,7 @@ export default function SecurityDemo() {
             )}
           </div>
           <Button 
-            onClick={()> setLogs([])} 
+            onClick={()  => setLogs([])} 
             variant="outline" 
             size="sm" 
             className="mt-2"

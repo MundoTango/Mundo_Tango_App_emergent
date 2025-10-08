@@ -32,7 +32,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
     apdex: 0.94
   });
 
-  const [alerts] = useState<Alert[] data-testid="link-element">([
+  const [alerts] = useState<Alert[]>([
     {
       id: '1',
       severity: 'warning',
@@ -123,11 +123,11 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-3">
             {alerts.filter(a => !a.resolved).map(alert => (
-              <Alert key={alert.id} className={getSeverityColor(alert.severity)} data-testid="link-element">
+              <Alert key={alert.id} className={getSeverityColor(alert.severity)}>
                 <div className="flex items-start gap-3">
                   {getSeverityIcon(alert.severity)}
                   <div className="flex-1">
-                    <AlertDescription className="font-medium" data-testid="link-font-medium">
+                    <AlertDescription className="font-medium">
                       {alert.message}
                     </AlertDescription>
                     <div className="text-xs mt-1 opacity-70">
@@ -151,7 +151,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={performanceData} data-testid="link-element">
+            <AreaChart data={performanceData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="time" />
               <YAxis />

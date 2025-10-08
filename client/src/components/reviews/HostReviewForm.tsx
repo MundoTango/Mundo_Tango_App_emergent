@@ -144,42 +144,42 @@ export function HostReviewForm({
               onRatingChange={(rating) => setRatings({ ...ratings, overall: rating })}
               showLabel
               label={t('housing.reviews.overall_experience', 'Overall Experience')}
-              data-testid="rating-overall"
+             
             />
             <StarRating
               rating={ratings.cleanliness}
               onRatingChange={(rating) => setRatings({ ...ratings, cleanliness: rating })}
               showLabel
               label={t('housing.reviews.cleanliness', 'Cleanliness')}
-              data-testid="rating-cleanliness"
+             
             />
             <StarRating
               rating={ratings.communication}
               onRatingChange={(rating) => setRatings({ ...ratings, communication: rating })}
               showLabel
               label={t('housing.reviews.communication', 'Communication')}
-              data-testid="rating-communication"
+             
             />
             <StarRating
               rating={ratings.location}
               onRatingChange={(rating) => setRatings({ ...ratings, location: rating })}
               showLabel
               label={t('housing.reviews.location', 'Location')}
-              data-testid="rating-location"
+             
             />
             <StarRating
               rating={ratings.value}
               onRatingChange={(rating) => setRatings({ ...ratings, value: rating })}
               showLabel
               label={t('housing.reviews.value', 'Value')}
-              data-testid="rating-value"
+             
             />
             <StarRating
               rating={ratings.accuracy}
               onRatingChange={(rating) => setRatings({ ...ratings, accuracy: rating })}
               showLabel
               label={t('housing.reviews.accuracy', 'Accuracy')}
-              data-testid="rating-accuracy"
+             
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ export function HostReviewForm({
             placeholder={t('housing.reviews.review_placeholder', 'Share your experience with future guests...')}
             rows={5}
             className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
-            data-testid="input-review-text"
+           
           />
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {t('housing.reviews.min_characters', 'Minimum 10 characters')} ({reviewText.length}/10)
@@ -210,7 +210,7 @@ export function HostReviewForm({
               variant="outline"
               onClick={onCancel}
               className="glass-card glass-depth-1 border-slate-200/30 dark:border-slate-600/30"
-              data-testid="button-cancel"
+             
             >
               {t('housing.reviews.cancel', 'Cancel')}
             </Button>
@@ -219,7 +219,7 @@ export function HostReviewForm({
             type="submit"
             disabled={submitReviewMutation.isPending}
             className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
-            data-testid="button-submit-review"
+           
           >
             {submitReviewMutation.isPending 
               ? t('housing.reviews.submitting', 'Submitting...') 

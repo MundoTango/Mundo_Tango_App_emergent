@@ -209,7 +209,7 @@ export default function AdminDashboardPage() {
             <Button 
               variant="outline" 
               onClick={() => refetchStats()}
-              data-testid="refresh-dashboard"
+             
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Refresh

@@ -153,7 +153,7 @@ export function ValidationDashboard() {
         {/* Action Buttons */}
         <div className="flex gap-4 mt-4">
           <Button
-            onClick={()> runValidation.mutate()}
+            onClick={()  => runValidation.mutate()}
             disabled={isRunning}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
           >
@@ -170,14 +170,14 @@ export function ValidationDashboard() {
             )}
           </Button>
           <Button
-            onClick={()> runValidation.mutate({ start: 1, end: 10 })}
+            onClick={()  => runValidation.mutate({ start: 1, end: 10 })}
             variant="outline"
             disabled={isRunning}
           >
             Run Phase 1 (Layers 1-10)
           </Button>
           <Button
-            onClick={()> updateJira.mutate(Object.values(results))}
+            onClick={()  => updateJira.mutate(Object.values(results))}
             variant="outline"
             disabled={Object.keys(results).length === 0}
           >
@@ -306,7 +306,7 @@ export function ValidationDashboard() {
 
       {/* Recent Results */}
       {Object.values(results).some(r => r.status === 'failed') && (
-        <Alert className="border-red-200 bg-red-50" data-testid="link-border-red-200">
+        <Alert className="border-red-200 bg-red-50">
           <AlertCircle className="h-4 w-4 text-red-600" />
           <AlertDescription>
             <p className="font-semibold text-red-800">Failed Tests Detected</p>

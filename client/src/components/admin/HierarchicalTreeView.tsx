@@ -482,7 +482,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                   variant="ghost"
                   size="sm"
                   className="p-1 h-6 w-6"
-                  onClick={(e)> {
+                  onClick={(e)  => {
                     e.stopPropagation();
                     onToggleExpand(item.id);
                   }}
@@ -631,7 +631,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
           size="sm"
           onClick={handleExpandAll}
           className="text-xs"
-         data-testid="button-text-xs">
+        >
           Expand All
         </Button>
         <Button
@@ -639,7 +639,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
           size="sm"
           onClick={handleCollapseAll}
           className="text-xs"
-         data-testid="button-text-xs">
+        >
           Collapse All
         </Button>
         <div className="text-sm text-gray-500 ml-4">

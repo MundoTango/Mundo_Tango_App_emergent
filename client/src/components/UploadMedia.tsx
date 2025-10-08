@@ -209,9 +209,9 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="public" data-testid="select-element">Public - Everyone can see</SelectItem>
-              <SelectItem value="mutual" data-testid="select-element">Mutual - Only friends can see</SelectItem>
-              <SelectItem value="private" data-testid="select-element">Private - Only you can see</SelectItem>
+              <SelectItem value="public">Public - Everyone can see</SelectItem>
+              <SelectItem value="mutual">Mutual - Only friends can see</SelectItem>
+              <SelectItem value="private">Private - Only you can see</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -235,12 +235,12 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           <div className="flex gap-2">
             <Input
               value={newTag}
-              onChange={(e)> setNewTag(e.target.value)}
+              onChange={(e)  => setNewTag(e.target.value)}
               placeholder="Add a tag..."
               onKeyPress={(e) => e.key === 'Enter' && addTag()}
               className="flex-1"
             />
-            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()} data-testid="button-element">
+            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()}>
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -306,7 +306,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={()> removeFile(index)}
+                  onClick={()  => removeFile(index)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <X className="w-4 h-4" />

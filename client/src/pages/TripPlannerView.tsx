@@ -213,9 +213,9 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
       {/* Main Content Tabs */}
       <Tabs defaultValue="map" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="map" data-testid="tab-map">Map View</TabsTrigger>
-          <TabsTrigger value="results" data-testid="tab-results">Browse Results</TabsTrigger>
-          <TabsTrigger value="itinerary" data-testid="tab-itinerary">
+          <TabsTrigger value="map">Map View</TabsTrigger>
+          <TabsTrigger value="results">Browse Results</TabsTrigger>
+          <TabsTrigger value="itinerary">
             My Itinerary ({itineraryItems.length})
           </TabsTrigger>
         </TabsList>

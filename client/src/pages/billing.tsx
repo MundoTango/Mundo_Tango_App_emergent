@@ -188,7 +188,7 @@ export default function BillingDashboard() {
                 <Button 
                   onClick={() => navigate('/pricing')}
                   className="bg-[#5EEAD4] hover:bg-[#5EEAD4]/90"
-                  data-testid="button-upgrade-plan"
+                 
                 >
                   Upgrade Plan
                 </Button>
@@ -196,7 +196,7 @@ export default function BillingDashboard() {
                 <Button 
                   onClick={() => resumeMutation.mutate()}
                   disabled={resumeMutation.isPending}
-                  data-testid="button-resume-subscription"
+                 
                 >
                   Resume Subscription
                 </Button>
@@ -205,7 +205,7 @@ export default function BillingDashboard() {
                   <Button 
                     variant="outline" 
                     onClick={() => navigate('/pricing')}
-                    data-testid="button-change-plan"
+                   
                   >
                     Change Plan
                   </Button>
@@ -217,7 +217,7 @@ export default function BillingDashboard() {
                       }
                     }}
                     disabled={cancelMutation.isPending}
-                    data-testid="button-cancel-subscription"
+                   
                   >
                     Cancel Subscription
                   </Button>
@@ -380,7 +380,7 @@ export default function BillingDashboard() {
                   </div>
                   <Button 
                     onClick={() => navigate('/billing/add-payment-method')}
-                    data-testid="button-add-payment-method"
+                   
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Method

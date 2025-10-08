@@ -391,7 +391,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                 size="sm" 
                 onClick={handleCancel}
                 className="hover:bg-white/50 hover:shadow-md transition-all duration-300 dark:bg-neutral-900"
-               data-testid="button-hover:bg-white/50">
+              >
                 <X className="w-4 h-4 mr-1" />
                 Cancel
               </Button>
@@ -400,7 +400,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                 onClick={form.handleSubmit(onSubmit)}
                 disabled={updateProfileMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-300"
-               data-testid="button-bg-gradient-to-r">
+              >
                 <Save className="w-4 h-4 mr-1" />
                 Save
               </Button>
@@ -571,12 +571,12 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                           value={field.value?.toString()}
                           onValueChange={(value)> field.onChange(parseInt(value))}
                         >
-                          <SelectTrigger className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg dark:bg-neutral-900" data-testid="select-glassmorphic-input">
+                          <SelectTrigger className="glassmorphic-input border-2 border-turquoise-200/50 focus:border-turquoise-400 bg-white/70 backdrop-blur-xl hover:bg-white/80 transition-all duration-300 px-4 py-2.5 rounded-lg dark:bg-neutral-900">
                             <SelectValue placeholder="Select year" />
                           </SelectTrigger>
-                          <SelectContent className="glassmorphic-card max-h-60 overflow-y-auto border border-turquoise-200/50" data-testid="select-glassmorphic-card">
+                          <SelectContent className="glassmorphic-card max-h-60 overflow-y-auto border border-turquoise-200/50">
                             {years.map((year) => (
-                              <SelectItem key={year} value={year} className="hover:bg-turquoise-50/70 transition-colors cursor-pointer px-4 py-2" data-testid="select-hover:bg-turquoise-50/70">
+                              <SelectItem key={year} value={year} className="hover:bg-turquoise-50/70 transition-colors cursor-pointer px-4 py-2">
                                 {year}
                               </SelectItem>
                             ))}
@@ -664,7 +664,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={()> setIsEditing(true)}
+            onClick={()  => setIsEditing(true)}
             className="hover:bg-white/50 hover:shadow-md transition-all duration-300 dark:bg-neutral-900"
           >
             <Edit2 className="w-4 h-4 mr-1" />

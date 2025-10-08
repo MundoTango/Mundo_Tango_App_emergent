@@ -110,7 +110,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
       {/* Filters */}
       {showFilters && (
         <FadeIn>
-          <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30" data-testid="filters-card">
+          <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
             <div className="flex items-center gap-2 mb-4">
               <Filter className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
               <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -128,7 +128,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   value={filters.roomType}
                   onChange={(e) => setFilters({...filters, roomType: e.target.value})}
                   className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
-                  data-testid="select-room-type"
+                 
                 >
                   <option value="all">{t('housing.homes_list.all_types', 'All types')}</option>
                   <option value="entire_place">{t('housing.homes_list.entire_place', 'Entire place')}</option>
@@ -146,7 +146,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   value={filters.maxGuests}
                   onChange={(e) => setFilters({...filters, maxGuests: parseInt(e.target.value)})}
                   className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
-                  data-testid="select-max-guests"
+                 
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
                     <option key={num} value={num}>
@@ -165,7 +165,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   value={filters.friendFilter}
                   onChange={(e) => setFilters({...filters, friendFilter: e.target.value})}
                   className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
-                  data-testid="select-friend-filter"
+                 
                 >
                   <option value="all">{t('housing.homes_list.all_hosts', 'All hosts')}</option>
                   <option value="1st_degree">{t('housing.homes_list.direct_friends', 'Direct friends (1st)')}</option>
@@ -284,7 +284,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
       {/* Empty State */}
       {(!homes || homes.length === 0) && (
         <ScaleIn delay={0.2}>
-          <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30" data-testid="empty-state">
+          <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30">
             <div className="flex flex-col items-center gap-4">
               <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-ocean-500/30">
                 <Home className="h-8 w-8 text-ocean-500 dark:text-cyan-400" />

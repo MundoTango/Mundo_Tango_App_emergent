@@ -194,7 +194,7 @@ export default function RecommendationsList({
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
                 : 'text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
             }`}
-            data-testid="button-view-list"
+           
             title="List View"
           >
             <List className="h-5 w-5" />
@@ -206,7 +206,7 @@ export default function RecommendationsList({
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
                 : 'text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
             }`}
-            data-testid="button-view-map"
+           
             title="Map View"
           >
             <MapIcon className="h-5 w-5" />

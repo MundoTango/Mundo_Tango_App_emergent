@@ -110,7 +110,7 @@ export default function SocialShareButtons({
     return (
       <div className={`relative ${className}`}>
         <button
-          onClick={()> setShowShareMenu(!showShareMenu)}
+          onClick={()  => setShowShareMenu(!showShareMenu)}
           className="flex items-center space-x-1 px-3 py-2 text-gray-600 hover:text-gray-800 transition-colors dark:text-neutral-200"
         >
           <Share2 className="h-4 w-4" />
@@ -122,7 +122,7 @@ export default function SocialShareButtons({
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold text-gray-900 dark:text-neutral-100">Share this post</h4>
               <button
-                onClick={()> setShowShareMenu(false)}
+                onClick={()  => setShowShareMenu(false)}
                 className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
               >
                 ×
@@ -151,7 +151,7 @@ export default function SocialShareButtons({
                 <button
                   onClick={copyToClipboard}
                   className="flex items-center space-x-1 px-3 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
-                 data-testid="button-flex">
+                >
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                   <span className="text-sm">{copied ? 'Copied!' : 'Copy'}</span>
                 </button>
@@ -186,7 +186,7 @@ export default function SocialShareButtons({
         onClick={copyToClipboard}
         className="group relative p-1 text-gray-600 hover:text-gray-800 transition-colors dark:text-neutral-200"
         title="Copy link"
-       data-testid="button-group">
+      >
         <div className="p-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-neutral-800">
           {copied ? <Check className="h-4 w-4 text-green-600" /> : <Link className="h-4 w-4" />}
         </div>

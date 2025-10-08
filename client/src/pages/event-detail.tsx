@@ -426,20 +426,20 @@ export default function EventDetailPage() {
           <Card>
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="w-full">
-                <TabsTrigger value="attendees" className="flex-1" data-testid="tab-attendees">
+                <TabsTrigger value="attendees" className="flex-1">
                   <Users className="mr-2 h-4 w-4" />
                   Attendees ({event.currentAttendees || 0})
                 </TabsTrigger>
-                <TabsTrigger value="discussion" className="flex-1" data-testid="tab-discussion">
+                <TabsTrigger value="discussion" className="flex-1">
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Discussion
                 </TabsTrigger>
-                <TabsTrigger value="posts" className="flex-1" data-testid="tab-posts">
+                <TabsTrigger value="posts" className="flex-1">
                   <FileText className="mr-2 h-4 w-4" />
                   Posts
                 </TabsTrigger>
                 {isEventOwner && (
-                  <TabsTrigger value="analytics" className="flex-1" data-testid="tab-analytics">
+                  <TabsTrigger value="analytics" className="flex-1">
                     <BarChart3 className="mr-2 h-4 w-4" />
                     Analytics
                   </TabsTrigger>
@@ -486,7 +486,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                      data-testid="filter-all-posts"
+                     
                     >
                       All Posts
                     </button>
@@ -497,7 +497,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                      data-testid="filter-participants"
+                     
                     >
                       Participants Only
                     </button>
@@ -508,7 +508,7 @@ export default function EventDetailPage() {
                           ? 'text-pink-600 border-b-2 border-pink-600' 
                           : 'text-gray-500 hover:text-gray-700'
                       }`}
-                      data-testid="filter-guests"
+                     
                     >
                       Guests Only
                     </button>
@@ -574,7 +574,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                      data-testid="posts-filter-all"
+                     
                     >
                       All Posts
                     </Button>
@@ -587,7 +587,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                      data-testid="posts-filter-participants"
+                     
                     >
                       Participants
                     </Button>
@@ -600,7 +600,7 @@ export default function EventDetailPage() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg'
                           : 'border-turquoise-300 text-turquoise-700 hover:bg-turquoise-50'
                       }`}
-                      data-testid="posts-filter-guests"
+                     
                     >
                       Guests
                     </Button>
@@ -708,7 +708,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'going' ? null : 'going' 
                     })}
                     disabled={rsvpMutation.isPending}
-                    data-testid="button-rsvp-going"
+                   
                   >
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Going
@@ -721,7 +721,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'interested' ? null : 'interested' 
                     })}
                     disabled={rsvpMutation.isPending}
-                    data-testid="button-rsvp-interested"
+                   
                   >
                     <Star className="mr-2 h-4 w-4" />
                     Interested
@@ -734,7 +734,7 @@ export default function EventDetailPage() {
                       status: event.userStatus === 'maybe' ? null : 'maybe' 
                     })}
                     disabled={rsvpMutation.isPending}
-                    data-testid="button-rsvp-maybe"
+                   
                   >
                     <AlertCircle className="mr-2 h-4 w-4" />
                     Maybe

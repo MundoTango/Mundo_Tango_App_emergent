@@ -74,7 +74,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
   };
 
   return (
-    <div className="space-y-6" data-testid="container-group-analytics">
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
@@ -82,7 +82,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
             <Badge 
               variant={healthMetrics.score >= 70 ? 'default' : healthMetrics.score >= 40 ? 'secondary' : 'destructive'}
               className="text-lg"
-              data-testid="badge-health-score"
+             
             >
               {healthMetrics.score}/100
             </Badge>
@@ -93,7 +93,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="space-y-2" data-testid="metric-engagement">
+            <div className="space-y-2">
               <div className="text-sm text-muted-foreground">Engagement</div>
               <div className="text-2xl font-bold">{healthMetrics.engagementScore}/100</div>
               <div className="text-xs text-muted-foreground">
@@ -101,7 +101,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
               </div>
             </div>
             
-            <div className="space-y-2" data-testid="metric-growth">
+            <div className="space-y-2">
               <div className="text-sm text-muted-foreground">Growth Rate</div>
               <div className="text-2xl font-bold">{healthMetrics.growthRate.toFixed(1)}%</div>
               <div className="text-xs text-muted-foreground">
@@ -109,7 +109,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
               </div>
             </div>
             
-            <div className="space-y-2" data-testid="metric-sentiment">
+            <div className="space-y-2">
               <div className="text-sm text-muted-foreground">Sentiment</div>
               <Badge className={sentimentColor[healthMetrics.sentiment]}>
                 <span className="flex items-center gap-1">
@@ -119,7 +119,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
               </Badge>
             </div>
             
-            <div className="space-y-2" data-testid="metric-activity">
+            <div className="space-y-2">
               <div className="text-sm text-muted-foreground">Activity Level</div>
               <div className="text-2xl font-bold">
                 {healthMetrics.postsPerDay >= 5 ? 'High' : 
@@ -130,23 +130,23 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
         </CardContent>
       </Card>
 
-      <Tabs defaultValue="contributors" data-testid="tabs-analytics">
+      <Tabs defaultValue="contributors">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="contributors" data-testid="tab-contributors">
+          <TabsTrigger value="contributors">
             <Users className="h-4 w-4 mr-2" />
             Top Contributors
           </TabsTrigger>
-          <TabsTrigger value="activity" data-testid="tab-activity">
+          <TabsTrigger value="activity">
             <Activity className="h-4 w-4 mr-2" />
             Peak Times
           </TabsTrigger>
-          <TabsTrigger value="trends" data-testid="tab-trends">
+          <TabsTrigger value="trends">
             <TrendingUp className="h-4 w-4 mr-2" />
             Trends
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="contributors" data-testid="content-contributors">
+        <TabsContent value="contributors">
           <Card>
             <CardHeader>
               <CardTitle>Most Active Members</CardTitle>
@@ -185,7 +185,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
           </Card>
         </TabsContent>
 
-        <TabsContent value="activity" data-testid="content-activity">
+        <TabsContent value="activity">
           <Card>
             <CardHeader>
               <CardTitle>Peak Activity Times</CardTitle>
@@ -225,7 +225,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
           </Card>
         </TabsContent>
 
-        <TabsContent value="trends" data-testid="content-trends">
+        <TabsContent value="trends">
           <Card>
             <CardHeader>
               <CardTitle>Group Trends</CardTitle>
@@ -233,7 +233,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50" data-testid="trend-engagement">
+                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
                   <div className="flex items-center gap-3">
                     <Activity className="h-5 w-5 text-primary" />
                     <div>
@@ -249,7 +249,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
                   </Badge>
                 </div>
 
-                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50" data-testid="trend-growth">
+                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
                   <div className="flex items-center gap-3">
                     <Users className="h-5 w-5 text-primary" />
                     <div>
@@ -265,7 +265,7 @@ export function GroupHealthAnalytics({ groupId }: GroupHealthAnalyticsProps) {
                   </Badge>
                 </div>
 
-                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50" data-testid="trend-activity">
+                <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
                   <div className="flex items-center gap-3">
                     <MessageSquare className="h-5 w-5 text-primary" />
                     <div>

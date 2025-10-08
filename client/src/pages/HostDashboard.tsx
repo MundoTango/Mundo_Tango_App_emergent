@@ -154,7 +154,7 @@ export default function HostDashboard() {
                   onClick={() => navigate('/host-onboarding')}
                   className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3 text-lg"
                   pulseColor="rgba(6, 182, 212, 0.6)"
-                  data-testid="button-create-first-listing"
+                 
                 >
                   <Plus className="w-5 h-5 mr-2" />
                   {t('housing.host_dashboard.create_first_listing', 'Create Your First Listing')}
@@ -186,7 +186,7 @@ export default function HostDashboard() {
               onClick={() => navigate('/host-onboarding')}
               className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
               pulseColor="rgba(6, 182, 212, 0.6)"
-              data-testid="button-add-property"
+             
             >
               <Plus className="w-4 h-4 mr-2" />
               {t('housing.host_dashboard.add_new_property', 'Add New Property')}

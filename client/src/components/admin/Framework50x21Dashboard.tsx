@@ -811,7 +811,7 @@ const Framework50x21Dashboard: React.FC = () => {
             onClick={generateReport}
             disabled={isGeneratingReport}
             className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
-           data-testid="button-bg-gradient-to-r">
+          >
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
           </Button>
@@ -819,7 +819,7 @@ const Framework50x21Dashboard: React.FC = () => {
             onClick={runSelfAnalysis}
             disabled={isRunningAnalysis}
             variant="outline"
-           data-testid="button-element">
+          >
             <CheckCircle className="w-4 h-4 mr-2" />
             {isRunningAnalysis ? 'Analyzing...' : 'Run Analysis'}
           </Button>
@@ -875,7 +875,7 @@ const Framework50x21Dashboard: React.FC = () => {
                 {frameworkData.map((layer) => (
                   <button
                     key={layer.id}
-                    onClick={()> setSelectedLayer(layer.id)}
+                    onClick={()  => setSelectedLayer(layer.id)}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${
                       selectedLayer === layer.id 
                         ? 'border-turquoise-500 bg-turquoise-50' 

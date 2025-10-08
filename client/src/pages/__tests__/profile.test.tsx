@@ -20,7 +20,7 @@ vi.mock('@/components/universal/DashboardLayout', () => ({
 
 vi.mock('@/components/profile/EnhancedProfileHeader', () => ({
   default: ({ user, stats, isOwnProfile, onEditProfile }: any) => (
-    <div data-testid="profile-header">
+    <div>
       <h1>{user.name}</h1>
       <button onClick={onEditProfile}>Edit Profile</button>
       <div>Posts: {stats?.posts || 0}</div>
@@ -30,7 +30,7 @@ vi.mock('@/components/profile/EnhancedProfileHeader', () => ({
 
 vi.mock('@/components/profile/StoryHighlights', () => ({
   default: ({ isOwnProfile, onAddHighlight }: any) => (
-    <div data-testid="story-highlights">
+    <div>
       {isOwnProfile && <button onClick={onAddHighlight}>Add Highlight</button>}
     </div>
   )
@@ -38,7 +38,7 @@ vi.mock('@/components/profile/StoryHighlights', () => ({
 
 vi.mock('@/components/profile/TravelDetailsComponent', () => ({
   default: ({ userId, isOwnProfile }: any) => (
-    <div data-testid="travel-details">
+    <div>
       Travel Details for User {userId}
       {isOwnProfile && <button>Add Travel Details</button>}
     </div>
@@ -48,7 +48,7 @@ vi.mock('@/components/profile/TravelDetailsComponent', () => ({
 vi.mock('@/components/profile/ProfileMemoryPostModal', () => ({
   default: ({ isOpen, onClose, onMemoryCreated }: any) => 
     isOpen ? (
-      <div data-testid="memory-post-modal">
+      <div>
         <h2>Create a Memory</h2>
         <button onClick={onClose}>Close</button>
         <button onClick={onMemoryCreated}>Post Memory</button>

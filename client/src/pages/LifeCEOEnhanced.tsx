@@ -636,7 +636,7 @@ export default function LifeCEOEnhanced() {
             <Button
               onClick={toggleRecording}
               size="lg"
-              data-testid="button-voice-toggle"
+             
               className={`rounded-full w-16 h-16 ${
                 isRecording 
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
@@ -653,7 +653,7 @@ export default function LifeCEOEnhanced() {
                 placeholder={language === 'en' ? "Type or speak your command..." : "Escribe o habla tu comando..."}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                 disabled={isProcessing}
-                data-testid="input-message"
+               
               />
             </div>
             
@@ -661,7 +661,7 @@ export default function LifeCEOEnhanced() {
               onClick={sendMessage}
               disabled={!transcript.trim() || isProcessing}
               className="bg-purple-600 hover:bg-purple-700"
-              data-testid="button-send-message"
+             
             >
               <Send className="h-4 w-4" />
             </Button>
@@ -691,7 +691,7 @@ export default function LifeCEOEnhanced() {
               variant="ghost"
               size="sm"
               className="text-xs"
-              data-testid="button-switch-agent"
+             
             >
               <Brain className="h-4 w-4 mr-1" />
               Switch Agent ({LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'})

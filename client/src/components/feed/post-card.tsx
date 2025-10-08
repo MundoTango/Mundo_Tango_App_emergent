@@ -42,7 +42,7 @@ export default function PostCard({ post }: PostCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<any[] data-testid="link-element">([]);
+  const [comments, setComments] = useState<any[]>([]);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -142,10 +142,10 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="p-4 border-b border-turquoise-100/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12 ring-2 ring-turquoise-200" data-testid="link-w-12">
+            <Avatar className="w-12 h-12 ring-2 ring-turquoise-200">
               {/* ESA LIFE CEO 61x21 - Fixed profile image with fallback */}
               <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} />
-              <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
+              <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div>
               <h4 className="font-semibold text-gray-800 dark:text-neutral-200">{post.user?.name || 'Unknown User'}</h4>
@@ -154,7 +154,7 @@ export default function PostCard({ post }: PostCardProps) {
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600" data-testid="button-text-turquoise-400">
+          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </div>
@@ -248,7 +248,7 @@ export default function PostCard({ post }: PostCardProps) {
             onClick={handleLike}
             disabled={likeMutation.isPending}
             className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-turquoise-600'} hover:text-pink-500 transition-colors`}
-           data-testid="button-element">
+          >
             <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
             <span>Like</span>
           </Button>
@@ -256,7 +256,7 @@ export default function PostCard({ post }: PostCardProps) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={()> setShowComments(!showComments)}
+            onClick={()  => setShowComments(!showComments)}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
           >
             <MessageCircle className="h-5 w-5" />
@@ -268,7 +268,7 @@ export default function PostCard({ post }: PostCardProps) {
             size="sm"
             onClick={handleShare}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
-           data-testid="button-flex">
+          >
             <Share2 className="h-5 w-5" />
             <span>Share</span>
           </Button>
@@ -279,14 +279,14 @@ export default function PostCard({ post }: PostCardProps) {
           <div className="mt-4 space-y-4">
             {/* Add Comment */}
             <div className="flex space-x-3">
-              <Avatar className="w-8 h-8" data-testid="link-w-8">
+              <Avatar className="w-8 h-8">
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <div className="flex-1 flex space-x-2">
                 <Textarea
                   placeholder="Write a comment..."
                   value={newComment}
-                  onChange={(e)> setNewComment(e.target.value)}
+                  onChange={(e)  => setNewComment(e.target.value)}
                   className="resize-none"
                   rows={2}
                 />
@@ -295,7 +295,7 @@ export default function PostCard({ post }: PostCardProps) {
                   onClick={handleComment}
                   disabled={commentMutation.isPending || !newComment.trim()}
                   className="bg-tango-red hover:bg-tango-red/90"
-                 data-testid="button-bg-tango-red">
+                >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -306,7 +306,7 @@ export default function PostCard({ post }: PostCardProps) {
               <div className="space-y-3">
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex space-x-3">
-                    <Avatar className="w-8 h-8" data-testid="link-w-8">
+                    <Avatar className="w-8 h-8">
                       <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} />
                       <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>

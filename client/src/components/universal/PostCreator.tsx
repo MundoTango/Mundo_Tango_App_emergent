@@ -1473,7 +1473,7 @@ export default function PostCreator({
                             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
                             backdropFilter: 'blur(12px)'
                           }}
-                          data-testid="select-recommendation-type"
+                         
                         >
                           <option value="">Select a category...</option>
                           <option value="restaurant">🍽️ Restaurant</option>

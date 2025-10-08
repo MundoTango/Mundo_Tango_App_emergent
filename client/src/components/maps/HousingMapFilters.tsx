@@ -62,7 +62,7 @@ export default function HousingMapFilters({
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="relative" data-testid="button-housing-filters">
+          <Button variant="outline" size="sm" className="relative">
             <Filter className="h-4 w-4 mr-2" />
             Filters
             {activeFiltersCount > 0 && (
@@ -96,7 +96,7 @@ export default function HousingMapFilters({
             variant="ghost" 
             size="sm" 
             onClick={clearFilters}
-            data-testid="button-clear-housing-filters"
+           
           >
             <X className="h-4 w-4 mr-1" />
             Clear ({activeFiltersCount})
@@ -138,7 +138,7 @@ function FiltersContent({
           placeholder="Search by city, neighborhood..."
           value={filters.location}
           onChange={(e) => updateFilter('location', e.target.value)}
-          data-testid="input-housing-location"
+         
         />
       </div>
 
@@ -152,7 +152,7 @@ function FiltersContent({
                 variant="outline" 
                 size="sm" 
                 className="justify-start text-left font-normal"
-                data-testid="button-check-in"
+               
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 {filters.checkIn ? format(filters.checkIn, 'MMM dd') : 'Check-in'}
@@ -175,7 +175,7 @@ function FiltersContent({
                 variant="outline" 
                 size="sm" 
                 className="justify-start text-left font-normal"
-                data-testid="button-check-out"
+               
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 {filters.checkOut ? format(filters.checkOut, 'MMM dd') : 'Check-out'}
@@ -205,7 +205,7 @@ function FiltersContent({
             <DollarSign className="h-4 w-4" />
             Price Range (per night)
           </Label>
-          <span className="text-sm text-muted-foreground" data-testid="text-price-range">
+          <span className="text-sm text-muted-foreground">
             ${filters.priceRange[0]} - ${filters.priceRange[1]}
           </span>
         </div>
@@ -216,7 +216,7 @@ function FiltersContent({
           value={filters.priceRange}
           onValueChange={(value) => updateFilter('priceRange', value as [number, number])}
           className="w-full"
-          data-testid="slider-price-range"
+         
         />
       </div>
 
@@ -230,7 +230,7 @@ function FiltersContent({
           value={filters.roomType} 
           onValueChange={(value) => updateFilter('roomType', value)}
         >
-          <SelectTrigger id="room-type" data-testid="select-room-type">
+          <SelectTrigger id="room-type">
             <SelectValue placeholder="Select room type" />
           </SelectTrigger>
           <SelectContent>

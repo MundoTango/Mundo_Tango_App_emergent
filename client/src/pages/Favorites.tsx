@@ -294,12 +294,12 @@ export default function Favorites() {
             "grid w-full max-w-md grid-cols-6",
             theme === 'dark' ? "bg-slate-800" : "bg-gray-100"
           )}>
-            <TabsTrigger value="all" data-testid="tab-all">All</TabsTrigger>
-            <TabsTrigger value="posts" data-testid="tab-posts">Posts</TabsTrigger>
-            <TabsTrigger value="events" data-testid="tab-events">Events</TabsTrigger>
-            <TabsTrigger value="people" data-testid="tab-people">People</TabsTrigger>
-            <TabsTrigger value="groups" data-testid="tab-groups">Groups</TabsTrigger>
-            <TabsTrigger value="memories" data-testid="tab-memories">Memories</TabsTrigger>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="posts">Posts</TabsTrigger>
+            <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="people">People</TabsTrigger>
+            <TabsTrigger value="groups">Groups</TabsTrigger>
+            <TabsTrigger value="memories">Memories</TabsTrigger>
           </TabsList>
         </Tabs>
 

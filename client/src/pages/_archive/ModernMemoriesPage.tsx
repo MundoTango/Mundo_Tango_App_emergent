@@ -389,7 +389,7 @@ const ModernMemoriesPage = () => {
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="min-h-[120px] resize-none border-0 focus-visible:ring-0 text-lg placeholder:text-gray-600 dark:text-gray-400 px-0 bg-transparent"
-                  data-testid="input-memory-content"
+                 
                 />
 
                 {/* Tag Selection */}
@@ -415,7 +415,7 @@ const ModernMemoriesPage = () => {
                       variant="ghost" 
                       size="sm" 
                       className="hover:bg-[#5EEAD4]/20"
-                      data-testid="button-add-image"
+                     
                     >
                       <Image className="h-5 w-5" />
                     </Button>
@@ -423,7 +423,7 @@ const ModernMemoriesPage = () => {
                       variant="ghost" 
                       size="sm" 
                       className="hover:bg-[#5EEAD4]/20"
-                      data-testid="button-add-video"
+                     
                     >
                       <Video className="h-5 w-5" />
                     </Button>
@@ -431,7 +431,7 @@ const ModernMemoriesPage = () => {
                       variant="ghost" 
                       size="sm" 
                       className="hover:bg-[#5EEAD4]/20"
-                      data-testid="button-add-emoji"
+                     
                     >
                       <Smile className="h-5 w-5" />
                     </Button>
@@ -439,7 +439,7 @@ const ModernMemoriesPage = () => {
                       variant="ghost" 
                       size="sm" 
                       className="hover:bg-[#5EEAD4]/20"
-                      data-testid="button-add-location"
+                     
                     >
                       <MapPin className="h-5 w-5" />
                     </Button>
@@ -448,7 +448,7 @@ const ModernMemoriesPage = () => {
                     onClick={handlePostMemory}
                     disabled={!content.trim() || createMemoryMutation.isPending}
                     className="bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white hover:opacity-90"
-                    data-testid="button-share-memory"
+                   
                   >
                     <Send className="h-4 w-4 mr-2" />
                     Share Memory

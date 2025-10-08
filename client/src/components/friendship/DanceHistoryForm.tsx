@@ -225,18 +225,18 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Dance Style</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-element">
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select dance style" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="tango" data-testid="select-element">Tango</SelectItem>
-                      <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
-                      <SelectItem value="vals" data-testid="select-element">Vals</SelectItem>
-                      <SelectItem value="neotango" data-testid="select-element">Neotango</SelectItem>
-                      <SelectItem value="other" data-testid="select-element">Other</SelectItem>
+                      <SelectItem value="tango">Tango</SelectItem>
+                      <SelectItem value="milonga">Milonga</SelectItem>
+                      <SelectItem value="vals">Vals</SelectItem>
+                      <SelectItem value="neotango">Neotango</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -290,7 +290,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                         <button
                           key={star}
                           type="button"
-                          onClick={()> field.onChange(star)}
+                          onClick={()  => field.onChange(star)}
                           className={`text-2xl ${
                             star <= field.value 
                               ? 'text-yellow-500' 
@@ -393,7 +393,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
               type="submit" 
               className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
               disabled={createDanceHistoryMutation.isPending}
-             data-testid="button-w-full">
+            >
               {createDanceHistoryMutation.isPending ? 'Saving...' : 'Save Dance Memory'}
             </Button>
           </form>

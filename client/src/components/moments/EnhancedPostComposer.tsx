@@ -451,7 +451,7 @@ export default function EnhancedPostComposer({
   }
 
   return (
-    <div data-testid="enhanced-composer" className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6 dark:bg-neutral-900">
+    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6 dark:bg-neutral-900">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">

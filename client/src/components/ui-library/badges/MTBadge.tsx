@@ -102,7 +102,7 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
       {children}
       {removable && (
         <button
-          onClick={(e)> {
+          onClick={(e)  => {
             e.stopPropagation();
             onRemove?.();
           }}

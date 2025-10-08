@@ -118,7 +118,7 @@ export default function EventInvitationManager() {
             <div className="flex space-x-2 ml-4">
               <Button
                 size="sm"
-                onClick={()> handleAccept(invitation.id)}
+                onClick={()  => handleAccept(invitation.id)}
                 disabled={updateStatusMutation.isPending}
                 className="bg-green-600 hover:bg-green-700"
               >
@@ -128,7 +128,7 @@ export default function EventInvitationManager() {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={()> handleDecline(invitation.id)}
+                onClick={()  => handleDecline(invitation.id)}
                 disabled={updateStatusMutation.isPending}
                 className="border-red-300 text-red-600 hover:bg-red-50"
               >

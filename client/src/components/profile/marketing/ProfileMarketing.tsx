@@ -184,7 +184,7 @@ export const ProfileMarketing: React.FC<{ userId: number }> = ({ userId }) => {
               <div key={index} className="p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">{campaign.name}</h4>
-                  <Button size="sm" variant="outline" data-testid="button-element">
+                  <Button size="sm" variant="outline">
                     <Share2 className="w-3 h-3 mr-1" />
                     Share
                   </Button>

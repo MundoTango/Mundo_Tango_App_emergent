@@ -140,15 +140,15 @@ const AnalyticsDashboard: React.FC = () => {
             <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Platform insights and performance metrics</p>
           </div>
           <div className="flex items-center gap-2">
-            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
-              <SelectTrigger className="w-32" data-testid="select-w-32">
+            <Select value={timeRange} onValueChange={setTimeRange}>
+              <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="24h" data-testid="select-element">Last 24h</SelectItem>
-                <SelectItem value="7d" data-testid="select-element">Last 7 days</SelectItem>
-                <SelectItem value="30d" data-testid="select-element">Last 30 days</SelectItem>
-                <SelectItem value="90d" data-testid="select-element">Last 90 days</SelectItem>
+                <SelectItem value="24h">Last 24h</SelectItem>
+                <SelectItem value="7d">Last 7 days</SelectItem>
+                <SelectItem value="30d">Last 30 days</SelectItem>
+                <SelectItem value="90d">Last 90 days</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -156,10 +156,10 @@ const AnalyticsDashboard: React.FC = () => {
               size="icon"
               onClick={handleRefresh}
               disabled={isRefreshing}
-             data-testid="button-element">
+            >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             </Button>
-            <Button variant="outline" onClick={handleExport} data-testid="button-element">
+            <Button variant="outline" onClick={handleExport}>
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -255,7 +255,7 @@ const AnalyticsDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={analyticsData?.userGrowth} data-testid="link-element">
+                <AreaChart data={analyticsData?.userGrowth}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="date" stroke="#666" />
                   <YAxis stroke="#666" />
@@ -570,30 +570,30 @@ const AnalyticsDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <Alert className="border-green-200 bg-green-50" data-testid="link-border-green-200">
+                <Alert className="border-green-200 bg-green-50">
                   <TrendingUp className="h-4 w-4 text-green-600" />
-                  <AlertDescription className="text-green-800" data-testid="link-text-green-800">
+                  <AlertDescription className="text-green-800">
                     <strong>Growth Opportunity:</strong> Buenos Aires shows 45% higher engagement rates. Consider focusing marketing efforts in similar Latin American cities.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-blue-200 bg-blue-50" data-testid="link-border-blue-200">
+                <Alert className="border-blue-200 bg-blue-50">
                   <Users className="h-4 w-4 text-blue-600" />
-                  <AlertDescription className="text-blue-800" data-testid="link-text-blue-800">
+                  <AlertDescription className="text-blue-800">
                     <strong>User Behavior:</strong> Mobile users spend 3x more time on event pages. Optimize mobile event discovery experience.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
+                <Alert className="border-yellow-200 bg-yellow-50">
                   <Calendar className="h-4 w-4 text-yellow-600" />
-                  <AlertDescription className="text-yellow-800" data-testid="link-text-yellow-800">
+                  <AlertDescription className="text-yellow-800">
                     <strong>Content Strategy:</strong> Posts with event mentions get 67% more engagement. Encourage users to link posts to events.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-purple-200 bg-purple-50" data-testid="link-border-purple-200">
+                <Alert className="border-purple-200 bg-purple-50">
                   <Heart className="h-4 w-4 text-purple-600" />
-                  <AlertDescription className="text-purple-800" data-testid="link-text-purple-800">
+                  <AlertDescription className="text-purple-800">
                     <strong>Engagement Pattern:</strong> Teacher profiles receive 4x more views. Create featured teacher spotlights to boost engagement.
                   </AlertDescription>
                 </Alert>

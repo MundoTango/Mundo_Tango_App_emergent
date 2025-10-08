@@ -269,7 +269,7 @@ export default function LiveStreaming() {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-7xl" data-testid="live-streaming-page">
+    <div className="container mx-auto p-4 max-w-7xl">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Live Streaming</h1>
@@ -280,7 +280,7 @@ export default function LiveStreaming() {
         
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-red-600 hover:bg-red-700" data-testid="button-go-live">
+            <Button className="bg-red-600 hover:bg-red-700">
               <Video className="mr-2 h-4 w-4" />
               Go Live
             </Button>
@@ -296,7 +296,7 @@ export default function LiveStreaming() {
                   value={streamTitle}
                   onChange={(e) => setStreamTitle(e.target.value)}
                   placeholder="Enter stream title"
-                  data-testid="input-stream-title"
+                 
                 />
               </div>
               
@@ -307,7 +307,7 @@ export default function LiveStreaming() {
                   onChange={(e) => setStreamDescription(e.target.value)}
                   placeholder="Describe your stream"
                   rows={3}
-                  data-testid="input-stream-description"
+                 
                 />
               </div>
               
@@ -332,7 +332,7 @@ export default function LiveStreaming() {
                   type="datetime-local"
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
-                  data-testid="input-scheduled-date"
+                 
                 />
               </div>
               
@@ -350,7 +350,7 @@ export default function LiveStreaming() {
                     });
                   }}
                   disabled={!streamTitle || createStreamMutation.isPending}
-                  data-testid="button-create-stream"
+                 
                 >
                   {scheduledDate ? "Schedule Stream" : "Start Streaming"}
                 </Button>
@@ -366,7 +366,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "all" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("all")}
-          data-testid="filter-all"
+         
         >
           All
         </Button>
@@ -374,7 +374,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "lesson" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("lesson")}
-          data-testid="filter-lesson"
+         
         >
           <Tv className="mr-1 h-3 w-3" />
           Lessons
@@ -383,7 +383,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "performance" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("performance")}
-          data-testid="filter-performance"
+         
         >
           <Music className="mr-1 h-3 w-3" />
           Performances
@@ -392,7 +392,7 @@ export default function LiveStreaming() {
           variant={selectedCategory === "milonga" ? "default" : "outline"}
           size="sm"
           onClick={() => setSelectedCategory("milonga")}
-          data-testid="filter-milonga"
+         
         >
           <PartyPopper className="mr-1 h-3 w-3" />
           Milongas
@@ -401,11 +401,11 @@ export default function LiveStreaming() {
 
       <Tabs defaultValue="live" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="live" data-testid="tab-live">
+          <TabsTrigger value="live">
             <Radio className="mr-2 h-4 w-4" />
             Live Now
           </TabsTrigger>
-          <TabsTrigger value="scheduled" data-testid="tab-scheduled">
+          <TabsTrigger value="scheduled">
             <Calendar className="mr-2 h-4 w-4" />
             Scheduled
           </TabsTrigger>
@@ -530,7 +530,7 @@ export default function LiveStreaming() {
                 autoPlay
                 muted
                 className="w-full h-full object-contain"
-                data-testid="video-stream"
+               
               />
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
                 <div className="flex space-x-2">
@@ -547,7 +547,7 @@ export default function LiveStreaming() {
                 <Button
                   variant="destructive"
                   onClick={stopStreaming}
-                  data-testid="button-end-stream"
+                 
                 >
                   End Stream
                 </Button>
@@ -576,7 +576,7 @@ export default function LiveStreaming() {
                     onChange={(e) => setChatInput(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && sendChatMessage()}
                     placeholder="Type a message..."
-                    data-testid="input-chat"
+                   
                   />
                   <Button onClick={sendChatMessage} size="icon">
                     <MessageCircle className="h-4 w-4" />

@@ -285,7 +285,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={()> setIsOpen(false)}
+              onClick={()  => setIsOpen(false)}
               className="lg:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -297,14 +297,14 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
         <nav className="mt-4">
           {/* User Profile Section */}
           <div className="px-4 mb-6">
-            <Link href="/profile?tab=memories" data-testid="link-element">
+            <Link href="/profile?tab=memories">
               <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors dark:bg-neutral-800" onClick={handleLinkClick} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleLinkClick(e); } }}>
-                <Avatar className="h-10 w-10" data-testid="link-h-10">
+                <Avatar className="h-10 w-10">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
                     className="object-cover"
                   />
-                  <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
+                  <AvatarFallback className="bg-red-600 text-white">
                     {user?.name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
@@ -347,7 +347,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                   <span className="text-xs">{isExpanded ? '−' : '+'}</span>
                 </div>
                 {isExpanded && section.routes.map(({ icon, title, link }, index) => (
-                  <Link href={link} key={index} data-testid="link-element">
+                  <Link href={link} key={index}>
                     <div className="py-1 cursor-pointer select-none">
                       <div
                         onClick={handleLinkClick}

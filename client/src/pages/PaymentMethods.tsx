@@ -128,7 +128,7 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
       </div>
 
       {errorMessage && (
-        <Alert variant="destructive" data-testid="link-element">
+        <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
@@ -139,7 +139,7 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
           type="submit"
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-         data-testid="button-flex-1">
+        >
           {isProcessing ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -256,7 +256,7 @@ const PaymentMethods: React.FC = () => {
               <CardDescription>Add or remove payment methods from your account</CardDescription>
             </div>
             <Button
-              onClick={()> setShowAddDialog(true)}
+              onClick={()  => setShowAddDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -305,7 +305,7 @@ const PaymentMethods: React.FC = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={()> setDefaultMutation.mutate(method.id)}
+                          onClick={()  => setDefaultMutation.mutate(method.id)}
                           disabled={setDefaultMutation.isPending}
                         >
                           {setDefaultMutation.isPending ? (
@@ -321,7 +321,7 @@ const PaymentMethods: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={()> handleDelete(method.id)}
+                        onClick={()  => handleDelete(method.id)}
                         disabled={deletingId === method.id || method.is_default}
                         className="text-red-600 hover:text-red-700"
                       >
@@ -362,7 +362,7 @@ const PaymentMethods: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
           <Elements stripe={stripePromise}>
-            <AddPaymentMethodForm onSuccess={()> setShowAddDialog(false)} />
+            <AddPaymentMethodForm onSuccess={()  => setShowAddDialog(false)} />
           </Elements>
         </DialogContent>
       </Dialog>

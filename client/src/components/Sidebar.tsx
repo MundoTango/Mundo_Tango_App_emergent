@@ -183,7 +183,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           <Link 
             href={user ? `/profile/${user.id}` : '/profile'}
             className="block mb-6 p-3 rounded-xl bg-profile-card cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:bg-opacity-90 group"
-            data-testid="link-user-profile"
+           
           >
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-md bg-brand-gradient transition-transform group-hover:scale-110">

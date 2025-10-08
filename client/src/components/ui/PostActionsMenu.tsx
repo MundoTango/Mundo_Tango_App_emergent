@@ -215,7 +215,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             variant="ghost" 
             size="sm" 
             className="h-10 w-10 p-0 hover:bg-indigo-50 hover:ring-2 hover:ring-indigo-200 rounded-full transition-all duration-200"
-           data-testid="button-h-10">
+          >
             <MoreVertical className="h-5 w-5 text-gray-700 hover:text-indigo-600 dark:text-neutral-600 dark:text-neutral-300" />
             <span className="sr-only">Post options</span>
           </Button>
@@ -303,7 +303,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
       </DropdownMenu>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog} data-testid="link-element">
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete this post?</AlertDialogTitle>
@@ -314,7 +314,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={()> deleteMutation.mutate()}
+              onClick={()  => deleteMutation.mutate()}
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
@@ -325,7 +325,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
       </AlertDialog>
 
       {/* Report Dialog */}
-      <AlertDialog open={showReportDialog} onOpenChange={setShowReportDialog} data-testid="link-element">
+      <AlertDialog open={showReportDialog} onOpenChange={setShowReportDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Report this post</AlertDialogTitle>
@@ -342,7 +342,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
                     name="reportReason"
                     value={reason}
                     checked={reportReason === reason}
-                    onChange={(e)> setReportReason(e.target.value)}
+                    onChange={(e)  => setReportReason(e.target.value)}
                     className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500 dark:border-neutral-600"
                   />
                   <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{reason}</span>
@@ -351,9 +351,9 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             </div>
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={()> setReportReason('')}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={()  => setReportReason('')}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={()> reportMutation.mutate({ reason: reportReason })}
+              onClick={()  => reportMutation.mutate({ reason: reportReason })}
               disabled={!reportReason || reportMutation.isPending}
               className="bg-red-600 hover:bg-red-700"
             >

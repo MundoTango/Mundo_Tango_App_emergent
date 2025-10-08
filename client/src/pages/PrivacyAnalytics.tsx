@@ -332,7 +332,7 @@ export default function PrivacyAnalytics() {
             onClick={handleAcceptAll}
             disabled={loading}
             className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-            data-testid="button-accept-all"
+           
           >
             <CheckCircle2 className="w-4 h-4 mr-2" />
             Enable All Services
@@ -341,7 +341,7 @@ export default function PrivacyAnalytics() {
             onClick={handleRejectAll}
             disabled={loading}
             variant="outline"
-            data-testid="button-reject-all"
+           
           >
             <XCircle className="w-4 h-4 mr-2" />
             Disable All Tracking
@@ -602,7 +602,7 @@ export default function PrivacyAnalytics() {
                     variant="outline"
                     onClick={exportData}
                     className="w-full"
-                    data-testid="button-export-data"
+                   
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Export My Data
@@ -611,7 +611,7 @@ export default function PrivacyAnalytics() {
                     variant="outline"
                     onClick={requestDeletion}
                     className="w-full text-red-600 hover:text-red-700 dark:text-red-400"
-                    data-testid="button-delete-data"
+                   
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete My Data

@@ -357,7 +357,7 @@ export default function ThreadedCommentsSection({
   };
 
   return (
-    <div className="glassmorphic rounded-2xl p-6 border border-ocean-500/20" data-testid="comments-section">
+    <div className="glassmorphic rounded-2xl p-6 border border-ocean-500/20">
       <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
         Comments ({comments.length})
       </h3>

@@ -119,7 +119,7 @@ export default function PricingPage() {
                 id="billing-toggle"
                 checked={billingCycle === 'annual'}
                 onCheckedChange={(checked) => setBillingCycle(checked ? 'annual' : 'monthly')}
-                data-testid="switch-billing-cycle"
+               
               />
               <Label htmlFor="billing-toggle" className={billingCycle === 'annual' ? 'font-semibold' : ''}>
                 Annual
@@ -165,7 +165,7 @@ export default function PricingPage() {
                   className="w-full" 
                   variant="outline"
                   onClick={() => handleSubscribe('free')}
-                  data-testid="button-subscribe-free"
+                 
                 >
                   Get Started
                 </Button>
@@ -218,7 +218,7 @@ export default function PricingPage() {
                   className="w-full bg-[#5EEAD4] hover:bg-[#5EEAD4]/90 text-white"
                   onClick={() => handleSubscribe('pro')}
                   disabled={subscribeMutation.isPending}
-                  data-testid="button-subscribe-pro"
+                 
                 >
                   {subscribeMutation.isPending ? 'Processing...' : 'Subscribe Now'}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -269,7 +269,7 @@ export default function PricingPage() {
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => handleSubscribe('business')}
                   disabled={subscribeMutation.isPending}
-                  data-testid="button-subscribe-business"
+                 
                 >
                   {subscribeMutation.isPending ? 'Processing...' : 'Subscribe Now'}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -305,7 +305,7 @@ export default function PricingPage() {
               <Button 
                 className="w-full bg-gray-900 hover:bg-gray-800 text-white"
                 onClick={() => handleSubscribe('enterprise')}
-                data-testid="button-contact-sales"
+               
               >
                 Contact Sales
                 <ArrowRight className="ml-2 h-4 w-4" />

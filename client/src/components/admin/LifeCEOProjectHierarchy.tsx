@@ -267,7 +267,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
          role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(project)(e); } }}>
           {hasChildren && (
             <button
-              onClick={(e)> {
+              onClick={(e)  => {
                 e.stopPropagation();
                 toggleExpanded(project.id);
               }}

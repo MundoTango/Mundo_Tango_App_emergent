@@ -40,7 +40,7 @@ export function TestSpriteIntegration() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Fetch test results
-  const { data: testResults, isLoading: loadingResults, refetch, error: resultsError } = useQuery<ApiResponse<TestResult[] data-testid="link-element">>({
+  const { data: testResults, isLoading: loadingResults, refetch, error: resultsError } = useQuery<ApiResponse<TestResult[]>>({
     queryKey: ['/api/testsprite/results'],
     refetchInterval: isTestRunning ? 2000 : 10000, // Poll every 2s when test running, 10s otherwise
   });
@@ -268,7 +268,7 @@ export function TestSpriteIntegration() {
           </div>
           
           <Button 
-            onClick={()> triggerTests.mutate(selectedSuite)}
+            onClick={()  => triggerTests.mutate(selectedSuite)}
             disabled={triggerTests.isPending}
             className="w-full"
           >
@@ -296,7 +296,7 @@ export function TestSpriteIntegration() {
             variant="outline" 
             size="sm"
             disabled={loadingResults || isRefreshing}
-           data-testid="button-element">
+          >
             <RefreshCw className={`h-4 w-4 mr-2 ${(loadingResults || isRefreshing) ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Refreshing...' : 'Refresh'}
           </Button>

@@ -45,7 +45,7 @@ export default function CommunityPage() {
           
           {/* Enhanced navigation cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <Link href="/community-world-map" data-testid="link-element">
+            <Link href="/community-world-map">
               <div className="group glassmorphic-card bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 border-2 border-turquoise-200/70 rounded-3xl p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-200/50 transition-all duration-300 cursor-pointer relative overflow-hidden backdrop-blur-xl">
                 <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold rounded-bl-2xl">
                   NEW
@@ -67,7 +67,7 @@ export default function CommunityPage() {
 
             {/* ESA LIFE CEO 56x21 - Removed duplicate community link since World Map already shows communities */}
 
-            <Link href="/memories" data-testid="link-element">
+            <Link href="/memories">
               <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
@@ -84,7 +84,7 @@ export default function CommunityPage() {
               </div>
             </Link>
 
-            <Link href="/events" data-testid="link-element">
+            <Link href="/events">
               <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
@@ -101,7 +101,7 @@ export default function CommunityPage() {
               </div>
             </Link>
 
-            <Link href="/profile" data-testid="link-element">
+            <Link href="/profile">
               <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">

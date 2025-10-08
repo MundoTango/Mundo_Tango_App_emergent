@@ -54,7 +54,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
   const totalReviews = reviews.length;
 
   return (
-    <div className="space-y-6" data-testid="reviews-list">
+    <div className="space-y-6">
       {/* Reviews Summary */}
       <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
         <div className="flex items-center gap-4">

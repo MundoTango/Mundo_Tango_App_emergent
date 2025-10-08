@@ -71,8 +71,8 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [voiceLevel, setVoiceLevel] = useState(0);
-  const audioContextRef = useRef<AudioContext | null data-testid="link-element">(null);
-  const analyserRef = useRef<AnalyserNode | null data-testid="link-element">(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
   const animationFrameRef = useRef<number>();
 
   const supportedLanguages = {
@@ -380,7 +380,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={()> setIsExpanded(false)}
+                  onClick={()  => setIsExpanded(false)}
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -436,7 +436,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   className={cn(
                     isListening && "bg-red-500 hover:bg-red-600"
                   )}
-                 data-testid="button-element">
+                >
                   {isListening ? (
                     <MicOff className="w-4 h-4" />
                   ) : (
@@ -447,7 +447,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={()> textToSpeech.stop()}
+                  onClick={()  => textToSpeech.stop()}
                   disabled={!isSpeaking}
                 >
                   {isSpeaking ? (
@@ -459,7 +459,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon" data-testid="button-element">
+                    <Button variant="outline" size="icon">
                       <Languages className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -484,7 +484,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={()> setShowSettings(true)}
+                  onClick={()  => setShowSettings(true)}
                 >
                   <Settings className="w-4 h-4" />
                 </Button>
@@ -622,7 +622,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={()> speakResponse("Hello! This is a test of the voice settings.")}
+                onClick={()  => speakResponse("Hello! This is a test of the voice settings.")}
               >
                 Test Voice Settings
               </Button>

@@ -212,7 +212,7 @@ export default function MemoryFilterBar({
                     color: '#374151'
                   }
                 }}
-               data-testid="select-element">
+              >
                 <MenuItem value="">
                   <em>All Events</em>
                 </MenuItem>

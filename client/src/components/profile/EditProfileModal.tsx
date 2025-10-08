@@ -161,7 +161,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Input
                 id="name"
                 value={formData.name}
-                onChange={(e)> setFormData(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e)  => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Your display name"
               />
             </div>
@@ -171,7 +171,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Textarea
                 id="bio"
                 value={formData.bio}
-                onChange={(e)> setFormData(prev => ({ ...prev, bio: e.target.value }))}
+                onChange={(e)  => setFormData(prev => ({ ...prev, bio: e.target.value }))}
                 placeholder="Tell us about yourself and your tango journey..."
                 rows={4}
                 maxLength={500}
@@ -208,7 +208,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                     <input
                       type="checkbox"
                       checked={formData.tangoRoles.includes(role.value)}
-                      onChange={(e)> {
+                      onChange={(e)  => {
                         if (e.target.checked) {
                           setFormData(prev => ({
                             ...prev,
@@ -237,7 +237,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   type="number"
                   min="0"
                   value={formData.yearsOfDancing}
-                  onChange={(e)> setFormData(prev => ({ ...prev, yearsOfDancing: e.target.value }))}
+                  onChange={(e)  => setFormData(prev => ({ ...prev, yearsOfDancing: e.target.value }))}
                   placeholder="Years"
                 />
               </div>
@@ -250,7 +250,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   placeholder="e.g., English, Spanish, Italian"
                   value={formData.languages.join(', ')}
-                  onChange={(e)> setFormData(prev => ({
+                  onChange={(e)  => setFormData(prev => ({
                     ...prev,
                     languages: e.target.value.split(',').map(l => l.trim()).filter(Boolean)
                   }))}
@@ -270,7 +270,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   </SelectTrigger>
                   <SelectContent>
                     {experienceLevels.map(level => (
-                      <SelectItem key={level.value} value={level.value} data-testid="select-element">
+                      <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
                     ))}
@@ -289,7 +289,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   </SelectTrigger>
                   <SelectContent>
                     {experienceLevels.map(level => (
-                      <SelectItem key={level.value} value={level.value} data-testid="select-element">
+                      <SelectItem key={level.value} value={level.value}>
                         {level.label}
                       </SelectItem>
                     ))}
@@ -309,7 +309,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="instagram"
                   value={formData.instagram}
-                  onChange={(e)> setFormData(prev => ({ ...prev, instagram: e.target.value }))}
+                  onChange={(e)  => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
                   placeholder="@username"
                 />
               </div>
@@ -319,7 +319,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="facebook"
                   value={formData.facebook}
-                  onChange={(e)> setFormData(prev => ({ ...prev, facebook: e.target.value }))}
+                  onChange={(e)  => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
                   placeholder="facebook.com/username"
                 />
               </div>
@@ -329,7 +329,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="twitter"
                   value={formData.twitter}
-                  onChange={(e)> setFormData(prev => ({ ...prev, twitter: e.target.value }))}
+                  onChange={(e)  => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
                   placeholder="@username"
                 />
               </div>
@@ -342,7 +342,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="website"
                   value={formData.website}
-                  onChange={(e)> setFormData(prev => ({ ...prev, website: e.target.value }))}
+                  onChange={(e)  => setFormData(prev => ({ ...prev, website: e.target.value }))}
                   placeholder="https://..."
                 />
               </div>
@@ -355,14 +355,14 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               variant="outline"
               onClick={onClose}
               disabled={updateProfileMutation.isPending}
-             data-testid="button-element">
+            >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={updateProfileMutation.isPending}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-             data-testid="button-bg-gradient-to-r">
+            >
               {updateProfileMutation.isPending && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}

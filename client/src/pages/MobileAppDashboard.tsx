@@ -263,7 +263,7 @@ const MobileAppDashboard: React.FC = () => {
                       onClick={handleInstallClick}
                       className="w-full bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
                       size="lg"
-                     data-testid="button-w-full">
+                    >
                       <Download className="mr-2 h-5 w-5" />
                       Install Mundo Tango App
                     </Button>
@@ -317,7 +317,7 @@ const MobileAppDashboard: React.FC = () => {
                     onClick={handleNotificationPermission}
                     disabled={pushPermission === 'granted'}
                     variant={pushPermission === 'granted' ? 'default' : 'outline'}
-                   data-testid="button-element">
+                  >
                     {pushPermission === 'granted' ? 'Enabled' : 'Enable'}
                   </Button>
                 </div>
@@ -419,7 +419,7 @@ const MobileAppDashboard: React.FC = () => {
                 onClick={handleUpdateCheck}
                 variant="outline"
                 className="w-full"
-               data-testid="button-w-full">
+              >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 Check for App Updates
               </Button>
@@ -489,7 +489,7 @@ const MobileAppDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full" data-testid="button-w-full">
+                <Button variant="outline" className="w-full">
                   Clear Offline Cache
                 </Button>
               </div>
@@ -552,10 +552,10 @@ const MobileAppDashboard: React.FC = () => {
                 {/* Advanced */}
                 <div>
                   <h4 className="font-medium mb-3">Advanced</h4>
-                  <Button variant="outline" className="w-full mb-2" data-testid="button-w-full">
+                  <Button variant="outline" className="w-full mb-2">
                     Export App Data
                   </Button>
-                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700" data-testid="button-w-full">
+                  <Button variant="outline" className="w-full text-red-600 hover:text-red-700">
                     Reset App
                   </Button>
                 </div>

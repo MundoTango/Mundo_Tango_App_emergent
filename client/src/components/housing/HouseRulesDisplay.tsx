@@ -100,9 +100,9 @@ export default function HouseRulesDisplay({
   // Compact variant - minimal display
   if (variant === 'compact') {
     return (
-      <div className="space-y-2" data-testid="house-rules-compact">
+      <div className="space-y-2">
         {showTitle && (
-          <h3 className="font-semibold text-lg mb-3" data-testid="title-house-rules">
+          <h3 className="font-semibold text-lg mb-3">
             House Rules ({rules.length})
           </h3>
         )}

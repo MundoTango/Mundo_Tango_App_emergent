@@ -328,7 +328,7 @@ export default function TTfilesHelpCenter() {
               {/* Create Help Request */}
               <Dialog open={showCreateHelp} onOpenChange={setShowCreateHelp}>
                 <DialogTrigger asChild>
-                  <Button className="gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600" data-testid="button-gap-2">
+                  <Button className="gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
                     <HelpCircle className="h-4 w-4" />
                     Ask for Help
                   </Button>
@@ -344,7 +344,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Brief description of what you need help with"
                         value={newHelpRequest.title}
-                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
+                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, title: e.target.value })}
                       />
                     </div>
 
@@ -359,7 +359,7 @@ export default function TTfilesHelpCenter() {
                         </SelectTrigger>
                         <SelectContent>
                           {HELP_CATEGORIES.map(cat => (
-                            <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
+                            <SelectItem key={cat.value} value={cat.value}>
                               <div className="flex items-center gap-2">
                                 <cat.icon className="h-4 w-4" />
                                 {cat.label}
@@ -375,7 +375,7 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Provide more details about your request..."
                         value={newHelpRequest.description}
-                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
+                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, description: e.target.value })}
                         rows={4}
                       />
                     </div>
@@ -385,7 +385,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="e.g., Buenos Aires, Paris, New York"
                         value={newHelpRequest.location}
-                        onChange={(e)> setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
+                        onChange={(e)  => setNewHelpRequest({ ...newHelpRequest, location: e.target.value })}
                       />
                     </div>
 
@@ -399,23 +399,23 @@ export default function TTfilesHelpCenter() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="low" data-testid="select-element">Low - Can wait a few days</SelectItem>
-                          <SelectItem value="medium" data-testid="select-element">Medium - Need help soon</SelectItem>
-                          <SelectItem value="high" data-testid="select-element">High - Need help today</SelectItem>
-                          <SelectItem value="emergency" data-testid="select-element">Emergency - Urgent help needed</SelectItem>
+                          <SelectItem value="low">Low - Can wait a few days</SelectItem>
+                          <SelectItem value="medium">Medium - Need help soon</SelectItem>
+                          <SelectItem value="high">High - Need help today</SelectItem>
+                          <SelectItem value="emergency">Emergency - Urgent help needed</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={()> setShowCreateHelp(false)}>
+                      <Button variant="outline" onClick={()  => setShowCreateHelp(false)}>
                         Cancel
                       </Button>
                       <Button
                         onClick={handleCreateHelpRequest}
                         disabled={createHelpMutation.isPending}
                         className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
-                       data-testid="button-bg-gradient-to-r">
+                      >
                         {createHelpMutation.isPending ? 'Creating...' : 'Post Request'}
                       </Button>
                     </div>
@@ -426,7 +426,7 @@ export default function TTfilesHelpCenter() {
               {/* Report Memory */}
               <Dialog open={showReportDialog} onOpenChange={setShowReportDialog}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="gap-2" data-testid="button-gap-2">
+                  <Button variant="outline" className="gap-2">
                     <Flag className="h-4 w-4" />
                     Report Content
                   </Button>
@@ -442,7 +442,7 @@ export default function TTfilesHelpCenter() {
                       <Input
                         placeholder="Enter the ID of the memory to report"
                         value={reportData.memoryId}
-                        onChange={(e)> setReportData({ ...reportData, memoryId: e.target.value })}
+                        onChange={(e)  => setReportData({ ...reportData, memoryId: e.target.value })}
                       />
                     </div>
 
@@ -457,7 +457,7 @@ export default function TTfilesHelpCenter() {
                         </SelectTrigger>
                         <SelectContent>
                           {REPORT_CATEGORIES.map(cat => (
-                            <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
+                            <SelectItem key={cat.value} value={cat.value}>
                               <div className="flex items-center justify-between w-full">
                                 <span>{cat.label}</span>
                                 <Badge 
@@ -483,20 +483,20 @@ export default function TTfilesHelpCenter() {
                       <Textarea
                         placeholder="Please provide any additional context..."
                         value={reportData.description}
-                        onChange={(e)> setReportData({ ...reportData, description: e.target.value })}
+                        onChange={(e)  => setReportData({ ...reportData, description: e.target.value })}
                         rows={3}
                       />
                     </div>
 
                     <div className="flex justify-end gap-2 pt-4">
-                      <Button variant="outline" onClick={()> setShowReportDialog(false)}>
+                      <Button variant="outline" onClick={()  => setShowReportDialog(false)}>
                         Cancel
                       </Button>
                       <Button
                         onClick={handleReportMemory}
                         disabled={reportMemoryMutation.isPending}
                         variant="destructive"
-                       data-testid="button-element">
+                      >
                         {reportMemoryMutation.isPending ? 'Submitting...' : 'Submit Report'}
                       </Button>
                     </div>
@@ -526,34 +526,34 @@ export default function TTfilesHelpCenter() {
                         <Input
                           placeholder="Search help requests..."
                           value={searchQuery}
-                          onChange={(e)> setSearchQuery(e.target.value)}
+                          onChange={(e)  => setSearchQuery(e.target.value)}
                           className="pl-10"
                         />
                       </div>
                     </div>
-                    <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
-                      <SelectTrigger className="w-full sm:w-[200px]" data-testid="select-w-full">
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                      <SelectTrigger className="w-full sm:w-[200px]">
                         <SelectValue placeholder="All Categories" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="" data-testid="select-element">All Categories</SelectItem>
+                        <SelectItem value="">All Categories</SelectItem>
                         {HELP_CATEGORIES.map(cat => (
-                          <SelectItem key={cat.value} value={cat.value} data-testid="select-element">
+                          <SelectItem key={cat.value} value={cat.value}>
                             {cat.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <Select value={selectedUrgency} onValueChange={setSelectedUrgency} data-testid="select-element">
-                      <SelectTrigger className="w-full sm:w-[150px]" data-testid="select-w-full">
+                    <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
+                      <SelectTrigger className="w-full sm:w-[150px]">
                         <SelectValue placeholder="All Urgency" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="" data-testid="select-element">All Urgency</SelectItem>
-                        <SelectItem value="emergency" data-testid="select-element">Emergency</SelectItem>
-                        <SelectItem value="high" data-testid="select-element">High</SelectItem>
-                        <SelectItem value="medium" data-testid="select-element">Medium</SelectItem>
-                        <SelectItem value="low" data-testid="select-element">Low</SelectItem>
+                        <SelectItem value="">All Urgency</SelectItem>
+                        <SelectItem value="emergency">Emergency</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="low">Low</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -628,7 +628,7 @@ export default function TTfilesHelpCenter() {
                             </div>
                           </div>
                           
-                          <Button variant="outline" size="sm" className="ml-4" data-testid="button-ml-4">
+                          <Button variant="outline" size="sm" className="ml-4">
                             <MessageSquare className="h-4 w-4 mr-1" />
                             Respond
                           </Button>
@@ -650,7 +650,7 @@ export default function TTfilesHelpCenter() {
                     <Button 
                       className="mt-4" 
                       variant="outline"
-                      onClick={()> setShowCreateHelp(true)}
+                      onClick={()  => setShowCreateHelp(true)}
                     >
                       Create your first request
                     </Button>
@@ -690,11 +690,11 @@ export default function TTfilesHelpCenter() {
                           </div>
                           
                           <div className="flex gap-2">
-                            <Button variant="outline" size="sm" data-testid="button-element">
+                            <Button variant="outline" size="sm">
                               Edit
                             </Button>
                             {request.status === 'open' && (
-                              <Button variant="outline" size="sm" className="text-green-600 hover:text-green-700" data-testid="button-text-green-600">
+                              <Button variant="outline" size="sm" className="text-green-600 hover:text-green-700">
                                 Mark Resolved
                               </Button>
                             )}
@@ -772,7 +772,7 @@ export default function TTfilesHelpCenter() {
                             </div>
                             
                             {report.status === 'pending' && user?.roles?.includes('admin') && (
-                              <Button variant="outline" size="sm" className="ml-4" data-testid="button-ml-4">
+                              <Button variant="outline" size="sm" className="ml-4">
                                 Review
                               </Button>
                             )}

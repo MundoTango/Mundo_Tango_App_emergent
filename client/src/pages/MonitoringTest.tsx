@@ -216,25 +216,25 @@ export default function MonitoringTest() {
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
             {!hasConsent && (
-              <Button onClick={requestConsent} variant="default" data-testid="button-element">
+              <Button onClick={requestConsent} variant="default">
                 Request Consent
               </Button>
             )}
-            <Button onClick={()> setShowPrivacySettings(true)} variant="outline">
+            <Button onClick={()  => setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
             <Button 
               onClick={runTests} 
               disabled={isTestRunning || !hasConsent}
               className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-             data-testid="button-bg-gradient-to-r">
+            >
               {isTestRunning ? 'Running Tests...' : 'Run All Tests'}
             </Button>
             <Button 
               onClick={triggerTestError} 
               variant="destructive"
               disabled={!hasConsent}
-             data-testid="button-element">
+            >
               Trigger Test Error
             </Button>
           </div>
@@ -291,7 +291,7 @@ import { Helmet } from 'react-helmet';
               {Object.entries(testResults)
                 .filter(([key]) => key.includes('error'))
                 .map(([key, value]) => (
-                  <Alert key={key} variant="destructive" data-testid="link-element">
+                  <Alert key={key} variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertTitle>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
                     <AlertDescription>{value as string}</AlertDescription>

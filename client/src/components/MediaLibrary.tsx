@@ -229,7 +229,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-           data-testid="button-p-2">
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -242,7 +242,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
               type="text"
               placeholder="Search by filename or folder..."
               value={searchTerm}
-              onChange={(e)> setSearchTerm(e.target.value)}
+              onChange={(e)  => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -327,7 +327,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             type="text"
                             placeholder="Add a caption for this reuse..."
                             value={metadata?.caption || ''}
-                            onChange={(e)> updateMediaMetadata(media.id, { caption: e.target.value })}
+                            onChange={(e)  => updateMediaMetadata(media.id, { caption: e.target.value })}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
@@ -350,7 +350,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                   <button
-                                    onClick={(e)> {
+                                    onClick={(e)  => {
                                       e.stopPropagation();
                                       removeTagFromMedia(media.id, tag);
                                     }}
@@ -369,7 +369,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               type="text"
                               placeholder="Add tag..."
                               value={tagInput}
-                              onChange={(e)> {
+                              onChange={(e)  => {
                                 const newInput = new Map(newTagInput);
                                 newInput.set(media.id, e.target.value);
                                 setNewTagInput(newInput);
@@ -384,7 +384,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
-                              onClick={(e)> {
+                              onClick={(e)  => {
                                 e.stopPropagation();
                                 addTagToMedia(media.id, tagInput);
                               }}
@@ -405,7 +405,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             min="0"
                             max="100"
                             value={metadata?.sortOrder || 0}
-                            onChange={(e)> updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
+                            onChange={(e)  => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
                             onClick={(e) => e.stopPropagation()}
                             className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                           />
@@ -445,14 +445,14 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
             <button
               onClick={onClose}
               className="px-4 py-2 text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-             data-testid="button-px-4">
+            >
               Cancel
             </button>
             <button
               onClick={handleAttachSelected}
               disabled={selectedMedia.size === 0 || attachMediaMutation.isPending}
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center gap-2"
-             data-testid="button-px-4">
+            >
               {attachMediaMutation.isPending ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>

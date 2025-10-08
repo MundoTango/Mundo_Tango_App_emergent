@@ -22,7 +22,7 @@ interface PerformanceReport {
 }
 
 export function LifeCeoPerformanceDashboard() {
-  const [realTimeMetrics, setRealTimeMetrics] = useState<any data-testid="link-element">({});
+  const [realTimeMetrics, setRealTimeMetrics] = useState<any>({});
   
   // Fetch performance report from Life CEO service
   const { data: report, isLoading } = useQuery<PerformanceReport>({

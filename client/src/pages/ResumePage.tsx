@@ -325,7 +325,7 @@ export default function ResumePage() {
           <Button
             onClick={handleCopyPublicLink}
             className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded flex items-center space-x-1 dark:bg-neutral-800"
-           data-testid="button-bg-gray-100">
+          >
             <Link2 className="h-3 w-3" />
             <span>Copy Public Resume Link</span>
           </Button>
@@ -334,7 +334,7 @@ export default function ResumePage() {
           <div className="relative">
             <Button
               variant="outline"
-              onClick={()> setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
+              onClick={()  => setExportFormat(exportFormat === 'PDF' ? 'CSV' : 'PDF')}
               className="flex items-center space-x-1"
             >
               <span>{exportFormat}</span>
@@ -348,7 +348,7 @@ export default function ResumePage() {
             disabled={!resumeData?.data?.length || isExporting}
             className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
             title={!resumeData?.data?.length ? "No data to export" : "Download resume"}
-           data-testid="button-bg-blue-500">
+          >
             <Download className="h-4 w-4" />
             <span>{isExporting ? 'Exporting...' : 'Download PDF'}</span>
           </Button>

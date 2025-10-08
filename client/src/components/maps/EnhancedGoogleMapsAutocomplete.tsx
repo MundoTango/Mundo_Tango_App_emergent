@@ -438,7 +438,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={(e)> setInputValue(e.target.value)}
+              onChange={(e)  => setInputValue(e.target.value)}
               placeholder={placeholder}
               className="pl-10 pr-10"
               required={required}
@@ -448,7 +448,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={()> {
+                onClick={()  => {
                   setInputValue('');
                   setSelectedLocation(null);
                   onClear?.();
@@ -467,7 +467,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               onClick={useCurrentLocation}
               className="whitespace-nowrap"
               title="Use current location"
-             data-testid="button-whitespace-nowrap">
+            >
               <Navigation className="h-4 w-4" />
             </Button>
           )}
@@ -491,7 +491,7 @@ export default function EnhancedGoogleMapsAutocomplete({
               <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">📞 {selectedLocation.phoneNumber}</p>
             )}
             {selectedLocation.website && (
-              <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" data-testid="link-text-blue-600">
+              <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                 🌐 Website
               </a>
             )}
@@ -505,7 +505,7 @@ export default function EnhancedGoogleMapsAutocomplete({
             {nearbyPlaces.map((place, index) => (
               <button
                 key={index}
-                onClick={()> {
+                onClick={()  => {
                   const locationData = extractEnhancedLocationData(place);
                   setSelectedLocation(locationData);
                   setInputValue(locationData.name || locationData.formattedAddress);

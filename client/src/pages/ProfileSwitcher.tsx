@@ -55,7 +55,7 @@ export default function ProfileSwitcher() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={()> window.history.back()}
+            onClick={()  => window.history.back()}
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
@@ -85,7 +85,7 @@ export default function ProfileSwitcher() {
           {profiles.map((profile) => (
             <button
               key={profile.id}
-              onClick={()> handleProfileSwitch(profile)}
+              onClick={()  => handleProfileSwitch(profile)}
               className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
                 activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''
               }`}
@@ -109,7 +109,7 @@ export default function ProfileSwitcher() {
 
       {/* Create New Profile */}
       <div className="px-4 pb-6">
-        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors dark:bg-neutral-800" data-testid="button-w-full">
+        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors dark:bg-neutral-800">
           <div className="flex items-center justify-center gap-3 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             <Plus className="h-5 w-5" />
             <span className="font-medium">Create New Profile</span>
@@ -123,7 +123,7 @@ export default function ProfileSwitcher() {
         <div className="bg-white rounded-xl p-4 shadow-sm space-y-3 dark:bg-neutral-900">
           {isSuperAdmin && (
             <button
-              onClick={()> setLocation('/life-ceo')}
+              onClick={()  => setLocation('/life-ceo')}
               className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
             >
               <Brain className="h-5 w-5 text-purple-500" />
@@ -131,7 +131,7 @@ export default function ProfileSwitcher() {
             </button>
           )}
           <button
-            onClick={()> setLocation('/memories')}
+            onClick={()  => setLocation('/memories')}
             className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
           >
             <Globe className="h-5 w-5 text-blue-500" />

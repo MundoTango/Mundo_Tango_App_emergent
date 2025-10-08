@@ -86,7 +86,7 @@ export function UpdatePrompt() {
             className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
             disabled={updating}
-            data-testid="button-dismiss-update"
+           
           >
             <X className="h-4 w-4" />
           </Button>
@@ -113,7 +113,7 @@ export function UpdatePrompt() {
                     onClick={handleUpdate}
                     disabled={updating}
                     className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white"
-                    data-testid="button-update-now"
+                   
                   >
                     {updating ? (
                       <>
@@ -133,7 +133,7 @@ export function UpdatePrompt() {
                       variant="outline"
                       onClick={handleDismiss}
                       className="border-gray-300 dark:border-gray-600"
-                      data-testid="button-remind-later"
+                     
                     >
                       Later
                     </Button>

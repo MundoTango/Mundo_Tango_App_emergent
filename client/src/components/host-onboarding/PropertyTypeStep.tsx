@@ -109,7 +109,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
               className="mt-1 w-full px-3 py-2 border rounded-md"
               placeholder="https://www.airbnb.com/rooms/..."
               value={data.airbnbUrl || ''}
-              onChange={(e)> updateData({ airbnbUrl: e.target.value })}
+              onChange={(e)  => updateData({ airbnbUrl: e.target.value })}
             />
           </div>
           <div>
@@ -120,7 +120,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
               className="mt-1 w-full px-3 py-2 border rounded-md"
               placeholder="https://www.vrbo.com/..."
               value={data.vrboUrl || ''}
-              onChange={(e)> updateData({ vrboUrl: e.target.value })}
+              onChange={(e)  => updateData({ vrboUrl: e.target.value })}
             />
           </div>
         </div>

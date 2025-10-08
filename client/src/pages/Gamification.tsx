@@ -272,7 +272,7 @@ export default function Gamification() {
         <title>Gamification | Life CEO</title>
       </Helmet>
       
-    <div className="container mx-auto p-4 max-w-7xl" data-testid="gamification-page">
+    <div className="container mx-auto p-4 max-w-7xl">
       {/* Header with User Stats */}
       <div className="mb-8">
         <div className="bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg p-6 text-white">
@@ -323,19 +323,19 @@ export default function Gamification() {
 
       <Tabs defaultValue="achievements" className="space-y-6">
         <TabsList className="grid grid-cols-4 w-full max-w-md">
-          <TabsTrigger value="achievements" data-testid="tab-achievements">
+          <TabsTrigger value="achievements">
             <Award className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Achievements</span>
           </TabsTrigger>
-          <TabsTrigger value="challenges" data-testid="tab-challenges">
+          <TabsTrigger value="challenges">
             <Target className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Challenges</span>
           </TabsTrigger>
-          <TabsTrigger value="leaderboard" data-testid="tab-leaderboard">
+          <TabsTrigger value="leaderboard">
             <Trophy className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Leaderboard</span>
           </TabsTrigger>
-          <TabsTrigger value="stats" data-testid="tab-stats">
+          <TabsTrigger value="stats">
             <TrendingUp className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Stats</span>
           </TabsTrigger>
@@ -512,7 +512,7 @@ export default function Gamification() {
                 className="px-3 py-1 border rounded-md"
                 value={selectedLeaderboardType}
                 onChange={(e) => setSelectedLeaderboardType(e.target.value)}
-                data-testid="select-leaderboard-type"
+               
               >
                 <option value="global">Global</option>
                 <option value="city">City</option>
@@ -521,7 +521,7 @@ export default function Gamification() {
                 className="px-3 py-1 border rounded-md"
                 value={selectedLeaderboardPeriod}
                 onChange={(e) => setSelectedLeaderboardPeriod(e.target.value)}
-                data-testid="select-leaderboard-period"
+               
               >
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>

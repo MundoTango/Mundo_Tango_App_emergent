@@ -101,7 +101,7 @@ export const ProfilePostLaunch: React.FC<{ userId: number }> = ({ userId }) => {
             </TabsList>
             <TabsContent value="users" className="mt-4">
               <ResponsiveContainer width="100%" height={250}>
-                <AreaChart data={growthData} data-testid="link-element">
+                <AreaChart data={growthData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="week" />
                   <YAxis />

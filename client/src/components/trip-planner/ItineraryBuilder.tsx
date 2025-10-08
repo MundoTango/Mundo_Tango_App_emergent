@@ -96,7 +96,7 @@ export default function ItineraryBuilder({
         <Button
           onClick={onSave}
           className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
-          data-testid="button-save-trip"
+         
         >
           Save My Trip
         </Button>

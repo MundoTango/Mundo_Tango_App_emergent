@@ -115,7 +115,7 @@ export default function DashboardLayout({
           theme === 'light'
             ? "bg-white/80 border-gray-200"
             : "bg-slate-900/50 border-slate-800/50"
-        )} data-testid="link-element">
+        )}>
           {/* Pierre Dubois Profile */}
           <div className={cn(
             "p-6 border-b",
@@ -151,7 +151,7 @@ export default function DashboardLayout({
                 const isActive = location === item.path;
                 
                 return (
-                  <Link key={item.path} href={item.path} data-testid="link-element">
+                  <Link key={item.path} href={item.path}>
                     <a className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                       "hover:translate-x-1",
@@ -165,7 +165,7 @@ export default function DashboardLayout({
                         : theme === 'light'
                           ? "text-gray-600 hover:text-gray-900"
                           : "text-slate-300 hover:text-white"
-                    )} data-testid="link-element">
+                    )}>
                       <Icon className="w-5 h-5" />
                       <span className="font-medium">{item.label}</span>
                       {isActive && (
@@ -217,7 +217,7 @@ export default function DashboardLayout({
               </div>
               
               {/* Mundo Tango Button */}
-              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" data-testid="button-w-full">
+              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
                 Mundo Tango
               </button>
             </div>
@@ -242,7 +242,7 @@ export default function DashboardLayout({
               theme === 'light'
                 ? "bg-white/80 border-gray-200"
                 : "bg-slate-900/30 border-slate-800/50"
-            )} data-testid="link-element">
+            )}>
               {sidebarContent}
             </aside>
           )}

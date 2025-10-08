@@ -72,7 +72,7 @@ const TrialBanner: React.FC = () => {
     if (completed) {
       return (
         <div className="text-red-600 font-semibold">
-          Trial Expired - <Link href="/subscribe" className="underline" data-testid="link-underline">Subscribe Now</Link>
+          Trial Expired - <Link href="/subscribe" className="underline">Subscribe Now</Link>
         </div>
       );
     } else {
@@ -184,13 +184,13 @@ const TrialBanner: React.FC = () => {
 
                 {/* CTA */}
                 <div className="flex items-center gap-3">
-                  <Link href="/subscribe" data-testid="link-element">
+                  <Link href="/subscribe">
                     <Button 
                       className={`${
                         isLastDay ? 'bg-red-600 hover:bg-red-700' : 
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
                       } text-white`}
-                      onClick={()> {
+                      onClick={()  => {
                         if (!isLastDay) setShowConfetti(true);
                       }}
                     >
@@ -204,7 +204,7 @@ const TrialBanner: React.FC = () => {
                     size="icon"
                     onClick={handleDismiss}
                     className="text-gray-500 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
-                   data-testid="button-text-gray-500">
+                  >
                     <X className="w-4 h-4" />
                   </Button>
                 </div>

@@ -186,7 +186,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               size="sm"
               onClick={onBack}
               className="lg:hidden p-1"
-             data-testid="button-lg:hidden">
+            >
               <ArrowLeft className="h-5 w-5" />
             </Button>
             
@@ -195,7 +195,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
                 {room.title.substring(0, 2).toUpperCase()}
               </div>
             ) : (
-              <Avatar className="w-10 h-10" data-testid="link-w-10">
+              <Avatar className="w-10 h-10">
                 <AvatarImage src={room.imageUrl} alt={room.title} />
                 <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
               </Avatar>
@@ -210,13 +210,13 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <Phone className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <Video className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <MoreVertical className="h-5 w-5" />
             </Button>
           </div>
@@ -251,9 +251,9 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
                     >
                       <div className={`flex items-end space-x-2 max-w-xs lg:max-w-md ${isOwnMessage ? 'flex-row-reverse space-x-reverse' : ''}`}>
                         {!isOwnMessage && (
-                          <Avatar className="w-6 h-6 mb-1" data-testid="link-w-6">
+                          <Avatar className="w-6 h-6 mb-1">
                             <AvatarImage src={message.user?.profileImage} alt={message.user?.name} />
-                            <AvatarFallback className="text-xs" data-testid="link-text-xs">
+                            <AvatarFallback className="text-xs">
                               {message.user?.name?.charAt(0) || 'U'}
                             </AvatarFallback>
                           </Avatar>
@@ -288,7 +288,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       {/* Message Input */}
       <div className="p-4 border-t border-gray-200 dark:border-neutral-700">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-text-gray-600">
+          <Button variant="ghost" size="sm" type="button" className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             <Paperclip className="h-5 w-5" />
           </Button>
           
@@ -296,7 +296,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             <Input
               placeholder="Type a message..."
               value={newMessage}
-              onChange={(e)> setNewMessage(e.target.value)}
+              onChange={(e)  => setNewMessage(e.target.value)}
               className="pr-10"
             />
             <Button 
@@ -304,7 +304,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               size="sm" 
               type="button"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
-             data-testid="button-absolute">
+            >
               <Smile className="h-4 w-4" />
             </Button>
           </div>
@@ -313,7 +313,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             type="submit"
             disabled={!newMessage.trim() || sendMessageMutation.isPending}
             className="bg-tango-red hover:bg-tango-red/90"
-           data-testid="button-bg-tango-red">
+          >
             <Send className="h-4 w-4" />
           </Button>
         </form>

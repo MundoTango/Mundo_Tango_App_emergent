@@ -65,7 +65,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
         {/* City/Region Toggle */}
         <div className="flex rounded-lg bg-gray-100 dark:bg-slate-800 p-1">
           <button
-            data-testid="toggle-city-view"
+           
             onClick={() => setView('city')}
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
@@ -78,7 +78,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
             Cities
           </button>
           <button
-            data-testid="toggle-region-view"
+           
             onClick={() => setView('region')}
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
@@ -96,7 +96,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
       {/* Filter Buttons - Aurora Tide */}
       <div className="flex gap-2 mb-4">
         <MagneticButton
-          data-testid="filter-people"
+         
           onClick={() => setFilterBy('people')}
           strength={0.15}
           className={cn(
@@ -111,7 +111,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
           People
         </MagneticButton>
         <MagneticButton
-          data-testid="filter-events"
+         
           onClick={() => setFilterBy('events')}
           strength={0.15}
           className={cn(

@@ -186,7 +186,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                       type="button"
                       onClick={clearLocation}
                       className="text-blue-600 hover:text-blue-800"
-                     data-testid="button-text-blue-600">
+                    >
                       <X className="w-4 h-4" />
                     </button>
                   </div>
@@ -203,7 +203,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                   variant="outline"
                   onClick={onCancel}
                   disabled={updateProfileMutation.isPending}
-                 data-testid="button-element">
+                >
                   Cancel
                 </Button>
               )}
@@ -212,7 +212,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                 type="submit"
                 disabled={updateProfileMutation.isPending}
                 className="flex items-center gap-2"
-               data-testid="button-flex">
+              >
                 {updateProfileMutation.isPending ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

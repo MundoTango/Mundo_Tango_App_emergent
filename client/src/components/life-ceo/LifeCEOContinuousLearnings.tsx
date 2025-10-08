@@ -170,7 +170,7 @@ export default function LifeCEOContinuousLearnings() {
               <Button
                 variant={isCapturing ? "default" : "outline"}
                 size="sm"
-                onClick={()> setIsCapturing(!isCapturing)}
+                onClick={()  => setIsCapturing(!isCapturing)}
                 className={isCapturing ? "bg-green-500 hover:bg-green-600" : ""}
               >
                 {isCapturing ? (
@@ -188,7 +188,7 @@ export default function LifeCEOContinuousLearnings() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={()> refetch()}
+                onClick={()  => refetch()}
               >
                 <RefreshCw className="w-4 h-4" />
               </Button>
@@ -341,7 +341,7 @@ export default function LifeCEOContinuousLearnings() {
                                     <Button
                                       size="sm"
                                       variant="ghost"
-                                      onClick={()> sendToJiraMutation.mutate(learning)}
+                                      onClick={()  => sendToJiraMutation.mutate(learning)}
                                       disabled={sendToJiraMutation.isPending}
                                     >
                                       <Send className="w-4 h-4" />

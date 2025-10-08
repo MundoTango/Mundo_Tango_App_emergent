@@ -276,7 +276,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               size="sm"
               onClick={handleClose}
               className="text-gray-500 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
-             data-testid="button-text-gray-500">
+            >
               <X className="h-5 w-5" />
             </Button>
           </div>
@@ -293,7 +293,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={()> setActiveTab(tab.id as any)}
+                onClick={()  => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
@@ -482,12 +482,12 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               
                               {/* Action buttons */}
                               <div className="flex gap-2 mt-4">
-                                <Button variant="outline" size="sm" className="text-xs" data-testid="button-text-xs">
+                                <Button variant="outline" size="sm" className="text-xs">
                                   <Eye className="h-3 w-3 mr-1" />
                                   View Details
                                 </Button>
                                 {phase.status === 'in progress' && (
-                                  <Button variant="outline" size="sm" className="text-xs" data-testid="button-text-xs">
+                                  <Button variant="outline" size="sm" className="text-xs">
                                     <Github className="h-3 w-3 mr-1" />
                                     View Code
                                   </Button>
@@ -558,7 +558,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               variant="outline" 
                               size="sm" 
                               className="w-full text-xs"
-                              onClick={()> onSignOff(review.area)}
+                              onClick={()  => onSignOff(review.area)}
                             >
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Sign Off
@@ -588,10 +588,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               Last updated: {new Date().toLocaleDateString()}
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" onClick={handleClose} data-testid="button-element">
+              <Button variant="outline" onClick={handleClose}>
                 Close
               </Button>
-              <Button className="bg-blue-600 hover:bg-blue-700" data-testid="button-bg-blue-600">
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 <Star className="h-4 w-4 mr-2" />
                 Mark as Favorite
               </Button>

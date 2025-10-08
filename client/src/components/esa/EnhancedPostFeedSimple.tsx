@@ -217,7 +217,7 @@ export default function EnhancedPostFeedSimple({
                 ? "bg-white border-gray-200 hover:border-gray-300" 
                 : "bg-slate-900/50 border-slate-800/50 hover:border-slate-700/50"
             )}
-           data-testid="link-element">
+          >
             {/* Post Header */}
             <div className="p-4 pb-3">
               <div className="flex items-start justify-between">
@@ -263,7 +263,7 @@ export default function EnhancedPostFeedSimple({
                   theme === 'light' 
                     ? "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
                     : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                )} data-testid="button-element">
+                )}>
                   <MoreHorizontal className="w-5 h-5" />
                 </button>
               </div>
@@ -280,7 +280,7 @@ export default function EnhancedPostFeedSimple({
               </p>
               {post.content.length > 200 && (
                 <button
-                  onClick={()> toggleExpanded(post.id)}
+                  onClick={()  => toggleExpanded(post.id)}
                   className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors"
                 >
                   {isExpanded ? 'Show less' : 'Show more'}
@@ -388,7 +388,7 @@ export default function EnhancedPostFeedSimple({
                   onMouseLeave={() => setHoveredReaction(null)}
                 >
                   <button
-                    onClick={()> onReaction?.(post.id, 'like')}
+                    onClick={()  => onReaction?.(post.id, 'like')}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
                       theme === 'light' 
@@ -411,7 +411,7 @@ export default function EnhancedPostFeedSimple({
                         return (
                           <button
                             key={reaction.type}
-                            onClick={()> {
+                            onClick={()  => {
                               onReaction?.(post.id, reaction.type);
                               setHoveredReaction(null);
                             }}
@@ -430,7 +430,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Comment */}
                 <button
-                  onClick={()> onComment?.(post.id)}
+                  onClick={()  => onComment?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
                     theme === 'light' 
@@ -444,7 +444,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Share */}
                 <button
-                  onClick={()> onShare?.(post.id)}
+                  onClick={()  => onShare?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",
                     theme === 'light' 

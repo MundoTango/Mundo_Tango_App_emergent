@@ -186,7 +186,7 @@ export default function NavigationBreadcrumbs() {
                       <Link 
                         href={item.href} 
                         className="text-gray-600 hover:text-gray-900 transition-colors dark:text-neutral-100"
-                       data-testid="link-text-gray-600">
+                      >
                         {item.label}
                       </Link>
                     </BreadcrumbLink>

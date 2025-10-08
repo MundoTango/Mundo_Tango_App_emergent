@@ -133,7 +133,7 @@ export default function EventAutocomplete({
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          onFocus={()> setIsOpen(true)}
+          onFocus={()  => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           placeholder={placeholder}
           className="pl-10"
@@ -172,7 +172,7 @@ export default function EventAutocomplete({
             <Button
               size="sm"
               variant="ghost"
-              onClick={()> onSelect(null)}
+              onClick={()  => onSelect(null)}
               className="text-gray-500 hover:text-gray-700"
             >
               Clear
@@ -195,7 +195,7 @@ export default function EventAutocomplete({
               {events.map((event: Event) => (
                 <button
                   key={event.id}
-                  onClick={()> handleSelectEvent(event)}
+                  onClick={()  => handleSelectEvent(event)}
                   className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
                   <div className="flex items-start gap-3">
@@ -239,7 +239,7 @@ export default function EventAutocomplete({
                   onClick={handleCreateNew}
                   variant="outline"
                   className="w-full"
-                 data-testid="button-w-full">
+                >
                   <Plus className="w-4 h-4 mr-2" />
                   Create New Event
                 </Button>

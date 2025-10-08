@@ -108,7 +108,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleReload}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-             data-testid="button-w-full">
+            >
               <RefreshCw className="w-4 h-4 mr-2" />
               Try Again
             </Button>
@@ -117,7 +117,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               onClick={handleGoHome}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
-             data-testid="button-w-full">
+            >
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
             </Button>
@@ -127,7 +127,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
               disabled={reportSent}
-             data-testid="button-w-full">
+            >
               {reportSent ? (
                 <>
                   <AlertTriangle className="w-4 h-4 mr-2 text-green-600" />
@@ -170,7 +170,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
           <div className="text-center pt-4 border-t">
             <p className="text-sm text-gray-500">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="link-text-turquoise-600">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
                 support@mundotango.life
               </a>
             </p>

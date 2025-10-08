@@ -36,7 +36,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           size="icon"
           onClick={onMenuClick}
           className="p-2"
-         data-testid="button-p-2">
+        >
           <Menu className="h-5 w-5" />
         </Button>
       </div>
@@ -48,7 +48,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             placeholder="Search posts, events, people..."
             className="pl-10 bg-gray-50 border-gray-300 rounded-lg dark:bg-neutral-800"
             value={searchQuery}
-            onChange={(e)> setSearchQuery(e.target.value)}
+            onChange={(e)  => setSearchQuery(e.target.value)}
           />
           {searchQuery && (
             <div className="absolute w-full max-h-96 overflow-y-auto left-0 top-full mt-1 bg-white rounded-lg border border-gray-200 shadow-lg z-50 dark:bg-neutral-900">
@@ -101,7 +101,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       <div className="mr-1 md:mr-4 flex items-center md:space-x-5">
         <div className="flex items-center gap-5">
           <div className="relative">
-            <Button variant="ghost" size="icon" className="relative" data-testid="button-relative">
+            <Button variant="ghost" size="icon" className="relative">
               <Users className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 2
@@ -110,15 +110,15 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
           </div>
           
           <div>
-            <Button variant="ghost" size="icon" asChild data-testid="button-element">
-              <Link href="/messages" data-testid="link-element">
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/messages">
                 <MessageCircle className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
               </Link>
             </Button>
           </div>
           
           <div className="relative">
-            <Button variant="ghost" size="icon" className="relative" data-testid="button-relative">
+            <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                 3
@@ -130,12 +130,12 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="cursor-pointer pl-2 md:pl-0 flex items-center gap-2">
-              <Avatar className="h-10 w-10" data-testid="link-h-10">
+              <Avatar className="h-10 w-10">
                 <AvatarImage 
                   src={user?.profileImage || "/images/user-placeholder.jpeg"} 
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
+                <AvatarFallback className="bg-red-600 text-white">
                   {user?.name?.charAt(0) || "U"}
                 </AvatarFallback>
               </Avatar>

@@ -122,7 +122,7 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
             <button
               onClick={togglePlay}
               className="text-white hover:text-turquoise-400 transition"
-             data-testid="button-text-white">
+            >
               {isPlaying ? <Pause size={20} /> : <Play size={20} />}
             </button>
             
@@ -142,14 +142,14 @@ export const VideoPreview: React.FC<VideoPreviewProps> = ({
             <button
               onClick={toggleMute}
               className="text-white hover:text-turquoise-400 transition"
-             data-testid="button-text-white">
+            >
               {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
             
             <button
               onClick={toggleFullscreen}
               className="text-white hover:text-turquoise-400 transition"
-             data-testid="button-text-white">
+            >
               <Maximize2 size={20} />
             </button>
           </div>

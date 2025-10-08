@@ -552,7 +552,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-cyan-200/30 dark:border-ocean-500/30"
-            data-testid="stat-total-users"
+           
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg sm:rounded-xl">
@@ -572,7 +572,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-teal-200/30 dark:border-teal-500/30"
-            data-testid="stat-active-users"
+           
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg sm:rounded-xl">
@@ -592,7 +592,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-blue-200/30 dark:border-blue-500/30"
-            data-testid="stat-total-events"
+           
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl">
@@ -612,7 +612,7 @@ const AdminCenter = memo(() => {
           <GlassCard 
             depth={2}
             className="border-purple-200/30 dark:border-purple-500/30"
-            data-testid="stat-system-health"
+           
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
               <div className="p-1.5 sm:p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg sm:rounded-xl">
@@ -642,7 +642,7 @@ const AdminCenter = memo(() => {
               onClick={() => setSelectedTab('users')}
               strength={0.15}
               className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 p-5 text-left group"
-              data-testid="button-manage-users"
+             
             >
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Users className="w-6 h-6 text-white" />
@@ -655,7 +655,7 @@ const AdminCenter = memo(() => {
               onClick={() => setSelectedTab('compliance')}
               strength={0.15}
               className="glass-card glass-depth-2 border-teal-200/30 dark:border-teal-500/30 p-5 text-left group"
-              data-testid="button-compliance-center"
+             
             >
               <div className="p-3 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Shield className="w-6 h-6 text-white" />
@@ -668,7 +668,7 @@ const AdminCenter = memo(() => {
               onClick={() => setSelectedTab('system')}
               strength={0.15}
               className="glass-card glass-depth-2 border-blue-200/30 dark:border-blue-500/30 p-5 text-left group"
-              data-testid="button-system-health"
+             
             >
               <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Activity className="w-6 h-6 text-white" />
@@ -681,7 +681,7 @@ const AdminCenter = memo(() => {
               onClick={() => window.location.href = '/ttfiles-demo'}
               strength={0.15}
               className="glass-card glass-depth-2 bg-gradient-to-r from-purple-500 to-pink-500 p-5 text-left group border-purple-200/30 dark:border-purple-500/30"
-              data-testid="button-ttfiles-demo"
+             
             >
               <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">
                 <Code className="w-6 h-6 text-white" />

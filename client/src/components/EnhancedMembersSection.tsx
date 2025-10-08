@@ -214,20 +214,20 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Input
             placeholder="Search members..."
             value={searchTerm}
-            onChange={(e)> setSearchTerm(e.target.value)}
+            onChange={(e)  => setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
 
         {/* Category Filter */}
-        <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
+        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger>
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
+            <SelectItem value="all">All Categories</SelectItem>
             {Object.entries(ROLE_CATEGORIES).map(([key, category]) => (
-              <SelectItem key={key} value={key} data-testid="select-element">
+              <SelectItem key={key} value={key}>
                 {category.emoji} {category.name}
               </SelectItem>
             ))}
@@ -235,14 +235,14 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         </Select>
 
         {/* Role Filter */}
-        <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+        <Select value={selectedRole} onValueChange={setSelectedRole}>
           <SelectTrigger>
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
+            <SelectItem value="all">All Roles</SelectItem>
             {availableRoles.map((role) => (
-              <SelectItem key={role.id} value={role.id} data-testid="select-element">
+              <SelectItem key={role.id} value={role.id}>
                 {role.emoji} {role.name}
               </SelectItem>
             ))}
@@ -256,7 +256,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={()> {
+            onClick={()  => {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');
@@ -287,7 +287,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={()> {
+            onClick={()  => {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');

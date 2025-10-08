@@ -246,36 +246,36 @@ export default function AuditTrailViewer() {
           <Input
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
-            onChange={(e)> setSearchTerm(e.target.value)}
+            onChange={(e)  => setSearchTerm(e.target.value)}
             className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
         <div className="flex gap-3">
-          <Select value={actionFilter} onValueChange={setActionFilter} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
+          <Select value={actionFilter} onValueChange={setActionFilter}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
               <SelectValue placeholder="Filter by action" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all" data-testid="select-element">All Actions</SelectItem>
-              <SelectItem value="create" data-testid="select-element">Create</SelectItem>
-              <SelectItem value="update" data-testid="select-element">Update</SelectItem>
-              <SelectItem value="delete" data-testid="select-element">Delete</SelectItem>
-              <SelectItem value="login" data-testid="select-element">Authentication</SelectItem>
-              <SelectItem value="consent" data-testid="select-element">Consent</SelectItem>
+              <SelectItem value="all">All Actions</SelectItem>
+              <SelectItem value="create">Create</SelectItem>
+              <SelectItem value="update">Update</SelectItem>
+              <SelectItem value="delete">Delete</SelectItem>
+              <SelectItem value="login">Authentication</SelectItem>
+              <SelectItem value="consent">Consent</SelectItem>
             </SelectContent>
           </Select>
 
-          <Select value={severityFilter} onValueChange={setSeverityFilter} data-testid="select-element">
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
+          <Select value={severityFilter} onValueChange={setSeverityFilter}>
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
               <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all" data-testid="select-element">All Severities</SelectItem>
-              <SelectItem value="low" data-testid="select-element">Low</SelectItem>
-              <SelectItem value="medium" data-testid="select-element">Medium</SelectItem>
-              <SelectItem value="high" data-testid="select-element">High</SelectItem>
-              <SelectItem value="critical" data-testid="select-element">Critical</SelectItem>
+              <SelectItem value="all">All Severities</SelectItem>
+              <SelectItem value="low">Low</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="critical">Critical</SelectItem>
             </SelectContent>
           </Select>
 
@@ -283,7 +283,7 @@ export default function AuditTrailViewer() {
             onClick={exportAuditLog}
             variant="outline"
             className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
-           data-testid="button-rounded-xl">
+          >
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>

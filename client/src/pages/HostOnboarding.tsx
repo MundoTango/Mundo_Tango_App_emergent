@@ -274,7 +274,7 @@ export default function HostOnboarding() {
                     onClick={() => setLocation('/host-dashboard')}
                     strength={0.15}
                     className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-                    data-testid="button-save-exit"
+                   
                   >
                     {t('housing.host_onboarding.save_exit', 'Save & Exit')}
                   </MagneticButton>
@@ -293,7 +293,7 @@ export default function HostOnboarding() {
                   <div 
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-300"
                     style={{ width: `${progressPercentage}%` }}
-                    data-testid="onboarding-progress-bar"
+                   
                   />
                 </div>
               </div>
@@ -354,7 +354,7 @@ export default function HostOnboarding() {
           <GlassCard 
             depth={3} 
             className="border-cyan-200/30 dark:border-ocean-500/30 p-6"
-            data-testid="onboarding-step-content"
+           
           >
             {renderStep()}
           </GlassCard>
@@ -367,7 +367,7 @@ export default function HostOnboarding() {
             disabled={currentStep === 0}
             strength={currentStep === 0 ? 0 : 0.15}
             className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 px-6 py-2 text-slate-700 dark:text-slate-300 disabled:opacity-50"
-            data-testid="button-previous"
+           
           >
             {t('housing.host_onboarding.previous', 'Previous')}
           </MagneticButton>
@@ -395,7 +395,7 @@ export default function HostOnboarding() {
                 disabled={createHostHomeMutation.isPending}
                 className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
                 pulseColor="rgba(6, 182, 212, 0.6)"
-                data-testid="button-submit"
+               
               >
                 {createHostHomeMutation.isPending 
                   ? t('housing.host_onboarding.submitting', 'Submitting...') 
@@ -408,7 +408,7 @@ export default function HostOnboarding() {
               onClick={nextStep}
               className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-8 py-3"
               pulseColor="rgba(6, 182, 212, 0.6)"
-              data-testid="button-continue"
+             
             >
               {t('housing.host_onboarding.continue', 'Continue')}
             </PulseButton>

@@ -442,7 +442,7 @@ export const PlatformAuditDashboard: React.FC = () => {
           onClick={handleRefresh}
           disabled={isRefreshing}
           className="bg-gradient-to-r from-turquoise-600 to-cyan-600 text-white"
-         data-testid="button-bg-gradient-to-r">
+        >
           <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
           Refresh Audit
         </Button>
