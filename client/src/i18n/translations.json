@@ -944,6 +944,11 @@
         "communities": "Communautés",
         "yourCity": "Votre Ville",
         "globalStatistics": "Statistiques Mondiales"
+      },
+      "events": {
+        "upcomingEvents": "Événements à venir",
+        "attendeeCount": "{{count}} participant",
+        "attendeeCount_plural": "{{count}} participants"
       }
     }
   },
