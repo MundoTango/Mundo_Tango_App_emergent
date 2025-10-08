@@ -26,6 +26,11 @@ const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEvents
 const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
 
+// Aurora Tide Design System - Track A: Core Components
+import { GlassCard } from '@/components/glass/GlassComponents';
+import { FadeIn } from '@/components/animations/FramerMotionWrappers';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
 // Core component without error boundary
 function ESAMemoryFeedCore() {
   // NOTE: Translation hook removed - Layer 53 is broken, using English strings directly
@@ -133,6 +138,14 @@ function ESAMemoryFeedCore() {
   // ESA Layer 9: Memoize context to prevent PostFeed re-renders
   const feedContext = useMemo(() => ({ type: 'feed' as const }), []);
   
+  // Aurora Tide - Track A: Scroll reveal animations for feed items
+  const feedContainerRef = useScrollReveal('.memory-feed-item', {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    stagger: 0.15
+  });
+  
   // Current user for dashboard
   const currentUser = {
     id: currentUserId,
@@ -166,7 +179,9 @@ function ESAMemoryFeedCore() {
                 <div className="space-y-6">
                   {/* Post Creator - Always visible per ESA Framework */}
                   {!showCreateModal && (
-                    <PostCreator 
+                    <FadeIn delay={0.1}>
+                      <GlassCard depth={2} className="overflow-hidden">
+                        <PostCreator 
                       user={{
                         id: parseInt(currentUserId) || 1,
                         name: 'Pierre Dubois',
@@ -274,17 +289,21 @@ function ESAMemoryFeedCore() {
                       }}
                       context={feedContext}
                     />
+                    </GlassCard>
+                  </FadeIn>
                   )}
                   
                   {/* Posts Display */}
                   {/* Posts Feed - Context-Based Mode (PostFeed handles all fetching/pagination) */}
-                  <PostFeed 
-                    context={feedContext}
-                    showFilters={true}
-                    showSearch={true}
-                    currentUserId={currentUserId}
-                    onEdit={handleEditPost}
-                  />
+                  <div ref={feedContainerRef} className="memory-feed-container">
+                    <PostFeed 
+                      context={feedContext}
+                      showFilters={true}
+                      showSearch={true}
+                      currentUserId={currentUserId}
+                      onEdit={handleEditPost}
+                    />
+                  </div>
                 </div>
               </div>
 
