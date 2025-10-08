@@ -774,18 +774,18 @@ const PostFeed = memo(({
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Memories Yet</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{t('memories.feed.noMemories')}</h3>
             <p className="text-gray-600 leading-relaxed">
               {activeFilters.filterType === 'residents' 
-                ? "No posts from residents in your city yet. Check back later!"
+                ? t('memories.feed.noResidents')
                 : activeFilters.filterType === 'visitors'
-                ? "No posts from visitors found. Check back when travelers visit your city!"
+                ? t('memories.feed.noVisitors')
                 : activeFilters.filterType === 'friends'
-                ? "No posts from your friends yet. Connect with more dancers to see their posts here!"
+                ? t('memories.feed.noFriends')
                 : activeFilters.tags.length > 0
-                ? `No posts found with the tags: ${activeFilters.tags.map(tag => `#${tag}`).join(', ')}`
+                ? t('memories.feed.noTaggedPosts', { tags: activeFilters.tags.map(tag => `#${tag}`).join(', ') })
                 : debouncedSearch
-                ? `No posts matching "${debouncedSearch}"`
+                ? t('memories.feed.noSearchResults', { query: debouncedSearch })
                 : "Share your first tango moment to start building beautiful memories!"
               }
             </p>
