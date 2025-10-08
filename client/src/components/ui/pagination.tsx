@@ -54,8 +54,7 @@ const PaginationLink = ({
       }),
       className
     )}
-    {...props}
-  / data-testid="link-element">
+    {...props}>
 )
 PaginationLink.displayName = "PaginationLink"
 

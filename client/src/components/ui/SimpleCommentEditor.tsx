@@ -47,7 +47,8 @@ export function SimpleCommentEditor({
         <textarea
           ref={inputRef}
           value={content}
-          onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value)}
+          data-testid="textarea-comment"
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 placeholder-gray-400 dark:text-neutral-100"
@@ -66,7 +67,7 @@ export function SimpleCommentEditor({
                 : 'bg-gray-100 text-gray-400 cursor-not-allowed'
               }
             `}
-           data-testid="button-element">
+            data-testid="button-submit-comment">
             <Send className="h-4 w-4" />
             Comment
           </button>

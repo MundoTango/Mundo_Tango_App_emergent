@@ -14,7 +14,8 @@ const Textarea = React.forwardRef<
       )}
       ref={ref}
       {...props}
-    / data-testid="textarea-element">
+      data-testid="textarea-form"
+    />
   )
 })
 Textarea.displayName = "Textarea"
