@@ -294,11 +294,27 @@
       "linkCopyFailed": "Error al copiar el enlace",
       "pleaseTryAgain": "Por favor intenta de nuevo"
     },
+    "categories": {
+      "milonga": "Milonga",
+      "practica": "Práctica",
+      "performance": "Performance",
+      "workshop": "Taller",
+      "festival": "Festival",
+      "travel": "Viaje",
+      "music": "Música",
+      "fashion": "Moda"
+    },
+    "price": {
+      "budget": "Económico",
+      "moderate": "Moderado",
+      "luxury": "Lujoso"
+    },
     "actions": {
       "postDeleted": "Publicación eliminada",
       "postDeletedDesc": "La publicación ha sido eliminada",
       "error": "Error",
       "errorDesc": "Algo salió mal",
+      "failedToUpdateLike": "Error al actualizar me gusta",
       "reportSubmitted": "Reporte enviado",
       "reportSubmittedDesc": "Gracias por ayudar a mantener nuestra comunidad segura",
       "userBlocked": "Usuario bloqueado",
