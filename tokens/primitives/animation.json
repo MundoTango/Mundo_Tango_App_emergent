@@ -1,0 +1,16 @@
+{
+  "duration": {
+    "t1": { "value": "0.7s" },
+    "t2": { "value": "0.6s" },
+    "t3": { "value": "0.5s" },
+    "t4": { "value": "0.4s" },
+    "t5": { "value": "0.3s" },
+    "t6": { "value": "0.2s" },
+    "t7": { "value": "0.1s" }
+  },
+  "easing": {
+    "ocean": { "value": "cubic-bezier(0.4, 0.0, 0.2, 1)" },
+    "tide": { "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)" },
+    "wave": { "value": "cubic-bezier(0.645, 0.045, 0.355, 1)" }
+  }
+}
