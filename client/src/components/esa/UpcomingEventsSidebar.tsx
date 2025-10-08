@@ -65,7 +65,7 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
       type: event.event_type || 'milonga',
       date: event.startDate || event.start_date || event.date,
       time: safeFormatTime(event.startDate || event.start_date || event.date, '20:00'),
-      location: event.location || event.city || 'Location TBA',
+      location: event.location || event.city || t('events.locationTBA'),
       city: event.city,
       attendees: event.current_attendees || event.rsvpCounts?.going || 0,
       userRsvpStatus: event.userRsvpStatus || null,
