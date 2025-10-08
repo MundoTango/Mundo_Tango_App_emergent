@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -35,7 +36,8 @@ interface CommunityFormData {
 }
 
 const COMMUNITY_TYPES = [
-{ value: 'city', label: 'City Group', icon: MapPin },
+{
+  const { t } = useTranslation(); value: 'city', label: 'City Group', icon: MapPin },
 { value: 'practice', label: 'Practice Group', icon: Code },
 { value: 'professional', label: 'Professional Network', icon: Users },
 { value: 'music', label: 'Music & DJs', icon: Music },
@@ -88,7 +90,7 @@ export default function CreateCommunity() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: error.message || 'Failed to create community. Please try again.',
         variant: 'destructive'
       });
@@ -132,7 +134,7 @@ export default function CreateCommunity() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Basic Information</h3>
                 
                 <div>
                   <Label htmlFor="name">Community Name *</Label>
@@ -184,7 +186,7 @@ export default function CreateCommunity() {
               {/* Location (for city groups) */}
               {formData.type === 'city' &&
               <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Location</h3>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -214,19 +216,19 @@ export default function CreateCommunity() {
 
               {/* Categories */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Event Categories</h3>
-                <p className="text-sm text-gray-600">Select the types of events your community will host</p>
+                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Event Categories</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Select the types of events your community will host</p>
                 
                 <div className="grid grid-cols-3 gap-3">
                   {CATEGORIES.map((category) =>
                   <button
                     key={category}
                     type="button"
-                    onClick={() => toggleCategory(category)}
+                    onClick={() = aria-label="Button"> toggleCategory(category)}
                     className={`p-3 rounded-lg border-2 transition-all ${
                     formData.categories.includes(category) ?
-                    'border-turquoise-500 bg-turquoise-50 text-turquoise-700' :
-                    'border-gray-200 hover:border-gray-300'}`
+                    'border-turquoise-500 bg-[var(--color-ocean-50)] text-turquoise-700' :
+                    'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'}`
                     } data-testid="button-button">
 
                       {category}
@@ -237,14 +239,14 @@ export default function CreateCommunity() {
 
               {/* Privacy Settings */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Privacy Settings</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Privacy Settings</h3>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {formData.visibility === 'public' ?
-                    <Globe className="w-5 h-5 text-turquoise-600" /> :
+                    <Globe className="w-5 h-5 text-[var(--color-primary-hover)]" /> :
 
-                    <Lock className="w-5 h-5 text-gray-600" />
+                    <Lock className="w-5 h-5 text-gray-600 dark:text-gray-300" />
                     }
                     <Label htmlFor="visibility" className="cursor-pointer">
                       {formData.visibility === 'public' ? 'Public Community' : 'Private Community'}
@@ -275,7 +277,7 @@ export default function CreateCommunity() {
 
               {/* Community Rules */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Community Rules (Optional)</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Community Rules (Optional)</h3>
                 <Textarea
                   value={formData.rules}
                   onChange={(e) => setFormData({ ...formData, rules: e.target.value })}

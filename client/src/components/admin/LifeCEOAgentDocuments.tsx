@@ -153,7 +153,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
             <div
               {...getRootProps()}
               className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-              isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`
+              isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'}`
               }>
 
               <input {...getInputProps()} data-testid="input-element" />
@@ -162,8 +162,8 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <p className="text-blue-600">Drop the files here...</p> :
 
               <>
-                  <p className="text-gray-600 mb-2">Drag & drop documents here, or click to select</p>
-                  <p className="text-sm text-gray-500">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-2">Drag & drop documents here, or click to select</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
                 </>
               }
             </div>
@@ -175,7 +175,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
       <div className="space-y-4">
         {isLoading ?
         <Card>
-            <CardContent className="py-8 text-center text-gray-500">
+            <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
               Loading documents...
             </CardContent>
           </Card> :
@@ -201,9 +201,9 @@ const LifeCEOAgentDocuments: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {doc.review_notes &&
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                    <p className="text-sm font-medium text-gray-700 mb-1">Review Notes:</p>
-                    <p className="text-sm text-gray-600">{doc.review_notes}</p>
+            <div className="mb-4 p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+                    <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-1">Review Notes:</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{doc.review_notes}</p>
                   </div>
             }
                 <div className="flex space-x-2">
@@ -231,7 +231,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
         ) :
 
         <Card>
-            <CardContent className="py-8 text-center text-gray-500">
+            <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
               <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
               <p>No documents uploaded yet</p>
               <p className="text-sm mt-2">Upload documents to build the agent's knowledge base</p>

@@ -97,7 +97,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         case 'group':
           return 'bg-purple-50 text-purple-700';
         default:
-          return 'bg-gray-50 text-gray-700';
+          return 'bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)]';
       }
     };
 
@@ -105,7 +105,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
       <div
         className={`
           flex items-center gap-3 px-3 py-2 cursor-pointer transition-colors
-          ${focused ? 'bg-blue-100' : 'hover:bg-gray-50'}
+          ${focused ? 'bg-blue-100' : 'hover:bg-[var(--color-surface-elevated)]'}
         `}>
 
         {/* Avatar or Icon */}
@@ -118,7 +118,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
               </AvatarFallback>
             </Avatar> :
 
-          <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+          <div className="h-8 w-8 rounded-full bg-[var(--color-neutral-100)] flex items-center justify-center">
               {getTypeIcon(suggestion.type)}
             </div>
           }
@@ -126,11 +126,11 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="font-medium text-gray-900 truncate">
+          <div className="font-medium text-[var(--color-text)] dark:text-white truncate">
             {highlightedDisplay}
           </div>
           {suggestion.status &&
-          <div className="text-sm text-gray-500 truncate">
+          <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
               {suggestion.status}
             </div>
           }
@@ -293,13 +293,13 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         rows={rows}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         style={{ minHeight: `${rows * 1.5}rem` }} data-testid="textarea-w-full" />
 
       
       {/* Suggestions dropdown */}
       {showSuggestions && filteredSuggestions.length > 0 &&
-      <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+      <div className="absolute z-50 mt-1 w-full bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)] rounded-lg shadow-lg max-h-48 overflow-y-auto">
           {filteredSuggestions.map((suggestion, index) =>
         <div
           key={suggestion.id}
@@ -307,7 +307,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
             e.stopPropagation();
             selectSuggestion(suggestion);
           }}
-          className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50">
+          className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[var(--color-surface-elevated)]">
 
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
@@ -319,7 +319,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                     </AvatarFallback>
                   </Avatar> :
 
-            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-[var(--color-neutral-100)] flex items-center justify-center">
                     {suggestion.type === 'user' && <Users className="h-4 w-4 text-blue-500" />}
                     {suggestion.type === 'event' && <Calendar className="h-4 w-4 text-green-500" />}
                     {suggestion.type === 'group' && <UsersRound className="h-4 w-4 text-purple-500" />}
@@ -329,11 +329,11 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-gray-900 truncate">
+                <div className="font-medium text-[var(--color-text)] dark:text-white truncate">
                   {suggestion.display}
                 </div>
                 {suggestion.status &&
-            <div className="text-sm text-gray-500 truncate">
+            <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
                     {suggestion.status}
                   </div>
             }
@@ -356,7 +356,7 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
       }
       
       {/* Helper text */}
-      <div className="mt-2 text-xs text-gray-500">
+      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
         Type @ to mention users, events, or groups. Press Tab or Enter to select.
       </div>
 

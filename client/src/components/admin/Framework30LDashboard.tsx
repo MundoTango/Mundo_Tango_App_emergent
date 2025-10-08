@@ -686,7 +686,7 @@ const Framework30LDashboard: React.FC = () => {
       case 'complete':return 'text-green-600 bg-green-100';
       case 'in-progress':return 'text-yellow-600 bg-yellow-100';
       case 'pending':return 'text-red-600 bg-red-100';
-      default:return 'text-gray-600 bg-gray-100';
+      default:return 'text-gray-600 dark:text-gray-300 bg-[var(--color-neutral-100)]';
     }
   };
 
@@ -701,11 +701,11 @@ const Framework30LDashboard: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-            <Layers className="w-7 h-7 text-turquoise-600" />
+          <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white flex items-center gap-3">
+            <Layers className="w-7 h-7 text-[var(--color-primary-hover)]" />
             30L Framework Dashboard
           </h2>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
             Comprehensive 30-Layer production validation system with enhanced capabilities
           </p>
         </div>
@@ -713,7 +713,7 @@ const Framework30LDashboard: React.FC = () => {
           <Button
             onClick={generateReport}
             disabled={isGeneratingReport}
-            className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white" data-testid="button-bg-gradient-to-r">
+            className="bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-600)] text-white" data-testid="button-bg-gradient-to-r">
 
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
@@ -746,19 +746,19 @@ const Framework30LDashboard: React.FC = () => {
                 <div className="text-2xl font-bold text-green-600">
                   {frameworkData.filter((l) => l.status === 'complete').length}
                 </div>
-                <div className="text-xs text-gray-600">Complete</div>
+                <div className="text-xs text-gray-600 dark:text-gray-300">Complete</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-yellow-600">
                   {frameworkData.filter((l) => l.status === 'in-progress').length}
                 </div>
-                <div className="text-xs text-gray-600">In Progress</div>
+                <div className="text-xs text-gray-600 dark:text-gray-300">In Progress</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600">
                   {frameworkData.filter((l) => l.status === 'pending').length}
                 </div>
-                <div className="text-xs text-gray-600">Pending</div>
+                <div className="text-xs text-gray-600 dark:text-gray-300">Pending</div>
               </div>
             </div>
           </div>
@@ -778,16 +778,16 @@ const Framework30LDashboard: React.FC = () => {
                 {frameworkData.map((layer) =>
                 <button
                   key={layer.id}
-                  onClick={() => setSelectedLayer(layer.id)}
+                  onClick={() = aria-label="Button"> setSelectedLayer(layer.id)}
                   className={`p-4 rounded-lg border-2 transition-all text-left ${
                   selectedLayer === layer.id ?
-                  'border-turquoise-500 bg-turquoise-50' :
-                  'border-gray-200 hover:border-gray-300'}`
+                  'border-turquoise-500 bg-[var(--color-ocean-50)]' :
+                  'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'}`
                   } data-testid="button-element">
 
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className={`p-1.5 rounded ${selectedLayer === layer.id ? 'bg-turquoise-100' : 'bg-gray-100'}`}>
+                        <div className={`p-1.5 rounded ${selectedLayer === layer.id ? 'bg-turquoise-100' : 'bg-[var(--color-neutral-100)]'}`}>
                           {layer.icon}
                         </div>
                         <span className="font-medium text-sm">Layer {layer.id}</span>
@@ -796,13 +796,13 @@ const Framework30LDashboard: React.FC = () => {
                         {layer.status}
                       </Badge>
                     </div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{layer.name}</h4>
+                    <h4 className="font-semibold text-[var(--color-text)] dark:text-white text-sm mb-1">{layer.name}</h4>
                     <div className="mt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-600">Progress</span>
+                        <span className="text-gray-600 dark:text-gray-300">Progress</span>
                         <span className="font-medium">{layer.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                         <div
                         className={`h-1.5 rounded-full ${getProgressColor(layer.progress)}`}
                         style={{ width: `${layer.progress}%` }} />
@@ -826,10 +826,10 @@ const Framework30LDashboard: React.FC = () => {
               {frameworkData.find((l) => l.id === selectedLayer) &&
               <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-[var(--color-text)] dark:text-white mb-2">
                       Layer {selectedLayer}: {frameworkData.find((l) => l.id === selectedLayer)!.name}
                     </h4>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {frameworkData.find((l) => l.id === selectedLayer)!.description}
                     </p>
                   </div>
@@ -843,18 +843,18 @@ const Framework30LDashboard: React.FC = () => {
                     </TabsList>
                     <TabsContent value="overview" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What is this layer?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <h5 className="font-semibold text-sm text-[var(--color-text)] dark:text-white mb-2">What is this layer?</h5>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                           {frameworkData.find((l) => l.id === selectedLayer)!.detailedDescription}
                         </p>
                       </div>
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">Key Metrics</h5>
+                        <h5 className="font-semibold text-sm text-[var(--color-text)] dark:text-white mb-2">Key Metrics</h5>
                         <div className="grid grid-cols-2 gap-2">
                           {frameworkData.find((l) => l.id === selectedLayer)!.metrics?.map((metric, idx) =>
-                        <div key={idx} className="bg-gray-50 p-2 rounded">
-                              <div className="text-xs text-gray-500">{metric.label}</div>
-                              <div className="text-sm font-semibold text-gray-900">{metric.value}</div>
+                        <div key={idx} className="bg-[var(--color-surface-elevated)] p-2 rounded">
+                              <div className="text-xs text-gray-500 dark:text-gray-400">{metric.label}</div>
+                              <div className="text-sm font-semibold text-[var(--color-text)] dark:text-white">{metric.value}</div>
                             </div>
                         )}
                         </div>
@@ -862,14 +862,14 @@ const Framework30LDashboard: React.FC = () => {
                     </TabsContent>
                     <TabsContent value="progress" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What does {frameworkData.find((l) => l.id === selectedLayer)!.progress}% mean?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <h5 className="font-semibold text-sm text-[var(--color-text)] dark:text-white mb-2">What does {frameworkData.find((l) => l.id === selectedLayer)!.progress}% mean?</h5>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                           {frameworkData.find((l) => l.id === selectedLayer)!.progressExplanation}
                         </p>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-600">Current Progress</span>
+                          <span className="text-gray-600 dark:text-gray-300">Current Progress</span>
                           <span className="font-semibold">{frameworkData.find((l) => l.id === selectedLayer)!.progress}%</span>
                         </div>
                         <Progress value={frameworkData.find((l) => l.id === selectedLayer)!.progress} className="h-3" />
@@ -892,7 +892,7 @@ const Framework30LDashboard: React.FC = () => {
                           </div>
                     ) :
 
-                    <p className="text-sm text-gray-500">No issues found</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">No issues found</p>
                     }
                     </TabsContent>
                   </Tabs>
@@ -917,7 +917,7 @@ const Framework30LDashboard: React.FC = () => {
               {frameworkData.
             filter((layer) => layer.issues.length > 0 && layer.progress < 60).
             map((layer) =>
-            <div key={layer.id} className="p-3 bg-white rounded-lg border border-red-200">
+            <div key={layer.id} className="p-3 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg border border-red-200">
                     <div className="font-medium text-red-800 mb-1">
                       Layer {layer.id}: {layer.name}
                     </div>

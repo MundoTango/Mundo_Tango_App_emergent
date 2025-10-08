@@ -197,7 +197,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
               </Select>
             }
 
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
               <Filter className="w-4 h-4" />
               {filteredAssets.length} of {mediaAssets.length} files
             </div>
@@ -211,10 +211,10 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         // Loading skeletons
         Array.from({ length: 8 }).map((_, i) =>
         <Card key={i} className="animate-pulse">
-              <div className="aspect-square bg-gray-200 rounded-t-lg"></div>
+              <div className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-t-lg"></div>
               <CardContent className="p-4">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
               </CardContent>
             </Card>
         ) :
@@ -230,9 +230,9 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
                 </div> :
 
-          <div className="aspect-square bg-gray-100 rounded-t-lg flex items-center justify-center">
+          <div className="aspect-square bg-[var(--color-neutral-100)] rounded-t-lg flex items-center justify-center">
                   {getFileIcon(asset.contentType)}
-                  <span className="ml-2 text-sm text-gray-600">
+                  <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">
                     {asset.contentType.split('/')[0].toUpperCase()}
                   </span>
                 </div>
@@ -246,7 +246,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       {getVisibilityIcon(asset.visibility)}
-                      <span className="text-xs text-gray-500 capitalize">
+                      <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
                         {asset.visibility}
                       </span>
                     </div>
@@ -261,7 +261,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   </Button>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
                   <span>{(asset.size / 1024).toFixed(1)} KB</span>
                   {asset.width && asset.height &&
               <span>{asset.width}×{asset.height}</span>
@@ -286,7 +286,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             </Card>
         ) :
 
-        <div className="col-span-full text-center py-12 text-gray-500">
+        <div className="col-span-full text-center py-12 text-gray-500 dark:text-gray-400">
             <Image className="w-12 h-12 mx-auto mb-4 text-gray-300" />
             <h3 className="text-lg font-medium mb-2">No media found</h3>
             <p className="text-sm">

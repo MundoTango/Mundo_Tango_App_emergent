@@ -258,9 +258,9 @@ export default function EnhancedCommentsSystem({
   const renderCommentActions = (comment: Comment, nestingLevel: number) =>
   <div className="flex items-center space-x-4 mt-2">
       <button
-      onClick={() => handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'like')}
+      onClick={() = aria-label="Button"> handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'like')}
       className={`flex items-center space-x-1 text-sm transition-colors ${
-      comment.isLiked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'}`
+      comment.isLiked ? 'text-red-500' : 'text-gray-500 dark:text-gray-400 hover:text-red-500'}`
       } data-testid="button-element">
 
         <Heart className={`h-4 w-4 ${comment.isLiked ? 'fill-current' : ''}`} />
@@ -268,9 +268,9 @@ export default function EnhancedCommentsSystem({
       </button>
 
       <button
-      onClick={() => handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'dislike')}
+      onClick={() = aria-label="Button"> handleToggleLike(comment.id, comment.isLiked, comment.isDisliked, 'dislike')}
       className={`flex items-center space-x-1 text-sm transition-colors ${
-      comment.isDisliked ? 'text-blue-500' : 'text-gray-500 hover:text-blue-500'}`
+      comment.isDisliked ? 'text-blue-500' : 'text-gray-500 dark:text-gray-400 hover:text-blue-500'}`
       } data-testid="button-element">
 
         <ThumbsDown className={`h-4 w-4 ${comment.isDisliked ? 'fill-current' : ''}`} />
@@ -279,8 +279,8 @@ export default function EnhancedCommentsSystem({
 
       {allowNesting && nestingLevel < maxNestingLevel &&
     <button
-      onClick={() => setReplyingTo(comment.id)}
-      className="flex items-center space-x-1 text-sm text-gray-500 hover:text-blue-500 transition-colors" data-testid="button-flex">
+      onClick={() = aria-label="Button"> setReplyingTo(comment.id)}
+      className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 transition-colors" data-testid="button-flex">
 
           <Reply className="h-4 w-4" />
           <span>Reply</span>
@@ -290,18 +290,18 @@ export default function EnhancedCommentsSystem({
       {comment.userId === user?.id &&
     <>
           <button
-        onClick={() => {
+        onClick={() = aria-label="Button"> {
           setEditingComment(comment.id);
           setEditContent(comment.content);
         }}
-        className="flex items-center space-x-1 text-sm text-gray-500 hover:text-green-500 transition-colors" data-testid="button-flex">
+        className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 hover:text-green-500 transition-colors" data-testid="button-flex">
 
             <Edit3 className="h-4 w-4" />
             <span>Edit</span>
           </button>
           <button
-        onClick={() => deleteCommentMutation.mutate(comment.id)}
-        className="flex items-center space-x-1 text-sm text-gray-500 hover:text-red-500 transition-colors" data-testid="button-flex">
+        onClick={() = aria-label="Button"> deleteCommentMutation.mutate(comment.id)}
+        className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors" data-testid="button-flex">
 
             <Trash2 className="h-4 w-4" />
             <span>Delete</span>
@@ -311,8 +311,8 @@ export default function EnhancedCommentsSystem({
 
       {enableModeration && comment.userId !== user?.id &&
     <button
-      onClick={() => reportCommentMutation.mutate({ commentId: comment.id, reason: 'inappropriate' })}
-      className="flex items-center space-x-1 text-sm text-gray-500 hover:text-orange-500 transition-colors" data-testid="button-flex">
+      onClick={() = aria-label="Button"> reportCommentMutation.mutate({ commentId: comment.id, reason: 'inappropriate' })}
+      className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 hover:text-orange-500 transition-colors" data-testid="button-flex">
 
           <Flag className="h-4 w-4" />
           <span>Report</span>
@@ -321,7 +321,7 @@ export default function EnhancedCommentsSystem({
 
       {comment.replyCount > 0 &&
     <button
-      onClick={() => toggleReplies(comment.id)}
+      onClick={() = aria-label="Button"> toggleReplies(comment.id)}
       className="text-sm text-blue-500 hover:text-blue-600 transition-colors" data-testid="button-text-sm">
 
           {expandedReplies.has(comment.id) ? 'Hide' : 'Show'} {comment.replyCount} {comment.replyCount === 1 ? 'reply' : 'replies'}
@@ -345,18 +345,18 @@ export default function EnhancedCommentsSystem({
               value={currentContent}
               onChange={(e) => setCurrentContent(e.target.value)}
               placeholder={placeholder}
-              className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               rows={3} data-testid="textarea-w-full" />
 
             
             {showGifPicker && showGifs &&
-            <div className="mt-2 p-3 border border-gray-200 rounded-lg bg-gray-50">
-                <p className="text-sm font-medium text-gray-700 mb-2">Popular GIFs:</p>
+            <div className="mt-2 p-3 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface-elevated)]">
+                <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Popular GIFs:</p>
                 <div className="grid grid-cols-3 gap-2">
                   {popularGifs.map((gifUrl, index) =>
                 <button
                   key={index}
-                  onClick={() => handleSubmitComment(currentContent, parentId, gifUrl)}
+                  onClick={() = aria-label="Button"> handleSubmitComment(currentContent, parentId, gifUrl)}
                   className="aspect-square rounded-lg overflow-hidden hover:ring-2 hover:ring-pink-500 transition-all" data-testid="button-aspect-square">
 
                       <img src={gifUrl} alt="GIF" className="w-full h-full object-cover" />
@@ -369,17 +369,17 @@ export default function EnhancedCommentsSystem({
             <div className="flex items-center justify-between mt-2">
               <div className="flex space-x-2">
                 <button
-                  onClick={() => setShowGifs(!showGifs)}
-                  className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-pink-600 transition-colors" data-testid="button-flex">
+                  onClick={() = aria-label="Button"> setShowGifs(!showGifs)}
+                  className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:text-pink-600 transition-colors" data-testid="button-flex">
 
                   <Gift className="h-4 w-4" />
                   <span>GIF</span>
                 </button>
-                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-blue-600 transition-colors" data-testid="button-flex">
+                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors" data-testid="button-flex" aria-label="Button">
                   <Smile className="h-4 w-4" />
                   <span>Emoji</span>
                 </button>
-                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 hover:text-green-600 transition-colors" data-testid="button-flex">
+                <button className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors" data-testid="button-flex" aria-label="Button">
                   <AtSign className="h-4 w-4" />
                   <span>Mention</span>
                 </button>
@@ -388,14 +388,14 @@ export default function EnhancedCommentsSystem({
               <div className="flex space-x-2">
                 {isReply &&
                 <button
-                  onClick={() => setReplyingTo(null)}
-                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors" data-testid="button-px-4">
+                  onClick={() = aria-label="Button"> setReplyingTo(null)}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors" data-testid="button-px-4">
 
                     Cancel
                   </button>
                 }
                 <button
-                  onClick={() => handleSubmitComment(currentContent, parentId)}
+                  onClick={() = aria-label="Button"> handleSubmitComment(currentContent, parentId)}
                   disabled={!currentContent.trim() || createCommentMutation.isPending}
                   className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium transition-colors" data-testid="button-px-4">
 
@@ -418,11 +418,11 @@ export default function EnhancedCommentsSystem({
         <div className="flex space-x-3">
           {renderAvatar(comment.user)}
           <div className="flex-1">
-            <div className="bg-gray-50 rounded-lg p-3">
+            <div className="bg-[var(--color-surface-elevated)] rounded-lg p-3">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-gray-900">{comment.user.name}</span>
-                  <span className="text-sm text-gray-500">@{comment.user.username}</span>
+                  <span className="font-semibold text-[var(--color-text)] dark:text-white">{comment.user.name}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">@{comment.user.username}</span>
                   <span className="text-sm text-gray-400">
                     {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                   </span>
@@ -430,7 +430,7 @@ export default function EnhancedCommentsSystem({
                   <span className="text-xs text-gray-400">(edited)</span>
                   }
                 </div>
-                <button className="text-gray-400 hover:text-gray-600" data-testid="button-text-gray-400">
+                <button className="text-gray-400 hover:text-gray-600 dark:text-gray-300" data-testid="button-text-gray-400" aria-label="Button">
                   <MoreHorizontal className="h-4 w-4" />
                 </button>
               </div>
@@ -440,23 +440,23 @@ export default function EnhancedCommentsSystem({
                   <textarea
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   rows={2} data-testid="textarea-w-full" />
 
                   <div className="flex space-x-2">
                     <button
-                    onClick={() => handleEditComment(comment.id, editContent)}
+                    onClick={() = aria-label="Button"> handleEditComment(comment.id, editContent)}
                     disabled={!editContent.trim() || updateCommentMutation.isPending}
                     className="px-3 py-1 bg-pink-600 text-white rounded text-sm hover:bg-pink-700 disabled:opacity-50" data-testid="button-px-3">
 
                       Save
                     </button>
                     <button
-                    onClick={() => {
+                    onClick={() = aria-label="Button"> {
                       setEditingComment(null);
                       setEditContent('');
                     }}
-                    className="px-3 py-1 text-gray-600 rounded text-sm hover:text-gray-800" data-testid="button-px-3">
+                    className="px-3 py-1 text-gray-600 rounded text-sm hover:text-gray-800 dark:text-gray-100" data-testid="button-px-3">
 
                       Cancel
                     </button>
@@ -464,7 +464,7 @@ export default function EnhancedCommentsSystem({
                 </div> :
 
               <>
-                  <p className="text-gray-800">{comment.content}</p>
+                  <p className="text-gray-800 dark:text-gray-100">{comment.content}</p>
                   {comment.gifUrl &&
                 <div className="mt-2">
                       <img src={comment.gifUrl} alt="GIF" className="max-w-xs rounded-lg" />
@@ -532,7 +532,7 @@ export default function EnhancedCommentsSystem({
       {comments.length === 0 &&
       <div className="text-center py-8">
           <MessageCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
+          <p className="text-gray-500 dark:text-gray-400">No comments yet. Be the first to share your thoughts!</p>
         </div>
       }
     </div>);

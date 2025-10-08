@@ -172,7 +172,7 @@ export function Phase4ToolsDashboard() {
       case 'failed':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
     }
   };
 
@@ -188,7 +188,7 @@ export function Phase4ToolsDashboard() {
             <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               Phase 4 Open Source Tools
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Enterprise-grade tooling integrated across all phases
             </p>
           </div>
@@ -196,7 +196,7 @@ export function Phase4ToolsDashboard() {
             <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               {operationalCount}/{tools.length}
             </div>
-            <p className="text-sm text-gray-600">Tools Operational</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Tools Operational</p>
           </div>
         </div>
         
@@ -228,21 +228,21 @@ export function Phase4ToolsDashboard() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <tool.icon className="w-6 h-6 text-turquoise-600" />
+                      <tool.icon className="w-6 h-6 text-[var(--color-primary-hover)]" />
                       <CardTitle className="text-lg">{tool.name}</CardTitle>
                     </div>
                     {getStatusIcon(tool.status)}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 mb-3">{tool.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{tool.description}</p>
                   
                   <Badge className={`mb-3 ${getStatusColor(tool.status)}`}>
                     {tool.status.toUpperCase()}
                   </Badge>
                   
                   {tool.metrics &&
-                <div className="text-xs text-gray-500 space-y-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
                       {Object.entries(tool.metrics).map(([key, value]) =>
                   <div key={key} className="flex justify-between">
                           <span>{key}:</span>
@@ -257,7 +257,7 @@ export function Phase4ToolsDashboard() {
                   href={tool.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 text-xs text-turquoise-600 hover:text-turquoise-700 flex items-center" data-testid="a-mt-3">
+                  className="mt-3 text-xs text-[var(--color-primary-hover)] hover:text-turquoise-700 flex items-center" data-testid="a-mt-3">
 
                       View Dashboard →
                     </a>
@@ -298,19 +298,19 @@ export function Phase4ToolsDashboard() {
           </div>
           
           {toolStatuses?.k6?.lastResults &&
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-4 p-4 bg-[var(--color-surface-elevated)] rounded-lg">
               <h4 className="text-sm font-medium mb-2">Last Test Results</h4>
               <div className="grid grid-cols-3 gap-2 text-xs">
                 <div>
-                  <span className="text-gray-500">Success Rate:</span>
+                  <span className="text-gray-500 dark:text-gray-400">Success Rate:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.successRate}%</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Avg Response:</span>
+                  <span className="text-gray-500 dark:text-gray-400">Avg Response:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.avgResponse}ms</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">RPS:</span>
+                  <span className="text-gray-500 dark:text-gray-400">RPS:</span>
                   <p className="font-medium">{toolStatuses.k6.lastResults.rps}</p>
                 </div>
               </div>
@@ -323,19 +323,19 @@ export function Phase4ToolsDashboard() {
       <Card className="glassmorphic-card bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Zap className="w-5 h-5 text-turquoise-600" />
+            <Zap className="w-5 h-5 text-[var(--color-primary-hover)]" />
             <span>40x20s Framework Learning</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             <strong>Phase 4 Achievement:</strong> Successfully integrated 10+ enterprise-grade open source tools
             across all phases, achieving 60-70% performance improvement with self-healing capabilities.
             The system now automatically detects anomalies and applies optimizations without manual intervention.
           </p>
           <div className="mt-3 flex items-center space-x-2">
             <Heart className="w-4 h-4 text-red-500" />
-            <span className="text-xs text-gray-600">
+            <span className="text-xs text-gray-600 dark:text-gray-300">
               Confidence: 95% | Applied: Real-time monitoring, structured logging, load testing
             </span>
           </div>

@@ -122,7 +122,7 @@ export default function MonitoringTest() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Monitoring Test Page</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Monitoring Test Page</h1>
         <p className="text-gray-600 dark:text-gray-400">ESA Layer 48 - Performance Monitoring Agent</p>
       </div>
 
@@ -131,7 +131,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Shield className="w-4 h-4 text-teal-500" />
+              <Shield className="w-4 h-4 text-[var(--color-primary)]" />
               Consent Status
             </CardTitle>
           </CardHeader>
@@ -155,7 +155,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="w-4 h-4 text-teal-500" />
+              <Activity className="w-4 h-4 text-[var(--color-primary)]" />
               Initialization
             </CardTitle>
           </CardHeader>
@@ -179,7 +179,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <BarChart className="w-4 h-4 text-teal-500" />
+              <BarChart className="w-4 h-4 text-[var(--color-primary)]" />
               Services
             </CardTitle>
           </CardHeader>
@@ -221,7 +221,7 @@ export default function MonitoringTest() {
             <Button
               onClick={runTests}
               disabled={isTestRunning || !hasConsent}
-              className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
+              className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white" data-testid="button-bg-gradient-to-r">
 
               {isTestRunning ? 'Running Tests...' : 'Run All Tests'}
             </Button>
@@ -263,8 +263,8 @@ export default function MonitoringTest() {
               const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
               return (
-                <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-800">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div key={key} className="flex items-center justify-between p-2 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800">
+                    <span className="text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300">
                       {displayKey}
                     </span>
                     <div className="flex items-center gap-2">
@@ -296,7 +296,7 @@ export default function MonitoringTest() {
               {Object.entries(testResults).
             filter(([key]) => key.includes('details')).
             map(([key, value]) =>
-            <div key={key} className="mt-2 p-2 rounded bg-gray-100 dark:bg-gray-800">
+            <div key={key} className="mt-2 p-2 rounded bg-[var(--color-neutral-100)] dark:bg-gray-800">
                     <p className="text-xs font-mono text-gray-600 dark:text-gray-400">{value as string}</p>
                   </div>
             )}

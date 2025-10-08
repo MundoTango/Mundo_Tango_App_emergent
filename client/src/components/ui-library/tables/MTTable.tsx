@@ -169,20 +169,20 @@ export default function MTTable<T = any>({
                     checked={allSelected}
                     indeterminate={someSelected}
                     onChange={handleSelectAll}
-                    className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
+                    className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
                     data-testid={`${testId}-select-all`}
-                  />
+                  / aria-label="Input field">
                 </th>
               )}
               {columns.map((column) => (
                 <th
                   key={column.id}
                   className={cn(
-                    'px-4 py-3 font-semibold text-gray-700 dark:text-gray-200',
+                    'px-4 py-3 font-semibold text-[var(--color-text-secondary)] dark:text-gray-200',
                     column.align === 'center' && 'text-center',
                     column.align === 'right' && 'text-right',
                     column.align !== 'center' && column.align !== 'right' && 'text-left',
-                    column.sortable && 'cursor-pointer hover:bg-teal-100/30 dark:hover:bg-teal-800/30 transition-colors',
+                    column.sortable && 'cursor-pointer hover:bg-[var(--color-ocean-100)]/30 dark:hover:bg-teal-800/30 transition-colors',
                     column.headerClassName
                   )}
                   style={{ width: column.width }}
@@ -195,9 +195,9 @@ export default function MTTable<T = any>({
                       <span className="inline-flex">
                         {localSortColumn === column.id ? (
                           localSortDirection === 'asc' ? (
-                            <ChevronUp className="w-4 h-4 text-teal-600" />
+                            <ChevronUp className="w-4 h-4 text-[var(--color-primary-hover)]" />
                           ) : localSortDirection === 'desc' ? (
-                            <ChevronDown className="w-4 h-4 text-teal-600" />
+                            <ChevronDown className="w-4 h-4 text-[var(--color-primary-hover)]" />
                           ) : (
                             <ChevronsUpDown className="w-4 h-4 text-gray-400" />
                           )
@@ -216,15 +216,15 @@ export default function MTTable<T = any>({
               <tr>
                 <td colSpan={columns.length + (selectable ? 1 : 0)} className="text-center py-8">
                   <div className="flex items-center justify-center gap-2">
-                    <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
-                    <span className="text-gray-500">Loading...</span>
+                    <div className="animate-spin h-5 w-5 border-2 border-[var(--color-primary)] border-t-transparent rounded-full" />
+                    <span className="text-gray-500 dark:text-gray-400">Loading...</span>
                   </div>
                 </td>
               </tr>
             ) : data.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + (selectable ? 1 : 0)} className="text-center py-8">
-                  <p className="text-gray-500">{emptyMessage}</p>
+                  <p className="text-gray-500 dark:text-gray-400">{emptyMessage}</p>
                 </td>
               </tr>
             ) : (
@@ -232,9 +232,9 @@ export default function MTTable<T = any>({
                 <tr
                   key={rowIndex}
                   className={cn(
-                    'border-t border-gray-200/50 dark:border-gray-700/50',
-                    striped && rowIndex % 2 === 1 && 'bg-gray-50/30 dark:bg-gray-800/30',
-                    hoverable && 'hover:bg-teal-50/30 dark:hover:bg-teal-900/20 transition-colors',
+                    'border-t border-[var(--color-border)]/50 dark:border-gray-700/50',
+                    striped && rowIndex % 2 === 1 && 'bg-[var(--color-surface-elevated)]/30 dark:bg-gray-800/30',
+                    hoverable && 'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20 transition-colors',
                     onRowClick && 'cursor-pointer',
                     typeof rowClassName === 'function' 
                       ? rowClassName(row, rowIndex)
@@ -248,9 +248,9 @@ export default function MTTable<T = any>({
                       <input
                         type="checkbox"
                         checked={selectedRows.has(rowIndex)}
-                        onChange={(e) => handleSelectRow(rowIndex, e)}
+                        onChange={(e) = aria-label="Input field"> handleSelectRow(rowIndex, e)}
                         onClick={(e) => e.stopPropagation()}
-                        className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
+                        className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
                         data-testid={`${testId}-select-${rowIndex}`}
                       />
                     </td>

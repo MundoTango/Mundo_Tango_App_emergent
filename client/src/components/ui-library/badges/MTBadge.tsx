@@ -33,9 +33,9 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
 
   const variants = {
     default: cn(
-      'bg-gray-100 dark:bg-gray-800',
-      'text-gray-700 dark:text-gray-300',
-      'border border-gray-200 dark:border-gray-700'
+      'bg-[var(--color-neutral-100)] dark:bg-gray-800',
+      'text-[var(--color-text-secondary)] dark:text-gray-300',
+      'border border-[var(--color-border)] dark:border-gray-700'
     ),
     success: cn(
       'bg-green-100 dark:bg-green-900/30',
@@ -102,11 +102,11 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
       {children}
       {removable &&
       <button
-        onClick={(e) => {
+        onClick={(e) = aria-label="Button"> {
           e.stopPropagation();
           onRemove?.();
         }}
-        className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors" data-testid="button-ml-1">
+        className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-[var(--color-surface)]/10 rounded-full p-0.5 transition-colors" data-testid="button-ml-1">
 
           <X className={cn(
           'flex-shrink-0',

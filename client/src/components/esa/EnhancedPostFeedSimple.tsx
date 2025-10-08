@@ -214,7 +214,7 @@ export default function EnhancedPostFeedSimple({
             className={cn(
               "backdrop-blur-xl rounded-xl border overflow-hidden transition-all duration-300 shadow-xl",
               theme === 'light' ?
-              "bg-white border-gray-200 hover:border-gray-300" :
+              "bg-[var(--color-surface)] border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600" :
               "bg-slate-900/50 border-slate-800/50 hover:border-slate-700/50"
             )}>
 
@@ -240,16 +240,16 @@ export default function EnhancedPostFeedSimple({
                     <div className="flex items-center gap-2">
                       <span className={cn(
                         "font-semibold",
-                        theme === 'light' ? "text-gray-900" : "text-white"
+                        theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                       )}>{author.name}</span>
                       <span className={cn(
                         "text-sm",
-                        theme === 'light' ? "text-gray-500" : "text-slate-500"
+                        theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-500"
                       )}>@{author.username}</span>
                     </div>
                     <div className={cn(
                       "flex items-center gap-2 text-xs",
-                      theme === 'light' ? "text-gray-500" : "text-slate-400"
+                      theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                     )}>
                       <span>{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</span>
                       <span>•</span>
@@ -261,9 +261,9 @@ export default function EnhancedPostFeedSimple({
                 <button className={cn(
                   "p-2 rounded-lg transition-colors",
                   theme === 'light' ?
-                  "text-gray-500 hover:text-gray-900 hover:bg-gray-100" :
+                  "text-gray-500 dark:text-gray-400 hover:text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)]" :
                   "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                )} data-testid="button-element">
+                )} data-testid="button-element" aria-label="Button">
                   <MoreHorizontal className="w-5 h-5" />
                 </button>
               </div>
@@ -273,14 +273,14 @@ export default function EnhancedPostFeedSimple({
             <div className="px-4 pb-3">
               <p className={cn(
                 "leading-relaxed",
-                theme === 'light' ? "text-gray-900" : "text-white",
+                theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white",
                 !isExpanded && post.content.length > 200 && "line-clamp-3"
               )}>
                 {renderWithMentions(post.content)}
               </p>
               {post.content.length > 200 &&
               <button
-                onClick={() => toggleExpanded(post.id)}
+                onClick={() = aria-label="Button"> toggleExpanded(post.id)}
                 className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors" data-testid="button-text-cyan-400">
 
                   {isExpanded ? 'Show less' : 'Show more'}
@@ -338,7 +338,7 @@ export default function EnhancedPostFeedSimple({
                   className={cn(
                     "px-2 py-1 text-xs rounded-full flex items-center gap-1",
                     theme === 'light' ?
-                    "bg-gray-100 text-gray-600" :
+                    "bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
                     "bg-slate-800/50 text-slate-300"
                   )}>
 
@@ -361,13 +361,13 @@ export default function EnhancedPostFeedSimple({
                   "bg-blue-400/20"
                 )}>
                       <ThumbsUp className={cn("w-3 h-3", "text-blue-400")} />
-                      <span className={theme === 'light' ? "text-gray-900" : "text-white"}>{stats.likes}</span>
+                      <span className={theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"}>{stats.likes}</span>
                     </div>
                 }
                 </div>
                 <div className={cn(
                 "flex items-center gap-3 text-xs",
-                theme === 'light' ? "text-gray-500" : "text-slate-400"
+                theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
               )}>
                   {stats.comments > 0 && <span>{stats.comments} comments</span>}
                   {stats.shares > 0 && <span>{stats.shares} shares</span>}
@@ -378,7 +378,7 @@ export default function EnhancedPostFeedSimple({
             {/* Actions Bar */}
             <div className={cn(
               "border-t",
-              theme === 'light' ? "border-gray-200" : "border-slate-800/50"
+              theme === 'light' ? "border-[var(--color-border)]" : "border-slate-800/50"
             )}>
               <div className="flex items-center">
                 {/* Reactions */}
@@ -388,11 +388,11 @@ export default function EnhancedPostFeedSimple({
                   onMouseLeave={() => setHoveredReaction(null)}>
 
                   <button
-                    onClick={() => onReaction?.(post.id, 'like')}
+                    onClick={() = aria-label="Button"> onReaction?.(post.id, 'like')}
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
                       theme === 'light' ?
-                      "text-gray-500 hover:text-cyan-600 hover:bg-gray-100" :
+                      "text-gray-500 dark:text-gray-400 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-neutral-100)]" :
                       "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
                     )} data-testid="button-element">
 
@@ -404,14 +404,14 @@ export default function EnhancedPostFeedSimple({
                   {hoveredReaction === post.id &&
                   <div className={cn(
                     "absolute bottom-full left-1/2 -translate-x-1/2 mb-2 flex items-center gap-2 rounded-full p-2 shadow-xl animate-in slide-in-from-bottom-2",
-                    theme === 'light' ? "bg-white border border-gray-200" : "bg-slate-800"
+                    theme === 'light' ? "bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)]" : "bg-slate-800"
                   )}>
                       {reactions.map((reaction) => {
                       const Icon = reaction.icon;
                       return (
                         <button
                           key={reaction.type}
-                          onClick={() => {
+                          onClick={() = aria-label="Button"> {
                             onReaction?.(post.id, reaction.type);
                             setHoveredReaction(null);
                           }}
@@ -430,11 +430,11 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Comment */}
                 <button
-                  onClick={() => onComment?.(post.id)}
+                  onClick={() = aria-label="Button"> onComment?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
                     theme === 'light' ?
-                    "text-gray-500 hover:text-cyan-600 hover:bg-gray-100 border-gray-200" :
+                    "text-gray-500 dark:text-gray-400 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-neutral-100)] border-[var(--color-border)]" :
                     "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30 border-slate-800/50"
                   )} data-testid="button-element">
 
@@ -444,11 +444,11 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Share */}
                 <button
-                  onClick={() => onShare?.(post.id)}
+                  onClick={() = aria-label="Button"> onShare?.(post.id)}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",
                     theme === 'light' ?
-                    "text-gray-500 hover:text-cyan-600 hover:bg-gray-100" :
+                    "text-gray-500 dark:text-gray-400 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-neutral-100)]" :
                     "text-slate-400 hover:text-cyan-400 hover:bg-slate-800/30"
                   )} data-testid="button-element">
 
@@ -465,7 +465,7 @@ export default function EnhancedPostFeedSimple({
       {posts.length === 0 &&
       <div className={cn(
         "text-center py-12",
-        theme === 'light' ? "text-gray-500" : "text-slate-400"
+        theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
       )}>
           <p className="text-lg">No memories yet. Be the first to share!</p>
         </div>

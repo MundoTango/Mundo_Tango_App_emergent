@@ -218,7 +218,7 @@ export function HostReviewForm({
           <Button
             type="submit"
             disabled={submitReviewMutation.isPending}
-            className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
+            className="bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
             data-testid="button-submit-review"
           >
             {submitReviewMutation.isPending 

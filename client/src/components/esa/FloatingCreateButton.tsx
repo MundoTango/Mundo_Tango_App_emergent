@@ -90,7 +90,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1.2 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-cyan-600 blur-2xl opacity-50"
+            className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-600 blur-2xl opacity-50"
           />
         )}
       </AnimatePresence>
@@ -102,7 +102,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
         className={cn(
           "relative group",
           "w-16 h-16 rounded-full",
-          "bg-gradient-to-br from-teal-400 to-cyan-600",
+          "bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-600",
           "shadow-lg hover:shadow-2xl",
           "transition-all duration-300",
           "flex items-center justify-center",
@@ -122,7 +122,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute inset-0 rounded-full bg-white/20"
+            className="absolute inset-0 rounded-full bg-[var(--color-surface)] dark:bg-gray-900/20"
           />
         </div>
 
@@ -220,7 +220,7 @@ export default function FloatingCreateButton({ onClick, theme = 'light' }: Float
                 }}
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               >
-                <div className="w-2 h-2 bg-gradient-to-r from-teal-400 to-cyan-600 rounded-full" />
+                <div className="w-2 h-2 bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-600 rounded-full" />
               </motion.div>
             ))}
           </>

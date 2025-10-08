@@ -151,7 +151,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Basic Information</h3>
             
             <div className="space-y-2">
               <Label htmlFor="name">
@@ -176,7 +176,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 rows={4}
                 maxLength={500} data-testid="textarea-bio" />
 
-              <p className="text-xs text-gray-500">{formData.bio.length}/500 characters</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{formData.bio.length}/500 characters</p>
             </div>
 
             <div className="space-y-2">
@@ -195,7 +195,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Tango Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Tango Information</h3>
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Tango Information</h3>
             
             <div className="space-y-2">
               <Label>
@@ -208,7 +208,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                     <input
                     type="checkbox"
                     checked={formData.tangoRoles.includes(role.value)}
-                    onChange={(e) => {
+                    onChange={(e) = aria-label="Input field"> {
                       if (e.target.checked) {
                         setFormData((prev) => ({
                           ...prev,
@@ -221,7 +221,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                         }));
                       }
                     }}
-                    className="rounded border-gray-300" data-testid="input-checkbox" />
+                    className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
 
                     <span className="text-sm">{role.label}</span>
                   </label>
@@ -301,7 +301,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Social Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Social Links</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">

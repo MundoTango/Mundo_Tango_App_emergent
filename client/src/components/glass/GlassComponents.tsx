@@ -94,7 +94,7 @@ const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
       <div
         ref={ref}
         className={cn(
-          'bg-white/70 dark:bg-slate-900/70',
+          'bg-[var(--color-surface)]/70 dark:bg-slate-900/70',
           !reducedTransparency && 'backdrop-blur-lg',
           'border-y border-white/20 dark:border-white/10',
           'transition-all duration-300',
@@ -126,23 +126,23 @@ const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
 
     const variantStyles = {
       primary: cn(
-        'bg-gradient-to-r from-cyan-500/80 to-teal-500/80',
-        'dark:from-cyan-400/80 dark:to-teal-400/80',
-        'hover:from-cyan-500/90 hover:to-teal-500/90',
+        'bg-gradient-to-r from-[var(--color-primary)]/80 to-teal-500/80',
+        'dark:from-[var(--color-ocean-400)]/80 dark:to-teal-400/80',
+        'hover:from-[var(--color-primary)]/90 hover:to-teal-500/90',
         'text-white dark:text-slate-900',
         'font-semibold',
         !reducedTransparency && 'backdrop-blur-sm'
       ),
       secondary: cn(
-        'bg-white/60 dark:bg-slate-800/60',
-        'hover:bg-white/70 dark:hover:bg-slate-800/70',
+        'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
+        'hover:bg-[var(--color-surface)]/70 dark:hover:bg-slate-800/70',
         'text-slate-900 dark:text-white',
         !reducedTransparency && 'backdrop-blur-md',
         'border border-white/30 dark:border-white/10'
       ),
       ghost: cn(
         'bg-transparent',
-        'hover:bg-white/20 dark:hover:bg-white/10',
+        'hover:bg-[var(--color-surface)]/20 dark:hover:bg-[var(--color-surface)]/10',
         'text-slate-900 dark:text-white',
         !reducedTransparency && 'backdrop-blur-sm'
       )
@@ -367,7 +367,7 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
     const reducedTransparency = prefersReducedTransparency();
 
     const variantStyles = {
-      info: 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+      info: 'bg-[var(--color-primary)]/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
       success: 'bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30',
       warning: 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30',
       error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30'
@@ -415,7 +415,7 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
         placeholder={placeholder}
         className={cn(
           'w-full px-4 py-2 rounded-lg',
-          'bg-white/60 dark:bg-slate-800/60',
+          'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
           'border border-white/30 dark:border-white/10',
           !reducedTransparency && 'backdrop-blur-md',
           'text-slate-900 dark:text-white',
@@ -454,7 +454,7 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
         rows={rows}
         className={cn(
           'w-full px-4 py-2 rounded-lg',
-          'bg-white/60 dark:bg-slate-800/60',
+          'bg-[var(--color-surface)]/60 dark:bg-slate-800/60',
           'border border-white/30 dark:border-white/10',
           !reducedTransparency && 'backdrop-blur-md',
           'text-slate-900 dark:text-white',
@@ -491,7 +491,7 @@ const GlassNavbar = forwardRef<HTMLElement, GlassNavbarProps>(
         ref={ref}
         className={cn(
           'sticky top-0 z-40',
-          'bg-white/80 dark:bg-slate-900/80',
+          'bg-[var(--color-surface)]/80 dark:bg-slate-900/80',
           !reducedTransparency && 'backdrop-blur-lg',
           'border-b border-white/20 dark:border-white/10',
           'shadow-sm',

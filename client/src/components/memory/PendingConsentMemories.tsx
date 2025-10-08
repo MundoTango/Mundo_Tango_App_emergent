@@ -113,21 +113,21 @@ export default function PendingConsentMemories() {
       passionate: 'bg-red-100 text-red-800',
       peaceful: 'bg-blue-100 text-blue-800',
       energetic: 'bg-orange-100 text-orange-800',
-      melancholic: 'bg-gray-100 text-gray-800',
+      melancholic: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100',
       romantic: 'bg-pink-100 text-pink-800',
       triumphant: 'bg-green-100 text-green-800'
     };
-    return colors[emotion.toLowerCase()] || 'bg-gray-100 text-gray-800';
+    return colors[emotion.toLowerCase()] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
   };
 
   const getTrustLevelColor = (level: string) => {
     const colors: Record<string, string> = {
-      basic: 'bg-gray-100 text-gray-800',
+      basic: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100',
       close: 'bg-blue-100 text-blue-800',
       intimate: 'bg-purple-100 text-purple-800',
       sacred: 'bg-amber-100 text-amber-800'
     };
-    return colors[level.toLowerCase()] || 'bg-gray-100 text-gray-800';
+    return colors[level.toLowerCase()] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
   };
 
   if (isLoading) {
@@ -138,17 +138,17 @@ export default function PendingConsentMemories() {
           <Card key={i} className="animate-pulse">
               <CardHeader className="pb-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                  <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                   <div className="flex-1">
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="h-4 bg-gray-200 rounded"></div>
-                  <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
                 </div>
               </CardContent>
             </Card>
@@ -195,8 +195,8 @@ export default function PendingConsentMemories() {
   return (
     <div className="container mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Pending Consent</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Pending Consent</h1>
+        <p className="text-gray-600 dark:text-gray-300">
           Memories where you've been tagged and need to approve or deny sharing.
         </p>
       </div>

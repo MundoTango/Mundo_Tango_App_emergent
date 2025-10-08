@@ -202,7 +202,7 @@ export default function MyBookings() {
                     </MagneticButton>
                   </Link>
                   <div>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-my-bookings">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent" data-testid="heading-my-bookings">
                       {t('housing.my_bookings.title', 'My Bookings')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -220,7 +220,7 @@ export default function MyBookings() {
               <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30" data-testid="card-empty-state">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-cyan-500/30">
-                    <Calendar className="w-8 h-8 text-cyan-500 dark:text-cyan-400" />
+                    <Calendar className="w-8 h-8 text-[var(--color-primary)] dark:text-cyan-400" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -230,7 +230,7 @@ export default function MyBookings() {
                       {t('housing.my_bookings.no_bookings_desc', 'Start exploring accommodations and make your first booking request!')}
                     </p>
                     <Link href="/housing-marketplace">
-                      <PulseButton className="px-6 py-3 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white rounded-xl" data-testid="button-browse-listings">
+                      <PulseButton className="px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white rounded-xl" data-testid="button-browse-listings">
                         {t('housing.my_bookings.browse_listings', 'Browse Listings')}
                       </PulseButton>
                     </Link>
@@ -260,7 +260,7 @@ export default function MyBookings() {
                   <ScaleIn key={booking.id} delay={0.05}>
                     <GlassCard 
                       depth={2} 
-                      className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+                      className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-[var(--color-ocean-300)]/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
                       data-testid={`card-booking-${booking.id}`}
                     >
                       <div className="flex flex-col md:flex-row">
@@ -281,7 +281,7 @@ export default function MyBookings() {
                             <div className="flex-1">
                               <div className="flex items-center gap-3 mb-2 flex-wrap">
                                 <Link href={`/listing/${booking.hostHomeId}`}>
-                                  <h3 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent hover:from-cyan-700 hover:to-teal-700 dark:hover:from-cyan-300 dark:hover:to-teal-300 cursor-pointer transition-all" data-testid={`text-property-title-${booking.id}`}>
+                                  <h3 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-[var(--color-ocean-400)] dark:to-teal-400 bg-clip-text text-transparent hover:from-cyan-700 hover:to-teal-700 dark:hover:from-cyan-300 dark:hover:to-teal-300 cursor-pointer transition-all" data-testid={`text-property-title-${booking.id}`}>
                                     {propertyTitle}
                                   </h3>
                                 </Link>
@@ -297,7 +297,7 @@ export default function MyBookings() {
                           {/* Booking Info Grid */}
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                              <Calendar className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                              <Calendar className="w-4 h-4 text-[var(--color-primary)] dark:text-cyan-400" />
                               <div className="text-sm">
                                 <p className="font-medium" data-testid={`text-check-in-${booking.id}`}>{t('housing.my_bookings.check_in', 'Check-in')}: {format(new Date(booking.checkInDate), 'MMM dd, yyyy')}</p>
                                 <p className="font-medium" data-testid={`text-check-out-${booking.id}`}>{t('housing.my_bookings.check_out', 'Check-out')}: {format(new Date(booking.checkOutDate), 'MMM dd, yyyy')}</p>
@@ -311,7 +311,7 @@ export default function MyBookings() {
                               </div>
                             </div>
                             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                              <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                              <Users className="w-4 h-4 text-[var(--color-primary)] dark:text-cyan-400" />
                               <div className="text-sm">
                                 <p className="font-medium" data-testid={`text-guests-${booking.id}`}>
                                   {t('housing.my_bookings.guests', {
@@ -324,7 +324,7 @@ export default function MyBookings() {
                               </div>
                             </div>
                             <div className="text-right">
-                              <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent" data-testid={`text-total-price-${booking.id}`}>
+                              <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-[var(--color-ocean-400)] dark:to-teal-400 bg-clip-text text-transparent" data-testid={`text-total-price-${booking.id}`}>
                                 ${(booking.totalPrice / 100).toFixed(2)}
                               </p>
                               <p className="text-sm text-slate-500 dark:text-slate-400">{t('housing.my_bookings.total_price', 'Total price')}</p>
@@ -346,12 +346,12 @@ export default function MyBookings() {
                           {booking.hostResponse && (
                             <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                               <div className="flex items-start gap-2">
-                                <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400 mt-1" />
+                                <MessageSquare className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-cyan-400 mt-1" />
                                 <div className="flex-1">
                                   <p className="text-sm font-medium text-cyan-900 dark:text-cyan-200 mb-1">{t('housing.my_bookings.host_response', 'Host response')}:</p>
                                   <p className="text-sm text-cyan-700 dark:text-cyan-300" data-testid={`text-host-response-${booking.id}`}>{booking.hostResponse}</p>
                                   {booking.respondedAt && (
-                                    <p className="text-xs text-cyan-600 dark:text-cyan-400 mt-1">
+                                    <p className="text-xs text-[var(--color-primary-hover)] dark:text-cyan-400 mt-1">
                                       {t('housing.my_bookings.responded_on', { defaultValue: 'Responded on {{date}}', date: format(new Date(booking.respondedAt), 'MMM dd, yyyy') })}
                                     </p>
                                   )}
@@ -381,7 +381,7 @@ export default function MyBookings() {
                                 <PulseButton
                                   onClick={() => setBookingToReview(booking)}
                                   pulseColor="rgba(6, 182, 212, 0.6)"
-                                  className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl flex items-center gap-2"
+                                  className="px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white rounded-xl flex items-center gap-2"
                                   data-testid={`button-write-review-${booking.id}`}
                                 >
                                   <Star className="w-4 h-4" />

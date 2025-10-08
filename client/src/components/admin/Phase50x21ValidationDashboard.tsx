@@ -74,7 +74,7 @@ export function Phase50x21ValidationDashboard() {
       case 'warning':
         return <AlertCircle className="h-5 w-5 text-yellow-500" />;
       default:
-        return <div className="h-5 w-5 rounded-full border-2 border-gray-300" />;
+        return <div className="h-5 w-5 rounded-full border-2 border-gray-300 dark:border-gray-600" />;
     }
   };
 
@@ -84,7 +84,7 @@ export function Phase50x21ValidationDashboard() {
       failed: 'bg-red-100 text-red-800',
       warning: 'bg-yellow-100 text-yellow-800'
     };
-    return variants[status] || 'bg-gray-100 text-gray-800';
+    return variants[status] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
   };
 
   return (
@@ -96,7 +96,7 @@ export function Phase50x21ValidationDashboard() {
             <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Life CEO 40x20s Framework Validation
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Phase 2: Registration Flow | Phase 3: Load Testing
             </p>
           </div>
@@ -155,7 +155,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-8 w-8 text-green-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Passed</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Passed</p>
                           <p className="text-2xl font-bold text-green-700">{phase2Results.summary?.passed || 0}</p>
                         </div>
                       </div>
@@ -164,7 +164,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <XCircle className="h-8 w-8 text-red-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Failed</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Failed</p>
                           <p className="text-2xl font-bold text-red-700">{phase2Results.summary?.failed || 0}</p>
                         </div>
                       </div>
@@ -173,7 +173,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Activity className="h-8 w-8 text-blue-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Success Rate</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Success Rate</p>
                           <p className="text-2xl font-bold text-blue-700">
                             {phase2Results.summary?.successRate?.toFixed(1) || 0}%
                           </p>
@@ -184,7 +184,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Globe className="h-8 w-8 text-purple-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Total Tests</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Total Tests</p>
                           <p className="text-2xl font-bold text-purple-700">{phase2Results.summary?.totalTests || 0}</p>
                         </div>
                       </div>
@@ -221,19 +221,19 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Test Results</h3>
                     {phase2Results.results?.map((result: Phase2Result, idx: number) =>
-                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-[var(--color-surface-elevated)]">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.passed ? 'passed' : 'failed')}
                           <div>
                             <p className="font-medium">{result.test}</p>
-                            <p className="text-sm text-gray-600">Layer {result.layer} • Phase {result.phase}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">Layer {result.layer} • Phase {result.phase}</p>
                           </div>
                         </div>
                         <div className="text-right">
                           <Badge className={getStatusBadge(result.passed ? 'passed' : 'failed')}>
                             {result.passed ? 'Passed' : 'Failed'}
                           </Badge>
-                          <p className="text-xs text-gray-500 mt-1">{result.duration}ms</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{result.duration}ms</p>
                         </div>
                       </div>
                   )}
@@ -242,7 +242,7 @@ export function Phase50x21ValidationDashboard() {
                   {/* Recommendations */}
                   {phase2Results.recommendations &&
                 <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200">
-                      <AlertCircle className="h-4 w-4 text-turquoise-600" />
+                      <AlertCircle className="h-4 w-4 text-[var(--color-primary-hover)]" />
                       <AlertDescription>
                         <p className="font-semibold mb-2">Life CEO Recommendations:</p>
                         <ul className="space-y-1">
@@ -255,7 +255,7 @@ export function Phase50x21ValidationDashboard() {
                 }
                 </div> :
 
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
                   <Database className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Run Phase 2 validation to see results</p>
                 </div>
@@ -298,7 +298,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-8 w-8 text-green-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Passed</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Passed</p>
                           <p className="text-2xl font-bold text-green-700">{phase3Results.summary?.passed || 0}</p>
                         </div>
                       </div>
@@ -307,7 +307,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <AlertCircle className="h-8 w-8 text-yellow-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Warnings</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Warnings</p>
                           <p className="text-2xl font-bold text-yellow-700">{phase3Results.summary?.warnings || 0}</p>
                         </div>
                       </div>
@@ -316,7 +316,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <XCircle className="h-8 w-8 text-red-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Failed</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Failed</p>
                           <p className="text-2xl font-bold text-red-700">{phase3Results.summary?.failed || 0}</p>
                         </div>
                       </div>
@@ -325,7 +325,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-8 w-8 text-purple-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Success Rate</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Success Rate</p>
                           <p className="text-2xl font-bold text-purple-700">
                             {phase3Results.summary?.successRate?.toFixed(1) || 0}%
                           </p>
@@ -356,7 +356,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Timer className="h-5 w-5 text-blue-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Avg Response Time</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Avg Response Time</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.avgResponseTime?.toFixed(2) || 0}ms
                           </p>
@@ -367,7 +367,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <BarChart3 className="h-5 w-5 text-green-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Avg Throughput</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Avg Throughput</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.avgThroughput?.toFixed(2) || 0} req/s
                           </p>
@@ -378,7 +378,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Cpu className="h-5 w-5 text-purple-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Test Duration</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Test Duration</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.totalDuration?.toFixed(1) || 0}s
                           </p>
@@ -391,12 +391,12 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Load Test Results</h3>
                     {phase3Results.results?.map((result: Phase3Result, idx: number) =>
-                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                  <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-[var(--color-surface-elevated)]">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.status)}
                           <div>
                             <p className="font-medium">{result.test}</p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
                               Layer {result.layer} • {result.category} • {result.metricType}
                             </p>
                           </div>
@@ -429,7 +429,7 @@ export function Phase50x21ValidationDashboard() {
                 }
                 </div> :
 
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
                   <Zap className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Run Phase 3 load testing to see performance results</p>
                 </div>

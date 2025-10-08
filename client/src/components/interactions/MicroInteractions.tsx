@@ -124,7 +124,7 @@ const RippleButton = ({
     <button
       className={cn('relative overflow-hidden', className)}
       onClick={handleClick}
-      {...props} data-testid="button-element">
+      {...props} data-testid="button-element" aria-label="Button">
 
       {ripples.map((ripple) =>
       <span
@@ -363,7 +363,7 @@ const GradientShiftButton = ({
 
       {!prefersReducedMotion() &&
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500"
+        className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-teal-500"
         initial={{ x: '-100%' }}
         animate={{ x: isHovered ? '0%' : '-100%' }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }} />
@@ -406,7 +406,7 @@ const FloatingActionButton = ({
       type={type}
       className={cn(
         'rounded-full shadow-lg',
-        'bg-gradient-to-r from-cyan-500 to-teal-500',
+        'bg-gradient-to-r from-[var(--color-primary)] to-teal-500',
         'text-white',
         className
       )}>

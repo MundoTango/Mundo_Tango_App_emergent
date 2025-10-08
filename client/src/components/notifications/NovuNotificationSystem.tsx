@@ -87,16 +87,16 @@ export default function NovuNotificationSystem({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-gray-900">{template.title}</p>
-            <span className="text-xs text-gray-500">
+            <p className="text-sm font-semibold text-[var(--color-text)] dark:text-white">{template.title}</p>
+            <span className="text-xs text-gray-500 dark:text-gray-400">
               {new Date(notification.createdAt).toLocaleDateString()}
             </span>
           </div>
-          <p className="text-sm text-gray-700 mt-1">{notification.content}</p>
+          <p className="text-sm text-[var(--color-text-secondary)] mt-1">{notification.content}</p>
           {notification.data?.actionUrl &&
           <button
             className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
-            onClick={() => window.location.href = notification.data.actionUrl} data-testid="button-text-sm">
+            onClick={() = aria-label="Button"> window.location.href = notification.data.actionUrl} data-testid="button-text-sm">
 
               View →
             </button>
@@ -173,7 +173,7 @@ export default function NovuNotificationSystem({
           emptyState={
           <div className="text-center py-8">
               <Bell className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No notifications yet</p>
+              <p className="text-gray-500 dark:text-gray-400">No notifications yet</p>
               <p className="text-sm text-gray-400 mt-1">
                 You'll see updates about your tango community here
               </p>
@@ -181,7 +181,7 @@ export default function NovuNotificationSystem({
           }>
 
           {({ unseenCount }) =>
-          <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors" data-testid="button-relative">
+          <button className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white transition-colors" data-testid="button-relative" aria-label="Button">
               <Bell className="h-5 w-5" />
               {unseenCount > 0 &&
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">

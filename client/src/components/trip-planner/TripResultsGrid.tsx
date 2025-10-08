@@ -60,7 +60,7 @@ export default function TripResultsGrid({
       {events.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-cyan-600" />
+            <Calendar className="h-5 w-5 text-[var(--color-primary-hover)]" />
             <h3 className="text-xl font-semibold">Events During Your Trip</h3>
             <Badge variant="secondary">{events.length}</Badge>
           </div>
@@ -102,7 +102,7 @@ export default function TripResultsGrid({
                       <Button
                         variant="default"
                         size="sm"
-                        className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500"
+                        className="flex-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)]"
                         onClick={() => onAddToItinerary({ id: event.id, type: 'event' })}
                         data-testid={`button-add-event-${event.id}`}
                       >
@@ -121,7 +121,7 @@ export default function TripResultsGrid({
       {housing.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Home className="h-5 w-5 text-turquoise-600" />
+            <Home className="h-5 w-5 text-[var(--color-primary-hover)]" />
             <h3 className="text-xl font-semibold">Available Housing</h3>
             <Badge variant="secondary">{housing.length}</Badge>
           </div>

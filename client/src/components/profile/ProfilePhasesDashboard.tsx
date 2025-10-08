@@ -70,7 +70,7 @@ export const ProfilePhasesDashboard: React.FC<{userId: number;}> = ({ userId }) 
       case 'in-progress':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       default:
-        return 'bg-gray-100 text-gray-600 border-gray-200';
+        return 'bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300 border-[var(--color-border)]';
     }
   };
 
@@ -91,21 +91,21 @@ export const ProfilePhasesDashboard: React.FC<{userId: number;}> = ({ userId }) 
               <Progress value={overallProgress} className="h-4" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">10</div>
-                <div className="text-sm text-gray-600">Completed</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Completed</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">6</div>
-                <div className="text-sm text-gray-600">In Progress</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">In Progress</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
-                <div className="text-2xl font-bold text-gray-600">4</div>
-                <div className="text-sm text-gray-600">Pending</div>
+              <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
+                <div className="text-2xl font-bold text-gray-600 dark:text-gray-300">4</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Pending</div>
               </div>
-              <div className="text-center p-3 bg-white/70 rounded-lg">
+              <div className="text-center p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">40L</div>
-                <div className="text-sm text-gray-600">Framework</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Framework</div>
               </div>
             </div>
           </div>
@@ -122,10 +122,10 @@ export const ProfilePhasesDashboard: React.FC<{userId: number;}> = ({ userId }) 
             {phases.map((phase) =>
             <button
               key={phase.id}
-              onClick={() => phase.component && setActivePhase(phase.id)}
+              onClick={() = aria-label="Button"> phase.component && setActivePhase(phase.id)}
               disabled={!phase.component}
               className={`p-3 rounded-lg border-2 transition-all ${
-              activePhase === phase.id ? 'border-turquoise-500 bg-turquoise-50' : 'border-gray-200 hover:border-gray-300'} ${
+              activePhase === phase.id ? 'border-turquoise-500 bg-[var(--color-ocean-50)]' : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'} ${
               !phase.component ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} data-testid="button-element">
 
                 <div className="flex items-center gap-2 mb-1">
@@ -136,7 +136,7 @@ export const ProfilePhasesDashboard: React.FC<{userId: number;}> = ({ userId }) 
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-sm truncate">{phase.name}</div>
-                  <div className="text-xs text-gray-600">{phase.progress}% complete</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-300">{phase.progress}% complete</div>
                 </div>
               </button>
             )}

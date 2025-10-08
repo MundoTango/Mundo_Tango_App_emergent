@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Check, X, Sparkles, Star, Zap, Crown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
 interface SubscriptionTier {
+  const { t } = useTranslation();
   name: string;
   priceId: string | null;
   price: number;
@@ -71,7 +73,7 @@ const Subscribe: React.FC = () => {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to create subscription",
         variant: "destructive"
       });
@@ -159,7 +161,7 @@ const Subscribe: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Unlock premium features and take your tango journey to the next level
           </p>
         </div>
@@ -167,10 +169,10 @@ const Subscribe: React.FC = () => {
         {/* Current Plan Banner */}
         {isAuthenticated && currentTier !== 'free' &&
         <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
-            <p className="text-gray-700">
+            <p className="text-[var(--color-text-secondary)]">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
               <Link href="/settings/billing" data-testid="link-element">
-                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-ml-2">
+                <a className="ml-2 text-[var(--color-primary-hover)] hover:text-turquoise-700 underline" data-testid="a-ml-2">
                   Manage billing
                 </a>
               </Link>
@@ -205,7 +207,7 @@ const Subscribe: React.FC = () => {
                   <CardDescription className="mt-2">{tier.description}</CardDescription>
                   <div className="mt-4">
                     <span className="text-4xl font-bold">${tier.price}</span>
-                    {tier.price > 0 && <span className="text-gray-500">/month</span>}
+                    {tier.price > 0 && <span className="text-gray-500 dark:text-gray-400">/month</span>}
                   </div>
                 </CardHeader>
                 
@@ -215,18 +217,18 @@ const Subscribe: React.FC = () => {
                     {tier.features.map((feature, index) =>
                     <div key={index} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-700">{feature}</span>
+                        <span className="text-sm text-[var(--color-text-secondary)]">{feature}</span>
                       </div>
                     )}
                   </div>
                   
                   {/* Not Included Features */}
                   {tier.notIncluded.length > 0 &&
-                  <div className="space-y-2 pt-4 border-t border-gray-200">
+                  <div className="space-y-2 pt-4 border-t border-[var(--color-border)]">
                       {tier.notIncluded.map((feature, index) =>
                     <div key={index} className="flex items-start gap-2">
                           <X className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-gray-500">{feature}</span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{feature}</span>
                         </div>
                     )}
                     </div>
@@ -273,11 +275,11 @@ const Subscribe: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Questions about our plans?{' '}
             <a
               href="mailto:support@mundotango.life"
-              className="text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-text-turquoise-600">
+              className="text-[var(--color-primary-hover)] hover:text-turquoise-700 underline" data-testid="a-text-[var(--color-primary-hover)]">
 
               Contact support
             </a>

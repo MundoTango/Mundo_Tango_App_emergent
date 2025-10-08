@@ -96,12 +96,12 @@ export default function UnifiedTripMap({
               </div>
               <div class="flex gap-2">
                 <button data-action="view-details" data-id="${event.id}" data-type="event"
-                  class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
+                  class="flex-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)] text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" aria-label="Button">
                   View Details
                 </button>
                 ${onAddToItinerary ? `
                   <button data-action="add-itinerary" data-id="${event.id}" data-type="event"
-                    class="flex-1 bg-white dark:bg-gray-800 border border-cyan-500 text-cyan-600 dark:text-cyan-400 px-3 py-1.5 rounded-lg text-sm hover:bg-cyan-50 dark:hover:bg-cyan-900/20 transition">
+                    class="flex-1 bg-[var(--color-surface)] dark:bg-gray-800 border border-cyan-500 text-[var(--color-primary-hover)] dark:text-cyan-400 px-3 py-1.5 rounded-lg text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-cyan-900/20 transition" aria-label="Button">
                     Add to Trip
                   </button>
                 ` : ''}
@@ -146,12 +146,12 @@ export default function UnifiedTripMap({
               </div>
               <div class="flex gap-2">
                 <button data-action="view-details" data-id="${home.id}" data-type="housing"
-                  class="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
+                  class="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" aria-label="Button">
                   View Details
                 </button>
                 ${onAddToItinerary ? `
                   <button data-action="add-itinerary" data-id="${home.id}" data-type="housing"
-                    class="flex-1 bg-white dark:bg-gray-800 border border-turquoise-500 text-turquoise-600 dark:text-turquoise-400 px-3 py-1.5 rounded-lg text-sm hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20 transition">
+                    class="flex-1 bg-[var(--color-surface)] dark:bg-gray-800 border border-turquoise-500 text-[var(--color-primary-hover)] dark:text-turquoise-400 px-3 py-1.5 rounded-lg text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-turquoise-900/20 transition" aria-label="Button">
                     Add to Trip
                   </button>
                 ` : ''}
@@ -180,12 +180,12 @@ export default function UnifiedTripMap({
               <div class="text-sm text-gray-600 dark:text-gray-400 mb-3">${rec.address || rec.city}</div>
               <div class="flex gap-2">
                 <button data-action="view-details" data-id="${rec.id}" data-type="recommendation"
-                  class="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
+                  class="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" aria-label="Button">
                   View Details
                 </button>
                 ${onAddToItinerary ? `
                   <button data-action="add-itinerary" data-id="${rec.id}" data-type="recommendation"
-                    class="flex-1 bg-white dark:bg-gray-800 border border-pink-500 text-pink-600 dark:text-pink-400 px-3 py-1.5 rounded-lg text-sm hover:bg-pink-50 dark:hover:bg-pink-900/20 transition">
+                    class="flex-1 bg-[var(--color-surface)] dark:bg-gray-800 border border-pink-500 text-pink-600 dark:text-pink-400 px-3 py-1.5 rounded-lg text-sm hover:bg-pink-50 dark:hover:bg-pink-900/20 transition" aria-label="Button">
                     Add to Trip
                   </button>
                 ` : ''}

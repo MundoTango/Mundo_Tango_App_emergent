@@ -163,7 +163,7 @@ export default function HostCalendar() {
                         <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                       </MagneticButton>
                     </Link>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent" data-testid="heading-host-calendar">
                       {t('housing.host_calendar.title', 'Property Calendar')}
                     </h1>
                   </div>
@@ -181,7 +181,7 @@ export default function HostCalendar() {
                   {t('housing.host_calendar.no_properties_desc', 'You need to create a property listing before you can manage your calendar.')}
                 </p>
                 <Link href="/host-onboarding">
-                  <PulseButton className="px-6 py-3 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white rounded-xl">
+                  <PulseButton className="px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white rounded-xl">
                     {t('housing.host_calendar.create_first_listing', 'Create Your First Listing')}
                   </PulseButton>
                 </Link>
@@ -212,7 +212,7 @@ export default function HostCalendar() {
                     </MagneticButton>
                   </Link>
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent" data-testid="heading-host-calendar">
                       {t('housing.host_calendar.title', 'Property Calendar')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -229,7 +229,7 @@ export default function HostCalendar() {
             <GlassCard depth={2} className="calendar-selector mb-6 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="p-6">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
-                  <CalendarIcon className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                  <CalendarIcon className="w-4 h-4 text-[var(--color-primary)] dark:text-cyan-400" />
                   {t('housing.host_calendar.select_property', 'Select Property')}
                 </label>
                 <Select
@@ -237,7 +237,7 @@ export default function HostCalendar() {
                   onValueChange={(value) => setSelectedHomeId(parseInt(value))}
                 >
                   <SelectTrigger 
-                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/50 dark:bg-slate-800/50" 
+                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-[var(--color-surface)]/50 dark:bg-slate-800/50" 
                     data-testid="select-property-calendar"
                   >
                     <SelectValue placeholder={t('housing.host_calendar.choose_property', 'Choose a property')} />

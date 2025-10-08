@@ -56,9 +56,9 @@ export default function MTFormCheckbox<
               disabled={disabled}
               className={cn(
                 'mt-1',
-                'border-gray-300',
+                'border-gray-300 dark:border-gray-600',
                 'data-[state=checked]:bg-gradient-to-r',
-                'data-[state=checked]:from-teal-400',
+                'data-[state=checked]:from-[var(--color-ocean-400)]',
                 'data-[state=checked]:to-cyan-600',
                 'data-[state=checked]:border-teal-400',
                 'transition-all duration-200',
@@ -70,7 +70,7 @@ export default function MTFormCheckbox<
           <div className="space-y-1 leading-none">
             {label && (
               <FormLabel className={cn(
-                'text-sm font-medium text-gray-700 cursor-pointer',
+                'text-sm font-medium text-[var(--color-text-secondary)] cursor-pointer',
                 disabled && 'opacity-50'
               )}>
                 {label}
@@ -78,7 +78,7 @@ export default function MTFormCheckbox<
               </FormLabel>
             )}
             {description && (
-              <FormDescription className="text-xs text-gray-500">
+              <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
                 {description}
               </FormDescription>
             )}
@@ -132,13 +132,13 @@ export function MTFormCheckboxGroup<
       render={({ field }) => (
         <FormItem className={className}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 mb-3 block">
+            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] mb-3 block">
               {label}
               {required && <span className="text-red-500 ml-1">*</span>}
             </FormLabel>
           )}
           {description && (
-            <FormDescription className="text-xs text-gray-500 mb-3">
+            <FormDescription className="text-xs text-gray-500 dark:text-gray-400 mb-3">
               {description}
             </FormDescription>
           )}
@@ -162,9 +162,9 @@ export function MTFormCheckboxGroup<
                     disabled={disabled || option.disabled}
                     className={cn(
                       'mt-1',
-                      'border-gray-300',
+                      'border-gray-300 dark:border-gray-600',
                       'data-[state=checked]:bg-gradient-to-r',
-                      'data-[state=checked]:from-teal-400',
+                      'data-[state=checked]:from-[var(--color-ocean-400)]',
                       'data-[state=checked]:to-cyan-600',
                       'data-[state=checked]:border-teal-400',
                       'transition-all duration-200'
@@ -180,7 +180,7 @@ export function MTFormCheckboxGroup<
                     {option.label}
                   </FormLabel>
                   {option.description && (
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       {option.description}
                     </p>
                   )}

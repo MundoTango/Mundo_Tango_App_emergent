@@ -251,7 +251,7 @@ export default function AdminUsersPage() {
     if (!tier) return null;
     
     const colors = {
-      free: 'bg-gray-500',
+      free: 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000',
       basic: 'bg-blue-500',
       enthusiast: 'bg-purple-500',
       professional: 'bg-amber-500',
@@ -259,7 +259,7 @@ export default function AdminUsersPage() {
     };
 
     return (
-      <Badge className={cn(colors[tier as keyof typeof colors] || 'bg-gray-500')}>
+      <Badge className={cn(colors[tier as keyof typeof colors] || 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000')}>
         {tier}
         {status === 'past_due' && ' ⚠'}
       </Badge>
@@ -275,7 +275,7 @@ export default function AdminUsersPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               User Management
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1">
               Manage platform users, roles, and permissions
             </p>
           </div>
@@ -289,7 +289,7 @@ export default function AdminUsersPage() {
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
-            <Button className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white">
+            <Button className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 text-white">
               <UserPlus className="w-4 h-4 mr-2" />
               Add User
             </Button>
@@ -301,14 +301,14 @@ export default function AdminUsersPage() {
           <Card className="border-teal-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Total Users
                 </CardTitle>
-                <Users className="w-4 h-4 text-teal-500" />
+                <Users className="w-4 h-4 text-[var(--color-primary)]" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                 {stats?.total?.toLocaleString() || 0}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -321,17 +321,17 @@ export default function AdminUsersPage() {
           <Card className="border-cyan-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Active Users
                 </CardTitle>
-                <Activity className="w-4 h-4 text-cyan-500" />
+                <Activity className="w-4 h-4 text-[var(--color-primary)]" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                 {stats?.active?.toLocaleString() || 0}
               </div>
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                 {((stats?.active / stats?.total) * 100).toFixed(1)}% of total
               </div>
             </CardContent>
@@ -340,17 +340,17 @@ export default function AdminUsersPage() {
           <Card className="border-green-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Verified Users
                 </CardTitle>
                 <CheckCircle className="w-4 h-4 text-green-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                 {stats?.verified?.toLocaleString() || 0}
               </div>
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                 {((stats?.verified / stats?.total) * 100).toFixed(1)}% verified
               </div>
             </CardContent>
@@ -359,14 +359,14 @@ export default function AdminUsersPage() {
           <Card className="border-red-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Suspended
                 </CardTitle>
                 <Ban className="w-4 h-4 text-red-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                 {stats?.suspended || 0}
               </div>
               <div className="text-sm text-red-600 mt-2">
@@ -449,7 +449,7 @@ export default function AdminUsersPage() {
             {showBulkActions && selectedUsers.length > 0 && (
               <div className="mt-4 p-4 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg border border-teal-200">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-teal-700">
+                  <span className="text-sm font-medium text-[var(--color-primary-hover)]">
                     {selectedUsers.length} user(s) selected
                   </span>
                   <div className="flex gap-2">
@@ -525,20 +525,20 @@ export default function AdminUsersPage() {
                     <TableRow>
                       <TableCell colSpan={showBulkActions ? 9 : 8} className="text-center py-8">
                         <div className="flex items-center justify-center">
-                          <RefreshCw className="w-5 h-5 animate-spin text-teal-500 mr-2" />
+                          <RefreshCw className="w-5 h-5 animate-spin text-[var(--color-primary)] mr-2" />
                           Loading users...
                         </div>
                       </TableCell>
                     </TableRow>
                   ) : usersData?.users?.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={showBulkActions ? 9 : 8} className="text-center py-8 text-gray-500">
+                      <TableCell colSpan={showBulkActions ? 9 : 8} className="text-center py-8 text-gray-500 dark:text-gray-400">
                         No users found
                       </TableCell>
                     </TableRow>
                   ) : (
                     usersData?.users?.map((user: User) => (
-                      <TableRow key={user.id} className="hover:bg-gray-50">
+                      <TableRow key={user.id} className="hover:bg-[var(--color-surface-elevated)]">
                         {showBulkActions && (
                           <TableCell>
                             <Checkbox
@@ -552,13 +552,13 @@ export default function AdminUsersPage() {
                           <div className="flex items-center gap-3">
                             <Avatar className="w-10 h-10">
                               <AvatarImage src={user.profileImage} />
-                              <AvatarFallback className="bg-gradient-to-br from-teal-500 to-cyan-500 text-white">
+                              <AvatarFallback className="bg-gradient-to-br from-[var(--color-primary)] to-cyan-500 text-white">
                                 {user.name?.charAt(0).toUpperCase()}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium text-gray-900">{user.name}</div>
-                              <div className="text-sm text-gray-500">{user.email}</div>
+                              <div className="font-medium text-[var(--color-text)] dark:text-white">{user.name}</div>
+                              <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                               <div className="text-xs text-gray-400">@{user.username}</div>
                             </div>
                           </div>
@@ -574,7 +574,7 @@ export default function AdminUsersPage() {
                         </TableCell>
                         <TableCell>
                           {user.city && user.country ? (
-                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
                               <Globe className="w-3 h-3" />
                               {user.city}, {user.country}
                             </div>
@@ -583,13 +583,13 @@ export default function AdminUsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             {format(new Date(user.createdAt), 'MMM d, yyyy')}
                           </div>
                         </TableCell>
                         <TableCell>
                           {user.lastLoginAt ? (
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-gray-600 dark:text-gray-300">
                               {format(new Date(user.lastLoginAt), 'MMM d, h:mm a')}
                             </div>
                           ) : (
@@ -667,7 +667,7 @@ export default function AdminUsersPage() {
             {/* Pagination */}
             {usersData?.totalPages > 1 && (
               <div className="flex items-center justify-between px-6 py-4 border-t">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-600 dark:text-gray-300">
                   Showing {((page - 1) * 20) + 1} to {Math.min(page * 20, usersData?.total)} of {usersData?.total} users
                 </div>
                 <div className="flex gap-2">

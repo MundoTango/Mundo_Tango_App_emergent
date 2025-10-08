@@ -85,5 +85,5 @@ export function getCategoryIcon(categorySlug: string): LucideIcon {
  */
 export function getCategoryColor(categorySlug: string): string {
   const displayLabel = getCategoryDisplayLabel(categorySlug);
-  return CATEGORY_COLORS[displayLabel] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+  return CATEGORY_COLORS[displayLabel] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-200';
 }

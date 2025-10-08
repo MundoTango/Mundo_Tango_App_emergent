@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { 
   Card, 
@@ -96,6 +97,7 @@ export default function HouseRulesSelector({
 
   // Group templates by category
   const templatesByCategory = templates.reduce((acc, template) => {
+  const { t } = useTranslation();
     if (!acc[template.category]) {
       acc[template.category] = [];
     }
@@ -127,14 +129,14 @@ export default function HouseRulesSelector({
     },
     onSuccess: () => {
       toast({
-        title: 'Success',
+        title: {t('states.success', 'Success')},
         description: 'House rules saved successfully',
       });
       queryClient.invalidateQueries({ queryKey: [`/api/host-homes/${homeId}/rules`] });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: error.message || 'Failed to save house rules',
         variant: 'destructive',
       });

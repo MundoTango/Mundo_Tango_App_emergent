@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useParams } from 'wouter';
 import {
   Card,
@@ -207,7 +208,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to send message. Please try again.',
         variant: 'destructive'
       });
@@ -263,7 +264,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
                 className={`max-w-[70%] ${
                 message.role === 'user' ?
                 'bg-blue-500 text-white' :
-                'bg-gray-100 text-gray-900'} rounded-lg p-3`
+                'bg-[var(--color-neutral-100)] text-[var(--color-text)] dark:text-white'} rounded-lg p-3`
                 }>
 
                   <div className="flex items-start space-x-2">

@@ -1,4 +1,5 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
@@ -58,6 +59,7 @@ export default function Profile() {
   const [, setLocation] = useLocation(); // ESA LIFE CEO 56x21 - Navigation fix
   // ESA LIFE CEO 56x21 - Get tab from URL parameter
   const getInitialTab = () => {
+  const { t } = useTranslation();
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       return params.get('tab') || 'memories';
@@ -72,7 +74,7 @@ export default function Profile() {
 
   // Track component performance and handle URL parameter changes
   useEffect(() => {
-    const stopMeasure = measureComponentRender('Profile');
+    const stopMeasure = measureComponentRender({t('navigation.profile', 'Profile')});
 
     // ESA LIFE CEO 56x21 - Update tab when URL changes
     const handleUrlChange = () => {
@@ -176,7 +178,7 @@ export default function Profile() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <p className="text-gray-500">Loading profile...</p>
+          <p className="text-gray-500 dark:text-gray-400">Loading profile...</p>
         </div>
       </DashboardLayout>);
 
@@ -200,7 +202,7 @@ export default function Profile() {
         {/* Story Highlights - REMOVED per user request */}
 
         {/* Profile Content Tabs */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-sm">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
               <TabsTrigger
@@ -293,8 +295,8 @@ export default function Profile() {
                           </div> :
                           guestProfileLoading ?
                           <div className="animate-pulse space-y-2">
-                            <div className="h-3 bg-gray-200 rounded w-3/4"></div>
-                            <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                           </div> :
                           guestProfile ?
                           <div className="space-y-3">
@@ -302,11 +304,11 @@ export default function Profile() {
                               <UserCheck className="w-4 h-4 text-green-500" />
                               <span className="text-sm text-green-600">Verified Guest</span>
                             </div>
-                            <p className="text-xs text-gray-600">Ready to request stays with hosts</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-300">Ready to request stays with hosts</p>
                             <Button
                               size="sm"
                               variant="outline"
-                              className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-w-full">
+                              className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-w-full">
 
                               View Full Profile
                             </Button>
@@ -314,7 +316,7 @@ export default function Profile() {
 
                           <div className="text-center space-y-3">
                             <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
-                            <p className="text-xs text-gray-600">Create your guest profile to be housed by Hosts in the global tango community</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-300">Create your guest profile to be housed by Hosts in the global tango community</p>
                             <Button
                               size="sm"
                               onClick={() => setLocation('/guest-onboarding')}
@@ -344,12 +346,12 @@ export default function Profile() {
                               variant="ghost"
                               size="sm"
                               onClick={() => setActiveTab('about')}
-                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+                              className="text-xs text-[var(--color-primary-hover)] hover:text-turquoise-700" data-testid="button-text-xs">
 
                             Edit
                           </Button>
                         </div>
-                        <p className="text-sm text-gray-600 line-clamp-3 mb-3">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-3">
                           {(user as any)?.bio || "Share your tango story..."}
                         </p>
                         {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 &&
@@ -373,21 +375,21 @@ export default function Profile() {
                               variant="ghost"
                               size="sm"
                               onClick={() => setActiveTab('travel')}
-                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+                              className="text-xs text-[var(--color-primary-hover)] hover:text-turquoise-700" data-testid="button-text-xs">
 
                             View
                           </Button>
                         </div>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
-                            <MapPin className="w-3 h-3 text-turquoise-500" />
-                            <span className="text-sm text-gray-600">
+                            <MapPin className="w-3 h-3 text-[var(--color-primary)]" />
+                            <span className="text-sm text-gray-600 dark:text-gray-300">
                               {(user as any)?.city ? `${(user as any).city}${(user as any).country ? `, ${(user as any).country}` : ''}` : "Add location"}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Globe className="w-3 h-3 text-cyan-500" />
-                            <span className="text-sm text-gray-600">
+                            <Globe className="w-3 h-3 text-[var(--color-primary)]" />
+                            <span className="text-sm text-gray-600 dark:text-gray-300">
                               {(user as any)?.languages ? `${(user as any).languages.length} languages` : "Add languages"}
                             </span>
                           </div>
@@ -404,20 +406,20 @@ export default function Profile() {
                               variant="ghost"
                               size="sm"
                               onClick={() => setActiveTab('friends')}
-                              className="text-xs text-turquoise-600 hover:text-turquoise-700" data-testid="button-text-xs">
+                              className="text-xs text-[var(--color-primary-hover)] hover:text-turquoise-700" data-testid="button-text-xs">
 
                             View All
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
                             {statsData?.friendsCount ? `${statsData.friendsCount} friends` : "No friends yet"}
                           </p>
                           {/* Friend Avatars Preview */}
                           <div className="flex -space-x-2">
                             {[1, 2, 3].map((i) =>
                               <div key={i} className="w-6 h-6 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-full border-2 border-white flex items-center justify-center">
-                                <Users className="w-3 h-3 text-turquoise-600" />
+                                <Users className="w-3 h-3 text-[var(--color-primary-hover)]" />
                               </div>
                               )}
                           </div>
@@ -449,7 +451,7 @@ export default function Profile() {
 
 
                       <div className="flex items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-[var(--color-primary)]"></div>
                       </div>
                       }
                   </div>
@@ -467,7 +469,7 @@ export default function Profile() {
                       <Button
                           variant="outline"
                           size="sm"
-                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                          className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                         <Calendar className="w-4 h-4 mr-2" />
                         Create Event
@@ -478,16 +480,16 @@ export default function Profile() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                       <Card className="bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200">
                         <CardContent className="p-4 text-center">
-                          <Calendar className="w-8 h-8 mx-auto text-turquoise-600 mb-2" />
+                          <Calendar className="w-8 h-8 mx-auto text-[var(--color-primary-hover)] mb-2" />
                           <h4 className="font-semibold text-turquoise-800">Upcoming Events</h4>
-                          <p className="text-turquoise-600 text-sm">{statsData?.eventsCount || 0} events</p>
+                          <p className="text-[var(--color-primary-hover)] text-sm">{statsData?.eventsCount || 0} events</p>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200">
                         <CardContent className="p-4 text-center">
-                          <Users className="w-8 h-8 mx-auto text-cyan-600 mb-2" />
+                          <Users className="w-8 h-8 mx-auto text-[var(--color-primary-hover)] mb-2" />
                           <h4 className="font-semibold text-cyan-800">Hosting</h4>
-                          <p className="text-cyan-600 text-sm">{statsData?.hostingCount || 0} events</p>
+                          <p className="text-[var(--color-primary-hover)] text-sm">{statsData?.hostingCount || 0} events</p>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-blue-50 to-turquoise-50 border-blue-200">
@@ -501,11 +503,11 @@ export default function Profile() {
 
                     {/* Event List Placeholder */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold text-gray-800">Recent Events</h4>
+                      <h4 className="font-semibold text-gray-800 dark:text-gray-100">Recent Events</h4>
                       <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200">
                         <Calendar className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
                         <h5 className="text-lg font-medium text-turquoise-700 mb-2">No events yet</h5>
-                        <p className="text-turquoise-600 text-sm mb-4">
+                        <p className="text-[var(--color-primary-hover)] text-sm mb-4">
                           Start attending milongas, workshops, and festivals to see them here.
                         </p>
                         <Button
@@ -538,11 +540,11 @@ export default function Profile() {
                         Media Gallery
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photo
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
+                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-cyan-200">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Video
                         </Button>
@@ -561,14 +563,14 @@ export default function Profile() {
                       <Button
                           variant="outline"
                           size="sm"
-                          className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                          className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                         📸 Photos Only
                       </Button>
                       <Button
                           variant="outline"
                           size="sm"
-                          className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
+                          className="border-cyan-200 text-cyan-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-cyan-200">
 
                         🎥 Videos Only
                       </Button>
@@ -588,21 +590,21 @@ export default function Profile() {
                         <div key={item} className="relative group aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-turquoise-100 to-cyan-100 hover:shadow-lg transition-all cursor-pointer">
                           <div className="absolute inset-0 flex items-center justify-center">
                             {item % 3 === 0 ?
-                            <Video className="w-8 h-8 text-turquoise-600" /> :
+                            <Video className="w-8 h-8 text-[var(--color-primary-hover)]" /> :
 
-                            <Camera className="w-8 h-8 text-cyan-600" />
+                            <Camera className="w-8 h-8 text-[var(--color-primary-hover)]" />
                             }
                           </div>
                           <div className="absolute bottom-2 left-2 right-2">
                             <Badge
                               variant="secondary"
-                              className="text-xs bg-white/80 text-gray-700">
+                              className="text-xs bg-[var(--color-surface)] dark:bg-gray-900/80 text-[var(--color-text-secondary)]">
 
                               {item % 3 === 0 ? "Video" : "Photo"}
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white" data-testid="button-h-8">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-[var(--color-surface)] dark:bg-gray-900/80 hover:bg-[var(--color-surface)] dark:bg-gray-900" data-testid="button-h-8">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
@@ -617,7 +619,7 @@ export default function Profile() {
                         <Video className="w-8 h-8 text-cyan-400" />
                       </div>
                       <h5 className="text-lg font-medium text-turquoise-700 mb-2">Share Your Tango Journey</h5>
-                      <p className="text-turquoise-600 text-sm mb-4">
+                      <p className="text-[var(--color-primary-hover)] text-sm mb-4">
                         Upload photos and videos of your tango experiences, performances, and memories.
                       </p>
                       <div className="flex items-center justify-center gap-2">
@@ -631,7 +633,7 @@ export default function Profile() {
                         <Button
                             size="sm"
                             variant="outline"
-                            className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                            className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                           <Video className="w-4 h-4 mr-2" />
                           Upload Videos
@@ -648,7 +650,7 @@ export default function Profile() {
                   <CardContent className="p-12 text-center">
                     <Video className="w-16 h-16 mx-auto text-cyan-400 mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Videos are now in Media Gallery</h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
                       We've combined photos and videos into one place with smart filtering.
                     </p>
                     <Button
@@ -684,13 +686,13 @@ export default function Profile() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                       <Card className="bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200">
                         <CardContent className="p-4 text-center">
-                          <div className="text-2xl font-bold text-turquoise-600">{statsData?.eventsAttended || 0}</div>
+                          <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{statsData?.eventsAttended || 0}</div>
                           <div className="text-sm text-turquoise-700">Events Attended</div>
                         </CardContent>
                       </Card>
                       <Card className="bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200">
                         <CardContent className="p-4 text-center">
-                          <div className="text-2xl font-bold text-cyan-600">{statsData?.rolesAccepted || 0}</div>
+                          <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{statsData?.rolesAccepted || 0}</div>
                           <div className="text-sm text-cyan-700">Roles Accepted</div>
                         </CardContent>
                       </Card>
@@ -710,26 +712,26 @@ export default function Profile() {
 
                     {/* Professional Experience by Category */}
                     <div className="space-y-6">
-                      <h4 className="font-semibold text-gray-800 text-lg">Professional Experience</h4>
+                      <h4 className="font-semibold text-gray-800 dark:text-gray-100 text-lg">Professional Experience</h4>
                       
                       {/* Teacher Experience */}
                       <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                          <GraduationCap className="w-5 h-5 text-turquoise-600" />
+                          <GraduationCap className="w-5 h-5 text-[var(--color-primary-hover)]" />
                           <h5 className="font-semibold text-turquoise-700">Teaching Experience</h5>
                         </div>
                         <div className="border-l-4 border-turquoise-400 pl-6 py-4 bg-gradient-to-r from-turquoise-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Intermediate Tango Instructor</h6>
-                              <p className="text-turquoise-600 font-medium">Buenos Aires Tango Festival 2024</p>
-                              <p className="text-gray-600 text-sm">Taught advanced technique to 50+ international students</p>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                              <h6 className="font-semibold text-[var(--color-text)] dark:text-white">Intermediate Tango Instructor</h6>
+                              <p className="text-[var(--color-primary-hover)] font-medium">Buenos Aires Tango Festival 2024</p>
+                              <p className="text-gray-600 dark:text-gray-300 text-sm">Taught advanced technique to 50+ international students</p>
+                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                                 <span>📅 Started: 2020</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200" data-testid="button-text-turquoise-600">
+                            <Button variant="outline" size="sm" className="text-[var(--color-primary-hover)] border-turquoise-200" data-testid="button-text-[var(--color-primary-hover)]">
                               + Add Entry
                             </Button>
                           </div>
@@ -739,21 +741,21 @@ export default function Profile() {
                       {/* Organizer Experience */}
                       <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                          <Calendar className="w-5 h-5 text-cyan-600" />
+                          <Calendar className="w-5 h-5 text-[var(--color-primary-hover)]" />
                           <h5 className="font-semibold text-cyan-700">Event Organization</h5>
                         </div>
                         <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Milonga Organizer</h6>
-                              <p className="text-cyan-600 font-medium">Monthly Practica Series</p>
-                              <p className="text-gray-600 text-sm">Coordinated weekly events for 100+ dancers</p>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                              <h6 className="font-semibold text-[var(--color-text)] dark:text-white">Milonga Organizer</h6>
+                              <p className="text-[var(--color-primary-hover)] font-medium">Monthly Practica Series</p>
+                              <p className="text-gray-600 dark:text-gray-300 text-sm">Coordinated weekly events for 100+ dancers</p>
+                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                                 <span>📅 Started: 2022</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200" data-testid="button-text-cyan-600">
+                            <Button variant="outline" size="sm" className="text-[var(--color-primary-hover)] border-cyan-200" data-testid="button-text-[var(--color-primary-hover)]">
                               + Add Entry
                             </Button>
                           </div>
@@ -769,10 +771,10 @@ export default function Profile() {
                         <div className="border-l-4 border-purple-400 pl-6 py-4 bg-gradient-to-r from-purple-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Resident DJ</h6>
+                              <h6 className="font-semibold text-[var(--color-text)] dark:text-white">Resident DJ</h6>
                               <p className="text-purple-600 font-medium">La Milonguita Weekly</p>
-                              <p className="text-gray-600 text-sm">Curated traditional tandas for intimate milonga setting</p>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                              <p className="text-gray-600 dark:text-gray-300 text-sm">Curated traditional tandas for intimate milonga setting</p>
+                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                                 <span>📅 Started: 2021</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
@@ -787,10 +789,10 @@ export default function Profile() {
                       <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h5 className="font-semibold text-gray-900">DJ & Music Curator</h5>
-                            <p className="text-cyan-600 font-medium">Milonga Luna - Weekly Series</p>
-                            <p className="text-gray-600 text-sm">Curated and performed music for weekly milonga events</p>
-                            <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                            <h5 className="font-semibold text-[var(--color-text)] dark:text-white">DJ & Music Curator</h5>
+                            <p className="text-[var(--color-primary-hover)] font-medium">Milonga Luna - Weekly Series</p>
+                            <p className="text-gray-600 dark:text-gray-300 text-sm">Curated and performed music for weekly milonga events</p>
+                            <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                               <span>📅 Jan-Dec 2024</span>
                               <span>📍 Local Community</span>
                               <span>⭐ 4.7/5 dancer feedback</span>
@@ -804,7 +806,7 @@ export default function Profile() {
                       <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200">
                         <Star className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
                         <h5 className="text-lg font-medium text-turquoise-700 mb-2">Build Your Tango Resume</h5>
-                        <p className="text-turquoise-600 text-sm mb-4">
+                        <p className="text-[var(--color-primary-hover)] text-sm mb-4">
                           When event organizers select you for roles and you accept, they'll automatically appear here as professional experience.
                         </p>
                         <Button
@@ -826,9 +828,9 @@ export default function Profile() {
                   <Card className="glassmorphic-card">
                     <CardContent className="p-6">
                       <div className="animate-pulse space-y-4">
-                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                       </div>
                     </CardContent>
                   </Card> :
@@ -841,8 +843,8 @@ export default function Profile() {
                   <Card className="glassmorphic-card">
                     <CardContent className="p-12 text-center">
                       <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No Guest Profile</h3>
-                      <p className="text-gray-600 mb-4">
+                      <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No Guest Profile</h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
                       <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="a-inline-flex">

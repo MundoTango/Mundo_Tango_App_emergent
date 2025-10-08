@@ -146,7 +146,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
               {searchResults.data.users.map((user: any) =>
             <div
               key={user.id}
-              className={`p-3 cursor-pointer hover:bg-gray-50 flex items-center justify-between ${
+              className={`p-3 cursor-pointer hover:bg-[var(--color-surface-elevated)] flex items-center justify-between ${
               selectedUserId === user.id.toString() ? 'bg-blue-50 border-l-4 border-blue-500' : ''}`
               }
               onClick={() => setSelectedUserId(user.id.toString())}>
@@ -159,7 +159,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
 
                     <div>
                       <p className="font-medium text-sm">{user.name}</p>
-                      <p className="text-xs text-gray-500">@{user.username}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">@{user.username}</p>
                     </div>
                   </div>
                   {selectedUserId === user.id.toString() &&
@@ -221,7 +221,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
 
                     <div>
                       <p className="font-medium text-sm">{participant.userName}</p>
-                      <p className="text-xs text-gray-500">{participant.role}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{participant.role}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -234,7 +234,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
             )}
             </div> :
 
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               <UserPlus className="h-12 w-12 mx-auto mb-4 text-gray-300" />
               <p>No participants invited yet</p>
               <p className="text-sm">Start by inviting users to specific roles</p>

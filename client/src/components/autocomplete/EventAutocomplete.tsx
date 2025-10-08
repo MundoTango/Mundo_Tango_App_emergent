@@ -143,12 +143,12 @@ export default function EventAutocomplete({
 
       {/* Selected event display */}
       {value &&
-      <div className="mt-2 p-3 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
+      <div className="mt-2 p-3 bg-[var(--color-ocean-50)] dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{getEventTypeEmoji(value.eventType)}</span>
-                <span className="font-medium text-gray-900 dark:text-gray-100">{value.title}</span>
+                <span className="font-medium text-[var(--color-text)] dark:text-gray-100">{value.title}</span>
               </div>
               <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center gap-1">
@@ -173,7 +173,7 @@ export default function EventAutocomplete({
             size="sm"
             variant="ghost"
             onClick={() => onSelect(null)}
-            className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+            className="text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]" data-testid="button-text-gray-500 dark:text-gray-400">
 
               Clear
             </Button>
@@ -185,7 +185,7 @@ export default function EventAutocomplete({
       {isOpen &&
       <Card className="absolute z-50 w-full mt-1 max-h-80 overflow-auto shadow-lg">
           {isLoading &&
-        <div className="p-4 text-center text-gray-500">
+        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               Searching events...
             </div>
         }
@@ -195,13 +195,13 @@ export default function EventAutocomplete({
               {events.map((event: Event) =>
           <button
             key={event.id}
-            onClick={() => handleSelectEvent(event)}
-            className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
+            onClick={() = aria-label="Button"> handleSelectEvent(event)}
+            className="w-full px-4 py-3 text-left hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
 
                   <div className="flex items-start gap-3">
                     <span className="text-2xl mt-0.5">{getEventTypeEmoji(event.eventType)}</span>
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900 dark:text-gray-100">
+                      <div className="font-medium text-[var(--color-text)] dark:text-gray-100">
                         {event.title}
                       </div>
                       <div className="flex items-center gap-3 mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -231,7 +231,7 @@ export default function EventAutocomplete({
 
           {!isLoading && debouncedSearch && (!events || events.length === 0) &&
         <div className="p-4">
-              <p className="text-center text-gray-500 mb-3">
+              <p className="text-center text-gray-500 dark:text-gray-400 mb-3">
                 No events found matching "{debouncedSearch}"
               </p>
               {allowCreate &&
@@ -248,7 +248,7 @@ export default function EventAutocomplete({
         }
 
           {!isLoading && !debouncedSearch &&
-        <div className="p-4 text-center text-gray-500">
+        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               Type to search for events
             </div>
         }

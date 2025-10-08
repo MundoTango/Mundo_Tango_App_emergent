@@ -85,7 +85,7 @@ export default function EnhancedRoleManager() {
     photographer: 'bg-amber-100 text-amber-800 border-amber-200',
     content_creator: 'bg-emerald-100 text-emerald-800 border-emerald-200',
     choreographer: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200',
-    tango_traveler: 'bg-teal-100 text-teal-800 border-teal-200',
+    tango_traveler: 'bg-[var(--color-ocean-100)] text-teal-800 border-teal-200',
     tour_operator: 'bg-sky-100 text-sky-800 border-sky-200',
     vendor: 'bg-orange-100 text-orange-800 border-orange-200',
     wellness_provider: 'bg-lime-100 text-lime-800 border-lime-200',
@@ -93,12 +93,12 @@ export default function EnhancedRoleManager() {
     tango_hotel: 'bg-stone-100 text-stone-800 border-stone-200',
 
     // Platform roles - administrative colors
-    guest: 'bg-gray-100 text-gray-800 border-gray-200',
+    guest: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]',
     super_admin: 'bg-red-100 text-red-800 border-red-200',
     admin: 'bg-red-100 text-red-800 border-red-200',
     moderator: 'bg-yellow-100 text-yellow-800 border-yellow-200',
     curator: 'bg-purple-100 text-purple-800 border-purple-200',
-    bot: 'bg-gray-100 text-gray-800 border-gray-200'
+    bot: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]'
   };
 
   useEffect(() => {
@@ -292,7 +292,7 @@ export default function EnhancedRoleManager() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <p className="text-gray-500">Loading comprehensive role system...</p>
+        <p className="text-gray-500 dark:text-gray-400">Loading comprehensive role system...</p>
       </div>);
 
   }
@@ -302,7 +302,7 @@ export default function EnhancedRoleManager() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Enhanced Role Management System</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 dark:text-gray-300 mt-2">
           Complete 16+ community roles plus platform administration for Mundo Tango
         </p>
       </div>
@@ -391,7 +391,7 @@ export default function EnhancedRoleManager() {
                   </div>
                 </div> :
 
-              <p className="text-gray-500">Loading user profile...</p>
+              <p className="text-gray-500 dark:text-gray-400">Loading user profile...</p>
               }
             </CardContent>
           </Card>
@@ -419,8 +419,8 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">{role.description}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{role.description}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         {Object.keys(role.permissions).length} permissions
                       </p>
                     </div>
@@ -449,8 +449,8 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">{role.description}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{role.description}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         {Object.keys(role.permissions).length} permissions
                       </p>
                     </div>
@@ -545,7 +545,7 @@ export default function EnhancedRoleManager() {
                           <div className="space-y-2">
                             <div className="flex items-center gap-2">
                               <span className="font-medium">{user.name}</span>
-                              <span className="text-sm text-gray-600">@{user.username}</span>
+                              <span className="text-sm text-gray-600 dark:text-gray-300">@{user.username}</span>
                               {!user.isActive &&
                           <Badge variant="outline" className="text-red-600 border-red-200">
                                   Inactive
@@ -553,7 +553,7 @@ export default function EnhancedRoleManager() {
                           }
                             </div>
                             <div>
-                              <span className="text-sm text-gray-600">Primary: </span>
+                              <span className="text-sm text-gray-600 dark:text-gray-300">Primary: </span>
                               <Badge className={getRoleColor(user.primaryRole)}>
                                 {user.primaryRole.replace(/_/g, ' ')}
                               </Badge>
@@ -567,7 +567,7 @@ export default function EnhancedRoleManager() {
                                       <span>{role.replace(/_/g, ' ')}</span>
                                       {role !== 'guest' &&
                                 <button
-                                  onClick={() => removeRole(user.id, role)}
+                                  onClick={() = aria-label="Button"> removeRole(user.id, role)}
                                   className="ml-1 text-red-500 hover:text-red-700"
                                   title="Remove role" data-testid="button-ml-1">
 
@@ -592,7 +592,7 @@ export default function EnhancedRoleManager() {
               <CardContent className="p-8 text-center">
                 <Crown className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                 <h3 className="text-lg font-medium mb-2">Admin Access Required</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   User management features are only available to administrators and super administrators.
                 </p>
               </CardContent>
@@ -627,7 +627,7 @@ export default function EnhancedRoleManager() {
                       <div className="font-medium text-xs">
                         {permission.replace(/_/g, ' ')}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         Click to test
                       </div>
                     </div>
@@ -639,7 +639,7 @@ export default function EnhancedRoleManager() {
         </TabsContent>
       </Tabs>
 
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-sm text-gray-500 dark:text-gray-400">
         <p>
           Enhanced role system with 17 community roles and 6 platform roles supporting 
           multi-role users, role-based routing, and comprehensive permission management.

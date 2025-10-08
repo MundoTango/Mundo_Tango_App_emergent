@@ -136,7 +136,7 @@ export default function MTTableCell({
           <div className="flex items-center gap-3">
             <div className={cn(
               'rounded-full overflow-hidden flex items-center justify-center',
-              'bg-gradient-to-br from-teal-400 to-blue-600',
+              'bg-gradient-to-br from-[var(--color-ocean-400)] to-[var(--color-ocean-600)]',
               sizeClasses[size]
             )}>
               {src ? (
@@ -160,8 +160,8 @@ export default function MTTableCell({
               <div
                 className={cn(
                   'h-full rounded-full transition-all duration-300',
-                  color === 'teal' && 'bg-gradient-to-r from-teal-400 to-teal-600',
-                  color === 'blue' && 'bg-gradient-to-r from-blue-400 to-blue-600',
+                  color === 'teal' && 'bg-gradient-to-r from-[var(--color-ocean-400)] to-teal-600',
+                  color === 'blue' && 'bg-gradient-to-r from-blue-400 to-[var(--color-ocean-600)]',
                   color === 'green' && 'bg-gradient-to-r from-green-400 to-green-600',
                   color === 'red' && 'bg-gradient-to-r from-red-400 to-red-600'
                 )}
@@ -226,7 +226,7 @@ export default function MTTableCell({
             'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium',
             value 
               ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+              : 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-800 dark:text-gray-400'
           )}>
             {value ? '✓ Yes' : '✗ No'}
           </span>
@@ -243,7 +243,7 @@ export default function MTTableCell({
         'px-4 py-3',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',
-        onClick && 'cursor-pointer hover:bg-teal-50/20 dark:hover:bg-teal-900/10',
+        onClick && 'cursor-pointer hover:bg-[var(--color-ocean-50)]/20 dark:hover:bg-teal-900/10',
         editable && 'relative group',
         className
       )}
@@ -254,7 +254,7 @@ export default function MTTableCell({
       {editable && (
         <button
           className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-          onClick={(e) => {
+          onClick={(e) = aria-label="Button"> {
             e.stopPropagation();
             onEdit?.(value);
           }}

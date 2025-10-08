@@ -184,17 +184,17 @@ const LanguageSelector = ({
           {showFlags &&
           <span className="text-xl">{supportedLangsConfig.find((l) => l.code === lang.code)?.flag || '🌍'}</span>
           }
-          <div className={isSelected ? 'font-semibold text-cyan-600 dark:text-cyan-400' : ''}>
+          <div className={isSelected ? 'font-semibold text-[var(--color-primary-hover)] dark:text-cyan-400' : ''}>
             <div>{lang.name}</div>
             <div className="text-xs text-slate-500 dark:text-slate-400">{lang.nativeName}</div>
           </div>
           {isUserLanguage &&
-          <Badge variant="outline" className="text-xs border-cyan-300">
+          <Badge variant="outline" className="text-xs border-[var(--color-ocean-300)]">
               Preferred
             </Badge>
           }
         </div>
-        {isSelected && <Check className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />}
+        {isSelected && <Check className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-cyan-400" />}
       </DropdownMenuItem>);
 
   };
@@ -217,12 +217,12 @@ const LanguageSelector = ({
           {supportedLanguages.map((lang) =>
           <button
             key={lang.code}
-            onClick={() => handleLanguageChange(lang.code)}
+            onClick={() = aria-label="Button"> handleLanguageChange(lang.code)}
             disabled={isChanging}
             className={`
                 w-full p-3 rounded-lg text-left transition-all duration-200
                 ${i18n.language === lang.code ?
-            'glass-card glass-depth-1 border-2 border-cyan-300 dark:border-cyan-500' :
+            'glass-card glass-depth-1 border-2 border-[var(--color-ocean-300)] dark:border-cyan-500' :
             'hover:glass-card hover:glass-depth-1 border border-white/20 dark:border-white/10'}
               `
             } data-testid="button-element">
@@ -238,7 +238,7 @@ const LanguageSelector = ({
                   </div>
                 </div>
                 {i18n.language === lang.code &&
-              <Check className="w-5 h-5 text-turquoise-600" />
+              <Check className="w-5 h-5 text-[var(--color-primary-hover)]" />
               }
               </div>
             </button>
@@ -280,7 +280,7 @@ const LanguageSelector = ({
             {languageGroups['Primary Languages'] && languageGroups['Primary Languages'].length > 0 &&
           <>
                 <div className="px-2 py-1.5">
-                  <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 mb-1">✨ Primary Languages</p>
+                  <p className="text-xs font-semibold text-[var(--color-primary-hover)] dark:text-cyan-400 mb-1">✨ Primary Languages</p>
                   {languageGroups['Primary Languages'].map(renderLanguageItem)}
                 </div>
                 <DropdownMenuSeparator />
@@ -295,12 +295,12 @@ const LanguageSelector = ({
                   <DropdownMenuSubTrigger className="hover:glass-card hover:glass-depth-1 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
                       <span>{region}</span>
-                      <span className="text-xs text-gray-500 ml-2">({languages.length})</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">({languages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent
-                    className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-[100]"
+                    className="max-h-96 overflow-y-auto bg-[var(--color-surface)] dark:bg-gray-800 border border-[var(--color-border)] dark:border-gray-700 rounded-md shadow-lg z-[100]"
                     sideOffset={2}
                     alignOffset={-5}>
 
@@ -318,12 +318,12 @@ const LanguageSelector = ({
                   <DropdownMenuSubTrigger className="hover:glass-card hover:glass-depth-1 cursor-pointer">
                     <span className="flex items-center justify-between w-full">
                       <span>All Languages</span>
-                      <span className="text-xs text-gray-500 ml-2">({supportedLanguages.length})</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">({supportedLanguages.length})</span>
                     </span>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent
-                  className="max-h-96 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-[100]"
+                  className="max-h-96 overflow-y-auto bg-[var(--color-surface)] dark:bg-gray-800 border border-[var(--color-border)] dark:border-gray-700 rounded-md shadow-lg z-[100]"
                   sideOffset={2}
                   alignOffset={-5}>
 

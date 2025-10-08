@@ -335,7 +335,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="✨ Share your tango moment..."
-                className="w-full min-h-[100px] p-4 bg-white/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300"
+                className="w-full min-h-[100px] p-4 bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300"
                 style={{ height: 'auto' }} data-testid="textarea-w-full" />
 
               
@@ -360,7 +360,7 @@ const OriginalEnhancedPostCreator: React.FC<{
 
                       {emotion} {emotionData?.label}
                       <button
-                      onClick={() => setSelectedEmotions((prev) => prev.filter((e) => e !== emotion))}
+                      onClick={() = aria-label="Button"> setSelectedEmotions((prev) => prev.filter((e) => e !== emotion))}
                       className="ml-2 hover:opacity-70" data-testid="button-ml-2">
 
                         <X className="w-3 h-3" />
@@ -384,7 +384,7 @@ const OriginalEnhancedPostCreator: React.FC<{
 
                 return (
                   <div key={index} className="relative group">
-                      <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                      <div className="aspect-square rounded-lg overflow-hidden bg-[var(--color-neutral-100)]">
                         {isImage ?
                       <img
                         src={url}
@@ -403,8 +403,8 @@ const OriginalEnhancedPostCreator: React.FC<{
                           preload="metadata" />
 
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                              <div className="bg-white/90 rounded-full p-3">
-                                <Video className="w-6 h-6 text-gray-700" />
+                              <div className="bg-[var(--color-surface)] dark:bg-gray-900/90 rounded-full p-3">
+                                <Video className="w-6 h-6 text-[var(--color-text-secondary)]" />
                               </div>
                             </div>
                             <div className="absolute bottom-2 left-2 text-xs text-white bg-black/70 px-2 py-1 rounded">
@@ -418,7 +418,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       }
                       </div>
                       <button
-                      onClick={() => {
+                      onClick={() = aria-label="Button"> {
                         // Clean up URL when removing media
                         if (isFile) {
                           const key = `${file.name}-${index}`;
@@ -453,7 +453,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50" data-testid="button-text-gray-600">
+                    className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]" data-testid="button-text-gray-600 dark:text-gray-300">
 
                     <Smile className="w-5 h-5" />
                   </Button>
@@ -491,8 +491,8 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3"
-                    asChild data-testid="button-text-gray-600">
+                    className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)] flex items-center gap-2 px-3"
+                    asChild data-testid="button-text-gray-600 dark:text-gray-300">
 
                     <span className="flex items-center gap-2">
                       <Camera className="w-5 h-5" />
@@ -523,7 +523,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       }
                     );
                   }}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50" data-testid="button-text-gray-600">
+                  className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]" data-testid="button-text-gray-600 dark:text-gray-300">
 
                   <MapPin className="w-5 h-5" />
                 </Button>
@@ -533,7 +533,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50" data-testid="button-text-gray-600">
+                  className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]" data-testid="button-text-gray-600 dark:text-gray-300">
 
                   <Tag className="w-5 h-5" />
                 </Button>
@@ -544,7 +544,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50" data-testid="button-text-gray-600">
+                      className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]" data-testid="button-text-gray-600 dark:text-gray-300">
 
                       <Heart className="w-5 h-5" />
                     </Button>
@@ -554,7 +554,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       {emotionOptions.map((emotion) =>
                       <button
                         key={emotion.emoji}
-                        onClick={() => {
+                        onClick={() = aria-label="Button"> {
                           if (selectedEmotions.includes(emotion.emoji)) {
                             setSelectedEmotions((prev) => prev.filter((e) => e !== emotion.emoji));
                           } else {
@@ -565,7 +565,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                           "p-3 rounded-lg transition-all duration-300 hover:scale-110",
                           selectedEmotions.includes(emotion.emoji) ?
                           "bg-gradient-to-br " + emotion.color + " shadow-lg" :
-                          "hover:bg-gray-100"
+                          "hover:bg-[var(--color-neutral-100)]"
                         )} data-testid="button-element">
 
                           <span className="text-2xl">{emotion.emoji}</span>
@@ -601,7 +601,7 @@ const OriginalEnhancedPostCreator: React.FC<{
             <div className="space-y-3 pt-4 border-t border-gray-100 animate-fadeIn">
                   {/* Tags Input */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block">Tags</label>
+                    <label className="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Tags</label>
                     <div className="flex flex-wrap gap-2">
                       <Input
                     placeholder="Add tags..."
@@ -621,7 +621,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                           #{tag}
                           <button
-                      onClick={() => setTags((prev) => prev.filter((_, i) => i !== index))}
+                      onClick={() = aria-label="Button"> setTags((prev) => prev.filter((_, i) => i !== index))}
                       className="ml-1" data-testid="button-ml-1">
 
                             <X className="w-3 h-3" />
@@ -633,7 +633,7 @@ const OriginalEnhancedPostCreator: React.FC<{
 
                   {/* Visibility */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block">Who can see this?</label>
+                    <label className="text-sm text-gray-600 dark:text-gray-300 mb-1 block">Who can see this?</label>
                     <div className="flex gap-2">
                       {[
                   { value: 'public', icon: Globe, label: 'Everyone' },
@@ -642,12 +642,12 @@ const OriginalEnhancedPostCreator: React.FC<{
                   map((option) =>
                   <button
                     key={option.value}
-                    onClick={() => setVisibility(option.value as any)}
+                    onClick={() = aria-label="Button"> setVisibility(option.value as any)}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-lg transition-all",
                       visibility === option.value ?
-                      "bg-turquoise-100 text-turquoise-700 border-2 border-turquoise-300" :
-                      "bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100"
+                      "bg-turquoise-100 text-turquoise-700 border-2 border-[var(--color-ocean-300)]" :
+                      "bg-[var(--color-surface-elevated)] text-gray-600 dark:text-gray-300 border-2 border-transparent hover:bg-[var(--color-neutral-100)]"
                     )} data-testid="button-element">
 
                           <option.icon className="w-4 h-4" />
@@ -707,8 +707,8 @@ export const EnhancedMemoryCard: React.FC<{
               }
             </div>
             <div>
-              <h4 className="font-semibold text-gray-800">{memory.user?.name || 'Anonymous'}</h4>
-              <p className="text-sm text-gray-500">
+              <h4 className="font-semibold text-gray-800 dark:text-gray-100">{memory.user?.name || 'Anonymous'}</h4>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 {memory.location && <span className="mr-2">📍 {memory.location}</span>}
                 {new Date(memory.createdAt).toLocaleDateString()}
               </p>
@@ -744,7 +744,7 @@ export const EnhancedMemoryCard: React.FC<{
 
         {/* Content */}
         <div className="px-4 pb-3">
-          <p className="text-gray-800 whitespace-pre-wrap">{memory.content}</p>
+          <p className="text-gray-800 dark:text-gray-100 whitespace-pre-wrap">{memory.content}</p>
           
           {/* Emotions */}
           {memory.emotionTags && memory.emotionTags.length > 0 &&
@@ -779,14 +779,14 @@ export const EnhancedMemoryCard: React.FC<{
               {/* Like/Reactions */}
               <div className="relative">
                 <button
-                  onClick={() => handleReaction('❤️')}
+                  onClick={() = aria-label="Button"> handleReaction('❤️')}
                   onMouseEnter={() => setShowReactions(true)}
                   onMouseLeave={() => setShowReactions(false)}
                   className={cn(
                     "flex items-center gap-2 px-3 py-1.5 rounded-full transition-all active:scale-90",
                     isLiked ?
                     "bg-red-100 text-red-600" :
-                    "hover:bg-gray-100 text-gray-600"
+                    "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300"
                   )} data-testid="button-element">
 
                   <Heart className={cn("w-4 h-4", isLiked && "fill-current")} />
@@ -795,13 +795,13 @@ export const EnhancedMemoryCard: React.FC<{
                 
                 {showReactions &&
                 <div
-                  className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn">
+                  className="absolute bottom-full left-0 mb-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn">
 
                     {reactionOptions.map((reaction) =>
                   <button
                     key={reaction.emoji}
-                    onClick={() => handleReaction(reaction.emoji)}
-                    className="p-1.5 hover:bg-gray-100 rounded-full hover:scale-110 active:scale-90 transition-transform" data-testid="button-p-1-5">
+                    onClick={() = aria-label="Button"> handleReaction(reaction.emoji)}
+                    className="p-1.5 hover:bg-[var(--color-neutral-100)] rounded-full hover:scale-110 active:scale-90 transition-transform" data-testid="button-p-1-5">
 
                         <span className="text-xl">{reaction.emoji}</span>
                       </button>
@@ -812,8 +812,8 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Comments */}
               <button
-                onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all" data-testid="button-flex">
+                onClick={() = aria-label="Button"> setShowComments(!showComments)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300 transition-all" data-testid="button-flex">
 
                 <MessageCircle className="w-4 h-4" />
                 <span className="text-sm font-medium">{memory.comments?.length || 0}</span>
@@ -821,8 +821,8 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Share */}
               <button
-                onClick={() => onInteraction('share')}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all" data-testid="button-flex">
+                onClick={() = aria-label="Button"> onInteraction('share')}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300 transition-all" data-testid="button-flex">
 
                 <Share2 className="w-4 h-4" />
               </button>
@@ -830,8 +830,8 @@ export const EnhancedMemoryCard: React.FC<{
 
             {/* Save */}
             <button
-              onClick={() => onInteraction('save')}
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-all" data-testid="button-p-2">
+              onClick={() = aria-label="Button"> onInteraction('save')}
+              className="p-2 rounded-full hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300 transition-all" data-testid="button-p-2">
 
               <Bookmark className="w-4 h-4" />
             </button>
@@ -863,13 +863,13 @@ export const EnhancedMemoryCard: React.FC<{
                 {/* Comments List */}
                 {memory.comments?.map((comment: any, index: number) =>
             <div key={index} className="flex gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
+                    <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
                     <div className="flex-1">
                       <p className="text-sm">
                         <span className="font-semibold mr-2">{comment.userName}</span>
                         {comment.text}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {new Date(comment.createdAt).toLocaleDateString()}
                       </p>
                     </div>

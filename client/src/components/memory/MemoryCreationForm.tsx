@@ -268,7 +268,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
+          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-[var(--color-ocean-500)] bg-clip-text text-transparent">
             Create New Memory
           </DialogTitle>
         </DialogHeader>
@@ -309,8 +309,8 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                 className={cn(
                   "cursor-pointer transition-all",
                   emotionTags.includes(tag) ?
-                  "bg-gradient-to-r from-pink-500 to-blue-500 text-white" :
-                  "hover:bg-gray-100"
+                  "bg-gradient-to-r from-pink-500 to-[var(--color-ocean-500)] text-white" :
+                  "hover:bg-[var(--color-neutral-100)]"
                 )}
                 onClick={() =>
                 emotionTags.includes(tag) ? removeEmotionTag(tag) : addEmotionTag(tag)
@@ -364,7 +364,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               allowManualEntry={true} />
 
             {location &&
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                 <MapPin className="w-4 h-4 mr-2" />
                 {location.formattedAddress}
               </div>
@@ -404,15 +404,15 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               
               {/* Search Results */}
               {showUserSearch && searchedUsers.length > 0 &&
-              <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
+              <div className="absolute z-10 w-full mt-1 bg-[var(--color-surface)] dark:bg-gray-900 border rounded-md shadow-lg max-h-48 overflow-y-auto">
                   {searchedUsers.map((user) =>
                 <div
                   key={user.id}
-                  className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                  className="p-3 hover:bg-[var(--color-surface-elevated)] cursor-pointer border-b last:border-b-0"
                   onClick={() => addCoTaggedUser(user)}>
 
                       <div className="font-medium">{user.name}</div>
-                      <div className="text-sm text-gray-500">@{user.username}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">@{user.username}</div>
                     </div>
                 )}
                 </div>
@@ -475,7 +475,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                 <SelectItem key={tier.value} value={tier.value}>
                     <div>
                       <div className="font-medium">{tier.label}</div>
-                      <div className="text-sm text-gray-500">{tier.description}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">{tier.description}</div>
                     </div>
                   </SelectItem>
                 )}
@@ -491,7 +491,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Button
               onClick={handleSubmit}
               disabled={loading}
-              className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600" data-testid="button-bg-gradient-to-r">
+              className="bg-gradient-to-r from-pink-500 to-[var(--color-ocean-500)] hover:from-pink-600 hover:to-[var(--color-ocean-600)]" data-testid="button-bg-gradient-to-r">
 
               {loading ? 'Creating...' : 'Create Memory'}
             </Button>

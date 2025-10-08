@@ -135,12 +135,12 @@ export default function CityGroupAutocomplete({
 
       {/* Selected city display */}
       {value &&
-      <div className="mt-2 p-3 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
+      <div className="mt-2 p-3 bg-[var(--color-ocean-50)] dark:bg-turquoise-900/20 rounded-lg border border-turquoise-200">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-turquoise-600" />
-                <span className="font-medium text-gray-900 dark:text-gray-100">{value.name}</span>
+                <MapPin className="w-4 h-4 text-[var(--color-primary-hover)]" />
+                <span className="font-medium text-[var(--color-text)] dark:text-gray-100">{value.name}</span>
               </div>
               {value.memberCount !== undefined &&
             <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -153,7 +153,7 @@ export default function CityGroupAutocomplete({
             size="sm"
             variant="ghost"
             onClick={() => onSelect(null)}
-            className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+            className="text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]" data-testid="button-text-gray-500 dark:text-gray-400">
 
               Clear
             </Button>
@@ -165,7 +165,7 @@ export default function CityGroupAutocomplete({
       {isOpen &&
       <Card className="absolute z-50 w-full mt-1 max-h-80 overflow-auto shadow-lg">
           {isLoading &&
-        <div className="p-4 text-center text-gray-500">
+        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               Loading cities...
             </div>
         }
@@ -177,14 +177,14 @@ export default function CityGroupAutocomplete({
             return (
               <button
                 key={cityGroup.id}
-                onClick={() => handleSelectCity(cityGroup)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
+                onClick={() = aria-label="Button"> handleSelectCity(cityGroup)}
+                className="w-full px-4 py-3 text-left hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
 
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5" />
+                        <MapPin className="w-5 h-5 text-[var(--color-primary)] mt-0.5" />
                         <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100">
+                          <div className="font-medium text-[var(--color-text)] dark:text-gray-100">
                             {city}
                           </div>
                           {country &&
@@ -209,7 +209,7 @@ export default function CityGroupAutocomplete({
 
           {!isLoading && debouncedSearch && (!cityGroups || cityGroups.length === 0) &&
         <div className="p-4">
-              <p className="text-center text-gray-500 mb-3">
+              <p className="text-center text-gray-500 dark:text-gray-400 mb-3">
                 No cities found matching "{debouncedSearch}"
               </p>
               {allowCreate &&
@@ -226,7 +226,7 @@ export default function CityGroupAutocomplete({
         }
 
           {!isLoading && !debouncedSearch && cityGroups && cityGroups.length > 0 &&
-        <div className="p-4 text-center text-gray-500">
+        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               Showing all cities
             </div>
         }

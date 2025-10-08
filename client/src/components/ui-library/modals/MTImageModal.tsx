@@ -219,10 +219,10 @@ const MTImageModal: React.FC<MTImageModalProps> = ({
 
                   {showThumbnails && imageArray.length > 1 && (
                     <button
-                      onClick={() => setShowThumbnailGrid(!showThumbnailGrid)}
+                      onClick={() = aria-label="Button"> setShowThumbnailGrid(!showThumbnailGrid)}
                       className={cn(
                         "p-2 bg-black/50 backdrop-blur-sm rounded-lg text-white hover:bg-black/70 transition-colors",
-                        showThumbnailGrid && "bg-teal-600/50"
+                        showThumbnailGrid && "bg-[var(--color-primary-hover)]/50"
                       )}
                       aria-label="Toggle thumbnails"
                       data-testid={`${testId}-thumbnails`}
@@ -333,7 +333,7 @@ const MTImageModal: React.FC<MTImageModalProps> = ({
               {imageArray.map((img, index) => (
                 <button
                   key={index}
-                  onClick={() => {
+                  onClick={() = aria-label="Button"> {
                     setActiveIndex(index);
                     setShowThumbnailGrid(false);
                   }}

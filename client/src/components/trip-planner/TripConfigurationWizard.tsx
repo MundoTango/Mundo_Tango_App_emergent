@@ -83,7 +83,7 @@ export default function TripConfigurationWizard({
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
           Plan Your Trip to {city}
         </h2>
         <p className="text-gray-600 dark:text-gray-400">
@@ -94,7 +94,7 @@ export default function TripConfigurationWizard({
       {/* Date Selection */}
       <Card className="p-6 glass-card-depth-1">
         <div className="flex items-center gap-2 mb-4">
-          <Calendar className="h-5 w-5 text-cyan-600" />
+          <Calendar className="h-5 w-5 text-[var(--color-primary-hover)]" />
           <h3 className="font-semibold text-lg">When are you visiting?</h3>
         </div>
 
@@ -145,16 +145,16 @@ export default function TripConfigurationWizard({
           {['budget', 'medium', 'high', 'luxury'].map((level) => (
             <button
               key={level}
-              onClick={() => setBudget(level)}
+              onClick={() = aria-label="Button"> setBudget(level)}
               className={`p-3 rounded-lg border-2 transition ${
                 budget === level
-                  ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-cyan-300'
+                  ? 'border-cyan-500 bg-[var(--color-ocean-50)] dark:bg-cyan-900/20'
+                  : 'border-[var(--color-border)] dark:border-gray-700 hover:border-[var(--color-ocean-300)]'
               }`}
               data-testid={`button-budget-${level}`}
             >
               <div className="text-sm font-medium capitalize">{level}</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 {level === 'budget' && '$'}
                 {level === 'medium' && '$$'}
                 {level === 'high' && '$$$'}
@@ -176,11 +176,11 @@ export default function TripConfigurationWizard({
           {INTEREST_OPTIONS.map((interest) => (
             <button
               key={interest}
-              onClick={() => toggleInterest(interest)}
+              onClick={() = aria-label="Button"> toggleInterest(interest)}
               className={`p-2 rounded-lg border text-sm transition ${
                 interests.includes(interest)
                   ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-pink-300'
+                  : 'border-[var(--color-border)] dark:border-gray-700 hover:border-pink-300'
               }`}
               data-testid={`button-interest-${interest.toLowerCase().replace(/\s+/g, '-')}`}
             >
@@ -214,7 +214,7 @@ export default function TripConfigurationWizard({
       <Button
         onClick={handleSubmit}
         disabled={!startDate || !endDate || tripDuration === 0}
-        className="w-full h-12 text-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
+        className="w-full h-12 text-lg bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-ocean-500)] hover:from-cyan-600 hover:to-[var(--color-ocean-600)] text-white"
         data-testid="button-find-activities"
       >
         Find Activities & Stays

@@ -147,8 +147,8 @@ export default function CreatePost() {
           <div className="flex-1">
             {!isExpanded ?
             <button
-              onClick={() => setIsExpanded(true)}
-              className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-turquoise-600 hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300" data-testid="button-w-full">
+              onClick={() = aria-label="Button"> setIsExpanded(true)}
+              className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-[var(--color-primary-hover)] hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300" data-testid="button-w-full">
 
                 Share your tango experience...
               </button> :
@@ -169,7 +169,7 @@ export default function CreatePost() {
         <div className="mb-4 p-3 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-2">
-                <Upload className="h-4 w-4 text-turquoise-600 animate-pulse" />
+                <Upload className="h-4 w-4 text-[var(--color-primary-hover)] animate-pulse" />
                 <span className="text-sm font-medium text-turquoise-700">
                   {progress < 30 ? 'Compressing...' :
                 progress < 90 ? 'Uploading...' :
@@ -177,14 +177,14 @@ export default function CreatePost() {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4 text-cyan-600" />
+                <Clock className="h-4 w-4 text-[var(--color-primary-hover)]" />
                 <span className="text-sm text-cyan-700">
                   {(processingTime / 1000).toFixed(1)}s
                 </span>
               </div>
             </div>
             <Progress value={progress} className="h-2" />
-            <div className="mt-1 text-xs text-turquoise-600">
+            <div className="mt-1 text-xs text-[var(--color-primary-hover)]">
               {progress}% • {selectedFiles.reduce((sum, f) => sum + f.size, 0) / 1024 / 1024 > 5 ? 'Large file optimization' : 'Fast upload'}
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function CreatePost() {
         <div className="mb-4 relative">
             <button
             onClick={removeFiles}
-            className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10" data-testid="button-absolute">
+            className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70 z-10" data-testid="button-absolute" aria-label="Button">
 
               <X className="h-4 w-4" />
             </button>
@@ -222,7 +222,7 @@ export default function CreatePost() {
 
         <div className="flex items-center justify-between">
           <div className="flex space-x-4">
-            <label className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 cursor-pointer transition-colors">
+            <label className="flex items-center space-x-2 text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] cursor-pointer transition-colors">
               <input
                 type="file"
                 accept="image/*,video/*"
@@ -235,7 +235,7 @@ export default function CreatePost() {
               <span className="text-sm">Photo/Video</span>
             </label>
             
-            <Button variant="ghost" size="sm" className="text-turquoise-600 hover:text-cyan-600 p-0 transition-colors" data-testid="button-text-turquoise-600">
+            <Button variant="ghost" size="sm" className="text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] p-0 transition-colors" data-testid="button-text-[var(--color-primary-hover)]">
               <Calendar className="h-5 w-5 mr-2" />
               <span className="text-sm">Event</span>
             </Button>
@@ -252,7 +252,7 @@ export default function CreatePost() {
                 removeFiles();
                 reset();
               }}
-              className="border-turquoise-200 text-turquoise-600 hover:bg-turquoise-50"
+              className="border-turquoise-200 text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]"
               disabled={isUploading} data-testid="button-border-turquoise-200">
 
                 Cancel

@@ -36,7 +36,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">When can guests book?</h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           Set your availability preferences and booking settings
         </p>
       </div>
@@ -49,7 +49,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
               <Zap className="w-5 h-5 text-purple-600" />
               <h3 className="text-lg font-medium">Instant Book</h3>
             </div>
-            <p className="text-sm text-gray-600 mb-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
               Guests can book instantly without waiting for your approval
             </p>
             <p className="text-xs text-purple-600 font-medium">
@@ -78,7 +78,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             </option>
           )}
         </select>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           Shorter stays mean more bookings, but also more turnovers
         </p>
       </div>
@@ -160,13 +160,13 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Calendar availability (simplified for MVP) */}
       <div>
         <h3 className="text-lg font-medium mb-2">Set your calendar availability</h3>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
           Select dates when your property is available. You can update this anytime.
         </p>
         
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <div className="bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg p-4">
           <div className="flex items-center gap-2 mb-3">
-            <CalendarIcon className="w-4 h-4 text-gray-600" />
+            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             <span className="text-sm font-medium">Availability options</span>
           </div>
           
@@ -177,12 +177,12 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="always"
                 checked={data.availabilityType === 'always'}
-                onChange={() => updateData({ availabilityType: 'always' })}
+                onChange={() = aria-label="Input field"> updateData({ availabilityType: 'always' })}
                 className="text-pink-500" data-testid="input-radio" />
 
               <div>
                 <div className="font-medium">Always available</div>
-                <div className="text-xs text-gray-500">Your calendar is open for all future dates</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Your calendar is open for all future dates</div>
               </div>
             </label>
             
@@ -192,12 +192,12 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="sometimes"
                 checked={data.availabilityType === 'sometimes' || !data.availabilityType}
-                onChange={() => updateData({ availabilityType: 'sometimes' })}
+                onChange={() = aria-label="Input field"> updateData({ availabilityType: 'sometimes' })}
                 className="text-pink-500" data-testid="input-radio" />
 
               <div>
                 <div className="font-medium">Sometimes available</div>
-                <div className="text-xs text-gray-500">You'll manually block dates when unavailable</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">You'll manually block dates when unavailable</div>
               </div>
             </label>
           </div>

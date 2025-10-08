@@ -31,7 +31,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
         {Array.from({ length: 6 }).map((_, i) =>
         <Card key={i} className="glassmorphic-card aspect-square">
             <CardContent className="p-0">
-              <div className="animate-pulse bg-gray-200 w-full h-full rounded-lg"></div>
+              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 w-full h-full rounded-lg"></div>
             </CardContent>
           </Card>
         )}
@@ -43,8 +43,8 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load photos</h3>
-          <p className="text-gray-600">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">Unable to load photos</h3>
+          <p className="text-gray-600 dark:text-gray-300">Please try again later.</p>
         </CardContent>
       </Card>);
 
@@ -87,8 +87,8 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
         <Card className="glassmorphic-card">
             <CardContent className="p-12 text-center">
               <Camera className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No photos yet</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No photos yet</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 {isOwnProfile ?
               'Start sharing your tango moments by uploading your first photo.' :
               'No photos to display.'}
@@ -117,7 +117,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
               onClick={() => setSelectedPhoto(null)}
               variant="ghost"
               size="icon"
-              className="absolute top-2 right-2 bg-white/20 backdrop-blur-md hover:bg-white/30" data-testid="button-absolute">
+              className="absolute top-2 right-2 bg-[var(--color-surface)] dark:bg-gray-900/20 backdrop-blur-md hover:bg-[var(--color-surface)] dark:bg-gray-900/30" data-testid="button-absolute">
 
               <X className="h-4 w-4" />
             </Button>
@@ -135,7 +135,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-gray-600">Photo upload functionality coming soon.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Photo upload functionality coming soon.</p>
           </div>
         </DialogContent>
       </Dialog>

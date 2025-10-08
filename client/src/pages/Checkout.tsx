@@ -124,7 +124,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
         </Button>
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+      <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
         <Lock className="w-4 h-4" />
         <span>Secured by Stripe</span>
       </div>
@@ -238,8 +238,8 @@ const Checkout: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Complete Your Subscription</h1>
-          <p className="text-gray-600">Secure payment powered by Stripe</p>
+          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Complete Your Subscription</h1>
+          <p className="text-gray-600 dark:text-gray-300">Secure payment powered by Stripe</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -253,7 +253,7 @@ const Checkout: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-semibold capitalize">{tier} Plan</p>
-                    <p className="text-sm text-gray-500">Monthly subscription</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Monthly subscription</p>
                   </div>
                   <p className="text-lg font-semibold">${(originalPrice / 100).toFixed(2)}</p>
                 </div>
@@ -309,9 +309,9 @@ const Checkout: React.FC = () => {
 
                 {/* Features */}
                 <div className="pt-4 space-y-2">
-                  <p className="text-sm font-medium text-gray-700">Included features:</p>
+                  <p className="text-sm font-medium text-[var(--color-text-secondary)]">Included features:</p>
                   {selectedTier?.features?.slice(0, 5).map((feature: string, index: number) =>
-                  <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                       <span>{feature.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</span>
                     </div>

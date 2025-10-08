@@ -185,7 +185,7 @@ export default function ProfileLocationEditor({ user, onUpdate, onCancel }: Prof
                     <button
                     type="button"
                     onClick={clearLocation}
-                    className="text-blue-600 hover:text-blue-800" data-testid="button-button">
+                    className="text-blue-600 hover:text-blue-800" data-testid="button-button" aria-label="Button">
 
                       <X className="w-4 h-4" />
                     </button>

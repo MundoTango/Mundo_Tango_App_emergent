@@ -74,7 +74,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
           {/* Overall Rating */}
           <div>
             <div className="text-center mb-6">
-              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 dark:from-cyan-400 dark:via-teal-400 dark:to-blue-400 bg-clip-text text-transparent mb-2" data-testid="average-rating">
+              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] dark:from-[var(--color-ocean-400)] dark:via-teal-400 dark:to-blue-400 bg-clip-text text-transparent mb-2" data-testid="average-rating">
                 {averageRating.toFixed(1)}
               </div>
               <StarRating rating={averageRating} readonly size="lg" />
@@ -96,7 +96,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                   </span>
                   <div className="flex-1 glass-card glass-depth-1 rounded-full overflow-hidden h-2">
                     <div 
-                      className="h-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-[var(--color-primary)] to-teal-500 transition-all duration-500"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
@@ -124,7 +124,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                         readonly
                         size="sm"
                       />
-                      <span className="text-sm font-medium text-cyan-600 dark:text-cyan-400 w-8">
+                      <span className="text-sm font-medium text-[var(--color-primary-hover)] dark:text-cyan-400 w-8">
                         {calculateAverage(categoryRatings.cleanliness).toFixed(1)}
                       </span>
                     </div>
@@ -143,7 +143,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                         readonly
                         size="sm"
                       />
-                      <span className="text-sm font-medium text-cyan-600 dark:text-cyan-400 w-8">
+                      <span className="text-sm font-medium text-[var(--color-primary-hover)] dark:text-cyan-400 w-8">
                         {calculateAverage(categoryRatings.communication).toFixed(1)}
                       </span>
                     </div>
@@ -162,7 +162,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                         readonly
                         size="sm"
                       />
-                      <span className="text-sm font-medium text-cyan-600 dark:text-cyan-400 w-8">
+                      <span className="text-sm font-medium text-[var(--color-primary-hover)] dark:text-cyan-400 w-8">
                         {calculateAverage(categoryRatings.location).toFixed(1)}
                       </span>
                     </div>
@@ -181,7 +181,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                         readonly
                         size="sm"
                       />
-                      <span className="text-sm font-medium text-cyan-600 dark:text-cyan-400 w-8">
+                      <span className="text-sm font-medium text-[var(--color-primary-hover)] dark:text-cyan-400 w-8">
                         {calculateAverage(categoryRatings.value).toFixed(1)}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
                         readonly
                         size="sm"
                       />
-                      <span className="text-sm font-medium text-cyan-600 dark:text-cyan-400 w-8">
+                      <span className="text-sm font-medium text-[var(--color-primary-hover)] dark:text-cyan-400 w-8">
                         {calculateAverage(categoryRatings.accuracy).toFixed(1)}
                       </span>
                     </div>

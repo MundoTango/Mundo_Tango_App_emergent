@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
 import { useFriendRequest } from '@/hooks/useFriendRequest';
@@ -101,7 +102,8 @@ interface RequestApiResponse {
 }
 
 const filterOptions = [
-{ value: 'all', label: 'All Friends' },
+{
+  const { t } = useTranslation(); value: 'all', label: 'All Friends' },
 { value: 'online', label: 'Online Only' },
 { value: 'dancers', label: 'Dancers' },
 { value: 'teachers', label: 'Teachers' },
@@ -341,13 +343,13 @@ export default function EnhancedFriendsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Friends
             </h1>
-            <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
+            <p className="text-gray-600 dark:text-gray-300 mt-1">Connect with dancers in your community</p>
           </div>
           <div className="flex gap-2">
             <Button
               onClick={exportFriendsToCSV}
               variant="outline"
-              className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+              className="border-turquoise-200 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
               <Download className="w-4 h-4 mr-2" />
               Export
@@ -366,10 +368,10 @@ export default function EnhancedFriendsPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 glassmorphic-card hover:scale-105 transition-transform">
             <div className="flex items-center gap-3">
-              <Users className="w-8 h-8 text-turquoise-600" />
+              <Users className="w-8 h-8 text-[var(--color-primary-hover)]" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
-                <p className="text-sm text-gray-600">Total Friends</p>
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{friends.length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Total Friends</p>
               </div>
             </div>
           </Card>
@@ -377,21 +379,21 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-blue-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-600">Pending</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Pending</p>
               </div>
             </div>
           </Card>
           <Card className="p-4 bg-gradient-to-r from-blue-50 to-turquoise-50 glassmorphic-card hover:scale-105 transition-transform">
             <div className="flex items-center gap-3">
-              <Heart className="w-8 h-8 text-cyan-600" />
+              <Heart className="w-8 h-8 text-[var(--color-primary-hover)]" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                   {friendGroups.favorites.length}
                 </p>
-                <p className="text-sm text-gray-600">Favorites</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Favorites</p>
               </div>
             </div>
           </Card>
@@ -399,10 +401,10 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Activity className="w-8 h-8 text-purple-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                   {recentActivities.length}
                 </p>
-                <p className="text-sm text-gray-600">Active Today</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Active Today</p>
               </div>
             </div>
           </Card>
@@ -464,22 +466,22 @@ export default function EnhancedFriendsPage() {
           {/* Friend Activity Feed */}
           <div className="lg:col-span-1">
             <Card className="p-4">
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-turquoise-600" />
+              <h3 className="font-semibold text-[var(--color-text)] dark:text-white mb-4 flex items-center gap-2">
+                <Activity className="w-5 h-5 text-[var(--color-primary-hover)]" />
                 Friend Activity
               </h3>
               <div className="space-y-3">
                 {recentActivities.map((friend) =>
                 <LazyLoad key={friend.id} height={60} once>
-                    <div className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                    <div className="flex items-start gap-3 p-2 hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors">
                       <div className="w-8 h-8 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                         {friend.name?.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-[var(--color-text)] dark:text-white truncate">
                           {friend.name}
                         </p>
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-gray-600 dark:text-gray-300">
                           {friend.lastActivity?.message}
                         </p>
                         <p className="text-xs text-gray-400 mt-1">
@@ -514,7 +516,7 @@ export default function EnhancedFriendsPage() {
                     ''}`
                     }>
 
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                        <h4 className="font-medium text-[var(--color-text)] dark:text-white mb-2 flex items-center gap-2">
                           <group.icon className={`w-4 h-4 text-${group.color}-600`} />
                           {group.title}
                           <Badge variant="secondary" className="ml-auto">
@@ -536,7 +538,7 @@ export default function EnhancedFriendsPage() {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className="bg-white p-2 rounded-lg border text-sm">
+                              className="bg-[var(--color-surface)] dark:bg-gray-900 p-2 rounded-lg border text-sm">
 
                                     {friend.name}
                                   </div>
@@ -571,7 +573,7 @@ export default function EnhancedFriendsPage() {
                         </div>
                     }
                     endMessage={
-                    <p className="text-center py-4 text-gray-500">
+                    <p className="text-center py-4 text-gray-500 dark:text-gray-400">
                           <b>🎉 You've seen all your friends!</b>
                         </p>
                     }
@@ -609,9 +611,9 @@ export default function EnhancedFriendsPage() {
                                     }
                                         </div>
                                         <div className="flex-1">
-                                          <h4 className="font-semibold text-gray-900">{friend.name}</h4>
-                                          <p className="text-sm text-gray-600">@{friend.username}</p>
-                                          <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                                          <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{friend.name}</h4>
+                                          <p className="text-sm text-gray-600 dark:text-gray-300">@{friend.username}</p>
+                                          <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-1">
                                             <MapPin className="w-3 h-3" />
                                             {friend.location}
                                           </p>
@@ -623,7 +625,7 @@ export default function EnhancedFriendsPage() {
                                       )}
                                           </div>
                                           {friend.mutualFriends && friend.mutualFriends > 0 &&
-                                    <p className="text-xs text-gray-500 mt-2">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                                               {friend.mutualFriends} mutual friends
                                             </p>
                                     }
@@ -637,7 +639,7 @@ export default function EnhancedFriendsPage() {
                                           <Button size="icon" variant="ghost" data-testid="button-element">
                                             <Share2 className="w-4 h-4" />
                                           </Button>
-                                          <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
+                                          <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-[var(--color-surface)] dark:bg-gray-900 shadow-lg rounded-lg p-2">
                                             <FacebookShareButton
                                         url={`https://mundotango.life/profile/${friend.username}`}>
 
@@ -676,10 +678,10 @@ export default function EnhancedFriendsPage() {
         </div>
 
         {/* Keyboard Shortcuts Help */}
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
           <p>
-            Press <kbd className="px-2 py-1 bg-gray-100 rounded">Cmd+F</kbd> to search • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+A</kbd> to add friends
+            Press <kbd className="px-2 py-1 bg-[var(--color-neutral-100)] rounded">Cmd+F</kbd> to search • 
+            <kbd className="px-2 py-1 bg-[var(--color-neutral-100)] rounded ml-2">Cmd+A</kbd> to add friends
           </p>
         </div>
 
@@ -693,7 +695,7 @@ export default function EnhancedFriendsPage() {
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">
                   Username or Email
                 </label>
                 <Input
@@ -704,7 +706,7 @@ export default function EnhancedFriendsPage() {
 
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">
                   Add a personal note (optional)
                 </label>
                 <Textarea
@@ -744,7 +746,7 @@ export default function EnhancedFriendsPage() {
                       );
                     } else {
                       toast({
-                        title: "Error",
+                        title: {t('states.error', 'Error')},
                         description: "Please enter a username or email to send friend request",
                         variant: "destructive"
                       });

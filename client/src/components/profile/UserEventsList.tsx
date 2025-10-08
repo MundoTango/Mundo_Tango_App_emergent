@@ -25,9 +25,9 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
           <Card key={i} className="glassmorphic-card">
             <CardContent className="p-6">
               <div className="animate-pulse space-y-3">
-                <div className="h-5 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
               </div>
             </CardContent>
           </Card>
@@ -40,8 +40,8 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load events</h3>
-          <p className="text-gray-600">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">Unable to load events</h3>
+          <p className="text-gray-600 dark:text-gray-300">Please try again later.</p>
         </CardContent>
       </Card>
     );
@@ -54,7 +54,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     <div className="space-y-6">
       {upcomingEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Upcoming Events</h3>
           {upcomingEvents.map((event: any) => (
             <UnifiedEventCard
               key={event.id}
@@ -78,13 +78,13 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
 
       {pastEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Past Events</h3>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Past Events</h3>
           {pastEvents.map((event: any) => (
             <Card key={event.id} className="glassmorphic-card opacity-75">
               <CardContent className="p-6">
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-700">{event.title}</h4>
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <h4 className="font-semibold text-[var(--color-text-secondary)]">{event.title}</h4>
+                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                     <span>{new Date(event.startDate).toLocaleDateString()}</span>
                     {event.location && <span>{event.location}</span>}
                   </div>
@@ -99,8 +99,8 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No events yet</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No events yet</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               {isOwnProfile
                 ? 'Start organizing or attending tango events to see them here.'
                 : 'No events to display.'}

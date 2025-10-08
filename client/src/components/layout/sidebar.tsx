@@ -36,7 +36,8 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { useTranslation } from 'react-i18next';;
 
 interface SidebarProps {
   isOpen: boolean;
@@ -47,12 +48,13 @@ interface SidebarProps {
 // Organized navigation structure for ESA LIFE CEO 61x21 platform (72 pages)
 const SIDEBAR_SECTIONS = [
 {
+  const { t } = useTranslation();
   title: "Main",
   routes: [
   { title: "Feed", icon: <Home className="w-5 h-5" />, link: "/memories" },
-  { title: "Profile", icon: <User className="w-5 h-5" />, link: "/profile" },
-  { title: "Search", icon: <Search className="w-5 h-5" />, link: "/search" },
-  { title: "Settings", icon: <Settings className="w-5 h-5" />, link: "/settings" },
+  { title: {t('navigation.profile', 'Profile')}, icon: <User className="w-5 h-5" />, link: "/profile" },
+  { title: {t('actions.search', 'Search')}, icon: <Search className="w-5 h-5" />, link: "/search" },
+  { title: {t('navigation.settings', 'Settings')}, icon: <Settings className="w-5 h-5" />, link: "/settings" },
   { title: "Notifications", icon: <Bell className="w-5 h-5" />, link: "/notifications" }]
 
 },
@@ -276,11 +278,11 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
     <div onClick={onClose}>
       <div
         className={cn(
-          "fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-white w-64 text-gray-800 z-20 border-r-2 border-gray-200 overflow-y-auto",
+          "fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-[var(--color-surface)] w-64 text-gray-800 dark:text-gray-100 z-20 border-r-2 border-[var(--color-border)] overflow-y-auto",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}>
 
-        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 text-red-600 font-bold text-xl gap-6">
+        <div className="h-16 flex justify-center items-center border-b-2 border-[var(--color-border)] text-red-600 font-bold text-xl gap-6">
           <div>
             <Button
               variant="ghost"
@@ -298,7 +300,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           {/* User Profile Section */}
           <div className="px-4 mb-6">
             <Link href="/profile?tab=memories" data-testid="link-element">
-              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
+              <div className="text-black dark:text-white flex items-center gap-4 cursor-pointer hover:bg-[var(--color-surface-elevated)] rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
                 <Avatar className="h-10 w-10">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
@@ -310,7 +312,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                 </Avatar>
                 <div>
                   <div className="text-sm font-semibold">{user?.name || "User"}</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
                     {user?.username ? `@${user.username}` : "@user"}
                   </div>
                   {/* User role emojis */}
@@ -340,7 +342,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             return (
               <div key={sectionIndex} className="mb-4">
                 <div
-                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600"
+                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600 dark:text-gray-300"
                   onClick={() => toggleSection(section.title)}>
 
                   <span className={cn(hasActiveRoute && "text-red-600")}>{section.title}</span>
@@ -355,7 +357,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                         "group flex gap-3 items-center py-2 px-6 transition duration-200 hover:bg-blue-50 hover:text-red-600",
                         isActive(link) ?
                         "text-red-600 bg-blue-50 font-semibold border-r-4 border-red-600" :
-                        "text-gray-600"
+                        "text-gray-600 dark:text-gray-300"
                       )}>
 
                         <div className="group-hover:text-red-600 w-6">{icon}</div>
@@ -369,7 +371,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           })}
 
           {/* Mundo Tango Statistics */}
-          <div className="px-6 my-6 text-black space-y-4">
+          <div className="px-6 my-6 text-black dark:text-white space-y-4">
             <div className="uppercase text-gray-400 font-bold text-xs">
               Mundo Tango Details
             </div>
@@ -378,7 +380,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
               key={index}
               className="flex items-center gap-3 cursor-pointer select-none">
 
-                <div className="bg-gray-500 text-white rounded-lg">
+                <div className="bg-[var(--color-surface-elevated)] dark:bg-gray-8000 text-white rounded-lg">
                   <div className="w-12 h-10 flex items-center justify-center text-sm font-medium">
                     {item.count}
                   </div>

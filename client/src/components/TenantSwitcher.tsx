@@ -84,7 +84,7 @@ const TenantSwitcher = () => {
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <button
-          className="flex items-center justify-between w-full gap-2 p-3 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-blue-50/50 dark:hover:from-teal-900/30 dark:hover:to-blue-900/30 transition-all duration-300 shadow-lg hover:shadow-xl" data-testid="button-flex">
+          className="flex items-center justify-between w-full gap-2 p-3 rounded-xl bg-[var(--color-surface)]/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-blue-50/50 dark:hover:from-teal-900/30 dark:hover:to-blue-900/30 transition-all duration-300 shadow-lg hover:shadow-xl" data-testid="button-flex" aria-label="Button">
 
           <div className="flex items-center gap-2">
             {currentTenant.logo_url ?
@@ -94,22 +94,22 @@ const TenantSwitcher = () => {
               className="w-8 h-8 rounded object-cover" /> :
 
 
-            <Building2 className="w-8 h-8 p-1 rounded-lg bg-gradient-to-br from-teal-100 to-blue-100 dark:from-teal-800 dark:to-blue-800 text-teal-600 dark:text-teal-400" />
+            <Building2 className="w-8 h-8 p-1 rounded-lg bg-gradient-to-br from-teal-100 to-blue-100 dark:from-teal-800 dark:to-blue-800 text-[var(--color-primary-hover)] dark:text-teal-400" />
             }
             <div className="text-left">
-              <div className="text-sm font-semibold bg-gradient-to-r from-teal-600 to-blue-800 dark:from-teal-400 dark:to-blue-600 bg-clip-text text-transparent">{currentTenant.name}</div>
-              <div className="text-xs text-teal-600/70 dark:text-teal-400/70">
+              <div className="text-sm font-semibold bg-gradient-to-r from-teal-600 to-blue-800 dark:from-[var(--color-ocean-400)] dark:to-[var(--color-ocean-600)] bg-clip-text text-transparent">{currentTenant.name}</div>
+              <div className="text-xs text-[var(--color-primary-hover)]/70 dark:text-teal-400/70">
                 {viewMode === 'single_community' && 'Single Community'}
                 {viewMode === 'all_communities' && `All Communities (${userTenants.length})`}
                 {viewMode === 'custom' && `Custom (${selectedTenantIds.length})`}
               </div>
             </div>
           </div>
-          <ChevronDown className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+          <ChevronDown className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-teal-400" />
         </button>
       </DropdownMenuTrigger>
       
-      <DropdownMenuContent align="start" className="w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-teal-200/50 dark:border-teal-700/50 shadow-2xl">
+      <DropdownMenuContent align="start" className="w-72 bg-[var(--color-surface)]/95 dark:bg-gray-900/95 backdrop-blur-xl border border-teal-200/50 dark:border-teal-700/50 shadow-2xl">
         {/* Community Selection */}
         <DropdownMenuLabel>Switch Community</DropdownMenuLabel>
         {userTenants.map((tenant) =>
@@ -130,7 +130,7 @@ const TenantSwitcher = () => {
             }
               <div>
                 <div className="text-sm font-medium">{tenant.name}</div>
-                <div className="text-xs text-teal-600/70 dark:text-teal-400/70 flex items-center gap-2">
+                <div className="text-xs text-[var(--color-primary-hover)]/70 dark:text-teal-400/70 flex items-center gap-2">
                   <MTBadge variant="gradient" size="sm">{tenant.membership.role}</MTBadge>
                   <span>•</span>
                   <span>{tenant.membership.expertise_level}</span>
@@ -138,7 +138,7 @@ const TenantSwitcher = () => {
               </div>
             </div>
             {currentTenant.id === tenant.id &&
-          <Check className="w-4 h-4 text-teal-500" />
+          <Check className="w-4 h-4 text-[var(--color-primary)]" />
           }
           </DropdownMenuItem>
         )}

@@ -96,7 +96,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Review your listing</h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           Make sure everything looks good before submitting for review
         </p>
       </div>
@@ -126,13 +126,13 @@ export default function ReviewStep({ data }: ReviewStepProps) {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  section.complete ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`
+                  section.complete ? 'bg-green-100 text-green-600' : 'bg-[var(--color-neutral-100)] text-gray-400'}`
                   }>
                     {section.complete ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                   </div>
                   <div>
                     <h3 className="font-medium">{section.title}</h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       {section.complete ? 'Complete' : 'Incomplete'}
                     </p>
                   </div>
@@ -140,7 +140,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
                 <button
                   type="button"
                   className="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-1"
-                  onClick={() => {
+                  onClick={() = aria-label="Button"> {
                     // In a real app, this would navigate to the specific step
                     console.log(`Edit ${section.title}`);
                   }} data-testid="button-button">
@@ -153,7 +153,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
               <div className="grid grid-cols-2 gap-4">
                 {section.items.map((item) =>
                 <div key={item.label}>
-                    <Label className="text-xs text-gray-500">{item.label}</Label>
+                    <Label className="text-xs text-gray-500 dark:text-gray-400">{item.label}</Label>
                     <p className="text-sm font-medium mt-1">
                       {item.value || <span className="text-gray-400">Not set</span>}
                     </p>
@@ -172,7 +172,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
           <div className="space-y-2">
             {data.airbnbUrl &&
           <div>
-                <Label className="text-xs text-gray-500">Airbnb</Label>
+                <Label className="text-xs text-gray-500 dark:text-gray-400">Airbnb</Label>
                 <p className="text-sm font-medium mt-1 text-blue-600 truncate">
                   {data.airbnbUrl}
                 </p>
@@ -180,7 +180,7 @@ export default function ReviewStep({ data }: ReviewStepProps) {
           }
             {data.vrboUrl &&
           <div>
-                <Label className="text-xs text-gray-500">VRBO</Label>
+                <Label className="text-xs text-gray-500 dark:text-gray-400">VRBO</Label>
                 <p className="text-sm font-medium mt-1 text-blue-600 truncate">
                   {data.vrboUrl}
                 </p>

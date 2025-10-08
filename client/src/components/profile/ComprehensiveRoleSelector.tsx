@@ -166,7 +166,7 @@ const tangoRoles: Role[] = [
   label: 'Tango Guide',
   description: 'I guide visitors through the local tango scene',
   icon: <span className="text-2xl">🗺️</span>,
-  color: 'from-teal-400 to-cyan-500',
+  color: 'from-[var(--color-ocean-400)] to-cyan-500',
   details: [
   'Show visitors best milongas',
   'Provide local insights',
@@ -236,7 +236,7 @@ const tangoRoles: Role[] = [
   label: 'Tour Operator',
   description: 'I organize tango travel experiences and tours',
   icon: <span className="text-2xl">✈️</span>,
-  color: 'from-sky-400 to-blue-500',
+  color: 'from-sky-400 to-[var(--color-ocean-500)]',
   details: [
   'Organize tango trips',
   'Plan festival packages',
@@ -278,7 +278,7 @@ const tangoRoles: Role[] = [
   label: 'Tango School',
   description: 'I run or represent a tango school',
   icon: <span className="text-2xl">🏫</span>,
-  color: 'from-indigo-400 to-blue-500',
+  color: 'from-indigo-400 to-[var(--color-ocean-500)]',
   details: [
   'Manage dance academy',
   'Structured curriculum',
@@ -333,7 +333,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
         <Label className="text-base font-medium">Select all roles that apply to you</Label>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {selectedRoles.length} role{selectedRoles.length !== 1 ? 's' : ''} selected
         </span>
       </div>
@@ -350,7 +350,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                 relative overflow-hidden cursor-pointer transition-all duration-300
                 ${selected ?
               'border-turquoise-400 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 shadow-md' :
-              'border-gray-200 hover:border-turquoise-200 hover:shadow-sm'}
+              'border-[var(--color-border)] hover:border-turquoise-200 hover:shadow-sm'}
               `
               }
               onClick={() => toggleRole(role.id)}>
@@ -368,7 +368,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-semibold text-gray-900">{role.label}</h4>
+                      <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{role.label}</h4>
                       {selected &&
                       <Badge className="bg-turquoise-100 text-turquoise-700 border-turquoise-200">
                           Selected
@@ -376,12 +376,12 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                       }
                     </div>
                     
-                    <p className="text-sm text-gray-600 mb-2">{role.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{role.description}</p>
 
                     <button
                       type="button"
-                      className="text-sm text-turquoise-600 hover:text-turquoise-700 font-medium"
-                      onClick={(e) => {
+                      className="text-sm text-[var(--color-primary-hover)] hover:text-turquoise-700 font-medium"
+                      onClick={(e) = aria-label="Button"> {
                         e.stopPropagation();
                         setExpandedRole(expanded ? null : role.id);
                       }} data-testid="button-button">
@@ -393,7 +393,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                     <div className="mt-3 space-y-2 animate-in slide-in-from-top-2 duration-300">
                         <div className="border-l-2 border-turquoise-200 pl-3">
                           {role.details.map((detail, index) =>
-                        <div key={index} className="flex items-start gap-2 text-sm text-gray-600 py-1">
+                        <div key={index} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300 py-1">
                               <div className="w-1.5 h-1.5 rounded-full bg-turquoise-400 mt-1.5 flex-shrink-0" />
                               {detail}
                             </div>
@@ -417,7 +417,7 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
       </div>
 
       <div className="mt-4 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg border border-turquoise-100">
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-[var(--color-text-secondary)]">
           <strong>Tip:</strong> Select multiple roles to better represent your involvement in the tango community. 
           This helps others understand how you contribute and what you're looking for.
         </p>

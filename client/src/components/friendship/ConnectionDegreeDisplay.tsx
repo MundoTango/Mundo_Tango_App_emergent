@@ -24,7 +24,7 @@ export function ConnectionDegreeDisplay({
           text: '1st',
           label: 'Direct Connection',
           color: 'from-turquoise-400 to-cyan-500',
-          bgColor: 'bg-turquoise-50 dark:bg-turquoise-900/20',
+          bgColor: 'bg-[var(--color-ocean-50)] dark:bg-turquoise-900/20',
           borderColor: 'border-turquoise-200 dark:border-turquoise-700',
           description: 'You are directly connected'
         };
@@ -54,8 +54,8 @@ export function ConnectionDegreeDisplay({
           text: '3+',
           label: 'Not Connected',
           color: 'from-gray-400 to-gray-500',
-          bgColor: 'bg-gray-50 dark:bg-gray-900/20',
-          borderColor: 'border-gray-200 dark:border-gray-700',
+          bgColor: 'bg-[var(--color-surface-elevated)] dark:bg-gray-900/20',
+          borderColor: 'border-[var(--color-border)] dark:border-gray-700',
           description: 'Not connected within 3 degrees'
         };
     }
@@ -143,7 +143,7 @@ export function ConnectionPath({ path }: ConnectionPathProps) {
   if (path.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+    <div className="flex items-center gap-2 p-4 bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 rounded-lg">
       <Link className="w-4 h-4 text-gray-400" data-testid="link-w-4" />
       <span className="text-sm text-gray-600 dark:text-gray-400">Connected via:</span>
       <div className="flex items-center -space-x-2">
@@ -195,7 +195,7 @@ export function ConnectionStats({
         <div className="text-sm text-gray-600 dark:text-gray-400">Total Network</div>
       </div>
       <div className="text-center">
-        <div className="text-2xl font-bold text-turquoise-600 dark:text-turquoise-400">
+        <div className="text-2xl font-bold text-[var(--color-primary-hover)] dark:text-turquoise-400">
           {firstDegree}
         </div>
         <div className="text-sm text-gray-600 dark:text-gray-400">1st Degree</div>

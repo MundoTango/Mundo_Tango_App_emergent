@@ -83,7 +83,7 @@ export default function MTListItem({
     return (
       <div className={cn(
         mediaClass,
-        'bg-gradient-to-br from-teal-400 to-blue-600 rounded-lg',
+        'bg-gradient-to-br from-[var(--color-ocean-400)] to-[var(--color-ocean-600)] rounded-lg',
         'flex items-center justify-center text-white'
       )}>
         {media}
@@ -98,7 +98,7 @@ export default function MTListItem({
         <div className="flex items-start gap-2">
           <div className="flex-1">
             <h3 className={cn(
-              'font-medium text-gray-900 dark:text-gray-100',
+              'font-medium text-[var(--color-text)] dark:text-gray-100',
               layout === 'compact' ? 'text-sm' : 'text-base',
               layout === 'card' && 'text-lg'
             )}>
@@ -143,7 +143,7 @@ export default function MTListItem({
         {metadata && metadata.length > 0 && layout !== 'compact' && (
           <div className="flex flex-wrap gap-3 mt-2">
             {metadata.map((item, index) => (
-              <div key={index} className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-500">
+              <div key={index} className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-500 dark:text-gray-400">
                 {item.icon}
                 <span className="font-medium">{item.label}:</span>
                 <span>{item.value}</span>
@@ -216,11 +216,11 @@ export default function MTListItem({
   const itemClass = cn(
     'flex items-center gap-3 transition-all duration-200',
     getLayoutClass(),
-    hoverable && !disabled && 'hover:bg-teal-50/30 dark:hover:bg-teal-900/20',
+    hoverable && !disabled && 'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20',
     onClick && !disabled && 'cursor-pointer',
-    selected && 'bg-teal-100/40 dark:bg-teal-800/30',
+    selected && 'bg-[var(--color-ocean-100)]/40 dark:bg-teal-800/30',
     disabled && 'opacity-50 cursor-not-allowed',
-    layout === 'card' && 'bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg border border-gray-200/50 dark:border-gray-700/50',
+    layout === 'card' && 'bg-[var(--color-surface)] dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg border border-[var(--color-border)]/50 dark:border-gray-700/50',
     className
   );
 

@@ -9,13 +9,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 // Router import handled via wouter below
 import { ArrowLeft } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { useTranslation } from 'react-i18next';;
 import { Heart, Shield, Users, Globe, CheckCircle, UserCheck, MessageSquare, AlertTriangle, Flag } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 
 const codeOfConductSchema = z.object({
+  const { t } = useTranslation();
   respectfulBehavior: z.boolean().refine((val) => val === true, "You must agree to be respectful"),
   friendlyEnvironment: z.boolean().refine((val) => val === true, "You must agree to keep it friendly"),
   consentRequired: z.boolean().refine((val) => val === true, "You must agree to share with consent"),
@@ -68,7 +70,7 @@ export default function CodeOfConduct() {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to accept code of conduct. Please try again.",
         variant: "destructive"
       });
@@ -86,23 +88,23 @@ export default function CodeOfConduct() {
         <div className="text-center space-y-4">
           <div className="relative inline-block">
             <Heart className="w-20 h-20 mx-auto text-pink-500 animate-pulse hover:scale-110 transition-transform duration-300" />
-            <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-bounce flex items-center justify-center">
+            <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-[var(--color-ocean-400)] to-blue-400 rounded-full animate-bounce flex items-center justify-center">
               <span className="text-white text-xl">🌱</span>
             </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
             Code of Conduct
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
             A space for connection, creativity, and mutual respect
           </p>
-          <p className="text-sm text-gray-500">Effective Date: June 27, 2025</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Effective Date: June 27, 2025</p>
         </div>
 
         {/* Introduction */}
         <Card className="border-0 shadow-xl bg-gradient-to-r from-white via-blue-50 to-cyan-50">
           <CardContent className="p-8">
-            <p className="text-lg text-gray-700 leading-relaxed text-center">
+            <p className="text-lg text-[var(--color-text-secondary)] leading-relaxed text-center">
               Mundo Tango is a space for connection, creativity, and mutual respect. Everyone is here to enjoy, share, and grow — so we keep things simple and kind.
             </p>
           </CardContent>
@@ -123,7 +125,7 @@ export default function CodeOfConduct() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     Treat others the way you'd like to be treated. Don't be rude, aggressive, or dismissive — in words, comments, or behavior.
                   </p>
                   <FormField
@@ -138,7 +140,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I agree to be respectful to all community members
                           </FormLabel>
                           <FormMessage />
@@ -160,7 +162,7 @@ export default function CodeOfConduct() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     This isn't the place for political arguments, personal attacks, or divisive topics. Focus on what brings us together: dance, music, events, and memory.
                   </p>
                   <FormField
@@ -175,7 +177,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I will keep discussions friendly and focused
                           </FormLabel>
                           <FormMessage />
@@ -197,7 +199,7 @@ export default function CodeOfConduct() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     Only tag, post, or share photos or videos that others have agreed to. Respect people's privacy and comfort.
                   </p>
                   <FormField
@@ -212,7 +214,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I will only share content with proper consent
                           </FormLabel>
                           <FormMessage />
@@ -234,7 +236,7 @@ export default function CodeOfConduct() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     No bullying, hate speech, threats, or inappropriate language. Keep it clean and decent for all ages and regions.
                   </p>
                   <FormField
@@ -249,7 +251,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I will keep my content appropriate and respectful
                           </FormLabel>
                           <FormMessage />
@@ -271,7 +273,7 @@ export default function CodeOfConduct() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     If something doesn't feel right, let us know. Reporting is confidential and reviewed with care.
                   </p>
                   <FormField
@@ -286,7 +288,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I will report problems constructively and respectfully
                           </FormLabel>
                           <FormMessage />
@@ -302,20 +304,20 @@ export default function CodeOfConduct() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-cyan-100 rounded-full group-hover:bg-cyan-200 transition-colors">
-                      <Users className="w-6 h-6 text-cyan-600" />
+                      <Users className="w-6 h-6 text-[var(--color-primary-hover)]" />
                     </div>
                     <CardTitle className="text-xl text-cyan-700">Let's Build Something Good</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     Whether you're dancing, organizing, teaching, or just exploring — bring your best self, and let others do the same.
                   </p>
                   <FormField
                     control={form.control}
                     name="communityValues"
                     render={({ field }) =>
-                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-cyan-200 p-3 bg-cyan-50/50">
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border border-cyan-200 p-3 bg-[var(--color-ocean-50)]/50">
                         <FormControl>
                           <Checkbox
                           checked={field.value}
@@ -323,7 +325,7 @@ export default function CodeOfConduct() {
 
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel className="text-sm font-medium text-gray-700">
+                          <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)]">
                             I commit to building something good together
                           </FormLabel>
                           <FormMessage />
@@ -338,15 +340,15 @@ export default function CodeOfConduct() {
             {/* Terms of Service Agreement */}
             <Card className="mt-6 border-0 shadow-2xl bg-gradient-to-r from-white via-cyan-50 to-blue-50">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl text-gray-800">Final Agreement</CardTitle>
-                <p className="text-gray-600">Please confirm you agree to all our terms and policies</p>
+                <CardTitle className="text-2xl text-gray-800 dark:text-gray-100">Final Agreement</CardTitle>
+                <p className="text-gray-600 dark:text-gray-300">Please confirm you agree to all our terms and policies</p>
               </CardHeader>
               <CardContent>
                 <FormField
                   control={form.control}
                   name="termsOfService"
                   render={({ field }) =>
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 p-4 bg-gray-50/50">
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-gray-300 dark:border-gray-600 p-4 bg-[var(--color-surface-elevated)]/50">
                       <FormControl>
                         <Checkbox
                         checked={field.value}
@@ -354,10 +356,10 @@ export default function CodeOfConduct() {
 
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel className="text-base font-medium text-gray-800">
+                        <FormLabel className="text-base font-medium text-gray-800 dark:text-gray-100">
                           I agree to the Terms of Service, Privacy Policy, and Code of Conduct
                         </FormLabel>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           By checking this box, you confirm that you have read and agree to our complete terms and policies.
                         </p>
                         <FormMessage />
@@ -393,7 +395,7 @@ export default function CodeOfConduct() {
                   </span>
                 </Button>
               </div>
-              <p className="text-sm text-gray-500 mt-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
                 Welcome to the global tango family!
               </p>
             </div>
@@ -403,8 +405,8 @@ export default function CodeOfConduct() {
         {/* Contact Information */}
         <Card className="border-0 shadow-lg bg-gradient-to-r from-gray-50 to-blue-50">
           <CardContent className="p-6 text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Questions or Concerns?</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Questions or Concerns?</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               Contact us at <span className="font-medium text-blue-600">support@mundotango.life</span>
             </p>
           </CardContent>

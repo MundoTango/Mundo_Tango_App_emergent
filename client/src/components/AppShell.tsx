@@ -242,9 +242,9 @@ export function PullToRefresh({ onRefresh, children }: PullToRefreshProps) {
         }}
       >
         <div className={cn(
-          "rounded-full bg-teal-500 flex items-center justify-center",
+          "rounded-full bg-[var(--color-primary)] flex items-center justify-center",
           isRefreshing ? "animate-spin" : "",
-          pullDistance > THRESHOLD ? "bg-teal-600" : ""
+          pullDistance > THRESHOLD ? "bg-[var(--color-primary-hover)]" : ""
         )}
         style={{
           width: `${Math.min(pullDistance / 2, 30)}px`,

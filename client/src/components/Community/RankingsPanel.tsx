@@ -57,21 +57,21 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
     <div className={cn("flex flex-col h-full", className)}>
       {/* Header with Toggle */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-cyan-500" />
+        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white flex items-center gap-2">
+          <TrendingUp className="w-5 h-5 text-[var(--color-primary)]" />
           Rankings
         </h3>
         
         {/* City/Region Toggle */}
-        <div className="flex rounded-lg bg-gray-100 dark:bg-slate-800 p-1">
+        <div className="flex rounded-lg bg-[var(--color-neutral-100)] dark:bg-slate-800 p-1">
           <button
             data-testid="toggle-city-view"
-            onClick={() => setView('city')}
+            onClick={() = aria-label="Button"> setView('city')}
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
               view === 'city'
-                ? "bg-white dark:bg-slate-700 text-gray-900 dark:text-white shadow-sm"
-                : "text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white"
+                ? "bg-[var(--color-surface)] dark:bg-slate-700 text-[var(--color-text)] dark:text-white shadow-sm"
+                : "text-gray-600 dark:text-slate-400 hover:text-[var(--color-text)] dark:hover:text-white"
             )}
           >
             <MapPin className="w-4 h-4 inline mr-1" />
@@ -79,12 +79,12 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
           </button>
           <button
             data-testid="toggle-region-view"
-            onClick={() => setView('region')}
+            onClick={() = aria-label="Button"> setView('region')}
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
               view === 'region'
-                ? "bg-white dark:bg-slate-700 text-gray-900 dark:text-white shadow-sm"
-                : "text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white"
+                ? "bg-[var(--color-surface)] dark:bg-slate-700 text-[var(--color-text)] dark:text-white shadow-sm"
+                : "text-gray-600 dark:text-slate-400 hover:text-[var(--color-text)] dark:hover:text-white"
             )}
           >
             <Globe className="w-4 h-4 inline mr-1" />
@@ -170,7 +170,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                   </div>
                 </div>
                 <div className="flex flex-col items-end">
-                  <div className="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
+                  <div className="flex items-center gap-1 text-[var(--color-primary-hover)] dark:text-cyan-400">
                     {filterBy === 'people' ? (
                       <Users className="w-4 h-4" />
                     ) : (
@@ -220,7 +220,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
                   </p>
                 </div>
                 <div className="flex flex-col items-end">
-                  <div className="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
+                  <div className="flex items-center gap-1 text-[var(--color-primary-hover)] dark:text-cyan-400">
                     {filterBy === 'people' ? (
                       <Users className="w-4 h-4" />
                     ) : (

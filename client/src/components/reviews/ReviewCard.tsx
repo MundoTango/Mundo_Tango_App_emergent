@@ -241,7 +241,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                 {(isHostReview
                   ? (review as HostReview).host_response_at
                   : (review as GuestReview).guest_response_at) && (
-                  <p className="text-xs text-cyan-600 dark:text-cyan-400 mt-1">
+                  <p className="text-xs text-[var(--color-primary-hover)] dark:text-cyan-400 mt-1">
                     {format(
                       new Date(
                         (isHostReview
@@ -281,7 +281,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                       <PulseButton
                         onClick={handleSubmitResponse}
                         disabled={submitResponseMutation.isPending}
-                        className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl"
+                        className="px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white rounded-xl"
                         data-testid="button-submit-response"
                       >
                         {submitResponseMutation.isPending 

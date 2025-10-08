@@ -163,7 +163,7 @@ export default function MTFormFileUpload<
         return (
           <FormItem className={cn('space-y-2', className)}>
             {label && (
-              <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
+              <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
                 {label}
                 {required && <span className="text-red-500">*</span>}
               </FormLabel>
@@ -174,7 +174,7 @@ export default function MTFormFileUpload<
                 className={cn(
                   'relative rounded-xl border-2 border-dashed p-6',
                   'transition-all duration-200 cursor-pointer',
-                  dragActive ? 'border-teal-400 bg-teal-50' : 'border-gray-300 hover:border-teal-300',
+                  dragActive ? 'border-teal-400 bg-[var(--color-ocean-50)]' : 'border-gray-300 dark:border-gray-600 hover:border-[var(--color-ocean-300)]',
                   disabled && 'opacity-50 cursor-not-allowed',
                   fieldState.error && 'border-red-500'
                 )}
@@ -193,17 +193,17 @@ export default function MTFormFileUpload<
                   onChange={handleChange}
                   disabled={disabled}
                   className="hidden"
-                />
+                / aria-label="Input field">
                 
                 <div className="text-center">
                   <Upload className={cn(
                     'mx-auto h-12 w-12 text-gray-400',
-                    dragActive && 'text-teal-500'
+                    dragActive && 'text-[var(--color-primary)]'
                   )} />
-                  <p className="mt-2 text-sm text-gray-600">
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                     <span className="font-semibold">Click to upload</span> or drag and drop
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {accept} (Max {maxSize}MB{multiple && `, up to ${maxFiles} files`})
                   </p>
                 </div>
@@ -216,7 +216,7 @@ export default function MTFormFileUpload<
                 {files.map((file: File, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] transition-colors"
                   >
                     {showPreview && previews[index] ? (
                       <img 
@@ -230,23 +230,23 @@ export default function MTFormFileUpload<
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-[var(--color-text)] dark:text-white truncate">
                         {file.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         {formatFileSize(file.size)}
                       </p>
                     </div>
                     <button
                       type="button"
-                      onClick={(e) => {
+                      onClick={(e) = aria-label="Button"> {
                         e.stopPropagation();
                         removeFile(index);
                       }}
-                      className="p-1 rounded-full hover:bg-gray-200 transition-colors"
+                      className="p-1 rounded-full hover:bg-gray-200 dark:bg-gray-700 transition-colors"
                       data-testid={`remove-file-${index}`}
                     >
-                      <X className="h-4 w-4 text-gray-500" />
+                      <X className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                     </button>
                   </div>
                 ))}
@@ -254,7 +254,7 @@ export default function MTFormFileUpload<
             )}
 
             {description && (
-              <FormDescription className="text-xs text-gray-500">
+              <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
                 {description}
               </FormDescription>
             )}

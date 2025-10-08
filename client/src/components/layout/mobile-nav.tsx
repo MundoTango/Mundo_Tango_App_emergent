@@ -21,12 +21,12 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
 
   // LAYER 47 - Ensure 44x44px min tap targets for accessibility
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 z-40 shadow-2xl">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--color-surface)] dark:bg-gray-900 border-t-2 border-[var(--color-border)] z-40 shadow-2xl">
       <div className="grid grid-cols-5 gap-1">
         <Link href="/memories" data-testid="link-element">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/memories' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`} data-testid="button-element">
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/memories' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600 dark:text-gray-300'}`} data-testid="button-element">
 
             <Home className="h-6 w-6" />
             <span className="text-xs mt-1 font-medium">Home</span>
@@ -36,7 +36,7 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
         <Link href="/events" data-testid="link-element">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/events' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`} data-testid="button-element">
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/events' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600 dark:text-gray-300'}`} data-testid="button-element">
 
             <Calendar className="h-6 w-6" />
             <span className="text-xs mt-1 font-medium">Events</span>
@@ -46,7 +46,7 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
         <Link href="/groups" data-testid="link-element">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/groups' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`} data-testid="button-element">
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/groups' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600 dark:text-gray-300'}`} data-testid="button-element">
 
             <Users className="h-6 w-6" />
             <span className="text-xs mt-1 font-medium">Groups</span>
@@ -56,7 +56,7 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
         <Link href="/messages" data-testid="link-element">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] relative h-auto ${location === '/messages' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`}
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] relative h-auto ${location === '/messages' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600 dark:text-gray-300'}`}
             onClick={onOpenChat} data-testid="button-element">
 
             <MessageCircle className="h-6 w-6" />
@@ -70,7 +70,7 @@ export default function MobileNav({ onOpenChat }: MobileNavProps) {
         <Link href="/profile" data-testid="link-element">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/profile' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600'}`} data-testid="button-element">
+            className={`flex flex-col items-center py-2 px-1 min-h-[44px] min-w-[44px] h-auto ${location === '/profile' ? 'text-[#155E75] bg-gradient-to-r from-[#5EEAD4]/10 to-[#155E75]/10' : 'text-gray-600 dark:text-gray-300'}`} data-testid="button-element">
 
             <User className="h-6 w-6" />
             <span className="text-xs mt-1 font-medium">Profile</span>

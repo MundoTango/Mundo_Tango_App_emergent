@@ -177,7 +177,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             variant="ghost"
             size="icon"
             onClick={prevCategory}
-            className="hover:bg-turquoise-50" data-testid="button-hover-bg-turquoise-50">
+            className="hover:bg-[var(--color-ocean-50)]" data-testid="button-hover-bg-[var(--color-ocean-50)]">
 
             <ChevronLeft className="h-5 w-5" />
           </Button>
@@ -187,14 +187,14 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             <h4 className={`text-xl font-bold bg-gradient-to-r ${currentCategory.bgGradient} bg-clip-text text-transparent`}>
               {currentCategory.name}
             </h4>
-            <p className="text-sm text-gray-600">{currentCategory.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{currentCategory.description}</p>
           </div>
 
           <Button
             variant="ghost"
             size="icon"
             onClick={nextCategory}
-            className="hover:bg-turquoise-50" data-testid="button-hover-bg-turquoise-50">
+            className="hover:bg-[var(--color-ocean-50)]" data-testid="button-hover-bg-[var(--color-ocean-50)]">
 
             <ChevronRight className="h-5 w-5" />
           </Button>
@@ -205,7 +205,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
           {roleCategories.map((_, index) =>
           <button
             key={index}
-            onClick={() => {
+            onClick={() = aria-label="Button"> {
               setCurrentCategoryIndex(index);
               setFlippedCards(new Set());
             }}
@@ -245,9 +245,9 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                     <CardContent className="h-full flex flex-col items-center justify-center text-center p-4">
                       <div className="text-4xl mb-2">{role.emoji}</div>
                       <h5 className="font-semibold text-lg mb-1">{role.label}</h5>
-                      <p className="text-sm text-gray-600">Click to learn more</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">Click to learn more</p>
                       {isSelected &&
-                      <Check className="absolute top-2 right-2 h-5 w-5 text-turquoise-500" />
+                      <Check className="absolute top-2 right-2 h-5 w-5 text-[var(--color-primary)]" />
                       }
                     </CardContent>
                   </Card>
@@ -276,7 +276,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
-                        <p className="text-sm text-gray-600 mb-4">{role.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{role.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}
@@ -303,7 +303,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
 
       {/* Selected Roles Summary */}
       {selectedRoles.length > 0 &&
-      <div className="mt-6 p-4 bg-turquoise-50 rounded-lg">
+      <div className="mt-6 p-4 bg-[var(--color-ocean-50)] rounded-lg">
           <h4 className="text-sm font-semibold mb-2 text-turquoise-700">Your Selected Roles:</h4>
           <div className="flex flex-wrap gap-2">
             {selectedRoles.map((roleId) => {
@@ -314,7 +314,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             <Badge
               key={roleId}
               variant="secondary"
-              className="bg-white hover:bg-gray-50 cursor-pointer"
+              className="bg-[var(--color-surface)] dark:bg-gray-900 hover:bg-[var(--color-surface-elevated)] cursor-pointer"
               onClick={() => handleRoleToggle(roleId)}>
 
                   {role.emoji} {role.label}

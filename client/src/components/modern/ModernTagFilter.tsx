@@ -29,7 +29,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
     <GlassCard depth={3} className="rounded-3xl shadow-2xl border-2 border-blue-100/50 p-8 mb-8">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
-          <div className="bg-gradient-to-br from-teal-400 to-cyan-500 p-3 rounded-2xl shadow-xl 
+          <div className="bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-500 p-3 rounded-2xl shadow-xl 
                         hover:shadow-teal-500/25 transform hover:scale-105 transition-all duration-300">
             <Hash className="w-6 h-6 text-white" />
           </div>
@@ -43,7 +43,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
         
         {activeTags.length > 0 && (
           <div className="bg-gradient-to-r from-teal-50 to-cyan-50 px-4 py-2 rounded-2xl border border-teal-200/50">
-            <span className="text-teal-700 font-bold text-sm">
+            <span className="text-[var(--color-primary-hover)] font-bold text-sm">
               {activeTags.length} active filter{activeTags.length > 1 ? 's' : ''}
             </span>
           </div>
@@ -54,28 +54,28 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
       <div className="flex gap-4 mb-6">
         <div className="flex-1 relative group">
           <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-blue-400 w-6 h-6 
-                          group-focus-within:text-teal-500 transition-colors duration-300" />
+                          group-focus-within:text-[var(--color-primary)] transition-colors duration-300" />
           <input
             type="text"
             value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
+            onChange={(e) = aria-label="Input field"> setTagInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter tag name and press Enter..."
             className="w-full pl-14 pr-6 py-5 bg-gradient-to-br from-blue-50/30 to-teal-50/30 
                      border-2 border-blue-200/50 rounded-2xl focus:outline-none focus:ring-4 
-                     focus:ring-teal-200/50 focus:border-teal-300 text-blue-900 placeholder-blue-400/70 
+                     focus:ring-teal-200/50 focus:border-[var(--color-ocean-300)] text-blue-900 placeholder-blue-400/70 
                      font-medium text-lg hover:border-blue-300/70 transition-all duration-300"
           />
         </div>
         <button
           onClick={handleAddTag}
           disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
-          className="bg-gradient-to-r from-teal-400 to-cyan-500 hover:from-teal-500 hover:to-cyan-600 
+          className="bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-500 hover:from-[var(--color-primary)] hover:to-cyan-600 
                    disabled:from-gray-300 disabled:to-gray-400 text-white px-8 py-5 rounded-2xl 
                    font-bold text-lg shadow-2xl hover:shadow-teal-500/30 transform hover:-translate-y-1 
                    disabled:transform-none disabled:shadow-lg transition-all duration-300 
                    flex items-center space-x-3 group"
-        >
+         aria-label="Button">
           <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
           <span>Add</span>
         </button>
@@ -95,7 +95,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
                 <Tag className="w-4 h-4" />
                 <span className="font-bold text-lg">{tag}</span>
                 <button
-                  onClick={() => onRemoveTag(tag)}
+                  onClick={() = aria-label="Button"> onRemoveTag(tag)}
                   className="ml-2 p-2 rounded-xl text-coral-500 hover:text-red-500 
                            hover:bg-red-50 transition-all duration-300 hover:scale-110"
                 >

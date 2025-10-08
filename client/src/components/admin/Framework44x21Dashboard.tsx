@@ -100,7 +100,7 @@ const TECHNICAL_LAYERS = [
     id: 7, 
     name: 'Data Layer', 
     icon: Database, 
-    color: 'bg-cyan-500', 
+    color: 'bg-[var(--color-primary)]', 
     description: 'Schema & optimization',
     metrics: [
       { label: 'Tables', value: '45+' },
@@ -338,19 +338,19 @@ const Framework44x21Dashboard: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-green-600">100%</div>
-                    <div className="text-sm text-gray-600">Platform Compliance</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">Platform Compliance</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-blue-600">94%</div>
-                    <div className="text-sm text-gray-600">Performance Score</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">Performance Score</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-purple-600">16</div>
-                    <div className="text-sm text-gray-600">Active AI Agents</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">Active AI Agents</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-orange-600">82%</div>
-                    <div className="text-sm text-gray-600">Overall Progress</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">Overall Progress</div>
                   </div>
                 </div>
 
@@ -397,7 +397,7 @@ const Framework44x21Dashboard: React.FC = () => {
                     <Card 
                       key={layer.id}
                       className={`cursor-pointer transition-all ${
-                        selectedLayer === layer.id ? 'ring-2 ring-blue-500' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                        selectedLayer === layer.id ? 'ring-2 ring-blue-500' : 'hover:bg-[var(--color-surface-elevated)] dark:hover:bg-gray-800'
                       }`}
                       onClick={() => setSelectedLayer(layer.id)}
                     >

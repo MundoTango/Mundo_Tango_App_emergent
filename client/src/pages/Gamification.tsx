@@ -269,7 +269,7 @@ export default function Gamification() {
     <div className="container mx-auto p-4 max-w-7xl" data-testid="gamification-page">
       {/* Header with User Stats */}
       <div className="mb-8">
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 rounded-lg p-6 text-white">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
@@ -289,7 +289,7 @@ export default function Gamification() {
                   <p className="text-xl font-bold">{getLevelName(userStats?.currentLevel || 1)}</p>
                 </div>
               </div>
-              <Progress value={userStats?.levelProgress || 0} className="h-2 bg-white/20" />
+              <Progress value={userStats?.levelProgress || 0} className="h-2 bg-[var(--color-surface)] dark:bg-gray-900/20" />
             </div>
             
             <div className="space-y-2">
@@ -386,7 +386,7 @@ export default function Gamification() {
                     <CardHeader className="pb-3">
                       <div className="flex justify-between items-start">
                         <div className="flex items-center space-x-3">
-                          <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 ${getTierColor(achievement.tier)}`}>
+                          <div className={`p-2 rounded-lg bg-[var(--color-neutral-100)] dark:bg-gray-800 ${getTierColor(achievement.tier)}`}>
                             {getCategoryIcon(achievement.category)}
                           </div>
                           <div>
@@ -408,7 +408,7 @@ export default function Gamification() {
                       {!isUnlocked && achievement.progress !== undefined && (
                         <div className="mt-3">
                           <Progress value={achievement.progress} className="h-2" />
-                          <p className="text-xs text-gray-500 mt-1">{achievement.progress}% complete</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{achievement.progress}% complete</p>
                         </div>
                       )}
                     </CardContent>
@@ -470,7 +470,7 @@ export default function Gamification() {
                     {challenge.progress !== undefined ? (
                       <div>
                         <Progress value={challenge.progress} className="h-2" />
-                        <p className="text-xs text-gray-500 mt-1">{challenge.progress}% complete</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{challenge.progress}% complete</p>
                       </div>
                     ) : (
                       <Button 
@@ -536,8 +536,8 @@ export default function Gamification() {
                       <div
                         key={entry.userId}
                         className={`flex items-center justify-between p-3 rounded-lg ${
-                          isCurrentUser ? "bg-teal-50 dark:bg-teal-900/20 border border-teal-500" : 
-                          index < 3 ? "bg-gray-50 dark:bg-gray-800" : ""
+                          isCurrentUser ? "bg-[var(--color-ocean-50)] dark:bg-teal-900/20 border border-[var(--color-primary)]" : 
+                          index < 3 ? "bg-[var(--color-surface-elevated)] dark:bg-gray-800" : ""
                         }`}
                         data-testid={`leaderboard-entry-${entry.userId}`}
                       >
@@ -565,7 +565,7 @@ export default function Gamification() {
                           {getRankChange(entry.change)}
                           <div className="text-right">
                             <p className="font-bold text-lg">{entry.score.toLocaleString()}</p>
-                            <p className="text-xs text-gray-500">points</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">points</p>
                           </div>
                         </div>
                       </div>

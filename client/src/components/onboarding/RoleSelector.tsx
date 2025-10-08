@@ -107,7 +107,7 @@ export default function RoleSelector({
             relative p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
             ${isSelected
               ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
-              : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-25'
+              : 'border-[var(--color-border)] bg-[var(--color-surface)] dark:bg-gray-900 hover:border-blue-300 hover:bg-blue-25'
             }
           `}
           onClick={(e) => {
@@ -125,11 +125,11 @@ export default function RoleSelector({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">{roleIcons[role.name] || "🎯"}</span>
-                <h3 className="font-medium text-gray-900 capitalize">
+                <h3 className="font-medium text-[var(--color-text)] dark:text-white capitalize">
                   {role.name.replace(/_/g, ' ')}
                 </h3>
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
                 {role.description}
               </p>
             </div>
@@ -138,7 +138,7 @@ export default function RoleSelector({
           {isSelected && (
             <div className="absolute top-2 right-2">
               <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                <div className="w-1 h-1 bg-white rounded-full"></div>
+                <div className="w-1 h-1 bg-[var(--color-surface)] dark:bg-gray-900 rounded-full"></div>
               </div>
             </div>
           )}
@@ -157,10 +157,10 @@ export default function RoleSelector({
       <Card>
         <CardContent className="p-6">
           <div className="animate-pulse space-y-3">
-            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-16 bg-gray-100 rounded-lg"></div>
+                <div key={i} className="h-16 bg-[var(--color-neutral-100)] rounded-lg"></div>
               ))}
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function RoleSelector({
           <Users className="h-5 w-5 text-blue-600" />
           What do you do in tango?
         </CardTitle>
-        <p className="text-sm text-gray-600 flex items-start gap-2">
+        <p className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
           <Info className="h-4 w-4 mt-0.5 text-blue-500" />
           Choose all that apply. You can always update these later in your profile.
         </p>
@@ -194,7 +194,7 @@ export default function RoleSelector({
           {selectedRoles.length > 0 && (
             <div className="pt-4 border-t border-gray-100">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium text-gray-700">Selected roles:</span>
+                <span className="text-sm font-medium text-[var(--color-text-secondary)]">Selected roles:</span>
                 <Badge variant="outline" className="text-xs">
                   {selectedRoles.length}
                 </Badge>
@@ -213,7 +213,7 @@ export default function RoleSelector({
             </div>
           )}
 
-          <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg">
+          <div className="text-xs text-gray-500 dark:text-gray-400 bg-[var(--color-surface-elevated)] p-3 rounded-lg">
             <strong>No selection?</strong> No problem! You'll be assigned as a general member 
             and can choose your roles anytime from your profile.
           </div>

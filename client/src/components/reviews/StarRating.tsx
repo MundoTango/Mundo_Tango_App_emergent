@@ -45,7 +45,7 @@ export function StarRating({
           <button
             key={value}
             type="button"
-            onClick={() => handleClick(value)}
+            onClick={() = aria-label="Button"> handleClick(value)}
             disabled={readonly}
             className={cn(
               "transition-all",
@@ -59,7 +59,7 @@ export function StarRating({
                 sizeClasses[size],
                 "transition-all duration-300",
                 value <= rating
-                  ? "fill-gradient-ocean text-cyan-500 dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]"
+                  ? "fill-gradient-ocean text-[var(--color-primary)] dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]"
                   : "fill-slate-200 text-slate-300 dark:fill-slate-700 dark:text-slate-600"
               )}
               style={value <= rating ? {

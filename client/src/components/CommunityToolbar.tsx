@@ -76,7 +76,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
           <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-300 to-blue-900 bg-clip-text text-transparent">
             {city || 'Community'} Hub
           </h2>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
             Explore housing, recommendations, and events
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 shadow-lg">
+        <TabsList className="grid w-full grid-cols-3 mb-6 bg-[var(--color-surface)]/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 shadow-lg">
           <TabsTrigger value="map" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Interactive Map
@@ -153,17 +153,17 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <input
                   type="checkbox"
                   checked={mapLayers.events}
-                  onChange={(e) => setMapLayers({ ...mapLayers, events: e.target.checked })}
+                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, events: e.target.checked })}
                   className="rounded" data-testid="input-checkbox" />
 
-                <Calendar className="h-4 w-4 text-teal-500" />
+                <Calendar className="h-4 w-4 text-[var(--color-primary)]" />
                 Events
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={mapLayers.housing}
-                  onChange={(e) => setMapLayers({ ...mapLayers, housing: e.target.checked })}
+                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, housing: e.target.checked })}
                   className="rounded" data-testid="input-checkbox" />
 
                 <Home className="h-4 w-4 text-green-500" />
@@ -173,7 +173,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                 <input
                   type="checkbox"
                   checked={mapLayers.recommendations}
-                  onChange={(e) => setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
+                  onChange={(e) = aria-label="Input field"> setMapLayers({ ...mapLayers, recommendations: e.target.checked })}
                   className="rounded" data-testid="input-checkbox" />
 
                 <Star className="h-4 w-4 text-blue-600" />
@@ -191,13 +191,13 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <input
                     type="date"
                     className="flex-1 rounded-md border px-3 py-2"
-                    onChange={(e) => setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })} data-testid="input-date" />
+                    onChange={(e) = aria-label="Input field"> setDateFilter({ ...dateFilter, startDate: new Date(e.target.value) })} data-testid="input-date" />
 
                     <span className="self-center">to</span>
                     <input
                     type="date"
                     className="flex-1 rounded-md border px-3 py-2"
-                    onChange={(e) => setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })} data-testid="input-date" />
+                    onChange={(e) = aria-label="Input field"> setDateFilter({ ...dateFilter, endDate: new Date(e.target.value) })} data-testid="input-date" />
 
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                     value={eventFilters.category}
                     onChange={(e) => setEventFilters({ ...eventFilters, category: e.target.value })}
-                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+                    className="rounded-xl bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-[var(--color-primary)] transition-all duration-300" data-testid="select-rounded-xl">
 
                         <option value="all">All Categories</option>
                         <option value="milonga">Milonga</option>
@@ -221,7 +221,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                     value={eventFilters.priceRange}
                     onChange={(e) => setEventFilters({ ...eventFilters, priceRange: e.target.value })}
-                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+                    className="rounded-xl bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-[var(--color-primary)] transition-all duration-300" data-testid="select-rounded-xl">
 
                         <option value="all">Any Price</option>
                         <option value="free">Free</option>
@@ -232,7 +232,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                       <select
                     value={eventFilters.timeOfDay}
                     onChange={(e) => setEventFilters({ ...eventFilters, timeOfDay: e.target.value })}
-                    className="rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-rounded-xl">
+                    className="rounded-xl bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-[var(--color-primary)] transition-all duration-300" data-testid="select-rounded-xl">
 
                         <option value="all">Any Time</option>
                         <option value="morning">Morning</option>
@@ -251,7 +251,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                   value={friendFilter}
                   onChange={(e) => setFriendFilter(e.target.value as any)}
-                  className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-w-full">
+                  className="w-full rounded-xl bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-[var(--color-primary)] transition-all duration-300" data-testid="select-w-full">
 
                       <option value="all">All Users</option>
                       <option value="direct">Direct Friends Only</option>
@@ -268,7 +268,7 @@ export default function CommunityToolbar({ city, groupSlug, userContext }: Commu
                     <select
                   value={recommendationType}
                   onChange={(e) => setRecommendationType(e.target.value as any)}
-                  className="w-full rounded-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-teal-500 transition-all duration-300" data-testid="select-w-full">
+                  className="w-full rounded-xl bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 px-3 py-2 focus:border-teal-400 dark:focus:border-[var(--color-primary)] transition-all duration-300" data-testid="select-w-full">
 
                       <option value="all">All Recommendations</option>
                       <option value="local">From Locals (e.g., best steaks)</option>

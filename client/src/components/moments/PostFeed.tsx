@@ -5,7 +5,8 @@
  * Layer 2: API Structure Agent - Consistent data contracts
  */
 
-import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use canonical auth context
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
@@ -110,7 +111,8 @@ interface PostFeedProps {
  * Layer 9: UI Framework - Single responsibility, configurable features
  * Supports both legacy controlled mode (posts prop) and new smart mode (context prop)
  */
-const PostFeed = memo(({ 
+const PostFeed = memo(({
+  const { t } = useTranslation(); 
   posts: propsPosts,
   context,
   showFilters = false,
@@ -466,7 +468,7 @@ const PostFeed = memo(({
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to update like",
         variant: "destructive",
       });
@@ -506,17 +508,17 @@ const PostFeed = memo(({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-gray-200/50">
+          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-[var(--color-border)]/50">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
+              <div className="w-14 h-14 bg-gray-200 dark:bg-gray-700 rounded-2xl"></div>
               <div className="flex-1">
-                <div className="h-4 bg-gray-200 rounded-lg w-32 mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded-lg w-24"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-32 mb-2"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div>
               </div>
             </div>
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 rounded-lg w-full"></div>
-              <div className="h-4 bg-gray-200 rounded-lg w-4/5"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-full"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-4/5"></div>
             </div>
           </GlassCard>
         ))}
@@ -528,7 +530,7 @@ const PostFeed = memo(({
     <div className={`space-y-6 ${className}`}>
       {/* Filters Section - Shown when showFilters or showSearch is true */}
       {(showFilters || showSearch) && (
-        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-gray-200/50 shadow-lg">
+        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-[var(--color-border)]/50 shadow-lg">
           {/* Search Bar */}
           {showSearch && (
           <div className="mb-4">
@@ -537,16 +539,16 @@ const PostFeed = memo(({
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
                 placeholder="Search posts..."
-                className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface)] dark:bg-gray-900/80 rounded-2xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery('')}
+                  onClick={() = aria-label="Button"> setSearchQuery('')}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 >
-                  <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                  <X className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:text-gray-300" />
                 </button>
               )}
             </div>
@@ -556,8 +558,8 @@ const PostFeed = memo(({
           {/* Filter Toggle */}
           {showFilters && (
           <button
-            onClick={() => setShowExpandedFilters(!showExpandedFilters)}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
+            onClick={() = aria-label="Button"> setShowExpandedFilters(!showExpandedFilters)}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
             <span>Filters</span>
@@ -571,44 +573,44 @@ const PostFeed = memo(({
               <div className="relative group">
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setFilterBy('all')}
+                    onClick={() = aria-label="Button"> setFilterBy('all')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'all'
-                        ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
+                        : 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] hover:bg-gray-200 dark:bg-gray-700'
                     }`}
                   >
                     <Globe className="h-4 w-4 inline mr-2" />
                     All Posts
                   </button>
                   <button
-                    onClick={() => setFilterBy('residents')}
+                    onClick={() = aria-label="Button"> setFilterBy('residents')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'residents'
-                        ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
+                        : 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] hover:bg-gray-200 dark:bg-gray-700'
                     }`}
                   >
                     <Home className="h-4 w-4 inline mr-2" />
                     Residence
                   </button>
                   <button
-                    onClick={() => setFilterBy('visitors')}
+                    onClick={() = aria-label="Button"> setFilterBy('visitors')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'visitors'
-                        ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
+                        : 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] hover:bg-gray-200 dark:bg-gray-700'
                     }`}
                   >
                     <Plane className="h-4 w-4 inline mr-2" />
                     Visitor
                   </button>
                   <button
-                    onClick={() => setFilterBy('friends')}
+                    onClick={() = aria-label="Button"> setFilterBy('friends')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'friends'
-                        ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
+                        : 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] hover:bg-gray-200 dark:bg-gray-700'
                     }`}
                   >
                     <Users className="h-4 w-4 inline mr-2" />
@@ -617,7 +619,7 @@ const PostFeed = memo(({
                 </div>
                 
                 {/* COMING SOON Overlay - Relationship Filters Disabled */}
-                <div className="absolute inset-0 bg-cyan-500/30 rounded-xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
+                <div className="absolute inset-0 bg-[var(--color-primary)]/30 rounded-xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
                   <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     COMING SOON
                   </span>
@@ -627,18 +629,18 @@ const PostFeed = memo(({
               {/* Tag Filter */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <Tag className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700">Filter by Tags</span>
+                  <Tag className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  <span className="text-sm font-medium text-[var(--color-text-secondary)]">Filter by Tags</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {filterTags.map(tag => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm flex items-center gap-1"
+                      className="px-3 py-1 bg-[var(--color-ocean-100)] text-[var(--color-primary-hover)] rounded-full text-sm flex items-center gap-1"
                     >
                       #{tag}
                       <button
-                        onClick={() => handleRemoveTag(tag)}
+                        onClick={() = aria-label="Button"> handleRemoveTag(tag)}
                         className="ml-1 hover:text-teal-900"
                       >
                         <X className="h-3 w-3" />
@@ -648,10 +650,10 @@ const PostFeed = memo(({
                   <input
                     type="text"
                     value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
+                    onChange={(e) = aria-label="Input field"> setTagInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
                     placeholder="Add tag..."
-                    className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="px-3 py-1 bg-[var(--color-neutral-100)] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
               </div>
@@ -659,31 +661,31 @@ const PostFeed = memo(({
               {/* Date Range Filter */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-gray-700">Date Range</span>
+                  <span className="text-sm font-medium text-[var(--color-text-secondary)]">Date Range</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block">From</label>
+                    <label className="text-xs text-gray-600 dark:text-gray-300 mb-1 block">From</label>
                     <input
                       type="date"
                       value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      onChange={(e) = aria-label="Input field"> setStartDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block">To</label>
+                    <label className="text-xs text-gray-600 dark:text-gray-300 mb-1 block">To</label>
                     <input
                       type="date"
                       value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                      onChange={(e) = aria-label="Input field"> setEndDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                 </div>
                 {(startDate || endDate) && (
                   <button
-                    onClick={() => {
+                    onClick={() = aria-label="Button"> {
                       setStartDate('');
                       setEndDate('');
                     }}
@@ -697,7 +699,7 @@ const PostFeed = memo(({
           )}
           
           {/* COMING SOON Overlay - Filters/Search Disabled */}
-          <div className="absolute inset-0 bg-cyan-500/30 rounded-3xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
+          <div className="absolute inset-0 bg-[var(--color-primary)]/30 rounded-3xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
             <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               COMING SOON
             </span>
@@ -709,7 +711,7 @@ const PostFeed = memo(({
       {filteredPosts.length > 0 && (
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl">
+            <div className="p-2 bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 rounded-xl">
               <Sparkles className="h-5 w-5 text-white animate-pulse" />
             </div>
             <div>
@@ -718,10 +720,10 @@ const PostFeed = memo(({
                  activeFilters.filterType === 'visitors' ? 'Visitor' :
                  activeFilters.filterType === 'friends' ? 'Friends' : 'All'} Posts
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
                 {activeFilters.tags.length > 0 && (
-                  <span className="ml-2 text-teal-600">
+                  <span className="ml-2 text-[var(--color-primary-hover)]">
                     • Filtered by {activeFilters.tags.length} {activeFilters.tags.length !== 1 ? 'tags' : 'tag'}
                   </span>
                 )}
@@ -736,9 +738,9 @@ const PostFeed = memo(({
         {/* Loading Overlay during filter transitions */}
         {isFetching && filteredPosts.length > 0 && (
           <GlassCard depth={1} className="absolute inset-0 z-10 flex items-center justify-center rounded-xl">
-            <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
-              <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
-              <span className="text-sm font-medium text-gray-700">Updating feed...</span>
+            <div className="flex items-center gap-3 bg-[var(--color-surface)] dark:bg-gray-900 px-6 py-3 rounded-full shadow-lg">
+              <div className="animate-spin h-5 w-5 border-2 border-[var(--color-primary)] border-t-transparent rounded-full" />
+              <span className="text-sm font-medium text-[var(--color-text-secondary)]">Updating feed...</span>
             </div>
           </GlassCard>
         )}
@@ -760,8 +762,8 @@ const PostFeed = memo(({
         <div className="flex justify-center py-4">
           <button
             onClick={onLoadMore}
-            className="px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
-          >
+            className="px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
+           aria-label="Button">
             Load More
           </button>
         </div>
@@ -774,8 +776,8 @@ const PostFeed = memo(({
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Memories Yet</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-4">No Memories Yet</h3>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               {activeFilters.filterType === 'residents' 
                 ? "No posts from residents in your city yet. Check back later!"
                 : activeFilters.filterType === 'visitors'

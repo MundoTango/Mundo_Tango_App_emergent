@@ -100,12 +100,12 @@ export function NotionEntryPage() {
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-gray-200 rounded w-1/4" />
-            <div className="h-12 bg-gray-200 rounded w-3/4" />
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4" />
+            <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 rounded" />
-              <div className="h-4 bg-gray-200 rounded w-5/6" />
-              <div className="h-4 bg-gray-200 rounded w-4/6" />
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6" />
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6" />
             </div>
           </div>
         </div>
@@ -118,13 +118,13 @@ export function NotionEntryPage() {
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-neutral-100)] flex items-center justify-center">
               <FileText className="w-8 h-8 text-gray-400" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-2xl font-semibold text-[var(--color-text)] dark:text-white mb-2">
               Story not found
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               The story you're looking for doesn't exist or may have been removed.
             </p>
             <Link href="/notion" data-testid="link-element">
@@ -142,7 +142,7 @@ export function NotionEntryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-b">
         <div className="max-w-4xl mx-auto px-6 py-6">
           <Link href="/notion" data-testid="link-element">
             <Button variant="ghost" className="mb-4" data-testid="button-mb-4">
@@ -156,7 +156,7 @@ export function NotionEntryPage() {
               <div className="flex items-center gap-2 mb-3">
                 <Badge
                   variant="outline"
-                  className={`flex items-center gap-2 ${TYPE_COLORS[entry.type?.toLowerCase() as keyof typeof TYPE_COLORS] || 'bg-gray-50 text-gray-700'}`}>
+                  className={`flex items-center gap-2 ${TYPE_COLORS[entry.type?.toLowerCase() as keyof typeof TYPE_COLORS] || 'bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)]'}`}>
 
                   {TYPE_ICONS[entry.type?.toLowerCase() as keyof typeof TYPE_ICONS] || <FileText className="w-4 h-4" />}
                   {entry.type?.charAt(0).toUpperCase() + entry.type?.slice(1)}
@@ -165,24 +165,24 @@ export function NotionEntryPage() {
                 {entry.emotionalTone &&
                 <Badge
                   variant="secondary"
-                  className={`${TONE_COLORS[entry.emotionalTone.toLowerCase() as keyof typeof TONE_COLORS] || 'bg-gray-100 text-gray-700'}`}>
+                  className={`${TONE_COLORS[entry.emotionalTone.toLowerCase() as keyof typeof TONE_COLORS] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]'}`}>
 
                     {entry.emotionalTone}
                   </Badge>
                 }
               </div>
 
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl font-bold text-[var(--color-text)] dark:text-white mb-4">
                 {entry.title}
               </h1>
 
               {entry.summary &&
-              <p className="text-xl text-gray-600 mb-4 font-medium">
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-4 font-medium">
                   {entry.summary}
                 </p>
               }
 
-              <div className="flex items-center gap-4 text-sm text-gray-500">
+              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                 <div className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   Created {formatDate(entry.createdAt)}
@@ -198,7 +198,7 @@ export function NotionEntryPage() {
 
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-rose-500" />
-              <span className="text-sm text-gray-500">Notion</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Notion</span>
             </div>
           </div>
         </div>
@@ -214,11 +214,11 @@ export function NotionEntryPage() {
               <CardContent className="p-8">
                 <div className="prose prose-lg max-w-none">
                   {entry.body ?
-                  <div className="text-gray-700 leading-relaxed">
+                  <div className="text-[var(--color-text-secondary)] leading-relaxed">
                       {formatBodyText(entry.body)}
                     </div> :
 
-                  <p className="text-gray-500 italic">No content available for this entry.</p>
+                  <p className="text-gray-500 dark:text-gray-400 italic">No content available for this entry.</p>
                   }
                 </div>
               </CardContent>
@@ -235,10 +235,10 @@ export function NotionEntryPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border border-purple-100">
-                    <p className="text-gray-700 italic">
+                    <p className="text-[var(--color-text-secondary)] italic">
                       "{entry.imagePrompt}"
                     </p>
-                    <p className="text-xs text-gray-500 mt-2">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                       Use this prompt with AI image generators to create visuals for this story
                     </p>
                   </div>
@@ -277,7 +277,7 @@ export function NotionEntryPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Type</label>
+                  <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Type</label>
                   <div className="flex items-center gap-2 mt-1">
                     {TYPE_ICONS[entry.type?.toLowerCase() as keyof typeof TYPE_ICONS] || <FileText className="w-4 h-4" />}
                     <span className="text-sm">{entry.type?.charAt(0).toUpperCase() + entry.type?.slice(1)}</span>
@@ -286,26 +286,26 @@ export function NotionEntryPage() {
 
                 {entry.emotionalTone &&
                 <div>
-                    <label className="text-sm font-medium text-gray-500">Emotional Tone</label>
+                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Emotional Tone</label>
                     <p className="text-sm mt-1 capitalize">{entry.emotionalTone}</p>
                   </div>
                 }
 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Visibility</label>
+                  <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Visibility</label>
                   <p className="text-sm mt-1 capitalize">{entry.visibility}</p>
                 </div>
 
                 <Separator />
 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Created</label>
+                  <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Created</label>
                   <p className="text-sm mt-1">{formatDate(entry.createdAt)}</p>
                 </div>
 
                 {entry.createdAt !== entry.updatedAt &&
                 <div>
-                    <label className="text-sm font-medium text-gray-500">Last Updated</label>
+                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Last Updated</label>
                     <p className="text-sm mt-1">{formatDate(entry.updatedAt)}</p>
                   </div>
                 }

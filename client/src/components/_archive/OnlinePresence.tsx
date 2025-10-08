@@ -72,7 +72,7 @@ export default function OnlinePresence({
     <div className={cn(
       "rounded-lg p-4",
       theme === 'light'
-        ? "bg-white/90 border border-gray-200"
+        ? "bg-[var(--color-surface)] dark:bg-gray-900/90 border border-[var(--color-border)]"
         : "bg-slate-900/50 border border-slate-800/50",
       className
     )}>
@@ -85,7 +85,7 @@ export default function OnlinePresence({
             )} />
             <span className={cn(
               "font-semibold",
-              theme === 'light' ? "text-gray-900" : "text-white"
+              theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
             )}>
               Online Now
             </span>
@@ -115,12 +115,12 @@ export default function OnlinePresence({
                     {user.username[0].toUpperCase()}
                   </div>
                 )}
-                <Circle className="absolute -bottom-0.5 -right-0.5 w-3 h-3 text-emerald-500 fill-emerald-500 bg-white dark:bg-slate-900 rounded-full" />
+                <Circle className="absolute -bottom-0.5 -right-0.5 w-3 h-3 text-emerald-500 fill-emerald-500 bg-[var(--color-surface)] dark:bg-slate-900 rounded-full" />
               </div>
               <div className="flex-1">
                 <div className={cn(
                   "text-sm font-medium",
-                  theme === 'light' ? "text-gray-900" : "text-white"
+                  theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                 )}>
                   {user.username}
                 </div>
@@ -130,7 +130,7 @@ export default function OnlinePresence({
           {onlineUsers.length > 10 && (
             <div className={cn(
               "text-sm text-center py-2",
-              theme === 'light' ? "text-gray-500" : "text-slate-400"
+              theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
             )}>
               And {onlineUsers.length - 10} more...
             </div>

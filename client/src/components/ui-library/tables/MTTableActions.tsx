@@ -1,7 +1,8 @@
 // MT Ocean Table Actions - Bulk and Row Actions Component
 // ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { 
   Trash, 
   Download, 
@@ -49,6 +50,7 @@ export default function MTTableActions({
   const hasSelection = selectedItems.length > 0;
 
   const handleAction = (action: MTTableAction) => {
+  const { t } = useTranslation();
     if (action.requiresConfirmation) {
       setConfirmingAction(action.id);
     } else {
@@ -110,7 +112,7 @@ export default function MTTableActions({
                 {action.confirmationMessage || `${action.label}?`}
               </span>
               <button
-                onClick={() => confirmAction(action)}
+                onClick={() = aria-label="Button"> confirmAction(action)}
                 className="p-1 hover:bg-red-100 dark:hover:bg-red-800/30 rounded transition-colors"
                 data-testid={`${testId}-confirm-${action.id}`}
               >
@@ -120,7 +122,7 @@ export default function MTTableActions({
                 onClick={cancelConfirmation}
                 className="p-1 hover:bg-red-100 dark:hover:bg-red-800/30 rounded transition-colors"
                 data-testid={`${testId}-cancel-${action.id}`}
-              >
+               aria-label="Button">
                 <X className="w-4 h-4 text-red-600" />
               </button>
             </div>
@@ -152,14 +154,14 @@ interface ActionButtonProps {
 function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) {
   const getVariantClasses = () => {
     if (disabled) {
-      return 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed';
+      return 'bg-[var(--color-neutral-100)] dark:bg-gray-800 text-gray-400 cursor-not-allowed';
     }
 
     switch (action.variant) {
       case 'primary':
         return cn(
-          'bg-gradient-to-r from-teal-400 to-blue-600',
-          'hover:from-teal-500 hover:to-blue-700',
+          'bg-gradient-to-r from-[var(--color-ocean-400)] to-[var(--color-ocean-600)]',
+          'hover:from-[var(--color-primary)] hover:to-blue-700',
           'text-white shadow-md hover:shadow-lg'
         );
       case 'danger':
@@ -169,9 +171,9 @@ function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) 
         );
       default:
         return cn(
-          'bg-white dark:bg-gray-800',
-          'hover:bg-teal-50 dark:hover:bg-teal-900/30',
-          'text-gray-700 dark:text-gray-300',
+          'bg-[var(--color-surface)] dark:bg-gray-800',
+          'hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30',
+          'text-[var(--color-text-secondary)] dark:text-gray-300',
           'border border-gray-300 dark:border-gray-700'
         );
     }
@@ -187,7 +189,7 @@ function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) 
         getVariantClasses()
       )}
       data-testid={testId}
-    >
+     aria-label="Button">
       {action.icon}
       {action.label}
     </button>
@@ -198,7 +200,7 @@ function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) 
 export const commonTableActions = {
   delete: (onDelete: (items: any[]) => void): MTTableAction => ({
     id: 'delete',
-    label: 'Delete',
+    label: {t('actions.delete', 'Delete')},
     icon: <Trash className="w-4 h-4" />,
     onClick: onDelete,
     variant: 'danger',
@@ -260,8 +262,8 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
   return (
     <div className={cn('relative', className)}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        onClick={() = aria-label="Button"> setIsOpen(!isOpen)}
+        className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
         data-testid={testId}
       >
         <MoreVertical className="w-4 h-4 text-gray-600 dark:text-gray-400" />
@@ -273,14 +275,14 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20">
+          <div className="absolute right-0 mt-1 w-48 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-xl border border-[var(--color-border)] dark:border-gray-700 z-20">
             {actions.map((action, index) => (
               <div key={index}>
                 {action.divider && index > 0 && (
                   <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
                 )}
                 <button
-                  onClick={() => {
+                  onClick={() = aria-label="Button"> {
                     action.onClick();
                     setIsOpen(false);
                   }}
@@ -288,7 +290,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
                     'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
                     action.variant === 'danger'
                       ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30'
+                      : 'text-[var(--color-text-secondary)] dark:text-gray-300 hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30'
                   )}
                   data-testid={`${testId}-${action.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >

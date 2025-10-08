@@ -102,15 +102,15 @@ export default function MemoryGrid({
               <Card 
                 className={cn(
                   "overflow-hidden group hover:shadow-xl transition-all duration-300",
-                  "backdrop-blur-md bg-white/80 dark:bg-gray-900/80",
+                  "backdrop-blur-md bg-[var(--color-surface)]/80 dark:bg-gray-900/80",
                   "border border-white/20 dark:border-gray-800/50"
                 )}
               >
                 {/* Media Section with Lazy Loading */}
                 {memory.media && memory.media.length > 0 && (
-                  <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
+                  <div className="relative aspect-square overflow-hidden bg-[var(--color-neutral-100)] dark:bg-gray-800">
                     {!imageLoadStates[memory.id] && (
-                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-teal-400/20 to-cyan-600/20" />
+                      <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--color-ocean-400)]/20 to-cyan-600/20" />
                     )}
                     <img
                       src={memory.media[0]}
@@ -142,12 +142,12 @@ export default function MemoryGrid({
                   <div className="flex items-center gap-3 mb-3">
                     <Avatar className="h-8 w-8 ring-2 ring-teal-400/20">
                       <AvatarImage src={memory.author.avatar} />
-                      <AvatarFallback className="bg-gradient-to-br from-teal-400 to-cyan-600 text-white">
+                      <AvatarFallback className="bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-600 text-white">
                         {memory.author.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">
+                      <p className="font-medium text-sm text-[var(--color-text)] dark:text-white">
                         {memory.author.name}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -176,7 +176,7 @@ export default function MemoryGrid({
                       {memory.tags?.map(tag => (
                         <span
                           key={tag}
-                          className="px-2 py-0.5 bg-gradient-to-r from-teal-400/10 to-cyan-600/10 text-teal-700 dark:text-teal-300 rounded-full text-xs"
+                          className="px-2 py-0.5 bg-gradient-to-r from-[var(--color-ocean-400)]/10 to-cyan-600/10 text-[var(--color-primary-hover)] dark:text-teal-300 rounded-full text-xs"
                         >
                           #{tag}
                         </span>
@@ -185,7 +185,7 @@ export default function MemoryGrid({
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border)] dark:border-gray-700">
                     <Button
                       variant="ghost"
                       size="sm"
@@ -233,7 +233,7 @@ export default function MemoryGrid({
           className="flex justify-center py-8"
         >
           {loading && (
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
               <div className="w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin" />
               <span>Loading more memories...</span>
             </div>

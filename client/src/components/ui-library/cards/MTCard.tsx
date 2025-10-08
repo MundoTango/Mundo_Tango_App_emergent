@@ -28,14 +28,14 @@ const MTCard = React.forwardRef<HTMLDivElement, MTCardProps>(({
 
   const variants = {
     glass: cn(
-      'bg-white/85 dark:bg-gray-900/85',
+      'bg-[var(--color-surface)]/85 dark:bg-gray-900/85',
       'backdrop-blur-xl',
       'border border-white/30 dark:border-white/10',
       'shadow-xl hover:shadow-2xl'
     ),
     solid: cn(
-      'bg-white dark:bg-gray-900',
-      'border border-gray-200 dark:border-gray-800',
+      'bg-[var(--color-surface)] dark:bg-gray-900',
+      'border border-[var(--color-border)] dark:border-gray-800',
       'shadow-lg hover:shadow-xl'
     ),
     gradient: cn(

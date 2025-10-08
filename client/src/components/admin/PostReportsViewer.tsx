@@ -33,6 +33,7 @@ export function PostReportsViewer() {
     queryKey: ['/api/admin/reports'],
     queryFn: async () => {
       const response = await fetch('/api/admin/reports', {
+  const { t } = useTranslation();
         credentials: 'include'
       });
       if (!response.ok) throw new Error('Failed to fetch reports');
@@ -59,7 +60,7 @@ export function PostReportsViewer() {
       refetch();
     } catch (error) {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to update report",
         variant: "destructive"
       });
@@ -72,7 +73,7 @@ export function PostReportsViewer() {
 
   if (reports.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-gray-500">
+      <div className="flex flex-col items-center justify-center p-12 text-gray-500 dark:text-gray-400">
         <Flag className="h-12 w-12 mb-4 text-gray-300" />
         <p>No reports to review</p>
       </div>);
@@ -84,7 +85,7 @@ export function PostReportsViewer() {
       <h2 className="text-2xl font-bold mb-6">Post Reports</h2>
       
       {reports.map((report: PostReport) =>
-      <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+      <div key={report.id} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] p-6 space-y-4">
           {/* Report Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -93,7 +94,7 @@ export function PostReportsViewer() {
               </div>
               <div>
                 <h3 className="font-semibold">{report.reason}</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Reported by @{report.user.username} • {formatDistanceToNow(new Date(report.createdAt), { addSuffix: true })}
                 </p>
               </div>
@@ -103,7 +104,7 @@ export function PostReportsViewer() {
               ${report.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : ''}
               ${report.status === 'reviewed' ? 'bg-blue-100 text-blue-700' : ''}
               ${report.status === 'resolved' ? 'bg-green-100 text-green-700' : ''}
-              ${report.status === 'dismissed' ? 'bg-gray-100 text-gray-700' : ''}
+              ${report.status === 'dismissed' ? 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]' : ''}
             `}>
               {report.status}
             </span>
@@ -111,36 +112,36 @@ export function PostReportsViewer() {
 
           {/* Report Description */}
           {report.description &&
-        <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-sm text-gray-700">{report.description}</p>
+        <div className="bg-[var(--color-surface-elevated)] rounded-lg p-3">
+              <p className="text-sm text-[var(--color-text-secondary)]">{report.description}</p>
             </div>
         }
 
           {/* Reported Post */}
           <div className="border-l-4 border-red-200 pl-4 space-y-2">
-            <p className="text-sm font-medium text-gray-600">Reported post by @{report.post.user.username}:</p>
-            <p className="text-gray-800">{report.post.content}</p>
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Reported post by @{report.post.user.username}:</p>
+            <p className="text-gray-800 dark:text-gray-100">{report.post.content}</p>
           </div>
 
           {/* Actions */}
           {report.status === 'pending' &&
         <div className="flex items-center gap-3 pt-4 border-t">
               <button
-            onClick={() => handleUpdateStatus(report.id, 'resolved', 'deleted')}
+            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'resolved', 'deleted')}
             className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" data-testid="button-flex">
 
                 <XCircle className="h-4 w-4" />
                 Delete Post
               </button>
               <button
-            onClick={() => handleUpdateStatus(report.id, 'resolved', 'warned')}
+            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'resolved', 'warned')}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors" data-testid="button-flex">
 
                 <AlertCircle className="h-4 w-4" />
                 Warn User
               </button>
               <button
-            onClick={() => handleUpdateStatus(report.id, 'dismissed')}
+            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'dismissed')}
             className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" data-testid="button-flex">
 
                 <CheckCircle className="h-4 w-4" />

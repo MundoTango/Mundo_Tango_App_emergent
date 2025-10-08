@@ -83,7 +83,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
       case 'high':return 'border-red-500 text-red-700';
       case 'medium':case 'moderate':return 'border-yellow-500 text-yellow-700';
       case 'low':return 'border-green-500 text-green-700';
-      default:return 'border-gray-500 text-gray-700';
+      default:return 'border-gray-500 text-[var(--color-text-secondary)]';
     }
   };
 
@@ -236,12 +236,12 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
     onClick={handleClose}>
 
       <div
-      className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
+      className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
       onClick={(e) => e.stopPropagation()}>
 
         
         {/* Jira-Style Header */}
-        <div className="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="border-b border-[var(--color-border)] px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
@@ -249,10 +249,10 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                   <Globe className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide font-medium">
                     {selectedItem.layer || 'Platform'} • {selectedItem.type || 'Feature'}
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900">{selectedItem.title || 'Untitled'}</h1>
+                  <h1 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{selectedItem.title || 'Untitled'}</h1>
                 </div>
               </div>
               <div className="flex items-center gap-3 flex-wrap">
@@ -275,7 +275,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
             variant="ghost"
             size="sm"
             onClick={handleClose}
-            className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+            className="text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]" data-testid="button-text-gray-500 dark:text-gray-400">
 
               <X className="h-5 w-5" />
             </Button>
@@ -283,7 +283,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Tab Navigation */}
-        <div className="border-b border-gray-200 px-6">
+        <div className="border-b border-[var(--color-border)] px-6">
           <div className="flex space-x-8">
             {[
           { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -293,11 +293,11 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
           map((tab) =>
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() = aria-label="Button"> setActiveTab(tab.id as any)}
             className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
             activeTab === tab.id ?
             'border-blue-500 text-blue-600' :
-            'border-transparent text-gray-500 hover:text-gray-700'}`
+            'border-transparent text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]'}`
             } data-testid="button-element">
 
                 <tab.icon className="h-4 w-4" />
@@ -316,7 +316,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                   <CardTitle>Project Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-700 leading-relaxed mb-4">{selectedItem.description}</p>
+                  <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{selectedItem.description}</p>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="bg-blue-50 p-4 rounded-lg">
@@ -350,7 +350,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     Project Evolution Timeline
                     <Badge className="bg-green-100 text-green-800 text-xs">NEW</Badge>
                   </CardTitle>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     From TrangoTech files to mobile app requirements
                   </p>
                 </CardHeader>
@@ -363,7 +363,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           {section.items.map((item, index) =>
                     <li key={index} className="flex items-start gap-2">
                               <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-gray-700">{item}</span>
+                              <span className="text-sm text-[var(--color-text-secondary)]">{item}</span>
                             </li>
                     )}
                         </ul>
@@ -400,7 +400,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     <Code2 className="h-5 w-5" />
                     Development Work Timeline
                   </CardTitle>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Progress from original TT files to current implementation
                   </p>
                 </CardHeader>
@@ -410,7 +410,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                 <div key={phase.id} className="relative">
                         {/* Timeline connector */}
                         {index < developmentPhases.length - 1 &&
-                  <div className="absolute left-4 top-16 bottom-0 w-0.5 bg-gray-200 -z-10"></div>
+                  <div className="absolute left-4 top-16 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 -z-10"></div>
                   }
                         
                         <div className="flex items-start gap-4">
@@ -422,13 +422,13 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           {/* Phase content */}
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                              <h4 className="font-semibold text-gray-900">{phase.title}</h4>
+                              <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{phase.title}</h4>
                               <Badge className={getStatusColor(phase.status)}>
                                 {phase.status.toUpperCase()}
                               </Badge>
                             </div>
                             
-                            <p className="text-sm text-gray-600 mb-4">{phase.description}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{phase.description}</p>
                             
                             {/* Progress bar */}
                             <div className="mb-4">
@@ -440,7 +440,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             </div>
                             
                             {/* Metrics and details */}
-                            <div className="bg-gray-50 rounded-lg p-4">
+                            <div className="bg-[var(--color-surface-elevated)] rounded-lg p-4">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                                 {Object.entries(phase.metrics).map(([key, value]) =>
                           <div key={key} className="text-sm">
@@ -450,7 +450,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               </div>
                               
                               {/* Dates */}
-                              <div className="flex flex-wrap gap-4 text-xs text-gray-600 mb-4">
+                              <div className="flex flex-wrap gap-4 text-xs text-gray-600 dark:text-gray-300 mb-4">
                                 {phase.startDate &&
                           <div className="flex items-center gap-1">
                                     <Calendar className="h-3 w-3" />
@@ -473,7 +473,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                                     {phase.codeRefs.map((ref, i) =>
                             <div key={i} className="flex items-center gap-2 text-xs">
                                         <Link className="h-3 w-3 text-blue-500" data-testid="link-h-3" />
-                                        <code className="bg-gray-100 px-2 py-1 rounded">{ref}</code>
+                                        <code className="bg-[var(--color-neutral-100)] px-2 py-1 rounded">{ref}</code>
                                       </div>
                             )}
                                   </div>
@@ -512,7 +512,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     <Users className="h-5 w-5" />
                     Human Review Status
                   </CardTitle>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Required sign-offs and completion tracking
                   </p>
                 </CardHeader>
@@ -548,7 +548,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             </Badge>
                           </div>
                           
-                          <div className="text-xs text-gray-600 space-y-1 mb-3">
+                          <div className="text-xs text-gray-600 dark:text-gray-300 space-y-1 mb-3">
                             <div>Reviewer: {review.reviewer}</div>
                             {review.date && <div>Approved: {review.date}</div>}
                           </div>
@@ -582,9 +582,9 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Footer actions */}
-        <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
+        <div className="border-t border-[var(--color-border)] px-6 py-4 bg-[var(--color-surface-elevated)]">
           <div className="flex justify-between items-center">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-300">
               Last updated: {new Date().toLocaleDateString()}
             </div>
             <div className="flex gap-3">

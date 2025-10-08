@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { initializeLeaflet } from '@/utils/leafletConfig';
 initializeLeaflet();
 
 const defaultCenter = {
+  const { t } = useTranslation();
   lat: -34.603722, // Buenos Aires default
   lng: -58.381592
 };
@@ -136,7 +138,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     } catch (error) {
       console.error('Geocoding error:', error);
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to verify location. Please try again.',
         variant: 'destructive'
       });
@@ -245,13 +247,13 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Where's your place located?</h2>
-        <p className="text-gray-600">Your address is only shared with guests after they've made a reservation</p>
+        <p className="text-gray-600 dark:text-gray-300">Your address is only shared with guests after they've made a reservation</p>
       </div>
 
       {/* OpenStreetMap/Leaflet integration */}
       <div className="space-y-4">
         {/* Interactive Leaflet Map */}
-        <div className="rounded-lg overflow-hidden border border-gray-200" style={{ height: '400px' }}>
+        <div className="rounded-lg overflow-hidden border border-[var(--color-border)]" style={{ height: '400px' }}>
           <MapContainer
             center={markerPosition || [defaultCenter.lat, defaultCenter.lng]}
             zoom={markerPosition ? 17 : 15}
@@ -309,9 +311,9 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           
           {/* Address suggestions dropdown */}
           {showSuggestions &&
-          <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)] rounded-md shadow-lg max-h-60 overflow-auto">
               {isSearching ?
-            <div className="p-3 text-center text-gray-500">
+            <div className="p-3 text-center text-gray-500 dark:text-gray-400">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-pink-500 mx-auto"></div>
                   <p className="mt-2 text-sm">Searching...</p>
                 </div> :
@@ -320,14 +322,14 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             <button
               key={index}
               type="button"
-              onClick={() => handleSuggestionSelect(suggestion)}
-              className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0" data-testid="button-button">
+              onClick={() = aria-label="Button"> handleSuggestionSelect(suggestion)}
+              className="w-full text-left px-3 py-2 hover:bg-[var(--color-surface-elevated)] focus:bg-[var(--color-surface-elevated)] focus:outline-none border-b border-gray-100 last:border-0" data-testid="button-button">
 
-                    <p className="text-sm font-medium text-gray-900 line-clamp-1">
+                    <p className="text-sm font-medium text-[var(--color-text)] dark:text-white line-clamp-1">
                       {suggestion.display_name}
                     </p>
                     {suggestion.address &&
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {[
                 suggestion.address.city || suggestion.address.town,
                 suggestion.address.state,

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -41,6 +42,7 @@ interface HierarchicalItem {
 // Sample hierarchical data structure
 const hierarchicalData: HierarchicalItem[] = [
 {
+  const { t } = useTranslation();
   id: 'mundo-tango-platform',
   title: 'Mundo Tango Platform',
   description: 'Global tango community platform with comprehensive social features',
@@ -117,7 +119,7 @@ const hierarchicalData: HierarchicalItem[] = [
         reviewStatus: 'Approved',
         blockers: [],
         dependencies: [],
-        tags: ['Login', 'OAuth', 'Frontend'],
+        tags: [{t('auth.login', 'Login')}, 'OAuth', 'Frontend'],
         isExpanded: true,
         children: [
         {
@@ -415,7 +417,7 @@ const hierarchicalData: HierarchicalItem[] = [
       reviewStatus: 'In Review',
       blockers: [],
       dependencies: ['database-feature'],
-      tags: ['Analytics', 'Reporting', 'Dashboard']
+      tags: ['Analytics', 'Reporting', {t('navigation.dashboard', 'Dashboard')}]
     }]
 
   }]
@@ -450,7 +452,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
       case 'High':return 'bg-red-100 text-red-700 border-red-200';
       case 'Medium':return 'bg-yellow-100 text-yellow-700 border-yellow-200';
       case 'Low':return 'bg-green-100 text-green-700 border-green-200';
-      default:return 'bg-gray-100 text-gray-700 border-gray-200';
+      default:return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] border-[var(--color-border)]';
     }
   };
 
@@ -515,7 +517,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                     {item.mvpStatus}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-600 mb-2">{item.description}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{item.description}</p>
                 
                 {/* Progress Bar */}
                 <div className="space-y-1">
@@ -534,7 +536,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                 {item.riskLevel} Risk
               </Badge>
               
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-gray-500 dark:text-gray-400">
                 {item.actualHours}h / {item.estimatedHours}h
               </div>
 
@@ -642,7 +644,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
 
           Collapse All
         </Button>
-        <div className="text-sm text-gray-500 ml-4">
+        <div className="text-sm text-gray-500 dark:text-gray-400 ml-4">
           Platform → Section → Feature → Project → Task Hierarchy
         </div>
       </div>

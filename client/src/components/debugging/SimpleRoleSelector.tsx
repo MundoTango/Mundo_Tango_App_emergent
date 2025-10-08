@@ -46,7 +46,7 @@ export default function SimpleRoleSelector({
     return (
       <Card className="border-2 border-blue-100">
         <CardContent className="p-6">
-          <div className="text-center text-gray-500">No roles available</div>
+          <div className="text-center text-gray-500 dark:text-gray-400">No roles available</div>
         </CardContent>
       </Card>
     );
@@ -59,7 +59,7 @@ export default function SimpleRoleSelector({
           <Users className="h-5 w-5 text-blue-600" />
           What do you do in tango? (Simple Version)
         </CardTitle>
-        <p className="text-sm text-gray-600 flex items-start gap-2">
+        <p className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
           <Info className="h-4 w-4 mt-0.5 text-blue-500" />
           Choose all that apply. You can always update these later in your profile.
         </p>
@@ -75,7 +75,7 @@ export default function SimpleRoleSelector({
                   relative p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
                   ${selectedRoles.includes(role.name)
                     ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
-                    : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-25'
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)] dark:bg-gray-900 hover:border-blue-300 hover:bg-blue-25'
                   }
                 `}
                 onClick={() => handleRoleToggle(role.name)}
@@ -84,11 +84,11 @@ export default function SimpleRoleSelector({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-lg">🎯</span>
-                      <h3 className="font-medium text-gray-900 capitalize">
+                      <h3 className="font-medium text-[var(--color-text)] dark:text-white capitalize">
                         {role.name.replace(/_/g, ' ')}
                       </h3>
                     </div>
-                    <p className="text-xs text-gray-600 leading-relaxed">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
                       {role.description}
                     </p>
                   </div>
@@ -97,7 +97,7 @@ export default function SimpleRoleSelector({
                 {selectedRoles.includes(role.name) && (
                   <div className="absolute top-2 right-2">
                     <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
+                      <div className="w-1 h-1 bg-[var(--color-surface)] dark:bg-gray-900 rounded-full"></div>
                     </div>
                   </div>
                 )}

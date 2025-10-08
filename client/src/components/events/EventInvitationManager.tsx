@@ -91,7 +91,7 @@ export default function EventInvitationManager() {
               </Badge>
             </div>
             
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex items-center space-x-2">
                 <User className="h-4 w-4" />
                 <span>Role: <strong className="text-[#8E142E]">{invitation.role}</strong></span>
@@ -158,8 +158,8 @@ export default function EventInvitationManager() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Event Role Invitations</h1>
-        <p className="text-gray-600">Manage your event role invitations and build your tango resume</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-2">Event Role Invitations</h1>
+        <p className="text-gray-600 dark:text-gray-300">Manage your event role invitations and build your tango resume</p>
       </div>
 
       <Tabs defaultValue="pending" className="w-full">
@@ -186,7 +186,7 @@ export default function EventInvitationManager() {
         <TabsContent value="pending" className="mt-6">
           {pendingInvitations.length > 0 ?
           <div>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 You have {pendingInvitations.length} pending invitation{pendingInvitations.length !== 1 ? 's' : ''}
               </p>
               {pendingInvitations.map((invitation: any) =>
@@ -197,8 +197,8 @@ export default function EventInvitationManager() {
           <Card>
               <CardContent className="p-8 text-center">
                 <Clock className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No pending invitations</h3>
-                <p className="text-gray-500">You're all caught up! Check back later for new opportunities.</p>
+                <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No pending invitations</h3>
+                <p className="text-gray-500 dark:text-gray-400">You're all caught up! Check back later for new opportunities.</p>
               </CardContent>
             </Card>
           }
@@ -207,7 +207,7 @@ export default function EventInvitationManager() {
         <TabsContent value="accepted" className="mt-6">
           {acceptedInvitations.length > 0 ?
           <div>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 You have accepted {acceptedInvitations.length} role invitation{acceptedInvitations.length !== 1 ? 's' : ''}
               </p>
               {acceptedInvitations.map((invitation: any) =>
@@ -218,8 +218,8 @@ export default function EventInvitationManager() {
           <Card>
               <CardContent className="p-8 text-center">
                 <CheckCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No accepted invitations</h3>
-                <p className="text-gray-500">Accept invitations to build your tango resume.</p>
+                <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No accepted invitations</h3>
+                <p className="text-gray-500 dark:text-gray-400">Accept invitations to build your tango resume.</p>
               </CardContent>
             </Card>
           }
@@ -228,7 +228,7 @@ export default function EventInvitationManager() {
         <TabsContent value="declined" className="mt-6">
           {declinedInvitations.length > 0 ?
           <div>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 You have declined {declinedInvitations.length} role invitation{declinedInvitations.length !== 1 ? 's' : ''}
               </p>
               {declinedInvitations.map((invitation: any) =>
@@ -239,8 +239,8 @@ export default function EventInvitationManager() {
           <Card>
               <CardContent className="p-8 text-center">
                 <XCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No declined invitations</h3>
-                <p className="text-gray-500">All your invitations are still active.</p>
+                <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No declined invitations</h3>
+                <p className="text-gray-500 dark:text-gray-400">All your invitations are still active.</p>
               </CardContent>
             </Card>
           }
@@ -249,7 +249,7 @@ export default function EventInvitationManager() {
         <TabsContent value="all" className="mt-6">
           {allInvitations.length > 0 ?
           <div>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                 You have {allInvitations.length} total invitation{allInvitations.length !== 1 ? 's' : ''}
               </p>
               {allInvitations.map((invitation: any) =>
@@ -260,8 +260,8 @@ export default function EventInvitationManager() {
           <Card>
               <CardContent className="p-8 text-center">
                 <User className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No invitations yet</h3>
-                <p className="text-gray-500">Event organizers will invite you to participate in their events.</p>
+                <h3 className="text-lg font-medium text-[var(--color-text)] dark:text-white mb-2">No invitations yet</h3>
+                <p className="text-gray-500 dark:text-gray-400">Event organizers will invite you to participate in their events.</p>
               </CardContent>
             </Card>
           }

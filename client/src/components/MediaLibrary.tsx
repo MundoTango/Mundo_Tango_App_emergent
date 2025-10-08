@@ -215,11 +215,11 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
   return (
     <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-[var(--color-border)] dark:border-gray-700">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-[var(--color-text)] dark:text-white">
               Media Library
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -228,22 +228,22 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-          >
+            className="p-2 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 rounded-lg transition-colors"
+           aria-label="Button">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Search */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-[var(--color-border)] dark:border-gray-700">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               placeholder="Search by filename or folder..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              onChange={(e) = aria-label="Input field"> setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -275,13 +275,13 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                     className={`relative rounded-xl border-2 transition-all duration-200 ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg'
-                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 hover:shadow-md'
+                        : 'border-[var(--color-border)] dark:border-gray-600 hover:border-gray-300 hover:shadow-md'
                     }`}
                   >
                     {/* Media Preview */}
                     <div 
                       onClick={() => toggleMediaSelection(media.id)}
-                      className="cursor-pointer aspect-video rounded-t-xl overflow-hidden bg-gray-100 dark:bg-gray-700 relative group"
+                      className="cursor-pointer aspect-video rounded-t-xl overflow-hidden bg-[var(--color-neutral-100)] dark:bg-gray-700 relative group"
                     >
                       {media.contentType.startsWith('image/') ? (
                         <img
@@ -317,25 +317,25 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
                     {/* Enhanced Metadata Section - Only show for selected items */}
                     {isSelected && (
-                      <div className="p-4 bg-white dark:bg-gray-800 rounded-b-xl border-t border-gray-100 dark:border-gray-700">
+                      <div className="p-4 bg-[var(--color-surface)] dark:bg-gray-800 rounded-b-xl border-t border-gray-100 dark:border-gray-700">
                         {/* Caption Input */}
                         <div className="mb-3">
-                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-xs font-medium text-[var(--color-text-secondary)] dark:text-gray-300 mb-1">
                             Custom Caption
                           </label>
                           <input
                             type="text"
                             placeholder="Add a caption for this reuse..."
                             value={metadata?.caption || ''}
-                            onChange={(e) => updateMediaMetadata(media.id, { caption: e.target.value })}
+                            onChange={(e) = aria-label="Input field"> updateMediaMetadata(media.id, { caption: e.target.value })}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
 
                         {/* Tags Section */}
                         <div className="mb-3">
-                          <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-xs font-medium text-[var(--color-text-secondary)] dark:text-gray-300 mb-1">
                             Tags
                           </label>
                           
@@ -350,7 +350,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                   <button
-                                    onClick={(e) => {
+                                    onClick={(e) = aria-label="Button"> {
                                       e.stopPropagation();
                                       removeTagFromMedia(media.id, tag);
                                     }}
@@ -369,7 +369,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                               type="text"
                               placeholder="Add tag..."
                               value={tagInput}
-                              onChange={(e) => {
+                              onChange={(e) = aria-label="Input field"> {
                                 const newInput = new Map(newTagInput);
                                 newInput.set(media.id, e.target.value);
                                 setNewTagInput(newInput);
@@ -381,10 +381,10 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                                 }
                               }}
                               onClick={(e) => e.stopPropagation()}
-                              className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
+                              className="flex-1 px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
-                              onClick={(e) => {
+                              onClick={(e) = aria-label="Button"> {
                                 e.stopPropagation();
                                 addTagToMedia(media.id, tagInput);
                               }}
@@ -397,7 +397,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
 
                         {/* Sort Order */}
                         <div className="flex items-center gap-2">
-                          <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                          <label className="text-xs font-medium text-[var(--color-text-secondary)] dark:text-gray-300">
                             Sort Order:
                           </label>
                           <input
@@ -405,9 +405,9 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                             min="0"
                             max="100"
                             value={metadata?.sortOrder || 0}
-                            onChange={(e) => updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
+                            onChange={(e) = aria-label="Input field"> updateMediaMetadata(media.id, { sortOrder: parseInt(e.target.value) || 0 })}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
+                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-[var(--color-surface)] dark:bg-gray-700 text-[var(--color-text)] dark:text-white focus:ring-1 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
                       </div>
@@ -416,7 +416,7 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
                     {/* Basic Info for non-selected items */}
                     {!isSelected && (
                       <div className="p-3">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                        <p className="text-sm font-medium text-[var(--color-text)] dark:text-white truncate">
                           {media.originalFilename}
                         </p>
                         <div className="flex items-center justify-between mt-1">
@@ -437,22 +437,22 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+        <div className="flex items-center justify-between p-6 border-t border-[var(--color-border)] dark:border-gray-700 bg-[var(--color-surface-elevated)] dark:bg-gray-800/50">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {selectedMedia.size} file(s) selected
           </p>
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-            >
+              className="px-4 py-2 text-[var(--color-text-secondary)] dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+             aria-label="Button">
               Cancel
             </button>
             <button
               onClick={handleAttachSelected}
               disabled={selectedMedia.size === 0 || attachMediaMutation.isPending}
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center gap-2"
-            >
+             aria-label="Button">
               {attachMediaMutation.isPending ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>

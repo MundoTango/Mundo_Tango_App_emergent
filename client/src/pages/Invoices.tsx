@@ -70,19 +70,19 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
 
   return (
     <>
-      <div ref={invoiceRef} className="bg-white p-8 rounded-lg shadow-sm">
+      <div ref={invoiceRef} className="bg-[var(--color-surface)] dark:bg-gray-900 p-8 rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Mundo Tango
             </h1>
-            <p className="text-gray-500 mt-1">Life CEO Platform</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Life CEO Platform</p>
           </div>
           <div className="text-right">
             <h2 className="text-xl font-semibold">INVOICE</h2>
-            <p className="text-gray-600">#{invoice.number}</p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-gray-600 dark:text-gray-300">#{invoice.number}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
               Date: {format(new Date(invoice.date), 'MMMM dd, yyyy')}
             </p>
           </div>
@@ -93,19 +93,19 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
         {/* Billing Information */}
         <div className="grid grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Bill To:</h3>
-            <p className="text-gray-600">{userInfo?.firstName} {userInfo?.lastName}</p>
-            <p className="text-gray-600">{userInfo?.email}</p>
+            <h3 className="font-semibold text-[var(--color-text-secondary)] mb-2">Bill To:</h3>
+            <p className="text-gray-600 dark:text-gray-300">{userInfo?.firstName} {userInfo?.lastName}</p>
+            <p className="text-gray-600 dark:text-gray-300">{userInfo?.email}</p>
           </div>
           <div className="text-right">
-            <h3 className="font-semibold text-gray-700 mb-2">Payment Details:</h3>
-            <p className="text-gray-600">
+            <h3 className="font-semibold text-[var(--color-text-secondary)] mb-2">Payment Details:</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               Status: <span className={invoice.status === 'paid' ? 'text-green-600' : 'text-red-600'}>
                 {invoice.status.toUpperCase()}
               </span>
             </p>
             {invoice.paymentMethod &&
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
                 {invoice.paymentMethod.brand} •••• {invoice.paymentMethod.last4}
               </p>
             }
@@ -156,7 +156,7 @@ const InvoiceDocument: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice,
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+        <div className="mt-12 pt-8 border-t border-[var(--color-border)] text-center text-sm text-gray-500 dark:text-gray-400">
           <p>Thank you for your subscription!</p>
           <p className="mt-2">Questions? Contact support@mundotango.life</p>
         </div>
@@ -216,8 +216,8 @@ const Invoices: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Invoices & Receipts</h1>
-          <p className="text-gray-600">View and download your subscription invoices</p>
+          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Invoices & Receipts</h1>
+          <p className="text-gray-600 dark:text-gray-300">View and download your subscription invoices</p>
         </div>
 
         <Card className="glassmorphic-card">
@@ -243,12 +243,12 @@ const Invoices: React.FC = () => {
           <CardContent>
             {isLoading ?
             <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-turquoise-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-[var(--color-primary)]" />
               </div> :
             !invoices || (invoices as Invoice[]).length === 0 ?
             <div className="text-center py-8">
                 <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-500">No invoices yet</p>
+                <p className="text-gray-500 dark:text-gray-400">No invoices yet</p>
                 <p className="text-sm text-gray-400 mt-2">Your invoices will appear here after your first payment</p>
               </div> :
 
@@ -256,7 +256,7 @@ const Invoices: React.FC = () => {
                 {(invoices as Invoice[])?.map((invoice: Invoice) =>
               <div
                 key={invoice.id}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                className="flex items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors">
 
                     <div className="flex items-center gap-4">
                       <FileText className="h-8 w-8 text-gray-400" />
@@ -265,7 +265,7 @@ const Invoices: React.FC = () => {
                           <p className="font-medium">Invoice #{invoice.number}</p>
                           {getStatusBadge(invoice.status)}
                         </div>
-                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-500 dark:text-gray-400">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             {format(new Date(invoice.date), 'MMM dd, yyyy')}
@@ -307,7 +307,7 @@ const InvoiceModal: React.FC<{invoice: Invoice;userInfo: any;}> = ({ invoice, us
 
       {isOpen &&
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Invoice Details</h2>

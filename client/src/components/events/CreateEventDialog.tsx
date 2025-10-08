@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,6 +21,7 @@ import UnifiedLocationPicker from '@/components/universal/UnifiedLocationPicker'
 import { Calendar, MapPin, DollarSign, Video, RefreshCw, Users, Image, FileText } from 'lucide-react';
 
 const eventSchema = z.object({
+  const { t } = useTranslation();
   title: z.string().min(1, 'Title is required'),
   description: z.string().optional(),
   location: z.string().optional(),
@@ -111,7 +113,7 @@ export default function CreateEventDialog({ open, onOpenChange }: CreateEventDia
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to create event. Please try again.",
         variant: "destructive"
       });

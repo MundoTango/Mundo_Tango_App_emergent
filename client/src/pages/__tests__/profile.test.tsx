@@ -22,7 +22,7 @@ vi.mock('@/components/profile/EnhancedProfileHeader', () => ({
   default: ({ user, stats, isOwnProfile, onEditProfile }: any) => (
     <div data-testid="profile-header">
       <h1>{user.name}</h1>
-      <button onClick={onEditProfile}>Edit Profile</button>
+      <button onClick={onEditProfile} aria-label="Button">Edit Profile</button>
       <div>Posts: {stats?.posts || 0}</div>
     </div>
   )
@@ -31,7 +31,7 @@ vi.mock('@/components/profile/EnhancedProfileHeader', () => ({
 vi.mock('@/components/profile/StoryHighlights', () => ({
   default: ({ isOwnProfile, onAddHighlight }: any) => (
     <div data-testid="story-highlights">
-      {isOwnProfile && <button onClick={onAddHighlight}>Add Highlight</button>}
+      {isOwnProfile && <button onClick={onAddHighlight} aria-label="Button">Add Highlight</button>}
     </div>
   )
 }));
@@ -40,7 +40,7 @@ vi.mock('@/components/profile/TravelDetailsComponent', () => ({
   default: ({ userId, isOwnProfile }: any) => (
     <div data-testid="travel-details">
       Travel Details for User {userId}
-      {isOwnProfile && <button>Add Travel Details</button>}
+      {isOwnProfile && <button aria-label="Button">Add Travel Details</button>}
     </div>
   )
 }));
@@ -50,8 +50,8 @@ vi.mock('@/components/profile/ProfileMemoryPostModal', () => ({
     isOpen ? (
       <div data-testid="memory-post-modal">
         <h2>Create a Memory</h2>
-        <button onClick={onClose}>Close</button>
-        <button onClick={onMemoryCreated}>Post Memory</button>
+        <button onClick={onClose} aria-label="Button">Close</button>
+        <button onClick={onMemoryCreated} aria-label="Button">Post Memory</button>
       </div>
     ) : null
 }));

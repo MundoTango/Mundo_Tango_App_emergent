@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { MapPin, Loader, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLocationBias } from '@/contexts/LocationBiasContext';
@@ -62,7 +63,8 @@ export default function UnifiedLocationPicker({
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
-  const { toast } = useToast();
+  const {
+  const { t } = useTranslation(); toast } = useToast();
   const { userLocation, locationCity, locationCountry } = useLocationBias();
 
   const validateCoordinates = (coords: any): boolean => {
@@ -492,14 +494,14 @@ export default function UnifiedLocationPicker({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => value && suggestions.length > 0 && setShowSuggestions(true)}
-          placeholder={initState === 'loading' ? 'Loading...' : placeholder}
+          onFocus={() = aria-label="Input field"> value && suggestions.length > 0 && setShowSuggestions(true)}
+          placeholder={initState === 'loading' ? {t('states.loading', 'Loading...')} : placeholder}
           disabled={initState === 'loading'}
           required={required}
-          className={`pl-10 pr-10 py-3 w-full border border-gray-200 dark:border-gray-700 rounded-xl 
-            bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm
+          className={`pl-10 pr-10 py-3 w-full border border-[var(--color-border)] dark:border-gray-700 rounded-xl 
+            bg-[var(--color-surface)]/80 dark:bg-gray-800/80 backdrop-blur-sm
             focus:outline-none focus:ring-2 focus:ring-turquoise-500 
-            disabled:bg-gray-50 disabled:cursor-wait
+            disabled:bg-[var(--color-surface-elevated)] disabled:cursor-wait
             transition-all duration-200 ${className}`}
         />
         {isLoading && (
@@ -508,7 +510,7 @@ export default function UnifiedLocationPicker({
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={() => {
+            onClick={() = aria-label="Button"> {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);
@@ -523,7 +525,7 @@ export default function UnifiedLocationPicker({
 
       {showSuggestions && suggestions.length > 0 && (
         <GlassCard depth={2} className="absolute z-popover w-full mt-2 dark:bg-gray-800/95 
-            border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden">
+            border border-[var(--color-border)] dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden">
           <div className="max-h-80 overflow-y-auto">
             {suggestions.map((suggestion, index) => (
               <div
@@ -532,14 +534,14 @@ export default function UnifiedLocationPicker({
                 className={`px-4 py-3 cursor-pointer transition-colors duration-150
                   ${index === selectedIndex 
                     ? 'bg-gradient-to-r from-turquoise-500/20 to-ocean-blue-500/20' 
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                    : 'hover:bg-[var(--color-surface-elevated)] dark:hover:bg-gray-700/50'
                   }
                   ${index !== suggestions.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}`}
               >
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                    <p className="text-sm font-medium text-[var(--color-text)] dark:text-gray-100 truncate">
                       {suggestion.structured_formatting?.main_text || suggestion.description}
                     </p>
                     {suggestion.structured_formatting?.secondary_text && (
@@ -549,12 +551,12 @@ export default function UnifiedLocationPicker({
                     )}
                     <div className="flex items-center gap-2 mt-1">
                       {suggestion.isLocal && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-[var(--color-primary)]/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
                           ⭐ Platform Recommendation
                         </span>
                       )}
                       {suggestion.isLocationIQ && (
-                        <span className="text-xs text-turquoise-600 dark:text-turquoise-400 font-medium">
+                        <span className="text-xs text-[var(--color-primary-hover)] dark:text-turquoise-400 font-medium">
                           ⚡ LocationIQ
                         </span>
                       )}

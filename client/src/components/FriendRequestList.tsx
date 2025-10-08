@@ -164,17 +164,17 @@ export function FriendRequestList() {
                   {request.didWeDance &&
                 <div className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 p-3 rounded-lg border border-turquoise-200/30">
                       <div className="flex items-center gap-2 mb-1">
-                        <Music className="h-4 w-4 text-turquoise-600" />
+                        <Music className="h-4 w-4 text-[var(--color-primary-hover)]" />
                         <span className="text-sm font-medium text-turquoise-700">We danced together!</span>
                       </div>
                       {request.danceLocation &&
-                  <p className="text-sm text-turquoise-600 flex items-center gap-1 ml-6">
+                  <p className="text-sm text-[var(--color-primary-hover)] flex items-center gap-1 ml-6">
                           <MapPin className="h-3 w-3" />
                           {request.danceLocation}
                         </p>
                   }
                       {request.danceStory &&
-                  <p className="text-sm text-gray-600 mt-2 ml-6 italic">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 ml-6 italic">
                           "{request.danceStory}"
                         </p>
                   }
@@ -182,9 +182,9 @@ export function FriendRequestList() {
                 }
 
                   {request.senderMessage &&
-                <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
+                <div className="bg-[var(--color-surface)] dark:bg-gray-900/50 p-3 rounded-lg border border-[var(--color-border)]/50">
                       <p className="text-sm flex items-start gap-2">
-                        <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                        <MessageSquare className="h-4 w-4 text-gray-500 dark:text-gray-400 mt-0.5 flex-shrink-0" />
                         <span>{request.senderMessage}</span>
                       </p>
                     </div>

@@ -259,12 +259,12 @@ export class SentryErrorBoundary extends React.Component<
       }
       
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+        <div className="min-h-screen flex items-center justify-center bg-[var(--color-surface-elevated)]">
+          <div className="max-w-md w-full p-6 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-red-600 mb-4">
               Oops! Something went wrong
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
               We've been notified and are working on fixing this issue.
             </p>
             <button

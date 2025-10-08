@@ -108,7 +108,7 @@ export default function AgentFrameworkDashboard() {
       case 'good':return <CheckCircle className="h-5 w-5 text-blue-500" />;
       case 'needs-improvement':return <Clock className="h-5 w-5 text-yellow-500" />;
       case 'critical':return <AlertCircle className="h-5 w-5 text-red-500" />;
-      default:return <Settings className="h-5 w-5 text-gray-500" />;
+      default:return <Settings className="h-5 w-5 text-gray-500 dark:text-gray-400" />;
     }
   };
 
@@ -129,7 +129,7 @@ export default function AgentFrameworkDashboard() {
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
-              <p className="text-teal-700">Loading ESA LIFE CEO 61x21 Framework...</p>
+              <p className="text-[var(--color-primary-hover)]">Loading ESA LIFE CEO 61x21 Framework...</p>
             </div>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function AgentFrameworkDashboard() {
           <h1 className="text-4xl font-bold text-teal-900 mb-2">
             ESA LIFE CEO 61×21 Framework
           </h1>
-          <p className="text-xl text-teal-700 mb-4">
+          <p className="text-xl text-[var(--color-primary-hover)] mb-4">
             Revolutionary Agent-Managed Architecture
           </p>
           <div className="flex items-center justify-center gap-4">
@@ -181,7 +181,7 @@ export default function AgentFrameworkDashboard() {
             <Badge variant={frameworkStatus.status === 'excellent' ? 'default' : 'secondary'}>
               {frameworkStatus.status.toUpperCase()}
             </Badge>
-            <span className="text-sm text-teal-600">
+            <span className="text-sm text-[var(--color-primary-hover)]">
               Last Updated: {new Date(frameworkStatus.framework.lastUpdate).toLocaleString()}
             </span>
           </div>
@@ -189,22 +189,22 @@ export default function AgentFrameworkDashboard() {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-teal-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-teal-700">Framework Completion</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--color-primary-hover)]">Framework Completion</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-teal-900 mb-2">
                 {frameworkStatus.framework.completionPercentage}%
               </div>
               <Progress value={frameworkStatus.framework.completionPercentage} className="mb-2" />
-              <p className="text-xs text-teal-600">
+              <p className="text-xs text-[var(--color-primary-hover)]">
                 {frameworkStatus.framework.implementedAgents}/61 Agents Active
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-blue-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-blue-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-blue-700">System Compliance</CardTitle>
             </CardHeader>
@@ -219,7 +219,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-green-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-green-700">Achievements</CardTitle>
             </CardHeader>
@@ -234,7 +234,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-purple-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-purple-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-purple-700">Critical Issues</CardTitle>
             </CardHeader>
@@ -257,7 +257,7 @@ export default function AgentFrameworkDashboard() {
         </div>
 
         {/* Framework Categories */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-teal-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-teal-900">
               <Brain className="h-5 w-5" />
@@ -273,7 +273,7 @@ export default function AgentFrameworkDashboard() {
                 const completionPercentage = Math.round(category.implemented / category.total * 100);
 
                 return (
-                  <div key={categoryName} className="p-4 border border-teal-100 rounded-lg bg-teal-50/50">
+                  <div key={categoryName} className="p-4 border border-teal-100 rounded-lg bg-[var(--color-ocean-50)]/50">
                     <div className="flex items-center gap-2 mb-2">
                       {getCategoryIcon(categoryName)}
                       <h3 className="font-semibold text-teal-900 text-sm">
@@ -281,7 +281,7 @@ export default function AgentFrameworkDashboard() {
                       </h3>
                     </div>
                     <div className="mb-2">
-                      <div className="flex justify-between text-xs text-teal-700 mb-1">
+                      <div className="flex justify-between text-xs text-[var(--color-primary-hover)] mb-1">
                         <span>{category.implemented}/{category.total} Agents</span>
                         <span>{completionPercentage}%</span>
                       </div>
@@ -302,7 +302,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Achievements */}
-        <Card className="border-yellow-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-yellow-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-yellow-900">
               <Trophy className="h-5 w-5" />
@@ -320,13 +320,13 @@ export default function AgentFrameworkDashboard() {
                 className={`p-4 border rounded-lg ${
                 achievement.completed ?
                 'border-green-200 bg-green-50/50' :
-                'border-gray-200 bg-gray-50/50'}`
+                'border-[var(--color-border)] bg-[var(--color-surface-elevated)]/50'}`
                 }>
 
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-2xl">{achievement.badge}</span>
                     <h3 className={`font-semibold text-sm ${
-                  achievement.completed ? 'text-green-900' : 'text-gray-700'}`
+                  achievement.completed ? 'text-green-900' : 'text-[var(--color-text-secondary)]'}`
                   }>
                       {achievement.name}
                     </h3>
@@ -334,7 +334,7 @@ export default function AgentFrameworkDashboard() {
                   <CheckCircle className="h-4 w-4 text-green-500" />
                   }
                   </div>
-                  <p className="text-xs text-gray-600 mb-3">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mb-3">
                     {achievement.description}
                   </p>
                   <div className="mb-2">
@@ -371,7 +371,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Recent Completions */}
-        <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-green-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-green-900">
               <Zap className="h-5 w-5" />
@@ -415,7 +415,7 @@ export default function AgentFrameworkDashboard() {
           <Button
             onClick={runFullAudit}
             disabled={isLoading}
-            className="bg-teal-600 hover:bg-teal-700" data-testid="button-bg-teal-600">
+            className="bg-[var(--color-primary-hover)] hover:bg-teal-700" data-testid="button-bg-[var(--color-primary-hover)]">
 
             {isLoading ? 'Running Audit...' : 'Run Full Audit'}
           </Button>
@@ -429,7 +429,7 @@ export default function AgentFrameworkDashboard() {
         </div>
 
         {/* Framework Summary */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-teal-200 bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-teal-900">🚀 Framework Summary</CardTitle>
           </CardHeader>
@@ -438,7 +438,7 @@ export default function AgentFrameworkDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div className="p-4 border border-teal-100 rounded-lg">
                   <div className="text-3xl font-bold text-teal-900">61</div>
-                  <div className="text-sm text-teal-700">Technical Layers</div>
+                  <div className="text-sm text-[var(--color-primary-hover)]">Technical Layers</div>
                 </div>
                 <div className="p-4 border border-blue-100 rounded-lg">
                   <div className="text-3xl font-bold text-blue-900">21</div>

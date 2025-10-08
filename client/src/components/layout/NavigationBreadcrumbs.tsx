@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Link, useLocation } from 'wouter';
 import {
   Breadcrumb,
@@ -12,15 +13,16 @@ import { ChevronRight } from 'lucide-react';
 
 // Define breadcrumb mapping for all routes
 const ROUTE_LABELS: Record<string, string> = {
+  const { t } = useTranslation();
   // Main
-  '/': 'Home',
-  '/profile': 'Profile',
-  '/search': 'Search',
-  '/settings': 'Settings',
+  '/': {t('navigation.home', 'Home')},
+  '/profile': {t('navigation.profile', 'Profile')},
+  '/search': {t('actions.search', 'Search')},
+  '/settings': {t('navigation.settings', 'Settings')},
   '/notifications': 'Notifications',
 
   // Authentication
-  '/login': 'Login',
+  '/login': {t('auth.login', 'Login')},
   '/auth/login': 'Login',
   '/register': 'Register',
   '/auth/register': 'Register',
@@ -106,7 +108,7 @@ const ROUTE_LABELS: Record<string, string> = {
   // Additional Platform
   '/travel-planner': 'Travel Planner',
   '/mobile-dashboard': 'Mobile Dashboard',
-  '/error': 'Error',
+  '/error': {t('states.error', 'Error')},
   '/notion': 'Notion'
 };
 
@@ -168,7 +170,7 @@ export default function NavigationBreadcrumbs() {
   }
 
   return (
-    <div className="w-full px-4 py-2 bg-gray-50 border-b">
+    <div className="w-full px-4 py-2 bg-[var(--color-surface-elevated)] border-b">
       <Breadcrumb>
         <BreadcrumbList>
           {breadcrumbPath.map((item, index) => {
@@ -178,14 +180,14 @@ export default function NavigationBreadcrumbs() {
               <React.Fragment key={item.href}>
                 <BreadcrumbItem>
                   {isLast ?
-                  <BreadcrumbPage className="text-gray-900 font-medium">
+                  <BreadcrumbPage className="text-[var(--color-text)] dark:text-white font-medium">
                       {item.label}
                     </BreadcrumbPage> :
 
                   <BreadcrumbLink asChild>
                       <Link
                       href={item.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors" data-testid="link-text-gray-600">
+                      className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] transition-colors" data-testid="link-text-gray-600 dark:text-gray-300">
 
                         {item.label}
                       </Link>

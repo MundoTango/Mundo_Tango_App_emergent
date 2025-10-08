@@ -135,7 +135,7 @@ export default function LifeCEOContinuousLearnings() {
       high: 'bg-orange-100 text-orange-700',
       critical: 'bg-red-100 text-red-700'
     };
-    return colors[impact] || 'bg-gray-100 text-gray-700';
+    return colors[impact] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]';
   };
 
   const filteredLearnings = learnings?.filter((learning) =>
@@ -203,10 +203,10 @@ export default function LifeCEOContinuousLearnings() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Learnings</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Total Learnings</p>
                 <p className="text-2xl font-bold">{learnings?.length || 0}</p>
               </div>
-              <Brain className="w-8 h-8 text-turquoise-500" />
+              <Brain className="w-8 h-8 text-[var(--color-primary)]" />
             </div>
           </CardContent>
         </Card>
@@ -215,7 +215,7 @@ export default function LifeCEOContinuousLearnings() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Applied</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Applied</p>
                 <p className="text-2xl font-bold">
                   {learnings?.filter((l) => l.applied).length || 0}
                 </p>
@@ -229,7 +229,7 @@ export default function LifeCEOContinuousLearnings() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">High Impact</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">High Impact</p>
                 <p className="text-2xl font-bold">
                   {learnings?.filter((l) => l.impact === 'high' || l.impact === 'critical').length || 0}
                 </p>
@@ -243,7 +243,7 @@ export default function LifeCEOContinuousLearnings() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Today</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Today</p>
                 <p className="text-2xl font-bold">
                   {learnings?.filter((l) =>
                   new Date(l.timestamp).toDateString() === new Date().toDateString()
@@ -258,7 +258,7 @@ export default function LifeCEOContinuousLearnings() {
 
       {/* Category Tabs */}
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="flex flex-wrap h-auto gap-2 bg-white/50 p-2">
+        <TabsList className="flex flex-wrap h-auto gap-2 bg-[var(--color-surface)] dark:bg-gray-900/50 p-2">
           {categories.map((category) =>
           <TabsTrigger
             key={category}
@@ -281,7 +281,7 @@ export default function LifeCEOContinuousLearnings() {
             <div className="space-y-6">
               {Object.entries(groupedLearnings).map(([date, dayLearnings]) =>
               <div key={date}>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-700">{date}</h3>
+                  <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-secondary)]">{date}</h3>
                   <div className="space-y-3">
                     {dayLearnings.map((learning) => {
                     const Icon = getCategoryIcon(learning.category);
@@ -295,8 +295,8 @@ export default function LifeCEOContinuousLearnings() {
                               <div className="flex-1">
                                 <div className="flex items-start justify-between">
                                   <div className="flex-1">
-                                    <h4 className="font-semibold text-gray-800">{learning.title}</h4>
-                                    <p className="text-sm text-gray-600 mt-1">{learning.description}</p>
+                                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">{learning.title}</h4>
+                                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{learning.description}</p>
                                     
                                     {/* Tags */}
                                     <div className="flex flex-wrap gap-2 mt-2">
@@ -309,8 +309,8 @@ export default function LifeCEOContinuousLearnings() {
 
                                     {/* Metrics if available */}
                                     {learning.metrics &&
-                                  <div className="mt-3 p-2 bg-gray-50 rounded">
-                                        <p className="text-xs font-medium text-gray-700">
+                                  <div className="mt-3 p-2 bg-[var(--color-surface-elevated)] rounded">
+                                        <p className="text-xs font-medium text-[var(--color-text-secondary)]">
                                           Improvement: {learning.metrics.improvement}
                                         </p>
                                       </div>
@@ -319,8 +319,8 @@ export default function LifeCEOContinuousLearnings() {
                                     {/* Automated Actions */}
                                     {learning.automatedActions && learning.automatedActions.length > 0 &&
                                   <div className="mt-2">
-                                        <p className="text-xs font-medium text-gray-700">Automated Actions:</p>
-                                        <ul className="text-xs text-gray-600 ml-4 list-disc">
+                                        <p className="text-xs font-medium text-[var(--color-text-secondary)]">Automated Actions:</p>
+                                        <ul className="text-xs text-gray-600 dark:text-gray-300 ml-4 list-disc">
                                           {learning.automatedActions.map((action, idx) =>
                                       <li key={idx}>{action}</li>
                                       )}
@@ -349,7 +349,7 @@ export default function LifeCEOContinuousLearnings() {
                                   </div>
                                 </div>
                                 
-                                <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                                <div className="flex items-center gap-4 mt-2 text-xs text-gray-500 dark:text-gray-400">
                                   <span className="flex items-center gap-1">
                                     <Clock className="w-3 h-3" />
                                     {new Date(learning.timestamp).toLocaleTimeString()}
@@ -372,7 +372,7 @@ export default function LifeCEOContinuousLearnings() {
               {filteredLearnings.length === 0 &&
               <div className="text-center py-12">
                   <Brain className="w-12 h-12 mx-auto text-gray-400 mb-3" />
-                  <p className="text-gray-500">No learnings captured yet</p>
+                  <p className="text-gray-500 dark:text-gray-400">No learnings captured yet</p>
                   <p className="text-sm text-gray-400 mt-1">
                     The system is continuously monitoring for insights
                   </p>

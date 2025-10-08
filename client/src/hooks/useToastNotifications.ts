@@ -11,7 +11,7 @@ export const useToastNotifications = () => {
       title: message,
       description,
       duration: 3000,
-      className: 'bg-gradient-to-r from-teal-400 to-cyan-600 text-white border-0',
+      className: 'bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-600 text-white border-0',
     });
   };
 
@@ -38,7 +38,7 @@ export const useToastNotifications = () => {
       title: `Welcome to Mundo Tango, ${userName}! 💃`,
       description: 'Start your tango journey by creating your first memory',
       duration: 6000,
-      className: 'bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-600 text-white border-0',
+      className: 'bg-gradient-to-r from-[var(--color-ocean-400)] via-cyan-500 to-[var(--color-ocean-600)] text-white border-0',
     });
   };
 

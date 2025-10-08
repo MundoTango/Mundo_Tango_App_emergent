@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { loadStripe } from '@stripe/stripe-js';
@@ -14,6 +15,7 @@ import { cn } from '@/lib/utils';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
 interface SubscriptionTier {
+  const { t } = useTranslation();
   name: string;
   priceId: string | null;
   price: number;
@@ -44,7 +46,7 @@ const SubscriptionForm = ({ tier, onSuccess }: {tier: string;onSuccess: () => vo
     onSuccess: async (data) => {
       if (!stripe || !elements) {
         toast({
-          title: "Error",
+          title: {t('states.error', 'Error')},
           description: "Stripe not initialized",
           variant: "destructive"
         });
@@ -165,7 +167,7 @@ export default function Subscription() {
 
   const tierOrder = ['free', 'basic', 'enthusiast', 'professional', 'enterprise'];
   const tierColors = {
-    free: 'border-gray-300',
+    free: 'border-gray-300 dark:border-gray-600',
     basic: 'border-blue-300',
     enthusiast: 'border-purple-300',
     professional: 'border-orange-300',

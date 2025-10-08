@@ -20,18 +20,18 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
   const { connectionDegree, closenessScore, mutualFriends, sharedMemories, sharedEvents, isConnected } = connectionInfo;
 
   const getDegreeDisplay = () => {
-    if (!connectionDegree) return { label: 'Not Connected', color: 'bg-gray-100 text-gray-800' };
+    if (!connectionDegree) return { label: 'Not Connected', color: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100' };
     if (connectionDegree === 1) return { label: '1st Degree (Direct Friend)', color: 'bg-pink-100 text-pink-800' };
     if (connectionDegree === 2) return { label: '2nd Degree (Friend of Friend)', color: 'bg-blue-100 text-blue-800' };
     if (connectionDegree === 3) return { label: '3rd Degree (Extended Network)', color: 'bg-purple-100 text-purple-800' };
-    return { label: `${connectionDegree}th Degree`, color: 'bg-gray-100 text-gray-800' };
+    return { label: `${connectionDegree}th Degree`, color: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100' };
   };
 
   const getClosenessColor = () => {
     if (closenessScore >= 80) return 'text-green-600';
     if (closenessScore >= 60) return 'text-blue-600';
     if (closenessScore >= 40) return 'text-yellow-600';
-    return 'text-gray-600';
+    return 'text-gray-600 dark:text-gray-300';
   };
 
   const degree = getDegreeDisplay();
@@ -47,10 +47,10 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
         </CardHeader>
         <CardContent>
           <div className="text-center py-6">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[var(--color-neutral-100)] rounded-full flex items-center justify-center mx-auto mb-4">
               <Users className="w-8 h-8 text-gray-400" />
             </div>
-            <p className="text-gray-600 mb-2">You're not connected yet</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-2">You're not connected yet</p>
             <p className="text-sm text-muted-foreground">
               Send a friend request to {hostName} to build your connection!
             </p>
@@ -88,7 +88,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
               {closenessScore}/100
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div 
               className={`h-2 rounded-full transition-all ${
                 closenessScore >= 80 ? 'bg-green-500' :

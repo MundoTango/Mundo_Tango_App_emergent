@@ -117,7 +117,7 @@ export default function LifeCEO() {
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-900 border-b border-[var(--color-border)] shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -128,29 +128,29 @@ export default function LifeCEO() {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">Life CEO</h1>
-              <p className="text-xs text-gray-500">AI Life Management System</p>
+              <h1 className="text-xl font-semibold text-[var(--color-text)] dark:text-white">Life CEO</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400">AI Life Management System</p>
             </div>
           </div>
           
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-                onClick={() => setLanguage('en')}
+                onClick={() = aria-label="Button"> setLanguage('en')}
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' ?
                 'bg-purple-100 text-purple-700' :
-                'text-gray-500 hover:bg-gray-100'}`
+                'text-gray-500 dark:text-gray-400 hover:bg-[var(--color-neutral-100)]'}`
                 } data-testid="button-element">
 
               EN
             </button>
             <button
-                onClick={() => setLanguage('es')}
+                onClick={() = aria-label="Button"> setLanguage('es')}
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' ?
                 'bg-purple-100 text-purple-700' :
-                'text-gray-500 hover:bg-gray-100'}`
+                'text-gray-500 dark:text-gray-400 hover:bg-[var(--color-neutral-100)]'}`
                 } data-testid="button-element">
 
               ES
@@ -170,7 +170,7 @@ export default function LifeCEO() {
                   <span className="text-2xl">{agent.icon}</span>
                   <div>
                     <p className="text-sm font-medium">{agent.name}</p>
-                    <p className="text-xs text-gray-500">Active</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Active</p>
                   </div>
                 </div>
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -190,7 +190,7 @@ export default function LifeCEO() {
                 isRecording ?
                 'bg-red-500 hover:bg-red-600 scale-110 animate-pulse' :
                 'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600'} text-white shadow-lg hover:shadow-xl disabled:opacity-50`
-                } data-testid="button-element">
+                } data-testid="button-element" aria-label="Button">
 
               {isRecording ?
                 <MicOff className="w-12 h-12 mx-auto" /> :
@@ -199,7 +199,7 @@ export default function LifeCEO() {
                 }
             </button>
             
-            <p className="mt-4 text-sm text-gray-600">
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
               {isRecording ?
                 language === 'en' ? 'Listening...' : 'Escuchando...' :
                 language === 'en' ? 'Tap to speak' : 'Toca para hablar'
@@ -208,8 +208,8 @@ export default function LifeCEO() {
 
             {/* Transcript */}
             {transcript &&
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
-                <p className="text-sm text-gray-700">
+              <div className="mt-6 p-4 bg-[var(--color-surface-elevated)] rounded-lg text-left">
+                <p className="text-sm text-[var(--color-text-secondary)]">
                   <strong>{language === 'en' ? 'You said:' : 'Dijiste:'}</strong> {transcript}
                 </p>
               </div>
@@ -234,7 +234,7 @@ export default function LifeCEO() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-gray-500">Tasks Today</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Tasks Today</p>
                 <p className="text-xl font-bold">8</p>
               </div>
               <Calendar className="w-6 h-6 text-blue-500" />
@@ -244,7 +244,7 @@ export default function LifeCEO() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-gray-500">Health Score</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Health Score</p>
                 <p className="text-xl font-bold">92%</p>
               </div>
               <Heart className="w-6 h-6 text-red-500" />
@@ -254,7 +254,7 @@ export default function LifeCEO() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-gray-500">Budget</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Budget</p>
                 <p className="text-xl font-bold">Good</p>
               </div>
               <DollarSign className="w-6 h-6 text-green-500" />
@@ -264,7 +264,7 @@ export default function LifeCEO() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-gray-500">Security</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Security</p>
                 <p className="text-xl font-bold">Safe</p>
               </div>
               <Shield className="w-6 h-6 text-purple-500" />

@@ -252,13 +252,13 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
         {...getRootProps()}
         className={`
           border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
-          ${isDragActive ? 'border-primary bg-primary/5' : 'border-gray-300 hover:border-primary/50'}
+          ${isDragActive ? 'border-primary bg-primary/5' : 'border-gray-300 dark:border-gray-600 hover:border-primary/50'}
           ${disabled || isUploading ? 'opacity-50 cursor-not-allowed' : ''}
         `}>
 
         <input {...getInputProps()} data-testid="input-element" />
         <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-sm text-gray-600 mb-1">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
           {isDragActive ? 'Drop files here...' : placeholder}
         </p>
         <p className="text-xs text-gray-400">
@@ -285,7 +285,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             {uploadedFiles.map((file, index) =>
           <div
             key={index}
-            className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50">
+            className="flex items-center gap-3 p-3 border rounded-lg bg-[var(--color-surface-elevated)]">
 
                 {showPreview && previews[file.originalName] ?
             <img
@@ -298,7 +298,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             }
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{file.originalName}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     {(file.size / 1024).toFixed(1)} KB
                   </p>
                 </div>

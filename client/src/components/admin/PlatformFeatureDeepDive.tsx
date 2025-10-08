@@ -886,7 +886,7 @@ export function PlatformFeatureDeepDive() {
       case 'Medium':return 'text-yellow-600 bg-yellow-50';
       case 'High':return 'text-orange-600 bg-orange-50';
       case 'Critical':return 'text-red-600 bg-red-50';
-      default:return 'text-gray-600 bg-gray-50';
+      default:return 'text-gray-600 dark:text-gray-300 bg-[var(--color-surface-elevated)]';
     }
   };
 
@@ -896,7 +896,7 @@ export function PlatformFeatureDeepDive() {
       case 'In Development':return 'text-blue-600 bg-blue-50';
       case 'Needs Review':return 'text-yellow-600 bg-yellow-50';
       case 'Deprecated':return 'text-red-600 bg-red-50';
-      default:return 'text-gray-600 bg-gray-50';
+      default:return 'text-gray-600 dark:text-gray-300 bg-[var(--color-surface-elevated)]';
     }
   };
 
@@ -908,10 +908,10 @@ export function PlatformFeatureDeepDive() {
   }: {title: string;count: number;isExpanded: boolean;onClick: () => void;}) =>
   <button
     onClick={onClick}
-    className="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors" data-testid="button-w-full">
+    className="w-full flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors" data-testid="button-w-full" aria-label="Button">
 
       <div className="flex items-center gap-2">
-        <h3 className="font-semibold text-gray-900">{title}</h3>
+        <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{title}</h3>
         <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">{count}</span>
       </div>
       {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -923,11 +923,11 @@ export function PlatformFeatureDeepDive() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Platform Feature Deep Dive Analysis</h1>
-          <p className="text-gray-600 mt-1">Next-layer implementation details for all 47 platform features</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">Platform Feature Deep Dive Analysis</h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">Next-layer implementation details for all 47 platform features</p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             {filteredFeatures.length} features analyzed
           </span>
         </div>
@@ -940,28 +940,28 @@ export function PlatformFeatureDeepDive() {
           type="text"
           placeholder="Search features, components, APIs, or tables..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" data-testid="input-text" />
+          onChange={(e) = aria-label="Input field"> setSearchTerm(e.target.value)}
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" data-testid="input-text" />
 
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Feature List */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-2 max-h-[800px] overflow-y-auto">
-            <h2 className="font-semibold text-gray-900 mb-3">Platform Features</h2>
+          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] p-4 space-y-2 max-h-[800px] overflow-y-auto">
+            <h2 className="font-semibold text-[var(--color-text)] dark:text-white mb-3">Platform Features</h2>
             {filteredFeatures.map((feature) =>
             <button
               key={feature.name}
-              onClick={() => setSelectedFeature(feature.name)}
+              onClick={() = aria-label="Button"> setSelectedFeature(feature.name)}
               className={`w-full text-left p-3 rounded-lg transition-colors ${
               selectedFeature === feature.name ?
               'bg-blue-50 border border-blue-200' :
-              'hover:bg-gray-50 border border-transparent'}`
+              'hover:bg-[var(--color-surface-elevated)] border border-transparent'}`
               } data-testid="button-element">
 
-                <div className="font-medium text-sm text-gray-900 mb-1">{feature.name}</div>
-                <div className="text-xs text-gray-500 mb-2">{feature.layer}</div>
+                <div className="font-medium text-sm text-[var(--color-text)] dark:text-white mb-1">{feature.name}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{feature.layer}</div>
                 <div className="flex items-center justify-between">
                   <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(feature.status)}`}>
                     {feature.status}
@@ -976,16 +976,16 @@ export function PlatformFeatureDeepDive() {
         {/* Feature Details */}
         <div className="lg:col-span-2">
           {selectedFeatureData &&
-          <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6 max-h-[800px] overflow-y-auto">
+          <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl border border-[var(--color-border)] p-6 space-y-6 max-h-[800px] overflow-y-auto">
               {/* Feature Header */}
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-xl font-bold text-gray-900">{selectedFeatureData.name}</h2>
+                  <h2 className="text-xl font-bold text-[var(--color-text)] dark:text-white">{selectedFeatureData.name}</h2>
                   <span className={`px-3 py-1 text-sm rounded-full ${getStatusColor(selectedFeatureData.status)}`}>
                     {selectedFeatureData.status}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-3">{selectedFeatureData.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-3">{selectedFeatureData.description}</p>
                 <div className="text-sm text-blue-600 font-medium">{selectedFeatureData.layer}</div>
               </div>
 
@@ -1020,9 +1020,9 @@ export function PlatformFeatureDeepDive() {
                 {expandedSections.components &&
               <div className="space-y-3">
                     {selectedFeatureData.components.map((component, index) =>
-                <div key={index} className="border border-gray-200 rounded-lg p-4">
+                <div key={index} className="border border-[var(--color-border)] rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold text-gray-900">{component.name}</h4>
+                          <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{component.name}</h4>
                           <div className="flex items-center gap-2">
                             <span className={`px-2 py-1 text-xs rounded ${getComplexityColor(component.complexity)}`}>
                               {component.complexity}
@@ -1032,23 +1032,23 @@ export function PlatformFeatureDeepDive() {
                             </span>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3">{component.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{component.description}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Path:</div>
-                            <div className="text-gray-600 font-mono">{component.path}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Path:</div>
+                            <div className="text-gray-600 dark:text-gray-300 font-mono">{component.path}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Lines of Code:</div>
-                            <div className="text-gray-600">{component.lines.toLocaleString()}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Lines of Code:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{component.lines.toLocaleString()}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Dependencies:</div>
-                            <div className="text-gray-600">{component.dependencies.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Dependencies:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{component.dependencies.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Key Functions:</div>
-                            <div className="text-gray-600">{component.functions.slice(0, 3).join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Key Functions:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{component.functions.slice(0, 3).join(', ')}</div>
                           </div>
                         </div>
                       </div>
@@ -1068,12 +1068,12 @@ export function PlatformFeatureDeepDive() {
                 {expandedSections.apis &&
               <div className="space-y-3">
                     {selectedFeatureData.apis.map((api, index) =>
-                <div key={index} className="border border-gray-200 rounded-lg p-4">
+                <div key={index} className="border border-[var(--color-border)] rounded-lg p-4">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-mono rounded">
                             {api.method}
                           </span>
-                          <code className="text-sm font-mono text-gray-900">{api.endpoint}</code>
+                          <code className="text-sm font-mono text-[var(--color-text)] dark:text-white">{api.endpoint}</code>
                           {api.authentication &&
                     <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">
                               🔒 Auth Required
@@ -1082,17 +1082,17 @@ export function PlatformFeatureDeepDive() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Parameters:</div>
-                            <div className="text-gray-600">{api.parameters.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Parameters:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{api.parameters.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Validation:</div>
-                            <div className="text-gray-600">{api.validation.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Validation:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{api.validation.join(', ')}</div>
                           </div>
                         </div>
                         <div className="mt-2">
-                          <div className="font-medium text-gray-700 text-xs mb-1">Response Format:</div>
-                          <code className="text-xs text-gray-600 bg-gray-50 p-2 rounded block">{api.response}</code>
+                          <div className="font-medium text-[var(--color-text-secondary)] text-xs mb-1">Response Format:</div>
+                          <code className="text-xs text-gray-600 dark:text-gray-300 bg-[var(--color-surface-elevated)] p-2 rounded block">{api.response}</code>
                         </div>
                       </div>
                 )}
@@ -1111,29 +1111,29 @@ export function PlatformFeatureDeepDive() {
                 {expandedSections.tables &&
               <div className="space-y-3">
                     {selectedFeatureData.tables.map((table, index) =>
-                <div key={index} className="border border-gray-200 rounded-lg p-4">
-                        <h4 className="font-semibold text-gray-900 mb-2">{table.name}</h4>
+                <div key={index} className="border border-[var(--color-border)] rounded-lg p-4">
+                        <h4 className="font-semibold text-[var(--color-text)] dark:text-white mb-2">{table.name}</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Columns:</div>
-                            <div className="text-gray-600">{table.columns}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Columns:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{table.columns}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Relationships:</div>
-                            <div className="text-gray-600">{table.relationships.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Relationships:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{table.relationships.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Indexes:</div>
-                            <div className="text-gray-600">{table.indexes.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Indexes:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{table.indexes.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1">Constraints:</div>
-                            <div className="text-gray-600">{table.constraints.join(', ')}</div>
+                            <div className="font-medium text-[var(--color-text-secondary)] mb-1">Constraints:</div>
+                            <div className="text-gray-600 dark:text-gray-300">{table.constraints.join(', ')}</div>
                           </div>
                           {table.rls_policies &&
                     <div className="md:col-span-2">
-                              <div className="font-medium text-gray-700 mb-1">RLS Policies:</div>
-                              <div className="text-gray-600">{table.rls_policies.join(', ')}</div>
+                              <div className="font-medium text-[var(--color-text-secondary)] mb-1">RLS Policies:</div>
+                              <div className="text-gray-600 dark:text-gray-300">{table.rls_policies.join(', ')}</div>
                             </div>
                     }
                         </div>
@@ -1154,22 +1154,22 @@ export function PlatformFeatureDeepDive() {
                 {expandedSections.architecture &&
               <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium text-gray-700 mb-2">Data Flow:</h4>
+                      <h4 className="font-medium text-[var(--color-text-secondary)] mb-2">Data Flow:</h4>
                       <div className="space-y-1">
                         {selectedFeatureData.architecture.dataFlow.map((step, index) =>
                     <div key={index} className="flex items-center gap-2 text-sm">
                             <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-medium">
                               {index + 1}
                             </span>
-                            <span className="text-gray-700">{step}</span>
+                            <span className="text-[var(--color-text-secondary)]">{step}</span>
                           </div>
                     )}
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Dependencies:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-medium text-[var(--color-text-secondary)] mb-2">Dependencies:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                           {selectedFeatureData.architecture.dependencies.map((dep, index) =>
                       <li key={index} className="flex items-center gap-2">
                               <Code className="h-3 w-3" />
@@ -1179,8 +1179,8 @@ export function PlatformFeatureDeepDive() {
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Security Measures:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-medium text-[var(--color-text-secondary)] mb-2">Security Measures:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                           {selectedFeatureData.architecture.securityMeasures.map((measure, index) =>
                       <li key={index} className="flex items-center gap-2">
                               <Shield className="h-3 w-3" />
@@ -1217,8 +1217,8 @@ export function PlatformFeatureDeepDive() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2">Bottlenecks:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <h4 className="font-medium text-[var(--color-text-secondary)] mb-2">Bottlenecks:</h4>
+                        <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                           {selectedFeatureData.performance.bottlenecks.map((bottleneck, index) =>
                       <li key={index} className="flex items-center gap-2">
                               <AlertTriangle className="h-3 w-3 text-yellow-500" />

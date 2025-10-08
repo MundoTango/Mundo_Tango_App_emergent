@@ -162,7 +162,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-accommodation">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <Home className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-accommodation">
@@ -189,7 +189,7 @@ export function GuestOnboardingFlow() {
                           checked={profileData.accommodationPreferences.propertyTypes.includes(type)}
                           onCheckedChange={(checked) => handleCheckboxChange('propertyTypes', type, checked as boolean)}
                           aria-label={type}
-                          className="border-cyan-300 dark:border-cyan-600"
+                          className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                         />
                         <Label htmlFor={typeId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{type}</Label>
                       </div>
@@ -212,7 +212,7 @@ export function GuestOnboardingFlow() {
                           data-testid={`checkbox-room-${typeId}`}
                           checked={profileData.accommodationPreferences.roomTypes.includes(type)}
                           onCheckedChange={(checked) => handleCheckboxChange('roomTypes', type, checked as boolean)}
-                          className="border-cyan-300 dark:border-cyan-600"
+                          className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                         />
                         <Label htmlFor={typeId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{type}</Label>
                       </div>
@@ -235,7 +235,7 @@ export function GuestOnboardingFlow() {
                           data-testid={`checkbox-amenity-${amenityId}`}
                           checked={profileData.accommodationPreferences.amenities.includes(amenity)}
                           onCheckedChange={(checked) => handleCheckboxChange('amenities', amenity, checked as boolean)}
-                          className="border-cyan-300 dark:border-cyan-600"
+                          className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                         />
                         <Label htmlFor={amenityId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{amenity}</Label>
                       </div>
@@ -251,7 +251,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-dietary">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <Utensils className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-dietary">
@@ -272,7 +272,7 @@ export function GuestOnboardingFlow() {
                       data-testid={`checkbox-dietary-${dietId}`}
                       checked={profileData.dietaryRestrictions.includes(diet)}
                       onCheckedChange={(checked) => handleCheckboxChange('dietaryRestrictions', diet, checked as boolean)}
-                      className="border-cyan-300 dark:border-cyan-600"
+                      className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                     />
                     <Label htmlFor={dietId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{diet}</Label>
                   </div>
@@ -290,7 +290,7 @@ export function GuestOnboardingFlow() {
                 placeholder={t('housing.guest_onboarding.special_needs_placeholder', 'E.g., wheelchair accessibility, medical conditions, etc.')}
                 value={profileData.specialNeeds}
                 onChange={(e) => setProfileData(prev => ({ ...prev, specialNeeds: e.target.value }))}
-                className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
               />
             </div>
           </div>
@@ -300,7 +300,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-languages">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <Globe className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-languages-interests">
@@ -325,7 +325,7 @@ export function GuestOnboardingFlow() {
                         data-testid={`checkbox-language-${langId}`}
                         checked={profileData.languagesSpoken.includes(lang)}
                         onCheckedChange={(checked) => handleCheckboxChange('languagesSpoken', lang, checked as boolean)}
-                        className="border-cyan-300 dark:border-cyan-600"
+                        className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                       />
                       <Label htmlFor={langId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{lang}</Label>
                     </div>
@@ -348,7 +348,7 @@ export function GuestOnboardingFlow() {
                         data-testid={`checkbox-interest-${interestId}`}
                         checked={profileData.travelInterests.includes(interest)}
                         onCheckedChange={(checked) => handleCheckboxChange('travelInterests', interest, checked as boolean)}
-                        className="border-cyan-300 dark:border-cyan-600"
+                        className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                       />
                       <Label htmlFor={interestId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{interest}</Label>
                     </div>
@@ -365,7 +365,7 @@ export function GuestOnboardingFlow() {
                 value={profileData.travelStyle}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, travelStyle: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
+                <SelectTrigger className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-travel-style">
                   <SelectValue placeholder={t('housing.guest_onboarding.travel_style_placeholder', 'Select your travel style')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -391,7 +391,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-location">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-location">
@@ -419,7 +419,7 @@ export function GuestOnboardingFlow() {
                         data-testid={`checkbox-neighborhood-${hoodId}`}
                         checked={profileData.preferredNeighborhoods.includes(hood)}
                         onCheckedChange={(checked) => handleCheckboxChange('preferredNeighborhoods', hood, checked as boolean)}
-                        className="border-cyan-300 dark:border-cyan-600"
+                        className="border-[var(--color-ocean-300)] dark:border-cyan-600"
                       />
                       <Label htmlFor={hoodId} className="font-normal cursor-pointer text-slate-700 dark:text-slate-300">{hood}</Label>
                     </div>
@@ -436,7 +436,7 @@ export function GuestOnboardingFlow() {
                 value={profileData.stayDurationPreference}
                 onValueChange={(value) => setProfileData(prev => ({ ...prev, stayDurationPreference: value }))}
               >
-                <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-stay-duration">
+                <SelectTrigger className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-stay-duration">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -462,7 +462,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-budget">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <DollarSign className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-budget">
@@ -485,7 +485,7 @@ export function GuestOnboardingFlow() {
                     budgetRange: { ...prev.budgetRange, currency: value }
                   }))}
                 >
-                  <SelectTrigger className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-currency">
+                  <SelectTrigger className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800" data-testid="select-currency">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -511,7 +511,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     budgetRange: { ...prev.budgetRange, min: parseInt(e.target.value) || 0 }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -529,7 +529,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     budgetRange: { ...prev.budgetRange, max: parseInt(e.target.value) || 0 }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
             </div>
@@ -540,7 +540,7 @@ export function GuestOnboardingFlow() {
         return (
           <div className="space-y-6" data-testid="guest-onboarding-emergency">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] flex items-center justify-center">
                 <Phone className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white" data-testid="step-title-emergency">
@@ -565,7 +565,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, name: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -582,7 +582,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, phone: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
 
@@ -599,7 +599,7 @@ export function GuestOnboardingFlow() {
                     ...prev, 
                     emergencyContact: { ...prev.emergencyContact, relationship: e.target.value }
                   }))}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                 />
               </div>
             </div>
@@ -626,7 +626,7 @@ export function GuestOnboardingFlow() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent">
                     {t('housing.guest_onboarding.title', 'Complete Your Guest Profile')}
                   </h1>
                 </div>
@@ -652,7 +652,7 @@ export function GuestOnboardingFlow() {
               <ScaleIn delay={0.1}>
                 <div className="relative w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                   <div 
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 transition-all duration-500 ease-out"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] transition-all duration-500 ease-out"
                     style={{ width: `${(currentStep / totalSteps) * 100}%` }}
                     data-testid="progress-bar"
                     aria-valuenow={(currentStep / totalSteps) * 100}
@@ -679,15 +679,15 @@ export function GuestOnboardingFlow() {
                 className={`
                   glass-card glass-depth-1 p-4 flex flex-col items-center gap-2 transition-all duration-300
                   ${isCompleted ? 'border-cyan-400/50 dark:border-cyan-500/50 bg-gradient-to-br from-cyan-100/50 to-teal-100/50 dark:from-cyan-900/30 dark:to-teal-900/30' : ''}
-                  ${isCurrent ? 'border-teal-400/50 dark:border-teal-500/50 bg-gradient-to-br from-teal-100/50 to-blue-100/50 dark:from-teal-900/30 dark:to-blue-900/30 ring-2 ring-teal-400/30' : ''}
+                  ${isCurrent ? 'border-teal-400/50 dark:border-[var(--color-primary)]/50 bg-gradient-to-br from-teal-100/50 to-blue-100/50 dark:from-teal-900/30 dark:to-blue-900/30 ring-2 ring-teal-400/30' : ''}
                   ${!isCompleted && !isCurrent ? 'border-slate-200/30 dark:border-slate-600/30' : ''}
                 `}
                 data-testid={`step-indicator-${step.id}`}
               >
                 <div className={`
                   w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300
-                  ${isCompleted ? 'bg-gradient-to-br from-cyan-500 to-teal-500' : ''}
-                  ${isCurrent ? 'bg-gradient-to-br from-teal-500 to-blue-500' : ''}
+                  ${isCompleted ? 'bg-gradient-to-br from-[var(--color-primary)] to-teal-500' : ''}
+                  ${isCurrent ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-ocean-500)]' : ''}
                   ${!isCompleted && !isCurrent ? 'bg-slate-200 dark:bg-slate-700' : ''}
                 `}>
                   <StepIcon className={`w-5 h-5 ${isCompleted || isCurrent ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`} />
@@ -695,7 +695,7 @@ export function GuestOnboardingFlow() {
                 <span className={`
                   text-xs font-medium text-center transition-all duration-300
                   ${isCompleted ? 'text-cyan-700 dark:text-cyan-300' : ''}
-                  ${isCurrent ? 'text-teal-700 dark:text-teal-300' : ''}
+                  ${isCurrent ? 'text-[var(--color-primary-hover)] dark:text-teal-300' : ''}
                   ${!isCompleted && !isCurrent ? 'text-slate-500 dark:text-slate-400' : ''}
                 `}>
                   {step.label}
@@ -728,7 +728,7 @@ export function GuestOnboardingFlow() {
               {currentStep < totalSteps ? (
                 <PulseButton 
                   onClick={handleNext}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-medium rounded-xl"
+                  className="px-8 py-2.5 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-medium rounded-xl"
                   data-testid={`button-continue-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
                   aria-label="Continue to next step"
                 >
@@ -738,7 +738,7 @@ export function GuestOnboardingFlow() {
                 <PulseButton 
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="px-8 py-2.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-medium rounded-xl disabled:opacity-50"
+                  className="px-8 py-2.5 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-medium rounded-xl disabled:opacity-50"
                   data-testid="button-complete-onboarding"
                 >
                   {isSubmitting 

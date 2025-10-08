@@ -344,12 +344,12 @@ export class VoiceRecognitionService {
         <div className="flex gap-2">
           <button 
             onClick={() => command.action({ transcript })}
-            className="px-3 py-1 bg-teal-500 text-white rounded"
+            className="px-3 py-1 bg-[var(--color-primary)] text-white rounded"
           >
             Yes
           </button>
           <button 
-            className="px-3 py-1 bg-gray-500 text-white rounded"
+            className="px-3 py-1 bg-[var(--color-surface-elevated)] dark:bg-gray-8000 text-white rounded"
           >
             No
           </button>

@@ -3,7 +3,8 @@
  * Provides users with complete control over their privacy settings and data
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -41,6 +42,7 @@ export default function PrivacyCenter() {
   // Consent types configuration
   const consentTypes = [
   {
+  const { t } = useTranslation();
     type: 'necessary',
     title: 'Necessary Cookies',
     description: 'Essential for the website to function properly',
@@ -103,7 +105,7 @@ export default function PrivacyCenter() {
     } catch (error) {
       console.error('Error loading privacy data:', error);
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to load privacy settings",
         variant: "destructive"
       });
@@ -143,7 +145,7 @@ export default function PrivacyCenter() {
       ));
 
       toast({
-        title: "Success",
+        title: {t('states.success', 'Success')},
         description: `Privacy preference updated for ${consentType}`
       });
     } catch (error) {
@@ -222,7 +224,7 @@ export default function PrivacyCenter() {
           <Shield className="h-8 w-8 text-blue-600" />
           Privacy Center
         </h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 dark:text-gray-300 mt-2">
           Manage your privacy settings and exercise your data rights under GDPR
         </p>
       </div>
@@ -252,8 +254,8 @@ export default function PrivacyCenter() {
                     <Badge variant="secondary" className="text-xs">Required</Badge>
                     }
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{type.description}</p>
-                    <p className="text-xs text-gray-500">Purpose: {type.purpose}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{type.description}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Purpose: {type.purpose}</p>
                   </div>
                   <Switch
                   checked={getConsentStatus(type.type)}
@@ -289,7 +291,7 @@ export default function PrivacyCenter() {
                     <Download className="h-4 w-4" />
                     Right of Access
                   </h3>
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                     Download a complete copy of all your personal data we store.
                   </p>
                   <Button
@@ -306,7 +308,7 @@ export default function PrivacyCenter() {
                     <Eye className="h-4 w-4" />
                     Right to Rectification
                   </h3>
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                     Request correction of incorrect or incomplete personal data.
                   </p>
                   <Button
@@ -336,39 +338,39 @@ export default function PrivacyCenter() {
                 <div className="space-y-4 mt-4">
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-semibold">Account Management</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Legal Basis:</strong> Contract performance
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Data Categories:</strong> Personal identifiers, contact information
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       <strong>Retention:</strong> 7 years after account closure
                     </p>
                   </div>
 
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-semibold">Platform Services</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Legal Basis:</strong> Contract performance
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Data Categories:</strong> User-generated content, usage data
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       <strong>Retention:</strong> 3 years after creation
                     </p>
                   </div>
 
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-semibold">Analytics & Improvement</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Legal Basis:</strong> Legitimate interest
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                       <strong>Data Categories:</strong> Usage statistics, technical data
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       <strong>Retention:</strong> 1 year
                     </p>
                   </div>

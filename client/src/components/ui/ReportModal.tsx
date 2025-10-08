@@ -71,7 +71,7 @@ const REPORT_CATEGORIES = [
     label: 'Other',
     description: 'Something else that violates community guidelines',
     icon: <Flag className="h-5 w-5" />,
-    color: 'text-gray-600'
+    color: 'text-gray-600 dark:text-gray-300'
   }
 ];
 
@@ -140,7 +140,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         }}
       >
         <div 
-          className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto dark:bg-neutral-900"
+          className="bg-[var(--color-surface)] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto dark:bg-neutral-900"
           style={{
             pointerEvents: 'auto',
             position: 'relative'
@@ -149,21 +149,21 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           data-testid={`modal-report-${postId}`}
         >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
+        <div className="flex items-center justify-between p-6 border-b border-[var(--color-border)] dark:border-neutral-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
               <Flag className="h-5 w-5 text-red-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-neutral-100">Report Post</h2>
+              <h2 className="text-xl font-bold text-[var(--color-text)] dark:text-neutral-100">Report Post</h2>
               <p className="text-sm text-gray-600 dark:text-neutral-400">Help us understand what's wrong</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-xl transition-colors dark:bg-neutral-800"
+            className="p-2 hover:bg-[var(--color-neutral-100)] rounded-xl transition-colors dark:bg-neutral-800"
             data-testid={`button-close-report-${postId}`}
-          >
+           aria-label="Button">
             <X className="h-5 w-5 text-gray-400" />
           </button>
         </div>
@@ -172,16 +172,16 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         <div className="p-6">
           {/* Report Categories */}
           <div className="space-y-3 mb-6">
-            <h3 className="font-semibold text-gray-900 mb-4 dark:text-neutral-100">What's wrong with this post?</h3>
+            <h3 className="font-semibold text-[var(--color-text)] mb-4 dark:text-neutral-100">What's wrong with this post?</h3>
             {REPORT_CATEGORIES.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setSelectedReason(category.id)}
+                onClick={() = aria-label="Button"> setSelectedReason(category.id)}
                 className={`
                   w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left
                   ${selectedReason === category.id
                     ? 'border-red-200 bg-red-50'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600 hover:bg-[var(--color-surface-elevated)]'
                   }
                 `}
                 data-testid={`button-category-${postId}-${category.id}`}
@@ -190,18 +190,18 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   {category.icon}
                 </div>
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900 dark:text-neutral-100">{category.label}</div>
+                  <div className="font-medium text-[var(--color-text)] dark:text-neutral-100">{category.label}</div>
                   <div className="text-sm text-gray-600 dark:text-neutral-400">{category.description}</div>
                 </div>
                 <div className={`
                   w-5 h-5 rounded-full border-2 transition-all
                   ${selectedReason === category.id
                     ? 'border-red-500 bg-red-500'
-                    : 'border-gray-300'
+                    : 'border-gray-300 dark:border-gray-600'
                   }
                 `}>
                   {selectedReason === category.id && (
-                    <div className="w-full h-full rounded-full bg-white scale-50 dark:bg-neutral-900"></div>
+                    <div className="w-full h-full rounded-full bg-[var(--color-surface)] scale-50 dark:bg-neutral-900"></div>
                   )}
                 </div>
               </button>
@@ -211,7 +211,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
           {/* Additional Description */}
           {selectedReason && (
             <div className="space-y-3">
-              <h4 className="font-medium text-gray-900 dark:text-neutral-100">Additional details (optional)</h4>
+              <h4 className="font-medium text-[var(--color-text)] dark:text-neutral-100">Additional details (optional)</h4>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -221,7 +221,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 maxLength={500}
                 data-testid={`textarea-report-description-${postId}`}
               />
-              <div className="text-right text-sm text-gray-500">
+              <div className="text-right text-sm text-gray-500 dark:text-gray-400">
                 {description.length}/500 characters
               </div>
             </div>
@@ -229,15 +229,15 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50 dark:bg-neutral-800">
+        <div className="flex items-center justify-between p-6 border-t border-[var(--color-border)] bg-[var(--color-surface-elevated)] dark:bg-neutral-800">
           <p className="text-sm text-gray-600 dark:text-neutral-400">
             Reports are reviewed by our moderation team
           </p>
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="px-6 py-2.5 text-gray-700 hover:text-gray-900 font-medium transition-colors dark:text-neutral-100"
-            >
+              className="px-6 py-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] font-medium transition-colors dark:text-neutral-100"
+             aria-label="Button">
               Cancel
             </button>
             <button
@@ -247,11 +247,11 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 px-8 py-2.5 rounded-xl font-semibold transition-all transform
                 ${selectedReason && !isSubmitting
                   ? 'bg-red-600 text-white hover:bg-red-700 hover:scale-105 shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }
               `}
               data-testid={`button-submit-report-${postId}`}
-            >
+             aria-label="Button">
               <span data-testid={isSubmitting ? `text-submitting-report-${postId}` : undefined}>
                 {isSubmitting ? 'Submitting Report...' : 'Submit Report'}
               </span>

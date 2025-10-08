@@ -74,7 +74,7 @@ const ROLE_COLORS = {
   host: 'bg-orange-100 text-orange-800 border-orange-200',
   photographer: 'bg-indigo-100 text-indigo-800 border-indigo-200',
   organizer: 'bg-red-100 text-red-800 border-red-200',
-  volunteer: 'bg-teal-100 text-teal-800 border-teal-200'
+  volunteer: 'bg-[var(--color-ocean-100)] text-teal-800 border-teal-200'
 };
 
 export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: EnhancedResumeIntegrationProps) {
@@ -165,7 +165,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
-          onClick={() => setActiveTab('resume')}
+          onClick={() = aria-label="Button"> setActiveTab('resume')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
           activeTab === 'resume' ?
           'bg-background text-foreground shadow-sm' :
@@ -177,7 +177,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
         </button>
         {isOwnProfile &&
         <button
-          onClick={() => setActiveTab('invitations')}
+          onClick={() = aria-label="Button"> setActiveTab('invitations')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
           activeTab === 'invitations' ?
           'bg-background text-foreground shadow-sm' :
@@ -266,7 +266,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                                 <div className="flex items-center gap-2 mb-2">
                                   <Badge
                         variant="outline"
-                        className={`flex items-center gap-1 ${ROLE_COLORS[role.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800'}`}>
+                        className={`flex items-center gap-1 ${ROLE_COLORS[role.role as keyof typeof ROLE_COLORS] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`}>
 
                                     {ROLE_ICONS[role.role as keyof typeof ROLE_ICONS]}
                                     {role.role.charAt(0).toUpperCase() + role.role.slice(1)}
@@ -340,7 +340,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                       <div className="flex items-center gap-2 mb-2">
                         <Badge
                     variant="outline"
-                    className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800'}`}>
+                    className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`}>
 
                           {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                           {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}

@@ -2,7 +2,8 @@
 // Layer 9: UI Framework Agent - Top Navigation Bar Component
 // Global navigation header with Mundo Tango branding
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import {
   Search, Bell, MessageSquare, Globe,
   ChevronDown, Sun, Moon, User, Settings,
@@ -25,7 +26,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
     <header className={cn(
       "sticky top-0 z-50 w-full border-b backdrop-blur-xl",
       theme === 'light' ?
-      "bg-white/95 border-gray-200" :
+      "bg-[var(--color-surface)] dark:bg-gray-900/95 border-[var(--color-border)]" :
       "bg-slate-900/95 border-slate-800"
     )}>
       <div className="flex items-center justify-between h-16 px-4 lg:px-8">
@@ -48,7 +49,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           <div className={cn(
             "relative rounded-full overflow-hidden",
             theme === 'light' ?
-            "bg-gray-100" :
+            "bg-[var(--color-neutral-100)]" :
             "bg-slate-800"
           )}>
             <Search className={cn(
@@ -58,12 +59,12 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
               placeholder="Search events, people, memories..."
               className={cn(
                 "w-full pl-12 pr-4 py-2.5 bg-transparent outline-none transition-colors",
                 theme === 'light' ?
-                "text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-purple-500/20" :
+                "text-[var(--color-text)] placeholder-gray-400 focus:bg-[var(--color-surface)] dark:bg-gray-900 focus:ring-2 focus:ring-purple-500/20" :
                 "text-white placeholder-slate-400 focus:bg-slate-700/50 focus:ring-2 focus:ring-purple-500/20"
               )} data-testid="input-text" />
 
@@ -78,10 +79,10 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
             className={cn(
               "p-2 rounded-lg transition-all",
               theme === 'light' ?
-              "hover:bg-gray-100 text-gray-600" :
+              "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
               "hover:bg-slate-800 text-slate-400"
             )}
-            title={theme === 'light' ? "Switch to dark mode" : "Switch to light mode"} data-testid="button-element">
+            title={theme === 'light' ? "Switch to dark mode" : "Switch to light mode"} data-testid="button-element" aria-label="Button">
 
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
           </button>
@@ -90,9 +91,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           <button className={cn(
             "hidden sm:flex items-center gap-1 px-3 py-2 rounded-lg transition-all",
             theme === 'light' ?
-            "hover:bg-gray-100 text-gray-600" :
+            "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
             "hover:bg-slate-800 text-slate-400"
-          )} data-testid="button-element">
+          )} data-testid="button-element" aria-label="Button">
             <span className="text-lg">🇬🇧</span>
             <ChevronDown className="w-3 h-3" />
           </button>
@@ -102,9 +103,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
               <button className={cn(
               "p-2 rounded-lg transition-all",
               theme === 'light' ?
-              "hover:bg-gray-100 text-gray-600" :
+              "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
               "hover:bg-slate-800 text-slate-400"
-            )} title="Favorites" data-testid="button-element">
+            )} title="Favorites" data-testid="button-element" aria-label="Button">
                 <Heart className="w-5 h-5" />
               </button>
           </Link>
@@ -113,9 +114,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           <button className={cn(
             "relative p-2 rounded-lg transition-all",
             theme === 'light' ?
-            "hover:bg-gray-100 text-gray-600" :
+            "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
             "hover:bg-slate-800 text-slate-400"
-          )} data-testid="button-element">
+          )} data-testid="button-element" aria-label="Button">
             <MessageSquare className="w-5 h-5" />
           </button>
 
@@ -123,9 +124,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           <button className={cn(
             "relative p-2 rounded-lg transition-all",
             theme === 'light' ?
-            "hover:bg-gray-100 text-gray-600" :
+            "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
             "hover:bg-slate-800 text-slate-400"
-          )} data-testid="button-element">
+          )} data-testid="button-element" aria-label="Button">
             <Bell className="w-5 h-5" />
             {notifications > 0 &&
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
@@ -137,9 +138,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
               <button className={cn(
               "p-2 rounded-lg transition-all",
               theme === 'light' ?
-              "hover:bg-gray-100 text-gray-600" :
+              "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
               "hover:bg-slate-800 text-slate-400"
-            )} title="Settings" data-testid="button-element">
+            )} title={t('navigation.settings', 'Settings')} data-testid="button-element" aria-label="Button">
                 <Settings className="w-5 h-5" />
               </button>
           </Link>
@@ -149,9 +150,9 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
               <button className={cn(
               "p-2 rounded-lg transition-all",
               theme === 'light' ?
-              "hover:bg-gray-100 text-gray-600" :
+              "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300" :
               "hover:bg-slate-800 text-slate-400"
-            )} title="Help" data-testid="button-element">
+            )} title="Help" data-testid="button-element" aria-label="Button">
                 <HelpCircle className="w-5 h-5" />
               </button>
           </Link>
@@ -159,11 +160,11 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           {/* Profile Dropdown */}
           <div className="relative">
             <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              onClick={() = aria-label="Button"> setIsProfileOpen(!isProfileOpen)}
               className={cn(
                 "flex items-center gap-2 p-1.5 rounded-lg transition-all",
                 theme === 'light' ?
-                "hover:bg-gray-100" :
+                "hover:bg-[var(--color-neutral-100)]" :
                 "hover:bg-slate-800"
               )} data-testid="button-element">
 
@@ -186,13 +187,13 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                 <div className={cn(
                 "absolute right-0 mt-2 w-64 rounded-xl shadow-xl border z-50",
                 theme === 'light' ?
-                "bg-white border-gray-200" :
+                "bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)]" :
                 "bg-slate-900 border-slate-800"
               )}>
                   {/* User Info */}
                   <div className={cn(
                   "p-4 border-b",
-                  theme === 'light' ? "border-gray-200" : "border-slate-800"
+                  theme === 'light' ? "border-[var(--color-border)]" : "border-slate-800"
                 )}>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold">
@@ -201,11 +202,11 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                       <div>
                         <p className={cn(
                         "font-semibold",
-                        theme === 'light' ? "text-gray-900" : "text-white"
+                        theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                       )}>Pierre Dubois</p>
                         <p className={cn(
                         "text-sm",
-                        theme === 'light' ? "text-gray-500" : "text-slate-400"
+                        theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                       )}>@pierre_dancer</p>
                       </div>
                     </div>
@@ -216,7 +217,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                     <Link href="/profile" className={cn(
                     "flex items-center gap-3 px-4 py-2 transition-colors",
                     theme === 'light' ?
-                    "hover:bg-gray-100 text-gray-700" :
+                    "hover:bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]" :
                     "hover:bg-slate-800 text-slate-300"
                   )} data-testid="link-element">
                         <User className="w-4 h-4" />
@@ -225,7 +226,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                     <Link href="/settings" className={cn(
                     "flex items-center gap-3 px-4 py-2 transition-colors",
                     theme === 'light' ?
-                    "hover:bg-gray-100 text-gray-700" :
+                    "hover:bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]" :
                     "hover:bg-slate-800 text-slate-300"
                   )} data-testid="link-element">
                         <Settings className="w-4 h-4" />
@@ -233,14 +234,14 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                     </Link>
                     <div className={cn(
                     "my-2 border-t",
-                    theme === 'light' ? "border-gray-200" : "border-slate-800"
+                    theme === 'light' ? "border-[var(--color-border)]" : "border-slate-800"
                   )} />
                     <button className={cn(
                     "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
                     theme === 'light' ?
-                    "hover:bg-gray-100 text-gray-700" :
+                    "hover:bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]" :
                     "hover:bg-slate-800 text-slate-300"
-                  )} data-testid="button-element">
+                  )} data-testid="button-element" aria-label="Button">
                       <LogOut className="w-4 h-4" />
                       <span>Sign out</span>
                     </button>

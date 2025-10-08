@@ -83,8 +83,8 @@ const NewFeedEvents = () => {
                 <Button
                 variant="ghost"
                 size="sm"
-                className="text-turquoise-600 hover:text-cyan-700 text-xs font-semibold transition-colors hover:bg-turquoise-50"
-                onClick={() => window.location.href = '/events'} data-testid="button-text-turquoise-600">
+                className="text-[var(--color-primary-hover)] hover:text-cyan-700 text-xs font-semibold transition-colors hover:bg-[var(--color-ocean-50)]"
+                onClick={() => window.location.href = '/events'} data-testid="button-text-[var(--color-primary-hover)]">
 
                   See all
                 </Button>
@@ -95,27 +95,27 @@ const NewFeedEvents = () => {
               sectionEvents.slice(0, 3).map((event) =>
               <div
                 key={event.id}
-                className="flex items-start gap-3 hover:bg-turquoise-50/50 p-2 -m-2 rounded-lg transition-colors cursor-pointer"
+                className="flex items-start gap-3 hover:bg-[var(--color-ocean-50)]/50 p-2 -m-2 rounded-lg transition-colors cursor-pointer"
                 onClick={() => window.location.href = `/events/${event.id}`}>
 
                       <div className="w-2 h-2 rounded-full bg-gradient-to-r from-turquoise-400 to-cyan-500 mt-2 flex-shrink-0"></div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
+                        <h4 className="font-semibold text-[var(--color-text)] dark:text-white text-sm leading-tight mb-1">
                           {event.title}
                         </h4>
                         <div className="space-y-1">
-                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300">
                             <CalendarIcon className="h-3 w-3" />
                             <span>
                               {format(new Date(event.startDate), "EEEE do MMMM")}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300">
                             <MapPinIcon className="h-3 w-3" />
                             <span className="truncate">{event.location}</span>
                           </div>
                           {event.attendeesCount > 0 &&
-                    <div className="flex items-center gap-1 text-xs text-gray-600">
+                    <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300">
                               <UsersIcon className="h-3 w-3" />
                               <span>{event.attendeesCount} attending</span>
                             </div>

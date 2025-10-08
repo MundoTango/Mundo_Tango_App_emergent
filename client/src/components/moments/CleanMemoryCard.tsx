@@ -239,13 +239,13 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
 
   return (
     <>
-      <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow" data-testid={`card-memory-${post.id}`}>
+      <article className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow" data-testid={`card-memory-${post.id}`}>
         {/* Header */}
         <div className="p-4">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-3">
               {/* Avatar */}
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-semibold">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white font-semibold">
                 {post.user?.profileImage ? (
                   <img 
                     src={post.user.profileImage} 
@@ -259,8 +259,8 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
               
               {/* User info */}
               <div>
-                <h3 className="font-semibold text-gray-900" data-testid={`text-username-${post.id}`}>{post.user?.name || 'Unknown User'}</h3>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <h3 className="font-semibold text-[var(--color-text)] dark:text-white" data-testid={`text-username-${post.id}`}>{post.user?.name || 'Unknown User'}</h3>
+                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                   {post.user?.city && (
                     <>
                       <MapPin className="w-3 h-3" />
@@ -294,29 +294,29 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowMenu(!showMenu)}
-                className="h-8 w-8 p-0 hover:bg-gray-100"
+                className="h-8 w-8 p-0 hover:bg-[var(--color-neutral-100)]"
                 data-testid="button-menu"
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
               
               {showMenu && (
-                <div className="absolute right-0 top-8 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
+                <div className="absolute right-0 top-8 w-48 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-lg border border-[var(--color-border)] py-1 z-10">
                   {isOwner && (
                     <>
                       <button
-                        onClick={() => {
+                        onClick={() = aria-label="Button"> {
                           onEdit?.(post);  // ESA Framework: Trigger parent edit handler
                           setShowMenu(false);
                         }}
-                        className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                        className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                         data-testid="button-edit"
                       >
                         <Edit className="w-4 h-4 text-blue-600" />
                         Edit Post
                       </button>
                       <button
-                        onClick={() => {
+                        onClick={() = aria-label="Button"> {
                           if (confirm('Are you sure you want to delete this memory? This action cannot be undone.')) {
                             if (onDelete) {
                               onDelete(post.id);  // ESA Framework: Use parent delete handler
@@ -336,11 +336,11 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                     </>
                   )}
                   <button
-                    onClick={() => {
+                    onClick={() = aria-label="Button"> {
                       setShowReportDialog(true);
                       setShowMenu(false);
                     }}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                     data-testid="button-report"
                   >
                     <Flag className="w-4 h-4 text-red-500" />
@@ -368,7 +368,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
             
             {/* Location - Only show if NOT a recommendation (recommendations have location in badge) */}
             {post.location && !post.recommendation && (
-              <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400">
                 <MapPin className="w-4 h-4" />
                 <span>{getLocationName(post.location)}</span>
               </div>
@@ -543,12 +543,12 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                 {reactions.map((reaction, index) => (
                   <button
                     key={reaction}
-                    onClick={() => handleReaction(reaction)}
+                    onClick={() = aria-label="Button"> handleReaction(reaction)}
                     className={`
                       flex items-center justify-center w-6 h-6 rounded-full text-xs transition-all duration-200 border
                       ${selectedReaction === reaction 
                         ? 'bg-blue-100 ring-1 ring-blue-300 border-blue-300' 
-                        : 'hover:bg-gray-50 border-gray-200 hover:border-gray-300'
+                        : 'hover:bg-[var(--color-surface-elevated)] border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'
                       }
                     `}
                     data-testid={`button-reaction-${reactionIds[reaction]}`}
@@ -564,7 +564,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowComments(!showComments)}
-                  className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
+                  className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600"
                   data-testid="button-comment-toggle"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -577,7 +577,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   variant="ghost"
                   size="sm"
                   onClick={onShare}
-                  className="flex items-center gap-2 text-gray-600 hover:text-green-600"
+                  className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-600"
                   data-testid="button-share"
                 >
                   <Share2 className="w-4 h-4" />
@@ -589,7 +589,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center gap-2 text-gray-600 hover:bg-gradient-to-r hover:from-turquoise hover:to-cobalt hover:text-white transition-all duration-300"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-turquoise hover:to-cobalt hover:text-white transition-all duration-300"
                     data-testid="button-see-friendship"
                     asChild
                   >
@@ -611,12 +611,12 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
             {commentsQuery.isLoading && (
               <div className="flex items-center justify-center py-4">
                 <div className="animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                <span className="ml-2 text-sm text-gray-500">Loading comments...</span>
+                <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">Loading comments...</span>
               </div>
             )}
             
             {!commentsQuery.isLoading && comments.length === 0 && (
-              <div className="text-center py-4 text-sm text-gray-500">
+              <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
                 No comments yet. Be the first to comment!
               </div>
             )}
@@ -629,11 +629,11 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                       {getAvatarFallback(comment.user?.name || 'U')}
                     </div>
                     <div className="flex-1">
-                      <div className="bg-gray-50 rounded-lg px-3 py-2">
+                      <div className="bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2">
                         <p className="font-medium text-sm">{comment.user?.name || 'Anonymous'}</p>
-                        <p className="text-gray-700">{comment.content}</p>
+                        <p className="text-[var(--color-text-secondary)]">{comment.content}</p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {comment.createdAt ? formatDistanceToNow(new Date(comment.createdAt)) : 'Just now'} ago
                       </p>
                     </div>
@@ -644,7 +644,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
             
             {/* Comment Form */}
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white text-sm font-medium">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white text-sm font-medium">
                 {user?.profileImage ? (
                   <img src={user.profileImage} alt={user.name} className="w-full h-full rounded-full object-cover" />
                 ) : (

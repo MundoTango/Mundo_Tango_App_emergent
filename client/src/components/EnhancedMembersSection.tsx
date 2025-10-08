@@ -46,7 +46,7 @@ const MemberCard: React.FC<{member: EnhancedMember;onClick: () => void;}> = ({ m
 
   return (
     <div
-      className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+      className="flex items-center space-x-3 p-4 rounded-xl border border-[var(--color-border)] hover:shadow-lg hover:border-gray-300 dark:border-gray-600 transition-all duration-200 cursor-pointer group"
       onClick={handleClick}>
 
       {/* Clean profile image without emoji badge */}
@@ -60,7 +60,7 @@ const MemberCard: React.FC<{member: EnhancedMember;onClick: () => void;}> = ({ m
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors">
+          <p className="text-sm font-medium text-[var(--color-text)] dark:text-white truncate group-hover:text-purple-600 transition-colors">
             {member.name}
           </p>
           {member.role === 'admin' &&
@@ -69,7 +69,7 @@ const MemberCard: React.FC<{member: EnhancedMember;onClick: () => void;}> = ({ m
             </div>
           }
         </div>
-        <p className="text-xs text-gray-500 truncate">@{member.username}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">@{member.username}</p>
         
         {/* Clean emoji-only role indicators with hover tooltips */}
         <div className="flex items-center mt-2">
@@ -104,7 +104,7 @@ const CategorySection: React.FC<{
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
         <span className="text-lg">{categoryInfo.emoji}</span>
-        <h4 className="text-md font-semibold text-gray-800">{categoryInfo.name}</h4>
+        <h4 className="text-md font-semibold text-gray-800 dark:text-gray-100">{categoryInfo.name}</h4>
         <Badge variant="outline" className={`text-xs ${categoryInfo.color}`}>
           {members.length}
         </Badge>
@@ -194,13 +194,13 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
   }, [enhancedMembers]);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6">
+    <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
-          <Users className="h-5 w-5 text-gray-600" />
+          <Users className="h-5 w-5 text-gray-600 dark:text-gray-300" />
           <h3 className="text-lg font-semibold">Members</h3>
-          <Badge variant="outline" className="bg-gray-50 text-gray-700">
+          <Badge variant="outline" className="bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)]">
             {filteredMembers.length} of {memberCount}
           </Badge>
         </div>
@@ -261,7 +261,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
             setSelectedCategory('all');
             setSelectedRole('all');
           }}
-          className="text-gray-600 hover:text-gray-800" data-testid="button-text-gray-600">
+          className="text-gray-600 hover:text-gray-800 dark:text-gray-100" data-testid="button-text-gray-600 dark:text-gray-300">
 
             Clear Filters
           </Button>
@@ -281,7 +281,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         )}
         </div> :
 
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-gray-500 dark:text-gray-400">
           <Users className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <p>No members found matching your filters</p>
           <Button

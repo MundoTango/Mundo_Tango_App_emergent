@@ -82,7 +82,7 @@ export function getConnectionBadgeColor(degree: ConnectionDegree): {
 } {
   if (degree === -1) {
     return {
-      bgClass: 'bg-gray-100 dark:bg-gray-800',
+      bgClass: 'bg-[var(--color-neutral-100)] dark:bg-gray-800',
       textClass: 'text-gray-600 dark:text-gray-400',
       iconColor: 'text-gray-500'
     };
@@ -110,7 +110,7 @@ export function getConnectionBadgeColor(degree: ConnectionDegree): {
   }
   return {
     bgClass: 'bg-gray-200',
-    textClass: 'text-gray-700',
+    textClass: 'text-[var(--color-text-secondary)]',
     iconColor: 'text-gray-500'
   };
 }

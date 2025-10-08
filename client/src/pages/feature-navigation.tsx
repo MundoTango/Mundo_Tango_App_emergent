@@ -197,13 +197,13 @@ export default function FeatureNavigation() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-[var(--color-surface-elevated)] p-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">
             Mundo Tango Feature Navigation
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Navigate to all platform features and see implementation status
           </p>
         </div>
@@ -237,7 +237,7 @@ export default function FeatureNavigation() {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 rounded-lg">
+                    <div className="p-2 bg-[var(--color-neutral-100)] rounded-lg">
                       {feature.icon}
                     </div>
                     <CardTitle className="text-lg">{feature.name}</CardTitle>
@@ -246,14 +246,14 @@ export default function FeatureNavigation() {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-gray-600">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
                 
                 {getStatusBadge(feature.status)}
                 
                 {feature.issues &&
               <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700">Issues:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside">
+                    <p className="text-sm font-medium text-[var(--color-text-secondary)]">Issues:</p>
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside">
                       {feature.issues.map((issue, idx) =>
                   <li key={idx}>{issue}</li>
                   )}
@@ -263,8 +263,8 @@ export default function FeatureNavigation() {
                 
                 {feature.requirements &&
               <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700">Required Features:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside">
+                    <p className="text-sm font-medium text-[var(--color-text-secondary)]">Required Features:</p>
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside">
                       {feature.requirements.map((req, idx) =>
                   <li key={idx}>{req}</li>
                   )}

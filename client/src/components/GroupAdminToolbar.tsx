@@ -326,10 +326,10 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                           { name: 'Carlos Mendez', username: 'carlos_m', joinDate: '1 day ago' },
                           { name: 'Ana Silva', username: 'ana_dancer', joinDate: '2 days ago' }].
                           map((request, index) =>
-                          <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                          <div key={index} className="flex items-center justify-between p-2 bg-[var(--color-surface-elevated)] rounded">
                               <div>
                                 <div className="font-medium text-sm">{request.name}</div>
-                                <div className="text-xs text-gray-500">@{request.username}</div>
+                                <div className="text-xs text-gray-500 dark:text-gray-400">@{request.username}</div>
                               </div>
                               <div className="flex space-x-1">
                                 <Button size="sm" variant="outline" className="h-7 px-2 text-xs" data-testid="button-h-7">Accept</Button>
@@ -417,7 +417,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                       <div>
                         <h4 className="font-semibold mb-2">Recent Posts</h4>
                         <div className="border rounded-lg p-3 max-h-40 overflow-y-auto">
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             No posts to moderate
                           </div>
                         </div>
@@ -425,7 +425,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                       <div>
                         <h4 className="font-semibold mb-2">Media Gallery</h4>
                         <div className="border rounded-lg p-3 max-h-40 overflow-y-auto">
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             Group media will appear here
                           </div>
                         </div>
@@ -513,19 +513,19 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="text-center p-4 border rounded-lg">
                         <div className="text-2xl font-bold text-blue-600">{group.memberCount}</div>
-                        <div className="text-sm text-gray-600">Total Members</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Total Members</div>
                       </div>
                       <div className="text-center p-4 border rounded-lg">
                         <div className="text-2xl font-bold text-green-600">89%</div>
-                        <div className="text-sm text-gray-600">Active Rate</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Active Rate</div>
                       </div>
                       <div className="text-center p-4 border rounded-lg">
                         <div className="text-2xl font-bold text-purple-600">24</div>
-                        <div className="text-sm text-gray-600">Posts This Week</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Posts This Week</div>
                       </div>
                       <div className="text-center p-4 border rounded-lg">
                         <div className="text-2xl font-bold text-orange-600">156</div>
-                        <div className="text-sm text-gray-600">Total Interactions</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Total Interactions</div>
                       </div>
                     </div>
                   </CardContent>
@@ -543,7 +543,7 @@ export const GroupAdminToolbar: React.FC<GroupAdminToolbarProps> = ({ group, onU
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-gray-300">
                         No content flagged for review
                       </div>
                     </div>

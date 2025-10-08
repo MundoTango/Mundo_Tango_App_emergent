@@ -47,12 +47,12 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
   const mediaUrls = getMediaUrls();
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-semibold">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white font-semibold">
               {post.user?.profileImage ?
               <img
                 src={post.user.profileImage}
@@ -65,8 +65,8 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900">{post.user?.name || 'Unknown User'}</h3>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <h3 className="font-semibold text-[var(--color-text)] dark:text-white">{post.user?.name || 'Unknown User'}</h3>
+              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                 <Clock className="w-3 h-3" />
                 <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
               </div>
@@ -76,7 +76,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
 
         {/* Content */}
         <div className="mt-3">
-          <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+          <p className="text-gray-800 dark:text-gray-100 whitespace-pre-wrap">{post.content}</p>
           
           {/* ESA LIFE CEO 61x21 - FIXED MEDIA DISPLAY */}
           {mediaUrls.length > 0 &&
@@ -134,15 +134,15 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
         {/* Actions */}
         <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-red-600 transition-colors" data-testid="button-flex" aria-label="Button">
               <Heart className="w-5 h-5" />
               <span className="text-sm">{post.reactionCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors" data-testid="button-flex" aria-label="Button">
               <MessageCircle className="w-5 h-5" />
               <span className="text-sm">{post.commentCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors" data-testid="button-flex">
+            <button className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors" data-testid="button-flex" aria-label="Button">
               <Share2 className="w-5 h-5" />
             </button>
           </div>

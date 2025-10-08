@@ -117,7 +117,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       case 'city':
         return `${baseClass} bg-orange-100 text-orange-700`;
       default:
-        return `${baseClass} bg-gray-100 text-gray-700`;
+        return `${baseClass} bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]`;
     }
   };
 
@@ -427,7 +427,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
       case 'city':
         return 'bg-orange-50 text-orange-700';
       default:
-        return 'bg-gray-50 text-gray-700';
+        return 'bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)]';
     }
   };
 
@@ -446,7 +446,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
         onKeyDown={handleKeyDown}
         onCompositionStart={() => { isComposing.current = true; }}
         onCompositionEnd={() => { isComposing.current = false; handleInput(); }}
-        className={`w-full p-3 rounded-lg border-2 border-gray-200 focus:border-emerald-400 focus:outline-none resize-none min-h-[100px] ${className}`}
+        className={`w-full p-3 rounded-lg border-2 border-[var(--color-border)] focus:border-emerald-400 focus:outline-none resize-none min-h-[100px] ${className}`}
         style={{
           minHeight: `${rows * 1.5}rem`,
           maxHeight: '300px',
@@ -473,7 +473,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                 className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-all ${
                   index === selectedIndex
                     ? 'bg-emerald-100 ring-2 ring-emerald-400'
-                    : 'hover:bg-gray-100'
+                    : 'hover:bg-[var(--color-neutral-100)]'
                 }`}
                 data-testid={`suggestion-${suggestion.type}-${suggestion.id}`}
               >
@@ -485,7 +485,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-900 truncate">
+                    <span className="font-semibold text-[var(--color-text)] dark:text-white truncate">
                       {suggestion.display}
                     </span>
                     <Badge variant="outline" className={`text-xs ${getTypeColor(suggestion.type)}`}>
@@ -493,7 +493,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                     </Badge>
                   </div>
                   {suggestion.status && (
-                    <div className="text-xs text-gray-500 mt-0.5 truncate">
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                       {suggestion.status}
                     </div>
                   )}
