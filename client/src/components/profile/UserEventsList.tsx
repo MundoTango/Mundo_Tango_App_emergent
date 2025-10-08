@@ -11,7 +11,7 @@ interface UserEventsListProps {
 }
 
 export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
-  const { data: events = [], isLoading, error } = useQuery({
+  const { data: events = [], isLoading, error } = useQuery<any[]>({
     queryKey: ['/api/user/events', userId],
     enabled: !!userId,
   });
