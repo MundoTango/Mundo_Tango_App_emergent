@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  CreditCard, 
-  Calendar, 
+import {
+  CreditCard,
+  Calendar,
   ChevronRight,
   Download,
   Plus,
   AlertCircle,
   Check,
   X,
-  Loader2
-} from 'lucide-react';
+  Loader2 } from
+'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,7 +26,7 @@ const BillingDashboard: React.FC = () => {
   const { toast } = useToast();
   const { user, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
-  
+
   // Fetch current subscription
   const { data: subscriptionData, isLoading: subscriptionLoading } = useQuery<{
     subscription: any;
@@ -34,7 +34,7 @@ const BillingDashboard: React.FC = () => {
     invoices: any[];
   }>({
     queryKey: ['/api/payments/subscription'],
-    enabled: isAuthenticated,
+    enabled: isAuthenticated
   });
 
   // Cancel subscription mutation
@@ -46,7 +46,7 @@ const BillingDashboard: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['/api/payments/subscription'] });
       toast({
         title: "Subscription Cancelled",
-        description: "Your subscription has been cancelled. You'll retain access until the end of your billing period.",
+        description: "Your subscription has been cancelled. You'll retain access until the end of your billing period."
       });
     },
     onError: (error: any) => {
@@ -67,7 +67,7 @@ const BillingDashboard: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['/api/payments/subscription'] });
       toast({
         title: "Subscription Resumed",
-        description: "Your subscription has been resumed successfully.",
+        description: "Your subscription has been resumed successfully."
       });
     },
     onError: (error: any) => {
@@ -88,7 +88,7 @@ const BillingDashboard: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['/api/payments/subscription'] });
       toast({
         title: "Payment Method Removed",
-        description: "The payment method has been removed successfully.",
+        description: "The payment method has been removed successfully."
       });
     },
     onError: (error: any) => {
@@ -109,8 +109,8 @@ const BillingDashboard: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
-      </div>
-    );
+      </div>);
+
   }
 
   const subscription = subscriptionData?.subscription;
@@ -142,25 +142,25 @@ const BillingDashboard: React.FC = () => {
                 <CardTitle>Current Subscription</CardTitle>
                 <CardDescription>Your active plan and billing details</CardDescription>
               </div>
-              {subscription && (
-                <Badge 
-                  variant={status === 'active' ? 'default' : status === 'cancelling' ? 'secondary' : 'destructive'}
-                  className={
-                    status === 'active' 
-                      ? 'bg-green-100 text-green-800' 
-                      : status === 'cancelling'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-red-100 text-red-800'
-                  }
-                >
+              {subscription &&
+              <Badge
+                variant={status === 'active' ? 'default' : status === 'cancelling' ? 'secondary' : 'destructive'}
+                className={
+                status === 'active' ?
+                'bg-green-100 text-green-800' :
+                status === 'cancelling' ?
+                'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'
+                }>
+
                   {status === 'cancelling' ? 'Cancelling' : status}
                 </Badge>
-              )}
+              }
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {subscription ? (
-              <>
+            {subscription ?
+            <>
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-semibold text-lg capitalize">{subscription.tier} Plan</p>
@@ -169,78 +169,78 @@ const BillingDashboard: React.FC = () => {
                   <div className="text-right">
                     <p className="text-sm text-gray-500">Next billing date</p>
                     <p className="font-medium">
-                      {subscription.currentPeriodEnd 
-                        ? format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy')
-                        : 'N/A'
-                      }
+                      {subscription.currentPeriodEnd ?
+                    format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy') :
+                    'N/A'
+                    }
                     </p>
                   </div>
                 </div>
 
-                {status === 'cancelling' && (
-                  <Alert className="bg-yellow-50 border-yellow-200">
+                {status === 'cancelling' &&
+              <Alert className="bg-yellow-50 border-yellow-200">
                     <AlertCircle className="h-4 w-4 text-yellow-600" />
                     <AlertDescription>
                       Your subscription is set to cancel on {format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy')}. 
                       You'll retain access until then.
                     </AlertDescription>
                   </Alert>
-                )}
+              }
 
                 <div className="flex gap-3">
-                  {status === 'active' ? (
-                    <>
-                      <Link href="/subscribe">
-                        <Button variant="outline">
+                  {status === 'active' ?
+                <>
+                      <Link href="/subscribe" data-testid="link-element">
+                        <Button variant="outline" data-testid="button-element">
                           Change Plan
                         </Button>
                       </Link>
-                      <Button 
-                        variant="destructive"
-                        onClick={() => {
-                          if (confirm('Are you sure you want to cancel your subscription?')) {
-                            cancelSubscriptionMutation.mutate();
-                          }
-                        }}
-                        disabled={cancelSubscriptionMutation.isPending}
-                      >
-                        {cancelSubscriptionMutation.isPending ? (
-                          <>
+                      <Button
+                    variant="destructive"
+                    onClick={() => {
+                      if (confirm('Are you sure you want to cancel your subscription?')) {
+                        cancelSubscriptionMutation.mutate();
+                      }
+                    }}
+                    disabled={cancelSubscriptionMutation.isPending} data-testid="button-element">
+
+                        {cancelSubscriptionMutation.isPending ?
+                    <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             Cancelling...
-                          </>
-                        ) : (
-                          'Cancel Subscription'
-                        )}
+                          </> :
+
+                    'Cancel Subscription'
+                    }
                       </Button>
-                    </>
-                  ) : status === 'cancelling' ? (
-                    <Button 
-                      onClick={() => resumeSubscriptionMutation.mutate()}
-                      disabled={resumeSubscriptionMutation.isPending}
-                    >
-                      {resumeSubscriptionMutation.isPending ? (
-                        <>
+                    </> :
+                status === 'cancelling' ?
+                <Button
+                  onClick={() => resumeSubscriptionMutation.mutate()}
+                  disabled={resumeSubscriptionMutation.isPending} data-testid="button-element">
+
+                      {resumeSubscriptionMutation.isPending ?
+                  <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Resuming...
-                        </>
-                      ) : (
-                        'Resume Subscription'
-                      )}
-                    </Button>
-                  ) : null}
+                        </> :
+
+                  'Resume Subscription'
+                  }
+                    </Button> :
+                null}
                 </div>
-              </>
-            ) : (
-              <div className="text-center py-8">
+              </> :
+
+            <div className="text-center py-8">
                 <p className="text-gray-600 mb-4">You don't have an active subscription</p>
-                <Link href="/subscribe">
-                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
+                <Link href="/subscribe" data-testid="link-element">
+                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
                     View Plans
                   </Button>
                 </Link>
               </div>
-            )}
+            }
           </CardContent>
         </Card>
 
@@ -252,24 +252,24 @@ const BillingDashboard: React.FC = () => {
                 <CardTitle>Payment Methods</CardTitle>
                 <CardDescription>Manage your saved payment methods</CardDescription>
               </div>
-              <Button 
+              <Button
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                onClick={() => toast({ 
-                  title: "Coming Soon", 
-                  description: "Payment method management will be available soon." 
-                })}
-              >
+                onClick={() => toast({
+                  title: "Coming Soon",
+                  description: "Payment method management will be available soon."
+                })} data-testid="button-bg-gradient-to-r">
+
                 <Plus className="w-4 h-4 mr-1" />
                 Add Card
               </Button>
             </div>
           </CardHeader>
           <CardContent>
-            {paymentMethods.length > 0 ? (
-              <div className="space-y-3">
-                {paymentMethods.map((method) => (
-                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+            {paymentMethods.length > 0 ?
+            <div className="space-y-3">
+                {paymentMethods.map((method) =>
+              <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center gap-3">
                       <CreditCard className="w-5 h-5 text-gray-400" />
                       <div>
@@ -278,28 +278,28 @@ const BillingDashboard: React.FC = () => {
                           Expires {method.expMonth}/{method.expYear}
                         </p>
                       </div>
-                      {method.isDefault && (
-                        <Badge variant="secondary" className="ml-2">Default</Badge>
-                      )}
+                      {method.isDefault &&
+                  <Badge variant="secondary" className="ml-2">Default</Badge>
+                  }
                     </div>
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        if (confirm('Are you sure you want to remove this payment method?')) {
-                          deletePaymentMethodMutation.mutate(method.id);
-                        }
-                      }}
-                      disabled={deletePaymentMethodMutation.isPending}
-                    >
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    if (confirm('Are you sure you want to remove this payment method?')) {
+                      deletePaymentMethodMutation.mutate(method.id);
+                    }
+                  }}
+                  disabled={deletePaymentMethodMutation.isPending} data-testid="button-element">
+
                       <X className="w-4 h-4" />
                     </Button>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-gray-500 py-8">No payment methods saved</p>
-            )}
+              )}
+              </div> :
+
+            <p className="text-center text-gray-500 py-8">No payment methods saved</p>
+            }
           </CardContent>
         </Card>
 
@@ -310,10 +310,10 @@ const BillingDashboard: React.FC = () => {
             <CardDescription>Download your past invoices</CardDescription>
           </CardHeader>
           <CardContent>
-            {invoices.length > 0 ? (
-              <div className="space-y-2">
-                {invoices.map((invoice) => (
-                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+            {invoices.length > 0 ?
+            <div className="space-y-2">
+                {invoices.map((invoice) =>
+              <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-5 h-5 text-gray-400" />
                       <div>
@@ -326,26 +326,26 @@ const BillingDashboard: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge 
-                        variant={invoice.status === 'paid' ? 'default' : 'secondary'}
-                        className={invoice.status === 'paid' ? 'bg-green-100 text-green-800' : ''}
-                      >
+                      <Badge
+                    variant={invoice.status === 'paid' ? 'default' : 'secondary'}
+                    className={invoice.status === 'paid' ? 'bg-green-100 text-green-800' : ''}>
+
                         {invoice.status}
                       </Badge>
                       <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => window.open(invoice.invoicePdf, '_blank')}
-                      >
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => window.open(invoice.invoicePdf, '_blank')} data-testid="button-element">
+
                         <Download className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-gray-500 py-8">No billing history available</p>
-            )}
+              )}
+              </div> :
+
+            <p className="text-center text-gray-500 py-8">No billing history available</p>
+            }
           </CardContent>
         </Card>
 
@@ -353,17 +353,17 @@ const BillingDashboard: React.FC = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-600">
             Need help with billing?{' '}
-            <a 
-              href="mailto:support@mundotango.life" 
-              className="text-turquoise-600 hover:text-turquoise-700 underline"
-            >
+            <a
+              href="mailto:support@mundotango.life"
+              className="text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-text-turquoise-600">
+
               Contact Support
             </a>
           </p>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default BillingDashboard;

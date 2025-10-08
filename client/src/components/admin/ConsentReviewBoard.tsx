@@ -4,33 +4,33 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog';
-import { 
-  CheckCircle, 
-  XCircle, 
-  Clock, 
-  User, 
+  SelectValue } from
+'@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger } from
+'@/components/ui/dialog';
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  User,
   Calendar,
   Eye,
   MessageSquare,
   Heart,
   AlertTriangle,
   Filter,
-  Search
-} from 'lucide-react';
+  Search } from
+'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { apiRequest } from '@/lib/queryClient';
@@ -76,92 +76,92 @@ export default function ConsentReviewBoard() {
 
   // Mock data for demonstration
   const mockConsentRequests: ConsentRequest[] = [
-    {
-      id: 1,
-      memory: {
-        id: 101,
-        title: "My first milonga experience",
-        content: "Last night was magical. I went to my first milonga and felt the connection...",
-        emotionTags: ["joy", "excitement", "love"],
-        trustLevel: 3,
-        author: {
-          id: 4,
-          name: "Maria Rodriguez",
-          username: "maria_tango"
-        }
-      },
-      requester: {
-        id: 5,
-        name: "Carlos Martinez",
-        username: "carlos_dj"
-      },
-      status: 'pending',
-      requestedAt: '2025-06-30T10:30:00Z',
-      reason: "Would like to feature this story in the community spotlight"
+  {
+    id: 1,
+    memory: {
+      id: 101,
+      title: "My first milonga experience",
+      content: "Last night was magical. I went to my first milonga and felt the connection...",
+      emotionTags: ["joy", "excitement", "love"],
+      trustLevel: 3,
+      author: {
+        id: 4,
+        name: "Maria Rodriguez",
+        username: "maria_tango"
+      }
     },
-    {
-      id: 2,
-      memory: {
-        id: 102,
-        title: "Overcoming fear on the dance floor",
-        content: "I used to be terrified of making mistakes, but tango taught me to embrace them...",
-        emotionTags: ["vulnerability", "growth", "courage"],
-        trustLevel: 4,
-        author: {
-          id: 6,
-          name: "Elena Fernandez",
-          username: "elena_performer"
-        }
-      },
-      requester: {
-        id: 7,
-        name: "David Kim",
-        username: "david_teacher"
-      },
-      status: 'approved',
-      requestedAt: '2025-06-29T14:15:00Z',
-      reviewedAt: '2025-06-29T16:20:00Z',
-      reviewedBy: {
-        id: 3,
-        name: "Scott Boddye"
-      },
-      reviewNotes: "Beautiful story that will inspire other dancers. Approved for community sharing.",
-      reason: "Perfect example for teaching beginners about vulnerability in dance"
+    requester: {
+      id: 5,
+      name: "Carlos Martinez",
+      username: "carlos_dj"
     },
-    {
+    status: 'pending',
+    requestedAt: '2025-06-30T10:30:00Z',
+    reason: "Would like to feature this story in the community spotlight"
+  },
+  {
+    id: 2,
+    memory: {
+      id: 102,
+      title: "Overcoming fear on the dance floor",
+      content: "I used to be terrified of making mistakes, but tango taught me to embrace them...",
+      emotionTags: ["vulnerability", "growth", "courage"],
+      trustLevel: 4,
+      author: {
+        id: 6,
+        name: "Elena Fernandez",
+        username: "elena_performer"
+      }
+    },
+    requester: {
+      id: 7,
+      name: "David Kim",
+      username: "david_teacher"
+    },
+    status: 'approved',
+    requestedAt: '2025-06-29T14:15:00Z',
+    reviewedAt: '2025-06-29T16:20:00Z',
+    reviewedBy: {
       id: 3,
-      memory: {
-        id: 103,
-        title: "Argentina memories",
-        content: "Walking through Buenos Aires, feeling the history in every cobblestone...",
-        emotionTags: ["nostalgia", "wonder", "connection"],
-        trustLevel: 2,
-        author: {
-          id: 8,
-          name: "Ana Silva",
-          username: "ana_traveler"
-        }
-      },
-      requester: {
-        id: 9,
-        name: "Roberto Santos",
-        username: "roberto_guide"
-      },
-      status: 'denied',
-      requestedAt: '2025-06-28T09:45:00Z',
-      reviewedAt: '2025-06-28T11:30:00Z',
-      reviewedBy: {
-        id: 3,
-        name: "Scott Boddye"
-      },
-      reviewNotes: "Content too personal and trust level too low for public sharing.",
-      reason: "Want to include in travel guide for tango tourists"
-    }
-  ];
+      name: "Scott Boddye"
+    },
+    reviewNotes: "Beautiful story that will inspire other dancers. Approved for community sharing.",
+    reason: "Perfect example for teaching beginners about vulnerability in dance"
+  },
+  {
+    id: 3,
+    memory: {
+      id: 103,
+      title: "Argentina memories",
+      content: "Walking through Buenos Aires, feeling the history in every cobblestone...",
+      emotionTags: ["nostalgia", "wonder", "connection"],
+      trustLevel: 2,
+      author: {
+        id: 8,
+        name: "Ana Silva",
+        username: "ana_traveler"
+      }
+    },
+    requester: {
+      id: 9,
+      name: "Roberto Santos",
+      username: "roberto_guide"
+    },
+    status: 'denied',
+    requestedAt: '2025-06-28T09:45:00Z',
+    reviewedAt: '2025-06-28T11:30:00Z',
+    reviewedBy: {
+      id: 3,
+      name: "Scott Boddye"
+    },
+    reviewNotes: "Content too personal and trust level too low for public sharing.",
+    reason: "Want to include in travel guide for tango tourists"
+  }];
+
 
   // Review mutation
   const reviewConsentMutation = useMutation({
-    mutationFn: async ({ id, action, notes }: { id: number; action: 'approve' | 'deny'; notes: string }) => {
+    mutationFn: async ({ id, action, notes }: {id: number;action: 'approve' | 'deny';notes: string;}) => {
       return apiRequest('PUT', `/api/admin/consent/${id}/review`, {
         action,
         notes
@@ -197,10 +197,10 @@ export default function ConsentReviewBoard() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'pending': return <Clock className="h-3 w-3" />;
-      case 'approved': return <CheckCircle className="h-3 w-3" />;
-      case 'denied': return <XCircle className="h-3 w-3" />;
-      default: return <Clock className="h-3 w-3" />;
+      case 'pending':return <Clock className="h-3 w-3" />;
+      case 'approved':return <CheckCircle className="h-3 w-3" />;
+      case 'denied':return <XCircle className="h-3 w-3" />;
+      default:return <Clock className="h-3 w-3" />;
     }
   };
 
@@ -212,19 +212,19 @@ export default function ConsentReviewBoard() {
     return 'bg-blue-100 text-blue-700';
   };
 
-  const filteredRequests = mockConsentRequests.filter(request => {
+  const filteredRequests = mockConsentRequests.filter((request) => {
     const matchesStatus = statusFilter === 'all' || request.status === statusFilter;
-    const matchesSearch = 
-      request.memory.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      request.memory.author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      request.requester.name.toLowerCase().includes(searchTerm.toLowerCase());
-    
+    const matchesSearch =
+    request.memory.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    request.memory.author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    request.requester.name.toLowerCase().includes(searchTerm.toLowerCase());
+
     return matchesStatus && matchesSearch;
   });
 
   const handleReview = (action: 'approve' | 'deny') => {
     if (!selectedRequest) return;
-    
+
     reviewConsentMutation.mutate({
       id: selectedRequest.id,
       action,
@@ -242,11 +242,11 @@ export default function ConsentReviewBoard() {
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
-          />
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200" data-testid="input-pl-10" />
+
         </div>
         
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
+        <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
           <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
@@ -268,7 +268,7 @@ export default function ConsentReviewBoard() {
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-900">
-                {mockConsentRequests.filter(r => r.status === 'pending').length}
+                {mockConsentRequests.filter((r) => r.status === 'pending').length}
               </div>
               <div className="text-sm font-medium text-yellow-700">Pending Review</div>
             </div>
@@ -282,7 +282,7 @@ export default function ConsentReviewBoard() {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-900">
-                {mockConsentRequests.filter(r => r.status === 'approved').length}
+                {mockConsentRequests.filter((r) => r.status === 'approved').length}
               </div>
               <div className="text-sm font-medium text-green-700">Approved</div>
             </div>
@@ -296,7 +296,7 @@ export default function ConsentReviewBoard() {
             </div>
             <div>
               <div className="text-2xl font-bold text-red-900">
-                {mockConsentRequests.filter(r => r.status === 'denied').length}
+                {mockConsentRequests.filter((r) => r.status === 'denied').length}
               </div>
               <div className="text-sm font-medium text-red-700">Denied</div>
             </div>
@@ -306,8 +306,8 @@ export default function ConsentReviewBoard() {
 
       {/* Consent requests list */}
       <div className="space-y-4">
-        {filteredRequests.map((request) => (
-          <div key={request.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+        {filteredRequests.map((request) =>
+        <div key={request.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <Badge className={`${getStatusBadge(request.status)} border font-medium`}>
@@ -333,11 +333,11 @@ export default function ConsentReviewBoard() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {request.memory.emotionTags.map((tag, index) => (
-                  <Badge key={index} className="bg-purple-100 text-purple-700 border-purple-200 text-xs">
+                {request.memory.emotionTags.map((tag, index) =>
+              <Badge key={index} className="bg-purple-100 text-purple-700 border-purple-200 text-xs">
                     {tag}
                   </Badge>
-                ))}
+              )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -358,8 +358,8 @@ export default function ConsentReviewBoard() {
                 <div className="text-sm text-gray-600">{request.reason}</div>
               </div>
 
-              {request.status !== 'pending' && request.reviewNotes && (
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              {request.status !== 'pending' && request.reviewNotes &&
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Eye className="h-4 w-4 text-blue-600" />
                     <span className="text-sm font-medium text-blue-900">Review Notes</span>
@@ -367,25 +367,25 @@ export default function ConsentReviewBoard() {
                   </div>
                   <div className="text-sm text-blue-800">{request.reviewNotes}</div>
                 </div>
-              )}
+            }
 
               <div className="flex justify-end gap-3">
                 <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setSelectedRequest(request);
-                    setIsReviewDialogOpen(true);
-                  }}
-                  className="rounded-lg"
-                >
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setSelectedRequest(request);
+                  setIsReviewDialogOpen(true);
+                }}
+                className="rounded-lg" data-testid="button-rounded-lg">
+
                   <Eye className="h-3 w-3 mr-1" />
                   {request.status === 'pending' ? 'Review' : 'View Details'}
                 </Button>
               </div>
             </div>
           </div>
-        ))}
+        )}
       </div>
 
       {/* Review dialog */}
@@ -395,8 +395,8 @@ export default function ConsentReviewBoard() {
             <DialogTitle className="text-xl font-bold">Review Consent Request</DialogTitle>
           </DialogHeader>
           
-          {selectedRequest && (
-            <div className="space-y-6">
+          {selectedRequest &&
+          <div className="space-y-6">
               <div className="bg-gray-50 rounded-2xl p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">{selectedRequest.memory.title}</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">{selectedRequest.memory.content}</p>
@@ -426,49 +426,49 @@ export default function ConsentReviewBoard() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Review Notes</label>
                 <Textarea
-                  placeholder="Add your review notes here..."
-                  value={reviewNotes}
-                  onChange={(e) => setReviewNotes(e.target.value)}
-                  className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
-                  rows={4}
-                />
+                placeholder="Add your review notes here..."
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+                rows={4} data-testid="textarea-rounded-xl" />
+
               </div>
 
-              {selectedRequest.status === 'pending' && (
-                <div className="flex gap-3">
+              {selectedRequest.status === 'pending' &&
+            <div className="flex gap-3">
                   <Button
-                    variant="outline"
-                    onClick={() => handleReview('deny')}
-                    disabled={reviewConsentMutation.isPending}
-                    className="flex-1 rounded-xl text-red-600 border-red-200 hover:bg-red-50"
-                  >
+                variant="outline"
+                onClick={() => handleReview('deny')}
+                disabled={reviewConsentMutation.isPending}
+                className="flex-1 rounded-xl text-red-600 border-red-200 hover:bg-red-50" data-testid="button-flex-1">
+
                     <XCircle className="h-4 w-4 mr-2" />
                     Deny Request
                   </Button>
                   <Button
-                    onClick={() => handleReview('approve')}
-                    disabled={reviewConsentMutation.isPending}
-                    className="flex-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
-                  >
+                onClick={() => handleReview('approve')}
+                disabled={reviewConsentMutation.isPending}
+                className="flex-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600" data-testid="button-flex-1">
+
                     <CheckCircle className="h-4 w-4 mr-2" />
                     Approve Request
                   </Button>
                 </div>
-              )}
+            }
 
-              {selectedRequest.status !== 'pending' && (
-                <Button
-                  variant="outline"
-                  onClick={() => setIsReviewDialogOpen(false)}
-                  className="w-full rounded-xl"
-                >
+              {selectedRequest.status !== 'pending' &&
+            <Button
+              variant="outline"
+              onClick={() => setIsReviewDialogOpen(false)}
+              className="w-full rounded-xl" data-testid="button-w-full">
+
                   Close
                 </Button>
-              )}
+            }
             </div>
-          )}
+          }
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>);
+
 }

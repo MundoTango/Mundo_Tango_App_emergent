@@ -67,7 +67,7 @@ export default function AgentFrameworkDashboard() {
   const loadFrameworkData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Load framework status
       const statusResponse = await fetch('/api/agents/framework-status');
       if (!statusResponse.ok) throw new Error('Failed to load framework status');
@@ -92,7 +92,7 @@ export default function AgentFrameworkDashboard() {
       setIsLoading(true);
       const response = await fetch('/api/agents/audit');
       if (!response.ok) throw new Error('Failed to run audit');
-      
+
       // Reload data after audit
       await loadFrameworkData();
     } catch (err) {
@@ -104,11 +104,11 @@ export default function AgentFrameworkDashboard() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'excellent': return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'good': return <CheckCircle className="h-5 w-5 text-blue-500" />;
-      case 'needs-improvement': return <Clock className="h-5 w-5 text-yellow-500" />;
-      case 'critical': return <AlertCircle className="h-5 w-5 text-red-500" />;
-      default: return <Settings className="h-5 w-5 text-gray-500" />;
+      case 'excellent':return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case 'good':return <CheckCircle className="h-5 w-5 text-blue-500" />;
+      case 'needs-improvement':return <Clock className="h-5 w-5 text-yellow-500" />;
+      case 'critical':return <AlertCircle className="h-5 w-5 text-red-500" />;
+      default:return <Settings className="h-5 w-5 text-gray-500" />;
     }
   };
 
@@ -133,8 +133,8 @@ export default function AgentFrameworkDashboard() {
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   if (error) {
@@ -150,14 +150,14 @@ export default function AgentFrameworkDashboard() {
             </CardHeader>
             <CardContent>
               <p className="text-red-600 mb-4">{error}</p>
-              <Button onClick={loadFrameworkData} variant="outline">
+              <Button onClick={loadFrameworkData} variant="outline" data-testid="button-element">
                 Retry
               </Button>
             </CardContent>
           </Card>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   if (!frameworkStatus || !achievements) {
@@ -243,11 +243,11 @@ export default function AgentFrameworkDashboard() {
                 {frameworkStatus.criticalIssues}
               </div>
               <div className="mb-2">
-                {frameworkStatus.criticalIssues === 0 ? (
-                  <Badge variant="default" className="bg-green-100 text-green-800">No Issues</Badge>
-                ) : (
-                  <Badge variant="destructive">Needs Attention</Badge>
-                )}
+                {frameworkStatus.criticalIssues === 0 ?
+                <Badge variant="default" className="bg-green-100 text-green-800">No Issues</Badge> :
+
+                <Badge variant="destructive">Needs Attention</Badge>
+                }
               </div>
               <p className="text-xs text-purple-600">
                 System Health Status
@@ -270,8 +270,8 @@ export default function AgentFrameworkDashboard() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(frameworkStatus.categories).map(([categoryName, category]) => {
-                const completionPercentage = Math.round((category.implemented / category.total) * 100);
-                
+                const completionPercentage = Math.round(category.implemented / category.total * 100);
+
                 return (
                   <div key={categoryName} className="p-4 border border-teal-100 rounded-lg bg-teal-50/50">
                     <div className="flex items-center gap-2 mb-2">
@@ -288,14 +288,14 @@ export default function AgentFrameworkDashboard() {
                       <Progress value={completionPercentage} className="h-2" />
                     </div>
                     <div className="flex flex-wrap gap-1">
-                      {category.layers.map(layerId => (
-                        <Badge key={layerId} variant="secondary" className="text-xs">
+                      {category.layers.map((layerId) =>
+                      <Badge key={layerId} variant="secondary" className="text-xs">
                           {layerId}
                         </Badge>
-                      ))}
+                      )}
                     </div>
-                  </div>
-                );
+                  </div>);
+
               })}
             </div>
           </CardContent>
@@ -314,25 +314,25 @@ export default function AgentFrameworkDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {achievements.achievements.map((achievement, index) => (
-                <div 
-                  key={index} 
-                  className={`p-4 border rounded-lg ${
-                    achievement.completed 
-                      ? 'border-green-200 bg-green-50/50' 
-                      : 'border-gray-200 bg-gray-50/50'
-                  }`}
-                >
+              {achievements.achievements.map((achievement, index) =>
+              <div
+                key={index}
+                className={`p-4 border rounded-lg ${
+                achievement.completed ?
+                'border-green-200 bg-green-50/50' :
+                'border-gray-200 bg-gray-50/50'}`
+                }>
+
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-2xl">{achievement.badge}</span>
                     <h3 className={`font-semibold text-sm ${
-                      achievement.completed ? 'text-green-900' : 'text-gray-700'
-                    }`}>
+                  achievement.completed ? 'text-green-900' : 'text-gray-700'}`
+                  }>
                       {achievement.name}
                     </h3>
-                    {achievement.completed && (
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                    )}
+                    {achievement.completed &&
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  }
                   </div>
                   <p className="text-xs text-gray-600 mb-3">
                     {achievement.description}
@@ -344,18 +344,18 @@ export default function AgentFrameworkDashboard() {
                     </div>
                     <Progress value={achievement.progress} className="h-2" />
                   </div>
-                  {achievement.completed && (
-                    <Badge variant="default" className="bg-green-100 text-green-800 text-xs">
+                  {achievement.completed &&
+                <Badge variant="default" className="bg-green-100 text-green-800 text-xs">
                       ✅ Completed
                     </Badge>
-                  )}
+                }
                 </div>
-              ))}
+              )}
             </div>
 
             {/* Next Milestone */}
-            {achievements.statistics.nextMilestone && (
-              <div className="mt-6 p-4 border border-blue-200 rounded-lg bg-blue-50/50">
+            {achievements.statistics.nextMilestone &&
+            <div className="mt-6 p-4 border border-blue-200 rounded-lg bg-blue-50/50">
                 <h3 className="font-semibold text-blue-900 mb-2">🎯 Next Milestone</h3>
                 <p className="text-sm text-blue-800 mb-2">
                   {achievements.statistics.nextMilestone.name}
@@ -366,7 +366,7 @@ export default function AgentFrameworkDashboard() {
                 </div>
                 <Progress value={achievements.statistics.nextMilestone.progress} className="h-2" />
               </div>
-            )}
+            }
           </CardContent>
         </Card>
 
@@ -383,47 +383,47 @@ export default function AgentFrameworkDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {[44, 45, 46, 47, 49, 50, 51, 52, 53, 54, 55, 56].map(layerId => (
-                <div key={layerId} className="p-3 border border-green-100 rounded-lg bg-green-50/50 text-center">
+              {[44, 45, 46, 47, 49, 50, 51, 52, 53, 54, 55, 56].map((layerId) =>
+              <div key={layerId} className="p-3 border border-green-100 rounded-lg bg-green-50/50 text-center">
                   <div className="text-lg font-bold text-green-900">L{layerId}</div>
                   <div className="text-xs text-green-700">
                     {layerId === 44 ? 'Knowledge Graph' :
-                     layerId === 45 ? 'Reasoning Engine' :
-                     layerId === 46 ? 'Integration Layer' :
-                     layerId === 47 ? 'Mobile Optimization' :
-                     layerId === 49 ? 'Security Hardening' :
-                     layerId === 50 ? 'DevOps Automation' :
-                     layerId === 51 ? 'Testing Framework' :
-                     layerId === 52 ? 'Documentation' :
-                     layerId === 53 ? 'Internationalization' :
-                     layerId === 54 ? 'Accessibility' :
-                     layerId === 55 ? 'SEO Optimization' :
-                     layerId === 56 ? 'Compliance Framework' :
-                     'Agent'}
+                  layerId === 45 ? 'Reasoning Engine' :
+                  layerId === 46 ? 'Integration Layer' :
+                  layerId === 47 ? 'Mobile Optimization' :
+                  layerId === 49 ? 'Security Hardening' :
+                  layerId === 50 ? 'DevOps Automation' :
+                  layerId === 51 ? 'Testing Framework' :
+                  layerId === 52 ? 'Documentation' :
+                  layerId === 53 ? 'Internationalization' :
+                  layerId === 54 ? 'Accessibility' :
+                  layerId === 55 ? 'SEO Optimization' :
+                  layerId === 56 ? 'Compliance Framework' :
+                  'Agent'}
                   </div>
                   <Badge variant="default" className="mt-1 bg-green-100 text-green-800 text-xs">
                     ✅ NEW
                   </Badge>
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>
 
         {/* Actions */}
         <div className="flex gap-4 justify-center">
-          <Button 
+          <Button
             onClick={runFullAudit}
             disabled={isLoading}
-            className="bg-teal-600 hover:bg-teal-700"
-          >
+            className="bg-teal-600 hover:bg-teal-700" data-testid="button-bg-teal-600">
+
             {isLoading ? 'Running Audit...' : 'Run Full Audit'}
           </Button>
-          <Button 
+          <Button
             variant="outline"
             onClick={loadFrameworkData}
-            disabled={isLoading}
-          >
+            disabled={isLoading} data-testid="button-element">
+
             Refresh Data
           </Button>
         </div>
@@ -468,6 +468,6 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
       </div>
-    </div>
-  );
+    </div>);
+
 }

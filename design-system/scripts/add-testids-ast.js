@@ -4,9 +4,13 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
-import generate from '@babel/generator';
+import _traverse from '@babel/traverse';
+import _generate from '@babel/generator';
 import * as t from '@babel/types';
+
+// Handle default exports in ES modules
+const traverse = _traverse.default || _traverse;
+const generate = _generate.default || _generate;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -74,7 +78,15 @@ function addTestIdsToAST(filePath) {
   try {
     ast = parse(code, {
       sourceType: 'module',
-      plugins: ['jsx', 'typescript'],
+      plugins: [
+        'jsx', 
+        'typescript',
+        'decorators-legacy',
+        'classProperties',
+        'dynamicImport',
+        'optionalChaining',
+        'nullishCoalescingOperator'
+      ],
     });
   } catch (error) {
     return { updated: false, changes: 0, reason: `Parse error: ${error.message}` };
