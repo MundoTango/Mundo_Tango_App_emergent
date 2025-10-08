@@ -33,7 +33,7 @@ export const REACTION_TYPES: Reaction[] = [
   
   // Support & Encouragement
   { id: 'support', emoji: '👏', label: 'Applause', color: 'text-green-500', category: 'support' },
-  { id: 'inspiration', emoji: '💫', label: 'Inspiring', color: 'text-cyan-500', category: 'support' },
+  { id: 'inspiration', emoji: '💫', label: 'Inspiring', color: 'text-ocean-500', category: 'support' },
   
   // Sadness
   { id: 'sad', emoji: '😢', label: 'Sad', color: 'text-gray-500', category: 'sad' }
