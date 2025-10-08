@@ -46,13 +46,13 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
   const getMarkerIcon = (memberCount: number) => {
     const size = Math.min(40, 20 + memberCount / 5);
     
-    // MT Ocean Theme color gradient (turquoise to cyan to purple)
+    // MT Ocean Theme color gradient (ocean palette)
     const getGradientColor = (count: number) => {
-      if (count >= 500) return 'linear-gradient(135deg, #FF1744 0%, #F50057 100%)'; // Red for 500+
-      if (count >= 200) return 'linear-gradient(135deg, #F50057 0%, #E91E63 100%)'; // Pink for 200-500
-      if (count >= 100) return 'linear-gradient(135deg, #E91E63 0%, #9C27B0 100%)'; // Purple for 100-200
-      if (count >= 50) return 'linear-gradient(135deg, #9C27B0 0%, #38B2AC 100%)'; // Purple to turquoise 50-100
-      return 'linear-gradient(135deg, #38B2AC 0%, #06B6D4 100%)'; // Turquoise to cyan <50
+      if (count >= 500) return 'linear-gradient(135deg, hsl(351, 95%, 55%) 0%, hsl(340, 82%, 52%) 100%)'; // Red for 500+
+      if (count >= 200) return 'linear-gradient(135deg, hsl(340, 82%, 52%) 0%, hsl(340, 75%, 59%) 100%)'; // Pink for 200-500
+      if (count >= 100) return 'linear-gradient(135deg, hsl(340, 75%, 59%) 0%, hsl(291, 64%, 42%) 100%)'; // Purple for 100-200
+      if (count >= 50) return 'linear-gradient(135deg, hsl(291, 64%, 42%) 0%, hsl(177, 72%, 56%) 100%)'; // Purple to seafoam 50-100
+      return 'linear-gradient(135deg, hsl(177, 72%, 56%) 0%, hsl(210, 100%, 56%) 100%)'; // Seafoam to cyan <50
     };
     
     return L.divIcon({

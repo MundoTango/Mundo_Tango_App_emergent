@@ -46,8 +46,17 @@ import {
   Info
 } from "lucide-react";
 
-// Color palette for charts
-const COLORS = ['#38b2ac', '#06b6d4', '#3182ce', '#6366f1', '#8b5cf6', '#a855f8', '#ec4899', '#f43f5e'];
+// Color palette for charts - using ocean tokens
+const COLORS = [
+  'hsl(177, 72%, 56%)',  // ocean-seafoam-400
+  'hsl(210, 100%, 56%)', // ocean-cyan-400
+  'hsl(218, 100%, 34%)', // ocean-teal-500
+  'hsl(244, 91%, 68%)',  // indigo-400
+  'hsl(258, 86%, 64%)',  // violet-500
+  'hsl(292, 84%, 61%)',  // fuchsia-500
+  'hsl(330, 81%, 60%)',  // pink-500
+  'hsl(351, 89%, 61%)'   // rose-500
+];
 
 const AnalyticsDashboard: React.FC = () => {
   const [timeRange, setTimeRange] = useState('7d');
@@ -264,16 +273,16 @@ const AnalyticsDashboard: React.FC = () => {
                   <Area 
                     type="monotone" 
                     dataKey="users" 
-                    stroke="#38b2ac" 
-                    fill="#38b2ac" 
+                    stroke="hsl(177, 72%, 56%)" 
+                    fill="hsl(177, 72%, 56%)" 
                     fillOpacity={0.3}
                     name="Active Users"
                   />
                   <Area 
                     type="monotone" 
                     dataKey="newUsers" 
-                    stroke="#06b6d4" 
-                    fill="#06b6d4" 
+                    stroke="hsl(210, 100%, 56%)" 
+                    fill="hsl(210, 100%, 56%)" 
                     fillOpacity={0.3}
                     name="New Users"
                   />
@@ -409,7 +418,7 @@ const AnalyticsDashboard: React.FC = () => {
                         borderRadius: '8px'
                       }} 
                     />
-                    <Bar dataKey="count" fill="#38b2ac">
+                    <Bar dataKey="count" fill="hsl(177, 72%, 56%)">
                       {analyticsData?.roleDistribution.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -447,8 +456,8 @@ const AnalyticsDashboard: React.FC = () => {
                     }} 
                   />
                   <Legend />
-                  <Bar dataKey="views" fill="#38b2ac" name="Views" />
-                  <Bar dataKey="likes" fill="#06b6d4" name="Likes" />
+                  <Bar dataKey="views" fill="hsl(177, 72%, 56%)" name="Views" />
+                  <Bar dataKey="likes" fill="hsl(210, 100%, 56%)" name="Likes" />
                   <Bar dataKey="comments" fill="#3182ce" name="Comments" />
                   <Bar dataKey="shares" fill="#6366f1" name="Shares" />
                 </BarChart>
