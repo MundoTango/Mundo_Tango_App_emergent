@@ -102,7 +102,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                 </p>
               </div>
               <div className="flex gap-3">
-                <GlassCard depth={1} className="relative border-cyan-200/30 dark:border-cyan-500/30 p-0">
+                <GlassCard depth={1} className="relative border-cyan-200/30 dark:border-ocean-500/30 p-0">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 h-4 w-4 z-10" />
                   <Input
                     data-testid="input-search-city"
@@ -117,7 +117,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                   data-testid="button-search"
                   onClick={handleSearch}
                   strength={0.2}
-                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
                 >
                   Search
                 </MagneticButton>
@@ -130,7 +130,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
         <ScaleIn delay={0.1}>
           <div className="relative mb-6">
             <GlassCard depth={2} className={cn(
-              "overflow-hidden border-cyan-200/30 dark:border-cyan-500/30",
+              "overflow-hidden border-cyan-200/30 dark:border-ocean-500/30",
               "h-[600px] lg:h-[700px]"
             )}>
               <WorldMap ref={mapRef} />
@@ -140,7 +140,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
 
         {/* Rankings Panel Below Map - Aurora Tide */}
         <ScaleIn delay={0.2}>
-          <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
+          <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
             <RankingsPanel onCityClick={handleCityClick} />
           </GlassCard>
         </ScaleIn>

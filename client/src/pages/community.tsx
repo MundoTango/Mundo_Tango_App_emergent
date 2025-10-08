@@ -32,14 +32,14 @@ export default function CommunityPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-4">
               Welcome to the Tango Community
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto dark:text-neutral-400">
               Connect with passionate dancers worldwide and discover the heart of tango culture
             </p>
           </div>
           
           {/* Enhanced navigation cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <Link href="/community-world-map">
+            <Link href="/community-world-map" data-testid="link-element">
               <div className="group glassmorphic-card bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 border-2 border-turquoise-200/70 rounded-3xl p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-200/50 transition-all duration-300 cursor-pointer relative overflow-hidden backdrop-blur-xl">
                 <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold rounded-bl-2xl">
                   NEW
@@ -53,16 +53,16 @@ export default function CommunityPage() {
                       <MapPin className="h-3 w-3 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">World Map</h3>
-                  <p className="text-gray-600 leading-relaxed">Interactive global map of tango communities with live statistics</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors dark:text-neutral-100">World Map</h3>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Interactive global map of tango communities with live statistics</p>
                 </div>
               </div>
             </Link>
 
             {/* ESA LIFE CEO 56x21 - Removed duplicate community link since World Map already shows communities */}
 
-            <Link href="/memories">
-              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer">
+            <Link href="/memories" data-testid="link-element">
+              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
                     <div className="p-4 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
@@ -72,14 +72,14 @@ export default function CommunityPage() {
                       <Sparkles className="h-3 w-3 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-turquoise-600 transition-colors">Share Moments</h3>
-                  <p className="text-gray-600 leading-relaxed">Connect with dancers worldwide and share your tango journey through memories and stories</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-turquoise-600 transition-colors dark:text-neutral-100">Share Moments</h3>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Connect with dancers worldwide and share your tango journey through memories and stories</p>
                 </div>
               </div>
             </Link>
 
-            <Link href="/events">
-              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer">
+            <Link href="/events" data-testid="link-element">
+              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
                     <div className="p-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
@@ -89,14 +89,14 @@ export default function CommunityPage() {
                       <MapPin className="h-3 w-3 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">Discover Events</h3>
-                  <p className="text-gray-600 leading-relaxed">Find milongas, workshops, and festivals near you with location-based discovery</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors dark:text-neutral-100">Discover Events</h3>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Find milongas, workshops, and festivals near you with location-based discovery</p>
                 </div>
               </div>
             </Link>
 
-            <Link href="/profile">
-              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer">
+            <Link href="/profile" data-testid="link-element">
+              <div className="group glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6">
                     <div className="p-4 bg-gradient-to-r from-turquoise-500 to-cyan-500 rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
@@ -106,20 +106,20 @@ export default function CommunityPage() {
                       <Heart className="h-3 w-3 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-turquoise-600 transition-colors">Your Profile</h3>
-                  <p className="text-gray-600 leading-relaxed">Showcase your tango experience and connect with the global community</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-turquoise-600 transition-colors dark:text-neutral-100">Your Profile</h3>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Showcase your tango experience and connect with the global community</p>
                 </div>
               </div>
             </Link>
           </div>
 
           {/* Enhanced features section */}
-          <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 shadow-lg">
+          <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-3xl border border-white/50 p-8 shadow-lg dark:bg-neutral-900">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-4">
                 Community Features
               </h2>
-              <p className="text-gray-600 text-lg">
+              <p className="text-gray-600 text-lg dark:text-neutral-400">
                 Discover what makes our tango community special
               </p>
             </div>
@@ -132,8 +132,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Global Network</h4>
-                  <p className="text-gray-600 leading-relaxed">Connect with passionate tango dancers from every corner of the world and share your journey</p>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors dark:text-neutral-100">Global Network</h4>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Connect with passionate tango dancers from every corner of the world and share your journey</p>
                 </div>
               </div>
 
@@ -144,8 +144,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Real-time Updates</h4>
-                  <p className="text-gray-600 leading-relaxed">Stay connected with live notifications, updates, and community activities as they happen</p>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors dark:text-neutral-100">Real-time Updates</h4>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Stay connected with live notifications, updates, and community activities as they happen</p>
                 </div>
               </div>
 
@@ -156,8 +156,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-turquoise-600 transition-colors">Event Discovery</h4>
-                  <p className="text-gray-600 leading-relaxed">Find and join local milongas, workshops, and international tango festivals with smart location features</p>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-turquoise-600 transition-colors dark:text-neutral-100">Event Discovery</h4>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Find and join local milongas, workshops, and international tango festivals with smart location features</p>
                 </div>
               </div>
 
@@ -168,8 +168,8 @@ export default function CommunityPage() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Skill Development</h4>
-                  <p className="text-gray-600 leading-relaxed">Learn from master teachers, skilled performers, and experienced dancers in our supportive community</p>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors dark:text-neutral-100">Skill Development</h4>
+                  <p className="text-gray-600 leading-relaxed dark:text-neutral-400">Learn from master teachers, skilled performers, and experienced dancers in our supportive community</p>
                 </div>
               </div>
             </div>

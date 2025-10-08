@@ -64,20 +64,20 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             variant="ghost" 
             size="sm" 
             onClick={onClose}
-            className="text-white hover:text-gray-200 hover:bg-white/10"
-          >
+            className="text-white hover:text-gray-200 hover:bg-white/10 dark:bg-neutral-900"
+           data-testid="button-text-white">
             <X className="h-6 w-6" />
           </Button>
         </div>
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search conversations..."
               className="pl-9"
-            />
+            / data-testid="input-pl-9">
           </div>
         </div>
 
@@ -109,9 +109,9 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
                       {room.title.substring(0, 2).toUpperCase()}
                     </div>
                   ) : (
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage src={room.imageUrl} alt={room.title} />
-                      <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
+                    <Avatar className="w-12 h-12" data-testid="link-w-12">
+                      <AvatarImage src={room.imageUrl} alt={room.title} / data-testid="link-element">
+                      <AvatarFallback data-testid="link-element">{room.title.charAt(0)}</AvatarFallback>
                     </Avatar>
                   )}
                   
@@ -147,7 +147,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
               <div className="text-gray-400 mb-4">
                 <MessageCircle className="h-16 w-16 mx-auto" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-600 mb-2">No messages yet</h3>
+              <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-400">No messages yet</h3>
               <p className="text-gray-500 text-sm">
                 Start a conversation with other tango dancers!
               </p>
@@ -157,7 +157,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
 
         {/* New Message Button */}
         <div className="p-4 border-t border-gray-100">
-          <Button className="w-full bg-tango-red hover:bg-tango-red/90">
+          <Button className="w-full bg-tango-red hover:bg-tango-red/90" data-testid="button-w-full">
             <Plus className="h-4 w-4 mr-2" />
             New Message
           </Button>

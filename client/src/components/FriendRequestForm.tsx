@@ -135,7 +135,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                           placeholder="Milonga name, event, or city"
                           {...field}
                           className="glassmorphic-input"
-                        />
+                        / data-testid="input-glassmorphic-input">
                       </FormControl>
                     </FormItem>
                   )}
@@ -155,7 +155,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                           placeholder="What was memorable about dancing together?"
                           className="glassmorphic-input min-h-[80px]"
                           {...field}
-                        />
+                        / data-testid="textarea-glassmorphic-input">
                       </FormControl>
                     </FormItem>
                   )}
@@ -174,7 +174,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                       placeholder="Add a personal message..."
                       className="glassmorphic-input min-h-[100px]"
                       {...field}
-                    />
+                    / data-testid="textarea-glassmorphic-input">
                   </FormControl>
                   <FormDescription>
                     This message will be visible to {receiverName}
@@ -194,7 +194,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                       placeholder="Add a note for yourself..."
                       className="glassmorphic-input min-h-[60px]"
                       {...field}
-                    />
+                    / data-testid="textarea-glassmorphic-input">
                   </FormControl>
                   <FormDescription>
                     Only you can see this note
@@ -209,14 +209,14 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 variant="outline"
                 onClick={onCancel}
                 disabled={sendFriendRequestMutation.isPending}
-              >
+               data-testid="button-element">
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={sendFriendRequestMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white hover:shadow-lg transition-all duration-300"
-              >
+               data-testid="button-bg-gradient-to-r">
                 <Send className="mr-2 h-4 w-4" />
                 Send Request
               </Button>

@@ -88,7 +88,7 @@ export const MemberActionsDropdown = ({
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 transition-colors"
+          className="h-8 w-8 hover:bg-ocean-500/20 dark:hover:bg-cyan-400/20 transition-colors"
           data-testid={`button-member-actions-${memberId}`}
         >
           <MoreVertical className="h-4 w-4" />
@@ -97,7 +97,7 @@ export const MemberActionsDropdown = ({
       
       <DropdownMenuContent 
         align="end" 
-        className="w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-cyan-500/20 dark:border-cyan-400/20"
+        className="w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-ocean-500/20 dark:border-cyan-400/20"
         data-testid={`dropdown-member-actions-content-${memberId}`}
       >
         <DropdownMenuLabel className="text-gray-700 dark:text-gray-300">
@@ -120,7 +120,7 @@ export const MemberActionsDropdown = ({
             {currentRole !== 'member' && (
               <DropdownMenuItem
                 onClick={() => handleRoleChange('member')}
-                className="flex items-center gap-2 cursor-pointer hover:bg-cyan-500/10 dark:hover:bg-cyan-400/10"
+                className="flex items-center gap-2 cursor-pointer hover:bg-ocean-500/10 dark:hover:bg-cyan-400/10"
                 data-testid={`action-make-member-${memberId}`}
               >
                 <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -132,7 +132,7 @@ export const MemberActionsDropdown = ({
             {currentRole !== 'moderator' && (
               <DropdownMenuItem
                 onClick={() => handleRoleChange('moderator')}
-                className="flex items-center gap-2 cursor-pointer hover:bg-cyan-500/10 dark:hover:bg-cyan-400/10"
+                className="flex items-center gap-2 cursor-pointer hover:bg-ocean-500/10 dark:hover:bg-cyan-400/10"
                 data-testid={`action-make-moderator-${memberId}`}
               >
                 <Shield className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />

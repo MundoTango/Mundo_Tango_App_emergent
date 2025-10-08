@@ -132,7 +132,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => toggleExpanded(item.id)}
+                    onClick={() = data-testid="button-element"> toggleExpanded(item.id)}
                     className="p-1"
                   >
                     {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -177,7 +177,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() = data-testid="button-element"> setSelectedItem(item)}
                   className="ml-auto"
                 >
                   <Eye className="h-4 w-4 mr-1" />
@@ -203,7 +203,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
         <CardHeader>
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">{item.title}</h2>
-            <Button variant="outline" onClick={onClose}>Close</Button>
+            <Button variant="outline" onClick={onClose} data-testid="button-element">Close</Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">

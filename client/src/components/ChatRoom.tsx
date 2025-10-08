@@ -224,9 +224,9 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             <span className="text-sm text-gray-500">Online:</span>
             <div className="flex -space-x-2">
               {getOnlineUsers().slice(0, 5).map(user => (
-                <Avatar key={user.userId} className="w-6 h-6 border-2 border-white">
-                  <AvatarImage src={user.profileImage} alt={user.username} />
-                  <AvatarFallback className="text-xs">
+                <Avatar key={user.userId} className="w-6 h-6 border-2 border-white" data-testid="link-w-6">
+                  <AvatarImage src={user.profileImage} alt={user.username} / data-testid="link-element">
+                  <AvatarFallback className="text-xs" data-testid="link-text-xs">
                     {user.username.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -253,9 +253,9 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                   className={`flex gap-3 ${isOwnMessage ? 'justify-end' : 'justify-start'}`}
                 >
                   {!isOwnMessage && (
-                    <Avatar className="w-8 h-8 flex-shrink-0">
-                      <AvatarImage src={message.user?.profileImage} alt={message.user?.name} />
-                      <AvatarFallback className="text-sm">
+                    <Avatar className="w-8 h-8 flex-shrink-0" data-testid="link-w-8">
+                      <AvatarImage src={message.user?.profileImage} alt={message.user?.name} / data-testid="link-element">
+                      <AvatarFallback className="text-sm" data-testid="link-text-sm">
                         {(message.user?.name || message.user?.username || 'U').charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -286,9 +286,9 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                   </div>
                   
                   {isOwnMessage && (
-                    <Avatar className="w-8 h-8 flex-shrink-0">
-                      <AvatarImage src={currentUser.profileImage} alt={currentUser.name} />
-                      <AvatarFallback className="text-sm">
+                    <Avatar className="w-8 h-8 flex-shrink-0" data-testid="link-w-8">
+                      <AvatarImage src={currentUser.profileImage} alt={currentUser.name} / data-testid="link-element">
+                      <AvatarFallback className="text-sm" data-testid="link-text-sm">
                         {currentUser.name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -302,9 +302,9 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
               <div className="flex items-center gap-2 text-sm text-gray-500 px-2">
                 <div className="flex -space-x-1">
                   {getTypingUsers().slice(0, 3).map(user => (
-                    <Avatar key={user.userId} className="w-5 h-5 border border-white">
-                      <AvatarImage src={user.profileImage} alt={user.username} />
-                      <AvatarFallback className="text-xs">
+                    <Avatar key={user.userId} className="w-5 h-5 border border-white" data-testid="link-w-5">
+                      <AvatarImage src={user.profileImage} alt={user.username} / data-testid="link-element">
+                      <AvatarFallback className="text-xs" data-testid="link-text-xs">
                         {user.username.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -335,7 +335,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           <Input
             ref={inputRef}
             value={newMessage}
-            onChange={(e) => handleTyping(e.target.value)}
+            onChange={(e) = data-testid="input-element"> handleTyping(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={isConnected ? "Type a message..." : "Connecting..."}
             disabled={!isConnected || isSending}
@@ -345,7 +345,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || !isConnected || isSending}
             size="sm"
-          >
+           data-testid="button-element">
             {isSending ? (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (

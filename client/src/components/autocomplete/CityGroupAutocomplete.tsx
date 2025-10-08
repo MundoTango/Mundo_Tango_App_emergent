@@ -125,7 +125,7 @@ export default function CityGroupAutocomplete({
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() = data-testid="input-element"> setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           placeholder={placeholder}
           className="pl-10"
@@ -152,7 +152,7 @@ export default function CityGroupAutocomplete({
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => onSelect(null)}
+              onClick={() = data-testid="button-element"> onSelect(null)}
               className="text-gray-500 hover:text-gray-700"
             >
               Clear
@@ -177,7 +177,7 @@ export default function CityGroupAutocomplete({
                 return (
                   <button
                     key={cityGroup.id}
-                    onClick={() => handleSelectCity(cityGroup)}
+                    onClick={() = data-testid="button-element"> handleSelectCity(cityGroup)}
                     className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     <div className="flex items-start justify-between">
@@ -217,7 +217,7 @@ export default function CityGroupAutocomplete({
                   onClick={handleCreateNew}
                   variant="outline"
                   className="w-full"
-                >
+                 data-testid="button-w-full">
                   <Plus className="w-4 h-4 mr-2" />
                   Add New City
                 </Button>

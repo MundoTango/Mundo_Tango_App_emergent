@@ -89,7 +89,7 @@ export default function MentionTextarea({
       outline: 'none',
       border: 'none',
       backgroundColor: theme === 'light' ? '#f9fafb' : 'rgba(51, 65, 85, 0.5)',
-      color: theme === 'light' ? '#111827' : '#ffffff',
+      color: theme === 'light' ? '#111827' : 'var(--color-neutral-0)',
       resize: 'none' as const,
       fontFamily: 'inherit',
       transition: 'all 0.2s',
@@ -110,7 +110,7 @@ export default function MentionTextarea({
     },
     suggestions: {
       list: {
-        backgroundColor: theme === 'light' ? '#ffffff' : '#1e293b',
+        backgroundColor: theme === 'light' ? 'var(--color-neutral-0)' : '#1e293b',
         border: `1px solid ${theme === 'light' ? '#e5e7eb' : '#334155'}`,
         borderRadius: '8px',
         fontSize: 14,
@@ -122,7 +122,7 @@ export default function MentionTextarea({
       item: {
         padding: '10px 15px',
         borderBottom: `1px solid ${theme === 'light' ? '#f3f4f6' : '#334155'}`,
-        backgroundColor: theme === 'light' ? '#ffffff' : '#1e293b',
+        backgroundColor: theme === 'light' ? 'var(--color-neutral-0)' : '#1e293b',
         color: theme === 'light' ? '#111827' : '#f1f5f9',
         cursor: 'pointer',
         display: 'flex',

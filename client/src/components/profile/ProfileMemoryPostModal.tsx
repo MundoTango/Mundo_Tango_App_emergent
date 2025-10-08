@@ -77,7 +77,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
           {/* Memory Prompts */}
           {!selectedPrompt && (
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-neutral-200">
                 What kind of memory would you like to share?
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -92,8 +92,8 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
                         <div className="text-white">{prompt.icon}</div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-800">{prompt.title}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{prompt.prompt}</p>
+                        <h4 className="font-medium text-gray-800 dark:text-neutral-200">{prompt.title}</h4>
+                        <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">{prompt.prompt}</p>
                       </div>
                     </div>
                   </Card>
@@ -102,7 +102,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
               <div className="mt-4 text-center">
                 <Button
                   variant="ghost"
-                  onClick={() => setSelectedPrompt('custom')}
+                  onClick={() = data-testid="button-element"> setSelectedPrompt('custom')}
                   className="text-turquoise-600 hover:text-turquoise-700"
                 >
                   Or write your own memory...
@@ -116,7 +116,7 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
             <div className="animate-in">
               {selectedPrompt !== 'custom' && (
                 <div className="mb-4 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg">
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-gray-700 dark:text-neutral-300">
                     <span className="font-medium">Prompt:</span>{' '}
                     {memoryPrompts.find(p => p.id === selectedPrompt)?.prompt}
                   </p>
@@ -132,8 +132,8 @@ export const ProfileMemoryPostModal: React.FC<ProfileMemoryPostModalProps> = ({
               <div className="mt-4 flex justify-start">
                 <Button
                   variant="ghost"
-                  onClick={() => setSelectedPrompt(null)}
-                  className="text-gray-600"
+                  onClick={() = data-testid="button-element"> setSelectedPrompt(null)}
+                  className="text-gray-600 dark:text-neutral-400"
                 >
                   ← Back to prompts
                 </Button>

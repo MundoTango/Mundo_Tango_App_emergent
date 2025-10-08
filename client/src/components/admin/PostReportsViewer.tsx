@@ -84,7 +84,7 @@ export function PostReportsViewer() {
       <h2 className="text-2xl font-bold mb-6">Post Reports</h2>
       
       {reports.map((report: PostReport) => (
-        <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+        <div key={report.id} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4 dark:bg-neutral-900">
           {/* Report Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -93,7 +93,7 @@ export function PostReportsViewer() {
               </div>
               <div>
                 <h3 className="font-semibold">{report.reason}</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   Reported by @{report.user.username} • {formatDistanceToNow(new Date(report.createdAt), { addSuffix: true })}
                 </p>
               </div>
@@ -111,36 +111,36 @@ export function PostReportsViewer() {
 
           {/* Report Description */}
           {report.description && (
-            <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-sm text-gray-700">{report.description}</p>
+            <div className="bg-gray-50 rounded-lg p-3 dark:bg-neutral-800">
+              <p className="text-sm text-gray-700 dark:text-neutral-300">{report.description}</p>
             </div>
           )}
 
           {/* Reported Post */}
           <div className="border-l-4 border-red-200 pl-4 space-y-2">
-            <p className="text-sm font-medium text-gray-600">Reported post by @{report.post.user.username}:</p>
-            <p className="text-gray-800">{report.post.content}</p>
+            <p className="text-sm font-medium text-gray-600 dark:text-neutral-400">Reported post by @{report.post.user.username}:</p>
+            <p className="text-gray-800 dark:text-neutral-200">{report.post.content}</p>
           </div>
 
           {/* Actions */}
           {report.status === 'pending' && (
             <div className="flex items-center gap-3 pt-4 border-t">
               <button
-                onClick={() => handleUpdateStatus(report.id, 'resolved', 'deleted')}
+                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'resolved', 'deleted')}
                 className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
                 <XCircle className="h-4 w-4" />
                 Delete Post
               </button>
               <button
-                onClick={() => handleUpdateStatus(report.id, 'resolved', 'warned')}
+                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'resolved', 'warned')}
                 className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
               >
-                <AlertCircle className="h-4 w-4" />
+                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
                 Warn User
               </button>
               <button
-                onClick={() => handleUpdateStatus(report.id, 'dismissed')}
+                onClick={() = data-testid="button-element"> handleUpdateStatus(report.id, 'dismissed')}
                 className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
                 <CheckCircle className="h-4 w-4" />

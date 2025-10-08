@@ -156,22 +156,22 @@ export function BookingCalendar({
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Legend */}
-          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-white border border-gray-300"></div>
-              <span className="text-sm text-gray-700">Available</span>
+              <div className="w-6 h-6 rounded bg-white border border-gray-300 dark:bg-neutral-900"></div>
+              <span className="text-sm text-gray-700 dark:text-neutral-300">Available</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-yellow-100 border border-yellow-300"></div>
-              <span className="text-sm text-gray-700">Pending</span>
+              <span className="text-sm text-gray-700 dark:text-neutral-300">Pending</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-green-100 border border-green-300"></div>
-              <span className="text-sm text-gray-700">Approved</span>
+              <span className="text-sm text-gray-700 dark:text-neutral-300">Approved</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-red-100 border border-red-300"></div>
-              <span className="text-sm text-gray-700">Blocked</span>
+              <span className="text-sm text-gray-700 dark:text-neutral-300">Blocked</span>
             </div>
           </div>
 

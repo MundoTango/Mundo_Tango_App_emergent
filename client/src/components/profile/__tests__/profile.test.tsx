@@ -18,7 +18,7 @@ vi.mock('@/hooks/use-toast', () => ({
 vi.mock('wouter', () => ({
   useParams: () => ({ username: 'testuser' }),
   useLocation: () => ['/profile/testuser', vi.fn()],
-  Link: ({ children, ...props }: any) => <a {...props}>{children}</a>
+  Link: ({ children, ...props }: any) => <a {...props} data-testid="link-element">{children}</a>
 }));
 
 // Mock fetch

@@ -59,7 +59,7 @@ export default function SimpleRoleSelector({
           <Users className="h-5 w-5 text-blue-600" />
           What do you do in tango? (Simple Version)
         </CardTitle>
-        <p className="text-sm text-gray-600 flex items-start gap-2">
+        <p className="text-sm text-gray-600 flex items-start gap-2 dark:text-neutral-400">
           <Info className="h-4 w-4 mt-0.5 text-blue-500" />
           Choose all that apply. You can always update these later in your profile.
         </p>
@@ -84,11 +84,11 @@ export default function SimpleRoleSelector({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-lg">🎯</span>
-                      <h3 className="font-medium text-gray-900 capitalize">
+                      <h3 className="font-medium text-gray-900 capitalize dark:text-neutral-100">
                         {role.name.replace(/_/g, ' ')}
                       </h3>
                     </div>
-                    <p className="text-xs text-gray-600 leading-relaxed">
+                    <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-400">
                       {role.description}
                     </p>
                   </div>
@@ -97,7 +97,7 @@ export default function SimpleRoleSelector({
                 {selectedRoles.includes(role.name) && (
                   <div className="absolute top-2 right-2">
                     <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                      <div className="w-1 h-1 bg-white rounded-full"></div>
+                      <div className="w-1 h-1 bg-white rounded-full dark:bg-neutral-900"></div>
                     </div>
                   </div>
                 )}

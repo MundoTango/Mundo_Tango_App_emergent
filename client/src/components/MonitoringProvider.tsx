@@ -166,7 +166,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4">
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0">
-                <Shield className="w-5 h-5 text-teal-500" />
+                <Shield className="w-5 h-5 text-ocean-500" />
               </div>
               <div className="flex-1 space-y-2">
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -225,7 +225,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
-                  <BarChart className="w-5 h-5 text-teal-500" />
+                  <BarChart className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Analytics (PostHog)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Product usage and feature adoption</p>
@@ -238,7 +238,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
 
               <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
-                  <Eye className="w-5 h-5 text-teal-500" />
+                  <Eye className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Session Recording (OpenReplay)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Help us identify UX issues</p>
@@ -251,7 +251,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
 
               <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <div className="flex items-center space-x-3">
-                  <Shield className="w-5 h-5 text-teal-500" />
+                  <Shield className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Error Tracking (Sentry)</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Automatic error reporting</p>

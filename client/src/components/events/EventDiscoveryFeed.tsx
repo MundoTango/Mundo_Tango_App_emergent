@@ -170,13 +170,13 @@ export const EventDiscoveryFeed: React.FC = () => {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
             Discover Events
           </h1>
-          <p className="text-gray-600 mt-1">Find amazing tango events near you</p>
+          <p className="text-gray-600 mt-1 dark:text-neutral-400">Find amazing tango events near you</p>
         </div>
         
         <Button
           variant="outline"
-          onClick={() => setShowFilters(!showFilters)}
-          className="bg-white/50 border-white/30"
+          onClick={() = data-testid="button-element"> setShowFilters(!showFilters)}
+          className="bg-white/50 border-white/30 dark:bg-neutral-900"
         >
           <SlidersHorizontal className="h-4 w-4 mr-2" />
           Filters
@@ -192,54 +192,54 @@ export const EventDiscoveryFeed: React.FC = () => {
             <Input
               placeholder="Search events..."
               value={filters.search}
-              onChange={(e) => updateFilter('search', e.target.value)}
-              className="pl-10 bg-white/50 border-white/30"
+              onChange={(e) = data-testid="input-element"> updateFilter('search', e.target.value)}
+              className="pl-10 bg-white/50 border-white/30 dark:bg-neutral-900"
             />
           </div>
 
           {/* Expandable Filters */}
           {showFilters && (
-            <div className="space-y-4 border-t border-gray-200/50 pt-4">
+            <div className="space-y-4 border-t border-gray-200/50 pt-4 dark:border-neutral-700">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
                     Location
                   </label>
                   <Input
                     placeholder="City or venue..."
                     value={filters.location}
-                    onChange={(e) => updateFilter('location', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    onChange={(e) = data-testid="input-element"> updateFilter('location', e.target.value)}
+                    className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
                     Start Date
                   </label>
                   <Input
                     type="date"
                     value={filters.startDate}
-                    onChange={(e) => updateFilter('startDate', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    onChange={(e) = data-testid="input-element"> updateFilter('startDate', e.target.value)}
+                    className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
                     End Date
                   </label>
                   <Input
                     type="date"
                     value={filters.endDate}
-                    onChange={(e) => updateFilter('endDate', e.target.value)}
-                    className="bg-white/50 border-white/30"
+                    onChange={(e) = data-testid="input-element"> updateFilter('endDate', e.target.value)}
+                    className="bg-white/50 border-white/30 dark:bg-neutral-900"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                <label className="text-sm font-medium text-gray-700 mb-2 block dark:text-neutral-300">
                   Event Type
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -248,7 +248,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                       key={tag}
                       variant={filters.tags.includes(tag) ? 'default' : 'outline'}
                       size="sm"
-                      onClick={() => filters.tags.includes(tag) ? removeTag(tag) : addTag(tag)}
+                      onClick={() = data-testid="button-element"> filters.tags.includes(tag) ? removeTag(tag) : addTag(tag)}
                       className={filters.tags.includes(tag) 
                         ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600' 
                         : 'bg-white/50 border-white/30'
@@ -262,8 +262,8 @@ export const EventDiscoveryFeed: React.FC = () => {
 
               {/* Active Filters */}
               {(filters.tags.length > 0 || filters.location || filters.startDate || filters.endDate) && (
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-200/50">
-                  <span className="text-sm font-medium text-gray-600">Active filters:</span>
+                <div className="flex items-center gap-2 pt-2 border-t border-gray-200/50 dark:border-neutral-700">
+                  <span className="text-sm font-medium text-gray-600 dark:text-neutral-400">Active filters:</span>
                   {filters.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="cursor-pointer" onClick={() => removeTag(tag)}>
                       {tag} ×
@@ -274,7 +274,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                       📍 {filters.location} ×
                     </Badge>
                   )}
-                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                  <Button variant="ghost" size="sm" onClick={clearFilters} data-testid="button-element">
                     Clear all
                   </Button>
                 </div>
@@ -297,11 +297,11 @@ export const EventDiscoveryFeed: React.FC = () => {
         <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Calendar className="h-16 w-16 text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-600 mb-2">No Events Found</h3>
+            <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-400">No Events Found</h3>
             <p className="text-gray-500 text-center mb-4">
               Try adjusting your filters or search terms
             </p>
-            <Button onClick={clearFilters} variant="outline">
+            <Button onClick={clearFilters} variant="outline" data-testid="button-element">
               Clear Filters
             </Button>
           </CardContent>
@@ -333,10 +333,10 @@ export const EventDiscoveryFeed: React.FC = () => {
           {hasMore && (
             <div className="flex justify-center">
               <Button
-                onClick={() => fetchEvents(false)}
+                onClick={() = data-testid="button-element"> fetchEvents(false)}
                 disabled={loadingMore}
                 variant="outline"
-                className="bg-white/50 border-white/30"
+                className="bg-white/50 border-white/30 dark:bg-neutral-900"
               >
                 {loadingMore ? 'Loading...' : 'Load More Events'}
               </Button>

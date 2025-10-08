@@ -56,7 +56,7 @@ interface AchievementData {
 
 export default function AgentFrameworkDashboard() {
   const [frameworkStatus, setFrameworkStatus] = useState<FrameworkStatus | null>(null);
-  const [achievements, setAchievements] = useState<AchievementData | null>(null);
+  const [achievements, setAchievements] = useState<AchievementData | null data-testid="link-element">(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -107,7 +107,7 @@ export default function AgentFrameworkDashboard() {
       case 'excellent': return <CheckCircle className="h-5 w-5 text-green-500" />;
       case 'good': return <CheckCircle className="h-5 w-5 text-blue-500" />;
       case 'needs-improvement': return <Clock className="h-5 w-5 text-yellow-500" />;
-      case 'critical': return <AlertCircle className="h-5 w-5 text-red-500" />;
+      case 'critical': return <AlertCircle className="h-5 w-5 text-red-500" / data-testid="link-h-5">;
       default: return <Settings className="h-5 w-5 text-gray-500" />;
     }
   };
@@ -144,13 +144,13 @@ export default function AgentFrameworkDashboard() {
           <Card className="border-red-200">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-700">
-                <AlertCircle className="h-5 w-5" />
+                <AlertCircle className="h-5 w-5" / data-testid="link-h-5">
                 Error Loading Framework
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-red-600 mb-4">{error}</p>
-              <Button onClick={loadFrameworkData} variant="outline">
+              <Button onClick={loadFrameworkData} variant="outline" data-testid="button-element">
                 Retry
               </Button>
             </CardContent>
@@ -189,7 +189,7 @@ export default function AgentFrameworkDashboard() {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Framework Completion</CardTitle>
             </CardHeader>
@@ -204,7 +204,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-blue-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-blue-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-blue-700">System Compliance</CardTitle>
             </CardHeader>
@@ -219,7 +219,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-green-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-green-700">Achievements</CardTitle>
             </CardHeader>
@@ -234,7 +234,7 @@ export default function AgentFrameworkDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-purple-200 bg-white/70 backdrop-blur-sm">
+          <Card className="border-purple-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-purple-700">Critical Issues</CardTitle>
             </CardHeader>
@@ -257,7 +257,7 @@ export default function AgentFrameworkDashboard() {
         </div>
 
         {/* Framework Categories */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-teal-900">
               <Brain className="h-5 w-5" />
@@ -302,7 +302,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Achievements */}
-        <Card className="border-yellow-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-yellow-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-yellow-900">
               <Trophy className="h-5 w-5" />
@@ -334,7 +334,7 @@ export default function AgentFrameworkDashboard() {
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mb-3">
+                  <p className="text-xs text-gray-600 mb-3 dark:text-neutral-400">
                     {achievement.description}
                   </p>
                   <div className="mb-2">
@@ -371,7 +371,7 @@ export default function AgentFrameworkDashboard() {
         </Card>
 
         {/* Recent Completions */}
-        <Card className="border-green-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-green-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-green-900">
               <Zap className="h-5 w-5" />
@@ -416,20 +416,20 @@ export default function AgentFrameworkDashboard() {
             onClick={runFullAudit}
             disabled={isLoading}
             className="bg-teal-600 hover:bg-teal-700"
-          >
+           data-testid="button-bg-teal-600">
             {isLoading ? 'Running Audit...' : 'Run Full Audit'}
           </Button>
           <Button 
             variant="outline"
             onClick={loadFrameworkData}
             disabled={isLoading}
-          >
+           data-testid="button-element">
             Refresh Data
           </Button>
         </div>
 
         {/* Framework Summary */}
-        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm">
+        <Card className="border-teal-200 bg-white/70 backdrop-blur-sm dark:bg-neutral-900">
           <CardHeader>
             <CardTitle className="text-teal-900">🚀 Framework Summary</CardTitle>
           </CardHeader>

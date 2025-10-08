@@ -135,7 +135,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
             <Input
               placeholder="Search users by name or username..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -171,13 +171,13 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           )}
 
           {/* Role Selection */}
-          <Select value={selectedRole} onValueChange={setSelectedRole}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a role for this event" />
+          <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+            <SelectTrigger data-testid="select-element">
+              <SelectValue placeholder="Select a role for this event" / data-testid="select-element">
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent data-testid="select-element">
               {TANGO_ROLES.map((role) => (
-                <SelectItem key={role} value={role}>
+                <SelectItem key={role} value={role} data-testid="select-element">
                   {role}
                 </SelectItem>
               ))}
@@ -189,7 +189,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
             onClick={handleInviteUser}
             disabled={!selectedUserId || !selectedRole || inviteUserMutation.isPending}
             className="w-full bg-[#8E142E] hover:bg-[#6B0F22]"
-          >
+           data-testid="button-w-full">
             <Plus className="h-4 w-4 mr-2" />
             {inviteUserMutation.isPending ? 'Sending Invitation...' : 'Send Invitation'}
           </Button>

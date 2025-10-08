@@ -340,26 +340,26 @@ export default function EnhancedEventsPage() {
 
   return (
     <DashboardLayout>
-      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6">
+      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6" data-testid="link-max-w-7xl">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Events
             </h1>
-            <p className="text-gray-600 mt-1">Discover and join tango events worldwide</p>
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">Discover and join tango events worldwide</p>
           </div>
           <div className="flex gap-2">
             <Button
               onClick={exportEventsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
-            >
+             data-testid="button-border-turquoise-200">
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
-              onClick={() => setShowCreateDialog(true)}
+              onClick={() = data-testid="button-element"> setShowCreateDialog(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -375,7 +375,7 @@ export default function EnhancedEventsPage() {
               <Calendar className="w-8 h-8 text-turquoise-600" />
               <div>
                 <p className="text-2xl font-bold">{events.length}</p>
-                <p className="text-sm text-gray-600">Total Events</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Events</p>
               </div>
             </div>
           </Card>
@@ -386,7 +386,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => moment(e.startDate).isAfter()).length}
                 </p>
-                <p className="text-sm text-gray-600">Upcoming</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Upcoming</p>
               </div>
             </div>
           </Card>
@@ -397,7 +397,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => e.userStatus === 'going').length}
                 </p>
-                <p className="text-sm text-gray-600">Attending</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Attending</p>
               </div>
             </div>
           </Card>
@@ -408,7 +408,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter(e => moment(e.startDate).isSame(moment(), 'week')).length}
                 </p>
-                <p className="text-sm text-gray-600">This Week</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">This Week</p>
               </div>
             </div>
           </Card>
@@ -425,7 +425,7 @@ export default function EnhancedEventsPage() {
                   type="text"
                   placeholder="Search events... (Cmd+/)"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
                   className="pl-10 glassmorphic-input border-turquoise-200 focus:border-turquoise-400 focus:ring-turquoise-400/20"
                 />
               </div>
@@ -435,7 +435,7 @@ export default function EnhancedEventsPage() {
                     key={option.value}
                     variant={viewMode === option.value ? 'default' : 'outline'}
                     size="icon"
-                    onClick={() => setViewMode(option.value as any)}
+                    onClick={() = data-testid="button-element"> setViewMode(option.value as any)}
                     data-tooltip-id="view-tooltip"
                     data-tooltip-content={option.label}
                     className={viewMode === option.value 
@@ -450,50 +450,50 @@ export default function EnhancedEventsPage() {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
-                  <SelectValue placeholder="Category" />
+              <Select value={categoryFilter} onValueChange={setCategoryFilter} data-testid="select-element">
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+                  <SelectValue placeholder="Category" / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="milonga">Milonga</SelectItem>
-                  <SelectItem value="class">Class</SelectItem>
-                  <SelectItem value="workshop">Workshop</SelectItem>
-                  <SelectItem value="festival">Festival</SelectItem>
-                  <SelectItem value="performance">Performance</SelectItem>
-                  <SelectItem value="practice">Practice</SelectItem>
-                  <SelectItem value="social">Social</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
+                  <SelectItem value="milonga" data-testid="select-element">Milonga</SelectItem>
+                  <SelectItem value="class" data-testid="select-element">Class</SelectItem>
+                  <SelectItem value="workshop" data-testid="select-element">Workshop</SelectItem>
+                  <SelectItem value="festival" data-testid="select-element">Festival</SelectItem>
+                  <SelectItem value="performance" data-testid="select-element">Performance</SelectItem>
+                  <SelectItem value="practice" data-testid="select-element">Practice</SelectItem>
+                  <SelectItem value="social" data-testid="select-element">Social</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select value={levelFilter} onValueChange={setLevelFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
-                  <SelectValue placeholder="Level" />
+              <Select value={levelFilter} onValueChange={setLevelFilter} data-testid="select-element">
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+                  <SelectValue placeholder="Level" / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Levels</SelectItem>
-                  <SelectItem value="beginner">Beginner</SelectItem>
-                  <SelectItem value="intermediate">Intermediate</SelectItem>
-                  <SelectItem value="advanced">Advanced</SelectItem>
-                  <SelectItem value="all_levels">Mixed</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="all" data-testid="select-element">All Levels</SelectItem>
+                  <SelectItem value="beginner" data-testid="select-element">Beginner</SelectItem>
+                  <SelectItem value="intermediate" data-testid="select-element">Intermediate</SelectItem>
+                  <SelectItem value="advanced" data-testid="select-element">Advanced</SelectItem>
+                  <SelectItem value="all_levels" data-testid="select-element">Mixed</SelectItem>
                 </SelectContent>
               </Select>
 
-              <Select value={priceFilter} onValueChange={setPriceFilter}>
-                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400">
-                  <SelectValue placeholder="Price" />
+              <Select value={priceFilter} onValueChange={setPriceFilter} data-testid="select-element">
+                <SelectTrigger className="w-40 border-turquoise-200 focus:border-turquoise-400" data-testid="select-w-40">
+                  <SelectValue placeholder="Price" / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Any Price</SelectItem>
-                  <SelectItem value="free">Free</SelectItem>
-                  <SelectItem value="paid">Paid</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="all" data-testid="select-element">Any Price</SelectItem>
+                  <SelectItem value="free" data-testid="select-element">Free</SelectItem>
+                  <SelectItem value="paid" data-testid="select-element">Paid</SelectItem>
                 </SelectContent>
               </Select>
 
               <Button
                 variant={showVirtualOnly ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setShowVirtualOnly(!showVirtualOnly)}
+                onClick={() = data-testid="button-element"> setShowVirtualOnly(!showVirtualOnly)}
                 className={showVirtualOnly 
                   ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' 
                   : 'border-turquoise-200 hover:bg-turquoise-50'
@@ -506,7 +506,7 @@ export default function EnhancedEventsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => refetch()}
+                onClick={() = data-testid="button-element"> refetch()}
                 className="border-turquoise-200 hover:bg-turquoise-50"
               >
                 <RefreshCw className="w-4 h-4 mr-1" />
@@ -601,21 +601,21 @@ export default function EnhancedEventsPage() {
                 <Button
                   size="sm"
                   variant={calendarView === 'month' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('month')}
+                  onClick={() = data-testid="button-element"> setCalendarView('month')}
                 >
                   Month
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'week' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('week')}
+                  onClick={() = data-testid="button-element"> setCalendarView('week')}
                 >
                   Week
                 </Button>
                 <Button
                   size="sm"
                   variant={calendarView === 'day' ? 'default' : 'outline'}
-                  onClick={() => setCalendarView('day')}
+                  onClick={() = data-testid="button-element"> setCalendarView('day')}
                 >
                   Day
                 </Button>
@@ -641,7 +641,7 @@ export default function EnhancedEventsPage() {
                   event: ({ event }: any) => (
                     <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
-                      <div className="text-gray-600">{moment(event.start).format('h:mm A')}</div>
+                      <div className="text-gray-600 dark:text-neutral-400">{moment(event.start).format('h:mm A')}</div>
                     </div>
                   )
                 }}
@@ -657,7 +657,7 @@ export default function EnhancedEventsPage() {
                 <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading map...</p>
+                    <p className="text-gray-600 dark:text-neutral-400">Loading map...</p>
                   </div>
                 </div>
               }>
@@ -692,9 +692,9 @@ export default function EnhancedEventsPage() {
         {/* Keyboard Shortcuts */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>
-            <kbd className="px-2 py-1 bg-gray-100 rounded">Cmd+N</kbd> Create Event • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+E</kbd> Export • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+/</kbd> Search
+            <kbd className="px-2 py-1 bg-gray-100 rounded dark:bg-neutral-800">Cmd+N</kbd> Create Event • 
+            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2 dark:bg-neutral-800">Cmd+E</kbd> Export • 
+            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2 dark:bg-neutral-800">Cmd+/</kbd> Search
           </p>
         </div>
 

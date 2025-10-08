@@ -469,7 +469,7 @@ export default function LifeCEOEnhanced() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 dark:bg-neutral-800">
       {/* Sidebar */}
       <div className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-300 bg-white border-r border-gray-200 overflow-hidden`}>
         <div className="p-4 border-b border-gray-100">
@@ -497,7 +497,7 @@ export default function LifeCEOEnhanced() {
           {/* Projects */}
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Projects</span>
+              <span className="text-sm font-medium text-gray-600 dark:text-neutral-400">Projects</span>
               <Button
                 onClick={createNewProject}
                 size="sm"
@@ -545,7 +545,7 @@ export default function LifeCEOEnhanced() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-white border-b border-gray-200 p-4">
+        <div className="bg-white border-b border-gray-200 p-4 dark:bg-neutral-900">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Button
@@ -615,7 +615,7 @@ export default function LifeCEOEnhanced() {
           
           {isProcessing && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 p-4 rounded-lg">
+              <div className="bg-gray-100 p-4 rounded-lg dark:bg-neutral-800">
                 <div className="flex items-center gap-2">
                   <div className="animate-pulse">Processing...</div>
                 </div>
@@ -625,7 +625,7 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Input Area */}
-        <div className="bg-white border-t border-gray-200 p-4">
+        <div className="bg-white border-t border-gray-200 p-4 dark:bg-neutral-900">
           <div className="flex items-center gap-4">
             <Button
               onClick={toggleRecording}
@@ -669,13 +669,13 @@ export default function LifeCEOEnhanced() {
         </div>
 
         {/* Agent Status Bar */}
-        <div className="bg-gray-100 border-t border-gray-200 p-2">
+        <div className="bg-gray-100 border-t border-gray-200 p-2 dark:bg-neutral-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {activeAgents.slice(0, 3).map(agent => (
                 <div key={agent.name} className="flex items-center gap-2 text-xs">
                   <span>{agent.icon}</span>
-                  <span className="text-gray-600">{agent.name}</span>
+                  <span className="text-gray-600 dark:text-neutral-400">{agent.name}</span>
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 </div>
               ))}
@@ -709,7 +709,7 @@ export default function LifeCEOEnhanced() {
                     onClick={() => setShowAgentSwitcher(false)}
                     variant="ghost"
                     size="icon"
-                    className="text-white hover:bg-white/20 rounded-full"
+                    className="text-white hover:bg-white/20 rounded-full dark:bg-neutral-900"
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -723,7 +723,7 @@ export default function LifeCEOEnhanced() {
                     {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.icon || '👔'}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Currently Active</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">Currently Active</p>
                     <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                       {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'}
                     </h3>
@@ -785,7 +785,7 @@ export default function LifeCEOEnhanced() {
                           )}>
                             {agent.name}
                           </h3>
-                          <p className="text-sm text-gray-600 leading-relaxed">
+                          <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
                             {agent.description}
                           </p>
                         </div>
@@ -799,8 +799,8 @@ export default function LifeCEOEnhanced() {
               </div>
               
               {/* Footer Info */}
-              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
-                <p className="text-center text-sm text-gray-600">
+              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200 dark:border-neutral-700">
+                <p className="text-center text-sm text-gray-600 dark:text-neutral-400">
                   <span className="inline-flex items-center gap-1">
                     <Brain className="h-4 w-4 text-turquoise-500" />
                     Each agent specializes in different areas of your life

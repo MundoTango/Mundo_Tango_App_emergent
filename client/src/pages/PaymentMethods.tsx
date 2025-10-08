@@ -122,9 +122,9 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
       </div>
 
       {errorMessage && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{errorMessage}</AlertDescription>
+        <Alert variant="destructive" data-testid="link-element">
+          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+          <AlertDescription data-testid="link-element">{errorMessage}</AlertDescription>
         </Alert>
       )}
 
@@ -133,7 +133,7 @@ const AddPaymentMethodForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }
           type="submit"
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-        >
+         data-testid="button-flex-1">
           {isProcessing ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -237,8 +237,8 @@ const PaymentMethods: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Payment Methods</h1>
-          <p className="text-gray-600">Manage your payment methods for subscriptions and purchases</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Payment Methods</h1>
+          <p className="text-gray-600 dark:text-neutral-400">Manage your payment methods for subscriptions and purchases</p>
         </div>
 
         <Card className="glassmorphic-card mb-6">
@@ -248,7 +248,7 @@ const PaymentMethods: React.FC = () => {
               <CardDescription>Add or remove payment methods from your account</CardDescription>
             </div>
             <Button
-              onClick={() => setShowAddDialog(true)}
+              onClick={() = data-testid="button-element"> setShowAddDialog(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
             >
               <Plus className="mr-2 h-4 w-4" />
@@ -271,7 +271,7 @@ const PaymentMethods: React.FC = () => {
                 {(paymentMethods as PaymentMethod[])?.map((method: PaymentMethod) => (
                   <div
                     key={method.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
                   >
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">{getCardBrandIcon(method.card?.brand || '')}</div>
@@ -297,7 +297,7 @@ const PaymentMethods: React.FC = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => setDefaultMutation.mutate(method.id)}
+                          onClick={() = data-testid="button-element"> setDefaultMutation.mutate(method.id)}
                           disabled={setDefaultMutation.isPending}
                         >
                           {setDefaultMutation.isPending ? (
@@ -313,7 +313,7 @@ const PaymentMethods: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleDelete(method.id)}
+                        onClick={() = data-testid="button-element"> handleDelete(method.id)}
                         disabled={deletingId === method.id || method.is_default}
                         className="text-red-600 hover:text-red-700"
                       >
@@ -332,11 +332,11 @@ const PaymentMethods: React.FC = () => {
         </Card>
 
         {/* Security Notice */}
-        <div className="bg-white/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4">
+        <div className="bg-white/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4 dark:bg-neutral-900">
           <Shield className="h-6 w-6 text-turquoise-500 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-semibold text-gray-900 mb-1">Your payment information is secure</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="font-semibold text-gray-900 mb-1 dark:text-neutral-100">Your payment information is secure</h3>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">
               We use industry-standard encryption to protect your payment details. Your full card number is never stored on our servers.
               All payment processing is handled securely by Stripe.
             </p>
@@ -354,7 +354,7 @@ const PaymentMethods: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
           <Elements stripe={stripePromise}>
-            <AddPaymentMethodForm onSuccess={() => setShowAddDialog(false)} />
+            <AddPaymentMethodForm onSuccess={() = data-testid="link-element"> setShowAddDialog(false)} />
           </Elements>
         </DialogContent>
       </Dialog>

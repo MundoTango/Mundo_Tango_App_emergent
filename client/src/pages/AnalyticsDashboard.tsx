@@ -131,18 +131,18 @@ const AnalyticsDashboard: React.FC = () => {
             <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
               Analytics Dashboard
             </h1>
-            <p className="text-gray-600">Platform insights and performance metrics</p>
+            <p className="text-gray-600 dark:text-neutral-400">Platform insights and performance metrics</p>
           </div>
           <div className="flex items-center gap-2">
-            <Select value={timeRange} onValueChange={setTimeRange}>
-              <SelectTrigger className="w-32">
-                <SelectValue />
+            <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
+              <SelectTrigger className="w-32" data-testid="select-w-32">
+                <SelectValue / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="24h">Last 24h</SelectItem>
-                <SelectItem value="7d">Last 7 days</SelectItem>
-                <SelectItem value="30d">Last 30 days</SelectItem>
-                <SelectItem value="90d">Last 90 days</SelectItem>
+              <SelectContent data-testid="select-element">
+                <SelectItem value="24h" data-testid="select-element">Last 24h</SelectItem>
+                <SelectItem value="7d" data-testid="select-element">Last 7 days</SelectItem>
+                <SelectItem value="30d" data-testid="select-element">Last 30 days</SelectItem>
+                <SelectItem value="90d" data-testid="select-element">Last 90 days</SelectItem>
               </SelectContent>
             </Select>
             <Button
@@ -150,10 +150,10 @@ const AnalyticsDashboard: React.FC = () => {
               size="icon"
               onClick={handleRefresh}
               disabled={isRefreshing}
-            >
+             data-testid="button-element">
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             </Button>
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExport} data-testid="button-element">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -167,7 +167,7 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Active Users</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Active Users</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.activeUsers.toLocaleString()}</p>
                 <p className="text-xs text-green-600 mt-1">+12.5% from last period</p>
               </div>
@@ -182,7 +182,7 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Avg Session</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Avg Session</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.avgSessionDuration}m</p>
                 <p className="text-xs text-green-600 mt-1">+8.3% from last period</p>
               </div>
@@ -197,7 +197,7 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Events</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Events</p>
                 <p className="text-2xl font-bold">{analyticsData?.overview.totalEvents}</p>
                 <p className="text-xs text-green-600 mt-1">+23 this week</p>
               </div>
@@ -212,12 +212,12 @@ const AnalyticsDashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Engagement Rate</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Engagement Rate</p>
                 <p className="text-2xl font-bold">67.8%</p>
                 <p className="text-xs text-green-600 mt-1">+5.2% from last period</p>
               </div>
               <div className="p-3 rounded-full bg-purple-100">
-                <Activity className="h-6 w-6 text-purple-600" />
+                <Activity className="h-6 w-6 text-purple-600" / data-testid="link-h-6">
               </div>
             </div>
           </CardContent>
@@ -249,7 +249,7 @@ const AnalyticsDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={analyticsData?.userGrowth}>
+                <AreaChart data={analyticsData?.userGrowth} data-testid="link-element">
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
                   <XAxis dataKey="date" stroke="#666" />
                   <YAxis stroke="#666" />
@@ -268,7 +268,7 @@ const AnalyticsDashboard: React.FC = () => {
                     fill="#38b2ac" 
                     fillOpacity={0.3}
                     name="Active Users"
-                  />
+                  / data-testid="link-element">
                   <Area 
                     type="monotone" 
                     dataKey="newUsers" 
@@ -276,7 +276,7 @@ const AnalyticsDashboard: React.FC = () => {
                     fill="#06b6d4" 
                     fillOpacity={0.3}
                     name="New Users"
-                  />
+                  / data-testid="link-element">
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -287,7 +287,7 @@ const AnalyticsDashboard: React.FC = () => {
             <Card className="glassmorphic-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5 text-cyan-500" />
+                  <Globe className="h-5 w-5 text-ocean-500" />
                   User Distribution by City
                 </CardTitle>
               </CardHeader>
@@ -328,7 +328,7 @@ const AnalyticsDashboard: React.FC = () => {
                     <div key={device.device} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="font-medium">{device.device}</span>
-                        <span className="text-gray-600">{device.percentage}%</span>
+                        <span className="text-gray-600 dark:text-neutral-400">{device.percentage}%</span>
                       </div>
                       <Progress 
                         value={device.percentage} 
@@ -362,7 +362,7 @@ const AnalyticsDashboard: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <Card className="bg-gradient-to-r from-turquoise-50 to-cyan-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600">New vs Returning</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">New vs Returning</p>
                     <div className="flex items-baseline gap-2 mt-1">
                       <span className="text-xl font-bold">
                         {analyticsData?.overview.newUsers}
@@ -377,7 +377,7 @@ const AnalyticsDashboard: React.FC = () => {
 
                 <Card className="bg-gradient-to-r from-cyan-50 to-blue-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600">Bounce Rate</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">Bounce Rate</p>
                     <p className="text-2xl font-bold mt-1">
                       {analyticsData?.overview.bounceRate}%
                     </p>
@@ -386,7 +386,7 @@ const AnalyticsDashboard: React.FC = () => {
 
                 <Card className="bg-gradient-to-r from-blue-50 to-indigo-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-gray-600">Total Users</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">Total Users</p>
                     <p className="text-2xl font-bold mt-1">
                       {analyticsData?.overview.totalUsers.toLocaleString()}
                     </p>
@@ -457,28 +457,28 @@ const AnalyticsDashboard: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 <div className="text-center">
                   <Eye className="h-8 w-8 text-turquoise-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Total Views</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Views</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.views, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <Heart className="h-8 w-8 text-red-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Total Likes</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Likes</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.likes, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <MessageSquare className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Total Comments</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Comments</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.comments, 0).toLocaleString()}
                   </p>
                 </div>
                 <div className="text-center">
                   <Share2 className="h-8 w-8 text-purple-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Total Shares</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Shares</p>
                   <p className="text-xl font-bold">
                     {analyticsData?.contentEngagement.reduce((sum, item) => sum + item.shares, 0).toLocaleString()}
                   </p>
@@ -493,7 +493,7 @@ const AnalyticsDashboard: React.FC = () => {
           <Card className="glassmorphic-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-green-500" />
+                <Activity className="h-5 w-5 text-green-500" / data-testid="link-h-5">
                 System Performance
               </CardTitle>
               <CardDescription>
@@ -505,19 +505,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">Performance Metrics</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Page Load Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">2.1s</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">API Response Time</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">145ms</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Cache Hit Rate</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">87%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Error Rate</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">0.12%</Badge>
                     </div>
@@ -527,19 +527,19 @@ const AnalyticsDashboard: React.FC = () => {
                 <div className="space-y-4">
                   <h3 className="font-semibold">System Health</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Server Uptime</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">99.98%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Database Health</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">Healthy</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">Memory Usage</span>
                       <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">72%</Badge>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <span className="text-sm">CPU Usage</span>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">45%</Badge>
                     </div>
@@ -564,30 +564,30 @@ const AnalyticsDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <Alert className="border-green-200 bg-green-50">
+                <Alert className="border-green-200 bg-green-50" data-testid="link-border-green-200">
                   <TrendingUp className="h-4 w-4 text-green-600" />
-                  <AlertDescription className="text-green-800">
+                  <AlertDescription className="text-green-800" data-testid="link-text-green-800">
                     <strong>Growth Opportunity:</strong> Buenos Aires shows 45% higher engagement rates. Consider focusing marketing efforts in similar Latin American cities.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-blue-200 bg-blue-50">
+                <Alert className="border-blue-200 bg-blue-50" data-testid="link-border-blue-200">
                   <Users className="h-4 w-4 text-blue-600" />
-                  <AlertDescription className="text-blue-800">
+                  <AlertDescription className="text-blue-800" data-testid="link-text-blue-800">
                     <strong>User Behavior:</strong> Mobile users spend 3x more time on event pages. Optimize mobile event discovery experience.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-yellow-200 bg-yellow-50">
+                <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
                   <Calendar className="h-4 w-4 text-yellow-600" />
-                  <AlertDescription className="text-yellow-800">
+                  <AlertDescription className="text-yellow-800" data-testid="link-text-yellow-800">
                     <strong>Content Strategy:</strong> Posts with event mentions get 67% more engagement. Encourage users to link posts to events.
                   </AlertDescription>
                 </Alert>
 
-                <Alert className="border-purple-200 bg-purple-50">
+                <Alert className="border-purple-200 bg-purple-50" data-testid="link-border-purple-200">
                   <Heart className="h-4 w-4 text-purple-600" />
-                  <AlertDescription className="text-purple-800">
+                  <AlertDescription className="text-purple-800" data-testid="link-text-purple-800">
                     <strong>Engagement Pattern:</strong> Teacher profiles receive 4x more views. Create featured teacher spotlights to boost engagement.
                   </AlertDescription>
                 </Alert>

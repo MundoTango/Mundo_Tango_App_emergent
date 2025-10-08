@@ -67,7 +67,7 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
       {/* Header */}
-      <div className="glassmorphic-card bg-white/70 backdrop-blur-xl border-b border-white/50">
+      <div className="glassmorphic-card bg-white/70 backdrop-blur-xl border-b border-white/50 dark:bg-neutral-900">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-6">
             Search Mundo Tango
@@ -79,15 +79,15 @@ export default function SearchPage() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
               placeholder="Search for users, posts, events, or groups..."
-              className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-white/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg"
+              className="w-full pl-12 pr-12 py-4 glassmorphic-card bg-white/80 backdrop-blur-xl border border-turquoise-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-turquoise-400 focus:border-transparent text-lg dark:bg-neutral-900"
               autoFocus
             />
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
+                onClick={() = data-testid="button-element"> setSearchQuery('')}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
               >
                 <X className="h-5 w-5 text-gray-400" />
               </button>
@@ -101,7 +101,7 @@ export default function SearchPage() {
               return (
                 <button
                   key={filter.value}
-                  onClick={() => setActiveFilter(filter.value as any)}
+                  onClick={() = data-testid="button-element"> setActiveFilter(filter.value as any)}
                   className={`px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
                     activeFilter === filter.value
                       ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg'
@@ -127,20 +127,20 @@ export default function SearchPage() {
 
         {!isLoading && !debouncedQuery && (
           <div className="text-center py-12">
-            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
+            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto dark:bg-neutral-900">
               <SearchIcon className="h-16 w-16 text-turquoise-400 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Start typing to search</h2>
-              <p className="text-gray-600">Find users, posts, events, and groups across Mundo Tango</p>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">Start typing to search</h2>
+              <p className="text-gray-600 dark:text-neutral-400">Find users, posts, events, and groups across Mundo Tango</p>
             </div>
           </div>
         )}
 
         {!isLoading && debouncedQuery && searchResults?.results?.length === 0 && (
           <div className="text-center py-12">
-            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto">
+            <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto dark:bg-neutral-900">
               <SearchIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">No results found</h2>
-              <p className="text-gray-600">Try adjusting your search terms or filters</p>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">No results found</h2>
+              <p className="text-gray-600 dark:text-neutral-400">Try adjusting your search terms or filters</p>
             </div>
           </div>
         )}
@@ -148,8 +148,8 @@ export default function SearchPage() {
         {searchResults?.results && searchResults.results.length > 0 && (
           <div className="space-y-4">
             {searchResults.results.map((result: SearchResult) => (
-              <Link key={`${result.type}-${result.id}`} href={result.link}>
-                <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-2xl p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer">
+              <Link key={`${result.type}-${result.id}`} href={result.link} data-testid="link-element">
+                <div className="glassmorphic-card bg-white/70 backdrop-blur-xl rounded-2xl p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer dark:bg-neutral-900">
                   <div className="flex items-start gap-4">
                     {/* Icon or Image */}
                     <div className="flex-shrink-0">
@@ -178,11 +178,11 @@ export default function SearchPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">
+                      <h3 className="text-lg font-semibold text-gray-900 truncate dark:text-neutral-100">
                         {result.title}
                       </h3>
                       {result.subtitle && (
-                        <p className="text-gray-600 mt-1 line-clamp-2">
+                        <p className="text-gray-600 mt-1 line-clamp-2 dark:text-neutral-400">
                           {result.subtitle}
                         </p>
                       )}

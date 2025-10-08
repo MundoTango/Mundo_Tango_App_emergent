@@ -477,7 +477,7 @@ export default function ListingDetail() {
           <MagneticButton
             strength={0.2}
             onClick={() => navigate('/housing-marketplace')}
-            className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 mb-4 px-4 py-2 rounded-md flex items-center gap-2"
+            className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 mb-4 px-4 py-2 rounded-md flex items-center gap-2"
             data-testid="button-back-to-marketplace"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -569,7 +569,7 @@ export default function ListingDetail() {
           {/* Left Column - Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Header - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-property-header" ref={(el) => sectionsRef.current[0] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-property-header" ref={(el) => sectionsRef.current[0] = el}>
               <CardContent className="pt-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
@@ -595,7 +595,7 @@ export default function ListingDetail() {
                     <MagneticButton 
                       strength={0.2}
                       onClick={handleShare}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 rounded-md"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 rounded-md"
                       data-testid="button-share"
                     >
                       <Share2 className="h-4 w-4" />
@@ -603,7 +603,7 @@ export default function ListingDetail() {
                     <MagneticButton 
                       strength={0.2}
                       onClick={handleFavorite}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 rounded-md"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 rounded-md"
                       data-testid="button-favorite"
                     >
                       <Heart className={`h-4 w-4 ${isFavorited ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -633,7 +633,7 @@ export default function ListingDetail() {
             </GlassCard>
 
             {/* Description - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-description" ref={(el) => sectionsRef.current[1] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-description" ref={(el) => sectionsRef.current[1] = el}>
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">About this space</h2>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line" data-testid="text-description">
@@ -643,7 +643,7 @@ export default function ListingDetail() {
             </GlassCard>
 
             {/* Amenities - Aurora Tide */}
-            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-cyan-500/30" data-testid="section-amenities" ref={(el) => sectionsRef.current[2] = el}>
+            <GlassCard depth={2} className="border border-cyan-200/30 dark:border-ocean-500/30" data-testid="section-amenities" ref={(el) => sectionsRef.current[2] = el}>
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">What this place offers</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -716,7 +716,7 @@ export default function ListingDetail() {
           {/* Right Column - Booking Card (Sticky) - Aurora Tide */}
           <div className="lg:sticky lg:top-6 h-fit">
             <ScaleIn delay={0.3}>
-              <GlassCard depth={3} className="shadow-aurora border border-cyan-200/30 dark:border-cyan-500/30" data-testid="card-booking">
+              <GlassCard depth={3} className="shadow-aurora border border-cyan-200/30 dark:border-ocean-500/30" data-testid="card-booking">
                 <CardContent className="pt-6">
                   <div className="mb-6">
                     {/* TODO: PAYMENT PREP - Stripe integration 
@@ -735,16 +735,16 @@ export default function ListingDetail() {
                   {/* Booking Form Placeholder */}
                   <div className="space-y-4 mb-6">
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-ocean-500/30 rounded-lg p-3">
                         <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">CHECK-IN</label>
                         <div className="text-sm text-slate-700 dark:text-slate-300">Add date</div>
                       </div>
-                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                      <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-ocean-500/30 rounded-lg p-3">
                         <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">CHECKOUT</label>
                         <div className="text-sm text-slate-700 dark:text-slate-300">Add date</div>
                       </div>
                     </div>
-                    <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-cyan-500/30 rounded-lg p-3">
+                    <div className="glass-card glass-depth-1 border border-cyan-200/30 dark:border-ocean-500/30 rounded-lg p-3">
                       <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">GUESTS</label>
                       <div className="text-sm text-slate-700 dark:text-slate-300">1 guest</div>
                     </div>
@@ -807,7 +807,7 @@ export default function ListingDetail() {
 
       {/* Booking Modal - Aurora Tide */}
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-booking-request">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-booking-request">
           <FadeIn>
             <DialogHeader>
               <div className="flex items-center gap-3 mb-2">
@@ -825,7 +825,7 @@ export default function ListingDetail() {
           {/* Friendship Eligibility Status - Aurora Tide */}
           {connectionData && (
             <ScaleIn delay={0.1}>
-              <GlassCard depth={2} className="mb-4 p-4 border-cyan-200/40 dark:border-cyan-500/40 bg-gradient-to-r from-cyan-50/80 to-blue-50/80 dark:from-cyan-950/30 dark:to-blue-950/30">
+              <GlassCard depth={2} className="mb-4 p-4 border-cyan-200/40 dark:border-ocean-500/40 bg-gradient-to-r from-cyan-50/80 to-blue-50/80 dark:from-cyan-950/30 dark:to-blue-950/30">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 mt-1">
                     {connectionData.connectionDegree !== null && connectionData.connectionDegree >= 1 ? (
@@ -929,7 +929,7 @@ export default function ListingDetail() {
                     strength={0.15}
                     onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                     disabled={guestCount <= 1}
-                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-decrease-guests"
                   >
                     -
@@ -941,7 +941,7 @@ export default function ListingDetail() {
                     strength={0.15}
                     onClick={() => setGuestCount(Math.min(listing?.data.maxGuests || 10, guestCount + 1))}
                     disabled={guestCount >= (listing?.data.maxGuests || 10)}
-                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-increase-guests"
                   >
                     +
@@ -1011,7 +1011,7 @@ export default function ListingDetail() {
             {/* Price Breakdown - Aurora Tide */}
             {nights > 0 && (
               <ScaleIn delay={0.3}>
-                <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
+                <GlassCard depth={2} className="border-cyan-200/30 dark:border-ocean-500/30">
                   <CardContent className="pt-6">
                     <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Price Details</h4>
                     <div className="space-y-2">
@@ -1023,7 +1023,7 @@ export default function ListingDetail() {
                         <span>Service fee (10%)</span>
                         <span data-testid="text-service-fee">${serviceFee}</span>
                       </div>
-                      <div className="flex justify-between font-bold text-lg border-t border-cyan-200/30 dark:border-cyan-500/30 pt-2 mt-2 text-slate-900 dark:text-white">
+                      <div className="flex justify-between font-bold text-lg border-t border-cyan-200/30 dark:border-ocean-500/30 pt-2 mt-2 text-slate-900 dark:text-white">
                         <span>Total</span>
                         <span data-testid="text-grand-total">${grandTotal}</span>
                       </div>
@@ -1035,11 +1035,11 @@ export default function ListingDetail() {
           </div>
 
           {/* Modal Actions - Aurora Tide */}
-          <div className="flex gap-3 pt-4 border-t border-cyan-200/30 dark:border-cyan-500/30">
+          <div className="flex gap-3 pt-4 border-t border-cyan-200/30 dark:border-ocean-500/30">
             <Button
               variant="outline"
               onClick={() => setShowBookingModal(false)}
-              className="flex-1 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30"
+              className="flex-1 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30"
               data-testid="button-cancel-booking"
             >
               Cancel

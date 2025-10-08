@@ -204,14 +204,14 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
       {showVisibility && (
         <div className="space-y-2">
           <Label>Visibility</Label>
-          <Select value={currentVisibility} onValueChange={(value) => setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
-            <SelectTrigger>
-              <SelectValue />
+          <Select value={currentVisibility} onValueChange={(value) = data-testid="select-element"> setCurrentVisibility(value as 'public' | 'private' | 'mutual')}>
+            <SelectTrigger data-testid="select-element">
+              <SelectValue / data-testid="select-element">
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="public">Public - Everyone can see</SelectItem>
-              <SelectItem value="mutual">Mutual - Only friends can see</SelectItem>
-              <SelectItem value="private">Private - Only you can see</SelectItem>
+            <SelectContent data-testid="select-element">
+              <SelectItem value="public" data-testid="select-element">Public - Everyone can see</SelectItem>
+              <SelectItem value="mutual" data-testid="select-element">Mutual - Only friends can see</SelectItem>
+              <SelectItem value="private" data-testid="select-element">Private - Only you can see</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -235,12 +235,12 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           <div className="flex gap-2">
             <Input
               value={newTag}
-              onChange={(e) => setNewTag(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setNewTag(e.target.value)}
               placeholder="Add a tag..."
               onKeyPress={(e) => e.key === 'Enter' && addTag()}
               className="flex-1"
             />
-            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()}>
+            <Button type="button" size="sm" onClick={addTag} disabled={!newTag.trim()} data-testid="button-element">
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -256,9 +256,9 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
           ${disabled || isUploading ? 'opacity-50 cursor-not-allowed' : ''}
         `}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} / data-testid="input-element">
         <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-sm text-gray-600 mb-1">
+        <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">
           {isDragActive ? 'Drop files here...' : placeholder}
         </p>
         <p className="text-xs text-gray-400">
@@ -285,7 +285,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
             {uploadedFiles.map((file, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50"
+                className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-neutral-800"
               >
                 {showPreview && previews[file.originalName] ? (
                   <img
@@ -306,7 +306,7 @@ export const UploadMedia: React.FC<UploadMediaProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => removeFile(index)}
+                  onClick={() = data-testid="button-element"> removeFile(index)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <X className="w-4 h-4" />

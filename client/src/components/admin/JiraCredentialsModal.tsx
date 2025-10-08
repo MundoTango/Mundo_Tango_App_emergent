@@ -75,7 +75,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               id="instanceUrl"
               placeholder="https://yourcompany.atlassian.net"
               value={credentials.instanceUrl}
-              onChange={(e) => setCredentials({ ...credentials, instanceUrl: e.target.value })}
+              onChange={(e) = data-testid="input-element"> setCredentials({ ...credentials, instanceUrl: e.target.value })}
             />
             <p className="text-xs text-gray-500">Your Atlassian domain URL</p>
           </div>
@@ -87,7 +87,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               type="email"
               placeholder="your.email@company.com"
               value={credentials.email}
-              onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+              onChange={(e) = data-testid="input-element"> setCredentials({ ...credentials, email: e.target.value })}
             />
             <p className="text-xs text-gray-500">Email associated with your JIRA account</p>
           </div>
@@ -99,10 +99,10 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               type="password"
               placeholder="Your JIRA API token"
               value={credentials.apiToken}
-              onChange={(e) => setCredentials({ ...credentials, apiToken: e.target.value })}
+              onChange={(e) = data-testid="input-element"> setCredentials({ ...credentials, apiToken: e.target.value })}
             />
             <p className="text-xs text-gray-500">
-              Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline">
+              Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline" data-testid="link-text-turquoise-600">
                 Atlassian Account Settings
               </a>
             </p>
@@ -114,19 +114,19 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               id="projectKey"
               placeholder="MT"
               value={credentials.projectKey}
-              onChange={(e) => setCredentials({ ...credentials, projectKey: e.target.value.toUpperCase() })}
+              onChange={(e) = data-testid="input-element"> setCredentials({ ...credentials, projectKey: e.target.value.toUpperCase() })}
             />
             <p className="text-xs text-gray-500">The key of your JIRA project (e.g., MT, PROJ)</p>
           </div>
           
           {testResult && (
-            <Alert className={testResult.success ? 'border-green-200' : 'border-red-200'}>
+            <Alert className={testResult.success ? 'border-green-200' : 'border-red-200'} data-testid="link-element">
               {testResult.success ? (
                 <CheckCircle className="h-4 w-4 text-green-600" />
               ) : (
-                <AlertCircle className="h-4 w-4 text-red-600" />
+                <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
               )}
-              <AlertDescription className={testResult.success ? 'text-green-800' : 'text-red-800'}>
+              <AlertDescription className={testResult.success ? 'text-green-800' : 'text-red-800'} data-testid="link-element">
                 {testResult.message}
               </AlertDescription>
             </Alert>
@@ -134,14 +134,14 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
         </div>
         
         <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onClose} data-testid="button-element">
             Cancel
           </Button>
           <Button
             onClick={handleTest}
             disabled={!credentials.instanceUrl || !credentials.email || !credentials.apiToken || !credentials.projectKey || testing}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white hover:from-turquoise-600 hover:to-cyan-600"
-          >
+           data-testid="button-bg-gradient-to-r">
             {testing ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

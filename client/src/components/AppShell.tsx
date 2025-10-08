@@ -44,7 +44,7 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="app-shell relative min-h-screen">
       {/* Network Status Indicator */}
-      <AnimatePresence>
+      <AnimatePresence data-testid="link-element">
         {showOfflineToast && !isOnline && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -68,7 +68,7 @@ export function AppShell({ children }: AppShellProps) {
       {/* PWA Components */}
       <InstallPrompt />
       <UpdatePrompt />
-      <AutoUpdateChecker />
+      <AutoUpdateChecker / data-testid="link-element">
 
       {/* Offline Indicator (persistent) */}
       {!isOnline && (
@@ -242,7 +242,7 @@ export function PullToRefresh({ onRefresh, children }: PullToRefreshProps) {
         }}
       >
         <div className={cn(
-          "rounded-full bg-teal-500 flex items-center justify-center",
+          "rounded-full bg-ocean-500 flex items-center justify-center",
           isRefreshing ? "animate-spin" : "",
           pullDistance > THRESHOLD ? "bg-teal-600" : ""
         )}

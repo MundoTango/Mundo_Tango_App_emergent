@@ -53,12 +53,12 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
   const [content, setContent] = useState('');
   const [emotionTags, setEmotionTags] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [location, setLocation] = useState<any>(null);
+  const [location, setLocation] = useState<any data-testid="link-element">(null);
   const [visibilityTier, setVisibilityTier] = useState('public');
-  const [mediaFiles, setMediaFiles] = useState<any[]>([]);
+  const [mediaFiles, setMediaFiles] = useState<any[] data-testid="link-element">([]);
   const [coTaggedUsers, setCoTaggedUsers] = useState<CoTaggedUser[]>([]);
   const [userSearchQuery, setUserSearchQuery] = useState('');
-  const [searchedUsers, setSearchedUsers] = useState<any[]>([]);
+  const [searchedUsers, setSearchedUsers] = useState<any[] data-testid="link-element">([]);
   const [showUserSearch, setShowUserSearch] = useState(false);
 
   // Validation states
@@ -280,7 +280,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Input
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setTitle(e.target.value)}
               placeholder="What would you like to call this memory?"
               className="text-lg"
             />
@@ -292,7 +292,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <Textarea
               id="content"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) = data-testid="textarea-element"> setContent(e.target.value)}
               placeholder="Describe this memory... What happened? How did it feel?"
               className="min-h-[100px]"
             />
@@ -336,7 +336,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                     "w-full justify-start text-left font-normal",
                     !selectedDate && "text-muted-foreground"
                   )}
-                >
+                 data-testid="button-element">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {selectedDate ? format(selectedDate, "PPP") : "Select date"}
                 </Button>
@@ -364,7 +364,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               allowManualEntry={true}
             />
             {location && (
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 dark:text-neutral-400">
                 <MapPin className="w-4 h-4 mr-2" />
                 {location.formattedAddress}
               </div>
@@ -392,7 +392,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             <div className="relative">
               <Input
                 value={userSearchQuery}
-                onChange={(e) => {
+                onChange={(e) = data-testid="input-element"> {
                   setUserSearchQuery(e.target.value);
                   searchUsers(e.target.value);
                   setShowUserSearch(true);
@@ -404,11 +404,11 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
               
               {/* Search Results */}
               {showUserSearch && searchedUsers.length > 0 && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
+                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto dark:bg-neutral-900">
                   {searchedUsers.map((user) => (
                     <div
                       key={user.id}
-                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                      className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0 dark:bg-neutral-800"
                       onClick={() => addCoTaggedUser(user)}
                     >
                       <div className="font-medium">{user.name}</div>
@@ -435,7 +435,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
                     >
                       {user.username}
                       {!user.hasConsent && (
-                        <AlertTriangle className="w-3 h-3 text-orange-500" />
+                        <AlertTriangle className="w-3 h-3 text-orange-500" / data-testid="link-w-3">
                       )}
                       <X
                         className="w-3 h-3 cursor-pointer hover:text-red-500"
@@ -451,7 +451,7 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
             {needsConsent && (
               <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
                 <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5" />
+                  <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5" / data-testid="link-w-5">
                   <div>
                     <div className="font-medium text-orange-800">Consent Required</div>
                     <div className="text-sm text-orange-700">
@@ -466,13 +466,13 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
           {/* Visibility Tier */}
           <div className="space-y-2">
             <Label>Visibility</Label>
-            <Select value={visibilityTier} onValueChange={setVisibilityTier}>
-              <SelectTrigger>
-                <SelectValue />
+            <Select value={visibilityTier} onValueChange={setVisibilityTier} data-testid="select-element">
+              <SelectTrigger data-testid="select-element">
+                <SelectValue / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent data-testid="select-element">
                 {VISIBILITY_TIERS.map((tier) => (
-                  <SelectItem key={tier.value} value={tier.value}>
+                  <SelectItem key={tier.value} value={tier.value} data-testid="select-element">
                     <div>
                       <div className="font-medium">{tier.label}</div>
                       <div className="text-sm text-gray-500">{tier.description}</div>
@@ -485,14 +485,14 @@ export default function MemoryCreationForm({ open, onClose, onMemoryCreated }: M
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button variant="outline" onClick={onClose} disabled={loading}>
+            <Button variant="outline" onClick={onClose} disabled={loading} data-testid="button-element">
               Cancel
             </Button>
             <Button 
               onClick={handleSubmit} 
               disabled={loading}
               className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"
-            >
+             data-testid="button-bg-gradient-to-r">
               {loading ? 'Creating...' : 'Create Memory'}
             </Button>
           </div>

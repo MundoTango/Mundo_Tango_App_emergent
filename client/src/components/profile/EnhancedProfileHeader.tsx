@@ -233,9 +233,9 @@ export default function EnhancedProfileHeader({
                 accept="image/*"
                 onChange={handleCoverUpload}
                 className="hidden"
-              />
+              / data-testid="input-hidden">
               <Button
-                onClick={() => coverInputRef.current?.click()}
+                onClick={() = data-testid="button-element"> coverInputRef.current?.click()}
                 variant="secondary"
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transform transition-all hover:-translate-y-0.5 border-0"
@@ -250,25 +250,25 @@ export default function EnhancedProfileHeader({
             onClick={handleShare}
             variant="secondary"
             size="sm"
-            className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/30"
-          >
+            className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/30 dark:bg-neutral-900"
+           data-testid="button-bg-white/20">
             <Share2 className="h-4 w-4" />
           </Button>
         </div>
       </div>
 
       {/* Profile Content */}
-      <div className="bg-white rounded-b-xl shadow-sm">
+      <div className="bg-white rounded-b-xl shadow-sm dark:bg-neutral-900">
         <div className="px-6 md:px-10 pb-8">
           {/* Avatar and Actions Row */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between -mt-20 gap-6">
             {/* Avatar Section */}
             <div className="flex items-end gap-4 mb-4 md:mb-0">
               <div className="relative">
-                <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl">
+                <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-white shadow-xl" data-testid="link-h-32">
                   {/* ESA LIFE CEO 56x21 - Fixed profile image with fallback */}
-                  <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} />
-                  <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white">
+                  <AvatarImage src={user.profileImage || `/images/default-avatar.svg`} / data-testid="link-element">
+                  <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-turquoise-400 to-cyan-600 text-white" data-testid="link-text-3xl">
                     {user.name?.[0] || user.username?.[0]}
                   </AvatarFallback>
                 </Avatar>
@@ -281,9 +281,9 @@ export default function EnhancedProfileHeader({
                       accept="image/*"
                       onChange={handleProfileUpload}
                       className="hidden"
-                    />
+                    / data-testid="input-hidden">
                     <Button
-                      onClick={() => profileInputRef.current?.click()}
+                      onClick={() = data-testid="button-element"> profileInputRef.current?.click()}
                       variant="secondary"
                       size="icon"
                       className="absolute bottom-0 right-0 rounded-full shadow-lg bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white border-2 border-white transform transition-all hover:scale-110"
@@ -295,7 +295,7 @@ export default function EnhancedProfileHeader({
                 )}
                 
                 {user.isVerified && (
-                  <div className="group absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-md cursor-help">
+                  <div className="group absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-md cursor-help dark:bg-neutral-900">
                     <CheckCircle className="h-6 w-6 text-blue-500 fill-current" />
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                       Verified Tango Professional
@@ -308,7 +308,7 @@ export default function EnhancedProfileHeader({
               {/* Name and Details */}
               <div className="mb-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-neutral-100">
                     {user.name || user.username || 'Tango Dancer'}
                   </h1>
                   {user.isVerified && (
@@ -322,22 +322,22 @@ export default function EnhancedProfileHeader({
                   )}
                 </div>
                 <div className="space-y-1">
-                  <p className="text-gray-600">@{user.username || 'username'}</p>
+                  <p className="text-gray-600 dark:text-neutral-400">@{user.username || 'username'}</p>
                   {(user.city || user.country) && (
-                    <p className="text-gray-600 flex items-center">
+                    <p className="text-gray-600 flex items-center dark:text-neutral-400">
                       <MapPin className="w-4 h-4 mr-1" />
                       {user.city}{user.city && user.country ? ', ' : ''}{user.country}
                     </p>
                   )}
                   {user.bio && (
-                    <p className="text-gray-700 max-w-md line-clamp-2">
+                    <p className="text-gray-700 max-w-md line-clamp-2 dark:text-neutral-300">
                       {user.bio}
                     </p>
                   )}
                   {user.city && (
                     <div className="flex items-center gap-1 mt-2">
                       <MapPin className="w-3 h-3 text-turquoise-500" />
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-gray-600 dark:text-neutral-400">
                         {user.city}{user.country ? `, ${user.country}` : ''}
                       </span>
                     </div>
@@ -353,7 +353,7 @@ export default function EnhancedProfileHeader({
                   <Button 
                     onClick={onEditProfile}
                     className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                  >
+                   data-testid="button-bg-gradient-to-r">
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Profile
                   </Button>
@@ -361,7 +361,7 @@ export default function EnhancedProfileHeader({
                     variant="outline" 
                     onClick={handleViewAsVisitor}
                     className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                  >
+                   data-testid="button-border-turquoise-200">
                     <Eye className="mr-2 h-4 w-4" />
                     {viewAsVisitor ? 'View as Owner' : 'View as Visitor'}
                   </Button>
@@ -372,7 +372,7 @@ export default function EnhancedProfileHeader({
                     onClick={handleFollow}
                     variant={isFollowing ? "outline" : "default"}
                     className={isFollowing ? "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" : "bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"}
-                  >
+                   data-testid="button-element">
                     {isFollowing ? (
                       <>
                         <Users className="mr-2 h-4 w-4" />
@@ -385,11 +385,11 @@ export default function EnhancedProfileHeader({
                       </>
                     )}
                   </Button>
-                  <Button variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                  <Button variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
                     <Mail className="mr-2 h-4 w-4" />
                     Message
                   </Button>
-                  <Button variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                  <Button variant="outline" size="icon" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </>
@@ -399,7 +399,7 @@ export default function EnhancedProfileHeader({
 
           {/* Bio Section */}
           {user.bio && (
-            <p className="mt-4 text-gray-700 max-w-3xl">
+            <p className="mt-4 text-gray-700 max-w-3xl dark:text-neutral-300">
               {user.bio}
             </p>
           )}
@@ -409,17 +409,17 @@ export default function EnhancedProfileHeader({
             {/* Location & Join Date */}
             <div className="space-y-2">
               {user.city && (
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
                   <MapPin className="h-4 w-4 text-turquoise-500" />
                   <span>{user.city}{user.country && `, ${user.country}`}</span>
                 </div>
               )}
-              <div className="flex items-center gap-2 text-gray-600">
+              <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
                 <Calendar className="h-4 w-4 text-turquoise-500" />
                 <span>Joined {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently'}</span>
               </div>
               {user.languages && user.languages.length > 0 && (
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-neutral-400">
                   <Globe className="h-4 w-4 text-turquoise-500" />
                   <span>{user.languages.join(', ')}</span>
                 </div>
@@ -430,7 +430,7 @@ export default function EnhancedProfileHeader({
             <div className="space-y-2">
               {user.yearsOfDancing && (
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-600">Dancing since</span>
+                  <span className="text-gray-600 dark:text-neutral-400">Dancing since</span>
                   <Badge variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                     {new Date().getFullYear() - user.yearsOfDancing}
                   </Badge>
@@ -456,8 +456,8 @@ export default function EnhancedProfileHeader({
                     href={`https://instagram.com/${user.socialLinks.instagram}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-pink-600 transition-colors"
-                  >
+                    className="text-gray-600 hover:text-pink-600 transition-colors dark:text-neutral-400"
+                   data-testid="link-text-gray-600">
                     <Instagram className="h-5 w-5" />
                   </a>
                 )}
@@ -466,8 +466,8 @@ export default function EnhancedProfileHeader({
                     href={user.socialLinks.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-blue-600 transition-colors"
-                  >
+                    className="text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-400"
+                   data-testid="link-text-gray-600">
                     <Facebook className="h-5 w-5" />
                   </a>
                 )}
@@ -476,8 +476,8 @@ export default function EnhancedProfileHeader({
                     href={`https://twitter.com/${user.socialLinks.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-blue-400 transition-colors"
-                  >
+                    className="text-gray-600 hover:text-blue-400 transition-colors dark:text-neutral-400"
+                   data-testid="link-text-gray-600">
                     <Twitter className="h-5 w-5" />
                   </a>
                 )}
@@ -486,9 +486,9 @@ export default function EnhancedProfileHeader({
                     href={user.socialLinks.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-turquoise-600 transition-colors"
-                  >
-                    <Link className="h-5 w-5" />
+                    className="text-gray-600 hover:text-turquoise-600 transition-colors dark:text-neutral-400"
+                   data-testid="link-text-gray-600">
+                    <Link className="h-5 w-5" / data-testid="link-h-5">
                   </a>
                 )}
               </div>
@@ -496,32 +496,32 @@ export default function EnhancedProfileHeader({
           </div>
 
           {/* Stats Bar */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-neutral-700">
             <div className="flex flex-wrap gap-8 justify-center md:justify-start">
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.posts || 0}</p>
-                <p className="text-sm text-gray-600">Recuerdos</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.posts || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Recuerdos</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.followers || 0}</p>
-                <p className="text-sm text-gray-600">Mi Círculo</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.followers || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Mi Círculo</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.following || 0}</p>
-                <p className="text-sm text-gray-600">Siguiendo</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.following || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Siguiendo</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.events || 0}</p>
-                <p className="text-sm text-gray-600">Milongas</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.events || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Milongas</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-gray-900">{stats?.photos || 0}</p>
-                <p className="text-sm text-gray-600">Photos</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats?.photos || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Photos</p>
               </div>
               {user.profileViews !== undefined && (
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-900">{user.profileViews}</p>
-                  <p className="text-sm text-gray-600">Profile Views</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{user.profileViews}</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Profile Views</p>
                 </div>
               )}
             </div>

@@ -294,7 +294,7 @@ export function InternalUploader({
           onClick={handleFileSelect}
           disabled={isUploading}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105"
-        >
+         data-testid="button-flex">
           {isUploading ? (
             <>
               <Upload className="h-5 w-5 animate-pulse" />
@@ -316,9 +316,9 @@ export function InternalUploader({
           multiple={multiple}
           onChange={handleFileChange}
           className="hidden"
-        />
+        / data-testid="input-hidden">
 
-        <p className="text-sm text-gray-600 text-center">
+        <p className="text-sm text-gray-600 text-center dark:text-neutral-400">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
         </p>
       </div>
@@ -337,13 +337,13 @@ export function InternalUploader({
       {/* Uploaded Files Preview */}
       {uploadedFiles.length > 0 && (
         <div className="space-y-2">
-          <h4 className="font-medium text-sm text-gray-700">
+          <h4 className="font-medium text-sm text-gray-700 dark:text-neutral-300">
             Uploaded Files ({uploadedFiles.length})
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {uploadedFiles.map((file) => (
               <div key={file.id} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200 dark:bg-neutral-800">
                   {file.mimetype.startsWith('image/') ? (
                     <img
                       src={file.thumbnailUrl || file.url}
@@ -362,7 +362,7 @@ export function InternalUploader({
                   
                   {/* Remove button */}
                   <button
-                    onClick={() => removeFile(file.id)}
+                    onClick={() = data-testid="button-element"> removeFile(file.id)}
                     className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
                   >
                     <X className="h-3 w-3" />
@@ -374,7 +374,7 @@ export function InternalUploader({
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-600 mt-1 truncate" title={file.originalname}>
+                <p className="text-xs text-gray-600 mt-1 truncate dark:text-neutral-400" title={file.originalname}>
                   {file.originalname}
                 </p>
                 <p className="text-xs text-gray-400">

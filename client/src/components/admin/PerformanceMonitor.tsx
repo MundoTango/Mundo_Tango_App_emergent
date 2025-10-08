@@ -37,7 +37,7 @@ const PerformanceMonitor: React.FC = () => {
     lcp: [],
     fid: []
   });
-  const [apiPerformance, setApiPerformance] = useState<ApiPerformance>({
+  const [apiPerformance, setApiPerformance] = useState<ApiPerformance data-testid="link-element">({
     singleCall: 0,
     parallelCalls: 0,
     cachePerformance: 0
@@ -167,17 +167,17 @@ const PerformanceMonitor: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-            <Activity className="w-7 h-7 text-turquoise-600" />
+          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3 dark:text-neutral-200">
+            <Activity className="w-7 h-7 text-turquoise-600" / data-testid="link-w-7">
             Performance Monitor
           </h2>
-          <p className="text-gray-600 mt-1">Real-time performance metrics and optimization tracking</p>
+          <p className="text-gray-600 mt-1 dark:text-neutral-400">Real-time performance metrics and optimization tracking</p>
         </div>
         <Button 
           onClick={runPerformanceTests}
           disabled={isRunningTests}
           className="bg-gradient-to-r from-turquoise-600 to-blue-600 text-white hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
-        >
+         data-testid="button-bg-gradient-to-r">
           {isRunningTests ? (
             <>
               <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -194,7 +194,7 @@ const PerformanceMonitor: React.FC = () => {
 
       {/* Core Web Vitals */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2 dark:text-neutral-200">
           <BarChart3 className="w-5 h-5 text-turquoise-600" />
           Core Web Vitals
         </h3>
@@ -202,12 +202,12 @@ const PerformanceMonitor: React.FC = () => {
           {/* LCP Card */}
           <Card className="border-turquoise-200 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-medium text-gray-700">
+              <CardTitle className="text-base font-medium text-gray-700 dark:text-neutral-300">
                 Largest Contentful Paint (LCP)
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
                 {avgLCP > 0 ? `${(avgLCP / 1000).toFixed(2)}s` : '--'}
               </div>
               <Badge className={`${lcpRating.bgColor} ${lcpRating.color} border-0`}>
@@ -226,12 +226,12 @@ const PerformanceMonitor: React.FC = () => {
           {/* CLS Card */}
           <Card className="border-turquoise-200 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-medium text-gray-700">
+              <CardTitle className="text-base font-medium text-gray-700 dark:text-neutral-300">
                 Cumulative Layout Shift (CLS)
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
                 {avgCLS > 0 ? avgCLS.toFixed(4) : '--'}
               </div>
               <Badge className={`${clsRating.bgColor} ${clsRating.color} border-0`}>
@@ -250,12 +250,12 @@ const PerformanceMonitor: React.FC = () => {
           {/* FID Card */}
           <Card className="border-turquoise-200 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-medium text-gray-700">
+              <CardTitle className="text-base font-medium text-gray-700 dark:text-neutral-300">
                 First Input Delay (FID)
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
                 {avgFID > 0 ? `${avgFID.toFixed(0)}ms` : '--'}
               </div>
               <Badge className={`${fidRating.bgColor} ${fidRating.color} border-0`}>
@@ -276,20 +276,20 @@ const PerformanceMonitor: React.FC = () => {
       {/* API Performance */}
       {apiPerformance.singleCall > 0 && (
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2 dark:text-neutral-200">
             <Server className="w-5 h-5 text-turquoise-600" />
             API Performance Tests
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="bg-gradient-to-br from-turquoise-50 to-blue-50 border-turquoise-200">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
+                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-300">
                   <Wifi className="w-4 h-4 text-turquoise-600" />
                   Single API Call
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {apiPerformance.singleCall.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -300,13 +300,13 @@ const PerformanceMonitor: React.FC = () => {
 
             <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-blue-600" />
+                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-300">
+                  <Activity className="w-4 h-4 text-blue-600" / data-testid="link-w-4">
                   Parallel API Calls (3)
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {apiPerformance.parallelCalls.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -317,13 +317,13 @@ const PerformanceMonitor: React.FC = () => {
 
             <Card className="bg-gradient-to-br from-cyan-50 to-teal-50 border-cyan-200">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
+                <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-300">
                   <Database className="w-4 h-4 text-cyan-600" />
                   Cache Performance
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {apiPerformance.cachePerformance.toFixed(2)}ms
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -337,7 +337,7 @@ const PerformanceMonitor: React.FC = () => {
 
       {/* Active Optimizations */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2 dark:text-neutral-200">
           <CheckCircle className="w-5 h-5 text-green-600" />
           Active Optimizations
         </h3>
@@ -345,7 +345,7 @@ const PerformanceMonitor: React.FC = () => {
           {/* Frontend Optimizations */}
           <Card className="border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
             <CardHeader>
-              <CardTitle className="text-base font-medium text-gray-700">
+              <CardTitle className="text-base font-medium text-gray-700 dark:text-neutral-300">
                 Frontend Optimizations
               </CardTitle>
             </CardHeader>
@@ -353,23 +353,23 @@ const PerformanceMonitor: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">React Query caching (5min stale time)</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">React Query caching (5min stale time)</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Request batching</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Request batching</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Image lazy loading</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Image lazy loading</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Smart prefetching</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Smart prefetching</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">WebSocket optimization</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">WebSocket optimization</span>
                 </div>
               </div>
             </CardContent>
@@ -378,7 +378,7 @@ const PerformanceMonitor: React.FC = () => {
           {/* Backend Optimizations */}
           <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
             <CardHeader>
-              <CardTitle className="text-base font-medium text-gray-700">
+              <CardTitle className="text-base font-medium text-gray-700 dark:text-neutral-300">
                 Backend Optimizations
               </CardTitle>
             </CardHeader>
@@ -386,23 +386,23 @@ const PerformanceMonitor: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Request batching</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Request batching</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Response compression</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Response compression</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Database query optimization</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Database query optimization</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Redis caching layer</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Redis caching layer</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Connection pooling</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-300">Connection pooling</span>
                 </div>
               </div>
             </CardContent>
@@ -413,13 +413,13 @@ const PerformanceMonitor: React.FC = () => {
       {/* Performance Tips */}
       <Card className="border-turquoise-200 bg-gradient-to-br from-turquoise-50 to-blue-50">
         <CardHeader>
-          <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-turquoise-600" />
+          <CardTitle className="text-base font-medium text-gray-700 flex items-center gap-2 dark:text-neutral-300">
+            <AlertCircle className="w-5 h-5 text-turquoise-600" / data-testid="link-w-5">
             Performance Insights
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2 text-sm text-gray-700">
+          <div className="space-y-2 text-sm text-gray-700 dark:text-neutral-300">
             <p>• Current LCP of {(avgLCP / 1000).toFixed(2)}s {avgLCP > 2500 ? 'needs improvement' : 'is excellent'}. Optimize largest images and ensure critical resources load early.</p>
             <p>• CLS score of {avgCLS.toFixed(4)} {avgCLS > 0.1 ? 'indicates layout instability' : 'shows great visual stability'}. Reserve space for dynamic content.</p>
             <p>• FID of {avgFID.toFixed(0)}ms {avgFID > 100 ? 'could be improved' : 'provides excellent interactivity'}. Consider code splitting for better responsiveness.</p>

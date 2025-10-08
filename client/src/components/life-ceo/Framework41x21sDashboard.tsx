@@ -145,7 +145,7 @@ export default function Framework41x21sDashboard() {
           <CardTitle className="text-3xl bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
             41x21s Framework Dashboard
           </CardTitle>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-2 dark:text-neutral-400">
             Enhanced framework with 44 layers × 22 phases = 968 quality checkpoints
           </p>
         </CardHeader>
@@ -158,9 +158,9 @@ export default function Framework41x21sDashboard() {
             <Progress value={calculateOverallProgress()} className="h-4" />
           </div>
 
-          <Alert className="mb-6 border-turquoise-200 bg-turquoise-50">
+          <Alert className="mb-6 border-turquoise-200 bg-turquoise-50" data-testid="link-mb-6">
             <Sparkles className="h-4 w-4 text-turquoise-600" />
-            <AlertDescription>
+            <AlertDescription data-testid="link-element">
               <strong className="text-turquoise-800">Framework Evolution:</strong> Added Layers 42-44 and Phases 0 & 21 based on 4 days of intensive development learnings.
             </AlertDescription>
           </Alert>
@@ -199,7 +199,7 @@ export default function Framework41x21sDashboard() {
                           <span className="text-sm font-bold text-turquoise-600">{layer.progress}%</span>
                         </div>
                         <h4 className="font-medium mb-1">{layer.name}</h4>
-                        <p className="text-xs text-gray-600 mb-2">{layer.description}</p>
+                        <p className="text-xs text-gray-600 mb-2 dark:text-neutral-400">{layer.description}</p>
                         <Progress value={layer.progress} className="h-2" />
                         {layer.enhancements && (
                           <div className="mt-2">
@@ -231,7 +231,7 @@ export default function Framework41x21sDashboard() {
                           </div>
                           <div>
                             <h4 className="font-semibold">{phase.name}</h4>
-                            <p className="text-sm text-gray-600">{phase.description}</p>
+                            <p className="text-sm text-gray-600 dark:text-neutral-400">{phase.description}</p>
                           </div>
                           {phase.newInV21 && (
                             <Badge variant="secondary">NEW</Badge>
@@ -239,7 +239,7 @@ export default function Framework41x21sDashboard() {
                         </div>
                         <div className="flex items-center gap-2">
                           {phase.status === 'complete' && <CheckCircle className="w-5 h-5 text-green-600" />}
-                          {phase.status === 'in-progress' && <AlertCircle className="w-5 h-5 text-blue-600 animate-pulse" />}
+                          {phase.status === 'in-progress' && <AlertCircle className="w-5 h-5 text-blue-600 animate-pulse" / data-testid="link-w-5">}
                         </div>
                       </div>
                     </CardContent>
@@ -258,7 +258,7 @@ export default function Framework41x21sDashboard() {
             <CardTitle>Layer {selectedLayer.id}: {selectedLayer.name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 mb-4">{selectedLayer.description}</p>
+            <p className="text-gray-700 mb-4 dark:text-neutral-300">{selectedLayer.description}</p>
             <div className="flex items-center gap-2 mb-4">
               <Progress value={selectedLayer.progress} className="flex-1" />
               <span className="font-bold text-turquoise-600">{selectedLayer.progress}%</span>
@@ -268,7 +268,7 @@ export default function Framework41x21sDashboard() {
                 <h4 className="font-semibold mb-2">Recent Enhancements:</h4>
                 <ul className="space-y-1">
                   {selectedLayer.enhancements.map((enhancement, idx) => (
-                    <li key={idx} className="text-sm text-gray-700">• {enhancement}</li>
+                    <li key={idx} className="text-sm text-gray-700 dark:text-neutral-300">• {enhancement}</li>
                   ))}
                 </ul>
               </div>

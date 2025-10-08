@@ -159,7 +159,7 @@ const Subscribe: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-neutral-400">
             Unlock premium features and take your tango journey to the next level
           </p>
         </div>
@@ -167,10 +167,10 @@ const Subscribe: React.FC = () => {
         {/* Current Plan Banner */}
         {isAuthenticated && currentTier !== 'free' && (
           <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-neutral-300">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
-              <Link href="/settings/billing">
-                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline">
+              <Link href="/settings/billing" data-testid="link-element">
+                <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline" data-testid="link-ml-2">
                   Manage billing
                 </a>
               </Link>
@@ -215,14 +215,14 @@ const Subscribe: React.FC = () => {
                     {tier.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-700">{feature}</span>
+                        <span className="text-sm text-gray-700 dark:text-neutral-300">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
                   {/* Not Included Features */}
                   {tier.notIncluded.length > 0 && (
-                    <div className="space-y-2 pt-4 border-t border-gray-200">
+                    <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-neutral-700">
                       {tier.notIncluded.map((feature, index) => (
                         <div key={index} className="flex items-start gap-2">
                           <X className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -239,21 +239,21 @@ const Subscribe: React.FC = () => {
                         className="w-full" 
                         variant="outline"
                         disabled
-                      >
+                       data-testid="button-w-full">
                         Current Plan
                       </Button>
                     ) : tier.key === 'free' ? (
                       <Button 
                         className="w-full" 
                         variant="outline"
-                        onClick={() => setLocation('/settings/billing')}
+                        onClick={() = data-testid="button-w-full"> setLocation('/settings/billing')}
                       >
                         Downgrade
                       </Button>
                     ) : (
                       <Button 
                         className="w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                        onClick={() => handleSubscribe(tier.key)}
+                        onClick={() = data-testid="button-w-full"> handleSubscribe(tier.key)}
                         disabled={createSubscriptionMutation.isPending && selectedTier === tier.key}
                       >
                         {createSubscriptionMutation.isPending && selectedTier === tier.key
@@ -273,12 +273,12 @@ const Subscribe: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-neutral-400">
             Questions about our plans?{' '}
             <a 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
-            >
+             data-testid="link-text-turquoise-600">
               Contact support
             </a>
           </p>

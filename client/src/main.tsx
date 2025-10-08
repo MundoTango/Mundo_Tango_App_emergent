@@ -30,7 +30,7 @@ const root = createRoot(rootElement);
 root.render(
   // ESA LIFE CEO 56x21 - StrictMode disabled to prevent map double-rendering
   // <React.StrictMode>
-    <App />
+    <App / data-testid="link-element">
   // </React.StrictMode>
 );
 

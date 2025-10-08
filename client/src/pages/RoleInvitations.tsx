@@ -56,7 +56,7 @@ const ROLE_ICONS = {
   host: <Globe className="w-4 h-4" />,
   photographer: <Camera className="w-4 h-4" />,
   organizer: <Calendar className="w-4 h-4" />,
-  volunteer: <Award className="w-4 h-4" />,
+  volunteer: <Award className="w-4 h-4" / data-testid="link-w-4">,
 };
 
 const ROLE_COLORS = {
@@ -196,7 +196,7 @@ export default function RoleInvitations() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Role Invitations
           </h1>
-          <p className="text-gray-600">Manage your event role invitations and send new ones</p>
+          <p className="text-gray-600 dark:text-neutral-400">Manage your event role invitations and send new ones</p>
         </div>
 
         {/* Stats Cards */}
@@ -205,7 +205,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Pending</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Pending</p>
                   <p className="text-2xl font-bold">{stats.pending}</p>
                 </div>
                 <Clock className="w-8 h-8 text-yellow-500" />
@@ -217,7 +217,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Accepted</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Accepted</p>
                   <p className="text-2xl font-bold">{stats.accepted}</p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-500" />
@@ -229,7 +229,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Total Invitations</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Invitations</p>
                   <p className="text-2xl font-bold">{stats.total}</p>
                 </div>
                 <Bell className="w-8 h-8 text-turquoise-500" />
@@ -240,7 +240,7 @@ export default function RoleInvitations() {
           <Card className="glassmorphic-card">
             <CardContent className="p-4">
               <Button
-                onClick={() => setShowSendForm(!showSendForm)}
+                onClick={() = data-testid="button-element"> setShowSendForm(!showSendForm)}
                 className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
               >
                 <Send className="w-4 h-4 mr-2" />
@@ -263,7 +263,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Enter username..."
                     value={sendForm.username}
-                    onChange={(e) => setSendForm({ ...sendForm, username: e.target.value })}
+                    onChange={(e) = data-testid="input-element"> setSendForm({ ...sendForm, username: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -272,14 +272,14 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Event</label>
                   <Select
                     value={sendForm.eventId}
-                    onValueChange={(value) => setSendForm({ ...sendForm, eventId: value })}
+                    onValueChange={(value) = data-testid="select-element"> setSendForm({ ...sendForm, eventId: value })}
                   >
-                    <SelectTrigger className="glassmorphic-input">
-                      <SelectValue placeholder="Select event..." />
+                    <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                      <SelectValue placeholder="Select event..." / data-testid="select-element">
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent data-testid="select-element">
                       {myEvents?.map((event: any) => (
-                        <SelectItem key={event.id} value={event.id.toString()}>
+                        <SelectItem key={event.id} value={event.id.toString()} data-testid="select-element">
                           {event.title} - {formatDate(event.startDate)}
                         </SelectItem>
                       ))}
@@ -291,14 +291,14 @@ export default function RoleInvitations() {
                   <label className="block text-sm font-medium mb-2">Role</label>
                   <Select
                     value={sendForm.role}
-                    onValueChange={(value) => setSendForm({ ...sendForm, role: value })}
+                    onValueChange={(value) = data-testid="select-element"> setSendForm({ ...sendForm, role: value })}
                   >
-                    <SelectTrigger className="glassmorphic-input">
-                      <SelectValue placeholder="Select role..." />
+                    <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                      <SelectValue placeholder="Select role..." / data-testid="select-element">
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent data-testid="select-element">
                       {Object.keys(ROLE_ICONS).map((role) => (
-                        <SelectItem key={role} value={role}>
+                        <SelectItem key={role} value={role} data-testid="select-element">
                           <div className="flex items-center gap-2">
                             {ROLE_ICONS[role as keyof typeof ROLE_ICONS]}
                             {role.charAt(0).toUpperCase() + role.slice(1)}
@@ -314,7 +314,7 @@ export default function RoleInvitations() {
                   <Input
                     placeholder="Add a personal message..."
                     value={sendForm.message}
-                    onChange={(e) => setSendForm({ ...sendForm, message: e.target.value })}
+                    onChange={(e) = data-testid="input-element"> setSendForm({ ...sendForm, message: e.target.value })}
                     className="glassmorphic-input"
                   />
                 </div>
@@ -325,11 +325,11 @@ export default function RoleInvitations() {
                   onClick={handleSendInvitation}
                   disabled={sendInvitationMutation.isPending}
                   className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-                >
+                 data-testid="button-bg-gradient-to-r">
                   {sendInvitationMutation.isPending ? 'Sending...' : 'Send Invitation'}
                 </Button>
                 <Button
-                  onClick={() => setShowSendForm(false)}
+                  onClick={() = data-testid="button-element"> setShowSendForm(false)}
                   variant="outline"
                 >
                   Cancel
@@ -362,7 +362,7 @@ export default function RoleInvitations() {
                    activeTab === 'declined' ? 'No Declined Invitations' :
                    'No Invitations'}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-neutral-400">
                   {activeTab === 'pending' ? "You'll see new role invitations here when organizers invite you." :
                    activeTab === 'accepted' ? "Invitations you've accepted will appear here." :
                    activeTab === 'declined' ? "Invitations you've declined will appear here." :
@@ -383,14 +383,14 @@ export default function RoleInvitations() {
                               {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                               {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}
                             </Badge>
-                            <span className="text-sm text-gray-600">
+                            <span className="text-sm text-gray-600 dark:text-neutral-400">
                               Invited by {invitation.inviterName}
                             </span>
                           </div>
                           
                           <h3 className="text-lg font-semibold mb-2">{invitation.eventTitle}</h3>
                           
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4 dark:text-neutral-400">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {formatDate(invitation.eventStartDate)}
@@ -406,15 +406,15 @@ export default function RoleInvitations() {
                           </div>
                           
                           {invitation.message && (
-                            <div className="p-3 bg-gray-50 rounded-lg mb-4">
-                              <p className="text-sm text-gray-700 italic">"{invitation.message}"</p>
+                            <div className="p-3 bg-gray-50 rounded-lg mb-4 dark:bg-neutral-800">
+                              <p className="text-sm text-gray-700 italic dark:text-neutral-300">"{invitation.message}"</p>
                             </div>
                           )}
                           
                           {invitation.status === 'pending' && (
                             <div className="flex gap-2">
                               <Button
-                                onClick={() => handleAccept(invitation)}
+                                onClick={() = data-testid="button-element"> handleAccept(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                               >
@@ -422,7 +422,7 @@ export default function RoleInvitations() {
                                 Accept
                               </Button>
                               <Button
-                                onClick={() => handleDecline(invitation)}
+                                onClick={() = data-testid="button-element"> handleDecline(invitation)}
                                 disabled={updateInvitationMutation.isPending}
                                 variant="outline"
                                 className="border-red-200 text-red-600 hover:bg-red-50"

@@ -56,7 +56,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
       case 'in-progress':
         return <Clock className="w-4 h-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-gray-400" />;
+        return <AlertCircle className="w-4 h-4 text-gray-400" / data-testid="link-w-4">;
     }
   };
 
@@ -95,13 +95,13 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
           </div>
           <Progress value={metrics.overallReadiness} className="h-4 mb-4" />
           <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="text-center p-3 bg-white/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <div className="font-medium">Critical Tasks</div>
               <div className="text-2xl font-bold mt-1">
                 {metrics.criticalTasksComplete}/{metrics.criticalTasksTotal}
               </div>
             </div>
-            <div className="text-center p-3 bg-white/70 rounded-lg">
+            <div className="text-center p-3 bg-white/70 rounded-lg dark:bg-neutral-900">
               <div className="font-medium">Est. Launch Date</div>
               <div className="text-lg font-bold mt-1">
                 {metrics.estimatedLaunchDate.toLocaleDateString()}
@@ -119,12 +119,12 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
         <CardContent>
           <div className="space-y-3">
             {checklist.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
                 <div className="flex items-center gap-3">
                   {getStatusIcon(item.status)}
                   <div>
                     <div className="font-medium">{item.task}</div>
-                    <div className="text-sm text-gray-600">{item.category}</div>
+                    <div className="text-sm text-gray-600 dark:text-neutral-400">{item.category}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Integration Tests</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600">All 245 tests passing</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">All 245 tests passing</div>
             </div>
             <div className={`p-4 rounded-lg ${
               metrics.rollbackPlanReady ? 'bg-green-50' : 'bg-yellow-50'
@@ -167,21 +167,21 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Rollback Plan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600">Tested and documented</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Tested and documented</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Performance Baseline</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600">Sub-100ms response time</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Sub-100ms response time</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Security Scan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600">No vulnerabilities found</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">No vulnerabilities found</div>
             </div>
           </div>
         </CardContent>
@@ -194,15 +194,15 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <Button className="w-full" size="lg" disabled={launchStatus !== 'ready'}>
+            <Button className="w-full" size="lg" disabled={launchStatus !== 'ready'} data-testid="button-w-full">
               <Rocket className="mr-2 h-5 w-5" />
               Initiate Launch Sequence
             </Button>
-            <Button className="w-full" variant="outline">
+            <Button className="w-full" variant="outline" data-testid="button-w-full">
               <TrendingUp className="mr-2 h-5 w-5" />
               Run Final Performance Test
             </Button>
-            <Button className="w-full" variant="outline">
+            <Button className="w-full" variant="outline" data-testid="button-w-full">
               Download Launch Report
             </Button>
           </div>
@@ -211,9 +211,9 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
 
       {/* Launch Warnings */}
       {launchStatus !== 'ready' && (
-        <Alert className="border-yellow-200 bg-yellow-50">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
+        <Alert className="border-yellow-200 bg-yellow-50" data-testid="link-border-yellow-200">
+          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+          <AlertDescription data-testid="link-element">
             <div className="font-medium mb-1">Launch Preparation Required</div>
             <div className="text-sm">
               Complete all critical tasks before launching. {metrics.criticalTasksTotal - metrics.criticalTasksComplete} critical tasks remaining.

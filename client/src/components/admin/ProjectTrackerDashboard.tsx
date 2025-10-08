@@ -34,13 +34,13 @@ const LAYER_DEFINITIONS = [
   { id: 3, name: 'Server Framework', color: 'bg-purple-500', icon: '🖥️' },
   { id: 4, name: 'Authentication', color: 'bg-red-500', icon: '🔐' },
   { id: 5, name: 'Authorization', color: 'bg-orange-500', icon: '🛡️' },
-  { id: 6, name: 'Data Validation', color: 'bg-cyan-500', icon: '✅' },
+  { id: 6, name: 'Data Validation', color: 'bg-ocean-500', icon: '✅' },
   { id: 7, name: 'State Management', color: 'bg-indigo-500', icon: '📊' },
   { id: 8, name: 'Client Framework', color: 'bg-pink-500', icon: '⚛️' },
   { id: 9, name: 'UI Framework', color: 'bg-amber-500', icon: '🎨' },
   { id: 10, name: 'Component Library', color: 'bg-gray-500', icon: '📦' },
   { id: 11, name: 'Real-time Features', color: 'bg-emerald-500', icon: '⚡' },
-  { id: 12, name: 'Data Management', color: 'bg-teal-500', icon: '💾' },
+  { id: 12, name: 'Data Management', color: 'bg-ocean-500', icon: '💾' },
   { id: 13, name: 'Business Logic', color: 'bg-violet-500', icon: '🧮' },
   { id: 14, name: 'Integration', color: 'bg-rose-500', icon: '🔗' },
   { id: 15, name: 'Testing', color: 'bg-lime-500', icon: '🧪' },
@@ -194,39 +194,39 @@ const ProjectTrackerDashboard: React.FC = () => {
         </div>
         
         {/* Statistics Bar */}
-        <div className="bg-white border-t border-cyan-200/20 p-4">
+        <div className="bg-white border-t border-cyan-200/20 p-4 dark:bg-neutral-900">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-800">{totalCount}</div>
-              <div className="text-xs text-gray-600">Total Projects</div>
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{totalCount}</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">Total Projects</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-green-600">{completedCount}</div>
-              <div className="text-xs text-gray-600">Completed</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">Completed</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600">In Progress</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">In Progress</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-blue-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Planned')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600">Planned</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">Planned</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-red-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Blocked')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600">Blocked</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">Blocked</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-purple-600">
                 {metrics?.layerDistribution?.length || 0}
               </div>
-              <div className="text-xs text-gray-600">Active Layers</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-400">Active Layers</div>
             </div>
           </div>
         </div>
@@ -235,14 +235,14 @@ const ProjectTrackerDashboard: React.FC = () => {
       {/* Action Buttons */}
       <div className="flex justify-end gap-2">
         <Button 
-          onClick={() => refetchProjects()}
+          onClick={() = data-testid="button-element"> refetchProjects()}
           variant="outline"
           className="flex items-center gap-2 border-cyan-300 text-cyan-700"
         >
           <RefreshCw className="h-4 w-4" />
           Refresh
         </Button>
-        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0">
+        <Button className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0" data-testid="button-flex">
           <Plus className="h-4 w-4" />
           Add Project
         </Button>
@@ -263,53 +263,53 @@ const ProjectTrackerDashboard: React.FC = () => {
               <Input
                 placeholder="Search items..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
             
-            <Select value={selectedLayer?.toString() || 'all'} onValueChange={(value) => setSelectedLayer(value === 'all' ? null : parseInt(value))}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Layer" />
+            <Select value={selectedLayer?.toString() || 'all'} onValueChange={(value) = data-testid="select-element"> setSelectedLayer(value === 'all' ? null : parseInt(value))}>
+              <SelectTrigger data-testid="select-element">
+                <SelectValue placeholder="Select Layer" / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Layers</SelectItem>
+              <SelectContent data-testid="select-element">
+                <SelectItem value="all" data-testid="select-element">All Layers</SelectItem>
                 {LAYER_DEFINITIONS.map(layer => (
-                  <SelectItem key={layer.id} value={layer.id.toString()}>
+                  <SelectItem key={layer.id} value={layer.id.toString()} data-testid="select-element">
                     {layer.icon} {layer.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
 
-            <Select value={selectedType} onValueChange={setSelectedType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Type" />
+            <Select value={selectedType} onValueChange={setSelectedType} data-testid="select-element">
+              <SelectTrigger data-testid="select-element">
+                <SelectValue placeholder="Select Type" / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="Feature">Feature</SelectItem>
-                <SelectItem value="Framework">Framework</SelectItem>
-                <SelectItem value="Automation">Automation</SelectItem>
-                <SelectItem value="Enhancement">Enhancement</SelectItem>
-                <SelectItem value="Fix">Fix</SelectItem>
+              <SelectContent data-testid="select-element">
+                <SelectItem value="all" data-testid="select-element">All Types</SelectItem>
+                <SelectItem value="Feature" data-testid="select-element">Feature</SelectItem>
+                <SelectItem value="Framework" data-testid="select-element">Framework</SelectItem>
+                <SelectItem value="Automation" data-testid="select-element">Automation</SelectItem>
+                <SelectItem value="Enhancement" data-testid="select-element">Enhancement</SelectItem>
+                <SelectItem value="Fix" data-testid="select-element">Fix</SelectItem>
               </SelectContent>
             </Select>
 
-            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-              <SelectTrigger>
-                <SelectValue placeholder="Status" />
+            <Select value={selectedStatus} onValueChange={setSelectedStatus} data-testid="select-element">
+              <SelectTrigger data-testid="select-element">
+                <SelectValue placeholder="Status" / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="Completed">Completed</SelectItem>
-                <SelectItem value="In Progress">In Progress</SelectItem>
-                <SelectItem value="Planned">Planned</SelectItem>
-                <SelectItem value="Blocked">Blocked</SelectItem>
+              <SelectContent data-testid="select-element">
+                <SelectItem value="all" data-testid="select-element">All Status</SelectItem>
+                <SelectItem value="Completed" data-testid="select-element">Completed</SelectItem>
+                <SelectItem value="In Progress" data-testid="select-element">In Progress</SelectItem>
+                <SelectItem value="Planned" data-testid="select-element">Planned</SelectItem>
+                <SelectItem value="Blocked" data-testid="select-element">Blocked</SelectItem>
               </SelectContent>
             </Select>
 
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-neutral-400">
               {filteredItems.length} of {trackerItems.length} items
             </div>
           </div>
@@ -322,7 +322,7 @@ const ProjectTrackerDashboard: React.FC = () => {
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-cyan-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-cyan-700">Total Projects</CardTitle>
-              <Activity className="h-4 w-4 text-cyan-500" />
+              <Activity className="h-4 w-4 text-ocean-500" / data-testid="link-h-4">
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
@@ -334,14 +334,14 @@ const ProjectTrackerDashboard: React.FC = () => {
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Completed</CardTitle>
-              <CheckCircle className="h-4 w-4 text-teal-500" />
+              <CheckCircle className="h-4 w-4 text-ocean-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-teal-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Completed')?.count || 
                projects.filter(p => p.status === 'Completed').length || 0}
               </div>
-              <p className="text-xs text-gray-600">projects done</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-400">projects done</p>
             </CardContent>
           </Card>
 
@@ -355,21 +355,21 @@ const ProjectTrackerDashboard: React.FC = () => {
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 
                projects.filter(p => p.status === 'In Progress').length || 0}
               </div>
-              <p className="text-xs text-gray-600">active items</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-400">active items</p>
             </CardContent>
           </Card>
 
           <Card className="border-cyan-200/20 bg-gradient-to-br from-white/90 to-teal-50/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-teal-700">Active Layers</CardTitle>
-              <Layers className="h-4 w-4 text-teal-500" />
+              <Layers className="h-4 w-4 text-ocean-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
                 {metrics?.layerDistribution?.length || 
                [...new Set(projects.map(p => p.layer).filter(Boolean))].length || 0}
               </div>
-              <p className="text-xs text-gray-600">of 61 layers</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-400">of 61 layers</p>
             </CardContent>
           </Card>
         </div>
@@ -411,8 +411,8 @@ const ProjectTrackerDashboard: React.FC = () => {
                           </Badge>
                         )}
                       </div>
-                      <CardTitle className="text-lg text-gray-800">{item.title}</CardTitle>
-                      <p className="text-gray-600 text-sm">{item.description || 'No description'}</p>
+                      <CardTitle className="text-lg text-gray-800 dark:text-neutral-200">{item.title}</CardTitle>
+                      <p className="text-gray-600 text-sm dark:text-neutral-400">{item.description || 'No description'}</p>
                     </div>
                     <div className="text-right text-sm text-gray-500">
                       {item.phase && <div>Phase {item.phase}</div>}
@@ -436,13 +436,13 @@ const ProjectTrackerDashboard: React.FC = () => {
                     </div>
                     <div>
                       <div className="font-medium mb-1">Hours</div>
-                      <div className="text-gray-600">
+                      <div className="text-gray-600 dark:text-neutral-400">
                         {item.actualHours || 0} / {item.estimatedHours || 0} hours
                       </div>
                     </div>
                     <div>
                       <div className="font-medium mb-1">Team Size</div>
-                      <div className="text-gray-600">
+                      <div className="text-gray-600 dark:text-neutral-400">
                         {item.team?.length || 0} members
                       </div>
                     </div>
@@ -490,7 +490,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                         <div key={item.id} className="p-3 bg-gradient-to-br from-white/80 to-cyan-50/30 rounded-lg border border-cyan-200/20">
                           <div className="font-medium text-sm">{item.title}</div>
                           {layerInfo && (
-                            <div className="text-xs text-gray-600 mt-1">
+                            <div className="text-xs text-gray-600 mt-1 dark:text-neutral-400">
                               {layerInfo.icon} Layer {item.layer}
                             </div>
                           )}

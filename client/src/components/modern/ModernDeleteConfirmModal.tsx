@@ -43,7 +43,7 @@ export default function ModernDeleteConfirmModal({
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6"
+            className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 dark:bg-neutral-900"
             style={{
               background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(153, 27, 27, 0.1) 100%)'
             }}
@@ -70,7 +70,7 @@ export default function ModernDeleteConfirmModal({
               <button
                 onClick={onClose}
                 disabled={isDeleting}
-                className="flex-1 px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors disabled:opacity-50 dark:bg-neutral-900"
                 data-testid="button-cancel-delete"
               >
                 Cancel

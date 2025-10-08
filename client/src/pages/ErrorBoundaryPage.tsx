@@ -59,7 +59,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
       <Card className="w-full max-w-2xl glassmorphic-card">
         <CardHeader className="text-center pb-4">
           <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <AlertTriangle className="h-10 w-10 text-red-600" />
+            <AlertTriangle className="h-10 w-10 text-red-600" / data-testid="link-h-10">
           </div>
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
             Oops! Something went wrong
@@ -68,7 +68,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         
         <CardContent className="space-y-6">
           <div className="text-center">
-            <p className="text-gray-600 mb-2">
+            <p className="text-gray-600 mb-2 dark:text-neutral-400">
               We're sorry, but something unexpected happened. Don't worry, your data is safe!
             </p>
             <p className="text-sm text-gray-500">
@@ -102,7 +102,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleReload}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-            >
+             data-testid="button-w-full">
               <RefreshCw className="w-4 h-4 mr-2" />
               Try Again
             </Button>
@@ -111,7 +111,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               onClick={handleGoHome}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
-            >
+             data-testid="button-w-full">
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
             </Button>
@@ -121,10 +121,10 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
               disabled={reportSent}
-            >
+             data-testid="button-w-full">
               {reportSent ? (
                 <>
-                  <AlertTriangle className="w-4 h-4 mr-2 text-green-600" />
+                  <AlertTriangle className="w-4 h-4 mr-2 text-green-600" / data-testid="link-w-4">
                   Error Report Sent
                 </>
               ) : (
@@ -141,7 +141,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               <FileQuestion className="w-5 h-5 text-turquoise-600" />
               Common Solutions
             </h4>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <ul className="space-y-2 text-sm text-gray-600 dark:text-neutral-400">
               <li className="flex items-start gap-2">
                 <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Clear your browser cache and cookies</span>
@@ -164,7 +164,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
           <div className="text-center pt-4 border-t">
             <p className="text-sm text-gray-500">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="link-text-turquoise-600">
                 support@mundotango.life
               </a>
             </p>

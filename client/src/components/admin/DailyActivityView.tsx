@@ -129,11 +129,11 @@ function DailyActivityView() {
 
   const getActivityIcon = (type: ActivityItem['type']) => {
     switch (type) {
-      case 'created': return <Activity className="h-4 w-4 text-green-500" />;
+      case 'created': return <Activity className="h-4 w-4 text-green-500" / data-testid="link-h-4">;
       case 'updated': return <Code2 className="h-4 w-4 text-blue-500" />;
       case 'completed': return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
       case 'reviewed': return <FileText className="h-4 w-4 text-purple-500" />;
-      case 'blocked': return <AlertCircle className="h-4 w-4 text-red-500" />;
+      case 'blocked': return <AlertCircle className="h-4 w-4 text-red-500" / data-testid="link-h-4">;
     }
   };
 
@@ -174,7 +174,7 @@ function DailyActivityView() {
           <input
             type="date"
             value={selectedDate.toISOString().split('T')[0]}
-            onChange={(e) => {
+            onChange={(e) = data-testid="input-element"> {
               const newDate = new Date(e.target.value + 'T00:00:00');
               setSelectedDate(newDate);
             }}
@@ -184,9 +184,9 @@ function DailyActivityView() {
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
-            onClick={() => refetch()}
+            onClick={() = data-testid="button-element"> refetch()}
             disabled={isLoading}
-            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50"
+            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors disabled:opacity-50 dark:bg-neutral-800"
             title="Refresh activities"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -212,7 +212,7 @@ function DailyActivityView() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5" />
+            <Activity className="h-5 w-5" / data-testid="link-h-5">
             Activity Timeline
             {isLoading && <span className="text-sm font-normal text-gray-500">(Loading...)</span>}
           </CardTitle>
@@ -228,7 +228,7 @@ function DailyActivityView() {
           ) : todayActivities.length === 0 ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <Activity className="h-8 w-8 text-gray-400 mx-auto" />
+                <Activity className="h-8 w-8 text-gray-400 mx-auto" / data-testid="link-h-8">
                 <p className="text-gray-500">No activities recorded for this date</p>
                 <p className="text-sm text-gray-400">Activities will appear here as you work on projects</p>
               </div>
@@ -238,7 +238,7 @@ function DailyActivityView() {
               {todayActivities.map((activity, index) => (
                 <div 
                   key={index} 
-                  className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors dark:bg-neutral-800"
                   onClick={() => setSelectedItem(activity.item)}
                 >
                   {/* Time */}
@@ -256,7 +256,7 @@ function DailyActivityView() {
                     <div className="flex items-start justify-between">
                       <div>
                         <h4 className="font-medium">{activity.item.title}</h4>
-                        <p className="text-sm text-gray-600">{activity.item.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-neutral-400">{activity.item.description}</p>
                       </div>
                       <Badge className={getActivityColor(activity.type)}>
                         {activity.type}
@@ -265,7 +265,7 @@ function DailyActivityView() {
 
                     {/* Changes */}
                     {activity.changes && activity.changes.length > 0 && (
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-400">
                         {activity.changes.map((change, idx) => (
                           <li key={idx} className="flex items-center gap-2">
                             <span className="w-1 h-1 bg-gray-400 rounded-full" />
@@ -281,20 +281,20 @@ function DailyActivityView() {
                         <div className="flex items-center gap-2">
                           <Monitor className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.completion} className="h-1.5 w-16" />
-                          <span className="text-gray-600">{activity.item.completion}%</span>
+                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.completion}%</span>
                         </div>
                       )}
                       {activity.item.mobileCompletion !== undefined && (
                         <div className="flex items-center gap-2">
                           <Smartphone className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.mobileCompletion} className="h-1.5 w-16" />
-                          <span className="text-gray-600">{activity.item.mobileCompletion}%</span>
+                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.mobileCompletion}%</span>
                         </div>
                       )}
                       {activity.item.team && (
                         <div className="flex items-center gap-1">
                           <Users className="h-3 w-3 text-gray-500" />
-                          <span className="text-gray-600">{activity.item.team.join(', ')}</span>
+                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.team.join(', ')}</span>
                         </div>
                       )}
                     </div>

@@ -192,7 +192,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
   const isOwnPost = user?.id === localPost.user.id;
 
   return (
-    <Card className="mb-4 bg-white shadow-sm">
+    <Card className="mb-4 bg-white shadow-sm dark:bg-neutral-900">
       <CardContent className="p-6">
         {/* Post header */}
         <div className="flex items-start justify-between mb-4">
@@ -207,7 +207,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
               </AvatarFallback>
             </Avatar>
             <div>
-              <div className="font-semibold text-gray-900">{localPost.user.name}</div>
+              <div className="font-semibold text-gray-900 dark:text-neutral-100">{localPost.user.name}</div>
               <div className="text-sm text-gray-500">
                 @{localPost.user.username} • {formatDistanceToNow(new Date(localPost.createdAt))} ago
               </div>
@@ -251,7 +251,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
 
         {/* Post content */}
         <div className="mb-4">
-          <p className="text-gray-900 whitespace-pre-wrap">{localPost.content}</p>
+          <p className="text-gray-900 whitespace-pre-wrap dark:text-neutral-100">{localPost.content}</p>
           
           {/* ESA LIFE CEO 61x21 - Enhanced media display with mediaEmbeds support */}
           {localPost.mediaEmbeds && localPost.mediaEmbeds.length > 0 ? (
@@ -307,7 +307,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
           <span>{localPost.shares} shares</span>
         </div>
 
-        <hr className="my-3 border-gray-200" />
+        <hr className="my-3 border-gray-200 dark:border-neutral-700" />
 
         {/* Action buttons */}
         <div className="flex items-center justify-between">
@@ -326,7 +326,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
               variant="ghost"
               size="sm"
               onClick={handleComment}
-              className="flex items-center gap-2 text-gray-600"
+              className="flex items-center gap-2 text-gray-600 dark:text-neutral-400"
             >
               <MessageCircle className="h-4 w-4" />
               Comment
@@ -336,7 +336,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
               variant="ghost"
               size="sm"
               onClick={() => setShareDialog(true)}
-              className="flex items-center gap-2 text-gray-600"
+              className="flex items-center gap-2 text-gray-600 dark:text-neutral-400"
             >
               <Share className="h-4 w-4" />
               Share
@@ -346,7 +346,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
 
         {/* Comments section */}
         {showComments && (
-          <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-neutral-700">
             {/* Comment input */}
             <div className="flex items-center gap-3 mb-4">
               <Avatar className="h-8 w-8">
@@ -398,11 +398,11 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <div className="bg-gray-100 rounded-lg px-3 py-2">
-                      <div className="font-semibold text-sm text-gray-900">
+                    <div className="bg-gray-100 rounded-lg px-3 py-2 dark:bg-neutral-800">
+                      <div className="font-semibold text-sm text-gray-900 dark:text-neutral-100">
                         {comment.user.name}
                       </div>
-                      <p className="text-gray-800 text-sm">{comment.content}</p>
+                      <p className="text-gray-800 text-sm dark:text-neutral-200">{comment.content}</p>
                     </div>
                     <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
                       <span>{formatDistanceToNow(new Date(comment.createdAt))} ago</span>

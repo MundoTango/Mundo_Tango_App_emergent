@@ -180,7 +180,7 @@ export default function PendingConsentMemories() {
     return (
       <div className="container mx-auto p-6">
         <Paper elevation={2} sx={{ p: 4, textAlign: 'center', backgroundColor: '#fef2f2' }}>
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" / data-testid="link-h-12">
           <Typography variant="h6" color="error" gutterBottom>
             Failed to Load Pending Memories
           </Typography>
@@ -195,8 +195,8 @@ export default function PendingConsentMemories() {
   return (
     <div className="container mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Pending Consent</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Pending Consent</h1>
+        <p className="text-gray-600 dark:text-neutral-400">
           Memories where you've been tagged and need to approve or deny sharing.
         </p>
       </div>
@@ -413,7 +413,7 @@ export default function PendingConsentMemories() {
                           <Button
                             variant="outlined"
                             size="medium"
-                            onClick={() => handleConsentAction(memory.id, 'deny')}
+                            onClick={() = data-testid="button-element"> handleConsentAction(memory.id, 'deny')}
                             disabled={isProcessing}
                             sx={{
                               color: '#dc2626',
@@ -431,7 +431,7 @@ export default function PendingConsentMemories() {
                         <Button
                           variant="contained"
                           size="medium"
-                          onClick={() => handleConsentAction(memory.id, 'approve')}
+                          onClick={() = data-testid="button-element"> handleConsentAction(memory.id, 'approve')}
                           disabled={isProcessing}
                           sx={{
                             backgroundColor: '#16a34a',

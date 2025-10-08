@@ -109,7 +109,7 @@ export default function EnhancedTagSystem({
   return (
     <div className="space-y-6">
       {/* Main Tag Filter Section */}
-      <div className="glassmorphic rounded-3xl shadow-2xl border-2 border-cyan-500/20 p-8">
+      <div className="glassmorphic rounded-3xl shadow-2xl border-2 border-ocean-500/20 p-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             <div className="mt-ocean-gradient p-3 rounded-2xl shadow-xl 
@@ -136,7 +136,7 @@ export default function EnhancedTagSystem({
               <button
                 onClick={onClearAll}
                 className="text-sm text-gray-500 hover:text-red-500 transition-colors"
-              >
+               data-testid="button-text-sm">
                 Clear all
               </button>
             </div>
@@ -148,11 +148,11 @@ export default function EnhancedTagSystem({
           <div className="flex gap-4">
             <div className="flex-1 relative group">
               <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 
-                              group-focus-within:text-cyan-500 transition-colors duration-300" />
+                              group-focus-within:text-ocean-500 transition-colors duration-300" />
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) => {
+                onChange={(e) = data-testid="input-element"> {
                   setTagInput(e.target.value);
                   setShowSuggestions(e.target.value.length > 0);
                 }}
@@ -167,7 +167,7 @@ export default function EnhancedTagSystem({
               />
             </div>
             <button
-              onClick={() => handleAddTag()}
+              onClick={() = data-testid="button-element"> handleAddTag()}
               disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
               className="mt-ocean-gradient hover:opacity-90 
                        disabled:opacity-50 text-white px-8 py-5 rounded-2xl 
@@ -181,7 +181,7 @@ export default function EnhancedTagSystem({
           </div>
 
           {/* Suggestions Dropdown */}
-          <AnimatePresence>
+          <AnimatePresence data-testid="link-element">
             {showSuggestions && suggestedTags.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -192,12 +192,12 @@ export default function EnhancedTagSystem({
                 {suggestedTags.map((tag) => (
                   <button
                     key={tag}
-                    onClick={() => handleAddTag(tag)}
+                    onClick={() = data-testid="button-element"> handleAddTag(tag)}
                     className="w-full px-5 py-3 text-left hover:bg-cyan-50 dark:hover:bg-cyan-900/20 
                              transition-colors flex items-center justify-between group"
                   >
                     <span className="text-gray-700 dark:text-gray-300">{tag}</span>
-                    <Plus className="w-4 h-4 text-gray-400 group-hover:text-cyan-500" />
+                    <Plus className="w-4 h-4 text-gray-400 group-hover:text-ocean-500" />
                   </button>
                 ))}
               </motion.div>
@@ -222,8 +222,8 @@ export default function EnhancedTagSystem({
                   <Tag className="w-4 h-4" />
                   <span className="font-bold text-lg">{tag}</span>
                   <button
-                    onClick={() => onRemoveTag(tag)}
-                    className="ml-2 p-2 rounded-xl text-cyan-500 hover:text-red-500 
+                    onClick={() = data-testid="button-element"> onRemoveTag(tag)}
+                    className="ml-2 p-2 rounded-xl text-ocean-500 hover:text-red-500 
                              hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 hover:scale-110"
                   >
                     <X className="w-4 h-4" />
@@ -236,7 +236,7 @@ export default function EnhancedTagSystem({
       </div>
 
       {/* Trending Tags Widget */}
-      <div className="glassmorphic rounded-3xl shadow-2xl border-2 border-cyan-500/20 p-8">
+      <div className="glassmorphic rounded-3xl shadow-2xl border-2 border-ocean-500/20 p-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl">
@@ -252,7 +252,7 @@ export default function EnhancedTagSystem({
             {(['trending', 'recent', 'popular'] as const).map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() = data-testid="button-element"> setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
                   selectedCategory === category
                     ? 'mt-ocean-gradient text-white shadow-lg'
@@ -386,7 +386,7 @@ export default function EnhancedTagSystem({
             {['milonga', 'performance', 'class', 'social', 'vals', 'practica', 'festival', 'workshop'].map((suggestion) => (
               <button
                 key={suggestion}
-                onClick={() => handleAddTag(suggestion)}
+                onClick={() = data-testid="button-element"> handleAddTag(suggestion)}
                 disabled={activeTags.includes(suggestion)}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                   activeTags.includes(suggestion)
@@ -403,7 +403,7 @@ export default function EnhancedTagSystem({
 
       {/* Live Activity Indicator */}
       {liveUpdates.comments.length > 0 && (
-        <div className="glassmorphic rounded-2xl p-4 border border-cyan-500/20">
+        <div className="glassmorphic rounded-2xl p-4 border border-ocean-500/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex space-x-1">
@@ -415,7 +415,7 @@ export default function EnhancedTagSystem({
                 Live tag activity • {liveUpdates.comments.length} new posts with tags
               </p>
             </div>
-            <button className="text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300">
+            <button className="text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300" data-testid="button-text-xs">
               View all
             </button>
           </div>

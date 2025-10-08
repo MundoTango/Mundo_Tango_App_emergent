@@ -137,7 +137,7 @@ const SIDEBAR_SECTIONS = [
       { title: "Plans", icon: <FileText className="w-5 h-5" />, link: "/plans" },
       { title: "Payment Methods", icon: <CreditCard className="w-5 h-5" />, link: "/payment-methods" },
       { title: "Invoices", icon: <FileText className="w-5 h-5" />, link: "/invoices" },
-      { title: "Usage", icon: <Activity className="w-5 h-5" />, link: "/usage" },
+      { title: "Usage", icon: <Activity className="w-5 h-5" / data-testid="link-w-5">, link: "/usage" },
     ]
   },
   {
@@ -158,7 +158,7 @@ const SIDEBAR_SECTIONS = [
     title: "User Settings",
     routes: [
       { title: "Preferences", icon: <Settings className="w-5 h-5" />, link: "/preferences" },
-      { title: "Activity", icon: <Activity className="w-5 h-5" />, link: "/activity" },
+      { title: "Activity", icon: <Activity className="w-5 h-5" / data-testid="link-w-5">, link: "/activity" },
       { title: "Privacy", icon: <Shield className="w-5 h-5" />, link: "/privacy" },
       { title: "Data Export", icon: <FileText className="w-5 h-5" />, link: "/data-export" },
     ]
@@ -280,12 +280,12 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 text-red-600 font-bold text-xl gap-6">
+        <div className="h-16 flex justify-center items-center border-b-2 border-gray-200 text-red-600 font-bold text-xl gap-6 dark:border-neutral-700">
           <div>
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setIsOpen(false)}
+              onClick={() = data-testid="button-element"> setIsOpen(false)}
               className="lg:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -297,14 +297,14 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
         <nav className="mt-4">
           {/* User Profile Section */}
           <div className="px-4 mb-6">
-            <Link href="/profile?tab=memories">
-              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors" onClick={handleLinkClick}>
-                <Avatar className="h-10 w-10">
+            <Link href="/profile?tab=memories" data-testid="link-element">
+              <div className="text-black flex items-center gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors dark:bg-neutral-800" onClick={handleLinkClick}>
+                <Avatar className="h-10 w-10" data-testid="link-h-10">
                   <AvatarImage
                     src={user?.profileImage || "/images/default-avatar.svg"}
                     className="object-cover"
-                  />
-                  <AvatarFallback className="bg-red-600 text-white">
+                  / data-testid="link-object-cover">
+                  <AvatarFallback className="bg-red-600 text-white" data-testid="link-bg-red-600">
                     {user?.name?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
@@ -340,14 +340,14 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
             return (
               <div key={sectionIndex} className="mb-4">
                 <div 
-                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600"
+                  className="px-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center justify-between hover:text-gray-600 dark:text-neutral-400"
                   onClick={() => toggleSection(section.title)}
                 >
                   <span className={cn(hasActiveRoute && "text-red-600")}>{section.title}</span>
                   <span className="text-xs">{isExpanded ? '−' : '+'}</span>
                 </div>
                 {isExpanded && section.routes.map(({ icon, title, link }, index) => (
-                  <Link href={link} key={index}>
+                  <Link href={link} key={index} data-testid="link-element">
                     <div className="py-1 cursor-pointer select-none">
                       <div
                         onClick={handleLinkClick}
@@ -369,7 +369,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
           })}
 
           {/* Mundo Tango Statistics */}
-          <div className="px-6 my-6 text-black space-y-4">
+          <div className="px-6 my-6 text-black space-y-4 dark:text-white">
             <div className="uppercase text-gray-400 font-bold text-xs">
               Mundo Tango Details
             </div>
@@ -378,7 +378,7 @@ export default function Sidebar({ isOpen, setIsOpen, onClose }: SidebarProps) {
                 key={index}
                 className="flex items-center gap-3 cursor-pointer select-none"
               >
-                <div className="bg-gray-500 text-white rounded-lg">
+                <div className="bg-gray-500 text-white rounded-lg dark:bg-neutral-800">
                   <div className="w-12 h-10 flex items-center justify-center text-sm font-medium">
                     {item.count}
                   </div>

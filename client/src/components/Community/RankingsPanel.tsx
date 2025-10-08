@@ -58,7 +58,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
       {/* Header with Toggle */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-cyan-500" />
+          <TrendingUp className="w-5 h-5 text-ocean-500" />
           Rankings
         </h3>
         
@@ -103,8 +103,8 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
             "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
             "border-2",
             filterBy === 'people'
-              ? "border-cyan-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
-              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-700 dark:text-slate-300"
+              ? "border-ocean-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
+              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-700 dark:text-slate-300"
           )}
         >
           <Users className="w-4 h-4 inline mr-2" />
@@ -118,8 +118,8 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
             "flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
             "border-2",
             filterBy === 'events'
-              ? "border-cyan-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
-              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-700 dark:text-slate-300"
+              ? "border-ocean-500 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 text-cyan-700 dark:text-cyan-300"
+              : "glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-700 dark:text-slate-300"
           )}
         >
           <Calendar className="w-4 h-4 inline mr-2" />
@@ -131,7 +131,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
       <StaggerContainer className="flex-1 overflow-y-auto space-y-2">
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-500" />
           </div>
         ) : view === 'city' ? (
           // City Rankings - Aurora Tide
@@ -143,7 +143,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
               strength={0.1}
               className={cn(
                 "w-full text-left p-3 rounded-lg transition-all duration-200",
-                "glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30",
+                "glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30",
                 "hover:glass-depth-2"
               )}
             >
@@ -197,7 +197,7 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
               key={region.name}
               data-testid={`region-ranking-${region.rank}`}
               depth={1}
-              className="p-3 border-cyan-200/30 dark:border-cyan-500/30"
+              className="p-3 border-cyan-200/30 dark:border-ocean-500/30"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">

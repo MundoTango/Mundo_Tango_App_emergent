@@ -91,7 +91,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
           <GlassCard depth={1} className="max-w-md w-full dark:bg-gray-800/95 rounded-xl shadow-lg p-8"
             <div className="flex flex-col items-center text-center">
               <div className="w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-6">
-                <AlertCircle className="w-10 h-10 text-red-600 dark:text-red-400" />
+                <AlertCircle className="w-10 h-10 text-red-600 dark:text-red-400" / data-testid="link-w-10">
               </div>
               
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -120,7 +120,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                   <button
                     onClick={this.handleRetry}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
+                   data-testid="button-flex-1">
                     <RefreshCw className="w-4 h-4" />
                     Try Again {retryCount > 0 && `(${3 - retryCount} left)`}
                   </button>
@@ -129,13 +129,13 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                 <button
                   onClick={this.handleReload}
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                >
+                 data-testid="button-flex-1">
                   <RefreshCw className="w-4 h-4" />
                   Reload Page
                 </button>
 
-                <Link href="/">
-                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                <Link href="/" data-testid="link-element">
+                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" data-testid="link-flex-1">
                     <Home className="w-4 h-4" />
                     Go Home
                   </a>

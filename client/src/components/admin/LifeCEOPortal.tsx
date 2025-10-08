@@ -71,10 +71,10 @@ const LifeCEOPortal: React.FC = () => {
   if (!hasLifeCEOAccess) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <Alert className="max-w-md">
+        <Alert className="max-w-md" data-testid="link-max-w-md">
           <Lock className="h-4 w-4" />
-          <AlertTitle>Access Denied</AlertTitle>
-          <AlertDescription>
+          <AlertTitle data-testid="link-element">Access Denied</AlertTitle>
+          <AlertDescription data-testid="link-element">
             You don't have permission to access the Life CEO Portal. 
             Please contact your administrator for access.
           </AlertDescription>
@@ -84,7 +84,7 @@ const LifeCEOPortal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header with Role Badge */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-lg p-6 text-white">
@@ -93,7 +93,7 @@ const LifeCEOPortal: React.FC = () => {
               <div className="flex items-center space-x-3 mb-2">
                 <Crown className="w-8 h-8" />
                 <h1 className="text-3xl font-bold">Life CEO Portal</h1>
-                <Badge className="bg-white/20 text-white border-white/30">
+                <Badge className="bg-white/20 text-white border-white/30 dark:bg-neutral-900">
                   <span className="mr-1">{userRoleInfo.icon}</span>
                   {userRoleInfo.badge}
                 </Badge>
@@ -132,7 +132,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Users className="w-5 h-5 text-blue-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.activeAgents}/{systemStats.totalAgents}</div>
-                      <div className="text-sm text-gray-600">Active Agents</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-400">Active Agents</div>
                     </div>
                   </div>
                 </CardContent>
@@ -144,7 +144,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Brain className="w-5 h-5 text-purple-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.memoryEntries}</div>
-                      <div className="text-sm text-gray-600">Memory Entries</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-400">Memory Entries</div>
                     </div>
                   </div>
                 </CardContent>
@@ -156,7 +156,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Clock className="w-5 h-5 text-green-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.dailyReviewTime}</div>
-                      <div className="text-sm text-gray-600">Daily Review</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-400">Daily Review</div>
                     </div>
                   </div>
                 </CardContent>
@@ -168,7 +168,7 @@ const LifeCEOPortal: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-orange-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.tasksCompleted}</div>
-                      <div className="text-sm text-gray-600">Tasks Completed</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-400">Tasks Completed</div>
                     </div>
                   </div>
                 </CardContent>

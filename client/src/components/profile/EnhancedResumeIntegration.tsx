@@ -63,7 +63,7 @@ const ROLE_ICONS = {
   host: <Globe className="w-4 h-4" />,
   photographer: <Camera className="w-4 h-4" />,
   organizer: <Calendar className="w-4 h-4" />,
-  volunteer: <Award className="w-4 h-4" />,
+  volunteer: <Award className="w-4 h-4" / data-testid="link-w-4">,
 };
 
 const ROLE_COLORS = {
@@ -165,26 +165,26 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
-          onClick={() => setActiveTab('resume')}
+          onClick={() = data-testid="button-element"> setActiveTab('resume')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'resume'
               ? 'bg-background text-foreground shadow-sm'
               : 'text-muted-foreground hover:text-foreground'
           }`}
         >
-          <Award className="w-4 h-4 inline mr-2" />
+          <Award className="w-4 h-4 inline mr-2" / data-testid="link-w-4">
           Tango Resume
         </button>
         {isOwnProfile && (
           <button
-            onClick={() => setActiveTab('invitations')}
+            onClick={() = data-testid="button-element"> setActiveTab('invitations')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'invitations'
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <AlertCircle className="w-4 h-4 inline mr-2" />
+            <AlertCircle className="w-4 h-4 inline mr-2" / data-testid="link-w-4">
             Role Invitations
             {pendingInvitations?.length > 0 && (
               <Badge variant="destructive" className="ml-2 text-xs">
@@ -304,7 +304,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
           ) : (
             <Card>
               <CardContent className="p-8 text-center text-muted-foreground">
-                <Award className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                <Award className="w-12 h-12 mx-auto mb-4 opacity-50" / data-testid="link-w-12">
                 <h3 className="text-lg font-semibold mb-2">No accepted roles yet</h3>
                 <p>
                   {isOwnProfile 
@@ -372,7 +372,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                     <div className="flex gap-2">
                       <Button
                         size="sm"
-                        onClick={() => handleInvitationResponse(invitation.id, 'accepted')}
+                        onClick={() = data-testid="button-element"> handleInvitationResponse(invitation.id, 'accepted')}
                         disabled={updateInvitationMutation.isPending}
                         className="bg-green-600 hover:bg-green-700"
                       >
@@ -382,7 +382,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleInvitationResponse(invitation.id, 'declined')}
+                        onClick={() = data-testid="button-element"> handleInvitationResponse(invitation.id, 'declined')}
                         disabled={updateInvitationMutation.isPending}
                         className="border-red-200 text-red-600 hover:bg-red-50"
                       >
@@ -397,7 +397,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
           ) : (
             <Card>
               <CardContent className="p-8 text-center text-muted-foreground">
-                <AlertCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                <AlertCircle className="w-12 h-12 mx-auto mb-4 opacity-50" / data-testid="link-w-12">
                 <h3 className="text-lg font-semibold mb-2">No pending invitations</h3>
                 <p>You'll see event role invitations here when organizers invite you to participate.</p>
               </CardContent>

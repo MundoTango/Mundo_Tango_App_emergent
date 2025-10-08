@@ -31,11 +31,11 @@ export const PostsFallback = () => (
     <GlassCard depth={1} className="dark:bg-gray-800/80 rounded-lg p-6 text-center"
       <div className="flex flex-col items-center space-y-3">
         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-          <AlertCircle className="w-8 h-8 text-gray-400" />
+          <AlertCircle className="w-8 h-8 text-gray-400" / data-testid="link-w-8">
         </div>
         <p className="text-gray-600 dark:text-gray-300">Unable to load posts</p>
         <button 
-          onClick={() => window.location.reload()}
+          onClick={() = data-testid="button-element"> window.location.reload()}
           className="text-turquoise-600 hover:text-turquoise-700 text-sm font-medium"
         >
           Try refreshing the page
@@ -134,7 +134,7 @@ export const GuestProfileFallback = () => (
 export const OfflineIndicator = () => (
   <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
     <div className="bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg px-4 py-2 flex items-center space-x-2 shadow-lg">
-      <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+      <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-400" / data-testid="link-w-5">
       <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
         You're offline. Some features may be limited.
       </span>
@@ -147,7 +147,7 @@ export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
   <GlassCard depth={1} className="dark:bg-gray-800/90 rounded-lg p-6 text-center border border-red-200 dark:border-red-800"
     <div className="flex flex-col items-center space-y-4">
       <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
-        <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+        <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" / data-testid="link-w-8">
       </div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Connection Error</h3>
       <p className="text-gray-600 dark:text-gray-300 max-w-sm">
@@ -156,7 +156,7 @@ export const NetworkErrorRetry = ({ onRetry }: { onRetry: () => void }) => (
       <button
         onClick={onRetry}
         className="px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-      >
+       data-testid="button-px-4">
         Try Again
       </button>
     </div>

@@ -116,15 +116,15 @@ export function LifeCEOLearnings() {
             <Brain className="w-6 h-6 text-turquoise-600" />
             Key Learnings from Last 24 Hours
           </CardTitle>
-          <CardDescription className="text-gray-600">
+          <CardDescription className="text-gray-600 dark:text-neutral-400">
             Patterns identified from successful implementations
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {learnings?.learnings.map((learning, index) => (
-            <div key={index} className="p-4 rounded-lg bg-white/70 border border-turquoise-200/50 hover:shadow-md transition-shadow">
+            <div key={index} className="p-4 rounded-lg bg-white/70 border border-turquoise-200/50 hover:shadow-md transition-shadow dark:bg-neutral-900">
               <div className="flex items-start justify-between mb-2">
-                <h3 className="font-semibold text-gray-800 flex items-center gap-2">
+                <h3 className="font-semibold text-gray-800 flex items-center gap-2 dark:text-neutral-200">
                   <Lightbulb className="w-4 h-4 text-yellow-500" />
                   {learning.pattern}
                 </h3>
@@ -132,7 +132,7 @@ export function LifeCEOLearnings() {
                   {learning.successRate}% Success
                 </Badge>
               </div>
-              <p className="text-sm text-gray-600 mb-2">{learning.implementation}</p>
+              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{learning.implementation}</p>
               <div className="flex flex-wrap gap-1">
                 {learning.applicability.map((area, i) => (
                   <Badge key={i} variant="outline" className="text-xs border-turquoise-300 text-turquoise-700">
@@ -152,16 +152,16 @@ export function LifeCEOLearnings() {
             <Zap className="w-6 h-6 text-cyan-600" />
             Self-Improvements Applied
           </CardTitle>
-          <CardDescription className="text-gray-600">
+          <CardDescription className="text-gray-600 dark:text-neutral-400">
             Automatic enhancements based on learnings
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {learnings?.improvements.applied.map((improvement, index) => (
-              <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-white/70 border border-cyan-200/50">
+              <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-white/70 border border-cyan-200/50 dark:bg-neutral-900">
                 <Target className="w-4 h-4 text-green-500 mt-0.5" />
-                <span className="text-sm text-gray-700">{improvement}</span>
+                <span className="text-sm text-gray-700 dark:text-neutral-300">{improvement}</span>
               </div>
             ))}
           </div>
@@ -180,10 +180,10 @@ export function LifeCEOLearnings() {
           {Object.entries(learnings?.improvements.metrics || {}).map(([key, value]) => (
             <div key={key} className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-700 capitalize">
+                <span className="text-gray-700 capitalize dark:text-neutral-300">
                   {key.replace(/([A-Z])/g, ' $1').trim()}
                 </span>
-                <span className="font-semibold text-gray-800">{value}%</span>
+                <span className="font-semibold text-gray-800 dark:text-neutral-200">{value}%</span>
               </div>
               <Progress value={value} className="h-2 bg-gray-200" />
             </div>
@@ -201,7 +201,7 @@ export function LifeCEOLearnings() {
           </CardHeader>
           <CardContent className="space-y-3">
             {learnings.improvements.agentInsights.map((insight, index) => (
-              <div key={index} className="p-3 rounded-lg bg-white/70 border border-purple-200/50">
+              <div key={index} className="p-3 rounded-lg bg-white/70 border border-purple-200/50 dark:bg-neutral-900">
                 <div className="flex items-center justify-between mb-1">
                   <Badge className="bg-purple-100 text-purple-700 capitalize">
                     {insight.agentId.replace('-', ' ')}
@@ -210,7 +210,7 @@ export function LifeCEOLearnings() {
                     {Math.round(insight.confidence * 100)}% confidence
                   </span>
                 </div>
-                <p className="text-sm text-gray-700 mt-2">{insight.insight}</p>
+                <p className="text-sm text-gray-700 mt-2 dark:text-neutral-300">{insight.insight}</p>
               </div>
             ))}
           </CardContent>
@@ -223,14 +223,14 @@ export function LifeCEOLearnings() {
           <CardTitle className="text-xl font-bold text-green-800">
             Future Recommendations
           </CardTitle>
-          <CardDescription className="text-gray-600">
+          <CardDescription className="text-gray-600 dark:text-neutral-400">
             Next steps for continuous improvement
           </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
             {learnings?.improvements.recommendations.map((rec, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
+              <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-neutral-300">
                 <span className="text-green-500 mt-0.5">•</span>
                 <span>{rec}</span>
               </li>

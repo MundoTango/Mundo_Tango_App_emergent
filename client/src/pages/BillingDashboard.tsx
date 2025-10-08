@@ -130,8 +130,8 @@ const BillingDashboard: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Billing & Subscription</h1>
-          <p className="text-gray-600">Manage your subscription and payment methods</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Billing & Subscription</h1>
+          <p className="text-gray-600 dark:text-neutral-400">Manage your subscription and payment methods</p>
         </div>
 
         {/* Current Subscription */}
@@ -164,7 +164,7 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-semibold text-lg capitalize">{subscription.tier} Plan</p>
-                    <p className="text-gray-600">${subscription.amount / 100}/month</p>
+                    <p className="text-gray-600 dark:text-neutral-400">${subscription.amount / 100}/month</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-gray-500">Next billing date</p>
@@ -178,9 +178,9 @@ const BillingDashboard: React.FC = () => {
                 </div>
 
                 {status === 'cancelling' && (
-                  <Alert className="bg-yellow-50 border-yellow-200">
-                    <AlertCircle className="h-4 w-4 text-yellow-600" />
-                    <AlertDescription>
+                  <Alert className="bg-yellow-50 border-yellow-200" data-testid="link-bg-yellow-50">
+                    <AlertCircle className="h-4 w-4 text-yellow-600" / data-testid="link-h-4">
+                    <AlertDescription data-testid="link-element">
                       Your subscription is set to cancel on {format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy')}. 
                       You'll retain access until then.
                     </AlertDescription>
@@ -190,14 +190,14 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex gap-3">
                   {status === 'active' ? (
                     <>
-                      <Link href="/subscribe">
-                        <Button variant="outline">
+                      <Link href="/subscribe" data-testid="link-element">
+                        <Button variant="outline" data-testid="button-element">
                           Change Plan
                         </Button>
                       </Link>
                       <Button 
                         variant="destructive"
-                        onClick={() => {
+                        onClick={() = data-testid="button-element"> {
                           if (confirm('Are you sure you want to cancel your subscription?')) {
                             cancelSubscriptionMutation.mutate();
                           }
@@ -216,7 +216,7 @@ const BillingDashboard: React.FC = () => {
                     </>
                   ) : status === 'cancelling' ? (
                     <Button 
-                      onClick={() => resumeSubscriptionMutation.mutate()}
+                      onClick={() = data-testid="button-element"> resumeSubscriptionMutation.mutate()}
                       disabled={resumeSubscriptionMutation.isPending}
                     >
                       {resumeSubscriptionMutation.isPending ? (
@@ -233,9 +233,9 @@ const BillingDashboard: React.FC = () => {
               </>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-600 mb-4">You don't have an active subscription</p>
-                <Link href="/subscribe">
-                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600">
+                <p className="text-gray-600 mb-4 dark:text-neutral-400">You don't have an active subscription</p>
+                <Link href="/subscribe" data-testid="link-element">
+                  <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
                     View Plans
                   </Button>
                 </Link>
@@ -255,7 +255,7 @@ const BillingDashboard: React.FC = () => {
               <Button 
                 size="sm"
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-                onClick={() => toast({ 
+                onClick={() = data-testid="button-bg-gradient-to-r"> toast({ 
                   title: "Coming Soon", 
                   description: "Payment method management will be available soon." 
                 })}
@@ -269,7 +269,7 @@ const BillingDashboard: React.FC = () => {
             {paymentMethods.length > 0 ? (
               <div className="space-y-3">
                 {paymentMethods.map((method) => (
-                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                     <div className="flex items-center gap-3">
                       <CreditCard className="w-5 h-5 text-gray-400" />
                       <div>
@@ -285,7 +285,7 @@ const BillingDashboard: React.FC = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => {
+                      onClick={() = data-testid="button-element"> {
                         if (confirm('Are you sure you want to remove this payment method?')) {
                           deletePaymentMethodMutation.mutate(method.id);
                         }
@@ -313,7 +313,7 @@ const BillingDashboard: React.FC = () => {
             {invoices.length > 0 ? (
               <div className="space-y-2">
                 {invoices.map((invoice) => (
-                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-5 h-5 text-gray-400" />
                       <div>
@@ -335,7 +335,7 @@ const BillingDashboard: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => window.open(invoice.invoicePdf, '_blank')}
+                        onClick={() = data-testid="button-element"> window.open(invoice.invoicePdf, '_blank')}
                       >
                         <Download className="w-4 h-4" />
                       </Button>
@@ -351,12 +351,12 @@ const BillingDashboard: React.FC = () => {
 
         {/* Help Section */}
         <div className="mt-8 text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-neutral-400">
             Need help with billing?{' '}
             <a 
               href="mailto:support@mundotango.life" 
               className="text-turquoise-600 hover:text-turquoise-700 underline"
-            >
+             data-testid="link-text-turquoise-600">
               Contact Support
             </a>
           </p>

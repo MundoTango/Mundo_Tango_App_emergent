@@ -334,26 +334,26 @@ export default function EnhancedFriendsPage() {
 
   return (
     <DashboardLayout>
-      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6">
+      <animated.div style={fadeIn} className="max-w-7xl mx-auto p-6" data-testid="link-max-w-7xl">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Friends
             </h1>
-            <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">Connect with dancers in your community</p>
           </div>
           <div className="flex gap-2">
             <Button
               onClick={exportFriendsToCSV}
               variant="outline"
               className="border-turquoise-200 hover:bg-turquoise-50"
-            >
+             data-testid="button-border-turquoise-200">
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
             <Button
-              onClick={() => setShowSendRequestModal(true)}
+              onClick={() = data-testid="button-element"> setShowSendRequestModal(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
             >
               <UserPlus className="w-4 h-4 mr-2" />
@@ -368,8 +368,8 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
-                <p className="text-sm text-gray-600">Total Friends</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{friends.length}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Friends</p>
               </div>
             </div>
           </Card>
@@ -377,10 +377,10 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-blue-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-600">Pending</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Pending</p>
               </div>
             </div>
           </Card>
@@ -388,21 +388,21 @@ export default function EnhancedFriendsPage() {
             <div className="flex items-center gap-3">
               <Heart className="w-8 h-8 text-cyan-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {friendGroups.favorites.length}
                 </p>
-                <p className="text-sm text-gray-600">Favorites</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Favorites</p>
               </div>
             </div>
           </Card>
           <Card className="p-4 bg-gradient-to-r from-purple-50 to-turquoise-50 glassmorphic-card hover:scale-105 transition-transform">
             <div className="flex items-center gap-3">
-              <Activity className="w-8 h-8 text-purple-600" />
+              <Activity className="w-8 h-8 text-purple-600" / data-testid="link-w-8">
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {recentActivities.length}
                 </p>
-                <p className="text-sm text-gray-600">Active Today</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Active Today</p>
               </div>
             </div>
           </Card>
@@ -418,13 +418,13 @@ export default function EnhancedFriendsPage() {
                 type="text"
                 placeholder="Search friends by name, username, or location... (Cmd+F)"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
             <Select
               value={selectedFilter}
-              onChange={(newValue) => {
+              onChange={(newValue) = data-testid="select-element"> {
                 if (newValue) setSelectedFilter(newValue);
               }}
               options={filterOptions}
@@ -433,7 +433,7 @@ export default function EnhancedFriendsPage() {
             />
             <Select
               value={selectedSort}
-              onChange={(newValue) => {
+              onChange={(newValue) = data-testid="select-element"> {
                 if (newValue) setSelectedSort(newValue);
               }}
               options={sortOptions}
@@ -444,14 +444,14 @@ export default function EnhancedFriendsPage() {
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() => setViewMode('grid')}
+                onClick={() = data-testid="button-element"> setViewMode('grid')}
               >
                 <Grid className="w-4 h-4" />
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
-                onClick={() => setViewMode('list')}
+                onClick={() = data-testid="button-element"> setViewMode('list')}
               >
                 <List className="w-4 h-4" />
               </Button>
@@ -464,22 +464,22 @@ export default function EnhancedFriendsPage() {
           {/* Friend Activity Feed */}
           <div className="lg:col-span-1">
             <Card className="p-4">
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-turquoise-600" />
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2 dark:text-neutral-100">
+                <Activity className="w-5 h-5 text-turquoise-600" / data-testid="link-w-5">
                 Friend Activity
               </h3>
               <div className="space-y-3">
                 {recentActivities.map((friend) => (
                   <LazyLoad key={friend.id} height={60} once>
-                    <div className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                    <div className="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800">
                       <div className="w-8 h-8 bg-gradient-to-r from-turquoise-400 to-cyan-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                         {friend.name?.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-gray-900 truncate dark:text-neutral-100">
                           {friend.name}
                         </p>
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-gray-600 dark:text-neutral-400">
                           {friend.lastActivity?.message}
                         </p>
                         <p className="text-xs text-gray-400 mt-1">
@@ -514,7 +514,7 @@ export default function EnhancedFriendsPage() {
                             : ''
                         }`}
                       >
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                        <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2 dark:text-neutral-100">
                           <group.icon className={`w-4 h-4 text-${group.color}-600`} />
                           {group.title}
                           <Badge variant="secondary" className="ml-auto">
@@ -536,7 +536,7 @@ export default function EnhancedFriendsPage() {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    className="bg-white p-2 rounded-lg border text-sm"
+                                    className="bg-white p-2 rounded-lg border text-sm dark:bg-neutral-900"
                                   >
                                     {friend.name}
                                   </div>
@@ -609,8 +609,8 @@ export default function EnhancedFriendsPage() {
                                           )}
                                         </div>
                                         <div className="flex-1">
-                                          <h4 className="font-semibold text-gray-900">{friend.name}</h4>
-                                          <p className="text-sm text-gray-600">@{friend.username}</p>
+                                          <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name}</h4>
+                                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
                                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                                             <MapPin className="w-3 h-3" />
                                             {friend.location}
@@ -630,14 +630,14 @@ export default function EnhancedFriendsPage() {
                                         </div>
                                       </div>
                                       <div className="flex gap-1">
-                                        <Button size="icon" variant="ghost">
+                                        <Button size="icon" variant="ghost" data-testid="button-element">
                                           <MessageCircle className="w-4 h-4" />
                                         </Button>
                                         <div className="relative group">
-                                          <Button size="icon" variant="ghost">
+                                          <Button size="icon" variant="ghost" data-testid="button-element">
                                             <Share2 className="w-4 h-4" />
                                           </Button>
-                                          <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2">
+                                          <div className="absolute right-0 mt-1 hidden group-hover:flex gap-1 bg-white shadow-lg rounded-lg p-2 dark:bg-neutral-900">
                                             <FacebookShareButton
                                               url={`https://mundotango.life/profile/${friend.username}`}
                                             >
@@ -678,8 +678,8 @@ export default function EnhancedFriendsPage() {
         {/* Keyboard Shortcuts Help */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>
-            Press <kbd className="px-2 py-1 bg-gray-100 rounded">Cmd+F</kbd> to search • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+A</kbd> to add friends
+            Press <kbd className="px-2 py-1 bg-gray-100 rounded dark:bg-neutral-800">Cmd+F</kbd> to search • 
+            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2 dark:bg-neutral-800">Cmd+A</kbd> to add friends
           </p>
         </div>
 
@@ -693,24 +693,24 @@ export default function EnhancedFriendsPage() {
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
                   Username or Email
                 </label>
                 <Input
                   type="text"
                   placeholder="Enter username or email"
                   className="w-full"
-                  onChange={(e) => setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
+                  onChange={(e) = data-testid="input-w-full"> setSelectedUser({ id: e.target.value, name: e.target.value, username: e.target.value } as Friend)}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
                   Add a personal note (optional)
                 </label>
                 <Textarea
                   placeholder="Hi! I'd love to connect..."
                   value={requestNote}
-                  onChange={(e) => setRequestNote(e.target.value)}
+                  onChange={(e) = data-testid="textarea-element"> setRequestNote(e.target.value)}
                   rows={3}
                   className="w-full"
                 />
@@ -718,7 +718,7 @@ export default function EnhancedFriendsPage() {
               <div className="flex justify-end gap-2">
                 <Button
                   variant="outline"
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');
@@ -727,7 +727,7 @@ export default function EnhancedFriendsPage() {
                   Cancel
                 </Button>
                 <Button
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     if (selectedUser?.id) {
                       sendFriendRequest(
                         { 

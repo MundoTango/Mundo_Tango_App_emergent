@@ -92,7 +92,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             </div>
             <div>
               <h3 className="text-lg font-semibold text-green-800">Request Submitted Successfully!</h3>
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-sm text-gray-600 mt-2 dark:text-neutral-400">
                 Your custom role request for "{roleName}" has been submitted and is now pending admin review.
                 You'll be notified once it's been processed.
               </p>
@@ -116,8 +116,8 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           {errors.submit && (
-            <Alert variant="destructive">
-              <AlertDescription>{errors.submit}</AlertDescription>
+            <Alert variant="destructive" data-testid="link-element">
+              <AlertDescription data-testid="link-element">{errors.submit}</AlertDescription>
             </Alert>
           )}
 
@@ -127,7 +127,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
               id="roleName"
               type="text"
               value={roleName}
-              onChange={(e) => setRoleName(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setRoleName(e.target.value)}
               placeholder="e.g., Tango Shoe Designer"
               className={errors.roleName ? 'border-red-500' : ''}
               disabled={submitMutation.isPending}
@@ -145,7 +145,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             <Textarea
               id="roleDescription"
               value={roleDescription}
-              onChange={(e) => setRoleDescription(e.target.value)}
+              onChange={(e) = data-testid="textarea-element"> setRoleDescription(e.target.value)}
               placeholder="Describe what this role involves in the tango community. Include key activities, responsibilities, or services provided..."
               rows={4}
               className={errors.roleDescription ? 'border-red-500' : ''}
@@ -174,7 +174,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
               type="submit"
               disabled={submitMutation.isPending}
               className="flex-1"
-            >
+             data-testid="button-flex-1">
               {submitMutation.isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -194,7 +194,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
                 variant="outline"
                 onClick={onCancel}
                 disabled={submitMutation.isPending}
-              >
+               data-testid="button-element">
                 Cancel
               </Button>
             )}

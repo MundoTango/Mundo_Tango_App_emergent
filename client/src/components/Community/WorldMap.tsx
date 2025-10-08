@@ -142,13 +142,13 @@ const WorldMap = forwardRef((props, ref) => {
           onMapReady={(map) => { mapInstanceRef.current = map; }}
         />
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
         {/* Map Legend - Positioned on top of the map */}
         <GlassCard depth={2} className="absolute top-4 left-4 z-[1000] rounded-lg shadow-lg p-4 border border-cyan-200/50"
-          <h3 className="font-semibold text-sm mb-3 text-gray-800">City Sizes</h3>
+          <h3 className="font-semibold text-sm mb-3 text-gray-800 dark:text-neutral-200">City Sizes</h3>
           <div className="space-y-2 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FF1744' }}></div>
@@ -192,12 +192,12 @@ const WorldMap = forwardRef((props, ref) => {
                      borderRadius: '12px'
                    }}>
                 {/* City Header */}
-                <div className="mb-3 pb-2 border-b border-gray-200">
+                <div className="mb-3 pb-2 border-b border-gray-200 dark:border-neutral-700">
                   <h3 className="font-bold text-lg flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-cyan-600" />
                     {group.city}
                   </h3>
-                  <p className="text-sm text-gray-600">{group.country}</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">{group.country}</p>
                 </div>
                 
                 {/* Statistics Grid */}
@@ -205,7 +205,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-cyan-50 to-transparent">
                     <Users className="h-4 w-4 text-cyan-600" />
                     <div>
-                      <p className="text-xs text-gray-600">People</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-400">People</p>
                       <p className="font-semibold">{group.memberCount || 0}</p>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-purple-50 to-transparent">
                     <Calendar className="h-4 w-4 text-purple-600" />
                     <div>
-                      <p className="text-xs text-gray-600">Events</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-400">Events</p>
                       <p className="font-semibold">{group.eventCount || 0}</p>
                     </div>
                   </div>
@@ -221,7 +221,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-blue-50 to-transparent">
                     <Home className="h-4 w-4 text-blue-600" />
                     <div>
-                      <p className="text-xs text-gray-600">Housing Hosts</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-400">Housing Hosts</p>
                       <p className="font-semibold">{group.hostCount || 0}</p>
                     </div>
                   </div>
@@ -229,7 +229,7 @@ const WorldMap = forwardRef((props, ref) => {
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-amber-50 to-transparent">
                     <Star className="h-4 w-4 text-amber-600" />
                     <div>
-                      <p className="text-xs text-gray-600">Recommendations</p>
+                      <p className="text-xs text-gray-600 dark:text-neutral-400">Recommendations</p>
                       <p className="font-semibold">{group.recommendationCount || 0}</p>
                     </div>
                   </div>
@@ -237,7 +237,7 @@ const WorldMap = forwardRef((props, ref) => {
                 
                 {/* View Group Button */}
                 <button 
-                  onClick={() => window.location.href = `/groups/${group.slug || group.id}`}
+                  onClick={() = data-testid="button-element"> window.location.href = `/groups/${group.slug || group.id}`}
                   className="mt-3 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition-all text-sm font-medium"
                 >
                   View {group.city} Group
@@ -251,10 +251,10 @@ const WorldMap = forwardRef((props, ref) => {
       
       {/* Loading overlay */}
       {isLoading && (
-        <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-[1000]">
+        <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-[1000] dark:bg-neutral-900">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-cyan-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading world map...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-ocean-500 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-neutral-400">Loading world map...</p>
           </div>
         </div>
       )}

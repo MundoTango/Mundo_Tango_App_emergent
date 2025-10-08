@@ -156,7 +156,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
         </h3>
         {isOwnProfile && (
           <Button
-            onClick={() => setShowAddModal(true)}
+            onClick={() = data-testid="button-element"> setShowAddModal(true)}
             size="sm"
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
           >
@@ -175,7 +175,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
           </p>
           {isOwnProfile && (
             <Button
-              onClick={() => setShowAddModal(true)}
+              onClick={() = data-testid="button-element"> setShowAddModal(true)}
               variant="outline"
               className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20"
             >
@@ -226,7 +226,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {showAddModal && (
         <AddTravelDetailModal
           isOpen={showAddModal}
-          onClose={() => setShowAddModal(false)}
+          onClose={() = data-testid="link-element"> setShowAddModal(false)}
         />
       )}
 
@@ -239,18 +239,18 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       )}
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={!!deletingTravelId} onOpenChange={() => setDeletingTravelId(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Travel Detail?</AlertDialogTitle>
-            <AlertDialogDescription>
+      <AlertDialog open={!!deletingTravelId} onOpenChange={() = data-testid="link-element"> setDeletingTravelId(null)}>
+        <AlertDialogContent data-testid="link-element">
+          <AlertDialogHeader data-testid="link-element">
+            <AlertDialogTitle data-testid="link-element">Delete Travel Detail?</AlertDialogTitle>
+            <AlertDialogDescription data-testid="link-element">
               This action cannot be undone. This will permanently delete your travel detail.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogFooter data-testid="link-element">
+            <AlertDialogCancel data-testid="link-element">Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
+              onClick={() = data-testid="link-element"> deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
               className="bg-red-500 hover:bg-red-600"
             >
               Delete
@@ -380,7 +380,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
               size="sm"
               onClick={onEdit}
               className="h-8 w-8 p-0"
-            >
+             data-testid="button-h-8">
               <Edit2 className="w-4 h-4" />
             </Button>
             <Button
@@ -388,7 +388,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
               size="sm"
               onClick={onDelete}
               className="h-8 w-8 p-0 text-red-500 hover:text-red-600"
-            >
+             data-testid="button-h-8">
               <Trash2 className="w-4 h-4" />
             </Button>
           </div>

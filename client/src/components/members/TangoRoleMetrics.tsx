@@ -141,8 +141,8 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                         depth={isSelected ? 2 : 1}
                         className={`role-metric-card p-3 transition-all duration-300 group ${
                           isSelected 
-                            ? 'border-cyan-500 dark:border-cyan-400 bg-cyan-500/10 dark:bg-cyan-400/10' 
-                            : 'hover:border-cyan-500/50 dark:hover:border-cyan-400/30'
+                            ? 'border-ocean-500 dark:border-cyan-400 bg-ocean-500/10 dark:bg-cyan-400/10' 
+                            : 'hover:border-ocean-500/50 dark:hover:border-cyan-400/30'
                         }`}
                         data-testid={`card-role-metric-${role.id}`}
                       >

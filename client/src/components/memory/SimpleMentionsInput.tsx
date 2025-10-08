@@ -485,7 +485,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-900 truncate">
+                    <span className="font-semibold text-gray-900 truncate dark:text-neutral-100">
                       {suggestion.display}
                     </span>
                     <Badge variant="outline" className={`text-xs ${getTypeColor(suggestion.type)}`}>

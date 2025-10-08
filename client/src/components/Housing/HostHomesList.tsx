@@ -110,7 +110,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
       {/* Filters */}
       {showFilters && (
         <FadeIn>
-          <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30" data-testid="filters-card">
+          <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30" data-testid="filters-card">
             <div className="flex items-center gap-2 mb-4">
               <Filter className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
               <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -127,7 +127,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                 <select
                   value={filters.roomType}
                   onChange={(e) => setFilters({...filters, roomType: e.target.value})}
-                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
                   data-testid="select-room-type"
                 >
                   <option value="all">{t('housing.homes_list.all_types', 'All types')}</option>
@@ -145,7 +145,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                 <select
                   value={filters.maxGuests}
                   onChange={(e) => setFilters({...filters, maxGuests: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
                   data-testid="select-max-guests"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
@@ -164,7 +164,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                 <select
                   value={filters.friendFilter}
                   onChange={(e) => setFilters({...filters, friendFilter: e.target.value})}
-                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg text-slate-900 dark:text-white"
+                  className="w-full px-3 py-2 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg text-slate-900 dark:text-white"
                   data-testid="select-friend-filter"
                 >
                   <option value="all">{t('housing.homes_list.all_hosts', 'All hosts')}</option>
@@ -185,7 +185,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
             <ScaleIn key={home.id} delay={0.05}>
               <GlassCard 
                 depth={2} 
-                className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+                className="overflow-hidden border-cyan-200/30 dark:border-ocean-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
                 data-testid={`home-card-${home.id}`}
               >
                 {/* Main Photo */}
@@ -230,8 +230,8 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                       </p>
                     </div>
                     {home.rating && (
-                      <div className="flex items-center gap-1 glass-card glass-depth-1 px-2 py-1 rounded-lg border-cyan-200/30 dark:border-cyan-500/30">
-                        <Star className="h-4 w-4 text-cyan-500 dark:text-cyan-400 fill-current" />
+                      <div className="flex items-center gap-1 glass-card glass-depth-1 px-2 py-1 rounded-lg border-cyan-200/30 dark:border-ocean-500/30">
+                        <Star className="h-4 w-4 text-ocean-500 dark:text-cyan-400 fill-current" />
                         <span className="text-sm font-medium text-slate-900 dark:text-white">{home.rating.toFixed(1)}</span>
                         {home.reviewCount !== undefined && (
                           <span className="text-xs text-slate-500 dark:text-slate-400">({home.reviewCount})</span>
@@ -241,7 +241,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   </div>
                   
                   <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-3">
-                    <MapPin className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
+                    <MapPin className="h-4 w-4 text-ocean-500 dark:text-cyan-400" />
                     <span>{home.city}, {home.state}</span>
                   </div>
                   
@@ -284,10 +284,10 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
       {/* Empty State */}
       {(!homes || homes.length === 0) && (
         <ScaleIn delay={0.2}>
-          <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30" data-testid="empty-state">
+          <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30" data-testid="empty-state">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-cyan-500/30">
-                <Home className="h-8 w-8 text-cyan-500 dark:text-cyan-400" />
+              <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-ocean-500/30">
+                <Home className="h-8 w-8 text-ocean-500 dark:text-cyan-400" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">

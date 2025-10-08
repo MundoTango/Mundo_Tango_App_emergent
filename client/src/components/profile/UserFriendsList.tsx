@@ -48,8 +48,8 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load friends</h3>
-          <p className="text-gray-600">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">Unable to load friends</h3>
+          <p className="text-gray-600 dark:text-neutral-400">Please try again later.</p>
         </CardContent>
       </Card>
     );
@@ -64,7 +64,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
             type="text"
             placeholder="Search friends..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -77,15 +77,15 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={friend.profileImage} alt={friend.name} />
-                      <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">
+                    <Avatar className="h-12 w-12" data-testid="link-h-12">
+                      <AvatarImage src={friend.profileImage} alt={friend.name} / data-testid="link-element">
+                      <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
                         {friend.name?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{friend.name || friend.username}</h4>
-                      <p className="text-sm text-gray-600">@{friend.username}</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name || friend.username}</h4>
+                      <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
                       {friend.city && (
                         <p className="text-xs text-gray-500">{friend.city}, {friend.country}</p>
                       )}
@@ -95,8 +95,8 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-red-600"
-                    >
+                      className="text-gray-600 hover:text-red-600 dark:text-neutral-400"
+                     data-testid="button-text-gray-600">
                       <UserMinus className="h-4 w-4" />
                     </Button>
                   )}
@@ -108,16 +108,16 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
       ) : searchQuery ? (
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No friends found</h3>
-            <p className="text-gray-600">Try a different search term.</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No friends found</h3>
+            <p className="text-gray-600 dark:text-neutral-400">Try a different search term.</p>
           </CardContent>
         </Card>
       ) : (
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No friends yet</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No friends yet</h3>
+            <p className="text-gray-600 dark:text-neutral-400">
               {isOwnProfile
                 ? 'Start connecting with other tango dancers to build your network.'
                 : 'No friends to display.'}

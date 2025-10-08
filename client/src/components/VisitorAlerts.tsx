@@ -77,7 +77,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
         {visitors.slice(0, 3).map((visitor) => (
           <div 
             key={visitor.id}
-            className="p-4 bg-white rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer"
+            className="p-4 bg-white rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer dark:bg-neutral-900"
             onClick={() => setLocation(`/profile/${visitor.username}`)}
           >
             <div className="flex items-start justify-between">
@@ -94,12 +94,12 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
                   </div>
                 )}
                 <div>
-                  <h4 className="font-semibold text-gray-900">{visitor.name}</h4>
-                  <p className="text-sm text-gray-600 flex items-center gap-1">
+                  <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{visitor.name}</h4>
+                  <p className="text-sm text-gray-600 flex items-center gap-1 dark:text-neutral-400">
                     <MapPin className="h-3 w-3" />
                     From {visitor.city}, {visitor.country}
                   </p>
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1 dark:text-neutral-400">
                     <Calendar className="h-3 w-3" />
                     {formatDateRange(visitor.arrivalDate, visitor.departureDate)}
                   </p>
@@ -119,7 +119,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
               <ChevronRight className="h-5 w-5 text-gray-400" />
             </div>
             {visitor.lookingFor.length > 0 && (
-              <p className="text-sm text-gray-700 mt-2 pl-15">
+              <p className="text-sm text-gray-700 mt-2 pl-15 dark:text-neutral-300">
                 Looking for: {visitor.lookingFor.join(', ')}
               </p>
             )}
@@ -130,7 +130,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
           <Button
             variant="outline"
             className="w-full border-orange-300 text-orange-700 hover:bg-orange-50"
-            onClick={() => setLocation(`/cities/${cityId}/visitors`)}
+            onClick={() = data-testid="button-w-full"> setLocation(`/cities/${cityId}/visitors`)}
           >
             View all {visitors.length} upcoming visitors
           </Button>

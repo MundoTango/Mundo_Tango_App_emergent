@@ -94,10 +94,10 @@ export default function Messages() {
                 <CardContent className="p-0 h-full flex flex-col">
                   
                   {/* Header */}
-                  <div className="p-4 border-b border-gray-200">
+                  <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
-                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
+                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
@@ -108,7 +108,7 @@ export default function Messages() {
                       <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
                         className="pl-9"
                       />
                     </div>
@@ -145,9 +145,9 @@ export default function Messages() {
                                 {room.title.substring(0, 2).toUpperCase()}
                               </div>
                             ) : (
-                              <Avatar className="w-12 h-12">
-                                <AvatarImage src={room.imageUrl} alt={room.title} />
-                                <AvatarFallback>{room.title.charAt(0)}</AvatarFallback>
+                              <Avatar className="w-12 h-12" data-testid="link-w-12">
+                                <AvatarImage src={room.imageUrl} alt={room.title} / data-testid="link-element">
+                                <AvatarFallback data-testid="link-element">{room.title.charAt(0)}</AvatarFallback>
                               </Avatar>
                             )}
                             
@@ -187,7 +187,7 @@ export default function Messages() {
                         <div className="text-gray-400 mb-4">
                           <MessageCircle className="h-16 w-16 mx-auto" />
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                        <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-neutral-400">
                           {searchQuery ? 'No conversations found' : 'No messages yet'}
                         </h3>
                         <p className="text-gray-500 text-sm">
@@ -217,7 +217,7 @@ export default function Messages() {
                       <div className="text-gray-400 mb-4">
                         <MessageCircle className="h-24 w-24 mx-auto" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-600 mb-2 dark:text-neutral-400">
                         Select a conversation
                       </h3>
                       <p className="text-gray-500">

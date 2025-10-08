@@ -77,9 +77,9 @@ export default function DashboardLayout({
   };
 
   const communityStats = [
-    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
+    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-ocean-500' },
     { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
-    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
+    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-ocean-500' },
     { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }
   ];
 
@@ -111,11 +111,11 @@ export default function DashboardLayout({
       <div className="relative flex">
         {/* Left Sidebar - Navigation & Stats */}
         <aside className={cn(
-          "w-72 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-r flex flex-col",
+          "w-72 h-[calc(100vh-var(--spacing-16))] sticky top-16 backdrop-blur-xl border-r flex flex-col",
           theme === 'light'
             ? "bg-white/80 border-gray-200"
             : "bg-slate-900/50 border-slate-800/50"
-        )}>
+        )} data-testid="link-element">
           {/* Pierre Dubois Profile */}
           <div className={cn(
             "p-6 border-b",
@@ -151,7 +151,7 @@ export default function DashboardLayout({
                 const isActive = location === item.path;
                 
                 return (
-                  <Link key={item.path} href={item.path}>
+                  <Link key={item.path} href={item.path} data-testid="link-element">
                     <a className={cn(
                       "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                       "hover:translate-x-1",
@@ -165,7 +165,7 @@ export default function DashboardLayout({
                         : theme === 'light'
                           ? "text-gray-600 hover:text-gray-900"
                           : "text-slate-300 hover:text-white"
-                    )}>
+                    )} data-testid="link-element">
                       <Icon className="w-5 h-5" />
                       <span className="font-medium">{item.label}</span>
                       {isActive && (
@@ -217,7 +217,7 @@ export default function DashboardLayout({
               </div>
               
               {/* Mundo Tango Button */}
-              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" data-testid="button-w-full">
                 Mundo Tango
               </button>
             </div>
@@ -238,11 +238,11 @@ export default function DashboardLayout({
           {/* Right Sidebar */}
           {sidebarContent && (
             <aside className={cn(
-              "w-80 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-l p-6",
+              "w-80 h-[calc(100vh-var(--spacing-16))] sticky top-16 backdrop-blur-xl border-l p-6",
               theme === 'light'
                 ? "bg-white/80 border-gray-200"
                 : "bg-slate-900/30 border-slate-800/50"
-            )}>
+            )} data-testid="link-element">
               {sidebarContent}
             </aside>
           )}

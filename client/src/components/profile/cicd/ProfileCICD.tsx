@@ -79,7 +79,7 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
               <GitBranch className="w-5 h-5 text-green-600" />
               CI/CD Pipeline Status
             </div>
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="outline" data-testid="button-element">
               <Play className="w-3 h-3 mr-1" />
               Run Pipeline
             </Button>
@@ -95,7 +95,7 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
                 </div>
                 <div className="flex items-center gap-3">
                   {stage.duration && (
-                    <span className="text-sm text-gray-600">{stage.duration}s</span>
+                    <span className="text-sm text-gray-600 dark:text-neutral-400">{stage.duration}s</span>
                   )}
                   <Badge className={getStatusColor(stage.status)}>
                     {stage.status}
@@ -114,17 +114,17 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.buildTime}min</div>
-              <div className="text-sm text-gray-600">Avg Build Time</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{metrics.buildTime}min</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Avg Build Time</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.deploymentFrequency}/week</div>
-              <div className="text-sm text-gray-600">Deploy Frequency</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{metrics.deploymentFrequency}/week</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Deploy Frequency</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.coverage}%</div>
-              <div className="text-sm text-gray-600">Code Coverage</div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{metrics.coverage}%</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Code Coverage</div>
             </div>
           </div>
         </CardContent>
@@ -140,7 +140,7 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Tests Passed</span>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-neutral-400">
                   {metrics.testsPassed}/{metrics.testsTotal}
                 </span>
               </div>
@@ -158,9 +158,9 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
                 <div className="font-bold text-red-700">{metrics.testsTotal - metrics.testsPassed}</div>
                 <div className="text-red-600">Failed</div>
               </div>
-              <div className="text-center p-2 bg-gray-50 rounded">
-                <div className="font-bold text-gray-700">0</div>
-                <div className="text-gray-600">Skipped</div>
+              <div className="text-center p-2 bg-gray-50 rounded dark:bg-neutral-800">
+                <div className="font-bold text-gray-700 dark:text-neutral-300">0</div>
+                <div className="text-gray-600 dark:text-neutral-400">Skipped</div>
               </div>
             </div>
           </div>
@@ -174,24 +174,24 @@ export const ProfileCICD: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <div>
                 <div className="font-medium">Production - v2.1.0</div>
-                <div className="text-sm text-gray-600">2 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">2 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <div>
                 <div className="font-medium">Staging - v2.1.0-beta.1</div>
-                <div className="text-sm text-gray-600">4 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">4 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <div>
                 <div className="font-medium">Development - feature/profile-v2</div>
-                <div className="text-sm text-gray-600">6 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">6 hours ago</div>
               </div>
               <Badge className="bg-yellow-100 text-yellow-800">Building</Badge>
             </div>

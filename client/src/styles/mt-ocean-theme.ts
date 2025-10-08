@@ -97,15 +97,15 @@ export const MTOceanTheme = {
       mono: ['JetBrains Mono', 'monospace']
     },
     fontSize: {
-      xs: '0.75rem',
+      xs: 'var(--spacing-3)',
       sm: '0.875rem',
-      base: '1rem',
+      base: 'var(--spacing-4)',
       lg: '1.125rem',
       xl: '1.25rem',
-      '2xl': '1.5rem',
+      '2xl': 'var(--spacing-6)',
       '3xl': '1.875rem',
       '4xl': '2.25rem',
-      '5xl': '3rem',
+      '5xl': 'var(--spacing-12)',
       '6xl': '3.75rem'
     },
     fontWeight: {
@@ -120,24 +120,24 @@ export const MTOceanTheme = {
 
   // Spacing
   spacing: {
-    xs: '0.25rem',
-    sm: '0.5rem',
-    md: '1rem',
-    lg: '1.5rem',
-    xl: '2rem',
-    '2xl': '3rem',
-    '3xl': '4rem'
+    xs: 'var(--spacing-1)',
+    sm: 'var(--spacing-2)',
+    md: 'var(--spacing-4)',
+    lg: 'var(--spacing-6)',
+    xl: 'var(--spacing-8)',
+    '2xl': 'var(--spacing-12)',
+    '3xl': 'var(--spacing-16)'
   },
 
   // Border Radius
   borderRadius: {
     none: '0',
-    sm: '0.25rem',
-    md: '0.5rem',
-    lg: '0.75rem',
-    xl: '1rem',
-    '2xl': '1.5rem',
-    '3xl': '2rem',
+    sm: 'var(--spacing-1)',
+    md: 'var(--spacing-2)',
+    lg: 'var(--spacing-3)',
+    xl: 'var(--spacing-4)',
+    '2xl': 'var(--spacing-6)',
+    '3xl': 'var(--spacing-8)',
     full: '9999px'
   },
 

@@ -108,7 +108,7 @@ export default function PreDevelopmentChecklist() {
               <CardTitle className="text-2xl bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Pre-Development Checklist (Phase 0)
               </CardTitle>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-600 mt-1 dark:text-neutral-400">
                 Comprehensive system validation before starting development
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function PreDevelopmentChecklist() {
               onClick={runChecklist}
               disabled={isChecking}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600"
-            >
+             data-testid="button-bg-gradient-to-r">
               {isChecking ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -136,16 +136,16 @@ export default function PreDevelopmentChecklist() {
             <>
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">System Readiness</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">System Readiness</span>
                   <span className="text-sm font-bold">{calculateReadiness()}%</span>
                 </div>
                 <Progress value={calculateReadiness()} className="h-3" />
               </div>
 
               {checklistData.blockers.length > 0 && (
-                <Alert className="mb-6 border-red-200 bg-red-50">
-                  <AlertCircle className="h-4 w-4 text-red-600" />
-                  <AlertDescription>
+                <Alert className="mb-6 border-red-200 bg-red-50" data-testid="link-mb-6">
+                  <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
+                  <AlertDescription data-testid="link-element">
                     <strong className="text-red-800">Blockers Found:</strong>
                     <ul className="mt-2 space-y-1">
                       {checklistData.blockers.map((blocker, idx) => (
@@ -191,7 +191,7 @@ export default function PreDevelopmentChecklist() {
                                   <p className="text-sm font-medium text-red-700 mb-1">Issues:</p>
                                   <ul className="space-y-1">
                                     {result.issues.map((issue, idx) => (
-                                      <li key={idx} className="text-sm text-gray-700">• {issue}</li>
+                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-300">• {issue}</li>
                                     ))}
                                   </ul>
                                 </div>
@@ -202,8 +202,8 @@ export default function PreDevelopmentChecklist() {
                                   <p className="text-sm font-medium text-blue-700 mb-1">Suggestions:</p>
                                   <ul className="space-y-1">
                                     {result.suggestions.map((suggestion, idx) => (
-                                      <li key={idx} className="text-sm text-gray-700">
-                                        <ArrowRight className="w-3 h-3 inline mr-1 text-blue-500" />
+                                      <li key={idx} className="text-sm text-gray-700 dark:text-neutral-300">
+                                        <ArrowRight className="w-3 h-3 inline mr-1 text-blue-500" / data-testid="link-w-3">
                                         {suggestion}
                                       </li>
                                     ))}
@@ -216,7 +216,7 @@ export default function PreDevelopmentChecklist() {
                           {!result.passed && result.autoFixAvailable && (
                             <Button
                               size="sm"
-                              onClick={() => runAutoFix(category)}
+                              onClick={() = data-testid="button-element"> runAutoFix(category)}
                               disabled={autoFixing === category}
                               className="bg-gradient-to-r from-blue-500 to-purple-600"
                             >
@@ -241,8 +241,8 @@ export default function PreDevelopmentChecklist() {
               </div>
 
               <div className="mt-6 p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-lg border border-turquoise-200">
-                <h4 className="font-semibold text-gray-800 mb-2">Ready to Develop?</h4>
-                <p className="text-sm text-gray-700">
+                <h4 className="font-semibold text-gray-800 mb-2 dark:text-neutral-200">Ready to Develop?</h4>
+                <p className="text-sm text-gray-700 dark:text-neutral-300">
                   {checklistData.ready ? (
                     <>
                       <CheckCircle className="w-4 h-4 inline mr-1 text-green-600" />
@@ -250,7 +250,7 @@ export default function PreDevelopmentChecklist() {
                     </>
                   ) : (
                     <>
-                      <AlertCircle className="w-4 h-4 inline mr-1 text-orange-600" />
+                      <AlertCircle className="w-4 h-4 inline mr-1 text-orange-600" / data-testid="link-w-4">
                       Please resolve the blockers before starting development.
                     </>
                   )}

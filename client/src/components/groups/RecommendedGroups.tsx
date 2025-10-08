@@ -58,7 +58,7 @@ export default function RecommendedGroups() {
         <CardContent>
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-20 bg-gray-100 rounded-lg animate-pulse" />
+              <div key={i} className="h-20 bg-gray-100 rounded-lg animate-pulse dark:bg-neutral-800" />
             ))}
           </div>
         </CardContent>
@@ -94,7 +94,7 @@ export default function RecommendedGroups() {
           {displayedRecommendations.map((group: any) => (
             <div
               key={group.id}
-              className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
               data-testid={`recommended-group-${group.id}`}
               role="article"
               aria-labelledby={`rec-group-name-${group.id}`}
@@ -108,7 +108,7 @@ export default function RecommendedGroups() {
                   <h4 id={`rec-group-name-${group.id}`} className="font-semibold text-lg mb-1 hover:text-blue-600">
                     {group.name}
                   </h4>
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-400">
                     <MapPin className="h-4 w-4" />
                     <span>{group.city}, {group.country}</span>
                     <Users className="h-4 w-4 ml-2" />

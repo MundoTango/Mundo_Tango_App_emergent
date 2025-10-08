@@ -12,19 +12,19 @@ export default function NotFound() {
         <CardContent className="pt-8 pb-6 text-center">
           <div className="mb-6">
             <div className="w-20 h-20 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertCircle className="h-10 w-10 text-turquoise-600" />
+              <AlertCircle className="h-10 w-10 text-turquoise-600" / data-testid="link-h-10">
             </div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
               404 - Page Not Found
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-neutral-400">
               We couldn't find the page you're looking for. It might have been moved or doesn't exist.
             </p>
           </div>
 
           <div className="space-y-3">
             <Button
-              onClick={() => setLocation('/')}
+              onClick={() = data-testid="button-element"> setLocation('/')}
               className="w-full bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
               <Home className="w-4 h-4 mr-2" />
@@ -32,16 +32,16 @@ export default function NotFound() {
             </Button>
             
             <Button
-              onClick={() => window.history.back()}
+              onClick={() = data-testid="button-element"> window.history.back()}
               variant="outline"
               className="w-full border-turquoise-200 hover:bg-turquoise-50"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
               Go Back
             </Button>
             
             <Button
-              onClick={() => setLocation('/events')}
+              onClick={() = data-testid="button-element"> setLocation('/events')}
               variant="ghost"
               className="w-full hover:bg-turquoise-50"
             >
@@ -50,10 +50,10 @@ export default function NotFound() {
             </Button>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-neutral-700">
             <p className="text-sm text-gray-500">
               Need help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline">
+              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="link-text-turquoise-600">
                 support@mundotango.life
               </a>
             </p>

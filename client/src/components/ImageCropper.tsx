@@ -145,7 +145,7 @@ export default function ImageCropper({
         
         <div className="space-y-4">
           {/* Image with crop */}
-          <div className="relative bg-gray-100 rounded-lg overflow-hidden" style={{ maxHeight: '60vh' }}>
+          <div className="relative bg-gray-100 rounded-lg overflow-hidden dark:bg-neutral-800" style={{ maxHeight: '60vh' }}>
             <ReactCrop
               crop={crop}
               onChange={(c) => setCrop(c)}
@@ -185,7 +185,7 @@ export default function ImageCropper({
           <div className="space-y-4">
             {/* Zoom control */}
             <div className="flex items-center gap-4">
-              <ZoomIn className="w-5 h-5 text-gray-600" />
+              <ZoomIn className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
               <Slider
                 value={zoom}
                 onValueChange={setZoom}
@@ -194,7 +194,7 @@ export default function ImageCropper({
                 step={0.1}
                 className="flex-1"
               />
-              <span className="text-sm text-gray-600 w-12">{zoom[0].toFixed(1)}x</span>
+              <span className="text-sm text-gray-600 w-12 dark:text-neutral-400">{zoom[0].toFixed(1)}x</span>
             </div>
 
             {/* Rotation control */}
@@ -205,11 +205,11 @@ export default function ImageCropper({
                 size="sm"
                 onClick={handleRotate}
                 className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-              >
+               data-testid="button-border-turquoise-200">
                 <RotateCw className="w-4 h-4 mr-2" />
                 Rotate 90°
               </Button>
-              <span className="text-sm text-gray-600">{rotation}°</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">{rotation}°</span>
             </div>
           </div>
 
@@ -228,15 +228,15 @@ export default function ImageCropper({
             type="button"
             variant="outline"
             onClick={onClose}
-            className="border-gray-300"
-          >
+            className="border-gray-300 dark:border-neutral-600"
+           data-testid="button-border-gray-300">
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
           <Button
             onClick={handleCrop}
             className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-          >
+           data-testid="button-bg-gradient-to-r">
             <Download className="w-4 h-4 mr-2" />
             Apply & Save
           </Button>

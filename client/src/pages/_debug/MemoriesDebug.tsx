@@ -54,7 +54,7 @@ const MemoriesDebug: React.FC = () => {
     return components;
   };
 
-  const [componentStatus, setComponentStatus] = React.useState<any>(null);
+  const [componentStatus, setComponentStatus] = React.useState<any data-testid="link-element">(null);
 
   React.useEffect(() => {
     checkComponents().then(setComponentStatus);
@@ -129,7 +129,7 @@ const MemoriesDebug: React.FC = () => {
               cursor: 'pointer',
               fontSize: '16px'
             }}
-          >
+           data-testid="button-element">
             Clear All Caches & Reload
           </button>
         </div>
@@ -157,7 +157,7 @@ const MemoriesDebug: React.FC = () => {
                 borderRadius: '5px',
                 fontWeight: 'bold'
               }}
-            >
+             data-testid="link-element">
               Go to /memories
             </a>
             <a 
@@ -169,11 +169,11 @@ const MemoriesDebug: React.FC = () => {
                 textDecoration: 'none', 
                 borderRadius: '5px'
               }}
-            >
+             data-testid="link-element">
               Go to /timeline (redirect test)
             </a>
             <button 
-              onClick={() => window.location.reload()}
+              onClick={() = data-testid="button-element"> window.location.reload()}
               style={{
                 background: '#0F766E',
                 color: 'white',

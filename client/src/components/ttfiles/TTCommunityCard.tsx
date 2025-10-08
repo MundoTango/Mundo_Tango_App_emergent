@@ -89,7 +89,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         </div>
 
         {/* Community Name */}
-        <h3 className="tt-community-name text-gray-900">{name}</h3>
+        <h3 className="tt-community-name text-gray-900 dark:text-neutral-100">{name}</h3>
 
         {/* Category Badge */}
         <div className="mb-3">
@@ -99,14 +99,14 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2 dark:text-neutral-400">
           {description}
         </p>
 
         {/* Community Stats */}
         <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-gray-600">
+            <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-400">
               <Users className="w-4 h-4" />
               <span className="font-semibold">{formatMemberCount(memberCount)}</span>
             </div>
@@ -115,7 +115,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
           
           {activeEvents !== undefined && (
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-gray-600">
+              <div className="flex items-center justify-center gap-1 text-gray-600 dark:text-neutral-400">
                 <Calendar className="w-4 h-4" />
                 <span className="font-semibold">{activeEvents}</span>
               </div>
@@ -136,7 +136,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
           {rating && (
             <div className="flex items-center justify-center gap-1 text-xs">
               <Star className="w-3 h-3 text-yellow-500 fill-current" />
-              <span className="text-gray-600">{rating.toFixed(1)} rating</span>
+              <span className="text-gray-600 dark:text-neutral-400">{rating.toFixed(1)} rating</span>
             </div>
           )}
         </div>
@@ -152,7 +152,7 @@ const TTCommunityCard: React.FC<TTCommunityCardProps> = ({
         <button 
           className={`w-full ${isJoined ? 'tt-btn tt-btn-outline' : 'tt-btn tt-btn-primary'}`}
           onClick={handleJoin}
-        >
+         data-testid="button-element">
           {isJoined ? 'Leave Community' : 'Join Community'}
         </button>
       </div>

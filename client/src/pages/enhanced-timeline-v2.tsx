@@ -242,7 +242,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
              }} />
       </div>
 
-      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden">
+      <Card className="relative p-6 space-y-4 hover:shadow-2xl transition-all duration-500 rounded-3xl border-2 border-turquoise-200/70 hover:border-cyan-300 card-lift smooth-appear beautiful-hover bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-turquoise-200/50 overflow-hidden dark:bg-neutral-900">
         {/* Ocean accent decoration */}
         <div className="absolute -top-2 -right-2 w-24 h-24 bg-gradient-to-br from-turquoise-200 to-cyan-200 rounded-full blur-2xl opacity-30" />
         <div className="absolute -bottom-2 -left-2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-blue-200 rounded-full blur-2xl opacity-25" />
@@ -251,9 +251,9 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
             <div className="relative">
-              <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300">
-                <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} />
-                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold">
+              <Avatar className="h-12 w-12 ring-2 ring-turquoise-400 ring-offset-2 ring-offset-white group-hover:ring-cyan-500 transition-all duration-300" data-testid="link-h-12">
+                <AvatarImage src={memory.userProfileImage || memory.user?.profileImage} / data-testid="link-element">
+                <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-blue-500 text-white font-bold" data-testid="link-bg-gradient-to-br">
                   {(memory.userName || memory.user?.name || 'U').charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -263,7 +263,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-lg text-gray-900 group-hover:text-turquoise-700 transition-colors">
+                <h3 className="font-bold text-lg text-gray-900 group-hover:text-turquoise-700 transition-colors dark:text-neutral-100">
                   {memory.userName || memory.user?.name || 'Anonymous'}
                 </h3>
                 <span className="text-sm text-gray-500">@{memory.userUsername || memory.user?.username || 'user'}</span>
@@ -325,7 +325,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
 
       {/* Enhanced Content with better typography */}
       <div className="prose prose-lg max-w-none">
-        <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+        <p className="text-gray-800 leading-relaxed whitespace-pre-wrap dark:text-neutral-200">
           {memory.content}
         </p>
       </div>
@@ -353,7 +353,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           />
 
           <button
-            onClick={() => setShowComments(!showComments)}
+            onClick={() = data-testid="button-element"> setShowComments(!showComments)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 mt-button ripple-container
                        ${showComments 
                          ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white shadow-lg' 
@@ -364,8 +364,8 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
           </button>
 
           <button
-            onClick={() => setShowShareDialog(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover"
+            onClick={() = data-testid="button-element"> setShowShareDialog(true)}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 mt-button ripple-container float-on-hover dark:text-neutral-300"
           >
             <Share2 className="h-5 w-5 icon-glow" />
             <span className="font-medium">Share</span>
@@ -375,7 +375,7 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
         <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0" data-testid="button-h-8">
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -441,13 +441,13 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
             <div className="space-y-3">
               {comments.map((comment: any) => (
                 <div key={comment.id} className="flex gap-3">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="text-xs">
+                  <Avatar className="h-8 w-8" data-testid="link-h-8">
+                    <AvatarFallback className="text-xs" data-testid="link-text-xs">
                       {comment.user?.name?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <div className="bg-gray-100 rounded-lg p-3">
+                    <div className="bg-gray-100 rounded-lg p-3 dark:bg-neutral-800">
                       <p className="font-medium text-sm">{comment.user?.name || 'Unknown User'}</p>
                       <div className="text-sm" dangerouslySetInnerHTML={{ __html: comment.content }} />
                     </div>
@@ -465,38 +465,38 @@ const MemoryCard = React.memo(function MemoryCard({ memory }: MemoryCardProps) {
       {/* Share Dialog */}
       {showShareDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowShareDialog(false)}>
-          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw]" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-xl p-6 w-96 max-w-[90vw] dark:bg-neutral-900" onClick={e => e.stopPropagation()}>
             <h3 className="text-xl font-bold mb-4">Share Memory</h3>
             <div className="space-y-3">
               <button
-                onClick={() => handleShare()}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                onClick={() = data-testid="button-element"> handleShare()}
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Share to Timeline</p>
-                <p className="text-sm text-gray-600">Share this memory on your timeline</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Share this memory on your timeline</p>
               </button>
 
               <button
-                onClick={() => {
+                onClick={() = data-testid="button-element"> {
                   const comment = prompt("Add a comment to your share:");
                   if (comment !== null) handleShare(comment);
                 }}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Share with Comment</p>
-                <p className="text-sm text-gray-600">Add your thoughts when sharing</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Add your thoughts when sharing</p>
               </button>
 
               <button
-                onClick={() => {
+                onClick={() = data-testid="button-element"> {
                   navigator.clipboard.writeText(`${window.location.origin}/memories/${memory.id}`);
                   toast({ title: "Link copied!" });
                   setShowShareDialog(false);
                 }}
-                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
               >
                 <p className="font-medium">Copy Link</p>
-                <p className="text-sm text-gray-600">Copy memory link to clipboard</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Copy memory link to clipboard</p>
               </button>
             </div>
           </div>
@@ -679,7 +679,7 @@ export default function EnhancedTimelineV2() {
                       Memories
                     </h1>
                   </div>
-                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium">Share your precious moments with the Tango community</p>
+                  <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-[50px] lg:ml-[60px] font-medium dark:text-neutral-300">Share your precious moments with the Tango community</p>
                 </div>
               </div>
 
@@ -706,8 +706,8 @@ export default function EnhancedTimelineV2() {
             {/* Mobile Events Section - Placeholder */}
             <div className="block lg:hidden mb-6">
               <div className="glassmorphic-card p-4 rounded-xl">
-                <h3 className="font-semibold text-gray-800 mb-2">Upcoming Events</h3>
-                <p className="text-sm text-gray-600">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 mb-2 dark:text-neutral-200">Upcoming Events</h3>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Event integration coming soon!</p>
               </div>
             </div>
 
@@ -774,8 +774,8 @@ export default function EnhancedTimelineV2() {
                     <div className="p-4 bg-gradient-to-r from-turquoise-400 to-blue-500 rounded-2xl inline-block mb-4">
                       <Sparkles className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No memories yet</h3>
-                    <p className="text-gray-600">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">No memories yet</h3>
+                    <p className="text-gray-600 dark:text-neutral-400">Start sharing your precious Tango moments with the community. Your first memory is just a click away!</p>
                   </div>
                 </div>
               )}
@@ -786,8 +786,8 @@ export default function EnhancedTimelineV2() {
           <div className="lg:col-span-4">
             <div className="sticky top-6">
               <div className="glassmorphic-card p-6 rounded-xl">
-                <h3 className="font-semibold text-gray-800 mb-4">Upcoming Events</h3>
-                <p className="text-sm text-gray-600">Event integration coming soon!</p>
+                <h3 className="font-semibold text-gray-800 mb-4 dark:text-neutral-200">Upcoming Events</h3>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Event integration coming soon!</p>
               </div>
             </div>
           </div>

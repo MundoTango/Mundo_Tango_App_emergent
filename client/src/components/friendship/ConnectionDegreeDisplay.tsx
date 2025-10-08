@@ -144,7 +144,7 @@ export function ConnectionPath({ path }: ConnectionPathProps) {
 
   return (
     <div className="flex items-center gap-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-      <Link className="w-4 h-4 text-gray-400" />
+      <Link className="w-4 h-4 text-gray-400" / data-testid="link-w-4">
       <span className="text-sm text-gray-600 dark:text-gray-400">Connected via:</span>
       <div className="flex items-center -space-x-2">
         {path.map((person, index) => (

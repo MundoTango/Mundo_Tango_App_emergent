@@ -15,7 +15,7 @@ export default function LifeCEO() {
   const [transcript, setTranscript] = useState('');
   const [response, setResponse] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [recognition, setRecognition] = useState<any>(null);
+  const [recognition, setRecognition] = useState<any data-testid="link-element">(null);
   const [activeAgents, setActiveAgents] = useState([
     { name: 'Business Agent', status: 'active', icon: '💼' },
     { name: 'Finance Agent', status: 'active', icon: '💰' },
@@ -117,18 +117,18 @@ export default function LifeCEO() {
     <DashboardLayout>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="bg-white border-b border-gray-200 shadow-sm dark:bg-neutral-900">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setLocation('/profile-switcher')}
+              onClick={() = data-testid="button-element"> setLocation('/profile-switcher')}
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
             </Button>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">Life CEO</h1>
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-neutral-100">Life CEO</h1>
               <p className="text-xs text-gray-500">AI Life Management System</p>
             </div>
           </div>
@@ -136,7 +136,7 @@ export default function LifeCEO() {
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setLanguage('en')}
+              onClick={() = data-testid="button-element"> setLanguage('en')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' 
                   ? 'bg-purple-100 text-purple-700' 
@@ -146,7 +146,7 @@ export default function LifeCEO() {
               EN
             </button>
             <button
-              onClick={() => setLanguage('es')}
+              onClick={() = data-testid="button-element"> setLanguage('es')}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' 
                   ? 'bg-purple-100 text-purple-700' 
@@ -191,7 +191,7 @@ export default function LifeCEO() {
                   ? 'bg-red-500 hover:bg-red-600 scale-110 animate-pulse' 
                   : 'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600'
               } text-white shadow-lg hover:shadow-xl disabled:opacity-50`}
-            >
+             data-testid="button-element">
               {isRecording ? (
                 <MicOff className="w-12 h-12 mx-auto" />
               ) : (
@@ -199,7 +199,7 @@ export default function LifeCEO() {
               )}
             </button>
             
-            <p className="mt-4 text-sm text-gray-600">
+            <p className="mt-4 text-sm text-gray-600 dark:text-neutral-400">
               {isRecording 
                 ? language === 'en' ? 'Listening...' : 'Escuchando...'
                 : language === 'en' ? 'Tap to speak' : 'Toca para hablar'
@@ -208,8 +208,8 @@ export default function LifeCEO() {
 
             {/* Transcript */}
             {transcript && (
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
-                <p className="text-sm text-gray-700">
+              <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left dark:bg-neutral-800">
+                <p className="text-sm text-gray-700 dark:text-neutral-300">
                   <strong>{language === 'en' ? 'You said:' : 'Dijiste:'}</strong> {transcript}
                 </p>
               </div>

@@ -112,7 +112,7 @@ export default function MonitoringDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <Shield className="w-5 h-5 text-teal-500" />
+              <Shield className="w-5 h-5 text-ocean-500" />
               <span>Privacy & Consent Status</span>
             </CardTitle>
           </CardHeader>
@@ -235,7 +235,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Brain className="w-5 h-5 text-teal-500" />
+                  <Brain className="w-5 h-5 text-ocean-500" />
                   <span>Life CEO Agent Tracking</span>
                 </CardTitle>
                 <CardDescription>
@@ -317,7 +317,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Eye className="w-5 h-5 text-teal-500" />
+                  <Eye className="w-5 h-5 text-ocean-500" />
                   <span>Session Analytics</span>
                 </CardTitle>
                 <CardDescription>
@@ -331,31 +331,31 @@ export default function MonitoringDashboard() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '100%' }}></div>
+                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '100%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Landing (100%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '75%' }}></div>
+                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '75%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Registration (75%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '45%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Profile Complete (45%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '20%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Host Onboarding (20%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '12%' }}></div>
+                          <div className="bg-ocean-500 h-2 rounded-full" style={{ width: '12%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">First Listing (12%)</span>
                       </div>

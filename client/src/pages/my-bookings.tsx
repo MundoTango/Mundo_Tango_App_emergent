@@ -113,7 +113,7 @@ export default function MyBookings() {
         );
       case 'approved':
         return (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 border border-cyan-200/50 dark:border-cyan-500/30" data-testid={`badge-status-approved`}>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 border border-cyan-200/50 dark:border-ocean-500/30" data-testid={`badge-status-approved`}>
             <CheckCircle className="w-3 h-3 text-cyan-700 dark:text-cyan-400" />
             <span className="text-sm font-medium text-cyan-700 dark:text-cyan-300">{t('housing.my_bookings.status_approved', 'Approved')}</span>
           </div>
@@ -189,13 +189,13 @@ export default function MyBookings() {
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
           <FadeIn>
-            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <Link href="/housing-marketplace">
                     <MagneticButton
                       strength={0.15}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
                       data-testid="button-back-to-marketplace"
                     >
                       <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
@@ -217,10 +217,10 @@ export default function MyBookings() {
           {/* Empty State */}
           {bookings.length === 0 && (
             <ScaleIn delay={0.1}>
-              <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30" data-testid="card-empty-state">
+              <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-ocean-500/30" data-testid="card-empty-state">
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-cyan-500/30">
-                    <Calendar className="w-8 h-8 text-cyan-500 dark:text-cyan-400" />
+                  <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-ocean-500/30">
+                    <Calendar className="w-8 h-8 text-ocean-500 dark:text-cyan-400" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -260,7 +260,7 @@ export default function MyBookings() {
                   <ScaleIn key={booking.id} delay={0.05}>
                     <GlassCard 
                       depth={2} 
-                      className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+                      className="overflow-hidden border-cyan-200/30 dark:border-ocean-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
                       data-testid={`card-booking-${booking.id}`}
                     >
                       <div className="flex flex-col md:flex-row">
@@ -297,7 +297,7 @@ export default function MyBookings() {
                           {/* Booking Info Grid */}
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                              <Calendar className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                              <Calendar className="w-4 h-4 text-ocean-500 dark:text-cyan-400" />
                               <div className="text-sm">
                                 <p className="font-medium" data-testid={`text-check-in-${booking.id}`}>{t('housing.my_bookings.check_in', 'Check-in')}: {format(new Date(booking.checkInDate), 'MMM dd, yyyy')}</p>
                                 <p className="font-medium" data-testid={`text-check-out-${booking.id}`}>{t('housing.my_bookings.check_out', 'Check-out')}: {format(new Date(booking.checkOutDate), 'MMM dd, yyyy')}</p>
@@ -311,7 +311,7 @@ export default function MyBookings() {
                               </div>
                             </div>
                             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                              <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                              <Users className="w-4 h-4 text-ocean-500 dark:text-cyan-400" />
                               <div className="text-sm">
                                 <p className="font-medium" data-testid={`text-guests-${booking.id}`}>
                                   {t('housing.my_bookings.guests', {
@@ -344,7 +344,7 @@ export default function MyBookings() {
 
                           {/* Host Response */}
                           {booking.hostResponse && (
-                            <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
+                            <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-ocean-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                               <div className="flex items-start gap-2">
                                 <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400 mt-1" />
                                 <div className="flex-1">
@@ -409,7 +409,7 @@ export default function MyBookings() {
             }
           }}
         >
-          <AlertDialogContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-cancel-confirmation">
+          <AlertDialogContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-cancel-confirmation">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.my_bookings.dialog_cancel_title', 'Cancel Booking Request')}
@@ -447,7 +447,7 @@ export default function MyBookings() {
 
         {/* Review Dialog */}
         <Dialog open={bookingToReview !== null} onOpenChange={(open) => !open && setBookingToReview(null)}>
-          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30" data-testid="dialog-write-review">
+          <DialogContent className="max-w-2xl glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30" data-testid="dialog-write-review">
             <DialogHeader>
               <DialogTitle className="text-slate-900 dark:text-white">
                 {t('housing.my_bookings.review_dialog_title', 'Write a Review')}
@@ -458,7 +458,7 @@ export default function MyBookings() {
             </DialogHeader>
             {bookingToReview && (
               <div className="mt-4">
-                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 rounded-lg">
+                <div className="mb-4 p-4 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 rounded-lg">
                   <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     {bookingToReview.hostHome.title}
                   </h4>

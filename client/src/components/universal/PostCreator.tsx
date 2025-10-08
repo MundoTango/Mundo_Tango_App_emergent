@@ -1468,7 +1468,7 @@ export default function PostCreator({
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-ocean-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-ocean-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
                             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
                             backdropFilter: 'blur(12px)'
@@ -1549,7 +1549,7 @@ export default function PostCreator({
                             value={location}
                             onChange={handleLocationChange}
                             placeholder="Search for a place..."
-                            className="border-turquoise-300/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
+                            className="border-turquoise-300/40 dark:border-ocean-500/30 rounded-lg shadow-sm"
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}
                             showBusinessDetails={true}

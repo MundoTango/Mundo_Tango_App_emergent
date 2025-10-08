@@ -21,23 +21,23 @@ body {
 /* Beautiful Post Creator Wrapper - ESA Fix for Layout */
 .beautiful-post-creator-wrapper {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-6);
 }
 
 /* Ensure proper spacing for main content */
 .enhanced-timeline-container .grid {
-  gap: 1.5rem;
+  gap: var(--spacing-6);
 }
 
 /* Fix cramped layout */
 @media (min-width: 1024px) {
   .enhanced-timeline-container .lg\:col-span-8 {
     max-width: 100%;
-    padding-right: 0.5rem;
+    padding-right: var(--spacing-2);
   }
   
   .enhanced-timeline-container .lg\:col-span-4 {
-    padding-left: 0.5rem;
+    padding-left: var(--spacing-2);
   }
 }
 
@@ -445,7 +445,7 @@ body {
 /* Memory Feed Masonry Layout */
 .memory-masonry {
   column-count: 1;
-  column-gap: 1.5rem;
+  column-gap: var(--spacing-6);
 }
 
 @media (min-width: 768px) {
@@ -462,5 +462,5 @@ body {
 
 .memory-masonry-item {
   break-inside: avoid;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-6);
 }

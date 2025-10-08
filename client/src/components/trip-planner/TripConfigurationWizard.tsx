@@ -148,7 +148,7 @@ export default function TripConfigurationWizard({
               onClick={() => setBudget(level)}
               className={`p-3 rounded-lg border-2 transition ${
                 budget === level
-                  ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/20'
+                  ? 'border-ocean-500 bg-cyan-50 dark:bg-cyan-900/20'
                   : 'border-gray-200 dark:border-gray-700 hover:border-cyan-300'
               }`}
               data-testid={`button-budget-${level}`}

@@ -53,12 +53,12 @@ export default function UnifiedLocationPicker({
   const [initState, setInitState] = useState<InitState>('idle');
   const [strategy, setStrategy] = useState<LocationStrategy>('none');
   const [isSearching, setIsSearching] = useState(false);
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<any[] data-testid="link-element">([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const autocompleteServiceRef = useRef<any>(null);
+  const autocompleteServiceRef = useRef<any data-testid="link-element">(null);
   const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
@@ -193,7 +193,7 @@ export default function UnifiedLocationPicker({
       const effectiveBias = userLocation || biasToLocation;
       
       // ESA Layer 15: Enhanced business search with multiple strategies
-      const searchPromises: Promise<any[]>[] = [];
+      const searchPromises: Promise<any[] data-testid="link-element">[] = [];
       
       // Strategy 1: Standard location search with business priority
       const standardUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`;
@@ -492,7 +492,7 @@ export default function UnifiedLocationPicker({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => value && suggestions.length > 0 && setShowSuggestions(true)}
+          onFocus={() = data-testid="input-element"> value && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder={initState === 'loading' ? 'Loading...' : placeholder}
           disabled={initState === 'loading'}
           required={required}
@@ -508,7 +508,7 @@ export default function UnifiedLocationPicker({
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={() => {
+            onClick={() = data-testid="button-element"> {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);
@@ -549,7 +549,7 @@ export default function UnifiedLocationPicker({
                     )}
                     <div className="flex items-center gap-2 mt-1">
                       {suggestion.isLocal && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-700 dark:text-cyan-300 border border-ocean-500/30">
                           ⭐ Platform Recommendation
                         </span>
                       )}

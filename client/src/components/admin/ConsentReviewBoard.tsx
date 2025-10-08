@@ -241,20 +241,20 @@ export default function ConsentReviewBoard() {
           <Input
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
-            <SelectValue placeholder="Filter by status" />
+        <Select value={statusFilter} onValueChange={setStatusFilter} data-testid="select-element">
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-full">
+            <SelectValue placeholder="Filter by status" / data-testid="select-element">
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Requests</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="approved">Approved</SelectItem>
-            <SelectItem value="denied">Denied</SelectItem>
+          <SelectContent data-testid="select-element">
+            <SelectItem value="all" data-testid="select-element">All Requests</SelectItem>
+            <SelectItem value="pending" data-testid="select-element">Pending</SelectItem>
+            <SelectItem value="approved" data-testid="select-element">Approved</SelectItem>
+            <SelectItem value="denied" data-testid="select-element">Denied</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -307,7 +307,7 @@ export default function ConsentReviewBoard() {
       {/* Consent requests list */}
       <div className="space-y-4">
         {filteredRequests.map((request) => (
-          <div key={request.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={request.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow dark:bg-neutral-900">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <Badge className={`${getStatusBadge(request.status)} border font-medium`}>
@@ -328,8 +328,8 @@ export default function ConsentReviewBoard() {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{request.memory.title}</h3>
-                <p className="text-gray-600 line-clamp-2">{request.memory.content}</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">{request.memory.title}</h3>
+                <p className="text-gray-600 line-clamp-2 dark:text-neutral-400">{request.memory.content}</p>
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -343,19 +343,19 @@ export default function ConsentReviewBoard() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600">Author:</span>
+                  <span className="text-gray-600 dark:text-neutral-400">Author:</span>
                   <span className="font-medium">{request.memory.author.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MessageSquare className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600">Requester:</span>
+                  <span className="text-gray-600 dark:text-neutral-400">Requester:</span>
                   <span className="font-medium">{request.requester.name}</span>
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm font-medium text-gray-700 mb-1">Reason for Request:</div>
-                <div className="text-sm text-gray-600">{request.reason}</div>
+              <div className="bg-gray-50 rounded-xl p-4 dark:bg-neutral-800">
+                <div className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">Reason for Request:</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">{request.reason}</div>
               </div>
 
               {request.status !== 'pending' && request.reviewNotes && (
@@ -373,7 +373,7 @@ export default function ConsentReviewBoard() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     setSelectedRequest(request);
                     setIsReviewDialogOpen(true);
                   }}
@@ -397,39 +397,39 @@ export default function ConsentReviewBoard() {
           
           {selectedRequest && (
             <div className="space-y-6">
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{selectedRequest.memory.title}</h3>
-                <p className="text-gray-700 mb-4 leading-relaxed">{selectedRequest.memory.content}</p>
+              <div className="bg-gray-50 rounded-2xl p-6 dark:bg-neutral-800">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3 dark:text-neutral-100">{selectedRequest.memory.title}</h3>
+                <p className="text-gray-700 mb-4 leading-relaxed dark:text-neutral-300">{selectedRequest.memory.content}</p>
                 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-600">Author:</span>
+                    <span className="text-gray-600 dark:text-neutral-400">Author:</span>
                     <span className="font-medium ml-2">{selectedRequest.memory.author.name}</span>
                   </div>
                   <div>
-                    <span className="text-gray-600">Trust Level:</span>
+                    <span className="text-gray-600 dark:text-neutral-400">Trust Level:</span>
                     <Badge className={`${getTrustLevelColor(selectedRequest.memory.trustLevel)} border ml-2`}>
                       Level {selectedRequest.memory.trustLevel}
                     </Badge>
                   </div>
                   <div>
-                    <span className="text-gray-600">Requester:</span>
+                    <span className="text-gray-600 dark:text-neutral-400">Requester:</span>
                     <span className="font-medium ml-2">{selectedRequest.requester.name}</span>
                   </div>
                   <div>
-                    <span className="text-gray-600">Requested:</span>
+                    <span className="text-gray-600 dark:text-neutral-400">Requested:</span>
                     <span className="ml-2">{format(new Date(selectedRequest.requestedAt), 'MMM d, yyyy')}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Review Notes</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Review Notes</label>
                 <Textarea
                   placeholder="Add your review notes here..."
                   value={reviewNotes}
-                  onChange={(e) => setReviewNotes(e.target.value)}
-                  className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+                  onChange={(e) = data-testid="textarea-element"> setReviewNotes(e.target.value)}
+                  className="rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
                   rows={4}
                 />
               </div>
@@ -438,7 +438,7 @@ export default function ConsentReviewBoard() {
                 <div className="flex gap-3">
                   <Button
                     variant="outline"
-                    onClick={() => handleReview('deny')}
+                    onClick={() = data-testid="button-element"> handleReview('deny')}
                     disabled={reviewConsentMutation.isPending}
                     className="flex-1 rounded-xl text-red-600 border-red-200 hover:bg-red-50"
                   >
@@ -446,7 +446,7 @@ export default function ConsentReviewBoard() {
                     Deny Request
                   </Button>
                   <Button
-                    onClick={() => handleReview('approve')}
+                    onClick={() = data-testid="button-element"> handleReview('approve')}
                     disabled={reviewConsentMutation.isPending}
                     className="flex-1 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
                   >
@@ -459,7 +459,7 @@ export default function ConsentReviewBoard() {
               {selectedRequest.status !== 'pending' && (
                 <Button
                   variant="outline"
-                  onClick={() => setIsReviewDialogOpen(false)}
+                  onClick={() = data-testid="button-element"> setIsReviewDialogOpen(false)}
                   className="w-full rounded-xl"
                 >
                   Close

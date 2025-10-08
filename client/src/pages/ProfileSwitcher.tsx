@@ -42,16 +42,16 @@ export default function ProfileSwitcher() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 py-4 dark:bg-neutral-900">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => window.history.back()}
+            onClick={() = data-testid="button-element"> window.history.back()}
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-5 w-5" / data-testid="link-h-5">
           </Button>
           <h1 className="text-lg font-semibold">Switch Profile</h1>
         </div>
@@ -59,7 +59,7 @@ export default function ProfileSwitcher() {
 
       {/* Current User Info */}
       <div className="px-4 py-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm">
+        <div className="bg-white rounded-xl p-4 shadow-sm dark:bg-neutral-900">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold">
               {user?.name?.[0] || 'S'}
@@ -79,7 +79,7 @@ export default function ProfileSwitcher() {
           {profiles.map((profile) => (
             <button
               key={profile.id}
-              onClick={() => handleProfileSwitch(profile)}
+              onClick={() = data-testid="button-element"> handleProfileSwitch(profile)}
               className={`w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
                 activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''
               }`}
@@ -90,7 +90,7 @@ export default function ProfileSwitcher() {
                     {profile.icon}
                   </div>
                   <div className="text-left">
-                    <h3 className="font-medium text-gray-900">{profile.name}</h3>
+                    <h3 className="font-medium text-gray-900 dark:text-neutral-100">{profile.name}</h3>
                     <p className="text-sm text-gray-500">{profile.description}</p>
                   </div>
                 </div>
@@ -103,8 +103,8 @@ export default function ProfileSwitcher() {
 
       {/* Create New Profile */}
       <div className="px-4 pb-6">
-        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors">
-          <div className="flex items-center justify-center gap-3 text-gray-600">
+        <button className="w-full bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-colors dark:bg-neutral-800" data-testid="button-w-full">
+          <div className="flex items-center justify-center gap-3 text-gray-600 dark:text-neutral-400">
             <Plus className="h-5 w-5" />
             <span className="font-medium">Create New Profile</span>
           </div>
@@ -114,19 +114,19 @@ export default function ProfileSwitcher() {
       {/* Quick Actions */}
       <div className="px-4 pb-6">
         <h2 className="text-sm font-medium text-gray-500 mb-3">QUICK ACTIONS</h2>
-        <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+        <div className="bg-white rounded-xl p-4 shadow-sm space-y-3 dark:bg-neutral-900">
           {isSuperAdmin && (
             <button
-              onClick={() => setLocation('/life-ceo')}
-              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              onClick={() = data-testid="button-element"> setLocation('/life-ceo')}
+              className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
             >
               <Brain className="h-5 w-5 text-purple-500" />
               <span className="text-sm font-medium">Open Life CEO Voice Assistant</span>
             </button>
           )}
           <button
-            onClick={() => setLocation('/memories')}
-            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+            onClick={() = data-testid="button-element"> setLocation('/memories')}
+            className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors dark:bg-neutral-800"
           >
             <Globe className="h-5 w-5 text-blue-500" />
             <span className="text-sm font-medium">Return to Mundo Tango</span>

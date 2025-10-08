@@ -216,7 +216,7 @@ export default function FriendsPage() {
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading friends...</p>
+              <p className="text-gray-600 dark:text-neutral-400">Loading friends...</p>
             </div>
           </div>
         </div>
@@ -230,11 +230,11 @@ export default function FriendsPage() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Friends</h1>
-            <p className="text-gray-600 mt-1">Connect with dancers in your community</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">Friends</h1>
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">Connect with dancers in your community</p>
           </div>
           <Button
-            onClick={() => setShowSendRequestModal(true)}
+            onClick={() = data-testid="button-element"> setShowSendRequestModal(true)}
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
           >
             <UserPlus className="w-4 h-4 mr-2" />
@@ -248,8 +248,8 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Users className="w-8 h-8 text-turquoise-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">{friends.length}</p>
-                <p className="text-sm text-gray-600">Total Friends</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{friends.length}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Total Friends</p>
               </div>
             </div>
           </Card>
@@ -257,10 +257,10 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Clock className="w-8 h-8 text-blue-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {requests.filter((r: FriendRequest) => r.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-600">Pending Requests</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Pending Requests</p>
               </div>
             </div>
           </Card>
@@ -268,10 +268,10 @@ export default function FriendsPage() {
             <div className="flex items-center gap-3">
               <Heart className="w-8 h-8 text-cyan-600" />
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                   {friends.reduce((sum: number, f: Friend) => sum + (f.mutualFriends || 0), 0)}
                 </p>
-                <p className="text-sm text-gray-600">Mutual Friends</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Mutual Friends</p>
               </div>
             </div>
           </Card>
@@ -285,7 +285,7 @@ export default function FriendsPage() {
               type="text"
               placeholder="Search friends by name or username..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -304,7 +304,7 @@ export default function FriendsPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() = data-testid="button-element"> setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-3 font-medium transition-colors ${
                     activeTab === tab.id
                       ? 'text-turquoise-600 border-b-2 border-turquoise-600'
@@ -336,17 +336,17 @@ export default function FriendsPage() {
                           {request.friend_user?.name?.charAt(0) || 'U'}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900">
+                          <h4 className="font-semibold text-gray-900 dark:text-neutral-100">
                             {request.friend_user?.name}
                           </h4>
-                          <p className="text-sm text-gray-600">@{request.friend_user?.username}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{request.friend_user?.username}</p>
                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3" />
                             {request.friend_user?.location}
                           </p>
                           {request.sender_notes && (
-                            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                              <p className="text-sm text-gray-700 italic">"{request.sender_notes}"</p>
+                            <div className="mt-3 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+                              <p className="text-sm text-gray-700 italic dark:text-neutral-300">"{request.sender_notes}"</p>
                             </div>
                           )}
                           <div className="flex gap-2 mt-3">
@@ -361,7 +361,7 @@ export default function FriendsPage() {
                       <div className="flex gap-2">
                         <Button
                           size="sm"
-                          onClick={() => handleAcceptRequest(request)}
+                          onClick={() = data-testid="button-element"> handleAcceptRequest(request)}
                           className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                         >
                           <Check className="w-4 h-4 mr-1" />
@@ -370,7 +370,7 @@ export default function FriendsPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => handleDeclineRequest(request)}
+                          onClick={() = data-testid="button-element"> handleDeclineRequest(request)}
                         >
                           <X className="w-4 h-4 mr-1" />
                           Decline
@@ -382,7 +382,7 @@ export default function FriendsPage() {
                 {requests.filter((r: FriendRequest) => r.status === 'pending').length === 0 && (
                   <div className="text-center py-12">
                     <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">No pending friend requests</p>
+                    <p className="text-gray-600 dark:text-neutral-400">No pending friend requests</p>
                   </div>
                 )}
               </div>
@@ -405,8 +405,8 @@ export default function FriendsPage() {
                           )}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900">{friend.name}</h4>
-                          <p className="text-sm text-gray-600">@{friend.username}</p>
+                          <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{friend.name}</h4>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{friend.username}</p>
                           <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3" />
                             {friend.location}
@@ -431,7 +431,7 @@ export default function FriendsPage() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" data-testid="button-element">
                           <MessageCircle className="w-4 h-4" />
                         </Button>
                       </div>
@@ -441,7 +441,7 @@ export default function FriendsPage() {
                 {getTabContent().length === 0 && (
                   <div className="col-span-2 text-center py-12">
                     <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-neutral-400">
                       {activeTab === 'online' 
                         ? 'No friends are online right now' 
                         : 'You haven\'t added any friends yet'}
@@ -457,17 +457,17 @@ export default function FriendsPage() {
         {showSendRequestModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <Card className="w-full max-w-md p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Send Friend Request</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4 dark:text-neutral-100">Send Friend Request</h3>
               
               {/* Search Users */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
                   Search for users
                 </label>
                 <Input
                   type="text"
                   placeholder="Type a name or username..."
-                  onChange={(e) => searchUsers(e.target.value)}
+                  onChange={(e) = data-testid="input-element"> searchUsers(e.target.value)}
                 />
               </div>
 
@@ -487,7 +487,7 @@ export default function FriendsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium">{user.name}</p>
-                          <p className="text-sm text-gray-600">@{user.username}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">@{user.username}</p>
                           <p className="text-xs text-gray-500">{user.location}</p>
                         </div>
                         {user.mutualFriends && (
@@ -504,13 +504,13 @@ export default function FriendsPage() {
               {/* Selected User & Note */}
               {selectedUser && (
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">
                     Add a note (optional)
                   </label>
                   <Textarea
                     placeholder="Hi! I'd love to connect..."
                     value={requestNote}
-                    onChange={(e) => setRequestNote(e.target.value)}
+                    onChange={(e) = data-testid="textarea-element"> setRequestNote(e.target.value)}
                     rows={3}
                   />
                 </div>
@@ -522,13 +522,13 @@ export default function FriendsPage() {
                   onClick={handleSendRequest}
                   disabled={!selectedUser || sendRequestMutation.isPending}
                   className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                >
+                 data-testid="button-flex-1">
                   <Send className="w-4 h-4 mr-2" />
                   Send Request
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     setShowSendRequestModal(false);
                     setSelectedUser(null);
                     setRequestNote('');

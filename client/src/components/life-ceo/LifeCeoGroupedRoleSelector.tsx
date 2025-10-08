@@ -165,7 +165,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             size="icon"
             onClick={prevCategory}
             className="shrink-0"
-          >
+           data-testid="button-shrink-0">
             <ChevronLeft className="h-4 w-4" />
           </Button>
           
@@ -179,7 +179,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 )}>
                   {currentCategory.name}
                 </h4>
-                <p className="text-sm text-gray-600">{currentCategory.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">{currentCategory.description}</p>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             size="icon"
             onClick={nextCategory}
             className="shrink-0"
-          >
+           data-testid="button-shrink-0">
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -252,7 +252,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                         <h5 className="font-semibold text-sm flex items-center gap-2">
                           {agent.emoji} {agent.label}
                         </h5>
-                        <p className="text-xs text-gray-600 mt-2">{agent.description}</p>
+                        <p className="text-xs text-gray-600 mt-2 dark:text-neutral-400">{agent.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}
@@ -261,7 +261,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                           "w-full mt-3",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e) => {
+                        onClick={(e) = data-testid="button-element"> {
                           e.stopPropagation();
                           handleAgentToggle(agent.id);
                         }}
@@ -290,7 +290,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 <Badge
                   key={agentId}
                   variant="secondary"
-                  className="bg-white hover:bg-gray-50 cursor-pointer"
+                  className="bg-white hover:bg-gray-50 cursor-pointer dark:bg-neutral-900"
                   onClick={() => handleAgentToggle(agentId)}
                 >
                   {agent.emoji} {agent.label}

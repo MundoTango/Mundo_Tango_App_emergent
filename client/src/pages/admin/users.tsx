@@ -275,7 +275,7 @@ export default function AdminUsersPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               User Management
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">
               Manage platform users, roles, and permissions
             </p>
           </div>
@@ -301,14 +301,14 @@ export default function AdminUsersPage() {
           <Card className="border-teal-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Total Users
                 </CardTitle>
-                <Users className="w-4 h-4 text-teal-500" />
+                <Users className="w-4 h-4 text-ocean-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.total?.toLocaleString() || 0}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -321,14 +321,14 @@ export default function AdminUsersPage() {
           <Card className="border-cyan-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Active Users
                 </CardTitle>
-                <Activity className="w-4 h-4 text-cyan-500" />
+                <Activity className="w-4 h-4 text-ocean-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.active?.toLocaleString() || 0}
               </div>
               <div className="text-sm text-gray-500 mt-2">
@@ -340,14 +340,14 @@ export default function AdminUsersPage() {
           <Card className="border-green-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Verified Users
                 </CardTitle>
                 <CheckCircle className="w-4 h-4 text-green-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.verified?.toLocaleString() || 0}
               </div>
               <div className="text-sm text-gray-500 mt-2">
@@ -359,14 +359,14 @@ export default function AdminUsersPage() {
           <Card className="border-red-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Suspended
                 </CardTitle>
                 <Ban className="w-4 h-4 text-red-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.suspended || 0}
               </div>
               <div className="text-sm text-red-600 mt-2">
@@ -525,7 +525,7 @@ export default function AdminUsersPage() {
                     <TableRow>
                       <TableCell colSpan={showBulkActions ? 9 : 8} className="text-center py-8">
                         <div className="flex items-center justify-center">
-                          <RefreshCw className="w-5 h-5 animate-spin text-teal-500 mr-2" />
+                          <RefreshCw className="w-5 h-5 animate-spin text-ocean-500 mr-2" />
                           Loading users...
                         </div>
                       </TableCell>
@@ -538,7 +538,7 @@ export default function AdminUsersPage() {
                     </TableRow>
                   ) : (
                     usersData?.users?.map((user: User) => (
-                      <TableRow key={user.id} className="hover:bg-gray-50">
+                      <TableRow key={user.id} className="hover:bg-gray-50 dark:bg-neutral-800">
                         {showBulkActions && (
                           <TableCell>
                             <Checkbox
@@ -557,7 +557,7 @@ export default function AdminUsersPage() {
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium text-gray-900">{user.name}</div>
+                              <div className="font-medium text-gray-900 dark:text-neutral-100">{user.name}</div>
                               <div className="text-sm text-gray-500">{user.email}</div>
                               <div className="text-xs text-gray-400">@{user.username}</div>
                             </div>
@@ -574,7 +574,7 @@ export default function AdminUsersPage() {
                         </TableCell>
                         <TableCell>
                           {user.city && user.country ? (
-                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-400">
                               <Globe className="w-3 h-3" />
                               {user.city}, {user.country}
                             </div>
@@ -583,13 +583,13 @@ export default function AdminUsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-neutral-400">
                             {format(new Date(user.createdAt), 'MMM d, yyyy')}
                           </div>
                         </TableCell>
                         <TableCell>
                           {user.lastLoginAt ? (
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-gray-600 dark:text-neutral-400">
                               {format(new Date(user.lastLoginAt), 'MMM d, h:mm a')}
                             </div>
                           ) : (
@@ -667,7 +667,7 @@ export default function AdminUsersPage() {
             {/* Pagination */}
             {usersData?.totalPages > 1 && (
               <div className="flex items-center justify-between px-6 py-4 border-t">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-600 dark:text-neutral-400">
                   Showing {((page - 1) * 20) + 1} to {Math.min(page * 20, usersData?.total)} of {usersData?.total} users
                 </div>
                 <div className="flex gap-2">

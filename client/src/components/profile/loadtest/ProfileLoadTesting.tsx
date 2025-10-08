@@ -76,15 +76,15 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600">{metrics.responseTime.toFixed(0)}ms</div>
-              <div className="text-sm text-gray-600">Avg Response Time</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Avg Response Time</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600">{metrics.throughput}</div>
-              <div className="text-sm text-gray-600">Requests/sec</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Requests/sec</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600">{metrics.errorRate.toFixed(2)}%</div>
-              <div className="text-sm text-gray-600">Error Rate</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Error Rate</div>
             </div>
           </div>
         </CardContent>
@@ -147,13 +147,13 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.p95Latency}ms</div>
-              <div className="text-sm text-gray-600">95th Percentile</div>
+            <div className="p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{metrics.p95Latency}ms</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">95th Percentile</div>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.p99Latency}ms</div>
-              <div className="text-sm text-gray-600">99th Percentile</div>
+            <div className="p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+              <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{metrics.p99Latency}ms</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">99th Percentile</div>
             </div>
           </div>
         </CardContent>
@@ -163,7 +163,7 @@ export const ProfileLoadTesting: React.FC<{ userId: number }> = ({ userId }) => 
       {metrics.errorRate > 1 && (
         <Card className="border-yellow-200 bg-yellow-50/50">
           <CardContent className="flex items-start gap-3 p-4">
-            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" / data-testid="link-w-5">
             <div>
               <div className="font-medium text-yellow-800">Performance Alert</div>
               <div className="text-sm text-yellow-700 mt-1">

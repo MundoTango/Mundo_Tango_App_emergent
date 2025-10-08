@@ -118,18 +118,18 @@ export function NotionEntryPage() {
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center dark:bg-neutral-800">
               <FileText className="w-8 h-8 text-gray-400" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2 dark:text-neutral-100">
               Story not found
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 dark:text-neutral-400">
               The story you're looking for doesn't exist or may have been removed.
             </p>
-            <Link href="/notion">
-              <Button>
-                <ArrowLeft className="w-4 h-4 mr-2" />
+            <Link href="/notion" data-testid="link-element">
+              <Button data-testid="button-element">
+                <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
                 Back to Stories
               </Button>
             </Link>
@@ -142,11 +142,11 @@ export function NotionEntryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b">
+      <div className="bg-white/80 backdrop-blur-sm border-b dark:bg-neutral-900">
         <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link href="/notion">
-            <Button variant="ghost" className="mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+          <Link href="/notion" data-testid="link-element">
+            <Button variant="ghost" className="mb-4" data-testid="button-mb-4">
+              <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
               Back to Stories
             </Button>
           </Link>
@@ -172,12 +172,12 @@ export function NotionEntryPage() {
                 )}
               </div>
 
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-neutral-100">
                 {entry.title}
               </h1>
 
               {entry.summary && (
-                <p className="text-xl text-gray-600 mb-4 font-medium">
+                <p className="text-xl text-gray-600 mb-4 font-medium dark:text-neutral-400">
                   {entry.summary}
                 </p>
               )}
@@ -214,7 +214,7 @@ export function NotionEntryPage() {
               <CardContent className="p-8">
                 <div className="prose prose-lg max-w-none">
                   {entry.body ? (
-                    <div className="text-gray-700 leading-relaxed">
+                    <div className="text-gray-700 leading-relaxed dark:text-neutral-300">
                       {formatBodyText(entry.body)}
                     </div>
                   ) : (
@@ -235,7 +235,7 @@ export function NotionEntryPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border border-purple-100">
-                    <p className="text-gray-700 italic">
+                    <p className="text-gray-700 italic dark:text-neutral-300">
                       "{entry.imagePrompt}"
                     </p>
                     <p className="text-xs text-gray-500 mt-2">
@@ -315,9 +315,9 @@ export function NotionEntryPage() {
             {/* Back to Homepage */}
             <Card className="animate-in fade-in slide-in-from-right-4 duration-1000">
               <CardContent className="p-4">
-                <Link href="/notion">
-                  <Button variant="outline" className="w-full">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
+                <Link href="/notion" data-testid="link-element">
+                  <Button variant="outline" className="w-full" data-testid="button-w-full">
+                    <ArrowLeft className="w-4 h-4 mr-2" / data-testid="link-w-4">
                     Explore More Stories
                   </Button>
                 </Link>

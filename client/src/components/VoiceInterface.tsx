@@ -71,8 +71,8 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [voiceLevel, setVoiceLevel] = useState(0);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
+  const audioContextRef = useRef<AudioContext | null data-testid="link-element">(null);
+  const analyserRef = useRef<AnalyserNode | null data-testid="link-element">(null);
   const animationFrameRef = useRef<number>();
 
   const supportedLanguages = {
@@ -363,7 +363,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', duration: 0.5 }}
       >
-        <AnimatePresence>
+        <AnimatePresence data-testid="link-element">
           {isExpanded ? (
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -374,13 +374,13 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Bot className="w-5 h-5 text-teal-500" />
+                  <Bot className="w-5 h-5 text-ocean-500" />
                   <span className="font-semibold">Voice Assistant</span>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setIsExpanded(false)}
+                  onClick={() = data-testid="button-element"> setIsExpanded(false)}
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -390,7 +390,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
                 {isProcessing ? (
                   <div className="flex items-center justify-center h-full">
-                    <Loader2 className="w-5 h-5 animate-spin text-teal-500" />
+                    <Loader2 className="w-5 h-5 animate-spin text-ocean-500" />
                   </div>
                 ) : (
                   <div>
@@ -436,7 +436,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   className={cn(
                     isListening && "bg-red-500 hover:bg-red-600"
                   )}
-                >
+                 data-testid="button-element">
                   {isListening ? (
                     <MicOff className="w-4 h-4" />
                   ) : (
@@ -447,7 +447,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={() => textToSpeech.stop()}
+                  onClick={() = data-testid="button-element"> textToSpeech.stop()}
                   disabled={!isSpeaking}
                 >
                   {isSpeaking ? (
@@ -459,7 +459,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" data-testid="button-element">
                       <Languages className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -484,7 +484,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={() => setShowSettings(true)}
+                  onClick={() = data-testid="button-element"> setShowSettings(true)}
                 >
                   <Settings className="w-4 h-4" />
                 </Button>
@@ -622,7 +622,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() => speakResponse("Hello! This is a test of the voice settings.")}
+                onClick={() = data-testid="button-w-full"> speakResponse("Hello! This is a test of the voice settings.")}
               >
                 Test Voice Settings
               </Button>

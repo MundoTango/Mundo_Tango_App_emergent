@@ -334,7 +334,7 @@ export const PageTransition = ({
   mode = 'wait',
   className = '',
 }: PageTransitionProps) => (
-  <AnimatePresence mode={mode}>
+  <AnimatePresence mode={mode} data-testid="link-element">
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -459,7 +459,7 @@ interface SuccessPopProps {
 }
 
 export const SuccessPop = ({ children, show, className = '' }: SuccessPopProps) => (
-  <AnimatePresence>
+  <AnimatePresence data-testid="link-element">
     {show && (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

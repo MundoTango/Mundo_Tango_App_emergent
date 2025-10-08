@@ -281,7 +281,7 @@ export default function HousingMarketplace() {
             animate="visible"
           >
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
                 <div className="flex items-center gap-3">
                   <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -292,7 +292,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
                 <div className="flex items-center gap-3">
                   <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -305,7 +305,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
                 <div className="flex items-center gap-3">
                   <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -320,7 +320,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
                 <div className="flex items-center gap-3">
                   <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -344,7 +344,7 @@ export default function HousingMarketplace() {
                     placeholder={t('housing.marketplace.search_placeholder', 'Search by location, title, or description...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-ocean-500/50 transition-all"
                     data-testid="input-search"
                   />
                 </div>
@@ -365,7 +365,7 @@ export default function HousingMarketplace() {
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
-                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
+                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-ocean-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
                     data-testid="button-toggle-filters"
                   >
                     <Filter className="w-4 h-4 mr-1" />
@@ -562,7 +562,7 @@ export default function HousingMarketplace() {
                 <div key={listing.id} ref={el => cardsRef.current[index] = el}>
                   <GlassCard 
                     depth={2}
-                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
+                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-ocean-500/50 transition-all duration-300 group" 
                     data-testid={`card-listing-${listing.id}`}
                   >
                   {/* Media Thumbnail */}

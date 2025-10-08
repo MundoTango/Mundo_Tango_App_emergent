@@ -40,14 +40,14 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
           <Card className="max-w-md w-full p-6 text-center space-y-4">
-            <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
+            <AlertCircle className="h-12 w-12 text-red-500 mx-auto" / data-testid="link-h-12">
             <h2 className="text-xl font-semibold">Something went wrong</h2>
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 text-sm dark:text-neutral-400">
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <div className="flex gap-2 justify-center">
-              <Button onClick={this.handleReset}>Try Again</Button>
-              <Button variant="outline" onClick={() => window.location.href = '/'}>
+              <Button onClick={this.handleReset} data-testid="button-element">Try Again</Button>
+              <Button variant="outline" onClick={() = data-testid="button-element"> window.location.href = '/'}>
                 Go Home
               </Button>
             </div>

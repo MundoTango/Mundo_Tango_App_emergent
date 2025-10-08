@@ -14,7 +14,7 @@ export default function GroupsPage() {
   console.log('🎯 GROUPS PAGE COMPONENT RENDERING - v5 ROLE-BASED GROUPS');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
-  const [searchResults, setSearchResults] = useState<any[] | null>(null);
+  const [searchResults, setSearchResults] = useState<any[] | null data-testid="link-element">(null);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -171,10 +171,10 @@ export default function GroupsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Tango Communities</h1>
-          <p className="text-gray-600 mb-3">Connect with tango dancers around the world</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Tango Communities</h1>
+          <p className="text-gray-600 mb-3 dark:text-neutral-400">Connect with tango dancers around the world</p>
           <button
-            onClick={() => setLocation('/community-world-map')}
+            onClick={() = data-testid="button-element"> setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
           >
             View Community World Map →
@@ -183,33 +183,33 @@ export default function GroupsPage() {
 
         {/* Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50">
+          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50 dark:bg-neutral-900">
             <div className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-3">
               <Users className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalCommunities}</div>
-            <div className="text-sm text-gray-600">Total Communities</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats.totalCommunities}</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Total Communities</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50">
+          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50 dark:bg-neutral-900">
             <div className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3">
               <Heart className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.joinedCommunities}</div>
-            <div className="text-sm text-gray-600">Joined Communities</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats.joinedCommunities}</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Joined Communities</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50">
+          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50 dark:bg-neutral-900">
             <div className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3">
               <Calendar className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalEvents}</div>
-            <div className="text-sm text-gray-600">Total Events</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats.totalEvents}</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Total Events</div>
           </div>
-          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50">
+          <div className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white/70 border border-white/50 dark:bg-neutral-900">
             <div className="flex items-center justify-center w-12 h-12 bg-turquoise-100 text-turquoise-600 rounded-full mx-auto mb-3">
               <MapPin className="h-6 w-6" />
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.cities}</div>
-            <div className="text-sm text-gray-600">Cities</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{stats.cities}</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Cities</div>
           </div>
         </div>
 
@@ -226,7 +226,7 @@ export default function GroupsPage() {
         {isLoading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading communities...</p>
+            <p className="text-gray-600 dark:text-neutral-400">Loading communities...</p>
           </div>
         ) : displayedGroups.length > 0 ? (
           <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -281,8 +281,8 @@ export default function GroupsPage() {
         ) : (
           <div className="text-center py-12">
             <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No communities found</h3>
-            <p className="text-gray-600 max-w-md mx-auto">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No communities found</h3>
+            <p className="text-gray-600 max-w-md mx-auto dark:text-neutral-400">
               Try adjusting your search or filters to find communities that match your interests.
             </p>
           </div>
