@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
+import { useTranslation } from 'react-i18next';
 
 interface UserEventsListProps {
   userId: number;
@@ -11,6 +12,7 @@ interface UserEventsListProps {
 }
 
 export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
+  const { t } = useTranslation();
   const { data: events = [], isLoading, error } = useQuery<any[]>({
     queryKey: ['/api/user/events', userId],
     enabled: !!userId,
@@ -40,8 +42,8 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load events</h3>
-          <p className="text-gray-600">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('events.errors.unableToLoad')}</h3>
+          <p className="text-gray-600">{t('app.tryAgainLater')}</p>
         </CardContent>
       </Card>
     );
@@ -54,7 +56,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
     <div className="space-y-6">
       {upcomingEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{t('events.upcomingEvents')}</h3>
           {upcomingEvents.map((event: any) => (
             <UnifiedEventCard
               key={event.id}
@@ -64,7 +66,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
                 type: event.eventType || event.type || 'milonga',
                 date: event.startDate,
                 time: new Date(event.startDate).toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' }),
-                location: event.location || 'Location TBA',
+                location: event.location || t('events.locationTBA'),
                 city: event.city,
                 attendees: event.attendeesCount || 0,
                 userRsvpStatus: event.userRsvpStatus || null,
@@ -78,7 +80,7 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
 
       {pastEvents.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Past Events</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{t('events.pastEvents')}</h3>
           {pastEvents.map((event: any) => (
             <Card key={event.id} className="glassmorphic-card opacity-75">
               <CardContent className="p-6">
@@ -99,11 +101,11 @@ export function UserEventsList({ userId, isOwnProfile }: UserEventsListProps) {
         <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No events yet</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('events.noEvents')}</h3>
             <p className="text-gray-600">
               {isOwnProfile
-                ? 'Start organizing or attending tango events to see them here.'
-                : 'No events to display.'}
+                ? t('events.noEventsOwn')
+                : t('events.noEventsOther')}
             </p>
           </CardContent>
         </Card>
