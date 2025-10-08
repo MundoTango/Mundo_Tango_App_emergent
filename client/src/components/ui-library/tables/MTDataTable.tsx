@@ -238,7 +238,7 @@ export default function MTDataTable<T = any>({
               </h2>
             )}
             {description && (
-              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{description}</p>
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 text-sm mt-1">{description}</p>
             )}
           </div>
           {headerActions && (
@@ -254,7 +254,7 @@ export default function MTDataTable<T = any>({
         {/* Search */}
         {searchable && (
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
             <input
               type="text"
               value={searchQuery}
@@ -276,7 +276,7 @@ export default function MTDataTable<T = any>({
         {/* Bulk Actions */}
         {hasSelectedRows && bulkActions && (
           <div className="flex items-center gap-2 px-4 py-2 bg-teal-50/50 dark:bg-teal-900/20 rounded-lg">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
               {selectedRows.size} selected
             </span>
             {bulkActions}

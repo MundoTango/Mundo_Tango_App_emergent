@@ -924,7 +924,7 @@ export function PlatformFeatureDeepDive() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">Platform Feature Deep Dive Analysis</h1>
-          <p className="text-gray-600 mt-1 dark:text-neutral-400">Next-layer implementation details for all 47 platform features</p>
+          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">Next-layer implementation details for all 47 platform features</p>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm text-gray-500">
@@ -935,7 +935,7 @@ export function PlatformFeatureDeepDive() {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
         <input
           type="text"
           placeholder="Search features, components, APIs, or tables..."
@@ -966,7 +966,7 @@ export function PlatformFeatureDeepDive() {
                   <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(feature.status)}`}>
                     {feature.status}
                   </span>
-                  <ArrowRight className="h-3 w-3 text-gray-400" / data-testid="link-h-3">
+                  <ArrowRight className="h-3 w-3 text-gray-600 dark:text-gray-400" / data-testid="link-h-3">
                 </div>
               </button>
             ))}
@@ -985,7 +985,7 @@ export function PlatformFeatureDeepDive() {
                     {selectedFeatureData.status}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-3 dark:text-neutral-400">{selectedFeatureData.description}</p>
+                <p className="text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">{selectedFeatureData.description}</p>
                 <div className="text-sm text-blue-600 font-medium">{selectedFeatureData.layer}</div>
               </div>
 
@@ -1032,23 +1032,23 @@ export function PlatformFeatureDeepDive() {
                             </span>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3 dark:text-neutral-400">{component.description}</p>
+                        <p className="text-sm text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">{component.description}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Path:</div>
-                            <div className="text-gray-600 font-mono dark:text-neutral-400">{component.path}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Path:</div>
+                            <div className="text-gray-600 font-mono dark:text-neutral-600 dark:text-neutral-400">{component.path}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Lines of Code:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{component.lines.toLocaleString()}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Lines of Code:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{component.lines.toLocaleString()}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Dependencies:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{component.dependencies.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Dependencies:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{component.dependencies.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Key Functions:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{component.functions.slice(0, 3).join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Key Functions:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{component.functions.slice(0, 3).join(', ')}</div>
                           </div>
                         </div>
                       </div>
@@ -1082,16 +1082,16 @@ export function PlatformFeatureDeepDive() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Parameters:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{api.parameters.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Parameters:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{api.parameters.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Validation:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{api.validation.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Validation:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{api.validation.join(', ')}</div>
                           </div>
                         </div>
                         <div className="mt-2">
-                          <div className="font-medium text-gray-700 text-xs mb-1 dark:text-neutral-300">Response Format:</div>
+                          <div className="font-medium text-gray-700 text-xs mb-1 dark:text-neutral-600 dark:text-neutral-300">Response Format:</div>
                           <code className="text-xs text-gray-600 bg-gray-50 p-2 rounded block dark:bg-neutral-800">{api.response}</code>
                         </div>
                       </div>
@@ -1115,25 +1115,25 @@ export function PlatformFeatureDeepDive() {
                         <h4 className="font-semibold text-gray-900 mb-2 dark:text-neutral-100">{table.name}</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Columns:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{table.columns}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Columns:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{table.columns}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Relationships:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{table.relationships.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Relationships:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{table.relationships.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Indexes:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{table.indexes.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Indexes:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{table.indexes.join(', ')}</div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">Constraints:</div>
-                            <div className="text-gray-600 dark:text-neutral-400">{table.constraints.join(', ')}</div>
+                            <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Constraints:</div>
+                            <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{table.constraints.join(', ')}</div>
                           </div>
                           {table.rls_policies && (
                             <div className="md:col-span-2">
-                              <div className="font-medium text-gray-700 mb-1 dark:text-neutral-300">RLS Policies:</div>
-                              <div className="text-gray-600 dark:text-neutral-400">{table.rls_policies.join(', ')}</div>
+                              <div className="font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">RLS Policies:</div>
+                              <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{table.rls_policies.join(', ')}</div>
                             </div>
                           )}
                         </div>
@@ -1154,22 +1154,22 @@ export function PlatformFeatureDeepDive() {
                 {expandedSections.architecture && (
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-300">Data Flow:</h4>
+                      <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Data Flow:</h4>
                       <div className="space-y-1">
                         {selectedFeatureData.architecture.dataFlow.map((step, index) => (
                           <div key={index} className="flex items-center gap-2 text-sm">
                             <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-medium">
                               {index + 1}
                             </span>
-                            <span className="text-gray-700 dark:text-neutral-300">{step}</span>
+                            <span className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{step}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-300">Dependencies:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-400">
+                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Dependencies:</h4>
+                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
                           {selectedFeatureData.architecture.dependencies.map((dep, index) => (
                             <li key={index} className="flex items-center gap-2">
                               <Code className="h-3 w-3" />
@@ -1179,8 +1179,8 @@ export function PlatformFeatureDeepDive() {
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-300">Security Measures:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-400">
+                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Security Measures:</h4>
+                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
                           {selectedFeatureData.architecture.securityMeasures.map((measure, index) => (
                             <li key={index} className="flex items-center gap-2">
                               <Shield className="h-3 w-3" />
@@ -1217,8 +1217,8 @@ export function PlatformFeatureDeepDive() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-300">Bottlenecks:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-400">
+                        <h4 className="font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Bottlenecks:</h4>
+                        <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
                           {selectedFeatureData.performance.bottlenecks.map((bottleneck, index) => (
                             <li key={index} className="flex items-center gap-2">
                               <AlertTriangle className="h-3 w-3 text-yellow-500" / data-testid="link-h-3">

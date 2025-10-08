@@ -153,8 +153,8 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         {/* Filter by Tags Section */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Tag className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <Tag className="h-4 w-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
               Filter by Tags
             </span>
           </div>
@@ -211,7 +211,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         {/* Active Filters Summary */}
         {(tags.length > 0 || filterType !== 'all') && (
           <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
               Active filters: {filterType !== 'all' && (
                 <span className="capitalize font-medium">{filterType}</span>
               )}

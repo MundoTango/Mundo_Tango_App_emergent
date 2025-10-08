@@ -182,7 +182,7 @@ export default function MTAccordionList({
               >
                 {/* Expand Icon */}
                 <div className={cn(
-                  'flex-shrink-0 text-gray-500 dark:text-gray-400 transition-transform',
+                  'flex-shrink-0 text-gray-500 dark:text-gray-600 dark:text-gray-400 transition-transform',
                   animated && 'duration-300'
                 )}>
                   {getExpandIcon(isOpen)}
@@ -190,7 +190,7 @@ export default function MTAccordionList({
                 
                 {/* Item Icon */}
                 {item.icon && (
-                  <div className="flex-shrink-0 text-gray-600 dark:text-gray-400">
+                  <div className="flex-shrink-0 text-gray-600 dark:text-gray-600 dark:text-gray-400">
                     {item.icon}
                   </div>
                 )}
@@ -204,7 +204,7 @@ export default function MTAccordionList({
                     {item.title}
                   </h3>
                   {item.subtitle && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-0.5">
                       {item.subtitle}
                     </p>
                   )}
@@ -218,7 +218,7 @@ export default function MTAccordionList({
                     item.badgeVariant === 'success' && 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
                     item.badgeVariant === 'warning' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
                     item.badgeVariant === 'error' && 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-                    (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                    (!item.badgeVariant || item.badgeVariant === 'default') && 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-600 dark:text-gray-300'
                   )}>
                     {item.badge}
                   </span>

@@ -340,7 +340,7 @@ const OriginalEnhancedPostCreator: React.FC<{
               />
               
               {/* Character Count */}
-              <div className="absolute bottom-2 right-2 text-sm text-gray-400">
+              <div className="absolute bottom-2 right-2 text-sm text-gray-600 dark:text-gray-400">
                 {content.length}/500
               </div>
             </div>
@@ -404,7 +404,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                               <div className="bg-white/90 rounded-full p-3 dark:bg-neutral-900">
-                                <Video className="w-6 h-6 text-gray-700 dark:text-neutral-300" />
+                                <Video className="w-6 h-6 text-gray-700 dark:text-neutral-600 dark:text-neutral-300" />
                               </div>
                             </div>
                             <div className="absolute bottom-2 left-2 text-xs text-white bg-black/70 px-2 py-1 rounded">
@@ -413,7 +413,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                           </div>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Video className="w-8 h-8 text-gray-400" />
+                            <Video className="w-8 h-8 text-gray-600 dark:text-gray-400" />
                           </div>
                         )}
                       </div>
@@ -453,7 +453,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     variant="ghost"
                     size="sm"
                     onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)}
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-400"
+                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                   >
                     <Smile className="w-5 h-5" />
                   </Button>
@@ -491,7 +491,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3 dark:text-neutral-400"
+                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3 dark:text-neutral-600 dark:text-neutral-400"
                     asChild
                    data-testid="button-text-gray-600">
                     <span className="flex items-center gap-2">
@@ -523,7 +523,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       }
                     );
                   }}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-400"
+                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   <MapPin className="w-5 h-5" />
                 </Button>
@@ -533,7 +533,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   variant="ghost"
                   size="sm"
                   onClick={() = data-testid="button-element"> setShowAdvancedOptions(!showAdvancedOptions)}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-400"
+                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   <Tag className="w-5 h-5" />
                 </Button>
@@ -544,7 +544,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-400"
+                      className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
                      data-testid="button-text-gray-600">
                       <Heart className="w-5 h-5" />
                     </Button>
@@ -601,7 +601,7 @@ const OriginalEnhancedPostCreator: React.FC<{
               <div className="space-y-3 pt-4 border-t border-gray-100 animate-fadeIn">
                   {/* Tags Input */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-400">Tags</label>
+                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">Tags</label>
                     <div className="flex flex-wrap gap-2">
                       <Input
                         placeholder="Add tags..."
@@ -633,7 +633,7 @@ const OriginalEnhancedPostCreator: React.FC<{
 
                   {/* Visibility */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-400">Who can see this?</label>
+                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">Who can see this?</label>
                     <div className="flex gap-2">
                       {[
                         { value: 'public', icon: Globe, label: 'Everyone' },

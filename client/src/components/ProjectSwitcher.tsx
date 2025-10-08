@@ -99,13 +99,13 @@ const ProjectSwitcher: React.FC = () => {
           <div 
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
-          />
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false)(e); } }}>
           
           {/* Dropdown */}
           <div className="absolute top-full mt-2 right-0 w-72 sm:w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden dark:bg-neutral-900">
             <div className="p-4 bg-gray-50 border-b border-gray-200 dark:bg-neutral-800">
               <h3 className="font-semibold text-gray-900 dark:text-neutral-100">Switch Project</h3>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">Choose your active workspace</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Choose your active workspace</p>
             </div>
 
             <div className="p-2">
@@ -142,12 +142,12 @@ const ProjectSwitcher: React.FC = () => {
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">{project.description}</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{project.description}</p>
                         </div>
                       </div>
 
                       {!isCurrent && (
-                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" / data-testid="link-w-4">
+                        <ArrowRight className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition-colors" / data-testid="link-w-4">
                       )}
                     </div>
                   </button>
@@ -156,7 +156,7 @@ const ProjectSwitcher: React.FC = () => {
             </div>
 
             <div className="p-4 bg-gray-50 border-t border-gray-200 dark:bg-neutral-800">
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-neutral-400">
+              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <Crown className="w-4 h-4" />
                 <span>Life CEO System - AI Agent Management</span>
               </div>

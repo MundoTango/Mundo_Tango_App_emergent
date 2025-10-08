@@ -139,7 +139,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <span className="ml-2 text-gray-600 dark:text-neutral-400">Loading user roles...</span>
+        <span className="ml-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Loading user roles...</span>
       </div>
     );
   }

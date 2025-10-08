@@ -485,7 +485,7 @@ export default function UnifiedLocationPicker({
   return (
     <div className="relative w-full">
       <div className="relative">
-        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400" />
         <input
           ref={inputRef}
           type="text"
@@ -503,7 +503,7 @@ export default function UnifiedLocationPicker({
             transition-all duration-200 ${className}`}
         />
         {isLoading && (
-          <Loader className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 animate-spin" />
+          <Loader className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400 animate-spin" />
         )}
         {!isLoading && value && allowManualEntry && (
           <button
@@ -514,7 +514,7 @@ export default function UnifiedLocationPicker({
               setShowSuggestions(false);
               inputRef.current?.focus();
             }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
           >
             <X className="w-5 h-5" />
           </button>
@@ -535,7 +535,7 @@ export default function UnifiedLocationPicker({
                     : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                   }
                   ${index !== suggestions.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}`}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleSuggestionClick(suggestion)(e); } }}>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-turquoise-500 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -543,7 +543,7 @@ export default function UnifiedLocationPicker({
                       {suggestion.structured_formatting?.main_text || suggestion.description}
                     </p>
                     {suggestion.structured_formatting?.secondary_text && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">
+                      <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 truncate mt-0.5">
                         {suggestion.structured_formatting.secondary_text}
                       </p>
                     )}

@@ -183,7 +183,7 @@ export default function TrangoTechPostComposer() {
           <div 
             className="relative bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl z-10 dark:bg-neutral-900"
             onClick={(e) => e.stopPropagation()}
-          >
+           role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -291,7 +291,7 @@ export default function TrangoTechPostComposer() {
                   {/* Visibility and Actions */}
                   <div className="flex items-center justify-between pt-4 border-t">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600 dark:text-neutral-400">Visibility:</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Visibility:</span>
                       <div className="flex gap-1">
                         {['Public', 'Friends', 'Private'].map((vis) => (
                           <button

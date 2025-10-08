@@ -24,6 +24,7 @@ import {
   CheckCircle,
   Settings
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function MonitoringDashboard() {
   const { trackEvent, trackAgentInteraction, getFeatureFlag } = useMonitoring();
@@ -76,6 +77,11 @@ export default function MonitoringDashboard() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Monitoring Dashboard | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-teal-50 to-cyan-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
@@ -84,7 +90,7 @@ export default function MonitoringDashboard() {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               ESA Monitoring Dashboard
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
               OpenReplay & PostHog Analytics Integration
             </p>
           </div>
@@ -132,7 +138,7 @@ export default function MonitoringDashboard() {
                     </>
                   )}
                 </Badge>
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   {hasConsent 
                     ? "Analytics, session recording, and error tracking are enabled"
                     : "User consent required for monitoring services"}
@@ -368,5 +374,7 @@ export default function MonitoringDashboard() {
         </Tabs>
       </div>
     </div>
+  
+    </>
   );
 }

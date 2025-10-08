@@ -120,7 +120,7 @@ export default function EnhancedTagSystem({
               <h3 className="text-2xl font-bold mt-ocean-text">
                 Filter by Tags
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 font-medium">
                 Discover memories by topics and themes
               </p>
             </div>
@@ -147,7 +147,7 @@ export default function EnhancedTagSystem({
         <div className="relative mb-6">
           <div className="flex gap-4">
             <div className="flex-1 relative group">
-              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 
+              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-6 h-6 
                               group-focus-within:text-ocean-500 transition-colors duration-300" />
               <input
                 type="text"
@@ -196,8 +196,8 @@ export default function EnhancedTagSystem({
                     className="w-full px-5 py-3 text-left hover:bg-cyan-50 dark:hover:bg-cyan-900/20 
                              transition-colors flex items-center justify-between group"
                   >
-                    <span className="text-gray-700 dark:text-gray-300">{tag}</span>
-                    <Plus className="w-4 h-4 text-gray-400 group-hover:text-ocean-500" />
+                    <span className="text-gray-700 dark:text-gray-600 dark:text-gray-300">{tag}</span>
+                    <Plus className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-ocean-500" />
                   </button>
                 ))}
               </motion.div>
@@ -256,7 +256,7 @@ export default function EnhancedTagSystem({
                 className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
                   selectedCategory === category
                     ? 'mt-ocean-gradient text-white shadow-lg'
-                    : 'glassmorphic text-gray-600 dark:text-gray-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/20'
+                    : 'glassmorphic text-gray-600 dark:text-gray-600 dark:text-gray-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/20'
                 }`}
               >
                 {category}
@@ -296,7 +296,7 @@ export default function EnhancedTagSystem({
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500 dark:text-gray-400">
+                      <span className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         {tag.count} posts
                       </span>
                       {tag.percentChange && (
@@ -331,7 +331,7 @@ export default function EnhancedTagSystem({
                         : 'glassmorphic hover:border-cyan-300 dark:hover:border-cyan-600 cursor-pointer'
                     }`}
                   >
-                    <Clock className="w-4 h-4 text-gray-400" />
+                    <Clock className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                     <span className="font-medium text-sm text-gray-900 dark:text-white">
                       #{tag}
                     </span>
@@ -361,7 +361,7 @@ export default function EnhancedTagSystem({
                         : 'glassmorphic hover:border-cyan-300 dark:hover:border-cyan-600 cursor-pointer'
                     }`}
                   >
-                    <Users className="w-4 h-4 text-gray-400" />
+                    <Users className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                     <span className="font-medium text-sm text-gray-900 dark:text-white">
                       #{tag}
                     </span>
@@ -378,7 +378,7 @@ export default function EnhancedTagSystem({
 
         {/* Quick Suggestions */}
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 flex items-center gap-2">
+          <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-3 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-yellow-500" />
             Quick suggestions for Mundo Tango:
           </p>
@@ -390,7 +390,7 @@ export default function EnhancedTagSystem({
                 disabled={activeTags.includes(suggestion)}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                   activeTags.includes(suggestion)
-                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
+                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 cursor-not-allowed'
                     : 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 cursor-pointer'
                 }`}
               >
@@ -411,7 +411,7 @@ export default function EnhancedTagSystem({
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                 Live tag activity • {liveUpdates.comments.length} new posts with tags
               </p>
             </div>

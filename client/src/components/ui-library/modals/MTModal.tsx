@@ -108,7 +108,7 @@ const MTModal: React.FC<MTModalProps> = ({
                 </h2>
               )}
               {description && (
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   {description}
                 </p>
               )}
@@ -118,7 +118,7 @@ const MTModal: React.FC<MTModalProps> = ({
                 onClick={onClose}
                 className="ml-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                data-testid="button-ml-4">
-                <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                <X className="w-5 h-5 text-gray-500 dark:text-gray-600 dark:text-gray-400" />
               </button>
             )}
           </div>

@@ -97,7 +97,7 @@ export function TileSelect({
                   <span className="font-medium text-sm">{option.label}</span>
                 </div>
                 {option.description && (
-                  <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-400">
+                  <p className="text-xs text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                     {option.description}
                   </p>
                 )}

@@ -25,6 +25,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
 import { PulseButton, MagneticButton } from '@/components/interactions/MicroInteractions';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { Helmet } from 'react-helmet';
 
 interface HostHome {
   id: number;
@@ -67,6 +68,11 @@ export default function HostDashboard() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Host Dashboard | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/3" />
@@ -77,7 +83,9 @@ export default function HostDashboard() {
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   // First-time host - no properties yet (Aurora Tide)

@@ -34,7 +34,7 @@ const ThemeManager: React.FC = () => {
           className="bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
           title="Change Theme"
         >
-          <Palette className="w-6 h-6 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" />
+          <Palette className="w-6 h-6 text-gray-600 dark:text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" />
         </button>
       ) : (
         // Expanded Theme Selector
@@ -49,7 +49,7 @@ const ThemeManager: React.FC = () => {
             </div>
             <button
               onClick={() = data-testid="button-element"> setIsExpanded(false)}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300 transition-colors"
             >
               ✕
             </button>
@@ -66,7 +66,7 @@ const ThemeManager: React.FC = () => {
                 <div className="font-medium text-gray-900 dark:text-white">
                   {currentTheme.name}
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
                   {currentTheme.description}
                 </div>
               </div>
@@ -78,7 +78,7 @@ const ThemeManager: React.FC = () => {
             <div key={category} className="mb-4">
               <div className="flex items-center gap-2 mb-2">
                 {getCategoryIcon(category)}
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 capitalize">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 capitalize">
                   {category}
                 </h4>
               </div>
@@ -103,7 +103,7 @@ const ThemeManager: React.FC = () => {
                         {theme.name}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 text-left">
+                    <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 text-left">
                       {theme.description}
                     </p>
                   </button>

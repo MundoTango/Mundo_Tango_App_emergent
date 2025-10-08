@@ -342,7 +342,7 @@ export default function EnhancedPostCreator({
                 <select
                   value={visibility}
                   onChange={(e) = data-testid="select-element"> setVisibility(e.target.value as any)}
-                  className="text-sm text-gray-600 border border-gray-200 rounded-md px-2 py-1 dark:text-neutral-400"
+                  className="text-sm text-gray-600 border border-gray-200 rounded-md px-2 py-1 dark:text-neutral-600 dark:text-neutral-400"
                 >
                   <option value="public">🌍 Public</option>
                   <option value="friends">👥 Friends</option>
@@ -366,13 +366,13 @@ export default function EnhancedPostCreator({
           {/* Additional Actions */}
           <div className="flex items-center space-x-2 mb-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
             <div className="w-px h-6 bg-gray-300"></div>
-            <button onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-400">
+            <button onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <Smile className="w-4 h-4" />
             </button>
-            <button onClick={() = data-testid="button-element"> setShowMentionPicker(!showMentionPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-400">
+            <button onClick={() = data-testid="button-element"> setShowMentionPicker(!showMentionPicker)} className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <AtSign className="w-4 h-4" / data-testid="link-w-4">
             </button>
-            <button className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-400" data-testid="button-p-2">
+            <button className="p-2 hover:bg-gray-200 rounded text-gray-600 dark:text-neutral-600 dark:text-neutral-400" data-testid="button-p-2">
               <Hash className="w-4 h-4" />
             </button>
           </div>
@@ -403,12 +403,12 @@ export default function EnhancedPostCreator({
               {mediaEmbeds.map((embed, index) => (
                 <div key={index} className="relative p-3 bg-gray-50 rounded-lg border dark:bg-neutral-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600 dark:text-neutral-400">
+                    <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       {embed.type} embed: {embed.preview}
                     </span>
                     <button
                       onClick={() = data-testid="button-element"> removeMediaEmbed(index)}
-                      className="text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+                      className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                     >
                       <X className="w-4 h-4" />
                     </button>

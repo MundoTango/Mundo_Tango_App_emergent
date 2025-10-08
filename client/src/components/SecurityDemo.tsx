@@ -245,7 +245,7 @@ export default function SecurityDemo() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Security System Demonstration</h1>
-        <p className="text-gray-600 mt-2 dark:text-neutral-400">
+        <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
           Test the comprehensive security features of Mundo Tango platform
         </p>
       </div>
@@ -274,7 +274,7 @@ export default function SecurityDemo() {
               <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                 <div className="flex-1">
                   <h4 className="font-medium">{test.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">{test.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{test.description}</p>
                   {test.result && (
                     <p className="text-xs text-gray-500 mt-1">{test.result}</p>
                   )}

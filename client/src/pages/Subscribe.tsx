@@ -99,6 +99,7 @@ const Subscribe: React.FC = () => {
         description: "Stripe is not configured. Please contact support.",
         variant: "destructive"
       });
+import { Helmet } from 'react-helmet';
       return;
     }
 
@@ -108,10 +109,17 @@ const Subscribe: React.FC = () => {
 
   if (tiersLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Subscribe | Life CEO</title>
+      </Helmet>
+      
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-turquoise-500 border-t-transparent rounded-full" />
       </div>
-    );
+    
+    </>
+  );
   }
 
   const tierData = tiers?.data;
@@ -159,7 +167,7 @@ const Subscribe: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-gray-600 dark:text-neutral-400">
+          <p className="text-xl text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Unlock premium features and take your tango journey to the next level
           </p>
         </div>
@@ -167,7 +175,7 @@ const Subscribe: React.FC = () => {
         {/* Current Plan Banner */}
         {isAuthenticated && currentTier !== 'free' && (
           <div className="mb-8 p-4 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-lg text-center">
-            <p className="text-gray-700 dark:text-neutral-300">
+            <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
               You're currently on the <span className="font-semibold">{currentTier}</span> plan.
               <Link href="/settings/billing" data-testid="link-element">
                 <a className="ml-2 text-turquoise-600 hover:text-turquoise-700 underline" data-testid="link-ml-2">
@@ -215,7 +223,7 @@ const Subscribe: React.FC = () => {
                     {tier.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-700 dark:text-neutral-300">{feature}</span>
+                        <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -225,7 +233,7 @@ const Subscribe: React.FC = () => {
                     <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-neutral-700">
                       {tier.notIncluded.map((feature, index) => (
                         <div key={index} className="flex items-start gap-2">
-                          <X className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                          <X className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-0.5 flex-shrink-0" />
                           <span className="text-sm text-gray-500">{feature}</span>
                         </div>
                       ))}
@@ -273,7 +281,7 @@ const Subscribe: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600 dark:text-neutral-400">
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Questions about our plans?{' '}
             <a 
               href="mailto:support@mundotango.life" 

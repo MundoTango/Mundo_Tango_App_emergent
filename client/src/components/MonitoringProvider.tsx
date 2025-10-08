@@ -172,7 +172,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
                   Help us improve your experience
                 </h4>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   We use analytics to understand how you use our platform and fix issues quickly. Your data is encrypted and never sold.
                 </p>
                 <div className="flex space-x-2 pt-1">
@@ -197,7 +197,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
               </div>
               <button
                 onClick={() => setShowConsentBanner(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300"
                 data-testid="button-close"
               >
                 <X className="w-4 h-4" />
@@ -216,7 +216,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy Settings</h3>
               <button
                 onClick={() => setShowPrivacySettings(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-600 dark:text-gray-300"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -228,10 +228,10 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   <BarChart className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Analytics (PostHog)</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Product usage and feature adoption</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">Product usage and feature adoption</p>
                   </div>
                 </div>
-                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'}`}>
+                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-600 dark:text-gray-400'}`}>
                   {hasConsent ? 'Enabled' : 'Disabled'}
                 </div>
               </div>
@@ -241,10 +241,10 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   <Eye className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Session Recording (OpenReplay)</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Help us identify UX issues</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">Help us identify UX issues</p>
                   </div>
                 </div>
-                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'}`}>
+                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-600 dark:text-gray-400'}`}>
                   {hasConsent ? 'Enabled' : 'Disabled'}
                 </div>
               </div>
@@ -254,10 +254,10 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   <Shield className="w-5 h-5 text-ocean-500" />
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Error Tracking (Sentry)</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Automatic error reporting</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">Automatic error reporting</p>
                   </div>
                 </div>
-                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'}`}>
+                <div className={`px-2 py-1 rounded text-xs font-medium ${hasConsent ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-600 dark:text-gray-400'}`}>
                   {hasConsent ? 'Enabled' : 'Disabled'}
                 </div>
               </div>
@@ -284,7 +284,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
               )}
             </div>
 
-            <p className="text-xs text-center text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-center text-gray-500 dark:text-gray-600 dark:text-gray-400">
               Your privacy is important to us. Data is encrypted and never sold to third parties.
               {isInitialized && (
                 <span className="block mt-1 text-teal-600 dark:text-teal-400 font-medium">

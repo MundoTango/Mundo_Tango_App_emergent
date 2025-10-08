@@ -44,7 +44,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">Unable to load photos</h3>
-          <p className="text-gray-600 dark:text-neutral-400">Please try again later.</p>
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Please try again later.</p>
         </CardContent>
       </Card>
     );
@@ -86,9 +86,9 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
         ) : (
           <Card className="glassmorphic-card">
             <CardContent className="p-12 text-center">
-              <Camera className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+              <Camera className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No photos yet</h3>
-              <p className="text-gray-600 dark:text-neutral-400">
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 {isOwnProfile
                   ? 'Start sharing your tango moments by uploading your first photo.'
                   : 'No photos to display.'}
@@ -135,7 +135,7 @@ export function UserPhotosGallery({ userId, isOwnProfile }: UserPhotosGalleryPro
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-gray-600 dark:text-neutral-400">Photo upload functionality coming soon.</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Photo upload functionality coming soon.</p>
           </div>
         </DialogContent>
       </Dialog>

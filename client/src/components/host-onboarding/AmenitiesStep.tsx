@@ -107,7 +107,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">What amenities do you offer?</h2>
-        <p className="text-gray-600 dark:text-neutral-400">These are the features guests look for most</p>
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">These are the features guests look for most</p>
       </div>
 
       <div className="space-y-8">
@@ -130,7 +130,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
                       checked={isChecked}
                       onCheckedChange={() => toggleAmenity(amenity.id)}
                     />
-                    <Icon className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+                    <Icon className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                     <span className="text-sm font-medium">{amenity.label}</span>
                   </label>
                 );
@@ -149,7 +149,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
               checked={data.smokingAllowed || false}
               onCheckedChange={(checked) => updateData({ smokingAllowed: checked })}
             />
-            <Cigarette className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+            <Cigarette className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
             <span className="text-sm">Smoking allowed</span>
           </label>
           <label className="flex items-center gap-3">
@@ -157,7 +157,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
               checked={data.petsAllowed || false}
               onCheckedChange={(checked) => updateData({ petsAllowed: checked })}
             />
-            <Dog className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+            <Dog className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
             <span className="text-sm">Pets allowed</span>
           </label>
           <label className="flex items-center gap-3">
@@ -165,7 +165,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
               checked={data.eventsAllowed || false}
               onCheckedChange={(checked) => updateData({ eventsAllowed: checked })}
             />
-            <Users className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+            <Users className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
             <span className="text-sm">Events allowed</span>
           </label>
           <label className="flex items-center gap-3">
@@ -173,7 +173,7 @@ export default function AmenitiesStep({ data, updateData }: AmenitiesStepProps) 
               checked={data.wheelchairAccessible || false}
               onCheckedChange={(checked) => updateData({ wheelchairAccessible: checked })}
             />
-            <Accessibility className="w-5 h-5 text-gray-600 dark:text-neutral-400" / data-testid="link-w-5">
+            <Accessibility className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" / data-testid="link-w-5">
             <span className="text-sm">Wheelchair accessible</span>
           </label>
         </div>

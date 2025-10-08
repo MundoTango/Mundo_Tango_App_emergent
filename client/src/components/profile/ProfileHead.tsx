@@ -186,7 +186,7 @@ export default function ProfileHead({
             </div>
             
             {/* Username and Location */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-neutral-400">
+            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <span>@{user.username}</span>
               {user.city && (
                 <div className="flex items-center gap-1">
@@ -203,7 +203,7 @@ export default function ProfileHead({
 
           {/* Bio */}
           {user.bio && (
-            <p className="text-gray-700 max-w-2xl dark:text-neutral-300">
+            <p className="text-gray-700 max-w-2xl dark:text-neutral-600 dark:text-neutral-300">
               {user.bio}
             </p>
           )}
@@ -255,7 +255,7 @@ export default function ProfileHead({
           {/* Languages */}
           {user.languages && user.languages.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Languages:</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Languages:</span>
               {user.languages.map((language) => (
                 <Badge key={language} variant="secondary" className="capitalize">
                   {language}

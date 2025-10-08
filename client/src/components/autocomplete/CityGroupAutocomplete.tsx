@@ -119,7 +119,7 @@ export default function CityGroupAutocomplete({
       )}
       
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
         <Input
           id="city-search"
           type="text"
@@ -143,7 +143,7 @@ export default function CityGroupAutocomplete({
                 <span className="font-medium text-gray-900 dark:text-gray-100">{value.name}</span>
               </div>
               {value.memberCount !== undefined && (
-                <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center gap-1 mt-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   <Users className="w-3 h-3" />
                   <span>{value.memberCount} members</span>
                 </div>
@@ -188,14 +188,14 @@ export default function CityGroupAutocomplete({
                             {city}
                           </div>
                           {country && (
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                               {country}
                             </div>
                           )}
                         </div>
                       </div>
                       {cityGroup.memberCount !== undefined && (
-                        <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                           <Users className="w-3 h-3" />
                           <span>{cityGroup.memberCount}</span>
                         </div>

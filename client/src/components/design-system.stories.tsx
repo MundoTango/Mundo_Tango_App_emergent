@@ -7,7 +7,7 @@ export const Welcome: Story = () => (
       <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
         Aurora Tide Design System
       </h1>
-      <p className="text-lg text-neutral-700 dark:text-neutral-300 mb-8">
+      <p className="text-lg text-neutral-700 dark:text-neutral-600 dark:text-neutral-300 mb-8">
         Glassmorphic MT Ocean Theme with comprehensive design tokens,
         animations, and accessibility compliance (WCAG 2.1 AA).
       </p>
@@ -94,7 +94,7 @@ export const GlassCards: Story = () => (
       {[1, 2, 3, 4].map(depth => (
         <GlassCard key={depth} depth={depth as 1 | 2 | 3 | 4} className="p-6">
           <h3 className="text-xl font-semibold mb-2">Depth {depth}</h3>
-          <p className="text-neutral-700 dark:text-neutral-300">
+          <p className="text-neutral-700 dark:text-neutral-600 dark:text-neutral-300">
             {depth === 1 && 'Subtle - For nested content'}
             {depth === 2 && 'Primary - Default for cards'}
             {depth === 3 && 'Elevated - For modals & dialogs'}

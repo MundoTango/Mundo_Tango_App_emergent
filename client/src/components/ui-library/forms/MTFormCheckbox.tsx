@@ -132,7 +132,7 @@ export function MTFormCheckboxGroup<
       render={({ field }) => (
         <FormItem className={className}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 mb-3 block dark:text-neutral-300">
+            <FormLabel className="text-sm font-medium text-gray-700 mb-3 block dark:text-neutral-600 dark:text-neutral-300">
               {label}
               {required && <span className="text-red-500 ml-1">*</span>}
             </FormLabel>

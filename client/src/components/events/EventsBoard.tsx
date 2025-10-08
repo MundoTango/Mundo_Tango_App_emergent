@@ -77,7 +77,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                     </Badge>
                   </div>
                   
-                  <div className="space-y-2 text-sm text-gray-600 dark:text-neutral-400">
+                  <div className="space-y-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
                       {format(new Date(event.startDate), 'MMM d, yyyy')}
@@ -124,7 +124,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         <TabsContent value="recurring">
           <div className="glassmorphic-card p-6">
             <h2 className="text-xl font-semibold mb-4">Recurring Event Series</h2>
-            <p className="text-gray-600 mb-4 dark:text-neutral-400">
+            <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
               Manage your recurring events here. You can create weekly milongas, monthly workshops, or any repeating event pattern.
             </p>
             <Button
@@ -139,7 +139,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         <TabsContent value="delegated">
           <div className="glassmorphic-card p-6">
             <h2 className="text-xl font-semibold mb-4">Delegated Events</h2>
-            <p className="text-gray-600 dark:text-neutral-400">
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               Events where you have been assigned as an admin or moderator will appear here.
             </p>
           </div>

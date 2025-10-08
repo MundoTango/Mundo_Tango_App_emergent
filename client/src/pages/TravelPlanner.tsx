@@ -34,6 +34,7 @@ import {
   ChevronRight,
   Info
 } from "lucide-react";
+import { Helmet } from 'react-helmet';
 
 interface TripDestination {
   id: string;
@@ -157,13 +158,18 @@ const TravelPlanner: React.FC = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Travel Planner | Life CEO</title>
+      </Helmet>
+      
     <div className="container mx-auto p-6 max-w-7xl">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Tango Travel Planner
         </h1>
-        <p className="text-gray-600 dark:text-neutral-400">Plan your tango journey across cities and events worldwide</p>
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Plan your tango journey across cities and events worldwide</p>
       </div>
 
       {/* User Travel Stats */}
@@ -173,7 +179,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Cities Visited</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Cities Visited</p>
                   <p className="text-2xl font-bold">{travelHistory?.citiesVisited || 0}</p>
                 </div>
                 <MapPin className="h-8 w-8 text-turquoise-500" />
@@ -185,7 +191,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Events Attended</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events Attended</p>
                   <p className="text-2xl font-bold">{travelHistory?.eventsAttended || 0}</p>
                 </div>
                 <CalendarIcon className="h-8 w-8 text-ocean-500" />
@@ -197,7 +203,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Countries</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Countries</p>
                   <p className="text-2xl font-bold">{travelHistory?.countries || 0}</p>
                 </div>
                 <Globe className="h-8 w-8 text-blue-500" />
@@ -209,7 +215,7 @@ const TravelPlanner: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-neutral-400">Next Trip</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Next Trip</p>
                   <p className="text-2xl font-bold">
                     {travelHistory?.nextTrip ? format(new Date(travelHistory.nextTrip), 'MMM d') : 'None'}
                   </p>
@@ -383,7 +389,7 @@ const TravelPlanner: React.FC = () => {
                           {/* Events for this destination */}
                           {dest.city && (
                             <div className="mt-4">
-                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">
+                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                                 {dest.events?.length || 0} tango events during your stay
                               </p>
                               {dest.events?.length > 0 && (
@@ -473,7 +479,7 @@ const TravelPlanner: React.FC = () => {
                                 <h4 className="font-medium">{event.title}</h4>
                                 <Badge variant="secondary">{event.eventType}</Badge>
                               </div>
-                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{event.location}</p>
+                              <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{event.location}</p>
                               <div className="flex items-center gap-4 text-sm text-gray-500">
                                 <span className="flex items-center gap-1">
                                   <CalendarIcon className="h-3 w-3" />
@@ -524,7 +530,7 @@ const TravelPlanner: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card className="bg-green-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">Total Budget</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Budget</p>
                       <p className="text-2xl font-bold text-green-600">
                         ${budget || '0'}
                       </p>
@@ -532,7 +538,7 @@ const TravelPlanner: React.FC = () => {
                   </Card>
                   <Card className="bg-blue-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">Per Person</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Per Person</p>
                       <p className="text-2xl font-bold text-blue-600">
                         ${budget ? Math.round(parseFloat(budget) / parseInt(travelers)) : '0'}
                       </p>
@@ -540,7 +546,7 @@ const TravelPlanner: React.FC = () => {
                   </Card>
                   <Card className="bg-purple-50">
                     <CardContent className="p-4">
-                      <p className="text-sm text-gray-600 dark:text-neutral-400">Per Day</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Per Day</p>
                       <p className="text-2xl font-bold text-purple-600">
                         ${budget && destinations.length ? 
                           Math.round(parseFloat(budget) / destinations.reduce((acc, d) => 
@@ -557,7 +563,7 @@ const TravelPlanner: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <div className="flex items-center gap-2">
-                        <Hotel className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                        <Hotel className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                         <span>Accommodation</span>
                       </div>
                       <Input
@@ -568,7 +574,7 @@ const TravelPlanner: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <div className="flex items-center gap-2">
-                        <Plane className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                        <Plane className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                         <span>Transportation</span>
                       </div>
                       <Input
@@ -579,7 +585,7 @@ const TravelPlanner: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <div className="flex items-center gap-2">
-                        <CalendarIcon className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                        <CalendarIcon className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                         <span>Events & Classes</span>
                       </div>
                       <Input
@@ -590,7 +596,7 @@ const TravelPlanner: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-neutral-800">
                       <div className="flex items-center gap-2">
-                        <Heart className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                        <Heart className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                         <span>Food & Entertainment</span>
                       </div>
                       <Input
@@ -620,7 +626,7 @@ const TravelPlanner: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8 text-gray-500">
-                <Briefcase className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                <Briefcase className="h-12 w-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
                 <p>No saved trips yet</p>
                 <p className="text-sm mt-1">Create your first trip in the Itinerary tab</p>
               </div>
@@ -629,6 +635,8 @@ const TravelPlanner: React.FC = () => {
         </TabsContent>
       </Tabs>
     </div>
+  
+    </>
   );
 };
 

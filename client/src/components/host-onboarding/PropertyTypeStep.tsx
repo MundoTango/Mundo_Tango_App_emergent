@@ -41,7 +41,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">What type of property do you have?</h2>
-        <p className="text-gray-600 dark:text-neutral-400">Choose the option that best describes your place</p>
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Choose the option that best describes your place</p>
       </div>
 
       <div>
@@ -60,7 +60,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
                 onClick={() => updateData({ propertyType: type.id })}
               >
                 <div className="flex flex-col items-center text-center">
-                  <Icon className={`w-8 h-8 mb-2 ${isSelected ? 'text-pink-500' : 'text-gray-400'}`} />
+                  <Icon className={`w-8 h-8 mb-2 ${isSelected ? 'text-pink-500' : 'text-gray-600 dark:text-gray-400'}`} />
                   <h3 className="font-medium">{type.label}</h3>
                   <p className="text-xs text-gray-500 mt-1">{type.description}</p>
                 </div>
@@ -97,7 +97,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
       {/* External listing links */}
       <div className="border-t pt-6">
         <h3 className="text-lg font-medium mb-4">Already listed elsewhere?</h3>
-        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
           If you have this property listed on other platforms, you can import details
         </p>
         <div className="space-y-3">

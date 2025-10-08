@@ -5,6 +5,7 @@ import { Search, Plus, Users, Globe, Lock, Star, MapPin, UserPlus } from 'lucide
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
+import { Helmet } from 'react-helmet';
 
 export default function GroupsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,6 +53,11 @@ export default function GroupsPage() {
   }, []);
 
   return (
+    <>
+      <Helmet>
+        <title>Groups Old | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-4xl mx-auto p-6">
         {/* TrangoTech Header */}
@@ -142,7 +148,7 @@ export default function GroupsPage() {
                     key={group.id} 
                     className="card bg-background-color cursor-pointer hover:shadow-lg transition-shadow"
                     onClick={() => setLocation(`/groups/${group.slug}`)}
-                  >
+                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setLocation(`/groups/${group.slug(e); } }}>
                     <div className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
@@ -264,6 +270,8 @@ export default function GroupsPage() {
         </div>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }
 

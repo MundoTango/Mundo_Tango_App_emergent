@@ -155,7 +155,7 @@ export function GuestProfileDisplay({ profile, isOwnProfile }: GuestProfileDispl
           {profile.specialNeeds && (
             <div>
               <h4 className="font-semibold mb-2">Special Needs</h4>
-              <p className="text-gray-700 dark:text-neutral-300">{profile.specialNeeds}</p>
+              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{profile.specialNeeds}</p>
             </div>
           )}
         </CardContent>

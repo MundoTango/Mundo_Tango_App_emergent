@@ -139,7 +139,7 @@ export default function MTTableRow({
                   title="View"
                   data-testid={`${testId}-view`}
                 >
-                  <Eye className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                  <Eye className="w-4 h-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
                 </button>
               )}
               {onEdit && (
@@ -175,7 +175,7 @@ export default function MTTableRow({
                     className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     data-testid={`${testId}-more`}
                   >
-                    <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
                   </button>
                   <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
                     {actions.map((action, idx) => (

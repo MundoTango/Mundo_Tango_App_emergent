@@ -179,7 +179,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 )}>
                   {currentCategory.name}
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">{currentCategory.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{currentCategory.description}</p>
               </div>
             </div>
           </div>
@@ -248,11 +248,11 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                     )}
                   >
                     <CardContent className="flex flex-col justify-between h-full p-4">
-                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer">
+                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer" role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => flipCard(agent.id)(e); } }}>
                         <h5 className="font-semibold text-sm flex items-center gap-2">
                           {agent.emoji} {agent.label}
                         </h5>
-                        <p className="text-xs text-gray-600 mt-2 dark:text-neutral-400">{agent.description}</p>
+                        <p className="text-xs text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">{agent.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}

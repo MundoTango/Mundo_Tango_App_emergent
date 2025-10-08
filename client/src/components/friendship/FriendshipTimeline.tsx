@@ -99,7 +99,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
               <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                 {friendName || 'Friend'}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
                 Friends since {(() => {
                   if (!stats?.friendsSince) return 'recently';
                   try {
@@ -118,15 +118,15 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-turquoise-600">{stats.totalDances || 0}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Dances</div>
+                <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Dances</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-cyan-600">{stats.sharedEvents || 0}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Events</div>
+                <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Events</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-blue-600">{stats.totalInteractions || 0}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Interactions</div>
+                <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Interactions</div>
               </div>
             </div>
           )}
@@ -164,7 +164,7 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
             ))
           ) : filteredTimeline.length === 0 ? (
             <Card className="p-8 text-center glassmorphic-card">
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
                 No {selectedFilter === 'all' ? 'activities' : selectedFilter} recorded yet
               </p>
             </Card>
@@ -219,19 +219,19 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                       <div>
                         <h3 className="font-semibold text-lg">{event.title}</h3>
                         {event.location && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
                             {event.location}
                           </p>
                         )}
                       </div>
-                      <time className="text-sm text-gray-500 dark:text-gray-400">
+                      <time className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         {formatDate(event.date)}
                       </time>
                     </div>
 
                     {event.description && (
-                      <p className="text-gray-700 dark:text-gray-300 mb-2">{event.description}</p>
+                      <p className="text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2">{event.description}</p>
                     )}
 
                     {/* Event-specific content */}
@@ -243,12 +243,12 @@ export function FriendshipTimeline({ friendId, friendName, friendImage }: Friend
                             className={`w-4 h-4 ${
                               i < (event.metadata?.danceRating || 0)
                                 ? 'text-red-500 fill-red-500' 
-                                : 'text-gray-300'
+                                : 'text-gray-600 dark:text-gray-300'
                             }`}
                           />
                         ))}
                         {event.metadata?.songName && (
-                          <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
+                          <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 ml-2">
                             • {event.metadata.songName}
                           </span>
                         )}

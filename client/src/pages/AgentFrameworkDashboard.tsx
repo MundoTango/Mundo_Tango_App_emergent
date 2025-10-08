@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, CheckCircle, Clock, Trophy, Zap, Brain, Shield, Settings } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface FrameworkStatus {
   framework: {
@@ -124,6 +125,11 @@ export default function AgentFrameworkDashboard() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Agent Framework Dashboard | Life CEO</title>
+      </Helmet>
+      
       <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-50 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center h-64">
@@ -134,7 +140,9 @@ export default function AgentFrameworkDashboard() {
           </div>
         </div>
       </div>
-    );
+    
+    </>
+  );
   }
 
   if (error) {
@@ -334,7 +342,7 @@ export default function AgentFrameworkDashboard() {
                       <CheckCircle className="h-4 w-4 text-green-500" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mb-3 dark:text-neutral-400">
+                  <p className="text-xs text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">
                     {achievement.description}
                   </p>
                   <div className="mb-2">

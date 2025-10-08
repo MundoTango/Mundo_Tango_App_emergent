@@ -86,7 +86,7 @@ export default function MTTableHeader({
                 ) : sorted === 'desc' ? (
                   <ChevronDown className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 ) : (
-                  <ChevronsUpDown className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                  <ChevronsUpDown className="w-4 h-4 text-gray-600 dark:text-gray-400 dark:text-gray-500" />
                 )}
               </span>
             )}
@@ -101,7 +101,7 @@ export default function MTTableHeader({
                 className="inline-flex shrink-0 p-1 rounded hover:bg-teal-200/50 dark:hover:bg-teal-700/50 transition-colors"
                 data-testid={`${testId}-filter`}
               >
-                <Filter className="w-3 h-3 text-gray-400 dark:text-gray-500" />
+                <Filter className="w-3 h-3 text-gray-600 dark:text-gray-400 dark:text-gray-500" />
               </button>
             )}
           </>
@@ -114,7 +114,7 @@ export default function MTTableHeader({
           className="absolute right-0 top-0 h-full w-1 cursor-col-resize hover:bg-teal-400/50 transition-colors"
           onMouseDown={handleMouseDown}
           onClick={(e) => e.stopPropagation()}
-        />
+        / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
       )}
     </th>
   );

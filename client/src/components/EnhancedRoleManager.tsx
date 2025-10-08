@@ -302,7 +302,7 @@ export default function EnhancedRoleManager() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Enhanced Role Management System</h1>
-        <p className="text-gray-600 mt-2 dark:text-neutral-400">
+        <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
           Complete 16+ community roles plus platform administration for Mundo Tango
         </p>
       </div>
@@ -419,7 +419,7 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{role.description}</p>
+                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{role.description}</p>
                       <p className="text-xs text-gray-500">
                         {Object.keys(role.permissions).length} permissions
                       </p>
@@ -449,7 +449,7 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{role.description}</p>
+                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">{role.description}</p>
                       <p className="text-xs text-gray-500">
                         {Object.keys(role.permissions).length} permissions
                       </p>
@@ -545,7 +545,7 @@ export default function EnhancedRoleManager() {
                           <div className="space-y-2">
                             <div className="flex items-center gap-2">
                               <span className="font-medium">{user.name}</span>
-                              <span className="text-sm text-gray-600 dark:text-neutral-400">@{user.username}</span>
+                              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username}</span>
                               {!user.isActive && (
                                 <Badge variant="outline" className="text-red-600 border-red-200">
                                   Inactive
@@ -553,7 +553,7 @@ export default function EnhancedRoleManager() {
                               )}
                             </div>
                             <div>
-                              <span className="text-sm text-gray-600 dark:text-neutral-400">Primary: </span>
+                              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Primary: </span>
                               <Badge className={getRoleColor(user.primaryRole)}>
                                 {user.primaryRole.replace(/_/g, ' ')}
                               </Badge>
@@ -590,9 +590,9 @@ export default function EnhancedRoleManager() {
           ) : (
             <Card>
               <CardContent className="p-8 text-center">
-                <Crown className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                <Crown className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
                 <h3 className="text-lg font-medium mb-2">Admin Access Required</h3>
-                <p className="text-gray-600 dark:text-neutral-400">
+                <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   User management features are only available to administrators and super administrators.
                 </p>
               </CardContent>

@@ -12,6 +12,7 @@ import {
   MTFormButton,
   MTFormField 
 } from "@/components/ui-library";
+import { Helmet } from 'react-helmet';
 
 export default function Login() {
   const { login } = useAuth();
@@ -44,6 +45,11 @@ export default function Login() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Login | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -74,7 +80,7 @@ export default function Login() {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2 dark:text-neutral-400">
+            <CardDescription className="text-gray-600 mt-2 flex items-center justify-center gap-2 dark:text-neutral-600 dark:text-neutral-400">
               <Globe className="h-4 w-4" />
               Sign in to your Mundo Tango account
             </CardDescription>
@@ -111,7 +117,7 @@ export default function Login() {
             />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer dark:text-neutral-400">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer dark:text-neutral-600 dark:text-neutral-400">
                 <input
                   type="checkbox"
                   {...form.register("rememberMe")}
@@ -201,7 +207,7 @@ export default function Login() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-200 text-center dark:border-neutral-700">
-            <p className="text-sm text-gray-600 dark:text-neutral-400">
+            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               Don't have an account?{" "}
               <Link 
                 href="/register" 
@@ -215,5 +221,7 @@ export default function Login() {
         </CardContent>
       </Card>
     </div>
+  
+    </>
   );
 }

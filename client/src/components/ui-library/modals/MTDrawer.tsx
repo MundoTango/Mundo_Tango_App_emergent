@@ -193,7 +193,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
           style={{ zIndex }}
           onClick={closeOnOverlayClick ? onClose : undefined}
           data-testid={`${testId}-overlay`}
-        />
+        / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeOnOverlayClick ? onClose : undefined(e); } }}>
       )}
 
       {/* Drawer */}
@@ -230,7 +230,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
                 </h2>
               )}
               {description && (
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   {description}
                 </p>
               )}
@@ -247,7 +247,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
                 aria-label="Close drawer"
                 data-testid={`${testId}-close`}
               >
-                <X className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
+                <X className="w-5 h-5 text-gray-500 dark:text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
               </button>
             )}
           </div>

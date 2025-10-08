@@ -54,7 +54,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         <Card className="p-4 glassmorphic-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Friends</p>
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Total Friends</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                 {analytics.totalFriends || 0}
               </p>
@@ -66,7 +66,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         <Card className="p-4 glassmorphic-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Dance Partners</p>
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Dance Partners</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-rose-500 bg-clip-text text-transparent">
                 {analytics.uniqueDancePartners || 0}
               </p>
@@ -78,7 +78,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         <Card className="p-4 glassmorphic-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Cities Connected</p>
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Cities Connected</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
                 {analytics.citiesConnected || 0}
               </p>
@@ -90,7 +90,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
         <Card className="p-4 glassmorphic-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Avg Closeness</p>
+              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Avg Closeness</p>
               <p className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-violet-500 bg-clip-text text-transparent">
                 {analytics.avgClosenessScore?.toFixed(1) || 0}%
               </p>
@@ -202,7 +202,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
                   </div>
                   <div>
                     <p className="font-medium">{friend.name}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                       {friend.danceCount} dances • {friend.sharedEvents} events
                     </p>
                   </div>
@@ -232,7 +232,7 @@ export function FriendshipAnalytics({ userId }: FriendshipAnalyticsProps) {
           {(analytics.friendsByCity || []).map((city: any) => (
             <div key={city.name} className="text-center">
               <div className="text-2xl font-bold text-turquoise-600">{city.count}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">{city.name}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{city.name}</div>
             </div>
           ))}
         </div>

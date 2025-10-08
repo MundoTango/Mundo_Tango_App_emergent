@@ -132,7 +132,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Users className="w-5 h-5 text-blue-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.activeAgents}/{systemStats.totalAgents}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-400">Active Agents</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Agents</div>
                     </div>
                   </div>
                 </CardContent>
@@ -144,7 +144,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Brain className="w-5 h-5 text-purple-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.memoryEntries}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-400">Memory Entries</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Memory Entries</div>
                     </div>
                   </div>
                 </CardContent>
@@ -156,7 +156,7 @@ const LifeCEOPortal: React.FC = () => {
                     <Clock className="w-5 h-5 text-green-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.dailyReviewTime}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-400">Daily Review</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Daily Review</div>
                     </div>
                   </div>
                 </CardContent>
@@ -168,7 +168,7 @@ const LifeCEOPortal: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-orange-500" />
                     <div>
                       <div className="text-2xl font-bold">{systemStats.tasksCompleted}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-400">Tasks Completed</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tasks Completed</div>
                     </div>
                   </div>
                 </CardContent>

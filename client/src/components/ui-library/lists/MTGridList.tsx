@@ -167,7 +167,10 @@ export default function MTGridList({
           else if (onItemClick) onItemClick(item, index);
         }}
         data-testid={`${testId}-card-${item.id}`}
-      >
+       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
+          if (item.disabled) return;
+          if (item.onClick) item.onClick();
+          else if (onItemClick) onItemClick(item, index);(e); } }}>
         {/* Selection Checkbox */}
         {selectable && (
           <div className="absolute top-2 left-2 z-10">
@@ -224,7 +227,7 @@ export default function MTGridList({
           
           {item.subtitle && (
             <p className={cn(
-              'text-gray-600 dark:text-gray-400 mt-1',
+              'text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1',
               cardVariant === 'compact' ? 'text-xs' : 'text-sm'
             )}>
               {item.subtitle}
@@ -252,7 +255,7 @@ export default function MTGridList({
           
           {/* Actions */}
           {item.actions && (
-            <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+            <div className="mt-3" onClick={(e) => e.stopPropagation()} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
               {item.actions}
             </div>
           )}
@@ -284,7 +287,7 @@ export default function MTGridList({
                 className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
                 data-testid={`${testId}-select-all`}
               />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
                 Select all ({localSelectedItems.size}/{items.length})
               </span>
             </label>

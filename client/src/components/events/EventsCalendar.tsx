@@ -151,11 +151,13 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                   }}
                   className="p-4 rounded-lg border border-gray-200 hover:border-turquoise-400 cursor-pointer transition-all dark:border-neutral-700"
                   style={{ borderLeft: `4px solid ${getEventColor(event)}` }}
-                >
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
+                    setSelectedEvent(event);
+                    if (onEventClick) onEventClick(event);(e); } }}>
                   <div className="flex justify-between items-start">
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{event.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">
+                      <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                         {format(new Date(event.startDate), 'MMM d, yyyy h:mm a')}
                       </p>
                       {event.location && (
@@ -177,7 +179,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
 
         {/* Event Legend */}
         <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
-          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Event Types</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Event Types</h4>
           <div className="flex flex-wrap gap-2">
             {[
               { type: 'milonga', color: '#38b2ac', label: 'Milonga' },
@@ -193,7 +195,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                   className="w-3 h-3 rounded-full" 
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-xs text-gray-600 dark:text-neutral-400">{label}</span>
+                <span className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{label}</span>
               </div>
             ))}
           </div>
@@ -227,23 +229,23 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
               )}
               
               <div className="space-y-2">
-                <p className="text-sm text-gray-600 dark:text-neutral-400">{selectedEvent.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{selectedEvent.description}</p>
                 
                 <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+                  <Calendar className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   <span>{format(new Date(selectedEvent.startDate), 'PPP p')}</span>
                 </div>
                 
                 {selectedEvent.location && (
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-400">📍</span>
+                    <span className="text-gray-600 dark:text-gray-400">📍</span>
                     <span>{selectedEvent.location}</span>
                   </div>
                 )}
                 
                 {selectedEvent.price && (
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-400">💵</span>
+                    <span className="text-gray-600 dark:text-gray-400">💵</span>
                     <span>{selectedEvent.currency} {selectedEvent.price}</span>
                   </div>
                 )}

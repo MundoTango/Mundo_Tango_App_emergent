@@ -74,7 +74,11 @@
     "migrate:glasscard": "node design-system/scripts/migrate-glasscard.js",
     "migrate:all": "npm run migrate:tokens && npm run migrate:dark-mode && npm run migrate:testids",
     "lint:a11y": "eslint --config .eslintrc.accessibility.json client/src --ext .tsx,.jsx",
-    "validate:wcag": "node design-system/scripts/wcag-validator.js"
+    "validate:wcag": "node design-system/scripts/wcag-validator.js",
+    "fix:page-titles": "node design-system/scripts/fix-page-titles.js",
+    "fix:contrast": "node design-system/scripts/fix-contrast.js",
+    "fix:keyboard": "node design-system/scripts/fix-keyboard-support.js",
+    "fix:all-a11y": "npm run fix:page-titles && npm run fix:contrast && npm run fix:keyboard"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",

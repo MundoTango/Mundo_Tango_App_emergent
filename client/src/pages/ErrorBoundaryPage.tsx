@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle, RefreshCw, Home, FileQuestion, Bug, Mail } from 'lucide-react';
 import { useLocation } from 'wouter';
+import { Helmet } from 'react-helmet';
 
 interface ErrorBoundaryPageProps {
   error?: Error;
@@ -55,6 +56,11 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Error Boundary Page | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 p-4">
       <Card className="w-full max-w-2xl glassmorphic-card">
         <CardHeader className="text-center pb-4">
@@ -68,7 +74,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         
         <CardContent className="space-y-6">
           <div className="text-center">
-            <p className="text-gray-600 mb-2 dark:text-neutral-400">
+            <p className="text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
               We're sorry, but something unexpected happened. Don't worry, your data is safe!
             </p>
             <p className="text-sm text-gray-500">
@@ -141,7 +147,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
               <FileQuestion className="w-5 h-5 text-turquoise-600" />
               Common Solutions
             </h4>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-neutral-400">
+            <ul className="space-y-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               <li className="flex items-start gap-2">
                 <span className="text-turquoise-600 mt-0.5">•</span>
                 <span>Clear your browser cache and cookies</span>
@@ -172,5 +178,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         </CardContent>
       </Card>
     </div>
+  
+    </>
   );
 }

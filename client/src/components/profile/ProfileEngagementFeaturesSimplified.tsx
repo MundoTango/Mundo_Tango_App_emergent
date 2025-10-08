@@ -64,7 +64,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                   style={{ width: `${achievement.progress}%` }}
                 ></div>
               </div>
-              <div className="text-xs text-gray-400 mt-1">
+              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                 {achievement.progress}% complete
               </div>
               {achievement.unlocked && (
@@ -90,14 +90,14 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
               key={challenge.name}
               className="p-4 bg-white/70 rounded-lg border border-gray-200 hover:border-turquoise-300 transition-colors cursor-pointer dark:bg-neutral-900"
               onClick={() => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name)}
-            >
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name)(e); } }}>
               <div className="flex items-center justify-between mb-2">
                 <h5 className="font-medium text-gray-900 dark:text-neutral-100">{challenge.name}</h5>
                 <Badge variant="outline" className="bg-turquoise-50 text-turquoise-700 border-turquoise-200">
                   +{challenge.points} pts
                 </Badge>
               </div>
-              <p className="text-sm text-gray-600 mb-3 dark:text-neutral-400">{challenge.description}</p>
+              <p className="text-sm text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">{challenge.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex-1 mr-3">
                   <div className="w-full bg-gray-200 rounded-full h-2">
@@ -133,7 +133,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
             <div key={streak.name} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200 dark:bg-neutral-900">
               <streak.icon className={`w-8 h-8 mx-auto mb-2 ${streak.color}`} />
               <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{streak.current}</div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">{streak.name}</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{streak.name}</div>
               <div className="text-xs text-gray-500 mt-1">Best: {streak.best} days</div>
             </div>
           ))}
@@ -155,7 +155,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
             <div key={metric.label} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200 dark:bg-neutral-900">
               <metric.icon className={`w-6 h-6 mx-auto mb-2 ${metric.color}`} />
               <div className="text-xl font-bold text-gray-900 dark:text-neutral-100">{metric.value}</div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">{metric.label}</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{metric.label}</div>
             </div>
           ))}
         </div>
@@ -173,7 +173,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{feature.description}</p>
               </div>
               <Button 
                 variant="outline" 

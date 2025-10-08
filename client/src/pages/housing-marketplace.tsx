@@ -46,6 +46,7 @@ import {
   Video as VideoIcon
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import { Helmet } from 'react-helmet';
 
 // Helper to check if URL is a video
 const isVideoUrl = (url: string): boolean => {
@@ -251,6 +252,11 @@ export default function HousingMarketplace() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Housing Marketplace | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
@@ -690,7 +696,7 @@ export default function HousingMarketplace() {
         {/* Empty State */}
         {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
-            <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+            <Home className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-400 mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
             <p className="text-gray-600">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
           </Card>
@@ -764,5 +770,7 @@ export default function HousingMarketplace() {
         )}
       </div>
     </DashboardLayout>
+  
+    </>
   );
 }

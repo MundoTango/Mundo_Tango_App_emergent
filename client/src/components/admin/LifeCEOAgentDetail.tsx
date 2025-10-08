@@ -25,7 +25,7 @@ const LifeCEOAgentDetail: React.FC = () => {
             </Link>
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Agent Management</h1>
-          <p className="text-lg text-gray-600 dark:text-neutral-400">
+          <p className="text-lg text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Configure and interact with your Life CEO agent
           </p>
         </div>

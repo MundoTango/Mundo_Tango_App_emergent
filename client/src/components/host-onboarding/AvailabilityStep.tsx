@@ -36,7 +36,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">When can guests book?</h2>
-        <p className="text-gray-600 dark:text-neutral-400">
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
           Set your availability preferences and booking settings
         </p>
       </div>
@@ -49,7 +49,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
               <Zap className="w-5 h-5 text-purple-600" />
               <h3 className="text-lg font-medium">Instant Book</h3>
             </div>
-            <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">
+            <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">
               Guests can book instantly without waiting for your approval
             </p>
             <p className="text-xs text-purple-600 font-medium">
@@ -160,13 +160,13 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Calendar availability (simplified for MVP) */}
       <div>
         <h3 className="text-lg font-medium mb-2">Set your calendar availability</h3>
-        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
           Select dates when your property is available. You can update this anytime.
         </p>
         
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 dark:bg-neutral-800">
           <div className="flex items-center gap-2 mb-3">
-            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-neutral-400" />
+            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
             <span className="text-sm font-medium">Availability options</span>
           </div>
           

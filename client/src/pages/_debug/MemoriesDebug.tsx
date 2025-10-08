@@ -49,6 +49,7 @@ const MemoriesDebug: React.FC = () => {
       components.EnhancedMemoriesUI = true;
     } catch (e) {
       console.error('EnhancedMemoriesUI import failed:', e);
+import { Helmet } from 'react-helmet';
     }
 
     return components;
@@ -78,6 +79,11 @@ const MemoriesDebug: React.FC = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Memories Debug | Life CEO</title>
+      </Helmet>
+      
     <div style={{ 
       minHeight: '100vh', 
       padding: '20px', 
@@ -193,6 +199,8 @@ const MemoriesDebug: React.FC = () => {
         </div>
       </div>
     </div>
+  
+    </>
   );
 };
 

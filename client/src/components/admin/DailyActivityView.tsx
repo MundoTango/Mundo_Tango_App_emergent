@@ -221,16 +221,16 @@ function DailyActivityView() {
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <RefreshCw className="h-8 w-8 text-gray-400 animate-spin mx-auto" />
+                <RefreshCw className="h-8 w-8 text-gray-600 dark:text-gray-400 animate-spin mx-auto" />
                 <p className="text-gray-500">Loading activities...</p>
               </div>
             </div>
           ) : todayActivities.length === 0 ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <Activity className="h-8 w-8 text-gray-400 mx-auto" / data-testid="link-h-8">
+                <Activity className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto" / data-testid="link-h-8">
                 <p className="text-gray-500">No activities recorded for this date</p>
-                <p className="text-sm text-gray-400">Activities will appear here as you work on projects</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Activities will appear here as you work on projects</p>
               </div>
             </div>
           ) : (
@@ -240,7 +240,7 @@ function DailyActivityView() {
                   key={index} 
                   className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors dark:bg-neutral-800"
                   onClick={() => setSelectedItem(activity.item)}
-                >
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(activity.item)(e); } }}>
                   {/* Time */}
                   <div className="flex-none text-sm text-gray-500 w-20">
                     {formatTime(activity.timestamp)}
@@ -256,7 +256,7 @@ function DailyActivityView() {
                     <div className="flex items-start justify-between">
                       <div>
                         <h4 className="font-medium">{activity.item.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">{activity.item.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.item.description}</p>
                       </div>
                       <Badge className={getActivityColor(activity.type)}>
                         {activity.type}
@@ -265,7 +265,7 @@ function DailyActivityView() {
 
                     {/* Changes */}
                     {activity.changes && activity.changes.length > 0 && (
-                      <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-400">
+                      <ul className="text-sm text-gray-600 space-y-1 dark:text-neutral-600 dark:text-neutral-400">
                         {activity.changes.map((change, idx) => (
                           <li key={idx} className="flex items-center gap-2">
                             <span className="w-1 h-1 bg-gray-400 rounded-full" />
@@ -281,20 +281,20 @@ function DailyActivityView() {
                         <div className="flex items-center gap-2">
                           <Monitor className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.completion} className="h-1.5 w-16" />
-                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.completion}%</span>
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.item.completion}%</span>
                         </div>
                       )}
                       {activity.item.mobileCompletion !== undefined && (
                         <div className="flex items-center gap-2">
                           <Smartphone className="h-3 w-3 text-gray-500" />
                           <Progress value={activity.item.mobileCompletion} className="h-1.5 w-16" />
-                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.mobileCompletion}%</span>
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.item.mobileCompletion}%</span>
                         </div>
                       )}
                       {activity.item.team && (
                         <div className="flex items-center gap-1">
                           <Users className="h-3 w-3 text-gray-500" />
-                          <span className="text-gray-600 dark:text-neutral-400">{activity.item.team.join(', ')}</span>
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.item.team.join(', ')}</span>
                         </div>
                       )}
                     </div>

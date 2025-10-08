@@ -198,35 +198,35 @@ const ProjectTrackerDashboard: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
             <div>
               <div className="text-2xl font-bold text-gray-800 dark:text-neutral-200">{totalCount}</div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">Total Projects</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Projects</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-green-600">{completedCount}</div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">Completed</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Completed</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-yellow-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">In Progress</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">In Progress</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-blue-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Planned')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">Planned</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Planned</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-red-600">
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Blocked')?.count || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">Blocked</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Blocked</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-purple-600">
                 {metrics?.layerDistribution?.length || 0}
               </div>
-              <div className="text-xs text-gray-600 dark:text-neutral-400">Active Layers</div>
+              <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Layers</div>
             </div>
           </div>
         </div>
@@ -259,7 +259,7 @@ const ProjectTrackerDashboard: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-600 dark:text-gray-400" />
               <Input
                 placeholder="Search items..."
                 value={searchQuery}
@@ -309,7 +309,7 @@ const ProjectTrackerDashboard: React.FC = () => {
               </SelectContent>
             </Select>
 
-            <div className="flex items-center text-sm text-gray-600 dark:text-neutral-400">
+            <div className="flex items-center text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
               {filteredItems.length} of {trackerItems.length} items
             </div>
           </div>
@@ -341,7 +341,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                 {metrics?.statusCounts?.find((s: any) => s.status === 'Completed')?.count || 
                projects.filter(p => p.status === 'Completed').length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">projects done</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">projects done</p>
             </CardContent>
           </Card>
 
@@ -355,7 +355,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                 {metrics?.statusCounts?.find((s: any) => s.status === 'In Progress')?.count || 
                projects.filter(p => p.status === 'In Progress').length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">active items</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">active items</p>
             </CardContent>
           </Card>
 
@@ -369,7 +369,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                 {metrics?.layerDistribution?.length || 
                [...new Set(projects.map(p => p.layer).filter(Boolean))].length || 0}
               </div>
-              <p className="text-xs text-gray-600 dark:text-neutral-400">of 61 layers</p>
+              <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">of 61 layers</p>
             </CardContent>
           </Card>
         </div>
@@ -412,7 +412,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                         )}
                       </div>
                       <CardTitle className="text-lg text-gray-800 dark:text-neutral-200">{item.title}</CardTitle>
-                      <p className="text-gray-600 text-sm dark:text-neutral-400">{item.description || 'No description'}</p>
+                      <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">{item.description || 'No description'}</p>
                     </div>
                     <div className="text-right text-sm text-gray-500">
                       {item.phase && <div>Phase {item.phase}</div>}
@@ -436,13 +436,13 @@ const ProjectTrackerDashboard: React.FC = () => {
                     </div>
                     <div>
                       <div className="font-medium mb-1">Hours</div>
-                      <div className="text-gray-600 dark:text-neutral-400">
+                      <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                         {item.actualHours || 0} / {item.estimatedHours || 0} hours
                       </div>
                     </div>
                     <div>
                       <div className="font-medium mb-1">Team Size</div>
-                      <div className="text-gray-600 dark:text-neutral-400">
+                      <div className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                         {item.team?.length || 0} members
                       </div>
                     </div>
@@ -490,7 +490,7 @@ const ProjectTrackerDashboard: React.FC = () => {
                         <div key={item.id} className="p-3 bg-gradient-to-br from-white/80 to-cyan-50/30 rounded-lg border border-cyan-200/20">
                           <div className="font-medium text-sm">{item.title}</div>
                           {layerInfo && (
-                            <div className="text-xs text-gray-600 mt-1 dark:text-neutral-400">
+                            <div className="text-xs text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                               {layerInfo.icon} Layer {item.layer}
                             </div>
                           )}

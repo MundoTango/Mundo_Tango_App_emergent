@@ -62,6 +62,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { FadeIn, ScaleIn, SlideIn } from '@/components/animations/FramerMotionWrappers';
 import { MagneticButton, RippleButton, PulseButton } from '@/components/interactions/MicroInteractions';
 import Confetti from 'react-confetti';
+import { Helmet } from 'react-helmet';
 
 interface HostHome {
   id: number;
@@ -410,6 +411,11 @@ export default function ListingDetail() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Listing Detail | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="min-h-screen bg-gray-50 p-6">
           <div className="max-w-7xl mx-auto">
@@ -425,7 +431,9 @@ export default function ListingDetail() {
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   if (error || !listing?.data) {
@@ -528,7 +536,7 @@ export default function ListingDetail() {
                     }`}
                     onClick={() => setSelectedImage(idx + 1)}
                     data-testid={`thumbnail-${idx + 1}`}
-                  >
+                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(idx + 1)(e); } }}>
                     {isThumbVideo ? (
                       <>
                         <video
@@ -556,7 +564,7 @@ export default function ListingDetail() {
                   className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
                   onClick={() => setSelectedImage(5)}
                   data-testid="button-more-media"
-                >
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(5)(e); } }}>
                   <span className="text-sm font-semibold">+{orderedMedia.length - 5} more</span>
                 </div>
               )}
@@ -693,7 +701,7 @@ export default function ListingDetail() {
                   <h2 className="text-2xl font-bold mb-4">Location</h2>
                   <p className="text-gray-600 mb-4">{home.address}</p>
                   <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <MapPin className="h-12 w-12 text-gray-400" />
+                    <MapPin className="h-12 w-12 text-gray-600 dark:text-gray-400" />
                     <span className="ml-2 text-gray-500">Map integration coming soon</span>
                   </div>
                 </CardContent>

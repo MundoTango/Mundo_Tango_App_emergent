@@ -189,7 +189,7 @@ export const EventTypesManager: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">Event Types Management</h2>
-          <p className="text-gray-600 mt-1 dark:text-neutral-400">
+          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
             Manage event types for your platform. Super admin can create, edit, and deactivate event types.
           </p>
         </div>
@@ -201,7 +201,7 @@ export const EventTypesManager: React.FC = () => {
               onChange={(e) = data-testid="input-element"> setShowInactive(e.target.checked)}
               className="rounded border-gray-300 dark:border-neutral-600"
             />
-            <span className="text-sm text-gray-600 dark:text-neutral-400">Show inactive</span>
+            <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Show inactive</span>
           </label>
           {!isCreating && (
             <button
@@ -221,7 +221,7 @@ export const EventTypesManager: React.FC = () => {
           <h3 className="text-lg font-semibold mb-4">Create New Event Type</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
                 Name *
               </label>
               <input
@@ -233,7 +233,7 @@ export const EventTypesManager: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
                 Icon
               </label>
               <select
@@ -247,7 +247,7 @@ export const EventTypesManager: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
                 Color
               </label>
               <input
@@ -258,7 +258,7 @@ export const EventTypesManager: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
                 Sort Order
               </label>
               <input
@@ -269,7 +269,7 @@ export const EventTypesManager: React.FC = () => {
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
                 Description
               </label>
               <textarea
@@ -335,14 +335,14 @@ export const EventTypesManager: React.FC = () => {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() = data-testid="button-element"> handleSortOrderChange(eventType.id, 'up')}
-                      className="p-1 text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+                      className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                       disabled={eventType.id === eventTypes[0]?.id}
                     >
                       <ChevronUp className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() = data-testid="button-element"> handleSortOrderChange(eventType.id, 'down')}
-                      className="p-1 text-gray-400 hover:text-gray-600 dark:text-neutral-400"
+                      className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
                       disabled={eventType.id === eventTypes[eventTypes.length - 1]?.id}
                     >
                       <ChevronDown className="h-4 w-4" />
@@ -378,7 +378,7 @@ export const EventTypesManager: React.FC = () => {
                       rows={1}
                     />
                   ) : (
-                    <span className="text-sm text-gray-600 dark:text-neutral-400">
+                    <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       {eventType.description || '-'}
                     </span>
                   )}

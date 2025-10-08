@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import { cn } from '@/lib/utils';
+import { Helmet } from 'react-helmet';
 
 interface Conversation {
   id: string;
@@ -469,6 +470,11 @@ export default function LifeCEOEnhanced() {
   }
 
   return (
+    <>
+      <Helmet>
+        <title>Life C E O Enhanced | Life CEO</title>
+      </Helmet>
+      
     <div className="flex h-screen bg-gray-50 dark:bg-neutral-800">
       {/* Sidebar */}
       <div className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-300 bg-white border-r border-gray-200 overflow-hidden`}>
@@ -485,7 +491,7 @@ export default function LifeCEOEnhanced() {
           </div>
           
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
             <Input
               placeholder="Search conversations..."
               value={searchQuery}
@@ -497,7 +503,7 @@ export default function LifeCEOEnhanced() {
           {/* Projects */}
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600 dark:text-neutral-400">Projects</span>
+              <span className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Projects</span>
               <Button
                 onClick={createNewProject}
                 size="sm"
@@ -514,7 +520,7 @@ export default function LifeCEOEnhanced() {
                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 ${
                   activeProjectId === project.id ? 'bg-purple-50' : ''
                 }`}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveProjectId(project.id === activeProjectId ? '' : project.id)(e); } }}>
                 <span>{project.icon}</span>
                 <span className="text-sm truncate">{project.name}</span>
               </div>
@@ -530,11 +536,11 @@ export default function LifeCEOEnhanced() {
                 className={`p-2 rounded cursor-pointer hover:bg-gray-100 ${
                   activeConversationId === convo.id ? 'bg-purple-50' : ''
                 }`}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setActiveConversationId(convo.id)(e); } }}>
                 <div className="flex items-center justify-between">
-                  <MessageSquare className="h-4 w-4 text-gray-400" />
+                  <MessageSquare className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   <span className="text-sm truncate flex-1 mx-2">{convo.title}</span>
-                  <MoreVertical className="h-4 w-4 text-gray-400" />
+                  <MoreVertical className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                 </div>
               </div>
             ))}
@@ -675,7 +681,7 @@ export default function LifeCEOEnhanced() {
               {activeAgents.slice(0, 3).map(agent => (
                 <div key={agent.name} className="flex items-center gap-2 text-xs">
                   <span>{agent.icon}</span>
-                  <span className="text-gray-600 dark:text-neutral-400">{agent.name}</span>
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{agent.name}</span>
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 </div>
               ))}
@@ -723,7 +729,7 @@ export default function LifeCEOEnhanced() {
                     {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.icon || '👔'}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-neutral-400">Currently Active</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Currently Active</p>
                     <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                       {LIFE_CEO_AGENTS.find(a => a.id === selectedAgentId)?.name || 'Life CEO'}
                     </h3>
@@ -785,7 +791,7 @@ export default function LifeCEOEnhanced() {
                           )}>
                             {agent.name}
                           </h3>
-                          <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
+                          <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
                             {agent.description}
                           </p>
                         </div>
@@ -800,7 +806,7 @@ export default function LifeCEOEnhanced() {
               
               {/* Footer Info */}
               <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200 dark:border-neutral-700">
-                <p className="text-center text-sm text-gray-600 dark:text-neutral-400">
+                <p className="text-center text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   <span className="inline-flex items-center gap-1">
                     <Brain className="h-4 w-4 text-turquoise-500" />
                     Each agent specializes in different areas of your life
@@ -812,5 +818,7 @@ export default function LifeCEOEnhanced() {
         )}
       </div>
     </div>
+  
+    </>
   );
 }

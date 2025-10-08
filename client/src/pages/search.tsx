@@ -5,6 +5,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { useDebounce } from '@/hooks/use-debounce';
 import { Link } from 'wouter';
 import { format } from 'date-fns';
+import { Helmet } from 'react-helmet';
 
 interface SearchResult {
   id: string;
@@ -65,6 +66,11 @@ export default function SearchPage() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Search | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50">
       {/* Header */}
       <div className="glassmorphic-card bg-white/70 backdrop-blur-xl border-b border-white/50 dark:bg-neutral-900">
@@ -75,7 +81,7 @@ export default function SearchPage() {
           
           {/* Search Input */}
           <div className="relative">
-            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
             <input
               type="text"
               value={searchQuery}
@@ -89,7 +95,7 @@ export default function SearchPage() {
                 onClick={() = data-testid="button-element"> setSearchQuery('')}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
               >
-                <X className="h-5 w-5 text-gray-400" />
+                <X className="h-5 w-5 text-gray-600 dark:text-gray-400" />
               </button>
             )}
           </div>
@@ -130,7 +136,7 @@ export default function SearchPage() {
             <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto dark:bg-neutral-900">
               <SearchIcon className="h-16 w-16 text-turquoise-400 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">Start typing to search</h2>
-              <p className="text-gray-600 dark:text-neutral-400">Find users, posts, events, and groups across Mundo Tango</p>
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Find users, posts, events, and groups across Mundo Tango</p>
             </div>
           </div>
         )}
@@ -138,9 +144,9 @@ export default function SearchPage() {
         {!isLoading && debouncedQuery && searchResults?.results?.length === 0 && (
           <div className="text-center py-12">
             <div className="glassmorphic-card bg-white/60 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto dark:bg-neutral-900">
-              <SearchIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <SearchIcon className="h-16 w-16 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-gray-800 mb-2 dark:text-neutral-200">No results found</h2>
-              <p className="text-gray-600 dark:text-neutral-400">Try adjusting your search terms or filters</p>
+              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Try adjusting your search terms or filters</p>
             </div>
           </div>
         )}
@@ -182,7 +188,7 @@ export default function SearchPage() {
                         {result.title}
                       </h3>
                       {result.subtitle && (
-                        <p className="text-gray-600 mt-1 line-clamp-2 dark:text-neutral-400">
+                        <p className="text-gray-600 mt-1 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">
                           {result.subtitle}
                         </p>
                       )}
@@ -217,5 +223,7 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  
+    </>
   );
 }

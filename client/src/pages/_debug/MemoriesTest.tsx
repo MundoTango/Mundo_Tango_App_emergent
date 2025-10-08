@@ -1,10 +1,16 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const MemoriesTest = () => {
   console.log('🧪 MemoriesTest component rendering');
   
   return (
+    <>
+      <Helmet>
+        <title>Memories Test | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-green-100 p-8">
       <h1 className="text-green-800 text-4xl font-bold mb-4">✅ MEMORIES TEST PAGE WORKING</h1>
       <p className="text-green-700 text-xl">This proves React routing and rendering is functional.</p>
@@ -17,6 +23,8 @@ const MemoriesTest = () => {
         </ul>
       </div>
     </div>
+  
+    </>
   );
 };
 

@@ -50,6 +50,7 @@ import {
   OfflineIndicator,
   NetworkErrorRetry
 } from '@/components/profile/ProfileFallbacks';
+import { Helmet } from 'react-helmet';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -84,7 +85,14 @@ export default function Profile() {
     };
     
     window.addEventListener('popstate', handleUrlChange);
-    return () => {
+    return (
+    <>
+      <Helmet>
+        <title>Profile | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => {
       stopMeasure();
       window.removeEventListener('popstate', handleUrlChange);
     };
@@ -302,7 +310,7 @@ export default function Profile() {
                               <UserCheck className="w-4 h-4 text-green-500" />
                               <span className="text-sm text-green-600">Verified Guest</span>
                             </div>
-                            <p className="text-xs text-gray-600 dark:text-neutral-400">Ready to request stays with hosts</p>
+                            <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Ready to request stays with hosts</p>
                             <Button 
                               size="sm" 
                               variant="outline"
@@ -313,8 +321,8 @@ export default function Profile() {
                           </div>
                         ) : (
                           <div className="text-center space-y-3">
-                            <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
-                            <p className="text-xs text-gray-600 dark:text-neutral-400">Create your guest profile to be housed by Hosts in the global tango community</p>
+                            <UserCheck className="w-8 h-8 text-gray-600 dark:text-gray-300 mx-auto" />
+                            <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create your guest profile to be housed by Hosts in the global tango community</p>
                             <Button 
                               size="sm"
                               onClick={() = data-testid="button-element"> setLocation('/guest-onboarding')}
@@ -349,7 +357,7 @@ export default function Profile() {
                             Edit
                           </Button>
                         </div>
-                        <p className="text-sm text-gray-600 line-clamp-3 mb-3 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600 line-clamp-3 mb-3 dark:text-neutral-600 dark:text-neutral-400">
                           {(user as any)?.bio || "Share your tango story..."}
                         </p>
                         {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 && (
@@ -381,13 +389,13 @@ export default function Profile() {
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <MapPin className="w-3 h-3 text-turquoise-500" />
-                            <span className="text-sm text-gray-600 dark:text-neutral-400">
+                            <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                               {(user as any)?.city ? `${(user as any).city}${(user as any).country ? `, ${(user as any).country}` : ''}` : "Add location"}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Globe className="w-3 h-3 text-ocean-500" />
-                            <span className="text-sm text-gray-600 dark:text-neutral-400">
+                            <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                               {(user as any)?.languages ? `${(user as any).languages.length} languages` : "Add languages"}
                             </span>
                           </div>
@@ -410,7 +418,7 @@ export default function Profile() {
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             {statsData?.friendsCount ? `${statsData.friendsCount} friends` : "No friends yet"}
                           </p>
                           {/* Friend Avatars Preview */}
@@ -648,7 +656,7 @@ export default function Profile() {
                   <CardContent className="p-12 text-center">
                     <Video className="w-16 h-16 mx-auto text-cyan-400 mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Videos are now in Media Gallery</h3>
-                    <p className="text-gray-600 mb-4 dark:text-neutral-400">
+                    <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                       We've combined photos and videos into one place with smart filtering.
                     </p>
                     <Button 
@@ -723,7 +731,7 @@ export default function Profile() {
                             <div>
                               <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Intermediate Tango Instructor</h6>
                               <p className="text-turquoise-600 font-medium">Buenos Aires Tango Festival 2024</p>
-                              <p className="text-gray-600 text-sm dark:text-neutral-400">Taught advanced technique to 50+ international students</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">Taught advanced technique to 50+ international students</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2020</span>
                                 <span>⭐ Years dancing: 8</span>
@@ -747,7 +755,7 @@ export default function Profile() {
                             <div>
                               <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Milonga Organizer</h6>
                               <p className="text-cyan-600 font-medium">Monthly Practica Series</p>
-                              <p className="text-gray-600 text-sm dark:text-neutral-400">Coordinated weekly events for 100+ dancers</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">Coordinated weekly events for 100+ dancers</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2022</span>
                                 <span>⭐ Years dancing: 8</span>
@@ -771,7 +779,7 @@ export default function Profile() {
                             <div>
                               <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Resident DJ</h6>
                               <p className="text-purple-600 font-medium">La Milonguita Weekly</p>
-                              <p className="text-gray-600 text-sm dark:text-neutral-400">Curated traditional tandas for intimate milonga setting</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">Curated traditional tandas for intimate milonga setting</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2021</span>
                                 <span>⭐ Years dancing: 8</span>
@@ -789,7 +797,7 @@ export default function Profile() {
                           <div>
                             <h5 className="font-semibold text-gray-900 dark:text-neutral-100">DJ & Music Curator</h5>
                             <p className="text-cyan-600 font-medium">Milonga Luna - Weekly Series</p>
-                            <p className="text-gray-600 text-sm dark:text-neutral-400">Curated and performed music for weekly milonga events</p>
+                            <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">Curated and performed music for weekly milonga events</p>
                             <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                               <span>📅 Jan-Dec 2024</span>
                               <span>📍 Local Community</span>
@@ -840,9 +848,9 @@ export default function Profile() {
                 ) : (
                   <Card className="glassmorphic-card">
                     <CardContent className="p-12 text-center">
-                      <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                      <UserCheck className="h-12 w-12 text-gray-600 dark:text-gray-300 mx-auto mb-4" />
                       <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No Guest Profile</h3>
-                      <p className="text-gray-600 mb-4 dark:text-neutral-400">
+                      <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
                       <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="link-inline-flex">

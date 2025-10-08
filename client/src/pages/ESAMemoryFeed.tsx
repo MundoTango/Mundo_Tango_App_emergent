@@ -25,6 +25,7 @@ import PostFeed from '@/components/moments/PostFeed';
 const UpcomingEventsSidebar = lazy(() => import('@/components/esa/UpcomingEventsSidebar'));
 const FloatingCreateButton = lazy(() => import('@/components/esa/FloatingCreateButton'));
 const ShareModal = lazy(() => import('@/components/modern/ShareModal'));
+import { Helmet } from 'react-helmet';
 
 // Core component without error boundary
 function ESAMemoryFeedCore() {
@@ -118,7 +119,14 @@ function ESAMemoryFeedCore() {
     };
 
     window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    return (
+    <>
+      <Helmet>
+        <title>E S A Memory Feed | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
 

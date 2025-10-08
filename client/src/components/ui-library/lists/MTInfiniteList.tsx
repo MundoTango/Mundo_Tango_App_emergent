@@ -170,7 +170,7 @@ export default function MTInfiniteList<T = any>({
               )}
               onClick={() => onItemClick?.(item, index)}
               data-testid={`${testId}-item-${key}`}
-            >
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => onItemClick?.(item, index)(e); } }}>
               {renderItem(item, index)}
             </div>
           );

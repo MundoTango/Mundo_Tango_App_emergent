@@ -46,6 +46,7 @@ import {
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import toast from 'react-hot-toast';
 import { useLocation } from 'wouter';
+import { Helmet } from 'react-helmet';
 
 // ESA Framework: Pierre Dubois default user
 const PIERRE_DUBOIS = {
@@ -67,7 +68,7 @@ const CommunityStats = () => (
           <div className="p-2 bg-purple-100 rounded-lg">
             <Users className="h-5 w-5 text-purple-600" />
           </div>
-          <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Global Dancers</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Global Dancers</span>
         </div>
         <span className="text-xl font-bold text-gray-900 dark:text-neutral-100">3.2K</span>
       </div>
@@ -77,7 +78,7 @@ const CommunityStats = () => (
           <div className="p-2 bg-orange-100 rounded-lg">
             <Calendar className="h-5 w-5 text-orange-600" />
           </div>
-          <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Active Events</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Active Events</span>
         </div>
         <span className="text-xl font-bold text-gray-900 dark:text-neutral-100">945</span>
       </div>
@@ -87,7 +88,7 @@ const CommunityStats = () => (
           <div className="p-2 bg-blue-100 rounded-lg">
             <Globe2 className="h-5 w-5 text-blue-600" />
           </div>
-          <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Communities</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Communities</span>
         </div>
         <span className="text-xl font-bold text-gray-900 dark:text-neutral-100">6.8K</span>
       </div>
@@ -97,7 +98,7 @@ const CommunityStats = () => (
           <div className="p-2 bg-green-100 rounded-lg">
             <Building className="h-5 w-5 text-green-600" />
           </div>
-          <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Your City</span>
+          <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Your City</span>
         </div>
         <span className="text-xl font-bold text-gray-900 dark:text-neutral-100">184</span>
       </div>
@@ -118,7 +119,7 @@ const UpcomingEvents = () => (
     <h3 className="text-lg font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent mb-4">
       Upcoming Events
     </h3>
-    <div className="text-gray-600 text-sm space-y-3 dark:text-neutral-400">
+    <div className="text-gray-600 text-sm space-y-3 dark:text-neutral-600 dark:text-neutral-400">
       <p>No upcoming events found</p>
       <p>Check your city or join our community</p>
     </div>
@@ -141,7 +142,7 @@ const MemoryCard = ({ memory }: { memory: any }) => (
             <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{memory.user?.name || 'Unknown'}</h4>
             <span className="text-gray-500 text-sm">@{memory.user?.username || 'unknown'}</span>
           </div>
-          <p className="text-gray-700 mb-3 dark:text-neutral-300">{memory.content}</p>
+          <p className="text-gray-700 mb-3 dark:text-neutral-600 dark:text-neutral-300">{memory.content}</p>
           {memory.imageUrl && (
             <img 
               src={memory.imageUrl} 
@@ -149,7 +150,7 @@ const MemoryCard = ({ memory }: { memory: any }) => (
               className="rounded-lg w-full max-h-96 object-cover mb-3"
             />
           )}
-          <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-neutral-400">
+          <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             <button className="flex items-center gap-2 hover:text-[#5EEAD4] transition-colors">
               <Heart className="h-4 w-4" />
               <span>{memory.likesCount || 0}</span>
@@ -269,6 +270,11 @@ const ModernMemoriesPage = () => {
     console.log('🔍 About to render ModernMemoriesPage');
 
     return (
+    <>
+      <Helmet>
+        <title>Modern Memories Page | Life CEO</title>
+      </Helmet>
+      
       <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4] via-[#3B94B8] to-[#155E75]">
       {/* ESA Framework: FORCE TEST - THIS IS THE CORRECT PIERRE DUBOIS PAGE */}
       <div className="bg-red-500 text-white text-center py-8 font-bold text-4xl z-50 relative border-8 border-yellow-400">
@@ -286,7 +292,7 @@ const ModernMemoriesPage = () => {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
                 Memories (CORRECT PAGE)
               </h1>
-              <p className="text-gray-600 mt-1 dark:text-neutral-400">
+              <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
                 Share your tango moments, connect with dancers, and create lasting memories together
               </p>
             </div>
@@ -382,7 +388,7 @@ const ModernMemoriesPage = () => {
                   placeholder="✨ Share your tango moment..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="min-h-[120px] resize-none border-0 focus-visible:ring-0 text-lg placeholder:text-gray-400 px-0 bg-transparent"
+                  className="min-h-[120px] resize-none border-0 focus-visible:ring-0 text-lg placeholder:text-gray-600 dark:text-gray-400 px-0 bg-transparent"
                   data-testid="input-memory-content"
                 />
 
@@ -482,7 +488,9 @@ const ModernMemoriesPage = () => {
         </div>
       </div>
     </div>
-    );
+    
+    </>
+  );
   } catch (error) {
     console.error('❌ ModernMemoriesPage render error:', error);
     return (

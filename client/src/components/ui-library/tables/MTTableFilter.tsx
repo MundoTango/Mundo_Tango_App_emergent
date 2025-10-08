@@ -68,7 +68,7 @@ export default function MTTableFilter({
       data-testid={testId}
     >
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-600 dark:text-gray-300">
           Filters
         </h3>
         {hasActiveFilters && (
@@ -85,7 +85,7 @@ export default function MTTableFilter({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {filterableColumns.map(column => (
           <div key={column.id} className="space-y-1">
-            <label className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            <label className="text-xs font-medium text-gray-600 dark:text-gray-600 dark:text-gray-400">
               {column.header}
             </label>
             <div className="relative">
@@ -101,7 +101,7 @@ export default function MTTableFilter({
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
                   data-testid={`${testId}-${column.id}-clear`}
                 >
-                  <X className="w-3 h-3 text-gray-400" />
+                  <X className="w-3 h-3 text-gray-600 dark:text-gray-400" />
                 </button>
               )}
             </div>

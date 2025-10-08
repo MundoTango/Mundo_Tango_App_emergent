@@ -237,7 +237,7 @@ export default function ConsentReviewBoard() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
           <Input
             placeholder="Search by memory title, author, or requester..."
             value={searchTerm}
@@ -329,7 +329,7 @@ export default function ConsentReviewBoard() {
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">{request.memory.title}</h3>
-                <p className="text-gray-600 line-clamp-2 dark:text-neutral-400">{request.memory.content}</p>
+                <p className="text-gray-600 line-clamp-2 dark:text-neutral-600 dark:text-neutral-400">{request.memory.content}</p>
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -342,20 +342,20 @@ export default function ConsentReviewBoard() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600 dark:text-neutral-400">Author:</span>
+                  <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Author:</span>
                   <span className="font-medium">{request.memory.author.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600 dark:text-neutral-400">Requester:</span>
+                  <MessageSquare className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Requester:</span>
                   <span className="font-medium">{request.requester.name}</span>
                 </div>
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 dark:bg-neutral-800">
-                <div className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">Reason for Request:</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">{request.reason}</div>
+                <div className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Reason for Request:</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{request.reason}</div>
               </div>
 
               {request.status !== 'pending' && request.reviewNotes && (
@@ -399,32 +399,32 @@ export default function ConsentReviewBoard() {
             <div className="space-y-6">
               <div className="bg-gray-50 rounded-2xl p-6 dark:bg-neutral-800">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 dark:text-neutral-100">{selectedRequest.memory.title}</h3>
-                <p className="text-gray-700 mb-4 leading-relaxed dark:text-neutral-300">{selectedRequest.memory.content}</p>
+                <p className="text-gray-700 mb-4 leading-relaxed dark:text-neutral-600 dark:text-neutral-300">{selectedRequest.memory.content}</p>
                 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-600 dark:text-neutral-400">Author:</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Author:</span>
                     <span className="font-medium ml-2">{selectedRequest.memory.author.name}</span>
                   </div>
                   <div>
-                    <span className="text-gray-600 dark:text-neutral-400">Trust Level:</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Trust Level:</span>
                     <Badge className={`${getTrustLevelColor(selectedRequest.memory.trustLevel)} border ml-2`}>
                       Level {selectedRequest.memory.trustLevel}
                     </Badge>
                   </div>
                   <div>
-                    <span className="text-gray-600 dark:text-neutral-400">Requester:</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Requester:</span>
                     <span className="font-medium ml-2">{selectedRequest.requester.name}</span>
                   </div>
                   <div>
-                    <span className="text-gray-600 dark:text-neutral-400">Requested:</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Requested:</span>
                     <span className="ml-2">{format(new Date(selectedRequest.requestedAt), 'MMM d, yyyy')}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Review Notes</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Review Notes</label>
                 <Textarea
                   placeholder="Add your review notes here..."
                   value={reviewNotes}

@@ -128,19 +128,22 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
                   const slug = city.slug || `tango-${(city.city || city.name).toLowerCase().replace(/\s+/g, '-')}-${(city.country || '').toLowerCase().replace(/\s+/g, '-')}`;
                   window.location.href = `/groups/${slug}`;
                 }}
-              >
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
+                  onCityClick?.(city);
+                  // Navigate to city group page using slug
+                  const slug = city.slug || `tango-${(city.city || city.name).toLowerCase().replace(/\s+/g, '-')(e); } }}>
                 <h3 className="font-bold text-lg bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
                   {city.city || city.name}
                 </h3>
-                {city.country && <p className="text-sm text-gray-600 dark:text-neutral-400">{city.country}</p>}
+                {city.country && <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{city.country}</p>}
                 <div className="mt-2 space-y-1">
                   <div className="flex items-center justify-center gap-1 text-sm">
                     <span className="font-semibold text-pink-600">{memberCount}</span>
-                    <span className="text-gray-600 dark:text-neutral-400">members</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">members</span>
                   </div>
                   <div className="flex items-center justify-center gap-1 text-sm">
                     <span className="font-semibold text-blue-600">{city.eventCount || 0}</span>
-                    <span className="text-gray-600 dark:text-neutral-400">events</span>
+                    <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">events</span>
                   </div>
                 </div>
                 <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity" data-testid="button-mt-2">
@@ -164,19 +167,20 @@ export default function LeafletMap({ cities, onCityClick, selectedCity }: Leafle
               onClick={() => {
                 window.location.href = `/groups/buenos-aires`;
               }}
-            >
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
+                window.location.href = `/groups/buenos-aires`;(e); } }}>
               <h3 className="font-bold text-lg bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
                 Buenos Aires
               </h3>
-              <p className="text-sm text-gray-600 dark:text-neutral-400">Argentina</p>
+              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Argentina</p>
               <div className="mt-2 space-y-1">
                 <div className="flex items-center justify-center gap-1 text-sm">
                   <span className="font-semibold text-pink-600">1</span>
-                  <span className="text-gray-600 dark:text-neutral-400">member</span>
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">member</span>
                 </div>
                 <div className="flex items-center justify-center gap-1 text-sm">
                   <span className="font-semibold text-blue-600">0</span>
-                  <span className="text-gray-600 dark:text-neutral-400">events</span>
+                  <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">events</span>
                 </div>
               </div>
               <button className="mt-2 text-xs bg-gradient-to-r from-pink-500 to-blue-500 text-white px-3 py-1 rounded-full hover:opacity-90 transition-opacity" data-testid="button-mt-2">

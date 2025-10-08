@@ -308,7 +308,9 @@ const MentionsInput: React.FC<MentionsInputProps> = ({
                 selectSuggestion(suggestion);
               }}
               className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:bg-neutral-800"
-            >
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => {
+                e.stopPropagation();
+                selectSuggestion(suggestion);(e); } }}>
               {/* Avatar or Icon */}
               <div className="flex-shrink-0">
                 {suggestion.avatar ? (

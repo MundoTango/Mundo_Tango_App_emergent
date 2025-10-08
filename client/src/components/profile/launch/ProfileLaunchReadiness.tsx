@@ -56,7 +56,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
       case 'in-progress':
         return <Clock className="w-4 h-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="w-4 h-4 text-gray-400" / data-testid="link-w-4">;
+        return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" / data-testid="link-w-4">;
     }
   };
 
@@ -124,7 +124,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                   {getStatusIcon(item.status)}
                   <div>
                     <div className="font-medium">{item.task}</div>
-                    <div className="text-sm text-gray-600 dark:text-neutral-400">{item.category}</div>
+                    <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{item.category}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Integration Tests</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">All 245 tests passing</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">All 245 tests passing</div>
             </div>
             <div className={`p-4 rounded-lg ${
               metrics.rollbackPlanReady ? 'bg-green-50' : 'bg-yellow-50'
@@ -167,21 +167,21 @@ export const ProfileLaunchReadiness: React.FC<{ userId: number }> = ({ userId })
                 <span className="font-medium">Rollback Plan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Tested and documented</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tested and documented</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Performance Baseline</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">Sub-100ms response time</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Sub-100ms response time</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium">Security Scan</span>
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-400">No vulnerabilities found</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">No vulnerabilities found</div>
             </div>
           </div>
         </CardContent>

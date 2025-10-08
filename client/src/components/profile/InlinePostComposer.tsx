@@ -121,7 +121,7 @@ export default function InlinePostComposer({
             <>
               {/* Quick Tags */}
               <div className="space-y-2">
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Add tags:</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Add tags:</div>
                 <div className="flex flex-wrap gap-2">
                   {quickTags.map((tag) => (
                     <Button
@@ -216,7 +216,7 @@ export default function InlinePostComposer({
                     setTags([]);
                     setLocation('');
                   }}
-                  className="h-8 text-gray-600 hover:text-gray-700 dark:text-neutral-300"
+                  className="h-8 text-gray-600 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
                 >
                   Cancel
                 </Button>

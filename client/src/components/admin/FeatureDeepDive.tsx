@@ -148,7 +148,7 @@ export function FeatureDeepDive() {
         {/* Search and filters */}
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
             <Input
               placeholder="Search features..."
               value={searchQuery}
@@ -210,20 +210,20 @@ export function FeatureDeepDive() {
                       <div className="ml-2">
                         {feature.webCompletion && feature.mobileCompletion ? (
                           <div className="flex gap-1">
-                            <Monitor className="w-4 h-4 text-gray-400" />
-                            <Smartphone className="w-4 h-4 text-gray-400" />
+                            <Monitor className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                            <Smartphone className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                           </div>
                         ) : feature.webCompletion ? (
-                          <Monitor className="w-4 h-4 text-gray-400" />
+                          <Monitor className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                         ) : feature.mobileCompletion ? (
-                          <Smartphone className="w-4 h-4 text-gray-400" />
+                          <Smartphone className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                         ) : null}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {feature.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2">
                         {feature.description}
                       </p>
                     )}

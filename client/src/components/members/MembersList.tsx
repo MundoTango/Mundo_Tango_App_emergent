@@ -107,7 +107,7 @@ export const MembersList = ({
             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-title">
               {t('members.title', 'Home Community Residents')}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
               {t('members.subtitle', 'Connect with fellow tangueros')}
             </p>
           </div>
@@ -124,7 +124,7 @@ export const MembersList = ({
       {/* Search Filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400 dark:text-gray-500" />
           <Input
             type="text"
             placeholder={t('members.search.placeholder', 'Search members...')}
@@ -137,7 +137,7 @@ export const MembersList = ({
         {selectedRoles.length > 0 && (
           <button
             onClick={() => setSelectedRoles([])}
-            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
             data-testid="button-clear-filters"
           >
             {t('members.clearFilters', 'Clear Filters')} ({selectedRoles.length})
@@ -149,8 +149,8 @@ export const MembersList = ({
       <div>
         {filteredMembers.length === 0 ? (
           <div className="text-center py-12" data-testid="empty-members-state">
-            <Users className="h-12 w-12 text-gray-400 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-600 dark:text-gray-400">
+            <Users className="h-12 w-12 text-gray-600 dark:text-gray-400 dark:text-gray-600 mx-auto mb-3" />
+            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
               {searchQuery || selectedRoles.length > 0
                 ? t('members.empty.filtered', 'No members match your filters')
                 : t('members.empty.default', 'No members yet')}

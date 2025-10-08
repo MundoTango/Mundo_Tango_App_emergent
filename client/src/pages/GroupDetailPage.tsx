@@ -24,6 +24,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
+import { Helmet } from 'react-helmet';
 
 export default function GroupDetailPage() {
   const { slug } = useParams();
@@ -87,12 +88,19 @@ export default function GroupDetailPage() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Group Detail Page | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   if (!group) {
@@ -100,7 +108,7 @@ export default function GroupDetailPage() {
       <DashboardLayout>
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold mb-2">Group not found</h2>
-          <p className="text-gray-600 mb-4 dark:text-neutral-400">This group may have been removed or you don't have access.</p>
+          <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">This group may have been removed or you don't have access.</p>
           <Button onClick={() = data-testid="button-element"> setLocation('/groups')}>Back to Groups</Button>
         </div>
       </DashboardLayout>
@@ -141,7 +149,7 @@ export default function GroupDetailPage() {
               </div>
               <div className="flex-1">
                 <h1 className="text-3xl font-bold">{group.name}</h1>
-                <div className="flex items-center gap-4 text-gray-600 text-sm mt-1 dark:text-neutral-400">
+                <div className="flex items-center gap-4 text-gray-600 text-sm mt-1 dark:text-neutral-600 dark:text-neutral-400">
                   <span className="flex items-center gap-1">
                     {group.privacy === 'public' ? <Globe className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                     {group.privacy === 'public' ? 'Public' : 'Private'} Group
@@ -216,7 +224,7 @@ export default function GroupDetailPage() {
         {group.description && (
           <Card className="p-6 mb-6">
             <h3 className="font-semibold mb-2">About</h3>
-            <p className="text-gray-600 dark:text-neutral-400">{group.description}</p>
+            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{group.description}</p>
           </Card>
         )}
 
@@ -323,7 +331,7 @@ export default function GroupDetailPage() {
 
           <TabsContent value="events">
             <div className="text-center py-12 text-gray-500">
-              <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+              <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
               <p>No upcoming events</p>
               {group.isMember && (
                 <Button className="mt-4" data-testid="button-mt-4">Create Event</Button>

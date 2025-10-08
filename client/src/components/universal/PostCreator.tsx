@@ -1007,7 +1007,7 @@ export default function PostCreator({
                   <div className="absolute top-6 right-4 w-1 h-1 bg-blue-400 rounded-full animate-sparkle-float opacity-40" style={{ animationDelay: '0.6s' }} />
                 </div>
               )}
-              <div className="absolute bottom-3 right-3 text-xs text-gray-400 transition-all duration-300">
+              <div className="absolute bottom-3 right-3 text-xs text-gray-600 dark:text-gray-400 transition-all duration-300">
                 {content.length > 0 && (
                   <span className="animate-fade-in">{content.length} characters</span>
                 )}
@@ -1506,7 +1506,7 @@ export default function PostCreator({
                             className={`relative p-4 rounded-xl font-semibold transition-all duration-300 overflow-hidden backdrop-blur-md ${
                               priceRange === price
                                 ? 'text-white shadow-xl transform scale-105'
-                                : 'text-gray-700 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
+                                : 'text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
                             }`}
                             style={
                               priceRange === price

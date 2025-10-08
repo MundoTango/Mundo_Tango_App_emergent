@@ -12,6 +12,7 @@ import { FriendRequestForm } from '@/components/FriendRequestForm';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Users, UserPlus, Search, MessageCircle, MoreVertical, UserCheck } from 'lucide-react';
 import { Link } from 'wouter';
+import { Helmet } from 'react-helmet';
 
 interface Friend {
   id: number;
@@ -96,6 +97,11 @@ export function Friends() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Friends | Life CEO</title>
+      </Helmet>
+      
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">
@@ -344,6 +350,8 @@ export function Friends() {
         </DialogContent>
       </Dialog>
     </div>
+  
+    </>
   );
 }
 

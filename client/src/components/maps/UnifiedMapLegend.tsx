@@ -34,7 +34,7 @@ export default function UnifiedMapLegend({
         {items.map((item, index) => (
           <div 
             key={index} 
-            className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300"
+            className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-300"
           >
             <div 
               className={`w-4 h-4 bg-gradient-to-r from-${item.color} to-cyan-500 rounded-full flex-shrink-0`}

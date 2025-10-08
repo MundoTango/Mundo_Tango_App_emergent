@@ -63,7 +63,7 @@ export function SimpleCommentEditor({
               flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
               ${content.trim() 
                 ? 'bg-pink-500 text-white hover:bg-pink-600' 
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-gray-100 text-gray-600 dark:text-gray-400 cursor-not-allowed'
               }
             `}
            data-testid="button-element">

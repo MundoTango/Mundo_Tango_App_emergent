@@ -318,7 +318,7 @@ export function InternalUploader({
           className="hidden"
         / data-testid="input-hidden">
 
-        <p className="text-sm text-gray-600 text-center dark:text-neutral-400">
+        <p className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
         </p>
       </div>
@@ -337,7 +337,7 @@ export function InternalUploader({
       {/* Uploaded Files Preview */}
       {uploadedFiles.length > 0 && (
         <div className="space-y-2">
-          <h4 className="font-medium text-sm text-gray-700 dark:text-neutral-300">
+          <h4 className="font-medium text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
             Uploaded Files ({uploadedFiles.length})
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -356,7 +356,7 @@ export function InternalUploader({
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Upload className="h-8 w-8 text-gray-400" />
+                      <Upload className="h-8 w-8 text-gray-600 dark:text-gray-400" />
                     </div>
                   )}
                   
@@ -374,10 +374,10 @@ export function InternalUploader({
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-600 mt-1 truncate dark:text-neutral-400" title={file.originalname}>
+                <p className="text-xs text-gray-600 mt-1 truncate dark:text-neutral-600 dark:text-neutral-400" title={file.originalname}>
                   {file.originalname}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   {formatFileSize(file.size)}
                 </p>
               </div>

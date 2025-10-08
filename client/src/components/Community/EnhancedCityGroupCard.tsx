@@ -93,7 +93,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{group.memberCount || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Members</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Members</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -102,7 +102,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
               </div>
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{group.eventCount || 0}</p>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Events</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Events</p>
               </div>
             </div>
           </div>
@@ -110,11 +110,11 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
           {/* Additional Info */}
           <div className="pt-4 border-t border-gray-100">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-400">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                 <Music className="h-4 w-4" />
                 <span>Active tango community</span>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
             </div>
           </div>
           

@@ -160,7 +160,7 @@ export default function SystemStatsPanel() {
         </div>
         <div className="mt-4">
           <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{value}</div>
-          <div className="text-sm text-gray-600 dark:text-neutral-400">{subtitle}</div>
+          <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{subtitle}</div>
         </div>
       </CardContent>
     </Card>
@@ -325,7 +325,7 @@ export default function SystemStatsPanel() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Smartphone className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                  <Smartphone className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                   <span className="text-sm font-medium">Mobile</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -341,7 +341,7 @@ export default function SystemStatsPanel() {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Monitor className="h-4 w-4 text-gray-600 dark:text-neutral-400" />
+                  <Monitor className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                   <span className="text-sm font-medium">Desktop</span>
                 </div>
                 <div className="flex items-center gap-2">

@@ -326,7 +326,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
               variant="ghost"
               size="sm"
               onClick={handleComment}
-              className="flex items-center gap-2 text-gray-600 dark:text-neutral-400"
+              className="flex items-center gap-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
             >
               <MessageCircle className="h-4 w-4" />
               Comment
@@ -336,7 +336,7 @@ const PostLikeComment = ({ post, index, onEdit }: PostLikeCommentProps) => {
               variant="ghost"
               size="sm"
               onClick={() => setShareDialog(true)}
-              className="flex items-center gap-2 text-gray-600 dark:text-neutral-400"
+              className="flex items-center gap-2 text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
             >
               <Share className="h-4 w-4" />
               Share

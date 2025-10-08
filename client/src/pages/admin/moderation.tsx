@@ -69,6 +69,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Helmet } from 'react-helmet';
 
 interface ReportedContent {
   id: number;
@@ -189,10 +190,17 @@ export default function AdminModerationPage() {
       critical: 'bg-red-100 text-red-700'
     };
     return (
+    <>
+      <Helmet>
+        <title>Moderation | Life CEO</title>
+      </Helmet>
+      
       <Badge className={cn(colors[severity as keyof typeof colors])}>
         {severity.toUpperCase()}
       </Badge>
-    );
+    
+    </>
+  );
   };
 
   const getCategoryIcon = (category: string) => {
@@ -217,7 +225,7 @@ export default function AdminModerationPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Content Moderation
             </h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-400">
+            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
               Review reported content and maintain platform safety
             </p>
           </div>
@@ -243,7 +251,7 @@ export default function AdminModerationPage() {
           <Card className="border-red-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Pending Reports
                 </CardTitle>
                 <AlertTriangle className="w-4 h-4 text-red-500" />
@@ -262,7 +270,7 @@ export default function AdminModerationPage() {
           <Card className="border-yellow-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Under Review
                 </CardTitle>
                 <Eye className="w-4 h-4 text-yellow-500" />
@@ -281,7 +289,7 @@ export default function AdminModerationPage() {
           <Card className="border-green-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Resolved Today
                 </CardTitle>
                 <CheckCircle className="w-4 h-4 text-green-500" />
@@ -300,7 +308,7 @@ export default function AdminModerationPage() {
           <Card className="border-purple-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   AI Detection
                 </CardTitle>
                 <Brain className="w-4 h-4 text-purple-500" />
@@ -323,7 +331,7 @@ export default function AdminModerationPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
                   <Input
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -462,7 +470,7 @@ export default function AdminModerationPage() {
                             </div>
                           )}
                         </div>
-                        <p className="text-sm text-gray-700 line-clamp-3 dark:text-neutral-300">
+                        <p className="text-sm text-gray-700 line-clamp-3 dark:text-neutral-600 dark:text-neutral-300">
                           {report.content}
                         </p>
                         {report.mediaUrls && report.mediaUrls.length > 0 && (
@@ -470,15 +478,15 @@ export default function AdminModerationPage() {
                             {report.mediaUrls.slice(0, 3).map((url, idx) => (
                               <div key={idx} className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                                 {url.includes('video') ? (
-                                  <Video className="w-6 h-6 text-gray-400" />
+                                  <Video className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                                 ) : (
-                                  <Image className="w-6 h-6 text-gray-400" />
+                                  <Image className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                                 )}
                               </div>
                             ))}
                             {report.mediaUrls.length > 3 && (
                               <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                                <span className="text-sm text-gray-600 dark:text-neutral-400">
+                                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                                   +{report.mediaUrls.length - 3}
                                 </span>
                               </div>
@@ -490,10 +498,10 @@ export default function AdminModerationPage() {
                       {/* Report Details */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-gray-600 dark:text-neutral-400">
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             Reported by: <span className="font-medium">{report.reportedBy.name}</span>
                           </span>
-                          <span className="text-gray-600 dark:text-neutral-400">
+                          <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             Reason: <span className="font-medium">{report.reason}</span>
                           </span>
                           {report.reportCount > 1 && (

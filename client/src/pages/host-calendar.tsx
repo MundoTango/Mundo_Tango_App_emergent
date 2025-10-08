@@ -20,6 +20,7 @@ import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
 import { useScrollReveal } from '../utils/gsapAnimations';
+import { Helmet } from 'react-helmet';
 
 interface HostHome {
   id: number;
@@ -131,6 +132,11 @@ export default function HostCalendar() {
 
   if (isLoadingHomes) {
     return (
+    <>
+      <Helmet>
+        <title>Host Calendar | Life CEO</title>
+      </Helmet>
+      
       <DashboardLayout>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
           <div className="max-w-5xl mx-auto px-4">
@@ -142,7 +148,9 @@ export default function HostCalendar() {
           </div>
         </div>
       </DashboardLayout>
-    );
+    
+    </>
+  );
   }
 
   if (homes.length === 0) {

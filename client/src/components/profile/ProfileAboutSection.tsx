@@ -266,14 +266,14 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           {user.bio && (
             <div className="glassmorphic-card p-4">
               <h3 className="font-semibold mb-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Bio</h3>
-              <p className="text-gray-700 dark:text-neutral-300">{user.bio}</p>
+              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{user.bio}</p>
             </div>
           )}
           
           {(user.city || user.country) && (
             <div className="flex items-center gap-2 glassmorphic-card p-4">
               <MapPin className="w-5 h-5 text-turquoise-500" />
-              <span className="text-gray-700 font-medium dark:text-neutral-300">{[user.city, user.state, user.country].filter(Boolean).join(', ')}</span>
+              <span className="text-gray-700 font-medium dark:text-neutral-600 dark:text-neutral-300">{[user.city, user.state, user.country].filter(Boolean).join(', ')}</span>
             </div>
           )}
           
@@ -324,7 +324,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                         <div className="text-2xl">
                           {roleDetails?.emoji || roleIcons[role] || '🎭'}
                         </div>
-                        <p className="text-sm font-medium text-gray-700 group-hover:text-turquoise-600 transition-colors duration-300 dark:text-neutral-300">
+                        <p className="text-sm font-medium text-gray-700 group-hover:text-turquoise-600 transition-colors duration-300 dark:text-neutral-600 dark:text-neutral-300">
                           {roleDisplayName}
                         </p>
                       </div>
@@ -338,7 +338,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {user.leaderLevel !== undefined && user.leaderLevel > 0 && (
               <div className="glassmorphic-card p-4">
-                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">Leader Level</p>
+                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Leader Level</p>
                 <div className="flex items-center gap-2">
                   <div className="w-full bg-gray-200/50 rounded-full h-2.5 overflow-hidden">
                     <div 
@@ -355,7 +355,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
             
             {user.followerLevel !== undefined && user.followerLevel > 0 && (
               <div className="glassmorphic-card p-4">
-                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">Follower Level</p>
+                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Follower Level</p>
                 <div className="flex items-center gap-2">
                   <div className="w-full bg-gray-200/50 rounded-full h-2.5 overflow-hidden">
                     <div 
@@ -424,7 +424,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                   name="nickname"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <User className="w-4 h-4 text-turquoise-500" />
                         How should we call you?
                       </FormLabel>
@@ -445,7 +445,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                   name="languages"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <Languages className="w-4 h-4 text-turquoise-500" />
                         What languages do you speak?
                       </FormLabel>
@@ -478,7 +478,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                   name="selectedRoles"
                   render={({ field }) => (
                     <FormItem className="space-y-3">
-                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <Heart className="w-4 h-4 text-turquoise-500" />
                         What roles do you play in tango?
                       </FormLabel>
@@ -503,7 +503,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                     name="leaderLevel"
                     render={({ field }) => (
                       <FormItem className="glassmorphic-card p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-turquoise-200/30">
-                        <FormLabel className="text-gray-700 font-semibold flex items-center gap-2 mb-3 dark:text-neutral-300">
+                        <FormLabel className="text-gray-700 font-semibold flex items-center gap-2 mb-3 dark:text-neutral-600 dark:text-neutral-300">
                           <User className="w-4 h-4 text-turquoise-500" />
                           Leader Level (0-10)
                         </FormLabel>
@@ -532,7 +532,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                     name="followerLevel"
                     render={({ field }) => (
                       <FormItem className="glassmorphic-card p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-turquoise-200/30">
-                        <FormLabel className="text-gray-700 font-semibold flex items-center gap-2 mb-3 dark:text-neutral-300">
+                        <FormLabel className="text-gray-700 font-semibold flex items-center gap-2 mb-3 dark:text-neutral-600 dark:text-neutral-300">
                           <Users className="w-4 h-4 text-ocean-500" />
                           Follower Level (0-10)
                         </FormLabel>
@@ -562,7 +562,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                   name="startedDancingYear"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-300">
+                      <FormLabel className="text-gray-700 font-semibold text-base flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
                         <Calendar className="w-4 h-4 text-turquoise-500" />
                         What year did you start dancing tango?
                       </FormLabel>
@@ -678,7 +678,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
           {user.bio && (
             <div className="glassmorphic-card p-4">
               <h3 className="font-semibold mb-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Bio</h3>
-              <p className="text-gray-700 dark:text-neutral-300">{user.bio}</p>
+              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{user.bio}</p>
             </div>
           )}
           
@@ -686,16 +686,16 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
             <h3 className="font-semibold mb-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">Basic Information</h3>
             <div className="space-y-3">
               <div>
-                <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">Name</p>
+                <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">Name</p>
                 <p className="font-medium text-gray-800 dark:text-neutral-200">{user.name}</p>
               </div>
               
               {(user.city || user.country) && (
                 <div>
-                  <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">Location</p>
+                  <p className="text-sm text-gray-600 mb-1 dark:text-neutral-600 dark:text-neutral-400">Location</p>
                   <div className="flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-turquoise-500" />
-                    <span className="text-gray-700 font-medium dark:text-neutral-300">{[user.city, user.state, user.country].filter(Boolean).join(', ')}</span>
+                    <span className="text-gray-700 font-medium dark:text-neutral-600 dark:text-neutral-300">{[user.city, user.state, user.country].filter(Boolean).join(', ')}</span>
                   </div>
                 </div>
               )}
@@ -735,7 +735,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                   </span>
                   <Music className="w-5 h-5 text-turquoise-500 animate-pulse" />
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">Your roles in the tango community</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Your roles in the tango community</p>
               </div>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -762,7 +762,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                       </div>
                       
                       {/* Role name */}
-                      <p className="text-sm font-medium text-gray-700 group-hover:text-turquoise-600 transition-colors duration-300 dark:text-neutral-300">
+                      <p className="text-sm font-medium text-gray-700 group-hover:text-turquoise-600 transition-colors duration-300 dark:text-neutral-600 dark:text-neutral-300">
                         {roleDisplayName}
                       </p>
                       
@@ -782,7 +782,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
               
               {/* Fun fact about roles */}
               <div className="mt-4 p-3 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-lg">
-                <p className="text-sm text-gray-600 italic dark:text-neutral-400">
+                <p className="text-sm text-gray-600 italic dark:text-neutral-600 dark:text-neutral-400">
                   {(() => {
                     const rolesArray = typeof user.tangoRoles === 'string' ? JSON.parse(user.tangoRoles) : user.tangoRoles;
                     return rolesArray.length > 3 
@@ -804,7 +804,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
               <div className="grid grid-cols-2 gap-4">
                 {user.leaderLevel !== undefined && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">Leader Level</p>
+                    <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Leader Level</p>
                     <div className="flex items-center gap-2">
                       <div className="w-full bg-gray-200/50 rounded-full h-2.5 overflow-hidden">
                         <div 
@@ -821,7 +821,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
                 
                 {user.followerLevel !== undefined && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">Follower Level</p>
+                    <p className="text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Follower Level</p>
                     <div className="flex items-center gap-2">
                       <div className="w-full bg-gray-200/50 rounded-full h-2.5 overflow-hidden">
                         <div 
@@ -846,7 +846,7 @@ export const ProfileAboutSection: React.FC<ProfileAboutSectionProps> = ({
               </h3>
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-turquoise-500" />
-                <span className="text-gray-700 font-medium dark:text-neutral-300">Dancing since {user.startedDancingYear} ({new Date().getFullYear() - user.startedDancingYear} years)</span>
+                <span className="text-gray-700 font-medium dark:text-neutral-600 dark:text-neutral-300">Dancing since {user.startedDancingYear} ({new Date().getFullYear() - user.startedDancingYear} years)</span>
               </div>
             </div>
           )}

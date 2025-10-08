@@ -91,7 +91,7 @@ export default function MTTableActions({
       data-testid={testId}
     >
       {hasSelection && (
-        <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">
+        <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mr-2">
           {selectedItems.length} selected
         </span>
       )}
@@ -152,7 +152,7 @@ interface ActionButtonProps {
 function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) {
   const getVariantClasses = () => {
     if (disabled) {
-      return 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed';
+      return 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 cursor-not-allowed';
     }
 
     switch (action.variant) {
@@ -171,7 +171,7 @@ function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) 
         return cn(
           'bg-white dark:bg-gray-800',
           'hover:bg-teal-50 dark:hover:bg-teal-900/30',
-          'text-gray-700 dark:text-gray-300',
+          'text-gray-700 dark:text-gray-600 dark:text-gray-300',
           'border border-gray-300 dark:border-gray-700'
         );
     }
@@ -264,7 +264,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
         className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         data-testid={testId}
       >
-        <MoreVertical className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        <MoreVertical className="w-4 h-4 text-gray-600 dark:text-gray-600 dark:text-gray-400" />
       </button>
 
       {isOpen && (
@@ -272,7 +272,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
           <div
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
-          />
+          / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsOpen(false)(e); } }}>
           <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20">
             {actions.map((action, index) => (
               <div key={index}>
@@ -288,7 +288,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
                     'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
                     action.variant === 'danger'
                       ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30'
+                      : 'text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30'
                   )}
                   data-testid={`${testId}-${action.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >

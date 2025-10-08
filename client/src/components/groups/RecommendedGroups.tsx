@@ -108,7 +108,7 @@ export default function RecommendedGroups() {
                   <h4 id={`rec-group-name-${group.id}`} className="font-semibold text-lg mb-1 hover:text-blue-600">
                     {group.name}
                   </h4>
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-400">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
                     <MapPin className="h-4 w-4" />
                     <span>{group.city}, {group.country}</span>
                     <Users className="h-4 w-4 ml-2" />

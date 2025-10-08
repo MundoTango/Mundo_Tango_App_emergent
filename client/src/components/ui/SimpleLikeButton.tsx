@@ -134,7 +134,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Reaction Count */}
       {totalReactions > 0 && (
         <div className="mt-1">
-          <span className="text-sm text-gray-600 dark:text-neutral-400">{totalReactions} reactions</span>
+          <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{totalReactions} reactions</span>
         </div>
       )}
     </div>

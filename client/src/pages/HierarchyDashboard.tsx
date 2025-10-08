@@ -17,6 +17,7 @@ import {
   AlertTriangle,
   RefreshCw
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface HierarchyMetrics {
   totalFiles: number;
@@ -53,7 +54,14 @@ export default function HierarchyDashboard() {
     
     if (autoRefresh) {
       const interval = setInterval(fetchMetrics, 30000); // Refresh every 30 seconds
-      return () => clearInterval(interval);
+      return (
+    <>
+      <Helmet>
+        <title>Hierarchy Dashboard | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => clearInterval(interval);
     }
   }, [autoRefresh]);
 
@@ -130,7 +138,7 @@ export default function HierarchyDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Project Hierarchy Dashboard</h1>
-          <p className="text-gray-600 mt-1 dark:text-neutral-400">
+          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
             Real-time analysis of your project structure health
           </p>
         </div>
@@ -170,13 +178,13 @@ export default function HierarchyDashboard() {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <span className="text-sm text-gray-600 dark:text-neutral-400">Module Cohesion</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Module Cohesion</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.moduleCohesion * 100).toFixed(1)}%
               </div>
             </div>
             <div>
-              <span className="text-sm text-gray-600 dark:text-neutral-400">Coupling Score</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Coupling Score</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.couplingScore * 100).toFixed(1)}%
               </div>

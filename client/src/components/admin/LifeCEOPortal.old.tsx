@@ -115,7 +115,7 @@ const LifeCEOPortal: React.FC = () => {
               <Users className="w-5 h-5 text-blue-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.activeAgents}/{systemStats.totalAgents}</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Active Agents</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Active Agents</div>
               </div>
             </div>
           </CardContent>
@@ -127,7 +127,7 @@ const LifeCEOPortal: React.FC = () => {
               <Database className="w-5 h-5 text-green-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.memoryEntries.toLocaleString()}</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Memory Entries</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Memory Entries</div>
               </div>
             </div>
           </CardContent>
@@ -139,7 +139,7 @@ const LifeCEOPortal: React.FC = () => {
               <Clock className="w-5 h-5 text-purple-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.dailyReviewTime}</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Daily Review</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Daily Review</div>
               </div>
             </div>
           </CardContent>
@@ -151,7 +151,7 @@ const LifeCEOPortal: React.FC = () => {
               <BarChart3 className="w-5 h-5 text-orange-500" />
               <div>
                 <div className="text-2xl font-bold">47</div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Tasks Today</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tasks Today</div>
               </div>
             </div>
           </CardContent>
@@ -178,7 +178,7 @@ const LifeCEOPortal: React.FC = () => {
                     </div>
                     <div>
                       <div className="font-medium">{agent.name}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-400">{agent.type.replace(/_/g, ' ')}</div>
+                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{agent.type.replace(/_/g, ' ')}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -210,7 +210,7 @@ const LifeCEOPortal: React.FC = () => {
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
                     <div className="text-sm font-medium">{activity.action}</div>
-                    <div className="text-xs text-gray-600 dark:text-neutral-400">{activity.agent} • {activity.time}</div>
+                    <div className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{activity.agent} • {activity.time}</div>
                   </div>
                   <Badge variant="outline" className="text-xs">
                     {activity.type}

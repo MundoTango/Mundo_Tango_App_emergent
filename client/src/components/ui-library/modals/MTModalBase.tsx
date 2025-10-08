@@ -175,7 +175,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
         )}
         onClick={closeOnOverlayClick ? onClose : undefined}
         data-testid={`${testId}-overlay`}
-      />
+      / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeOnOverlayClick ? onClose : undefined(e); } }}>
 
       {/* Container */}
       <div className={cn('relative w-full flex', positions[position])}>
@@ -216,7 +216,7 @@ const MTModalBase: React.FC<MTModalBaseProps> = ({
               aria-label="Close modal"
               data-testid={`${testId}-close`}
             >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white" />
+              <X className="w-5 h-5 text-gray-700 dark:text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white" />
             </button>
           )}
 

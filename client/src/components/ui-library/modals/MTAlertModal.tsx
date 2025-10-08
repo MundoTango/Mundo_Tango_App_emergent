@@ -180,7 +180,7 @@ const MTAlertModal: React.FC<MTAlertModalProps> = ({
             )}>
               {title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 leading-relaxed">
               {message}
             </p>
           </div>

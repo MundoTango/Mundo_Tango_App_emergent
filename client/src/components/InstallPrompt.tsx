@@ -102,7 +102,7 @@ export function InstallPrompt() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+            className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
             data-testid="button-dismiss-install"
           >
@@ -126,7 +126,7 @@ export function InstallPrompt() {
                   <IOSInstructions instructions={getIOSInstructions()} />
                 ) : (
                   <>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-4">
                       Get the full app experience with offline access, push notifications, and more!
                     </p>
                     
@@ -143,7 +143,7 @@ export function InstallPrompt() {
                       <Button
                         variant="ghost"
                         onClick={handleDismiss}
-                        className="w-full text-gray-600 dark:text-gray-400"
+                        className="w-full text-gray-600 dark:text-gray-600 dark:text-gray-400"
                         data-testid="button-maybe-later"
                       >
                         Maybe Later
@@ -157,7 +157,7 @@ export function InstallPrompt() {
             {/* Features list */}
             {!showIOSInstructions && (
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400">
+                <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">
                   <div className="flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
                     Offline access
@@ -189,13 +189,13 @@ function IOSInstructions({ instructions }: { instructions: string[] | null }) {
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+      <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-3">
         To install on iOS:
       </p>
       
       <ol className="space-y-2">
         {instructions.map((step, index) => (
-          <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+          <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-600 dark:text-gray-300">
             <span className="flex-shrink-0 w-5 h-5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-400 text-xs flex items-center justify-center font-semibold">
               {index + 1}
             </span>

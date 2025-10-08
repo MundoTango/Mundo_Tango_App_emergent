@@ -60,7 +60,7 @@ export default function TrendingTags({
             <h3 className="font-semibold text-gray-900 dark:text-white">
               Trending Tags
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
               Most popular in your community
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function TrendingTags({
                           </motion.span>
                         )}
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                         {tag.count.toLocaleString()} {tag.count === 1 ? 'post' : 'posts'}
                       </span>
                     </div>
@@ -192,7 +192,7 @@ export default function TrendingTags({
                       className="overflow-hidden"
                     >
                       <div className="pt-2 px-3 pb-1">
-                        <div className="flex gap-4 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex gap-4 text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                           <span>Last hour: {Math.floor(tag.count * 0.1)} posts</span>
                           <span>Today: {Math.floor(tag.count * 0.3)} posts</span>
                           <span>This week: {tag.count} posts</span>
@@ -209,7 +209,7 @@ export default function TrendingTags({
 
       {/* Footer Stats */}
       <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
           <span>{tags.length} total tags</span>
           <span>{tags.filter(t => t.isHot).length} trending now 🔥</span>
         </div>

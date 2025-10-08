@@ -18,6 +18,7 @@ import EnhancedPostComposer from "@/components/moments/EnhancedPostComposer";
 // ESA Layer 7: Edit functionality handled by BeautifulPostCreator in edit mode
 // ESA Layer 7: Icons handled by BeautifulPostCreator internally
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { Helmet } from 'react-helmet';
 
 interface Post {
   id: number; // Must be number to work with EnhancedPostItem
@@ -125,6 +126,11 @@ const EnhancedTimeline = () => {
   // ESA Layer 7: Post content management handled by BeautifulPostCreator
 
   return (
+    <>
+      <Helmet>
+        <title>Enhanced Timeline | Life CEO</title>
+      </Helmet>
+      
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
         <div className="max-w-7xl mx-auto py-6 px-4">
@@ -225,6 +231,8 @@ const EnhancedTimeline = () => {
       </Dialog>
       </div>
     </DashboardLayout>
+  
+    </>
   );
 };
 

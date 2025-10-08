@@ -216,7 +216,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
             size="sm" 
             className="h-10 w-10 p-0 hover:bg-indigo-50 hover:ring-2 hover:ring-indigo-200 rounded-full transition-all duration-200"
            data-testid="button-h-10">
-            <MoreVertical className="h-5 w-5 text-gray-700 hover:text-indigo-600 dark:text-neutral-300" />
+            <MoreVertical className="h-5 w-5 text-gray-700 hover:text-indigo-600 dark:text-neutral-600 dark:text-neutral-300" />
             <span className="sr-only">Post options</span>
           </Button>
         </DropdownMenuTrigger>
@@ -345,7 +345,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
                     onChange={(e) = data-testid="input-element"> setReportReason(e.target.value)}
                     className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500 dark:border-neutral-600"
                   />
-                  <span className="text-sm text-gray-700 dark:text-neutral-300">{reason}</span>
+                  <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{reason}</span>
                 </label>
               ))}
             </div>

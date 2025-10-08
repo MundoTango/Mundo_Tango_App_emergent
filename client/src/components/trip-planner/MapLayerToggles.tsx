@@ -24,7 +24,7 @@ export default function MapLayerToggles({ layers, onChange }: MapLayerTogglesPro
 
   return (
     <Card className="p-4 glass-card-depth-1">
-      <h3 className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-300">
+      <h3 className="font-semibold text-sm mb-3 text-gray-700 dark:text-gray-600 dark:text-gray-300">
         Map Layers
       </h3>
       <div className="space-y-3">

@@ -348,6 +348,7 @@ const UserSettings: React.FC = () => {
           description: 'The file could not be imported. Please check the format.',
           variant: 'destructive'
         });
+import { Helmet } from 'react-helmet';
       }
     };
     reader.readAsText(file);
@@ -374,10 +375,17 @@ const UserSettings: React.FC = () => {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>User Settings | Life CEO</title>
+      </Helmet>
+      
       <div className="flex items-center justify-center min-h-screen">
         <RefreshCw className="w-8 h-8 animate-spin text-turquoise-600" />
       </div>
-    );
+    
+    </>
+  );
   }
 
   return (
@@ -394,7 +402,7 @@ const UserSettings: React.FC = () => {
       {/* Search and Actions Bar */}
       <div className="mb-6 flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-400" />
           <Input
             type="text"
             placeholder="Search settings..."
@@ -812,7 +820,7 @@ const UserSettings: React.FC = () => {
                         <Label htmlFor="product-analytics" className="text-sm font-medium cursor-pointer">
                           Product Analytics
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                           Understand how you use our features to improve the platform
                         </p>
                       </div>
@@ -833,7 +841,7 @@ const UserSettings: React.FC = () => {
                         <Label htmlFor="session-recording" className="text-sm font-medium cursor-pointer">
                           Session Recording
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                           Help us identify and fix user experience issues
                         </p>
                       </div>
@@ -854,7 +862,7 @@ const UserSettings: React.FC = () => {
                         <Label htmlFor="error-tracking" className="text-sm font-medium cursor-pointer">
                           Error Tracking
                         </Label>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                           Automatically report technical issues for faster resolution
                         </p>
                       </div>
@@ -868,7 +876,7 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                     <Lock className="w-3 h-3 inline mr-1" />
                     Your data is encrypted and never sold. You can change these settings anytime in your privacy preferences.
                   </div>

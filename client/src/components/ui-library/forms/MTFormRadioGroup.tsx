@@ -59,7 +59,7 @@ export default function MTFormRadioGroup<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-3', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-300">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -146,7 +146,7 @@ export function MTFormRadioCards<
       render={({ field, fieldState }) => (
         <FormItem className={cn('space-y-3', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-300">
+            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>

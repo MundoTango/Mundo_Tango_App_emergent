@@ -79,6 +79,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { Helmet } from 'react-helmet';
 
 interface User {
   id: number;
@@ -259,11 +260,18 @@ export default function AdminUsersPage() {
     };
 
     return (
+    <>
+      <Helmet>
+        <title>Users | Life CEO</title>
+      </Helmet>
+      
       <Badge className={cn(colors[tier as keyof typeof colors] || 'bg-gray-500')}>
         {tier}
         {status === 'past_due' && ' ⚠'}
       </Badge>
-    );
+    
+    </>
+  );
   };
 
   return (
@@ -275,7 +283,7 @@ export default function AdminUsersPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               User Management
             </h1>
-            <p className="text-gray-600 mt-1 dark:text-neutral-400">
+            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
               Manage platform users, roles, and permissions
             </p>
           </div>
@@ -301,7 +309,7 @@ export default function AdminUsersPage() {
           <Card className="border-teal-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Total Users
                 </CardTitle>
                 <Users className="w-4 h-4 text-ocean-500" />
@@ -321,7 +329,7 @@ export default function AdminUsersPage() {
           <Card className="border-cyan-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Active Users
                 </CardTitle>
                 <Activity className="w-4 h-4 text-ocean-500" />
@@ -340,7 +348,7 @@ export default function AdminUsersPage() {
           <Card className="border-green-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Verified Users
                 </CardTitle>
                 <CheckCircle className="w-4 h-4 text-green-500" />
@@ -359,7 +367,7 @@ export default function AdminUsersPage() {
           <Card className="border-red-100">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Suspended
                 </CardTitle>
                 <Ban className="w-4 h-4 text-red-500" />
@@ -382,7 +390,7 @@ export default function AdminUsersPage() {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 w-4 h-4" />
                   <Input
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -559,7 +567,7 @@ export default function AdminUsersPage() {
                             <div>
                               <div className="font-medium text-gray-900 dark:text-neutral-100">{user.name}</div>
                               <div className="text-sm text-gray-500">{user.email}</div>
-                              <div className="text-xs text-gray-400">@{user.username}</div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400">@{user.username}</div>
                             </div>
                           </div>
                         </TableCell>
@@ -574,26 +582,26 @@ export default function AdminUsersPage() {
                         </TableCell>
                         <TableCell>
                           {user.city && user.country ? (
-                            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-400">
+                            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                               <Globe className="w-3 h-3" />
                               {user.city}, {user.country}
                             </div>
                           ) : (
-                            <span className="text-gray-400">-</span>
+                            <span className="text-gray-600 dark:text-gray-400">-</span>
                           )}
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm text-gray-600 dark:text-neutral-400">
+                          <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                             {format(new Date(user.createdAt), 'MMM d, yyyy')}
                           </div>
                         </TableCell>
                         <TableCell>
                           {user.lastLoginAt ? (
-                            <div className="text-sm text-gray-600 dark:text-neutral-400">
+                            <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                               {format(new Date(user.lastLoginAt), 'MMM d, h:mm a')}
                             </div>
                           ) : (
-                            <span className="text-gray-400">Never</span>
+                            <span className="text-gray-600 dark:text-gray-400">Never</span>
                           )}
                         </TableCell>
                         <TableCell className="text-right">
@@ -667,7 +675,7 @@ export default function AdminUsersPage() {
             {/* Pagination */}
             {usersData?.totalPages > 1 && (
               <div className="flex items-center justify-between px-6 py-4 border-t">
-                <div className="text-sm text-gray-600 dark:text-neutral-400">
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                   Showing {((page - 1) * 20) + 1} to {Math.min(page * 20, usersData?.total)} of {usersData?.total} users
                 </div>
                 <div className="flex gap-2">

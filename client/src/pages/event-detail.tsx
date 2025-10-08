@@ -51,6 +51,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import PostFeed from '@/components/moments/PostFeed';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
+import { Helmet } from 'react-helmet';
 
 interface EventDetail {
   id: number;
@@ -198,6 +199,11 @@ export default function EventDetailPage() {
 
   if (isLoading) {
     return (
+    <>
+      <Helmet>
+        <title>Event Detail | Life CEO</title>
+      </Helmet>
+      
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="p-12">
@@ -209,7 +215,9 @@ export default function EventDetailPage() {
           </CardContent>
         </Card>
       </div>
-    );
+    
+    </>
+  );
   }
 
   if (!event) {
@@ -217,9 +225,9 @@ export default function EventDetailPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="p-12 text-center">
-            <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <AlertCircle className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-2">Event not found</h2>
-            <p className="text-gray-600 mb-4 dark:text-neutral-400">This event may have been deleted or you don't have permission to view it.</p>
+            <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">This event may have been deleted or you don't have permission to view it.</p>
             <Button onClick={() => window.history.back()}>
               Back
             </Button>
@@ -345,7 +353,7 @@ export default function EventDetailPage() {
               <CardTitle>About this event</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700 dark:text-neutral-300">{event.description}</p>
+              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{event.description}</p>
               
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div>
@@ -354,7 +362,7 @@ export default function EventDetailPage() {
                     {safeFormatDate(event.startDate, 'MMM d, yyyy', 'Date TBA')} • {safeFormatTime(event.startDate, '20:00')}
                   </p>
                   {event.endDate && (
-                    <p className="text-sm text-gray-600 dark:text-neutral-400">
+                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
                       to {safeFormatTime(event.endDate, 'Time TBA')}
                     </p>
                   )}
@@ -529,7 +537,7 @@ export default function EventDetailPage() {
                                   {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
                                 </span>
                               </div>
-                              <p className="text-gray-700 dark:text-neutral-300">{post.content}</p>
+                              <p className="text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{post.content}</p>
                               {post.imageUrl && (
                                 <img 
                                   src={post.imageUrl} 
@@ -544,7 +552,7 @@ export default function EventDetailPage() {
                     </div>
                   ) : (
                     <div className="text-center py-12">
-                      <MessageSquare className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+                      <MessageSquare className="mx-auto h-12 w-12 text-gray-600 dark:text-gray-400 mb-3" />
                       <p className="text-gray-500">
                         No posts yet for this filter. Start the discussion!
                       </p>

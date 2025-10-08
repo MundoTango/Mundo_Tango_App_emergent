@@ -135,7 +135,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
           <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
             Record a Dance Memory
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-2">
             {partnerName ? `Dancing with ${partnerName}` : 'Capture your special dance moments'}
           </p>
         </div>
@@ -294,7 +294,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                           className={`text-2xl ${
                             star <= field.value 
                               ? 'text-yellow-500' 
-                              : 'text-gray-300 dark:text-gray-600'
+                              : 'text-gray-600 dark:text-gray-300 dark:text-gray-600'
                           } hover:text-yellow-400 transition-colors`}
                         >
                           ★

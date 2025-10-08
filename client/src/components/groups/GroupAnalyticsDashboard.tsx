@@ -50,7 +50,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
   const getSentimentIcon = (sentiment: string) => {
     if (sentiment === 'positive') return <TrendingUp className="h-5 w-5 text-green-600" />;
     if (sentiment === 'negative') return <TrendingDown className="h-5 w-5 text-red-600" />;
-    return <Activity className="h-5 w-5 text-gray-600 dark:text-neutral-400" />;
+    return <Activity className="h-5 w-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />;
   };
   
   return (
@@ -83,7 +83,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
             <div className="flex items-center gap-3">
               <MessageCircle className="h-8 w-8 text-blue-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Posts per Day</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Posts per Day</div>
                 <div className="text-2xl font-bold">{health.postsPerDay.toFixed(1)}</div>
               </div>
             </div>
@@ -95,7 +95,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
             <div className="flex items-center gap-3">
               <Users className="h-8 w-8 text-green-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">New Members/Week</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">New Members/Week</div>
                 <div className="text-2xl font-bold">{health.newMembersPerWeek}</div>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashb
             <div className="flex items-center gap-3">
               <Activity className="h-8 w-8 text-purple-600" />
               <div>
-                <div className="text-sm text-gray-600 dark:text-neutral-400">Engagement Score</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Engagement Score</div>
                 <div className="text-2xl font-bold">{health.engagementScore}/100</div>
               </div>
             </div>

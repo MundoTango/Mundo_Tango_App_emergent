@@ -98,14 +98,14 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                 Oops! Something went wrong
               </h2>
               
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-6">
                 We encountered an error while loading your profile. Don't worry, your data is safe.
               </p>
 
               {/* Error details in development */}
               {process.env.NODE_ENV === 'development' && error && (
                 <details className="w-full mb-6 text-left">
-                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
                     Error details
                   </summary>
                   <pre className="mt-2 p-4 bg-gray-100 dark:bg-gray-900 rounded text-xs overflow-auto">
@@ -143,7 +143,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
               </div>
 
               {/* Support message */}
-              <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-6 text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
                 If the problem persists, please contact support or try again later.
               </p>
             </div>

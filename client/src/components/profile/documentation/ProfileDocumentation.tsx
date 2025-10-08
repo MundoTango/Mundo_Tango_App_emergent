@@ -47,21 +47,21 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">API Documentation</span>
-                <span className="text-sm text-gray-600 dark:text-neutral-400">{metrics.apiCoverage}%</span>
+                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{metrics.apiCoverage}%</span>
               </div>
               <Progress value={metrics.apiCoverage} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Component Documentation</span>
-                <span className="text-sm text-gray-600 dark:text-neutral-400">{metrics.componentDocs}%</span>
+                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{metrics.componentDocs}%</span>
               </div>
               <Progress value={metrics.componentDocs} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Test Coverage</span>
-                <span className="text-sm text-gray-600 dark:text-neutral-400">{metrics.testCoverage}%</span>
+                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{metrics.testCoverage}%</span>
               </div>
               <Progress value={metrics.testCoverage} className="h-2" />
             </div>
@@ -79,7 +79,7 @@ export const ProfileDocumentation: React.FC<{ userId: number }> = ({ userId }) =
             {documentationItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-4 h-4 text-gray-600 dark:text-neutral-400" />
+                  <FileText className="w-4 h-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                   <span className="font-medium">{item.title}</span>
                 </div>
                 <Badge variant={item.status === 'complete' ? 'default' : 'secondary'}>

@@ -154,7 +154,7 @@ export default function UserRoleTable() {
       {/* Search and filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
           <Input
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
@@ -203,7 +203,7 @@ export default function UserRoleTable() {
                     <div>
                       <div className="font-semibold text-gray-900 dark:text-neutral-100">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
-                      <div className="text-xs text-gray-400">{user.email}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">{user.email}</div>
                     </div>
                   </div>
                 </TableCell>
@@ -230,7 +230,7 @@ export default function UserRoleTable() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="text-sm text-gray-600 dark:text-neutral-400">{user.lastActive}</div>
+                  <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{user.lastActive}</div>
                 </TableCell>
                 <TableCell>
                   <Badge className={user.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-700 border-gray-200'}>
@@ -276,7 +276,7 @@ export default function UserRoleTable() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Primary Role</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Primary Role</label>
                   <Select defaultValue={selectedUser.primaryRole} data-testid="select-element">
                     <SelectTrigger className="rounded-xl" data-testid="select-rounded-xl">
                       <SelectValue / data-testid="select-element">
@@ -295,7 +295,7 @@ export default function UserRoleTable() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Additional Roles</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-600 dark:text-neutral-300">Additional Roles</label>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) => (
                       <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer dark:bg-neutral-800">

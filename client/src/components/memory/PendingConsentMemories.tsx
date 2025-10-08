@@ -196,7 +196,7 @@ export default function PendingConsentMemories() {
     <div className="container mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Pending Consent</h1>
-        <p className="text-gray-600 dark:text-neutral-400">
+        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
           Memories where you've been tagged and need to approve or deny sharing.
         </p>
       </div>

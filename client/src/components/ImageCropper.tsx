@@ -185,7 +185,7 @@ export default function ImageCropper({
           <div className="space-y-4">
             {/* Zoom control */}
             <div className="flex items-center gap-4">
-              <ZoomIn className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
+              <ZoomIn className="w-5 h-5 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
               <Slider
                 value={zoom}
                 onValueChange={setZoom}
@@ -194,7 +194,7 @@ export default function ImageCropper({
                 step={0.1}
                 className="flex-1"
               />
-              <span className="text-sm text-gray-600 w-12 dark:text-neutral-400">{zoom[0].toFixed(1)}x</span>
+              <span className="text-sm text-gray-600 w-12 dark:text-neutral-600 dark:text-neutral-400">{zoom[0].toFixed(1)}x</span>
             </div>
 
             {/* Rotation control */}
@@ -209,7 +209,7 @@ export default function ImageCropper({
                 <RotateCw className="w-4 h-4 mr-2" />
                 Rotate 90°
               </Button>
-              <span className="text-sm text-gray-600 dark:text-neutral-400">{rotation}°</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{rotation}°</span>
             </div>
           </div>
 

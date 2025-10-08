@@ -350,7 +350,7 @@ export default function RecurringEventManager() {
                     <FormItem className="flex items-center justify-between">
                       <div className="space-y-0.5">
                         <FormLabel>Create Event Page</FormLabel>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">Create a dedicated page for this event series</p>
+                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Create a dedicated page for this event series</p>
                       </div>
                       <FormControl>
                         <Switch checked={field.value} onCheckedChange={(checked) => {
@@ -370,7 +370,7 @@ export default function RecurringEventManager() {
                       <FormItem className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <FormLabel>Allow Community Posts</FormLabel>
-                          <p className="text-sm text-gray-600 dark:text-neutral-400">Let attendees post on the event page</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Let attendees post on the event page</p>
                         </div>
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} />

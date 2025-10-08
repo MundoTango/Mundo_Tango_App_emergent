@@ -20,6 +20,7 @@ import {
   FileText,
   Settings
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface Feature {
   name: string;
@@ -197,13 +198,18 @@ export default function FeatureNavigation() {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Feature Navigation | Life CEO</title>
+      </Helmet>
+      
     <div className="min-h-screen bg-gray-50 p-6 dark:bg-neutral-800">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
             Mundo Tango Feature Navigation
           </h1>
-          <p className="text-gray-600 dark:text-neutral-400">
+          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
             Navigate to all platform features and see implementation status
           </p>
         </div>
@@ -246,14 +252,14 @@ export default function FeatureNavigation() {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-gray-600 dark:text-neutral-400">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{feature.description}</p>
                 
                 {getStatusBadge(feature.status)}
                 
                 {feature.issues && (
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Issues:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-400">
+                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Issues:</p>
+                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-600 dark:text-neutral-400">
                       {feature.issues.map((issue, idx) => (
                         <li key={idx}>{issue}</li>
                       ))}
@@ -263,8 +269,8 @@ export default function FeatureNavigation() {
                 
                 {feature.requirements && (
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Required Features:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-400">
+                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Required Features:</p>
+                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-600 dark:text-neutral-400">
                       {feature.requirements.map((req, idx) => (
                         <li key={idx}>{req}</li>
                       ))}
@@ -287,5 +293,7 @@ export default function FeatureNavigation() {
         </div>
       </div>
     </div>
+  
+    </>
   );
 }

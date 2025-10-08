@@ -1,7 +1,13 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 export default function TimelineDebug() {
   return (
+    <>
+      <Helmet>
+        <title>Timeline Debug | Life CEO</title>
+      </Helmet>
+      
     <div style={{ 
       position: 'fixed',
       top: 0,
@@ -29,5 +35,7 @@ export default function TimelineDebug() {
         </ul>
       </div>
     </div>
+  
+    </>
   );
 }

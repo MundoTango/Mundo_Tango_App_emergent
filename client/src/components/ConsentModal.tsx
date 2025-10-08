@@ -47,7 +47,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Privacy & Analytics</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Help us improve your experience</p>
+            <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">Help us improve your experience</p>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
                 <Label htmlFor="analytics-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Product Analytics
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                   Understand how you use our features to improve the platform
                 </p>
               </div>
@@ -92,7 +92,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
                 <Label htmlFor="session-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Session Recording
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                   Help us identify and fix user experience issues
                 </p>
               </div>
@@ -113,7 +113,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
                 <Label htmlFor="error-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Error Tracking
                 </Label>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
                   Automatically report technical issues for faster resolution
                 </p>
               </div>
@@ -157,7 +157,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
 
         {/* Footer */}
         <div className="text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
             By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation and analyze site usage.
           </p>
         </div>

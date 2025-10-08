@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import { io, Socket } from 'socket.io-client';
 import { useAuth } from '@/hooks/useAuth';
 import DashboardLayout from '@/components/esa/DashboardLayout';
+import { Helmet } from 'react-helmet';
 
 interface Notification {
   id: number;
@@ -82,7 +83,14 @@ export default function Notifications() {
 
     setSocket(newSocket);
 
-    return () => {
+    return (
+    <>
+      <Helmet>
+        <title>Notifications | Life CEO</title>
+      </Helmet>
+      
+    </>
+  ) => {
       newSocket.disconnect();
     };
   }, [user, toast]);

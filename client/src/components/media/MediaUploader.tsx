@@ -197,7 +197,7 @@ export default function MediaUploader({
         </Button>
         
         {mediaItems.length > 0 && (
-          <div className="text-sm text-gray-600 flex items-center dark:text-neutral-400">
+          <div className="text-sm text-gray-600 flex items-center dark:text-neutral-600 dark:text-neutral-400">
             {mediaItems.length} / {maxFiles} files
           </div>
         )}
@@ -217,7 +217,7 @@ export default function MediaUploader({
       {isUploading && (
         <div className="space-y-2">
           <Progress value={uploadProgress} />
-          <p className="text-sm text-gray-600 text-center dark:text-neutral-400">
+          <p className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
             Processing media... {uploadProgress.toFixed(0)}%
           </p>
         </div>
@@ -280,7 +280,7 @@ export default function MediaUploader({
                               className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity dark:bg-neutral-900"
                               data-testid={`drag-handle-${index}`}
                             >
-                              <GripVertical className="w-4 h-4 text-gray-600 dark:text-neutral-400" />
+                              <GripVertical className="w-4 h-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
                             </div>
 
                             {/* Action Overlay */}

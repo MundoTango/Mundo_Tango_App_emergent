@@ -98,7 +98,7 @@ export const RoleEmojiDisplay = ({
         <span 
           className={`
             ${config.emoji} 
-            text-gray-400 
+            text-gray-600 dark:text-gray-400 
             cursor-pointer 
             hover:text-gray-600 
             transition-colors
