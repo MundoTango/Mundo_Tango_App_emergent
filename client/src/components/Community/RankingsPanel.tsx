@@ -66,7 +66,8 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
         <div className="flex rounded-lg bg-[var(--color-neutral-100)] dark:bg-slate-800 p-1">
           <button
             data-testid="toggle-city-view"
-            onClick={() = aria-label="Button"> setView('city')}
+            onClick={() => setView('city')}
+            aria-label="View city rankings"
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
               view === 'city'
@@ -79,7 +80,8 @@ export default function RankingsPanel({ onCityClick, className }: RankingsPanelP
           </button>
           <button
             data-testid="toggle-region-view"
-            onClick={() = aria-label="Button"> setView('region')}
+            onClick={() => setView('region')}
+            aria-label="View region rankings"
             className={cn(
               "px-3 py-1 rounded-md text-sm font-medium transition-colors",
               view === 'region'
