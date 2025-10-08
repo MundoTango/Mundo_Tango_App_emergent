@@ -21,8 +21,7 @@ import { setupGlobalErrorHandlers, setupQueryErrorHandling } from "@/lib/global-
 import { MicroInteractionProvider } from "@/components/MicroInteractionProvider";
 import BuildOptimizer from "@/lib/build-optimizations";
 import * as Sentry from "@sentry/react";
-import i18n from "@/lib/i18n"; // Initialize i18n
-import { I18nextProvider } from "react-i18next";
+import "@/lib/i18n"; // Initialize i18n
 import { performanceOptimizer } from "@/utils/performance"; // ESA Performance Optimizer
 import "@/utils/console-cleanup"; // Security: Clean console output
 // ESA Life CEO 61x21 - Monitoring Services
@@ -175,29 +174,25 @@ export default function App() {
   console.log('Life CEO 44x21s - Adding required context providers');
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <Suspense fallback={<LoadingFallback message="Loading translations..." />}>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <ThemeProvider>
-              <CsrfProvider>
-                <TenantProvider>
-                  <LocationBiasProvider>
-                    <OpenReplayProvider>
-                      <MonitoringProvider>
-                        <TrialBanner />
-                        <SessionRecordingNotice />
-                        <Router />
-                        <Toaster />
-                      </MonitoringProvider>
-                    </OpenReplayProvider>
-                  </LocationBiasProvider>
-                </TenantProvider>
-              </CsrfProvider>
-            </ThemeProvider>
-          </AuthProvider>
-        </QueryClientProvider>
-      </Suspense>
-    </I18nextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ThemeProvider>
+          <CsrfProvider>
+            <TenantProvider>
+              <LocationBiasProvider>
+                <OpenReplayProvider>
+                  <MonitoringProvider>
+                    <TrialBanner />
+                    <SessionRecordingNotice />
+                    <Router />
+                    <Toaster />
+                  </MonitoringProvider>
+                </OpenReplayProvider>
+              </LocationBiasProvider>
+            </TenantProvider>
+          </CsrfProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

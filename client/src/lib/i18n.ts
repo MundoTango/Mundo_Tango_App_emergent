@@ -1,7 +1,48 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpBackend from 'i18next-http-backend';
+
+// Import translation files
+import enCommon from '@/i18n/locales/en/common.json';
+import enEvents from '@/i18n/locales/en/events.json';
+import enSocial from '@/i18n/locales/en/social.json';
+import enAgents from '@/i18n/locales/en/agents.json';
+import enPlaceholders from '@/i18n/locales/en/placeholders.json';
+
+import esCommon from '@/i18n/locales/es/common.json';
+import esEvents from '@/i18n/locales/es/events.json';
+import esSocial from '@/i18n/locales/es/social.json';
+import esAgents from '@/i18n/locales/es/agents.json';
+
+import frCommon from '@/i18n/locales/fr/common.json';
+import itCommon from '@/i18n/locales/it/common.json';
+import ptCommon from '@/i18n/locales/pt/common.json';
+
+// Translation resources organized by namespace
+const resources = {
+  en: {
+    common: enCommon,
+    events: enEvents,
+    social: enSocial,
+    agents: enAgents,
+    placeholders: enPlaceholders
+  },
+  es: {
+    common: esCommon,
+    events: esEvents,
+    social: esSocial,
+    agents: esAgents
+  },
+  fr: {
+    common: frCommon
+  },
+  it: {
+    common: itCommon
+  },
+  pt: {
+    common: ptCommon
+  }
+};
 
 // Supported languages with metadata
 export const supportedLanguages = [
@@ -17,19 +58,10 @@ export const supportedLanguages = [
 export const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
 
 i18n
-  .use(HttpBackend) // Load translations from server (lazy loading)
-  .use(LanguageDetector) // Detect user language
-  .use(initReactI18next) // Pass i18n instance to react-i18next
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    // Use HttpBackend to load translations on-demand
-    backend: {
-      loadPath: '/i18n/locales/{{lng}}/{{ns}}.json',
-      // Retry failed requests
-      requestOptions: {
-        cache: 'default'
-      }
-    },
-    
+    resources,
     defaultNS: 'common',
     fallbackLng: 'en',
     debug: false,
@@ -38,7 +70,7 @@ i18n
       escapeValue: false // React already escapes values
     },
 
-    // Detection order - check localStorage first, then browser settings
+    // Detection order
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
@@ -49,17 +81,12 @@ i18n
     returnEmptyString: false,
     returnNull: false,
     
-    // Available namespaces
+    // Namespace behavior
     ns: ['common', 'events', 'social', 'agents', 'placeholders'],
     
-    // React options - ENABLE SUSPENSE for proper loading
+    // React options
     react: {
-      useSuspense: true, // Wait for translations to load before rendering
-      bindI18n: 'languageChanged loaded', // Re-render on language change
-      bindI18nStore: 'added removed',
-      transEmptyNodeValue: '',
-      transSupportBasicHtmlNodes: true,
-      transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p']
+      useSuspense: false
     }
   });
 
