@@ -992,7 +992,7 @@ export default function PostCreator({
                   setMentions(mentionIds); // ESA Layer 24: Capture mention IDs
                   console.log('📌 Mentions extracted:', mentionIds);
                 }}
-                placeholder={editMode ? t('social:memories.creator.editPlaceholder') : t('social:memories.creator.sharePlaceholder')}
+                placeholder={editMode ? t('memories.creator.editPlaceholder') : t('memories.creator.sharePlaceholder')}
                 className="w-full transition-all duration-300 focus-within:ring-2 focus-within:ring-turquoise-400/50"
                 disabled={isUploading || createPostMutation.isPending}
                 rows={6}
@@ -1560,7 +1560,7 @@ export default function PostCreator({
                           <UnifiedLocationPicker
                             value={location}
                             onChange={handleLocationChange}
-                            placeholder={t('social:memories.creator.searchPlace')}
+                            placeholder={t('memories.creator.searchPlace')}
                             className="border-turquoise-300/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}

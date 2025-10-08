@@ -230,7 +230,16 @@
     "memoryShared": "Memoria Compartida",
     "memorySharedDesc": "Tu memoria se ha compartido exitosamente",
     "error": "Error",
-    "uploadFailed": "Error al subir"
+    "uploadFailed": "Error al subir",
+    "creator": {
+      "sharePlaceholder": "Comparte un recuerdo de tango...",
+      "editPlaceholder": "Edita tu recuerdo...",
+      "searchPlace": "Buscar un lugar..."
+    },
+    "feed": {
+      "searchPlaceholder": "Buscar publicaciones...",
+      "addTag": "Agregar etiqueta..."
+    }
   },
   "events": {
     "upcomingEvents": "Próximos Eventos",

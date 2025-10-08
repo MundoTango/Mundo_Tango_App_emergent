@@ -241,7 +241,16 @@
     "memoryShared": "Memory Shared",
     "memorySharedDesc": "Your memory has been shared successfully",
     "error": "Error",
-    "uploadFailed": "Upload failed"
+    "uploadFailed": "Upload failed",
+    "creator": {
+      "sharePlaceholder": "Share a tango memory...",
+      "editPlaceholder": "Edit your memory...",
+      "searchPlace": "Search for a place..."
+    },
+    "feed": {
+      "searchPlaceholder": "Search posts...",
+      "addTag": "Add tag..."
+    }
   },
   "events": {
     "upcomingEvents": "Upcoming Events",
