@@ -81,6 +81,7 @@ import { integrateESAAgentSystem, registerTestEndpoints } from "./esa-agents/ser
 import communityRoutes from "./routes/communityRoutes"; // ESA LIFE CEO 61x21 - Community Hub Map Data (Layers 8, 23, 27, 28)
 import { agentLearningRouter } from "./routes/agent-learning"; // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
 import esaToolsRouter from "./routes/esa-tools"; // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry (Layers 14, 15, 26, 32, 36, 44, 45, 48)
+import aiExpertRoutes from "./routes/ai-expert"; // ESA LIFE CEO 61x21 - AI Research Expert Agent (Layers 31,32,35,36,37,38,44,45,58)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -184,6 +185,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/life-ceo', lifeCeoAgentRoutes); // ESA LIFE CEO 61x21 - 16 AI Agents with GPT-4o Integration
   app.use('/api/agent-learning', agentLearningRouter); // ESA LIFE CEO 61x21 - Agent Learning System (Layers 36, 37, 44, 46, 52)
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
+  app.use('/api/ai-expert', aiExpertRoutes); // ESA LIFE CEO 61x21 - AI Research Expert Agent (Layers 31,32,35,36,37,38,44,45,58)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
   // ESA Layer 58: Cloudinary routes removed per user request
