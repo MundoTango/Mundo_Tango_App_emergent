@@ -476,8 +476,9 @@ export class MasterControlSystem {
   async initialize() {
     console.log('🚀 Initializing ESA 61x21 Multi-Agent System...');
     
-    // Import AI Research Expert
+    // Import specialized expert agents
     const { AIResearchExpert } = await import('./ai-research-expert');
+    const { UIUXDesignExpert } = await import('./ui-ux-expert');
     
     // Create all agents based on knowledge graph
     const agents = [
@@ -485,6 +486,7 @@ export class MasterControlSystem {
       new FrontendCoordinator(),
       new BackgroundProcessor(),
       new AIResearchExpert(), // Agent 10: AI Research & Innovation Expert
+      new UIUXDesignExpert(), // Agent 11: UI/UX & Graphic Design Expert
       // Additional agents would be created here
       // new RealtimeCommunications(),
       // new BusinessLogicManager(),
