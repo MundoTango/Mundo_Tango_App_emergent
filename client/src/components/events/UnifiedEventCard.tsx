@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { safeFormatDate, safeFormatTime } from '@/utils/dateHelpers';
 import { Button } from '@/components/ui/button';
 import { UseMutationResult } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 interface Event {
   id: string;
@@ -23,6 +24,7 @@ interface UnifiedEventCardProps {
 }
 
 export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCardProps) {
+  const { t } = useTranslation();
   const eventTypeColors = {
     milonga: { bg: 'bg-ocean-500/20', text: 'text-ocean-700', border: 'border-ocean-500/50' },
     workshop: { bg: 'bg-ocean-400/20', text: 'text-ocean-700', border: 'border-ocean-400/50' },
@@ -49,7 +51,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           });
         }}
         disabled={rsvpMutation.isPending}
-        title="Mark as attending"
+        title={t('events.rsvp.markAsAttending')}
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#2DD4BF] hover:from-[#0d9488] hover:to-[#14B8A6]' : ''}`}
         data-testid={`rsvp-attending-${event.id}`}
       >
@@ -70,7 +72,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           });
         }}
         disabled={rsvpMutation.isPending}
-        title="Mark as interested"
+        title={t('events.rsvp.markAsInterested')}
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'interested' ? 'bg-gradient-to-r from-[#2DD4BF] to-[#14B8A6] hover:from-[#14B8A6] hover:to-[#0D9488]' : ''}`}
         data-testid={`rsvp-interested-${event.id}`}
       >
@@ -89,7 +91,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           });
         }}
         disabled={rsvpMutation.isPending}
-        title="Mark as maybe"
+        title={t('events.rsvp.markAsMaybe')}
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'maybe' ? 'bg-gradient-to-r from-[#5EEAD4] to-[#2DD4BF] hover:from-[#2DD4BF] hover:to-[#14B8A6]' : ''}`}
         data-testid={`rsvp-maybe-${event.id}`}
       >
@@ -108,7 +110,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           });
         }}
         disabled={rsvpMutation.isPending}
-        title="Mark as not going"
+        title={t('events.rsvp.markAsNotGoing')}
         className={`p-1.5 h-auto ${event.userRsvpStatus === 'not_going' ? 'bg-gradient-to-r from-[#0D9488] to-[#0F766E] hover:from-[#0F766E] hover:to-[#155E75]' : ''}`}
         data-testid={`rsvp-not-going-${event.id}`}
       >
@@ -166,7 +168,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
             <div className="flex items-center gap-2">
               <Clock className="w-3 h-3 flex-shrink-0" />
               <span className="truncate">
-                {safeFormatDate(event.date, 'MMM dd', 'Date TBA')} at {event.time}
+                {safeFormatDate(event.date, 'MMM dd', t('events.dateTBA'))} at {event.time}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -175,13 +177,13 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
             </div>
             <div className="flex items-center gap-2">
               <Users className="w-3 h-3 flex-shrink-0" />
-              <span>{event.attendees} attending</span>
+              <span>{event.attendees} {t('events.attending')}</span>
               {event.userRsvpStatus === 'going' && (
                 <span 
                   style={{ background: 'rgba(94, 234, 212, 0.24)', color: '#0F766E' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
-                  You're Going
+                  {t('events.rsvp.youreGoing')}
                 </span>
               )}
               {event.userRsvpStatus === 'interested' && (
@@ -189,7 +191,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
                   style={{ background: 'rgba(45, 212, 191, 0.24)', color: '#0D9488' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
-                  Interested
+                  {t('events.rsvp.interested')}
                 </span>
               )}
               {event.userRsvpStatus === 'maybe' && (
@@ -197,7 +199,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
                   style={{ background: 'rgba(153, 246, 228, 0.24)', color: '#14B8A6' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
-                  Maybe
+                  {t('events.rsvp.maybe')}
                 </span>
               )}
             </div>
