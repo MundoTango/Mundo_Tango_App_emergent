@@ -1174,7 +1174,7 @@ export default function GroupDetailPageMT() {
                 <PulseButton
                   onClick={() => setLocation('/host-onboarding')}
                   className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
-                  pulseColor="rgba(6, 182, 212, 0.6)"
+                  pulseColor="rgba(20, 184, 166, 0.6)"
                   data-testid="button-become-host"
                 >
                   <Home className="h-4 w-4 mr-2" />
@@ -1322,7 +1322,7 @@ export default function GroupDetailPageMT() {
                       <PulseButton
                         onClick={() => setLocation('/host-onboarding')}
                         className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3"
-                        pulseColor="rgba(6, 182, 212, 0.6)"
+                        pulseColor="rgba(20, 184, 166, 0.6)"
                         data-testid="button-empty-state-host"
                       >
                         <Home className="h-5 w-5 mr-2" />
@@ -1483,7 +1483,7 @@ export default function GroupDetailPageMT() {
           recycle={false}
           numberOfPieces={500}
           gravity={0.3}
-          colors={['#06B6D4', '#0D448A', '#8E142E', '#14B8A6', '#F472B6']}
+          colors={['#5EEAD4', '#14B8A6', '#0D9488', '#0F766E', '#2DD4BF']}
         />
       )}
       

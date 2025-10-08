@@ -745,7 +745,7 @@ export default function LifeCEOEnhanced() {
                           toast.success(`Switched to ${agent.name}`, {
                             icon: agent.icon,
                             style: {
-                              background: 'linear-gradient(to right, #38b2ac, #06b6d4)',
+                              background: 'linear-gradient(to right, #14B8A6, #2DD4BF)',
                               color: 'white',
                             },
                           });

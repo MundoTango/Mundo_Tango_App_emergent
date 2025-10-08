@@ -466,7 +466,7 @@ export default function ListingDetail() {
           height={window.innerHeight}
           recycle={false}
           numberOfPieces={500}
-          colors={['#06b6d4', '#14b8a6', '#3b82f6', '#8b5cf6', '#ec4899']}
+          colors={['#5EEAD4', '#14B8A6', '#0D9488', '#0F766E', '#2DD4BF']}
         />
       )}
       
@@ -753,7 +753,7 @@ export default function ListingDetail() {
                   <PulseButton 
                     className="w-full aurora-gradient text-white font-semibold py-6 text-lg rounded-lg hover:shadow-aurora transition-all"
                     onClick={handleRequestToBook}
-                    pulseColor="rgba(6, 182, 212, 0.6)"
+                    pulseColor="rgba(20, 184, 166, 0.6)"
                     data-testid="button-request-to-book"
                   >
                     Request to Stay
