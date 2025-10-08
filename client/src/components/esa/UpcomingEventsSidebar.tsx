@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEventRSVP } from '@/hooks/useEventRSVP';
 import { useLocation } from 'wouter';
 import UnifiedEventCard from '@/components/events/UnifiedEventCard';
+import { useTranslation } from 'react-i18next';
 
 
 interface Event {
@@ -29,6 +30,7 @@ interface UpcomingEventsSidebarProps {
 }
 
 export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
+  const { t } = useTranslation();
   const { currentTheme } = useTheme();
   const [, setLocation] = useLocation();
   
@@ -146,33 +148,33 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Calendar className="w-5 h-5 text-[#5EEAD4]" />
-            <h2 className="text-lg font-semibold text-[#0B3C49]">Upcoming Events</h2>
+            <h2 className="text-lg font-semibold text-[#0B3C49]">{t('events.upcomingEvents')}</h2>
           </div>
           {isLoading ? (
             <p className="text-sm text-[#146778]">
-              Loading events...
+              {t('events.loadingEvents')}
             </p>
           ) : allEvents.length === 0 ? (
             <>
               <p className="text-sm text-[#146778]">
-                No upcoming events
+                {t('events.noUpcomingEvents')}
               </p>
               <p className="text-xs mt-1 text-[#3BA0AF]">
-                Check your city page or join groups to see events
+                {t('events.checkCityPage')}
               </p>
             </>
           ) : (
             <p className="text-sm text-[#146778]">
-              {allEvents.length} {allEvents.length === 1 ? 'event' : 'events'} coming up
+              {t('events.eventComingUp', { count: allEvents.length })}
             </p>
           )}
         </div>
 
         {/* Categorized Events - NEW ORDER */}
-        {renderSection("Events You're Attending", rsvpedEvents, 'rsvpedEvents', "No RSVP'd events")}
-        {renderSection("In Your City", yourCityEvents, 'yourCity', "No events in your city")}
-        {renderSection("Events You Follow", eventsYouFollowEvents, 'eventsYouFollow', "No events from groups you follow")}
-        {renderSection("Cities You Follow", citiesYouFollowEvents, 'citiesYouFollow', "No events in cities you follow")}
+        {renderSection(t('events.eventsAttending'), rsvpedEvents, 'rsvpedEvents', t('events.noRsvpdEvents'))}
+        {renderSection(t('events.inYourCity'), yourCityEvents, 'yourCity', t('events.noEventsInCity'))}
+        {renderSection(t('events.eventsYouFollow'), eventsYouFollowEvents, 'eventsYouFollow', t('events.noFollowedEvents'))}
+        {renderSection(t('events.citiesYouFollow'), citiesYouFollowEvents, 'citiesYouFollow', t('events.noFollowedCitiesEvents'))}
 
         {/* View All Link */}
         <div className="mt-6 pt-6 border-t border-[rgba(94,234,212,0.35)]">
@@ -187,7 +189,7 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
             aria-label="View all upcoming events"
             data-testid="button-view-all-events"
           >
-            View All Events
+            {t('events.viewAllEvents')}
           </button>
         </div>
       </div>

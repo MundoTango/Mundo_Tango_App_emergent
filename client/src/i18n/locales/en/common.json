@@ -233,6 +233,33 @@
     "entries": "entries",
     "rowsPerPage": "Rows per page"
   },
+  "memories": {
+    "title": "Memories",
+    "newPost": "New post",
+    "shareMemory": "Share your tango moment and @mention people...",
+    "keyboardShortcuts": "Keyboard shortcuts: ",
+    "memoryShared": "Memory Shared",
+    "memorySharedDesc": "Your memory has been shared successfully",
+    "error": "Error",
+    "uploadFailed": "Upload failed"
+  },
+  "events": {
+    "upcomingEvents": "Upcoming Events",
+    "loadingEvents": "Loading events...",
+    "noUpcomingEvents": "No upcoming events",
+    "checkCityPage": "Check your city page or join groups to see events",
+    "eventComingUp": "{{count}} event coming up",
+    "eventComingUp_plural": "{{count}} events coming up",
+    "eventsAttending": "Events You're Attending",
+    "inYourCity": "In Your City",
+    "eventsYouFollow": "Events You Follow",
+    "citiesYouFollow": "Cities You Follow",
+    "noRsvpdEvents": "No RSVP'd events",
+    "noEventsInCity": "No events in your city",
+    "noFollowedEvents": "No events from groups you follow",
+    "noFollowedCitiesEvents": "No events in cities you follow",
+    "viewAllEvents": "View All Events"
+  },
   "housing": {
     "reviews": {
       "response_posted_title": "Response posted",

@@ -221,5 +221,32 @@
     "to": "a",
     "entries": "entradas",
     "rowsPerPage": "Filas por página"
+  },
+  "memories": {
+    "title": "Memorias",
+    "newPost": "Nueva publicación",
+    "shareMemory": "Comparte tu momento tango y @menciona personas...",
+    "keyboardShortcuts": "Atajos de teclado: ",
+    "memoryShared": "Memoria Compartida",
+    "memorySharedDesc": "Tu memoria se ha compartido exitosamente",
+    "error": "Error",
+    "uploadFailed": "Error al subir"
+  },
+  "events": {
+    "upcomingEvents": "Próximos Eventos",
+    "loadingEvents": "Cargando eventos...",
+    "noUpcomingEvents": "No hay eventos próximos",
+    "checkCityPage": "Consulta la página de tu ciudad o únete a grupos para ver eventos",
+    "eventComingUp": "{{count}} evento próximo",
+    "eventComingUp_plural": "{{count}} eventos próximos",
+    "eventsAttending": "Eventos a los que Asistirás",
+    "inYourCity": "En Tu Ciudad",
+    "eventsYouFollow": "Eventos que Sigues",
+    "citiesYouFollow": "Ciudades que Sigues",
+    "noRsvpdEvents": "No hay eventos confirmados",
+    "noEventsInCity": "No hay eventos en tu ciudad",
+    "noFollowedEvents": "No hay eventos de grupos que sigues",
+    "noFollowedCitiesEvents": "No hay eventos en ciudades que sigues",
+    "viewAllEvents": "Ver Todos los Eventos"
   }
 }
