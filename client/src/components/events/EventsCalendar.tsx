@@ -70,13 +70,13 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
 
   function getEventColor(event: Event) {
     switch (event.eventType) {
-      case 'milonga': return '#38b2ac'; // turquoise
-      case 'workshop': return '#06b6d4'; // cyan
-      case 'festival': return '#3182ce'; // blue
-      case 'class': return '#10b981'; // emerald
-      case 'performance': return '#8b5cf6'; // violet
-      case 'practica': return '#ec4899'; // pink
-      case 'marathon': return '#f59e0b'; // amber
+      case 'milonga': return '#14B8A6'; // ocean-500
+      case 'workshop': return '#2DD4BF'; // ocean-400
+      case 'festival': return '#0F766E'; // ocean-700
+      case 'class': return '#0D9488'; // ocean-600
+      case 'performance': return '#5EEAD4'; // ocean-300
+      case 'practica': return '#99F6E4'; // ocean-200
+      case 'marathon': return '#155E75'; // ocean-900
       default: return '#6b7280'; // gray
     }
   }
@@ -180,13 +180,13 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
           <h4 className="text-sm font-medium text-gray-700 mb-2">Event Types</h4>
           <div className="flex flex-wrap gap-2">
             {[
-              { type: 'milonga', color: '#38b2ac', label: 'Milonga' },
-              { type: 'workshop', color: '#06b6d4', label: 'Workshop' },
-              { type: 'festival', color: '#3182ce', label: 'Festival' },
-              { type: 'class', color: '#10b981', label: 'Class' },
-              { type: 'performance', color: '#8b5cf6', label: 'Performance' },
-              { type: 'practica', color: '#ec4899', label: 'Práctica' },
-              { type: 'marathon', color: '#f59e0b', label: 'Marathon' },
+              { type: 'milonga', color: '#14B8A6', label: 'Milonga' },
+              { type: 'workshop', color: '#2DD4BF', label: 'Workshop' },
+              { type: 'festival', color: '#0F766E', label: 'Festival' },
+              { type: 'class', color: '#0D9488', label: 'Class' },
+              { type: 'performance', color: '#5EEAD4', label: 'Performance' },
+              { type: 'practica', color: '#99F6E4', label: 'Práctica' },
+              { type: 'marathon', color: '#155E75', label: 'Marathon' },
             ].map(({ type, color, label }) => (
               <div key={type} className="flex items-center gap-2">
                 <div 

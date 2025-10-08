@@ -94,7 +94,7 @@ export default function EventInvitationManager() {
             <div className="space-y-2 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
                 <User className="h-4 w-4" />
-                <span>Role: <strong className="text-[#8E142E]">{invitation.role}</strong></span>
+                <span>Role: <strong className="text-ocean-700">{invitation.role}</strong></span>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -145,7 +145,7 @@ export default function EventInvitationManager() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-700"></div>
       </div>
     );
   }

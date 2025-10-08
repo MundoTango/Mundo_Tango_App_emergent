@@ -24,10 +24,10 @@ interface UnifiedEventCardProps {
 
 export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCardProps) {
   const eventTypeColors = {
-    milonga: { bg: 'bg-[rgba(94,234,212,0.24)]', text: 'text-[#0E7490]', border: 'border-[rgba(94,234,212,0.55)]' },
-    workshop: { bg: 'bg-[rgba(43,178,232,0.24)]', text: 'text-[#0369A1]', border: 'border-[rgba(43,178,232,0.55)]' },
-    festival: { bg: 'bg-[rgba(236,72,153,0.24)]', text: 'text-[#BE185D]', border: 'border-[rgba(236,72,153,0.55)]' },
-    practica: { bg: 'bg-[rgba(16,185,129,0.24)]', text: 'text-[#047857]', border: 'border-[rgba(16,185,129,0.55)]' }
+    milonga: { bg: 'bg-ocean-500/20', text: 'text-ocean-700', border: 'border-ocean-500/50' },
+    workshop: { bg: 'bg-ocean-400/20', text: 'text-ocean-700', border: 'border-ocean-400/50' },
+    festival: { bg: 'bg-ocean-600/20', text: 'text-ocean-800', border: 'border-ocean-600/50' },
+    practica: { bg: 'bg-ocean-300/20', text: 'text-ocean-700', border: 'border-ocean-300/50' }
   };
 
   const colors = eventTypeColors[event.type as keyof typeof eventTypeColors] || eventTypeColors.milonga;
@@ -50,7 +50,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
         }}
         disabled={rsvpMutation.isPending}
         title="Mark as attending"
-        className={`p-1.5 h-auto ${event.userRsvpStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#06b6d4] hover:from-[#0d9488] hover:to-[#0891b2]' : ''}`}
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'going' ? 'bg-gradient-to-r from-[#14b8a6] to-[#2DD4BF] hover:from-[#0d9488] hover:to-[#14B8A6]' : ''}`}
         data-testid={`rsvp-attending-${event.id}`}
       >
         <Check className="w-4 h-4" />
@@ -71,7 +71,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
         }}
         disabled={rsvpMutation.isPending}
         title="Mark as interested"
-        className={`p-1.5 h-auto ${event.userRsvpStatus === 'interested' ? 'bg-gradient-to-r from-[#FCD34D] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706]' : ''}`}
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'interested' ? 'bg-gradient-to-r from-[#2DD4BF] to-[#14B8A6] hover:from-[#14B8A6] hover:to-[#0D9488]' : ''}`}
         data-testid={`rsvp-interested-${event.id}`}
       >
         <Star className="w-4 h-4" />
@@ -90,7 +90,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
         }}
         disabled={rsvpMutation.isPending}
         title="Mark as maybe"
-        className={`p-1.5 h-auto ${event.userRsvpStatus === 'maybe' ? 'bg-gradient-to-r from-[#A78BFA] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#7C3AED]' : ''}`}
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'maybe' ? 'bg-gradient-to-r from-[#5EEAD4] to-[#2DD4BF] hover:from-[#2DD4BF] hover:to-[#14B8A6]' : ''}`}
         data-testid={`rsvp-maybe-${event.id}`}
       >
         <HelpCircle className="w-4 h-4" />
@@ -109,7 +109,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
         }}
         disabled={rsvpMutation.isPending}
         title="Mark as not going"
-        className={`p-1.5 h-auto ${event.userRsvpStatus === 'not_going' ? 'bg-gradient-to-r from-[#F87171] to-[#EF4444] hover:from-[#EF4444] hover:to-[#DC2626]' : ''}`}
+        className={`p-1.5 h-auto ${event.userRsvpStatus === 'not_going' ? 'bg-gradient-to-r from-[#0D9488] to-[#0F766E] hover:from-[#0F766E] hover:to-[#155E75]' : ''}`}
         data-testid={`rsvp-not-going-${event.id}`}
       >
         <X className="w-4 h-4" />
@@ -126,13 +126,13 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
       <div 
         style={{
           background: 'rgba(255,255,255,0.78)',
-          borderColor: 'rgba(94,234,212,0.55)'
+          borderColor: 'rgba(20, 184, 166, 0.55)'
         }}
         className={cn(
           "p-3 rounded-xl border transition-all duration-300 backdrop-blur-sm",
           "hover:scale-[1.01] hover:shadow-lg"
         )}
-        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(222,252,255,0.82)'}
+        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(240, 253, 250, 0.82)'}
         onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.78)'}
       >
         <div className="flex items-start justify-between mb-2 gap-2">
@@ -140,7 +140,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
             href={`/events/${event.id}`}
             className="flex-1 min-w-0 cursor-pointer text-left"
           >
-            <h3 className="font-semibold text-sm transition-colors truncate text-[#0B3C49] group-hover:text-[#5EEAD4]">
+            <h3 className="font-semibold text-sm transition-colors truncate text-ocean-900 group-hover:text-ocean-300">
               {event.title}
             </h3>
             <span className={cn(
@@ -152,7 +152,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           </a>
           <div className="flex items-start gap-1 flex-shrink-0 relative z-50">
             {event.isFeatured && (
-              <Sparkles className="w-4 h-4 text-[#5EEAD4] animate-pulse" />
+              <Sparkles className="w-4 h-4 text-ocean-300 animate-pulse" />
             )}
             {renderRSVPIcons()}
           </div>
@@ -162,7 +162,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
           href={`/events/${event.id}`}
           className="block cursor-pointer"
         >
-          <div className="space-y-1 text-xs text-[#3BA0AF]">
+          <div className="space-y-1 text-xs text-ocean-600">
             <div className="flex items-center gap-2">
               <Clock className="w-3 h-3 flex-shrink-0" />
               <span className="truncate">
@@ -178,7 +178,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
               <span>{event.attendees} attending</span>
               {event.userRsvpStatus === 'going' && (
                 <span 
-                  style={{ background: 'rgba(94,234,212,0.24)', color: '#0E7490' }}
+                  style={{ background: 'rgba(94, 234, 212, 0.24)', color: '#0F766E' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
                   You're Going
@@ -186,7 +186,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
               )}
               {event.userRsvpStatus === 'interested' && (
                 <span 
-                  style={{ background: 'rgba(252,211,77,0.24)', color: '#D97706' }}
+                  style={{ background: 'rgba(45, 212, 191, 0.24)', color: '#0D9488' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
                   Interested
@@ -194,7 +194,7 @@ export default function UnifiedEventCard({ event, rsvpMutation }: UnifiedEventCa
               )}
               {event.userRsvpStatus === 'maybe' && (
                 <span 
-                  style={{ background: 'rgba(167,139,250,0.24)', color: '#7C3AED' }}
+                  style={{ background: 'rgba(153, 246, 228, 0.24)', color: '#14B8A6' }}
                   className="px-1.5 py-0.5 rounded text-xs"
                 >
                   Maybe

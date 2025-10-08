@@ -124,7 +124,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center text-lg">
-            <UserPlus className="h-5 w-5 mr-2 text-[#8E142E]" />
+            <UserPlus className="h-5 w-5 mr-2 text-ocean-700" />
             Invite Participants to {eventTitle}
           </CardTitle>
         </CardHeader>
@@ -188,7 +188,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
           <Button
             onClick={handleInviteUser}
             disabled={!selectedUserId || !selectedRole || inviteUserMutation.isPending}
-            className="w-full bg-[#8E142E] hover:bg-[#6B0F22]"
+            className="w-full bg-ocean-700 hover:bg-ocean-800"
           >
             <Plus className="h-4 w-4 mr-2" />
             {inviteUserMutation.isPending ? 'Sending Invitation...' : 'Send Invitation'}
@@ -204,7 +204,7 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
         <CardContent>
           {loadingParticipants ? (
             <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8E142E]"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-700"></div>
             </div>
           ) : participantsData?.data && participantsData.data.length > 0 ? (
             <div className="space-y-3">
