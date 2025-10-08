@@ -2085,6 +2085,61 @@ body {
 .ocean-gradient {
   background: var(--mt-ocean-gradient);
 }
+
+/* Aurora Tide - Glass Depth System */
+.glass-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-depth-1 {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.glass-depth-2 {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-depth-3 {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-depth-4 {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Dark mode glass depth */
+.dark .glass-depth-1 {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dark .glass-depth-2 {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.dark .glass-depth-3 {
+  background: rgba(30, 41, 59, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.dark .glass-depth-4 {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
 /* Force browser cache refresh Tue Aug  5 06:54:23 PM UTC 2025 */
 /* ESA Layer 9: ReactQuill Rich Text Editor Styling */
 .esa-rich-text-editor .ql-container {
