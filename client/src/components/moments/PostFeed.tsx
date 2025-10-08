@@ -8,6 +8,7 @@
 import { useState, useCallback, useMemo, useRef, useEffect, memo } from 'react';
 import { useAuth } from '@/contexts/auth-context'; // ESA Framework Layer 4: Use canonical auth context
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { 
   Heart, Search, X, Tag, Filter, Sparkles, Users, Globe, 
   MapPin, MessageCircle, Share2, MoreVertical, Home, Plane 
@@ -121,6 +122,7 @@ const PostFeed = memo(({
   hasMore: externalHasMore = false
 }: PostFeedProps) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
@@ -536,7 +538,7 @@ const PostFeed = memo(({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search posts..."
+                placeholder={t('social:memories.feed.searchPlaceholder')}
                 className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
               {searchQuery && (
@@ -648,7 +650,7 @@ const PostFeed = memo(({
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
-                    placeholder="Add tag..."
+                    placeholder={t('social:memories.feed.addTag')}
                     className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
