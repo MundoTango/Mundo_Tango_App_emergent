@@ -298,14 +298,19 @@ ${JSON.stringify(chunk, null, 2)}`;
             messages: [
               {
                 role: 'system',
-                content: 'You are a professional translator for a tango community platform. Maintain cultural context and formality.',
+                content: 'You are a professional translator for a tango community platform. Maintain cultural context and formality. Return ONLY valid JSON without markdown code blocks.',
               },
               { role: 'user', content: prompt },
             ],
             temperature: 0.3,
           });
           
-          const translated = JSON.parse(completion.choices[0].message.content || '{}');
+          let responseContent = completion.choices[0].message.content || '{}';
+          
+          // Strip markdown code blocks if present
+          responseContent = responseContent.replace(/```json\s*\n?/g, '').replace(/```\s*$/g, '').trim();
+          
+          const translated = JSON.parse(responseContent);
           Object.assign(translations, translated);
         } catch (error) {
           console.error(`Translation error for ${lang}:`, error);
