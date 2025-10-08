@@ -24,12 +24,12 @@ export const createTypingParticle = (event: React.KeyboardEvent<HTMLTextAreaElem
   particle.style.left = `${x}px`;
   particle.style.top = `${y}px`;
   
-  // Randomize particle color
+  // Randomize particle color - ocean palette
   const colors = [
-    'linear-gradient(45deg, #06b6d4, #3b82f6)',
-    'linear-gradient(45deg, #ec4899, #f97316)',
-    'linear-gradient(45deg, #10b981, #06b6d4)',
-    'linear-gradient(45deg, #8b5cf6, #ec4899)'
+    'linear-gradient(45deg, hsl(210, 100%, 56%), hsl(217, 91%, 60%))', // cyan to blue
+    'linear-gradient(45deg, hsl(330, 81%, 60%), hsl(24, 95%, 53%))',   // pink to orange
+    'linear-gradient(45deg, hsl(158, 64%, 52%), hsl(210, 100%, 56%))', // emerald to cyan
+    'linear-gradient(45deg, hsl(258, 86%, 64%), hsl(330, 81%, 60%))'   // violet to pink
   ];
   particle.style.background = colors[Math.floor(Math.random() * colors.length)];
   
