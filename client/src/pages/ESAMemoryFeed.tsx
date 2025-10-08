@@ -383,7 +383,7 @@ function ESAMemoryFeedCore() {
             </button>
             
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              ✏️ Edit Your Memory
+              ✏️ {t('memories.edit.title')}
             </h2>
             
             {/* BeautifulPostCreator with edit mode and react-quill */}
