@@ -97,11 +97,11 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-600 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-600 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -156,7 +156,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
         </h3>
         {isOwnProfile && (
           <Button
-            onClick={()  => setShowAddModal(true)}
+            onClick={() => setShowAddModal(true)}
             size="sm"
             className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
           >
@@ -175,7 +175,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
           </p>
           {isOwnProfile && (
             <Button
-              onClick={()  => setShowAddModal(true)}
+              onClick={() => setShowAddModal(true)}
               variant="outline"
               className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20"
             >
@@ -189,7 +189,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Upcoming Travels */}
       {upcomingTravels && upcomingTravels.length > 0 && (
         <div className="space-y-4">
-          <h4 className="font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">Upcoming & Ongoing</h4>
+          <h4 className="font-medium text-gray-700 dark:text-gray-300">Upcoming & Ongoing</h4>
           <div className="grid gap-4">
             {upcomingTravels.map((travel: TravelDetail) => (
               <TravelCard
@@ -207,7 +207,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Past Travels */}
       {pastTravels && pastTravels.length > 0 && (
         <div className="space-y-4">
-          <h4 className="font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">Past Travels</h4>
+          <h4 className="font-medium text-gray-700 dark:text-gray-300">Past Travels</h4>
           <div className="grid gap-4">
             {pastTravels.map((travel: TravelDetail) => (
               <TravelCard
@@ -226,7 +226,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {showAddModal && (
         <AddTravelDetailModal
           isOpen={showAddModal}
-          onClose={()  => setShowAddModal(false)}
+          onClose={() => setShowAddModal(false)}
         />
       )}
 
@@ -239,7 +239,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       )}
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={!!deletingTravelId} onOpenChange={()  => setDeletingTravelId(null)}>
+      <AlertDialog open={!!deletingTravelId} onOpenChange={() => setDeletingTravelId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Travel Detail?</AlertDialogTitle>
@@ -250,7 +250,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={()  => deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
+              onClick={() => deletingTravelId && deleteTravelDetailMutation.mutate(deletingTravelId)}
               className="bg-red-500 hover:bg-red-600"
             >
               Delete
@@ -290,11 +290,11 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-600 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-600 dark:text-gray-400';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -332,7 +332,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
                   {travel.eventName}
                 </h5>
               )}
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <MapPin className="w-3 h-3" />
                 <span>{travel.city}{travel.country ? `, ${travel.country}` : ''}</span>
               </div>
@@ -341,12 +341,12 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
 
           {/* Dates */}
           <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-1 text-gray-600 dark:text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
               <Calendar className="w-3 h-3" />
               <span>{formatDate(travel.startDate)}</span>
             </div>
-            <ChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
-            <div className="flex items-center gap-1 text-gray-600 dark:text-gray-600 dark:text-gray-400">
+            <ChevronRight className="w-3 h-3 text-gray-400" />
+            <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
               <Calendar className="w-3 h-3" />
               <span>{formatDate(travel.endDate)}</span>
             </div>
@@ -354,7 +354,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
 
           {/* Notes */}
           {travel.notes && (
-            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
               {travel.notes}
             </p>
           )}

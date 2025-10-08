@@ -101,10 +101,10 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
     switch (status) {
       case 'Completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'In Progress': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'Planned': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      case 'Planned': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
       case 'Blocked': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Under Review': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -113,7 +113,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
       case 'High': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
       case 'Low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -132,7 +132,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => toggleExpanded(item.id)}
+                    onClick={() => toggleExpanded(item.id)}
                     className="p-1"
                   >
                     {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -150,7 +150,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                     </Badge>
                   </div>
                   
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                     {item.description}
                   </p>
                   
@@ -177,7 +177,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={()  => setSelectedItem(item)}
+                  onClick={() => setSelectedItem(item)}
                   className="ml-auto"
                 >
                   <Eye className="h-4 w-4 mr-1" />
@@ -230,7 +230,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
 
           <div>
             <h3 className="font-semibold mb-2">Description</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">{item.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
           </div>
 
           {item.webDevPrerequisites && item.webDevPrerequisites.length > 0 && (
@@ -239,7 +239,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                 <Monitor className="h-4 w-4 mr-2" />
                 Web Development Prerequisites
               </h3>
-              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
                 {item.webDevPrerequisites.map((prereq, index) => (
                   <li key={index}>{prereq}</li>
                 ))}
@@ -253,7 +253,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
                 <Smartphone className="h-4 w-4 mr-2" />
                 Mobile Development Next Steps
               </h3>
-              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
                 {item.mobileNextSteps.map((step, index) => (
                   <li key={index}>{step}</li>
                 ))}

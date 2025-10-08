@@ -294,7 +294,7 @@ export default function HouseRulesSelector({
         <CardContent>
           <Dialog open={customRuleDialogOpen} onOpenChange={setCustomRuleDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" data-testid="button-add-custom">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Custom Rule
               </Button>
@@ -310,7 +310,7 @@ export default function HouseRulesSelector({
                 <div>
                   <Label htmlFor="custom-category">Category</Label>
                   <Select value={customRuleCategory} onValueChange={setCustomRuleCategory}>
-                    <SelectTrigger id="custom-category">
+                    <SelectTrigger id="custom-category" data-testid="select-custom-category">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -329,7 +329,7 @@ export default function HouseRulesSelector({
                     placeholder="e.g., No shoes in the house"
                     value={customRuleTitle}
                     onChange={(e) => setCustomRuleTitle(e.target.value)}
-                   
+                    data-testid="input-custom-title"
                   />
                 </div>
                 <div>
@@ -340,10 +340,10 @@ export default function HouseRulesSelector({
                     value={customRuleDescription}
                     onChange={(e) => setCustomRuleDescription(e.target.value)}
                     rows={3}
-                   
+                    data-testid="textarea-custom-description"
                   />
                 </div>
-                <Button onClick={handleAddCustomRule} className="w-full">
+                <Button onClick={handleAddCustomRule} className="w-full" data-testid="button-save-custom">
                   Add Rule
                 </Button>
               </div>
@@ -367,7 +367,7 @@ export default function HouseRulesSelector({
                 <Button
                   onClick={() => saveRulesMutation.mutate()}
                   disabled={saveRulesMutation.isPending}
-                 
+                  data-testid="button-save-rules"
                 >
                   {saveRulesMutation.isPending ? 'Saving...' : 'Save Rules'}
                 </Button>

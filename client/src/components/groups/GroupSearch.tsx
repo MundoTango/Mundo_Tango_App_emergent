@@ -119,11 +119,11 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
   }).length;
   
   return (
-    <Card className="p-6 mb-6">
+    <Card className="p-6 mb-6" data-testid="group-search-card">
       <div className="space-y-4">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               type="text"
               placeholder="Search groups by name or description..."
@@ -132,24 +132,24 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
               onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               className="pl-10 pr-4"
-             
+              data-testid="input-search-query"
               aria-label="Search groups"
             />
             
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto dark:bg-neutral-900"
-                  >
+              <div className="absolute top-full mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto"
+                   data-testid="search-suggestions">
                 {suggestions.map((group) => (
                   <button
                     key={group.id}
-                    className="w-full px-4 py-3 hover:bg-gray-50 text-left flex items-center gap-3 border-b last:border-b-0 dark:bg-neutral-800"
+                    className="w-full px-4 py-3 hover:bg-gray-50 text-left flex items-center gap-3 border-b last:border-b-0"
                     onClick={() => {
                       updateFilter('query', group.name);
                       setShowSuggestions(false);
                     }}
                     data-testid={`suggestion-${group.id}`}
                   >
-                    <MapPin className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <MapPin className="h-4 w-4 text-gray-400" />
                     <div>
                       <div className="font-medium">{group.name}</div>
                       <div className="text-sm text-gray-500">{group.city}, {group.country}</div>
@@ -164,7 +164,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
           <Button
             variant="outline"
             onClick={() => setShowAdvanced(!showAdvanced)}
-           
+            data-testid="button-toggle-filters"
             aria-label={showAdvanced ? "Hide advanced filters" : "Show advanced filters"}
           >
             <Filter className="h-4 w-4 mr-2" />
@@ -176,7 +176,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
             <Button
               variant="ghost"
               onClick={clearAllFilters}
-             
+              data-testid="button-clear-filters"
               aria-label="Clear all filters"
             >
               <X className="h-4 w-4 mr-2" />
@@ -186,7 +186,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
         </div>
         
         {showAdvanced && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t" data-testid="advanced-filters">
             <div>
               <label className="text-sm font-medium mb-2 block">City</label>
               <Input
@@ -194,7 +194,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
                 placeholder="e.g., Buenos Aires"
                 value={filters.city}
                 onChange={(e) => updateFilter('city', e.target.value)}
-               
+                data-testid="input-filter-city"
                 aria-label="Filter by city"
               />
             </div>
@@ -202,7 +202,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
             <div>
               <label className="text-sm font-medium mb-2 block">Role Type</label>
               <Select value={filters.roleType} onValueChange={(value) => updateFilter('roleType', value)}>
-                <SelectTrigger aria-label="Filter by role type">
+                <SelectTrigger data-testid="select-role-type" aria-label="Filter by role type">
                   <SelectValue placeholder="All roles" />
                 </SelectTrigger>
                 <SelectContent>
@@ -219,7 +219,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
             <div>
               <label className="text-sm font-medium mb-2 block">Visibility</label>
               <Select value={filters.visibility} onValueChange={(value) => updateFilter('visibility', value)}>
-                <SelectTrigger aria-label="Filter by visibility">
+                <SelectTrigger data-testid="select-visibility" aria-label="Filter by visibility">
                   <SelectValue placeholder="All groups" />
                 </SelectTrigger>
                 <SelectContent>
@@ -238,7 +238,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
                 value={filters.minMembers || ''}
                 onChange={(e) => updateFilter('minMembers', parseInt(e.target.value) || 0)}
                 placeholder="0"
-               
+                data-testid="input-min-members"
                 aria-label="Minimum number of members"
               />
             </div>
@@ -251,7 +251,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
                 value={filters.maxMembers === 10000 ? '' : filters.maxMembers}
                 onChange={(e) => updateFilter('maxMembers', parseInt(e.target.value) || 10000)}
                 placeholder="No limit"
-               
+                data-testid="input-max-members"
                 aria-label="Maximum number of members"
               />
             </div>
@@ -259,7 +259,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
         )}
         
         {activeFilterCount > 0 && (
-          <div className="flex flex-wrap gap-2 pt-4 border-t">
+          <div className="flex flex-wrap gap-2 pt-4 border-t" data-testid="active-filters">
             {filters.query && (
               <Badge variant="secondary" className="gap-1">
                 Query: {filters.query}

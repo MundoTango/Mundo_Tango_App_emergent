@@ -26,7 +26,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
 
   if (isLoading) {
     return (
-      <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
+      <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
         <div className="animate-pulse space-y-4">
           <div className="h-6 bg-cyan-200 dark:bg-cyan-800/30 rounded w-1/4"></div>
           <div className="h-20 bg-cyan-200 dark:bg-cyan-800/30 rounded"></div>
@@ -38,9 +38,9 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
 
   if (!reviews || reviews.length === 0) {
     return (
-      <GlassCard depth={1} className="p-8 border-cyan-200/30 dark:border-ocean-500/30">
+      <GlassCard depth={1} className="p-8 border-cyan-200/30 dark:border-cyan-500/30">
         <div className="text-center">
-          <Star className="w-12 h-12 mx-auto mb-3 text-ocean-500" />
+          <Star className="w-12 h-12 mx-auto mb-3 text-cyan-500" />
           <p className="text-slate-600 dark:text-slate-400">
             {t('housing.reviews.no_reviews', 'No reviews yet. Be the first to review this property!')}
           </p>
@@ -54,9 +54,9 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
   const totalReviews = reviews.length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="reviews-list">
       {/* Reviews Summary */}
-      <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
+      <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
         <div className="flex items-center gap-4">
           <div className="text-center">
             <div className="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">
@@ -68,7 +68,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
                   key={i}
                   className={`w-4 h-4 ${
                     i < Math.round(avgRating)
-                      ? 'fill-cyan-500 text-ocean-500'
+                      ? 'fill-cyan-500 text-cyan-500'
                       : 'text-slate-300 dark:text-slate-600'
                   }`}
                 />

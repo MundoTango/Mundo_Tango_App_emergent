@@ -89,14 +89,14 @@ export default function StoryHighlights({
         {/* Add Highlight Button */}
         {isOwnProfile && (
           <button
-            onClick={()  => setCreateDialogOpen(true)}
+            onClick={() => setCreateDialogOpen(true)}
             className="flex-shrink-0 group"
           >
             <div className="relative">
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-turquoise-100 to-cyan-100 flex items-center justify-center group-hover:from-turquoise-200 group-hover:to-cyan-200 transition-all">
                 <Plus className="h-8 w-8 text-turquoise-600" />
               </div>
-              <p className="text-sm text-center mt-2 text-gray-700 dark:text-neutral-600 dark:text-neutral-300">New</p>
+              <p className="text-sm text-center mt-2 text-gray-700">New</p>
             </div>
           </button>
         )}
@@ -105,12 +105,12 @@ export default function StoryHighlights({
         {displayHighlights.map((highlight) => (
           <button
             key={highlight.id}
-            onClick={()  => setSelectedHighlight(highlight)}
+            onClick={() => setSelectedHighlight(highlight)}
             className="flex-shrink-0 group"
           >
             <div className="relative">
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-turquoise-400 to-cyan-600 p-[3px] group-hover:from-turquoise-500 group-hover:to-cyan-700 transition-all">
-                <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-neutral-900">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white">
                   {highlight.coverImage ? (
                     <img 
                       src={highlight.coverImage} 
@@ -124,7 +124,7 @@ export default function StoryHighlights({
                   )}
                 </div>
               </div>
-              <p className="text-sm text-center mt-2 text-gray-700 max-w-20 truncate dark:text-neutral-600 dark:text-neutral-300">
+              <p className="text-sm text-center mt-2 text-gray-700 max-w-20 truncate">
                 {highlight.title}
               </p>
             </div>
@@ -154,16 +154,18 @@ export default function StoryHighlights({
                 id="highlight-title"
                 placeholder="e.g., Buenos Aires 2024"
                 value={newHighlightTitle}
-                onChange={(e)  => setNewHighlightTitle(e.target.value)}
+                onChange={(e) => setNewHighlightTitle(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleCreateHighlight()}
               />
             </div>
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
-                onClick={()  => {
+                onClick={() => {
                   setCreateDialogOpen(false);
-                  setNewHighlightTitle('') }}>
+                  setNewHighlightTitle('');
+                }}
+              >
                 Cancel
               </Button>
               <Button
@@ -192,9 +194,9 @@ export default function StoryHighlights({
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center text-white">
-                  <Play className="h-16 w-16 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
+                  <Play className="h-16 w-16 mx-auto mb-4 text-gray-400" />
                   <p className="text-lg font-medium">{selectedHighlight?.title}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">No stories yet</p>
+                  <p className="text-sm text-gray-400 mt-2">No stories yet</p>
                 </div>
               </div>
             )}

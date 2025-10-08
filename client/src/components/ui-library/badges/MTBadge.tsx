@@ -34,7 +34,7 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
   const variants = {
     default: cn(
       'bg-gray-100 dark:bg-gray-800',
-      'text-gray-700 dark:text-gray-600 dark:text-gray-300',
+      'text-gray-700 dark:text-gray-300',
       'border border-gray-200 dark:border-gray-700'
     ),
     success: cn(
@@ -102,7 +102,7 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
       {children}
       {removable && (
         <button
-          onClick={(e)  => {
+          onClick={(e) => {
             e.stopPropagation();
             onRemove?.();
           }}

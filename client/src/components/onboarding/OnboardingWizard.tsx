@@ -102,7 +102,7 @@ export function OnboardingWizard() {
         </button>
 
         <div className="p-8">
-          <Progress value={progress} className="mb-6 h-2 bg-white/20 dark:bg-neutral-900" />
+          <Progress value={progress} className="mb-6 h-2 bg-white/20" />
           
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-3">
@@ -124,7 +124,7 @@ export function OnboardingWizard() {
               onClick={handlePrevious}
               disabled={currentStep === 0}
               variant="ghost"
-              className="text-white hover:bg-white/20 disabled:opacity-50 dark:bg-neutral-900"
+              className="text-white hover:bg-white/20 disabled:opacity-50"
             >
               <ChevronLeft className="mr-2 h-4 w-4" />
               Previous
@@ -147,7 +147,7 @@ export function OnboardingWizard() {
 
             <Button
               onClick={handleNext}
-              className="bg-white text-cyan-600 hover:bg-white/90 dark:bg-neutral-900"
+              className="bg-white text-cyan-600 hover:bg-white/90"
             >
               {currentStep === ONBOARDING_STEPS.length - 1 ? 'Get Started' : 'Next'}
               <ChevronRight className="ml-2 h-4 w-4" />

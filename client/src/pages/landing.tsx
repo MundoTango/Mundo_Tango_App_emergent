@@ -5,21 +5,13 @@ import { useAuth } from "@/hooks/useAuth";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
 import { useState } from "react";
-import { Helmet } from 'react-helmet';
 
 export default function Landing() {
   const { isAuthenticated, isLoading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (
-    <>
-      <Helmet>
-        <title>Landing | Life CEO</title>
-      </Helmet>
-      savedTheme as 'light' | 'dark'
-    </>
-  ) || 'light';
+    return (savedTheme as 'light' | 'dark') || 'light';
   });
 
   const toggleTheme = () => {
@@ -60,7 +52,7 @@ export default function Landing() {
             <div 
               className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
               onClick={handleCloseSidebar}
-
+            />
           )}
           
           <main className={`flex-1 transition-all duration-300 ${
@@ -175,7 +167,7 @@ export default function Landing() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
           <Button 
-            onClick={()  => window.location.href = '/api/login'}
+            onClick={() => window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Join the Community
@@ -190,20 +182,20 @@ export default function Landing() {
               Global Tango Community
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
             Connect with passionate tango dancers worldwide. Share your journey, discover events, 
             and immerse yourself in the beautiful world of Argentine Tango.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              onClick={()  => window.location.href = '/api/login'}
+              onClick={() => window.location.href = '/api/login'}
               className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Start Your Tango Journey
             </Button>
             <Button 
               variant="outline" 
-              className="border-2 border-ocean-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
+              className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
             >
               Learn More
             </Button>
@@ -220,7 +212,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Connect & Share</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Share your tango moments, follow dancers you admire, and build meaningful connections in our vibrant community.
               </CardDescription>
             </CardContent>
@@ -234,7 +226,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Discover Events</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Find milongas, workshops, and festivals near you. Never miss an opportunity to dance and learn.
               </CardDescription>
             </CardContent>
@@ -248,7 +240,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Global Network</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Connect with tango communities worldwide. From Buenos Aires to Tokyo, find your tribe anywhere.
               </CardDescription>
             </CardContent>
@@ -262,7 +254,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Share Stories</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Document your tango journey with photos and videos. Inspire others and celebrate the passion we all share.
               </CardDescription>
             </CardContent>
@@ -276,7 +268,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Learn & Grow</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Access tutorials, tips from experienced dancers, and resources to improve your technique and musicality.
               </CardDescription>
             </CardContent>
@@ -290,7 +282,7 @@ export default function Landing() {
               <CardTitle className="text-xl text-gray-900 dark:text-white">Authentic Community</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-gray-600 dark:text-gray-600 dark:text-gray-300 text-center">
+              <CardDescription className="text-gray-600 dark:text-gray-300 text-center">
                 Join a respectful, passionate community that celebrates the art, culture, and emotion of tango.
               </CardDescription>
             </CardContent>
@@ -302,12 +294,12 @@ export default function Landing() {
           <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to Join the Movement?
           </h3>
-          <p className="text-lg text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Whether you're a beginner taking your first steps or a seasoned dancer, 
             Mundo Tango welcomes you with open arms.
           </p>
           <Button 
-            onClick={()  => window.location.href = '/api/login'}
+            onClick={() => window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Begin Your Journey Today
@@ -315,7 +307,7 @@ export default function Landing() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 text-center text-gray-600 dark:text-gray-600 dark:text-gray-400">
+        <footer className="mt-16 text-center text-gray-600 dark:text-gray-400">
           <p>&copy; 2025 Mundo Tango. Connecting hearts through dance.</p>
         </footer>
       </div>

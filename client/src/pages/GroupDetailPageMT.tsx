@@ -594,8 +594,8 @@ export default function GroupDetailPageMT() {
                 <div key={index} className="flex items-start gap-3">
                   {activity.icon === 'music' && <Music className="h-5 w-5 text-turquoise-500 mt-0.5" />}
                   {activity.icon === 'book' && <BookOpen className="h-5 w-5 text-blue-500 mt-0.5" />}
-                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-ocean-500 mt-0.5" />}
-                  {!activity.icon && <Zap className="h-5 w-5 text-ocean-500 mt-0.5" />}
+                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-cyan-500 mt-0.5" />}
+                  {!activity.icon && <Zap className="h-5 w-5 text-cyan-500 mt-0.5" />}
                   <div>
                     <h4 className="font-semibold">{activity.title}</h4>
                     <p className="text-sm">{activity.description}</p>
@@ -933,7 +933,7 @@ export default function GroupDetailPageMT() {
           <button
             onClick={() => setIsPostCreatorExpanded(true)}
             className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-turquoise-400 to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 mx-auto block animate-pulse"
-           
+            data-testid="button-expand-post-creator"
           >
             <Send className="h-6 w-6 text-white mx-auto transition-transform group-hover:rotate-45 group-active:rotate-[360deg] duration-500" />
           </button>
@@ -962,7 +962,7 @@ export default function GroupDetailPageMT() {
             <button
               onClick={() => setIsPostCreatorExpanded(false)}
               className="mt-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
-             
+              data-testid="button-collapse-post-creator"
             >
               ✕ Collapse
             </button>
@@ -985,7 +985,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-all-posts"
                     >
                       <Globe className="h-4 w-4" />
                     </button>
@@ -1004,7 +1004,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-residents"
                     >
                       <Home className="h-4 w-4" />
                     </button>
@@ -1023,7 +1023,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-visitors"
                     >
                       <Plane className="h-4 w-4" />
                     </button>
@@ -1042,7 +1042,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-friends"
                     >
                       <Users className="h-4 w-4" />
                     </button>
@@ -1063,7 +1063,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-all-posts"
                     >
                       <Globe className="h-4 w-4" />
                     </button>
@@ -1082,7 +1082,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-members"
                     >
                       <Users className="h-4 w-4" />
                     </button>
@@ -1101,7 +1101,7 @@ export default function GroupDetailPageMT() {
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
                           : 'bg-gray-100 opacity-60 hover:opacity-100'
                       }`}
-                     
+                      data-testid="filter-non-members"
                     >
                       <UserX className="h-4 w-4" />
                     </button>
@@ -1175,7 +1175,7 @@ export default function GroupDetailPageMT() {
                   onClick={() => setLocation('/host-onboarding')}
                   className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
                   pulseColor="rgba(6, 182, 212, 0.6)"
-                 
+                  data-testid="button-become-host"
                 >
                   <Home className="h-4 w-4 mr-2" />
                   {t('housing.city_housing_tab.become_host', 'Become a Host')}
@@ -1184,8 +1184,8 @@ export default function GroupDetailPageMT() {
               <MagneticButton
                 onClick={() => setLocation('/guest-onboarding')}
                 strength={0.15}
-                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-               
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                data-testid="button-search-preferences"
               >
                 <Settings className="h-4 w-4 mr-2" />
                 {t('housing.city_housing_tab.search_preferences', 'Search Preferences')}
@@ -1193,8 +1193,8 @@ export default function GroupDetailPageMT() {
               <MagneticButton
                 onClick={() => setLocation('/housing-marketplace')}
                 strength={0.15}
-                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
-               
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                data-testid="button-view-marketplace"
               >
                 <Search className="h-4 w-4 mr-2" />
                 {t('housing.city_housing_tab.all_homes', 'All homes')}
@@ -1215,7 +1215,7 @@ export default function GroupDetailPageMT() {
             <Button
               onClick={() => setLocation('/host-onboarding')}
               className="mt-action-button mt-action-button-primary"
-             
+              data-testid="button-admin-host-onboarding"
             >
               <Home className="h-4 w-4 mr-2" />
               {t('housing.city_housing_tab.start_host_onboarding', 'Start Host Onboarding')}
@@ -1228,25 +1228,25 @@ export default function GroupDetailPageMT() {
           <ScaleIn delay={0.1}>
             <GlassCard 
               depth={2}
-              className="p-6 border-cyan-200/30 dark:border-ocean-500/30"
-             
+              className="p-6 border-cyan-200/30 dark:border-cyan-500/30"
+              data-testid="housing-statistics-card"
             >
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center housing-stat-card">
+                <div className="text-center housing-stat-card" data-testid="stat-total-homes">
                   <Home className="h-8 w-8 mx-auto mb-2 text-cyan-600 dark:text-cyan-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">{totalHomes}</div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     {t('housing.city_housing_tab.total_homes', 'Total Homes')}
                   </div>
                 </div>
-                <div className="text-center housing-stat-card">
+                <div className="text-center housing-stat-card" data-testid="stat-avg-price">
                   <DollarSign className="h-8 w-8 mx-auto mb-2 text-teal-600 dark:text-teal-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">${avgPrice}</div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     {t('housing.city_housing_tab.avg_night', 'Avg/Night')}
                   </div>
                 </div>
-                <div className="text-center housing-stat-card">
+                <div className="text-center housing-stat-card" data-testid="stat-price-range">
                   <Star className="h-8 w-8 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">
                     ${priceRange.min}-${priceRange.max}
@@ -1255,7 +1255,7 @@ export default function GroupDetailPageMT() {
                     {t('housing.city_housing_tab.price_range', 'Price Range')}
                   </div>
                 </div>
-                <div className="text-center housing-stat-card">
+                <div className="text-center housing-stat-card" data-testid="stat-available">
                   <Users className="h-8 w-8 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
                   <div className="text-3xl font-bold text-slate-900 dark:text-white">{availableHomes}</div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
@@ -1268,12 +1268,12 @@ export default function GroupDetailPageMT() {
         )}
 
         {/* Map/List View Toggle */}
-        <Tabs value={housingView} onValueChange={(v: any) => setHousingView(v)}>
+        <Tabs value={housingView} onValueChange={(v: any) => setHousingView(v)} data-testid="housing-view-tabs">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger 
               value="list" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
-             
+              data-testid="housing-view-list"
             >
               <List className="h-4 w-4 mr-2" />
               {t('housing.city_housing_tab.list_view', 'List View')}
@@ -1281,17 +1281,17 @@ export default function GroupDetailPageMT() {
             <TabsTrigger 
               value="map"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
-             
+              data-testid="housing-view-map"
             >
               <MapPin className="h-4 w-4 mr-2" />
               {t('housing.city_housing_tab.map_view', 'Map View')}
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="list" className="mt-6">
+          <TabsContent value="list" className="mt-6" data-testid="housing-list-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
-                <div className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <div className="text-gray-500 dark:text-gray-400">
                   {t('housing.city_housing_tab.loading_listings', 'Loading housing listings...')}
                 </div>
               </div>
@@ -1301,10 +1301,10 @@ export default function GroupDetailPageMT() {
                 <GlassCard
                   depth={2}
                   className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
-                 
+                  data-testid="housing-empty-state"
                 >
                   <ScaleIn delay={0.3}>
-                    <Home className="h-16 w-16 mx-auto mb-4 text-ocean-500 dark:text-cyan-400" />
+                    <Home className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1323,7 +1323,7 @@ export default function GroupDetailPageMT() {
                         onClick={() => setLocation('/host-onboarding')}
                         className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3"
                         pulseColor="rgba(6, 182, 212, 0.6)"
-                       
+                        data-testid="button-empty-state-host"
                       >
                         <Home className="h-5 w-5 mr-2" />
                         {t('housing.city_housing_tab.list_property', 'List Your Property')}
@@ -1333,8 +1333,8 @@ export default function GroupDetailPageMT() {
                       <MagneticButton
                         onClick={() => setLocation('/housing-marketplace')}
                         strength={0.2}
-                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-6 py-3 text-slate-700 dark:text-slate-300"
-                       
+                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-3 text-slate-700 dark:text-slate-300"
+                        data-testid="button-empty-state-marketplace"
                       >
                         <Search className="h-5 w-5 mr-2" />
                         {t('housing.city_housing_tab.explore_cities', 'Explore All Cities')}
@@ -1352,7 +1352,7 @@ export default function GroupDetailPageMT() {
             )}
           </TabsContent>
 
-          <TabsContent value="map" className="mt-6">
+          <TabsContent value="map" className="mt-6" data-testid="housing-map-content">
             {loadingHousing ? (
               <div className="flex justify-center py-12">
                 <div className="text-slate-500 dark:text-slate-400">
@@ -1367,7 +1367,7 @@ export default function GroupDetailPageMT() {
                   className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
                 >
                   <ScaleIn delay={0.3}>
-                    <MapPin className="h-16 w-16 mx-auto mb-4 text-ocean-500 dark:text-cyan-400" />
+                    <MapPin className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1381,7 +1381,7 @@ export default function GroupDetailPageMT() {
               </ScaleIn>
             ) : (
               <ScaleIn delay={0.2}>
-                <GlassCard depth={2} className="h-[600px] overflow-hidden border-cyan-200/30 dark:border-ocean-500/30">
+                <GlassCard depth={2} className="h-[600px] overflow-hidden border-cyan-200/30 dark:border-cyan-500/30">
                   <HousingMap 
                     homes={homes}
                     cityLat={group?.latitude}
@@ -1675,7 +1675,7 @@ export default function GroupDetailPageMT() {
                         onClick={() => joinGroupMutation.mutate()}
                         disabled={joinGroupMutation.isPending}
                         className="mt-action-button mt-action-button-primary"
-                       
+                        data-testid="button-join-group"
                       >
                         <UserPlus className="h-4 w-4" />
                         {t('groups.joinGroup', 'Join Group')}
@@ -1710,7 +1710,7 @@ export default function GroupDetailPageMT() {
                           : 'border-transparent opacity-50 hover:opacity-100'
                         }
                       `}
-                     
+                      data-testid="tab-posts"
                     >
                       <MessageSquare className="h-5 w-5" />
                     </button>
@@ -1729,7 +1729,7 @@ export default function GroupDetailPageMT() {
                           : 'border-transparent opacity-50 hover:opacity-100'
                         }
                       `}
-                     
+                      data-testid="tab-events"
                     >
                       <Calendar className="h-5 w-5" />
                     </button>
@@ -1748,7 +1748,7 @@ export default function GroupDetailPageMT() {
                           : 'border-transparent opacity-50 hover:opacity-100'
                         }
                       `}
-                     
+                      data-testid="tab-members"
                     >
                       <Users className="h-5 w-5" />
                     </button>
@@ -1769,7 +1769,7 @@ export default function GroupDetailPageMT() {
                               : 'border-transparent opacity-50 hover:opacity-100'
                             }
                           `}
-                         
+                          data-testid="tab-community-hub"
                         >
                           <Globe className="h-5 w-5" />
                         </button>
@@ -1788,7 +1788,7 @@ export default function GroupDetailPageMT() {
                               : 'border-transparent opacity-50 hover:opacity-100'
                             }
                           `}
-                         
+                          data-testid="tab-housing"
                         >
                           <Home className="h-5 w-5" />
                         </button>
@@ -1807,7 +1807,7 @@ export default function GroupDetailPageMT() {
                               : 'border-transparent opacity-50 hover:opacity-100'
                             }
                           `}
-                         
+                          data-testid="tab-recommendations"
                         >
                           <Star className="h-5 w-5" />
                         </button>
@@ -1841,9 +1841,9 @@ export default function GroupDetailPageMT() {
                 setEditingPost(null);
               }}
               className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-             
+              data-testid="button-close-edit-modal"
             >
-              <svg className="w-6 h-6 text-gray-600 dark:text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

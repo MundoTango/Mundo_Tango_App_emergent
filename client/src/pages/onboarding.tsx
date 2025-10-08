@@ -21,7 +21,6 @@ import { Heart, Sparkles, Globe, Users, Music, Calendar, ArrowLeft, CheckCircle,
 import { useState, useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Helmet } from 'react-helmet';
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -193,12 +192,7 @@ export default function Onboarding() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Onboarding | Life CEO</title>
-      </Helmet>
-      
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 p-6" data-testid="onboarding-container">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -211,7 +205,7 @@ export default function Onboarding() {
               variant="ghost"
               size="sm"
               onClick={() => setLocation("/")}
-              className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
+              className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -219,7 +213,7 @@ export default function Onboarding() {
             <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-3 hover:scale-105 transition-transform duration-300">
               Complete Your Profile
             </h1>
-            <p className="text-xl text-gray-600 hover:text-gray-800 transition-colors duration-200 dark:text-neutral-200">Join the global tango community</p>
+            <p className="text-xl text-gray-600 hover:text-gray-800 transition-colors duration-200">Join the global tango community</p>
           </CardHeader>
         </div>
 
@@ -229,12 +223,12 @@ export default function Onboarding() {
 
 
             {/* Nickname Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-cyan-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-cyan-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-cyan-100 to-pink-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <Heart className="w-5 h-5 text-cyan-600 group-hover:text-pink-500 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-cyan-700 transition-colors dark:text-neutral-100">Nickname</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-cyan-700 transition-colors">Nickname</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded-full">✨ Your tango identity!</span>
                 </div>
@@ -244,12 +238,12 @@ export default function Onboarding() {
                 name="nickname"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-cyan-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">How should the community know you?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-cyan-700 transition-colors">How should the community know you?</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter your tango nickname"
                         {...field}
-                        className="h-12 border-gray-200 focus:border-ocean-500 focus:ring-cyan-500 rounded-lg hover:border-cyan-300 transition-all duration-200 focus:shadow-lg focus:shadow-cyan-100 dark:border-neutral-700"
+                        className="h-12 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500 rounded-lg hover:border-cyan-300 transition-all duration-200 focus:shadow-lg focus:shadow-cyan-100"
                       />
                     </FormControl>
                     <FormMessage />
@@ -259,12 +253,12 @@ export default function Onboarding() {
             </div>
 
             {/* Languages Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-blue-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-blue-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full flex items-center justify-center group-hover:animate-spin shadow-lg">
                   <Globe className="w-5 h-5 text-blue-600 group-hover:text-cyan-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors dark:text-neutral-100">Languages</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Languages</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">🌍 Connect globally!</span>
                 </div>
@@ -274,7 +268,7 @@ export default function Onboarding() {
                 name="languages"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">What languages do you speak?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">What languages do you speak?</FormLabel>
                     <FormControl>
                       <TileSelect
                         options={languages}
@@ -291,12 +285,12 @@ export default function Onboarding() {
             </div>
 
             {/* Tango Roles Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-teal-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-teal-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-full flex items-center justify-center group-hover:animate-pulse shadow-lg">
                   <Users className="w-5 h-5 text-teal-600 group-hover:text-emerald-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-teal-700 transition-colors dark:text-neutral-100">Tango Activities</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-teal-700 transition-colors">Tango Activities</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">💃 Your tango style!</span>
                 </div>
@@ -311,7 +305,9 @@ export default function Onboarding() {
                         name="RoleSelector"
                         onError={(error, errorInfo) => {
                           console.error('RoleSelector Error Boundary caught:', error);
-                          console.error('Error Info:', errorInfo) }}>
+                          console.error('Error Info:', errorInfo);
+                        }}
+                      >
                         <GroupedRoleSelector
                           selectedRoles={field.value || []}
                           onRoleChange={(roles) => {
@@ -329,12 +325,12 @@ export default function Onboarding() {
             </div>
 
             {/* Dance Role Skills Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-purple-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-purple-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center group-hover:animate-pulse shadow-lg">
                   <Music className="w-5 h-5 text-purple-600 group-hover:text-pink-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-purple-700 transition-colors dark:text-neutral-100">Do you dance as:</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-purple-700 transition-colors">Do you dance as:</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">🕺 Your dance style!</span>
                 </div>
@@ -347,7 +343,7 @@ export default function Onboarding() {
                   name="leaderLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2">
                         <span className="text-lg">🤵</span>
                         Leader Level: {field.value}/10
                       </FormLabel>
@@ -377,7 +373,7 @@ export default function Onboarding() {
                   name="followerLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-purple-700 transition-colors flex items-center gap-2">
                         <span className="text-lg">💃</span>
                         Follower Level: {field.value}/10
                       </FormLabel>
@@ -404,12 +400,12 @@ export default function Onboarding() {
             </div>
 
             {/* Years of Dancing Experience Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-orange-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-orange-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <span className="text-xl group-hover:animate-pulse">⏰</span>
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-orange-700 transition-colors dark:text-neutral-100">Dancing Experience</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-orange-700 transition-colors">Dancing Experience</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">📅 Your journey!</span>
                 </div>
@@ -421,7 +417,7 @@ export default function Onboarding() {
                   name="yearsOfDancing"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">Experience Level</FormLabel>
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors">Experience Level</FormLabel>
                       <FormControl>
                         <TileSelect
                           options={danceExperienceOptions}
@@ -442,7 +438,7 @@ export default function Onboarding() {
                   name="startedDancingYear"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors flex items-center gap-2 dark:text-neutral-600 dark:text-neutral-300">
+                      <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-orange-700 transition-colors flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         Year You Started Dancing
                       </FormLabel>
@@ -468,12 +464,12 @@ export default function Onboarding() {
             </div>
 
             {/* Location Section */}
-            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50 dark:bg-neutral-900">
-              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-indigo-300 transition-colors dark:border-neutral-700">
+            <div className="space-y-4 group hover:scale-[1.02] transition-all duration-300 hover:shadow-lg rounded-xl p-4 hover:bg-white/50">
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-200 group-hover:border-indigo-300 transition-colors">
                 <div className="w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center group-hover:animate-bounce shadow-lg">
                   <Sparkles className="w-5 h-5 text-indigo-600 group-hover:text-purple-600 transition-colors duration-300" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-900 group-hover:text-indigo-700 transition-colors dark:text-neutral-100">Location</h2>
+                <h2 className="text-xl font-medium text-gray-900 group-hover:text-indigo-700 transition-colors">Location</h2>
                 <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">📍 Find your scene!</span>
                 </div>
@@ -483,7 +479,7 @@ export default function Onboarding() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors dark:text-neutral-600 dark:text-neutral-300">Where are you exploring Tango the most?</FormLabel>
+                    <FormLabel className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors">Where are you exploring Tango the most?</FormLabel>
                     <FormControl>
                       <UnifiedLocationPicker
                         value={field.value?.city || ''}
@@ -499,7 +495,7 @@ export default function Onboarding() {
                             cityId: 0
                           });
                         }}
-                        className="border-gray-200 focus:border-indigo-500 rounded-lg hover:border-indigo-300 transition-all duration-200 focus:shadow-lg focus:shadow-indigo-100 dark:border-neutral-700"
+                        className="border-gray-200 focus:border-indigo-500 rounded-lg hover:border-indigo-300 transition-all duration-200 focus:shadow-lg focus:shadow-indigo-100"
                         placeholder="Search for your city..."
                         allowManualEntry={true}
                       />
@@ -511,7 +507,7 @@ export default function Onboarding() {
             </div>
 
             {/* Terms and Privacy Checkboxes */}
-            <div className="space-y-4 bg-gray-50 p-4 rounded-lg dark:bg-neutral-800">
+            <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
               <FormField
                 control={form.control}
                 name="acceptTerms"
@@ -522,11 +518,11 @@ export default function Onboarding() {
                         type="checkbox"
                         checked={field.value}
                         onChange={field.onChange}
-                        className="mt-1 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 dark:border-neutral-600"
+                        className="mt-1 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+                      <FormLabel className="text-sm text-gray-700">
                         I accept the <a href="/terms" target="_blank" className="text-cyan-600 hover:text-cyan-700 underline">Terms of Service</a>
                       </FormLabel>
                       <FormMessage />
@@ -545,11 +541,11 @@ export default function Onboarding() {
                         type="checkbox"
                         checked={field.value}
                         onChange={field.onChange}
-                        className="mt-1 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 dark:border-neutral-600"
+                        className="mt-1 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+                      <FormLabel className="text-sm text-gray-700">
                         I accept the <a href="/privacy" target="_blank" className="text-cyan-600 hover:text-cyan-700 underline">Privacy Policy</a>
                       </FormLabel>
                       <FormMessage />
@@ -598,7 +594,5 @@ export default function Onboarding() {
         </Form>
       </div>
     </div>
-  
-    </>
   );
 }

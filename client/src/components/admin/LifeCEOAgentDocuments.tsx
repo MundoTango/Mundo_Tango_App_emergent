@@ -157,12 +157,12 @@ const LifeCEOAgentDocuments: React.FC = () => {
               }`}
             >
               <input {...getInputProps()} />
-              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-400" />
+              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
               {isDragActive ? (
                 <p className="text-blue-600">Drop the files here...</p>
               ) : (
                 <>
-                  <p className="text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">Drag & drop documents here, or click to select</p>
+                  <p className="text-gray-600 mb-2">Drag & drop documents here, or click to select</p>
                   <p className="text-sm text-gray-500">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
                 </>
               )}
@@ -201,9 +201,9 @@ const LifeCEOAgentDocuments: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {doc.review_notes && (
-                  <div className="mb-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
-                    <p className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">Review Notes:</p>
-                    <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{doc.review_notes}</p>
+                  <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                    <p className="text-sm font-medium text-gray-700 mb-1">Review Notes:</p>
+                    <p className="text-sm text-gray-600">{doc.review_notes}</p>
                   </div>
                 )}
                 <div className="flex space-x-2">
@@ -215,7 +215,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={()  => setSelectedDocument(doc)}
+                      onClick={() => setSelectedDocument(doc)}
                     >
                       <Edit className="w-4 h-4 mr-1" />
                       Review
@@ -232,7 +232,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
         ) : (
           <Card>
             <CardContent className="py-8 text-center text-gray-500">
-              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
+              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
               <p>No documents uploaded yet</p>
               <p className="text-sm mt-2">Upload documents to build the agent's knowledge base</p>
             </CardContent>
@@ -253,7 +253,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <label className="text-sm font-medium">Review Notes</label>
                 <Textarea
                   value={reviewNotes}
-                  onChange={(e)  => setReviewNotes(e.target.value)}
+                  onChange={(e) => setReviewNotes(e.target.value)}
                   placeholder="Add your review notes here..."
                   rows={4}
                   className="mt-1"
@@ -262,32 +262,38 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <div className="flex space-x-2">
                 <Button
                   className="flex-1"
-                  onClick={()  => {
+                  onClick={() => {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'approved',
                       notes: reviewNotes,
-                    }) }}>
+                    });
+                  }}
+                >
                   <Check className="w-4 h-4 mr-1" />
                   Approve
                 </Button>
                 <Button
                   variant="destructive"
                   className="flex-1"
-                  onClick={()  => {
+                  onClick={() => {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'rejected',
                       notes: reviewNotes,
-                    }) }}>
+                    });
+                  }}
+                >
                   <X className="w-4 h-4 mr-1" />
                   Reject
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={()  => {
+                  onClick={() => {
                     setSelectedDocument(null);
-                    setReviewNotes('') }}>
+                    setReviewNotes('');
+                  }}
+                >
                   Cancel
                 </Button>
               </div>

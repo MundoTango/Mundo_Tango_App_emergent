@@ -281,10 +281,10 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
     switch (status) {
       case 'Completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'In Progress': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'Planned': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      case 'Planned': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
       case 'Blocked': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Under Review': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -293,7 +293,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
       case 'High': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
       case 'Low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-600 dark:text-gray-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -407,12 +407,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
               setSelectedItem({...item}); // Clone to prevent reference issues
             }
           }}
-         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => {
-            e.stopPropagation();
-            // If clicking on the expand/collapse area, toggle expansion
-            const target = e.target as HTMLElement;
-            if (target.closest('.expand-area')) {
-              toggleExpanded(item.id);(e); } }}>
+        >
           {/* Expand/Collapse Icon */}
           {hasChildren && (
             <div className="w-5 expand-area">
@@ -431,7 +426,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           <span className="flex-1 font-medium text-sm">{item.title}</span>
           
           {/* Depth Level Indicator */}
-          <span className="text-xs text-gray-600 dark:text-gray-400 font-mono px-2">L{depth + 1}</span>
+          <span className="text-xs text-gray-400 font-mono px-2">L{depth + 1}</span>
           
           {/* Child Count */}
           {hasChildren && (
@@ -559,7 +554,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
 
           <div>
             <h3 className="font-semibold mb-2">Description</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">{item.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
           </div>
 
           {item.webDevPrerequisites && item.webDevPrerequisites.length > 0 && (
@@ -568,7 +563,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
                 <Monitor className="h-4 w-4 mr-2" />
                 Web Development Prerequisites
               </h3>
-              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
                 {item.webDevPrerequisites.map((prereq, index) => (
                   <li key={index}>{prereq}</li>
                 ))}
@@ -582,7 +577,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
                 <Smartphone className="h-4 w-4 mr-2" />
                 Mobile Development Next Steps
               </h3>
-              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-300">
                 {item.mobileNextSteps.map((step, index) => (
                   <li key={index}>{step}</li>
                 ))}
@@ -661,7 +656,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <select
               className="px-3 py-1 border rounded-md bg-white dark:bg-gray-800"
               value={filterTeam}
-              onChange={(e)  => setFilterTeam(e.target.value)}
+              onChange={(e) => setFilterTeam(e.target.value)}
             >
               {getAllTeams.map(team => (
                 <option key={team} value={team}>
@@ -682,7 +677,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <input
               type="checkbox"
               checked={showCompleted}
-              onChange={(e)  => setShowCompleted(e.target.checked)}
+              onChange={(e) => setShowCompleted(e.target.checked)}
               className="rounded"
             />
             Show Completed

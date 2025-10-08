@@ -25,7 +25,7 @@
   
   /* Component Colors - PROTECTED */
   --primary: #8E142E !important;
-  --primary-foreground: var(--color-neutral-0) !important;
+  --primary-foreground: #FFFFFF !important;
   --secondary: #D4AF37 !important;
   --accent: #D4AF37 !important;
   

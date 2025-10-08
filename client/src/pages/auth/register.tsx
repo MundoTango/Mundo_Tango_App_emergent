@@ -13,7 +13,6 @@ import {
   MTFormField,
   MTFormCheckbox 
 } from "@/components/ui-library";
-import { Helmet } from 'react-helmet';
 
 export default function Register() {
   const { register } = useAuth();
@@ -55,11 +54,6 @@ export default function Register() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Register | Life CEO</title>
-      </Helmet>
-      
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-teal-50 flex items-center justify-center p-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -67,13 +61,13 @@ export default function Register() {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-teal-300/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10 dark:bg-neutral-900">
+      <Card className="w-full max-w-md shadow-2xl border-0 glassmorphic-card backdrop-blur-sm bg-white/90 relative z-10">
         <CardHeader className="text-center space-y-4 pb-8 relative">
           <MTFormButton
             variant="outline"
             onClick={() => navigate("/")}
-            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 border-0 shadow-none px-2 py-1 dark:text-neutral-100"
-           
+            className="absolute left-6 top-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 border-0 shadow-none px-2 py-1"
+            data-testid="button-back"
           >
             <ArrowLeft className="h-4 w-4" />
             Back
@@ -92,7 +86,7 @@ export default function Register() {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-transparent">
               Join Mundo Tango
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">
+            <CardDescription className="text-gray-600 mt-2">
               Connect with the global tango community
             </CardDescription>
           </div>
@@ -103,7 +97,7 @@ export default function Register() {
             form={form} 
             onSubmit={onSubmit}
             className="space-y-5"
-           
+            data-testid="register-form"
           >
             <MTFormField
               control={form.control}
@@ -114,7 +108,7 @@ export default function Register() {
               required
               autoComplete="name"
               description="Your display name in the community"
-             
+              data-testid="input-name"
             />
 
             <MTFormField
@@ -126,7 +120,7 @@ export default function Register() {
               required
               autoComplete="username"
               description="Choose a unique username (3-20 characters)"
-             
+              data-testid="input-username"
             />
 
             <MTFormField
@@ -138,7 +132,7 @@ export default function Register() {
               required
               autoComplete="email"
               description="We'll use this for login and notifications"
-             
+              data-testid="input-email"
             />
 
             <MTFormField
@@ -150,7 +144,7 @@ export default function Register() {
               required
               autoComplete="new-password"
               description="At least 8 characters with uppercase, lowercase, number and special character"
-             
+              data-testid="input-password"
             />
 
             <MTFormField
@@ -161,7 +155,7 @@ export default function Register() {
               type="password"
               required
               autoComplete="new-password"
-             
+              data-testid="input-confirm-password"
             />
 
             <div className="space-y-3 pt-2">
@@ -170,7 +164,7 @@ export default function Register() {
                 name="acceptTerms"
                 label="I accept the Terms and Conditions"
                 required
-               
+                data-testid="checkbox-terms"
               />
 
               <MTFormCheckbox
@@ -178,7 +172,7 @@ export default function Register() {
                 name="acceptPrivacy"
                 label="I accept the Privacy Policy"
                 required
-               
+                data-testid="checkbox-privacy"
               />
             </div>
 
@@ -188,7 +182,7 @@ export default function Register() {
               loading={form.formState.isSubmitting}
               disabled={form.formState.isSubmitting}
               className="w-full mt-6"
-             
+              data-testid="button-submit"
             >
               {form.formState.isSubmitting ? "Creating account..." : "Create Account"}
             </MTFormButton>
@@ -196,10 +190,10 @@ export default function Register() {
 
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200 dark:border-neutral-700"></div>
+              <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500 dark:bg-neutral-900">Or sign up with</span>
+              <span className="px-4 bg-white text-gray-500">Or sign up with</span>
             </div>
           </div>
 
@@ -213,7 +207,7 @@ export default function Register() {
                 });
               }}
               className="flex items-center justify-center gap-2"
-             
+              data-testid="button-google"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -245,7 +239,7 @@ export default function Register() {
                 });
               }}
               className="flex items-center justify-center gap-2"
-             
+              data-testid="button-facebook"
             >
               <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -254,13 +248,13 @@ export default function Register() {
             </MTFormButton>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 text-center dark:border-neutral-700">
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-600">
               Already have an account?{" "}
               <Link 
                 href="/login" 
                 className="text-teal-600 hover:text-teal-700 font-semibold underline underline-offset-2 transition-colors"
-               
+                data-testid="link-login"
               >
                 Sign in here
               </Link>
@@ -269,7 +263,5 @@ export default function Register() {
         </CardContent>
       </Card>
     </div>
-  
-    </>
   );
 }

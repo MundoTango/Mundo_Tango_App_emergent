@@ -318,7 +318,7 @@ export function InternalUploader({
           className="hidden"
         />
 
-        <p className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 text-center">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
         </p>
       </div>
@@ -337,13 +337,13 @@ export function InternalUploader({
       {/* Uploaded Files Preview */}
       {uploadedFiles.length > 0 && (
         <div className="space-y-2">
-          <h4 className="font-medium text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+          <h4 className="font-medium text-sm text-gray-700">
             Uploaded Files ({uploadedFiles.length})
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {uploadedFiles.map((file) => (
               <div key={file.id} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200 dark:bg-neutral-800">
+                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                   {file.mimetype.startsWith('image/') ? (
                     <img
                       src={file.thumbnailUrl || file.url}
@@ -356,13 +356,13 @@ export function InternalUploader({
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Upload className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+                      <Upload className="h-8 w-8 text-gray-400" />
                     </div>
                   )}
                   
                   {/* Remove button */}
                   <button
-                    onClick={()  => removeFile(file.id)}
+                    onClick={() => removeFile(file.id)}
                     className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
                   >
                     <X className="h-3 w-3" />
@@ -374,10 +374,10 @@ export function InternalUploader({
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-600 mt-1 truncate dark:text-neutral-600 dark:text-neutral-400" title={file.originalname}>
+                <p className="text-xs text-gray-600 mt-1 truncate" title={file.originalname}>
                   {file.originalname}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-400">
                   {formatFileSize(file.size)}
                 </p>
               </div>

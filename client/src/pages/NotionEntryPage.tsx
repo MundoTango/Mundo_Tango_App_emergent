@@ -16,7 +16,6 @@ import {
   Image,
   Clock
 } from 'lucide-react';
-import { Helmet } from 'react-helmet';
 
 interface NotionEntry {
   id: string;
@@ -98,11 +97,6 @@ export function NotionEntryPage() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Notion Entry Page | Life CEO</title>
-      </Helmet>
-      
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="animate-pulse space-y-6">
@@ -116,9 +110,7 @@ export function NotionEntryPage() {
           </div>
         </div>
       </div>
-    
-    </>
-  );
+    );
   }
 
   if (error || !entry) {
@@ -126,13 +118,13 @@ export function NotionEntryPage() {
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center dark:bg-neutral-800">
-              <FileText className="w-8 h-8 text-gray-600 dark:text-gray-400" />
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+              <FileText className="w-8 h-8 text-gray-400" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2 dark:text-neutral-100">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
               Story not found
             </h2>
-            <p className="text-gray-600 mb-6 dark:text-neutral-600 dark:text-neutral-400">
+            <p className="text-gray-600 mb-6">
               The story you're looking for doesn't exist or may have been removed.
             </p>
             <Link href="/notion">
@@ -150,7 +142,7 @@ export function NotionEntryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b dark:bg-neutral-900">
+      <div className="bg-white/80 backdrop-blur-sm border-b">
         <div className="max-w-4xl mx-auto px-6 py-6">
           <Link href="/notion">
             <Button variant="ghost" className="mb-4">
@@ -180,12 +172,12 @@ export function NotionEntryPage() {
                 )}
               </div>
 
-              <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-neutral-100">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
                 {entry.title}
               </h1>
 
               {entry.summary && (
-                <p className="text-xl text-gray-600 mb-4 font-medium dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-xl text-gray-600 mb-4 font-medium">
                   {entry.summary}
                 </p>
               )}
@@ -222,7 +214,7 @@ export function NotionEntryPage() {
               <CardContent className="p-8">
                 <div className="prose prose-lg max-w-none">
                   {entry.body ? (
-                    <div className="text-gray-700 leading-relaxed dark:text-neutral-600 dark:text-neutral-300">
+                    <div className="text-gray-700 leading-relaxed">
                       {formatBodyText(entry.body)}
                     </div>
                   ) : (
@@ -243,7 +235,7 @@ export function NotionEntryPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border border-purple-100">
-                    <p className="text-gray-700 italic dark:text-neutral-600 dark:text-neutral-300">
+                    <p className="text-gray-700 italic">
                       "{entry.imagePrompt}"
                     </p>
                     <p className="text-xs text-gray-500 mt-2">

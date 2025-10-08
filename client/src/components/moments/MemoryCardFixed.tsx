@@ -47,7 +47,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
   const mediaUrls = getMediaUrls();
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow dark:bg-neutral-900">
+    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
@@ -65,7 +65,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{post.user?.name || 'Unknown User'}</h3>
+              <h3 className="font-semibold text-gray-900">{post.user?.name || 'Unknown User'}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Clock className="w-3 h-3" />
                 <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
@@ -76,7 +76,7 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
 
         {/* Content */}
         <div className="mt-3">
-          <p className="text-gray-800 whitespace-pre-wrap dark:text-neutral-200">{post.content}</p>
+          <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
           
           {/* ESA LIFE CEO 61x21 - FIXED MEDIA DISPLAY */}
           {mediaUrls.length > 0 && (
@@ -134,15 +134,15 @@ export default function MemoryCardFixed({ post }: MemoryCardProps) {
         {/* Actions */}
         <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors dark:text-neutral-600 dark:text-neutral-400">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors">
               <Heart className="w-5 h-5" />
               <span className="text-sm">{post.reactionCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-600 dark:text-neutral-400">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
               <MessageCircle className="w-5 h-5" />
               <span className="text-sm">{post.commentCount || 0}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-600 dark:text-neutral-400">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors">
               <Share2 className="w-5 h-5" />
             </button>
           </div>

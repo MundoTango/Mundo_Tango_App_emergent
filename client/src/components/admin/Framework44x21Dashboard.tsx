@@ -100,7 +100,7 @@ const TECHNICAL_LAYERS = [
     id: 7, 
     name: 'Data Layer', 
     icon: Database, 
-    color: 'bg-ocean-500', 
+    color: 'bg-cyan-500', 
     description: 'Schema & optimization',
     metrics: [
       { label: 'Tables', value: '45+' },
@@ -266,7 +266,7 @@ const Framework44x21Dashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Active Layers</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Active Layers</p>
                 <p className="text-2xl font-bold">{frameworkStats.activeLayers}/{frameworkStats.totalLayers}</p>
               </div>
               <Layers className="h-8 w-8 text-blue-500" />
@@ -279,7 +279,7 @@ const Framework44x21Dashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Development Phases</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Development Phases</p>
                 <p className="text-2xl font-bold">{frameworkStats.completedPhases}/{frameworkStats.totalPhases}</p>
               </div>
               <GitBranch className="h-8 w-8 text-green-500" />
@@ -292,7 +292,7 @@ const Framework44x21Dashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Active Agents</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Active Agents</p>
                 <p className="text-2xl font-bold">{frameworkStats.activeAgents}</p>
               </div>
               <Bot className="h-8 w-8 text-purple-500" />
@@ -305,7 +305,7 @@ const Framework44x21Dashboard: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Overall Progress</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Overall Progress</p>
                 <p className="text-2xl font-bold">{frameworkStats.overallProgress}%</p>
               </div>
               <Activity className="h-8 w-8 text-orange-500" />
@@ -374,7 +374,7 @@ const Framework44x21Dashboard: React.FC = () => {
                     <Zap className="h-5 w-5 text-yellow-500" />
                     <span className="font-medium">ESA Framework Active</span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     Type "ESA" to activate full 50x21s framework analysis across all layers and phases
                   </p>
                 </div>
@@ -408,7 +408,7 @@ const Framework44x21Dashboard: React.FC = () => {
                           </div>
                           <div className="flex-1">
                             <h4 className="font-medium text-sm">Layer {layer.id}: {layer.name}</h4>
-                            <p className="text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                               {layer.description}
                             </p>
                             <div className="flex gap-2 mt-2">
@@ -476,7 +476,7 @@ const Framework44x21Dashboard: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-medium">Agent {agent.id}: {agent.name}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">{agent.category}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{agent.category}</p>
                       </div>
                       <Badge variant={agent.status === 'active' ? 'default' : 'secondary'}>
                         {agent.status === 'active' ? (
@@ -495,7 +495,7 @@ const Framework44x21Dashboard: React.FC = () => {
 
               <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <h4 className="font-medium mb-2">Agent Coordination</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   All 16 agents are actively coordinating to manage the platform's development and operations.
                   They work in pairs across 8 functional areas: Analysis, Security, Design, Planning, 
                   Integration, Implementation, Deployment, and Optimization.

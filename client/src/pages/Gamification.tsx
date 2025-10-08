@@ -36,7 +36,6 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
-import { Helmet } from 'react-helmet';
 
 interface UserStats {
   totalPoints: number;
@@ -231,10 +230,10 @@ export default function Gamification() {
   const getTierColor = (tier: string) => {
     switch (tier) {
       case "bronze": return "text-orange-600 dark:text-orange-400";
-      case "silver": return "text-gray-500 dark:text-gray-600 dark:text-gray-400";
+      case "silver": return "text-gray-500 dark:text-gray-400";
       case "gold": return "text-yellow-500 dark:text-yellow-400";
       case "platinum": return "text-purple-600 dark:text-purple-400";
-      default: return "text-gray-600 dark:text-gray-600 dark:text-gray-400";
+      default: return "text-gray-600 dark:text-gray-400";
     }
   };
 
@@ -256,7 +255,7 @@ export default function Gamification() {
     if (change < 0) {
       return <span className="text-red-600 flex items-center"><ChevronDown className="h-3 w-3" />{change}</span>;
     }
-    return <span className="text-gray-600 dark:text-gray-400">-</span>;
+    return <span className="text-gray-400">-</span>;
   };
 
   useEffect(() => {
@@ -267,12 +266,7 @@ export default function Gamification() {
   }, [user?.id]);
 
   return (
-    <>
-      <Helmet>
-        <title>Gamification | Life CEO</title>
-      </Helmet>
-      
-    <div className="container mx-auto p-4 max-w-7xl">
+    <div className="container mx-auto p-4 max-w-7xl" data-testid="gamification-page">
       {/* Header with User Stats */}
       <div className="mb-8">
         <div className="bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg p-6 text-white">
@@ -323,19 +317,19 @@ export default function Gamification() {
 
       <Tabs defaultValue="achievements" className="space-y-6">
         <TabsList className="grid grid-cols-4 w-full max-w-md">
-          <TabsTrigger value="achievements">
+          <TabsTrigger value="achievements" data-testid="tab-achievements">
             <Award className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Achievements</span>
           </TabsTrigger>
-          <TabsTrigger value="challenges">
+          <TabsTrigger value="challenges" data-testid="tab-challenges">
             <Target className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Challenges</span>
           </TabsTrigger>
-          <TabsTrigger value="leaderboard">
+          <TabsTrigger value="leaderboard" data-testid="tab-leaderboard">
             <Trophy className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Leaderboard</span>
           </TabsTrigger>
-          <TabsTrigger value="stats">
+          <TabsTrigger value="stats" data-testid="tab-stats">
             <TrendingUp className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Stats</span>
           </TabsTrigger>
@@ -408,7 +402,7 @@ export default function Gamification() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         {achievement.description}
                       </p>
                       {!isUnlocked && achievement.progress !== undefined && (
@@ -494,9 +488,9 @@ export default function Gamification() {
             </div>
           ) : (
             <Card className="p-8 text-center">
-              <Target className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+              <Target className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Active Challenges</h3>
-              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Check back later for new challenges!
               </p>
             </Card>
@@ -512,7 +506,7 @@ export default function Gamification() {
                 className="px-3 py-1 border rounded-md"
                 value={selectedLeaderboardType}
                 onChange={(e) => setSelectedLeaderboardType(e.target.value)}
-               
+                data-testid="select-leaderboard-type"
               >
                 <option value="global">Global</option>
                 <option value="city">City</option>
@@ -521,7 +515,7 @@ export default function Gamification() {
                 className="px-3 py-1 border rounded-md"
                 value={selectedLeaderboardPeriod}
                 onChange={(e) => setSelectedLeaderboardPeriod(e.target.value)}
-               
+                data-testid="select-leaderboard-period"
               >
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
@@ -550,7 +544,7 @@ export default function Gamification() {
                         <div className="flex items-center space-x-3">
                           <div className="text-center min-w-[40px]">
                             {entry.rank === 1 && <Crown className="h-5 w-5 text-yellow-500 mx-auto" />}
-                            {entry.rank === 2 && <Medal className="h-5 w-5 text-gray-600 dark:text-gray-400 mx-auto" />}
+                            {entry.rank === 2 && <Medal className="h-5 w-5 text-gray-400 mx-auto" />}
                             {entry.rank === 3 && <Medal className="h-5 w-5 text-orange-600 mx-auto" />}
                             <span className={`font-bold ${entry.rank <= 3 ? "text-lg" : ""}`}>
                               #{entry.rank}
@@ -562,7 +556,7 @@ export default function Gamification() {
                           </Avatar>
                           <div>
                             <p className="font-medium">{entry.user.name}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               @{entry.user.username}
                             </p>
                           </div>
@@ -582,9 +576,9 @@ export default function Gamification() {
             </Card>
           ) : (
             <Card className="p-8 text-center">
-              <Trophy className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4" />
+              <Trophy className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No Leaderboard Data</h3>
-              <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-400">
                 Start earning points to appear on the leaderboard!
               </p>
             </Card>
@@ -596,7 +590,7 @@ export default function Gamification() {
           <h2 className="text-2xl font-bold mb-4">Your Statistics</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card>
+            <Card data-testid="stats-posts">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Camera className="mr-2 h-4 w-4" />
@@ -608,7 +602,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card data-testid="stats-events">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Calendar className="mr-2 h-4 w-4" />
@@ -620,7 +614,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card data-testid="stats-streams">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Zap className="mr-2 h-4 w-4" />
@@ -632,7 +626,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card data-testid="stats-videos">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Music className="mr-2 h-4 w-4" />
@@ -644,7 +638,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card data-testid="stats-helpful">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Heart className="mr-2 h-4 w-4" />
@@ -656,7 +650,7 @@ export default function Gamification() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card data-testid="stats-achievements">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
                   <Award className="mr-2 h-4 w-4" />
@@ -675,7 +669,7 @@ export default function Gamification() {
               <CardDescription>Your recent point transactions</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Feature coming soon - track all your point earnings and spending here!
               </p>
             </CardContent>
@@ -683,7 +677,5 @@ export default function Gamification() {
         </TabsContent>
       </Tabs>
     </div>
-  
-    </>
   );
 }

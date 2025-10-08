@@ -38,7 +38,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
 
   if (!isConnected) {
     return (
-      <Card>
+      <Card data-testid="card-connection-info">
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <Users className="w-5 h-5" />
@@ -47,10 +47,10 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
         </CardHeader>
         <CardContent>
           <div className="text-center py-6">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-neutral-800">
-              <Users className="w-8 h-8 text-gray-600 dark:text-gray-400" />
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="w-8 h-8 text-gray-400" />
             </div>
-            <p className="text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">You're not connected yet</p>
+            <p className="text-gray-600 mb-2">You're not connected yet</p>
             <p className="text-sm text-muted-foreground">
               Send a friend request to {hostName} to build your connection!
             </p>
@@ -61,7 +61,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
   }
 
   return (
-    <Card>
+    <Card data-testid="card-connection-info">
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
           <Heart className="w-5 h-5 text-pink-500" />
@@ -72,7 +72,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
         {/* Connection Degree */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">Connection Level</span>
-          <Badge className={degree.color}>
+          <Badge className={degree.color} data-testid="badge-connection-degree">
             {degree.label}
           </Badge>
         </div>
@@ -84,7 +84,7 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
               <TrendingUp className="w-4 h-4" />
               Closeness Score
             </span>
-            <span className={`text-lg font-bold ${getClosenessColor()}`}>
+            <span className={`text-lg font-bold ${getClosenessColor()}`} data-testid="text-closeness-score">
               {closenessScore}/100
             </span>
           </div>
@@ -110,21 +110,21 @@ export function ConnectionInfoCard({ connectionInfo, hostName }: ConnectionInfoC
             <div className="flex items-center justify-center mb-1">
               <Users className="w-4 h-4 text-blue-500" />
             </div>
-            <div className="text-xl font-bold">{mutualFriends}</div>
+            <div className="text-xl font-bold" data-testid="text-mutual-friends">{mutualFriends}</div>
             <div className="text-xs text-muted-foreground">Mutual Friends</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
               <Calendar className="w-4 h-4 text-purple-500" />
             </div>
-            <div className="text-xl font-bold">{sharedEvents || 0}</div>
+            <div className="text-xl font-bold" data-testid="text-shared-events">{sharedEvents || 0}</div>
             <div className="text-xs text-muted-foreground">Shared Events</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
               <MessageCircle className="w-4 h-4 text-green-500" />
             </div>
-            <div className="text-xl font-bold">{sharedMemories}</div>
+            <div className="text-xl font-bold" data-testid="text-shared-memories">{sharedMemories}</div>
             <div className="text-xs text-muted-foreground">Interactions</div>
           </div>
         </div>

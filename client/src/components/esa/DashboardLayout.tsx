@@ -77,9 +77,9 @@ export default function DashboardLayout({
   };
 
   const communityStats = [
-    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-ocean-500' },
+    { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
     { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
-    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-ocean-500' },
+    { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
     { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }
   ];
 
@@ -111,7 +111,7 @@ export default function DashboardLayout({
       <div className="relative flex">
         {/* Left Sidebar - Navigation & Stats */}
         <aside className={cn(
-          "w-72 h-[calc(100vh-var(--spacing-16))] sticky top-16 backdrop-blur-xl border-r flex flex-col",
+          "w-72 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-r flex flex-col",
           theme === 'light'
             ? "bg-white/80 border-gray-200"
             : "bg-slate-900/50 border-slate-800/50"
@@ -238,7 +238,7 @@ export default function DashboardLayout({
           {/* Right Sidebar */}
           {sidebarContent && (
             <aside className={cn(
-              "w-80 h-[calc(100vh-var(--spacing-16))] sticky top-16 backdrop-blur-xl border-l p-6",
+              "w-80 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-l p-6",
               theme === 'light'
                 ? "bg-white/80 border-gray-200"
                 : "bg-slate-900/30 border-slate-800/50"

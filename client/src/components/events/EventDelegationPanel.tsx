@@ -143,7 +143,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-6">
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Only event owners can manage administrators.</p>
+          <p className="text-gray-600">Only event owners can manage administrators.</p>
         </CardContent>
       </Card>
     );
@@ -174,14 +174,14 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                   <Input
                     placeholder="Search by name or username..."
                     value={searchTerm}
-                    onChange={(e)  => setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="glassmorphic-input"
                   />
                 </div>
                 
                 <div>
                   <Label>Role</Label>
-                  <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator')> setSelectedRole(value)}>
+                  <Select value={selectedRole} onValueChange={(value: 'admin' | 'moderator') => setSelectedRole(value)}>
                     <SelectTrigger className="glassmorphic-input">
                       <SelectValue />
                     </SelectTrigger>
@@ -195,7 +195,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 {searchResults?.users && searchResults.users.length > 0 && (
                   <div className="space-y-2 max-h-60 overflow-y-auto">
                     {searchResults.users.map((user: any) => (
-                      <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
+                      <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50">
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
                             <AvatarImage src={user.profileImage} />
@@ -203,12 +203,12 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                           </Avatar>
                           <div>
                             <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{user.username}</p>
+                            <p className="text-sm text-gray-600">@{user.username}</p>
                           </div>
                         </div>
                         <Button
                           size="sm"
-                          onClick={()  => addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
+                          onClick={() => addAdminMutation.mutate({ userId: user.id, role: selectedRole })}
                           disabled={addAdminMutation.isPending}
                         >
                           Add
@@ -240,7 +240,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                         <p className="font-semibold">{admin.user.name}</p>
                         {admin.role === 'owner' && <Crown className="w-4 h-4 text-amber-500" />}
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">@{admin.user.username}</p>
+                      <p className="text-sm text-gray-600">@{admin.user.username}</p>
                       <Badge className={`mt-1 ${getRoleBadgeColor(admin.role)}`}>
                         {admin.role.charAt(0).toUpperCase() + admin.role.slice(1)}
                       </Badge>
@@ -251,7 +251,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={()  => removeAdminMutation.mutate(admin.id)}
+                      onClick={() => removeAdminMutation.mutate(admin.id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <UserX className="w-4 h-4" />
@@ -261,7 +261,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
 
                 {admin.role !== 'owner' && (
                   <div className="mt-4 space-y-3">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Permissions</h4>
+                    <h4 className="text-sm font-medium text-gray-700">Permissions</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {Object.entries(admin.permissions).map(([key, value]) => (
                         <div key={key} className="flex items-center justify-between">
@@ -288,7 +288,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
             ))}
 
             {(!admins || !Array.isArray(admins) || admins.length === 0) && (
-              <p className="text-center text-gray-600 py-8 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-center text-gray-600 py-8">
                 No administrators yet. Add someone to help manage this event.
               </p>
             )}

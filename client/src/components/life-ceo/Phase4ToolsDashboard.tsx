@@ -188,7 +188,7 @@ export function Phase4ToolsDashboard() {
             <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               Phase 4 Open Source Tools
             </h2>
-            <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+            <p className="text-gray-600 mt-1">
               Enterprise-grade tooling integrated across all phases
             </p>
           </div>
@@ -196,7 +196,7 @@ export function Phase4ToolsDashboard() {
             <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-turquoise-600 to-cyan-600">
               {operationalCount}/{tools.length}
             </div>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Tools Operational</p>
+            <p className="text-sm text-gray-600">Tools Operational</p>
           </div>
         </div>
         
@@ -235,7 +235,7 @@ export function Phase4ToolsDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 mb-3 dark:text-neutral-600 dark:text-neutral-400">{tool.description}</p>
+                  <p className="text-sm text-gray-600 mb-3">{tool.description}</p>
                   
                   <Badge className={`mb-3 ${getStatusColor(tool.status)}`}>
                     {tool.status.toUpperCase()}
@@ -282,7 +282,7 @@ export function Phase4ToolsDashboard() {
             {['phase1', 'phase2', 'phase3', 'phase4'].map((phase) => (
               <Button
                 key={phase}
-                onClick={()  => runLoadTest.mutate(phase)}
+                onClick={() => runLoadTest.mutate(phase)}
                 disabled={loadTestRunning}
                 variant="outline"
                 className="w-full"
@@ -298,7 +298,7 @@ export function Phase4ToolsDashboard() {
           </div>
           
           {toolStatuses?.k6?.lastResults && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
               <h4 className="text-sm font-medium mb-2">Last Test Results</h4>
               <div className="grid grid-cols-3 gap-2 text-xs">
                 <div>
@@ -328,14 +328,14 @@ export function Phase4ToolsDashboard() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+          <p className="text-sm text-gray-700">
             <strong>Phase 4 Achievement:</strong> Successfully integrated 10+ enterprise-grade open source tools
             across all phases, achieving 60-70% performance improvement with self-healing capabilities.
             The system now automatically detects anomalies and applies optimizations without manual intervention.
           </p>
           <div className="mt-3 flex items-center space-x-2">
             <Heart className="w-4 h-4 text-red-500" />
-            <span className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <span className="text-xs text-gray-600">
               Confidence: 95% | Applied: Real-time monitoring, structured logging, load testing
             </span>
           </div>

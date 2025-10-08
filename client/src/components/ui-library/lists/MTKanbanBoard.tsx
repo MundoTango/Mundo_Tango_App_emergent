@@ -194,7 +194,7 @@ export default function MTKanbanBoard({
 
         {/* Description */}
         {card.description && (
-          <p className="text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
+          <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
             {card.description}
           </p>
         )}
@@ -363,7 +363,7 @@ export default function MTKanbanBoard({
                           'text-xs px-2 py-0.5 rounded-full',
                           isOverLimit
                             ? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
-                            : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-600 dark:text-gray-400'
+                            : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                         )}>
                           WIP: {column.cards.length}/{column.wipLimit}
                         </span>
@@ -397,7 +397,7 @@ export default function MTKanbanBoard({
                 ))}
                 
                 {/* Add Card Button */}
-                <button className="w-full p-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                <button className="w-full p-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                   <Plus className="w-4 h-4 inline mr-1" />
                   Add card
                 </button>
@@ -411,7 +411,7 @@ export default function MTKanbanBoard({
           <div className="flex-shrink-0">
             <button
               onClick={onColumnAdd}
-              className="w-80 h-full min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl flex items-center justify-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-600 dark:text-gray-300 hover:border-teal-400 dark:hover:border-teal-500 transition-colors"
+              className="w-80 h-full min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl flex items-center justify-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:border-teal-400 dark:hover:border-teal-500 transition-colors"
             >
               <Plus className="w-6 h-6 mr-2" />
               Add Column

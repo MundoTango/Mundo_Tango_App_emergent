@@ -333,14 +333,14 @@ const OriginalEnhancedPostCreator: React.FC<{
               <textarea
                 ref={textareaRef}
                 value={content}
-                onChange={(e)  => setContent(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
                 placeholder="✨ Share your tango moment..."
-                className="w-full min-h-[100px] p-4 bg-white/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300 dark:bg-neutral-900"
+                className="w-full min-h-[100px] p-4 bg-white/80 backdrop-blur-sm border border-turquoise-200/50 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 transition-all duration-300"
                 style={{ height: 'auto' }}
               />
               
               {/* Character Count */}
-              <div className="absolute bottom-2 right-2 text-sm text-gray-600 dark:text-gray-400">
+              <div className="absolute bottom-2 right-2 text-sm text-gray-400">
                 {content.length}/500
               </div>
             </div>
@@ -360,7 +360,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     >
                       {emotion} {emotionData?.label}
                       <button
-                        onClick={()  => setSelectedEmotions(prev => prev.filter(e => e !== emotion))}
+                        onClick={() => setSelectedEmotions(prev => prev.filter(e => e !== emotion))}
                         className="ml-2 hover:opacity-70"
                       >
                         <X className="w-3 h-3" />
@@ -384,7 +384,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   
                   return (
                     <div key={index} className="relative group">
-                      <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-neutral-800">
+                      <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
                         {isImage ? (
                           <img 
                             src={url} 
@@ -403,8 +403,8 @@ const OriginalEnhancedPostCreator: React.FC<{
                               preload="metadata"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                              <div className="bg-white/90 rounded-full p-3 dark:bg-neutral-900">
-                                <Video className="w-6 h-6 text-gray-700 dark:text-neutral-600 dark:text-neutral-300" />
+                              <div className="bg-white/90 rounded-full p-3">
+                                <Video className="w-6 h-6 text-gray-700" />
                               </div>
                             </div>
                             <div className="absolute bottom-2 left-2 text-xs text-white bg-black/70 px-2 py-1 rounded">
@@ -413,12 +413,12 @@ const OriginalEnhancedPostCreator: React.FC<{
                           </div>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Video className="w-8 h-8 text-gray-600 dark:text-gray-400" />
+                            <Video className="w-8 h-8 text-gray-400" />
                           </div>
                         )}
                       </div>
                       <button
-                        onClick={()  => {
+                        onClick={() => {
                           // Clean up URL when removing media
                           if (isFile) {
                             const key = `${file.name}-${index}`;
@@ -452,8 +452,8 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => setShowEmojiPicker(!showEmojiPicker)}
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
+                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50"
                   >
                     <Smile className="w-5 h-5" />
                   </Button>
@@ -491,7 +491,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3 dark:text-neutral-600 dark:text-neutral-400"
+                    className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 flex items-center gap-2 px-3"
                     asChild
                   >
                     <span className="flex items-center gap-2">
@@ -505,7 +505,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={()  => {
+                  onClick={() => {
                     navigator.geolocation.getCurrentPosition(
                       (position) => {
                         setLocation('📍 Current Location');
@@ -523,7 +523,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       }
                     );
                   }}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
+                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50"
                 >
                   <MapPin className="w-5 h-5" />
                 </Button>
@@ -532,8 +532,8 @@ const OriginalEnhancedPostCreator: React.FC<{
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={()  => setShowAdvancedOptions(!showAdvancedOptions)}
-                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
+                  onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
+                  className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50"
                 >
                   <Tag className="w-5 h-5" />
                 </Button>
@@ -544,7 +544,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 dark:text-neutral-600 dark:text-neutral-400"
+                      className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50"
                     >
                       <Heart className="w-5 h-5" />
                     </Button>
@@ -554,7 +554,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       {emotionOptions.map((emotion) => (
                         <button
                           key={emotion.emoji}
-                          onClick={()  => {
+                          onClick={() => {
                             if (selectedEmotions.includes(emotion.emoji)) {
                               setSelectedEmotions(prev => prev.filter(e => e !== emotion.emoji));
                             } else {
@@ -601,12 +601,12 @@ const OriginalEnhancedPostCreator: React.FC<{
               <div className="space-y-3 pt-4 border-t border-gray-100 animate-fadeIn">
                   {/* Tags Input */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">Tags</label>
+                    <label className="text-sm text-gray-600 mb-1 block">Tags</label>
                     <div className="flex flex-wrap gap-2">
                       <Input
                         placeholder="Add tags..."
                         className="flex-1 min-w-[150px]"
-                        onKeyPress={(e)  => {
+                        onKeyPress={(e) => {
                           if (e.key === 'Enter') {
                             e.preventDefault();
                             const input = e.target as HTMLInputElement;
@@ -621,7 +621,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                         <Badge key={index} variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                           #{tag}
                           <button
-                            onClick={()  => setTags(prev => prev.filter((_, i) => i !== index))}
+                            onClick={() => setTags(prev => prev.filter((_, i) => i !== index))}
                             className="ml-1"
                           >
                             <X className="w-3 h-3" />
@@ -633,7 +633,7 @@ const OriginalEnhancedPostCreator: React.FC<{
 
                   {/* Visibility */}
                   <div>
-                    <label className="text-sm text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">Who can see this?</label>
+                    <label className="text-sm text-gray-600 mb-1 block">Who can see this?</label>
                     <div className="flex gap-2">
                       {[
                         { value: 'public', icon: Globe, label: 'Everyone' },
@@ -642,7 +642,7 @@ const OriginalEnhancedPostCreator: React.FC<{
                       ].map((option) => (
                         <button
                           key={option.value}
-                          onClick={()  => setVisibility(option.value as any)}
+                          onClick={() => setVisibility(option.value as any)}
                           className={cn(
                             "flex items-center gap-2 px-4 py-2 rounded-lg transition-all",
                             visibility === option.value
@@ -707,7 +707,7 @@ export const EnhancedMemoryCard: React.FC<{
               )}
             </div>
             <div>
-              <h4 className="font-semibold text-gray-800 dark:text-neutral-200">{memory.user?.name || 'Anonymous'}</h4>
+              <h4 className="font-semibold text-gray-800">{memory.user?.name || 'Anonymous'}</h4>
               <p className="text-sm text-gray-500">
                 {memory.location && <span className="mr-2">📍 {memory.location}</span>}
                 {new Date(memory.createdAt).toLocaleDateString()}
@@ -744,7 +744,7 @@ export const EnhancedMemoryCard: React.FC<{
 
         {/* Content */}
         <div className="px-4 pb-3">
-          <p className="text-gray-800 whitespace-pre-wrap dark:text-neutral-200">{memory.content}</p>
+          <p className="text-gray-800 whitespace-pre-wrap">{memory.content}</p>
           
           {/* Emotions */}
           {memory.emotionTags && memory.emotionTags.length > 0 && (
@@ -779,7 +779,7 @@ export const EnhancedMemoryCard: React.FC<{
               {/* Like/Reactions */}
               <div className="relative">
                 <button
-                  onClick={()  => handleReaction('❤️')}
+                  onClick={() => handleReaction('❤️')}
                   onMouseEnter={() => setShowReactions(true)}
                   onMouseLeave={() => setShowReactions(false)}
                   className={cn(
@@ -795,13 +795,13 @@ export const EnhancedMemoryCard: React.FC<{
                 
                 {showReactions && (
                   <div
-                    className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn dark:bg-neutral-900"
+                    className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg p-2 flex gap-1 animate-fadeIn"
                   >
                     {reactionOptions.map((reaction) => (
                       <button
                         key={reaction.emoji}
-                        onClick={()  => handleReaction(reaction.emoji)}
-                        className="p-1.5 hover:bg-gray-100 rounded-full hover:scale-110 active:scale-90 transition-transform dark:bg-neutral-800"
+                        onClick={() => handleReaction(reaction.emoji)}
+                        className="p-1.5 hover:bg-gray-100 rounded-full hover:scale-110 active:scale-90 transition-transform"
                       >
                         <span className="text-xl">{reaction.emoji}</span>
                       </button>
@@ -812,8 +812,8 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Comments */}
               <button
-                onClick={()  => setShowComments(!showComments)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
+                onClick={() => setShowComments(!showComments)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span className="text-sm font-medium">{memory.comments?.length || 0}</span>
@@ -821,8 +821,8 @@ export const EnhancedMemoryCard: React.FC<{
 
               {/* Share */}
               <button
-                onClick={()  => onInteraction('share')}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
+                onClick={() => onInteraction('share')}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
               >
                 <Share2 className="w-4 h-4" />
               </button>
@@ -830,8 +830,8 @@ export const EnhancedMemoryCard: React.FC<{
 
             {/* Save */}
             <button
-              onClick={()  => onInteraction('save')}
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-all dark:bg-neutral-800"
+              onClick={() => onInteraction('save')}
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition-all"
             >
               <Bookmark className="w-4 h-4" />
             </button>
@@ -847,7 +847,7 @@ export const EnhancedMemoryCard: React.FC<{
                   <Input
                     placeholder="Add a comment..."
                     className="flex-1"
-                    onKeyPress={(e)  => {
+                    onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         onInteraction('comment', { text: (e.target as HTMLInputElement).value });

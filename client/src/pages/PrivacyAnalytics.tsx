@@ -17,7 +17,6 @@ import { useToast } from '@/hooks/use-toast';
 import { monitoring } from '@/services/monitoring';
 import { useMonitoringContext } from '@/components/MonitoringProvider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Helmet } from 'react-helmet';
 
 interface ConsentState {
   analytics: boolean;
@@ -308,11 +307,6 @@ export default function PrivacyAnalytics() {
   const hasAnyConsent = consentState.analytics || consentState.sessionRecording || consentState.errorTracking;
 
   return (
-    <>
-      <Helmet>
-        <title>Privacy Analytics | Life CEO</title>
-      </Helmet>
-      
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
       <div className="mb-8">
@@ -322,7 +316,7 @@ export default function PrivacyAnalytics() {
           </div>
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Privacy & Analytics</h1>
-            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">Manage your privacy settings and data collection preferences</p>
+            <p className="text-gray-600 dark:text-gray-400">Manage your privacy settings and data collection preferences</p>
           </div>
         </div>
         
@@ -332,7 +326,7 @@ export default function PrivacyAnalytics() {
             onClick={handleAcceptAll}
             disabled={loading}
             className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-           
+            data-testid="button-accept-all"
           >
             <CheckCircle2 className="w-4 h-4 mr-2" />
             Enable All Services
@@ -341,7 +335,7 @@ export default function PrivacyAnalytics() {
             onClick={handleRejectAll}
             disabled={loading}
             variant="outline"
-           
+            data-testid="button-reject-all"
           >
             <XCircle className="w-4 h-4 mr-2" />
             Disable All Tracking
@@ -361,7 +355,7 @@ export default function PrivacyAnalytics() {
               Last updated: {consentState.timestamp ? new Date(consentState.timestamp).toLocaleString() : 'Never'}
             </>
           ) : (
-            <span className="font-medium text-gray-600 dark:text-gray-600 dark:text-gray-400">All monitoring services are disabled</span>
+            <span className="font-medium text-gray-600 dark:text-gray-400">All monitoring services are disabled</span>
           )}
         </AlertDescription>
       </Alert>
@@ -415,11 +409,11 @@ export default function PrivacyAnalytics() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-600 dark:text-gray-400">Third-party service:</span>
+                  <span className="text-gray-500 dark:text-gray-400">Third-party service:</span>
                   <span className="font-medium">{service.thirdParty}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-600 dark:text-gray-400">Data retention:</span>
+                  <span className="text-gray-500 dark:text-gray-400">Data retention:</span>
                   <span className="font-medium">{service.retention}</span>
                 </div>
                 {service.enabled && (
@@ -475,7 +469,7 @@ export default function PrivacyAnalytics() {
                         <h4 className="font-semibold text-sm mb-2">Data Collected:</h4>
                         <ul className="space-y-1">
                           {service.dataCollected.map((data, idx) => (
-                            <li key={idx} className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 flex items-start">
+                            <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                               <ChevronRight className="w-3 h-3 mr-2 mt-0.5 flex-shrink-0" />
                               {data}
                             </li>
@@ -486,7 +480,7 @@ export default function PrivacyAnalytics() {
                         <h4 className="font-semibold text-sm mb-2">Purposes:</h4>
                         <ul className="space-y-1">
                           {service.purposes.map((purpose, idx) => (
-                            <li key={idx} className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 flex items-start">
+                            <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start">
                               <ChevronRight className="w-3 h-3 mr-2 mt-0.5 flex-shrink-0" />
                               {purpose}
                             </li>
@@ -513,28 +507,28 @@ export default function PrivacyAnalytics() {
                 <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium">End-to-End Encryption</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">All data is encrypted in transit and at rest</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">All data is encrypted in transit and at rest</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium">EU Data Centers</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Data is stored in GDPR-compliant EU servers</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Data is stored in GDPR-compliant EU servers</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium">Automatic PII Masking</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Sensitive information is automatically masked</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Sensitive information is automatically masked</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium">No Third-Party Selling</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Your data is never sold to advertisers</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Your data is never sold to advertisers</p>
                 </div>
               </div>
             </CardContent>
@@ -557,7 +551,7 @@ export default function PrivacyAnalytics() {
                     <Info className="w-4 h-4" />
                     Right to Access
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     You have the right to request a copy of all personal data we hold about you.
                   </p>
                 </div>
@@ -567,7 +561,7 @@ export default function PrivacyAnalytics() {
                     <Info className="w-4 h-4" />
                     Right to Rectification
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     You can request correction of any inaccurate or incomplete personal data.
                   </p>
                 </div>
@@ -577,7 +571,7 @@ export default function PrivacyAnalytics() {
                     <Info className="w-4 h-4" />
                     Right to Erasure
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     You have the right to request deletion of your personal data ("right to be forgotten").
                   </p>
                 </div>
@@ -587,7 +581,7 @@ export default function PrivacyAnalytics() {
                     <Info className="w-4 h-4" />
                     Right to Data Portability
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     You can request your data in a structured, machine-readable format.
                   </p>
                 </div>
@@ -602,7 +596,7 @@ export default function PrivacyAnalytics() {
                     variant="outline"
                     onClick={exportData}
                     className="w-full"
-                   
+                    data-testid="button-export-data"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Export My Data
@@ -611,7 +605,7 @@ export default function PrivacyAnalytics() {
                     variant="outline"
                     onClick={requestDeletion}
                     className="w-full text-red-600 hover:text-red-700 dark:text-red-400"
-                   
+                    data-testid="button-delete-data"
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete My Data
@@ -627,20 +621,18 @@ export default function PrivacyAnalytics() {
               <CardTitle>Data Protection Contact</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 For privacy-related inquiries or to exercise your rights, contact our Data Protection Officer:
               </p>
               <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <p className="font-medium">Data Protection Officer</p>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">privacy@mundotango.app</p>
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Response time: Within 30 days</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">privacy@mundotango.app</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Response time: Within 30 days</p>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  
-    </>
   );
 }

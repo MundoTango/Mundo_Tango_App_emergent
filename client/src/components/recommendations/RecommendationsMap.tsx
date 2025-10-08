@@ -82,7 +82,7 @@ export default function RecommendationsMap({
             </div>
             
             ${rec.address ? `
-              <div class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-2">
+              <div class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400 mb-2">
                 <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   ${MARKER_ICONS.mapPin}
                 </svg>
@@ -118,14 +118,14 @@ export default function RecommendationsMap({
             ` : ''}
 
             ${rec.cuisine ? `
-              <div class="text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-2">
+              <div class="text-xs text-gray-600 dark:text-gray-400 mb-2">
                 <span class="font-medium">Cuisine:</span> ${rec.cuisine}
               </div>
             ` : ''}
 
             ${rec.user ? `
               <div class="flex items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700 mb-2">
-                <div class="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                <div class="text-xs text-gray-500 dark:text-gray-400">
                   Recommended by ${rec.user.firstName || rec.user.username}
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function RecommendationsMap({
   });
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" data-testid="recommendations-map">
       <UnifiedMapBase 
         center={cityLat && cityLng ? [cityLat, cityLng] : DEFAULT_MAP_CENTER}
         zoom={13}

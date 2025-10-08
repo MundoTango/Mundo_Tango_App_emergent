@@ -199,10 +199,10 @@ export default function MTTable<T = any>({
                           ) : localSortDirection === 'desc' ? (
                             <ChevronDown className="w-4 h-4 text-teal-600" />
                           ) : (
-                            <ChevronsUpDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                            <ChevronsUpDown className="w-4 h-4 text-gray-400" />
                           )
                         ) : (
-                          <ChevronsUpDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                          <ChevronsUpDown className="w-4 h-4 text-gray-400" />
                         )}
                       </span>
                     )}

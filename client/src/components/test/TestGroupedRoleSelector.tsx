@@ -12,7 +12,7 @@ export default function TestGroupedRoleSelector() {
         onRoleChange={setSelectedRoles}
         allowMultiple={true}
       />
-      <div className="mt-6 p-4 bg-gray-100 rounded dark:bg-neutral-800">
+      <div className="mt-6 p-4 bg-gray-100 rounded">
         <h3 className="font-bold">Selected Roles:</h3>
         <pre>{JSON.stringify(selectedRoles, null, 2)}</pre>
       </div>

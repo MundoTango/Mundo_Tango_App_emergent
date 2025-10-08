@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
-import { Helmet } from 'react-helmet';
 
 interface SubscriptionTier {
   name: string;
@@ -102,11 +101,6 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Subscription | Life CEO</title>
-      </Helmet>
-      
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="p-4 border rounded-lg">
         <CardElement
@@ -147,8 +141,6 @@ const SubscriptionForm = ({ tier, onSuccess }: { tier: string; onSuccess: () => 
         Test with card: 4242 4242 4242 4242 (any future expiry, any CVC)
       </p>
     </form>
-  
-    </>
   );
 };
 
@@ -268,7 +260,7 @@ export default function Subscription() {
                     className="w-full"
                     variant={isCurrentPlan ? "outline" : "default"}
                     disabled={isCurrentPlan}
-                    onClick={()  => handleSelectTier(tierKey)}
+                    onClick={() => handleSelectTier(tierKey)}
                   >
                     {isCurrentPlan ? "Current Plan" : tierKey === 'free' ? "Downgrade" : "Upgrade"}
                   </Button>
@@ -298,9 +290,11 @@ export default function Subscription() {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={()  => {
+                onClick={() => {
                   setShowPaymentForm(false);
-                  setSelectedTier(null) }}>
+                  setSelectedTier(null);
+                }}
+              >
                 Cancel
               </Button>
             </CardFooter>

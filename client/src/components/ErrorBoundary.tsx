@@ -42,12 +42,12 @@ class ErrorBoundary extends Component<Props, State> {
           <Card className="max-w-md w-full p-6 text-center space-y-4">
             <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
             <h2 className="text-xl font-semibold">Something went wrong</h2>
-            <p className="text-gray-600 text-sm dark:text-neutral-600 dark:text-neutral-400">
+            <p className="text-gray-600 text-sm">
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <div className="flex gap-2 justify-center">
               <Button onClick={this.handleReset}>Try Again</Button>
-              <Button variant="outline" onClick={()  => window.location.href = '/'}>
+              <Button variant="outline" onClick={() => window.location.href = '/'}>
                 Go Home
               </Button>
             </div>

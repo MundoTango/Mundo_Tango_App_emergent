@@ -206,7 +206,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
     
     return (
       <div key={comment.id} className={`${depth > 0 ? 'ml-8 border-l-2 border-gray-100 pl-4' : ''}`}>
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100 mb-3 dark:bg-neutral-900">
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100 mb-3">
           {/* Comment header */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center space-x-3">
@@ -214,27 +214,27 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 {comment.user.name.charAt(0)}
               </div>
               <div>
-                <p className="font-semibold text-gray-900 text-sm dark:text-neutral-100">{comment.user.name}</p>
+                <p className="font-semibold text-gray-900 text-sm">{comment.user.name}</p>
                 <p className="text-xs text-gray-500">@{comment.user.username}</p>
               </div>
-              <span className="text-xs text-gray-600 dark:text-gray-400">
+              <span className="text-xs text-gray-400">
                 {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
               </span>
               {comment.isEdited && (
-                <span className="text-xs text-gray-600 dark:text-gray-400">(edited)</span>
+                <span className="text-xs text-gray-400">(edited)</span>
               )}
             </div>
             
             <div className="flex items-center space-x-1">
               <button
-                onClick={()  => setShowReactionPicker(showReactionPicker === comment.id ? null : comment.id)}
-                className="p-1 hover:bg-gray-100 rounded text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:bg-neutral-800"
+                onClick={() => setShowReactionPicker(showReactionPicker === comment.id ? null : comment.id)}
+                className="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600"
               >
                 <Smile className="w-4 h-4" />
               </button>
               <button
-                onClick={()  => handleReport('inappropriate')}
-                className="p-1 hover:bg-gray-100 rounded text-gray-600 dark:text-gray-400 hover:text-red-600 dark:bg-neutral-800"
+                onClick={() => handleReport('inappropriate')}
+                className="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-red-600"
               >
                 <Flag className="w-4 h-4" />
               </button>
@@ -243,7 +243,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
 
           {/* Comment content */}
           <div className="mb-3">
-            <p className="text-gray-800 text-sm leading-relaxed dark:text-neutral-200">
+            <p className="text-gray-800 text-sm leading-relaxed">
               {comment.content.split(/(@\w+)/g).map((part, index) => 
                 part.startsWith('@') ? (
                   <span key={index} className="text-blue-600 font-medium hover:underline cursor-pointer">
@@ -270,7 +270,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={()  => handleReaction('like', comment.id)}
+                onClick={() => handleReaction('like', comment.id)}
                 className="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition-colors"
               >
                 <ThumbsUp className="w-4 h-4" />
@@ -278,7 +278,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               </button>
               
               <button
-                onClick={()  => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
                 className="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition-colors"
               >
                 <Reply className="w-4 h-4" />
@@ -287,7 +287,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               
               {hasReplies && (
                 <button
-                  onClick={()  => toggleCommentExpansion(comment.id)}
+                  onClick={() => toggleCommentExpansion(comment.id)}
                   className="text-xs text-blue-600 hover:text-blue-800"
                 >
                   {isExpanded ? 'Hide' : 'Show'} {comment.replies?.length} replies
@@ -297,12 +297,12 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
             
             {/* Reaction picker */}
             {showReactionPicker === comment.id && (
-              <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1 dark:bg-neutral-900">
+              <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1">
                 {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) => (
                   <button
                     key={type}
-                    onClick={()  => handleReaction(type, comment.id)}
-                    className="p-2 hover:bg-gray-100 rounded text-lg dark:bg-neutral-800"
+                    onClick={() => handleReaction(type, comment.id)}
+                    className="p-2 hover:bg-gray-100 rounded text-lg"
                     title={label}
                   >
                     {emoji}
@@ -316,13 +316,13 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
         {/* Reply input */}
         {replyingTo === comment.id && (
           <div className="ml-8 mb-4">
-            <div className="bg-gray-50 rounded-lg p-3 border dark:bg-neutral-800">
+            <div className="bg-gray-50 rounded-lg p-3 border">
               <textarea
                 ref={commentInputRef}
                 value={newComment}
-                onChange={(e)  => setNewComment(e.target.value)}
+                onChange={(e) => setNewComment(e.target.value)}
                 placeholder={`Reply to ${comment.user.name}...`}
-                className="w-full p-2 border border-gray-200 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-neutral-700"
+                className="w-full p-2 border border-gray-200 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={2}
               />
               <div className="flex items-center justify-between mt-2">
@@ -339,8 +339,8 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 </div>
                 <div className="flex items-center space-x-2">
                   <button
-                    onClick={()  => setReplyingTo(null)}
-                    className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800 dark:text-neutral-200"
+                    onClick={() => setReplyingTo(null)}
+                    className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
                   >
                     Cancel
                   </button>
@@ -390,7 +390,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
     <div className="space-y-4">
       {/* Post reactions summary */}
       {postReactions.length > 0 && (
-        <div className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+        <div className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex items-center space-x-2">
             {Object.entries(REACTION_EMOJIS).map(([type, { emoji }]) => {
               const count = postReactions.filter((r: Reaction) => r.type === type).length;
@@ -398,7 +398,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               return (
                 <div key={type} className="flex items-center space-x-1">
                   <span>{emoji}</span>
-                  <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{count}</span>
+                  <span className="text-sm text-gray-600">{count}</span>
                 </div>
               );
             })}
@@ -411,7 +411,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
 
       {/* Main comment input */}
       {!replyingTo && (
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100 dark:bg-neutral-900">
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
           <div className="flex items-start space-x-3">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-semibold">
               {user?.name?.charAt(0) || 'U'}
@@ -419,20 +419,20 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
             <div className="flex-1">
               <textarea
                 value={newComment}
-                onChange={(e)  => setNewComment(e.target.value)}
+                onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write a comment..."
-                className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-neutral-700"
+                className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={3}
               />
               <div className="flex items-center justify-between mt-3">
                 <div className="flex items-center space-x-2">
-                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500 dark:bg-neutral-800">
+                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500">
                     <Smile className="w-4 h-4" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500 dark:bg-neutral-800">
+                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500">
                     <AtSign className="w-4 h-4" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500 dark:bg-neutral-800">
+                  <button className="p-2 hover:bg-gray-100 rounded text-gray-500">
                     <ImageIcon className="w-4 h-4" />
                   </button>
                 </div>
@@ -455,32 +455,32 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
       )}
 
       {/* Post reaction picker */}
-      <div className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm border border-gray-100 dark:bg-neutral-900">
+      <div className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center space-x-4">
           <button
-            onClick={()  => setShowReactionPicker(showReactionPicker === 0 ? null : 0)}
-            className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-neutral-800"
+            onClick={() => setShowReactionPicker(showReactionPicker === 0 ? null : 0)}
+            className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
           >
             <Heart className="w-4 h-4" />
             <span className="text-sm">React</span>
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-neutral-800">
+          <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
             <MessageCircle className="w-4 h-4" />
             <span className="text-sm">Comment</span>
           </button>
-          <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-neutral-800">
+          <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
             <Share2 className="w-4 h-4" />
             <span className="text-sm">Share</span>
           </button>
         </div>
         
         {showReactionPicker === 0 && (
-          <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1 dark:bg-neutral-900">
+          <div className="absolute z-10 bg-white rounded-lg shadow-lg border p-2 flex space-x-1">
             {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) => (
               <button
                 key={type}
-                onClick={()  => handleReaction(type)}
-                className="p-2 hover:bg-gray-100 rounded text-lg dark:bg-neutral-800"
+                onClick={() => handleReaction(type)}
+                className="p-2 hover:bg-gray-100 rounded text-lg"
                 title={label}
               >
                 {emoji}
@@ -497,7 +497,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
 
       {comments.length === 0 && (
         <div className="text-center py-8 text-gray-500">
-          <MessageCircle className="w-12 h-12 mx-auto mb-3 text-gray-600 dark:text-gray-300" />
+          <MessageCircle className="w-12 h-12 mx-auto mb-3 text-gray-300" />
           <p>No comments yet. Be the first to comment!</p>
         </div>
       )}

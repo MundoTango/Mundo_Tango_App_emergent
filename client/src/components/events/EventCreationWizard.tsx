@@ -146,7 +146,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           id="title"
           {...register('title')}
           placeholder="Amazing Tango Milonga"
-          className="bg-white/50 border-white/30 dark:bg-neutral-900"
+          className="bg-white/50 border-white/30"
         />
         {errors.title && (
           <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>
@@ -160,7 +160,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           {...register('description')}
           placeholder="Join us for an incredible evening of tango..."
           rows={4}
-          className="bg-white/50 border-white/30 dark:bg-neutral-900"
+          className="bg-white/50 border-white/30"
         />
       </div>
 
@@ -171,7 +171,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           type="url"
           {...register('imageUrl')}
           placeholder="https://example.com/event-image.jpg"
-          className="bg-white/50 border-white/30 dark:bg-neutral-900"
+          className="bg-white/50 border-white/30"
         />
       </div>
     </div>
@@ -186,7 +186,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
             id="startDate"
             type="date"
             {...register('startDate')}
-            className="bg-white/50 border-white/30 dark:bg-neutral-900"
+            className="bg-white/50 border-white/30"
           />
           {errors.startDate && (
             <p className="text-sm text-red-600 mt-1">{errors.startDate.message}</p>
@@ -198,7 +198,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
             id="startTime"
             type="time"
             {...register('startTime')}
-            className="bg-white/50 border-white/30 dark:bg-neutral-900"
+            className="bg-white/50 border-white/30"
           />
           {errors.startTime && (
             <p className="text-sm text-red-600 mt-1">{errors.startTime.message}</p>
@@ -213,7 +213,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
             id="endDate"
             type="date"
             {...register('endDate')}
-            className="bg-white/50 border-white/30 dark:bg-neutral-900"
+            className="bg-white/50 border-white/30"
           />
         </div>
         <div>
@@ -222,7 +222,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
             id="endTime"
             type="time"
             {...register('endTime')}
-            className="bg-white/50 border-white/30 dark:bg-neutral-900"
+            className="bg-white/50 border-white/30"
           />
         </div>
       </div>
@@ -251,7 +251,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           min="1"
           {...register('maxAttendees', { valueAsNumber: true })}
           placeholder="Leave empty for unlimited"
-          className="bg-white/50 border-white/30 dark:bg-neutral-900"
+          className="bg-white/50 border-white/30"
         />
       </div>
 
@@ -259,9 +259,9 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         <Label htmlFor="visibility">Visibility</Label>
         <Select
           value={watchedFields.visibility}
-          onValueChange={(value: 'public' | 'private' | 'group')> setValue('visibility', value)}
+          onValueChange={(value: 'public' | 'private' | 'group') => setValue('visibility', value)}
         >
-          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900">
+          <SelectTrigger className="bg-white/50 border-white/30">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -288,8 +288,8 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
               type="button"
               variant="outline"
               size="sm"
-              onClick={()  => addTag(tag)}
-              className="bg-white/50 border-white/30 dark:bg-neutral-900"
+              onClick={() => addTag(tag)}
+              className="bg-white/50 border-white/30"
             >
               + {tag}
             </Button>
@@ -305,9 +305,9 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
         <Label htmlFor="frequency">Recurring Pattern</Label>
         <Select
           value={watchedFields.recurringPattern?.frequency || 'none'}
-          onValueChange={(value)> setValue('recurringPattern.frequency', value as any)}
+          onValueChange={(value) => setValue('recurringPattern.frequency', value as any)}
         >
-          <SelectTrigger className="bg-white/50 border-white/30 dark:bg-neutral-900">
+          <SelectTrigger className="bg-white/50 border-white/30">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -329,9 +329,9 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                 type="number"
                 min="1"
                 {...register('recurringPattern.interval', { valueAsNumber: true })}
-                className="w-20 bg-white/50 border-white/30 dark:bg-neutral-900"
+                className="w-20 bg-white/50 border-white/30"
               />
-              <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <span className="text-sm text-gray-600">
                 {watchedFields.recurringPattern?.frequency === 'daily' ? 'days' :
                  watchedFields.recurringPattern?.frequency === 'weekly' ? 'weeks' :
                  watchedFields.recurringPattern?.frequency === 'monthly' ? 'months' : ''}
@@ -345,7 +345,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
               id="endDate"
               type="date"
               {...register('recurringPattern.endDate')}
-              className="bg-white/50 border-white/30 dark:bg-neutral-900"
+              className="bg-white/50 border-white/30"
             />
           </div>
         </>
@@ -404,14 +404,14 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
           {currentStep === 3 && renderRecurring()}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between pt-6 border-t border-gray-200/50 dark:border-neutral-700">
+          <div className="flex justify-between pt-6 border-t border-gray-200/50">
             <div className="flex gap-2">
               {currentStep > 0 && (
                 <Button
                   type="button"
                   variant="outline"
                   onClick={prevStep}
-                  className="bg-white/50 border-white/30 dark:bg-neutral-900"
+                  className="bg-white/50 border-white/30"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Previous
@@ -422,7 +422,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
                 type="button"
                 variant="outline"
                 onClick={onCancel}
-                className="bg-white/50 border-white/30 dark:bg-neutral-900"
+                className="bg-white/50 border-white/30"
               >
                 Cancel
               </Button>

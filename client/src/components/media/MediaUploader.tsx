@@ -181,7 +181,7 @@ export default function MediaUploader({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="media-uploader">
       {/* Upload Button */}
       <div className="flex gap-3">
         <Button
@@ -190,14 +190,14 @@ export default function MediaUploader({
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading || mediaItems.length >= maxFiles}
           className="flex items-center gap-2"
-         
+          data-testid="button-upload-media"
         >
           <Upload className="w-4 h-4" />
           {mediaItems.length === 0 ? 'Upload Media' : 'Add More'}
         </Button>
         
         {mediaItems.length > 0 && (
-          <div className="text-sm text-gray-600 flex items-center dark:text-neutral-600 dark:text-neutral-400">
+          <div className="text-sm text-gray-600 flex items-center">
             {mediaItems.length} / {maxFiles} files
           </div>
         )}
@@ -210,14 +210,14 @@ export default function MediaUploader({
         accept={acceptedFormats.join(',')}
         onChange={handleFileSelect}
         className="hidden"
-       
+        data-testid="input-file-upload"
       />
 
       {/* Upload Progress */}
       {isUploading && (
         <div className="space-y-2">
           <Progress value={uploadProgress} />
-          <p className="text-sm text-gray-600 text-center dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-sm text-gray-600 text-center">
             Processing media... {uploadProgress.toFixed(0)}%
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function MediaUploader({
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-               
+                data-testid="media-grid"
               >
                 {mediaItems.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -251,7 +251,7 @@ export default function MediaUploader({
                             : 'border-gray-200'
                         } ${snapshot.isDragging ? 'shadow-2xl scale-105' : ''} transition-all`}>
                           {/* Media Preview */}
-                          <div className="aspect-square relative bg-gray-100 dark:bg-neutral-800">
+                          <div className="aspect-square relative bg-gray-100">
                             <img
                               src={item.preview}
                               alt={`Media ${index + 1}`}
@@ -277,10 +277,10 @@ export default function MediaUploader({
                             {/* Drag Handle */}
                             <div
                               {...provided.dragHandleProps}
-                              className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity dark:bg-neutral-900"
+                              className="absolute bottom-2 left-2 bg-white/90 p-1 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity"
                               data-testid={`drag-handle-${index}`}
                             >
-                              <GripVertical className="w-4 h-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                              <GripVertical className="w-4 h-4 text-gray-600" />
                             </div>
 
                             {/* Action Overlay */}

@@ -1007,7 +1007,7 @@ export default function PostCreator({
                   <div className="absolute top-6 right-4 w-1 h-1 bg-blue-400 rounded-full animate-sparkle-float opacity-40" style={{ animationDelay: '0.6s' }} />
                 </div>
               )}
-              <div className="absolute bottom-3 right-3 text-xs text-gray-600 dark:text-gray-400 transition-all duration-300">
+              <div className="absolute bottom-3 right-3 text-xs text-gray-400 transition-all duration-300">
                 {content.length > 0 && (
                   <span className="animate-fade-in">{content.length} characters</span>
                 )}
@@ -1468,12 +1468,12 @@ export default function PostCreator({
                         <select
                           value={recommendationType}
                           onChange={(e) => setRecommendationType(e.target.value)}
-                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-ocean-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-ocean-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
+                          className="w-full p-4 pl-12 pr-12 rounded-xl backdrop-blur-md border border-turquoise-300/40 dark:border-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-turquoise-400/50 dark:focus:ring-cyan-400/50 focus:border-turquoise-500 dark:focus:border-cyan-500 font-medium text-gray-900 dark:text-gray-100 appearance-none cursor-pointer transition-all hover:border-turquoise-400 dark:hover:border-cyan-400 shadow-md"
                           style={{
                             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(240, 253, 250, 0.75))',
                             backdropFilter: 'blur(12px)'
                           }}
-                         
+                          data-testid="select-recommendation-type"
                         >
                           <option value="">Select a category...</option>
                           <option value="restaurant">🍽️ Restaurant</option>
@@ -1506,7 +1506,7 @@ export default function PostCreator({
                             className={`relative p-4 rounded-xl font-semibold transition-all duration-300 overflow-hidden backdrop-blur-md ${
                               priceRange === price
                                 ? 'text-white shadow-xl transform scale-105'
-                                : 'text-gray-700 dark:text-gray-600 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
+                                : 'text-gray-700 dark:text-gray-300 hover:scale-105 border border-turquoise-200/60 dark:border-cyan-400/30 shadow-md hover:shadow-lg'
                             }`}
                             style={
                               priceRange === price
@@ -1549,7 +1549,7 @@ export default function PostCreator({
                             value={location}
                             onChange={handleLocationChange}
                             placeholder="Search for a place..."
-                            className="border-turquoise-300/40 dark:border-ocean-500/30 rounded-lg shadow-sm"
+                            className="border-turquoise-300/40 dark:border-cyan-500/30 rounded-lg shadow-sm"
                             biasToLocation={{ lat: -34.6037, lng: -58.3816 }}
                             searchTypes={[]}
                             showBusinessDetails={true}

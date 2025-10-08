@@ -80,7 +80,7 @@ export default function UnifiedTripMap({
           const popupContent = `
             <div class="p-3 min-w-[280px]">
               <h3 class="font-semibold text-lg mb-2">${event.title}</h3>
-              <div class="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     ${MARKER_ICONS.calendar}
@@ -101,7 +101,7 @@ export default function UnifiedTripMap({
                 </button>
                 ${onAddToItinerary ? `
                   <button data-action="add-itinerary" data-id="${event.id}" data-type="event"
-                    class="flex-1 bg-white dark:bg-gray-800 border border-ocean-500 text-cyan-600 dark:text-cyan-400 px-3 py-1.5 rounded-lg text-sm hover:bg-cyan-50 dark:hover:bg-cyan-900/20 transition">
+                    class="flex-1 bg-white dark:bg-gray-800 border border-cyan-500 text-cyan-600 dark:text-cyan-400 px-3 py-1.5 rounded-lg text-sm hover:bg-cyan-50 dark:hover:bg-cyan-900/20 transition">
                     Add to Trip
                   </button>
                 ` : ''}
@@ -124,7 +124,7 @@ export default function UnifiedTripMap({
           const popupContent = `
             <div class="p-3 min-w-[280px]">
               <h3 class="font-semibold text-lg mb-2">${home.title}</h3>
-              <div class="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+              <div class="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     ${MARKER_ICONS.mapPin}
@@ -177,7 +177,7 @@ export default function UnifiedTripMap({
               <div class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-pink-500 to-purple-500 text-white mb-2">
                 ${rec.type}
               </div>
-              <div class="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-3">${rec.address || rec.city}</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400 mb-3">${rec.address || rec.city}</div>
               <div class="flex gap-2">
                 <button data-action="view-details" data-id="${rec.id}" data-type="recommendation"
                   class="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">

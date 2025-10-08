@@ -64,7 +64,7 @@ export default function HouseRulesDisplay({
 
   if (isLoading) {
     return (
-      <Card>
+      <Card data-testid="house-rules-loading">
         <CardContent className="py-8">
           <div className="text-center text-muted-foreground">Loading house rules...</div>
         </CardContent>
@@ -74,7 +74,7 @@ export default function HouseRulesDisplay({
 
   if (error) {
     return (
-      <Card>
+      <Card data-testid="house-rules-error">
         <CardContent className="py-8">
           <div className="flex items-center justify-center gap-2 text-destructive">
             <AlertCircle className="h-5 w-5" />
@@ -87,7 +87,7 @@ export default function HouseRulesDisplay({
 
   if (rules.length === 0) {
     return (
-      <Card>
+      <Card data-testid="house-rules-empty">
         <CardContent className="py-8">
           <div className="text-center text-muted-foreground">
             No house rules have been set for this property
@@ -100,9 +100,9 @@ export default function HouseRulesDisplay({
   // Compact variant - minimal display
   if (variant === 'compact') {
     return (
-      <div className="space-y-2">
+      <div className="space-y-2" data-testid="house-rules-compact">
         {showTitle && (
-          <h3 className="font-semibold text-lg mb-3">
+          <h3 className="font-semibold text-lg mb-3" data-testid="title-house-rules">
             House Rules ({rules.length})
           </h3>
         )}
@@ -129,10 +129,10 @@ export default function HouseRulesDisplay({
 
   // Detailed variant - full display with categories
   return (
-    <Card>
+    <Card data-testid="house-rules-detailed">
       {showTitle && (
         <CardHeader>
-          <CardTitle>House Rules</CardTitle>
+          <CardTitle data-testid="title-house-rules">House Rules</CardTitle>
           <CardDescription>
             Please review and follow these rules during your stay
           </CardDescription>

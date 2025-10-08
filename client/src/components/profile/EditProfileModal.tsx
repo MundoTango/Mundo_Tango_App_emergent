@@ -151,7 +151,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Basic Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
             
             <div className="space-y-2">
               <Label htmlFor="name">
@@ -161,7 +161,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Input
                 id="name"
                 value={formData.name}
-                onChange={(e)  => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Your display name"
               />
             </div>
@@ -171,7 +171,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
               <Textarea
                 id="bio"
                 value={formData.bio}
-                onChange={(e)  => setFormData(prev => ({ ...prev, bio: e.target.value }))}
+                onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
                 placeholder="Tell us about yourself and your tango journey..."
                 rows={4}
                 maxLength={500}
@@ -195,7 +195,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Tango Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Tango Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Tango Information</h3>
             
             <div className="space-y-2">
               <Label>
@@ -208,7 +208,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                     <input
                       type="checkbox"
                       checked={formData.tangoRoles.includes(role.value)}
-                      onChange={(e)  => {
+                      onChange={(e) => {
                         if (e.target.checked) {
                           setFormData(prev => ({
                             ...prev,
@@ -221,7 +221,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                           }));
                         }
                       }}
-                      className="rounded border-gray-300 dark:border-neutral-600"
+                      className="rounded border-gray-300"
                     />
                     <span className="text-sm">{role.label}</span>
                   </label>
@@ -237,7 +237,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                   type="number"
                   min="0"
                   value={formData.yearsOfDancing}
-                  onChange={(e)  => setFormData(prev => ({ ...prev, yearsOfDancing: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, yearsOfDancing: e.target.value }))}
                   placeholder="Years"
                 />
               </div>
@@ -250,7 +250,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   placeholder="e.g., English, Spanish, Italian"
                   value={formData.languages.join(', ')}
-                  onChange={(e)  => setFormData(prev => ({
+                  onChange={(e) => setFormData(prev => ({
                     ...prev,
                     languages: e.target.value.split(',').map(l => l.trim()).filter(Boolean)
                   }))}
@@ -263,7 +263,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Label>Leader Level</Label>
                 <Select
                   value={formData.leaderLevel}
-                  onValueChange={(value)> setFormData(prev => ({ ...prev, leaderLevel: value }))}
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, leaderLevel: value }))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select level" />
@@ -282,7 +282,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Label>Follower Level</Label>
                 <Select
                   value={formData.followerLevel}
-                  onValueChange={(value)> setFormData(prev => ({ ...prev, followerLevel: value }))}
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, followerLevel: value }))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select level" />
@@ -301,7 +301,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
 
           {/* Social Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Social Links</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -309,7 +309,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="instagram"
                   value={formData.instagram}
-                  onChange={(e)  => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
                   placeholder="@username"
                 />
               </div>
@@ -319,7 +319,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="facebook"
                   value={formData.facebook}
-                  onChange={(e)  => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
                   placeholder="facebook.com/username"
                 />
               </div>
@@ -329,7 +329,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="twitter"
                   value={formData.twitter}
-                  onChange={(e)  => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
                   placeholder="@username"
                 />
               </div>
@@ -342,7 +342,7 @@ export default function EditProfileModal({ open, onClose, user }: EditProfileMod
                 <Input
                   id="website"
                   value={formData.website}
-                  onChange={(e)  => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
                   placeholder="https://..."
                 />
               </div>

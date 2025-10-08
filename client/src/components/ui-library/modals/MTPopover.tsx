@@ -344,7 +344,7 @@ const MTPopover: React.FC<MTPopoverProps> = ({
               aria-label="Close popover"
               data-testid={`${testId}-close`}
             >
-              <X className="w-4 h-4 text-gray-500 dark:text-gray-600 dark:text-gray-400" />
+              <X className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             </button>
           )}
 

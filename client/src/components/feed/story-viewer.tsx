@@ -141,9 +141,9 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
             <div className="flex flex-col items-center flex-shrink-0">
               <label className="cursor-pointer">
                 <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-1 hover:bg-gray-300 transition-colors">
-                  <Plus className="h-8 w-8 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                  <Plus className="h-8 w-8 text-gray-600" />
                 </div>
-                <span className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Add Story</span>
+                <span className="text-xs text-gray-600">Add Story</span>
                 <input
                   type="file"
                   accept="image/*,video/*"
@@ -171,9 +171,9 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
             <div className="flex flex-col items-center flex-shrink-0">
               <label className="cursor-pointer">
                 <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-1 hover:bg-gray-300 transition-colors">
-                  <Plus className="h-8 w-8 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                  <Plus className="h-8 w-8 text-gray-600" />
                 </div>
-                <span className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Add Story</span>
+                <span className="text-xs text-gray-600">Add Story</span>
                 <input
                   type="file"
                   accept="image/*,video/*"
@@ -189,14 +189,14 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 key={group.user.id}
                 className="flex flex-col items-center flex-shrink-0 cursor-pointer"
                 onClick={() => handleStoryClick(index)}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => handleStoryClick(index); } }}>
+              >
                 <div className="story-ring">
                   <Avatar className="w-14 h-14">
                     <AvatarImage src={group.user.profileImage} alt={group.user.name} />
                     <AvatarFallback>{group.user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                 </div>
-                <span className="text-xs text-gray-600 mt-1 truncate max-w-[64px] dark:text-neutral-600 dark:text-neutral-400">
+                <span className="text-xs text-gray-600 mt-1 truncate max-w-[64px]">
                   {group.user.username}
                 </span>
               </div>
@@ -230,8 +230,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => setSelectedStoryIndex(null)}
-                    className="text-white hover:bg-white/10 dark:bg-neutral-900"
+                    onClick={() => setSelectedStoryIndex(null)}
+                    className="text-white hover:bg-white/10"
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -240,8 +240,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                 {/* Progress Indicators */}
                 <div className="flex space-x-1 mt-4">
                   {userGroups[selectedStoryIndex].stories.map((_, storyIndex) => (
-                    <div key={storyIndex} className="flex-1 h-0.5 bg-white/30 rounded dark:bg-neutral-900">
-                      <div className="h-full bg-white rounded dark:bg-neutral-900" style={{ width: storyIndex === 0 ? '100%' : '0%' }}></div>
+                    <div key={storyIndex} className="flex-1 h-0.5 bg-white/30 rounded">
+                      <div className="h-full bg-white rounded" style={{ width: storyIndex === 0 ? '100%' : '0%' }}></div>
                     </div>
                   ))}
                 </div>
@@ -270,8 +270,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => navigateStory('prev')}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
+                    onClick={() => navigateStory('prev')}
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
@@ -281,8 +281,8 @@ export default function StoryViewer({ stories }: StoryViewerProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => navigateStory('next')}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 dark:bg-neutral-900"
+                    onClick={() => navigateStory('next')}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </Button>

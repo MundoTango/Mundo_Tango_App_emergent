@@ -91,7 +91,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
                 {title}
               </h2>
               {description && (
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   {description}
                 </p>
               )}
@@ -108,7 +108,7 @@ const MTFormModal: React.FC<MTFormModalProps> = ({
               aria-label="Close modal"
               data-testid={`${testId}-close`}
             >
-              <X className="w-5 h-5 text-gray-500 dark:text-gray-600 dark:text-gray-400" />
+              <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
           </div>
           {showHeaderDivider && (

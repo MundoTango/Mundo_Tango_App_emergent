@@ -335,7 +335,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           <Input
             ref={inputRef}
             value={newMessage}
-            onChange={(e)  => handleTyping(e.target.value)}
+            onChange={(e) => handleTyping(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={isConnected ? "Type a message..." : "Connecting..."}
             disabled={!isConnected || isSending}

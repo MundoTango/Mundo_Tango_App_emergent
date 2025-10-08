@@ -194,7 +194,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
       size="md"
       variant="ocean"
       animationType="scale"
-     
+      data-testid="share-modal"
     >
       <div className="p-6">
         {/* Header */}
@@ -225,10 +225,10 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               <p className="font-medium text-gray-900 dark:text-white">
                 {post.user.name}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 @{post.user.username}
               </p>
-              <p className="text-gray-700 dark:text-gray-600 dark:text-gray-300 mt-2 line-clamp-3">
+              <p className="text-gray-700 dark:text-gray-300 mt-2 line-clamp-3">
                 {post.content}
               </p>
               {post.imageUrl && (
@@ -244,7 +244,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
 
         {/* Add Comment Section */}
         <div className="mb-6">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2 block">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
             Add your thoughts (optional)
           </label>
           <textarea
@@ -265,7 +265,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
           fullWidth
           icon={Share2}
           className="mb-6 mt-ocean-gradient"
-         
+          data-testid="share-timeline"
         >
           Share to My Timeline
         </MTButton>
@@ -305,7 +305,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
                   <platform.icon className={`w-6 h-6 ${platform.color} group-hover:scale-110 transition-transform`} />
                 )}
               </AnimatePresence>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                 {platform.name}
               </span>
             </motion.button>
@@ -319,14 +319,14 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               type="text"
               value={postUrl}
               readOnly
-              className="flex-1 px-4 py-3 glassmorphic rounded-xl text-sm text-gray-700 dark:text-gray-600 dark:text-gray-300"
+              className="flex-1 px-4 py-3 glassmorphic rounded-xl text-sm text-gray-700 dark:text-gray-300"
             />
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleCopyLink}
               className="p-3 mt-ocean-gradient rounded-xl text-white transition-all duration-200"
-             
+              data-testid="copy-link"
             >
               <AnimatePresence mode="wait">
                 {linkCopied ? (

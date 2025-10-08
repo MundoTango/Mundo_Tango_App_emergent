@@ -234,14 +234,14 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
     <div 
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-[9999]"
       onClick={handleClose}
-     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClose(e); } }}>
+    >
       <div 
-        className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col dark:bg-neutral-900"
+        className="bg-white rounded-lg w-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
-       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
+      >
         
         {/* Jira-Style Header */}
-        <div className="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:border-neutral-700">
+        <div className="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
@@ -252,7 +252,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                   <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
                     {selectedItem.layer || 'Platform'} • {selectedItem.type || 'Feature'}
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{selectedItem.title || 'Untitled'}</h1>
+                  <h1 className="text-2xl font-bold text-gray-900">{selectedItem.title || 'Untitled'}</h1>
                 </div>
               </div>
               <div className="flex items-center gap-3 flex-wrap">
@@ -275,7 +275,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
               variant="ghost"
               size="sm"
               onClick={handleClose}
-              className="text-gray-500 hover:text-gray-700 dark:text-neutral-600 dark:text-neutral-300"
+              className="text-gray-500 hover:text-gray-700"
             >
               <X className="h-5 w-5" />
             </Button>
@@ -283,7 +283,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Tab Navigation */}
-        <div className="border-b border-gray-200 px-6 dark:border-neutral-700">
+        <div className="border-b border-gray-200 px-6">
           <div className="flex space-x-8">
             {[
               { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -293,7 +293,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={()  => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
@@ -316,7 +316,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                   <CardTitle>Project Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-700 leading-relaxed mb-4 dark:text-neutral-600 dark:text-neutral-300">{selectedItem.description}</p>
+                  <p className="text-gray-700 leading-relaxed mb-4">{selectedItem.description}</p>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="bg-blue-50 p-4 rounded-lg">
@@ -350,7 +350,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     Project Evolution Timeline
                     <Badge className="bg-green-100 text-green-800 text-xs">NEW</Badge>
                   </CardTitle>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600">
                     From TrangoTech files to mobile app requirements
                   </p>
                 </CardHeader>
@@ -363,7 +363,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           {section.items.map((item, index) => (
                             <li key={index} className="flex items-start gap-2">
                               <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{item}</span>
+                              <span className="text-sm text-gray-700">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -400,7 +400,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     <Code2 className="h-5 w-5" />
                     Development Work Timeline
                   </CardTitle>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600">
                     Progress from original TT files to current implementation
                   </p>
                 </CardHeader>
@@ -422,13 +422,13 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                           {/* Phase content */}
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                              <h4 className="font-semibold text-gray-900 dark:text-neutral-100">{phase.title}</h4>
+                              <h4 className="font-semibold text-gray-900">{phase.title}</h4>
                               <Badge className={getStatusColor(phase.status)}>
                                 {phase.status.toUpperCase()}
                               </Badge>
                             </div>
                             
-                            <p className="text-sm text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">{phase.description}</p>
+                            <p className="text-sm text-gray-600 mb-4">{phase.description}</p>
                             
                             {/* Progress bar */}
                             <div className="mb-4">
@@ -440,7 +440,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             </div>
                             
                             {/* Metrics and details */}
-                            <div className="bg-gray-50 rounded-lg p-4 dark:bg-neutral-800">
+                            <div className="bg-gray-50 rounded-lg p-4">
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                                 {Object.entries(phase.metrics).map(([key, value]) => (
                                   <div key={key} className="text-sm">
@@ -450,7 +450,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               </div>
                               
                               {/* Dates */}
-                              <div className="flex flex-wrap gap-4 text-xs text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">
+                              <div className="flex flex-wrap gap-4 text-xs text-gray-600 mb-4">
                                 {phase.startDate && (
                                   <div className="flex items-center gap-1">
                                     <Calendar className="h-3 w-3" />
@@ -473,7 +473,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                                     {phase.codeRefs.map((ref, i) => (
                                       <div key={i} className="flex items-center gap-2 text-xs">
                                         <Link className="h-3 w-3 text-blue-500" />
-                                        <code className="bg-gray-100 px-2 py-1 rounded dark:bg-neutral-800">{ref}</code>
+                                        <code className="bg-gray-100 px-2 py-1 rounded">{ref}</code>
                                       </div>
                                     ))}
                                   </div>
@@ -512,7 +512,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                     <Users className="h-5 w-5" />
                     Human Review Status
                   </CardTitle>
-                  <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-gray-600">
                     Required sign-offs and completion tracking
                   </p>
                 </CardHeader>
@@ -548,7 +548,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                             </Badge>
                           </div>
                           
-                          <div className="text-xs text-gray-600 space-y-1 mb-3 dark:text-neutral-600 dark:text-neutral-400">
+                          <div className="text-xs text-gray-600 space-y-1 mb-3">
                             <div>Reviewer: {review.reviewer}</div>
                             {review.date && <div>Approved: {review.date}</div>}
                           </div>
@@ -558,7 +558,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
                               variant="outline" 
                               size="sm" 
                               className="w-full text-xs"
-                              onClick={()  => onSignOff(review.area)}
+                              onClick={() => onSignOff(review.area)}
                             >
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Sign Off
@@ -582,9 +582,9 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
         </div>
 
         {/* Footer actions */}
-        <div className="border-t border-gray-200 px-6 py-4 bg-gray-50 dark:bg-neutral-800">
+        <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
           <div className="flex justify-between items-center">
-            <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <div className="text-sm text-gray-600">
               Last updated: {new Date().toLocaleDateString()}
             </div>
             <div className="flex gap-3">

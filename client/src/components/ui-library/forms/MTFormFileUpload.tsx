@@ -163,7 +163,7 @@ export default function MTFormFileUpload<
         return (
           <FormItem className={cn('space-y-2', className)}>
             {label && (
-              <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
+              <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
                 {label}
                 {required && <span className="text-red-500">*</span>}
               </FormLabel>
@@ -184,7 +184,7 @@ export default function MTFormFileUpload<
                 onDrop={handleDrop}
                 onClick={() => !disabled && inputRef.current?.click()}
                 data-testid={testId || `file-upload-${name}`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => !disabled && inputRef.current?.click()(e); } }}>
+              >
                 <input
                   ref={inputRef}
                   type="file"
@@ -197,10 +197,10 @@ export default function MTFormFileUpload<
                 
                 <div className="text-center">
                   <Upload className={cn(
-                    'mx-auto h-12 w-12 text-gray-600 dark:text-gray-400',
-                    dragActive && 'text-ocean-500'
+                    'mx-auto h-12 w-12 text-gray-400',
+                    dragActive && 'text-teal-500'
                   )} />
-                  <p className="mt-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-2 text-sm text-gray-600">
                     <span className="font-semibold">Click to upload</span> or drag and drop
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
@@ -216,7 +216,7 @@ export default function MTFormFileUpload<
                 {files.map((file: File, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors dark:bg-neutral-800"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
                     {showPreview && previews[index] ? (
                       <img 
@@ -225,12 +225,12 @@ export default function MTFormFileUpload<
                         className="h-12 w-12 rounded object-cover"
                       />
                     ) : (
-                      <div className="text-gray-600 dark:text-gray-400">
+                      <div className="text-gray-400">
                         {getFileIcon(file.type)}
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-neutral-100">
+                      <p className="text-sm font-medium text-gray-900 truncate">
                         {file.name}
                       </p>
                       <p className="text-xs text-gray-500">

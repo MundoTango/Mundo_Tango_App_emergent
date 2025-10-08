@@ -179,7 +179,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 )}>
                   {currentCategory.name}
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{currentCategory.description}</p>
+                <p className="text-sm text-gray-600">{currentCategory.description}</p>
               </div>
             </div>
           </div>
@@ -248,11 +248,11 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                     )}
                   >
                     <CardContent className="flex flex-col justify-between h-full p-4">
-                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer" role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => flipCard(agent.id); } }}>
+                      <div onClick={() => flipCard(agent.id)} className="cursor-pointer">
                         <h5 className="font-semibold text-sm flex items-center gap-2">
                           {agent.emoji} {agent.label}
                         </h5>
-                        <p className="text-xs text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">{agent.description}</p>
+                        <p className="text-xs text-gray-600 mt-2">{agent.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}
@@ -261,9 +261,11 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                           "w-full mt-3",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e)  => {
+                        onClick={(e) => {
                           e.stopPropagation();
-                          handleAgentToggle(agent.id) }}>
+                          handleAgentToggle(agent.id);
+                        }}
+                      >
                         {isSelected ? 'Selected' : 'Select'}
                       </Button>
                     </CardContent>
@@ -288,7 +290,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 <Badge
                   key={agentId}
                   variant="secondary"
-                  className="bg-white hover:bg-gray-50 cursor-pointer dark:bg-neutral-900"
+                  className="bg-white hover:bg-gray-50 cursor-pointer"
                   onClick={() => handleAgentToggle(agentId)}
                 >
                   {agent.emoji} {agent.label}

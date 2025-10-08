@@ -146,7 +146,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
 
   return (
     <>
-      <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden dark:bg-neutral-900">
+      <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         {/* Header */}
         <div className="p-4">
           <div className="flex items-start gap-3">
@@ -166,7 +166,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             {/* User info */}
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{memory.userName || 'Unknown User'}</h3>
+                <h3 className="font-semibold text-gray-900">{memory.userName || 'Unknown User'}</h3>
                 <span className="text-gray-500">·</span>
                 <span className="text-sm text-gray-500">
                   {formatDistanceToNow(new Date(memory.createdAt))} ago
@@ -189,7 +189,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
 
         {/* Content */}
         <div className="px-4 pb-3">
-          <p className="text-gray-900 whitespace-pre-wrap dark:text-neutral-100">{memory.content}</p>
+          <p className="text-gray-900 whitespace-pre-wrap">{memory.content}</p>
           
           {/* Emotion tags */}
           {memory.emotionTags && memory.emotionTags.length > 0 && (
@@ -209,7 +209,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
         {/* Reactions summary */}
         {totalReactions > 0 && (
           <div className="px-4 pb-2">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
               <div className="flex -space-x-1">
                 {Object.entries(memory.reactions || {})
                   .filter(([_, count]) => count > 0)
@@ -233,9 +233,9 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               <Button
                 variant="ghost"
                 size="sm"
-                onMouseEnter={()  => setShowReactionPicker(true)}
+                onMouseEnter={() => setShowReactionPicker(true)}
                 onMouseLeave={() => setShowReactionPicker(false)}
-                className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
+                className="w-full justify-center gap-2 text-gray-600 hover:text-gray-900"
               >
                 {memory.userReaction ? (
                   reactions.find(r => r.name === memory.userReaction)?.emoji || <ThumbsUp className="h-4 w-4" />
@@ -250,14 +250,14 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               {/* Reaction picker */}
               {showReactionPicker && (
                 <div 
-                  className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-200 flex items-center gap-1 p-2 dark:bg-neutral-900"
+                  className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-200 flex items-center gap-1 p-2"
                   onMouseEnter={() => setShowReactionPicker(true)}
                   onMouseLeave={() => setShowReactionPicker(false)}
                 >
                   {reactions.map((reaction) => (
                     <button
                       key={reaction.name}
-                      onClick={()  => handleReaction(reaction.name)}
+                      onClick={() => handleReaction(reaction.name)}
                       className="hover:scale-125 transition-transform p-1"
                       title={reaction.name}
                     >
@@ -272,8 +272,8 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             <Button
               variant="ghost"
               size="sm"
-              onClick={()  => setShowComments(!showComments)}
-              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
+              onClick={() => setShowComments(!showComments)}
+              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <MessageCircle className="h-4 w-4" />
               <span className="text-sm font-medium">Comment</span>
@@ -286,8 +286,8 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
             <Button
               variant="ghost"
               size="sm"
-              onClick={()  => setShowShareDialog(true)}
-              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900 dark:text-neutral-100"
+              onClick={() => setShowShareDialog(true)}
+              className="flex-1 justify-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <Share2 className="h-4 w-4" />
               <span className="text-sm font-medium">Share</span>
@@ -306,7 +306,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
               <div className="flex-1 flex gap-2">
                 <Textarea
                   value={commentText}
-                  onChange={(e)  => setCommentText(e.target.value)}
+                  onChange={(e) => setCommentText(e.target.value)}
                   placeholder="Write a comment..."
                   className="flex-1 min-h-[36px] py-2 resize-none"
                   onKeyDown={(e) => {
@@ -335,9 +335,9 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                       {getAvatarInitials(comment.userName || 'U')}
                     </div>
                     <div className="flex-1">
-                      <div className="bg-gray-100 rounded-2xl px-3 py-2 dark:bg-neutral-800">
+                      <div className="bg-gray-100 rounded-2xl px-3 py-2">
                         <p className="font-semibold text-sm">{comment.userName}</p>
-                        <p className="text-gray-700 text-sm dark:text-neutral-600 dark:text-neutral-300">{comment.content}</p>
+                        <p className="text-gray-700 text-sm">{comment.content}</p>
                       </div>
                       <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
                         <span>{formatDistanceToNow(new Date(comment.createdAt))} ago</span>
@@ -363,24 +363,24 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
           <div className="space-y-4">
             <Textarea
               value={shareText}
-              onChange={(e)  => setShareText(e.target.value)}
+              onChange={(e) => setShareText(e.target.value)}
               placeholder="Say something about this..."
               className="min-h-[100px]"
             />
             
             {/* Preview of the shared memory */}
-            <div className="border border-gray-200 rounded-lg p-3 bg-gray-50 dark:bg-neutral-800">
-              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2 dark:text-neutral-600 dark:text-neutral-400">
+            <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-semibold">
                   {getAvatarInitials(memory.userName || 'U')}
                 </div>
                 <span className="font-medium">{memory.userName}</span>
               </div>
-              <p className="text-sm text-gray-700 line-clamp-3 dark:text-neutral-600 dark:text-neutral-300">{memory.content}</p>
+              <p className="text-sm text-gray-700 line-clamp-3">{memory.content}</p>
             </div>
 
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={()  => setShowShareDialog(false)}>
+              <Button variant="outline" onClick={() => setShowShareDialog(false)}>
                 Cancel
               </Button>
               <Button onClick={handleShare} disabled={shareMutation.isPending}>

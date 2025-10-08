@@ -293,7 +293,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
           <div className="flex space-x-2">
             <Input
               value={inputMessage}
-              onChange={(e)  => setInputMessage(e.target.value)}
+              onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message or use voice..."
               disabled={isLoading}
@@ -310,7 +310,7 @@ const LifeCEOAgentChat: React.FC<LifeCEOAgentChatProps> = ({ agentId: propAgentI
             <Button
               variant="outline"
               size="icon"
-              onClick={isSpeaking ? stopSpeaking : ()> {}}
+              onClick={isSpeaking ? stopSpeaking : () => {}}
               disabled={!isSpeaking && messages.filter(m => m.role === 'assistant').length === 0}
             >
               {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}

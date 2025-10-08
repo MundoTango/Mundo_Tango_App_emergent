@@ -46,7 +46,6 @@ import {
   Video as VideoIcon
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
-import { Helmet } from 'react-helmet';
 
 // Helper to check if URL is a video
 const isVideoUrl = (url: string): boolean => {
@@ -252,11 +251,6 @@ export default function HousingMarketplace() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Housing Marketplace | Life CEO</title>
-      </Helmet>
-      
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header */}
@@ -271,7 +265,7 @@ export default function HousingMarketplace() {
                 strength={0.3}
                 onClick={() => setShowCreateModal(true)}
                 className="aurora-gradient text-white hover:shadow-aurora transition-all duration-300 px-4 py-2 rounded-md font-medium flex items-center gap-2"
-               
+                data-testid="button-list-space"
               >
                 <Plus className="w-4 h-4" />
                 {t('housing.marketplace.list_your_space', 'List Your Space')}
@@ -287,7 +281,7 @@ export default function HousingMarketplace() {
             animate="visible"
           >
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
                   <Home className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -298,7 +292,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
                   <MapPin className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -311,7 +305,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
                   <Star className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -326,7 +320,7 @@ export default function HousingMarketplace() {
               </GlassCard>
             </motion.div>
             <motion.div variants={AuroraVariants.fadeInUp}>
-              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={1} className="p-4 border border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="flex items-center gap-3">
                   <Music className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
                   <div>
@@ -350,8 +344,8 @@ export default function HousingMarketplace() {
                     placeholder={t('housing.marketplace.search_placeholder', 'Search by location, title, or description...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-ocean-500/50 transition-all"
-                   
+                    className="pl-10 w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                    data-testid="input-search"
                   />
                 </div>
                 <div className="flex gap-2 flex-wrap">
@@ -371,8 +365,8 @@ export default function HousingMarketplace() {
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
-                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-ocean-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
-                   
+                    className={showFilters ? 'glass-card glass-depth-2 border-cyan-300/50 dark:border-cyan-500/50' : 'glass-card glass-depth-1 border-cyan-200/30'}
+                    data-testid="button-toggle-filters"
                   >
                     <Filter className="w-4 h-4 mr-1" />
                     {t('housing.marketplace.filters', 'Filters')} {activeFilterCount > 0 && `(${activeFilterCount})`}
@@ -383,7 +377,7 @@ export default function HousingMarketplace() {
                       size="sm"
                       onClick={clearFilters}
                       className="hover:glass-card hover:glass-depth-1"
-                     
+                      data-testid="button-clear-filters"
                     >
                       {t('housing.marketplace.clear_all', 'Clear all')}
                     </Button>
@@ -394,10 +388,10 @@ export default function HousingMarketplace() {
 
             {/* Expanded Filter Panel */}
             {showFilters && (
-              <Card className="p-6 bg-gray-50">
+              <Card className="p-6 bg-gray-50" data-testid="filter-panel">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Room Types */}
-                  <div>
+                  <div data-testid="filter-room-types">
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.room_type', 'Room Type')}</Label>
                     <div className="space-y-2">
                       {roomTypes.map(roomType => {
@@ -422,7 +416,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Price Range Slider */}
-                  <div>
+                  <div data-testid="filter-price-range">
                     <Label className="text-sm font-semibold mb-3 block">
                       {t('housing.marketplace.price_range', 'Price Range')} (${priceRange.min} - ${priceRange.max} {t('housing.marketplace.per_night', 'per night')})
                     </Label>
@@ -434,7 +428,7 @@ export default function HousingMarketplace() {
                         value={[priceRange.min, priceRange.max]}
                         onValueChange={(values) => setPriceRange({ min: values[0], max: values[1] })}
                         className="mt-2"
-                       
+                        data-testid="slider-price-range"
                       />
                       <div className="flex justify-between text-xs text-gray-600">
                         <span>$0</span>
@@ -444,7 +438,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Guests & Bedrooms */}
-                  <div>
+                  <div data-testid="filter-capacity">
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.capacity', 'Capacity')}</Label>
                     <div className="space-y-3">
                       <div>
@@ -455,18 +449,18 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
                             disabled={guestCount <= 1}
-                           
+                            data-testid="button-guests-decrease"
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-guest-count">
                             {guestCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setGuestCount(guestCount + 1)}
-                           
+                            data-testid="button-guests-increase"
                           >
                             +
                           </Button>
@@ -480,18 +474,18 @@ export default function HousingMarketplace() {
                             size="sm"
                             onClick={() => setBedroomCount(Math.max(0, bedroomCount - 1))}
                             disabled={bedroomCount <= 0}
-                           
+                            data-testid="button-bedrooms-decrease"
                           >
                             -
                           </Button>
-                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium">
+                          <span className="px-4 py-1 bg-white border rounded text-sm font-medium" data-testid="text-bedroom-count">
                             {bedroomCount === 0 ? t('housing.marketplace.any', 'Any') : bedroomCount}
                           </span>
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setBedroomCount(bedroomCount + 1)}
-                           
+                            data-testid="button-bedrooms-increase"
                           >
                             +
                           </Button>
@@ -501,7 +495,7 @@ export default function HousingMarketplace() {
                   </div>
 
                   {/* Amenities */}
-                  <div className="md:col-span-2 lg:col-span-3">
+                  <div className="md:col-span-2 lg:col-span-3" data-testid="filter-amenities">
                     <Label className="text-sm font-semibold mb-3 block">{t('housing.marketplace.amenities', 'Amenities')}</Label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                       {amenitiesList.map(amenity => (
@@ -528,7 +522,7 @@ export default function HousingMarketplace() {
 
           {/* Results Count */}
           <div className="mb-4">
-            <p className="text-gray-600">
+            <p className="text-gray-600" data-testid="text-results-count">
               {isLoading ? t('housing.marketplace.loading', 'Loading...') : t('housing.marketplace.showing_results', 'Showing {{count}} of {{total}} listings', { count: filteredListings.length, total: listings.length })}
               {!isLoading && activeFilterCount > 0 && ` ${t('housing.marketplace.with_filters', 'with {{count}} filter applied', { count: activeFilterCount })}`}
             </p>
@@ -568,7 +562,7 @@ export default function HousingMarketplace() {
                 <div key={listing.id} ref={el => cardsRef.current[index] = el}>
                   <GlassCard 
                     depth={2}
-                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-ocean-500/50 transition-all duration-300 group" 
+                    className="overflow-hidden hover:glass-depth-3 hover:border-cyan-300/50 dark:hover:border-cyan-500/50 transition-all duration-300 group" 
                     data-testid={`card-listing-${listing.id}`}
                   >
                   {/* Media Thumbnail */}
@@ -696,7 +690,7 @@ export default function HousingMarketplace() {
         {/* Empty State */}
         {!isLoading && filteredListings.length === 0 && (
           <Card className="p-12 text-center">
-            <Home className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-400 mb-4" />
+            <Home className="w-12 h-12 mx-auto text-gray-400 mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('housing.marketplace.no_listings', 'No listings found')}</h3>
             <p className="text-gray-600">{t('housing.marketplace.try_adjusting', 'Try adjusting your search or filters')}</p>
           </Card>
@@ -770,7 +764,5 @@ export default function HousingMarketplace() {
         )}
       </div>
     </DashboardLayout>
-  
-    </>
   );
 }

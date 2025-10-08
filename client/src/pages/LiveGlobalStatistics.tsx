@@ -16,7 +16,6 @@ import {
   FileText
 } from "lucide-react";
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { Helmet } from 'react-helmet';
 
 interface Statistics {
   users: {
@@ -102,14 +101,7 @@ export default function LiveGlobalStatistics() {
       setIsConnected(false);
     };
 
-    return (
-    <>
-      <Helmet>
-        <title>Live Global Statistics | Life CEO</title>
-      </Helmet>
-      
-    </>
-  ) => {
+    return () => {
       if (socket.readyState === WebSocket.OPEN) {
         socket.close();
       }
@@ -158,7 +150,7 @@ export default function LiveGlobalStatistics() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
               Live Global Statistics
             </h1>
-            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               Real-time platform metrics and insights
             </p>
           </div>

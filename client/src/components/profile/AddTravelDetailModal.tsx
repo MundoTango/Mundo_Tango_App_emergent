@@ -152,7 +152,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="eventType">Event Type</Label>
               <Select 
                 value={formData.eventType} 
-                onValueChange={(value)> handleInputChange('eventType', value)}
+                onValueChange={(value) => handleInputChange('eventType', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select event type" />
@@ -199,12 +199,12 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
             <div className="space-y-2">
               <Label htmlFor="startDate">Start Date *</Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
                   id="startDate"
                   type="date"
                   value={formData.startDate}
-                  onChange={(e)  => handleInputChange('startDate', e.target.value)}
+                  onChange={(e) => handleInputChange('startDate', e.target.value)}
                   className="pl-10"
                   required
                 />
@@ -214,12 +214,12 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
             <div className="space-y-2">
               <Label htmlFor="endDate">End Date *</Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
                   id="endDate"
                   type="date"
                   value={formData.endDate}
-                  onChange={(e)  => handleInputChange('endDate', e.target.value)}
+                  onChange={(e) => handleInputChange('endDate', e.target.value)}
                   className="pl-10"
                   required
                   min={formData.startDate}
@@ -233,7 +233,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="status">Status</Label>
               <Select 
                 value={formData.status} 
-                onValueChange={(value: any)> handleInputChange('status', value)}
+                onValueChange={(value: any) => handleInputChange('status', value)}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -253,7 +253,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="visibility">Visibility</Label>
               <Select 
                 value={formData.isPublic ? 'public' : 'private'} 
-                onValueChange={(value)> handleInputChange('isPublic', value === 'public')}
+                onValueChange={(value) => handleInputChange('isPublic', value === 'public')}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -272,7 +272,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e)  => handleInputChange('notes', e.target.value)}
+              onChange={(e) => handleInputChange('notes', e.target.value)}
               placeholder="Any additional details about your travel..."
               rows={3}
             />

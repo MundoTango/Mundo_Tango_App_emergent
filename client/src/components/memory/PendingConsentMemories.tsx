@@ -195,8 +195,8 @@ export default function PendingConsentMemories() {
   return (
     <div className="container mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Pending Consent</h1>
-        <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Pending Consent</h1>
+        <p className="text-gray-600">
           Memories where you've been tagged and need to approve or deny sharing.
         </p>
       </div>
@@ -413,7 +413,7 @@ export default function PendingConsentMemories() {
                           <Button
                             variant="outlined"
                             size="medium"
-                            onClick={()  => handleConsentAction(memory.id, 'deny')}
+                            onClick={() => handleConsentAction(memory.id, 'deny')}
                             disabled={isProcessing}
                             sx={{
                               color: '#dc2626',
@@ -431,7 +431,7 @@ export default function PendingConsentMemories() {
                         <Button
                           variant="contained"
                           size="medium"
-                          onClick={()  => handleConsentAction(memory.id, 'approve')}
+                          onClick={() => handleConsentAction(memory.id, 'approve')}
                           disabled={isProcessing}
                           sx={{
                             backgroundColor: '#16a34a',

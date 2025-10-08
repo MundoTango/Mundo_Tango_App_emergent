@@ -86,7 +86,7 @@ export default function TripConfigurationWizard({
         <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
           Plan Your Trip to {city}
         </h2>
-        <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-gray-400">
           Tell us your dates and preferences to see personalized recommendations
         </p>
       </div>
@@ -107,7 +107,7 @@ export default function TripConfigurationWizard({
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               className="w-full"
-             
+              data-testid="input-start-date"
             />
           </div>
 
@@ -120,7 +120,7 @@ export default function TripConfigurationWizard({
               onChange={(e) => setEndDate(e.target.value)}
               min={startDate}
               className="w-full"
-             
+              data-testid="input-end-date"
             />
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function TripConfigurationWizard({
               onClick={() => setBudget(level)}
               className={`p-3 rounded-lg border-2 transition ${
                 budget === level
-                  ? 'border-ocean-500 bg-cyan-50 dark:bg-cyan-900/20'
+                  ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/20'
                   : 'border-gray-200 dark:border-gray-700 hover:border-cyan-300'
               }`}
               data-testid={`button-budget-${level}`}
@@ -198,7 +198,7 @@ export default function TripConfigurationWizard({
         </div>
 
         <Select value={travelStyle} onValueChange={setTravelStyle}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full" data-testid="select-travel-style">
             <SelectValue placeholder="Select your travel style" />
           </SelectTrigger>
           <SelectContent>
@@ -215,7 +215,7 @@ export default function TripConfigurationWizard({
         onClick={handleSubmit}
         disabled={!startDate || !endDate || tripDuration === 0}
         className="w-full h-12 text-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
-       
+        data-testid="button-find-activities"
       >
         Find Activities & Stays
       </Button>

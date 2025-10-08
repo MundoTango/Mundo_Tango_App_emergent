@@ -75,7 +75,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               id="instanceUrl"
               placeholder="https://yourcompany.atlassian.net"
               value={credentials.instanceUrl}
-              onChange={(e)  => setCredentials({ ...credentials, instanceUrl: e.target.value })}
+              onChange={(e) => setCredentials({ ...credentials, instanceUrl: e.target.value })}
             />
             <p className="text-xs text-gray-500">Your Atlassian domain URL</p>
           </div>
@@ -87,7 +87,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               type="email"
               placeholder="your.email@company.com"
               value={credentials.email}
-              onChange={(e)  => setCredentials({ ...credentials, email: e.target.value })}
+              onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
             />
             <p className="text-xs text-gray-500">Email associated with your JIRA account</p>
           </div>
@@ -99,7 +99,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               type="password"
               placeholder="Your JIRA API token"
               value={credentials.apiToken}
-              onChange={(e)  => setCredentials({ ...credentials, apiToken: e.target.value })}
+              onChange={(e) => setCredentials({ ...credentials, apiToken: e.target.value })}
             />
             <p className="text-xs text-gray-500">
               Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline">
@@ -114,7 +114,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               id="projectKey"
               placeholder="MT"
               value={credentials.projectKey}
-              onChange={(e)  => setCredentials({ ...credentials, projectKey: e.target.value.toUpperCase() })}
+              onChange={(e) => setCredentials({ ...credentials, projectKey: e.target.value.toUpperCase() })}
             />
             <p className="text-xs text-gray-500">The key of your JIRA project (e.g., MT, PROJ)</p>
           </div>

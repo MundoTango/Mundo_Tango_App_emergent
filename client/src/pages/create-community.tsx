@@ -13,7 +13,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 // import GoogleMapsLocationPicker from '@/components/GoogleMapsLocationPicker';
-import { Helmet } from 'react-helmet';
 
 // Form schema with 23L validation patterns
 const createCommunitySchema = z.object({
@@ -116,18 +115,13 @@ export default function CreateCommunityPage() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Create Community | Life CEO</title>
-      </Helmet>
-      
     <DashboardLayout>
       <div className="max-w-3xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={()  => setLocation('/groups')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors dark:text-neutral-100"
+            onClick={() => setLocation('/groups')}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             Back to Communities
@@ -141,7 +135,7 @@ export default function CreateCommunityPage() {
               Create New Community
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-gray-600">
             Build a space where tango dancers can connect, share, and grow together
           </p>
         </div>
@@ -150,10 +144,10 @@ export default function CreateCommunityPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Cover Image */}
-            <div className="bg-white rounded-xl shadow-sm p-6 dark:bg-neutral-900">
+            <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
               <div className="relative">
-                <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden dark:bg-neutral-800">
+                <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
                   {imagePreview ? (
                     <img
                       src={imagePreview}
@@ -161,7 +155,7 @@ export default function CreateCommunityPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-col items-center justify-center h-full text-gray-400">
                       <Upload className="h-12 w-12 mb-2" />
                       <p className="text-sm">Upload a cover image</p>
                     </div>
@@ -178,7 +172,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Basic Information */}
-            <div className="bg-white rounded-xl shadow-sm p-6 space-y-6 dark:bg-neutral-900">
+            <div className="bg-white rounded-xl shadow-sm p-6 space-y-6">
               <h3 className="text-lg font-semibold">Basic Information</h3>
               
               <FormField
@@ -289,7 +283,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Location */}
-            <div className="bg-white rounded-xl shadow-sm p-6 dark:bg-neutral-900">
+            <div className="bg-white rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">Location</h3>
               <FormField
                 control={form.control}
@@ -315,7 +309,7 @@ export default function CreateCommunityPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={()  => setLocation('/groups')}
+                onClick={() => setLocation('/groups')}
                 className="rounded-lg"
               >
                 Cancel
@@ -332,7 +326,5 @@ export default function CreateCommunityPage() {
         </Form>
       </div>
     </DashboardLayout>
-  
-    </>
   );
 }

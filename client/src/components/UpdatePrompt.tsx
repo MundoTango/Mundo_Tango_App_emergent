@@ -22,7 +22,7 @@ export function UpdatePrompt() {
           <Button
             size="sm"
             onClick={handleUpdate}
-            className="bg-ocean-500 hover:bg-teal-600"
+            className="bg-teal-500 hover:bg-teal-600"
           >
             Update
           </Button>
@@ -83,10 +83,10 @@ export function UpdatePrompt() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-600"
+            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
             onClick={handleDismiss}
             disabled={updating}
-           
+            data-testid="button-dismiss-update"
           >
             <X className="h-4 w-4" />
           </Button>
@@ -104,7 +104,7 @@ export function UpdatePrompt() {
                   Update Available! 🎉
                 </h3>
                 
-                <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-300 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   We've made Mundo Tango even better! Update now to get the latest features and improvements.
                 </p>
                 
@@ -113,7 +113,7 @@ export function UpdatePrompt() {
                     onClick={handleUpdate}
                     disabled={updating}
                     className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white"
-                   
+                    data-testid="button-update-now"
                   >
                     {updating ? (
                       <>
@@ -133,7 +133,7 @@ export function UpdatePrompt() {
                       variant="outline"
                       onClick={handleDismiss}
                       className="border-gray-300 dark:border-gray-600"
-                     
+                      data-testid="button-remind-later"
                     >
                       Later
                     </Button>
@@ -144,10 +144,10 @@ export function UpdatePrompt() {
 
             {/* What's new section */}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-xs font-semibold text-gray-700 dark:text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 What's New:
               </p>
-              <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400">
+              <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
                 <li className="flex items-start gap-1">
                   <span className="text-amber-500 mt-0.5">•</span>
                   <span>Performance improvements and bug fixes</span>

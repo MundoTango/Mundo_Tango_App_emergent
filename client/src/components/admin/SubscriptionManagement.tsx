@@ -102,9 +102,9 @@ const SubscriptionManagement: React.FC = () => {
         <TabsContent value="features" className="space-y-4">
           {/* Header with Edit/Save button */}
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">Feature Flag → Subscription Tier Mapping</h3>
+            <h3 className="text-xl font-semibold text-gray-800">Feature Flag → Subscription Tier Mapping</h3>
             <Button
-              onClick={()  => editMode ? saveChanges() : setEditMode(true)}
+              onClick={() => editMode ? saveChanges() : setEditMode(true)}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700"
             >
               {editMode ? (
@@ -154,7 +154,7 @@ const SubscriptionManagement: React.FC = () => {
                       <tr key={mapping.flag} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                         <td className="p-4">
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-neutral-100">
+                            <div className="font-medium text-gray-900">
                               {mapping.flag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </div>
                             <div className="text-sm text-gray-500">{mapping.description}</div>
@@ -173,7 +173,7 @@ const SubscriptionManagement: React.FC = () => {
                                 {mapping.tiers.includes(tier) ? (
                                   <Check className="w-5 h-5 text-green-600" />
                                 ) : (
-                                  <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                                  <X className="w-5 h-5 text-gray-300" />
                                 )}
                               </div>
                             )}
@@ -193,10 +193,10 @@ const SubscriptionManagement: React.FC = () => {
             {/* Subscription Metrics Cards */}
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Subscribers</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Total Subscribers</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.totalSubscribers || 0}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -207,10 +207,10 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Monthly Revenue</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Monthly Revenue</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
+                <div className="text-2xl font-bold text-gray-900">
                   ${analyticsData?.monthlyRevenue || 0}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -221,10 +221,10 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Conversion Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Conversion Rate</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.conversionRate || 0}%
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -235,10 +235,10 @@ const SubscriptionManagement: React.FC = () => {
 
             <Card className="glassmorphic-card">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Churn Rate</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-600">Churn Rate</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
+                <div className="text-2xl font-bold text-gray-900">
                   {analyticsData?.churnRate || 0}%
                 </div>
                 <div className="text-sm text-gray-500 mt-1">
@@ -268,7 +268,7 @@ const SubscriptionManagement: React.FC = () => {
                         <span className="font-medium">{tier.name}</span>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{count} users</span>
+                        <span className="text-gray-600">{count} users</span>
                         <span className="text-sm text-gray-500">({percentage}%)</span>
                       </div>
                     </div>
@@ -295,19 +295,19 @@ const SubscriptionManagement: React.FC = () => {
                       'bg-blue-500'
                     }`} />
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900 dark:text-neutral-100">{activity.userName}</div>
-                      <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                      <div className="font-medium text-gray-900">{activity.userName}</div>
+                      <div className="text-sm text-gray-600">
                         {activity.type === 'upgrade' && `Upgraded to ${activity.toTier}`}
                         {activity.type === 'downgrade' && `Downgraded to ${activity.toTier}`}
                         {activity.type === 'cancel' && 'Cancelled subscription'}
                         {activity.type === 'new' && `Started ${activity.tier} subscription`}
                       </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{activity.timestamp}</div>
+                      <div className="text-xs text-gray-400 mt-1">{activity.timestamp}</div>
                     </div>
                   </div>
                 )) || (
                   <div className="text-center text-gray-500 py-8">
-                    <Activity className="w-12 h-12 mx-auto mb-2 text-gray-600 dark:text-gray-300" />
+                    <Activity className="w-12 h-12 mx-auto mb-2 text-gray-300" />
                     No recent activity
                   </div>
                 )}

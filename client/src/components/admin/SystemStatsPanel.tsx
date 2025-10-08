@@ -159,8 +159,8 @@ export default function SystemStatsPanel() {
           )}
         </div>
         <div className="mt-4">
-          <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">{value}</div>
-          <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{subtitle}</div>
+          <div className="text-2xl font-bold text-gray-900">{value}</div>
+          <div className="text-sm text-gray-600">{subtitle}</div>
         </div>
       </CardContent>
     </Card>
@@ -172,7 +172,7 @@ export default function SystemStatsPanel() {
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="flex gap-3">
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200">
               <SelectValue placeholder="Select time range" />
             </SelectTrigger>
             <SelectContent>
@@ -187,7 +187,7 @@ export default function SystemStatsPanel() {
             onClick={refreshStats}
             disabled={refreshing}
             variant="outline"
-            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
+            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
@@ -197,7 +197,7 @@ export default function SystemStatsPanel() {
         <Button
           onClick={exportStats}
           variant="outline"
-          className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
+          className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
         >
           <Download className="h-4 w-4 mr-2" />
           Export Report
@@ -206,7 +206,7 @@ export default function SystemStatsPanel() {
 
       {/* User Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-neutral-100">User Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">User Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Total Users"
@@ -243,7 +243,7 @@ export default function SystemStatsPanel() {
 
       {/* Content Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-neutral-100">Content Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Total Memories"
@@ -278,7 +278,7 @@ export default function SystemStatsPanel() {
 
       {/* Performance Statistics */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-neutral-100">System Performance</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">System Performance</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Response Time"
@@ -325,7 +325,7 @@ export default function SystemStatsPanel() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Smartphone className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                  <Smartphone className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium">Mobile</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -341,7 +341,7 @@ export default function SystemStatsPanel() {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Monitor className="h-4 w-4 text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                  <Monitor className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium">Desktop</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -410,7 +410,7 @@ export default function SystemStatsPanel() {
 
       {/* Additional Metrics */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-neutral-100">Engagement Metrics</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Engagement Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Session Duration"

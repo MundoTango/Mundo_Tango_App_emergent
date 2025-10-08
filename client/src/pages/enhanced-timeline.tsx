@@ -18,7 +18,6 @@ import EnhancedPostComposer from "@/components/moments/EnhancedPostComposer";
 // ESA Layer 7: Edit functionality handled by BeautifulPostCreator in edit mode
 // ESA Layer 7: Icons handled by BeautifulPostCreator internally
 import DashboardLayout from "@/layouts/DashboardLayout";
-import { Helmet } from 'react-helmet';
 
 interface Post {
   id: number; // Must be number to work with EnhancedPostItem
@@ -126,13 +125,8 @@ const EnhancedTimeline = () => {
   // ESA Layer 7: Post content management handled by BeautifulPostCreator
 
   return (
-    <>
-      <Helmet>
-        <title>Enhanced Timeline | Life CEO</title>
-      </Helmet>
-      
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50 dark:bg-neutral-800">
+      <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto py-6 px-4">
           <div className="grid grid-cols-12 gap-6">
           {/* Main Timeline */}
@@ -152,7 +146,7 @@ const EnhancedTimeline = () => {
                     <Loader2 className="h-8 w-8 animate-spin text-red-600" />
                   </div>
                 ) : posts.length === 0 ? (
-                  <Card className="bg-white dark:bg-neutral-900">
+                  <Card className="bg-white">
                     <CardContent className="text-center py-12">
                       <p className="text-gray-500">No posts available</p>
                     </CardContent>
@@ -191,7 +185,7 @@ const EnhancedTimeline = () => {
       {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using EnhancedPostComposer with full features */}
       <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
-          <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl dark:bg-neutral-900">
+          <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl">
             <EnhancedPostComposer 
               editMode={!!editingPost}
               existingPost={editingPost ? {
@@ -231,8 +225,6 @@ const EnhancedTimeline = () => {
       </Dialog>
       </div>
     </DashboardLayout>
-  
-    </>
   );
 };
 

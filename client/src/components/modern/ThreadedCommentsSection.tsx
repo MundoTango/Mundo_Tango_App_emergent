@@ -171,7 +171,7 @@ export default function ThreadedCommentsSection({
         initial={{ opacity: 0, x: -20 * (depth + 1) }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 20 }}
-        className={`${depth > 0 ? 'ml-8 border-l-2 border-ocean-500/20 pl-4' : ''}`}
+        className={`${depth > 0 ? 'ml-8 border-l-2 border-cyan-500/20 pl-4' : ''}`}
         data-testid={`comment-${commentId}`}
       >
         <div className="flex gap-3 group mb-3">
@@ -198,14 +198,14 @@ export default function ThreadedCommentsSection({
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {comment.user.name}
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     @{comment.user.username}
                   </span>
-                  <span className="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-500">
+                  <span className="text-xs text-gray-400 dark:text-gray-500">
                     • {formatDistanceToNow(new Date(comment.createdAt))} ago
                   </span>
                   {comment.isEdited && (
-                    <span className="text-xs text-gray-600 dark:text-gray-400 italic">(edited)</span>
+                    <span className="text-xs text-gray-400 italic">(edited)</span>
                   )}
                 </div>
 
@@ -267,7 +267,7 @@ export default function ThreadedCommentsSection({
                     autoFocus
                   />
                   <div className="flex gap-2 mt-2">
-                    <button type="submit" className="px-3 py-1 bg-ocean-500 text-white rounded-lg text-sm">
+                    <button type="submit" className="px-3 py-1 bg-cyan-500 text-white rounded-lg text-sm">
                       Save
                     </button>
                     <button
@@ -299,7 +299,7 @@ export default function ThreadedCommentsSection({
                 {hasReplies && (
                   <button
                     onClick={() => toggleThread(commentId)}
-                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
+                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                   >
                     {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                     {comment.replies!.length} {comment.replies!.length === 1 ? 'reply' : 'replies'}
@@ -318,7 +318,8 @@ export default function ThreadedCommentsSection({
               >
                 <form onSubmit={(e) => {
                   e.preventDefault();
-                  handleSubmitReply(commentId) }}>
+                  handleSubmitReply(commentId);
+                }}>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -356,18 +357,18 @@ export default function ThreadedCommentsSection({
   };
 
   return (
-    <div className="glassmorphic rounded-2xl p-6 border border-ocean-500/20">
+    <div className="glassmorphic rounded-2xl p-6 border border-cyan-500/20" data-testid="comments-section">
       <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
         Comments ({comments.length})
       </h3>
 
       {/* Typing Indicators */}
       {typingUsers.size > 0 && (
-        <div className="mb-4 text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400 flex items-center gap-2">
+        <div className="mb-4 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
           <div className="flex space-x-1">
-            <span className="animate-bounce inline-block w-2 h-2 bg-ocean-500 rounded-full"></span>
-            <span className="animate-bounce inline-block w-2 h-2 bg-ocean-500 rounded-full" style={{ animationDelay: '0.1s' }}></span>
-            <span className="animate-bounce inline-block w-2 h-2 bg-ocean-500 rounded-full" style={{ animationDelay: '0.2s' }}></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full"></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full" style={{ animationDelay: '0.1s' }}></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full" style={{ animationDelay: '0.2s' }}></span>
           </div>
           {Array.from(typingUsers.values()).join(', ')} {typingUsers.size === 1 ? 'is' : 'are'} typing...
         </div>

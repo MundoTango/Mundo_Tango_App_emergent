@@ -105,7 +105,7 @@ export default function ModernCommentsSection({
 
               {/* Comment Content */}
               <div className="flex-1">
-                <div className="bg-white/5 rounded-xl px-3 py-2 dark:bg-neutral-900">
+                <div className="bg-white/5 rounded-xl px-3 py-2">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-white">
@@ -121,7 +121,7 @@ export default function ModernCommentsSection({
                       <div className="relative">
                         <button
                           onClick={() => setShowActions(showActions === comment.id ? null : comment.id)}
-                          className="p-1 hover:bg-white/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100 dark:bg-neutral-900"
+                          className="p-1 hover:bg-white/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                           data-testid={`button-comment-actions-${comment.id}`}
                         >
                           <MoreVertical className="w-4 h-4 text-white/60" />
@@ -131,7 +131,7 @@ export default function ModernCommentsSection({
                           <GlassCard depth={3} className="absolute right-0 top-8 rounded-xl shadow-xl border border-white/20 py-1 z-10"
                             <button
                               onClick={() => handleEditComment(comment)}
-                              className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-white/80 text-sm w-full text-left dark:bg-neutral-900"
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-white/80 text-sm w-full text-left"
                               data-testid={`button-edit-comment-${comment.id}`}
                             >
                               <Edit2 className="w-3 h-3" />
@@ -139,7 +139,7 @@ export default function ModernCommentsSection({
                             </button>
                             <button
                               onClick={() => handleDeleteComment(comment.id)}
-                              className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-red-400 text-sm w-full text-left dark:bg-neutral-900"
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-white/10 text-red-400 text-sm w-full text-left"
                               data-testid={`button-delete-comment-${comment.id}`}
                             >
                               <Trash2 className="w-3 h-3" />
@@ -159,7 +159,7 @@ export default function ModernCommentsSection({
                         value={editingContent}
                         onChange={(e) => setEditingContent(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleSaveEdit(comment.id)}
-                        className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-400/50 dark:bg-neutral-900"
+                        className="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-400/50"
                         autoFocus
                         data-testid={`input-edit-comment-${comment.id}`}
                       />
@@ -175,7 +175,7 @@ export default function ModernCommentsSection({
                           setEditingCommentId(null);
                           setEditingContent('');
                         }}
-                        className="px-2 py-1 bg-white/10 hover:bg-white/20 text-white/60 rounded-lg text-sm dark:bg-neutral-900"
+                        className="px-2 py-1 bg-white/10 hover:bg-white/20 text-white/60 rounded-lg text-sm"
                         data-testid={`button-cancel-edit-${comment.id}`}
                       >
                         Cancel
@@ -216,15 +216,15 @@ export default function ModernCommentsSection({
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Write a comment..."
-          className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-teal-400/50 focus:border-teal-400/50 dark:bg-neutral-900"
+          className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-teal-400/50 focus:border-teal-400/50"
           disabled={isAddingComment}
-         
+          data-testid="input-new-comment"
         />
         <button
           type="submit"
           disabled={!newComment.trim() || isAddingComment}
           className="px-4 py-2 bg-gradient-to-r from-teal-400 to-cyan-600 hover:from-teal-500 hover:to-cyan-700 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-         
+          data-testid="button-submit-comment"
         >
           <Send className="w-4 h-4" />
           {isAddingComment ? 'Sending...' : 'Send'}

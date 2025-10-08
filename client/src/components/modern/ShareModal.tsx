@@ -86,12 +86,12 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
       size="sm"
       variant="ocean"
       animationType="scale"
-     
+      data-testid="share-modal"
     >
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center gap-2 mb-4">
-          <Share2 className="w-6 h-6 text-ocean-500" />
+          <Share2 className="w-6 h-6 text-teal-500" />
           <h2 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
             Share Post
           </h2>
@@ -100,10 +100,10 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
         {/* Content */}
         <div className="space-y-4">
           <GlassCard depth={1} className="bg-gradient-to-br from-teal-50/50 to-blue-50/50 dark:from-teal-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-teal-200/30 dark:border-teal-700/30"
-            <p className="text-sm text-gray-700 dark:text-gray-600 dark:text-gray-300 line-clamp-3">
+            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
               {post.content}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               by {post.user.name}
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="primary"
               fullWidth
               icon={Share2}
-             
+              data-testid="share-timeline"
             >
               Share to Timeline
             </MTButton>
@@ -128,7 +128,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="outline"
               fullWidth
               icon={MessageSquare}
-             
+              data-testid="share-comment"
             >
               Share with Comment
             </MTButton>
@@ -138,7 +138,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
               variant="outline"
               fullWidth
               icon={Link}
-             
+              data-testid="share-copy-link"
             >
               Copy Link
             </MTButton>

@@ -5,7 +5,6 @@ import CreatePost from "@/components/feed/create-post";
 import StoryViewer from "@/components/feed/story-viewer";
 import { useQuery } from "@tanstack/react-query";
 import PostFeed from "@/components/moments/PostFeed";
-import { Helmet } from 'react-helmet';
 
 export default function Home() {
   // MT Ocean Theme Restored - July 22, 2025 9:20PM - v4 with service worker update
@@ -13,14 +12,7 @@ export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return (
-    <>
-      <Helmet>
-        <title>Home | Life CEO</title>
-      </Helmet>
-      savedTheme as 'light' | 'dark'
-    </>
-  ) || 'light';
+    return (savedTheme as 'light' | 'dark') || 'light';
   });
 
   const toggleTheme = () => {
@@ -74,7 +66,7 @@ export default function Home() {
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
             onClick={handleCloseSidebar}
-
+          />
         )}
         
         <main className={`flex-1 transition-all duration-300 ${

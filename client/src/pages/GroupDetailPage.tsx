@@ -24,7 +24,6 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import '../styles/ttfiles.css';
 import '../styles/mt-group.css';
-import { Helmet } from 'react-helmet';
 
 export default function GroupDetailPage() {
   const { slug } = useParams();
@@ -88,19 +87,12 @@ export default function GroupDetailPage() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Group Detail Page | Life CEO</title>
-      </Helmet>
-      
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
         </div>
       </DashboardLayout>
-    
-    </>
-  );
+    );
   }
 
   if (!group) {
@@ -108,8 +100,8 @@ export default function GroupDetailPage() {
       <DashboardLayout>
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold mb-2">Group not found</h2>
-          <p className="text-gray-600 mb-4 dark:text-neutral-600 dark:text-neutral-400">This group may have been removed or you don't have access.</p>
-          <Button onClick={()  => setLocation('/groups')}>Back to Groups</Button>
+          <p className="text-gray-600 mb-4">This group may have been removed or you don't have access.</p>
+          <Button onClick={() => setLocation('/groups')}>Back to Groups</Button>
         </div>
       </DashboardLayout>
     );
@@ -130,7 +122,7 @@ export default function GroupDetailPage() {
           
           <div className="mt-group-header-content">
             <button
-              onClick={()  => setLocation('/groups')}
+              onClick={() => setLocation('/groups')}
               className="flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
@@ -138,7 +130,7 @@ export default function GroupDetailPage() {
             </button>
 
             <div className="flex items-end gap-3">
-              <div className="w-20 h-20 bg-white rounded-full border-4 border-white shadow-lg dark:bg-neutral-900">
+              <div className="w-20 h-20 bg-white rounded-full border-4 border-white shadow-lg">
                 {group.imageUrl ? (
                   <img src={group.imageUrl} alt={group.name} className="w-full h-full rounded-full object-cover" />
                 ) : (
@@ -149,7 +141,7 @@ export default function GroupDetailPage() {
               </div>
               <div className="flex-1">
                 <h1 className="text-3xl font-bold">{group.name}</h1>
-                <div className="flex items-center gap-4 text-gray-600 text-sm mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                <div className="flex items-center gap-4 text-gray-600 text-sm mt-1">
                   <span className="flex items-center gap-1">
                     {group.privacy === 'public' ? <Globe className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                     {group.privacy === 'public' ? 'Public' : 'Private'} Group
@@ -171,16 +163,16 @@ export default function GroupDetailPage() {
                   {group.isMember ? (
                     <>
                       <Button
-                        onClick={()  => leaveGroupMutation.mutate()}
+                        onClick={() => leaveGroupMutation.mutate()}
                         variant="outline"
-                        className="bg-white/10 border-white/20 text-white hover:bg-white/20 dark:bg-neutral-900"
+                        className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                       >
                         Leave Group
                       </Button>
                       {group.isAdmin && (
                         <Button
-                          onClick={()  => setLocation(`/groups/${slug}/edit`)}
-                          className="bg-white text-gray-900 hover:bg-gray-100 dark:bg-neutral-900"
+                          onClick={() => setLocation(`/groups/${slug}/edit`)}
+                          className="bg-white text-gray-900 hover:bg-gray-100"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           Manage
@@ -189,8 +181,8 @@ export default function GroupDetailPage() {
                     </>
                   ) : (
                     <Button
-                      onClick={()  => joinGroupMutation.mutate()}
-                      className="bg-white text-gray-900 hover:bg-gray-100 dark:bg-neutral-900"
+                      onClick={() => joinGroupMutation.mutate()}
+                      className="bg-white text-gray-900 hover:bg-gray-100"
                     >
                       <UserPlus className="h-4 w-4 mr-2" />
                       Join Group
@@ -199,7 +191,7 @@ export default function GroupDetailPage() {
                   
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 dark:bg-neutral-900">
+                      <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                         <MoreVertical className="h-5 w-5" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -224,7 +216,7 @@ export default function GroupDetailPage() {
         {group.description && (
           <Card className="p-6 mb-6">
             <h3 className="font-semibold mb-2">About</h3>
-            <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{group.description}</p>
+            <p className="text-gray-600">{group.description}</p>
           </Card>
         )}
 
@@ -248,7 +240,7 @@ export default function GroupDetailPage() {
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <button className="w-full text-left px-4 py-2 bg-gray-100 rounded-lg text-gray-500 hover:bg-gray-200 dark:bg-neutral-800">
+                    <button className="w-full text-left px-4 py-2 bg-gray-100 rounded-lg text-gray-500 hover:bg-gray-200">
                       Share something with the group...
                     </button>
                     <div className="flex gap-2 mt-2">
@@ -331,7 +323,7 @@ export default function GroupDetailPage() {
 
           <TabsContent value="events">
             <div className="text-center py-12 text-gray-500">
-              <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
+              <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
               <p>No upcoming events</p>
               {group.isMember && (
                 <Button className="mt-4">Create Event</Button>

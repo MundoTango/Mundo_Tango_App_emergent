@@ -89,14 +89,14 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
   const totalRoleAssignments = Object.values(roleCounts).reduce((sum, count) => sum + count, 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="container-tango-role-metrics">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {t('members.roleMetrics.title', 'Community Roles')}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {selectedRoles.length > 0 
               ? t('members.roleMetrics.filtering', 'Click roles to filter • {{count}} selected', { count: selectedRoles.length })
               : t('members.roleMetrics.subtitle', 'Click roles to filter members')
@@ -119,7 +119,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
               <h4 className="font-medium text-gray-800 dark:text-gray-200">
                 {t(`members.roleMetrics.category.${categoryKey}`, category.name)}
               </h4>
-              <span className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 ({categoryData.total})
               </span>
             </div>
@@ -141,8 +141,8 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                         depth={isSelected ? 2 : 1}
                         className={`role-metric-card p-3 transition-all duration-300 group ${
                           isSelected 
-                            ? 'border-ocean-500 dark:border-cyan-400 bg-ocean-500/10 dark:bg-cyan-400/10' 
-                            : 'hover:border-ocean-500/50 dark:hover:border-cyan-400/30'
+                            ? 'border-cyan-500 dark:border-cyan-400 bg-cyan-500/10 dark:bg-cyan-400/10' 
+                            : 'hover:border-cyan-500/50 dark:hover:border-cyan-400/30'
                         }`}
                         data-testid={`card-role-metric-${role.id}`}
                       >
@@ -154,7 +154,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                             <p className={`text-xs font-medium truncate ${
                               isSelected 
                                 ? 'text-cyan-700 dark:text-cyan-300' 
-                                : 'text-gray-700 dark:text-gray-600 dark:text-gray-300'
+                                : 'text-gray-700 dark:text-gray-300'
                             }`}>
                               {t(`members.tangoRole.${role.id}`, role.name)}
                             </p>
@@ -179,7 +179,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
       {/* Empty State */}
       {totalRoleAssignments === 0 && (
         <div className="text-center py-8">
-          <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-gray-400">
             {t('members.roleMetrics.empty', 'No role assignments yet')}
           </p>
         </div>

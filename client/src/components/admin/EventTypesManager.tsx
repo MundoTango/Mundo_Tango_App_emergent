@@ -188,8 +188,8 @@ export const EventTypesManager: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">Event Types Management</h2>
-          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+          <h2 className="text-2xl font-bold text-gray-900">Event Types Management</h2>
+          <p className="text-gray-600 mt-1">
             Manage event types for your platform. Super admin can create, edit, and deactivate event types.
           </p>
         </div>
@@ -198,14 +198,14 @@ export const EventTypesManager: React.FC = () => {
             <input
               type="checkbox"
               checked={showInactive}
-              onChange={(e)  => setShowInactive(e.target.checked)}
-              className="rounded border-gray-300 dark:border-neutral-600"
+              onChange={(e) => setShowInactive(e.target.checked)}
+              className="rounded border-gray-300"
             />
-            <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Show inactive</span>
+            <span className="text-sm text-gray-600">Show inactive</span>
           </label>
           {!isCreating && (
             <button
-              onClick={()  => setIsCreating(true)}
+              onClick={() => setIsCreating(true)}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
@@ -217,29 +217,29 @@ export const EventTypesManager: React.FC = () => {
 
       {/* Create Form */}
       {isCreating && (
-        <div className="bg-white rounded-lg shadow-md p-6 border-2 border-indigo-500 dark:bg-neutral-900">
+        <div className="bg-white rounded-lg shadow-md p-6 border-2 border-indigo-500">
           <h3 className="text-lg font-semibold mb-4">Create New Event Type</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Name *
               </label>
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e)  => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:border-neutral-600"
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                 placeholder="e.g., Workshop"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Icon
               </label>
               <select
                 value={formData.icon}
-                onChange={(e)  => setFormData({ ...formData, icon: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:border-neutral-600"
+                onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
               >
                 {iconOptions.map(icon => (
                   <option key={icon} value={icon}>{icon}</option>
@@ -247,35 +247,35 @@ export const EventTypesManager: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Color
               </label>
               <input
                 type="color"
                 value={formData.color}
-                onChange={(e)  => setFormData({ ...formData, color: e.target.value })}
-                className="w-full h-10 px-1 py-1 border border-gray-300 rounded-lg dark:border-neutral-600"
+                onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                className="w-full h-10 px-1 py-1 border border-gray-300 rounded-lg"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Sort Order
               </label>
               <input
                 type="number"
                 value={formData.sort_order}
-                onChange={(e)  => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:border-neutral-600"
+                onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-neutral-600 dark:text-neutral-300">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Description
               </label>
               <textarea
                 value={formData.description}
-                onChange={(e)  => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:border-neutral-600"
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                 rows={2}
                 placeholder="Brief description of this event type"
               />
@@ -283,11 +283,11 @@ export const EventTypesManager: React.FC = () => {
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button
-              onClick={()  => {
+              onClick={() => {
                 setIsCreating(false);
                 resetForm();
               }}
-              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-neutral-800"
+              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
             >
               Cancel
             </button>
@@ -304,9 +304,9 @@ export const EventTypesManager: React.FC = () => {
       )}
 
       {/* Event Types List */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-neutral-900">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="min-w-full">
-          <thead className="bg-gray-50 dark:bg-neutral-800">
+          <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Order
@@ -328,21 +328,21 @@ export const EventTypesManager: React.FC = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200 dark:bg-neutral-900">
+          <tbody className="bg-white divide-y divide-gray-200">
             {eventTypes.map((eventType: EventType) => (
               <tr key={eventType.id} className={!eventType.is_active ? 'opacity-50' : ''}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-1">
                     <button
-                      onClick={()  => handleSortOrderChange(eventType.id, 'up')}
-                      className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
+                      onClick={() => handleSortOrderChange(eventType.id, 'up')}
+                      className="p-1 text-gray-400 hover:text-gray-600"
                       disabled={eventType.id === eventTypes[0]?.id}
                     >
                       <ChevronUp className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={()  => handleSortOrderChange(eventType.id, 'down')}
-                      className="p-1 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
+                      onClick={() => handleSortOrderChange(eventType.id, 'down')}
+                      className="p-1 text-gray-400 hover:text-gray-600"
                       disabled={eventType.id === eventTypes[eventTypes.length - 1]?.id}
                     >
                       <ChevronDown className="h-4 w-4" />
@@ -354,8 +354,8 @@ export const EventTypesManager: React.FC = () => {
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e)  => setFormData({ ...formData, name: e.target.value })}
-                      className="px-2 py-1 border border-gray-300 rounded dark:border-neutral-600"
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="px-2 py-1 border border-gray-300 rounded"
                     />
                   ) : (
                     <div className="flex items-center gap-2">
@@ -373,12 +373,12 @@ export const EventTypesManager: React.FC = () => {
                   {editingId === eventType.id ? (
                     <textarea
                       value={formData.description}
-                      onChange={(e)  => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-2 py-1 border border-gray-300 rounded dark:border-neutral-600"
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="w-full px-2 py-1 border border-gray-300 rounded"
                       rows={1}
                     />
                   ) : (
-                    <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <span className="text-sm text-gray-600">
                       {eventType.description || '-'}
                     </span>
                   )}
@@ -405,14 +405,14 @@ export const EventTypesManager: React.FC = () => {
                   {editingId === eventType.id ? (
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        onClick={()  => handleUpdate(eventType.id)}
+                        onClick={() => handleUpdate(eventType.id)}
                         className="text-green-600 hover:text-green-900"
                       >
                         <Save className="h-4 w-4" />
                       </button>
                       <button
                         onClick={handleCancelEdit}
-                        className="text-gray-600 hover:text-gray-900 dark:text-neutral-100"
+                        className="text-gray-600 hover:text-gray-900"
                       >
                         <X className="h-4 w-4" />
                       </button>
@@ -420,7 +420,7 @@ export const EventTypesManager: React.FC = () => {
                   ) : (
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        onClick={()  => handleEdit(eventType)}
+                        onClick={() => handleEdit(eventType)}
                         className="text-indigo-600 hover:text-indigo-900"
                         disabled={eventType.is_system}
                       >
@@ -428,7 +428,7 @@ export const EventTypesManager: React.FC = () => {
                       </button>
                       {!eventType.is_system && eventType.is_active && (
                         <button
-                          onClick={()  => deleteMutation.mutate(eventType.id)}
+                          onClick={() => deleteMutation.mutate(eventType.id)}
                           className="text-red-600 hover:text-red-900"
                         >
                           <Trash2 className="h-4 w-4" />

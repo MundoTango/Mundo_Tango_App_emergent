@@ -133,7 +133,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       case 'accepted': return <Check className="w-4 h-4 text-green-600" />;
       case 'declined': return <X className="w-4 h-4 text-red-600" />;
       case 'pending': return <Clock className="w-4 h-4 text-orange-600" />;
-      default: return <AlertCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
+      default: return <AlertCircle className="w-4 h-4 text-gray-400" />;
     }
   };
 
@@ -171,7 +171,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                 <Input
                   placeholder="Enter user ID or email..."
                   value={userIdentifier}
-                  onChange={(e)  => setUserIdentifier(e.target.value)}
+                  onChange={(e) => setUserIdentifier(e.target.value)}
                 />
               </div>
               
@@ -272,7 +272,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={()  => handleStatusUpdate(participant.id, 'accepted')}
+                              onClick={() => handleStatusUpdate(participant.id, 'accepted')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <Check className="w-3 h-3" />
@@ -280,7 +280,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={()  => handleStatusUpdate(participant.id, 'declined')}
+                              onClick={() => handleStatusUpdate(participant.id, 'declined')}
                               disabled={updateStatusMutation.isPending}
                             >
                               <X className="w-3 h-3" />

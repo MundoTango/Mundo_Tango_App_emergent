@@ -452,7 +452,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
           maxHeight: '300px',
           overflowY: 'auto'
         }}
-       
+        data-testid="input-mention"
       />
       
       {/* Suggestion dropdown */}
@@ -476,7 +476,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                     : 'hover:bg-gray-100'
                 }`}
                 data-testid={`suggestion-${suggestion.type}-${suggestion.id}`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => insertMention(suggestion); } }}>
+              >
                 <Avatar className="h-10 w-10 flex-shrink-0">
                   <AvatarImage src={suggestion.avatar} alt={suggestion.display} />
                   <AvatarFallback className={getTypeColor(suggestion.type)}>
@@ -485,7 +485,7 @@ const SimpleMentionsInput: React.FC<SimpleMentionsInputProps> = ({
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-900 truncate dark:text-neutral-100">
+                    <span className="font-semibold text-gray-900 truncate">
                       {suggestion.display}
                     </span>
                     <Badge variant="outline" className={`text-xs ${getTypeColor(suggestion.type)}`}>

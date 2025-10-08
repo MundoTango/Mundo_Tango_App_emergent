@@ -453,14 +453,14 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Brain className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-neutral-100">Life CEO Framework Agent</h2>
-            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Natural language interface to the 40L x 20P framework</p>
+            <h2 className="text-xl font-bold text-gray-900">Life CEO Framework Agent</h2>
+            <p className="text-sm text-gray-600">Natural language interface to the 40L x 20P framework</p>
           </div>
         </div>
         <Button
           variant="outline"
           size="sm"
-          onClick={()  => setShowCapabilities(!showCapabilities)}
+          onClick={() => setShowCapabilities(!showCapabilities)}
         >
           <Layers className="w-4 h-4 mr-2" />
           {showCapabilities ? 'Hide' : 'Show'} Capabilities
@@ -479,15 +479,15 @@ I'll analyze your request and activate the appropriate framework layers and phas
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {FRAMEWORK_MAPPINGS.map((mapping, idx) => (
-                <div key={idx} className="p-3 bg-white rounded-lg border border-turquoise-200 dark:bg-neutral-900">
-                  <h4 className="font-semibold text-sm text-gray-900 mb-1 dark:text-neutral-100">
+                <div key={idx} className="p-3 bg-white rounded-lg border border-turquoise-200">
+                  <h4 className="font-semibold text-sm text-gray-900 mb-1">
                     {mapping.description}
                   </h4>
                   <div className="space-y-1">
-                    <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <p className="text-xs text-gray-600">
                       Layers: {mapping.layers.map(l => `L${l}`).join(', ')}
                     </p>
-                    <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <p className="text-xs text-gray-600">
                       Phases: {mapping.phases.map(p => `P${p}`).join(', ')}
                     </p>
                   </div>
@@ -541,8 +541,8 @@ I'll analyze your request and activate the appropriate framework layers and phas
                       <div className="whitespace-pre-wrap">{message.content}</div>
                     </div>
                     {message.analysis && (
-                      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-neutral-700">
-                        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                      <div className="mt-3 pt-3 border-t border-gray-200">
+                        <div className="flex items-center gap-2 text-xs text-gray-600">
                           <Target className="w-3 h-3" />
                           Confidence: {message.analysis?.confidence || 0}%
                         </div>
@@ -562,7 +562,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
                     </div>
                   </div>
                   {message.role === 'user' && (
-                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-700">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                   )}
@@ -573,10 +573,10 @@ I'll analyze your request and activate the appropriate framework layers and phas
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-blue-600 flex items-center justify-center text-white">
                     <Brain className="w-4 h-4" />
                   </div>
-                  <div className="bg-gray-100 rounded-lg p-4 dark:bg-neutral-800">
+                  <div className="bg-gray-100 rounded-lg p-4">
                     <div className="flex items-center gap-2">
                       <RefreshCw className="w-4 h-4 animate-spin text-turquoise-600" />
-                      <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Analyzing your request...</span>
+                      <span className="text-sm text-gray-600">Analyzing your request...</span>
                     </div>
                   </div>
                 </div>
@@ -589,7 +589,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <div className="flex gap-2">
               <Textarea
                 value={input}
-                onChange={(e)  => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -628,7 +628,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()  => setInput('Check security compliance for the entire platform')}
+              onClick={() => setInput('Check security compliance for the entire platform')}
             >
               <Shield className="w-4 h-4 mr-2" />
               Security Check
@@ -636,7 +636,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()  => setInput('Run performance analysis and optimization recommendations')}
+              onClick={() => setInput('Run performance analysis and optimization recommendations')}
             >
               <Activity className="w-4 h-4 mr-2" />
               Performance
@@ -644,7 +644,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()  => setInput('Generate API documentation for all endpoints')}
+              onClick={() => setInput('Generate API documentation for all endpoints')}
             >
               <BookOpen className="w-4 h-4 mr-2" />
               Documentation
@@ -652,7 +652,7 @@ I'll analyze your request and activate the appropriate framework layers and phas
             <Button
               variant="outline"
               size="sm"
-              onClick={()  => setInput('Prepare for production deployment')}
+              onClick={() => setInput('Prepare for production deployment')}
             >
               <Gauge className="w-4 h-4 mr-2" />
               Deploy Check

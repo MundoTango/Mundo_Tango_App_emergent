@@ -506,7 +506,7 @@ const PostFeed = memo(({
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-gray-200/50 dark:border-neutral-700"
+          <GlassCard depth={1} className="rounded-3xl p-8 animate-pulse border border-gray-200/50"
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
@@ -528,25 +528,25 @@ const PostFeed = memo(({
     <div className={`space-y-6 ${className}`}>
       {/* Filters Section - Shown when showFilters or showSearch is true */}
       {(showFilters || showSearch) && (
-        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-gray-200/50 shadow-lg dark:border-neutral-700"
+        <GlassCard depth={1} className="relative group rounded-3xl p-6 border border-gray-200/50 shadow-lg"
           {/* Search Bar */}
           {showSearch && (
           <div className="mb-4">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e)  => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search posts..."
-                className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 dark:bg-neutral-900"
+                className="w-full pl-12 pr-4 py-3 bg-white/80 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
               />
               {searchQuery && (
                 <button
-                  onClick={()  => setSearchQuery('')}
+                  onClick={() => setSearchQuery('')}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 >
-                  <X className="h-5 w-5 text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400" />
+                  <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
                 </button>
               )}
             </div>
@@ -556,7 +556,7 @@ const PostFeed = memo(({
           {/* Filter Toggle */}
           {showFilters && (
           <button
-            onClick={()  => setShowExpandedFilters(!showExpandedFilters)}
+            onClick={() => setShowExpandedFilters(!showExpandedFilters)}
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
@@ -571,7 +571,7 @@ const PostFeed = memo(({
               <div className="relative group">
                 <div className="flex gap-2">
                   <button
-                    onClick={()  => setFilterBy('all')}
+                    onClick={() => setFilterBy('all')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'all'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -582,7 +582,7 @@ const PostFeed = memo(({
                     All Posts
                   </button>
                   <button
-                    onClick={()  => setFilterBy('residents')}
+                    onClick={() => setFilterBy('residents')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'residents'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -593,7 +593,7 @@ const PostFeed = memo(({
                     Residence
                   </button>
                   <button
-                    onClick={()  => setFilterBy('visitors')}
+                    onClick={() => setFilterBy('visitors')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'visitors'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -604,7 +604,7 @@ const PostFeed = memo(({
                     Visitor
                   </button>
                   <button
-                    onClick={()  => setFilterBy('friends')}
+                    onClick={() => setFilterBy('friends')}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'friends'
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white'
@@ -617,7 +617,7 @@ const PostFeed = memo(({
                 </div>
                 
                 {/* COMING SOON Overlay - Relationship Filters Disabled */}
-                <div className="absolute inset-0 bg-ocean-500/30 rounded-xl cursor-not-allowed z-10 pointer-events-auto border border-ocean-500/50">
+                <div className="absolute inset-0 bg-cyan-500/30 rounded-xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
                   <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     COMING SOON
                   </span>
@@ -628,7 +628,7 @@ const PostFeed = memo(({
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Tag className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Filter by Tags</span>
+                  <span className="text-sm font-medium text-gray-700">Filter by Tags</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {filterTags.map(tag => (
@@ -638,7 +638,7 @@ const PostFeed = memo(({
                     >
                       #{tag}
                       <button
-                        onClick={()  => handleRemoveTag(tag)}
+                        onClick={() => handleRemoveTag(tag)}
                         className="ml-1 hover:text-teal-900"
                       >
                         <X className="h-3 w-3" />
@@ -648,10 +648,10 @@ const PostFeed = memo(({
                   <input
                     type="text"
                     value={tagInput}
-                    onChange={(e)  => setTagInput(e.target.value)}
+                    onChange={(e) => setTagInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTag()}
                     placeholder="Add tag..."
-                    className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-neutral-800"
+                    className="px-3 py-1 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
               </div>
@@ -659,31 +659,31 @@ const PostFeed = memo(({
               {/* Date Range Filter */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Date Range</span>
+                  <span className="text-sm font-medium text-gray-700">Date Range</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">From</label>
+                    <label className="text-xs text-gray-600 mb-1 block">From</label>
                     <input
                       type="date"
                       value={startDate}
-                      onChange={(e)  => setStartDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm dark:bg-neutral-900"
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600 mb-1 block dark:text-neutral-600 dark:text-neutral-400">To</label>
+                    <label className="text-xs text-gray-600 mb-1 block">To</label>
                     <input
                       type="date"
                       value={endDate}
-                      onChange={(e)  => setEndDate(e.target.value)}
-                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm dark:bg-neutral-900"
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className="w-full px-3 py-2 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
                     />
                   </div>
                 </div>
                 {(startDate || endDate) && (
                   <button
-                    onClick={()  => {
+                    onClick={() => {
                       setStartDate('');
                       setEndDate('');
                     }}
@@ -697,7 +697,7 @@ const PostFeed = memo(({
           )}
           
           {/* COMING SOON Overlay - Filters/Search Disabled */}
-          <div className="absolute inset-0 bg-ocean-500/30 rounded-3xl cursor-not-allowed z-10 pointer-events-auto border border-ocean-500/50">
+          <div className="absolute inset-0 bg-cyan-500/30 rounded-3xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
             <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               COMING SOON
             </span>
@@ -718,7 +718,7 @@ const PostFeed = memo(({
                  activeFilters.filterType === 'visitors' ? 'Visitor' :
                  activeFilters.filterType === 'friends' ? 'Friends' : 'All'} Posts
               </h2>
-              <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-gray-600">
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
                 {activeFilters.tags.length > 0 && (
                   <span className="ml-2 text-teal-600">
@@ -736,9 +736,9 @@ const PostFeed = memo(({
         {/* Loading Overlay during filter transitions */}
         {isFetching && filteredPosts.length > 0 && (
           <GlassCard depth={1} className="absolute inset-0 z-10 flex items-center justify-center rounded-xl"
-            <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg dark:bg-neutral-900">
+            <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
               <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
-              <span className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Updating feed...</span>
+              <span className="text-sm font-medium text-gray-700">Updating feed...</span>
             </div>
           </div>
         )}
@@ -774,8 +774,8 @@ const PostFeed = memo(({
             <div className="w-24 h-24 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Heart className="h-12 w-12 text-teal-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 dark:text-neutral-100">No Memories Yet</h3>
-            <p className="text-gray-600 leading-relaxed dark:text-neutral-600 dark:text-neutral-400">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Memories Yet</h3>
+            <p className="text-gray-600 leading-relaxed">
               {activeFilters.filterType === 'residents' 
                 ? "No posts from residents in your city yet. Check back later!"
                 : activeFilters.filterType === 'visitors'

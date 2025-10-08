@@ -23,7 +23,6 @@ import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 // ESA LIFE CEO 61x21 - Phase 18: Billing Dashboard
 
@@ -121,17 +120,10 @@ export default function BillingDashboard() {
 
   if (subLoading || paymentsLoading || methodsLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Billing | Life CEO</title>
-      </Helmet>
-      
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-12 w-12 animate-spin text-[#5EEAD4]" />
       </div>
-    
-    </>
-  );
+    );
   }
 
   return (
@@ -140,7 +132,7 @@ export default function BillingDashboard() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Billing & Subscription</h1>
-          <p className="text-gray-600 mt-2 dark:text-neutral-600 dark:text-neutral-400">Manage your subscription and payment methods</p>
+          <p className="text-gray-600 mt-2">Manage your subscription and payment methods</p>
         </div>
 
         {/* Subscription Overview */}
@@ -161,11 +153,11 @@ export default function BillingDashboard() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Plan</p>
+                <p className="text-sm text-gray-600">Plan</p>
                 <p className="text-2xl font-bold capitalize">{subscription?.tier || 'Free'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Next Billing Date</p>
+                <p className="text-sm text-gray-600">Next Billing Date</p>
                 <p className="text-lg">
                   {subscription?.subscription?.currentPeriodEnd 
                     ? format(new Date(subscription.subscription.currentPeriodEnd), 'MMM dd, yyyy')
@@ -173,7 +165,7 @@ export default function BillingDashboard() {
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Monthly Cost</p>
+                <p className="text-sm text-gray-600">Monthly Cost</p>
                 <p className="text-2xl font-bold">
                   {subscription?.tier === 'free' ? '$0' : 
                    subscription?.tier === 'pro' ? '$9.99' :
@@ -188,7 +180,7 @@ export default function BillingDashboard() {
                 <Button 
                   onClick={() => navigate('/pricing')}
                   className="bg-[#5EEAD4] hover:bg-[#5EEAD4]/90"
-                 
+                  data-testid="button-upgrade-plan"
                 >
                   Upgrade Plan
                 </Button>
@@ -196,7 +188,7 @@ export default function BillingDashboard() {
                 <Button 
                   onClick={() => resumeMutation.mutate()}
                   disabled={resumeMutation.isPending}
-                 
+                  data-testid="button-resume-subscription"
                 >
                   Resume Subscription
                 </Button>
@@ -205,7 +197,7 @@ export default function BillingDashboard() {
                   <Button 
                     variant="outline" 
                     onClick={() => navigate('/pricing')}
-                   
+                    data-testid="button-change-plan"
                   >
                     Change Plan
                   </Button>
@@ -217,7 +209,7 @@ export default function BillingDashboard() {
                       }
                     }}
                     disabled={cancelMutation.isPending}
-                   
+                    data-testid="button-cancel-subscription"
                   >
                     Cancel Subscription
                   </Button>
@@ -380,7 +372,7 @@ export default function BillingDashboard() {
                   </div>
                   <Button 
                     onClick={() => navigate('/billing/add-payment-method')}
-                   
+                    data-testid="button-add-payment-method"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Method
@@ -391,7 +383,7 @@ export default function BillingDashboard() {
                 <div className="space-y-4">
                   {paymentMethods?.length === 0 ? (
                     <div className="text-center p-8 text-gray-500">
-                      <CreditCard className="h-12 w-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
+                      <CreditCard className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                       <p>No payment methods on file</p>
                       <Button 
                         className="mt-4"
@@ -404,12 +396,12 @@ export default function BillingDashboard() {
                     paymentMethods?.map((method: any) => (
                       <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg">
                         <div className="flex items-center gap-4">
-                          <CreditCard className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+                          <CreditCard className="h-8 w-8 text-gray-400" />
                           <div>
                             <p className="font-semibold">
                               {method.brand} •••• {method.lastFour}
                             </p>
-                            <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                            <p className="text-sm text-gray-600">
                               Expires {method.expiryMonth}/{method.expiryYear}
                             </p>
                           </div>
@@ -442,12 +434,12 @@ export default function BillingDashboard() {
               <CardContent>
                 <div className="space-y-2">
                   {payments?.filter((p: any) => p.status === 'succeeded').map((payment: any) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
+                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                       <div>
                         <p className="font-semibold">
                           Invoice #{payment.id.toString().slice(-8).toUpperCase()}
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-gray-600">
                           {format(new Date(payment.createdAt), 'MMMM dd, yyyy')} • {formatCurrency(payment.amount)}
                         </p>
                       </div>
@@ -478,7 +470,7 @@ export default function BillingDashboard() {
             <Shield className="h-8 w-8 text-[#5EEAD4]" />
             <div>
               <p className="font-semibold">Your payment information is secure</p>
-              <p className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-600">
                 We use industry-standard encryption and never store your card details on our servers.
                 All payments are processed securely through Stripe.
               </p>

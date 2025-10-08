@@ -199,7 +199,7 @@ export function MemoryRoleManager() {
                 </SelectContent>
               </Select>
               <Button 
-                onClick={()  => switchRole.mutate(selectedRole)}
+                onClick={() => switchRole.mutate(selectedRole)}
                 disabled={!selectedRole || switchRole.isPending}
               >
                 Switch Role
@@ -227,7 +227,7 @@ export function MemoryRoleManager() {
                 <div key={circle.id} className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
                     <div className="font-medium">{circle.trusted_user_name}</div>
-                    <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <div className="text-sm text-gray-600">
                       Trust Level: {circle.trust_level} • Access: {circle.emotional_access_level}
                     </div>
                   </div>
@@ -266,7 +266,7 @@ export function MemoryRoleManager() {
         </CardHeader>
         <CardContent>
           <Button 
-            onClick={()  => setShowCreateMemoryModal(true)}
+            onClick={() => setShowCreateMemoryModal(true)}
             className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -308,7 +308,7 @@ export function MemoryRoleManager() {
                     className="w-full p-2 border rounded-md"
                     placeholder="e.g., Memory Curator, Emotional Guide"
                     value={customRoleRequest.roleName}
-                    onChange={(e)  => setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
+                    onChange={(e) => setCustomRoleRequest(prev => ({ ...prev, roleName: e.target.value }))}
                   />
                 </div>
 
@@ -318,7 +318,7 @@ export function MemoryRoleManager() {
                     id="description"
                     placeholder="Explain why you need this role and how you'll use these permissions..."
                     value={customRoleRequest.description}
-                    onChange={(e)  => setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e) => setCustomRoleRequest(prev => ({ ...prev, description: e.target.value }))}
                     rows={4}
                   />
                 </div>
@@ -379,7 +379,7 @@ export function MemoryRoleManager() {
                           <label htmlFor={level.value} className="text-sm font-medium">
                             {level.label}
                           </label>
-                          <p className="text-xs text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{level.description}</p>
+                          <p className="text-xs text-gray-600">{level.description}</p>
                         </div>
                       </div>
                     ))}
@@ -389,12 +389,12 @@ export function MemoryRoleManager() {
                 <div className="flex justify-end gap-2 pt-4">
                   <Button
                     variant="outline"
-                    onClick={()  => setShowCustomRoleModal(false)}
+                    onClick={() => setShowCustomRoleModal(false)}
                   >
                     Cancel
                   </Button>
                   <Button
-                    onClick={()  => submitCustomRole.mutate(customRoleRequest)}
+                    onClick={() => submitCustomRole.mutate(customRoleRequest)}
                     disabled={!customRoleRequest.roleName || !customRoleRequest.description || submitCustomRole.isPending}
                   >
                     {submitCustomRole.isPending ? 'Submitting...' : 'Submit Request'}
@@ -423,25 +423,25 @@ export function MemoryRoleManager() {
               <div className="text-2xl font-bold text-green-600">
                 {memoryPermissions?.publicCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Public Memories</div>
+              <div className="text-sm text-gray-600">Public Memories</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-blue-600">
                 {memoryPermissions?.friendsCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Friends Only</div>
+              <div className="text-sm text-gray-600">Friends Only</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-purple-600">
                 {memoryPermissions?.trustedCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Trusted Circle</div>
+              <div className="text-sm text-gray-600">Trusted Circle</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-red-600">
                 {memoryPermissions?.privateCount || 0}
               </div>
-              <div className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Private</div>
+              <div className="text-sm text-gray-600">Private</div>
             </div>
           </div>
         </CardContent>

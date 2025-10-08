@@ -223,7 +223,7 @@ export function TestSpriteIntegration() {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">TestSprite AI Testing</h2>
-          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">Autonomous AI-powered testing for your platform</p>
+          <p className="text-gray-600 dark:text-gray-400">Autonomous AI-powered testing for your platform</p>
           <p className="text-sm text-green-600 dark:text-green-400 mt-1">
             <CheckCircle className="inline h-3 w-3 mr-1" />
             TestSprite API Key Configured
@@ -259,7 +259,7 @@ export function TestSpriteIntegration() {
               >
                 <CardContent className="p-4">
                   <h4 className="font-medium">{suite.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     {suite.description}
                   </p>
                 </CardContent>
@@ -268,7 +268,7 @@ export function TestSpriteIntegration() {
           </div>
           
           <Button 
-            onClick={()  => triggerTests.mutate(selectedSuite)}
+            onClick={() => triggerTests.mutate(selectedSuite)}
             disabled={triggerTests.isPending}
             className="w-full"
           >
@@ -341,7 +341,7 @@ export function TestSpriteIntegration() {
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                             {testDetails.description}
                           </p>
                         </div>
@@ -350,7 +350,7 @@ export function TestSpriteIntegration() {
                         <div className="text-sm text-gray-500">
                           {new Date(result.timestamp).toLocaleString()}
                         </div>
-                        <div className="text-sm font-medium text-gray-700 dark:text-gray-600 dark:text-gray-300">
+                        <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                           Duration: {result.duration || 'N/A'}
                         </div>
                       </div>
@@ -358,19 +358,19 @@ export function TestSpriteIntegration() {
 
                     {/* Test Coverage Details */}
                     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4">
-                      <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-600 dark:text-gray-300">Test Coverage</h4>
+                      <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Test Coverage</h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
                         {testDetails.endpoints.map((endpoint: string, idx: number) => (
                           <div key={idx} className="flex items-center gap-1">
                             <CheckCircle className="h-3 w-3 text-green-500" />
-                            <span className="text-gray-600 dark:text-gray-600 dark:text-gray-400">{endpoint}</span>
+                            <span className="text-gray-600 dark:text-gray-400">{endpoint}</span>
                           </div>
                         ))}
                       </div>
                       {testDetails.features && (
                         <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
                           <span className="text-xs text-gray-500">Features Tested: </span>
-                          <span className="text-xs text-gray-700 dark:text-gray-600 dark:text-gray-300">
+                          <span className="text-xs text-gray-700 dark:text-gray-300">
                             {testDetails.features.join(', ')}
                           </span>
                         </div>
@@ -381,22 +381,22 @@ export function TestSpriteIntegration() {
                     <div className="grid grid-cols-3 gap-4 mb-3">
                       <div className="text-center p-2 bg-green-50 dark:bg-green-900/20 rounded">
                         <div className="text-2xl font-bold text-green-600">{result.results.passed}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Tests Passed</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Passed</div>
                       </div>
                       <div className="text-center p-2 bg-red-50 dark:bg-red-900/20 rounded">
                         <div className="text-2xl font-bold text-red-600">{result.results.failed}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Tests Failed</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Failed</div>
                       </div>
                       <div className="text-center p-2 bg-gray-50 dark:bg-gray-900/20 rounded">
                         <div className="text-2xl font-bold text-gray-600">{result.results.skipped}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Tests Skipped</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Tests Skipped</div>
                       </div>
                     </div>
                     
                     {/* Progress Bar with Label */}
                     {result.results.passed + result.results.failed > 0 && (
                       <div>
-                        <div className="flex justify-between text-xs text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-1">
+                        <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
                           <span>Test Completion</span>
                           <span>{successRate}% Passed</span>
                         </div>
@@ -416,7 +416,7 @@ export function TestSpriteIntegration() {
               })}
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-600 dark:text-gray-400">
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               <div>No test results yet. Run your first test to see results here.</div>
               <div className="text-xs mt-2">
                 Debug: testResults = {JSON.stringify(testResults?.data ? `${testResults.data.length} results` : 'null')}

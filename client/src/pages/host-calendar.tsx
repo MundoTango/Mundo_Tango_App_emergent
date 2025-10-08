@@ -20,7 +20,6 @@ import { GlassCard } from '../components/glass/GlassComponents';
 import { FadeIn, ScaleIn } from '../components/animations/FramerMotionWrappers';
 import { MagneticButton, PulseButton } from '../components/interactions/MicroInteractions';
 import { useScrollReveal } from '../utils/gsapAnimations';
-import { Helmet } from 'react-helmet';
 
 interface HostHome {
   id: number;
@@ -132,11 +131,6 @@ export default function HostCalendar() {
 
   if (isLoadingHomes) {
     return (
-    <>
-      <Helmet>
-        <title>Host Calendar | Life CEO</title>
-      </Helmet>
-      
       <DashboardLayout>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
           <div className="max-w-5xl mx-auto px-4">
@@ -148,9 +142,7 @@ export default function HostCalendar() {
           </div>
         </div>
       </DashboardLayout>
-    
-    </>
-  );
+    );
   }
 
   if (homes.length === 0) {
@@ -159,19 +151,19 @@ export default function HostCalendar() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8">
           <div className="max-w-5xl mx-auto px-4">
             <FadeIn>
-              <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
                 <div className="p-6">
                   <div className="flex items-center gap-4">
                     <Link href="/host-bookings">
                       <MagneticButton
                         strength={0.15}
-                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
-                       
+                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                        data-testid="button-back-host-dashboard"
                       >
                         <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                       </MagneticButton>
                     </Link>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
                       {t('housing.host_calendar.title', 'Property Calendar')}
                     </h1>
                   </div>
@@ -180,7 +172,7 @@ export default function HostCalendar() {
             </FadeIn>
 
             <ScaleIn delay={0.1}>
-              <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-ocean-500/30">
+              <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
                 <Home className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
                   {t('housing.host_calendar.no_properties_title', 'No Properties Listed')}
@@ -207,20 +199,20 @@ export default function HostCalendar() {
         <div className="max-w-5xl mx-auto px-4">
           {/* Header */}
           <FadeIn>
-            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="p-6">
                 <div className="flex items-center gap-4">
                   <Link href="/host-bookings">
                     <MagneticButton
                       strength={0.15}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2"
-                     
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2"
+                      data-testid="button-back-host-dashboard"
                     >
                       <ArrowLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                     </MagneticButton>
                   </Link>
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-calendar">
                       {t('housing.host_calendar.title', 'Property Calendar')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -234,10 +226,10 @@ export default function HostCalendar() {
 
           {/* Property Selector */}
           <ScaleIn delay={0.05}>
-            <GlassCard depth={2} className="calendar-selector mb-6 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="calendar-selector mb-6 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="p-6">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
-                  <CalendarIcon className="w-4 h-4 text-ocean-500 dark:text-cyan-400" />
+                  <CalendarIcon className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
                   {t('housing.host_calendar.select_property', 'Select Property')}
                 </label>
                 <Select
@@ -245,12 +237,12 @@ export default function HostCalendar() {
                   onValueChange={(value) => setSelectedHomeId(parseInt(value))}
                 >
                   <SelectTrigger 
-                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 bg-white/50 dark:bg-slate-800/50" 
-                   
+                    className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 bg-white/50 dark:bg-slate-800/50" 
+                    data-testid="select-property-calendar"
                   >
                     <SelectValue placeholder={t('housing.host_calendar.choose_property', 'Choose a property')} />
                   </SelectTrigger>
-                  <SelectContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-ocean-500/30">
+                  <SelectContent className="glass-card glass-depth-3 border-cyan-200/30 dark:border-cyan-500/30">
                     {homes.map((home) => (
                       <SelectItem 
                         key={home.id} 
@@ -282,10 +274,10 @@ export default function HostCalendar() {
               <div className="calendar-main">
                 {isLoadingAvailability ? (
                   <div className="space-y-6">
-                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
                       <Skeleton className="h-96 w-full bg-slate-200 dark:bg-slate-800" />
                     </GlassCard>
-                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-ocean-500/30">
+                    <GlassCard depth={2} className="border-cyan-200/30 dark:border-cyan-500/30">
                       <Skeleton className="h-48 w-full bg-slate-200 dark:bg-slate-800" />
                     </GlassCard>
                   </div>
@@ -299,8 +291,8 @@ export default function HostCalendar() {
                     data-testid={`calendar-property-${selectedHomeId}`}
                   />
                 ) : (
-                  <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-ocean-500/30">
-                    <p className="text-slate-600 dark:text-slate-400">
+                  <GlassCard depth={2} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
+                    <p className="text-slate-600 dark:text-slate-400" data-testid="text-calendar-error">
                       {t('housing.host_calendar.unable_to_load', 'Unable to load calendar data')}
                     </p>
                   </GlassCard>

@@ -47,7 +47,7 @@ export default function TripResultsGrid({
   if (!hasResults) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-400">
           No results found for your trip dates. Try adjusting your dates or preferences.
         </p>
       </div>
@@ -71,7 +71,7 @@ export default function TripResultsGrid({
                 <div className="space-y-3">
                   <h4 className="font-semibold line-clamp-2">{event.title}</h4>
                   
-                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
                       <span>{new Date(event.startDate).toLocaleDateString()}</span>
@@ -140,7 +140,7 @@ export default function TripResultsGrid({
                   
                   <h4 className="font-semibold line-clamp-2">{home.title}</h4>
                   
-                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
                       <span className="line-clamp-1">{home.address}</span>
@@ -211,7 +211,7 @@ export default function TripResultsGrid({
                     {rec.type}
                   </Badge>
                   
-                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
                       <span className="line-clamp-1">{rec.address || rec.city}</span>

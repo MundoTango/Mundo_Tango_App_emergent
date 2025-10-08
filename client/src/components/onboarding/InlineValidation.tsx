@@ -41,8 +41,8 @@ export const InlineValidation = ({
       <motion.div
         initial={{ opacity: 0, y: -5 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-start gap-2 mt-2 text-sm text-neutral-600 dark:text-neutral-600 dark:text-neutral-400"
-       
+        className="flex items-start gap-2 mt-2 text-sm text-neutral-600 dark:text-neutral-400"
+        data-testid="help-text"
       >
         <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
         <span>{helpText}</span>
@@ -59,7 +59,7 @@ export const InlineValidation = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -5 }}
           className="mt-2"
-         
+          data-testid="validation-errors"
         >
           {errors.map((error, index) => (
             <div 
@@ -80,7 +80,7 @@ export const InlineValidation = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -5 }}
           className="flex items-center gap-2 mt-2 text-sm text-green-600 dark:text-green-400"
-         
+          data-testid="validation-success"
         >
           <CheckCircle2 className="w-4 h-4" />
           <span>Looks good!</span>

@@ -53,7 +53,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
   };
 
   return (
-    <Card className="border-2 border-primary/10">
+    <Card className="border-2 border-primary/10" data-testid="card-booking-restrictions">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Shield className="w-5 h-5 text-primary" />
@@ -66,9 +66,9 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
       <CardContent className="space-y-6">
         <div className="space-y-4">
           <Label className="text-base font-medium">Who can book this property?</Label>
-          <RadioGroup value={whoCanBook} onValueChange={setWhoCanBook}>
+          <RadioGroup value={whoCanBook} onValueChange={setWhoCanBook} data-testid="radiogroup-who-can-book">
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="anyone" id="anyone" />
+              <RadioGroupItem value="anyone" id="anyone" data-testid="radio-anyone" />
               <div className="flex-1">
                 <Label htmlFor="anyone" className="font-medium cursor-pointer">
                   Anyone
@@ -80,7 +80,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="1st_degree" id="1st_degree" />
+              <RadioGroupItem value="1st_degree" id="1st_degree" data-testid="radio-1st-degree" />
               <div className="flex-1 space-y-1">
                 <Label htmlFor="1st_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Heart className="w-4 h-4 text-pink-500" />
@@ -93,7 +93,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="2nd_degree" id="2nd_degree" />
+              <RadioGroupItem value="2nd_degree" id="2nd_degree" data-testid="radio-2nd-degree" />
               <div className="flex-1">
                 <Label htmlFor="2nd_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Users className="w-4 h-4 text-blue-500" />
@@ -106,7 +106,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="3rd_degree" id="3rd_degree" />
+              <RadioGroupItem value="3rd_degree" id="3rd_degree" data-testid="radio-3rd-degree" />
               <div className="flex-1">
                 <Label htmlFor="3rd_degree" className="font-medium cursor-pointer flex items-center gap-2">
                   <Users className="w-4 h-4 text-purple-500" />
@@ -119,7 +119,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
             </div>
 
             <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-              <RadioGroupItem value="custom_closeness" id="custom_closeness" />
+              <RadioGroupItem value="custom_closeness" id="custom_closeness" data-testid="radio-custom-closeness" />
               <div className="flex-1 space-y-3">
                 <Label htmlFor="custom_closeness" className="font-medium cursor-pointer flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-500" />
@@ -132,7 +132,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
                   <div className="space-y-2 pt-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">Minimum score:</span>
-                      <span className="text-sm font-bold text-primary">
+                      <span className="text-sm font-bold text-primary" data-testid="text-closeness-value">
                         {minimumCloseness}/100
                       </span>
                     </div>
@@ -143,7 +143,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
                       max={100}
                       step={5}
                       className="w-full"
-                     
+                      data-testid="slider-closeness"
                     />
                     <p className="text-xs text-muted-foreground">
                       Higher scores indicate stronger friendships based on shared activities and interactions
@@ -159,7 +159,7 @@ export function BookingRestrictionsCard({ propertyId, currentSettings }: Booking
           onClick={handleSave} 
           disabled={updateRestrictionsMutation.isPending}
           className="w-full"
-         
+          data-testid="button-save-restrictions"
         >
           <Save className="w-4 h-4 mr-2" />
           {updateRestrictionsMutation.isPending ? 'Saving...' : 'Save Restrictions'}

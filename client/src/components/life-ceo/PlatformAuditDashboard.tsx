@@ -209,15 +209,15 @@ export const PlatformAuditDashboard: React.FC = () => {
             {auditSections.map((section) => (
               <div
                 key={section.name}
-                className="flex items-center justify-between p-3 bg-white/70 rounded-lg cursor-pointer hover:shadow-md transition-all dark:bg-neutral-900"
+                className="flex items-center justify-between p-3 bg-white/70 rounded-lg cursor-pointer hover:shadow-md transition-all"
                 onClick={() => setSelectedSection(section.name.toLowerCase().replace(' ', '-'))}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedSection(section.name.toLowerCase().replace(' ', '-'))(e); } }}>
+              >
                 <div className="flex items-center gap-2">
                   <div className={`p-2 rounded-lg ${getStatusColor(section.status)}`}>
                     {section.icon}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{section.name}</p>
+                    <p className="text-sm font-medium text-gray-700">{section.name}</p>
                     <p className={`text-2xl font-bold ${getScoreColor(section.score)}`}>
                       {section.score}%
                     </p>
@@ -245,31 +245,31 @@ export const PlatformAuditDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
+            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900 dark:text-neutral-100">Create Comprehensive Settings Page</p>
-                <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="font-medium text-gray-900">Create Comprehensive Settings Page</p>
+                <p className="text-sm text-gray-600 mt-1">
                   Users cannot control notifications, themes, or privacy settings
                 </p>
               </div>
               <Badge variant="destructive">Week 1</Badge>
             </div>
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
+            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900 dark:text-neutral-100">Fix Security Vulnerabilities</p>
-                <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="font-medium text-gray-900">Fix Security Vulnerabilities</p>
+                <p className="text-sm text-gray-600 mt-1">
                   XSS and CSRF vulnerabilities need immediate attention
                 </p>
               </div>
               <Badge variant="destructive">Week 1</Badge>
             </div>
-            <div className="flex items-start gap-3 p-3 bg-white rounded-lg dark:bg-neutral-900">
+            <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
               <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900 dark:text-neutral-100">Implement Image Optimization</p>
-                <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="font-medium text-gray-900">Implement Image Optimization</p>
+                <p className="text-sm text-gray-600 mt-1">
                   Large images causing slow profile loads
                 </p>
               </div>
@@ -334,7 +334,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-bold">{section.name}</h2>
-                <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-gray-600 mt-1">
                   Last audited: {new Date(lastAuditDate).toLocaleDateString()}
                 </p>
               </div>
@@ -345,7 +345,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               </p>
               <div className="flex items-center gap-2 mt-2">
                 {getTrendIcon(section.trend)}
-                <span className="text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">{section.trend}</span>
+                <span className="text-sm text-gray-600">{section.trend}</span>
               </div>
             </div>
           </CardTitle>
@@ -366,7 +366,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               {section.issues.map((issue, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 text-red-500 mt-0.5" />
-                  <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{issue}</span>
+                  <span className="text-sm text-gray-700">{issue}</span>
                 </li>
               ))}
             </ul>
@@ -386,7 +386,7 @@ export const PlatformAuditDashboard: React.FC = () => {
               {section.recommendations.map((rec, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 text-green-500 mt-0.5" />
-                  <span className="text-sm text-gray-700 dark:text-neutral-600 dark:text-neutral-300">{rec}</span>
+                  <span className="text-sm text-gray-700">{rec}</span>
                 </li>
               ))}
             </ul>
@@ -404,19 +404,19 @@ export const PlatformAuditDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm font-medium">Database & API (Layers 1-5)</span>
               <Progress value={85} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm font-medium">UI/UX & Performance (Layers 6-15)</span>
               <Progress value={70} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm font-medium">Advanced Features (Layers 16-25)</span>
               <Progress value={45} className="w-32 h-2" />
             </div>
-            <div className="flex justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+            <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-sm font-medium">Innovation & Future (Layers 26-40)</span>
               <Progress value={20} className="w-32 h-2" />
             </div>
@@ -434,7 +434,7 @@ export const PlatformAuditDashboard: React.FC = () => {
           <h1 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
             Platform Audit Dashboard
           </h1>
-          <p className="text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-gray-600 mt-1">
             Comprehensive 40x20s framework analysis of platform components
           </p>
         </div>

@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Brain, Zap, Database, TrendingUp, Activity, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
-import { Helmet } from 'react-helmet';
 
 interface LearningStats {
   totalPatterns: number;
@@ -53,11 +52,7 @@ export default function AgentLearningDashboard() {
   const completedJobs = stats?.jobQueue?.find(q => q.status === 'done')?.count || 0;
 
   return (
-    <>
-      <Helmet>
-        <title>Agent Learning Dashboard | Life CEO</title>
-      </Helmet>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -72,7 +67,7 @@ export default function AgentLearningDashboard() {
             variant={autoRefresh ? "default" : "outline"}
             onClick={() => setAutoRefresh(!autoRefresh)}
             className="gap-2"
-           
+            data-testid="button-toggle-refresh"
           >
             <Activity className={`w-4 h-4 ${autoRefresh ? 'animate-pulse' : ''}`} />
             {autoRefresh ? 'Live Updates' : 'Paused'}
@@ -81,7 +76,7 @@ export default function AgentLearningDashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-white/10 border-purple-500/30 backdrop-blur dark:bg-neutral-900">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Database className="w-4 h-4" />
@@ -89,14 +84,14 @@ export default function AgentLearningDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold text-white" data-testid="text-total-patterns">
                 {stats?.totalPatterns || 0}
               </div>
               <p className="text-xs text-purple-300 mt-1">Across all ESA layers</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-purple-500/30 backdrop-blur dark:bg-neutral-900">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" />
@@ -104,14 +99,14 @@ export default function AgentLearningDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold text-white" data-testid="text-high-confidence">
                 {stats?.highConfidence || 0}
               </div>
               <p className="text-xs text-purple-300 mt-1">≥90% confidence score</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-purple-500/30 backdrop-blur dark:bg-neutral-900">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Zap className="w-4 h-4" />
@@ -120,7 +115,7 @@ export default function AgentLearningDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex items-baseline gap-2">
-                <div className="text-3xl font-bold text-white">{queuedJobs}</div>
+                <div className="text-3xl font-bold text-white" data-testid="text-queued-jobs">{queuedJobs}</div>
                 <div className="text-sm text-purple-300">queued</div>
               </div>
               <div className="flex items-center gap-2 mt-1">
@@ -130,7 +125,7 @@ export default function AgentLearningDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 border-purple-500/30 backdrop-blur dark:bg-neutral-900">
+          <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm text-purple-200 flex items-center gap-2">
                 <Activity className="w-4 h-4" />
@@ -149,7 +144,7 @@ export default function AgentLearningDashboard() {
         </div>
 
         {/* Pattern Discovery Feed */}
-        <Card className="bg-white/10 border-purple-500/30 backdrop-blur dark:bg-neutral-900">
+        <Card className="bg-white/10 border-purple-500/30 backdrop-blur">
           <CardHeader>
             <CardTitle className="text-xl text-white flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-green-400" />
@@ -161,7 +156,7 @@ export default function AgentLearningDashboard() {
               {patterns?.map((pattern) => (
                 <div
                   key={pattern.id}
-                  className="bg-white/5 rounded-lg p-4 border border-purple-500/20 hover:border-purple-400/40 transition-colors dark:bg-neutral-900"
+                  className="bg-white/5 rounded-lg p-4 border border-purple-500/20 hover:border-purple-400/40 transition-colors"
                   data-testid={`card-pattern-${pattern.id}`}
                 >
                   <div className="flex items-start justify-between mb-2">
@@ -242,6 +237,5 @@ export default function AgentLearningDashboard() {
         </Card>
       </div>
     </div>
-    </>
   );
 }

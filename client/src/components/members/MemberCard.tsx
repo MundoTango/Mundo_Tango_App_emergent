@@ -40,7 +40,7 @@ export function MemberCard({ member }: MemberCardProps) {
   return (
     <GlassCard 
       depth={1} 
-      className="p-4 hover:border-ocean-500/50 dark:hover:border-cyan-400/30 transition-all duration-500 group"
+      className="p-4 hover:border-cyan-500/50 dark:hover:border-cyan-400/30 transition-all duration-500 group"
       data-testid={`card-member-${member.id}`}
     >
       <div className="flex items-center gap-3">
@@ -73,7 +73,7 @@ export function MemberCard({ member }: MemberCardProps) {
             />
           </div>
           
-          <p className="text-xs text-gray-500 dark:text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             {t('members.joinedAt', 'Joined {{date}}', { 
               date: new Date(member.joinedAt).toLocaleDateString() 
             })}
@@ -85,7 +85,7 @@ export function MemberCard({ member }: MemberCardProps) {
           <Button 
             variant="ghost" 
             size="sm"
-            className="hover:bg-ocean-500/20 dark:hover:bg-cyan-400/20 gap-2"
+            className="hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 gap-2"
             data-testid={`button-view-profile-${member.id}`}
           >
             <Eye className="h-4 w-4" />

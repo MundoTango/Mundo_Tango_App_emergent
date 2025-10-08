@@ -30,7 +30,6 @@ import { useAuth } from '@/hooks/useAuth';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
-import { Helmet } from 'react-helmet';
 
 interface CheckoutFormProps {
   tier: string;
@@ -78,11 +77,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Checkout | Life CEO</title>
-      </Helmet>
-      
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="glassmorphic-card p-6 rounded-lg">
         <PaymentElement 
@@ -135,8 +129,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
         <span>Secured by Stripe</span>
       </div>
     </form>
-  
-    </>
   );
 };
 
@@ -246,8 +238,8 @@ const Checkout: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Complete Your Subscription</h1>
-          <p className="text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Secure payment powered by Stripe</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Complete Your Subscription</h1>
+          <p className="text-gray-600">Secure payment powered by Stripe</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -297,7 +289,7 @@ const Checkout: React.FC = () => {
                         id="promo"
                         placeholder="Enter code"
                         value={promoCode}
-                        onChange={(e)  => setPromoCode(e.target.value)}
+                        onChange={(e) => setPromoCode(e.target.value)}
                         className="flex-1"
                       />
                       <Button
@@ -317,9 +309,9 @@ const Checkout: React.FC = () => {
 
                 {/* Features */}
                 <div className="pt-4 space-y-2">
-                  <p className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">Included features:</p>
+                  <p className="text-sm font-medium text-gray-700">Included features:</p>
                   {selectedTier?.features?.slice(0, 5).map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                       <span>{feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
                     </div>
@@ -350,7 +342,7 @@ const Checkout: React.FC = () => {
                       theme: 'stripe',
                       variables: {
                         colorPrimary: '#14b8a6',
-                        colorBackground: 'var(--color-neutral-0)',
+                        colorBackground: '#ffffff',
                         colorText: '#1f2937',
                         colorDanger: '#ef4444',
                         fontFamily: 'system-ui, sans-serif',

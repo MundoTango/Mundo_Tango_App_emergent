@@ -25,7 +25,6 @@ import {
   Users, Zap, AlertTriangle, Shield, Globe, Gauge
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { Helmet } from 'react-helmet';
 
 // Types
 interface SystemMetrics {
@@ -102,11 +101,6 @@ export default function AdminMonitoring() {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Admin Monitoring | Life CEO</title>
-      </Helmet>
-      
     <div className="container mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
@@ -117,7 +111,7 @@ export default function AdminMonitoring() {
         <div className="flex gap-4">
           <Button
             variant={autoRefresh ? 'default' : 'outline'}
-            onClick={()  => setAutoRefresh(!autoRefresh)}
+            onClick={() => setAutoRefresh(!autoRefresh)}
             className="gap-2"
           >
             {autoRefresh ? <Activity className="w-4 h-4 animate-pulse" /> : <Clock className="w-4 h-4" />}
@@ -125,7 +119,7 @@ export default function AdminMonitoring() {
           </Button>
           <select
             value={selectedTimeRange}
-            onChange={(e)  => setSelectedTimeRange(e.target.value)}
+            onChange={(e) => setSelectedTimeRange(e.target.value)}
             className="px-4 py-2 border rounded-md"
           >
             <option value="1h">Last 1 hour</option>
@@ -592,8 +586,6 @@ export default function AdminMonitoring() {
         </TabsContent>
       </Tabs>
     </div>
-  
-    </>
   );
 }
 

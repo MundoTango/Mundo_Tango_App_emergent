@@ -157,7 +157,7 @@ export default function PostComposer() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 dark:bg-neutral-900">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
       {/* Modern Momento Composer */}
       <div className="flex items-start gap-4">
         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-turquoise-500 to-blue-500 flex items-center justify-center text-white font-semibold">
@@ -174,8 +174,8 @@ export default function PostComposer() {
         
         <div className="flex-1">
           <button
-            onClick={()  => setShowExpandedComposer(true)}
-            className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200 dark:bg-neutral-800"
+            onClick={() => setShowExpandedComposer(true)}
+            className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 hover:border-turquoise-300 focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200"
           >
             <span className="text-gray-500 font-medium">Share your tango moment...</span>
           </button>
@@ -183,29 +183,29 @@ export default function PostComposer() {
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-3">
               <button
-                onClick={()  => setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-turquoise-600 px-3 py-2 rounded-lg hover:bg-turquoise-50 transition-all duration-200"
               >
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
               <button
-                onClick={()  => setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200"
               >
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
               <button
-                onClick={()  => setShowExpandedComposer(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
+                onClick={() => setShowExpandedComposer(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200"
               >
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
               <button
-                onClick={()  => setShowMediaLibrary(true)}
-                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200 dark:text-neutral-600 dark:text-neutral-400"
+                onClick={() => setShowMediaLibrary(true)}
+                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200"
               >
                 <FolderOpen className="h-4 w-4" />
                 <span className="text-sm font-medium">Reuse Media</span>
@@ -218,7 +218,7 @@ export default function PostComposer() {
       {/* Modern Expanded Composer Modal */}
       {showExpandedComposer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl dark:bg-neutral-900">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
@@ -235,7 +235,7 @@ export default function PostComposer() {
                     )}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-neutral-100">{user?.name}</div>
+                    <div className="font-semibold text-gray-900">{user?.name}</div>
                     <div className="text-sm text-gray-500 flex items-center gap-1">
                       {getVisibilityIcon()}
                       <span className="capitalize">{newPost.visibility}</span>
@@ -243,8 +243,8 @@ export default function PostComposer() {
                   </div>
                 </div>
                 <button
-                  onClick={()  => setShowExpandedComposer(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors dark:bg-neutral-800"
+                  onClick={() => setShowExpandedComposer(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
@@ -255,30 +255,30 @@ export default function PostComposer() {
                 <textarea
                   placeholder="Share your tango moment with the community..."
                   value={newPost.content}
-                  onChange={(e)  => setNewPost(prev => ({ ...prev, content: e.target.value }))}
+                  onChange={(e) => setNewPost(prev => ({ ...prev, content: e.target.value }))}
                   className="w-full min-h-[140px] text-lg border-none resize-none focus:outline-none p-0 placeholder-gray-400"
                 />
                 
                 {/* Tags and Location */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative">
-                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Add tags (comma separated)"
                       value={newPost.tags}
-                      onChange={(e)  => setNewPost(prev => ({ ...prev, tags: e.target.value }))}
-                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all dark:border-neutral-700"
+                      onChange={(e) => setNewPost(prev => ({ ...prev, tags: e.target.value }))}
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
                     />
                   </div>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Add location"
                       value={newPost.location}
-                      onChange={(e)  => setNewPost(prev => ({ ...prev, location: e.target.value }))}
-                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all dark:border-neutral-700"
+                      onChange={(e) => setNewPost(prev => ({ ...prev, location: e.target.value }))}
+                      className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-300 focus:ring-2 focus:ring-pink-100 transition-all"
                     />
                   </div>
                 </div>
@@ -287,14 +287,14 @@ export default function PostComposer() {
                 {allMedia.length > 0 && (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-neutral-600 dark:text-neutral-300">
+                      <h4 className="text-sm font-medium text-gray-700">
                         Attached Media ({allMedia.length})
                       </h4>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {allMedia.map((media, index) => (
                         <div key={media.id || index} className="relative group">
-                          <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-neutral-800">
+                          <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
                             {(media.type?.startsWith('image/') || media.contentType?.startsWith('image/')) ? (
                               <img
                                 src={media.url}
@@ -303,12 +303,12 @@ export default function PostComposer() {
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
-                                <Video className="w-8 h-8 text-gray-600 dark:text-gray-400" />
+                                <Video className="w-8 h-8 text-gray-400" />
                               </div>
                             )}
                           </div>
                           <button
-                            onClick={()  => {
+                            onClick={() => {
                               if (media.id) {
                                 removeReusedMedia(media.id);
                               } else {
@@ -333,12 +333,12 @@ export default function PostComposer() {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-5 border-t border-gray-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Visibility:</span>
+                    <span className="text-sm font-medium text-gray-600">Visibility:</span>
                     <div className="flex gap-2">
                       {(['Public', 'Friend', 'Private'] as const).map((vis) => (
                         <button
                           key={vis}
-                          onClick={()  => setNewPost(prev => ({ ...prev, visibility: vis }))}
+                          onClick={() => setNewPost(prev => ({ ...prev, visibility: vis }))}
                           className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
                             newPost.visibility === vis
                               ? 'bg-gradient-to-r from-turquoise-500 to-blue-500 text-white'
@@ -356,8 +356,8 @@ export default function PostComposer() {
                   
                   <div className="flex gap-3">
                     <button
-                      onClick={()  => setShowExpandedComposer(false)}
-                      className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium dark:bg-neutral-800"
+                      onClick={() => setShowExpandedComposer(false)}
+                      className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-medium"
                     >
                       Cancel
                     </button>

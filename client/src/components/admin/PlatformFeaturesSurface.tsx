@@ -516,7 +516,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <Layers className="h-5 w-5 text-blue-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Total Features</p>
+                <p className="text-sm font-medium text-gray-600">Total Features</p>
                 <p className="text-2xl font-bold">{totalFeatures}</p>
               </div>
             </div>
@@ -528,7 +528,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <Trophy className="h-5 w-5 text-green-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Production Ready</p>
+                <p className="text-sm font-medium text-gray-600">Production Ready</p>
                 <p className="text-2xl font-bold">{productionReadyFeatures}</p>
               </div>
             </div>
@@ -540,7 +540,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <Activity className="h-5 w-5 text-orange-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">In Progress</p>
+                <p className="text-sm font-medium text-gray-600">In Progress</p>
                 <p className="text-2xl font-bold">{inProgressFeatures}</p>
               </div>
             </div>
@@ -552,7 +552,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <Palette className="h-5 w-5 text-purple-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Components</p>
+                <p className="text-sm font-medium text-gray-600">Components</p>
                 <p className="text-2xl font-bold">{totalComponents}</p>
               </div>
             </div>
@@ -564,7 +564,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <Server className="h-5 w-5 text-indigo-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">API Endpoints</p>
+                <p className="text-sm font-medium text-gray-600">API Endpoints</p>
                 <p className="text-2xl font-bold">{totalAPIs}</p>
               </div>
             </div>
@@ -574,9 +574,9 @@ export function PlatformFeaturesSurface() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center space-x-2">
-              <Database className="h-5 w-5 text-ocean-500" />
+              <Database className="h-5 w-5 text-cyan-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Database Tables</p>
+                <p className="text-sm font-medium text-gray-600">Database Tables</p>
                 <p className="text-2xl font-bold">{totalTables}</p>
               </div>
             </div>
@@ -588,7 +588,7 @@ export function PlatformFeaturesSurface() {
             <div className="flex items-center space-x-2">
               <BarChart3 className="h-5 w-5 text-emerald-500" />
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-neutral-600 dark:text-neutral-400">Completion</p>
+                <p className="text-sm font-medium text-gray-600">Completion</p>
                 <p className="text-2xl font-bold">{completionPercentage}%</p>
               </div>
             </div>
@@ -600,13 +600,13 @@ export function PlatformFeaturesSurface() {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <input
               type="text"
               placeholder="Search across all 11 layers of platform features..."
               value={searchTerm}
-              onChange={(e)  => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -626,7 +626,7 @@ export function PlatformFeaturesSurface() {
           <TabsContent key={category} value={category} className="mt-6">
             <div className="mb-4">
               <h3 className="text-lg font-semibold">{category}</h3>
-              <p className="text-sm text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-600 mt-1">
                 {features.length} features • {features.filter(f => f.status === "Production Ready").length} production ready
               </p>
             </div>
@@ -664,12 +664,12 @@ export function PlatformFeaturesSurface() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-600 mb-4 text-sm leading-relaxed dark:text-neutral-600 dark:text-neutral-400">{feature.description}</p>
+                      <p className="text-gray-600 mb-4 text-sm leading-relaxed">{feature.description}</p>
                       
                       <div className="space-y-3">
                         {feature.components.length > 0 && (
                           <div>
-                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
+                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
                               <Palette className="h-3 w-3" />
                               Components ({feature.components.length})
                             </p>
@@ -685,7 +685,7 @@ export function PlatformFeaturesSurface() {
                         
                         {feature.apis.length > 0 && (
                           <div>
-                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
+                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
                               <Server className="h-3 w-3" />
                               APIs ({feature.apis.length})
                             </p>
@@ -701,7 +701,7 @@ export function PlatformFeaturesSurface() {
 
                         {feature.tables.length > 0 && (
                           <div>
-                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1 dark:text-neutral-600 dark:text-neutral-300">
+                            <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
                               <Database className="h-3 w-3" />
                               Tables ({feature.tables.length})
                             </p>

@@ -25,7 +25,6 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 import { FadeIn, ScaleIn, StaggerContainer } from '@/components/animations/FramerMotionWrappers';
 import { PulseButton, MagneticButton } from '@/components/interactions/MicroInteractions';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { Helmet } from 'react-helmet';
 
 interface HostHome {
   id: number;
@@ -68,11 +67,6 @@ export default function HostDashboard() {
 
   if (isLoading) {
     return (
-    <>
-      <Helmet>
-        <title>Host Dashboard | Life CEO</title>
-      </Helmet>
-      
       <DashboardLayout>
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/3" />
@@ -83,9 +77,7 @@ export default function HostDashboard() {
           </div>
         </div>
       </DashboardLayout>
-    
-    </>
-  );
+    );
   }
 
   // First-time host - no properties yet (Aurora Tide)
@@ -94,7 +86,7 @@ export default function HostDashboard() {
       <DashboardLayout>
         <div className="max-w-4xl mx-auto">
           <FadeIn>
-            <GlassCard depth={3} className="p-12 text-center border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={3} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
               <ScaleIn delay={0.1}>
                 <div className="w-24 h-24 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Home className="w-12 h-12 text-white" />
@@ -112,7 +104,7 @@ export default function HostDashboard() {
               </FadeIn>
 
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-left">
-                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
+                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
                   <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center mb-4">
                     <Users className="w-6 h-6 text-white" />
                   </div>
@@ -124,7 +116,7 @@ export default function HostDashboard() {
                   </p>
                 </GlassCard>
 
-                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
+                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
                   <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
                     <MessageCircle className="w-6 h-6 text-white" />
                   </div>
@@ -136,7 +128,7 @@ export default function HostDashboard() {
                   </p>
                 </GlassCard>
 
-                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
+                <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
                     <Calendar className="w-6 h-6 text-white" />
                   </div>
@@ -154,7 +146,7 @@ export default function HostDashboard() {
                   onClick={() => navigate('/host-onboarding')}
                   className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3 text-lg"
                   pulseColor="rgba(6, 182, 212, 0.6)"
-                 
+                  data-testid="button-create-first-listing"
                 >
                   <Plus className="w-5 h-5 mr-2" />
                   {t('housing.host_dashboard.create_first_listing', 'Create Your First Listing')}
@@ -186,7 +178,7 @@ export default function HostDashboard() {
               onClick={() => navigate('/host-onboarding')}
               className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
               pulseColor="rgba(6, 182, 212, 0.6)"
-             
+              data-testid="button-add-property"
             >
               <Plus className="w-4 h-4 mr-2" />
               {t('housing.host_dashboard.add_new_property', 'Add New Property')}
@@ -197,7 +189,7 @@ export default function HostDashboard() {
         {/* Quick Stats - Aurora Tide */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <ScaleIn delay={0.1}>
-            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
                   <Home className="w-5 h-5 text-white" />
@@ -213,7 +205,7 @@ export default function HostDashboard() {
           </ScaleIn>
 
           <ScaleIn delay={0.2}>
-            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-white" />
@@ -229,7 +221,7 @@ export default function HostDashboard() {
           </ScaleIn>
 
           <ScaleIn delay={0.3}>
-            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                   <Users className="w-5 h-5 text-white" />
@@ -245,7 +237,7 @@ export default function HostDashboard() {
           </ScaleIn>
 
           <ScaleIn delay={0.4}>
-            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-ocean-500/30">
+            <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <Star className="w-5 h-5 text-white" />
@@ -265,7 +257,7 @@ export default function HostDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={propertyCardsRef}>
           {properties.map((property, index) => (
             <ScaleIn key={property.id} delay={index * 0.1}>
-              <GlassCard depth={2} className="property-card overflow-hidden border-cyan-200/30 dark:border-ocean-500/30 hover:glass-depth-3 transition-all">
+              <GlassCard depth={2} className="property-card overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all">
                 {/* Property Image */}
                 <div className="relative h-48 bg-gradient-to-br from-cyan-500 to-teal-500">
                   {property.photos && property.photos.length > 0 ? (
@@ -305,7 +297,7 @@ export default function HostDashboard() {
 
                   {/* Connection-based access */}
                   {property.whoCanBook && (
-                    <div className="mb-4 p-2 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 rounded text-sm border border-cyan-200/30 dark:border-ocean-500/30">
+                    <div className="mb-4 p-2 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 rounded text-sm border border-cyan-200/30 dark:border-cyan-500/30">
                       <span className="font-medium text-cyan-900 dark:text-cyan-100">
                         {property.whoCanBook === 'friends_only' && t('housing.host_dashboard.friends_only', '🔒 Friends only')}
                         {property.whoCanBook === 'friends_of_friends' && t('housing.host_dashboard.friends_and_fof', '🤝 Friends & FOF')}
@@ -319,7 +311,7 @@ export default function HostDashboard() {
                     <MagneticButton
                       strength={0.15}
                       onClick={() => navigate(`/listing/${property.id}`)}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 flex items-center justify-center"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 flex items-center justify-center"
                       data-testid={`button-view-${property.id}`}
                     >
                       <Eye className="w-4 h-4" />
@@ -328,7 +320,7 @@ export default function HostDashboard() {
                     <MagneticButton
                       strength={0.15}
                       onClick={() => navigate(`/host/edit/${property.id}`)}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 flex items-center justify-center"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 flex items-center justify-center"
                       data-testid={`button-edit-${property.id}`}
                     >
                       <Edit className="w-4 h-4" />
@@ -337,7 +329,7 @@ export default function HostDashboard() {
                     <MagneticButton
                       strength={0.15}
                       onClick={() => navigate(`/host-calendar?propertyId=${property.id}`)}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 p-2 flex items-center justify-center"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 p-2 flex items-center justify-center"
                       data-testid={`button-calendar-${property.id}`}
                     >
                       <Calendar className="w-4 h-4" />
@@ -354,7 +346,7 @@ export default function HostDashboard() {
           <ScaleIn delay={0.1}>
             <GlassCard
               depth={2}
-              className="p-6 cursor-pointer border-cyan-200/30 dark:border-ocean-500/30 hover:glass-depth-3 transition-all"
+              className="p-6 cursor-pointer border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all"
               onClick={() => navigate('/host-bookings')}
             >
               <div className="flex items-center gap-4">
@@ -376,7 +368,7 @@ export default function HostDashboard() {
           <ScaleIn delay={0.2}>
             <GlassCard
               depth={2}
-              className="p-6 cursor-pointer border-cyan-200/30 dark:border-ocean-500/30 hover:glass-depth-3 transition-all"
+              className="p-6 cursor-pointer border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all"
               onClick={() => navigate('/host/analytics')}
             >
               <div className="flex items-center gap-4">

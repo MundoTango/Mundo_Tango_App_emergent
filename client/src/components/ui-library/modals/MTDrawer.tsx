@@ -97,16 +97,16 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
       bottom: 'h-64'
     },
     lg: {
-      left: 'w-[3var(--spacing-8)]',
-      right: 'w-[3var(--spacing-8)]',
+      left: 'w-[32rem]',
+      right: 'w-[32rem]',
       top: 'h-96',
       bottom: 'h-96'
     },
     xl: {
       left: 'w-[40rem]',
       right: 'w-[40rem]',
-      top: 'h-[3var(--spacing-8)]',
-      bottom: 'h-[3var(--spacing-8)]'
+      top: 'h-[32rem]',
+      bottom: 'h-[32rem]'
     }
   };
 
@@ -193,7 +193,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
           style={{ zIndex }}
           onClick={closeOnOverlayClick ? onClose : undefined}
           data-testid={`${testId}-overlay`}
-
+        />
       )}
 
       {/* Drawer */}
@@ -230,7 +230,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
                 </h2>
               )}
               {description && (
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                   {description}
                 </p>
               )}
@@ -247,7 +247,7 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
                 aria-label="Close drawer"
                 data-testid={`${testId}-close`}
               >
-                <X className="w-5 h-5 text-gray-500 dark:text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
+                <X className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
               </button>
             )}
           </div>

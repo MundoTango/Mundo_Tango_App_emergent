@@ -160,11 +160,11 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         <CardContent className="pt-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-3 w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
               <Input
                 placeholder="Search media..."
                 value={searchTerm}
-                onChange={(e)  => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -230,9 +230,9 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   />
                 </div>
               ) : (
-                <div className="aspect-square bg-gray-100 rounded-t-lg flex items-center justify-center dark:bg-neutral-800">
+                <div className="aspect-square bg-gray-100 rounded-t-lg flex items-center justify-center">
                   {getFileIcon(asset.contentType)}
-                  <span className="ml-2 text-sm text-gray-600 dark:text-neutral-600 dark:text-neutral-400">
+                  <span className="ml-2 text-sm text-gray-600">
                     {asset.contentType.split('/')[0].toUpperCase()}
                   </span>
                 </div>
@@ -254,7 +254,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={()  => handleDelete(asset.id)}
+                    onClick={() => handleDelete(asset.id)}
                     className="opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
                   >
                     <X className="w-4 h-4" />
@@ -287,7 +287,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
           ))
         ) : (
           <div className="col-span-full text-center py-12 text-gray-500">
-            <Image className="w-12 h-12 mx-auto mb-4 text-gray-600 dark:text-gray-300" />
+            <Image className="w-12 h-12 mx-auto mb-4 text-gray-300" />
             <h3 className="text-lg font-medium mb-2">No media found</h3>
             <p className="text-sm">
               {searchTerm || visibilityFilter !== 'all' 

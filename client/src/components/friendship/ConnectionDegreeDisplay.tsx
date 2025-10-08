@@ -105,7 +105,7 @@ export function ConnectionDegreeDisplay({
         </span>
       </div>
       {degree <= 2 && mutualFriends > 0 && (
-        <span className="text-gray-500 dark:text-gray-600 dark:text-gray-400">
+        <span className="text-gray-500 dark:text-gray-400">
           • {mutualFriends} mutual
         </span>
       )}
@@ -125,7 +125,7 @@ export function ConnectionDegreeDisplay({
         <TooltipContent>
           <div className="space-y-1">
             <p className="font-semibold">{info.label}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {info.description}
             </p>
           </div>
@@ -144,13 +144,13 @@ export function ConnectionPath({ path }: ConnectionPathProps) {
 
   return (
     <div className="flex items-center gap-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-      <Link className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-      <span className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Connected via:</span>
+      <Link className="w-4 h-4 text-gray-400" />
+      <span className="text-sm text-gray-600 dark:text-gray-400">Connected via:</span>
       <div className="flex items-center -space-x-2">
         {path.map((person, index) => (
           <React.Fragment key={person.id}>
             {index > 0 && (
-              <span className="mx-2 text-gray-600 dark:text-gray-400">→</span>
+              <span className="mx-2 text-gray-400">→</span>
             )}
             <div className="flex items-center gap-2">
               {person.profileImage ? (
@@ -192,25 +192,25 @@ export function ConnectionStats({
         <div className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 text-transparent bg-clip-text">
           {totalConnections}
         </div>
-        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">Total Network</div>
+        <div className="text-sm text-gray-600 dark:text-gray-400">Total Network</div>
       </div>
       <div className="text-center">
         <div className="text-2xl font-bold text-turquoise-600 dark:text-turquoise-400">
           {firstDegree}
         </div>
-        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">1st Degree</div>
+        <div className="text-sm text-gray-600 dark:text-gray-400">1st Degree</div>
       </div>
       <div className="text-center">
         <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
           {secondDegree}
         </div>
-        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">2nd Degree</div>
+        <div className="text-sm text-gray-600 dark:text-gray-400">2nd Degree</div>
       </div>
       <div className="text-center">
         <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
           {thirdDegree}
         </div>
-        <div className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400">3rd Degree</div>
+        <div className="text-sm text-gray-600 dark:text-gray-400">3rd Degree</div>
       </div>
     </div>
   );

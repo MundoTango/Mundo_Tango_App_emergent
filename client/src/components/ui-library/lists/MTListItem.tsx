@@ -106,7 +106,7 @@ export default function MTListItem({
             </h3>
             {subtitle && (
               <p className={cn(
-                'text-gray-600 dark:text-gray-600 dark:text-gray-400',
+                'text-gray-600 dark:text-gray-400',
                 layout === 'compact' ? 'text-xs' : 'text-sm'
               )}>
                 {subtitle}
@@ -131,7 +131,7 @@ export default function MTListItem({
         {/* Description */}
         {description && layout !== 'compact' && (
           <p className={cn(
-            'text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-1',
+            'text-gray-600 dark:text-gray-400 mt-1',
             layout === 'card' ? 'text-sm' : 'text-xs',
             layout === 'detailed' && 'line-clamp-3'
           )}>
@@ -176,7 +176,7 @@ export default function MTListItem({
     <>
       {/* Icon */}
       {icon && layout !== 'card' && (
-        <div className="flex-shrink-0 text-gray-600 dark:text-gray-400">
+        <div className="flex-shrink-0 text-gray-400">
           {icon}
         </div>
       )}
@@ -201,14 +201,14 @@ export default function MTListItem({
 
       {/* Actions */}
       {actions && (
-        <div className="flex-shrink-0" onClick={(e) => e.stopPropagation()} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e) => e.stopPropagation()(e); } }}>
+        <div className="flex-shrink-0" onClick={(e) => e.stopPropagation()}>
           {actions}
         </div>
       )}
 
       {/* Chevron for clickable items */}
       {onClick && !disabled && layout !== 'card' && (
-        <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400 flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
       )}
     </>
   );
@@ -230,7 +230,7 @@ export default function MTListItem({
         className={itemClass}
         onClick={!disabled ? onClick : undefined}
         data-testid={testId}
-       role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); !disabled ? onClick : undefined(e); } }}>
+      >
         {content}
       </div>
     );

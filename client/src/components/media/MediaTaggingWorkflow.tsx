@@ -143,7 +143,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
             <Input
               placeholder="Search tags..."
               value={searchTag}
-              onChange={(e)  => setSearchTag(e.target.value)}
+              onChange={(e) => setSearchTag(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === 'Enter' && searchTag.trim()) {
                   addTagFilter(searchTag.trim().toLowerCase());
@@ -151,7 +151,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
               }}
             />
             <Button
-              onClick={()  => searchTag.trim() && addTagFilter(searchTag.trim().toLowerCase())}
+              onClick={() => searchTag.trim() && addTagFilter(searchTag.trim().toLowerCase())}
               disabled={!searchTag.trim()}
             >
               <Plus className="w-4 h-4" />
@@ -229,7 +229,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                   <Button
                     size="sm"
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={()  => onMediaSelect(media)}
+                    onClick={() => onMediaSelect(media)}
                   >
                     Select
                   </Button>
@@ -264,7 +264,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                   <Input
                     placeholder="Add tag..."
                     value={newTag}
-                    onChange={(e)  => setNewTag(e.target.value)}
+                    onChange={(e) => setNewTag(e.target.value)}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         handleAddTag(media.id, newTag);
@@ -274,7 +274,7 @@ export function MediaTaggingWorkflow({ userId, folder, onMediaSelect }: MediaTag
                   />
                   <Button
                     size="sm"
-                    onClick={()  => handleAddTag(media.id, newTag)}
+                    onClick={() => handleAddTag(media.id, newTag)}
                     disabled={!newTag.trim() || addTagMutation.isPending}
                   >
                     <Tag className="w-4 h-4" />

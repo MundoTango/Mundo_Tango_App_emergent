@@ -27,14 +27,14 @@ export function SessionRecordingNotice() {
         </div>
         <div className="flex-1">
           <h4 className="text-sm font-medium">Session Recording Active</h4>
-          <p className="text-xs text-gray-600 mt-1 dark:text-neutral-600 dark:text-neutral-400">
+          <p className="text-xs text-gray-600 mt-1">
             We're recording this session to improve your experience. 
             Your privacy is protected - sensitive data is automatically redacted.
           </p>
         </div>
         <button
           onClick={handleDismiss}
-          className="text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:text-neutral-600 dark:text-neutral-400"
+          className="text-gray-400 hover:text-gray-600"
           aria-label="Dismiss"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
