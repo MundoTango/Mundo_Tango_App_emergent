@@ -429,43 +429,29 @@ export default function UnifiedTopBar({
 
           {/* Theme Toggle */}
           {onThemeToggle && (
-            <div className="relative group">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={onThemeToggle}
-                className={cn(
-                  "transition-all",
-                  theme === 'light'
-                    ? "hover:bg-gray-100 text-gray-600"
-                    : "hover:bg-slate-800 text-slate-400"
-                )}
-              >
-                {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-              </Button>
-              {/* COMING SOON Overlay - Dark Mode Disabled */}
-              <div className="absolute inset-0 bg-cyan-500/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
-                <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  COMING SOON
-                </span>
-              </div>
-            </div>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={onThemeToggle}
+              className={cn(
+                "transition-all",
+                theme === 'light'
+                  ? "hover:bg-gray-100 text-gray-600"
+                  : "hover:bg-slate-800 text-slate-400"
+              )}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </Button>
           )}
 
           {/* Language Selector - ESA Layer 53: Internationalization Agent */}
-          <div className="relative hidden sm:flex group">
+          <div className="hidden sm:flex">
             <LanguageSelector 
               variant="dropdown" 
               showFlags={true}
               groupByRegion={true}
               className=""
             />
-            {/* COMING SOON Overlay - Language Switching Disabled */}
-            <div className="absolute inset-0 bg-cyan-500/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
-              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                COMING SOON
-              </span>
-            </div>
           </div>
 
           {/* Profile Dropdown */}
