@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 /**
  * ESA Layer 21: User Management Agent
@@ -89,7 +91,7 @@ export function OnboardingWizard() {
   const step = ONBOARDING_STEPS[currentStep];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <GlassCard depth={1} className="fixed inset-0 z-50 flex items-center justify-center"
       <Card className="relative w-full max-w-2xl mx-4 bg-gradient-to-br from-teal-400/95 via-cyan-500/95 to-blue-600/95 backdrop-blur-md border-white/20 shadow-2xl">
         <button
           onClick={handleSkip}

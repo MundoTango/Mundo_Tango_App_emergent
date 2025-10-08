@@ -52,7 +52,7 @@ export function MultiSelect({
             "w-full justify-between min-h-[40px] h-auto p-2",
             className
           )}
-        >
+         data-testid="button-element">
           <div className="flex flex-wrap gap-1 flex-1">
             {selectedArray.length === 0 && (
               <span className="text-muted-foreground">{placeholder}</span>

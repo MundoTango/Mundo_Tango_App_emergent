@@ -106,7 +106,7 @@ export function RichTextCommentEditor({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => formatText('bold')}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Bold"
                 data-testid={`button-editor-bold-${postId}`}
               >
@@ -114,7 +114,7 @@ export function RichTextCommentEditor({
               </button>
               <button
                 onClick={() => formatText('italic')}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Italic"
                 data-testid={`button-editor-italic-${postId}`}
               >
@@ -123,14 +123,14 @@ export function RichTextCommentEditor({
               <div className="w-px h-6 bg-gray-200 mx-2"></div>
               <button
                 onClick={() => formatText('createLink', prompt('Enter URL:') || '')}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Add Link"
                 data-testid={`button-editor-link-${postId}`}
               >
                 <Link className="h-4 w-4" />
               </button>
               <button
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
                 title="Mention User"
                 data-testid={`button-editor-mention-${postId}`}
               >
@@ -152,13 +152,13 @@ export function RichTextCommentEditor({
           
           {/* ESA Simple Emoji Picker - Fixed Layout */}
           {showEmojiPicker && (
-            <div className="p-4 bg-gray-50 border-t border-gray-100">
+            <div className="p-4 bg-gray-50 border-t border-gray-100 dark:bg-neutral-800">
               <div className="flex flex-wrap gap-2">
                 {emojis.map((emoji, index) => (
                   <button
                     key={index}
                     onClick={() => insertEmoji(emoji)}
-                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200"
+                    className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-white hover:shadow-md rounded-lg transition-all duration-200 border border-gray-200 dark:bg-neutral-900"
                     title={`Add ${emoji}`}
                     type="button"
                     data-testid={`button-editor-emoji-${postId}-${index}`}
@@ -210,7 +210,7 @@ export function RichTextCommentEditor({
               {onCancel && (
                 <button
                   onClick={onCancel}
-                  className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                  className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors dark:text-neutral-200"
                   data-testid={`button-editor-cancel-${postId}`}
                 >
                   Cancel

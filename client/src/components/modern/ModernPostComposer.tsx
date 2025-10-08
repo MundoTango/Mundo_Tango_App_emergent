@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Image, Video, MapPin, Smile, X, Send, Globe, Users, Lock, Camera, FileImage } from 'lucide-react';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 interface ModernPostComposerProps {
   onSubmit?: (content: string, media?: File) => void;
@@ -79,7 +81,7 @@ export default function ModernPostComposer({
   ];
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden backdrop-blur-xl">
+    <GlassCard depth={3} className="bg-white rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden"
       {/* Header */}
       <div className="bg-gradient-to-r from-coral-50 via-blue-50 to-teal-50 px-8 py-6 border-b border-blue-100/50">
         <div className="flex items-center justify-between">

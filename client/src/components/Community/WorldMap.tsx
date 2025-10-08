@@ -5,6 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import { Users, Calendar, Home, Star, MapPin } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { initializeLeaflet } from '@/utils/leafletConfig';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 // Initialize Leaflet with local icons
 initializeLeaflet();
@@ -145,7 +147,7 @@ const WorldMap = forwardRef((props, ref) => {
         />
         
         {/* Map Legend - Positioned on top of the map */}
-        <div className="absolute top-4 left-4 z-[1000] bg-white/90 backdrop-blur-md rounded-lg shadow-lg p-4 border border-cyan-200/50" style={{zIndex: 1000}}>
+        <GlassCard depth={2} className="absolute top-4 left-4 z-[1000] rounded-lg shadow-lg p-4 border border-cyan-200/50"
           <h3 className="font-semibold text-sm mb-3 text-gray-800">City Sizes</h3>
           <div className="space-y-2 text-xs">
             <div className="flex items-center gap-2">

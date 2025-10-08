@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { initializeLeaflet } from '@/utils/leafletConfig';
 import CommunityMapFilters, { CommunityMapFilters as FilterType } from './CommunityMapFilters';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 // ESA LIFE CEO 61x21 - Initialize Leaflet with local icons (no CDN dependency)
 initializeLeaflet();
@@ -167,7 +169,7 @@ export default function CommunityMapWithLayers({
   return (
     <div className="flex flex-col w-full space-y-4">
       {/* Filter Bar Above Map - ESA Layer 22 + Aurora Tide */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]">
+      <GlassCard depth={2} className="dark:bg-slate-900/80 rounded-lg border border-cyan-200/30 dark:border-cyan-500/30 p-4 relative z-[1001]"
         <CommunityMapFilters 
           filters={filters} 
           onFiltersChange={setFilters} 

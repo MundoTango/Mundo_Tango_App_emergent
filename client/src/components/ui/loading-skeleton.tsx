@@ -1,4 +1,6 @@
 import { cn } from '@/lib/utils';
+import { GlassCard } from '@/components/glass/GlassComponents';
+
 
 /**
  * ESA Layer 9: UI Framework Agent
@@ -27,7 +29,7 @@ export function Skeleton({ className, variant = 'text' }: SkeletonProps) {
 
 export function PostSkeleton() {
   return (
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-lg p-6 space-y-4">
+    <GlassCard depth={2} className="dark:bg-gray-800/80 rounded-lg p-6 space-y-4"
       <div className="flex items-center space-x-3">
         <Skeleton variant="avatar" />
         <div className="flex-1 space-y-2">
@@ -47,7 +49,7 @@ export function PostSkeleton() {
 
 export function EventSkeleton() {
   return (
-    <div className="bg-gradient-to-br from-teal-400/10 to-cyan-600/10 backdrop-blur-md rounded-lg p-4 space-y-3">
+    <GlassCard depth={2} className="bg-gradient-to-br from-teal-400/10 to-cyan-600/10 rounded-lg p-4 space-y-3"
       <Skeleton variant="card" className="h-32" />
       <Skeleton className="w-3/4" />
       <Skeleton className="w-1/2" />
