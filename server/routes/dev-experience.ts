@@ -4,14 +4,12 @@
  */
 
 import { Router } from 'express';
+import { getExpertAgent } from '../esa-agents/agent-system';
 
 const router = Router();
 
-// In-memory reference to the Developer Experience Expert agent
-let devExperienceExpertAgent: any = null;
-
-export function setDevExperienceExpertAgent(agent: any) {
-  devExperienceExpertAgent = agent;
+function getAgent() {
+  return getExpertAgent('dev_experience');
 }
 
 /**
@@ -20,7 +18,8 @@ export function setDevExperienceExpertAgent(agent: any) {
  */
 router.get('/status', async (req, res) => {
   try {
-    if (!devExperienceExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Developer Experience Expert not initialized' });
     }
 
@@ -48,11 +47,12 @@ router.get('/status', async (req, res) => {
  */
 router.get('/coverage', async (req, res) => {
   try {
-    if (!devExperienceExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Developer Experience Expert not initialized' });
     }
 
-    const coverage = await devExperienceExpertAgent.execute('getTestCoverage', {});
+    const coverage = await agent.execute('getTestCoverage', {});
     res.json(coverage);
   } catch (error) {
     console.error('[Dev Experience Expert] Coverage error:', error);
@@ -66,12 +66,13 @@ router.get('/coverage', async (req, res) => {
  */
 router.post('/suggest-tests', async (req, res) => {
   try {
-    if (!devExperienceExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Developer Experience Expert not initialized' });
     }
 
     const { file } = req.body;
-    const suggestions = await devExperienceExpertAgent.execute('suggestTests', { file });
+    const suggestions = await agent.execute('suggestTests', { file });
     res.json(suggestions);
   } catch (error) {
     console.error('[Dev Experience Expert] Suggest tests error:', error);
@@ -85,11 +86,12 @@ router.post('/suggest-tests', async (req, res) => {
  */
 router.get('/docs', async (req, res) => {
   try {
-    if (!devExperienceExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Developer Experience Expert not initialized' });
     }
 
-    const docs = await devExperienceExpertAgent.execute('checkDocs', {});
+    const docs = await agent.execute('checkDocs', {});
     res.json(docs);
   } catch (error) {
     console.error('[Dev Experience Expert] Docs check error:', error);
@@ -103,11 +105,12 @@ router.get('/docs', async (req, res) => {
  */
 router.get('/setup', async (req, res) => {
   try {
-    if (!devExperienceExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'Developer Experience Expert not initialized' });
     }
 
-    const setup = await devExperienceExpertAgent.execute('analyzeDevSetup', {});
+    const setup = await agent.execute('analyzeDevSetup', {});
     res.json(setup);
   } catch (error) {
     console.error('[Dev Experience Expert] Setup analysis error:', error);

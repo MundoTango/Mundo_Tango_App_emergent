@@ -5,15 +5,12 @@
 
 import { Router } from 'express';
 import type { Request, Response } from 'express';
+import { getExpertAgent } from '../esa-agents/agent-system';
 
 const router = Router();
 
-// In-memory reference to the UI/UX Expert agent
-// Will be injected when the agent system initializes
-let uiUXExpertAgent: any = null;
-
-export function setUIUXExpertAgent(agent: any) {
-  uiUXExpertAgent = agent;
+function getAgent() {
+  return getExpertAgent('ui_ux');
 }
 
 /**
@@ -22,13 +19,14 @@ export function setUIUXExpertAgent(agent: any) {
  */
 router.get('/components', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     const { type, includeStats = 'true' } = req.query;
     
-    const components = await uiUXExpertAgent.execute('getComponents', {
+    const components = await agent.execute('getComponents', {
       type,
       includeStats: includeStats === 'true',
     });
@@ -50,13 +48,14 @@ router.get('/components', async (req: Request, res: Response) => {
  */
 router.post('/audit/accessibility', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     const { component, severity } = req.body;
     
-    const issues = await uiUXExpertAgent.execute('auditAccessibility', {
+    const issues = await agent.execute('auditAccessibility', {
       component,
       severity,
     });
@@ -84,11 +83,12 @@ router.post('/audit/accessibility', async (req: Request, res: Response) => {
  */
 router.get('/design-system', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
-    const analysis = await uiUXExpertAgent.execute('analyzeDesign', {});
+    const analysis = await agent.execute('analyzeDesign', {});
     
     res.json({
       success: true,
@@ -106,13 +106,14 @@ router.get('/design-system', async (req: Request, res: Response) => {
  */
 router.get('/report', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     const { format = 'json' } = req.query;
     
-    const report = await uiUXExpertAgent.execute('generateReport', {
+    const report = await agent.execute('generateReport', {
       format,
     });
     
@@ -132,13 +133,14 @@ router.get('/report', async (req: Request, res: Response) => {
  */
 router.get('/suggestions', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     const { type, impact, effort } = req.query;
     
-    const suggestions = await uiUXExpertAgent.execute('suggestImprovements', {
+    const suggestions = await agent.execute('suggestImprovements', {
       type,
       impact,
       effort,
@@ -161,11 +163,12 @@ router.get('/suggestions', async (req: Request, res: Response) => {
  */
 router.get('/consistency', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
-    const consistency = await uiUXExpertAgent.execute('checkConsistency', {});
+    const consistency = await agent.execute('checkConsistency', {});
     
     res.json({
       success: true,
@@ -183,15 +186,16 @@ router.get('/consistency', async (req: Request, res: Response) => {
  */
 router.get('/dark-mode', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     // Trigger dark mode verification job
-    await uiUXExpertAgent.addJob('verify_dark_mode', {});
+    await agent.addJob('verify_dark_mode', {});
     
     // Get cached results
-    const darkMode = await uiUXExpertAgent.getSharedState('dark_mode_coverage');
+    const darkMode = await agent.getSharedState('dark_mode_coverage');
     
     res.json({
       success: true,
@@ -209,15 +213,16 @@ router.get('/dark-mode', async (req: Request, res: Response) => {
  */
 router.get('/i18n', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     // Trigger i18n check job
-    await uiUXExpertAgent.addJob('check_i18n', {});
+    await agent.addJob('check_i18n', {});
     
     // Get cached results
-    const i18n = await uiUXExpertAgent.getSharedState('i18n_coverage');
+    const i18n = await agent.getSharedState('i18n_coverage');
     
     res.json({
       success: true,
@@ -235,7 +240,8 @@ router.get('/i18n', async (req: Request, res: Response) => {
  */
 router.post('/evaluate-tool', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
@@ -245,7 +251,7 @@ router.post('/evaluate-tool', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Tool name required (penpot, storybook, axeCore, playwright)' });
     }
     
-    const evaluation = await uiUXExpertAgent.addJob('evaluate_tool', { tool });
+    const evaluation = await agent.addJob('evaluate_tool', { tool });
     
     res.json({
       success: true,
@@ -263,15 +269,16 @@ router.post('/evaluate-tool', async (req: Request, res: Response) => {
  */
 router.post('/scan', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
     // Trigger comprehensive scan
-    await uiUXExpertAgent.addJob('scan_components', {});
-    await uiUXExpertAgent.addJob('analyze_design_patterns', {});
-    await uiUXExpertAgent.addJob('audit_accessibility', {});
-    await uiUXExpertAgent.addJob('suggest_components', {});
+    await agent.addJob('scan_components', {});
+    await agent.addJob('analyze_design_patterns', {});
+    await agent.addJob('audit_accessibility', {});
+    await agent.addJob('suggest_components', {});
     
     res.json({
       success: true,
@@ -289,20 +296,27 @@ router.post('/scan', async (req: Request, res: Response) => {
  */
 router.get('/status', async (req: Request, res: Response) => {
   try {
-    if (!uiUXExpertAgent) {
+    const agent = getAgent();
+    if (!agent) {
       return res.status(503).json({ error: 'UI/UX Expert not initialized' });
     }
     
-    const status = {
-      initialized: true,
-      name: uiUXExpertAgent.name,
-      layers: uiUXExpertAgent.layers,
-      lastScan: await uiUXExpertAgent.getSharedState('ui_components_latest'),
-    };
-    
     res.json({
       success: true,
-      status,
+      initialized: true,
+      agent: {
+        id: agent.agentId || 'ui_ux',
+        name: agent.name,
+        layers: agent.layers,
+      },
+      capabilities: [
+        'Aurora Tide design system analysis',
+        'Component usage tracking',
+        'Accessibility auditing (WCAG 2.1)',
+        'Dark mode coverage checks',
+        'Internationalization validation',
+        'Design consistency monitoring',
+      ],
     });
   } catch (error: any) {
     console.error('UI/UX status error:', error);
