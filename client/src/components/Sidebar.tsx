@@ -219,7 +219,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           {/* Navigation Menu - Ocean Styled */}
           <div className="mb-6">
             <div className="text-xs uppercase font-semibold tracking-wider mb-3 px-2 text-ocean-muted">
-              Menu
+              {t('navigation.menu')}
             </div>
             <div className="space-y-1">
               {allRoutes.map(({ icon, title, link }, index) => (
