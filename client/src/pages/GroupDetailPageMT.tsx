@@ -594,8 +594,8 @@ export default function GroupDetailPageMT() {
                 <div key={index} className="flex items-start gap-3">
                   {activity.icon === 'music' && <Music className="h-5 w-5 text-turquoise-500 mt-0.5" />}
                   {activity.icon === 'book' && <BookOpen className="h-5 w-5 text-blue-500 mt-0.5" />}
-                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-cyan-500 mt-0.5" />}
-                  {!activity.icon && <Zap className="h-5 w-5 text-cyan-500 mt-0.5" />}
+                  {activity.icon === 'trophy' && <Trophy className="h-5 w-5 text-ocean-500 mt-0.5" />}
+                  {!activity.icon && <Zap className="h-5 w-5 text-ocean-500 mt-0.5" />}
                   <div>
                     <h4 className="font-semibold">{activity.title}</h4>
                     <p className="text-sm">{activity.description}</p>
@@ -1184,7 +1184,7 @@ export default function GroupDetailPageMT() {
               <MagneticButton
                 onClick={() => setLocation('/guest-onboarding')}
                 strength={0.15}
-                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
                 data-testid="button-search-preferences"
               >
                 <Settings className="h-4 w-4 mr-2" />
@@ -1193,7 +1193,7 @@ export default function GroupDetailPageMT() {
               <MagneticButton
                 onClick={() => setLocation('/housing-marketplace')}
                 strength={0.15}
-                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
                 data-testid="button-view-marketplace"
               >
                 <Search className="h-4 w-4 mr-2" />
@@ -1228,7 +1228,7 @@ export default function GroupDetailPageMT() {
           <ScaleIn delay={0.1}>
             <GlassCard 
               depth={2}
-              className="p-6 border-cyan-200/30 dark:border-cyan-500/30"
+              className="p-6 border-cyan-200/30 dark:border-ocean-500/30"
               data-testid="housing-statistics-card"
             >
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -1304,7 +1304,7 @@ export default function GroupDetailPageMT() {
                   data-testid="housing-empty-state"
                 >
                   <ScaleIn delay={0.3}>
-                    <Home className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
+                    <Home className="h-16 w-16 mx-auto mb-4 text-ocean-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1333,7 +1333,7 @@ export default function GroupDetailPageMT() {
                       <MagneticButton
                         onClick={() => setLocation('/housing-marketplace')}
                         strength={0.2}
-                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-3 text-slate-700 dark:text-slate-300"
+                        className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-6 py-3 text-slate-700 dark:text-slate-300"
                         data-testid="button-empty-state-marketplace"
                       >
                         <Search className="h-5 w-5 mr-2" />
@@ -1367,7 +1367,7 @@ export default function GroupDetailPageMT() {
                   className="text-center py-16 px-6 border-2 border-dashed border-cyan-300 dark:border-cyan-600"
                 >
                   <ScaleIn delay={0.3}>
-                    <MapPin className="h-16 w-16 mx-auto mb-4 text-cyan-500 dark:text-cyan-400" />
+                    <MapPin className="h-16 w-16 mx-auto mb-4 text-ocean-500 dark:text-cyan-400" />
                   </ScaleIn>
                   <FadeIn delay={0.4}>
                     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -1381,7 +1381,7 @@ export default function GroupDetailPageMT() {
               </ScaleIn>
             ) : (
               <ScaleIn delay={0.2}>
-                <GlassCard depth={2} className="h-[600px] overflow-hidden border-cyan-200/30 dark:border-cyan-500/30">
+                <GlassCard depth={2} className="h-[600px] overflow-hidden border-cyan-200/30 dark:border-ocean-500/30">
                   <HousingMap 
                     homes={homes}
                     cityLat={group?.latitude}

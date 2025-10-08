@@ -63,7 +63,7 @@ export default function MTFormTextarea<
         return (
           <FormItem className={cn('space-y-2', className)}>
             {label && (
-              <FormLabel className="text-sm font-medium text-gray-700 flex items-center justify-between">
+              <FormLabel className="text-sm font-medium text-gray-700 flex items-center justify-between dark:text-neutral-300">
                 <span className="flex items-center gap-1">
                   {label}
                   {required && <span className="text-red-500">*</span>}

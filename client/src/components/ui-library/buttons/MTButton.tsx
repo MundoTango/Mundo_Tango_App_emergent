@@ -35,7 +35,7 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
   );
 
   const variants = {
-    primary: 'bg-teal-400 hover:bg-teal-500 text-white shadow-lg hover:shadow-xl',
+    primary: 'bg-teal-400 hover:bg-ocean-500 text-white shadow-lg hover:shadow-xl',
     secondary: 'bg-purple-500 hover:bg-purple-600 text-white shadow-lg hover:shadow-xl',
     ghost: 'bg-transparent hover:bg-teal-50 dark:hover:bg-teal-900/20 text-teal-700 dark:text-teal-300',
     gradient: 'bg-gradient-to-r from-teal-300 to-blue-900 hover:from-teal-400 hover:to-blue-800 text-white shadow-lg hover:shadow-2xl',
@@ -63,7 +63,7 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
       )}
       disabled={disabled || isLoading}
       {...props}
-    >
+     data-testid="button-element">
       {isLoading && (
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       )}

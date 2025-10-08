@@ -217,12 +217,12 @@ const LanguageSelector = ({
           {supportedLanguages.map(lang => (
             <button
               key={lang.code}
-              onClick={() => handleLanguageChange(lang.code)}
+              onClick={() = data-testid="button-element"> handleLanguageChange(lang.code)}
               disabled={isChanging}
               className={`
                 w-full p-3 rounded-lg text-left transition-all duration-200
                 ${i18n.language === lang.code 
-                  ? 'glass-card glass-depth-1 border-2 border-cyan-300 dark:border-cyan-500' 
+                  ? 'glass-card glass-depth-1 border-2 border-cyan-300 dark:border-ocean-500' 
                   : 'hover:glass-card hover:glass-depth-1 border border-white/20 dark:border-white/10'
                 }
               `}
@@ -259,7 +259,7 @@ const LanguageSelector = ({
           size="sm"
           className={`flex items-center gap-2 hover:glass-card hover:glass-depth-1 transition-all ${className}`}
           disabled={isChanging}
-        >
+         data-testid="button-element">
           <Globe2 className="w-4 h-4" />
           {showFlags && currentLanguage && (
             <span className="text-lg">{supportedLangsConfig.find(l => l.code === currentLanguage.code)?.flag || '🌍'}</span>

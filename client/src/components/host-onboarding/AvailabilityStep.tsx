@@ -36,7 +36,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">When can guests book?</h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-neutral-400">
           Set your availability preferences and booking settings
         </p>
       </div>
@@ -49,7 +49,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
               <Zap className="w-5 h-5 text-purple-600" />
               <h3 className="text-lg font-medium">Instant Book</h3>
             </div>
-            <p className="text-sm text-gray-600 mb-1">
+            <p className="text-sm text-gray-600 mb-1 dark:text-neutral-400">
               Guests can book instantly without waiting for your approval
             </p>
             <p className="text-xs text-purple-600 font-medium">
@@ -70,7 +70,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="minimumStay"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.minimumStay || 1}
-          onChange={(e) => updateData({ minimumStay: parseInt(e.target.value) })}
+          onChange={(e) = data-testid="select-mt-1"> updateData({ minimumStay: parseInt(e.target.value) })}
         >
           {[1, 2, 3, 4, 5, 7, 14, 28].map((nights) => (
             <option key={nights} value={nights}>
@@ -90,7 +90,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="advanceNotice"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.advanceNotice || 'same_day'}
-          onChange={(e) => updateData({ advanceNotice: e.target.value })}
+          onChange={(e) = data-testid="select-mt-1"> updateData({ advanceNotice: e.target.value })}
         >
           <option value="same_day">Same day (up to 2 hours before)</option>
           <option value="1_day">At least 1 day</option>
@@ -107,7 +107,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
           id="bookingWindow"
           className="mt-1 w-full px-3 py-2 border rounded-md"
           value={data.bookingWindow || '3_months'}
-          onChange={(e) => updateData({ bookingWindow: e.target.value })}
+          onChange={(e) = data-testid="select-mt-1"> updateData({ bookingWindow: e.target.value })}
         >
           <option value="3_months">3 months in advance</option>
           <option value="6_months">6 months in advance</option>
@@ -125,7 +125,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             id="checkInTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkInTime || '15:00'}
-            onChange={(e) => updateData({ checkInTime: e.target.value })}
+            onChange={(e) = data-testid="select-mt-1"> updateData({ checkInTime: e.target.value })}
           >
             {Array.from({ length: 24 }, (_, i) => {
               const hour = i.toString().padStart(2, '0');
@@ -143,7 +143,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
             id="checkOutTime"
             className="mt-1 w-full px-3 py-2 border rounded-md"
             value={data.checkOutTime || '11:00'}
-            onChange={(e) => updateData({ checkOutTime: e.target.value })}
+            onChange={(e) = data-testid="select-mt-1"> updateData({ checkOutTime: e.target.value })}
           >
             {Array.from({ length: 24 }, (_, i) => {
               const hour = i.toString().padStart(2, '0');
@@ -160,13 +160,13 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
       {/* Calendar availability (simplified for MVP) */}
       <div>
         <h3 className="text-lg font-medium mb-2">Set your calendar availability</h3>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
           Select dates when your property is available. You can update this anytime.
         </p>
         
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 dark:bg-neutral-800">
           <div className="flex items-center gap-2 mb-3">
-            <CalendarIcon className="w-4 h-4 text-gray-600" />
+            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-neutral-400" />
             <span className="text-sm font-medium">Availability options</span>
           </div>
           
@@ -177,7 +177,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="always"
                 checked={data.availabilityType === 'always'}
-                onChange={() => updateData({ availabilityType: 'always' })}
+                onChange={() = data-testid="input-element"> updateData({ availabilityType: 'always' })}
                 className="text-pink-500"
               />
               <div>
@@ -192,7 +192,7 @@ export default function AvailabilityStep({ data, updateData }: AvailabilityStepP
                 name="availability"
                 value="sometimes"
                 checked={data.availabilityType === 'sometimes' || !data.availabilityType}
-                onChange={() => updateData({ availabilityType: 'sometimes' })}
+                onChange={() = data-testid="input-element"> updateData({ availabilityType: 'sometimes' })}
                 className="text-pink-500"
               />
               <div>

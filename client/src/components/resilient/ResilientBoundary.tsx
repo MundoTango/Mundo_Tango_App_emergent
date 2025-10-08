@@ -91,7 +91,7 @@ export class ResilientBoundary extends Component<Props, State> {
             <GlassCard depth={1} className="border border-red-200 rounded-lg p-6 shadow-lg"
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <AlertCircle className="w-6 h-6 text-red-500" />
+                  <AlertCircle className="w-6 h-6 text-red-500" / data-testid="link-w-6">
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-red-800 mb-2">
@@ -104,7 +104,7 @@ export class ResilientBoundary extends Component<Props, State> {
                     </p>
                   )}
                   
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
                     {canRetry 
                       ? `We encountered an issue loading this component. You can try again${maxRetries - this.state.retryCount > 1 ? ` (${maxRetries - this.state.retryCount} attempts remaining)` : ''}.`
                       : 'We were unable to load this component after multiple attempts.'}
@@ -115,15 +115,15 @@ export class ResilientBoundary extends Component<Props, State> {
                       <button
                         onClick={this.retry}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
-                      >
+                       data-testid="button-inline-flex">
                         <RefreshCw className="w-4 h-4" />
                         Try Again
                       </button>
                     )}
                     
                     <button
-                      onClick={() => window.location.reload()}
-                      className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                      onClick={() = data-testid="button-element"> window.location.reload()}
+                      className="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
                     >
                       Reload Page
                     </button>
@@ -131,10 +131,10 @@ export class ResilientBoundary extends Component<Props, State> {
                   
                   {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
                     <details className="mt-4">
-                      <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700">
+                      <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 dark:text-neutral-300">
                         Error Details (Development Only)
                       </summary>
-                      <pre className="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto max-h-40">
+                      <pre className="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto max-h-40 dark:bg-neutral-800">
                         {this.state.error?.stack}
                         {'\n\nComponent Stack:'}
                         {this.state.errorInfo.componentStack}

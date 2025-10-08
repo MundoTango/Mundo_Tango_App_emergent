@@ -215,9 +215,9 @@ export default function Notifications() {
             
             {unreadCount > 0 && (
               <Button
-                onClick={() => markAllAsReadMutation.mutate()}
+                onClick={() = data-testid="button-element"> markAllAsReadMutation.mutate()}
                 variant="outline"
-                className="bg-white/50 backdrop-blur-sm hover:bg-white/70"
+                className="bg-white/50 backdrop-blur-sm hover:bg-white/70 dark:bg-neutral-900"
                 disabled={markAllAsReadMutation.isPending}
               >
                 <CheckCircle className="h-4 w-4 mr-2" />
@@ -229,7 +229,7 @@ export default function Notifications() {
 
         {/* Filter Tabs */}
         <Tabs value={filter} onValueChange={(v) => setFilter(v as 'all' | 'unread')} className="mb-6">
-          <TabsList className="bg-white/50 backdrop-blur-sm">
+          <TabsList className="bg-white/50 backdrop-blur-sm dark:bg-neutral-900">
             <TabsTrigger value="all" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#5EEAD4] data-[state=active]:to-[#155E75] data-[state=active]:text-white">
               All Notifications
             </TabsTrigger>
@@ -251,7 +251,7 @@ export default function Notifications() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#5EEAD4]"></div>
             </div>
           ) : notifications.length === 0 ? (
-            <Card className="p-12 text-center bg-white/50 backdrop-blur-sm border-white/20">
+            <Card className="p-12 text-center bg-white/50 backdrop-blur-sm border-white/20 dark:bg-neutral-900">
               <Bell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-lg font-semibold mb-2">No notifications</h3>
               <p className="text-muted-foreground">
@@ -308,11 +308,11 @@ export default function Notifications() {
                               <Button
                                 size="icon"
                                 variant="ghost"
-                                onClick={(e) => {
+                                onClick={(e) = data-testid="button-element"> {
                                   e.stopPropagation();
                                   markAsReadMutation.mutate(notification.id);
                                 }}
-                                className="h-8 w-8 hover:bg-white/50"
+                                className="h-8 w-8 hover:bg-white/50 dark:bg-neutral-900"
                               >
                                 <Check className="h-4 w-4" />
                               </Button>
@@ -320,7 +320,7 @@ export default function Notifications() {
                             <Button
                               size="icon"
                               variant="ghost"
-                              onClick={(e) => {
+                              onClick={(e) = data-testid="button-element"> {
                                 e.stopPropagation();
                                 deleteNotificationMutation.mutate(notification.id);
                               }}

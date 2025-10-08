@@ -604,7 +604,7 @@ export function GuestOnboardingFlow() {
               </div>
             </div>
 
-            <GlassCard depth={1} className="p-4 border-cyan-200/30 dark:border-cyan-500/30" data-testid="privacy-notice-emergency">
+            <GlassCard depth={1} className="p-4 border-cyan-200/30 dark:border-ocean-500/30" data-testid="privacy-notice-emergency">
               <p className="text-sm text-cyan-800 dark:text-cyan-200">
                 <strong>{t('housing.guest_onboarding.privacy_note', 'Privacy Note:')}</strong>{' '}
                 {t('housing.guest_onboarding.privacy_text', 'This information is kept strictly confidential and will only be used in case of emergency.')}
@@ -622,7 +622,7 @@ export function GuestOnboardingFlow() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-8" data-testid="guest-onboarding-container">
       <div className="container mx-auto px-4 max-w-4xl">
         <FadeIn>
-          <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-cyan-500/30">
+          <GlassCard depth={2} className="mb-6 border-cyan-200/30 dark:border-ocean-500/30">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -641,7 +641,7 @@ export function GuestOnboardingFlow() {
                   <MagneticButton
                     onClick={() => setLocation('/housing')}
                     strength={0.15}
-                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-slate-700 dark:text-slate-300"
                     data-testid="button-exit-onboarding"
                   >
                     <X className="w-4 h-4" />
@@ -678,7 +678,7 @@ export function GuestOnboardingFlow() {
                 strength={0.2}
                 className={`
                   glass-card glass-depth-1 p-4 flex flex-col items-center gap-2 transition-all duration-300
-                  ${isCompleted ? 'border-cyan-400/50 dark:border-cyan-500/50 bg-gradient-to-br from-cyan-100/50 to-teal-100/50 dark:from-cyan-900/30 dark:to-teal-900/30' : ''}
+                  ${isCompleted ? 'border-cyan-400/50 dark:border-ocean-500/50 bg-gradient-to-br from-cyan-100/50 to-teal-100/50 dark:from-cyan-900/30 dark:to-teal-900/30' : ''}
                   ${isCurrent ? 'border-teal-400/50 dark:border-teal-500/50 bg-gradient-to-br from-teal-100/50 to-blue-100/50 dark:from-teal-900/30 dark:to-blue-900/30 ring-2 ring-teal-400/30' : ''}
                   ${!isCompleted && !isCurrent ? 'border-slate-200/30 dark:border-slate-600/30' : ''}
                 `}
@@ -706,7 +706,7 @@ export function GuestOnboardingFlow() {
         </StaggerContainer>
 
         <ScaleIn delay={0.2}>
-          <GlassCard depth={3} className="p-8 border-cyan-200/30 dark:border-cyan-500/30">
+          <GlassCard depth={3} className="p-8 border-cyan-200/30 dark:border-ocean-500/30">
             {renderStep()}
 
             <div className="flex justify-between mt-8 pt-6 border-t border-cyan-200/20 dark:border-cyan-800/20">
@@ -714,7 +714,7 @@ export function GuestOnboardingFlow() {
                 <MagneticButton
                   onClick={handlePrevious}
                   strength={0.2}
-                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-6 py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-2"
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-6 py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-2"
                   data-testid={`button-back-${currentStep === 1 ? 'accommodation' : currentStep === 2 ? 'dietary' : currentStep === 3 ? 'languages' : currentStep === 4 ? 'location' : currentStep === 5 ? 'budget' : 'emergency'}`}
                   aria-label="Go back to previous step"
                 >

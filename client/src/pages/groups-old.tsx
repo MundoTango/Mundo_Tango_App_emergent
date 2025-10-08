@@ -57,10 +57,10 @@ export default function GroupsPage() {
         {/* TrangoTech Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-black-text-color">Groups</h1>
+            <h1 className="text-2xl font-bold text-black-text-color dark:text-white">Groups</h1>
             <p className="text-gray-text-color">Join communities and discover tango groups</p>
           </div>
-          <button className="rounded-xl bg-btn-color text-sm font-bold text-white flex items-center justify-center gap-2 px-6 h-10">
+          <button className="rounded-xl bg-btn-color text-sm font-bold text-white flex items-center justify-center gap-2 px-6 h-10" data-testid="button-rounded-xl">
             <Plus className="h-4 w-4" />
             Create Group
           </button>
@@ -74,7 +74,7 @@ export default function GroupsPage() {
               type="text"
               placeholder="Search groups..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
               className="input-text pl-10 w-full"
             />
           </div>
@@ -86,7 +86,7 @@ export default function GroupsPage() {
             {['all', 'joined', 'suggested'].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() = data-testid="button-element"> setActiveTab(tab)}
                 className={`px-6 py-3 font-medium capitalize transition-colors ${
                   activeTab === tab
                     ? 'text-btn-color border-b-2 border-btn-color'
@@ -107,7 +107,7 @@ export default function GroupsPage() {
                     <MapPin className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-black-text-color">City Group Automation</h3>
+                    <h3 className="text-lg font-semibold text-black-text-color dark:text-white">City Group Automation</h3>
                     <p className="text-sm text-gray-text-color">Automatically join or create city-based tango groups</p>
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function GroupsPage() {
           {/* Empty State */}
           <div className="p-12 text-center">
             <Users className="h-16 w-16 text-light-gray-color mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-black-text-color mb-2">
+            <h3 className="text-lg font-semibold text-black-text-color mb-2 dark:text-white">
               {activeTab === 'joined' ? "You haven't joined any groups yet" : "Discover Tango Groups"}
             </h3>
             <p className="text-gray-text-color mb-6 max-w-md mx-auto">
@@ -150,7 +150,7 @@ export default function GroupsPage() {
                             <span className="text-lg">{group.emoji || '🏙️'}</span>
                           </div>
                           <div className="text-left">
-                            <h4 className="font-semibold text-black-text-color">{group.name}</h4>
+                            <h4 className="font-semibold text-black-text-color dark:text-white">{group.name}</h4>
                             <div className="flex items-center gap-2 text-sm text-gray-text-color">
                               {group.isPrivate ? <Lock className="h-3 w-3" /> : <Globe className="h-3 w-3" />}
                               <span>{group.isPrivate ? 'Private' : 'Public'} • {group.memberCount || 0} members</span>
@@ -170,7 +170,7 @@ export default function GroupsPage() {
                       {group.isJoined ? (
                         <button 
                           className="w-full rounded-lg bg-green-100 text-green-800 border border-green-200 py-2 text-sm font-medium"
-                          onClick={(e) => {
+                          onClick={(e) = data-testid="button-w-full"> {
                             e.stopPropagation();
                             setLocation(`/groups/${group.slug}`);
                           }}
@@ -184,7 +184,7 @@ export default function GroupsPage() {
                               ? 'border border-btn-color text-btn-color'
                               : 'bg-btn-color text-white'
                           }`}
-                          onClick={(e) => {
+                          onClick={(e) = data-testid="button-element"> {
                             e.stopPropagation();
                             // Handle join/request logic here
                           }}
@@ -216,7 +216,7 @@ export default function GroupsPage() {
                         <Users className="h-6 w-6 text-white" />
                       </div>
                       <div className="text-left">
-                        <h4 className="font-semibold text-black-text-color">Tango Beginners</h4>
+                        <h4 className="font-semibold text-black-text-color dark:text-white">Tango Beginners</h4>
                         <div className="flex items-center gap-2 text-sm text-gray-text-color">
                           <Globe className="h-3 w-3" />
                           <span>Public • 890 members</span>
@@ -228,7 +228,7 @@ export default function GroupsPage() {
                   <p className="text-sm text-gray-text-color mb-4">
                     Welcome new dancers! Ask questions, find practice partners, and get support on your tango journey.
                   </p>
-                  <button className="w-full rounded-lg bg-btn-color text-white py-2 text-sm font-medium">
+                  <button className="w-full rounded-lg bg-btn-color text-white py-2 text-sm font-medium" data-testid="button-w-full">
                     Join Group
                   </button>
                 </div>
@@ -242,7 +242,7 @@ export default function GroupsPage() {
                         <Users className="h-6 w-6 text-white" />
                       </div>
                       <div className="text-left">
-                        <h4 className="font-semibold text-black-text-color">Festival Travelers</h4>
+                        <h4 className="font-semibold text-black-text-color dark:text-white">Festival Travelers</h4>
                         <div className="flex items-center gap-2 text-sm text-gray-text-color">
                           <Globe className="h-3 w-3" />
                           <span>Public • 445 members</span>
@@ -254,7 +254,7 @@ export default function GroupsPage() {
                   <p className="text-sm text-gray-text-color mb-4">
                     For dancers who love to travel to tango festivals worldwide. Share tips, coordinate trips, and make connections.
                   </p>
-                  <button className="w-full rounded-lg bg-btn-color text-white py-2 text-sm font-medium">
+                  <button className="w-full rounded-lg bg-btn-color text-white py-2 text-sm font-medium" data-testid="button-w-full">
                     Join Group
                   </button>
                 </div>
@@ -272,7 +272,7 @@ function CityGroupAutomationDemo() {
   const [cityInput, setCityInput] = useState('');
   const [countryInput, setCountryInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<any data-testid="link-element">(null);
   const [error, setError] = useState('');
 
   const handleJoinCityGroup = async () => {
@@ -319,39 +319,39 @@ function CityGroupAutomationDemo() {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-border-color p-6">
+    <div className="bg-white rounded-lg border border-border-color p-6 dark:bg-neutral-900">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Input Form */}
         <div>
-          <h4 className="font-semibold text-black-text-color mb-3">Test City Group Assignment</h4>
+          <h4 className="font-semibold text-black-text-color mb-3 dark:text-white">Test City Group Assignment</h4>
           <p className="text-sm text-gray-text-color mb-4">
             Enter a city name to automatically join or create a local tango group. This demonstrates the automated city group assignment system.
           </p>
           
           <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium text-black-text-color mb-1">
+              <label className="block text-sm font-medium text-black-text-color mb-1 dark:text-white">
                 City Name *
               </label>
               <input
                 type="text"
                 placeholder="e.g., Buenos Aires"
                 value={cityInput}
-                onChange={(e) => setCityInput(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setCityInput(e.target.value)}
                 className="input-text w-full"
                 disabled={isLoading}
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-black-text-color mb-1">
+              <label className="block text-sm font-medium text-black-text-color mb-1 dark:text-white">
                 Country (optional)
               </label>
               <input
                 type="text"
                 placeholder="e.g., Argentina"
                 value={countryInput}
-                onChange={(e) => setCountryInput(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setCountryInput(e.target.value)}
                 className="input-text w-full"
                 disabled={isLoading}
               />
@@ -362,7 +362,7 @@ function CityGroupAutomationDemo() {
                 onClick={handleJoinCityGroup}
                 disabled={isLoading || !cityInput.trim()}
                 className="rounded-lg bg-btn-color text-white px-4 py-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
+               data-testid="button-rounded-lg">
                 {isLoading ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
@@ -375,7 +375,7 @@ function CityGroupAutomationDemo() {
                 <button
                   onClick={resetForm}
                   className="rounded-lg border border-btn-color text-btn-color px-4 py-2 text-sm font-medium"
-                >
+                 data-testid="button-rounded-lg">
                   Try Another City
                 </button>
               )}
@@ -385,7 +385,7 @@ function CityGroupAutomationDemo() {
 
         {/* Results Display */}
         <div>
-          <h4 className="font-semibold text-black-text-color mb-3">Automation Result</h4>
+          <h4 className="font-semibold text-black-text-color mb-3 dark:text-white">Automation Result</h4>
           
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -412,7 +412,7 @@ function CityGroupAutomationDemo() {
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">{result.group.emoji}</span>
                   <div>
-                    <p className="font-medium text-black-text-color">{result.group.name}</p>
+                    <p className="font-medium text-black-text-color dark:text-white">{result.group.name}</p>
                     <p className="text-xs text-gray-text-color">
                       {result.group.slug} • {result.group.memberCount} members
                     </p>
@@ -435,7 +435,7 @@ function CityGroupAutomationDemo() {
           )}
 
           {!result && !error && (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center justify-center">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center justify-center dark:bg-neutral-800">
               <p className="text-sm text-gray-text-color text-center">
                 Enter a city name above to see the automation in action
               </p>

@@ -398,7 +398,7 @@ const JiraExportDashboard: React.FC = () => {
           <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
             JIRA Export Dashboard - 44x21s Enhanced
           </h2>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 mt-1 dark:text-neutral-400">
             Export Life CEO 5-Day Learnings to JIRA using Enhanced 44x21s Framework
           </p>
         </div>
@@ -421,7 +421,7 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.totalItems}</p>
-            <p className="text-sm text-gray-600">Total Items</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">Total Items</p>
             <Progress value={stats.completionRate} className="mt-2 h-2" />
           </CardContent>
         </Card>
@@ -432,7 +432,7 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.epics}</p>
-            <p className="text-sm text-gray-600">Epics</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">Epics</p>
             <div className="text-xs text-gray-500 mt-1">
               {stats.stories} stories
             </div>
@@ -445,7 +445,7 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.tasks}</p>
-            <p className="text-sm text-gray-600">Tasks</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">Tasks</p>
             <div className="text-xs text-gray-500 mt-1">
               {stats.subtasks} sub-tasks
             </div>
@@ -454,11 +454,11 @@ const JiraExportDashboard: React.FC = () => {
         
         <Card className="glassmorphic-card">
           <CardHeader className="pb-2">
-            <Layers className="w-5 h-5 text-cyan-500" />
+            <Layers className="w-5 h-5 text-ocean-500" />
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.layerCoverage.length}</p>
-            <p className="text-sm text-gray-600">Layers Covered</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">Layers Covered</p>
             <div className="text-xs text-gray-500 mt-1">
               {stats.phaseCoverage.length} phases
             </div>
@@ -485,18 +485,18 @@ const JiraExportDashboard: React.FC = () => {
             </TabsList>
             
             <TabsContent value="json" className="mt-4">
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
+              <Alert data-testid="link-element">
+                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+                <AlertDescription data-testid="link-element">
                   JSON format is recommended for JIRA REST API import. Includes full hierarchy and metadata.
                 </AlertDescription>
               </Alert>
             </TabsContent>
             
             <TabsContent value="csv" className="mt-4">
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
+              <Alert data-testid="link-element">
+                <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+                <AlertDescription data-testid="link-element">
                   CSV format for JIRA's External System Import. Flattened structure with basic fields.
                 </AlertDescription>
               </Alert>
@@ -504,7 +504,7 @@ const JiraExportDashboard: React.FC = () => {
           </Tabs>
           
           <div className="flex justify-between items-center pt-4">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-neutral-400">
               <p>Ready to export {stats.totalItems} items</p>
               <p className="text-xs text-gray-500 mt-1">
                 Covering {stats.layerCoverage.length} layers across {stats.phaseCoverage.length} phases
@@ -515,7 +515,7 @@ const JiraExportDashboard: React.FC = () => {
               onClick={handleExport}
               disabled={isExporting}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-            >
+             data-testid="button-bg-gradient-to-r">
               {isExporting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -531,18 +531,18 @@ const JiraExportDashboard: React.FC = () => {
           </div>
           
           {exportStatus === 'success' && (
-            <Alert className="mt-4 border-green-200 bg-green-50">
+            <Alert className="mt-4 border-green-200 bg-green-50" data-testid="link-mt-4">
               <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-700">
+              <AlertDescription className="text-green-700" data-testid="link-text-green-700">
                 Export successful! Your file has been downloaded.
               </AlertDescription>
             </Alert>
           )}
           
           {exportStatus === 'error' && (
-            <Alert className="mt-4 border-red-200 bg-red-50">
-              <AlertCircle className="h-4 w-4 text-red-600" />
-              <AlertDescription className="text-red-700">
+            <Alert className="mt-4 border-red-200 bg-red-50" data-testid="link-mt-4">
+              <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">
+              <AlertDescription className="text-red-700" data-testid="link-text-red-700">
                 Export failed. Please try again.
               </AlertDescription>
             </Alert>
@@ -560,11 +560,11 @@ const JiraExportDashboard: React.FC = () => {
             <div className="text-center py-8">
               <Key className="w-12 h-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium mb-2">Configure JIRA API Access</h3>
-              <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto">
+              <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto dark:text-neutral-400">
                 Connect directly to your JIRA instance to create issues in real-time using the 40x20s framework mapping.
               </p>
               <Button 
-                onClick={() => setShowCredentialsModal(true)}
+                onClick={() = data-testid="button-element"> setShowCredentialsModal(true)}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
               >
                 <Key className="w-4 h-4 mr-2" />
@@ -579,14 +579,14 @@ const JiraExportDashboard: React.FC = () => {
                     <CheckCircle2 className="w-4 h-4" />
                     JIRA API Connected
                   </p>
-                  <p className="text-xs text-gray-600 mt-1">
+                  <p className="text-xs text-gray-600 mt-1 dark:text-neutral-400">
                     Ready to create {stats.totalItems} items directly in JIRA
                   </p>
                 </div>
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setShowCredentialsModal(true)}
+                  onClick={() = data-testid="button-element"> setShowCredentialsModal(true)}
                 >
                   <Key className="w-3 h-3 mr-1" />
                   Update
@@ -598,15 +598,15 @@ const JiraExportDashboard: React.FC = () => {
                   jiraStatus.type === 'success' ? 'border-green-200 bg-green-50' :
                   jiraStatus.type === 'error' ? 'border-red-200 bg-red-50' :
                   'border-blue-200 bg-blue-50'
-                }`}>
+                }`} data-testid="link-element">
                   {jiraStatus.type === 'success' && <CheckCircle2 className="h-4 w-4 text-green-600" />}
-                  {jiraStatus.type === 'error' && <AlertCircle className="h-4 w-4 text-red-600" />}
+                  {jiraStatus.type === 'error' && <AlertCircle className="h-4 w-4 text-red-600" / data-testid="link-h-4">}
                   {jiraStatus.type === 'info' && <Loader2 className="h-4 w-4 text-blue-600 animate-spin" />}
                   <AlertDescription className={`${
                     jiraStatus.type === 'success' ? 'text-green-700' :
                     jiraStatus.type === 'error' ? 'text-red-700' :
                     'text-blue-700'
-                  }`}>
+                  }`} data-testid="link-element">
                     {jiraStatus.message}
                   </AlertDescription>
                 </Alert>
@@ -626,7 +626,7 @@ const JiraExportDashboard: React.FC = () => {
                 onClick={createIssuesInJira}
                 disabled={isCreatingInJira}
                 className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
-              >
+               data-testid="button-w-full">
                 {isCreatingInJira ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />

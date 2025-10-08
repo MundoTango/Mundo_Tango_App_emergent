@@ -42,7 +42,7 @@ export default function PostCard({ post }: PostCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<any[]>([]);
+  const [comments, setComments] = useState<any[] data-testid="link-element">([]);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -142,19 +142,19 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="p-4 border-b border-turquoise-100/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12 ring-2 ring-turquoise-200">
+            <Avatar className="w-12 h-12 ring-2 ring-turquoise-200" data-testid="link-w-12">
               {/* ESA LIFE CEO 61x21 - Fixed profile image with fallback */}
-              <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} />
-              <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
+              <AvatarImage src={post.user?.profileImage || '/images/default-avatar.svg'} alt={post.user?.name} / data-testid="link-element">
+              <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div>
-              <h4 className="font-semibold text-gray-800">{post.user?.name || 'Unknown User'}</h4>
+              <h4 className="font-semibold text-gray-800 dark:text-neutral-200">{post.user?.name || 'Unknown User'}</h4>
               <p className="text-sm text-turquoise-600">
                 {formatTimeAgo(post.createdAt)} • @{post.user?.username}
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600">
+          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600" data-testid="button-text-turquoise-400">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </div>
@@ -163,7 +163,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Post Content */}
       <CardContent className="p-4">
         {post.content && (
-          <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
+          <p className="text-gray-700 mb-4 whitespace-pre-wrap dark:text-neutral-300">{post.content}</p>
         )}
         
         {/* ESA LIFE CEO 61x21 - Display media files with proper video detection */}
@@ -248,7 +248,7 @@ export default function PostCard({ post }: PostCardProps) {
             onClick={handleLike}
             disabled={likeMutation.isPending}
             className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-turquoise-600'} hover:text-pink-500 transition-colors`}
-          >
+           data-testid="button-element">
             <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
             <span>Like</span>
           </Button>
@@ -256,7 +256,7 @@ export default function PostCard({ post }: PostCardProps) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setShowComments(!showComments)}
+            onClick={() = data-testid="button-element"> setShowComments(!showComments)}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
           >
             <MessageCircle className="h-5 w-5" />
@@ -268,7 +268,7 @@ export default function PostCard({ post }: PostCardProps) {
             size="sm"
             onClick={handleShare}
             className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors"
-          >
+           data-testid="button-flex">
             <Share2 className="h-5 w-5" />
             <span>Share</span>
           </Button>
@@ -279,14 +279,14 @@ export default function PostCard({ post }: PostCardProps) {
           <div className="mt-4 space-y-4">
             {/* Add Comment */}
             <div className="flex space-x-3">
-              <Avatar className="w-8 h-8">
-                <AvatarFallback>U</AvatarFallback>
+              <Avatar className="w-8 h-8" data-testid="link-w-8">
+                <AvatarFallback data-testid="link-element">U</AvatarFallback>
               </Avatar>
               <div className="flex-1 flex space-x-2">
                 <Textarea
                   placeholder="Write a comment..."
                   value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
+                  onChange={(e) = data-testid="textarea-element"> setNewComment(e.target.value)}
                   className="resize-none"
                   rows={2}
                 />
@@ -295,7 +295,7 @@ export default function PostCard({ post }: PostCardProps) {
                   onClick={handleComment}
                   disabled={commentMutation.isPending || !newComment.trim()}
                   className="bg-tango-red hover:bg-tango-red/90"
-                >
+                 data-testid="button-bg-tango-red">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -306,14 +306,14 @@ export default function PostCard({ post }: PostCardProps) {
               <div className="space-y-3">
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex space-x-3">
-                    <Avatar className="w-8 h-8">
-                      <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} />
-                      <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
+                    <Avatar className="w-8 h-8" data-testid="link-w-8">
+                      <AvatarImage src={comment.user?.profileImage} alt={comment.user?.name} / data-testid="link-element">
+                      <AvatarFallback data-testid="link-element">{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="bg-gray-100 rounded-lg p-3">
+                      <div className="bg-gray-100 rounded-lg p-3 dark:bg-neutral-800">
                         <h5 className="font-medium text-sm text-tango-black">{comment.user?.name}</h5>
-                        <p className="text-sm text-gray-700">{comment.content}</p>
+                        <p className="text-sm text-gray-700 dark:text-neutral-300">{comment.content}</p>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">
                         {formatTimeAgo(comment.createdAt)}

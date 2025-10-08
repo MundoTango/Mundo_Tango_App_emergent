@@ -46,7 +46,7 @@ export function GuestOnboardingEntrance() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-12">
       <div className="container mx-auto px-4 max-w-5xl">
         <FadeIn>
-          <GlassCard depth={3} className="border-cyan-200/30 dark:border-cyan-500/30">
+          <GlassCard depth={3} className="border-cyan-200/30 dark:border-ocean-500/30">
             <div className="p-8 md:p-12">
               <ScaleIn delay={0.1}>
                 <div className="text-center space-y-6 mb-12">
@@ -70,7 +70,7 @@ export function GuestOnboardingEntrance() {
                     <GlassCard 
                       key={index} 
                       depth={1} 
-                      className="p-5 border-cyan-200/20 dark:border-cyan-500/20 hover:border-cyan-300/40 dark:hover:border-cyan-400/40 transition-all duration-300"
+                      className="p-5 border-cyan-200/20 dark:border-ocean-500/20 hover:border-cyan-300/40 dark:hover:border-cyan-400/40 transition-all duration-300"
                       data-testid={`card-benefit-${testId}`}
                     >
                       <div className="flex gap-4">
@@ -90,7 +90,7 @@ export function GuestOnboardingEntrance() {
               </StaggerContainer>
 
               <ScaleIn delay={0.4}>
-                <GlassCard depth={1} className="p-6 mb-8 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-r from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30" data-testid="card-privacy-notice">
+                <GlassCard depth={1} className="p-6 mb-8 border-cyan-200/30 dark:border-ocean-500/30 bg-gradient-to-r from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30" data-testid="card-privacy-notice">
                   <p className="text-center text-slate-700 dark:text-slate-300">
                     <strong className="text-cyan-700 dark:text-cyan-400">🔒 {t('housing.guest_entrance.privacy_title', 'Your privacy matters:')}</strong>{' '}
                     {t('housing.guest_entrance.privacy_text', 'Your profile information is only visible to you and helps us provide better recommendations. You control what you share.')}
@@ -109,7 +109,7 @@ export function GuestOnboardingEntrance() {
                 <MagneticButton
                   onClick={() => setLocation('/community')}
                   strength={0.2}
-                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-8 py-4 text-lg text-slate-700 dark:text-slate-300 font-medium"
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-8 py-4 text-lg text-slate-700 dark:text-slate-300 font-medium"
                   data-testid="button-skip-onboarding"
                 >
                   {t('housing.guest_entrance.button_skip', 'Maybe Later')}

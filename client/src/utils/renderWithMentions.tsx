@@ -89,7 +89,7 @@ export const renderWithMentions = (text: string) => {
     }
 
     // Add the mention as a clickable link with MapPin icon for cities
-    // Use regular <a> tag for links with query params to avoid wouter encoding issues
+    // Use regular <a data-testid="link-element"> tag for links with query params to avoid wouter encoding issues
     const hasQueryParams = href.includes('?');
     parts.push(
       hasQueryParams ? (
@@ -99,7 +99,7 @@ export const renderWithMentions = (text: string) => {
           className={className}
           data-mention-type={type}
           data-mention-id={id}
-        >
+         data-testid="link-element">
           {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
           @{name}
         </a>
@@ -110,7 +110,7 @@ export const renderWithMentions = (text: string) => {
           className={className}
           data-mention-type={type}
           data-mention-id={id}
-        >
+         data-testid="link-element">
           {type === 'city' && <MapPin className="inline-block w-3 h-3 mr-0.5" />}
           @{name}
         </Link>

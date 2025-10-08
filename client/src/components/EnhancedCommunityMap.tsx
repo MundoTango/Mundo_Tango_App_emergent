@@ -291,7 +291,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   }, [cityGroupsResponse]);
   
   // Fetch events
-  const { data: events = [], isLoading: loadingEvents } = useQuery<any[]>({
+  const { data: events = [], isLoading: loadingEvents } = useQuery<any[] data-testid="link-element">({
     queryKey: ['/api/community/events-map', { city, groupSlug, dateFilter, eventFilters }],
     enabled: false, // ESA LIFE CEO 56x21 - Events disabled
     staleTime: 5 * 60 * 1000,
@@ -299,7 +299,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   });
   
   // Fetch host homes
-  const { data: homes = [], isLoading: loadingHomes } = useQuery<any[]>({
+  const { data: homes = [], isLoading: loadingHomes } = useQuery<any[] data-testid="link-element">({
     queryKey: ['/api/community/homes-map', { city, groupSlug, friendFilter }],
     enabled: false, // ESA LIFE CEO 56x21 - Housing disabled
     staleTime: 5 * 60 * 1000,
@@ -307,7 +307,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
   });
   
   // Fetch recommendations
-  const { data: recommendations = [], isLoading: loadingRecs } = useQuery<any[]>({
+  const { data: recommendations = [], isLoading: loadingRecs } = useQuery<any[] data-testid="link-element">({
     queryKey: ['/api/community/recommendations-map', { city, groupSlug, friendFilter, recommendationType }],
     enabled: false, // ESA LIFE CEO 56x21 - Recommendations disabled
     staleTime: 5 * 60 * 1000,
@@ -534,7 +534,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
               </div>
             {item.isCluster ? (
               <div>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">
                   {item.clusterCount} {config.name.toLowerCase()} in this area
                 </p>
                 <div className="space-y-1 max-h-40 overflow-y-auto">
@@ -553,7 +553,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             ) : (
               <>
                 {item.description && (
-                  <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+                  <p className="text-sm text-gray-600 mb-3 dark:text-neutral-400">{item.description}</p>
                 )}
                 {/* ESA LIFE CEO 56x21 - MT Design city group statistics */}
                 {item.type === 'cityGroup' && (
@@ -572,7 +572,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                             <div className="text-2xl font-bold bg-gradient-to-r from-turquoise-700 to-cyan-700 bg-clip-text text-transparent">
                               {item.memberCount || 0}
                             </div>
-                            <div className="text-xs text-gray-700 font-medium">People</div>
+                            <div className="text-xs text-gray-700 font-medium dark:text-neutral-300">People</div>
                           </div>
                         </div>
                       </div>
@@ -587,7 +587,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                             <div className="text-2xl font-bold bg-gradient-to-r from-cyan-700 to-blue-700 bg-clip-text text-transparent">
                               {item.eventCount || 0}
                             </div>
-                            <div className="text-xs text-gray-700 font-medium">Events</div>
+                            <div className="text-xs text-gray-700 font-medium dark:text-neutral-300">Events</div>
                           </div>
                         </div>
                       </div>
@@ -602,7 +602,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                             <div className="text-2xl font-bold bg-gradient-to-r from-teal-700 to-green-700 bg-clip-text text-transparent">
                               {item.hostCount || 0}
                             </div>
-                            <div className="text-xs text-gray-700 font-medium">Hosts</div>
+                            <div className="text-xs text-gray-700 font-medium dark:text-neutral-300">Hosts</div>
                           </div>
                         </div>
                       </div>
@@ -617,7 +617,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                             <div className="text-2xl font-bold bg-gradient-to-r from-yellow-700 to-orange-700 bg-clip-text text-transparent">
                               {item.recommendationCount || 0}
                             </div>
-                            <div className="text-xs text-gray-700 font-medium">Tips</div>
+                            <div className="text-xs text-gray-700 font-medium dark:text-neutral-300">Tips</div>
                           </div>
                         </div>
                       </div>
@@ -691,7 +691,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
                 type="text"
                 placeholder="Search locations..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
                 className="pl-10 pr-4"
               />
             </div>
@@ -711,7 +711,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             {Object.entries(LAYER_CONFIG).filter(([key]) => key === 'cityGroup').map(([key, config]) => (
               <button
                 key={key}
-                onClick={() => toggleLayer(key as keyof typeof layerVisibility)}
+                onClick={() = data-testid="button-element"> toggleLayer(key as keyof typeof layerVisibility)}
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm",
                   layerVisibility[key as keyof typeof layerVisibility]
@@ -737,16 +737,16 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         <Card className="glassmorphic-card">
           <CardContent className="p-3 space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-600">Total Markers:</span>
+              <span className="text-gray-600 dark:text-neutral-400">Total Markers:</span>
               <Badge variant="secondary">{mapStats.totalMarkers}</Badge>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-600">Visible:</span>
+              <span className="text-gray-600 dark:text-neutral-400">Visible:</span>
               <Badge variant="secondary">{mapStats.visibleMarkers}</Badge>
             </div>
             {showClusters && (
               <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-600">Clusters:</span>
+                <span className="text-gray-600 dark:text-neutral-400">Clusters:</span>
                 <Badge variant="secondary">{mapStats.clusters}</Badge>
               </div>
             )}
@@ -759,7 +759,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
         <Button
           size="sm"
           variant="outline"
-          onClick={() => setShowClusters(!showClusters)}
+          onClick={() = data-testid="button-element"> setShowClusters(!showClusters)}
           className="glassmorphic-card"
           data-tooltip-id="cluster-tooltip"
           data-tooltip-content={showClusters ? "Disable clustering" : "Enable clustering"}
@@ -774,7 +774,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           className="glassmorphic-card"
           data-tooltip-id="refresh-tooltip"
           data-tooltip-content="Refresh map data"
-        >
+         data-testid="button-glassmorphic-card">
           <RefreshCw className="h-4 w-4" />
         </Button>
         
@@ -789,7 +789,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             className="glassmorphic-card"
             data-tooltip-id="export-tooltip"
             data-tooltip-content="Export map data as CSV"
-          >
+           data-testid="button-glassmorphic-card">
             <Download className="h-4 w-4" />
           </Button>
         </CSVLink>
@@ -801,7 +801,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           className="glassmorphic-card"
           data-tooltip-id="fullscreen-tooltip"
           data-tooltip-content={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-        >
+         data-testid="button-glassmorphic-card">
           {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
         </Button>
       </div>
@@ -822,7 +822,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a> contributors'
             />
             
             <ZoomControl position="bottomright" />
@@ -846,7 +846,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
           <GlassCard depth={1} className="absolute inset-0 flex items-center justify-center z-[999]"
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading map data...</p>
+              <p className="text-gray-600 dark:text-neutral-400">Loading map data...</p>
             </div>
           </div>
         )}
@@ -862,7 +862,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
       {/* Keyboard shortcuts help */}
       <div className="absolute bottom-4 left-4 z-[1000]">
         <Card className="glassmorphic-card">
-          <CardContent className="p-2 text-xs text-gray-600">
+          <CardContent className="p-2 text-xs text-gray-600 dark:text-neutral-400">
             <div className="flex items-center gap-2">
               <Info className="h-3 w-3" />
               <span>Shortcuts: ⌘/Ctrl + (+/-) to zoom, ⌘/Ctrl + 0 to reset</span>

@@ -109,7 +109,7 @@ export const InteractiveAnimations: Story = () => (
     <div className="space-y-8">
       <div>
         <h3 className="text-lg font-semibold text-white mb-4">Animated Card (Hover & Tap)</h3>
-        <AnimatedCard className="max-w-md">
+        <AnimatedCard className="max-w-md" data-testid="link-max-w-md">
           <GlassCard depth={2} className="p-6">
             <h4 className="text-lg font-semibold mb-2">Interactive Card</h4>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">
@@ -122,10 +122,10 @@ export const InteractiveAnimations: Story = () => (
       <div>
         <h3 className="text-lg font-semibold text-white mb-4">Animated Buttons</h3>
         <div className="flex gap-4">
-          <AnimatedButton className="px-6 py-3 bg-cyan-500 text-white rounded-lg font-semibold">
+          <AnimatedButton className="px-6 py-3 bg-ocean-500 text-white rounded-lg font-semibold" data-testid="link-px-6">
             Primary Button
           </AnimatedButton>
-          <AnimatedButton className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold">
+          <AnimatedButton className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold" data-testid="link-px-6">
             Glass Button
           </AnimatedButton>
         </div>

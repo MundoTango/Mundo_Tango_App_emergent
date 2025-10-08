@@ -115,8 +115,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
         <div className="text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
-          <p className="text-gray-600 mb-4">You don't have permission to access this area.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Access Denied</h1>
+          <p className="text-gray-600 mb-4 dark:text-neutral-400">You don't have permission to access this area.</p>
           <Button onClick={() => setLocation('/')} variant="outline">
             Go to Homepage
           </Button>
@@ -136,7 +136,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               variant="ghost"
               size="icon"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="text-gray-600 hover:text-teal-600"
+              className="text-gray-600 hover:text-teal-600 dark:text-neutral-400"
             >
               {sidebarCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
             </Button>
@@ -160,7 +160,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search users, content, or settings..."
-                className="pl-10 bg-gray-50 border-gray-200 focus:border-teal-300"
+                className="pl-10 bg-gray-50 border-gray-200 focus:border-teal-300 dark:bg-neutral-800"
               />
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Notifications */}
             <Button variant="ghost" size="icon" className="relative">
-              <Bell className="w-5 h-5 text-gray-600" />
+              <Bell className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
             </Button>
 

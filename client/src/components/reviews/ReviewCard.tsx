@@ -70,9 +70,9 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
 
   return (
     <ScaleIn delay={0.05}>
-      <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-cyan-500/30" data-testid={`review-card-${review.id}`}>
+      <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-ocean-500/30" data-testid={`review-card-${review.id}`}>
         <div className="flex gap-4">
-          <Avatar className="w-12 h-12 glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30">
+          <Avatar className="w-12 h-12 glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30">
             <AvatarImage src="" />
             <AvatarFallback className="bg-gradient-to-br from-cyan-100 to-teal-100 dark:from-cyan-900/40 dark:to-teal-900/40 text-cyan-700 dark:text-cyan-300">
               {isHostReview ? "G" : "H"}
@@ -214,7 +214,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
             {isHostReview && (review as HostReview).photos && (review as HostReview).photos!.length > 0 && (
               <div className="flex gap-2 mb-4">
                 {(review as HostReview).photos!.map((photo, index) => (
-                  <div key={index} className="glass-card glass-depth-1 p-1 rounded-lg border-cyan-200/30 dark:border-cyan-500/30">
+                  <div key={index} className="glass-card glass-depth-1 p-1 rounded-lg border-cyan-200/30 dark:border-ocean-500/30">
                     <img
                       src={photo}
                       alt={`Review photo ${index + 1}`}
@@ -227,7 +227,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
 
             {/* Response */}
             {hasResponse && (
-              <GlassCard depth={1} className="mt-4 p-4 border-l-2 border-cyan-400 dark:border-cyan-500 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
+              <GlassCard depth={1} className="mt-4 p-4 border-l-2 border-cyan-400 dark:border-ocean-500 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                 <p className="text-sm font-medium text-cyan-900 dark:text-cyan-200 mb-1">
                   {isHostReview 
                     ? t('housing.reviews.host_response_label', 'Host Response') 
@@ -262,7 +262,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                   <MagneticButton
                     onClick={() => setShowResponseForm(true)}
                     strength={0.2}
-                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 text-cyan-700 dark:text-cyan-300"
+                    className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 px-4 py-2 text-cyan-700 dark:text-cyan-300"
                     data-testid="button-respond"
                   >
                     {t('housing.reviews.respond_button', 'Respond')}
@@ -274,7 +274,7 @@ export function ReviewCard({ review, type, canRespond = false }: ReviewCardProps
                       onChange={(e) => setResponseText(e.target.value)}
                       placeholder={t('housing.reviews.response_placeholder', 'Write your response...')}
                       rows={3}
-                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
+                      className="glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
                       data-testid="input-response"
                     />
                     <div className="flex gap-2">

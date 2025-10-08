@@ -79,7 +79,7 @@ export default function MTTimelineList({
       case 'completed':
         return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'current':
-        return <Circle className="w-5 h-5 text-teal-500 fill-current" />;
+        return <Circle className="w-5 h-5 text-ocean-500 fill-current" />;
       case 'cancelled':
         return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'upcoming':
@@ -171,7 +171,7 @@ export default function MTTimelineList({
           {showConnector && !isLast && (
             <div className={cn(
               'absolute top-10 w-0.5 bg-gray-300 dark:bg-gray-700',
-              isCondensed ? 'h-[calc(100%+1rem)]' : 'h-[calc(100%+2rem)]'
+              isCondensed ? 'h-[calc(100%+var(--spacing-4))]' : 'h-[calc(100%+var(--spacing-8))]'
             )} />
           )}
         </div>

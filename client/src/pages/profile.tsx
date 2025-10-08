@@ -200,7 +200,7 @@ export default function Profile() {
         {/* Story Highlights - REMOVED per user request */}
 
         {/* Profile Content Tabs */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-white rounded-lg shadow-sm dark:bg-neutral-900">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0">
               <TabsTrigger 
@@ -302,22 +302,22 @@ export default function Profile() {
                               <UserCheck className="w-4 h-4 text-green-500" />
                               <span className="text-sm text-green-600">Verified Guest</span>
                             </div>
-                            <p className="text-xs text-gray-600">Ready to request stays with hosts</p>
+                            <p className="text-xs text-gray-600 dark:text-neutral-400">Ready to request stays with hosts</p>
                             <Button 
                               size="sm" 
                               variant="outline"
                               className="w-full text-xs border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                            >
+                             data-testid="button-w-full">
                               View Full Profile
                             </Button>
                           </div>
                         ) : (
                           <div className="text-center space-y-3">
                             <UserCheck className="w-8 h-8 text-gray-300 mx-auto" />
-                            <p className="text-xs text-gray-600">Create your guest profile to be housed by Hosts in the global tango community</p>
+                            <p className="text-xs text-gray-600 dark:text-neutral-400">Create your guest profile to be housed by Hosts in the global tango community</p>
                             <Button 
                               size="sm"
-                              onClick={() => setLocation('/guest-onboarding')}
+                              onClick={() = data-testid="button-element"> setLocation('/guest-onboarding')}
                               className="w-full text-xs bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
                             >
                               Create Profile
@@ -343,13 +343,13 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() => setActiveTab('about')}
+                            onClick={() = data-testid="button-element"> setActiveTab('about')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             Edit
                           </Button>
                         </div>
-                        <p className="text-sm text-gray-600 line-clamp-3 mb-3">
+                        <p className="text-sm text-gray-600 line-clamp-3 mb-3 dark:text-neutral-400">
                           {(user as any)?.bio || "Share your tango story..."}
                         </p>
                         {(user as any)?.tangoRoles && (user as any).tangoRoles.length > 0 && (
@@ -372,7 +372,7 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() => setActiveTab('travel')}
+                            onClick={() = data-testid="button-element"> setActiveTab('travel')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View
@@ -381,13 +381,13 @@ export default function Profile() {
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <MapPin className="w-3 h-3 text-turquoise-500" />
-                            <span className="text-sm text-gray-600">
+                            <span className="text-sm text-gray-600 dark:text-neutral-400">
                               {(user as any)?.city ? `${(user as any).city}${(user as any).country ? `, ${(user as any).country}` : ''}` : "Add location"}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Globe className="w-3 h-3 text-cyan-500" />
-                            <span className="text-sm text-gray-600">
+                            <Globe className="w-3 h-3 text-ocean-500" />
+                            <span className="text-sm text-gray-600 dark:text-neutral-400">
                               {(user as any)?.languages ? `${(user as any).languages.length} languages` : "Add languages"}
                             </span>
                           </div>
@@ -403,14 +403,14 @@ export default function Profile() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            onClick={() => setActiveTab('friends')}
+                            onClick={() = data-testid="button-element"> setActiveTab('friends')}
                             className="text-xs text-turquoise-600 hover:text-turquoise-700"
                           >
                             View All
                           </Button>
                         </div>
                         <div className="space-y-2">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">
                             {statsData?.friendsCount ? `${statsData.friendsCount} friends` : "No friends yet"}
                           </p>
                           {/* Friend Avatars Preview */}
@@ -468,7 +468,7 @@ export default function Profile() {
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                      >
+                       data-testid="button-border-turquoise-200">
                         <Calendar className="w-4 h-4 mr-2" />
                         Create Event
                       </Button>
@@ -501,7 +501,7 @@ export default function Profile() {
 
                     {/* Event List Placeholder */}
                     <div className="space-y-4">
-                      <h4 className="font-semibold text-gray-800">Recent Events</h4>
+                      <h4 className="font-semibold text-gray-800 dark:text-neutral-200">Recent Events</h4>
                       <div className="text-center p-8 bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 rounded-lg border-2 border-dashed border-turquoise-200">
                         <Calendar className="w-12 h-12 mx-auto text-turquoise-400 mb-4" />
                         <h5 className="text-lg font-medium text-turquoise-700 mb-2">No events yet</h5>
@@ -510,7 +510,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() => setActiveTab('about')}
+                          onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('about')}
                         >
                           Explore Events
                         </Button>
@@ -538,11 +538,11 @@ export default function Profile() {
                         Media Gallery
                       </h3>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50">
+                        <Button variant="outline" size="sm" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photo
                         </Button>
-                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50">
+                        <Button variant="outline" size="sm" className="border-cyan-200 text-cyan-700 hover:bg-cyan-50" data-testid="button-border-cyan-200">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Video
                         </Button>
@@ -555,28 +555,28 @@ export default function Profile() {
                         variant="default" 
                         size="sm"
                         className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
-                      >
+                       data-testid="button-bg-gradient-to-r">
                         All Media
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                      >
+                       data-testid="button-border-turquoise-200">
                         📸 Photos Only
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-cyan-200 text-cyan-700 hover:bg-cyan-50"
-                      >
+                       data-testid="button-border-cyan-200">
                         🎥 Videos Only
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm"
                         className="border-purple-200 text-purple-700 hover:bg-purple-50"
-                      >
+                       data-testid="button-border-purple-200">
                         🎵 Dance Videos
                       </Button>
                     </div>
@@ -596,13 +596,13 @@ export default function Profile() {
                           <div className="absolute bottom-2 left-2 right-2">
                             <Badge 
                               variant="secondary" 
-                              className="text-xs bg-white/80 text-gray-700"
+                              className="text-xs bg-white/80 text-gray-700 dark:bg-neutral-900"
                             >
                               {item % 3 === 0 ? "Video" : "Photo"}
                             </Badge>
                           </div>
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 bg-white/80 hover:bg-white dark:bg-neutral-900" data-testid="button-h-8">
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
@@ -624,7 +624,7 @@ export default function Profile() {
                         <Button 
                           size="sm"
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                        >
+                         data-testid="button-bg-gradient-to-r">
                           <Camera className="w-4 h-4 mr-2" />
                           Upload Photos
                         </Button>
@@ -632,7 +632,7 @@ export default function Profile() {
                           size="sm"
                           variant="outline"
                           className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
-                        >
+                         data-testid="button-border-turquoise-200">
                           <Video className="w-4 h-4 mr-2" />
                           Upload Videos
                         </Button>
@@ -648,12 +648,12 @@ export default function Profile() {
                   <CardContent className="p-12 text-center">
                     <Video className="w-16 h-16 mx-auto text-cyan-400 mb-4" />
                     <h3 className="text-xl font-semibold mb-2">Videos are now in Media Gallery</h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-4 dark:text-neutral-400">
                       We've combined photos and videos into one place with smart filtering.
                     </p>
                     <Button 
                       className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                      onClick={() => setActiveTab('photos')}
+                      onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('photos')}
                     >
                       View Media Gallery
                     </Button>
@@ -710,7 +710,7 @@ export default function Profile() {
 
                     {/* Professional Experience by Category */}
                     <div className="space-y-6">
-                      <h4 className="font-semibold text-gray-800 text-lg">Professional Experience</h4>
+                      <h4 className="font-semibold text-gray-800 text-lg dark:text-neutral-200">Professional Experience</h4>
                       
                       {/* Teacher Experience */}
                       <div className="space-y-4">
@@ -721,15 +721,15 @@ export default function Profile() {
                         <div className="border-l-4 border-turquoise-400 pl-6 py-4 bg-gradient-to-r from-turquoise-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Intermediate Tango Instructor</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Intermediate Tango Instructor</h6>
                               <p className="text-turquoise-600 font-medium">Buenos Aires Tango Festival 2024</p>
-                              <p className="text-gray-600 text-sm">Taught advanced technique to 50+ international students</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-400">Taught advanced technique to 50+ international students</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2020</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200">
+                            <Button variant="outline" size="sm" className="text-turquoise-600 border-turquoise-200" data-testid="button-text-turquoise-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -745,15 +745,15 @@ export default function Profile() {
                         <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Milonga Organizer</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Milonga Organizer</h6>
                               <p className="text-cyan-600 font-medium">Monthly Practica Series</p>
-                              <p className="text-gray-600 text-sm">Coordinated weekly events for 100+ dancers</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-400">Coordinated weekly events for 100+ dancers</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2022</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200">
+                            <Button variant="outline" size="sm" className="text-cyan-600 border-cyan-200" data-testid="button-text-cyan-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -769,15 +769,15 @@ export default function Profile() {
                         <div className="border-l-4 border-purple-400 pl-6 py-4 bg-gradient-to-r from-purple-50/30 to-transparent">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h6 className="font-semibold text-gray-900">Resident DJ</h6>
+                              <h6 className="font-semibold text-gray-900 dark:text-neutral-100">Resident DJ</h6>
                               <p className="text-purple-600 font-medium">La Milonguita Weekly</p>
-                              <p className="text-gray-600 text-sm">Curated traditional tandas for intimate milonga setting</p>
+                              <p className="text-gray-600 text-sm dark:text-neutral-400">Curated traditional tandas for intimate milonga setting</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span>📅 Started: 2021</span>
                                 <span>⭐ Years dancing: 8</span>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
+                            <Button variant="outline" size="sm" className="text-purple-600 border-purple-200" data-testid="button-text-purple-600">
                               + Add Entry
                             </Button>
                           </div>
@@ -787,9 +787,9 @@ export default function Profile() {
                       <div className="border-l-4 border-cyan-400 pl-6 py-4 bg-gradient-to-r from-cyan-50/30 to-transparent">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h5 className="font-semibold text-gray-900">DJ & Music Curator</h5>
+                            <h5 className="font-semibold text-gray-900 dark:text-neutral-100">DJ & Music Curator</h5>
                             <p className="text-cyan-600 font-medium">Milonga Luna - Weekly Series</p>
-                            <p className="text-gray-600 text-sm">Curated and performed music for weekly milonga events</p>
+                            <p className="text-gray-600 text-sm dark:text-neutral-400">Curated and performed music for weekly milonga events</p>
                             <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                               <span>📅 Jan-Dec 2024</span>
                               <span>📍 Local Community</span>
@@ -809,7 +809,7 @@ export default function Profile() {
                         </p>
                         <Button 
                           className="bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700 text-white"
-                          onClick={() => setActiveTab('events')}
+                          onClick={() = data-testid="button-bg-gradient-to-r"> setActiveTab('events')}
                         >
                           Browse Events
                         </Button>
@@ -841,11 +841,11 @@ export default function Profile() {
                   <Card className="glassmorphic-card">
                     <CardContent className="p-12 text-center">
                       <UserCheck className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No Guest Profile</h3>
-                      <p className="text-gray-600 mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-neutral-100">No Guest Profile</h3>
+                      <p className="text-gray-600 mb-4 dark:text-neutral-400">
                         Create your guest profile to start browsing and requesting stays with hosts.
                       </p>
-                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700">
+                      <a href="/guest-onboarding" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-turquoise-500 to-cyan-600 hover:from-turquoise-600 hover:to-cyan-700" data-testid="link-inline-flex">
                         Create Guest Profile
                       </a>
                     </CardContent>

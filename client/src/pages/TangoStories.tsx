@@ -134,7 +134,7 @@ export default function TangoStories() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Tango Stories
           </h1>
-          <p className="text-gray-600">Share and discover personal tango journeys from around the world</p>
+          <p className="text-gray-600 dark:text-neutral-400">Share and discover personal tango journeys from around the world</p>
         </div>
 
         {/* Search and Create */}
@@ -145,12 +145,12 @@ export default function TangoStories() {
               type="text"
               placeholder="Search stories..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) = data-testid="input-element"> setSearchQuery(e.target.value)}
               className="pl-10 glassmorphic-input"
             />
           </div>
           <Button
-            onClick={() => setShowCreateModal(true)}
+            onClick={() = data-testid="button-element"> setShowCreateModal(true)}
             className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
           >
             <PenTool className="w-4 h-4 mr-2" />
@@ -167,7 +167,7 @@ export default function TangoStories() {
                 key={tag}
                 variant={selectedTag === tag ? "default" : "outline"}
                 size="sm"
-                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                onClick={() = data-testid="button-element"> setSelectedTag(selectedTag === tag ? null : tag)}
                 className={selectedTag === tag ? "bg-turquoise-600 hover:bg-turquoise-700" : ""}
               >
                 {tag}
@@ -185,9 +185,9 @@ export default function TangoStories() {
           <Card className="glassmorphic-card p-12 text-center">
             <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
-            <p className="text-gray-600 mb-4">Be the first to share your tango journey!</p>
+            <p className="text-gray-600 mb-4 dark:text-neutral-400">Be the first to share your tango journey!</p>
             <Button
-              onClick={() => setShowCreateModal(true)}
+              onClick={() = data-testid="button-element"> setShowCreateModal(true)}
               className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
             >
               Share Your Story
@@ -205,19 +205,19 @@ export default function TangoStories() {
                       </div>
                       <div>
                         <h3 className="font-semibold">{story.author.name}</h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-neutral-400">
                           @{story.author.username} • {new Date(story.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <Share2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <h2 className="text-xl font-bold mb-3">{story.title}</h2>
-                  <p className="text-gray-700 whitespace-pre-wrap mb-4 line-clamp-5">
+                  <p className="text-gray-700 whitespace-pre-wrap mb-4 line-clamp-5 dark:text-neutral-300">
                     {story.content}
                   </p>
                   
@@ -225,7 +225,7 @@ export default function TangoStories() {
                   {(story.location || story.tags.length > 0) && (
                     <div className="flex flex-wrap items-center gap-2 mb-4">
                       {story.location && (
-                        <span className="flex items-center gap-1 text-sm text-gray-600">
+                        <span className="flex items-center gap-1 text-sm text-gray-600 dark:text-neutral-400">
                           <MapPin className="w-3 h-3" />
                           {story.location}
                         </span>
@@ -243,17 +243,17 @@ export default function TangoStories() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => likeStoryMutation.mutate(story.id)}
+                      onClick={() = data-testid="button-element"> likeStoryMutation.mutate(story.id)}
                       className={story.isLiked ? 'text-red-500' : ''}
                     >
                       <Heart className={`w-4 h-4 mr-1 ${story.isLiked ? 'fill-current' : ''}`} />
                       {story.likes}
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <MessageCircle className="w-4 h-4 mr-1" />
                       {story.comments}
                     </Button>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" data-testid="button-element">
                       <Share2 className="w-4 h-4 mr-1" />
                       {story.shares}
                     </Button>
@@ -277,7 +277,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Title</label>
                     <Input
                       value={newStory.title}
-                      onChange={(e) => setNewStory({ ...newStory, title: e.target.value })}
+                      onChange={(e) = data-testid="input-element"> setNewStory({ ...newStory, title: e.target.value })}
                       placeholder="Give your story a title..."
                       className="glassmorphic-input"
                     />
@@ -287,7 +287,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Your Story</label>
                     <Textarea
                       value={newStory.content}
-                      onChange={(e) => setNewStory({ ...newStory, content: e.target.value })}
+                      onChange={(e) = data-testid="textarea-element"> setNewStory({ ...newStory, content: e.target.value })}
                       placeholder="Share your tango journey, memorable moments, or lessons learned..."
                       className="glassmorphic-input min-h-[200px]"
                     />
@@ -297,7 +297,7 @@ export default function TangoStories() {
                     <label className="block text-sm font-medium mb-2">Location (Optional)</label>
                     <Input
                       value={newStory.location}
-                      onChange={(e) => setNewStory({ ...newStory, location: e.target.value })}
+                      onChange={(e) = data-testid="input-element"> setNewStory({ ...newStory, location: e.target.value })}
                       placeholder="Buenos Aires, Argentina"
                       className="glassmorphic-input"
                     />
@@ -312,7 +312,7 @@ export default function TangoStories() {
                           type="button"
                           variant={newStory.tags.includes(tag) ? "default" : "outline"}
                           size="sm"
-                          onClick={() => {
+                          onClick={() = data-testid="button-element"> {
                             setNewStory({
                               ...newStory,
                               tags: newStory.tags.includes(tag)
@@ -333,11 +333,11 @@ export default function TangoStories() {
                       onClick={handleCreateStory}
                       disabled={createStoryMutation.isPending}
                       className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-                    >
+                     data-testid="button-flex-1">
                       {createStoryMutation.isPending ? 'Publishing...' : 'Publish Story'}
                     </Button>
                     <Button
-                      onClick={() => setShowCreateModal(false)}
+                      onClick={() = data-testid="button-element"> setShowCreateModal(false)}
                       variant="outline"
                       className="flex-1"
                     >

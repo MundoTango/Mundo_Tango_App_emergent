@@ -45,7 +45,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         </h1>
         <Dialog open={showRecurringManager} onOpenChange={setShowRecurringManager}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600">
+            <Button className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
               <Plus className="w-4 h-4 mr-2" />
               Create Recurring Events
             </Button>
@@ -71,13 +71,13 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
               {myEvents?.map((event) => (
                 <Card key={event.id} className="glassmorphic-card p-4 hover:shadow-lg transition-shadow">
                   <div className="mb-3">
-                    <h3 className="font-semibold text-lg text-gray-800">{event.title}</h3>
+                    <h3 className="font-semibold text-lg text-gray-800 dark:text-neutral-200">{event.title}</h3>
                     <Badge className="bg-turquoise-100 text-turquoise-800">
                       {event.eventType}
                     </Badge>
                   </div>
                   
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-gray-600 dark:text-neutral-400">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
                       {format(new Date(event.startDate), 'MMM d, yyyy')}
@@ -93,7 +93,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                   </div>
 
                   {event.isEventPage && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-neutral-700">
                       <p className="text-xs text-gray-500">
                         Event Page: {event.allowEventPagePosts ? 'Posts allowed' : 'Posts disabled'}
                       </p>
@@ -105,7 +105,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => {
+                        onClick={() = data-testid="button-element"> {
                           setSelectedEvent(event);
                           setShowDelegationPanel(true);
                         }}
@@ -124,11 +124,11 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         <TabsContent value="recurring">
           <div className="glassmorphic-card p-6">
             <h2 className="text-xl font-semibold mb-4">Recurring Event Series</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 mb-4 dark:text-neutral-400">
               Manage your recurring events here. You can create weekly milongas, monthly workshops, or any repeating event pattern.
             </p>
             <Button
-              onClick={() => setShowRecurringManager(true)}
+              onClick={() = data-testid="button-element"> setShowRecurringManager(true)}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500"
             >
               Create New Series
@@ -139,7 +139,7 @@ export default function EventsBoard({ currentUserId }: { currentUserId: number }
         <TabsContent value="delegated">
           <div className="glassmorphic-card p-6">
             <h2 className="text-xl font-semibold mb-4">Delegated Events</h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-neutral-400">
               Events where you have been assigned as an admin or moderator will appear here.
             </p>
           </div>

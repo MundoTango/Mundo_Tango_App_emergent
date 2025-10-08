@@ -97,16 +97,16 @@ const MTDrawer: React.FC<MTDrawerProps> = ({
       bottom: 'h-64'
     },
     lg: {
-      left: 'w-[32rem]',
-      right: 'w-[32rem]',
+      left: 'w-[3var(--spacing-8)]',
+      right: 'w-[3var(--spacing-8)]',
       top: 'h-96',
       bottom: 'h-96'
     },
     xl: {
       left: 'w-[40rem]',
       right: 'w-[40rem]',
-      top: 'h-[32rem]',
-      bottom: 'h-[32rem]'
+      top: 'h-[3var(--spacing-8)]',
+      bottom: 'h-[3var(--spacing-8)]'
     }
   };
 

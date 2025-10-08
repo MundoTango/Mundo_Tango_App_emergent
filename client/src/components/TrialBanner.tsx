@@ -72,7 +72,7 @@ const TrialBanner: React.FC = () => {
     if (completed) {
       return (
         <div className="text-red-600 font-semibold">
-          Trial Expired - <Link href="/subscribe" className="underline">Subscribe Now</Link>
+          Trial Expired - <Link href="/subscribe" className="underline" data-testid="link-underline">Subscribe Now</Link>
         </div>
       );
     } else {
@@ -165,7 +165,7 @@ const TrialBanner: React.FC = () => {
 
                     {/* Progress */}
                     <div className="flex items-center gap-2 min-w-[200px]">
-                      <span className="text-sm text-gray-600">Trial Progress:</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-400">Trial Progress:</span>
                       <Progress value={progress} className="h-2 flex-1" />
                       <span className="text-sm font-medium">{Math.round(progress)}%</span>
                     </div>
@@ -184,13 +184,13 @@ const TrialBanner: React.FC = () => {
 
                 {/* CTA */}
                 <div className="flex items-center gap-3">
-                  <Link href="/subscribe">
+                  <Link href="/subscribe" data-testid="link-element">
                     <Button 
                       className={`${
                         isLastDay ? 'bg-red-600 hover:bg-red-700' : 
                         'bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600'
                       } text-white`}
-                      onClick={() => {
+                      onClick={() = data-testid="button-element"> {
                         if (!isLastDay) setShowConfetti(true);
                       }}
                     >
@@ -203,8 +203,8 @@ const TrialBanner: React.FC = () => {
                     variant="ghost"
                     size="icon"
                     onClick={handleDismiss}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
+                    className="text-gray-500 hover:text-gray-700 dark:text-neutral-300"
+                   data-testid="button-text-gray-500">
                     <X className="w-4 h-4" />
                   </Button>
                 </div>
@@ -213,7 +213,7 @@ const TrialBanner: React.FC = () => {
 
             {/* Benefits reminder */}
             {isUrgent && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-neutral-700">
                 <div className="flex items-center justify-center gap-8 text-sm">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-600" />

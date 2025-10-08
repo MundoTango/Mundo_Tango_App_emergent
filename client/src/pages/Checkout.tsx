@@ -91,16 +91,16 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
       </div>
 
       {errorMessage && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{errorMessage}</AlertDescription>
+        <Alert variant="destructive" data-testid="link-element">
+          <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+          <AlertDescription data-testid="link-element">{errorMessage}</AlertDescription>
         </Alert>
       )}
 
       <div className="flex gap-4">
-        <Link href="/subscribe">
-          <Button type="button" variant="outline" className="flex items-center gap-2">
-            <ArrowLeft className="w-4 h-4" />
+        <Link href="/subscribe" data-testid="link-element">
+          <Button type="button" variant="outline" className="flex items-center gap-2" data-testid="button-flex">
+            <ArrowLeft className="w-4 h-4" / data-testid="link-w-4">
             Back to Plans
           </Button>
         </Link>
@@ -109,7 +109,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ tier, clientSecret, promoCo
           type="submit" 
           disabled={!stripe || isProcessing}
           className="flex-1 bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-        >
+         data-testid="button-flex-1">
           {isProcessing ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -141,7 +141,7 @@ const Checkout: React.FC = () => {
   
   const [promoCode, setPromoCode] = useState('');
   const [isApplyingPromo, setIsApplyingPromo] = useState(false);
-  const [appliedPromo, setAppliedPromo] = useState<any>(null);
+  const [appliedPromo, setAppliedPromo] = useState<any data-testid="link-element">(null);
   
   // Fetch subscription tiers for pricing display
   const { data: tiersData } = useQuery({
@@ -215,14 +215,14 @@ const Checkout: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
         <div className="max-w-md mx-auto px-4">
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
+          <Alert variant="destructive" data-testid="link-element">
+            <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+            <AlertDescription data-testid="link-element">
               {error?.message || 'Failed to initialize payment. Please try again.'}
             </AlertDescription>
           </Alert>
-          <Link href="/subscribe" className="mt-4 inline-block">
-            <Button variant="outline">Back to Plans</Button>
+          <Link href="/subscribe" className="mt-4 inline-block" data-testid="link-mt-4">
+            <Button variant="outline" data-testid="button-element">Back to Plans</Button>
           </Link>
         </div>
       </div>
@@ -238,8 +238,8 @@ const Checkout: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Complete Your Subscription</h1>
-          <p className="text-gray-600">Secure payment powered by Stripe</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Complete Your Subscription</h1>
+          <p className="text-gray-600 dark:text-neutral-400">Secure payment powered by Stripe</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -289,14 +289,14 @@ const Checkout: React.FC = () => {
                         id="promo"
                         placeholder="Enter code"
                         value={promoCode}
-                        onChange={(e) => setPromoCode(e.target.value)}
+                        onChange={(e) = data-testid="input-element"> setPromoCode(e.target.value)}
                         className="flex-1"
                       />
                       <Button
                         onClick={handleApplyPromo}
                         disabled={applyPromoMutation.isPending || !promoCode.trim()}
                         variant="outline"
-                      >
+                       data-testid="button-element">
                         {applyPromoMutation.isPending ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
@@ -309,9 +309,9 @@ const Checkout: React.FC = () => {
 
                 {/* Features */}
                 <div className="pt-4 space-y-2">
-                  <p className="text-sm font-medium text-gray-700">Included features:</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Included features:</p>
                   {selectedTier?.features?.slice(0, 5).map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600 dark:text-neutral-400">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                       <span>{feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
                     </div>
@@ -342,7 +342,7 @@ const Checkout: React.FC = () => {
                       theme: 'stripe',
                       variables: {
                         colorPrimary: '#14b8a6',
-                        colorBackground: '#ffffff',
+                        colorBackground: 'var(--color-neutral-0)',
                         colorText: '#1f2937',
                         colorDanger: '#ef4444',
                         fontFamily: 'system-ui, sans-serif',

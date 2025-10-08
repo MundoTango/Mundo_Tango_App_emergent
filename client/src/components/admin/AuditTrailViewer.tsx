@@ -192,7 +192,7 @@ export default function AuditTrailViewer() {
     switch (severity) {
       case 'low': return <CheckCircle className="h-3 w-3" />;
       case 'medium': return <Eye className="h-3 w-3" />;
-      case 'high': return <AlertTriangle className="h-3 w-3" />;
+      case 'high': return <AlertTriangle className="h-3 w-3" / data-testid="link-h-3">;
       case 'critical': return <XCircle className="h-3 w-3" />;
       default: return <FileText className="h-3 w-3" />;
     }
@@ -203,8 +203,8 @@ export default function AuditTrailViewer() {
     if (action.includes('update') || action.includes('edit')) return <Edit3 className="h-4 w-4 text-blue-600" />;
     if (action.includes('delete') || action.includes('remove')) return <Trash2 className="h-4 w-4 text-red-600" />;
     if (action.includes('login') || action.includes('auth')) return <Shield className="h-4 w-4 text-purple-600" />;
-    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600" />;
-    return <FileText className="h-4 w-4 text-gray-600" />;
+    if (action.includes('view') || action.includes('access')) return <Eye className="h-4 w-4 text-gray-600 dark:text-neutral-400" />;
+    return <FileText className="h-4 w-4 text-gray-600 dark:text-neutral-400" />;
   };
 
   const filteredEvents = mockAuditEvents.filter(event => {
@@ -246,44 +246,44 @@ export default function AuditTrailViewer() {
           <Input
             placeholder="Search by action, actor, or resource..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
         <div className="flex gap-3">
-          <Select value={actionFilter} onValueChange={setActionFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200">
-              <SelectValue placeholder="Filter by action" />
+          <Select value={actionFilter} onValueChange={setActionFilter} data-testid="select-element">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
+              <SelectValue placeholder="Filter by action" / data-testid="select-element">
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Actions</SelectItem>
-              <SelectItem value="create">Create</SelectItem>
-              <SelectItem value="update">Update</SelectItem>
-              <SelectItem value="delete">Delete</SelectItem>
-              <SelectItem value="login">Authentication</SelectItem>
-              <SelectItem value="consent">Consent</SelectItem>
+            <SelectContent data-testid="select-element">
+              <SelectItem value="all" data-testid="select-element">All Actions</SelectItem>
+              <SelectItem value="create" data-testid="select-element">Create</SelectItem>
+              <SelectItem value="update" data-testid="select-element">Update</SelectItem>
+              <SelectItem value="delete" data-testid="select-element">Delete</SelectItem>
+              <SelectItem value="login" data-testid="select-element">Authentication</SelectItem>
+              <SelectItem value="consent" data-testid="select-element">Consent</SelectItem>
             </SelectContent>
           </Select>
 
-          <Select value={severityFilter} onValueChange={setSeverityFilter}>
-            <SelectTrigger className="w-48 rounded-xl border-gray-200">
-              <SelectValue placeholder="Filter by severity" />
+          <Select value={severityFilter} onValueChange={setSeverityFilter} data-testid="select-element">
+            <SelectTrigger className="w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-48">
+              <SelectValue placeholder="Filter by severity" / data-testid="select-element">
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Severities</SelectItem>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="high">High</SelectItem>
-              <SelectItem value="critical">Critical</SelectItem>
+            <SelectContent data-testid="select-element">
+              <SelectItem value="all" data-testid="select-element">All Severities</SelectItem>
+              <SelectItem value="low" data-testid="select-element">Low</SelectItem>
+              <SelectItem value="medium" data-testid="select-element">Medium</SelectItem>
+              <SelectItem value="high" data-testid="select-element">High</SelectItem>
+              <SelectItem value="critical" data-testid="select-element">Critical</SelectItem>
             </SelectContent>
           </Select>
 
           <Button
             onClick={exportAuditLog}
             variant="outline"
-            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
-          >
+            className="rounded-xl border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 dark:border-neutral-700"
+           data-testid="button-rounded-xl">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
@@ -323,7 +323,7 @@ export default function AuditTrailViewer() {
         <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-orange-200 rounded-xl">
-              <AlertTriangle className="h-5 w-5 text-orange-700" />
+              <AlertTriangle className="h-5 w-5 text-orange-700" / data-testid="link-h-5">
             </div>
             <div>
               <div className="text-2xl font-bold text-orange-900">
@@ -352,15 +352,15 @@ export default function AuditTrailViewer() {
       {/* Audit events list */}
       <div className="space-y-3">
         {filteredEvents.map((event) => (
-          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={event.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow dark:bg-neutral-900">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-50 rounded-xl">
+                <div className="p-2 bg-gray-50 rounded-xl dark:bg-neutral-800">
                   {getActionIcon(event.action)}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-gray-900">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{event.action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
                     <Badge className={`${getSeverityBadge(event.severity)} border`}>
                       <div className="flex items-center gap-1">
                         {getSeverityIcon(event.severity)}
@@ -368,7 +368,7 @@ export default function AuditTrailViewer() {
                       </div>
                     </Badge>
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 dark:text-neutral-400">
                     Resource: <span className="font-medium">{event.resource}</span>
                     {event.resourceId > 0 && <span className="ml-1">#{event.resourceId}</span>}
                   </div>
@@ -384,24 +384,24 @@ export default function AuditTrailViewer() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
               <div className="flex items-center gap-2 text-sm">
                 <User className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">Actor:</span>
+                <span className="text-gray-600 dark:text-neutral-400">Actor:</span>
                 <span className="font-medium">{event.actor.name}</span>
                 <span className="text-gray-500">(@{event.actor.username})</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Shield className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">IP:</span>
+                <span className="text-gray-600 dark:text-neutral-400">IP:</span>
                 <span className="font-mono text-xs">{event.ipAddress}</span>
               </div>
             </div>
 
             {event.details && Object.keys(event.details).length > 0 && (
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm font-medium text-gray-700 mb-2">Event Details:</div>
+              <div className="bg-gray-50 rounded-xl p-4 dark:bg-neutral-800">
+                <div className="text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Event Details:</div>
                 <div className="space-y-1">
                   {Object.entries(event.details).map(([key, value]) => (
                     <div key={key} className="text-sm">
-                      <span className="text-gray-600 capitalize">{key.replace(/_/g, ' ')}:</span>
+                      <span className="text-gray-600 capitalize dark:text-neutral-400">{key.replace(/_/g, ' ')}:</span>
                       <span className="font-medium ml-2">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                       </span>
@@ -417,8 +417,8 @@ export default function AuditTrailViewer() {
       {filteredEvents.length === 0 && (
         <div className="text-center py-12">
           <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No audit events found</h3>
-          <p className="text-gray-600">Try adjusting your filters or search terms</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">No audit events found</h3>
+          <p className="text-gray-600 dark:text-neutral-400">Try adjusting your filters or search terms</p>
         </div>
       )}
     </div>

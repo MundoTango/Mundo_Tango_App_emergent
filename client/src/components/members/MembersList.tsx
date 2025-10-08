@@ -90,7 +90,7 @@ export const MembersList = ({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12" data-testid="loading-members">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-500"></div>
       </div>
     );
   }
@@ -130,7 +130,7 @@ export const MembersList = ({
             placeholder={t('members.search.placeholder', 'Search members...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
+            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-ocean-500 dark:focus:border-cyan-400"
             data-testid="input-search-members"
           />
         </div>

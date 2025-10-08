@@ -38,8 +38,8 @@ interface Phase3Result {
 export function Phase50x21ValidationDashboard() {
   const [activePhase, setActivePhase] = useState('phase2');
   const [isRunning, setIsRunning] = useState(false);
-  const [phase2Results, setPhase2Results] = useState<any>(null);
-  const [phase3Results, setPhase3Results] = useState<any>(null);
+  const [phase2Results, setPhase2Results] = useState<any data-testid="link-element">(null);
+  const [phase3Results, setPhase3Results] = useState<any data-testid="link-element">(null);
 
   const runPhase2Validation = async () => {
     setIsRunning(true);
@@ -72,9 +72,9 @@ export function Phase50x21ValidationDashboard() {
       case 'failed':
         return <XCircle className="h-5 w-5 text-red-500" />;
       case 'warning':
-        return <AlertCircle className="h-5 w-5 text-yellow-500" />;
+        return <AlertCircle className="h-5 w-5 text-yellow-500" / data-testid="link-h-5">;
       default:
-        return <div className="h-5 w-5 rounded-full border-2 border-gray-300" />;
+        return <div className="h-5 w-5 rounded-full border-2 border-gray-300 dark:border-neutral-600" />;
     }
   };
 
@@ -96,7 +96,7 @@ export function Phase50x21ValidationDashboard() {
             <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Life CEO 40x20s Framework Validation
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">
               Phase 2: Registration Flow | Phase 3: Load Testing
             </p>
           </div>
@@ -131,7 +131,7 @@ export function Phase50x21ValidationDashboard() {
                   onClick={runPhase2Validation}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-turquoise-500 to-cyan-500"
-                >
+                 data-testid="button-bg-gradient-to-r">
                   {isRunning ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -155,7 +155,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-8 w-8 text-green-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Passed</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Passed</p>
                           <p className="text-2xl font-bold text-green-700">{phase2Results.summary?.passed || 0}</p>
                         </div>
                       </div>
@@ -164,16 +164,16 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <XCircle className="h-8 w-8 text-red-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Failed</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Failed</p>
                           <p className="text-2xl font-bold text-red-700">{phase2Results.summary?.failed || 0}</p>
                         </div>
                       </div>
                     </Card>
                     <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100">
                       <div className="flex items-center gap-2">
-                        <Activity className="h-8 w-8 text-blue-600" />
+                        <Activity className="h-8 w-8 text-blue-600" / data-testid="link-h-8">
                         <div>
-                          <p className="text-sm text-gray-600">Success Rate</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Success Rate</p>
                           <p className="text-2xl font-bold text-blue-700">
                             {phase2Results.summary?.successRate?.toFixed(1) || 0}%
                           </p>
@@ -184,7 +184,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Globe className="h-8 w-8 text-purple-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Total Tests</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Total Tests</p>
                           <p className="text-2xl font-bold text-purple-700">{phase2Results.summary?.totalTests || 0}</p>
                         </div>
                       </div>
@@ -221,12 +221,12 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Test Results</h3>
                     {phase2Results.results?.map((result: Phase2Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.passed ? 'passed' : 'failed')}
                           <div>
                             <p className="font-medium">{result.test}</p>
-                            <p className="text-sm text-gray-600">Layer {result.layer} • Phase {result.phase}</p>
+                            <p className="text-sm text-gray-600 dark:text-neutral-400">Layer {result.layer} • Phase {result.phase}</p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -241,9 +241,9 @@ export function Phase50x21ValidationDashboard() {
 
                   {/* Recommendations */}
                   {phase2Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200">
-                      <AlertCircle className="h-4 w-4 text-turquoise-600" />
-                      <AlertDescription>
+                    <Alert className="bg-gradient-to-r from-turquoise-50 to-cyan-50 border-turquoise-200" data-testid="link-bg-gradient-to-r">
+                      <AlertCircle className="h-4 w-4 text-turquoise-600" / data-testid="link-h-4">
+                      <AlertDescription data-testid="link-element">
                         <p className="font-semibold mb-2">Life CEO Recommendations:</p>
                         <ul className="space-y-1">
                           {phase2Results.recommendations.map((rec: string, idx: number) => (
@@ -274,7 +274,7 @@ export function Phase50x21ValidationDashboard() {
                   onClick={runPhase3LoadTesting}
                   disabled={isRunning}
                   className="bg-gradient-to-r from-purple-500 to-pink-500"
-                >
+                 data-testid="button-bg-gradient-to-r">
                   {isRunning ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -298,16 +298,16 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-8 w-8 text-green-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Passed</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Passed</p>
                           <p className="text-2xl font-bold text-green-700">{phase3Results.summary?.passed || 0}</p>
                         </div>
                       </div>
                     </Card>
                     <Card className="p-4 bg-gradient-to-br from-yellow-50 to-yellow-100">
                       <div className="flex items-center gap-2">
-                        <AlertCircle className="h-8 w-8 text-yellow-600" />
+                        <AlertCircle className="h-8 w-8 text-yellow-600" / data-testid="link-h-8">
                         <div>
-                          <p className="text-sm text-gray-600">Warnings</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Warnings</p>
                           <p className="text-2xl font-bold text-yellow-700">{phase3Results.summary?.warnings || 0}</p>
                         </div>
                       </div>
@@ -316,7 +316,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <XCircle className="h-8 w-8 text-red-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Failed</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Failed</p>
                           <p className="text-2xl font-bold text-red-700">{phase3Results.summary?.failed || 0}</p>
                         </div>
                       </div>
@@ -325,7 +325,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <TrendingUp className="h-8 w-8 text-purple-600" />
                         <div>
-                          <p className="text-sm text-gray-600">Success Rate</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Success Rate</p>
                           <p className="text-2xl font-bold text-purple-700">
                             {phase3Results.summary?.successRate?.toFixed(1) || 0}%
                           </p>
@@ -356,7 +356,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Timer className="h-5 w-5 text-blue-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Avg Response Time</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Avg Response Time</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.avgResponseTime?.toFixed(2) || 0}ms
                           </p>
@@ -367,7 +367,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <BarChart3 className="h-5 w-5 text-green-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Avg Throughput</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Avg Throughput</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.avgThroughput?.toFixed(2) || 0} req/s
                           </p>
@@ -378,7 +378,7 @@ export function Phase50x21ValidationDashboard() {
                       <div className="flex items-center gap-2">
                         <Cpu className="h-5 w-5 text-purple-500" />
                         <div>
-                          <p className="text-sm text-gray-600">Test Duration</p>
+                          <p className="text-sm text-gray-600 dark:text-neutral-400">Test Duration</p>
                           <p className="text-lg font-semibold">
                             {phase3Results.summary?.metrics?.totalDuration?.toFixed(1) || 0}s
                           </p>
@@ -391,12 +391,12 @@ export function Phase50x21ValidationDashboard() {
                   <div className="space-y-2">
                     <h3 className="font-semibold">Load Test Results</h3>
                     {phase3Results.results?.map((result: Phase3Result, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                         <div className="flex items-center gap-3">
                           {getStatusIcon(result.status)}
                           <div>
                             <p className="font-medium">{result.test}</p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-neutral-400">
                               Layer {result.layer} • {result.category} • {result.metricType}
                             </p>
                           </div>
@@ -415,9 +415,9 @@ export function Phase50x21ValidationDashboard() {
 
                   {/* Recommendations */}
                   {phase3Results.recommendations && (
-                    <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+                    <Alert className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200" data-testid="link-bg-gradient-to-r">
                       <Shield className="h-4 w-4 text-purple-600" />
-                      <AlertDescription>
+                      <AlertDescription data-testid="link-element">
                         <p className="font-semibold mb-2">Life CEO Performance Recommendations:</p>
                         <ul className="space-y-1">
                           {phase3Results.recommendations.map((rec: string, idx: number) => (

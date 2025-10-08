@@ -91,7 +91,7 @@ export default function ShareModal({ isOpen, onClose, post }: ShareModalProps) {
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center gap-2 mb-4">
-          <Share2 className="w-6 h-6 text-teal-500" />
+          <Share2 className="w-6 h-6 text-ocean-500" />
           <h2 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-900 bg-clip-text text-transparent">
             Share Post
           </h2>

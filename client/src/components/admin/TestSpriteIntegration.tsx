@@ -40,7 +40,7 @@ export function TestSpriteIntegration() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Fetch test results
-  const { data: testResults, isLoading: loadingResults, refetch, error: resultsError } = useQuery<ApiResponse<TestResult[]>>({
+  const { data: testResults, isLoading: loadingResults, refetch, error: resultsError } = useQuery<ApiResponse<TestResult[] data-testid="link-element">>({
     queryKey: ['/api/testsprite/results'],
     refetchInterval: isTestRunning ? 2000 : 10000, // Poll every 2s when test running, 10s otherwise
   });
@@ -130,7 +130,7 @@ export function TestSpriteIntegration() {
   });
 
   // Health check
-  const { data: healthStatus } = useQuery<ApiResponse>({
+  const { data: healthStatus } = useQuery<ApiResponse data-testid="link-element">({
     queryKey: ['/api/testsprite/health'],
     refetchInterval: 60000, // Check health every minute
   });
@@ -156,7 +156,7 @@ export function TestSpriteIntegration() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'passed': return <CheckCircle className="h-4 w-4" />;
-      case 'failed': return <AlertCircle className="h-4 w-4" />;
+      case 'failed': return <AlertCircle className="h-4 w-4" / data-testid="link-h-4">;
       case 'running': return <Clock className="h-4 w-4" />;
       default: return <RefreshCw className="h-4 w-4" />;
     }
@@ -268,7 +268,7 @@ export function TestSpriteIntegration() {
           </div>
           
           <Button 
-            onClick={() => triggerTests.mutate(selectedSuite)}
+            onClick={() = data-testid="button-element"> triggerTests.mutate(selectedSuite)}
             disabled={triggerTests.isPending}
             className="w-full"
           >
@@ -296,7 +296,7 @@ export function TestSpriteIntegration() {
             variant="outline" 
             size="sm"
             disabled={loadingResults || isRefreshing}
-          >
+           data-testid="button-element">
             <RefreshCw className={`h-4 w-4 mr-2 ${(loadingResults || isRefreshing) ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Refreshing...' : 'Refresh'}
           </Button>

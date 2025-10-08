@@ -34,7 +34,7 @@ export const Welcome: Story = () => (
         </div>
       </div>
       
-      <div className="mt-8 p-4 bg-cyan-500/10 rounded-lg border border-cyan-400/20">
+      <div className="mt-8 p-4 bg-ocean-500/10 rounded-lg border border-cyan-400/20">
         <p className="text-sm">
           <strong>Token System:</strong> View generated tokens at{' '}
           <code className="px-2 py-1 bg-black/10 rounded">build/css/tokens.css</code>

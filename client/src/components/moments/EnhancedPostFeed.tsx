@@ -242,7 +242,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white/60 rounded-3xl p-8 animate-pulse">
+          <div key={i} className="bg-white/60 rounded-3xl p-8 animate-pulse dark:bg-neutral-900">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gray-200 rounded-2xl"></div>
               <div className="flex-1">
@@ -278,7 +278,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
           {['all', 'following', 'nearby'].map((filter) => (
             <button
               key={filter}
-              onClick={() => setFilterBy(filter as any)}
+              onClick={() = data-testid="button-element"> setFilterBy(filter as any)}
               className={`
                 flex items-center gap-2 px-5 py-3 rounded-2xl font-medium transition-all duration-300
                 ${filterBy === filter
@@ -309,17 +309,17 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setTagInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && addTag()}
                 placeholder="Add tag to filter memories..."
-                className="w-full pl-12 pr-4 py-3 bg-white/80 border border-indigo-200/50 rounded-2xl text-gray-900 placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-white/80 border border-indigo-200/50 rounded-2xl text-gray-900 placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all dark:bg-neutral-900"
               />
             </div>
             <button
               onClick={addTag}
               disabled={!tagInput.trim()}
               className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-300"
-            >
+             data-testid="button-px-6">
               Add
             </button>
           </div>
@@ -331,11 +331,11 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
               {filterTags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 border border-indigo-200 rounded-full text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition-colors dark:bg-neutral-900"
                 >
                   #{tag}
                   <button
-                    onClick={() => removeTag(tag)}
+                    onClick={() = data-testid="button-element"> removeTag(tag)}
                     className="p-0.5 hover:bg-indigo-200 rounded-full transition-colors"
                   >
                     <X className="h-3 w-3" />
@@ -359,12 +359,12 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
                   <Sparkles className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                     {filterBy === 'all' ? 'All Posts' : 
                      filterBy === 'following' ? 'Following' : 
                      'Nearby Memories'}
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-neutral-400">
                     {posts.length} {posts.length === 1 ? 'memory' : 'memories'} found
                   </p>
                 </div>
@@ -392,8 +392,8 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
               <div className="w-24 h-24 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Sparkles className="h-12 w-12 text-indigo-400" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">No memories found</h3>
-              <p className="text-gray-600 mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 dark:text-neutral-100">No memories found</h3>
+              <p className="text-gray-600 mb-8 dark:text-neutral-400">
                 {filterTags.length > 0 
                   ? 'Try removing some filters or create a new memory with these tags.'
                   : 'Be the first to share a tango memory! Your moments help build our community.'
@@ -401,7 +401,7 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
               </p>
               {filterTags.length > 0 && (
                 <button
-                  onClick={() => setFilterTags([])}
+                  onClick={() = data-testid="button-element"> setFilterTags([])}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
                 >
                   <X className="h-4 w-4" />

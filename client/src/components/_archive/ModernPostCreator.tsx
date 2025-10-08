@@ -310,7 +310,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
 
   if (!isExpanded) {
     return (
-      <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+      <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden dark:bg-neutral-900">
         <div className="p-6">
           <div 
             className="flex items-center space-x-4 cursor-pointer"
@@ -319,7 +319,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>
-            <div className="flex-1 bg-gray-50 hover:bg-gray-100 transition-colors rounded-full px-6 py-3 text-gray-500">
+            <div className="flex-1 bg-gray-50 hover:bg-gray-100 transition-colors rounded-full px-6 py-3 text-gray-500 dark:bg-neutral-800">
               Share your tango moment...
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   }
 
   return (
-    <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+    <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden dark:bg-neutral-900">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -338,15 +338,15 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div>
-              <p className="font-semibold text-gray-900">{user?.name}</p>
+              <p className="font-semibold text-gray-900 dark:text-neutral-100">{user?.name}</p>
               <p className="text-sm text-gray-500">@{user?.username}</p>
             </div>
           </div>
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setIsExpanded(false)}
-            className="text-gray-400 hover:text-gray-600"
+            onClick={() = data-testid="button-element"> setIsExpanded(false)}
+            className="text-gray-400 hover:text-gray-600 dark:text-neutral-400"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -357,14 +357,14 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           <Button
             variant={!useRichEditor ? "default" : "outline"}
             size="sm"
-            onClick={() => setUseRichEditor(false)}
+            onClick={() = data-testid="button-element"> setUseRichEditor(false)}
           >
             Simple
           </Button>
           <Button
             variant={useRichEditor ? "default" : "outline"}
             size="sm"
-            onClick={() => setUseRichEditor(true)}
+            onClick={() = data-testid="button-element"> setUseRichEditor(true)}
           >
             Rich Text
           </Button>
@@ -385,9 +385,9 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           ) : (
             <textarea
               value={content}
-              onChange={(e) => handleContentChange(e.target.value)}
+              onChange={(e) = data-testid="textarea-element"> handleContentChange(e.target.value)}
               placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:border-neutral-600"
               rows={4}
               style={{ minHeight: '120px' }}
             />
@@ -411,7 +411,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {uploadedFiles.map((file, index) => (
                 <div key={index} className="relative group">
-                  <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                  <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden dark:bg-neutral-800">
                     {file.type.startsWith('image/') ? (
                       <img
                         src={URL.createObjectURL(file)}
@@ -430,7 +430,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
                     variant="destructive"
                     size="sm"
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => removeFile(index)}
+                    onClick={() = data-testid="button-absolute"> removeFile(index)}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -447,8 +447,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               type="url"
               placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
               value={embedUrl}
-              onChange={(e) => setEmbedUrl(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              onChange={(e) = data-testid="input-element"> setEmbedUrl(e.target.value)}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-neutral-800"
             />
           </div>
         )}
@@ -471,7 +471,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() = data-testid="button-element"> fileInputRef.current?.click()}
               className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
             >
               <Image className="h-5 w-5" />
@@ -481,7 +481,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() = data-testid="button-element"> fileInputRef.current?.click()}
               className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
             >
               <Video className="h-5 w-5" />
@@ -492,7 +492,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               variant="ghost"
               size="sm"
               className="text-green-600 hover:text-green-700 hover:bg-green-50"
-            >
+             data-testid="button-text-green-600">
               <MapPin className="h-5 w-5" />
             </Button>
 
@@ -500,7 +500,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              onClick={() = data-testid="button-element"> setShowEmojiPicker(!showEmojiPicker)}
               className="text-yellow-600 hover:text-yellow-700 hover:bg-yellow-50"
             >
               <Smile className="h-5 w-5" />
@@ -510,10 +510,10 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setShowEmbedInput(!showEmbedInput)}
+              onClick={() = data-testid="button-element"> setShowEmbedInput(!showEmbedInput)}
               className="text-purple-600 hover:text-purple-700 hover:bg-purple-50"
             >
-              <Link className="h-5 w-5" />
+              <Link className="h-5 w-5" / data-testid="link-h-5">
             </Button>
           </div>
 
@@ -521,8 +521,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             {/* Visibility Selector */}
             <select
               value={visibility}
-              onChange={(e) => setVisibility(e.target.value)}
-              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+              onChange={(e) = data-testid="select-element"> setVisibility(e.target.value)}
+              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-neutral-800"
             >
               <option value="public">🌍 Public</option>
               <option value="friends">👥 Friends</option>
@@ -534,7 +534,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               onClick={handleSubmit}
               disabled={createPostMutation.isPending || (!content.trim() && !richContent.trim())}
               className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6"
-            >
+             data-testid="button-bg-gradient-to-r">
               {createPostMutation.isPending ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -556,7 +556,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           type="file"
           multiple
           accept="image/*,video/*"
-          onChange={(e) => handleFileUpload(e.target.files)}
+          onChange={(e) = data-testid="input-element"> handleFileUpload(e.target.files)}
           className="hidden"
         />
       </div>

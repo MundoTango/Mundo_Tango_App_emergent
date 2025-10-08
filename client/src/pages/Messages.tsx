@@ -186,20 +186,20 @@ export default function Messages() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Messages
         </h1>
-        <p className="text-gray-600 mt-2">Connect with your tango community</p>
+        <p className="text-gray-600 mt-2 dark:text-neutral-400">Connect with your tango community</p>
       </div>
 
       <Card className="glassmorphic-card h-[600px] overflow-hidden">
         <div className="flex h-full">
           {/* Conversations list */}
           <div className={`w-full md:w-1/3 border-r border-gray-200 ${selectedConversation ? 'hidden md:block' : ''}`}>
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   placeholder="Search conversations..."
                   className="pl-10 glassmorphic-input"
-                />
+                / data-testid="input-pl-10">
               </div>
             </div>
             
@@ -221,9 +221,9 @@ export default function Messages() {
                   >
                     <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <Avatar>
-                          <AvatarImage src={conversation.user.profileImage} />
-                          <AvatarFallback>{conversation.user.name[0]}</AvatarFallback>
+                        <Avatar data-testid="link-element">
+                          <AvatarImage src={conversation.user.profileImage} / data-testid="link-element">
+                          <AvatarFallback data-testid="link-element">{conversation.user.name[0]}</AvatarFallback>
                         </Avatar>
                         {conversation.user.isOnline && (
                           <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
@@ -239,7 +239,7 @@ export default function Messages() {
                           )}
                         </div>
                         {conversation.lastMessage && (
-                          <p className="text-sm text-gray-600 truncate">
+                          <p className="text-sm text-gray-600 truncate dark:text-neutral-400">
                             {conversation.lastMessage.content}
                           </p>
                         )}
@@ -260,17 +260,17 @@ export default function Messages() {
           {selectedConversation ? (
             <div className="flex-1 flex flex-col">
               {/* Header */}
-              <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
+              <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50 dark:border-neutral-700">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={() => setSelectedConversation(null)}
+                    onClick={() = data-testid="button-element"> setSelectedConversation(null)}
                     className="md:hidden"
                   >
-                    <ArrowLeft className="w-5 h-5" />
+                    <ArrowLeft className="w-5 h-5" / data-testid="link-w-5">
                   </button>
-                  <Avatar>
-                    <AvatarImage src={conversations.find((c: Conversation) => c.id === selectedConversation)?.user.profileImage} />
-                    <AvatarFallback>
+                  <Avatar data-testid="link-element">
+                    <AvatarImage src={conversations.find((c: Conversation) = data-testid="link-element"> c.id === selectedConversation)?.user.profileImage} />
+                    <AvatarFallback data-testid="link-element">
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name[0]}
                     </AvatarFallback>
                   </Avatar>
@@ -279,7 +279,7 @@ export default function Messages() {
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name}
                     </h2>
                     {isTyping && (
-                      <p className="text-sm text-gray-600">typing...</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-400">typing...</p>
                     )}
                   </div>
                 </div>
@@ -313,7 +313,7 @@ export default function Messages() {
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-4 border-t border-gray-200">
+              <div className="p-4 border-t border-gray-200 dark:border-neutral-700">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -323,7 +323,7 @@ export default function Messages() {
                 >
                   <Input
                     value={message}
-                    onChange={(e) => {
+                    onChange={(e) = data-testid="input-element"> {
                       setMessage(e.target.value);
                       handleTyping();
                     }}
@@ -334,7 +334,7 @@ export default function Messages() {
                     type="submit"
                     disabled={!message.trim() || sendMessageMutation.isPending}
                     className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white"
-                  >
+                   data-testid="button-bg-gradient-to-r">
                     <Send className="w-4 h-4" />
                   </Button>
                 </form>

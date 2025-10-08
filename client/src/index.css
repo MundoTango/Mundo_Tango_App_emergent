@@ -1353,7 +1353,7 @@ body {
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(60, 9.1%, 97.8%);
   --ring: hsl(20, 14.3%, 4.1%);
-  --radius: 0.5rem;
+  --radius: var(--spacing-2);
 
   /* Tango-specific colors */
   --tango-red: hsl(348, 71%, 31%);
@@ -2087,7 +2087,7 @@ body {
 /* Force browser cache refresh Tue Aug  5 06:54:23 PM UTC 2025 */
 /* ESA Layer 9: ReactQuill Rich Text Editor Styling */
 .esa-rich-text-editor .ql-container {
-  font-size: 1rem;
+  font-size: var(--spacing-4);
   line-height: 1.75rem;
   font-weight: 500;
   color: rgb(31 41 55);
@@ -2111,7 +2111,7 @@ body {
   background: rgba(255, 255, 255, 0.8);
   border: none;
   border-bottom: 1px solid rgb(229 231 235);
-  padding: 0.75rem;
+  padding: var(--spacing-3);
 }
 
 .esa-rich-text-editor .ql-toolbar button:hover {

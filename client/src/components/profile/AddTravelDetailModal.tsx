@@ -41,7 +41,7 @@ const eventTypes = [
   { value: 'other', label: 'Other' }
 ];
 
-export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOpen, onClose }) => {
+export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps data-testid="link-element"> = ({ isOpen, onClose }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
@@ -57,8 +57,8 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     isPublic: true
   });
   
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
-  const [selectedCityGroup, setSelectedCityGroup] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<any data-testid="link-element">(null);
+  const [selectedCityGroup, setSelectedCityGroup] = useState<any data-testid="link-element">(null);
 
   const createTravelDetailMutation = useMutation({
     mutationFn: async (data: TravelDetailForm) => {
@@ -152,14 +152,14 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="eventType">Event Type</Label>
               <Select 
                 value={formData.eventType} 
-                onValueChange={(value) => handleInputChange('eventType', value)}
+                onValueChange={(value) = data-testid="select-element"> handleInputChange('eventType', value)}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select event type" />
+                <SelectTrigger data-testid="select-element">
+                  <SelectValue placeholder="Select event type" / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent data-testid="select-element">
                   {eventTypes.map(type => (
-                    <SelectItem key={type.value} value={type.value}>
+                    <SelectItem key={type.value} value={type.value} data-testid="select-element">
                       {type.label}
                     </SelectItem>
                   ))}
@@ -204,7 +204,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   id="startDate"
                   type="date"
                   value={formData.startDate}
-                  onChange={(e) => handleInputChange('startDate', e.target.value)}
+                  onChange={(e) = data-testid="input-element"> handleInputChange('startDate', e.target.value)}
                   className="pl-10"
                   required
                 />
@@ -219,7 +219,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
                   id="endDate"
                   type="date"
                   value={formData.endDate}
-                  onChange={(e) => handleInputChange('endDate', e.target.value)}
+                  onChange={(e) = data-testid="input-element"> handleInputChange('endDate', e.target.value)}
                   className="pl-10"
                   required
                   min={formData.startDate}
@@ -233,18 +233,18 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="status">Status</Label>
               <Select 
                 value={formData.status} 
-                onValueChange={(value: any) => handleInputChange('status', value)}
+                onValueChange={(value: any) = data-testid="select-element"> handleInputChange('status', value)}
               >
-                <SelectTrigger>
-                  <SelectValue />
+                <SelectTrigger data-testid="select-element">
+                  <SelectValue / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="considering">Considering</SelectItem>
-                  <SelectItem value="planned">Planned</SelectItem>
-                  <SelectItem value="working">Working</SelectItem>
-                  <SelectItem value="ongoing">Ongoing</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="considering" data-testid="select-element">Considering</SelectItem>
+                  <SelectItem value="planned" data-testid="select-element">Planned</SelectItem>
+                  <SelectItem value="working" data-testid="select-element">Working</SelectItem>
+                  <SelectItem value="ongoing" data-testid="select-element">Ongoing</SelectItem>
+                  <SelectItem value="completed" data-testid="select-element">Completed</SelectItem>
+                  <SelectItem value="cancelled" data-testid="select-element">Cancelled</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -253,15 +253,15 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               <Label htmlFor="visibility">Visibility</Label>
               <Select 
                 value={formData.isPublic ? 'public' : 'private'} 
-                onValueChange={(value) => handleInputChange('isPublic', value === 'public')}
+                onValueChange={(value) = data-testid="select-element"> handleInputChange('isPublic', value === 'public')}
               >
-                <SelectTrigger>
-                  <SelectValue />
+                <SelectTrigger data-testid="select-element">
+                  <SelectValue / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="public">Public</SelectItem>
-                  <SelectItem value="close_friends">Close Friends</SelectItem>
-                  <SelectItem value="private">Private</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="public" data-testid="select-element">Public</SelectItem>
+                  <SelectItem value="close_friends" data-testid="select-element">Close Friends</SelectItem>
+                  <SelectItem value="private" data-testid="select-element">Private</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -272,7 +272,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
+              onChange={(e) = data-testid="textarea-element"> handleInputChange('notes', e.target.value)}
               placeholder="Any additional details about your travel..."
               rows={3}
             />
@@ -284,14 +284,14 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
               variant="outline"
               onClick={onClose}
               disabled={createTravelDetailMutation.isPending}
-            >
+             data-testid="button-element">
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={createTravelDetailMutation.isPending}
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600"
-            >
+             data-testid="button-bg-gradient-to-r">
               {createTravelDetailMutation.isPending ? 'Adding...' : 'Add Travel Detail'}
             </Button>
           </div>

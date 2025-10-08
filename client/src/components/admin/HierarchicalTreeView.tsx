@@ -482,7 +482,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                   variant="ghost"
                   size="sm"
                   className="p-1 h-6 w-6"
-                  onClick={(e) => {
+                  onClick={(e) = data-testid="button-p-1"> {
                     e.stopPropagation();
                     onToggleExpand(item.id);
                   }}
@@ -515,7 +515,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
                     {item.mvpStatus}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-600 mb-2">{item.description}</p>
+                <p className="text-xs text-gray-600 mb-2 dark:text-neutral-400">{item.description}</p>
                 
                 {/* Progress Bar */}
                 <div className="space-y-1">
@@ -541,7 +541,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ item, onItemClick, onToggleExpand }
               {/* Blockers indicator */}
               {item.blockers.length > 0 && (
                 <div className="flex items-center gap-1 text-xs text-red-600">
-                  <AlertTriangle className="h-3 w-3" />
+                  <AlertTriangle className="h-3 w-3" / data-testid="link-h-3">
                   <span>{item.blockers.length} blocker{item.blockers.length > 1 ? 's' : ''}</span>
                 </div>
               )}
@@ -631,7 +631,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
           size="sm"
           onClick={handleExpandAll}
           className="text-xs"
-        >
+         data-testid="button-text-xs">
           Expand All
         </Button>
         <Button
@@ -639,7 +639,7 @@ export const HierarchicalTreeView: React.FC<HierarchicalTreeViewProps> = ({ onIt
           size="sm"
           onClick={handleCollapseAll}
           className="text-xs"
-        >
+         data-testid="button-text-xs">
           Collapse All
         </Button>
         <div className="text-sm text-gray-500 ml-4">

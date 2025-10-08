@@ -200,8 +200,8 @@ function IOSInstructions({ instructions }: { instructions: string[] | null }) {
               {index + 1}
             </span>
             <span>{step}</span>
-            {index === 0 && <Share2 className="h-4 w-4 text-teal-500 ml-auto" />}
-            {index === 1 && <Plus className="h-4 w-4 text-teal-500 ml-auto" />}
+            {index === 0 && <Share2 className="h-4 w-4 text-ocean-500 ml-auto" />}
+            {index === 1 && <Plus className="h-4 w-4 text-ocean-500 ml-auto" />}
           </li>
         ))}
       </ol>

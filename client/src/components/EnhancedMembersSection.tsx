@@ -46,7 +46,7 @@ const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({
 
   return (
     <div 
-      className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+      className="flex items-center space-x-3 p-4 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group dark:border-neutral-700"
       onClick={handleClick}
     >
       {/* Clean profile image without emoji badge */}
@@ -60,7 +60,7 @@ const MemberCard: React.FC<{ member: EnhancedMember; onClick: () => void }> = ({
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors">
+          <p className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600 transition-colors dark:text-neutral-100">
             {member.name}
           </p>
           {member.role === 'admin' && (
@@ -104,7 +104,7 @@ const CategorySection: React.FC<{
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
         <span className="text-lg">{categoryInfo.emoji}</span>
-        <h4 className="text-md font-semibold text-gray-800">{categoryInfo.name}</h4>
+        <h4 className="text-md font-semibold text-gray-800 dark:text-neutral-200">{categoryInfo.name}</h4>
         <Badge variant="outline" className={`text-xs ${categoryInfo.color}`}>
           {members.length}
         </Badge>
@@ -194,13 +194,13 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
   }, [enhancedMembers]);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6">
+    <div className="bg-white rounded-xl shadow-sm p-6 dark:bg-neutral-900">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
-          <Users className="h-5 w-5 text-gray-600" />
+          <Users className="h-5 w-5 text-gray-600 dark:text-neutral-400" />
           <h3 className="text-lg font-semibold">Members</h3>
-          <Badge variant="outline" className="bg-gray-50 text-gray-700">
+          <Badge variant="outline" className="bg-gray-50 text-gray-700 dark:bg-neutral-800">
             {filteredMembers.length} of {memberCount}
           </Badge>
         </div>
@@ -214,20 +214,20 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Input
             placeholder="Search members..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
 
         {/* Category Filter */}
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by category" />
+        <Select value={selectedCategory} onValueChange={setSelectedCategory} data-testid="select-element">
+          <SelectTrigger data-testid="select-element">
+            <SelectValue placeholder="Filter by category" / data-testid="select-element">
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
+          <SelectContent data-testid="select-element">
+            <SelectItem value="all" data-testid="select-element">All Categories</SelectItem>
             {Object.entries(ROLE_CATEGORIES).map(([key, category]) => (
-              <SelectItem key={key} value={key}>
+              <SelectItem key={key} value={key} data-testid="select-element">
                 {category.emoji} {category.name}
               </SelectItem>
             ))}
@@ -235,14 +235,14 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
         </Select>
 
         {/* Role Filter */}
-        <Select value={selectedRole} onValueChange={setSelectedRole}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by role" />
+        <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+          <SelectTrigger data-testid="select-element">
+            <SelectValue placeholder="Filter by role" / data-testid="select-element">
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Roles</SelectItem>
+          <SelectContent data-testid="select-element">
+            <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
             {availableRoles.map((role) => (
-              <SelectItem key={role.id} value={role.id}>
+              <SelectItem key={role.id} value={role.id} data-testid="select-element">
                 {role.emoji} {role.name}
               </SelectItem>
             ))}
@@ -256,12 +256,12 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => {
+            onClick={() = data-testid="button-element"> {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');
             }}
-            className="text-gray-600 hover:text-gray-800"
+            className="text-gray-600 hover:text-gray-800 dark:text-neutral-200"
           >
             Clear Filters
           </Button>
@@ -287,7 +287,7 @@ export const EnhancedMembersSection: React.FC<EnhancedMembersSectionProps> = ({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => {
+            onClick={() = data-testid="button-element"> {
               setSearchTerm('');
               setSelectedCategory('all');
               setSelectedRole('all');

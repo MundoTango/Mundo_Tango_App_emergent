@@ -132,7 +132,7 @@ export default function BillingDashboard() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Billing & Subscription</h1>
-          <p className="text-gray-600 mt-2">Manage your subscription and payment methods</p>
+          <p className="text-gray-600 mt-2 dark:text-neutral-400">Manage your subscription and payment methods</p>
         </div>
 
         {/* Subscription Overview */}
@@ -153,11 +153,11 @@ export default function BillingDashboard() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <p className="text-sm text-gray-600">Plan</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Plan</p>
                 <p className="text-2xl font-bold capitalize">{subscription?.tier || 'Free'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Next Billing Date</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Next Billing Date</p>
                 <p className="text-lg">
                   {subscription?.subscription?.currentPeriodEnd 
                     ? format(new Date(subscription.subscription.currentPeriodEnd), 'MMM dd, yyyy')
@@ -165,7 +165,7 @@ export default function BillingDashboard() {
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Monthly Cost</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Monthly Cost</p>
                 <p className="text-2xl font-bold">
                   {subscription?.tier === 'free' ? '$0' : 
                    subscription?.tier === 'pro' ? '$9.99' :
@@ -401,7 +401,7 @@ export default function BillingDashboard() {
                             <p className="font-semibold">
                               {method.brand} •••• {method.lastFour}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-neutral-400">
                               Expires {method.expiryMonth}/{method.expiryYear}
                             </p>
                           </div>
@@ -434,12 +434,12 @@ export default function BillingDashboard() {
               <CardContent>
                 <div className="space-y-2">
                   {payments?.filter((p: any) => p.status === 'succeeded').map((payment: any) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:bg-neutral-800">
                       <div>
                         <p className="font-semibold">
                           Invoice #{payment.id.toString().slice(-8).toUpperCase()}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-neutral-400">
                           {format(new Date(payment.createdAt), 'MMMM dd, yyyy')} • {formatCurrency(payment.amount)}
                         </p>
                       </div>
@@ -470,7 +470,7 @@ export default function BillingDashboard() {
             <Shield className="h-8 w-8 text-[#5EEAD4]" />
             <div>
               <p className="font-semibold">Your payment information is secure</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-neutral-400">
                 We use industry-standard encryption and never store your card details on our servers.
                 All payments are processed securely through Stripe.
               </p>

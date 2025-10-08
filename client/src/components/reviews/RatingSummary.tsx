@@ -24,7 +24,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
   if (!reviews || reviews.length === 0) {
     return (
       <FadeIn>
-        <GlassCard depth={2} className="p-6 text-center border-cyan-200/30 dark:border-cyan-500/30">
+        <GlassCard depth={2} className="p-6 text-center border-cyan-200/30 dark:border-ocean-500/30">
           <p className="text-slate-600 dark:text-slate-400">
             {t('housing.reviews.no_reviews', 'No reviews yet')}
           </p>
@@ -69,7 +69,7 @@ export function RatingSummary({ reviews }: RatingSummaryProps) {
 
   return (
     <FadeIn>
-      <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-cyan-500/30" data-testid="rating-summary">
+      <GlassCard depth={2} className="p-6 border-cyan-200/30 dark:border-ocean-500/30" data-testid="rating-summary">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Overall Rating */}
           <div>

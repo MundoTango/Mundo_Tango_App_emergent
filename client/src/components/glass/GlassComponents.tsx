@@ -367,7 +367,7 @@ const GlassBadge = forwardRef<HTMLSpanElement, GlassBadgeProps>(
     const reducedTransparency = prefersReducedTransparency();
 
     const variantStyles = {
-      info: 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+      info: 'bg-ocean-500/20 text-cyan-700 dark:text-cyan-300 border-ocean-500/30',
       success: 'bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30',
       warning: 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30',
       error: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30',
@@ -421,12 +421,12 @@ const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           'text-slate-900 dark:text-white',
           'placeholder:text-slate-500 dark:placeholder:text-slate-400',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
-          'focus:border-cyan-500/50',
+          'focus:border-ocean-500/50',
           'transition-all duration-200',
           className
         )}
         {...props}
-      />
+      / data-testid="input-element">
     );
   }
 );
@@ -460,13 +460,13 @@ const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>(
           'text-slate-900 dark:text-white',
           'placeholder:text-slate-500 dark:placeholder:text-slate-400',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
-          'focus:border-cyan-500/50',
+          'focus:border-ocean-500/50',
           'transition-all duration-200',
           'resize-none',
           className
         )}
         {...props}
-      />
+      / data-testid="textarea-element">
     );
   }
 );

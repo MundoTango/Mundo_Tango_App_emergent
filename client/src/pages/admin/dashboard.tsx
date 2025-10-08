@@ -190,7 +190,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 text-transparent bg-clip-text">
               Admin Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 dark:text-neutral-400">
               Platform overview and real-time monitoring
             </p>
           </div>
@@ -217,14 +217,14 @@ export default function AdminDashboardPage() {
           <Card className="border-teal-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Total Users
                 </CardTitle>
-                <Users className="w-4 h-4 text-teal-500" />
+                <Users className="w-4 h-4 text-ocean-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.users?.total?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -258,14 +258,14 @@ export default function AdminDashboardPage() {
           <Card className="border-cyan-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Monthly Revenue
                 </CardTitle>
-                <DollarSign className="w-4 h-4 text-cyan-500" />
+                <DollarSign className="w-4 h-4 text-ocean-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 ${stats?.revenue?.mrr?.toLocaleString() || '0'}
               </div>
               <div className="flex items-center mt-2 text-sm">
@@ -306,14 +306,14 @@ export default function AdminDashboardPage() {
           <Card className="border-purple-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   Content Activity
                 </CardTitle>
                 <Activity className="w-4 h-4 text-purple-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.content?.posts?.toLocaleString() || '0'}
               </div>
               <div className="text-sm text-gray-500">posts today</div>
@@ -344,14 +344,14 @@ export default function AdminDashboardPage() {
           <Card className="border-green-100 hover:shadow-lg transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-neutral-400">
                   System Health
                 </CardTitle>
                 <Monitor className="w-4 h-4 text-green-500" />
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-gray-900 dark:text-neutral-100">
                 {stats?.system?.uptime || '99.9'}%
               </div>
               <div className="text-sm text-gray-500">uptime</div>
@@ -465,7 +465,7 @@ export default function AdminDashboardPage() {
                   {activity?.items?.map((item: ActivityItem) => (
                     <div
                       key={item.id}
-                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors dark:bg-neutral-800"
                       data-testid={`activity-${item.id}`}
                     >
                       <div className={cn(
@@ -478,7 +478,7 @@ export default function AdminDashboardPage() {
                         <div className="flex items-center justify-between">
                           <p className="text-sm">
                             <span className="font-medium">{item.user}</span>
-                            <span className="text-gray-600 ml-1">{item.action}</span>
+                            <span className="text-gray-600 ml-1 dark:text-neutral-400">{item.action}</span>
                           </p>
                           <span className="text-xs text-gray-400">
                             {format(new Date(item.timestamp), 'h:mm a')}
@@ -509,7 +509,7 @@ export default function AdminDashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Active Agents</span>
+                <span className="text-sm text-gray-600 dark:text-neutral-400">Active Agents</span>
                 <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500">
                   {stats?.agents?.active || 61}/61
                 </Badge>
@@ -517,7 +517,7 @@ export default function AdminDashboardPage() {
               
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Tasks Processed</span>
+                  <span className="text-gray-600 dark:text-neutral-400">Tasks Processed</span>
                   <span className="font-medium">{stats?.agents?.tasks || '1,234'}</span>
                 </div>
                 <Progress value={85} className="h-2" />
@@ -525,7 +525,7 @@ export default function AdminDashboardPage() {
 
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Performance</span>
+                  <span className="text-gray-600 dark:text-neutral-400">Performance</span>
                   <span className="font-medium text-green-600">
                     {stats?.agents?.performance || 95}%
                   </span>

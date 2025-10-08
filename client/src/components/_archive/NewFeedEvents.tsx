@@ -84,7 +84,7 @@ const NewFeedEvents = () => {
                   variant="ghost"
                   size="sm"
                   className="text-turquoise-600 hover:text-cyan-700 text-xs font-semibold transition-colors hover:bg-turquoise-50"
-                  onClick={() => window.location.href = '/events'}
+                  onClick={() = data-testid="button-text-turquoise-600"> window.location.href = '/events'}
                 >
                   See all
                 </Button>
@@ -100,22 +100,22 @@ const NewFeedEvents = () => {
                     >
                       <div className="w-2 h-2 rounded-full bg-gradient-to-r from-turquoise-400 to-cyan-500 mt-2 flex-shrink-0"></div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-1">
+                        <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-1 dark:text-neutral-100">
                           {event.title}
                         </h4>
                         <div className="space-y-1">
-                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
                             <CalendarIcon className="h-3 w-3" />
                             <span>
                               {format(new Date(event.startDate), "EEEE do MMMM")}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                          <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
                             <MapPinIcon className="h-3 w-3" />
                             <span className="truncate">{event.location}</span>
                           </div>
                           {event.attendeesCount > 0 && (
-                            <div className="flex items-center gap-1 text-xs text-gray-600">
+                            <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-neutral-400">
                               <UsersIcon className="h-3 w-3" />
                               <span>{event.attendeesCount} attending</span>
                             </div>

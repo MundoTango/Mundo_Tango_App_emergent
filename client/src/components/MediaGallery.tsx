@@ -164,19 +164,19 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
               <Input
                 placeholder="Search media..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
             
-            <Select value={folderFilter} onValueChange={setFolderFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Folders" />
+            <Select value={folderFilter} onValueChange={setFolderFilter} data-testid="select-element">
+              <SelectTrigger data-testid="select-element">
+                <SelectValue placeholder="All Folders" / data-testid="select-element">
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Folders</SelectItem>
+              <SelectContent data-testid="select-element">
+                <SelectItem value="all" data-testid="select-element">All Folders</SelectItem>
                 {uniqueFolders.map(folder => (
-                  <SelectItem key={folder} value={folder}>
+                  <SelectItem key={folder} value={folder} data-testid="select-element">
                     {folder.charAt(0).toUpperCase() + folder.slice(1)}
                   </SelectItem>
                 ))}
@@ -184,15 +184,15 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             </Select>
 
             {showVisibilityFilter && (
-              <Select value={visibilityFilter} onValueChange={setVisibilityFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="All Visibility" />
+              <Select value={visibilityFilter} onValueChange={setVisibilityFilter} data-testid="select-element">
+                <SelectTrigger data-testid="select-element">
+                  <SelectValue placeholder="All Visibility" / data-testid="select-element">
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Visibility</SelectItem>
-                  <SelectItem value="public">Public</SelectItem>
-                  <SelectItem value="mutual">Friends Only</SelectItem>
-                  <SelectItem value="private">Private</SelectItem>
+                <SelectContent data-testid="select-element">
+                  <SelectItem value="all" data-testid="select-element">All Visibility</SelectItem>
+                  <SelectItem value="public" data-testid="select-element">Public</SelectItem>
+                  <SelectItem value="mutual" data-testid="select-element">Friends Only</SelectItem>
+                  <SelectItem value="private" data-testid="select-element">Private</SelectItem>
                 </SelectContent>
               </Select>
             )}
@@ -230,9 +230,9 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   />
                 </div>
               ) : (
-                <div className="aspect-square bg-gray-100 rounded-t-lg flex items-center justify-center">
+                <div className="aspect-square bg-gray-100 rounded-t-lg flex items-center justify-center dark:bg-neutral-800">
                   {getFileIcon(asset.contentType)}
-                  <span className="ml-2 text-sm text-gray-600">
+                  <span className="ml-2 text-sm text-gray-600 dark:text-neutral-400">
                     {asset.contentType.split('/')[0].toUpperCase()}
                   </span>
                 </div>
@@ -254,7 +254,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleDelete(asset.id)}
+                    onClick={() = data-testid="button-element"> handleDelete(asset.id)}
                     className="opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
                   >
                     <X className="w-4 h-4" />

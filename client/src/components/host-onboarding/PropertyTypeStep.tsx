@@ -41,7 +41,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">What type of property do you have?</h2>
-        <p className="text-gray-600">Choose the option that best describes your place</p>
+        <p className="text-gray-600 dark:text-neutral-400">Choose the option that best describes your place</p>
       </div>
 
       <div>
@@ -97,7 +97,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
       {/* External listing links */}
       <div className="border-t pt-6">
         <h3 className="text-lg font-medium mb-4">Already listed elsewhere?</h3>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">
           If you have this property listed on other platforms, you can import details
         </p>
         <div className="space-y-3">
@@ -109,7 +109,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
               className="mt-1 w-full px-3 py-2 border rounded-md"
               placeholder="https://www.airbnb.com/rooms/..."
               value={data.airbnbUrl || ''}
-              onChange={(e) => updateData({ airbnbUrl: e.target.value })}
+              onChange={(e) = data-testid="input-mt-1"> updateData({ airbnbUrl: e.target.value })}
             />
           </div>
           <div>
@@ -120,7 +120,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
               className="mt-1 w-full px-3 py-2 border rounded-md"
               placeholder="https://www.vrbo.com/..."
               value={data.vrboUrl || ''}
-              onChange={(e) => updateData({ vrboUrl: e.target.value })}
+              onChange={(e) = data-testid="input-mt-1"> updateData({ vrboUrl: e.target.value })}
             />
           </div>
         </div>

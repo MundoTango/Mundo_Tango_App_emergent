@@ -131,7 +131,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Shield className="w-4 h-4 text-teal-500" />
+              <Shield className="w-4 h-4 text-ocean-500" />
               Consent Status
             </CardTitle>
           </CardHeader>
@@ -155,7 +155,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="w-4 h-4 text-teal-500" />
+              <Activity className="w-4 h-4 text-ocean-500" / data-testid="link-w-4">
               Initialization
             </CardTitle>
           </CardHeader>
@@ -179,7 +179,7 @@ export default function MonitoringTest() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <BarChart className="w-4 h-4 text-teal-500" />
+              <BarChart className="w-4 h-4 text-ocean-500" />
               Services
             </CardTitle>
           </CardHeader>
@@ -211,34 +211,34 @@ export default function MonitoringTest() {
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
             {!hasConsent && (
-              <Button onClick={requestConsent} variant="default">
+              <Button onClick={requestConsent} variant="default" data-testid="button-element">
                 Request Consent
               </Button>
             )}
-            <Button onClick={() => setShowPrivacySettings(true)} variant="outline">
+            <Button onClick={() = data-testid="button-element"> setShowPrivacySettings(true)} variant="outline">
               Privacy Settings
             </Button>
             <Button 
               onClick={runTests} 
               disabled={isTestRunning || !hasConsent}
               className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
-            >
+             data-testid="button-bg-gradient-to-r">
               {isTestRunning ? 'Running Tests...' : 'Run All Tests'}
             </Button>
             <Button 
               onClick={triggerTestError} 
               variant="destructive"
               disabled={!hasConsent}
-            >
+             data-testid="button-element">
               Trigger Test Error
             </Button>
           </div>
 
           {!hasConsent && (
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Consent Required</AlertTitle>
-              <AlertDescription>
+            <Alert data-testid="link-element">
+              <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+              <AlertTitle data-testid="link-element">Consent Required</AlertTitle>
+              <AlertDescription data-testid="link-element">
                 Please grant consent to enable monitoring services and run tests.
               </AlertDescription>
             </Alert>
@@ -285,10 +285,10 @@ export default function MonitoringTest() {
               {Object.entries(testResults)
                 .filter(([key]) => key.includes('error'))
                 .map(([key, value]) => (
-                  <Alert key={key} variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
-                    <AlertDescription>{value as string}</AlertDescription>
+                  <Alert key={key} variant="destructive" data-testid="link-element">
+                    <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+                    <AlertTitle data-testid="link-element">{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</AlertTitle>
+                    <AlertDescription data-testid="link-element">{value as string}</AlertDescription>
                   </Alert>
                 ))}
               

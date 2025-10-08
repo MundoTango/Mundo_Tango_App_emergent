@@ -235,7 +235,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 10,
         name: "Deployment & Infrastructure",
-        icon: <Activity className="w-5 h-5" />,
+        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
         description: "Deployment pipeline, CI/CD, monitoring, infrastructure management, and preview reliability",
         detailedDescription: "This layer manages how the platform runs in production. It encompasses Replit's autoscale deployment infrastructure, PostgreSQL database with Neon serverless, environment configuration management, and automated deployment pipelines. Enhanced with preview environment health monitoring and HMR reliability tracking. The infrastructure ensures the platform stays online, performs well, and deploys updates smoothly without downtime.",
         progressExplanation: "65% reflects functional deployment with critical gaps. Basic deployment works on Replit, database performs well, but missing: Redis caching layer, APM tools (DataDog/New Relic), proper error tracking (Sentry), cloud migration path, and blue-green deployment strategy.",
@@ -333,7 +333,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 15,
         name: "Voice & Environmental Intelligence",
-        icon: <Activity className="w-5 h-5" />,
+        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
         description: "Voice processing, speech recognition, location services, and environmental awareness",
         detailedDescription: "This layer enables natural voice interactions and location awareness. It includes advanced audio processing with noise suppression, speech-to-text conversion, language detection, and sophisticated location services. Enhanced with location service abstraction using fallback chain pattern: Browser Geolocation → IP-based location → Manual input → Profile default. The system handles unclear audio, background noise, and provides mobile-first interfaces.",
         progressExplanation: "75% reflects solid capabilities with recent location improvements. Voice commands work well, location services use smart fallbacks with debouncing, noise suppression handles background sound. Remaining work: complete multilingual support and enhance environmental awareness.",
@@ -490,7 +490,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 23,
         name: "Business Continuity",
-        icon: <Activity className="w-5 h-5" />,
+        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
         description: "Disaster recovery, backup strategies, and business continuity planning",
         detailedDescription: "This layer ensures Mundo Tango can survive disasters and continue serving the community. It includes comprehensive disaster recovery plans, automated backup systems, incident response procedures, and public status pages. When catastrophe strikes, the platform can be restored quickly with minimal data loss.",
         progressExplanation: "35% indicates critical gaps in business continuity. Basic backup concepts exist, incident response is manual, but automated backups, tested disaster recovery plans, and comprehensive business continuity procedures are urgently needed for production readiness.",
@@ -562,7 +562,7 @@ const Framework50x21Dashboard: React.FC = () => {
       {
         id: 27,
         name: "Scalability Architecture",
-        icon: <Activity className="w-5 h-5" />,
+        icon: <Activity className="w-5 h-5" / data-testid="link-w-5">,
         description: "Auto-scaling, load balancing, and distributed systems",
         detailedDescription: "This layer ensures the platform can handle growth from hundreds to millions of users. It implements horizontal scaling for handling traffic spikes, load balancing across multiple servers, caching strategies for performance, database sharding for data distribution, and microservices architecture for independent scaling.",
         progressExplanation: "55% reflects current single-server architecture with scalability plans in place. The platform works well for current load but needs infrastructure upgrades for auto-scaling, load balancing, and distributed architecture to handle massive growth.",
@@ -798,11 +798,11 @@ const Framework50x21Dashboard: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3 dark:text-neutral-100">
             <Layers className="w-7 h-7 text-turquoise-600" />
             44x21 Framework Dashboard
           </h2>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">
             Comprehensive 44 layers × 21 phases production validation system with enhanced testing, developer experience, and operational capabilities
           </p>
         </div>
@@ -811,7 +811,7 @@ const Framework50x21Dashboard: React.FC = () => {
             onClick={generateReport}
             disabled={isGeneratingReport}
             className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white"
-          >
+           data-testid="button-bg-gradient-to-r">
             <FileText className="w-4 h-4 mr-2" />
             {isGeneratingReport ? 'Generating...' : 'Generate Report'}
           </Button>
@@ -819,7 +819,7 @@ const Framework50x21Dashboard: React.FC = () => {
             onClick={runSelfAnalysis}
             disabled={isRunningAnalysis}
             variant="outline"
-          >
+           data-testid="button-element">
             <CheckCircle className="w-4 h-4 mr-2" />
             {isRunningAnalysis ? 'Analyzing...' : 'Run Analysis'}
           </Button>
@@ -843,19 +843,19 @@ const Framework50x21Dashboard: React.FC = () => {
                 <div className="text-2xl font-bold text-green-600">
                   {frameworkData.filter(l => l.status === 'complete').length}
                 </div>
-                <div className="text-xs text-gray-600">Complete</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-400">Complete</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-yellow-600">
                   {frameworkData.filter(l => l.status === 'in-progress').length}
                 </div>
-                <div className="text-xs text-gray-600">In Progress</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-400">In Progress</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-red-600">
                   {frameworkData.filter(l => l.status === 'pending').length}
                 </div>
-                <div className="text-xs text-gray-600">Pending</div>
+                <div className="text-xs text-gray-600 dark:text-neutral-400">Pending</div>
               </div>
             </div>
           </div>
@@ -875,7 +875,7 @@ const Framework50x21Dashboard: React.FC = () => {
                 {frameworkData.map((layer) => (
                   <button
                     key={layer.id}
-                    onClick={() => setSelectedLayer(layer.id)}
+                    onClick={() = data-testid="button-element"> setSelectedLayer(layer.id)}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${
                       selectedLayer === layer.id 
                         ? 'border-turquoise-500 bg-turquoise-50' 
@@ -893,10 +893,10 @@ const Framework50x21Dashboard: React.FC = () => {
                         {layer.status}
                       </Badge>
                     </div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{layer.name}</h4>
+                    <h4 className="font-semibold text-gray-900 text-sm mb-1 dark:text-neutral-100">{layer.name}</h4>
                     <div className="mt-2">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-600">Progress</span>
+                        <span className="text-gray-600 dark:text-neutral-400">Progress</span>
                         <span className="font-medium">{layer.progress}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
@@ -923,10 +923,10 @@ const Framework50x21Dashboard: React.FC = () => {
               {frameworkData.find(l => l.id === selectedLayer) && (
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-gray-900 mb-2 dark:text-neutral-100">
                       Layer {selectedLayer}: {frameworkData.find(l => l.id === selectedLayer)!.name}
                     </h4>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">
                       {frameworkData.find(l => l.id === selectedLayer)!.description}
                     </p>
                   </div>
@@ -940,18 +940,18 @@ const Framework50x21Dashboard: React.FC = () => {
                     </TabsList>
                     <TabsContent value="overview" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What is this layer?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <h5 className="font-semibold text-sm text-gray-900 mb-2 dark:text-neutral-100">What is this layer?</h5>
+                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
                           {frameworkData.find(l => l.id === selectedLayer)!.detailedDescription}
                         </p>
                       </div>
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">Key Metrics</h5>
+                        <h5 className="font-semibold text-sm text-gray-900 mb-2 dark:text-neutral-100">Key Metrics</h5>
                         <div className="grid grid-cols-2 gap-2">
                           {frameworkData.find(l => l.id === selectedLayer)!.metrics?.map((metric, idx) => (
-                            <div key={idx} className="bg-gray-50 p-2 rounded">
+                            <div key={idx} className="bg-gray-50 p-2 rounded dark:bg-neutral-800">
                               <div className="text-xs text-gray-500">{metric.label}</div>
-                              <div className="text-sm font-semibold text-gray-900">{metric.value}</div>
+                              <div className="text-sm font-semibold text-gray-900 dark:text-neutral-100">{metric.value}</div>
                             </div>
                           ))}
                         </div>
@@ -959,14 +959,14 @@ const Framework50x21Dashboard: React.FC = () => {
                     </TabsContent>
                     <TabsContent value="progress" className="space-y-4">
                       <div>
-                        <h5 className="font-semibold text-sm text-gray-900 mb-2">What does {frameworkData.find(l => l.id === selectedLayer)!.progress}% mean?</h5>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <h5 className="font-semibold text-sm text-gray-900 mb-2 dark:text-neutral-100">What does {frameworkData.find(l => l.id === selectedLayer)!.progress}% mean?</h5>
+                        <p className="text-sm text-gray-600 leading-relaxed dark:text-neutral-400">
                           {frameworkData.find(l => l.id === selectedLayer)!.progressExplanation}
                         </p>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-600">Current Progress</span>
+                          <span className="text-gray-600 dark:text-neutral-400">Current Progress</span>
                           <span className="font-semibold">{frameworkData.find(l => l.id === selectedLayer)!.progress}%</span>
                         </div>
                         <Progress value={frameworkData.find(l => l.id === selectedLayer)!.progress} className="h-3" />
@@ -984,7 +984,7 @@ const Framework50x21Dashboard: React.FC = () => {
                       {frameworkData.find(l => l.id === selectedLayer)!.issues.length > 0 ? (
                         frameworkData.find(l => l.id === selectedLayer)!.issues.map((issue, idx) => (
                           <div key={idx} className="flex items-start gap-2">
-                            <AlertTriangle className="w-4 h-4 text-yellow-500 mt-0.5" />
+                            <AlertTriangle className="w-4 h-4 text-yellow-500 mt-0.5" / data-testid="link-w-4">
                             <span className="text-sm">{issue}</span>
                           </div>
                         ))
@@ -1005,7 +1005,7 @@ const Framework50x21Dashboard: React.FC = () => {
         <Card className="border-red-200 bg-red-50">
           <CardHeader>
             <CardTitle className="text-lg text-red-800 flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5" />
+              <AlertTriangle className="w-5 h-5" / data-testid="link-w-5">
               Critical Issues Requiring Attention
             </CardTitle>
           </CardHeader>
@@ -1014,7 +1014,7 @@ const Framework50x21Dashboard: React.FC = () => {
               {frameworkData
                 .filter(layer => layer.issues.length > 0 && layer.progress < 60)
                 .map(layer => (
-                  <div key={layer.id} className="p-3 bg-white rounded-lg border border-red-200">
+                  <div key={layer.id} className="p-3 bg-white rounded-lg border border-red-200 dark:bg-neutral-900">
                     <div className="font-medium text-red-800 mb-1">
                       Layer {layer.id}: {layer.name}
                     </div>

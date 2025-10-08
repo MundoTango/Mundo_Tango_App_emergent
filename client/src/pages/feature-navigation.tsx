@@ -182,7 +182,7 @@ export default function FeatureNavigation() {
       case 'implemented':
         return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'partial':
-        return <AlertCircle className="w-5 h-5 text-yellow-500" />;
+        return <AlertCircle className="w-5 h-5 text-yellow-500" / data-testid="link-w-5">;
       case 'missing':
         return <XCircle className="w-5 h-5 text-red-500" />;
       default:
@@ -197,13 +197,13 @@ export default function FeatureNavigation() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 dark:bg-neutral-800">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">
             Mundo Tango Feature Navigation
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-neutral-400">
             Navigate to all platform features and see implementation status
           </p>
         </div>
@@ -237,7 +237,7 @@ export default function FeatureNavigation() {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 rounded-lg">
+                    <div className="p-2 bg-gray-100 rounded-lg dark:bg-neutral-800">
                       {feature.icon}
                     </div>
                     <CardTitle className="text-lg">{feature.name}</CardTitle>
@@ -246,14 +246,14 @@ export default function FeatureNavigation() {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-gray-600">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">{feature.description}</p>
                 
                 {getStatusBadge(feature.status)}
                 
                 {feature.issues && (
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700">Issues:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside">
+                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Issues:</p>
+                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-400">
                       {feature.issues.map((issue, idx) => (
                         <li key={idx}>{issue}</li>
                       ))}
@@ -263,8 +263,8 @@ export default function FeatureNavigation() {
                 
                 {feature.requirements && (
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-gray-700">Required Features:</p>
-                    <ul className="text-sm text-gray-600 list-disc list-inside">
+                    <p className="text-sm font-medium text-gray-700 dark:text-neutral-300">Required Features:</p>
+                    <ul className="text-sm text-gray-600 list-disc list-inside dark:text-neutral-400">
                       {feature.requirements.map((req, idx) => (
                         <li key={idx}>{req}</li>
                       ))}
@@ -275,10 +275,10 @@ export default function FeatureNavigation() {
                 {feature.route && feature.status !== 'missing' && (
                   <Button 
                     className="w-full"
-                    onClick={() => setLocation(feature.route!)}
+                    onClick={() = data-testid="button-w-full"> setLocation(feature.route!)}
                   >
                     Navigate to Feature
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <ArrowRight className="w-4 h-4 ml-2" / data-testid="link-w-4">
                   </Button>
                 )}
               </CardContent>

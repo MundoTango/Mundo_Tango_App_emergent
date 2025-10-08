@@ -52,7 +52,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
   const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
     data.latitude && data.longitude ? [data.latitude, data.longitude] : null
   );
-  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[] data-testid="link-element">([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [isGeocoding, setIsGeocoding] = useState(false);
@@ -245,13 +245,13 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Where's your place located?</h2>
-        <p className="text-gray-600">Your address is only shared with guests after they've made a reservation</p>
+        <p className="text-gray-600 dark:text-neutral-400">Your address is only shared with guests after they've made a reservation</p>
       </div>
 
       {/* OpenStreetMap/Leaflet integration */}
       <div className="space-y-4">
         {/* Interactive Leaflet Map */}
-        <div className="rounded-lg overflow-hidden border border-gray-200" style={{ height: '400px' }}>
+        <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-neutral-700" style={{ height: '400px' }}>
           <MapContainer
             center={markerPosition || [defaultCenter.lat, defaultCenter.lng]}
             zoom={markerPosition ? 17 : 15}
@@ -259,7 +259,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             ref={mapRef}
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright" data-testid="link-element">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MapClickHandler onMapClick={handleMapClick} />
@@ -275,7 +275,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-            >
+             data-testid="link-flex">
               <Navigation className="h-4 w-4" />
               Get Google Maps directions
               <ExternalLink className="h-3 w-3" />
@@ -285,7 +285,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-            >
+             data-testid="link-flex">
               <Navigation className="h-4 w-4" />
               Open in Apple Maps
               <ExternalLink className="h-3 w-3" />
@@ -302,14 +302,14 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             placeholder="123 Main Street"
             value={data.address || ''}
             onChange={handleAddressChange}
-            onFocus={() => data.address && searchAddressSuggestions(data.address)}
+            onFocus={() = data-testid="input-element"> data.address && searchAddressSuggestions(data.address)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             className="mt-1"
           />
           
           {/* Address suggestions dropdown */}
           {showSuggestions && (
-            <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
+            <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto dark:bg-neutral-900">
               {isSearching ? (
                 <div className="p-3 text-center text-gray-500">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-pink-500 mx-auto"></div>
@@ -320,10 +320,10 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
                   <button
                     key={index}
                     type="button"
-                    onClick={() => handleSuggestionSelect(suggestion)}
-                    className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0"
+                    onClick={() = data-testid="button-element"> handleSuggestionSelect(suggestion)}
+                    className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-0 dark:bg-neutral-800"
                   >
-                    <p className="text-sm font-medium text-gray-900 line-clamp-1">
+                    <p className="text-sm font-medium text-gray-900 line-clamp-1 dark:text-neutral-100">
                       {suggestion.display_name}
                     </p>
                     {suggestion.address && (
@@ -349,7 +349,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="city"
               placeholder="San Francisco"
               value={data.city || ''}
-              onChange={(e) => updateData({ city: e.target.value })}
+              onChange={(e) = data-testid="input-element"> updateData({ city: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -359,7 +359,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="state"
               placeholder="California"
               value={data.state || ''}
-              onChange={(e) => updateData({ state: e.target.value })}
+              onChange={(e) = data-testid="input-element"> updateData({ state: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -372,7 +372,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="country"
               placeholder="United States"
               value={data.country || ''}
-              onChange={(e) => updateData({ country: e.target.value })}
+              onChange={(e) = data-testid="input-element"> updateData({ country: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -382,7 +382,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
               id="zipCode"
               placeholder="94105"
               value={data.zipCode || ''}
-              onChange={(e) => updateData({ zipCode: e.target.value })}
+              onChange={(e) = data-testid="input-element"> updateData({ zipCode: e.target.value })}
               className="mt-1"
             />
           </div>
@@ -397,7 +397,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
           disabled={isGeocoding}
           variant="outline"
           className="flex items-center gap-2"
-        >
+         data-testid="button-flex">
           {isGeocoding ? (
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>

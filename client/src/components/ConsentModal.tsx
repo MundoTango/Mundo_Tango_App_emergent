@@ -66,7 +66,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           {/* Analytics Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+              <BarChart className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="analytics-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Product Analytics
@@ -87,7 +87,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           {/* Session Recording Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+              <Eye className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="session-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Session Recording
@@ -108,7 +108,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
           {/* Error Tracking Option */}
           <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
             <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+              <AlertCircle className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
               <div className="space-y-1 flex-1">
                 <Label htmlFor="error-toggle" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">
                   Error Tracking

@@ -167,7 +167,7 @@ export default function Landing() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Mundo Tango</h1>
           </div>
           <Button 
-            onClick={() => window.location.href = '/api/login'}
+            onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Join the Community
@@ -188,15 +188,15 @@ export default function Landing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              onClick={() => window.location.href = '/api/login'}
+              onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
               className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Start Your Tango Journey
             </Button>
             <Button 
               variant="outline" 
-              className="border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
-            >
+              className="border-2 border-ocean-500 text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-900/20 px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200"
+             data-testid="button-border-2">
               Learn More
             </Button>
           </div>
@@ -299,7 +299,7 @@ export default function Landing() {
             Mundo Tango welcomes you with open arms.
           </p>
           <Button 
-            onClick={() => window.location.href = '/api/login'}
+            onClick={() = data-testid="button-element"> window.location.href = '/api/login'}
             className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Begin Your Journey Today

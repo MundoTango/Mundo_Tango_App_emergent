@@ -20,13 +20,13 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
       
       {/* Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-[101] pointer-events-none">
-        <div className="bg-white rounded-lg shadow-xl p-6 max-w-lg w-full mx-4 pointer-events-auto">
+        <div className="bg-white rounded-lg shadow-xl p-6 max-w-lg w-full mx-4 pointer-events-auto dark:bg-neutral-900">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
-            >
+              className="p-1 hover:bg-gray-100 rounded-lg transition-colors dark:bg-neutral-800"
+             data-testid="button-p-1">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -38,7 +38,7 @@ const MinimalTestModal: React.FC<MinimalTestModalProps> = ({ isOpen, onClose, ti
             <button
               onClick={onClose}
               className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
+             data-testid="button-w-full">
               Close Modal
             </button>
           </div>

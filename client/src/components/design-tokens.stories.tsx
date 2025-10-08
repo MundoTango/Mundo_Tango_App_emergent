@@ -11,7 +11,7 @@ export const ColorTokens: Story = () => (
           {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
             <div key={shade} className="text-center">
               <div 
-                className="h-16 rounded-lg mb-2 border border-neutral-200"
+                className="h-16 rounded-lg mb-2 border border-neutral-200 dark:border-neutral-700"
                 style={{ backgroundColor: `var(--color-ocean-${shade})` }}
               />
               <div className="text-xs font-mono">{shade}</div>
@@ -26,7 +26,7 @@ export const ColorTokens: Story = () => (
           {[0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
             <div key={shade} className="text-center">
               <div 
-                className="h-16 rounded-lg mb-2 border border-neutral-200"
+                className="h-16 rounded-lg mb-2 border border-neutral-200 dark:border-neutral-700"
                 style={{ backgroundColor: `var(--color-neutral-${shade})` }}
               />
               <div className="text-xs font-mono">{shade}</div>
@@ -76,15 +76,15 @@ export const SpacingTokens: Story = () => (
             style={{ width: `var(--spacing-${value})` }}
           />
           <div className="text-sm text-neutral-500">
-            {value === 1 && '0.25rem'}
-            {value === 2 && '0.5rem'}
-            {value === 3 && '0.75rem'}
-            {value === 4 && '1rem'}
-            {value === 6 && '1.5rem'}
-            {value === 8 && '2rem'}
-            {value === 12 && '3rem'}
-            {value === 16 && '4rem'}
-            {value === 24 && '6rem'}
+            {value === 1 && 'var(--spacing-1)'}
+            {value === 2 && 'var(--spacing-2)'}
+            {value === 3 && 'var(--spacing-3)'}
+            {value === 4 && 'var(--spacing-4)'}
+            {value === 6 && 'var(--spacing-6)'}
+            {value === 8 && 'var(--spacing-8)'}
+            {value === 12 && 'var(--spacing-12)'}
+            {value === 16 && 'var(--spacing-16)'}
+            {value === 24 && 'var(--spacing-24)'}
           </div>
         </div>
       ))}
@@ -99,12 +99,12 @@ export const TypographyTokens: Story = () => (
       <div>
         <h3 className="text-lg font-semibold mb-4">Font Sizes</h3>
         <div className="space-y-3">
-          <div style={{ fontSize: 'var(--font-size-xs)' }}>Extra Small (xs) - 0.75rem</div>
+          <div style={{ fontSize: 'var(--font-size-xs)' }}>Extra Small (xs) - var(--spacing-3)</div>
           <div style={{ fontSize: 'var(--font-size-sm)' }}>Small (sm) - 0.875rem</div>
-          <div style={{ fontSize: 'var(--font-size-base)' }}>Base - 1rem</div>
+          <div style={{ fontSize: 'var(--font-size-base)' }}>Base - var(--spacing-4)</div>
           <div style={{ fontSize: 'var(--font-size-lg)' }}>Large (lg) - 1.125rem</div>
           <div style={{ fontSize: 'var(--font-size-xl)' }}>Extra Large (xl) - 1.25rem</div>
-          <div style={{ fontSize: 'var(--font-size-2xl)' }}>2X Large - 1.5rem</div>
+          <div style={{ fontSize: 'var(--font-size-2xl)' }}>2X Large - var(--spacing-6)</div>
           <div style={{ fontSize: 'var(--font-size-3xl)' }}>3X Large - 1.875rem</div>
           <div style={{ fontSize: 'var(--font-size-4xl)' }}>4X Large - 2.25rem</div>
         </div>
@@ -133,15 +133,15 @@ export const BorderRadiusTokens: Story = () => (
             className="h-24 bg-ocean-500 mx-auto mb-2"
             style={{ 
               borderRadius: `var(--radius-${size})`,
-              width: size === 'full' ? '6rem' : '100%'
+              width: size === 'full' ? 'var(--spacing-24)' : '100%'
             }}
           />
           <div className="text-sm font-semibold">radius-{size}</div>
           <div className="text-xs text-neutral-500">
-            {size === 'sm' && '0.25rem'}
-            {size === 'md' && '0.5rem'}
-            {size === 'lg' && '1rem'}
-            {size === 'xl' && '1.5rem'}
+            {size === 'sm' && 'var(--spacing-1)'}
+            {size === 'md' && 'var(--spacing-2)'}
+            {size === 'lg' && 'var(--spacing-4)'}
+            {size === 'xl' && 'var(--spacing-6)'}
             {size === 'full' && '9999px'}
           </div>
         </div>
@@ -168,7 +168,7 @@ export const AnimationTokens: Story = () => (
             <div className="text-sm font-mono">duration-{item.name}</div>
             <div className="text-xs text-neutral-500">{item.label}</div>
           </div>
-          <div className="flex-1 bg-neutral-100 rounded-lg p-2">
+          <div className="flex-1 bg-neutral-100 rounded-lg p-2 dark:bg-neutral-800">
             <div 
               className="h-8 bg-ocean-500 rounded"
               style={{

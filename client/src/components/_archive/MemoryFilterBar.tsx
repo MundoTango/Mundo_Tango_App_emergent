@@ -178,7 +178,7 @@ export default function MemoryFilterBar({
                   sx={{
                     mr: 0.5,
                     mb: 0.5,
-                    fontSize: '0.75rem',
+                    fontSize: 'var(--spacing-3)',
                     height: '24px',
                     borderColor: filters.emotions.includes(tag) ? '#be185d' : '#d1d5db',
                     backgroundColor: filters.emotions.includes(tag) ? '#fce7f3' : 'transparent',
@@ -202,7 +202,7 @@ export default function MemoryFilterBar({
               </Typography>
             </Box>
             <FormControl fullWidth size="small">
-              <InputLabel>Select Event</InputLabel>
+              <InputLabel data-testid="input-element">Select Event</InputLabel>
               <Select
                 value={filters.event || ''}
                 onChange={handleEventChange}
@@ -212,7 +212,7 @@ export default function MemoryFilterBar({
                     color: '#374151'
                   }
                 }}
-              >
+               data-testid="select-element">
                 <MenuItem value="">
                   <em>All Events</em>
                 </MenuItem>

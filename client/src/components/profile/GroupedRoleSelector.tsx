@@ -178,7 +178,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             size="icon"
             onClick={prevCategory}
             className="hover:bg-turquoise-50"
-          >
+           data-testid="button-hover:bg-turquoise-50">
             <ChevronLeft className="h-5 w-5" />
           </Button>
 
@@ -187,7 +187,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             <h4 className={`text-xl font-bold bg-gradient-to-r ${currentCategory.bgGradient} bg-clip-text text-transparent`}>
               {currentCategory.name}
             </h4>
-            <p className="text-sm text-gray-600">{currentCategory.description}</p>
+            <p className="text-sm text-gray-600 dark:text-neutral-400">{currentCategory.description}</p>
           </div>
 
           <Button
@@ -195,7 +195,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
             size="icon"
             onClick={nextCategory}
             className="hover:bg-turquoise-50"
-          >
+           data-testid="button-hover:bg-turquoise-50">
             <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
@@ -205,7 +205,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
           {roleCategories.map((_, index) => (
             <button
               key={index}
-              onClick={() => {
+              onClick={() = data-testid="button-element"> {
                 setCurrentCategoryIndex(index);
                 setFlippedCards(new Set());
               }}
@@ -245,7 +245,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                     <CardContent className="h-full flex flex-col items-center justify-center text-center p-4">
                       <div className="text-4xl mb-2">{role.emoji}</div>
                       <h5 className="font-semibold text-lg mb-1">{role.label}</h5>
-                      <p className="text-sm text-gray-600">Click to learn more</p>
+                      <p className="text-sm text-gray-600 dark:text-neutral-400">Click to learn more</p>
                       {isSelected && (
                         <Check className="absolute top-2 right-2 h-5 w-5 text-turquoise-500" />
                       )}
@@ -268,7 +268,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                             size="icon"
                             variant="ghost"
                             className="h-6 w-6"
-                            onClick={(e) => {
+                            onClick={(e) = data-testid="button-h-6"> {
                               e.stopPropagation();
                               flipCard(role.id);
                             }}
@@ -276,7 +276,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
-                        <p className="text-sm text-gray-600 mb-4">{role.description}</p>
+                        <p className="text-sm text-gray-600 mb-4 dark:text-neutral-400">{role.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}
@@ -285,7 +285,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                           "w-full",
                           isSelected && "bg-gradient-to-r from-turquoise-400 to-cyan-500"
                         )}
-                        onClick={(e) => {
+                        onClick={(e) = data-testid="button-element"> {
                           e.stopPropagation();
                           handleRoleToggle(role.id);
                         }}
@@ -314,7 +314,7 @@ export const GroupedRoleSelector: React.FC<GroupedRoleSelectorProps> = ({
                 <Badge
                   key={roleId}
                   variant="secondary"
-                  className="bg-white hover:bg-gray-50 cursor-pointer"
+                  className="bg-white hover:bg-gray-50 cursor-pointer dark:bg-neutral-900"
                   onClick={() => handleRoleToggle(roleId)}
                 >
                   {role.emoji} {role.label}

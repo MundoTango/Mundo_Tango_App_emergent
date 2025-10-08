@@ -22,7 +22,7 @@ export function UpdatePrompt() {
           <Button
             size="sm"
             onClick={handleUpdate}
-            className="bg-teal-500 hover:bg-teal-600"
+            className="bg-ocean-500 hover:bg-teal-600"
           >
             Update
           </Button>

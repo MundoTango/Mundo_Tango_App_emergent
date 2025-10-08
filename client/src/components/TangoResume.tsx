@@ -53,7 +53,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
       <Card>
         <CardContent className="p-8 text-center">
           <Star className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-2 dark:text-neutral-100">
             {isOwnProfile ? 'No accepted roles yet' : 'No public resume available'}
           </h3>
           <p className="text-gray-500">
@@ -72,22 +72,22 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
       {isOwnProfile && (
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">My Tango Resume</h2>
-            <p className="text-gray-600">Professional experience in the tango community</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-neutral-100">My Tango Resume</h2>
+            <p className="text-gray-600 dark:text-neutral-400">Professional experience in the tango community</p>
           </div>
           <div className="flex space-x-2">
             <Button
               variant="outline"
               onClick={handleShareResume}
               className="flex items-center space-x-2"
-            >
+             data-testid="button-flex">
               <Share2 className="h-4 w-4" />
               <span>Share</span>
             </Button>
             <Button
               onClick={handleDownloadPDF}
               className="bg-[#8E142E] hover:bg-[#6B0F22] flex items-center space-x-2"
-            >
+             data-testid="button-bg-[#8E142E]">
               <Download className="h-4 w-4" />
               <span>Download PDF</span>
             </Button>
@@ -100,7 +100,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-[#8E142E]">{resume.length}</div>
-            <div className="text-sm text-gray-600">Events Participated</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Events Participated</div>
           </CardContent>
         </Card>
         <Card>
@@ -108,7 +108,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             <div className="text-2xl font-bold text-[#8E142E]">
               {resume.reduce((acc: number, event: any) => acc + event.roles.length, 0)}
             </div>
-            <div className="text-sm text-gray-600">Total Roles</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Total Roles</div>
           </CardContent>
         </Card>
         <Card>
@@ -116,14 +116,14 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
             <div className="text-2xl font-bold text-[#8E142E]">
               {new Set(resume.flatMap((event: any) => event.roles.map((role: any) => role.role))).size}
             </div>
-            <div className="text-sm text-gray-600">Unique Role Types</div>
+            <div className="text-sm text-gray-600 dark:text-neutral-400">Unique Role Types</div>
           </CardContent>
         </Card>
       </div>
 
       {/* Resume Events */}
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-900">Professional Experience</h3>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-neutral-100">Professional Experience</h3>
         
         {resume
           .sort((a: any, b: any) => new Date(b.eventStartDate).getTime() - new Date(a.eventStartDate).getTime())
@@ -144,7 +144,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                       </div>
                     </div>
                   </div>
-                  <Badge variant="secondary" className="bg-white text-[#8E142E]">
+                  <Badge variant="secondary" className="bg-white text-[#8E142E] dark:bg-neutral-900">
                     {event.roles.length} Role{event.roles.length !== 1 ? 's' : ''}
                   </Badge>
                 </div>
@@ -155,7 +155,7 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                   {event.roles.map((role: any, index: number) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800"
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-[#8E142E] rounded-full flex items-center justify-center">
@@ -163,12 +163,12 @@ export default function TangoResume({ userId, isOwnProfile = false }: TangoResum
                         </div>
                         <div>
                           <div className="font-semibold text-[#8E142E]">{role.role}</div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-neutral-400">
                             Confirmed on {format(new Date(role.acceptedAt), 'PPP')}
                           </div>
                         </div>
                       </div>
-                      <div className="text-right text-sm text-gray-600">
+                      <div className="text-right text-sm text-gray-600 dark:text-neutral-400">
                         <div>Invited by</div>
                         <div className="font-medium">{role.inviterName}</div>
                       </div>

@@ -117,7 +117,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
   });
   
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow dark:bg-neutral-900">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
@@ -135,7 +135,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-gray-900 dark:text-neutral-100">
                 {post.user?.name || post.user?.username || 'Unknown User'}
               </h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -148,7 +148,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
 
         {/* Content */}
         <div className="mt-3">
-          <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+          <p className="text-gray-800 whitespace-pre-wrap dark:text-neutral-200">{post.content}</p>
           
           {/* Media Display - ESA LIFE CEO 61x21 FIXED */}
           {mediaItems.length > 0 && (
@@ -213,14 +213,14 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
               
               <button 
                 onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors dark:text-neutral-400"
                 data-testid={`button-comment-toggle-${post.id}`}
               >
                 <MessageCircle className="w-5 h-5" />
                 <span className="text-sm">{post.commentCount || 0}</span>
               </button>
               
-              <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors">
+              <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors dark:text-neutral-400">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
@@ -236,7 +236,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   placeholder="Add a comment..."
-                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-neutral-700"
                   onKeyPress={(e) => {
                     if (e.key === 'Enter' && commentText.trim()) {
                       addCommentMutation.mutate(commentText);
@@ -260,7 +260,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   {post.comments.map((comment: any) => (
                     <div key={comment.id} className="flex gap-2 text-sm">
                       <span className="font-semibold">{comment.user?.name || 'Unknown'}:</span>
-                      <span className="text-gray-700">{comment.content}</span>
+                      <span className="text-gray-700 dark:text-neutral-300">{comment.content}</span>
                     </div>
                   ))}
                 </div>

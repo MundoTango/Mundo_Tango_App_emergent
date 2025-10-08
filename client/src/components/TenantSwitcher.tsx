@@ -85,7 +85,7 @@ const TenantSwitcher = () => {
       <DropdownMenuTrigger asChild>
         <button
           className="flex items-center justify-between w-full gap-2 p-3 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-teal-200/50 dark:border-teal-700/50 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-blue-50/50 dark:hover:from-teal-900/30 dark:hover:to-blue-900/30 transition-all duration-300 shadow-lg hover:shadow-xl"
-        >
+         data-testid="button-flex">
           <div className="flex items-center gap-2">
             {currentTenant.logo_url ? (
               <img 
@@ -138,7 +138,7 @@ const TenantSwitcher = () => {
               </div>
             </div>
             {currentTenant.id === tenant.id && (
-              <Check className="w-4 h-4 text-teal-500" />
+              <Check className="w-4 h-4 text-ocean-500" />
             )}
           </DropdownMenuItem>
         ))}

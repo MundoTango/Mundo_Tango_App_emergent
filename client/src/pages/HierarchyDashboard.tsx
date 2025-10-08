@@ -113,10 +113,10 @@ export default function HierarchyDashboard() {
 
   if (!metrics) {
     return (
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>No Metrics Available</AlertTitle>
-        <AlertDescription>
+      <Alert data-testid="link-element">
+        <AlertCircle className="h-4 w-4" / data-testid="link-h-4">
+        <AlertTitle data-testid="link-element">No Metrics Available</AlertTitle>
+        <AlertDescription data-testid="link-element">
           The evolution service is still analyzing your project structure.
         </AlertDescription>
       </Alert>
@@ -130,7 +130,7 @@ export default function HierarchyDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Project Hierarchy Dashboard</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 mt-1 dark:text-neutral-400">
             Real-time analysis of your project structure health
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function HierarchyDashboard() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setAutoRefresh(!autoRefresh)}
+            onClick={() = data-testid="button-element"> setAutoRefresh(!autoRefresh)}
           >
             {autoRefresh ? 'Disable' : 'Enable'} Auto-refresh
           </Button>
@@ -146,7 +146,7 @@ export default function HierarchyDashboard() {
             variant="outline"
             size="sm"
             onClick={fetchMetrics}
-          >
+           data-testid="button-element">
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh
           </Button>
@@ -170,13 +170,13 @@ export default function HierarchyDashboard() {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <span className="text-sm text-gray-600">Module Cohesion</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">Module Cohesion</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.moduleCohesion * 100).toFixed(1)}%
               </div>
             </div>
             <div>
-              <span className="text-sm text-gray-600">Coupling Score</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">Coupling Score</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.couplingScore * 100).toFixed(1)}%
               </div>
@@ -250,18 +250,18 @@ export default function HierarchyDashboard() {
 
         <TabsContent value="suggestions" className="space-y-4">
           {metrics.suggestions.length === 0 ? (
-            <Alert>
+            <Alert data-testid="link-element">
               <CheckCircle className="h-4 w-4" />
-              <AlertTitle>No Suggestions</AlertTitle>
-              <AlertDescription>
+              <AlertTitle data-testid="link-element">No Suggestions</AlertTitle>
+              <AlertDescription data-testid="link-element">
                 Your project structure looks good! No improvements needed at this time.
               </AlertDescription>
             </Alert>
           ) : (
             metrics.suggestions.map((suggestion, index) => (
-              <Alert key={index}>
+              <Alert key={index} data-testid="link-element">
                 <Zap className="h-4 w-4" />
-                <AlertTitle className="flex items-center gap-2">
+                <AlertTitle className="flex items-center gap-2" data-testid="link-flex">
                   {suggestion.type.charAt(0).toUpperCase() + suggestion.type.slice(1)} Suggestion
                   <Badge variant={getImpactColor(suggestion.impact)}>
                     {suggestion.impact} impact
@@ -270,7 +270,7 @@ export default function HierarchyDashboard() {
                     {(suggestion.confidence * 100).toFixed(0)}% confidence
                   </Badge>
                 </AlertTitle>
-                <AlertDescription className="mt-2">
+                <AlertDescription className="mt-2" data-testid="link-mt-2">
                   <p className="font-medium">{suggestion.target}</p>
                   <p className="text-sm mt-1">{suggestion.reason}</p>
                 </AlertDescription>
@@ -281,10 +281,10 @@ export default function HierarchyDashboard() {
 
         <TabsContent value="issues" className="space-y-4">
           {metrics.hierarchy.misplacedFiles.length > 0 && (
-            <Alert>
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Misplaced Files</AlertTitle>
-              <AlertDescription>
+            <Alert data-testid="link-element">
+              <AlertTriangle className="h-4 w-4" / data-testid="link-h-4">
+              <AlertTitle data-testid="link-element">Misplaced Files</AlertTitle>
+              <AlertDescription data-testid="link-element">
                 <p className="mb-2">
                   {metrics.hierarchy.misplacedFiles.length} files appear to be in the wrong location:
                 </p>
@@ -301,10 +301,10 @@ export default function HierarchyDashboard() {
           )}
 
           {metrics.hierarchy.orphanedFiles.length > 0 && (
-            <Alert>
-              <Archive className="h-4 w-4" />
-              <AlertTitle>Orphaned Files</AlertTitle>
-              <AlertDescription>
+            <Alert data-testid="link-element">
+              <Archive className="h-4 w-4" / data-testid="link-h-4">
+              <AlertTitle data-testid="link-element">Orphaned Files</AlertTitle>
+              <AlertDescription data-testid="link-element">
                 <p className="mb-2">
                   {metrics.hierarchy.orphanedFiles.length} files have no connections to other files:
                 </p>
@@ -322,10 +322,10 @@ export default function HierarchyDashboard() {
 
           {metrics.hierarchy.misplacedFiles.length === 0 && 
            metrics.hierarchy.orphanedFiles.length === 0 && (
-            <Alert>
+            <Alert data-testid="link-element">
               <CheckCircle className="h-4 w-4" />
-              <AlertTitle>No Issues Found</AlertTitle>
-              <AlertDescription>
+              <AlertTitle data-testid="link-element">No Issues Found</AlertTitle>
+              <AlertDescription data-testid="link-element">
                 Your project structure has no detected issues.
               </AlertDescription>
             </Alert>

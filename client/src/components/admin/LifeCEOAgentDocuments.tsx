@@ -48,7 +48,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
   const { id: agentId } = useParams();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [selectedDocument, setSelectedDocument] = useState<AgentDocument | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<AgentDocument | null data-testid="link-element">(null);
   const [reviewNotes, setReviewNotes] = useState('');
 
   // Fetch agent documents
@@ -156,13 +156,13 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
               }`}
             >
-              <input {...getInputProps()} />
+              <input {...getInputProps()} / data-testid="input-element">
               <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
               {isDragActive ? (
                 <p className="text-blue-600">Drop the files here...</p>
               ) : (
                 <>
-                  <p className="text-gray-600 mb-2">Drag & drop documents here, or click to select</p>
+                  <p className="text-gray-600 mb-2 dark:text-neutral-400">Drag & drop documents here, or click to select</p>
                   <p className="text-sm text-gray-500">Supports PDF, TXT, MD, DOCX (max 10MB)</p>
                 </>
               )}
@@ -201,13 +201,13 @@ const LifeCEOAgentDocuments: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {doc.review_notes && (
-                  <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                    <p className="text-sm font-medium text-gray-700 mb-1">Review Notes:</p>
-                    <p className="text-sm text-gray-600">{doc.review_notes}</p>
+                  <div className="mb-4 p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+                    <p className="text-sm font-medium text-gray-700 mb-1 dark:text-neutral-300">Review Notes:</p>
+                    <p className="text-sm text-gray-600 dark:text-neutral-400">{doc.review_notes}</p>
                   </div>
                 )}
                 <div className="flex space-x-2">
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" data-testid="button-element">
                     <Eye className="w-4 h-4 mr-1" />
                     View
                   </Button>
@@ -215,13 +215,13 @@ const LifeCEOAgentDocuments: React.FC = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => setSelectedDocument(doc)}
+                      onClick={() = data-testid="button-element"> setSelectedDocument(doc)}
                     >
                       <Edit className="w-4 h-4 mr-1" />
                       Review
                     </Button>
                   )}
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" data-testid="button-element">
                     <Download className="w-4 h-4 mr-1" />
                     Download
                   </Button>
@@ -253,7 +253,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <label className="text-sm font-medium">Review Notes</label>
                 <Textarea
                   value={reviewNotes}
-                  onChange={(e) => setReviewNotes(e.target.value)}
+                  onChange={(e) = data-testid="textarea-element"> setReviewNotes(e.target.value)}
                   placeholder="Add your review notes here..."
                   rows={4}
                   className="mt-1"
@@ -262,7 +262,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
               <div className="flex space-x-2">
                 <Button
                   className="flex-1"
-                  onClick={() => {
+                  onClick={() = data-testid="button-flex-1"> {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'approved',
@@ -276,7 +276,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 <Button
                   variant="destructive"
                   className="flex-1"
-                  onClick={() => {
+                  onClick={() = data-testid="button-flex-1"> {
                     reviewDocumentMutation.mutate({
                       documentId: selectedDocument.id,
                       status: 'rejected',
@@ -289,7 +289,7 @@ const LifeCEOAgentDocuments: React.FC = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     setSelectedDocument(null);
                     setReviewNotes('');
                   }}

@@ -32,7 +32,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
     apdex: 0.94
   });
 
-  const [alerts] = useState<Alert[]>([
+  const [alerts] = useState<Alert[] data-testid="link-element">([
     {
       id: '1',
       severity: 'warning',
@@ -74,7 +74,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
     return <AlertTriangle className={`w-4 h-4 ${
       severity === 'critical' ? 'text-red-600' :
       severity === 'warning' ? 'text-yellow-600' : 'text-blue-600'
-    }`} />;
+    }`} / data-testid="link-element">;
   };
 
   return (
@@ -91,19 +91,19 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600">{metrics.uptime}%</div>
-              <div className="text-sm text-gray-600">Uptime</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Uptime</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">{metrics.avgResponseTime}ms</div>
-              <div className="text-sm text-gray-600">Avg Response</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Avg Response</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600">{metrics.errorRate}%</div>
-              <div className="text-sm text-gray-600">Error Rate</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Error Rate</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">{metrics.apdex}</div>
-              <div className="text-sm text-gray-600">Apdex Score</div>
+              <div className="text-sm text-gray-600 dark:text-neutral-400">Apdex Score</div>
             </div>
           </div>
         </CardContent>
@@ -123,11 +123,11 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-3">
             {alerts.filter(a => !a.resolved).map(alert => (
-              <Alert key={alert.id} className={getSeverityColor(alert.severity)}>
+              <Alert key={alert.id} className={getSeverityColor(alert.severity)} data-testid="link-element">
                 <div className="flex items-start gap-3">
                   {getSeverityIcon(alert.severity)}
                   <div className="flex-1">
-                    <AlertDescription className="font-medium">
+                    <AlertDescription className="font-medium" data-testid="link-font-medium">
                       {alert.message}
                     </AlertDescription>
                     <div className="text-xs mt-1 opacity-70">
@@ -151,7 +151,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={performanceData}>
+            <AreaChart data={performanceData} data-testid="link-element">
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="time" />
               <YAxis />
@@ -163,7 +163,7 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
                 fill="#3b82f6" 
                 fillOpacity={0.3}
                 name="Response Time (ms)"
-              />
+              / data-testid="link-element">
             </AreaChart>
           </ResponsiveContainer>
         </CardContent>
@@ -200,21 +200,21 @@ export const ProfileMonitoring: React.FC<{ userId: number }> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <span className="font-medium">Alert Threshold</span>
-              <span className="text-sm text-gray-600">Error rate &gt; 1%</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">Error rate &gt; 1%</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <span className="font-medium">Check Interval</span>
-              <span className="text-sm text-gray-600">Every 30 seconds</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">Every 30 seconds</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <span className="font-medium">Alert Channels</span>
-              <span className="text-sm text-gray-600">Email, Slack, PagerDuty</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">Email, Slack, PagerDuty</span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
               <span className="font-medium">Data Retention</span>
-              <span className="text-sm text-gray-600">90 days</span>
+              <span className="text-sm text-gray-600 dark:text-neutral-400">90 days</span>
             </div>
           </div>
         </CardContent>

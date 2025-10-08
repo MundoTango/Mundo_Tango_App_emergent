@@ -543,7 +543,7 @@ const AdminCenter = memo(() => {
         <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           <GlassCard 
             depth={2}
-            className="border-cyan-200/30 dark:border-cyan-500/30"
+            className="border-cyan-200/30 dark:border-ocean-500/30"
             data-testid="stat-total-users"
           >
             <div className="flex items-start justify-between mb-2 sm:mb-3">
@@ -633,7 +633,7 @@ const AdminCenter = memo(() => {
             <MagneticButton 
               onClick={() => setSelectedTab('users')}
               strength={0.15}
-              className="glass-card glass-depth-2 border-cyan-200/30 dark:border-cyan-500/30 p-5 text-left group"
+              className="glass-card glass-depth-2 border-cyan-200/30 dark:border-ocean-500/30 p-5 text-left group"
               data-testid="button-manage-users"
             >
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform">

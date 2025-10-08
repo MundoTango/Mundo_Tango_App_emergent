@@ -87,16 +87,16 @@ export default function NovuNotificationSystem({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-gray-900">{template.title}</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-neutral-100">{template.title}</p>
             <span className="text-xs text-gray-500">
               {new Date(notification.createdAt).toLocaleDateString()}
             </span>
           </div>
-          <p className="text-sm text-gray-700 mt-1">{notification.content}</p>
+          <p className="text-sm text-gray-700 mt-1 dark:text-neutral-300">{notification.content}</p>
           {notification.data?.actionUrl && (
             <button 
               className="text-sm text-blue-600 hover:text-blue-800 mt-2 font-medium"
-              onClick={() => window.location.href = notification.data.actionUrl}
+              onClick={() = data-testid="button-text-sm"> window.location.href = notification.data.actionUrl}
             >
               View →
             </button>
@@ -126,7 +126,7 @@ export default function NovuNotificationSystem({
               colors: {
                 main: '#E91E63',
                 foreground: '#374151',
-                background: '#FFFFFF',
+                background: 'var(--color-neutral-0)',
                 primary: '#E91E63',
                 secondary: '#9CA3AF'
               },
@@ -181,7 +181,7 @@ export default function NovuNotificationSystem({
           }
         >
           {({ unseenCount }) => (
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors dark:text-neutral-100" data-testid="button-relative">
               <Bell className="h-5 w-5" />
               {unseenCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">

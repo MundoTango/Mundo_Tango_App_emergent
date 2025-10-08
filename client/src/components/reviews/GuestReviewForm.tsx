@@ -95,7 +95,7 @@ export function GuestReviewForm({
   };
 
   return (
-    <GlassCard depth={4} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
+    <GlassCard depth={4} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
@@ -142,7 +142,7 @@ export function GuestReviewForm({
             onChange={(e) => setReviewText(e.target.value)}
             placeholder={t('housing.reviews.guest_review_placeholder', 'Share your experience hosting this guest...')}
             rows={5}
-            className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
+            className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
             data-testid="input-review-text"
           />
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -156,7 +156,7 @@ export function GuestReviewForm({
             id="would-host-again"
             checked={wouldHostAgain}
             onChange={(e) => setWouldHostAgain(e.target.checked)}
-            className="w-4 h-4 rounded border-cyan-300 text-cyan-500 focus:ring-cyan-500"
+            className="w-4 h-4 rounded border-cyan-300 text-ocean-500 focus:ring-cyan-500"
             data-testid="checkbox-would-host-again"
           />
           <label htmlFor="would-host-again" className="text-sm text-slate-700 dark:text-slate-300">

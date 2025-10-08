@@ -221,11 +221,11 @@ const PromoCodesAdmin: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Promo Code Management</h1>
-            <p className="text-gray-600">Create and manage discount codes for subscriptions</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-neutral-100">Promo Code Management</h1>
+            <p className="text-gray-600 dark:text-neutral-400">Create and manage discount codes for subscriptions</p>
           </div>
           <Button
-            onClick={() => {
+            onClick={() = data-testid="button-element"> {
               resetForm();
               setEditingPromo(null);
               setShowCreateDialog(true);
@@ -243,7 +243,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Active Codes</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Active Codes</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.filter((p: PromoCode) => p.isActive).length || 0}
                   </p>
@@ -257,7 +257,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Total Uses</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Total Uses</p>
                   <p className="text-2xl font-bold">
                     {promoCodes?.reduce((sum: number, p: PromoCode) => sum + p.usageCount, 0) || 0}
                   </p>
@@ -271,7 +271,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Avg Discount</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Avg Discount</p>
                   <p className="text-2xl font-bold">15%</p>
                 </div>
                 <Percent className="h-8 w-8 text-orange-500" />
@@ -283,7 +283,7 @@ const PromoCodesAdmin: React.FC = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Revenue Impact</p>
+                  <p className="text-sm text-gray-600 dark:text-neutral-400">Revenue Impact</p>
                   <p className="text-2xl font-bold">$2,450</p>
                 </div>
                 <DollarSign className="h-8 w-8 text-green-500" />
@@ -327,13 +327,13 @@ const PromoCodesAdmin: React.FC = () => {
                     <TableRow key={promo.id}>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <code className="font-mono bg-gray-100 px-2 py-1 rounded">
+                          <code className="font-mono bg-gray-100 px-2 py-1 rounded dark:bg-neutral-800">
                             {promo.code}
                           </code>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => copyToClipboard(promo.code)}
+                            onClick={() = data-testid="button-element"> copyToClipboard(promo.code)}
                           >
                             <Copy className="h-4 w-4" />
                           </Button>
@@ -366,7 +366,7 @@ const PromoCodesAdmin: React.FC = () => {
                         {promo.isActive ? (
                           <Badge className="bg-green-100 text-green-700">Active</Badge>
                         ) : (
-                          <Badge className="bg-gray-100 text-gray-700">Inactive</Badge>
+                          <Badge className="bg-gray-100 text-gray-700 dark:bg-neutral-800">Inactive</Badge>
                         )}
                       </TableCell>
                       <TableCell>
@@ -374,14 +374,14 @@ const PromoCodesAdmin: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => handleEdit(promo)}
+                            onClick={() = data-testid="button-element"> handleEdit(promo)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => deletePromoMutation.mutate(promo.id)}
+                            onClick={() = data-testid="button-element"> deletePromoMutation.mutate(promo.id)}
                             className="text-red-600 hover:text-red-700"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -417,7 +417,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
+                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                 placeholder="SUMMER2025"
                 className="mt-1"
               />
@@ -428,14 +428,14 @@ const PromoCodesAdmin: React.FC = () => {
                 <Label htmlFor="type">Discount Type</Label>
                 <Select
                   value={formData.type}
-                  onValueChange={(value) => setFormData({ ...formData, type: value })}
+                  onValueChange={(value) = data-testid="select-element"> setFormData({ ...formData, type: value })}
                 >
-                  <SelectTrigger className="mt-1">
-                    <SelectValue />
+                  <SelectTrigger className="mt-1" data-testid="select-mt-1">
+                    <SelectValue / data-testid="select-element">
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="percentage">Percentage</SelectItem>
-                    <SelectItem value="fixed">Fixed Amount</SelectItem>
+                  <SelectContent data-testid="select-element">
+                    <SelectItem value="percentage" data-testid="select-element">Percentage</SelectItem>
+                    <SelectItem value="fixed" data-testid="select-element">Fixed Amount</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -446,7 +446,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="value"
                   type="number"
                   value={formData.value}
-                  onChange={(e) => setFormData({ ...formData, value: Number(e.target.value) })}
+                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, value: Number(e.target.value) })}
                   placeholder={formData.type === 'percentage' ? '20' : '10'}
                   className="mt-1"
                 />
@@ -458,7 +458,7 @@ const PromoCodesAdmin: React.FC = () => {
               <Input
                 id="description"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, description: e.target.value })}
                 placeholder="Summer sale discount"
                 className="mt-1"
               />
@@ -471,7 +471,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validFrom"
                   type="date"
                   value={formData.validFrom}
-                  onChange={(e) => setFormData({ ...formData, validFrom: e.target.value })}
+                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, validFrom: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -482,7 +482,7 @@ const PromoCodesAdmin: React.FC = () => {
                   id="validUntil"
                   type="date"
                   value={formData.validUntil}
-                  onChange={(e) => setFormData({ ...formData, validUntil: e.target.value })}
+                  onChange={(e) = data-testid="input-element"> setFormData({ ...formData, validUntil: e.target.value })}
                   className="mt-1"
                 />
               </div>
@@ -494,7 +494,7 @@ const PromoCodesAdmin: React.FC = () => {
                 id="usageLimit"
                 type="number"
                 value={formData.usageLimit}
-                onChange={(e) => setFormData({ ...formData, usageLimit: e.target.value })}
+                onChange={(e) = data-testid="input-element"> setFormData({ ...formData, usageLimit: e.target.value })}
                 placeholder="100"
                 className="mt-1"
               />
@@ -532,14 +532,14 @@ const PromoCodesAdmin: React.FC = () => {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
+            <Button variant="outline" onClick={() = data-testid="button-element"> setShowCreateDialog(false)}>
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
               disabled={createPromoMutation.isPending || updatePromoMutation.isPending}
               className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600"
-            >
+             data-testid="button-bg-gradient-to-r">
               {createPromoMutation.isPending || updatePromoMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

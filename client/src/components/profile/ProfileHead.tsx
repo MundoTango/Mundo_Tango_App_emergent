@@ -102,7 +102,7 @@ export default function ProfileHead({
             variant="ghost"
             size="sm"
             className="absolute top-4 right-4 bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
-          >
+           data-testid="button-absolute">
             <Camera className="mr-2 h-4 w-4" />
             Edit Cover
           </Button>
@@ -113,9 +113,9 @@ export default function ProfileHead({
         {/* Profile Picture */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between -mt-16 mb-6">
           <div className="relative">
-            <Avatar className="h-32 w-32 border-4 border-white shadow-lg">
-              <AvatarImage src={user.profileImage} />
-              <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+            <Avatar className="h-32 w-32 border-4 border-white shadow-lg" data-testid="link-h-32">
+              <AvatarImage src={user.profileImage} / data-testid="link-element">
+              <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 text-white" data-testid="link-text-2xl">
                 {user.name?.[0] || user.username?.[0]}
               </AvatarFallback>
             </Avatar>
@@ -124,8 +124,8 @@ export default function ProfileHead({
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2"
-              >
+                className="absolute bottom-0 right-0 bg-white shadow-md hover:bg-gray-50 rounded-full p-2 dark:bg-neutral-900"
+               data-testid="button-absolute">
                 <Camera className="h-4 w-4" />
               </Button>
             )}
@@ -139,25 +139,25 @@ export default function ProfileHead({
                   variant="outline" 
                   onClick={onAddTravelDetails}
                   className="text-blue-600 border-blue-600 hover:bg-blue-50"
-                >
+                 data-testid="button-text-blue-600">
                   <Plus className="mr-2 h-4 w-4" />
                   Add Travel Details
                 </Button>
                 <Button 
                   onClick={onEditProfile}
                   className="bg-blue-600 hover:bg-blue-700"
-                >
+                 data-testid="button-bg-blue-600">
                   <Edit className="mr-2 h-4 w-4" />
                   Edit Profile
                 </Button>
               </>
             ) : (
               <>
-                <Button variant="outline">
+                <Button variant="outline" data-testid="button-element">
                   <Users className="mr-2 h-4 w-4" />
                   Add Friend
                 </Button>
-                <Button>
+                <Button data-testid="button-element">
                   Message
                 </Button>
               </>
@@ -170,7 +170,7 @@ export default function ProfileHead({
           {/* Name and Roles */}
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-neutral-100">
                 {user.name}
               </h1>
               <div className="flex items-center">
@@ -186,7 +186,7 @@ export default function ProfileHead({
             </div>
             
             {/* Username and Location */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600">
+            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-neutral-400">
               <span>@{user.username}</span>
               {user.city && (
                 <div className="flex items-center gap-1">
@@ -203,7 +203,7 @@ export default function ProfileHead({
 
           {/* Bio */}
           {user.bio && (
-            <p className="text-gray-700 max-w-2xl">
+            <p className="text-gray-700 max-w-2xl dark:text-neutral-300">
               {user.bio}
             </p>
           )}
@@ -212,7 +212,7 @@ export default function ProfileHead({
           {(user.yearsOfDancing || user.leaderLevel || user.followerLevel) && (
             <div className="flex flex-wrap gap-4 text-sm">
               {user.yearsOfDancing && (
-                <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1">
+                <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1 dark:bg-neutral-800">
                   <span className="font-medium">Dancing:</span>
                   <span>{user.yearsOfDancing} years</span>
                 </div>
@@ -255,7 +255,7 @@ export default function ProfileHead({
           {/* Languages */}
           {user.languages && user.languages.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-medium text-gray-700">Languages:</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-neutral-300">Languages:</span>
               {user.languages.map((language) => (
                 <Badge key={language} variant="secondary" className="capitalize">
                   {language}

@@ -168,7 +168,7 @@ export default function NavigationBreadcrumbs() {
   }
   
   return (
-    <div className="w-full px-4 py-2 bg-gray-50 border-b">
+    <div className="w-full px-4 py-2 bg-gray-50 border-b dark:bg-neutral-800">
       <Breadcrumb>
         <BreadcrumbList>
           {breadcrumbPath.map((item, index) => {
@@ -178,15 +178,15 @@ export default function NavigationBreadcrumbs() {
               <React.Fragment key={item.href}>
                 <BreadcrumbItem>
                   {isLast ? (
-                    <BreadcrumbPage className="text-gray-900 font-medium">
+                    <BreadcrumbPage className="text-gray-900 font-medium dark:text-neutral-100">
                       {item.label}
                     </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
                       <Link 
                         href={item.href} 
-                        className="text-gray-600 hover:text-gray-900 transition-colors"
-                      >
+                        className="text-gray-600 hover:text-gray-900 transition-colors dark:text-neutral-100"
+                       data-testid="link-text-gray-600">
                         {item.label}
                       </Link>
                     </BreadcrumbLink>

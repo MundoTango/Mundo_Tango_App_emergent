@@ -203,7 +203,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
       case 'in_progress':
         return <Clock className="w-4 h-4 text-blue-500" />;
       case 'blocked':
-        return <AlertCircle className="w-4 h-4 text-red-500" />;
+        return <AlertCircle className="w-4 h-4 text-red-500" / data-testid="link-w-4">;
       default:
         return <Circle className="w-4 h-4 text-gray-400" />;
     }
@@ -267,7 +267,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
         >
           {hasChildren && (
             <button
-              onClick={(e) => {
+              onClick={(e) = data-testid="button-element"> {
                 e.stopPropagation();
                 toggleExpanded(project.id);
               }}
@@ -290,11 +290,11 @@ const LifeCEOProjectHierarchy: React.FC = () => {
             <div className="flex items-center space-x-2 ml-auto">
               <div className="flex items-center space-x-1">
                 <Globe className="w-3 h-3 text-gray-400" />
-                <span className="text-xs text-gray-600">{rollupStats.webCompletion}%</span>
+                <span className="text-xs text-gray-600 dark:text-neutral-400">{rollupStats.webCompletion}%</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Settings className="w-3 h-3 text-gray-400" />
-                <span className="text-xs text-gray-600">{rollupStats.mobileCompletion}%</span>
+                <span className="text-xs text-gray-600 dark:text-neutral-400">{rollupStats.mobileCompletion}%</span>
               </div>
             </div>
           </div>
@@ -339,17 +339,17 @@ const LifeCEOProjectHierarchy: React.FC = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-lg">{selectedItem.name}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{selectedItem.description}</p>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-neutral-400">{selectedItem.description}</p>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Type</span>
+                    <span className="text-sm text-gray-600 dark:text-neutral-400">Type</span>
                     <Badge variant="outline" className="capitalize">{selectedItem.type}</Badge>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Status</span>
+                    <span className="text-sm text-gray-600 dark:text-neutral-400">Status</span>
                     <div className="flex items-center space-x-1">
                       {getStatusIcon(selectedItem.status)}
                       <span className="text-sm capitalize">{selectedItem.status.replace('_', ' ')}</span>
@@ -357,7 +357,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Priority</span>
+                    <span className="text-sm text-gray-600 dark:text-neutral-400">Priority</span>
                     <Badge className={`text-xs ${getPriorityColor(selectedItem.priority)}`}>
                       {selectedItem.priority}
                     </Badge>
@@ -367,7 +367,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
                 <div className="space-y-3">
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Web Progress</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-400">Web Progress</span>
                       <span className="text-sm font-medium">{selectedItem.webCompletion}%</span>
                     </div>
                     <Progress value={selectedItem.webCompletion} className="h-2" />
@@ -375,7 +375,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
                   
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Mobile Progress</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-400">Mobile Progress</span>
                       <span className="text-sm font-medium">{selectedItem.mobileCompletion}%</span>
                     </div>
                     <Progress value={selectedItem.mobileCompletion} className="h-2" />
@@ -385,7 +385,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
                 {selectedItem.startDate && (
                   <div className="pt-2 border-t">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Timeline</span>
+                      <span className="text-sm text-gray-600 dark:text-neutral-400">Timeline</span>
                       <span className="text-sm">{selectedItem.startDate} - {selectedItem.endDate || 'Ongoing'}</span>
                     </div>
                   </div>

@@ -92,13 +92,13 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#5EEAD4]/10 to-[#155E75]/10">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b">
+      <div className="bg-white/80 backdrop-blur-sm border-b dark:bg-neutral-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-[#5EEAD4] to-[#155E75] bg-clip-text text-transparent">
               Choose Your Plan
             </h1>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-600 dark:text-neutral-400">
               Unlock the full potential of ESA LIFE CEO 61x21
             </p>
             
@@ -126,7 +126,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Free Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow dark:border-neutral-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 Free
@@ -220,7 +220,7 @@ export default function PricingPage() {
           </Card>
 
           {/* Business Tier */}
-          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow">
+          <Card className="relative border-gray-200 hover:shadow-lg transition-shadow dark:border-neutral-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-blue-600" />
@@ -370,7 +370,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I change plans anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and are prorated.
                 </p>
               </CardContent>
@@ -380,7 +380,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Is there a free trial?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   Yes, all paid plans come with a 14-day free trial. No credit card required to start.
                 </p>
               </CardContent>
@@ -390,7 +390,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">What payment methods do you accept?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   We accept all major credit cards, debit cards, and support multiple currencies (USD, EUR, GBP).
                 </p>
               </CardContent>
@@ -400,7 +400,7 @@ export default function PricingPage() {
                 <CardTitle className="text-lg">Can I cancel anytime?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
                 </p>
               </CardContent>

@@ -143,9 +143,9 @@ export function FriendRequestList() {
           <Card key={request.id} className="glassmorphic-card hover:shadow-lg transition-all duration-300">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
-                <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50">
-                  <AvatarImage src={request.sender.profileImage} />
-                  <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">
+                <Avatar className="h-16 w-16 ring-2 ring-turquoise-200/50" data-testid="link-h-16">
+                  <AvatarImage src={request.sender.profileImage} / data-testid="link-element">
+                  <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white" data-testid="link-bg-gradient-to-br">
                     {request.sender.name?.[0] || 'U'}
                   </AvatarFallback>
                 </Avatar>
@@ -174,7 +174,7 @@ export function FriendRequestList() {
                         </p>
                       )}
                       {request.danceStory && (
-                        <p className="text-sm text-gray-600 mt-2 ml-6 italic">
+                        <p className="text-sm text-gray-600 mt-2 ml-6 italic dark:text-neutral-400">
                           "{request.danceStory}"
                         </p>
                       )}
@@ -182,7 +182,7 @@ export function FriendRequestList() {
                   )}
 
                   {request.senderMessage && (
-                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50">
+                    <div className="bg-white/50 p-3 rounded-lg border border-gray-200/50 dark:bg-neutral-900">
                       <p className="text-sm flex items-start gap-2">
                         <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                         <span>{request.senderMessage}</span>
@@ -193,7 +193,7 @@ export function FriendRequestList() {
                   <div className="flex items-center gap-2 pt-2">
                     <Button
                       size="sm"
-                      onClick={() => {
+                      onClick={() = data-testid="button-element"> {
                         setSelectedRequest(request);
                         setShowAcceptDialog(true);
                       }}
@@ -205,7 +205,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => rejectMutation.mutate(request.id)}
+                      onClick={() = data-testid="button-element"> rejectMutation.mutate(request.id)}
                     >
                       <X className="mr-1 h-4 w-4" />
                       Decline
@@ -213,7 +213,7 @@ export function FriendRequestList() {
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={() => snoozeMutation.mutate({ requestId: request.id, days: 7 })}
+                      onClick={() = data-testid="button-element"> snoozeMutation.mutate({ requestId: request.id, days: 7 })}
                     >
                       <Clock className="mr-1 h-4 w-4" />
                       Snooze
@@ -240,13 +240,13 @@ export function FriendRequestList() {
             <Textarea
               placeholder="Add a welcome message (optional)..."
               value={acceptMessage}
-              onChange={(e) => setAcceptMessage(e.target.value)}
+              onChange={(e) = data-testid="textarea-element"> setAcceptMessage(e.target.value)}
               className="glassmorphic-input min-h-[100px]"
             />
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
-                onClick={() => {
+                onClick={() = data-testid="button-element"> {
                   setShowAcceptDialog(false);
                   setAcceptMessage('');
                 }}
@@ -257,7 +257,7 @@ export function FriendRequestList() {
                 onClick={handleAccept}
                 disabled={acceptMutation.isPending}
                 className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white"
-              >
+               data-testid="button-bg-gradient-to-r">
                 Accept Request
               </Button>
             </div>

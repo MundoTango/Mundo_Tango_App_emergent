@@ -75,18 +75,18 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="text-center mb-6">
             <div className="text-5xl font-bold text-amber-600">{metrics.overallCompliance}%</div>
-            <div className="text-lg text-gray-600 mt-2">Overall Compliance Score</div>
+            <div className="text-lg text-gray-600 mt-2 dark:text-neutral-400">Overall Compliance Score</div>
             <Badge className="mt-2 text-lg px-3 py-1" variant="secondary">
               Grade: {getComplianceGrade(metrics.overallCompliance)}
             </Badge>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-600">Last Audit:</span>
+              <span className="text-gray-600 dark:text-neutral-400">Last Audit:</span>
               <div className="font-medium">{metrics.lastAudit.toLocaleDateString()}</div>
             </div>
             <div>
-              <span className="text-gray-600">Next Audit:</span>
+              <span className="text-gray-600 dark:text-neutral-400">Next Audit:</span>
               <div className="font-medium">{metrics.nextAudit.toLocaleDateString()}</div>
             </div>
           </div>
@@ -168,10 +168,10 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
         <CardContent>
           <div className="space-y-3">
             {complianceItems.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
                 <div className="flex-1">
                   <div className="font-medium">{item.requirement}</div>
-                  <div className="text-sm text-gray-600">{item.category}</div>
+                  <div className="text-sm text-gray-600 dark:text-neutral-400">{item.category}</div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant={item.priority === 'high' ? 'destructive' : 'secondary'} className="text-xs">
@@ -197,21 +197,21 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
             <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
               <div>
                 <div className="font-medium">Privacy Policy</div>
-                <div className="text-sm text-gray-600">Last updated: 30 days ago</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">Last updated: 30 days ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Current</Badge>
             </div>
             <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
               <div>
                 <div className="font-medium">Terms of Service</div>
-                <div className="text-sm text-gray-600">Last updated: 45 days ago</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">Last updated: 45 days ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Current</Badge>
             </div>
             <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
               <div>
                 <div className="font-medium">Cookie Policy</div>
-                <div className="text-sm text-gray-600">Review needed in 15 days</div>
+                <div className="text-sm text-gray-600 dark:text-neutral-400">Review needed in 15 days</div>
               </div>
               <Badge className="bg-yellow-100 text-yellow-800">Review Soon</Badge>
             </div>
@@ -220,9 +220,9 @@ export const ProfileCompliance: React.FC<{ userId: number }> = ({ userId }) => {
       </Card>
 
       {/* Data Protection Officer */}
-      <Alert className="border-blue-200 bg-blue-50">
+      <Alert className="border-blue-200 bg-blue-50" data-testid="link-border-blue-200">
         <Globe className="h-4 w-4" />
-        <AlertDescription>
+        <AlertDescription data-testid="link-element">
           <div className="font-medium mb-1">Data Protection Officer</div>
           <div className="text-sm">
             For compliance inquiries, contact: dpo@mundotango.life

@@ -158,50 +158,50 @@ export default function UserRoleTable() {
           <Input
             placeholder="Search users by name, username, or email..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200"
+            onChange={(e) = data-testid="input-element"> setSearchTerm(e.target.value)}
+            className="pl-10 rounded-xl border-gray-200 focus:border-indigo-300 focus:ring-indigo-200 dark:border-neutral-700"
           />
         </div>
         
-        <Select value={roleFilter} onValueChange={setRoleFilter}>
-          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200">
-            <SelectValue placeholder="Filter by role" />
+        <Select value={roleFilter} onValueChange={setRoleFilter} data-testid="select-element">
+          <SelectTrigger className="w-full sm:w-48 rounded-xl border-gray-200 dark:border-neutral-700" data-testid="select-w-full">
+            <SelectValue placeholder="Filter by role" / data-testid="select-element">
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="super_admin">Super Admin</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="moderator">Moderator</SelectItem>
-            <SelectItem value="organizer">Organizer</SelectItem>
-            <SelectItem value="teacher">Teacher</SelectItem>
-            <SelectItem value="dancer">Dancer</SelectItem>
+          <SelectContent data-testid="select-element">
+            <SelectItem value="all" data-testid="select-element">All Roles</SelectItem>
+            <SelectItem value="super_admin" data-testid="select-element">Super Admin</SelectItem>
+            <SelectItem value="admin" data-testid="select-element">Admin</SelectItem>
+            <SelectItem value="moderator" data-testid="select-element">Moderator</SelectItem>
+            <SelectItem value="organizer" data-testid="select-element">Organizer</SelectItem>
+            <SelectItem value="teacher" data-testid="select-element">Teacher</SelectItem>
+            <SelectItem value="dancer" data-testid="select-element">Dancer</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {/* User table */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm dark:bg-neutral-900">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50/50">
-              <TableHead className="font-semibold text-gray-900">User</TableHead>
-              <TableHead className="font-semibold text-gray-900">Primary Role</TableHead>
-              <TableHead className="font-semibold text-gray-900">All Roles</TableHead>
-              <TableHead className="font-semibold text-gray-900">Last Active</TableHead>
-              <TableHead className="font-semibold text-gray-900">Status</TableHead>
-              <TableHead className="font-semibold text-gray-900">Actions</TableHead>
+            <TableRow className="bg-gray-50/50 dark:bg-neutral-800">
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">User</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">Primary Role</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">All Roles</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">Last Active</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">Status</TableHead>
+              <TableHead className="font-semibold text-gray-900 dark:text-neutral-100">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredUsers.map((user: User) => (
-              <TableRow key={user.id} className="hover:bg-gray-50/30 transition-colors">
+              <TableRow key={user.id} className="hover:bg-gray-50/30 transition-colors dark:bg-neutral-800">
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-xl flex items-center justify-center text-white font-bold text-sm">
                       {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-900">{user.name}</div>
+                      <div className="font-semibold text-gray-900 dark:text-neutral-100">{user.name}</div>
                       <div className="text-sm text-gray-500">@{user.username}</div>
                       <div className="text-xs text-gray-400">{user.email}</div>
                     </div>
@@ -223,14 +223,14 @@ export default function UserRoleTable() {
                       </Badge>
                     ))}
                     {user.roles.length > 3 && (
-                      <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs">
+                      <Badge className="bg-gray-100 text-gray-600 border-gray-200 text-xs dark:bg-neutral-800">
                         +{user.roles.length - 3}
                       </Badge>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="text-sm text-gray-600">{user.lastActive}</div>
+                  <div className="text-sm text-gray-600 dark:text-neutral-400">{user.lastActive}</div>
                 </TableCell>
                 <TableCell>
                   <Badge className={user.isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-700 border-gray-200'}>
@@ -241,7 +241,7 @@ export default function UserRoleTable() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => {
+                    onClick={() = data-testid="button-element"> {
                       setSelectedUser(user);
                       setIsEditDialogOpen(true);
                     }}
@@ -266,24 +266,24 @@ export default function UserRoleTable() {
           
           {selectedUser && (
             <div className="space-y-6">
-              <div className="text-center p-4 bg-gray-50 rounded-2xl">
+              <div className="text-center p-4 bg-gray-50 rounded-2xl dark:bg-neutral-800">
                 <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl flex items-center justify-center text-white font-bold text-lg mx-auto mb-3">
                   {selectedUser.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </div>
-                <h3 className="font-semibold text-gray-900">{selectedUser.name}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-neutral-100">{selectedUser.name}</h3>
                 <p className="text-sm text-gray-500">@{selectedUser.username}</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Primary Role</label>
-                  <Select defaultValue={selectedUser.primaryRole}>
-                    <SelectTrigger className="rounded-xl">
-                      <SelectValue />
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Primary Role</label>
+                  <Select defaultValue={selectedUser.primaryRole} data-testid="select-element">
+                    <SelectTrigger className="rounded-xl" data-testid="select-rounded-xl">
+                      <SelectValue / data-testid="select-element">
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent data-testid="select-element">
                       {mockRoles.map((role: Role) => (
-                        <SelectItem key={role.id} value={role.id}>
+                        <SelectItem key={role.id} value={role.id} data-testid="select-element">
                           <div className="flex items-center gap-2">
                             {getRoleIcon(role.id)}
                             <span className="capitalize">{role.name}</span>
@@ -295,15 +295,15 @@ export default function UserRoleTable() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Additional Roles</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-neutral-300">Additional Roles</label>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {mockRoles.filter((role: Role) => role.id !== selectedUser.primaryRole).map((role: Role) => (
-                      <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                      <label key={role.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer dark:bg-neutral-800">
                         <input
                           type="checkbox"
                           defaultChecked={selectedUser.roles.includes(role.id)}
-                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
+                          className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-neutral-600"
+                        / data-testid="input-rounded">
                         <div className="flex items-center gap-2">
                           {getRoleIcon(role.id)}
                           <span className="text-sm font-medium">{role.name}</span>
@@ -318,13 +318,13 @@ export default function UserRoleTable() {
               <div className="flex gap-3">
                 <Button
                   variant="outline"
-                  onClick={() => setIsEditDialogOpen(false)}
+                  onClick={() = data-testid="button-element"> setIsEditDialogOpen(false)}
                   className="flex-1 rounded-xl"
                 >
                   Cancel
                 </Button>
                 <Button
-                  onClick={() => {
+                  onClick={() = data-testid="button-element"> {
                     toast({
                       title: "Success",
                       description: "User roles updated successfully"

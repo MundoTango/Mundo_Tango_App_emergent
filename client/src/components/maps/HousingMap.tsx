@@ -87,7 +87,7 @@ export default function HousingMap({ homes, cityLat, cityLng, onHomeClick }: Hou
               ` : ''}
             </div>
             ${onHomeClick ? `
-              <button class="mt-3 w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
+              <button class="mt-3 w-full bg-gradient-to-r from-turquoise-500 to-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" data-testid="button-element">
                 View Details
               </button>
             ` : ''}

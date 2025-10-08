@@ -302,14 +302,14 @@ export default function EnhancedRoleManager() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Enhanced Role Management System</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 mt-2 dark:text-neutral-400">
           Complete 16+ community roles plus platform administration for Mundo Tango
         </p>
       </div>
 
       {message && (
-        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'}>
-          <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'}>
+        <Alert className={message.type === 'success' ? 'border-green-200' : 'border-red-200'} data-testid="link-element">
+          <AlertDescription className={message.type === 'success' ? 'text-green-800' : 'text-red-800'} data-testid="link-element">
             {message.text}
           </AlertDescription>
         </Alert>
@@ -382,7 +382,7 @@ export default function EnhancedRoleManager() {
                           key={perm}
                           variant="outline"
                           size="sm"
-                          onClick={() => checkPermission(perm)}
+                          onClick={() = data-testid="button-element"> checkPermission(perm)}
                         >
                           Test {perm.replace(/_/g, ' ')}
                         </Button>
@@ -419,7 +419,7 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">{role.description}</p>
+                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{role.description}</p>
                       <p className="text-xs text-gray-500">
                         {Object.keys(role.permissions).length} permissions
                       </p>
@@ -449,7 +449,7 @@ export default function EnhancedRoleManager() {
                           {role.name.replace(/_/g, ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">{role.description}</p>
+                      <p className="text-sm text-gray-600 mb-2 dark:text-neutral-400">{role.description}</p>
                       <p className="text-xs text-gray-500">
                         {Object.keys(role.permissions).length} permissions
                       </p>
@@ -478,13 +478,13 @@ export default function EnhancedRoleManager() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="text-sm font-medium">Select User</label>
-                      <Select value={selectedUser} onValueChange={setSelectedUser}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose a user" />
+                      <Select value={selectedUser} onValueChange={setSelectedUser} data-testid="select-element">
+                        <SelectTrigger data-testid="select-element">
+                          <SelectValue placeholder="Choose a user" / data-testid="select-element">
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent data-testid="select-element">
                           {users.map(user => (
-                            <SelectItem key={user.id} value={user.id.toString()}>
+                            <SelectItem key={user.id} value={user.id.toString()} data-testid="select-element">
                               <div className="flex items-center gap-2">
                                 <span>{user.name} (@{user.username})</span>
                                 <Badge className={`${getRoleColor(user.primaryRole)} text-xs`}>
@@ -499,13 +499,13 @@ export default function EnhancedRoleManager() {
 
                     <div>
                       <label className="text-sm font-medium">Role to Assign</label>
-                      <Select value={selectedRole} onValueChange={setSelectedRole}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose a role" />
+                      <Select value={selectedRole} onValueChange={setSelectedRole} data-testid="select-element">
+                        <SelectTrigger data-testid="select-element">
+                          <SelectValue placeholder="Choose a role" / data-testid="select-element">
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent data-testid="select-element">
                           {allRoles.map(role => (
-                            <SelectItem key={role.name} value={role.name}>
+                            <SelectItem key={role.name} value={role.name} data-testid="select-element">
                               <div className="flex items-center gap-2">
                                 {getRoleIcon(role.name)}
                                 <span>{role.name.replace(/_/g, ' ')}</span>
@@ -522,7 +522,7 @@ export default function EnhancedRoleManager() {
                         onClick={assignRole} 
                         disabled={updating || !selectedUser || !selectedRole}
                         className="w-full"
-                      >
+                       data-testid="button-w-full">
                         {updating ? 'Assigning...' : 'Assign Role'}
                       </Button>
                     </div>
@@ -545,7 +545,7 @@ export default function EnhancedRoleManager() {
                           <div className="space-y-2">
                             <div className="flex items-center gap-2">
                               <span className="font-medium">{user.name}</span>
-                              <span className="text-sm text-gray-600">@{user.username}</span>
+                              <span className="text-sm text-gray-600 dark:text-neutral-400">@{user.username}</span>
                               {!user.isActive && (
                                 <Badge variant="outline" className="text-red-600 border-red-200">
                                   Inactive
@@ -553,7 +553,7 @@ export default function EnhancedRoleManager() {
                               )}
                             </div>
                             <div>
-                              <span className="text-sm text-gray-600">Primary: </span>
+                              <span className="text-sm text-gray-600 dark:text-neutral-400">Primary: </span>
                               <Badge className={getRoleColor(user.primaryRole)}>
                                 {user.primaryRole.replace(/_/g, ' ')}
                               </Badge>
@@ -567,7 +567,7 @@ export default function EnhancedRoleManager() {
                                       <span>{role.replace(/_/g, ' ')}</span>
                                       {role !== 'guest' && (
                                         <button
-                                          onClick={() => removeRole(user.id, role)}
+                                          onClick={() = data-testid="button-element"> removeRole(user.id, role)}
                                           className="ml-1 text-red-500 hover:text-red-700"
                                           title="Remove role"
                                         >
@@ -592,7 +592,7 @@ export default function EnhancedRoleManager() {
               <CardContent className="p-8 text-center">
                 <Crown className="h-12 w-12 mx-auto mb-4 text-gray-400" />
                 <h3 className="text-lg font-medium mb-2">Admin Access Required</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-neutral-400">
                   User management features are only available to administrators and super administrators.
                 </p>
               </CardContent>
@@ -620,7 +620,7 @@ export default function EnhancedRoleManager() {
                     key={permission}
                     variant="outline"
                     size="sm"
-                    onClick={() => checkPermission(permission)}
+                    onClick={() = data-testid="button-element"> checkPermission(permission)}
                     className="justify-start text-left h-auto p-3"
                   >
                     <div>

@@ -169,7 +169,7 @@ export default function MTTableCell({
               />
             </div>
             {showLabel && (
-              <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[3rem]">
+              <span className="text-sm text-gray-600 dark:text-gray-400 min-w-[var(--spacing-12)]">
                 {percentage.toFixed(0)}%
               </span>
             )}

@@ -807,7 +807,7 @@ const UserSettings: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <BarChart className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="product-analytics" className="text-sm font-medium cursor-pointer">
                           Product Analytics
@@ -828,7 +828,7 @@ const UserSettings: React.FC = () => {
 
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <Eye className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="session-recording" className="text-sm font-medium cursor-pointer">
                           Session Recording
@@ -849,7 +849,7 @@ const UserSettings: React.FC = () => {
 
                   <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <AlertCircle className="w-5 h-5 text-ocean-500 flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="error-tracking" className="text-sm font-medium cursor-pointer">
                           Error Tracking

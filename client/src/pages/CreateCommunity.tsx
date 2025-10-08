@@ -132,14 +132,14 @@ export default function CreateCommunity() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Basic Information</h3>
                 
                 <div>
                   <Label htmlFor="name">Community Name *</Label>
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) = data-testid="input-element"> setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Buenos Aires Tango Community"
                     className="glassmorphic-input"
                     required
@@ -150,14 +150,14 @@ export default function CreateCommunity() {
                   <Label htmlFor="type">Community Type *</Label>
                   <Select 
                     value={formData.type} 
-                    onValueChange={(value) => setFormData({ ...formData, type: value })}
+                    onValueChange={(value) = data-testid="select-element"> setFormData({ ...formData, type: value })}
                   >
-                    <SelectTrigger className="glassmorphic-input">
-                      <SelectValue />
+                    <SelectTrigger className="glassmorphic-input" data-testid="select-glassmorphic-input">
+                      <SelectValue / data-testid="select-element">
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent data-testid="select-element">
                       {COMMUNITY_TYPES.map(type => (
-                        <SelectItem key={type.value} value={type.value}>
+                        <SelectItem key={type.value} value={type.value} data-testid="select-element">
                           <div className="flex items-center gap-2">
                             <type.icon className="w-4 h-4" />
                             {type.label}
@@ -173,7 +173,7 @@ export default function CreateCommunity() {
                   <Textarea
                     id="description"
                     value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    onChange={(e) = data-testid="textarea-element"> setFormData({ ...formData, description: e.target.value })}
                     placeholder="Describe your community's purpose and what makes it unique..."
                     className="glassmorphic-input min-h-[120px]"
                     required
@@ -184,7 +184,7 @@ export default function CreateCommunity() {
               {/* Location (for city groups) */}
               {formData.type === 'city' && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Location</h3>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -192,7 +192,7 @@ export default function CreateCommunity() {
                       <Input
                         id="city"
                         value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        onChange={(e) = data-testid="input-element"> setFormData({ ...formData, city: e.target.value })}
                         placeholder="Buenos Aires"
                         className="glassmorphic-input"
                       />
@@ -203,7 +203,7 @@ export default function CreateCommunity() {
                       <Input
                         id="country"
                         value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                        onChange={(e) = data-testid="input-element"> setFormData({ ...formData, country: e.target.value })}
                         placeholder="Argentina"
                         className="glassmorphic-input"
                       />
@@ -214,15 +214,15 @@ export default function CreateCommunity() {
 
               {/* Categories */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Event Categories</h3>
-                <p className="text-sm text-gray-600">Select the types of events your community will host</p>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Event Categories</h3>
+                <p className="text-sm text-gray-600 dark:text-neutral-400">Select the types of events your community will host</p>
                 
                 <div className="grid grid-cols-3 gap-3">
                   {CATEGORIES.map(category => (
                     <button
                       key={category}
                       type="button"
-                      onClick={() => toggleCategory(category)}
+                      onClick={() = data-testid="button-element"> toggleCategory(category)}
                       className={`p-3 rounded-lg border-2 transition-all ${
                         formData.categories.includes(category)
                           ? 'border-turquoise-500 bg-turquoise-50 text-turquoise-700'
@@ -237,14 +237,14 @@ export default function CreateCommunity() {
 
               {/* Privacy Settings */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Privacy Settings</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Privacy Settings</h3>
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {formData.visibility === 'public' ? (
                       <Globe className="w-5 h-5 text-turquoise-600" />
                     ) : (
-                      <Lock className="w-5 h-5 text-gray-600" />
+                      <Lock className="w-5 h-5 text-gray-600 dark:text-neutral-400" />
                     )}
                     <Label htmlFor="visibility" className="cursor-pointer">
                       {formData.visibility === 'public' ? 'Public Community' : 'Private Community'}
@@ -275,10 +275,10 @@ export default function CreateCommunity() {
 
               {/* Community Rules */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Community Rules (Optional)</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-neutral-100">Community Rules (Optional)</h3>
                 <Textarea
                   value={formData.rules}
-                  onChange={(e) => setFormData({ ...formData, rules: e.target.value })}
+                  onChange={(e) = data-testid="textarea-element"> setFormData({ ...formData, rules: e.target.value })}
                   placeholder="Add any specific rules or guidelines for your community members..."
                   className="glassmorphic-input min-h-[100px]"
                 />
@@ -290,13 +290,13 @@ export default function CreateCommunity() {
                   type="submit"
                   disabled={createCommunityMutation.isPending}
                   className="flex-1 bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white"
-                >
+                 data-testid="button-flex-1">
                   {createCommunityMutation.isPending ? 'Creating...' : 'Create Community'}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setLocation('/groups')}
+                  onClick={() = data-testid="button-element"> setLocation('/groups')}
                   className="flex-1"
                 >
                   Cancel

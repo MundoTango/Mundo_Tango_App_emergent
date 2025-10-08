@@ -9,8 +9,8 @@
   --tt-text-dark: #2C2C2C;
   --tt-text-light: #666666;
   --tt-bg-light: #F7F7F7;
-  --tt-bg-white: #FFFFFF;
-  --tt-border-color: #E5E5E5;
+  --tt-bg-white: var(--color-neutral-0);
+  --tt-border-color: var(--color-neutral-200);
   --tt-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --tt-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
   

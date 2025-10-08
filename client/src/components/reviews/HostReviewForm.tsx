@@ -132,7 +132,7 @@ export function HostReviewForm({
   };
 
   return (
-    <GlassCard depth={4} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
+    <GlassCard depth={4} className="p-6 border-cyan-200/30 dark:border-ocean-500/30">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
@@ -193,7 +193,7 @@ export function HostReviewForm({
             onChange={(e) => setReviewText(e.target.value)}
             placeholder={t('housing.reviews.review_placeholder', 'Share your experience with future guests...')}
             rows={5}
-            className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
+            className="w-full glass-card glass-depth-1 border-cyan-200/30 dark:border-ocean-500/30 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
             data-testid="input-review-text"
           />
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
