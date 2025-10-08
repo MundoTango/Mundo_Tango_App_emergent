@@ -359,7 +359,7 @@ const SimpleMentionsInputV2: React.FC<SimpleMentionsInputProps> = ({
                 className="flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded cursor-pointer"
                 onClick={() => insertMention(suggestion)}
                 data-testid={`mention-suggestion-${suggestion.type}-${suggestion.id}`}
-               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => insertMention(suggestion)(e); } }}>
+               role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => insertMention(suggestion); } }}>
                 <Avatar className="h-8 w-8">
                   {suggestion.avatar && <AvatarImage src={suggestion.avatar} alt={suggestion.display} />}
                   <AvatarFallback>

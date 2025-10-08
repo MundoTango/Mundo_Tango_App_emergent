@@ -146,7 +146,7 @@ export default function Messages() {
                           className={`p-4 border-b border-gray-100 hover:bg-tango-gray cursor-pointer transition-colors ${
                             selectedRoom?.id === room.id ? 'bg-tango-gray' : ''
                           }`}
-                         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedRoom(room)(e); } }}>
+                         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedRoom(room); } }}>
                           <div className="flex items-center space-x-3">
                             {room.type === 'group' ? (
                               <div className="w-12 h-12 bg-tango-red rounded-full flex items-center justify-center text-white font-semibold">

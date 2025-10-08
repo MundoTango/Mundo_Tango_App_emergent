@@ -433,7 +433,7 @@ export default function EnhancedFriendsPage() {
             <Select
               value={selectedFilter}
               onChange={(newValue)> {
-                if (newValue) setSelectedFilter(newValue);
+                if (newValue) { setSelectedFilter(newValue); }
               }}
               options={filterOptions}
               className="w-48"

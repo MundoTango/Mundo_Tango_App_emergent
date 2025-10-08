@@ -182,7 +182,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                 <div 
                   className="fixed inset-0 z-40" 
                   onClick={() => setIsProfileOpen(false)}
-                / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsProfileOpen(false)(e); } }}>
+                / role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setIsProfileOpen(false); } }}>
                 <div className={cn(
                   "absolute right-0 mt-2 w-64 rounded-xl shadow-xl border z-50",
                   theme === 'light'

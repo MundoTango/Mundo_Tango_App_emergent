@@ -491,7 +491,7 @@ export default function FriendsPage() {
                           ? 'border-indigo-500 bg-indigo-50' 
                           : 'hover:bg-gray-50'
                       }`}
-                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedUser(user)(e); } }}>
+                     role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedUser(user); } }}>
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium">{user.name}</p>

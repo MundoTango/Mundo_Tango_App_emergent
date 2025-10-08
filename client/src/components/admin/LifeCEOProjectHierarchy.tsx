@@ -264,7 +264,7 @@ const LifeCEOProjectHierarchy: React.FC = () => {
           }`}
           style={{ paddingLeft: `${level * 24 + 8}px` }}
           onClick={() => setSelectedItem(project)}
-         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(project)(e); } }}>
+         role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(project); } }}>
           {hasChildren && (
             <button
               onClick={(e)  => {

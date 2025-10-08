@@ -198,7 +198,7 @@ export default function MTTimelineList({
             }}
            role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => {
               if (item.onClick) item.onClick();
-              else if (onItemClick) onItemClick(item, index);(e); } }}>
+              else if (onItemClick) onItemClick(item, index, e); }}>
             {/* Date/Time for default layout */}
             {!isAlternating && showDate && (
               <div className="flex items-center gap-2 mb-2 text-xs text-gray-500">

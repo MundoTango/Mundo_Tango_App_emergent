@@ -536,7 +536,7 @@ export default function ListingDetail() {
                     }`}
                     onClick={() => setSelectedImage(idx + 1)}
                     data-testid={`thumbnail-${idx + 1}`}
-                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(idx + 1)(e); } }}>
+                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(idx + 1); } }}>
                     {isThumbVideo ? (
                       <>
                         <video
@@ -564,7 +564,7 @@ export default function ListingDetail() {
                   className="w-full h-24 md:h-[120px] bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"
                   onClick={() => setSelectedImage(5)}
                  
-                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(5)(e); } }}>
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedImage(5); } }}>
                   <span className="text-sm font-semibold">+{orderedMedia.length - 5} more</span>
                 </div>
               )}

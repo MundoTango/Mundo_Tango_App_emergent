@@ -87,7 +87,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
               key={challenge.name}
               className="p-4 bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-lg border border-turquoise-200 cursor-pointer hover:shadow-md transition-all"
               onClick={() => setSelectedChallenge(challenge.name)}
-             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(challenge.name)(e); } }}>
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(challenge.name); } }}>
               <div className="flex items-center justify-between mb-2">
                 <h5 className="font-medium text-gray-900 dark:text-neutral-100">{challenge.name}</h5>
                 <Badge className="bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700">

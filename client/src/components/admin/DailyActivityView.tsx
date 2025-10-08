@@ -240,7 +240,7 @@ function DailyActivityView() {
                   key={index} 
                   className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors dark:bg-neutral-800"
                   onClick={() => setSelectedItem(activity.item)}
-                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(activity.item)(e); } }}>
+                 role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedItem(activity.item); } }}>
                   {/* Time */}
                   <div className="flex-none text-sm text-gray-500 w-20">
                     {formatTime(activity.timestamp)}

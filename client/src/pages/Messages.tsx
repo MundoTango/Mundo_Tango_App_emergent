@@ -226,7 +226,7 @@ export default function Messages() {
                     className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
                       selectedConversation === conversation.id ? 'bg-turquoise-50' : ''
                     }`}
-                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedConversation(conversation.id)(e); } }}>
+                   role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedConversation(conversation.id); } }}>
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <Avatar>

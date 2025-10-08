@@ -90,7 +90,7 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
               key={challenge.name}
               className="p-4 bg-white/70 rounded-lg border border-gray-200 hover:border-turquoise-300 transition-colors cursor-pointer dark:bg-neutral-900"
               onClick={() => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name)}
-             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name)(e); } }}>
+             role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); () => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name); } }}>
               <div className="flex items-center justify-between mb-2">
                 <h5 className="font-medium text-gray-900 dark:text-neutral-100">{challenge.name}</h5>
                 <Badge variant="outline" className="bg-turquoise-50 text-turquoise-700 border-turquoise-200">
