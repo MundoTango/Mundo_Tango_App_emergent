@@ -560,7 +560,7 @@ const PostFeed = memo(({
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
-            <span>Filters</span>
+            <span>{t('memories.feed.filters')}</span>
           </button>
           )}
 
@@ -579,7 +579,7 @@ const PostFeed = memo(({
                     }`}
                   >
                     <Globe className="h-4 w-4 inline mr-2" />
-                    All Posts
+                    {t('memories.feed.allPosts')}
                   </button>
                   <button
                     onClick={() => setFilterBy('residents')}
@@ -590,7 +590,7 @@ const PostFeed = memo(({
                     }`}
                   >
                     <Home className="h-4 w-4 inline mr-2" />
-                    Residence
+                    {t('memories.feed.residence')}
                   </button>
                   <button
                     onClick={() => setFilterBy('visitors')}
@@ -601,7 +601,7 @@ const PostFeed = memo(({
                     }`}
                   >
                     <Plane className="h-4 w-4 inline mr-2" />
-                    Visitor
+                    {t('memories.feed.visitor')}
                   </button>
                   <button
                     onClick={() => setFilterBy('friends')}
@@ -612,14 +612,14 @@ const PostFeed = memo(({
                     }`}
                   >
                     <Users className="h-4 w-4 inline mr-2" />
-                    Friends
+                    {t('memories.feed.friends')}
                   </button>
                 </div>
                 
                 {/* COMING SOON Overlay - Relationship Filters Disabled */}
                 <div className="absolute inset-0 bg-cyan-500/30 rounded-xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
                   <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                    COMING SOON
+                    {t('memories.feed.comingSoon')}
                   </span>
                 </div>
               </div>
@@ -628,7 +628,7 @@ const PostFeed = memo(({
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Tag className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700">Filter by Tags</span>
+                  <span className="text-sm font-medium text-gray-700">{t('memories.feed.filterByTags')}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {filterTags.map(tag => (
@@ -689,7 +689,7 @@ const PostFeed = memo(({
                     }}
                     className="mt-2 text-xs text-red-600 hover:text-red-700"
                   >
-                    Clear dates
+                    {t('memories.feed.clearDates')}
                   </button>
                 )}
               </div>
@@ -699,7 +699,7 @@ const PostFeed = memo(({
           {/* COMING SOON Overlay - Filters/Search Disabled */}
           <div className="absolute inset-0 bg-cyan-500/30 rounded-3xl cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
             <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              COMING SOON
+              {t('memories.feed.comingSoon')}
             </span>
           </div>
         </div>
@@ -714,15 +714,15 @@ const PostFeed = memo(({
             </div>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                {activeFilters.filterType === 'residents' ? 'Residence' : 
-                 activeFilters.filterType === 'visitors' ? 'Visitor' :
-                 activeFilters.filterType === 'friends' ? 'Friends' : 'All'} Posts
+                {activeFilters.filterType === 'residents' ? t('memories.feed.residence') : 
+                 activeFilters.filterType === 'visitors' ? t('memories.feed.visitor') :
+                 activeFilters.filterType === 'friends' ? t('memories.feed.friends') : t('memories.feed.all')} {t('memories.feed.posts')}
               </h2>
               <p className="text-gray-600">
-                {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
+                {filteredPosts.length} {filteredPosts.length === 1 ? t('memories.feed.post') : t('memories.feed.posts')}
                 {activeFilters.tags.length > 0 && (
                   <span className="ml-2 text-teal-600">
-                    • Filtered by {activeFilters.tags.length} {activeFilters.tags.length !== 1 ? 'tags' : 'tag'}
+                    • {t('memories.feed.filteredBy')} {activeFilters.tags.length} {activeFilters.tags.length !== 1 ? t('memories.feed.tags') : t('memories.feed.tag')}
                   </span>
                 )}
               </p>
@@ -738,7 +738,7 @@ const PostFeed = memo(({
           <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
             <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg">
               <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
-              <span className="text-sm font-medium text-gray-700">Updating feed...</span>
+              <span className="text-sm font-medium text-gray-700">{t('memories.feed.updatingFeed')}</span>
             </div>
           </div>
         )}
