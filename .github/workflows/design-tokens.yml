@@ -1,0 +1,32 @@
+name: Design Token Validation
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  validate-tokens:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Validate Design Tokens
+        run: node design-system/scripts/validate-tokens.js
+        
+      - name: Upload violation report
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: token-violations
+          path: design-system/token-violations.json
