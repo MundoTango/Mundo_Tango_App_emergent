@@ -48,7 +48,8 @@ The platform utilizes a decoupled, microservices-oriented architecture, separati
 - **Recommendations System**: User-generated recommendations with CRUD API, city-based filtering, and a dedicated marketplace page. AI-powered recommendations are planned for future development.
 - **Housing System**: Connection-based marketplace (no payments) with property listings, host/guest onboarding, and Friendship-Based Access Control.
 - **Admin Center**: Dashboard for user management, content moderation, analytics, and system health monitoring.
-- **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics.
+- **AI Integration**: Powers 16 Life CEO agents with semantic memory and self-learning, alongside AI-powered analytics. Includes specialized expert agents: AI Research Expert (Agent 10) and UI/UX Design Expert (Agent 11).
+- **Design System Management**: Automated Aurora Tide design system monitoring via UI/UX Expert - tracks component usage, accessibility compliance (WCAG 2.1), dark mode/i18n coverage, and suggests optimizations.
 - **Security**: Database Row Level Security (RLS), audit logging, CSRF protection, and multi-factor authentication (2FA).
 - **Reporting System**: Comprehensive content reporting with defined moderation workflows.
 - **Onboarding**: Multi-step wizards for guest profile creation/booking and host property listing.
