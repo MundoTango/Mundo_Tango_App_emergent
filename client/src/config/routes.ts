@@ -539,13 +539,6 @@ export const productionRoutes: RouteConfig[] = [
     description: 'Role selector test'
   },
   {
-    path: '/ttfiles-demo',
-    component: lazy(() => import('@/pages/TTfilesDemo')),
-    mode: 'production',
-    loadingMessage: 'Loading TTfiles demo...',
-    description: 'TTfiles demonstration'
-  },
-  {
     path: '/feature-navigation',
     component: lazy(() => import('@/pages/feature-navigation')),
     mode: 'production',
