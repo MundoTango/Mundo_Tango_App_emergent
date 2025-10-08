@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const MemoriesDebug: React.FC = () => {
   const componentInfo = {
@@ -49,7 +50,6 @@ const MemoriesDebug: React.FC = () => {
       components.EnhancedMemoriesUI = true;
     } catch (e) {
       console.error('EnhancedMemoriesUI import failed:', e);
-import { Helmet } from 'react-helmet';
     }
 
     return components;

@@ -56,6 +56,7 @@ import {
   CheckCircle2,
   BarChart
 } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 interface NotificationSettings {
   emailNotifications: boolean;
@@ -348,7 +349,6 @@ const UserSettings: React.FC = () => {
           description: 'The file could not be imported. Please check the format.',
           variant: 'destructive'
         });
-import { Helmet } from 'react-helmet';
       }
     };
     reader.readAsText(file);
