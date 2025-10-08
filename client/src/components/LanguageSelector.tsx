@@ -217,7 +217,7 @@ const LanguageSelector = ({
           {supportedLanguages.map((lang) =>
           <button
             key={lang.code}
-            onClick={() = aria-label="Button"> handleLanguageChange(lang.code)}
+            onClick={() => handleLanguageChange(lang.code)} aria-label="Button"
             disabled={isChanging}
             className={`
                 w-full p-3 rounded-lg text-left transition-all duration-200

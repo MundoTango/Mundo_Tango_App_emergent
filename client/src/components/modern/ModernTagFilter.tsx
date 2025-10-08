@@ -95,7 +95,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
                 <Tag className="w-4 h-4" />
                 <span className="font-bold text-lg">{tag}</span>
                 <button
-                  onClick={() = aria-label="Button"> onRemoveTag(tag)}
+                  onClick={() => onRemoveTag(tag)} aria-label="Button"
                   className="ml-2 p-2 rounded-xl text-coral-500 hover:text-red-500 
                            hover:bg-red-50 transition-all duration-300 hover:scale-110"
                 >

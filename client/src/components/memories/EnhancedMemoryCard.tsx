@@ -257,7 +257,7 @@ export default function EnhancedMemoryCard({ memory }: EnhancedMemoryCardProps) 
                   {reactions.map((reaction) =>
                 <button
                   key={reaction.name}
-                  onClick={() = aria-label="Button"> handleReaction(reaction.name)}
+                  onClick={() => handleReaction(reaction.name)} aria-label="Button"
                   className="hover:scale-125 transition-transform p-1"
                   title={reaction.name} data-testid="button-hover-scale-125">
 

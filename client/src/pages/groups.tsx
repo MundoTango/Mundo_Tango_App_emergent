@@ -174,7 +174,7 @@ export default function GroupsPage() {
           <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Tango Communities</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-3">Connect with tango dancers around the world</p>
           <button
-            onClick={() = aria-label="Button"> setLocation('/community-world-map')}
+            onClick={() => setLocation('/community-world-map')} aria-label="Button"
             className="text-[var(--color-primary-hover)] hover:text-turquoise-700 font-medium text-sm" data-testid="button-text-[var(--color-primary-hover)]">
 
             View Community World Map →

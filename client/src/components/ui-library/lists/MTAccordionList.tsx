@@ -168,7 +168,7 @@ export default function MTAccordionList({
             >
               {/* Header */}
               <button
-                onClick={() = aria-label="Button"> !item.disabled && handleToggle(item.id)}
+                onClick={() => !item.disabled && handleToggle(item.id)} aria-label="Button"
                 disabled={item.disabled}
                 className={cn(
                   'w-full flex items-center gap-3 text-left',
@@ -270,7 +270,7 @@ export function MTAccordionGroup({
   return (
     <div className={cn('mt-accordion-group', className)}>
       <button
-        onClick={() = aria-label="Button"> setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)} aria-label="Button"
         className="w-full flex items-center gap-2 py-2 text-left hover:text-[var(--color-primary-hover)] dark:hover:text-teal-400 transition-colors"
       >
         <ChevronRight className={cn(

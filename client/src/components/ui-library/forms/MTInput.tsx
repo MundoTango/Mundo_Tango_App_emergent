@@ -129,7 +129,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
         {type === 'password' && showPasswordToggle &&
         <button
           type="button"
-          onClick={() = aria-label="Button"> setShowPassword(!showPassword)}
+          onClick={() => setShowPassword(!showPassword)} aria-label="Button"
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
 
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}

@@ -875,7 +875,7 @@ const Framework50x21Dashboard: React.FC = () => {
                 {frameworkData.map((layer) =>
                 <button
                   key={layer.id}
-                  onClick={() = aria-label="Button"> setSelectedLayer(layer.id)}
+                  onClick={() => setSelectedLayer(layer.id)} aria-label="Button"
                   className={`p-4 rounded-lg border-2 transition-all text-left ${
                   selectedLayer === layer.id ?
                   'border-turquoise-500 bg-[var(--color-ocean-50)]' :

@@ -505,14 +505,13 @@ export default function EnhancedGoogleMapsAutocomplete({
             {nearbyPlaces.map((place, index) =>
           <button
             key={index}
-            onClick={() = aria-label="Button"> {
+            onClick={() => {
               const locationData = extractEnhancedLocationData(place);
               setSelectedLocation(locationData);
               setInputValue(locationData.name || locationData.formattedAddress);
               onLocationSelect(locationData);
               setShowSuggestions(false);
-              if (showMap) updateMap(locationData);
-            }}
+              if (showMap) updateMap(locationData);} aria-label="Button"}
             className="w-full px-4 py-2 text-left hover:bg-[var(--color-surface-elevated)] text-sm" data-testid="button-w-full">
 
                 <p className="font-medium">{place.name}</p>

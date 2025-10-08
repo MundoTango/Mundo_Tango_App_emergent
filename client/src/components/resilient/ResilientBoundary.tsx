@@ -122,7 +122,7 @@ export class ResilientBoundary extends Component<Props, State> {
                     )}
                     
                     <button
-                      onClick={() = aria-label="Button"> window.location.reload()}
+                      onClick={() => window.location.reload()} aria-label="Button"
                       className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-[var(--color-text-secondary)] text-sm font-medium rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors"
                     >
                       Reload Page

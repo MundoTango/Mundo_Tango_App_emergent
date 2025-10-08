@@ -100,7 +100,7 @@ const TTfilesDemo = () => {
         <div className="text-center mt-8">
           <button
               className="tt-btn tt-btn-secondary"
-              onClick={() = aria-label="Button"> setLocation('/admin')} data-testid="button-tt-btn">
+              onClick={() => setLocation('/admin')} aria-label="Button" data-testid="button-tt-btn">
 
             Back to Admin Center
           </button>

@@ -305,10 +305,9 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                   {isOwner && (
                     <>
                       <button
-                        onClick={() = aria-label="Button"> {
+                        onClick={() => {
                           onEdit?.(post);  // ESA Framework: Trigger parent edit handler
-                          setShowMenu(false);
-                        }}
+                          setShowMenu(false);} aria-label="Button"}
                         className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                         data-testid="button-edit"
                       >
@@ -316,11 +315,10 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                         Edit Post
                       </button>
                       <button
-                        onClick={() = aria-label="Button"> {
+                        onClick={() => {
                           if (confirm('Are you sure you want to delete this memory? This action cannot be undone.')) {
                             if (onDelete) {
-                              onDelete(post.id);  // ESA Framework: Use parent delete handler
-                            } else {
+                              onDelete(post.id);  // ESA Framework: Use parent delete handler} aria-label="Button" else {
                               deleteMutation.mutate();  // Fallback to local mutation
                             }
                           }
@@ -336,10 +334,9 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                     </>
                   )}
                   <button
-                    onClick={() = aria-label="Button"> {
+                    onClick={() => {
                       setShowReportDialog(true);
-                      setShowMenu(false);
-                    }}
+                      setShowMenu(false);} aria-label="Button"}
                     className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-surface-elevated)] flex items-center gap-2"
                     data-testid="button-report"
                   >
@@ -543,7 +540,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
                 {reactions.map((reaction, index) => (
                   <button
                     key={reaction}
-                    onClick={() = aria-label="Button"> handleReaction(reaction)}
+                    onClick={() => handleReaction(reaction)} aria-label="Button"
                     className={`
                       flex items-center justify-center w-6 h-6 rounded-full text-xs transition-all duration-200 border
                       ${selectedReaction === reaction 

@@ -97,7 +97,7 @@ export default function MTTableFilter({
               />
               {activeFilters[column.id] && (
                 <button
-                  onClick={() = aria-label="Button"> handleFilterChange(column.id, '')}
+                  onClick={() => handleFilterChange(column.id, '')} aria-label="Button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
                   data-testid={`${testId}-${column.id}-clear`}
                 >
@@ -124,7 +124,7 @@ export default function MTTableFilter({
                 <span className="font-medium">{column.header}:</span>
                 <span>{String(value)}</span>
                 <button
-                  onClick={() = aria-label="Button"> handleFilterChange(columnId, '')}
+                  onClick={() => handleFilterChange(columnId, '')} aria-label="Button"
                   className="ml-1 p-0.5 hover:bg-teal-200 dark:hover:bg-teal-800 rounded-full transition-colors"
                 >
                   <X className="w-3 h-3" />

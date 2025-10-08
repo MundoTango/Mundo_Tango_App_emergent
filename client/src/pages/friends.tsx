@@ -306,7 +306,7 @@ export default function FriendsPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() = aria-label="Button"> setActiveTab(tab.id)}
+                  onClick={() => setActiveTab(tab.id)} aria-label="Button"
                   className={`flex items-center gap-2 px-6 py-3 font-medium transition-colors ${
                   activeTab === tab.id ?
                   'text-[var(--color-primary-hover)] border-b-2 border-turquoise-600' :

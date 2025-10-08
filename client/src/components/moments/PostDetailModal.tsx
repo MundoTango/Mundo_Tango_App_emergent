@@ -442,7 +442,7 @@ export default function PostDetailModal({
               {/* Interaction Buttons */}
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() = aria-label="Button"> onLike(post.id)}
+                  onClick={() => onLike(post.id)} aria-label="Button"
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-all duration-200 group"
                 >
                   <Heart 
@@ -467,7 +467,7 @@ export default function PostDetailModal({
                 </button>
 
                 <button
-                  onClick={() = aria-label="Button"> onShare(post)}
+                  onClick={() => onShare(post)} aria-label="Button"
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-all duration-200"
                 >
                   <Share2 className="h-5 w-5 text-gray-500 dark:text-gray-400" />

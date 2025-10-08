@@ -91,7 +91,7 @@ export default function RecommendationFilters({
             </Button>
           )}
           <button
-            onClick={() = aria-label="Button"> setIsExpanded(!isExpanded)}
+            onClick={() => setIsExpanded(!isExpanded)} aria-label="Button"
             className="p-2 hover:bg-[var(--color-surface)]/50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
             data-testid="button-toggle-filters"
           >
@@ -132,7 +132,7 @@ export default function RecommendationFilters({
                 return (
                   <button
                     key={option.value}
-                    onClick={() = aria-label="Button"> updateFilter('connectionDegree', option.value)}
+                    onClick={() => updateFilter('connectionDegree', option.value)} aria-label="Button"
                     className={`
                       flex items-center gap-2 px-4 py-2 rounded-lg border transition-all
                       ${isActive
@@ -187,7 +187,7 @@ export default function RecommendationFilters({
                 return (
                   <button
                     key={option.value}
-                    onClick={() = aria-label="Button"> updateFilter('localStatus', option.value)}
+                    onClick={() => updateFilter('localStatus', option.value)} aria-label="Button"
                     className={`
                       px-4 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
@@ -221,7 +221,7 @@ export default function RecommendationFilters({
               />
               {filters.city && (
                 <button
-                  onClick={() = aria-label="Button"> updateFilter('city', undefined)}
+                  onClick={() => updateFilter('city', undefined)} aria-label="Button"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[var(--color-primary-hover)]"
                   data-testid="button-clear-city-filter"
                 >
@@ -267,13 +267,12 @@ export default function RecommendationFilters({
                 return (
                   <button
                     key={category.value}
-                    onClick={() = aria-label="Button"> {
+                    onClick={() => {
                       const current = filters.categories || [];
                       const updated = isActive
                         ? current.filter(c => c !== category.value)
                         : [...current, category.value];
-                      updateFilter('categories', updated.length > 0 ? updated : undefined);
-                    }}
+                      updateFilter('categories', updated.length > 0 ? updated : undefined);} aria-label="Button"}
                     className={`
                       flex items-center gap-2 px-3 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive
@@ -379,7 +378,7 @@ export default function RecommendationFilters({
                 return (
                   <button
                     key={value}
-                    onClick={() = aria-label="Button"> updateFilter('priceLevel', isActive ? undefined : value)}
+                    onClick={() => updateFilter('priceLevel', isActive ? undefined : value)} aria-label="Button"
                     className={`
                       px-4 py-2 rounded-lg border transition-all text-sm font-medium
                       ${isActive

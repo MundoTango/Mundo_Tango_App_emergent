@@ -224,7 +224,7 @@ export default function CreateCommunity() {
                   <button
                     key={category}
                     type="button"
-                    onClick={() = aria-label="Button"> toggleCategory(category)}
+                    onClick={() => toggleCategory(category)} aria-label="Button"
                     className={`p-3 rounded-lg border-2 transition-all ${
                     formData.categories.includes(category) ?
                     'border-turquoise-500 bg-[var(--color-ocean-50)] text-turquoise-700' :

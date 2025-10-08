@@ -322,7 +322,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
             <button
               key={index}
               type="button"
-              onClick={() = aria-label="Button"> handleSuggestionSelect(suggestion)}
+              onClick={() => handleSuggestionSelect(suggestion)} aria-label="Button"
               className="w-full text-left px-3 py-2 hover:bg-[var(--color-surface-elevated)] focus:bg-[var(--color-surface-elevated)] focus:outline-none border-b border-gray-100 last:border-0" data-testid="button-button">
 
                     <p className="text-sm font-medium text-[var(--color-text)] dark:text-white line-clamp-1">

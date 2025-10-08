@@ -389,7 +389,7 @@ export default function EnhancedPostComposer({
     return (
       <div key={index} className="relative mb-4 border border-[var(--color-border)] rounded-lg overflow-hidden">
         <button
-          onClick={() = aria-label="Button"> removeEmbed(index)}
+          onClick={() => removeEmbed(index)} aria-label="Button"
           className="absolute top-2 right-2 z-10 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
         >
           <X className="h-4 w-4" />
@@ -416,7 +416,7 @@ export default function EnhancedPostComposer({
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
             className="flex-1 text-left px-4 py-3 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] rounded-full text-gray-500 dark:text-gray-400 transition-colors"
           >
             Share your tango moment...
@@ -426,21 +426,21 @@ export default function EnhancedPostComposer({
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
           <div className="flex space-x-2">
             <button 
-              onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
               className="flex items-center space-x-2 px-3 py-2 hover:bg-pink-50 rounded-lg text-pink-600 transition-colors"
             >
               <Camera className="h-4 w-4" />
               <span className="text-sm font-medium">Photo</span>
             </button>
             <button 
-              onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
               className="flex items-center space-x-2 px-3 py-2 hover:bg-blue-50 rounded-lg text-blue-600 transition-colors"
             >
               <Video className="h-4 w-4" />
               <span className="text-sm font-medium">Video</span>
             </button>
             <button 
-              onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+              onClick={() => setShowExpandedComposer(true)} aria-label="Button"
               className="flex items-center space-x-2 px-3 py-2 hover:bg-green-50 rounded-lg text-green-600 transition-colors"
             >
               <MapPin className="h-4 w-4" />
@@ -465,11 +465,10 @@ export default function EnhancedPostComposer({
           </div>
         </div>
         <button
-          onClick={() = aria-label="Button"> {
+          onClick={() => {
             // ESA Layer 7: In edit mode or when modal is used, close the modal entirely
             if (editMode || existingPost || onClose) {
-              onClose?.();
-            } else {
+              onClose?.();} aria-label="Button" else {
               setShowExpandedComposer(false);
             }
           }}
@@ -512,7 +511,7 @@ export default function EnhancedPostComposer({
             {commonEmojis.map((emoji, index) => (
               <button
                 key={index}
-                onClick={() = aria-label="Button"> addEmoji(emoji)}
+                onClick={() => addEmoji(emoji)} aria-label="Button"
                 className="text-xl hover:bg-gray-200 dark:bg-gray-700 rounded p-1 transition-colors"
               >
                 {emoji}
@@ -568,7 +567,7 @@ export default function EnhancedPostComposer({
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex space-x-2">
           <button
-            onClick={() = aria-label="Button"> setShowEmojiPicker(!showEmojiPicker)}
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Button"
             className="flex items-center space-x-2 px-3 py-2 hover:bg-[var(--color-neutral-100)] rounded-lg text-gray-600 dark:text-gray-300 transition-colors"
           >
             <Smile className="h-4 w-4" />

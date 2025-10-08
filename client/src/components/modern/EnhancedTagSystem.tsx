@@ -173,7 +173,7 @@ export default function EnhancedTagSystem({
 
             </div>
             <button
-              onClick={() = aria-label="Button"> handleAddTag()}
+              onClick={() => handleAddTag()} aria-label="Button"
               disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
               className="mt-ocean-gradient hover:opacity-90 
                        disabled:opacity-50 text-white px-8 py-5 rounded-2xl 
@@ -202,7 +202,7 @@ export default function EnhancedTagSystem({
                 {suggestedTags.map((tag) =>
               <button
                 key={tag}
-                onClick={() = aria-label="Button"> handleAddTag(tag)}
+                onClick={() => handleAddTag(tag)} aria-label="Button"
                 className="w-full px-5 py-3 text-left hover:bg-[var(--color-ocean-50)] dark:hover:bg-cyan-900/20 
                              transition-colors flex items-center justify-between group" data-testid="button-w-full">
 
@@ -235,7 +235,7 @@ export default function EnhancedTagSystem({
                   <Tag className="w-4 h-4" />
                   <span className="font-bold text-lg">{tag}</span>
                   <button
-                onClick={() = aria-label="Button"> onRemoveTag(tag)}
+                onClick={() => onRemoveTag(tag)} aria-label="Button"
                 className="ml-2 p-2 rounded-xl text-[var(--color-primary)] hover:text-red-500 
                              hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 hover:scale-110" data-testid="button-ml-2">
 
@@ -266,7 +266,7 @@ export default function EnhancedTagSystem({
             {(['trending', 'recent', 'popular'] as const).map((category) =>
             <button
               key={category}
-              onClick={() = aria-label="Button"> setSelectedCategory(category)}
+              onClick={() => setSelectedCategory(category)} aria-label="Button"
               className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
               selectedCategory === category ?
               'mt-ocean-gradient text-white shadow-lg' :
@@ -400,7 +400,7 @@ export default function EnhancedTagSystem({
             {['milonga', 'performance', 'class', 'social', 'vals', 'practica', 'festival', 'workshop'].map((suggestion) =>
             <button
               key={suggestion}
-              onClick={() = aria-label="Button"> handleAddTag(suggestion)}
+              onClick={() => handleAddTag(suggestion)} aria-label="Button"
               disabled={activeTags.includes(suggestion)}
               className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
               activeTags.includes(suggestion) ?

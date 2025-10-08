@@ -100,7 +100,7 @@ export default function MTTablePagination({
     
     return (
       <button
-        onClick={() = aria-label="Button"> page && onPageChange(page)}
+        onClick={() => page && onPageChange(page)} aria-label="Button"
         disabled={disabled}
         className={cn(
           'transition-all duration-200',

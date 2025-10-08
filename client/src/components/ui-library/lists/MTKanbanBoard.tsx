@@ -373,7 +373,7 @@ export default function MTKanbanBoard({
                       {column.actions}
                       {onColumnEdit && (
                         <button
-                          onClick={() = aria-label="Button"> onColumnEdit(column)}
+                          onClick={() => onColumnEdit(column)} aria-label="Button"
                           className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                         >
                           <MoreHorizontal className="w-4 h-4" />

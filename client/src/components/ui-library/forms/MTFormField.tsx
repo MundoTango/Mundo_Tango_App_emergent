@@ -87,7 +87,7 @@ export default function MTFormField<
               {isPassword && (
                 <button
                   type="button"
-                  onClick={() = aria-label="Button"> setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword(!showPassword)} aria-label="Button"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)] transition-colors"
                   data-testid={`toggle-password-${name}`}
                 >

@@ -177,7 +177,7 @@ export default function CityGroupAutocomplete({
             return (
               <button
                 key={cityGroup.id}
-                onClick={() = aria-label="Button"> handleSelectCity(cityGroup)}
+                onClick={() => handleSelectCity(cityGroup)} aria-label="Button"
                 className="w-full px-4 py-3 text-left hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
 
                     <div className="flex items-start justify-between">

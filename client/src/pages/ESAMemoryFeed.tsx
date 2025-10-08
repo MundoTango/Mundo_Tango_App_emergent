@@ -334,10 +334,9 @@ function ESAMemoryFeedCore() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[var(--color-surface)] dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
             <button
-              onClick={() = aria-label="Button"> {
+              onClick={() => {
                 setShowEditModal(false);
-                setEditingPost(null);
-              }}
+                setEditingPost(null);} aria-label="Button"}
               className="absolute top-4 right-4 p-2 rounded-full bg-[var(--color-neutral-100)] hover:bg-gray-200 dark:bg-gray-700 transition-colors"
             >
               <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

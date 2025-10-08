@@ -147,7 +147,7 @@ export default function CreatePost() {
           <div className="flex-1">
             {!isExpanded ?
             <button
-              onClick={() = aria-label="Button"> setIsExpanded(true)}
+              onClick={() => setIsExpanded(true)} aria-label="Button"
               className="w-full text-left bg-gradient-to-r from-turquoise-50 to-cyan-50 rounded-full px-4 py-2 text-[var(--color-primary-hover)] hover:from-turquoise-100 hover:to-cyan-100 transition-all duration-300" data-testid="button-w-full">
 
                 Share your tango experience...

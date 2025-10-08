@@ -112,7 +112,7 @@ export default function MTTableActions({
                 {action.confirmationMessage || `${action.label}?`}
               </span>
               <button
-                onClick={() = aria-label="Button"> confirmAction(action)}
+                onClick={() => confirmAction(action)} aria-label="Button"
                 className="p-1 hover:bg-red-100 dark:hover:bg-red-800/30 rounded transition-colors"
                 data-testid={`${testId}-confirm-${action.id}`}
               >
@@ -262,7 +262,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
   return (
     <div className={cn('relative', className)}>
       <button
-        onClick={() = aria-label="Button"> setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)} aria-label="Button"
         className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
         data-testid={testId}
       >
@@ -282,10 +282,9 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
                   <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
                 )}
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     action.onClick();
-                    setIsOpen(false);
-                  }}
+                    setIsOpen(false);} aria-label="Button"}
                   className={cn(
                     'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
                     action.variant === 'danger'

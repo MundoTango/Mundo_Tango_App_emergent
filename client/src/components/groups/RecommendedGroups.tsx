@@ -101,7 +101,7 @@ export default function RecommendedGroups() {
             >
               <div className="flex-1 min-w-0">
                 <button
-                  onClick={() = aria-label="Button"> setLocation(`/groups/${group.slug}`)}
+                  onClick={() => setLocation(`/groups/${group.slug} aria-label="Button"`)}
                   className="text-left w-full"
                   data-testid={`link-group-${group.id}`}
                 >

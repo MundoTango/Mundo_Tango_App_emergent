@@ -292,7 +292,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                     <button
                       key={star}
                       type="button"
-                      onClick={() = aria-label="Button"> field.onChange(star)}
+                      onClick={() => field.onChange(star)} aria-label="Button"
                       className={`text-2xl ${
                       star <= field.value ?
                       'text-yellow-500' :

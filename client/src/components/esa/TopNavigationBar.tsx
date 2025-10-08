@@ -160,7 +160,7 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
           {/* Profile Dropdown */}
           <div className="relative">
             <button
-              onClick={() = aria-label="Button"> setIsProfileOpen(!isProfileOpen)}
+              onClick={() => setIsProfileOpen(!isProfileOpen)} aria-label="Button"
               className={cn(
                 "flex items-center gap-2 p-1.5 rounded-lg transition-all",
                 theme === 'light' ?

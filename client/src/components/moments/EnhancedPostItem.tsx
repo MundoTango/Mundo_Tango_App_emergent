@@ -758,7 +758,7 @@ function EnhancedPostItem({
 
             {/* Comment button */}
             <button
-              onClick={() = aria-label="Button"> setShowComments(!showComments)}
+              onClick={() => setShowComments(!showComments)} aria-label="Button"
               className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium text-gray-600 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
             >
               <MessageCircle className="h-5 w-5" />
@@ -864,7 +864,7 @@ function EnhancedPostItem({
               <div className="space-y-3">
                 {/* Share to Timeline */}
                 <button
-                  onClick={() = aria-label="Button"> handleShareToWall()}
+                  onClick={() => handleShareToWall()} aria-label="Button"
                   className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
                 >
                   <div className="p-2 bg-blue-100 rounded-full">
@@ -878,10 +878,9 @@ function EnhancedPostItem({
 
                 {/* Share with Comment */}
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     setShowShareOptions(false);
-                    setShowShareWithCommentModal(true);
-                  }}
+                    setShowShareWithCommentModal(true);} aria-label="Button"}
                   className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
                 >
                   <div className="p-2 bg-green-100 rounded-full">
@@ -939,7 +938,7 @@ function EnhancedPostItem({
               </div>
 
               <button
-                onClick={() = aria-label="Button"> setShowShareOptions(false)}
+                onClick={() => setShowShareOptions(false)} aria-label="Button"
                 className="mt-4 w-full p-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors"
               >
                 Cancel
@@ -987,20 +986,18 @@ function EnhancedPostItem({
               {/* Action Buttons */}
               <div className="flex gap-3">
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     setShowShareWithCommentModal(false);
-                    setShareComment('');
-                  }}
+                    setShareComment('');} aria-label="Button"}
                   className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     handleShareToWall(shareComment);
                     setShowShareWithCommentModal(false);
-                    setShareComment('');
-                  }}
+                    setShareComment('');} aria-label="Button"}
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl transition-colors"
                 >
                   Share

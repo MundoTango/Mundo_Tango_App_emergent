@@ -45,7 +45,7 @@ export function StarRating({
           <button
             key={value}
             type="button"
-            onClick={() = aria-label="Button"> handleClick(value)}
+            onClick={() => handleClick(value)} aria-label="Button"
             disabled={readonly}
             className={cn(
               "transition-all",

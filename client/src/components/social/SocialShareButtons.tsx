@@ -110,7 +110,7 @@ export default function SocialShareButtons({
     return (
       <div className={`relative ${className}`}>
         <button
-          onClick={() = aria-label="Button"> setShowShareMenu(!showShareMenu)}
+          onClick={() => setShowShareMenu(!showShareMenu)} aria-label="Button"
           className="flex items-center space-x-1 px-3 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors" data-testid="button-flex">
 
           <Share2 className="h-4 w-4" />
@@ -122,7 +122,7 @@ export default function SocialShareButtons({
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-semibold text-[var(--color-text)] dark:text-white">Share this post</h4>
               <button
-              onClick={() = aria-label="Button"> setShowShareMenu(false)}
+              onClick={() => setShowShareMenu(false)} aria-label="Button"
               className="text-gray-400 hover:text-gray-600 dark:text-gray-300" data-testid="button-text-gray-400">
 
                 ×

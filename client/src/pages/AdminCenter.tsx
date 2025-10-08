@@ -1096,24 +1096,23 @@ const AdminCenter = memo(() => {
                     <td className="py-3 px-4 text-right">
                       <div className="flex gap-2 justify-end">
                         <button
-                          onClick={() = aria-label="Button"> {
+                          onClick={() => {
                             setSelectedUser(user);
-                            setShowUserModal(true);
-                          }}
+                            setShowUserModal(true);} aria-label="Button"}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         {!user.suspended ? (
                           <button
-                            onClick={() = aria-label="Button"> handleUserAction(user.id, 'suspend')}
+                            onClick={() => handleUserAction(user.id, 'suspend')} aria-label="Button"
                             className="text-red-600 hover:text-red-800"
                           >
                             <Ban className="w-4 h-4" />
                           </button>
                         ) : (
                           <button
-                            onClick={() = aria-label="Button"> handleUserAction(user.id, 'unsuspend')}
+                            onClick={() => handleUserAction(user.id, 'unsuspend')} aria-label="Button"
                             className="text-green-600 hover:text-green-800"
                           >
                             <CheckCircle className="w-4 h-4" />
@@ -1136,7 +1135,7 @@ const AdminCenter = memo(() => {
             <div className="flex justify-between items-start mb-4">
               <h3 className="text-xl font-bold text-[var(--color-text)] dark:text-white">User Details</h3>
               <button
-                onClick={() = aria-label="Button"> setShowUserModal(false)}
+                onClick={() => setShowUserModal(false)} aria-label="Button"
                 className="text-gray-400 hover:text-gray-600 dark:text-gray-300"
               >
                 <Ban className="w-5 h-5" />
@@ -1164,7 +1163,7 @@ const AdminCenter = memo(() => {
               <div className="flex gap-3 pt-4 border-t">
                 {!selectedUser.verified && (
                   <button
-                    onClick={() = aria-label="Button"> handleUserAction(selectedUser.id, 'verify')}
+                    onClick={() => handleUserAction(selectedUser.id, 'verify')} aria-label="Button"
                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
                   >
                     Verify User
@@ -1172,14 +1171,14 @@ const AdminCenter = memo(() => {
                 )}
                 {!selectedUser.suspended ? (
                   <button
-                    onClick={() = aria-label="Button"> handleUserAction(selectedUser.id, 'suspend')}
+                    onClick={() => handleUserAction(selectedUser.id, 'suspend')} aria-label="Button"
                     className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                   >
                     Suspend User
                   </button>
                 ) : (
                   <button
-                    onClick={() = aria-label="Button"> handleUserAction(selectedUser.id, 'unsuspend')}
+                    onClick={() => handleUserAction(selectedUser.id, 'unsuspend')} aria-label="Button"
                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
                   >
                     Unsuspend User
@@ -1334,24 +1333,23 @@ const AdminCenter = memo(() => {
                   {/* Action buttons - made more visible */}
                   <div className="flex gap-2 flex-shrink-0">
                     <button
-                      onClick={() = aria-label="Button"> {
+                      onClick={() => {
                         setSelectedContent(content);
-                        setShowContentModal(true);
-                      }}
+                        setShowContentModal(true);} aria-label="Button"}
                       className="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition-all"
                       title="View Details"
                     >
                       <Eye className="w-5 h-5" />
                     </button>
                     <button
-                      onClick={() = aria-label="Button"> handleContentAction(content.id, 'approve', content.type)}
+                      onClick={() => handleContentAction(content.id, 'approve', content.type)} aria-label="Button"
                       className="p-2 bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-all"
                       title="Approve"
                     >
                       <CheckCircle className="w-5 h-5" />
                     </button>
                     <button
-                      onClick={() = aria-label="Button"> handleContentAction(content.id, 'remove', content.type)}
+                      onClick={() => handleContentAction(content.id, 'remove', content.type)} aria-label="Button"
                       className="p-2 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition-all"
                       title="Remove"
                     >
@@ -1388,7 +1386,7 @@ const AdminCenter = memo(() => {
                   <h3 className="text-xl font-bold text-[var(--color-text)] dark:text-white">Content Review</h3>
                 </div>
                 <button
-                  onClick={() = aria-label="Button"> setShowContentModal(false)}
+                  onClick={() => setShowContentModal(false)} aria-label="Button"
                   className="text-gray-400 hover:text-gray-600 dark:text-gray-300 p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
@@ -1445,9 +1443,8 @@ const AdminCenter = memo(() => {
               <div className="p-6 border-t bg-gradient-to-r from-gray-50 via-white to-gray-50">
                 <div className="flex flex-col gap-3">
                   <button
-                    onClick={() = aria-label="Button"> {
-                      handleContentAction(selectedContent.id, 'approve', selectedContent.type);
-                    }}
+                    onClick={() => {
+                      handleContentAction(selectedContent.id, 'approve', selectedContent.type);} aria-label="Button"}
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1464,9 +1461,8 @@ const AdminCenter = memo(() => {
                     )}
                   </button>
                   <button
-                    onClick={() = aria-label="Button"> {
-                      handleContentAction(selectedContent.id, 'remove', selectedContent.type);
-                    }}
+                    onClick={() => {
+                      handleContentAction(selectedContent.id, 'remove', selectedContent.type);} aria-label="Button"}
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1483,9 +1479,8 @@ const AdminCenter = memo(() => {
                     )}
                   </button>
                   <button
-                    onClick={() = aria-label="Button"> {
-                      handleContentAction(selectedContent.id, 'warn', selectedContent.type);
-                    }}
+                    onClick={() => {
+                      handleContentAction(selectedContent.id, 'warn', selectedContent.type);} aria-label="Button"}
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-yellow-600 to-amber-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1826,7 +1821,7 @@ const AdminCenter = memo(() => {
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() = aria-label="Button"> toggleEventFeatured(event.id, event.is_featured)}
+                      onClick={() => toggleEventFeatured(event.id, event.is_featured)} aria-label="Button"
                       className={`px-3 py-1 rounded-lg text-sm ${
                         event.is_featured 
                           ? 'bg-purple-600 text-white' 
@@ -1999,19 +1994,19 @@ const AdminCenter = memo(() => {
                     {report.status === 'unresolved' && (
                       <>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'investigating')}
+                          onClick={() => updateReportStatus(report.id, 'investigating')} aria-label="Button"
                           className="px-3 py-1 text-sm bg-yellow-600 text-white rounded hover:bg-yellow-700"
                         >
                           Investigate
                         </button>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'resolved')}
+                          onClick={() => updateReportStatus(report.id, 'resolved')} aria-label="Button"
                           className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'dismissed')}
+                          onClick={() => updateReportStatus(report.id, 'dismissed')} aria-label="Button"
                           className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700"
                         >
                           Dismiss
@@ -2021,13 +2016,13 @@ const AdminCenter = memo(() => {
                     {report.status === 'investigating' && (
                       <>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'resolved')}
+                          onClick={() => updateReportStatus(report.id, 'resolved')} aria-label="Button"
                           className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
                         >
                           Resolve
                         </button>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'dismissed')}
+                          onClick={() => updateReportStatus(report.id, 'dismissed')} aria-label="Button"
                           className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700"
                         >
                           Dismiss
@@ -2499,14 +2494,14 @@ const AdminCenter = memo(() => {
                     {report.status === 'pending' && (
                       <>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'resolved')}
+                          onClick={() => updateReportStatus(report.id, 'resolved')} aria-label="Button"
                           className="p-2 bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-all"
                           title="Resolve"
                         >
                           <CheckCircle className="w-5 h-5" />
                         </button>
                         <button
-                          onClick={() = aria-label="Button"> updateReportStatus(report.id, 'dismissed')}
+                          onClick={() => updateReportStatus(report.id, 'dismissed')} aria-label="Button"
                           className="p-2 bg-[var(--color-neutral-100)] text-gray-600 hover:bg-gray-200 dark:bg-gray-700 rounded-lg transition-all"
                           title="Dismiss"
                         >
@@ -2541,7 +2536,7 @@ const AdminCenter = memo(() => {
                   </div>
                 </div>
                 <button
-                  onClick={() = aria-label="Button"> unblockUser(user.id)}
+                  onClick={() => unblockUser(user.id)} aria-label="Button"
                   className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5"
                 >
                   Unblock User
@@ -2979,7 +2974,7 @@ const AdminCenter = memo(() => {
                 <div className="flex items-center gap-3 w-full sm:w-auto">
                   {/* Mobile Menu Toggle */}
                   <button
-                    onClick={() = aria-label="Button"> setIsSidebarOpen(!isSidebarOpen)}
+                    onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-label="Button"
                     className="lg:hidden p-2 rounded-lg hover:bg-[var(--color-surface)] dark:bg-gray-900/20 transition-colors min-h-[44px] min-w-[44px]"
                   >
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2998,7 +2993,7 @@ const AdminCenter = memo(() => {
                 <div className="flex items-center gap-2 sm:gap-3 justify-end w-full sm:w-auto">
                   {/* Mobile-Optimized Back Button */}
                   <button 
-                    onClick={() = aria-label="Button"> window.location.href = '/memories'}
+                    onClick={() => window.location.href = '/memories'} aria-label="Button"
                     className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm rounded-lg sm:rounded-xl hover:bg-[var(--color-surface)] dark:bg-gray-900 transition-all duration-200 shadow-lg group min-h-[44px]"
                   >
                     <ArrowLeft className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-[var(--color-primary-hover)] transition-colors" />
@@ -3026,10 +3021,9 @@ const AdminCenter = memo(() => {
                       {category.tabs.map((tab) => (
                         <button
                           key={tab.id}
-                          onClick={() = aria-label="Button"> {
+                          onClick={() => {
                             console.log('Tab clicked:', tab.id);
-                            setSelectedTab(tab.id);
-                          }}
+                            setSelectedTab(tab.id);} aria-label="Button"}
                           className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all transform hover:scale-105 ${
                             selectedTab === tab.id
                               ? 'bg-gradient-to-br from-turquoise-500 to-cyan-500 text-white shadow-lg'

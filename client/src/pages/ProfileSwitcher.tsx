@@ -79,7 +79,7 @@ export default function ProfileSwitcher() {
           {profiles.map((profile) =>
           <button
             key={profile.id}
-            onClick={() = aria-label="Button"> handleProfileSwitch(profile)}
+            onClick={() => handleProfileSwitch(profile)} aria-label="Button"
             className={`w-full bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl p-4 shadow-sm hover:shadow-md transition-all ${
             activeProfile === profile.id ? 'ring-2 ring-blue-500' : ''}`
             } data-testid="button-element">
@@ -117,7 +117,7 @@ export default function ProfileSwitcher() {
         <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl p-4 shadow-sm space-y-3">
           {isSuperAdmin &&
           <button
-            onClick={() = aria-label="Button"> setLocation('/life-ceo')}
+            onClick={() => setLocation('/life-ceo')} aria-label="Button"
             className="w-full flex items-center gap-3 p-3 hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors" data-testid="button-w-full">
 
               <Brain className="h-5 w-5 text-purple-500" />
@@ -125,7 +125,7 @@ export default function ProfileSwitcher() {
             </button>
           }
           <button
-            onClick={() = aria-label="Button"> setLocation('/memories')}
+            onClick={() => setLocation('/memories')} aria-label="Button"
             className="w-full flex items-center gap-3 p-3 hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors" data-testid="button-w-full">
 
             <Globe className="h-5 w-5 text-blue-500" />
