@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SimpleLikeButtonProps {
   postId: number | string;
@@ -9,18 +10,18 @@ interface SimpleLikeButtonProps {
 }
 
 const SIMPLE_REACTIONS = [
-  { id: 'like', text: '👍', label: 'Like' },
-  { id: 'love', text: '❤️', label: 'Love' },
-  { id: 'haha', text: '😆', label: 'Haha' },
-  { id: 'wow', text: '😮', label: 'Wow' },
-  { id: 'sad', text: '😢', label: 'Sad' },
-  { id: 'angry', text: '😠', label: 'Angry' },
-  { id: 'fire', text: '🔥', label: 'Fire' },
-  { id: 'heart_eyes', text: '😍', label: 'Heart Eyes' },
-  { id: 'thinking', text: '🤔', label: 'Thinking' },
-  { id: 'party', text: '🎉', label: 'Party' },
-  { id: 'clap', text: '👏', label: 'Clap' },
-  { id: 'mind_blown', text: '🤯', label: 'Mind Blown' }
+  { id: 'like', text: '👍', labelKey: 'reactions.like' },
+  { id: 'love', text: '❤️', labelKey: 'reactions.love' },
+  { id: 'haha', text: '😆', labelKey: 'reactions.haha' },
+  { id: 'wow', text: '😮', labelKey: 'reactions.wow' },
+  { id: 'sad', text: '😢', labelKey: 'reactions.sad' },
+  { id: 'angry', text: '😠', labelKey: 'reactions.angry' },
+  { id: 'fire', text: '🔥', labelKey: 'reactions.fire' },
+  { id: 'heart_eyes', text: '😍', labelKey: 'reactions.heartEyes' },
+  { id: 'thinking', text: '🤔', labelKey: 'reactions.thinking' },
+  { id: 'party', text: '🎉', labelKey: 'reactions.party' },
+  { id: 'clap', text: '👏', labelKey: 'reactions.clap' },
+  { id: 'mind_blown', text: '🤯', labelKey: 'reactions.mindBlown' }
 ];
 
 export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
@@ -30,6 +31,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
   onReact,
   className = ''
 }) => {
+  const { t } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -78,7 +80,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
           {currentReactionData ? currentReactionData.text : '👍'}
         </span>
         <span className="text-sm font-medium">
-          {currentReactionData ? currentReactionData.label : 'Like'}
+          {currentReactionData ? t(currentReactionData.labelKey) : t('reactions.like')}
         </span>
       </button>
 
@@ -112,7 +114,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
                   fontSize: '24px',
                   animation: `fadeInBounce 0.4s ease-out ${index * 0.05}s both`
                 }}
-                title={reaction.label}
+                title={t(reaction.labelKey)}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'scale(1.4) rotate(15deg)';
                   e.currentTarget.style.backgroundColor = '#dbeafe';
@@ -134,7 +136,7 @@ export const SimpleLikeButton: React.FC<SimpleLikeButtonProps> = ({
       {/* Reaction Count */}
       {totalReactions > 0 && (
         <div className="mt-1">
-          <span className="text-sm text-gray-600">{totalReactions} reactions</span>
+          <span className="text-sm text-gray-600">{totalReactions} {t('reactions.reactions')}</span>
         </div>
       )}
     </div>

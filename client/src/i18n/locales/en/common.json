@@ -364,6 +364,26 @@
     "noEventsOwn": "Start organizing or attending tango events to see them here.",
     "noEventsOther": "No events to display."
   },
+  "reactions": {
+    "like": "Like",
+    "love": "Love",
+    "haha": "Haha",
+    "wow": "Wow",
+    "sad": "Sad",
+    "angry": "Angry",
+    "fire": "Fire",
+    "heartEyes": "Heart Eyes",
+    "thinking": "Thinking",
+    "party": "Party",
+    "clap": "Clap",
+    "mindBlown": "Mind Blown",
+    "reactions": "reactions",
+    "reaction": "reaction"
+  },
+  "time": {
+    "ago": "ago",
+    "recently": "recently"
+  },
   "search": {
     "searching": "Searching...",
     "posts": "Posts",

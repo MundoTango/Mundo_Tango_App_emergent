@@ -519,9 +519,9 @@ function EnhancedPostItem({
                 {(() => {
                   const createdDate = post.createdAt ? new Date(post.createdAt) : new Date();
                   if (isNaN(createdDate.getTime())) {
-                    return 'recently';
+                    return t('time.recently');
                   }
-                  return `${formatDistanceToNow(createdDate)} ago`;
+                  return `${formatDistanceToNow(createdDate)} ${t('time.ago')}`;
                 })()}
               </time>
             </div>
