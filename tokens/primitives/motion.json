@@ -1,0 +1,51 @@
+{
+  "motion": {
+    "duration": {
+      "instant": { "value": "0ms" },
+      "fast": { "value": "150ms" },
+      "normal": { "value": "300ms" },
+      "slow": { "value": "500ms" },
+      "slower": { "value": "800ms" }
+    },
+    "easing": {
+      "linear": { "value": "linear" },
+      "ease-in": { "value": "cubic-bezier(0.4, 0, 1, 1)" },
+      "ease-out": { "value": "cubic-bezier(0, 0, 0.2, 1)" },
+      "ease-in-out": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" },
+      "spring": { "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)" },
+      "bounce": { "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)" }
+    },
+    "spring": {
+      "stiff": { 
+        "type": { "value": "spring" },
+        "stiffness": { "value": "300" },
+        "damping": { "value": "30" }
+      },
+      "gentle": {
+        "type": { "value": "spring" },
+        "stiffness": { "value": "100" },
+        "damping": { "value": "20" }
+      },
+      "bouncy": {
+        "type": { "value": "spring" },
+        "stiffness": { "value": "400" },
+        "damping": { "value": "10" }
+      }
+    },
+    "scale": {
+      "expand": { "value": "1.05" },
+      "shrink": { "value": "0.95" },
+      "grow": { "value": "1.1" }
+    },
+    "rotate": {
+      "slight": { "value": "2deg" },
+      "normal": { "value": "5deg" },
+      "strong": { "value": "15deg" }
+    },
+    "blur": {
+      "subtle": { "value": "4px" },
+      "medium": { "value": "8px" },
+      "strong": { "value": "16px" }
+    }
+  }
+}
