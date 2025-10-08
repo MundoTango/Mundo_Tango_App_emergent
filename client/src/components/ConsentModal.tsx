@@ -36,7 +36,7 @@ export function ConsentModal({ onAccept, onReject }: ConsentModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-4" data-testid="consent-modal">
       {/* Backdrop */}
-      <GlassCard depth={1} className="fixed inset-0"
+      <GlassCard depth={1} className="fixed inset-0">
       
       {/* Modal */}
       <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4 transform transition-all animate-in slide-in-from-bottom-5 sm:slide-in-from-bottom-0 duration-300">

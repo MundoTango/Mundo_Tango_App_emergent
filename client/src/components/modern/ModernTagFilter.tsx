@@ -26,7 +26,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
   };
 
   return (
-    <GlassCard depth={3} className="rounded-3xl shadow-2xl border-2 border-blue-100/50 p-8 mb-8"
+    <GlassCard depth={3} className="rounded-3xl shadow-2xl border-2 border-blue-100/50 p-8 mb-8">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
           <div className="bg-gradient-to-br from-teal-400 to-cyan-500 p-3 rounded-2xl shadow-xl 

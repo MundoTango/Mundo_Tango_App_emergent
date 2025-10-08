@@ -21,7 +21,7 @@ export function LoadingSpinner() {
 
 export function PageLoader() {
   return (
-    <GlassCard depth={1} className="fixed inset-0 flex items-center justify-center dark:bg-gray-900/90 z-50"
+    <GlassCard depth={1} className="fixed inset-0 flex items-center justify-center dark:bg-gray-900/90 z-50">
       <LoadingFallback />
     </div>
   );
