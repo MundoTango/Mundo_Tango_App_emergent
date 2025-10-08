@@ -31,6 +31,10 @@ const LEGACY_PATTERNS = {
   // Generic RGB patterns (should use tokens)
   rgb: /rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)/g,
   rgba: /rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[\d.]+\s*\)/g,
+  
+  // HSL patterns (should use tokens or CSS variables)
+  hsl: /hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)/g,
+  hsla: /hsla\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*,\s*[\d.]+\s*\)/g,
 };
 
 // Approved ocean palette tokens (these are OK to use as inline values)
@@ -70,6 +74,7 @@ const IGNORE_PATHS = [
   '**/mt-ocean-theme.ts',
   '**/*.backup*',
   '**/_archive/**',
+  '**/mundo-tango-protected.css', // Intentional brand protection - DO NOT MIGRATE
 ];
 
 class TokenValidator {
