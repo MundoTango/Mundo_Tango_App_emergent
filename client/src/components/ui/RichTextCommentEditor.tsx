@@ -105,7 +105,7 @@ export function RichTextCommentEditor({
           <div className="flex items-center justify-between p-3">
             <div className="flex items-center gap-2">
               <button
-                onClick={() = aria-label="Button"> formatText('bold')}
+                onClick={() => formatText('bold')} aria-label="Button"
                 className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
                 title="Bold"
                 data-testid={`button-editor-bold-${postId}`}
@@ -113,7 +113,7 @@ export function RichTextCommentEditor({
                 <Bold className="h-4 w-4" />
               </button>
               <button
-                onClick={() = aria-label="Button"> formatText('italic')}
+                onClick={() => formatText('italic')} aria-label="Button"
                 className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
                 title="Italic"
                 data-testid={`button-editor-italic-${postId}`}
@@ -122,7 +122,7 @@ export function RichTextCommentEditor({
               </button>
               <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-2"></div>
               <button
-                onClick={() = aria-label="Button"> formatText('createLink', prompt('Enter URL:') || '')}
+                onClick={() => formatText('createLink', prompt('Enter URL:') || '')} aria-label="Button"
                 className="p-2 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors dark:bg-neutral-800"
                 title="Add Link"
                 data-testid={`button-editor-link-${postId}`}
@@ -138,7 +138,7 @@ export function RichTextCommentEditor({
               </button>
               <div className="w-px h-6 bg-gray-200 dark:bg-gray-700 mx-2"></div>
               <button
-                onClick={() = aria-label="Button"> setShowEmojiPicker(!showEmojiPicker)}
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Button"
                 className={`p-2 rounded-lg transition-colors ${
                   showEmojiPicker ? 'bg-pink-100 text-pink-600' : 'hover:bg-[var(--color-neutral-100)]'
                 }`}
@@ -157,7 +157,7 @@ export function RichTextCommentEditor({
                 {emojis.map((emoji, index) => (
                   <button
                     key={index}
-                    onClick={() = aria-label="Button"> insertEmoji(emoji)}
+                    onClick={() => insertEmoji(emoji)} aria-label="Button"
                     className="w-14 h-14 flex items-center justify-center text-2xl hover:bg-[var(--color-surface)] hover:shadow-md rounded-lg transition-all duration-200 border border-[var(--color-border)] dark:bg-neutral-900"
                     title={`Add ${emoji}`}
                     type="button"

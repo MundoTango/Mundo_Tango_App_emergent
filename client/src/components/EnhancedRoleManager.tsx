@@ -567,7 +567,7 @@ export default function EnhancedRoleManager() {
                                       <span>{role.replace(/_/g, ' ')}</span>
                                       {role !== 'guest' &&
                                 <button
-                                  onClick={() = aria-label="Button"> removeRole(user.id, role)}
+                                  onClick={() => removeRole(user.id, role)} aria-label="Button"
                                   className="ml-1 text-red-500 hover:text-red-700"
                                   title="Remove role" data-testid="button-ml-1">
 

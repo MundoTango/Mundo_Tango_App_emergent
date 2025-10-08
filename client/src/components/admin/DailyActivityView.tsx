@@ -184,7 +184,7 @@ function DailyActivityView() {
             {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </Badge>
           <button
-            onClick={() = aria-label="Button"> refetch()}
+            onClick={() => refetch()} aria-label="Button"
             disabled={isLoading}
             className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)] rounded-md transition-colors disabled:opacity-50"
             title="Refresh activities" data-testid="button-p-1-5">

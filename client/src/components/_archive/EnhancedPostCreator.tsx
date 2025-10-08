@@ -292,7 +292,7 @@ export default function EnhancedPostCreator({
             {user?.name?.charAt(0) || 'U'}
           </div>
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
             className="flex-1 text-left px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-pink-50 hover:to-blue-50 rounded-full text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-all duration-200 border border-[var(--color-border)]"
           >
             Share your tango moment...
@@ -323,7 +323,7 @@ export default function EnhancedPostCreator({
             Create Post
           </h2>
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(false)}
+            onClick={() => setShowExpandedComposer(false)} aria-label="Button"
             className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full transition-colors"
           >
             <X className="w-5 h-5" />
@@ -366,10 +366,10 @@ export default function EnhancedPostCreator({
           {/* Additional Actions */}
           <div className="flex items-center space-x-2 mb-4 p-3 bg-[var(--color-surface-elevated)] rounded-lg">
             <div className="w-px h-6 bg-gray-300"></div>
-            <button onClick={() = aria-label="Button"> setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">
+            <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Button" className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">
               <Smile className="w-4 h-4" />
             </button>
-            <button onClick={() = aria-label="Button"> setShowMentionPicker(!showMentionPicker)} className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">
+            <button onClick={() => setShowMentionPicker(!showMentionPicker)} aria-label="Button" className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300">
               <AtSign className="w-4 h-4" />
             </button>
             <button className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-gray-600 dark:text-gray-300" aria-label="Button">
@@ -387,7 +387,7 @@ export default function EnhancedPostCreator({
                 >
                   {mention.display}
                   <button
-                    onClick={() = aria-label="Button"> removeMention(index)}
+                    onClick={() => removeMention(index)} aria-label="Button"
                     className="ml-2 text-blue-600 hover:text-blue-800"
                   >
                     <X className="w-3 h-3" />
@@ -407,7 +407,7 @@ export default function EnhancedPostCreator({
                       {embed.type} embed: {embed.preview}
                     </span>
                     <button
-                      onClick={() = aria-label="Button"> removeMediaEmbed(index)}
+                      onClick={() => removeMediaEmbed(index)} aria-label="Button"
                       className="text-gray-400 hover:text-gray-600 dark:text-gray-300"
                     >
                       <X className="w-4 h-4" />
@@ -425,7 +425,7 @@ export default function EnhancedPostCreator({
                 <MapPin className="w-4 h-4 text-green-600" />
                 <span className="text-sm text-green-800">{location}</span>
                 <button
-                  onClick={() = aria-label="Button"> setLocation('')}
+                  onClick={() => setLocation('')} aria-label="Button"
                   className="ml-auto text-green-600 hover:text-green-800"
                 >
                   <X className="w-4 h-4" />
@@ -441,10 +441,9 @@ export default function EnhancedPostCreator({
                 {['😀', '😍', '🔥', '❤️', '🎉', '👏', '💃', '🕺', '🎵', '🌟', '💯', '🙌'].map(emoji => (
                   <button
                     key={emoji}
-                    onClick={() = aria-label="Button"> {
+                    onClick={() => {
                       setContent(prev => prev + emoji);
-                      setShowEmojiPicker(false);
-                    }}
+                      setShowEmojiPicker(false);} aria-label="Button"}
                     className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-xl"
                   >
                     {emoji}
@@ -484,7 +483,7 @@ export default function EnhancedPostCreator({
               className="hidden"
             />
             <button
-              onClick={() = aria-label="Button"> fileInputRef.current?.click()}
+              onClick={() => fileInputRef.current?.click()} aria-label="Button"
               disabled={isUploading}
               className="flex items-center space-x-2 px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors disabled:opacity-50"
             >
@@ -492,13 +491,12 @@ export default function EnhancedPostCreator({
               <span>Photo</span>
             </button>
             <button
-              onClick={() = aria-label="Button"> {
+              onClick={() => {
                 const url = prompt('Enter social media URL (Instagram, Twitter, YouTube, TikTok):');
                 if (url) {
                   const embed = detectSocialMedia(url);
                   if (embed) {
-                    setMediaEmbeds(prev => [...prev, embed]);
-                  } else {
+                    setMediaEmbeds(prev => [...prev, embed]);} aria-label="Button" else {
                     toast({
                       title: "Invalid URL",
                       description: "Please enter a valid social media URL",
@@ -513,10 +511,9 @@ export default function EnhancedPostCreator({
               <span>Embed</span>
             </button>
             <button
-              onClick={() = aria-label="Button"> {
+              onClick={() => {
                 const loc = prompt('Add location:');
-                if (loc) setLocation(loc);
-              }}
+                if (loc) setLocation(loc);} aria-label="Button"}
               className="flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
             >
               <MapPin className="w-4 h-4" />

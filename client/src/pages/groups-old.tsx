@@ -86,7 +86,7 @@ export default function GroupsPage() {
             {['all', 'joined', 'suggested'].map((tab) => (
               <button
                 key={tab}
-                onClick={() = aria-label="Button"> setActiveTab(tab)}
+                onClick={() => setActiveTab(tab)} aria-label="Button"
                 className={`px-6 py-3 font-medium capitalize transition-colors ${
                   activeTab === tab
                     ? 'text-btn-color border-b-2 border-btn-color'

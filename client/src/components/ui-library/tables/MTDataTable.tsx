@@ -288,7 +288,7 @@ export default function MTDataTable<T = any>({
           {/* Filters */}
           {columns.some(col => col.filterable) && (
             <button
-              onClick={() = aria-label="Button"> setShowFilters(!showFilters)}
+              onClick={() => setShowFilters(!showFilters)} aria-label="Button"
               className={cn(
                 'px-3 py-2 rounded-lg border transition-all duration-300',
                 showFilters
@@ -320,13 +320,13 @@ export default function MTDataTable<T = any>({
               </button>
               <div className="absolute right-0 mt-1 w-32 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-lg border border-[var(--color-border)] dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
                 <button
-                  onClick={() = aria-label="Button"> handleExport('csv')}
+                  onClick={() => handleExport('csv')} aria-label="Button"
                   className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30"
                 >
                   Export CSV
                 </button>
                 <button
-                  onClick={() = aria-label="Button"> handleExport('json')}
+                  onClick={() => handleExport('json')} aria-label="Button"
                   className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30"
                 >
                   Export JSON

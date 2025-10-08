@@ -195,7 +195,7 @@ export default function EventAutocomplete({
               {events.map((event: Event) =>
           <button
             key={event.id}
-            onClick={() = aria-label="Button"> handleSelectEvent(event)}
+            onClick={() => handleSelectEvent(event)} aria-label="Button"
             className="w-full px-4 py-3 text-left hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 transition-colors" data-testid="button-w-full">
 
                   <div className="flex items-start gap-3">

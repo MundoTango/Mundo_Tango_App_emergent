@@ -188,7 +188,7 @@ export default function RecommendationsList({
         </div>
         <div className="flex items-center gap-2 glass-card glass-depth-1 p-1 rounded-lg">
           <button
-            onClick={() = aria-label="Button"> setViewMode('list')}
+            onClick={() => setViewMode('list')} aria-label="Button"
             className={`p-2 rounded-md transition-all ${
               viewMode === 'list'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
@@ -200,7 +200,7 @@ export default function RecommendationsList({
             <List className="h-5 w-5" />
           </button>
           <button
-            onClick={() = aria-label="Button"> setViewMode('map')}
+            onClick={() => setViewMode('map')} aria-label="Button"
             className={`p-2 rounded-md transition-all ${
               viewMode === 'map'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'

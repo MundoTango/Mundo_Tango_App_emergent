@@ -136,7 +136,7 @@ export const MembersList = ({
         </div>
         {selectedRoles.length > 0 && (
           <button
-            onClick={() = aria-label="Button"> setSelectedRoles([])}
+            onClick={() => setSelectedRoles([])} aria-label="Button"
             className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[var(--color-primary-hover)] dark:hover:text-cyan-400 transition-colors"
             data-testid="button-clear-filters"
           >

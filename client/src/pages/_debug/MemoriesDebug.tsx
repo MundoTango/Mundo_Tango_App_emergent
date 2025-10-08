@@ -173,7 +173,7 @@ const MemoriesDebug: React.FC = () => {
               Go to /timeline (redirect test)
             </a>
             <button
-              onClick={() = aria-label="Button"> window.location.reload()}
+              onClick={() => window.location.reload()} aria-label="Button"
               style={{
                 background: '#0F766E',
                 color: 'white',

@@ -711,7 +711,7 @@ const EnhancedCommunityMap = memo(function EnhancedCommunityMap({
             {Object.entries(LAYER_CONFIG).filter(([key]) => key === 'cityGroup').map(([key, config]) => (
               <button
                 key={key}
-                onClick={() = aria-label="Button"> toggleLayer(key as keyof typeof layerVisibility)}
+                onClick={() => toggleLayer(key as keyof typeof layerVisibility)} aria-label="Button"
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-sm",
                   layerVisibility[key as keyof typeof layerVisibility]

@@ -69,7 +69,7 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
   return (
     <div className={`relative ${className}`}>
       <button
-        onClick={() = aria-label="Button"> setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)} aria-label="Button"
         className="p-2 hover:bg-[var(--color-neutral-100)] rounded-xl transition-colors dark:bg-neutral-800"
         aria-label="Post options"
       >
@@ -89,7 +89,7 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
             {actions.map((action, index) => (
               <button
                 key={index}
-                onClick={() = aria-label="Button"> action.action && handleMenuClick(action.action)}
+                onClick={() => action.action && handleMenuClick(action.action)} aria-label="Button"
                 className={`
                   w-full flex items-center gap-3 px-4 py-2 text-left transition-colors
                   ${action.className}

@@ -112,7 +112,7 @@ export default function ItineraryBuilder({
             <Card key={index} className="overflow-hidden glass-card-depth-1">
               {/* Day Header */}
               <button
-                onClick={() = aria-label="Button"> toggleDay(index)}
+                onClick={() => toggleDay(index)} aria-label="Button"
                 className="w-full p-4 flex items-center justify-between hover:bg-[var(--color-surface-elevated)] dark:hover:bg-gray-800/50 transition"
                 data-testid={`button-toggle-day-${index}`}
               >

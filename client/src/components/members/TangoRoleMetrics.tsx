@@ -133,7 +133,7 @@ export const TangoRoleMetrics = ({ members, selectedRoles = [], onRoleToggle }: 
                   return (
                     <button
                       key={role.id}
-                      onClick={() = aria-label="Button"> onRoleToggle?.(role.id)}
+                      onClick={() => onRoleToggle?.(role.id)} aria-label="Button"
                       className="text-left w-full"
                       data-testid={`button-filter-role-${role.id}`}
                     >

@@ -140,9 +140,9 @@ export default function ReviewStep({ data }: ReviewStepProps) {
                 <button
                   type="button"
                   className="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-1"
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     // In a real app, this would navigate to the specific step
-                    console.log(`Edit ${section.title}`);
+                    console.log(`Edit ${section.title} aria-label="Button"`);
                   }} data-testid="button-button">
 
                   <Edit2 className="w-4 h-4" />

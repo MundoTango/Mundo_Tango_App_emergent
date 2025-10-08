@@ -1021,13 +1021,13 @@ export default function PostCreator({
                       key={user.id}
                       type="button"
                       className="w-full px-4 py-2 text-left hover:bg-[var(--color-ocean-50)] flex items-center gap-2 transition-colors"
-                      onClick={() = aria-label="Button"> {
+                      onClick={() => {
                         // Insert mention into rich text editor
                         const plainTextIndex = content.lastIndexOf('@', content.length);
                         if (plainTextIndex !== -1) {
                           const beforeMention = richContent.substring(0, richContent.lastIndexOf('@'));
                           const afterMention = '';
-                          const mentionHtml = `${beforeMention}<strong>@${user.username}</strong>&nbsp;${afterMention}`;
+                          const mentionHtml = `${beforeMention} aria-label="Button"<strong>@${user.username}</strong>&nbsp;${afterMention}`;
                           setRichContent(mentionHtml);
                           setContent(content.replace(/@[^\s]*$/, `@${user.username} `));
                           setShowMentions(false);
@@ -1079,14 +1079,13 @@ export default function PostCreator({
                         <img src={preview} alt={`Media ${index + 1}`} className="w-full h-32 object-cover" />
                       )}
                       <button
-                        onClick={() = aria-label="Button"> {
+                        onClick={() => {
                           // Handle removal for internal and local media
                           const isInternalUrl = internalMediaUrls.includes(preview) || preview.includes('/uploads/');
 
                           if (isInternalUrl) {
                             // Remove from internal URLs
-                            setInternalMediaUrls(prev => prev.filter(url => url !== preview));
-                          } else {
+                            setInternalMediaUrls(prev => prev.filter(url => url !== preview));} aria-label="Button" else {
                             // Remove from local files
                             setMediaFiles(prev => prev.filter((_, i) => i !== index));
                           }
@@ -1118,7 +1117,7 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> setIsRecommendation(!isRecommendation)}
+                      onClick={() => setIsRecommendation(!isRecommendation)} aria-label="Button"
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s backwards',
                       }}
@@ -1167,7 +1166,7 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> setShowTags(!showTags)}
+                      onClick={() => setShowTags(!showTags)} aria-label="Button"
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards',
                       }}
@@ -1197,10 +1196,9 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> {
+                      onClick={() => {
                         const fileInput = document.querySelector('input[type="file"][accept*="image"]') as HTMLInputElement;
-                        if (fileInput) fileInput.click();
-                      }}
+                        if (fileInput) fileInput.click();} aria-label="Button"}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards',
                       }}
@@ -1263,7 +1261,7 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> setShowVisibility(!showVisibility)}
+                      onClick={() => setShowVisibility(!showVisibility)} aria-label="Button"
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards',
                       }}
@@ -1356,10 +1354,9 @@ export default function PostCreator({
             {showVisibility && (
               <div className="grid grid-cols-3 gap-3 mt-3 animate-in slide-in-from-top-2 duration-300">
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     setVisibility('public');
-                    setShowVisibility(false);
-                  }}
+                    setShowVisibility(false);} aria-label="Button"}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'public'
                       ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl'
@@ -1377,10 +1374,9 @@ export default function PostCreator({
                 </button>
 
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     setVisibility('friends');
-                    setShowVisibility(false);
-                  }}
+                    setShowVisibility(false);} aria-label="Button"}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'friends'
                       ? 'bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-xl'
@@ -1398,10 +1394,9 @@ export default function PostCreator({
                 </button>
 
                 <button
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     setVisibility('private');
-                    setShowVisibility(false);
-                  }}
+                    setShowVisibility(false);} aria-label="Button"}
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'private'
                       ? 'bg-gradient-to-br from-gray-500 to-gray-700 text-white shadow-xl'
@@ -1502,7 +1497,7 @@ export default function PostCreator({
                           <button
                             key={price}
                             type="button"
-                            onClick={() = aria-label="Button"> setPriceRange(price)}
+                            onClick={() => setPriceRange(price)} aria-label="Button"
                             className={`relative p-4 rounded-xl font-semibold transition-all duration-300 overflow-hidden backdrop-blur-md ${
                               priceRange === price
                                 ? 'text-white shadow-xl transform scale-105'
@@ -1577,13 +1572,12 @@ export default function PostCreator({
                 {predefinedTags.map((tag) => (
                   <button
                     key={tag.value}
-                    onClick={() = aria-label="Button"> {
+                    onClick={() => {
                       setSelectedTags(prev => 
                         prev.includes(tag.value) 
                           ? prev.filter(t => t !== tag.value)
                           : [...prev, tag.value]
-                      );
-                    }}
+                      );} aria-label="Button"}
                     className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                       selectedTags.includes(tag.value)
                         ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'

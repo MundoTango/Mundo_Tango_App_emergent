@@ -280,7 +280,7 @@ export default function EnhancedPostFeedSimple({
               </p>
               {post.content.length > 200 &&
               <button
-                onClick={() = aria-label="Button"> toggleExpanded(post.id)}
+                onClick={() => toggleExpanded(post.id)} aria-label="Button"
                 className="text-cyan-400 hover:text-cyan-300 text-sm mt-1 transition-colors" data-testid="button-text-cyan-400">
 
                   {isExpanded ? 'Show less' : 'Show more'}
@@ -388,7 +388,7 @@ export default function EnhancedPostFeedSimple({
                   onMouseLeave={() => setHoveredReaction(null)}>
 
                   <button
-                    onClick={() = aria-label="Button"> onReaction?.(post.id, 'like')}
+                    onClick={() => onReaction?.(post.id, 'like')} aria-label="Button"
                     className={cn(
                       "w-full flex items-center justify-center gap-2 py-3 transition-all",
                       theme === 'light' ?
@@ -411,10 +411,9 @@ export default function EnhancedPostFeedSimple({
                       return (
                         <button
                           key={reaction.type}
-                          onClick={() = aria-label="Button"> {
+                          onClick={() => {
                             onReaction?.(post.id, reaction.type);
-                            setHoveredReaction(null);
-                          }}
+                            setHoveredReaction(null);} aria-label="Button"}
                           className={cn(
                             "p-2 rounded-full transition-all hover:scale-125",
                             reaction.bgColor
@@ -430,7 +429,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Comment */}
                 <button
-                  onClick={() = aria-label="Button"> onComment?.(post.id)}
+                  onClick={() => onComment?.(post.id)} aria-label="Button"
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all border-x",
                     theme === 'light' ?
@@ -444,7 +443,7 @@ export default function EnhancedPostFeedSimple({
 
                 {/* Share */}
                 <button
-                  onClick={() = aria-label="Button"> onShare?.(post.id)}
+                  onClick={() => onShare?.(post.id)} aria-label="Button"
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-3 transition-all",
                     theme === 'light' ?

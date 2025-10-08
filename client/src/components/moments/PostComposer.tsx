@@ -176,7 +176,7 @@ export default function PostComposer() {
         
         <div className="flex-1">
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
             className="w-full text-left p-4 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] rounded-xl border border-[var(--color-border)] transition-all duration-200 hover:border-[var(--color-ocean-300)] focus:border-turquoise-500 focus:ring-2 focus:ring-turquoise-200" data-testid="button-w-full">
 
             <span className="text-gray-500 dark:text-gray-400 font-medium">Share your tango moment...</span>
@@ -185,28 +185,28 @@ export default function PostComposer() {
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center gap-3">
               <button
-                onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-primary-hover)] px-3 py-2 rounded-lg hover:bg-[var(--color-ocean-50)] transition-all duration-200" data-testid="button-flex">
 
                 <Camera className="h-4 w-4" />
                 <span className="text-sm font-medium">Photo</span>
               </button>
               <button
-                onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200" data-testid="button-flex">
 
                 <Video className="h-4 w-4" />
                 <span className="text-sm font-medium">Video</span>
               </button>
               <button
-                onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+                onClick={() => setShowExpandedComposer(true)} aria-label="Button"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-600 px-3 py-2 rounded-lg hover:bg-green-50 transition-all duration-200" data-testid="button-flex">
 
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm font-medium">Location</span>
               </button>
               <button
-                onClick={() = aria-label="Button"> setShowMediaLibrary(true)}
+                onClick={() => setShowMediaLibrary(true)} aria-label="Button"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 px-3 py-2 rounded-lg hover:bg-purple-50 transition-all duration-200" data-testid="button-flex">
 
                 <FolderOpen className="h-4 w-4" />
@@ -245,7 +245,7 @@ export default function PostComposer() {
                   </div>
                 </div>
                 <button
-                onClick={() = aria-label="Button"> setShowExpandedComposer(false)}
+                onClick={() => setShowExpandedComposer(false)} aria-label="Button"
                 className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full transition-colors" data-testid="button-p-2">
 
                   <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -310,10 +310,9 @@ export default function PostComposer() {
                       }
                           </div>
                           <button
-                      onClick={() = aria-label="Button"> {
+                      onClick={() => {
                         if (media.id) {
-                          removeReusedMedia(media.id);
-                        } else {
+                          removeReusedMedia(media.id);} aria-label="Button" else {
                           setUploadedMedia((prev) => prev.filter((_, i) => i !== index));
                         }
                       }}
@@ -340,7 +339,7 @@ export default function PostComposer() {
                       {(['Public', 'Friend', 'Private'] as const).map((vis) =>
                     <button
                       key={vis}
-                      onClick={() = aria-label="Button"> setNewPost((prev) => ({ ...prev, visibility: vis }))}
+                      onClick={() => setNewPost((prev) => ({ ...prev, visibility: vis } aria-label="Button"))}
                       className={`px-3 py-1.5 text-sm rounded-lg transition-all flex items-center gap-1.5 font-medium ${
                       newPost.visibility === vis ?
                       'bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-500)] text-white' :
@@ -358,7 +357,7 @@ export default function PostComposer() {
                   
                   <div className="flex gap-3">
                     <button
-                    onClick={() = aria-label="Button"> setShowExpandedComposer(false)}
+                    onClick={() => setShowExpandedComposer(false)} aria-label="Button"
                     className="px-5 py-2.5 border border-[var(--color-border)] text-gray-600 dark:text-gray-300 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors font-medium" data-testid="button-px-5">
 
                       Cancel

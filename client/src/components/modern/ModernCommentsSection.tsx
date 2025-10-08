@@ -120,7 +120,7 @@ export default function ModernCommentsSection({
                     {currentUserId === comment.userId && (
                       <div className="relative">
                         <button
-                          onClick={() = aria-label="Button"> setShowActions(showActions === comment.id ? null : comment.id)}
+                          onClick={() => setShowActions(showActions === comment.id ? null : comment.id)} aria-label="Button"
                           className="p-1 hover:bg-[var(--color-surface)] dark:bg-gray-900/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                           data-testid={`button-comment-actions-${comment.id}`}
                         >
@@ -130,7 +130,7 @@ export default function ModernCommentsSection({
                         {showActions === comment.id && (
                           <GlassCard depth={3} className="absolute right-0 top-8 rounded-xl shadow-xl border border-white/20 py-1 z-10">
                             <button
-                              onClick={() = aria-label="Button"> handleEditComment(comment)}
+                              onClick={() => handleEditComment(comment)} aria-label="Button"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-[var(--color-surface)] dark:bg-gray-900/10 text-white/80 text-sm w-full text-left"
                               data-testid={`button-edit-comment-${comment.id}`}
                             >
@@ -138,7 +138,7 @@ export default function ModernCommentsSection({
                               Edit
                             </button>
                             <button
-                              onClick={() = aria-label="Button"> handleDeleteComment(comment.id)}
+                              onClick={() => handleDeleteComment(comment.id)} aria-label="Button"
                               className="flex items-center gap-2 px-4 py-2 hover:bg-[var(--color-surface)] dark:bg-gray-900/10 text-red-400 text-sm w-full text-left"
                               data-testid={`button-delete-comment-${comment.id}`}
                             >
@@ -164,17 +164,16 @@ export default function ModernCommentsSection({
                         data-testid={`input-edit-comment-${comment.id}`}
                       />
                       <button
-                        onClick={() = aria-label="Button"> handleSaveEdit(comment.id)}
+                        onClick={() => handleSaveEdit(comment.id)} aria-label="Button"
                         className="px-2 py-1 bg-teal-400/20 hover:bg-teal-400/30 text-teal-400 rounded-lg text-sm"
                         data-testid={`button-save-comment-${comment.id}`}
                       >
                         Save
                       </button>
                       <button
-                        onClick={() = aria-label="Button"> {
+                        onClick={() => {
                           setEditingCommentId(null);
-                          setEditingContent('');
-                        }}
+                          setEditingContent('');} aria-label="Button"}
                         className="px-2 py-1 bg-[var(--color-surface)] dark:bg-gray-900/10 hover:bg-[var(--color-surface)] dark:bg-gray-900/20 text-white/60 rounded-lg text-sm"
                         data-testid={`button-cancel-edit-${comment.id}`}
                       >

@@ -35,7 +35,7 @@ export const PostsFallback = () => (
         </div>
         <p className="text-gray-600 dark:text-gray-300">Unable to load posts</p>
         <button 
-          onClick={() = aria-label="Button"> window.location.reload()}
+          onClick={() => window.location.reload()} aria-label="Button"
           className="text-[var(--color-primary-hover)] hover:text-turquoise-700 text-sm font-medium"
         >
           Try refreshing the page

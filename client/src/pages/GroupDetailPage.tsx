@@ -122,7 +122,7 @@ export default function GroupDetailPage() {
           
           <div className="mt-group-header-content">
             <button
-              onClick={() = aria-label="Button"> setLocation('/groups')}
+              onClick={() => setLocation('/groups')} aria-label="Button"
               className="flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />

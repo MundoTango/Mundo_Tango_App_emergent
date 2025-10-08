@@ -165,7 +165,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
-          onClick={() = aria-label="Button"> setActiveTab('resume')}
+          onClick={() => setActiveTab('resume')} aria-label="Button"
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
           activeTab === 'resume' ?
           'bg-background text-foreground shadow-sm' :
@@ -177,7 +177,7 @@ export function EnhancedResumeIntegration({ userId, isOwnProfile = false }: Enha
         </button>
         {isOwnProfile &&
         <button
-          onClick={() = aria-label="Button"> setActiveTab('invitations')}
+          onClick={() => setActiveTab('invitations')} aria-label="Button"
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
           activeTab === 'invitations' ?
           'bg-background text-foreground shadow-sm' :

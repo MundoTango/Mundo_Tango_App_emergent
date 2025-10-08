@@ -953,7 +953,7 @@ export function PlatformFeatureDeepDive() {
             {filteredFeatures.map((feature) =>
             <button
               key={feature.name}
-              onClick={() = aria-label="Button"> setSelectedFeature(feature.name)}
+              onClick={() => setSelectedFeature(feature.name)} aria-label="Button"
               className={`w-full text-left p-3 rounded-lg transition-colors ${
               selectedFeature === feature.name ?
               'bg-blue-50 border border-blue-200' :

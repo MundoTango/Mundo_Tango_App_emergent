@@ -145,7 +145,7 @@ export default function TripConfigurationWizard({
           {['budget', 'medium', 'high', 'luxury'].map((level) => (
             <button
               key={level}
-              onClick={() = aria-label="Button"> setBudget(level)}
+              onClick={() => setBudget(level)} aria-label="Button"
               className={`p-3 rounded-lg border-2 transition ${
                 budget === level
                   ? 'border-cyan-500 bg-[var(--color-ocean-50)] dark:bg-cyan-900/20'
@@ -176,7 +176,7 @@ export default function TripConfigurationWizard({
           {INTEREST_OPTIONS.map((interest) => (
             <button
               key={interest}
-              onClick={() = aria-label="Button"> toggleInterest(interest)}
+              onClick={() => toggleInterest(interest)} aria-label="Button"
               className={`p-2 rounded-lg border text-sm transition ${
                 interests.includes(interest)
                   ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'

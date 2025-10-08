@@ -931,7 +931,7 @@ export default function GroupDetailPageMT() {
         {!isPostCreatorExpanded ? (
           /* Collapsed: Floating send button */
           <button
-            onClick={() = aria-label="Button"> setIsPostCreatorExpanded(true)}
+            onClick={() => setIsPostCreatorExpanded(true)} aria-label="Button"
             className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-turquoise-400 to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 mx-auto block animate-pulse"
             data-testid="button-expand-post-creator"
           >
@@ -960,7 +960,7 @@ export default function GroupDetailPageMT() {
               onActivity={handlePostCreatorActivity}
             />
             <button
-              onClick={() = aria-label="Button"> setIsPostCreatorExpanded(false)}
+              onClick={() => setIsPostCreatorExpanded(false)} aria-label="Button"
               className="mt-2 text-sm text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)] transition-colors"
               data-testid="button-collapse-post-creator"
             >
@@ -977,9 +977,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('all'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('all');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -996,9 +995,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('residents'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('residents');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'residents'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1015,9 +1013,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('visitors'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('visitors');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'visitors'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1034,9 +1031,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('friends'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('friends');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'friends'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1055,9 +1051,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('all'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('all');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1074,9 +1069,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('members'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('members');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1093,9 +1087,8 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> { 
-                        setMentionFilter('non-members'); 
-                      }}
+                      onClick={() => { 
+                        setMentionFilter('non-members');} aria-label="Button"}
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'non-members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1702,7 +1695,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> handleTabChange('posts')}
+                      onClick={() => handleTabChange('posts')} aria-label="Button"
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'posts' 
@@ -1721,7 +1714,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> handleTabChange('events')}
+                      onClick={() => handleTabChange('events')} aria-label="Button"
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'events' 
@@ -1740,7 +1733,7 @@ export default function GroupDetailPageMT() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={() = aria-label="Button"> handleTabChange('members')}
+                      onClick={() => handleTabChange('members')} aria-label="Button"
                       className={`
                         flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                         ${activeTab === 'members' 
@@ -1761,7 +1754,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() = aria-label="Button"> handleTabChange('community-hub')}
+                          onClick={() => handleTabChange('community-hub')} aria-label="Button"
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'community-hub' 
@@ -1780,7 +1773,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() = aria-label="Button"> handleTabChange('housing')}
+                          onClick={() => handleTabChange('housing')} aria-label="Button"
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'housing' 
@@ -1799,7 +1792,7 @@ export default function GroupDetailPageMT() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
-                          onClick={() = aria-label="Button"> handleTabChange('recommendations')}
+                          onClick={() => handleTabChange('recommendations')} aria-label="Button"
                           className={`
                             flex items-center justify-center py-4 px-2 border-b-2 font-medium transition-all hover:scale-110
                             ${activeTab === 'recommendations' 
@@ -1836,10 +1829,9 @@ export default function GroupDetailPageMT() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[var(--color-surface)] dark:bg-gray-900 rounded-3xl shadow-2xl p-8">
             <button
-              onClick={() = aria-label="Button"> {
+              onClick={() => {
                 setCreatePostModal(false);
-                setEditingPost(null);
-              }}
+                setEditingPost(null);} aria-label="Button"}
               className="absolute top-4 right-4 p-2 rounded-full bg-[var(--color-neutral-100)] dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               data-testid="button-close-edit-modal"
             >

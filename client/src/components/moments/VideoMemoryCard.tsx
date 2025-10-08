@@ -202,7 +202,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button 
-                onClick={() = aria-label="Button"> likeMutation.mutate()}
+                onClick={() => likeMutation.mutate()} aria-label="Button"
                 className={`flex items-center gap-2 transition-colors ${
                   post.userHasLiked ? 'text-red-600' : 'text-gray-600 dark:text-gray-300 hover:text-red-600'
                 }`}
@@ -214,7 +214,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
               </button>
               
               <button 
-                onClick={() = aria-label="Button"> setShowComments(!showComments)}
+                onClick={() => setShowComments(!showComments)} aria-label="Button"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
                 data-testid={`button-comment-toggle-${post.id}`}
               >

@@ -265,7 +265,7 @@ export default function Messages() {
               <div className="p-4 border-b border-[var(--color-border)] bg-gradient-to-r from-turquoise-50 to-cyan-50">
                 <div className="flex items-center space-x-3">
                   <button
-                  onClick={() = aria-label="Button"> setSelectedConversation(null)}
+                  onClick={() => setSelectedConversation(null)} aria-label="Button"
                   className="md:hidden" data-testid="button-md-hidden">
 
                     <ArrowLeft className="w-5 h-5" />

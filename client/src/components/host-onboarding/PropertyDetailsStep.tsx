@@ -60,7 +60,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() = aria-label="Button"> handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)}
+                onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) - 1, 1, 20)} aria-label="Button"
                 className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 
                 <Minus className="w-4 h-4" />
@@ -68,7 +68,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <span className="w-12 text-center font-medium">{data.maxGuests || 1}</span>
               <button
                 type="button"
-                onClick={() = aria-label="Button"> handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)}
+                onClick={() => handleNumberChange('maxGuests', (data.maxGuests || 1) + 1, 1, 20)} aria-label="Button"
                 className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 
                 <Plus className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                 <div className="flex items-center gap-3">
                   <button
                   type="button"
-                  onClick={() = aria-label="Button"> handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)}
+                  onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) - 1, item.min, item.max)} aria-label="Button"
                   className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 
                     <Minus className="w-4 h-4" />
@@ -100,7 +100,7 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                   <span className="w-12 text-center font-medium">{data[item.field] || item.min}</span>
                   <button
                   type="button"
-                  onClick={() = aria-label="Button"> handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)}
+                  onClick={() => handleNumberChange(item.field, (data[item.field] || item.min) + 1, item.min, item.max)} aria-label="Button"
                   className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 
                     <Plus className="w-4 h-4" />
@@ -117,10 +117,10 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
               <div className="flex items-center gap-3">
                 <button
                   type="button"
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     const current = data.bathrooms || 1;
                     const newValue = Math.max(0.5, current - 0.5);
-                    updateData({ bathrooms: newValue });
+                    updateData({ bathrooms: newValue} aria-label="Button");
                   }}
                   className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 
@@ -129,10 +129,10 @@ export default function PropertyDetailsStep({ data, updateData }: PropertyDetail
                 <span className="w-12 text-center font-medium">{data.bathrooms || 1}</span>
                 <button
                   type="button"
-                  onClick={() = aria-label="Button"> {
+                  onClick={() => {
                     const current = data.bathrooms || 1;
                     const newValue = Math.min(10, current + 0.5);
-                    updateData({ bathrooms: newValue });
+                    updateData({ bathrooms: newValue} aria-label="Button");
                   }}
                   className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-gray-400" data-testid="button-button">
 

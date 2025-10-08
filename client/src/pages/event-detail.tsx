@@ -472,7 +472,7 @@ export default function EventDetailPage() {
                   {/* Mention Filter Tabs */}
                   <div className="flex items-center gap-2 border-b">
                     <button
-                      onClick={() = aria-label="Button"> setMentionFilter('all')}
+                      onClick={() => setMentionFilter('all')} aria-label="Button"
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'all' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -483,7 +483,7 @@ export default function EventDetailPage() {
                       All Posts
                     </button>
                     <button
-                      onClick={() = aria-label="Button"> setMentionFilter('participants')}
+                      onClick={() => setMentionFilter('participants')} aria-label="Button"
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'participants' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 
@@ -494,7 +494,7 @@ export default function EventDetailPage() {
                       Participants Only
                     </button>
                     <button
-                      onClick={() = aria-label="Button"> setMentionFilter('guests')}
+                      onClick={() => setMentionFilter('guests')} aria-label="Button"
                       className={`px-4 py-2 font-medium transition-colors ${
                         mentionFilter === 'guests' 
                           ? 'text-pink-600 border-b-2 border-pink-600' 

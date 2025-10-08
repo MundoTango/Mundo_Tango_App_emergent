@@ -280,7 +280,7 @@ const EnhancedPostFeed = React.memo(({
           {['all', 'following', 'nearby'].map((filter) =>
           <button
             key={filter}
-            onClick={() = aria-label="Button"> setFilterBy(filter as any)}
+            onClick={() => setFilterBy(filter as any)} aria-label="Button"
             className={`
                 flex items-center gap-2 px-5 py-3 rounded-2xl font-medium transition-all duration-300
                 ${filterBy === filter ?
@@ -337,7 +337,7 @@ const EnhancedPostFeed = React.memo(({
 
                   #{tag}
                   <button
-                onClick={() = aria-label="Button"> removeTag(tag)}
+                onClick={() => removeTag(tag)} aria-label="Button"
                 className="p-0.5 hover:bg-indigo-200 rounded-full transition-colors" data-testid="button-p-0-5">
 
                     <X className="h-3 w-3" />
@@ -403,7 +403,7 @@ const EnhancedPostFeed = React.memo(({
               </p>
               {filterTags.length > 0 &&
             <button
-              onClick={() = aria-label="Button"> setFilterTags([])}
+              onClick={() => setFilterTags([])} aria-label="Button"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300" data-testid="button-inline-flex">
 
                   <X className="h-4 w-4" />

@@ -739,10 +739,10 @@ export default function LifeCEOEnhanced() {
                     return (
                       <button
                         key={agent.id}
-                        onClick={() = aria-label="Button"> {
+                        onClick={() => {
                           setSelectedAgentId(agent.id);
                           setShowAgentSwitcher(false);
-                          toast.success(`Switched to ${agent.name}`, {
+                          toast.success(`Switched to ${agent.name} aria-label="Button"`, {
                             icon: agent.icon,
                             style: {
                               background: 'linear-gradient(to right, #38b2ac, #06b6d4)',

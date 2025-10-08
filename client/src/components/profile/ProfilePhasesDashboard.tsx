@@ -122,7 +122,7 @@ export const ProfilePhasesDashboard: React.FC<{userId: number;}> = ({ userId }) 
             {phases.map((phase) =>
             <button
               key={phase.id}
-              onClick={() = aria-label="Button"> phase.component && setActivePhase(phase.id)}
+              onClick={() => phase.component && setActivePhase(phase.id)} aria-label="Button"
               disabled={!phase.component}
               className={`p-3 rounded-lg border-2 transition-all ${
               activePhase === phase.id ? 'border-turquoise-500 bg-[var(--color-ocean-50)]' : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'} ${

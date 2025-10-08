@@ -152,7 +152,7 @@ export default function InlinePostComposer({
 
                       #{tag}
                       <button
-                  onClick={() = aria-label="Button"> removeTag(tag)}
+                  onClick={() => removeTag(tag)} aria-label="Button"
                   className="hover:text-turquoise-900" data-testid="button-hover-text-turquoise-900">
 
                         <X className="h-3 w-3" />

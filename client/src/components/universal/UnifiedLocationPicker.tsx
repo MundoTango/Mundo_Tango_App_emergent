@@ -510,12 +510,11 @@ export default function UnifiedLocationPicker({
         {!isLoading && value && allowManualEntry && (
           <button
             type="button"
-            onClick={() = aria-label="Button"> {
+            onClick={() => {
               onChange('');
               setSuggestions([]);
               setShowSuggestions(false);
-              inputRef.current?.focus();
-            }}
+              inputRef.current?.focus();} aria-label="Button"}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
           >
             <X className="w-5 h-5" />

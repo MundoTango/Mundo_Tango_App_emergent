@@ -164,7 +164,7 @@ export default function RoleGuard({ children }: RoleGuardProps) {
               map((route) =>
               <button
                 key={route.route}
-                onClick={() = aria-label="Button"> switchRole(route.route)}
+                onClick={() => switchRole(route.route)} aria-label="Button"
                 className="text-sm bg-[var(--color-surface)] dark:bg-gray-900 border border-blue-300 rounded px-2 py-1 hover:bg-blue-50 transition-colors" data-testid="button-text-sm">
 
                       {route.role.replace(/_/g, ' ')}

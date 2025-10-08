@@ -67,7 +67,7 @@ export function TileSelect({
             <button
               key={option.value}
               type="button"
-              onClick={() = aria-label="Button"> handleToggle(option.value)}
+              onClick={() => handleToggle(option.value)} aria-label="Button"
               disabled={isDisabled}
               className={cn(
                 "relative p-4 border-2 rounded-xl text-left transition-all duration-200 group",

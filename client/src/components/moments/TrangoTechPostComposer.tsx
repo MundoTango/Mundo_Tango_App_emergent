@@ -132,7 +132,7 @@ export default function TrangoTechPostComposer() {
           </div>
           
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
             className="flex-1 text-left px-6 py-4 bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm rounded-xl 
                        border border-white/50 shadow-sm hover:shadow-md hover:bg-[var(--color-surface)] dark:bg-gray-900/90
                        transition-all duration-300 text-gray-600 hover:text-gray-800 dark:text-gray-100
@@ -167,7 +167,7 @@ export default function TrangoTechPostComposer() {
           </div>
           
           <button
-            onClick={() = aria-label="Button"> setShowExpandedComposer(true)}
+            onClick={() => setShowExpandedComposer(true)} aria-label="Button"
             className="px-6 py-2 bg-gradient-to-r from-coral-500 to-coral-600 text-white 
                        rounded-lg hover:from-coral-600 hover:to-coral-700 shadow-md hover:shadow-lg
                        transform hover:-translate-y-1 transition-all duration-300 cursor-pointer"
@@ -203,7 +203,7 @@ export default function TrangoTechPostComposer() {
                   </div>
                 </div>
                 <button
-                  onClick={() = aria-label="Button"> setShowExpandedComposer(false)}
+                  onClick={() => setShowExpandedComposer(false)} aria-label="Button"
                   className="p-2 hover:bg-[var(--color-neutral-100)] rounded-full"
                 >
                   <X className="h-5 w-5" />
@@ -265,7 +265,7 @@ export default function TrangoTechPostComposer() {
                           className="w-full max-h-64 object-cover rounded-lg"
                         />
                         <button
-                          onClick={() = aria-label="Button"> setNewPost(prev => ({ ...prev, imageUrl: null }))}
+                          onClick={() => setNewPost(prev => ({ ...prev, imageUrl: null } aria-label="Button"))}
                           className="absolute top-2 right-2 p-1 bg-black/50 text-white rounded-full hover:bg-black/70"
                         >
                           <X className="h-4 w-4" />
@@ -281,7 +281,7 @@ export default function TrangoTechPostComposer() {
                           className="w-full max-h-64 rounded-lg"
                         />
                         <button
-                          onClick={() = aria-label="Button"> setNewPost(prev => ({ ...prev, videoUrl: null }))}
+                          onClick={() => setNewPost(prev => ({ ...prev, videoUrl: null } aria-label="Button"))}
                           className="absolute top-2 right-2 p-1 bg-black/50 text-white rounded-full hover:bg-black/70"
                         >
                           <X className="h-4 w-4" />
@@ -298,7 +298,7 @@ export default function TrangoTechPostComposer() {
                         {['Public', 'Friends', 'Private'].map((vis) => (
                           <button
                             key={vis}
-                            onClick={() = aria-label="Button"> setNewPost(prev => ({ ...prev, visibility: vis.toLowerCase() }))}
+                            onClick={() => setNewPost(prev => ({ ...prev, visibility: vis.toLowerCase() } aria-label="Button"))}
                             className={`px-3 py-1 text-xs rounded-full transition-colors flex items-center gap-1 ${
                               newPost.visibility === vis.toLowerCase()
                                 ? 'bg-blue-100 text-blue-700 border border-blue-300'
@@ -316,7 +316,7 @@ export default function TrangoTechPostComposer() {
                     
                     <div className="flex gap-2">
                       <button
-                        onClick={() = aria-label="Button"> setShowExpandedComposer(false)}
+                        onClick={() => setShowExpandedComposer(false)} aria-label="Button"
                         className="px-6 py-2 text-gray-600 dark:text-gray-300 hover:bg-[var(--color-neutral-100)] rounded-lg transition-colors"
                       >
                         Cancel

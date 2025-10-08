@@ -334,7 +334,7 @@ const MTPopover: React.FC<MTPopoverProps> = ({
         >
           {showCloseButton && (
             <button
-              onClick={() = aria-label="Button"> setOpen(false)}
+              onClick={() => setOpen(false)} aria-label="Button"
               className={cn(
                 'absolute top-2 right-2 z-10',
                 'p-1.5 rounded-lg',
@@ -403,7 +403,7 @@ export const MTPopoverMenu: React.FC<{
           {items.map((item, index) => (
             <button
               key={index}
-              onClick={() = aria-label="Button"> handleItemClick(item.onClick)}
+              onClick={() => handleItemClick(item.onClick)} aria-label="Button"
               disabled={item.disabled}
               className={cn(
                 'w-full px-3 py-2 text-left flex items-center gap-3',

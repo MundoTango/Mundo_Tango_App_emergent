@@ -899,7 +899,7 @@ const UserSettings: React.FC = () => {
                 
                 <div className="grid grid-cols-3 gap-4">
                   <button
-                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'light')}
+                    onClick={() => handleAppearanceChange('theme', 'light')} aria-label="Button"
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'light'
                         ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'
@@ -911,7 +911,7 @@ const UserSettings: React.FC = () => {
                   </button>
                   
                   <button
-                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'dark')}
+                    onClick={() => handleAppearanceChange('theme', 'dark')} aria-label="Button"
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'dark'
                         ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'
@@ -923,7 +923,7 @@ const UserSettings: React.FC = () => {
                   </button>
                   
                   <button
-                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'auto')}
+                    onClick={() => handleAppearanceChange('theme', 'auto')} aria-label="Button"
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'auto'
                         ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'

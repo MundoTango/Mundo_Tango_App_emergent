@@ -127,7 +127,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 return (
                   <button
                     key={index}
-                    onClick={() = aria-label="Button"> setSelectedDate(date)}
+                    onClick={() => setSelectedDate(date)} aria-label="Button"
                     className={`
                       p-2 h-16 text-sm border rounded-lg transition-colors relative
                       ${!isCurrentMonth ? 'text-gray-400 bg-[var(--color-surface-elevated)]' : ''}

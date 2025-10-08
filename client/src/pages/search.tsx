@@ -86,7 +86,7 @@ export default function SearchPage() {
 
             {searchQuery &&
             <button
-              onClick={() = aria-label="Button"> setSearchQuery('')}
+              onClick={() => setSearchQuery('')} aria-label="Button"
               className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-[var(--color-neutral-100)] rounded-full transition-colors" data-testid="button-absolute">
 
                 <X className="h-5 w-5 text-gray-400" />
@@ -101,7 +101,7 @@ export default function SearchPage() {
               return (
                 <button
                   key={filter.value}
-                  onClick={() = aria-label="Button"> setActiveFilter(filter.value as any)}
+                  onClick={() => setActiveFilter(filter.value as any)} aria-label="Button"
                   className={`px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
                   activeFilter === filter.value ?
                   'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg' :

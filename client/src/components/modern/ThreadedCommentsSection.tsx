@@ -213,7 +213,7 @@ export default function ThreadedCommentsSection({
                 {currentUserId === comment.userId && (
                   <div className="relative">
                     <button
-                      onClick={() = aria-label="Button"> setShowActions(showActions === commentId ? null : commentId)}
+                      onClick={() => setShowActions(showActions === commentId ? null : commentId)} aria-label="Button"
                       className="p-1 hover:bg-[var(--color-surface)] dark:bg-gray-900/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                       data-testid={`button-comment-actions-${commentId}`}
                     >
@@ -223,21 +223,19 @@ export default function ThreadedCommentsSection({
                     {showActions === commentId && (
                       <div className="absolute right-0 mt-2 w-32 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-lg z-10 overflow-hidden">
                         <button
-                          onClick={() = aria-label="Button"> {
+                          onClick={() => {
                             setEditingCommentId(commentId);
                             setEditingContent(comment.content);
-                            setShowActions(null);
-                          }}
+                            setShowActions(null);} aria-label="Button"}
                           className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700"
                         >
                           <Edit2 className="w-3 h-3" />
                           Edit
                         </button>
                         <button
-                          onClick={() = aria-label="Button"> {
+                          onClick={() => {
                             onDeleteComment?.(commentId);
-                            setShowActions(null);
-                          }}
+                            setShowActions(null);} aria-label="Button"}
                           className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -272,10 +270,9 @@ export default function ThreadedCommentsSection({
                     </button>
                     <button
                       type="button"
-                      onClick={() = aria-label="Button"> {
+                      onClick={() => {
                         setEditingCommentId(null);
-                        setEditingContent('');
-                      }}
+                        setEditingContent('');} aria-label="Button"}
                       className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-[var(--color-text-secondary)] dark:text-gray-200 rounded-lg text-sm"
                     >
                       Cancel
@@ -289,7 +286,7 @@ export default function ThreadedCommentsSection({
               {/* Reply and Thread Actions */}
               <div className="flex items-center gap-4 mt-2">
                 <button
-                  onClick={() = aria-label="Button"> setReplyingTo(replyingTo === commentId ? null : commentId)}
+                  onClick={() => setReplyingTo(replyingTo === commentId ? null : commentId)} aria-label="Button"
                   className="flex items-center gap-1 text-xs text-[var(--color-primary-hover)] hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                 >
                   <Reply className="w-3 h-3" />
@@ -298,7 +295,7 @@ export default function ThreadedCommentsSection({
                 
                 {hasReplies && (
                   <button
-                    onClick={() = aria-label="Button"> toggleThread(commentId)}
+                    onClick={() => toggleThread(commentId)} aria-label="Button"
                     className="flex items-center gap-1 text-xs text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200"
                   >
                     {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}

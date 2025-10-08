@@ -136,7 +136,7 @@ export default function LifeCEO() {
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
             <button
-                onClick={() = aria-label="Button"> setLanguage('en')}
+                onClick={() => setLanguage('en')} aria-label="Button"
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'en' ?
                 'bg-purple-100 text-purple-700' :
@@ -146,7 +146,7 @@ export default function LifeCEO() {
               EN
             </button>
             <button
-                onClick={() = aria-label="Button"> setLanguage('es')}
+                onClick={() => setLanguage('es')} aria-label="Button"
                 className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 language === 'es' ?
                 'bg-purple-100 text-purple-700' :

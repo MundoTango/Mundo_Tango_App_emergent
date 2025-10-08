@@ -196,7 +196,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                 </div>
               </div>
               <button
-                onClick={() = aria-label="Button"> setShowConsentBanner(false)}
+                onClick={() => setShowConsentBanner(false)} aria-label="Button"
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 data-testid="button-close"
               >
@@ -215,7 +215,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">Privacy Settings</h3>
               <button
-                onClick={() = aria-label="Button"> setShowPrivacySettings(false)}
+                onClick={() => setShowPrivacySettings(false)} aria-label="Button"
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               >
                 <X className="w-5 h-5" />

@@ -30,7 +30,7 @@ const ThemeManager: React.FC = () => {
       {!isExpanded ?
       // Collapsed Theme Toggle Button
       <button
-        onClick={() = aria-label="Button"> setIsExpanded(true)}
+        onClick={() => setIsExpanded(true)} aria-label="Button"
         className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-full p-3 shadow-lg border border-[var(--color-border)] dark:border-gray-700 hover:shadow-xl transition-all duration-200 group"
         title="Change Theme" data-testid="button-bg-[var(--color-surface)]">
 
@@ -48,7 +48,7 @@ const ThemeManager: React.FC = () => {
               </h3>
             </div>
             <button
-            onClick={() = aria-label="Button"> setIsExpanded(false)}
+            onClick={() => setIsExpanded(false)} aria-label="Button"
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" data-testid="button-text-gray-400">
 
               ✕
@@ -87,7 +87,7 @@ const ThemeManager: React.FC = () => {
                 {themes.map((theme) =>
             <button
               key={theme.id}
-              onClick={() = aria-label="Button"> setTheme(theme.id)}
+              onClick={() => setTheme(theme.id)} aria-label="Button"
               className={`p-3 rounded-lg border-2 transition-all duration-200 group hover:shadow-md ${
               currentTheme.id === theme.id ?
               'border-blue-500 bg-blue-50 dark:bg-blue-900/20' :
@@ -116,13 +116,13 @@ const ThemeManager: React.FC = () => {
           <div className="border-t border-[var(--color-border)] dark:border-gray-600 pt-4">
             <div className="flex gap-2">
               <button
-              onClick={() = aria-label="Button"> setTheme('mundo-tango')}
+              onClick={() => setTheme('mundo-tango')} aria-label="Button"
               className="flex-1 px-3 py-2 text-sm bg-gradient-to-r from-pink-500 to-[var(--color-ocean-500)] text-white rounded-lg hover:from-pink-600 hover:to-[var(--color-ocean-600)] transition-all" data-testid="button-flex-1">
 
                 Default
               </button>
               <button
-              onClick={() = aria-label="Button"> setTheme('life-ceo')}
+              onClick={() => setTheme('life-ceo')} aria-label="Button"
               className="flex-1 px-3 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all" data-testid="button-flex-1">
 
                 Executive

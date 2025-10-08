@@ -293,7 +293,7 @@ export const JiraStyleItemDetailModal: React.FC<JiraStyleItemDetailModalProps> =
           map((tab) =>
           <button
             key={tab.id}
-            onClick={() = aria-label="Button"> setActiveTab(tab.id as any)}
+            onClick={() => setActiveTab(tab.id as any)} aria-label="Button"
             className={`py-4 px-2 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
             activeTab === tab.id ?
             'border-blue-500 text-blue-600' :

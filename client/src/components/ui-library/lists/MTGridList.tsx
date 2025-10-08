@@ -293,7 +293,7 @@ export default function MTGridList({
           {allowViewModeToggle && (
             <div className="flex items-center gap-1 ml-auto">
               <button
-                onClick={() = aria-label="Button"> setViewMode('grid')}
+                onClick={() => setViewMode('grid')} aria-label="Button"
                 className={cn(
                   'p-2 rounded-lg transition-colors',
                   viewMode === 'grid'
@@ -305,7 +305,7 @@ export default function MTGridList({
                 <Grid className="w-4 h-4" />
               </button>
               <button
-                onClick={() = aria-label="Button"> setViewMode('list')}
+                onClick={() => setViewMode('list')} aria-label="Button"
                 className={cn(
                   'p-2 rounded-lg transition-colors',
                   viewMode === 'list'

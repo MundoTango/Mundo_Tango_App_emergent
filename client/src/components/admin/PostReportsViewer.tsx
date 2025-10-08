@@ -127,21 +127,21 @@ export function PostReportsViewer() {
           {report.status === 'pending' &&
         <div className="flex items-center gap-3 pt-4 border-t">
               <button
-            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'resolved', 'deleted')}
+            onClick={() => handleUpdateStatus(report.id, 'resolved', 'deleted')} aria-label="Button"
             className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" data-testid="button-flex">
 
                 <XCircle className="h-4 w-4" />
                 Delete Post
               </button>
               <button
-            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'resolved', 'warned')}
+            onClick={() => handleUpdateStatus(report.id, 'resolved', 'warned')} aria-label="Button"
             className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors" data-testid="button-flex">
 
                 <AlertCircle className="h-4 w-4" />
                 Warn User
               </button>
               <button
-            onClick={() = aria-label="Button"> handleUpdateStatus(report.id, 'dismissed')}
+            onClick={() => handleUpdateStatus(report.id, 'dismissed')} aria-label="Button"
             className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" data-testid="button-flex">
 
                 <CheckCircle className="h-4 w-4" />

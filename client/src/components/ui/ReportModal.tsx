@@ -176,7 +176,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             {REPORT_CATEGORIES.map((category) => (
               <button
                 key={category.id}
-                onClick={() = aria-label="Button"> setSelectedReason(category.id)}
+                onClick={() => setSelectedReason(category.id)} aria-label="Button"
                 className={`
                   w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left
                   ${selectedReason === category.id

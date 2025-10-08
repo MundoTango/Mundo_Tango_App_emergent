@@ -207,7 +207,7 @@ export const EventTypesManager: React.FC = () => {
           </label>
           {!isCreating &&
           <button
-            onClick={() = aria-label="Button"> setIsCreating(true)}
+            onClick={() => setIsCreating(true)} aria-label="Button"
             className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2" data-testid="button-px-4">
 
               <Plus className="h-4 w-4" />
@@ -285,10 +285,9 @@ export const EventTypesManager: React.FC = () => {
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button
-            onClick={() = aria-label="Button"> {
+            onClick={() => {
               setIsCreating(false);
-              resetForm();
-            }}
+              resetForm();} aria-label="Button"}
             className="px-4 py-2 text-[var(--color-text-secondary)] bg-[var(--color-neutral-100)] rounded-lg hover:bg-gray-200 dark:bg-gray-700" data-testid="button-px-4">
 
               Cancel
@@ -336,14 +335,14 @@ export const EventTypesManager: React.FC = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-1">
                     <button
-                    onClick={() = aria-label="Button"> handleSortOrderChange(eventType.id, 'up')}
+                    onClick={() => handleSortOrderChange(eventType.id, 'up')} aria-label="Button"
                     className="p-1 text-gray-400 hover:text-gray-600 dark:text-gray-300"
                     disabled={eventType.id === eventTypes[0]?.id} data-testid="button-p-1">
 
                       <ChevronUp className="h-4 w-4" />
                     </button>
                     <button
-                    onClick={() = aria-label="Button"> handleSortOrderChange(eventType.id, 'down')}
+                    onClick={() => handleSortOrderChange(eventType.id, 'down')} aria-label="Button"
                     className="p-1 text-gray-400 hover:text-gray-600 dark:text-gray-300"
                     disabled={eventType.id === eventTypes[eventTypes.length - 1]?.id} data-testid="button-p-1">
 
@@ -407,7 +406,7 @@ export const EventTypesManager: React.FC = () => {
                   {editingId === eventType.id ?
                 <div className="flex items-center justify-end gap-2">
                       <button
-                    onClick={() = aria-label="Button"> handleUpdate(eventType.id)}
+                    onClick={() => handleUpdate(eventType.id)} aria-label="Button"
                     className="text-green-600 hover:text-green-900" data-testid="button-text-green-600">
 
                         <Save className="h-4 w-4" />
@@ -422,7 +421,7 @@ export const EventTypesManager: React.FC = () => {
 
                 <div className="flex items-center justify-end gap-2">
                       <button
-                    onClick={() = aria-label="Button"> handleEdit(eventType)}
+                    onClick={() => handleEdit(eventType)} aria-label="Button"
                     className="text-indigo-600 hover:text-indigo-900"
                     disabled={eventType.is_system} data-testid="button-text-indigo-600">
 
@@ -430,7 +429,7 @@ export const EventTypesManager: React.FC = () => {
                       </button>
                       {!eventType.is_system && eventType.is_active &&
                   <button
-                    onClick={() = aria-label="Button"> deleteMutation.mutate(eventType.id)}
+                    onClick={() => deleteMutation.mutate(eventType.id)} aria-label="Button"
                     className="text-red-600 hover:text-red-900" data-testid="button-text-red-600">
 
                           <Trash2 className="h-4 w-4" />

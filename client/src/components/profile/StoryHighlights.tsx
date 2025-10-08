@@ -89,7 +89,7 @@ export default function StoryHighlights({
         {/* Add Highlight Button */}
         {isOwnProfile &&
         <button
-          onClick={() = aria-label="Button"> setCreateDialogOpen(true)}
+          onClick={() => setCreateDialogOpen(true)} aria-label="Button"
           className="flex-shrink-0 group" data-testid="button-flex-shrink-0">
 
             <div className="relative">
@@ -105,7 +105,7 @@ export default function StoryHighlights({
         {displayHighlights.map((highlight) =>
         <button
           key={highlight.id}
-          onClick={() = aria-label="Button"> setSelectedHighlight(highlight)}
+          onClick={() => setSelectedHighlight(highlight)} aria-label="Button"
           className="flex-shrink-0 group" data-testid="button-flex-shrink-0">
 
             <div className="relative">

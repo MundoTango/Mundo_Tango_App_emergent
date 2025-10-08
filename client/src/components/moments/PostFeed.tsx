@@ -545,7 +545,7 @@ const PostFeed = memo(({
               />
               {searchQuery && (
                 <button
-                  onClick={() = aria-label="Button"> setSearchQuery('')}
+                  onClick={() => setSearchQuery('')} aria-label="Button"
                   className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 >
                   <X className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:text-gray-300" />
@@ -558,7 +558,7 @@ const PostFeed = memo(({
           {/* Filter Toggle */}
           {showFilters && (
           <button
-            onClick={() = aria-label="Button"> setShowExpandedFilters(!showExpandedFilters)}
+            onClick={() => setShowExpandedFilters(!showExpandedFilters)} aria-label="Button"
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
           >
             <Filter className="h-4 w-4" />
@@ -573,7 +573,7 @@ const PostFeed = memo(({
               <div className="relative group">
                 <div className="flex gap-2">
                   <button
-                    onClick={() = aria-label="Button"> setFilterBy('all')}
+                    onClick={() => setFilterBy('all')} aria-label="Button"
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'all'
                         ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
@@ -584,7 +584,7 @@ const PostFeed = memo(({
                     All Posts
                   </button>
                   <button
-                    onClick={() = aria-label="Button"> setFilterBy('residents')}
+                    onClick={() => setFilterBy('residents')} aria-label="Button"
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'residents'
                         ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
@@ -595,7 +595,7 @@ const PostFeed = memo(({
                     Residence
                   </button>
                   <button
-                    onClick={() = aria-label="Button"> setFilterBy('visitors')}
+                    onClick={() => setFilterBy('visitors')} aria-label="Button"
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'visitors'
                         ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
@@ -606,7 +606,7 @@ const PostFeed = memo(({
                     Visitor
                   </button>
                   <button
-                    onClick={() = aria-label="Button"> setFilterBy('friends')}
+                    onClick={() => setFilterBy('friends')} aria-label="Button"
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
                       filterBy === 'friends'
                         ? 'bg-gradient-to-r from-[var(--color-primary)] to-cyan-600 text-white'
@@ -640,7 +640,7 @@ const PostFeed = memo(({
                     >
                       #{tag}
                       <button
-                        onClick={() = aria-label="Button"> handleRemoveTag(tag)}
+                        onClick={() => handleRemoveTag(tag)} aria-label="Button"
                         className="ml-1 hover:text-teal-900"
                       >
                         <X className="h-3 w-3" />
@@ -685,10 +685,9 @@ const PostFeed = memo(({
                 </div>
                 {(startDate || endDate) && (
                   <button
-                    onClick={() = aria-label="Button"> {
+                    onClick={() => {
                       setStartDate('');
-                      setEndDate('');
-                    }}
+                      setEndDate('');} aria-label="Button"}
                     className="mt-2 text-xs text-red-600 hover:text-red-700"
                   >
                     Clear dates

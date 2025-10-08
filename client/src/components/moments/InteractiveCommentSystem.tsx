@@ -227,13 +227,13 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
             
             <div className="flex items-center space-x-1">
               <button
-                onClick={() = aria-label="Button"> setShowReactionPicker(showReactionPicker === comment.id ? null : comment.id)}
+                onClick={() => setShowReactionPicker(showReactionPicker === comment.id ? null : comment.id)} aria-label="Button"
                 className="p-1 hover:bg-[var(--color-neutral-100)] rounded text-gray-400 hover:text-gray-600 dark:text-gray-300" data-testid="button-p-1">
 
                 <Smile className="w-4 h-4" />
               </button>
               <button
-                onClick={() = aria-label="Button"> handleReport('inappropriate')}
+                onClick={() => handleReport('inappropriate')} aria-label="Button"
                 className="p-1 hover:bg-[var(--color-neutral-100)] rounded text-gray-400 hover:text-red-600" data-testid="button-p-1">
 
                 <Flag className="w-4 h-4" />
@@ -270,7 +270,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={() = aria-label="Button"> handleReaction('like', comment.id)}
+                onClick={() => handleReaction('like', comment.id)} aria-label="Button"
                 className="flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors" data-testid="button-flex">
 
                 <ThumbsUp className="w-4 h-4" />
@@ -278,7 +278,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               </button>
               
               <button
-                onClick={() = aria-label="Button"> setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)} aria-label="Button"
                 className="flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-green-600 transition-colors" data-testid="button-flex">
 
                 <Reply className="w-4 h-4" />
@@ -287,7 +287,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
               
               {hasReplies &&
               <button
-                onClick={() = aria-label="Button"> toggleCommentExpansion(comment.id)}
+                onClick={() => toggleCommentExpansion(comment.id)} aria-label="Button"
                 className="text-xs text-blue-600 hover:text-blue-800" data-testid="button-text-xs">
 
                   {isExpanded ? 'Hide' : 'Show'} {comment.replies?.length} replies
@@ -301,7 +301,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) =>
               <button
                 key={type}
-                onClick={() = aria-label="Button"> handleReaction(type, comment.id)}
+                onClick={() => handleReaction(type, comment.id)} aria-label="Button"
                 className="p-2 hover:bg-[var(--color-neutral-100)] rounded text-lg"
                 title={label} data-testid="button-p-2">
 
@@ -339,7 +339,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
                 </div>
                 <div className="flex items-center space-x-2">
                   <button
-                  onClick={() = aria-label="Button"> setReplyingTo(null)}
+                  onClick={() => setReplyingTo(null)} aria-label="Button"
                   className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-100" data-testid="button-px-3">
 
                     Cancel
@@ -458,7 +458,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
       <div className="flex items-center justify-between p-3 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center space-x-4">
           <button
-            onClick={() = aria-label="Button"> setShowReactionPicker(showReactionPicker === 0 ? null : 0)}
+            onClick={() => setShowReactionPicker(showReactionPicker === 0 ? null : 0)} aria-label="Button"
             className="flex items-center space-x-2 px-3 py-2 bg-[var(--color-neutral-100)] hover:bg-gray-200 dark:bg-gray-700 rounded-lg transition-colors" data-testid="button-flex">
 
             <Heart className="w-4 h-4" />
@@ -479,7 +479,7 @@ export default function InteractiveCommentSystem({ postId, postUserId }: Interac
             {Object.entries(REACTION_EMOJIS).map(([type, { emoji, label }]) =>
           <button
             key={type}
-            onClick={() = aria-label="Button"> handleReaction(type)}
+            onClick={() => handleReaction(type)} aria-label="Button"
             className="p-2 hover:bg-[var(--color-neutral-100)] rounded text-lg"
             title={label} data-testid="button-p-2">
 

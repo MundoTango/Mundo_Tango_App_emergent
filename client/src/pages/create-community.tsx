@@ -122,7 +122,7 @@ export default function CreateCommunityPage() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() = aria-label="Button"> setLocation('/groups')}
+            onClick={() => setLocation('/groups')} aria-label="Button"
             className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white mb-4 transition-colors" data-testid="button-flex">
 
             <ArrowLeft className="h-5 w-5" />

@@ -135,7 +135,7 @@ export default function ModernPostComposer({
                 return (
                   <button
                     key={option.value}
-                    onClick={() = aria-label="Button"> setVisibility(option.value)}
+                    onClick={() => setVisibility(option.value)} aria-label="Button"
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-medium text-sm
                               transition-all duration-200 border-2 ${
                                 visibility === option.value
@@ -190,10 +190,9 @@ export default function ModernPostComposer({
                 </div>
               </div>
               <button
-                onClick={() = aria-label="Button"> {
+                onClick={() => {
                   setSelectedMedia(null);
-                  setExistingMediaUrl(null);
-                }}
+                  setExistingMediaUrl(null);} aria-label="Button"}
                 className="p-3 rounded-2xl text-blue-400 hover:text-red-500 hover:bg-red-50 
                          transition-all duration-300 hover:scale-110"
               >
