@@ -318,7 +318,7 @@ export function InternalUploader({
           className="hidden" data-testid="input-file" />
 
 
-        <p className="text-sm text-gray-600 text-center">
+        <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
           Support images and videos • Max {maxFiles} files • Up to {maxFileSize}MB each
         </p>
       </div>
@@ -337,13 +337,13 @@ export function InternalUploader({
       {/* Uploaded Files Preview */}
       {uploadedFiles.length > 0 &&
       <div className="space-y-2">
-          <h4 className="font-medium text-sm text-gray-700">
+          <h4 className="font-medium text-sm text-[var(--color-text-secondary)]">
             Uploaded Files ({uploadedFiles.length})
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {uploadedFiles.map((file) =>
           <div key={file.id} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                <div className="aspect-square rounded-lg overflow-hidden bg-[var(--color-neutral-100)] border border-[var(--color-border)]">
                   {file.mimetype.startsWith('image/') ?
               <img
                 src={file.thumbnailUrl || file.url}
@@ -362,7 +362,7 @@ export function InternalUploader({
                   
                   {/* Remove button */}
                   <button
-                onClick={() => removeFile(file.id)}
+                onClick={() = aria-label="Button"> removeFile(file.id)}
                 className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600" data-testid="button-absolute">
 
                     <X className="h-3 w-3" />
@@ -374,7 +374,7 @@ export function InternalUploader({
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-600 mt-1 truncate" title={file.originalname}>
+                <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 truncate" title={file.originalname}>
                   {file.originalname}
                 </p>
                 <p className="text-xs text-gray-400">

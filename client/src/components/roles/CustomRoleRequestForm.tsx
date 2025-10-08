@@ -92,7 +92,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             </div>
             <div>
               <h3 className="text-lg font-semibold text-green-800">Request Submitted Successfully!</h3>
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
                 Your custom role request for "{roleName}" has been submitted and is now pending admin review.
                 You'll be notified once it's been processed.
               </p>
@@ -135,7 +135,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             {errors.roleName &&
             <p className="text-sm text-red-600">{errors.roleName}</p>
             }
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Choose a clear, descriptive name for your role ({roleName.length}/50 characters)
             </p>
           </div>
@@ -154,7 +154,7 @@ export function CustomRoleRequestForm({ onSuccess, onCancel }: CustomRoleRequest
             {errors.roleDescription &&
             <p className="text-sm text-red-600">{errors.roleDescription}</p>
             }
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Provide a detailed description of the role ({roleDescription.length}/500 characters)
             </p>
           </div>

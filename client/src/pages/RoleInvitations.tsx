@@ -196,7 +196,7 @@ export default function RoleInvitations() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Role Invitations
           </h1>
-          <p className="text-gray-600">Manage your event role invitations and send new ones</p>
+          <p className="text-gray-600 dark:text-gray-300">Manage your event role invitations and send new ones</p>
         </div>
 
         {/* Stats Cards */}
@@ -205,7 +205,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Pending</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Pending</p>
                   <p className="text-2xl font-bold">{stats.pending}</p>
                 </div>
                 <Clock className="w-8 h-8 text-yellow-500" />
@@ -217,7 +217,7 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Accepted</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Accepted</p>
                   <p className="text-2xl font-bold">{stats.accepted}</p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-500" />
@@ -229,10 +229,10 @@ export default function RoleInvitations() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Total Invitations</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Invitations</p>
                   <p className="text-2xl font-bold">{stats.total}</p>
                 </div>
-                <Bell className="w-8 h-8 text-turquoise-500" />
+                <Bell className="w-8 h-8 text-[var(--color-primary)]" />
               </div>
             </CardContent>
           </Card>
@@ -362,7 +362,7 @@ export default function RoleInvitations() {
                 activeTab === 'declined' ? 'No Declined Invitations' :
                 'No Invitations'}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   {activeTab === 'pending' ? "You'll see new role invitations here when organizers invite you." :
                 activeTab === 'accepted' ? "Invitations you've accepted will appear here." :
                 activeTab === 'declined' ? "Invitations you've declined will appear here." :
@@ -378,19 +378,19 @@ export default function RoleInvitations() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <Badge
-                          className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-gray-100 text-gray-800'}`}>
+                          className={`flex items-center gap-1 ${ROLE_COLORS[invitation.role as keyof typeof ROLE_COLORS] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`}>
 
                               {ROLE_ICONS[invitation.role as keyof typeof ROLE_ICONS]}
                               {invitation.role.charAt(0).toUpperCase() + invitation.role.slice(1)}
                             </Badge>
-                            <span className="text-sm text-gray-600">
+                            <span className="text-sm text-gray-600 dark:text-gray-300">
                               Invited by {invitation.inviterName}
                             </span>
                           </div>
                           
                           <h3 className="text-lg font-semibold mb-2">{invitation.eventTitle}</h3>
                           
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-4">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {formatDate(invitation.eventStartDate)}
@@ -406,8 +406,8 @@ export default function RoleInvitations() {
                           </div>
                           
                           {invitation.message &&
-                      <div className="p-3 bg-gray-50 rounded-lg mb-4">
-                              <p className="text-sm text-gray-700 italic">"{invitation.message}"</p>
+                      <div className="p-3 bg-[var(--color-surface-elevated)] rounded-lg mb-4">
+                              <p className="text-sm text-[var(--color-text-secondary)] italic">"{invitation.message}"</p>
                             </div>
                       }
                           

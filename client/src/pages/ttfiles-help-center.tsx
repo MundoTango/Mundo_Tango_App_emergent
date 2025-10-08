@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useAuth } from '@/hooks/useAuth';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import DashboardLayout from '@/layouts/DashboardLayout';
@@ -50,7 +51,8 @@ import { cn } from '@/lib/utils';
 
 // Help request categories
 const HELP_CATEGORIES = [
-{ value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
+{
+  const { t } = useTranslation(); value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
 { value: 'dance_partner', label: 'Dance Partner', icon: Users },
 { value: 'practice_space', label: 'Practice Space', icon: MapPin },
 { value: 'lessons', label: 'Lessons / Teaching', icon: User },
@@ -203,7 +205,7 @@ export default function TTfilesHelpCenter() {
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to create help request. Please try again.",
         variant: "destructive"
       });
@@ -286,8 +288,8 @@ export default function TTfilesHelpCenter() {
     const styles = {
       open: 'bg-green-100 text-green-800',
       in_progress: 'bg-blue-100 text-blue-800',
-      resolved: 'bg-gray-100 text-gray-800',
-      closed: 'bg-gray-100 text-gray-600'
+      resolved: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100',
+      closed: 'bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300'
     };
 
     const icons = {
@@ -311,8 +313,8 @@ export default function TTfilesHelpCenter() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">TTfiles Help Center</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">TTfiles Help Center</h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-1">
                 Community support for dancers - ask for help or report issues
               </p>
             </div>
@@ -555,7 +557,7 @@ export default function TTfilesHelpCenter() {
               {/* Help Request List */}
               {helpLoading ?
               <div className="text-center py-8">
-                  <div className="inline-flex items-center gap-2 text-gray-500">
+                  <div className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
                     Loading help requests...
                   </div>
@@ -564,7 +566,7 @@ export default function TTfilesHelpCenter() {
               <Card>
                   <CardContent className="text-center py-12">
                     <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">No help requests found</p>
+                    <p className="text-gray-500 dark:text-gray-400">No help requests found</p>
                     <p className="text-gray-400 text-sm mt-1">Be the first to ask for help!</p>
                   </CardContent>
                 </Card> :
@@ -582,24 +584,24 @@ export default function TTfilesHelpCenter() {
                                 {HELP_CATEGORIES.find((c) => c.value === request.category)?.label || request.category}
                               </Badge>
                               {request.location &&
-                          <span className="text-sm text-gray-500 flex items-center gap-1">
+                          <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
                                   <MapPin className="h-3 w-3" />
                                   {request.location}
                                 </span>
                           }
                             </div>
                             
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">
                               {request.title}
                             </h3>
                             
                             {request.description &&
-                        <p className="text-gray-600 mb-3 line-clamp-2">
+                        <p className="text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                                 {request.description}
                               </p>
                         }
                             
-                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                               <div className="flex items-center gap-2">
                                 <div className="w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-xs font-semibold">
                                   {request.user?.name?.[0] || '?'}
@@ -638,7 +640,7 @@ export default function TTfilesHelpCenter() {
               <Card>
                   <CardContent className="text-center py-12">
                     <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">You haven't created any help requests yet</p>
+                    <p className="text-gray-500 dark:text-gray-400">You haven't created any help requests yet</p>
                     <Button
                     className="mt-4"
                     variant="outline"
@@ -663,11 +665,11 @@ export default function TTfilesHelpCenter() {
                               </Badge>
                             </div>
                             
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">
                               {request.title}
                             </h3>
                             
-                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                               <span>Created {format(new Date(request.createdAt), 'MMM d, h:mm a')}</span>
                               {request.responses && request.responses > 0 &&
                           <>
@@ -708,7 +710,7 @@ export default function TTfilesHelpCenter() {
                 <CardContent>
                   {reportsLoading ?
                   <div className="text-center py-8">
-                      <div className="inline-flex items-center gap-2 text-gray-500">
+                      <div className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400">
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
                         Loading reports...
                       </div>
@@ -716,13 +718,13 @@ export default function TTfilesHelpCenter() {
                   reportedMemories?.length === 0 ?
                   <div className="text-center py-8">
                       <Shield className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">No reported content</p>
+                      <p className="text-gray-500 dark:text-gray-400">No reported content</p>
                       <p className="text-gray-400 text-sm mt-1">Our community is keeping it clean!</p>
                     </div> :
 
                   <div className="space-y-4">
                       {reportedMemories?.map((report: MemoryReport) =>
-                    <div key={report.id} className="border border-gray-200 rounded-lg p-4">
+                    <div key={report.id} className="border border-[var(--color-border)] rounded-lg p-4">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <div className="flex items-center gap-3 mb-2">
@@ -742,23 +744,23 @@ export default function TTfilesHelpCenter() {
                               </div>
                               
                               {report.memory &&
-                          <div className="bg-gray-50 rounded p-3 mb-3">
-                                  <p className="text-sm text-gray-600 line-clamp-2">
+                          <div className="bg-[var(--color-surface-elevated)] rounded p-3 mb-3">
+                                  <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                                     "{report.memory.content}"
                                   </p>
-                                  <p className="text-xs text-gray-500 mt-1">
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                     by @{report.memory.user.username}
                                   </p>
                                 </div>
                           }
                               
                               {report.description &&
-                          <p className="text-sm text-gray-600 mb-2">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                                   Report reason: {report.description}
                                 </p>
                           }
                               
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-gray-500 dark:text-gray-400">
                                 Reported on {format(new Date(report.createdAt), 'MMM d, yyyy')}
                               </p>
                             </div>

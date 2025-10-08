@@ -12,7 +12,7 @@ const LifeCEOAgentDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-surface-elevated)]">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -24,8 +24,8 @@ const LifeCEOAgentDetail: React.FC = () => {
               </Button>
             </Link>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Agent Management</h1>
-          <p className="text-lg text-gray-600">
+          <h1 className="text-4xl font-bold text-[var(--color-text)] dark:text-white mb-2">Agent Management</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
             Configure and interact with your Life CEO agent
           </p>
         </div>

@@ -262,9 +262,9 @@ export default function MTDataTable<T = any>({
               placeholder={searchPlaceholder}
               className={cn(
                 'w-full pl-10 pr-4 py-2 rounded-lg',
-                'bg-white/90 dark:bg-gray-800/90 backdrop-blur-md',
+                'bg-[var(--color-surface)]/90 dark:bg-gray-800/90 backdrop-blur-md',
                 'border border-teal-200/50 dark:border-teal-700/50',
-                'focus:border-teal-400 dark:focus:border-teal-500',
+                'focus:border-teal-400 dark:focus:border-[var(--color-primary)]',
                 'focus:ring-2 focus:ring-teal-400/20',
                 'transition-all duration-300'
               )}
@@ -275,7 +275,7 @@ export default function MTDataTable<T = any>({
 
         {/* Bulk Actions */}
         {hasSelectedRows && bulkActions && (
-          <div className="flex items-center gap-2 px-4 py-2 bg-teal-50/50 dark:bg-teal-900/20 rounded-lg">
+          <div className="flex items-center gap-2 px-4 py-2 bg-[var(--color-ocean-50)]/50 dark:bg-teal-900/20 rounded-lg">
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {selectedRows.size} selected
             </span>
@@ -288,12 +288,12 @@ export default function MTDataTable<T = any>({
           {/* Filters */}
           {columns.some(col => col.filterable) && (
             <button
-              onClick={() => setShowFilters(!showFilters)}
+              onClick={() = aria-label="Button"> setShowFilters(!showFilters)}
               className={cn(
                 'px-3 py-2 rounded-lg border transition-all duration-300',
                 showFilters
-                  ? 'bg-teal-100 dark:bg-teal-900/30 border-teal-300 dark:border-teal-700'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 hover:border-teal-300'
+                  ? 'bg-[var(--color-ocean-100)] dark:bg-teal-900/30 border-[var(--color-ocean-300)] dark:border-teal-700'
+                  : 'bg-[var(--color-surface)] dark:bg-gray-800 border-gray-300 dark:border-gray-700 hover:border-[var(--color-ocean-300)]'
               )}
               data-testid={`${testId}-filter-toggle`}
             >
@@ -303,9 +303,9 @@ export default function MTDataTable<T = any>({
 
           {/* Column Settings */}
           <button
-            className="px-3 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
+            className="px-3 py-2 rounded-lg bg-[var(--color-surface)] dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-[var(--color-ocean-300)] transition-all duration-300"
             data-testid={`${testId}-settings`}
-          >
+           aria-label="Button">
             <Settings className="w-4 h-4" />
           </button>
 
@@ -313,21 +313,21 @@ export default function MTDataTable<T = any>({
           {exportable && (
             <div className="relative group">
               <button
-                className="px-3 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300"
+                className="px-3 py-2 rounded-lg bg-[var(--color-surface)] dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-[var(--color-ocean-300)] transition-all duration-300"
                 data-testid={`${testId}-export`}
-              >
+               aria-label="Button">
                 <Download className="w-4 h-4" />
               </button>
-              <div className="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
+              <div className="absolute right-0 mt-1 w-32 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-lg border border-[var(--color-border)] dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
                 <button
-                  onClick={() => handleExport('csv')}
-                  className="block w-full px-4 py-2 text-left text-sm hover:bg-teal-50 dark:hover:bg-teal-900/30"
+                  onClick={() = aria-label="Button"> handleExport('csv')}
+                  className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30"
                 >
                   Export CSV
                 </button>
                 <button
-                  onClick={() => handleExport('json')}
-                  className="block w-full px-4 py-2 text-left text-sm hover:bg-teal-50 dark:hover:bg-teal-900/30"
+                  onClick={() = aria-label="Button"> handleExport('json')}
+                  className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30"
                 >
                   Export JSON
                 </button>
@@ -341,11 +341,11 @@ export default function MTDataTable<T = any>({
               onClick={onRefresh}
               disabled={loading}
               className={cn(
-                'px-3 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-teal-300 transition-all duration-300',
+                'px-3 py-2 rounded-lg bg-[var(--color-surface)] dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:border-[var(--color-ocean-300)] transition-all duration-300',
                 loading && 'opacity-50 cursor-not-allowed'
               )}
               data-testid={`${testId}-refresh`}
-            >
+             aria-label="Button">
               <RefreshCw className={cn('w-4 h-4', loading && 'animate-spin')} />
             </button>
           )}

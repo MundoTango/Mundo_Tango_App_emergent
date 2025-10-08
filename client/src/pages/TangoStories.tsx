@@ -134,7 +134,7 @@ export default function TangoStories() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             Tango Stories
           </h1>
-          <p className="text-gray-600">Share and discover personal tango journeys from around the world</p>
+          <p className="text-gray-600 dark:text-gray-300">Share and discover personal tango journeys from around the world</p>
         </div>
 
         {/* Search and Create */}
@@ -185,7 +185,7 @@ export default function TangoStories() {
         <Card className="glassmorphic-card p-12 text-center">
             <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">No Stories Yet</h3>
-            <p className="text-gray-600 mb-4">Be the first to share your tango journey!</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">Be the first to share your tango journey!</p>
             <Button
             onClick={() => setShowCreateModal(true)}
             className="bg-gradient-to-r from-turquoise-600 to-cyan-600 hover:from-turquoise-700 hover:to-cyan-700 text-white" data-testid="button-bg-gradient-to-r">
@@ -205,7 +205,7 @@ export default function TangoStories() {
                       </div>
                       <div>
                         <h3 className="font-semibold">{story.author.name}</h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
                           @{story.author.username} • {new Date(story.createdAt).toLocaleDateString()}
                         </p>
                       </div>
@@ -217,7 +217,7 @@ export default function TangoStories() {
                 </CardHeader>
                 <CardContent>
                   <h2 className="text-xl font-bold mb-3">{story.title}</h2>
-                  <p className="text-gray-700 whitespace-pre-wrap mb-4 line-clamp-5">
+                  <p className="text-[var(--color-text-secondary)] whitespace-pre-wrap mb-4 line-clamp-5">
                     {story.content}
                   </p>
                   
@@ -225,7 +225,7 @@ export default function TangoStories() {
                   {(story.location || story.tags.length > 0) &&
               <div className="flex flex-wrap items-center gap-2 mb-4">
                       {story.location &&
-                <span className="flex items-center gap-1 text-sm text-gray-600">
+                <span className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
                           <MapPin className="w-3 h-3" />
                           {story.location}
                         </span>

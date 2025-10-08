@@ -185,7 +185,7 @@ export default function UnifiedTopBar({
     <header className={cn(
       "sticky top-0 z-50 w-full border-b backdrop-blur-xl",
       theme === 'light' 
-        ? "bg-white/95 border-gray-200" 
+        ? "bg-[var(--color-surface)] dark:bg-gray-900/95 border-[var(--color-border)]" 
         : "bg-slate-900/95 border-slate-800"
     )}>
       {/* MT Ocean Theme Gradient Overlay */}
@@ -200,8 +200,8 @@ export default function UnifiedTopBar({
               size="icon"
               onClick={onMenuToggle}
               className={cn(
-                "hover:bg-gray-100 dark:hover:bg-slate-800",
-                theme === 'light' ? "text-gray-600" : "text-slate-400"
+                "hover:bg-[var(--color-neutral-100)] dark:hover:bg-slate-800",
+                theme === 'light' ? "text-gray-600 dark:text-gray-300" : "text-slate-400"
               )}
             >
               <Menu className="h-5 w-5" />
@@ -223,7 +223,7 @@ export default function UnifiedTopBar({
           <div className={cn(
             "relative rounded-full overflow-hidden",
             theme === 'light' 
-              ? "bg-gray-100" 
+              ? "bg-[var(--color-neutral-100)]" 
               : "bg-slate-800"
           )}>
             <Search className={cn(
@@ -238,10 +238,10 @@ export default function UnifiedTopBar({
               className={cn(
                 "w-full pl-12 pr-4 py-2.5 bg-transparent outline-none transition-colors",
                 theme === 'light' 
-                  ? "text-gray-900 placeholder-gray-500" 
+                  ? "text-[var(--color-text)] dark:text-white placeholder-gray-500" 
                   : "text-white placeholder-slate-400"
               )}
-            />
+            / aria-label="Input field">
           </div>
 
           {/* Search Results Dropdown */}
@@ -249,7 +249,7 @@ export default function UnifiedTopBar({
             <div className={cn(
               "absolute w-full max-w-2xl mt-2 rounded-xl shadow-2xl border overflow-hidden",
               theme === 'light' 
-                ? "bg-white border-gray-200" 
+                ? "bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)]" 
                 : "bg-slate-900 border-slate-700"
             )}>
               {searchLoading ? (
@@ -257,7 +257,7 @@ export default function UnifiedTopBar({
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 spinner-primary mx-auto"></div>
                   <p className={cn(
                     "mt-2 text-sm",
-                    theme === 'light' ? "text-gray-500" : "text-slate-400"
+                    theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                   )}>Searching...</p>
                 </div>
               ) : searchResults ? (
@@ -267,7 +267,7 @@ export default function UnifiedTopBar({
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
-                        theme === 'light' ? "text-gray-700" : "text-slate-300"
+                        theme === 'light' ? "text-[var(--color-text-secondary)]" : "text-slate-300"
                       )}>Posts</h3>
                       <div className="space-y-1">
                         {searchResults.posts.slice(0, 3).map((post: any) => (
@@ -277,7 +277,7 @@ export default function UnifiedTopBar({
                             className={cn(
                               "p-2 rounded-lg cursor-pointer transition-colors",
                               theme === 'light' 
-                                ? "hover:bg-gray-50" 
+                                ? "hover:bg-[var(--color-surface-elevated)]" 
                                 : "hover:bg-slate-800"
                             )}
                           >
@@ -293,7 +293,7 @@ export default function UnifiedTopBar({
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
-                        theme === 'light' ? "text-gray-700" : "text-slate-300"
+                        theme === 'light' ? "text-[var(--color-text-secondary)]" : "text-slate-300"
                       )}>Events</h3>
                       <div className="space-y-1">
                         {searchResults.events.slice(0, 3).map((event: any) => (
@@ -301,7 +301,7 @@ export default function UnifiedTopBar({
                             <a onClick={handleSearchResultClick} className={cn(
                               "block p-2 rounded-lg cursor-pointer transition-colors",
                               theme === 'light' 
-                                ? "hover:bg-gray-50" 
+                                ? "hover:bg-[var(--color-surface-elevated)]" 
                                 : "hover:bg-slate-800"
                             )}>
                               <p className="text-sm font-medium">{event.title}</p>
@@ -317,7 +317,7 @@ export default function UnifiedTopBar({
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
-                        theme === 'light' ? "text-gray-700" : "text-slate-300"
+                        theme === 'light' ? "text-[var(--color-text-secondary)]" : "text-slate-300"
                       )}>People</h3>
                       <div className="space-y-1">
                         {searchResults.users.slice(0, 3).map((person: any) => (
@@ -325,7 +325,7 @@ export default function UnifiedTopBar({
                             <a onClick={handleSearchResultClick} className={cn(
                               "flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors",
                               theme === 'light' 
-                                ? "hover:bg-gray-50" 
+                                ? "hover:bg-[var(--color-surface-elevated)]" 
                                 : "hover:bg-slate-800"
                             )}>
                               <Avatar className="h-6 w-6">
@@ -347,7 +347,7 @@ export default function UnifiedTopBar({
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
-                        theme === 'light' ? "text-gray-700" : "text-slate-300"
+                        theme === 'light' ? "text-[var(--color-text-secondary)]" : "text-slate-300"
                       )}>Groups</h3>
                       <div className="space-y-1">
                         {searchResults.groups.slice(0, 3).map((group: any) => (
@@ -355,7 +355,7 @@ export default function UnifiedTopBar({
                             <a onClick={handleSearchResultClick} className={cn(
                               "block p-2 rounded-lg cursor-pointer transition-colors",
                               theme === 'light' 
-                                ? "hover:bg-gray-50" 
+                                ? "hover:bg-[var(--color-surface-elevated)]" 
                                 : "hover:bg-slate-800"
                             )}>
                               <p className="text-sm font-medium">{group.name}</p>
@@ -370,7 +370,7 @@ export default function UnifiedTopBar({
                 <div className="p-8 text-center">
                   <p className={cn(
                     "text-sm",
-                    theme === 'light' ? "text-gray-500" : "text-slate-400"
+                    theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                   )}>No results found</p>
                 </div>
               )}
@@ -385,7 +385,7 @@ export default function UnifiedTopBar({
             <Button variant="ghost" size="icon" className="relative">
               <Bell className={cn(
                 "h-5 w-5",
-                theme === 'light' ? "text-gray-600" : "text-slate-400"
+                theme === 'light' ? "text-gray-600 dark:text-gray-300" : "text-slate-400"
               )} />
               {notificationCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
@@ -400,7 +400,7 @@ export default function UnifiedTopBar({
             <Button variant="ghost" size="icon" className="relative">
               <MessageSquare className={cn(
                 "h-5 w-5",
-                theme === 'light' ? "text-gray-600" : "text-slate-400"
+                theme === 'light' ? "text-gray-600 dark:text-gray-300" : "text-slate-400"
               )} />
               {messageCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
@@ -419,7 +419,7 @@ export default function UnifiedTopBar({
               className={cn(
                 "transition-all",
                 theme === 'light'
-                  ? "hover:bg-gray-100 text-gray-600"
+                  ? "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300"
                   : "hover:bg-slate-800 text-slate-400"
               )}
             >
@@ -437,14 +437,14 @@ export default function UnifiedTopBar({
                 className={cn(
                   "transition-all",
                   theme === 'light'
-                    ? "hover:bg-gray-100 text-gray-600"
+                    ? "hover:bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300"
                     : "hover:bg-slate-800 text-slate-400"
                 )}
               >
                 {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               </Button>
               {/* COMING SOON Overlay - Dark Mode Disabled */}
-              <div className="absolute inset-0 bg-cyan-500/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
+              <div className="absolute inset-0 bg-[var(--color-primary)]/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
                 <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   COMING SOON
                 </span>
@@ -461,7 +461,7 @@ export default function UnifiedTopBar({
               className=""
             />
             {/* COMING SOON Overlay - Language Switching Disabled */}
-            <div className="absolute inset-0 bg-cyan-500/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
+            <div className="absolute inset-0 bg-[var(--color-primary)]/30 rounded-md cursor-not-allowed z-10 pointer-events-auto border border-cyan-500/50">
               <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 COMING SOON
               </span>
@@ -477,7 +477,7 @@ export default function UnifiedTopBar({
                 className={cn(
                   "flex items-center gap-2 px-2",
                   theme === 'light'
-                    ? "hover:bg-gray-100"
+                    ? "hover:bg-[var(--color-neutral-100)]"
                     : "hover:bg-slate-800"
                 )}
               >
@@ -492,7 +492,7 @@ export default function UnifiedTopBar({
                 </Avatar>
                 <ChevronDown className={cn(
                   "h-4 w-4",
-                  theme === 'light' ? "text-gray-600" : "text-slate-400"
+                  theme === 'light' ? "text-gray-600 dark:text-gray-300" : "text-slate-400"
                 )} />
               </Button>
             </DropdownMenuTrigger>
@@ -502,24 +502,24 @@ export default function UnifiedTopBar({
               className={cn(
                 "w-64",
                 theme === 'light' 
-                  ? "bg-white border-gray-200" 
+                  ? "bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)]" 
                   : "bg-slate-900 border-slate-700"
               )}
             >
               {/* User Info */}
               <div className={cn(
                 "px-4 py-3 border-b",
-                theme === 'light' ? "border-gray-200" : "border-slate-700"
+                theme === 'light' ? "border-[var(--color-border)]" : "border-slate-700"
               )}>
                 <p className={cn(
                   "font-semibold",
-                  theme === 'light' ? "text-gray-900" : "text-white"
+                  theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                 )}>
                   {user?.name || 'Guest User'}
                 </p>
                 <p className={cn(
                   "text-sm",
-                  theme === 'light' ? "text-gray-500" : "text-slate-400"
+                  theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                 )}>
                   @{user?.username || 'guest'}
                 </p>
@@ -556,7 +556,7 @@ export default function UnifiedTopBar({
               </div>
 
               <DropdownMenuSeparator className={cn(
-                theme === 'light' ? "bg-gray-200" : "bg-slate-700"
+                theme === 'light' ? "bg-gray-200 dark:bg-gray-700" : "bg-slate-700"
               )} />
 
               {/* Help & Legal */}
@@ -578,7 +578,7 @@ export default function UnifiedTopBar({
               </div>
 
               <DropdownMenuSeparator className={cn(
-                theme === 'light' ? "bg-gray-200" : "bg-slate-700"
+                theme === 'light' ? "bg-gray-200 dark:bg-gray-700" : "bg-slate-700"
               )} />
 
               {/* Danger Zone */}

@@ -112,7 +112,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
         <FadeIn>
           <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30" data-testid="filters-card">
             <div className="flex items-center gap-2 mb-4">
-              <Filter className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
+              <Filter className="h-5 w-5 text-[var(--color-primary-hover)] dark:text-cyan-400" />
               <h3 className="font-semibold text-slate-900 dark:text-white">
                 {t('housing.homes_list.filter_housing', 'Filter Housing')}
               </h3>
@@ -185,7 +185,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
             <ScaleIn key={home.id} delay={0.05}>
               <GlassCard 
                 depth={2} 
-                className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+                className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-[var(--color-ocean-300)]/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
                 data-testid={`home-card-${home.id}`}
               >
                 {/* Main Photo */}
@@ -231,7 +231,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                     </div>
                     {home.rating && (
                       <div className="flex items-center gap-1 glass-card glass-depth-1 px-2 py-1 rounded-lg border-cyan-200/30 dark:border-cyan-500/30">
-                        <Star className="h-4 w-4 text-cyan-500 dark:text-cyan-400 fill-current" />
+                        <Star className="h-4 w-4 text-[var(--color-primary)] dark:text-cyan-400 fill-current" />
                         <span className="text-sm font-medium text-slate-900 dark:text-white">{home.rating.toFixed(1)}</span>
                         {home.reviewCount !== undefined && (
                           <span className="text-xs text-slate-500 dark:text-slate-400">({home.reviewCount})</span>
@@ -241,13 +241,13 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                   </div>
                   
                   <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-3">
-                    <MapPin className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
+                    <MapPin className="h-4 w-4 text-[var(--color-primary)] dark:text-cyan-400" />
                     <span>{home.city}, {home.state}</span>
                   </div>
                   
                   {/* Host Info */}
                   <div className="flex items-center gap-3 pt-3 border-t border-cyan-200/20 dark:border-cyan-800/20">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-teal-600 dark:from-cyan-500 dark:to-teal-700 flex items-center justify-center text-white font-semibold text-sm">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-ocean-400)] to-teal-600 dark:from-[var(--color-primary)] dark:to-teal-700 flex items-center justify-center text-white font-semibold text-sm">
                       {home.host.profileImage ? (
                         <img src={home.host.profileImage} alt={home.host.name} className="w-full h-full rounded-full object-cover" />
                       ) : (
@@ -257,7 +257,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                     <div className="flex-1">
                       <p className="text-sm font-medium text-slate-900 dark:text-white">{home.host.name}</p>
                       {home.host.id === user?.id && (
-                        <span className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">
+                        <span className="text-xs text-[var(--color-primary-hover)] dark:text-cyan-400 font-medium">
                           {t('housing.homes_list.your_listing', 'Your listing')}
                         </span>
                       )}
@@ -266,7 +266,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
                       <div className="flex gap-2">
                         <PulseButton 
                           onClick={() => setLocation(`/guest-onboarding?hostHomeId=${home.id}`)}
-                          className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl text-sm"
+                          className="px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white rounded-xl text-sm"
                           data-testid={`button-request-stay-${home.id}`}
                         >
                           {t('housing.homes_list.request_stay', 'Request Stay')}
@@ -287,7 +287,7 @@ export default function HostHomesList({ groupSlug, city, showFilters = true, fri
           <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30" data-testid="empty-state">
             <div className="flex flex-col items-center gap-4">
               <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-cyan-500/30">
-                <Home className="h-8 w-8 text-cyan-500 dark:text-cyan-400" />
+                <Home className="h-8 w-8 text-[var(--color-primary)] dark:text-cyan-400" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">

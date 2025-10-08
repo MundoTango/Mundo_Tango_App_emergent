@@ -68,10 +68,10 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
         
         <CardContent className="space-y-6">
           <div className="text-center">
-            <p className="text-gray-600 mb-2">
+            <p className="text-gray-600 dark:text-gray-300 mb-2">
               We're sorry, but something unexpected happened. Don't worry, your data is safe!
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               The error has been logged and our team will look into it.
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleGoHome}
               variant="outline"
-              className="w-full border-turquoise-200 hover:bg-turquoise-50" data-testid="button-w-full">
+              className="w-full border-turquoise-200 hover:bg-[var(--color-ocean-50)]" data-testid="button-w-full">
 
               <Home className="w-4 h-4 mr-2" />
               Go to Homepage
@@ -119,7 +119,7 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
             <Button
               onClick={handleReportError}
               variant="ghost"
-              className="w-full hover:bg-turquoise-50"
+              className="w-full hover:bg-[var(--color-ocean-50)]"
               disabled={reportSent} data-testid="button-w-full">
 
               {reportSent ?
@@ -138,33 +138,33 @@ export default function ErrorBoundaryPage({ error, resetError }: ErrorBoundaryPa
 
           <div className="border-t pt-6">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <FileQuestion className="w-5 h-5 text-turquoise-600" />
+              <FileQuestion className="w-5 h-5 text-[var(--color-primary-hover)]" />
               Common Solutions
             </h4>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
               <li className="flex items-start gap-2">
-                <span className="text-turquoise-600 mt-0.5">•</span>
+                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
                 <span>Clear your browser cache and cookies</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-turquoise-600 mt-0.5">•</span>
+                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
                 <span>Check your internet connection</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-turquoise-600 mt-0.5">•</span>
+                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
                 <span>Try using a different browser</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-turquoise-600 mt-0.5">•</span>
+                <span className="text-[var(--color-primary-hover)] mt-0.5">•</span>
                 <span>Disable browser extensions temporarily</span>
               </li>
             </ul>
           </div>
 
           <div className="text-center pt-4 border-t">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Need more help? Contact us at{' '}
-              <a href="mailto:support@mundotango.life" className="text-turquoise-600 hover:underline" data-testid="a-text-turquoise-600">
+              <a href="mailto:support@mundotango.life" className="text-[var(--color-primary-hover)] hover:underline" data-testid="a-text-[var(--color-primary-hover)]">
                 support@mundotango.life
               </a>
             </p>

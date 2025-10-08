@@ -142,7 +142,7 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
       case 'accepted':return 'bg-green-100 text-green-800 border-green-200';
       case 'declined':return 'bg-red-100 text-red-800 border-red-200';
       case 'pending':return 'bg-orange-100 text-orange-800 border-orange-200';
-      default:return 'bg-gray-100 text-gray-800 border-gray-200';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]';
     }
   };
 

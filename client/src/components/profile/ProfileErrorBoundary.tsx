@@ -1,4 +1,5 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { AlertCircle, RefreshCw, Home } from 'lucide-react';
 import { Link } from 'wouter';
 import { GlassCard } from '@/components/glass/GlassComponents';
@@ -43,9 +44,9 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
     
     // Send to error tracking service (e.g., Sentry)
     if (typeof window !== 'undefined' && window.plausible) {
-      window.plausible('Error', {
+      window.plausible({t('states.error', 'Error')}, {
         props: {
-          component: 'Profile',
+          component: {t('navigation.profile', 'Profile')},
           error: error.message,
           stack: errorInfo.componentStack
         }
@@ -94,7 +95,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                 <AlertCircle className="w-10 h-10 text-red-600 dark:text-red-400" />
               </div>
               
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white mb-2">
                 Oops! Something went wrong
               </h2>
               
@@ -105,10 +106,10 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
               {/* Error details in development */}
               {process.env.NODE_ENV === 'development' && error && (
                 <details className="w-full mb-6 text-left">
-                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                  <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)] dark:hover:text-gray-200">
                     Error details
                   </summary>
-                  <pre className="mt-2 p-4 bg-gray-100 dark:bg-gray-900 rounded text-xs overflow-auto">
+                  <pre className="mt-2 p-4 bg-[var(--color-neutral-100)] dark:bg-gray-900 rounded text-xs overflow-auto">
                     {error.toString()}
                   </pre>
                 </details>
@@ -120,7 +121,7 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
                   <button
                     onClick={this.handleRetry}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
+                   aria-label="Button">
                     <RefreshCw className="w-4 h-4" />
                     Try Again {retryCount > 0 && `(${3 - retryCount} left)`}
                   </button>
@@ -128,14 +129,14 @@ export default class ProfileErrorBoundary extends Component<Props, State> {
 
                 <button
                   onClick={this.handleReload}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                >
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-[var(--color-text-secondary)] dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                 aria-label="Button">
                   <RefreshCw className="w-4 h-4" />
                   Reload Page
                 </button>
 
                 <Link href="/">
-                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                  <a className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-[var(--color-text-secondary)] dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                     <Home className="w-4 h-4" />
                     Go Home
                   </a>

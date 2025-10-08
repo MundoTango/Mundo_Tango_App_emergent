@@ -449,12 +449,12 @@ I'll analyze your request and activate the appropriate framework layers and phas
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-turquoise-500 to-blue-600 rounded-lg">
+          <div className="p-3 bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] rounded-lg">
             <Brain className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Life CEO Framework Agent</h2>
-            <p className="text-sm text-gray-600">Natural language interface to the 40L x 20P framework</p>
+            <h2 className="text-xl font-bold text-[var(--color-text)] dark:text-white">Life CEO Framework Agent</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Natural language interface to the 40L x 20P framework</p>
           </div>
         </div>
         <Button
@@ -469,25 +469,25 @@ I'll analyze your request and activate the appropriate framework layers and phas
 
       {/* Capabilities Overview */}
       {showCapabilities &&
-      <Card className="border-turquoise-200 bg-turquoise-50/50">
+      <Card className="border-turquoise-200 bg-[var(--color-ocean-50)]/50">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-turquoise-600" />
+              <Sparkles className="w-5 h-5 text-[var(--color-primary-hover)]" />
               Agent Capabilities
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {FRAMEWORK_MAPPINGS.map((mapping, idx) =>
-            <div key={idx} className="p-3 bg-white rounded-lg border border-turquoise-200">
-                  <h4 className="font-semibold text-sm text-gray-900 mb-1">
+            <div key={idx} className="p-3 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg border border-turquoise-200">
+                  <h4 className="font-semibold text-sm text-[var(--color-text)] dark:text-white mb-1">
                     {mapping.description}
                   </h4>
                   <div className="space-y-1">
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-gray-600 dark:text-gray-300">
                       Layers: {mapping.layers.map((l) => `L${l}`).join(', ')}
                     </p>
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-gray-600 dark:text-gray-300">
                       Phases: {mapping.phases.map((p) => `P${p}`).join(', ')}
                     </p>
                   </div>
@@ -526,23 +526,23 @@ I'll analyze your request and activate the appropriate framework layers and phas
                 }>
 
                   {message.role === 'agent' &&
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-blue-600 flex items-center justify-center text-white">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white">
                       <Brain className="w-4 h-4" />
                     </div>
                 }
                   <div
                   className={`max-w-[70%] rounded-lg p-4 ${
                   message.role === 'user' ?
-                  'bg-turquoise-100 text-gray-900' :
-                  'bg-gray-100 text-gray-900'}`
+                  'bg-turquoise-100 text-[var(--color-text)] dark:text-white' :
+                  'bg-[var(--color-neutral-100)] text-[var(--color-text)] dark:text-white'}`
                   }>
 
                     <div className="prose prose-sm max-w-none">
                       <div className="whitespace-pre-wrap">{message.content}</div>
                     </div>
                     {message.analysis &&
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
+                  <div className="mt-3 pt-3 border-t border-[var(--color-border)]">
+                        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
                           <Target className="w-3 h-3" />
                           Confidence: {message.analysis?.confidence || 0}%
                         </div>
@@ -557,12 +557,12 @@ I'll analyze your request and activate the appropriate framework layers and phas
                     )}
                       </div>
                   }
-                    <div className="mt-2 text-xs text-gray-500">
+                    <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                       {format(message.timestamp, 'HH:mm')}
                     </div>
                   </div>
                   {message.role === 'user' &&
-                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-700">
+                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-[var(--color-text-secondary)]">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                 }
@@ -570,13 +570,13 @@ I'll analyze your request and activate the appropriate framework layers and phas
               )}
               {isProcessing &&
               <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-blue-600 flex items-center justify-center text-white">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-turquoise-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white">
                     <Brain className="w-4 h-4" />
                   </div>
-                  <div className="bg-gray-100 rounded-lg p-4">
+                  <div className="bg-[var(--color-neutral-100)] rounded-lg p-4">
                     <div className="flex items-center gap-2">
-                      <RefreshCw className="w-4 h-4 animate-spin text-turquoise-600" />
-                      <span className="text-sm text-gray-600">Analyzing your request...</span>
+                      <RefreshCw className="w-4 h-4 animate-spin text-[var(--color-primary-hover)]" />
+                      <span className="text-sm text-gray-600 dark:text-gray-300">Analyzing your request...</span>
                     </div>
                   </div>
                 </div>
@@ -603,12 +603,12 @@ I'll analyze your request and activate the appropriate framework layers and phas
               <Button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isProcessing}
-                className="bg-gradient-to-r from-turquoise-500 to-blue-600 text-white" data-testid="button-bg-gradient-to-r">
+                className="bg-gradient-to-r from-turquoise-500 to-[var(--color-ocean-600)] text-white" data-testid="button-bg-gradient-to-r">
 
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               Press Enter to send, Shift+Enter for new line
             </p>
           </div>

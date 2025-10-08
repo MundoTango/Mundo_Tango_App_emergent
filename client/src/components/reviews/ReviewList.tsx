@@ -28,7 +28,7 @@ export function ReviewList({
         <GlassCard depth={2} className="text-center py-12 border-cyan-200/30 dark:border-cyan-500/30" data-testid="empty-reviews">
           <div className="flex flex-col items-center gap-4">
             <div className="w-16 h-16 glass-card glass-depth-1 rounded-full flex items-center justify-center border-cyan-200/30 dark:border-cyan-500/30">
-              <Star className="w-8 h-8 text-cyan-500 dark:text-cyan-400" />
+              <Star className="w-8 h-8 text-[var(--color-primary)] dark:text-cyan-400" />
             </div>
             <p className="text-slate-600 dark:text-slate-400">{defaultEmptyMessage}</p>
           </div>

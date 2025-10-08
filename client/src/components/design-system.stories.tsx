@@ -2,9 +2,9 @@ import type { Story } from '@ladle/react';
 import { GlassCard } from '@/components/glass/GlassComponents';
 
 export const Welcome: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <GlassCard depth={2} className="max-w-4xl mx-auto p-12">
-      <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+      <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-[var(--color-ocean-400)] to-[var(--color-ocean-500)] bg-clip-text text-transparent">
         Aurora Tide Design System
       </h1>
       <p className="text-lg text-neutral-700 dark:text-neutral-300 mb-8">
@@ -34,7 +34,7 @@ export const Welcome: Story = () => (
         </div>
       </div>
       
-      <div className="mt-8 p-4 bg-cyan-500/10 rounded-lg border border-cyan-400/20">
+      <div className="mt-8 p-4 bg-[var(--color-primary)]/10 rounded-lg border border-cyan-400/20">
         <p className="text-sm">
           <strong>Token System:</strong> View generated tokens at{' '}
           <code className="px-2 py-1 bg-black/10 rounded">build/css/tokens.css</code>
@@ -88,7 +88,7 @@ export const ColorTokens: Story = () => (
 );
 
 export const GlassCards: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">GlassCard Depth Levels</h2>
     <div className="grid md:grid-cols-2 gap-6">
       {[1, 2, 3, 4].map(depth => (

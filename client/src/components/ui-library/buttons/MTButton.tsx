@@ -35,11 +35,11 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
   );
 
   const variants = {
-    primary: 'bg-teal-400 hover:bg-teal-500 text-white shadow-lg hover:shadow-xl',
+    primary: 'bg-teal-400 hover:bg-[var(--color-primary)] text-white shadow-lg hover:shadow-xl',
     secondary: 'bg-purple-500 hover:bg-purple-600 text-white shadow-lg hover:shadow-xl',
-    ghost: 'bg-transparent hover:bg-teal-50 dark:hover:bg-teal-900/20 text-teal-700 dark:text-teal-300',
-    gradient: 'bg-gradient-to-r from-teal-300 to-blue-900 hover:from-teal-400 hover:to-blue-800 text-white shadow-lg hover:shadow-2xl',
-    glass: 'bg-white/20 dark:bg-gray-900/20 backdrop-blur-md border border-white/30 dark:border-white/10 text-teal-700 dark:text-teal-300 hover:bg-white/30 dark:hover:bg-gray-900/30'
+    ghost: 'bg-transparent hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/20 text-[var(--color-primary-hover)] dark:text-teal-300',
+    gradient: 'bg-gradient-to-r from-teal-300 to-blue-900 hover:from-[var(--color-ocean-400)] hover:to-blue-800 text-white shadow-lg hover:shadow-2xl',
+    glass: 'bg-[var(--color-surface)]/20 dark:bg-gray-900/20 backdrop-blur-md border border-white/30 dark:border-white/10 text-[var(--color-primary-hover)] dark:text-teal-300 hover:bg-[var(--color-surface)]/30 dark:hover:bg-gray-900/30'
   };
 
   const sizes = {
@@ -62,7 +62,7 @@ const MTButton = React.forwardRef<HTMLButtonElement, MTButtonProps>(({
         className
       )}
       disabled={disabled || isLoading}
-      {...props} data-testid="button-element">
+      {...props} data-testid="button-element" aria-label="Button">
 
       {isLoading &&
       <Loader2 className="mr-2 h-4 w-4 animate-spin" />

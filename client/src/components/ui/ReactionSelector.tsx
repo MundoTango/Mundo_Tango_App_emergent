@@ -36,7 +36,7 @@ export const REACTION_TYPES: Reaction[] = [
   { id: 'inspiration', emoji: '💫', label: 'Inspiring', color: 'text-ocean-500', category: 'support' },
   
   // Sadness
-  { id: 'sad', emoji: '😢', label: 'Sad', color: 'text-gray-500', category: 'sad' }
+  { id: 'sad', emoji: '😢', label: 'Sad', color: 'text-gray-500 dark:text-gray-400', category: 'sad' }
 ];
 
 interface ReactionSelectorProps {
@@ -83,10 +83,10 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
             group flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200
             ${currentReaction 
               ? 'bg-pink-100 text-pink-600 hover:bg-pink-200' 
-              : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-pink-50 hover:text-pink-500'
             }
           `}
-          onClick={() => currentReaction ? onReact('') : onReact('love')}
+          onClick={() = aria-label="Button"> currentReaction ? onReact('') : onReact('love')}
           onMouseEnter={() => {
             setIsHovering(true);
             setTimeout(() => setShowReactions(true), 500);
@@ -110,7 +110,7 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
       {/* Reaction Picker Popup */}
       {showReactions && (
         <div 
-          className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50 dark:bg-neutral-900"
+          className="absolute bottom-full left-0 mb-2 bg-[var(--color-surface)] rounded-full shadow-lg border border-gray-100 px-2 py-1 z-50 dark:bg-neutral-900"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => {
             setIsHovering(false);
@@ -123,10 +123,10 @@ export const ReactionSelector: React.FC<ReactionSelectorProps> = ({
                 key={reaction.id}
                 className={`
                   p-2 rounded-full transition-all duration-150
-                  hover:scale-110 hover:bg-gray-50
+                  hover:scale-110 hover:bg-[var(--color-surface-elevated)]
                   ${currentReaction === reaction.id ? 'bg-blue-50' : ''}
                 `}
-                onClick={() => handleReactionClick(reaction.id)}
+                onClick={() = aria-label="Button"> handleReactionClick(reaction.id)}
                 title={reaction.label}
               >
                 <span className="text-lg">

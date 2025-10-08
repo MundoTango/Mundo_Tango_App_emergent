@@ -37,7 +37,7 @@ export default function EventMap({ events, cityLat, cityLng, onEventClick }: Eve
         const popupContent = `
           <div class="p-3 min-w-[200px]">
             <h3 class="font-semibold text-lg mb-2">${event.title}</h3>
-            <div class="space-y-1 text-sm text-gray-600">
+            <div class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   ${MARKER_ICONS.calendar}
@@ -64,7 +64,7 @@ export default function EventMap({ events, cityLat, cityLng, onEventClick }: Eve
               </div>
             </div>
             ${onEventClick ? `
-              <button class="mt-3 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition">
+              <button class="mt-3 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-1.5 rounded-lg text-sm hover:opacity-90 transition" aria-label="Button">
                 View Details
               </button>
             ` : ''}

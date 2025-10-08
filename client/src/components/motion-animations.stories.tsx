@@ -14,7 +14,7 @@ import {
 import { GlassCard } from '@/components/glass/GlassComponents';
 
 export const FadeInAnimation: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Fade In Animation</h2>
     <FadeIn className="max-w-md">
       <GlassCard depth={2} className="p-6">
@@ -28,7 +28,7 @@ export const FadeInAnimation: Story = () => (
 );
 
 export const FadeInUpAnimation: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Fade In Up Animation</h2>
     <div className="grid md:grid-cols-3 gap-6">
       {[0, 0.1, 0.2].map((delay, i) => (
@@ -46,7 +46,7 @@ export const FadeInUpAnimation: Story = () => (
 );
 
 export const ScaleInAnimation: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Scale In Animation</h2>
     <ScaleIn className="max-w-md">
       <GlassCard depth={3} className="p-8 text-center">
@@ -60,7 +60,7 @@ export const ScaleInAnimation: Story = () => (
 );
 
 export const SlideInAnimations: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Slide In Animations</h2>
     <div className="grid md:grid-cols-2 gap-8">
       <SlideInLeft>
@@ -85,7 +85,7 @@ export const SlideInAnimations: Story = () => (
 );
 
 export const StaggerAnimation: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Stagger Container Animation</h2>
     <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-3 gap-6">
       {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -103,7 +103,7 @@ export const StaggerAnimation: Story = () => (
 );
 
 export const InteractiveAnimations: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Interactive Hover & Tap Animations</h2>
     
     <div className="space-y-8">
@@ -122,10 +122,10 @@ export const InteractiveAnimations: Story = () => (
       <div>
         <h3 className="text-lg font-semibold text-white mb-4">Animated Buttons</h3>
         <div className="flex gap-4">
-          <AnimatedButton className="px-6 py-3 bg-cyan-500 text-white rounded-lg font-semibold">
+          <AnimatedButton className="px-6 py-3 bg-[var(--color-primary)] text-white rounded-lg font-semibold">
             Primary Button
           </AnimatedButton>
-          <AnimatedButton className="px-6 py-3 bg-white/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold">
+          <AnimatedButton className="px-6 py-3 bg-[var(--color-surface)] dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 text-white rounded-lg font-semibold">
             Glass Button
           </AnimatedButton>
         </div>
@@ -135,7 +135,7 @@ export const InteractiveAnimations: Story = () => (
 );
 
 export const SpringAnimations: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Spring Animations</h2>
     
     <div className="grid md:grid-cols-3 gap-6">

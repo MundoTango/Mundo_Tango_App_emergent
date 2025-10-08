@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { io, Socket } from 'socket.io-client';
 import { format } from 'date-fns';
@@ -39,7 +40,8 @@ export default function Messages() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { toast } = useToast();
+  const {
+  const { t } = useTranslation(); toast } = useToast();
   const queryClient = useQueryClient();
 
   // Get current user
@@ -128,7 +130,7 @@ export default function Messages() {
     },
     onError: () => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to send message',
         variant: 'destructive'
       });
@@ -186,14 +188,14 @@ export default function Messages() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
           Messages
         </h1>
-        <p className="text-gray-600 mt-2">Connect with your tango community</p>
+        <p className="text-gray-600 dark:text-gray-300 mt-2">Connect with your tango community</p>
       </div>
 
       <Card className="glassmorphic-card h-[600px] overflow-hidden">
         <div className="flex h-full">
           {/* Conversations list */}
-          <div className={`w-full md:w-1/3 border-r border-gray-200 ${selectedConversation ? 'hidden md:block' : ''}`}>
-            <div className="p-4 border-b border-gray-200">
+          <div className={`w-full md:w-1/3 border-r border-[var(--color-border)] ${selectedConversation ? 'hidden md:block' : ''}`}>
+            <div className="p-4 border-b border-[var(--color-border)]">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
@@ -205,7 +207,7 @@ export default function Messages() {
             
             <ScrollArea className="h-[calc(100%-73px)]">
               {conversations.length === 0 ?
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
                   <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                   <p>No conversations yet</p>
                   <p className="text-sm mt-2">Start a conversation from a user's profile</p>
@@ -215,8 +217,8 @@ export default function Messages() {
               <div
                 key={conversation.id}
                 onClick={() => setSelectedConversation(conversation.id)}
-                className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
-                selectedConversation === conversation.id ? 'bg-turquoise-50' : ''}`
+                className={`p-4 hover:bg-[var(--color-surface-elevated)] cursor-pointer transition-colors ${
+                selectedConversation === conversation.id ? 'bg-[var(--color-ocean-50)]' : ''}`
                 }>
 
                     <div className="flex items-center space-x-3">
@@ -233,19 +235,19 @@ export default function Messages() {
                         <div className="flex justify-between items-baseline">
                           <h3 className="font-semibold truncate">{conversation.user.name}</h3>
                           {conversation.lastMessage &&
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                               {format(new Date(conversation.lastMessage.createdAt), 'MMM d')}
                             </span>
                       }
                         </div>
                         {conversation.lastMessage &&
-                    <p className="text-sm text-gray-600 truncate">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 truncate">
                             {conversation.lastMessage.content}
                           </p>
                     }
                       </div>
                       {conversation.unreadCount > 0 &&
-                  <div className="bg-turquoise-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <div className="bg-[var(--color-primary)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                           {conversation.unreadCount}
                         </div>
                   }
@@ -260,10 +262,10 @@ export default function Messages() {
           {selectedConversation ?
           <div className="flex-1 flex flex-col">
               {/* Header */}
-              <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-turquoise-50 to-cyan-50">
+              <div className="p-4 border-b border-[var(--color-border)] bg-gradient-to-r from-turquoise-50 to-cyan-50">
                 <div className="flex items-center space-x-3">
                   <button
-                  onClick={() => setSelectedConversation(null)}
+                  onClick={() = aria-label="Button"> setSelectedConversation(null)}
                   className="md:hidden" data-testid="button-md-hidden">
 
                     <ArrowLeft className="w-5 h-5" />
@@ -279,7 +281,7 @@ export default function Messages() {
                       {conversations.find((c: Conversation) => c.id === selectedConversation)?.user.name}
                     </h2>
                     {isTyping &&
-                  <p className="text-sm text-gray-600">typing...</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">typing...</p>
                   }
                   </div>
                 </div>
@@ -297,12 +299,12 @@ export default function Messages() {
                     className={`max-w-[70%] px-4 py-2 rounded-lg ${
                     msg.senderId === user?.id ?
                     'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white' :
-                    'bg-gray-100'}`
+                    'bg-[var(--color-neutral-100)]'}`
                     }>
 
                         <p>{msg.content}</p>
                         <p className={`text-xs mt-1 ${
-                    msg.senderId === user?.id ? 'text-white/70' : 'text-gray-500'}`
+                    msg.senderId === user?.id ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'}`
                     }>
                           {format(new Date(msg.createdAt), 'HH:mm')}
                         </p>
@@ -313,7 +315,7 @@ export default function Messages() {
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-4 border-t border-gray-200">
+              <div className="p-4 border-t border-[var(--color-border)]">
                 <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -342,7 +344,7 @@ export default function Messages() {
             </div> :
 
           <div className="flex-1 hidden md:flex items-center justify-center">
-              <div className="text-center text-gray-500">
+              <div className="text-center text-gray-500 dark:text-gray-400">
                 <MessageCircle className="w-16 h-16 mx-auto mb-4 text-gray-300" />
                 <p className="text-lg">Select a conversation to start messaging</p>
               </div>

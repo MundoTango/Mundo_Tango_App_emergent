@@ -94,7 +94,7 @@ export default function Messages() {
                 <CardContent className="p-0 h-full flex flex-col">
                   
                   {/* Header */}
-                  <div className="p-4 border-b border-gray-200">
+                  <div className="p-4 border-b border-[var(--color-border)]">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
                       <Button size="sm" className="bg-tango-red hover:bg-tango-red/90" data-testid="button-bg-tango-red">
@@ -121,10 +121,10 @@ export default function Messages() {
                         {[...Array(8)].map((_, i) =>
                       <div key={i} className="p-4 animate-pulse">
                             <div className="flex items-center space-x-3">
-                              <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                              <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                               <div className="flex-1 space-y-2">
-                                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                               </div>
                             </div>
                           </div>
@@ -174,7 +174,7 @@ export default function Messages() {
                                 </div>
                               </div>
                               {room.lastMessage &&
-                          <p className="text-xs text-gray-500 truncate mt-1">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-1">
                                   {room.lastMessage}
                                 </p>
                           }
@@ -187,10 +187,10 @@ export default function Messages() {
                         <div className="text-gray-400 mb-4">
                           <MessageCircle className="h-16 w-16 mx-auto" />
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                        <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2">
                           {searchQuery ? 'No conversations found' : 'No messages yet'}
                         </h3>
-                        <p className="text-gray-500 text-sm">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">
                           {searchQuery ?
                         'Try adjusting your search terms' :
                         'Start a conversation with other tango dancers!'
@@ -217,10 +217,10 @@ export default function Messages() {
                       <div className="text-gray-400 mb-4">
                         <MessageCircle className="h-24 w-24 mx-auto" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
                         Select a conversation
                       </h3>
-                      <p className="text-gray-500">
+                      <p className="text-gray-500 dark:text-gray-400">
                         Choose a conversation from the sidebar to start chatting
                       </p>
                     </div>

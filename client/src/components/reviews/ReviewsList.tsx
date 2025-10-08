@@ -40,7 +40,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
     return (
       <GlassCard depth={1} className="p-8 border-cyan-200/30 dark:border-cyan-500/30">
         <div className="text-center">
-          <Star className="w-12 h-12 mx-auto mb-3 text-cyan-500" />
+          <Star className="w-12 h-12 mx-auto mb-3 text-[var(--color-primary)]" />
           <p className="text-slate-600 dark:text-slate-400">
             {t('housing.reviews.no_reviews', 'No reviews yet. Be the first to review this property!')}
           </p>
@@ -59,7 +59,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
       <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
         <div className="flex items-center gap-4">
           <div className="text-center">
-            <div className="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">
+            <div className="text-4xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-teal-500 bg-clip-text text-transparent">
               {avgRating.toFixed(1)}
             </div>
             <div className="flex items-center gap-1 mt-1">
@@ -68,7 +68,7 @@ export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps)
                   key={i}
                   className={`w-4 h-4 ${
                     i < Math.round(avgRating)
-                      ? 'fill-cyan-500 text-cyan-500'
+                      ? 'fill-cyan-500 text-[var(--color-primary)]'
                       : 'text-slate-300 dark:text-slate-600'
                   }`}
                 />

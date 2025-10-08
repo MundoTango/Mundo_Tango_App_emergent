@@ -59,8 +59,8 @@ export default function FriendshipPage() {
       <DashboardLayout>
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-4">
-            <div className="h-64 bg-gray-200 rounded-lg" />
-            <div className="h-32 bg-gray-200 rounded-lg" />
+            <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+            <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg" />
           </div>
         </div>
       </DashboardLayout>);
@@ -136,11 +136,11 @@ export default function FriendshipPage() {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
             <div className="text-center">
-              <div className="text-2xl font-bold text-turquoise-600">{friendship.stats?.totalDances || 0}</div>
+              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{friendship.stats?.totalDances || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Dances Together</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-cyan-600">{friendship.stats?.sharedEvents || 0}</div>
+              <div className="text-2xl font-bold text-[var(--color-primary-hover)]">{friendship.stats?.sharedEvents || 0}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Shared Events</div>
             </div>
             <div className="text-center">
@@ -163,7 +163,7 @@ export default function FriendshipPage() {
       {mutualFriends && mutualFriends.length > 0 &&
         <Card className="p-6 glassmorphic-card">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-turquoise-500" />
+            <Users className="w-5 h-5 text-[var(--color-primary)]" />
             Mutual Friends ({mutualFriends.length})
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">

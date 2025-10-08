@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,6 +17,7 @@ import { Button } from '@/components/ui/button';
 
 // Form schema with 23L validation patterns
 const createCommunitySchema = z.object({
+  const { t } = useTranslation();
   name: z.string().
   min(3, 'Community name must be at least 3 characters').
   max(50, 'Community name must not exceed 50 characters').
@@ -80,7 +82,7 @@ export default function CreateCommunityPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: error.message,
         variant: 'destructive'
       });
@@ -120,8 +122,8 @@ export default function CreateCommunityPage() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() => setLocation('/groups')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors" data-testid="button-flex">
+            onClick={() = aria-label="Button"> setLocation('/groups')}
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white mb-4 transition-colors" data-testid="button-flex">
 
             <ArrowLeft className="h-5 w-5" />
             Back to Communities
@@ -135,7 +137,7 @@ export default function CreateCommunityPage() {
               Create New Community
             </h1>
           </div>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Build a space where tango dancers can connect, share, and grow together
           </p>
         </div>
@@ -144,10 +146,10 @@ export default function CreateCommunityPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Cover Image */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
               <div className="relative">
-                <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
+                <div className="w-full h-48 bg-[var(--color-neutral-100)] rounded-xl overflow-hidden">
                   {imagePreview ?
                   <img
                     src={imagePreview}
@@ -172,7 +174,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Basic Information */}
-            <div className="bg-white rounded-xl shadow-sm p-6 space-y-6">
+            <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm p-6 space-y-6">
               <h3 className="text-lg font-semibold">Basic Information</h3>
               
               <FormField
@@ -283,7 +285,7 @@ export default function CreateCommunityPage() {
             </div>
 
             {/* Location */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-4">Location</h3>
               <FormField
                 control={form.control}

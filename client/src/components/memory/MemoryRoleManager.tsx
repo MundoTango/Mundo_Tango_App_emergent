@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,6 +22,7 @@ export function MemoryRoleManager() {
 
   const [selectedRole, setSelectedRole] = useState('');
   const [customRoleRequest, setCustomRoleRequest] = useState({
+  const { t } = useTranslation();
     roleName: '',
     description: '',
     memoryPermissions: [],
@@ -67,7 +69,7 @@ export function MemoryRoleManager() {
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to submit custom role request.",
         variant: "destructive"
       });
@@ -125,8 +127,8 @@ export function MemoryRoleManager() {
         <CardContent className="space-y-4">
           {rolesLoading ?
           <div className="animate-pulse space-y-2">
-              <div className="h-4 bg-gray-200 rounded w-1/3"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
             </div> :
 
           <>
@@ -227,7 +229,7 @@ export function MemoryRoleManager() {
             <div key={circle.id} className="flex items-center justify-between p-3 border rounded-lg">
                   <div>
                     <div className="font-medium">{circle.trusted_user_name}</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
                       Trust Level: {circle.trust_level} • Access: {circle.emotional_access_level}
                     </div>
                   </div>
@@ -241,7 +243,7 @@ export function MemoryRoleManager() {
             )}
             </div> :
 
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               <Users className="h-12 w-12 mx-auto mb-3 opacity-30" />
               <p>No trust circles established yet</p>
               <Button variant="outline" className="mt-3" data-testid="button-mt-3">
@@ -379,7 +381,7 @@ export function MemoryRoleManager() {
                           <label htmlFor={level.value} className="text-sm font-medium">
                             {level.label}
                           </label>
-                          <p className="text-xs text-gray-600">{level.description}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-300">{level.description}</p>
                         </div>
                       </div>
                     )}
@@ -423,25 +425,25 @@ export function MemoryRoleManager() {
               <div className="text-2xl font-bold text-green-600">
                 {memoryPermissions?.publicCount || 0}
               </div>
-              <div className="text-sm text-gray-600">Public Memories</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Public Memories</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-blue-600">
                 {memoryPermissions?.friendsCount || 0}
               </div>
-              <div className="text-sm text-gray-600">Friends Only</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Friends Only</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-purple-600">
                 {memoryPermissions?.trustedCount || 0}
               </div>
-              <div className="text-sm text-gray-600">Trusted Circle</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Trusted Circle</div>
             </div>
             <div className="text-center p-4 border rounded-lg">
               <div className="text-2xl font-bold text-red-600">
                 {memoryPermissions?.privateCount || 0}
               </div>
-              <div className="text-sm text-gray-600">Private</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Private</div>
             </div>
           </div>
         </CardContent>
@@ -453,7 +455,7 @@ export function MemoryRoleManager() {
         onClose={() => setShowCreateMemoryModal(false)}
         onMemoryCreated={(memory) => {
           toast({
-            title: "Success",
+            title: {t('states.success', 'Success')},
             description: "Memory created successfully!"
           });
           setShowCreateMemoryModal(false);

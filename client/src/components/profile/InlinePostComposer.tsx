@@ -110,7 +110,7 @@ export default function InlinePostComposer({
             
             {/* Character Count */}
             {content.length > 0 &&
-            <div className="absolute bottom-2 right-2 text-xs text-gray-500">
+            <div className="absolute bottom-2 right-2 text-xs text-gray-500 dark:text-gray-400">
                 {content.length}/500
               </div>
             }
@@ -121,7 +121,7 @@ export default function InlinePostComposer({
           <>
               {/* Quick Tags */}
               <div className="space-y-2">
-                <div className="text-sm text-gray-600">Add tags:</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Add tags:</div>
                 <div className="flex flex-wrap gap-2">
                   {quickTags.map((tag) =>
                 <Button
@@ -131,8 +131,8 @@ export default function InlinePostComposer({
                   className={cn(
                     "h-7 text-xs",
                     tags.includes(tag) ?
-                    "bg-turquoise-500 hover:bg-turquoise-600 text-white" :
-                    "border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50"
+                    "bg-[var(--color-primary)] hover:bg-turquoise-600 text-white" :
+                    "border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]"
                   )}
                   onClick={() => tags.includes(tag) ? removeTag(tag) : addTag(tag)} data-testid="button-element">
 
@@ -152,7 +152,7 @@ export default function InlinePostComposer({
 
                       #{tag}
                       <button
-                  onClick={() => removeTag(tag)}
+                  onClick={() = aria-label="Button"> removeTag(tag)}
                   className="hover:text-turquoise-900" data-testid="button-hover-text-turquoise-900">
 
                         <X className="h-3 w-3" />
@@ -164,11 +164,11 @@ export default function InlinePostComposer({
 
               {/* Location Input */}
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-turquoise-600" />
+                <MapPin className="h-4 w-4 text-[var(--color-primary-hover)]" />
                 <input
                 type="text"
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) = aria-label="Input field"> setLocation(e.target.value)}
                 placeholder="Add location (optional)"
                 className="flex-1 text-sm px-2 py-1 border border-turquoise-200 rounded-md focus:outline-none focus:border-turquoise-400" data-testid="input-text" />
 
@@ -182,7 +182,7 @@ export default function InlinePostComposer({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
+                className="h-8 text-[var(--color-primary-hover)] hover:text-turquoise-700 hover:bg-[var(--color-ocean-50)]"
                 disabled data-testid="button-h-8">
 
                 <Image className="h-4 w-4" />
@@ -190,7 +190,7 @@ export default function InlinePostComposer({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
+                className="h-8 text-[var(--color-primary-hover)] hover:text-turquoise-700 hover:bg-[var(--color-ocean-50)]"
                 disabled data-testid="button-h-8">
 
                 <Video className="h-4 w-4" />
@@ -198,7 +198,7 @@ export default function InlinePostComposer({
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 text-turquoise-600 hover:text-turquoise-700 hover:bg-turquoise-50"
+                className="h-8 text-[var(--color-primary-hover)] hover:text-turquoise-700 hover:bg-[var(--color-ocean-50)]"
                 onClick={() => setIsExpanded(!isExpanded)} data-testid="button-h-8">
 
                 <Tag className="h-4 w-4" />
@@ -216,7 +216,7 @@ export default function InlinePostComposer({
                   setTags([]);
                   setLocation('');
                 }}
-                className="h-8 text-gray-600 hover:text-gray-700" data-testid="button-h-8">
+                className="h-8 text-gray-600 dark:text-gray-300 hover:text-[var(--color-text-secondary)]" data-testid="button-h-8">
 
                   Cancel
                 </Button>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Calendar, MapPin, Globe, Edit2, Trash2, Plus, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -64,14 +65,14 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: "Success",
+        title: {t('states.success', 'Success')},
         description: "Travel detail deleted successfully"
       });
       setDeletingTravelId(null);
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to delete travel detail",
         variant: "destructive"
       });
@@ -97,11 +98,11 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -151,7 +152,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold flex items-center gap-2">
-          <Globe className="w-5 h-5 text-turquoise-500" />
+          <Globe className="w-5 h-5 text-[var(--color-primary)]" />
           Travel Details
         </h3>
         {isOwnProfile &&
@@ -169,7 +170,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* No travel details message */}
       {(!travelDetails || travelDetails.length === 0) &&
       <Card className="p-8 text-center border-dashed glassmorphic-card">
-          <Globe className="w-12 h-12 mx-auto mb-4 text-turquoise-500" />
+          <Globe className="w-12 h-12 mx-auto mb-4 text-[var(--color-primary)]" />
           <p className="text-gray-600 mb-4">
             {isOwnProfile ? "You haven't added any travel details yet." : "No travel details available."}
           </p>
@@ -177,7 +178,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
         <Button
           onClick={() => setShowAddModal(true)}
           variant="outline"
-          className="border-turquoise-300 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20" data-testid="button-border-turquoise-300">
+          className="border-[var(--color-ocean-300)] hover:bg-[var(--color-ocean-50)] dark:hover:bg-turquoise-900/20" data-testid="button-border-[var(--color-ocean-300)]">
 
               <Plus className="w-4 h-4 mr-1" />
               Add Your First Travel
@@ -189,7 +190,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Upcoming Travels */}
       {upcomingTravels && upcomingTravels.length > 0 &&
       <div className="space-y-4">
-          <h4 className="font-medium text-gray-700 dark:text-gray-300">Upcoming & Ongoing</h4>
+          <h4 className="font-medium text-[var(--color-text-secondary)] dark:text-gray-300">Upcoming & Ongoing</h4>
           <div className="grid gap-4">
             {upcomingTravels.map((travel: TravelDetail) =>
           <TravelCard
@@ -207,7 +208,7 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
       {/* Past Travels */}
       {pastTravels && pastTravels.length > 0 &&
       <div className="space-y-4">
-          <h4 className="font-medium text-gray-700 dark:text-gray-300">Past Travels</h4>
+          <h4 className="font-medium text-[var(--color-text-secondary)] dark:text-gray-300">Past Travels</h4>
           <div className="grid gap-4">
             {pastTravels.map((travel: TravelDetail) =>
           <TravelCard
@@ -290,11 +291,11 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
       case 'ongoing':
         return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
       case 'completed':
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
       case 'cancelled':
         return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
       default:
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400';
+        return 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] dark:bg-gray-900/30 dark:text-gray-400';
     }
   };
 
@@ -328,7 +329,7 @@ const TravelCard: React.FC<TravelCardProps> = ({ travel, isOwnProfile, onEdit, o
             <span className="text-2xl">{getEventTypeIcon(travel.eventType)}</span>
             <div>
               {travel.eventName &&
-              <h5 className="font-medium text-gray-900 dark:text-gray-100">
+              <h5 className="font-medium text-[var(--color-text)] dark:text-gray-100">
                   {travel.eventName}
                 </h5>
               }

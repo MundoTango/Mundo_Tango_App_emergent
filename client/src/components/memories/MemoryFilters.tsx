@@ -98,12 +98,12 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
   };
 
   return (
-    <Card className="mb-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50">
+    <Card className="mb-6 bg-[var(--color-surface)]/90 dark:bg-gray-900/90 backdrop-blur-sm border-[var(--color-border)]/50 dark:border-gray-700/50">
       <CardContent className="p-4">
         {/* Filter Memories Header */}
         <div className="flex items-center gap-2 mb-4">
           <Filter className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">
             Filter Memories
           </h3>
         </div>
@@ -154,7 +154,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Tag className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span className="text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300">
               Filter by Tags
             </span>
           </div>
@@ -166,7 +166,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="flex-1 bg-white/70 dark:bg-gray-800/70 border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400" data-testid="input-flex-1" />
+              className="flex-1 bg-[var(--color-surface)]/70 dark:bg-gray-800/70 border-[var(--color-border)] dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400" data-testid="input-flex-1" />
 
             <Button
               onClick={handleAddTag}
@@ -210,7 +210,7 @@ export function MemoryFilters({ onFiltersChange, initialFilters = {} }: MemoryFi
 
         {/* Active Filters Summary */}
         {(tags.length > 0 || filterType !== 'all') &&
-        <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-4 pt-3 border-t border-[var(--color-border)] dark:border-gray-700">
             <div className="text-xs text-gray-500 dark:text-gray-400">
               Active filters: {filterType !== 'all' &&
             <span className="capitalize font-medium">{filterType}</span>

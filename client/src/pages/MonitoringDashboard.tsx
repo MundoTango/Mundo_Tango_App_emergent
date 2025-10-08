@@ -81,7 +81,7 @@ export default function MonitoringDashboard() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">
               ESA Monitoring Dashboard
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
@@ -99,7 +99,7 @@ export default function MonitoringDashboard() {
             </Button>
             <Button
               onClick={testMonitoring}
-              className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
+              className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
               data-testid="button-test"
             >
               <Zap className="w-4 h-4 mr-2" />
@@ -112,7 +112,7 @@ export default function MonitoringDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <Shield className="w-5 h-5 text-teal-500" />
+              <Shield className="w-5 h-5 text-[var(--color-primary)]" />
               <span>Privacy & Consent Status</span>
             </CardTitle>
           </CardHeader>
@@ -235,7 +235,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Brain className="w-5 h-5 text-teal-500" />
+                  <Brain className="w-5 h-5 text-[var(--color-primary)]" />
                   <span>Life CEO Agent Tracking</span>
                 </CardTitle>
                 <CardDescription>
@@ -253,15 +253,15 @@ export default function MonitoringDashboard() {
                         </div>
                         <div className="grid grid-cols-3 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-500">Success Rate:</span>
+                            <span className="text-gray-500 dark:text-gray-400">Success Rate:</span>
                             <p className="font-medium">{agent.performance.successRate.toFixed(1)}%</p>
                           </div>
                           <div>
-                            <span className="text-gray-500">Avg Response:</span>
+                            <span className="text-gray-500 dark:text-gray-400">Avg Response:</span>
                             <p className="font-medium">{agent.performance.averageResponseTime.toFixed(0)}ms</p>
                           </div>
                           <div>
-                            <span className="text-gray-500">Tokens Used:</span>
+                            <span className="text-gray-500 dark:text-gray-400">Tokens Used:</span>
                             <p className="font-medium">{agent.performance.totalTokensUsed}</p>
                           </div>
                         </div>
@@ -269,7 +269,7 @@ export default function MonitoringDashboard() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-center text-gray-500 py-8">
+                  <p className="text-center text-gray-500 dark:text-gray-400 py-8">
                     No active agent sessions. Click "Test Monitoring" to generate sample data.
                   </p>
                 )}
@@ -289,10 +289,10 @@ export default function MonitoringDashboard() {
               <CardContent>
                 <div className="space-y-3">
                   {Object.entries(featureFlags).map(([flag, value]) => (
-                    <div key={flag} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <div key={flag} className="flex items-center justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800">
                       <div>
                         <p className="font-medium">{flag}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           {flag === 'new-onboarding' && '50% rollout - New user onboarding flow'}
                           {flag === 'ai-enhancement' && '100% rollout - AI features enabled'}
                           {flag === 'live-streaming' && '25% rollout - Live streaming capabilities'}
@@ -317,7 +317,7 @@ export default function MonitoringDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Eye className="w-5 h-5 text-teal-500" />
+                  <Eye className="w-5 h-5 text-[var(--color-primary)]" />
                   <span>Session Analytics</span>
                 </CardTitle>
                 <CardDescription>
@@ -330,32 +330,32 @@ export default function MonitoringDashboard() {
                     <h4 className="font-semibold mb-2">Guest to Host Conversion Funnel</h4>
                     <div className="space-y-2">
                       <div className="flex items-center space-x-3">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '100%' }}></div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="bg-[var(--color-primary)] h-2 rounded-full" style={{ width: '100%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Landing (100%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '75%' }}></div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="bg-[var(--color-primary)] h-2 rounded-full" style={{ width: '75%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Registration (75%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="bg-[var(--color-primary)] h-2 rounded-full" style={{ width: '45%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Profile Complete (45%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="bg-[var(--color-primary)] h-2 rounded-full" style={{ width: '20%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">Host Onboarding (20%)</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-teal-500 h-2 rounded-full" style={{ width: '12%' }}></div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div className="bg-[var(--color-primary)] h-2 rounded-full" style={{ width: '12%' }}></div>
                         </div>
                         <span className="text-sm whitespace-nowrap">First Listing (12%)</span>
                       </div>

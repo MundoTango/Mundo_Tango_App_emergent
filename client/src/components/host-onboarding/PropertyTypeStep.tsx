@@ -41,7 +41,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">What type of property do you have?</h2>
-        <p className="text-gray-600">Choose the option that best describes your place</p>
+        <p className="text-gray-600 dark:text-gray-300">Choose the option that best describes your place</p>
       </div>
 
       <div>
@@ -55,14 +55,14 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
               <Card
                 key={type.id}
                 className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                isSelected ? 'border-pink-500 bg-pink-50' : 'border-gray-200'}`
+                isSelected ? 'border-pink-500 bg-pink-50' : 'border-[var(--color-border)]'}`
                 }
                 onClick={() => updateData({ propertyType: type.id })}>
 
                 <div className="flex flex-col items-center text-center">
                   <Icon className={`w-8 h-8 mb-2 ${isSelected ? 'text-pink-500' : 'text-gray-400'}`} />
                   <h3 className="font-medium">{type.label}</h3>
-                  <p className="text-xs text-gray-500 mt-1">{type.description}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{type.description}</p>
                 </div>
               </Card>);
 
@@ -78,14 +78,14 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
             <Card
               key={type.id}
               className={`p-4 cursor-pointer transition-all ${
-              data.roomType === type.id ? 'border-pink-500 bg-pink-50' : 'border-gray-200'}`
+              data.roomType === type.id ? 'border-pink-500 bg-pink-50' : 'border-[var(--color-border)]'}`
               }>
 
                 <label htmlFor={type.id} className="flex items-start cursor-pointer">
                   <RadioGroupItem value={type.id} id={type.id} className="mt-1" />
                   <div className="ml-3">
                     <div className="font-medium">{type.label}</div>
-                    <div className="text-sm text-gray-500">{type.description}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">{type.description}</div>
                   </div>
                 </label>
               </Card>
@@ -97,7 +97,7 @@ export default function PropertyTypeStep({ data, updateData }: PropertyTypeStepP
       {/* External listing links */}
       <div className="border-t pt-6">
         <h3 className="text-lg font-medium mb-4">Already listed elsewhere?</h3>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
           If you have this property listed on other platforms, you can import details
         </p>
         <div className="space-y-3">

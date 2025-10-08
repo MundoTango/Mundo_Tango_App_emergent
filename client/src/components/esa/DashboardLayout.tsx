@@ -77,9 +77,9 @@ export default function DashboardLayout({
   };
 
   const communityStats = [
-  { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-cyan-500' },
+  { icon: Globe, label: 'Global People', value: getStatValue(globalStats?.globalPeople), color: 'text-[var(--color-primary)]' },
   { icon: Calendar, label: 'Active Events', value: getStatValue(globalStats?.activeEvents), color: 'text-emerald-500' },
-  { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-cyan-500' },
+  { icon: Building2, label: 'Communities', value: getStatValue(globalStats?.communities), color: 'text-[var(--color-primary)]' },
   { icon: MapPin, label: 'Your City', value: getStatValue(globalStats?.yourCity), color: 'text-emerald-500' }];
 
 
@@ -113,13 +113,13 @@ export default function DashboardLayout({
         <aside className={cn(
           "w-72 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-r flex flex-col",
           theme === 'light' ?
-          "bg-white/80 border-gray-200" :
+          "bg-[var(--color-surface)] dark:bg-gray-900/80 border-[var(--color-border)]" :
           "bg-slate-900/50 border-slate-800/50"
         )}>
           {/* Pierre Dubois Profile */}
           <div className={cn(
             "p-6 border-b",
-            theme === 'light' ? "border-gray-200" : "border-slate-800/50"
+            theme === 'light' ? "border-[var(--color-border)]" : "border-slate-800/50"
           )}>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5EEAD4] to-[#155E75] flex items-center justify-center text-white font-bold text-lg">
@@ -128,11 +128,11 @@ export default function DashboardLayout({
               <div>
                 <div className={cn(
                   "font-semibold",
-                  theme === 'light' ? "text-gray-900" : "text-white"
+                  theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                 )}>Pierre Dubois</div>
                 <div className={cn(
                   "text-sm",
-                  theme === 'light' ? "text-gray-500" : "text-slate-400"
+                  theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                 )}>@pierre_dancer</div>
                 <div className="flex items-center gap-1 mt-1">
                   <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-600 text-xs rounded-full">
@@ -156,14 +156,14 @@ export default function DashboardLayout({
                       "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                       "hover:translate-x-1",
                       theme === 'light' ?
-                      "hover:bg-gray-100" :
+                      "hover:bg-[var(--color-neutral-100)]" :
                       "hover:bg-slate-800/50",
                       isActive ?
                       theme === 'light' ?
                       "bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 border-l-4 border-purple-500" :
                       "bg-gradient-to-r from-[#5EEAD4]/20 to-[#155E75]/20 text-cyan-400 border-l-4 border-cyan-400" :
                       theme === 'light' ?
-                      "text-gray-600 hover:text-gray-900" :
+                      "text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)] dark:text-white" :
                       "text-slate-300 hover:text-white"
                     )} data-testid="a-element">
                       <Icon className="w-5 h-5" />
@@ -182,11 +182,11 @@ export default function DashboardLayout({
           {showStats &&
           <div className={cn(
             "p-6 border-t",
-            theme === 'light' ? "border-gray-200" : "border-slate-800/50"
+            theme === 'light' ? "border-[var(--color-border)]" : "border-slate-800/50"
           )}>
               <h3 className={cn(
               "text-sm font-semibold uppercase tracking-wider mb-4",
-              theme === 'light' ? "text-gray-500" : "text-slate-400"
+              theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
             )}>
                 GLOBAL STATISTICS
               </h3>
@@ -197,19 +197,19 @@ export default function DashboardLayout({
                   <div key={stat.label} className={cn(
                     "rounded-lg p-3 backdrop-blur-sm",
                     theme === 'light' ?
-                    "bg-gray-100" :
+                    "bg-[var(--color-neutral-100)]" :
                     "bg-slate-800/30"
                   )}>
                       <div className="flex items-center gap-2 mb-1">
                         <Icon className={cn("w-4 h-4", stat.color)} />
                         <span className={cn(
                         "text-2xl font-bold",
-                        theme === 'light' ? "text-gray-900" : "text-white"
+                        theme === 'light' ? "text-[var(--color-text)] dark:text-white" : "text-white"
                       )}>{stat.value}</span>
                       </div>
                       <div className={cn(
                       "text-xs",
-                      theme === 'light' ? "text-gray-500" : "text-slate-400"
+                      theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                     )}>{stat.label}</div>
                     </div>);
 
@@ -217,7 +217,7 @@ export default function DashboardLayout({
               </div>
               
               {/* Mundo Tango Button */}
-              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" data-testid="button-w-full">
+              <button className="w-full mt-4 px-4 py-3 bg-gradient-to-r from-[#5EEAD4] to-[#155E75] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" data-testid="button-w-full" aria-label="Button">
                 Mundo Tango
               </button>
             </div>
@@ -240,7 +240,7 @@ export default function DashboardLayout({
           <aside className={cn(
             "w-80 h-[calc(100vh-4rem)] sticky top-16 backdrop-blur-xl border-l p-6",
             theme === 'light' ?
-            "bg-white/80 border-gray-200" :
+            "bg-[var(--color-surface)] dark:bg-gray-900/80 border-[var(--color-border)]" :
             "bg-slate-900/30 border-slate-800/50"
           )}>
               {sidebarContent}

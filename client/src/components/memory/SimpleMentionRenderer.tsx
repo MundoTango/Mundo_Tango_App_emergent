@@ -26,7 +26,7 @@ const SimpleMentionRenderer: React.FC<SimpleMentionRendererProps> = ({
       case 'group':
         return 'text-purple-600 bg-purple-50';
       default:
-        return 'text-gray-600 bg-gray-50';
+        return 'text-gray-600 dark:text-gray-300 bg-[var(--color-surface-elevated)]';
     }
   };
 

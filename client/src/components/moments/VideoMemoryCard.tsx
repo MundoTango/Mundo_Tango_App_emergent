@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { 
   Heart, MessageCircle, Share2, MoreHorizontal, MapPin, 
   Clock, Send, AlertCircle, X, Edit, Trash2, Flag
@@ -22,7 +23,8 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [showMenu, setShowMenu] = useState(false);
-  const [mediaItems, setMediaItems] = useState<{url: string, isVideo: boolean}[]>([]);
+  const [mediaItems, setMediaItems] = useState<{
+  const { t } = useTranslation();url: string, isVideo: boolean}[]>([]);
   
   // ESA LIFE CEO 61x21 - Process media on mount and when post changes
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to like post",
         variant: "destructive",
       });
@@ -103,7 +105,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
       setCommentText('');
       queryClient.invalidateQueries({ queryKey: ['/api/posts/feed'] });
       toast({
-        title: "Success",
+        title: {t('states.success', 'Success')},
         description: "Comment added",
       });
     },
@@ -117,12 +119,12 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
   });
   
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <article className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-semibold">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-[var(--color-ocean-600)] flex items-center justify-center text-white font-semibold">
               {post.user?.profileImage ? (
                 <img 
                   src={post.user.profileImage} 
@@ -135,10 +137,10 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-[var(--color-text)] dark:text-white">
                 {post.user?.name || post.user?.username || 'Unknown User'}
               </h3>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                 <Clock className="w-3 h-3" />
                 <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
               </div>
@@ -148,7 +150,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
 
         {/* Content */}
         <div className="mt-3">
-          <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+          <p className="text-gray-800 dark:text-gray-100 whitespace-pre-wrap">{post.content}</p>
           
           {/* Media Display - ESA LIFE CEO 61x21 FIXED */}
           {mediaItems.length > 0 && (
@@ -200,9 +202,9 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button 
-                onClick={() => likeMutation.mutate()}
+                onClick={() = aria-label="Button"> likeMutation.mutate()}
                 className={`flex items-center gap-2 transition-colors ${
-                  post.userHasLiked ? 'text-red-600' : 'text-gray-600 hover:text-red-600'
+                  post.userHasLiked ? 'text-red-600' : 'text-gray-600 dark:text-gray-300 hover:text-red-600'
                 }`}
                 disabled={likeMutation.isPending}
                 data-testid={`button-like-${post.id}`}
@@ -212,15 +214,15 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
               </button>
               
               <button 
-                onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+                onClick={() = aria-label="Button"> setShowComments(!showComments)}
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
                 data-testid={`button-comment-toggle-${post.id}`}
               >
                 <MessageCircle className="w-5 h-5" />
                 <span className="text-sm">{post.commentCount || 0}</span>
               </button>
               
-              <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors">
+              <button className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors" aria-label="Button">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
@@ -234,9 +236,9 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                 <input
                   type="text"
                   value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
+                  onChange={(e) = aria-label="Input field"> setCommentText(e.target.value)}
                   placeholder="Add a comment..."
-                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onKeyPress={(e) => {
                     if (e.key === 'Enter' && commentText.trim()) {
                       addCommentMutation.mutate(commentText);
@@ -260,7 +262,7 @@ export default function VideoMemoryCard({ post }: VideoMemoryCardProps) {
                   {post.comments.map((comment: any) => (
                     <div key={comment.id} className="flex gap-2 text-sm">
                       <span className="font-semibold">{comment.user?.name || 'Unknown'}:</span>
-                      <span className="text-gray-700">{comment.content}</span>
+                      <span className="text-[var(--color-text-secondary)]">{comment.content}</span>
                     </div>
                   ))}
                 </div>

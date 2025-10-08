@@ -154,11 +154,11 @@ export function Friends() {
               {friendsLoading ?
               <div className="space-y-4">
                   {[1, 2, 3].map((i) =>
-                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
-                      <div className="h-12 w-12 rounded-full bg-gray-200" />
+                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50">
+                      <div className="h-12 w-12 rounded-full bg-gray-200 dark:bg-gray-700" />
                       <div className="flex-1 space-y-2">
-                        <div className="h-4 w-32 bg-gray-200 rounded" />
-                        <div className="h-3 w-24 bg-gray-200 rounded" />
+                        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
                       </div>
                     </div>
                 )}
@@ -168,7 +168,7 @@ export function Friends() {
                   {filteredFriends.map((friend: Friend) =>
                 <div
                   key={friend.id}
-                  className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300">
+                  className="flex items-center justify-between p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50 hover:bg-[var(--color-surface)] dark:bg-gray-900/70 transition-all duration-300">
 
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
@@ -181,7 +181,7 @@ export function Friends() {
                         </Link>
                         <div>
                           <Link href={`/profile/${friend.friend.username}`} data-testid="link-element">
-                            <h3 className="font-semibold hover:text-turquoise-600 transition-colors cursor-pointer">
+                            <h3 className="font-semibold hover:text-[var(--color-primary-hover)] transition-colors cursor-pointer">
                               {friend.friend.name}
                             </h3>
                           </Link>
@@ -189,7 +189,7 @@ export function Friends() {
                             @{friend.friend.username} • {friend.friend.city}, {friend.friend.country}
                           </p>
                           {friend.connectionDegree && friend.connectionDegree > 1 &&
-                      <p className="text-xs text-turquoise-600 mt-1">
+                      <p className="text-xs text-[var(--color-primary-hover)] mt-1">
                               {friend.connectionDegree}° connection • {friend.mutualFriends} mutual friends
                             </p>
                       }
@@ -239,11 +239,11 @@ export function Friends() {
               {suggestionsLoading ?
               <div className="space-y-4">
                   {[1, 2, 3].map((i) =>
-                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-white/50">
-                      <div className="h-16 w-16 rounded-full bg-gray-200" />
+                <div key={i} className="animate-pulse flex items-center gap-4 p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50">
+                      <div className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700" />
                       <div className="flex-1 space-y-2">
-                        <div className="h-4 w-32 bg-gray-200 rounded" />
-                        <div className="h-3 w-48 bg-gray-200 rounded" />
+                        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+                        <div className="h-3 w-48 bg-gray-200 dark:bg-gray-700 rounded" />
                       </div>
                     </div>
                 )}
@@ -253,7 +253,7 @@ export function Friends() {
                   {suggestions.map((suggestion: SuggestedFriend) =>
                 <div
                   key={suggestion.id}
-                  className="flex items-center justify-between p-4 rounded-lg bg-white/50 hover:bg-white/70 transition-all duration-300">
+                  className="flex items-center justify-between p-4 rounded-lg bg-[var(--color-surface)] dark:bg-gray-900/50 hover:bg-[var(--color-surface)] dark:bg-gray-900/70 transition-all duration-300">
 
                       <div className="flex items-center gap-4">
                         <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
@@ -266,7 +266,7 @@ export function Friends() {
                         </Link>
                         <div>
                           <Link href={`/profile/${suggestion.username}`} data-testid="link-element">
-                            <h3 className="font-semibold text-lg hover:text-turquoise-600 transition-colors cursor-pointer">
+                            <h3 className="font-semibold text-lg hover:text-[var(--color-primary-hover)] transition-colors cursor-pointer">
                               {suggestion.name}
                             </h3>
                           </Link>
@@ -275,12 +275,12 @@ export function Friends() {
                           </p>
                           <div className="flex items-center gap-3 mt-1">
                             {suggestion.mutualFriends && suggestion.mutualFriends > 0 &&
-                        <span className="text-xs text-turquoise-600">
+                        <span className="text-xs text-[var(--color-primary-hover)]">
                                 {suggestion.mutualFriends} mutual friends
                               </span>
                         }
                             {suggestion.commonGroups && suggestion.commonGroups > 0 &&
-                        <span className="text-xs text-cyan-600">
+                        <span className="text-xs text-[var(--color-primary-hover)]">
                                 {suggestion.commonGroups} common groups
                               </span>
                         }

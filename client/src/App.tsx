@@ -1,4 +1,5 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect, Suspense, lazy } from "react"
+import { useTranslation } from 'react-i18next';;
 import { Switch, Route, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -48,7 +49,7 @@ import EventDiscoveryFeed from '@/components/events/EventDiscoveryFeed';
 // See client/src/config/routes.ts for the complete route configuration
 
 // Life CEO 44x21s Layer 44 - Minimal loading component to prevent browser freeze
-const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
+const LoadingFallback = ({ message = {t('states.loading', 'Loading...')} }: { message?: string }) => (
   <div style={{ 
     minHeight: '100vh', 
     display: 'flex', 

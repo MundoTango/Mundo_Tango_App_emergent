@@ -369,12 +369,12 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 w-80">
+            className="bg-[var(--color-surface)] dark:bg-gray-800 rounded-2xl shadow-2xl p-4 w-80">
 
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Bot className="w-5 h-5 text-teal-500" />
+                  <Bot className="w-5 h-5 text-[var(--color-primary)]" />
                   <span className="font-semibold">Voice Assistant</span>
                 </div>
                 <Button
@@ -387,10 +387,10 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               </div>
 
               {/* Transcript Display */}
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
+              <div className="bg-[var(--color-surface-elevated)] dark:bg-gray-900 rounded-lg p-3 mb-4 min-h-[100px]">
                 {isProcessing ?
               <div className="flex items-center justify-center h-full">
-                    <Loader2 className="w-5 h-5 animate-spin text-teal-500" />
+                    <Loader2 className="w-5 h-5 animate-spin text-[var(--color-primary)]" />
                   </div> :
 
               <div>
@@ -418,7 +418,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             <div className="mb-4">
                   <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
-                  className="h-full bg-gradient-to-r from-teal-400 to-teal-600"
+                  className="h-full bg-gradient-to-r from-[var(--color-ocean-400)] to-teal-600"
                   animate={{ width: `${voiceLevel * 100}%` }}
                   transition={{ duration: 0.1 }} />
 
@@ -471,7 +471,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                     key={code}
                     onClick={() => handleLanguageChange(code)}
                     className={cn(
-                      selectedLanguage === code && "bg-gray-100 dark:bg-gray-800"
+                      selectedLanguage === code && "bg-[var(--color-neutral-100)] dark:bg-gray-800"
                     )}>
 
                         <span className="mr-2">{lang.flag}</span>
@@ -497,7 +497,7 @@ const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             onClick={() => setIsExpanded(true)}
             className={cn(
               "relative w-14 h-14 rounded-full shadow-lg",
-              "bg-gradient-to-br from-teal-400 to-teal-600",
+              "bg-gradient-to-br from-[var(--color-ocean-400)] to-teal-600",
               "flex items-center justify-center",
               "hover:shadow-xl transition-shadow",
               isListening && "animate-pulse"

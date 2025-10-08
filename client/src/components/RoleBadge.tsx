@@ -53,7 +53,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({
   
   if (!roleData) {
     return (
-      <span className={`inline-flex items-center justify-center rounded-full bg-gray-100 ${sizeClasses[size]} ${className}`}>
+      <span className={`inline-flex items-center justify-center rounded-full bg-[var(--color-neutral-100)] ${sizeClasses[size]} ${className}`}>
         ❓
       </span>
     );
@@ -64,7 +64,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <span 
-            className={`inline-flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-sm border border-gray-200 hover:border-gray-300 cursor-help transition-all duration-200 ${sizeClasses[size]} ${className}`}
+            className={`inline-flex items-center justify-center rounded-full bg-[var(--color-surface)]/90 hover:bg-[var(--color-surface)] shadow-sm border border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600 cursor-help transition-all duration-200 ${sizeClasses[size]} ${className}`}
           >
             {roleData.emoji}
           </span>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,6 +43,7 @@ interface Post {
 }
 
 const EnhancedTimeline = () => {
+  const { t } = useTranslation();
   console.log("🚀 EnhancedTimeline component is rendering!");
   
   const { user } = useAuth();
@@ -126,7 +128,7 @@ const EnhancedTimeline = () => {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[var(--color-surface-elevated)]">
         <div className="max-w-7xl mx-auto py-6 px-4">
           <div className="grid grid-cols-12 gap-6">
           {/* Main Timeline */}
@@ -146,9 +148,9 @@ const EnhancedTimeline = () => {
                     <Loader2 className="h-8 w-8 animate-spin text-red-600" />
                   </div>
                 ) : posts.length === 0 ? (
-                  <Card className="bg-white">
+                  <Card className="bg-[var(--color-surface)] dark:bg-gray-900">
                     <CardContent className="text-center py-12">
-                      <p className="text-gray-500">No posts available</p>
+                      <p className="text-gray-500 dark:text-gray-400">No posts available</p>
                     </CardContent>
                   </Card>
                 ) : (
@@ -185,7 +187,7 @@ const EnhancedTimeline = () => {
       {/* ESA Layer 7 & 23: Unified Create/Edit Post Modal using EnhancedPostComposer with full features */}
       <Dialog open={createPostModal} onOpenChange={setCreatePostModal}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-transparent border-0">
-          <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl">
+          <div className="bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl">
             <EnhancedPostComposer 
               editMode={!!editingPost}
               existingPost={editingPost ? {
@@ -202,7 +204,7 @@ const EnhancedTimeline = () => {
                 setEditingPost(null);
                 queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
                 toast({
-                  title: "Success",
+                  title: {t('states.success', 'Success')},
                   description: "Your post has been created!"
                 });
               }}

@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -51,6 +52,7 @@ interface EventData {
 }
 
 export const EventDiscoveryFeed: React.FC = () => {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,7 +126,7 @@ export const EventDiscoveryFeed: React.FC = () => {
     } catch (error) {
       console.error('Error fetching events:', error);
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to load events',
         variant: 'destructive'
       });
@@ -170,13 +172,13 @@ export const EventDiscoveryFeed: React.FC = () => {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
             Discover Events
           </h1>
-          <p className="text-gray-600 mt-1">Find amazing tango events near you</p>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">Find amazing tango events near you</p>
         </div>
         
         <Button
           variant="outline"
           onClick={() => setShowFilters(!showFilters)}
-          className="bg-white/50 border-white/30" data-testid="button-bg-white-50">
+          className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="button-bg-[var(--color-surface)] dark:bg-gray-900-50">
 
           <SlidersHorizontal className="h-4 w-4 mr-2" />
           Filters
@@ -193,53 +195,53 @@ export const EventDiscoveryFeed: React.FC = () => {
               placeholder="Search events..."
               value={filters.search}
               onChange={(e) => updateFilter('search', e.target.value)}
-              className="pl-10 bg-white/50 border-white/30" data-testid="input-pl-10" />
+              className="pl-10 bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="input-pl-10" />
 
           </div>
 
           {/* Expandable Filters */}
           {showFilters &&
-          <div className="space-y-4 border-t border-gray-200/50 pt-4">
+          <div className="space-y-4 border-t border-[var(--color-border)]/50 pt-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">
                     Location
                   </label>
                   <Input
                   placeholder="City or venue..."
                   value={filters.location}
                   onChange={(e) => updateFilter('location', e.target.value)}
-                  className="bg-white/50 border-white/30" data-testid="input-bg-white-50" />
+                  className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="input-bg-[var(--color-surface)] dark:bg-gray-900-50" />
 
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">
                     Start Date
                   </label>
                   <Input
                   type="date"
                   value={filters.startDate}
                   onChange={(e) => updateFilter('startDate', e.target.value)}
-                  className="bg-white/50 border-white/30" data-testid="input-date" />
+                  className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="input-date" />
 
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">
                     End Date
                   </label>
                   <Input
                   type="date"
                   value={filters.endDate}
                   onChange={(e) => updateFilter('endDate', e.target.value)}
-                  className="bg-white/50 border-white/30" data-testid="input-date" />
+                  className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="input-date" />
 
                 </div>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                <label className="text-sm font-medium text-[var(--color-text-secondary)] mb-2 block">
                   Event Type
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -251,7 +253,7 @@ export const EventDiscoveryFeed: React.FC = () => {
                   onClick={() => filters.tags.includes(tag) ? removeTag(tag) : addTag(tag)}
                   className={filters.tags.includes(tag) ?
                   'bg-gradient-to-r from-turquoise-500 to-cyan-600' :
-                  'bg-white/50 border-white/30'
+                  'bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30'
                   } data-testid="button-element">
 
                       {tag}
@@ -262,8 +264,8 @@ export const EventDiscoveryFeed: React.FC = () => {
 
               {/* Active Filters */}
               {(filters.tags.length > 0 || filters.location || filters.startDate || filters.endDate) &&
-            <div className="flex items-center gap-2 pt-2 border-t border-gray-200/50">
-                  <span className="text-sm font-medium text-gray-600">Active filters:</span>
+            <div className="flex items-center gap-2 pt-2 border-t border-[var(--color-border)]/50">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Active filters:</span>
                   {filters.tags.map((tag) =>
               <Badge key={tag} variant="secondary" className="cursor-pointer" onClick={() => removeTag(tag)}>
                       {tag} ×
@@ -289,7 +291,7 @@ export const EventDiscoveryFeed: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) =>
         <div key={i} className="animate-pulse">
-              <div className="bg-gray-200 rounded-lg h-64"></div>
+              <div className="bg-gray-200 dark:bg-gray-700 rounded-lg h-64"></div>
             </div>
         )}
         </div> :
@@ -297,8 +299,8 @@ export const EventDiscoveryFeed: React.FC = () => {
       <Card className="bg-gradient-to-br from-white/90 via-white/80 to-turquoise-50/30 backdrop-blur-xl border border-white/20">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Calendar className="h-16 w-16 text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-600 mb-2">No Events Found</h3>
-            <p className="text-gray-500 text-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2">No Events Found</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-center mb-4">
               Try adjusting your filters or search terms
             </p>
             <Button onClick={clearFilters} variant="outline" data-testid="button-element">
@@ -336,9 +338,9 @@ export const EventDiscoveryFeed: React.FC = () => {
             onClick={() => fetchEvents(false)}
             disabled={loadingMore}
             variant="outline"
-            className="bg-white/50 border-white/30" data-testid="button-bg-white-50">
+            className="bg-[var(--color-surface)] dark:bg-gray-900/50 border-white/30" data-testid="button-bg-[var(--color-surface)] dark:bg-gray-900-50">
 
-                {loadingMore ? 'Loading...' : 'Load More Events'}
+                {loadingMore ? {t('states.loading', 'Loading...')} : 'Load More Events'}
               </Button>
             </div>
         }

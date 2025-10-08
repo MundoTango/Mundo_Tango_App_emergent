@@ -128,7 +128,7 @@ const MemoriesDebug: React.FC = () => {
               borderRadius: '5px',
               cursor: 'pointer',
               fontSize: '16px'
-            }} data-testid="button-element">
+            }} data-testid="button-element" aria-label="Button">
 
             Clear All Caches & Reload
           </button>
@@ -173,7 +173,7 @@ const MemoriesDebug: React.FC = () => {
               Go to /timeline (redirect test)
             </a>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() = aria-label="Button"> window.location.reload()}
               style={{
                 background: '#0F766E',
                 color: 'white',

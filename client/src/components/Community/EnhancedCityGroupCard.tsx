@@ -39,7 +39,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
   
   return (
     <Link href={`/groups/${group.slug}`}>
-      <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer group">
+      <div className="relative bg-[var(--color-surface)] dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer group">
         {/* Background Image with Overlay */}
         <div className="relative h-56 overflow-hidden">
           {displayImage ? (
@@ -52,7 +52,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
             </>
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+            <div className="w-full h-full bg-gradient-to-br from-pink-500 via-purple-500 to-[var(--color-ocean-500)]">
               <div className="absolute inset-0 bg-black/20" />
             </div>
           )}
@@ -60,7 +60,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
           {/* City Flag/Icon */}
           <GlassCard depth={1} className="absolute top-4 left-4 rounded-lg px-3 py-2 flex items-center gap-2">
             <Globe className="h-4 w-4 text-purple-600" />
-            <span className="text-sm font-medium text-gray-800">City Group</span>
+            <span className="text-sm font-medium text-gray-800 dark:text-gray-100">City Group</span>
           </GlassCard>
           
           {/* Member Status Badge */}
@@ -92,8 +92,8 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
                 <Users className="h-5 w-5 text-purple-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{group.memberCount || 0}</p>
-                <p className="text-sm text-gray-600">Members</p>
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{group.memberCount || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Members</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -101,8 +101,8 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
                 <Calendar className="h-5 w-5 text-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{group.eventCount || 0}</p>
-                <p className="text-sm text-gray-600">Events</p>
+                <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{group.eventCount || 0}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Events</p>
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
           {/* Additional Info */}
           <div className="pt-4 border-t border-gray-100">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                 <Music className="h-4 w-4" />
                 <span>Active tango community</span>
               </div>
@@ -123,8 +123,8 @@ const EnhancedCityGroupCard: React.FC<EnhancedCityGroupCardProps> = ({
             strength={0.3}
             className={`w-full py-3 px-4 rounded-xl font-medium transition-all ${
               group.isJoined 
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl'
+                ? 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)] hover:bg-gray-200 dark:bg-gray-700'
+                : 'bg-gradient-to-r from-purple-600 to-[var(--color-ocean-600)] text-white hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl'
             }`}
             onClick={(e) => {
               e.preventDefault();

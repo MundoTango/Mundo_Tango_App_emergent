@@ -44,17 +44,17 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
         className={`p-3 rounded-lg border-2 text-center transition-all hover:scale-105 ${
         achievement.unlocked ?
         'bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200' :
-        'bg-gray-50 border-gray-200'}`
+        'bg-[var(--color-surface-elevated)] border-[var(--color-border)]'}`
         }>
 
               <div className={`text-2xl mb-2 ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
                 {achievement.icon}
               </div>
-              <div className={`text-xs font-medium ${achievement.unlocked ? 'text-turquoise-700' : 'text-gray-500'}`}>
+              <div className={`text-xs font-medium ${achievement.unlocked ? 'text-turquoise-700' : 'text-gray-500 dark:text-gray-400'}`}>
                 {achievement.name}
               </div>
               {/* Progress bar for achievements */}
-              <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
                 <div
             className={`h-1.5 rounded-full transition-all duration-300 ${
             achievement.unlocked ?
@@ -88,29 +88,29 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
       map((challenge) =>
       <div
         key={challenge.name}
-        className="p-4 bg-white/70 rounded-lg border border-gray-200 hover:border-turquoise-300 transition-colors cursor-pointer"
+        className="p-4 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-ocean-300)] transition-colors cursor-pointer"
         onClick={() => setSelectedChallenge(selectedChallenge === challenge.name ? null : challenge.name)}>
 
               <div className="flex items-center justify-between mb-2">
-                <h5 className="font-medium text-gray-900">{challenge.name}</h5>
-                <Badge variant="outline" className="bg-turquoise-50 text-turquoise-700 border-turquoise-200">
+                <h5 className="font-medium text-[var(--color-text)] dark:text-white">{challenge.name}</h5>
+                <Badge variant="outline" className="bg-[var(--color-ocean-50)] text-turquoise-700 border-turquoise-200">
                   +{challenge.points} pts
                 </Badge>
               </div>
-              <p className="text-sm text-gray-600 mb-3">{challenge.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{challenge.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex-1 mr-3">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
                 className="bg-gradient-to-r from-turquoise-400 to-cyan-500 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${challenge.progress / challenge.total * 100}%` }} />
 
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {challenge.progress}/{challenge.total} completed
                   </div>
                 </div>
-                <Button size="sm" variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                <Button size="sm" variant="outline" className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
                   {challenge.progress === challenge.total ? 'Claim' : 'Continue'}
                 </Button>
               </div>
@@ -130,11 +130,11 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
       { name: 'Memory Posts', current: 3, best: 12, icon: Sparkles, color: 'text-purple-500' },
       { name: 'Friend Interactions', current: 5, best: 8, icon: Users, color: 'text-blue-500' }].
       map((streak) =>
-      <div key={streak.name} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200">
+      <div key={streak.name} className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/50 rounded-lg border border-[var(--color-border)]">
               <streak.icon className={`w-8 h-8 mx-auto mb-2 ${streak.color}`} />
-              <div className="text-2xl font-bold text-gray-900">{streak.current}</div>
-              <div className="text-xs text-gray-600">{streak.name}</div>
-              <div className="text-xs text-gray-500 mt-1">Best: {streak.best} days</div>
+              <div className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{streak.current}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300">{streak.name}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Best: {streak.best} days</div>
             </div>
       )}
         </div>
@@ -152,10 +152,10 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
       { label: 'Memories Shared', value: statsData?.postsCount || 12, icon: Sparkles, color: 'text-purple-500' },
       { label: 'Impact Score', value: '4.8/5', icon: TrendingUp, color: 'text-green-500' }].
       map((metric) =>
-      <div key={metric.label} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200">
+      <div key={metric.label} className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/50 rounded-lg border border-[var(--color-border)]">
               <metric.icon className={`w-6 h-6 mx-auto mb-2 ${metric.color}`} />
-              <div className="text-xl font-bold text-gray-900">{metric.value}</div>
-              <div className="text-xs text-gray-600">{metric.label}</div>
+              <div className="text-xl font-bold text-[var(--color-text)] dark:text-white">{metric.value}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300">{metric.label}</div>
             </div>
       )}
         </div>
@@ -173,12 +173,12 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
               </div>
               <Button
               variant="outline"
               size="sm"
-              className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+              className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                 View All
               </Button>

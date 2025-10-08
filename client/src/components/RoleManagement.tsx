@@ -49,7 +49,7 @@ export default function RoleManagement() {
     organizer: 'bg-blue-100 text-blue-800 border-blue-200',
     teacher: 'bg-green-100 text-green-800 border-green-200',
     dancer: 'bg-purple-100 text-purple-800 border-purple-200',
-    guest: 'bg-gray-100 text-gray-800 border-gray-200'
+    guest: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]'
   };
 
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function RoleManagement() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Role-Based Authentication System</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 dark:text-gray-300 mt-2">
           Manage user roles and permissions across the Mundo Tango platform
         </p>
       </div>
@@ -192,7 +192,7 @@ export default function RoleManagement() {
                   <Badge className={getRoleColor(currentUserRole.role)}>
                     {currentUserRole.role.toUpperCase()}
                   </Badge>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
                     {currentUserRole.displayName || 'No display name'}
                   </span>
                 </div>
@@ -201,8 +201,8 @@ export default function RoleManagement() {
                   <h4 className="font-medium mb-2">Permissions:</h4>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {Object.entries(currentUserRole.permissions).map(([perm, has]) =>
-                  <div key={perm} className={`p-2 rounded border ${has ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
-                        <span className={has ? 'text-green-800' : 'text-gray-600'}>
+                  <div key={perm} className={`p-2 rounded border ${has ? 'bg-green-50 border-green-200' : 'bg-[var(--color-surface-elevated)] border-[var(--color-border)]'}`}>
+                        <span className={has ? 'text-green-800' : 'text-gray-600 dark:text-gray-300'}>
                           {perm.replace(/_/g, ' ')}
                         </span>
                       </div>
@@ -227,7 +227,7 @@ export default function RoleManagement() {
                 </div>
               </div> :
 
-            <p className="text-gray-500">Loading role information...</p>
+            <p className="text-gray-500 dark:text-gray-400">Loading role information...</p>
             }
           </CardContent>
         </Card>
@@ -310,7 +310,7 @@ export default function RoleManagement() {
         </CardHeader>
         <CardContent>
           {loading ?
-          <p className="text-center text-gray-500">Loading users...</p> :
+          <p className="text-center text-gray-500 dark:text-gray-400">Loading users...</p> :
           users.length > 0 ?
           <div className="space-y-3">
               {users.map((user) =>
@@ -319,8 +319,8 @@ export default function RoleManagement() {
                     {getRoleIcon(user.role)}
                     <div>
                       <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-gray-600">@{user.username}</p>
-                      {isAdmin && <p className="text-xs text-gray-500">{user.email}</p>}
+                      <p className="text-sm text-gray-600 dark:text-gray-300">@{user.username}</p>
+                      {isAdmin && <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -337,14 +337,14 @@ export default function RoleManagement() {
             )}
             </div> :
 
-          <p className="text-center text-gray-500">
+          <p className="text-center text-gray-500 dark:text-gray-400">
               {isAdmin ? 'No users found' : 'Access restricted - Admin role required'}
             </p>
           }
         </CardContent>
       </Card>
 
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-sm text-gray-500 dark:text-gray-400">
         <p>
           Role-based authentication system with 5 roles: Admin, Organizer, Teacher, Dancer, Guest.
           Each role has specific permissions for platform features and content management.

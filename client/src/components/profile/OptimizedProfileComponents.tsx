@@ -41,7 +41,7 @@ export const ListFallback = memo(() =>
 export const PostFeedFallback = memo(() =>
 <div className="space-y-4">
     {[...Array(3)].map((_, i) =>
-  <div key={i} className="bg-white rounded-lg p-4 space-y-3">
+  <div key={i} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg p-4 space-y-3">
         <div className="flex items-center space-x-3">
           <Skeleton className="h-10 w-10 rounded-full" />
           <div className="space-y-2">
@@ -62,10 +62,10 @@ export const StatCard = memo(({ icon: Icon, label, value
 
 
 }: {icon: any;label: string;value: number | string;}) =>
-<div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-    <Icon className="h-5 w-5 text-turquoise-500" />
+<div className="flex items-center space-x-3 p-3 bg-[var(--color-surface-elevated)] rounded-lg">
+    <Icon className="h-5 w-5 text-[var(--color-primary)]" />
     <div>
-      <p className="text-sm text-gray-600">{label}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-300">{label}</p>
       <p className="font-semibold">{value}</p>
     </div>
   </div>
@@ -83,7 +83,7 @@ export const TabTriggerMemo = memo(({ value, icon: Icon, label, isActive, onClic
   onClick={onClick}
   className={`flex items-center px-6 py-4 ${
   isActive ? 'border-b-2 border-turquoise-500' : ''}`
-  } data-testid="button-element">
+  } data-testid="button-element" aria-label="Button">
 
     <Icon className="mr-2 h-4 w-4" />
     <span className="font-medium">{label}</span>
@@ -105,7 +105,7 @@ export const LazyImage = memo(({ src, alt, className
       <Skeleton className="absolute inset-0" />
       }
       {error ?
-      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400">
+      <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-neutral-100)] text-gray-400">
           <span>Failed to load</span>
         </div> :
 

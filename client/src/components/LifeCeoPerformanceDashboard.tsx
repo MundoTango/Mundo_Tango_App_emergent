@@ -58,8 +58,8 @@ export function LifeCeoPerformanceDashboard() {
     return (
       <div className="p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-32 bg-gray-200 rounded-lg"></div>
-          <div className="h-32 bg-gray-200 rounded-lg"></div>
+          <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+          <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
         </div>
       </div>
     );
@@ -99,7 +99,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.firstContentfulPaint?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600">Time to first visible content</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Time to first visible content</p>
           </CardContent>
         </Card>
 
@@ -114,7 +114,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.domContentLoaded?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600">DOM interactive time</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">DOM interactive time</p>
           </CardContent>
         </Card>
 
@@ -129,7 +129,7 @@ export function LifeCeoPerformanceDashboard() {
             <div className="text-2xl font-bold">
               {realTimeMetrics.totalBlockingTime?.toFixed(0) || '—'} ms
             </div>
-            <p className="text-sm text-gray-600">Total main thread blocking</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Total main thread blocking</p>
           </CardContent>
         </Card>
       </div>
@@ -185,7 +185,7 @@ export function LifeCeoPerformanceDashboard() {
                 <div className="text-2xl font-bold text-green-600">
                   {report.metrics.activeUsers}
                 </div>
-                <p className="text-sm text-gray-600">Currently online</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Currently online</p>
               </CardContent>
             </Card>
 
@@ -258,7 +258,7 @@ export function LifeCeoPerformanceDashboard() {
               <CardContent>
                 <ul className="space-y-1">
                   {report.metrics.slowQueries.slice(0, 5).map((query, index) => (
-                    <li key={index} className="text-xs font-mono text-gray-600 truncate">
+                    <li key={index} className="text-xs font-mono text-gray-600 dark:text-gray-300 truncate">
                       {query}
                     </li>
                   ))}

@@ -138,7 +138,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
         <div className="calendar-wrapper">
           <div className="space-y-3 max-h-[600px] overflow-y-auto">
             {events.length === 0 ?
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 No events scheduled
               </div> :
 
@@ -149,17 +149,17 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                 setSelectedEvent(event);
                 if (onEventClick) onEventClick(event);
               }}
-              className="p-4 rounded-lg border border-gray-200 hover:border-turquoise-400 cursor-pointer transition-all"
+              className="p-4 rounded-lg border border-[var(--color-border)] hover:border-turquoise-400 cursor-pointer transition-all"
               style={{ borderLeft: `4px solid ${getEventColor(event)}` }}>
 
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-semibold text-gray-900">{event.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{event.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                         {format(new Date(event.startDate), 'MMM d, yyyy h:mm a')}
                       </p>
                       {event.location &&
-                  <p className="text-sm text-gray-500 flex items-center mt-1">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center mt-1">
                           <MapPin className="h-3 w-3 mr-1" />
                           {event.location}
                         </p>
@@ -176,8 +176,8 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
         </div>
 
         {/* Event Legend */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Event Types</h4>
+        <div className="mt-6 pt-4 border-t border-[var(--color-border)]">
+          <h4 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Event Types</h4>
           <div className="flex flex-wrap gap-2">
             {[
             { type: 'milonga', color: '#38b2ac', label: 'Milonga' },
@@ -193,7 +193,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: color }} />
 
-                <span className="text-xs text-gray-600">{label}</span>
+                <span className="text-xs text-gray-600 dark:text-gray-300">{label}</span>
               </div>
             )}
           </div>
@@ -227,7 +227,7 @@ export default function EventsCalendar({ events, onEventClick, onDateClick }: Ev
             }
               
               <div className="space-y-2">
-                <p className="text-sm text-gray-600">{selectedEvent.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{selectedEvent.description}</p>
                 
                 <div className="flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4 text-gray-400" />

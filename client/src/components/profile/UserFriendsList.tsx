@@ -31,10 +31,10 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
         <Card key={i} className="glassmorphic-card">
             <CardContent className="p-4">
               <div className="animate-pulse flex items-center gap-4">
-                <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                 <div className="space-y-2 flex-1">
-                  <div className="h-4 bg-gray-200 rounded w-1/3"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
                 </div>
               </div>
             </CardContent>
@@ -48,8 +48,8 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to load friends</h3>
-          <p className="text-gray-600">Please try again later.</p>
+          <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">Unable to load friends</h3>
+          <p className="text-gray-600 dark:text-gray-300">Please try again later.</p>
         </CardContent>
       </Card>);
 
@@ -84,10 +84,10 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{friend.name || friend.username}</h4>
-                      <p className="text-sm text-gray-600">@{friend.username}</p>
+                      <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{friend.name || friend.username}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">@{friend.username}</p>
                       {friend.city &&
-                  <p className="text-xs text-gray-500">{friend.city}, {friend.country}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{friend.city}, {friend.country}</p>
                   }
                     </div>
                   </div>
@@ -95,7 +95,7 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-gray-600 hover:text-red-600" data-testid="button-text-gray-600">
+                className="text-gray-600 dark:text-gray-300 hover:text-red-600" data-testid="button-text-gray-600 dark:text-gray-300">
 
                       <UserMinus className="h-4 w-4" />
                     </Button>
@@ -108,16 +108,16 @@ export function UserFriendsList({ userId, isOwnProfile }: UserFriendsListProps) 
       searchQuery ?
       <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No friends found</h3>
-            <p className="text-gray-600">Try a different search term.</p>
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No friends found</h3>
+            <p className="text-gray-600 dark:text-gray-300">Try a different search term.</p>
           </CardContent>
         </Card> :
 
       <Card className="glassmorphic-card">
           <CardContent className="p-12 text-center">
             <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No friends yet</h3>
-            <p className="text-gray-600">
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No friends yet</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               {isOwnProfile ?
             'Start connecting with other tango dancers to build your network.' :
             'No friends to display.'}

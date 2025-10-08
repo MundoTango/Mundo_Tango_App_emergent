@@ -65,7 +65,7 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
       case 'running':
         return 'bg-blue-100 text-blue-800';
       default:
-        return 'bg-gray-100 text-gray-600';
+        return 'bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300';
     }
   };
 
@@ -95,7 +95,7 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
                 </div>
                 <div className="flex items-center gap-3">
                   {stage.duration &&
-                <span className="text-sm text-gray-600">{stage.duration}s</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">{stage.duration}s</span>
                 }
                   <Badge className={getStatusColor(stage.status)}>
                     {stage.status}
@@ -114,17 +114,17 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.buildTime}min</div>
-              <div className="text-sm text-gray-600">Avg Build Time</div>
+            <div className="text-center p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{metrics.buildTime}min</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Avg Build Time</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.deploymentFrequency}/week</div>
-              <div className="text-sm text-gray-600">Deploy Frequency</div>
+            <div className="text-center p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{metrics.deploymentFrequency}/week</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Deploy Frequency</div>
             </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-800">{metrics.coverage}%</div>
-              <div className="text-sm text-gray-600">Code Coverage</div>
+            <div className="text-center p-4 bg-[var(--color-surface-elevated)] rounded-lg">
+              <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{metrics.coverage}%</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">Code Coverage</div>
             </div>
           </div>
         </CardContent>
@@ -140,7 +140,7 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
             <div>
               <div className="flex justify-between mb-2">
                 <span className="text-sm font-medium">Tests Passed</span>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   {metrics.testsPassed}/{metrics.testsTotal}
                 </span>
               </div>
@@ -158,9 +158,9 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
                 <div className="font-bold text-red-700">{metrics.testsTotal - metrics.testsPassed}</div>
                 <div className="text-red-600">Failed</div>
               </div>
-              <div className="text-center p-2 bg-gray-50 rounded">
-                <div className="font-bold text-gray-700">0</div>
-                <div className="text-gray-600">Skipped</div>
+              <div className="text-center p-2 bg-[var(--color-surface-elevated)] rounded">
+                <div className="font-bold text-[var(--color-text-secondary)]">0</div>
+                <div className="text-gray-600 dark:text-gray-300">Skipped</div>
               </div>
             </div>
           </div>
@@ -174,24 +174,24 @@ export const ProfileCICD: React.FC<{userId: number;}> = ({ userId }) => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
               <div>
                 <div className="font-medium">Production - v2.1.0</div>
-                <div className="text-sm text-gray-600">2 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">2 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
               <div>
                 <div className="font-medium">Staging - v2.1.0-beta.1</div>
-                <div className="text-sm text-gray-600">4 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">4 hours ago</div>
               </div>
               <Badge className="bg-green-100 text-green-800">Success</Badge>
             </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
               <div>
                 <div className="font-medium">Development - feature/profile-v2</div>
-                <div className="text-sm text-gray-600">6 hours ago</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">6 hours ago</div>
               </div>
               <Badge className="bg-yellow-100 text-yellow-800">Building</Badge>
             </div>

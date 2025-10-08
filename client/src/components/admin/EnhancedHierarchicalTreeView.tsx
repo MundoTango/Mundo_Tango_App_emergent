@@ -242,7 +242,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
       case 'Feature':return <Zap className="h-5 w-5 text-purple-500" />;
       case 'Project':return <Target className="h-5 w-5 text-orange-500" />;
       case 'Task':return <CheckSquare className="h-5 w-5 text-indigo-500" />;
-      case 'Sub-task':return <FileText className="h-5 w-5 text-gray-500" />;
+      case 'Sub-task':return <FileText className="h-5 w-5 text-gray-500 dark:text-gray-400" />;
       default:return <Circle className="h-5 w-5" />;
     }
   };
@@ -281,10 +281,10 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
     switch (status) {
       case 'Completed':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'In Progress':return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'Planned':return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      case 'Planned':return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
       case 'Blocked':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Under Review':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -293,7 +293,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
       case 'High':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Medium':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
       case 'Low':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -320,7 +320,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
               </Badge>
             </div>
             
-            <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{item.description}</p>
             
             {/* Team Badges */}
             {item.team && item.team.length > 0 &&
@@ -337,7 +337,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             {/* Progress Bars */}
             <div className="space-y-2">
               <div>
-                <div className="flex justify-between text-xs text-gray-600 mb-1">
+                <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 mb-1">
                   <span>Web Progress</span>
                   <span>{rollupData.webCompletion}%</span>
                 </div>
@@ -345,7 +345,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
               </div>
               {item.mobileCompletion !== undefined &&
               <div>
-                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                  <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 mb-1">
                     <span>Mobile Progress</span>
                     <span>{rollupData.mobileCompletion}%</span>
                   </div>
@@ -355,7 +355,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             </div>
             
             {/* Metadata */}
-            <div className="flex justify-between items-center mt-3 text-xs text-gray-500">
+            <div className="flex justify-between items-center mt-3 text-xs text-gray-500 dark:text-gray-400">
               <span>{item.assignee}</span>
               {item.estimatedHours &&
               <span>
@@ -386,7 +386,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
       <div key={item.id} className="space-y-2">
         {/* Simple Tree Item */}
         <div
-          className={`flex items-center space-x-2 py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer rounded-md border-l-2 ${
+          className={`flex items-center space-x-2 py-2 px-3 hover:bg-[var(--color-surface-elevated)] dark:hover:bg-gray-800 cursor-pointer rounded-md border-l-2 ${
           depth === 0 ? 'border-blue-500' :
           depth === 1 ? 'border-green-500' :
           depth === 2 ? 'border-purple-500' :
@@ -412,8 +412,8 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           {hasChildren &&
           <div className="w-5 expand-area">
               {isExpanded ?
-            <ChevronDown className="h-4 w-4 text-gray-600" /> :
-            <ChevronRight className="h-4 w-4 text-gray-600" />
+            <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-300" /> :
+            <ChevronRight className="h-4 w-4 text-gray-600 dark:text-gray-300" />
             }
             </div>
           }
@@ -430,7 +430,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           
           {/* Child Count */}
           {hasChildren &&
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+          <span className="text-xs text-gray-500 dark:text-gray-400 bg-[var(--color-neutral-100)] px-2 py-0.5 rounded">
               {item.children?.length} items
             </span>
           }
@@ -453,21 +453,21 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
                 {item.team[0]}
               </Badge>
               {item.team.length > 1 &&
-            <span className="text-xs text-gray-500">+{item.team.length - 1}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">+{item.team.length - 1}</span>
             }
             </>
           }
           
           {/* Web Completion */}
           <div className="flex items-center space-x-1 text-xs">
-            <Monitor className="h-3 w-3 text-gray-500" />
-            <span className="text-gray-600">{rollupData.webCompletion}%</span>
+            <Monitor className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-600 dark:text-gray-300">{rollupData.webCompletion}%</span>
           </div>
           
           {/* Mobile Completion */}
           <div className="flex items-center space-x-1 text-xs">
-            <Smartphone className="h-3 w-3 text-gray-500" />
-            <span className="text-gray-600">{rollupData.mobileCompletion}%</span>
+            <Smartphone className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+            <span className="text-gray-600 dark:text-gray-300">{rollupData.mobileCompletion}%</span>
           </div>
           
           {/* Completion Checkmark */}
@@ -633,8 +633,8 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
       <Card className="p-4">
         <div className="flex flex-wrap gap-4 items-center">
           {/* Tree View Only */}
-          <div className="flex items-center gap-2 text-sm text-gray-600 font-medium">
-            <FolderOpen className="h-4 w-4 text-gray-500" />
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
+            <FolderOpen className="h-4 w-4 text-gray-500 dark:text-gray-400" />
             <span>Tree View</span>
           </div>
 
@@ -654,7 +654,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">Team:</span>
             <select
-              className="px-3 py-1 border rounded-md bg-white dark:bg-gray-800"
+              className="px-3 py-1 border rounded-md bg-[var(--color-surface)] dark:bg-gray-800"
               value={filterTeam}
               onChange={(e) => setFilterTeam(e.target.value)} data-testid="select-px-3">
 
@@ -677,7 +677,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
             <input
               type="checkbox"
               checked={showCompleted}
-              onChange={(e) => setShowCompleted(e.target.checked)}
+              onChange={(e) = aria-label="Input field"> setShowCompleted(e.target.checked)}
               className="rounded" data-testid="input-checkbox" />
 
             Show Completed
@@ -685,7 +685,7 @@ const EnhancedHierarchicalTreeView: React.FC<EnhancedHierarchicalTreeViewProps> 
 
           {/* Summary Stats */}
           <div className="ml-auto flex gap-4 text-sm">
-            <span className="text-gray-600">
+            <span className="text-gray-600 dark:text-gray-300">
               Total Items: <strong>{filteredData.length}</strong>
             </span>
           </div>

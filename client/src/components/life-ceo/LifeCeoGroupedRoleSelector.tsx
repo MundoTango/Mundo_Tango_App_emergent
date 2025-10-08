@@ -179,7 +179,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                 )}>
                   {currentCategory.name}
                 </h4>
-                <p className="text-sm text-gray-600">{currentCategory.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{currentCategory.description}</p>
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             className={cn(
               "h-1.5 w-1.5 rounded-full transition-all",
               index === currentCategoryIndex ?
-              "w-6 bg-turquoise-500" :
+              "w-6 bg-[var(--color-primary)]" :
               "bg-gray-300"
             )} />
 
@@ -235,7 +235,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                     <CardContent className="flex flex-col items-center justify-center h-full text-center p-4">
                       <span className="text-3xl mb-2">{agent.emoji}</span>
                       <h5 className="font-semibold text-sm">{agent.label}</h5>
-                      <p className="text-xs text-gray-500 mt-1">Click to learn more</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Click to learn more</p>
                     </CardContent>
                   </Card>
                   
@@ -252,7 +252,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
                         <h5 className="font-semibold text-sm flex items-center gap-2">
                           {agent.emoji} {agent.label}
                         </h5>
-                        <p className="text-xs text-gray-600 mt-2">{agent.description}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-300 mt-2">{agent.description}</p>
                       </div>
                       <Button
                         variant={isSelected ? "default" : "outline"}
@@ -279,7 +279,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
 
       {/* Selected Agents Summary */}
       {selectedAgents.length > 0 &&
-      <div className="mt-6 p-4 bg-turquoise-50 rounded-lg">
+      <div className="mt-6 p-4 bg-[var(--color-ocean-50)] rounded-lg">
           <h4 className="text-sm font-semibold mb-2 text-turquoise-700">Your Life CEO Team:</h4>
           <div className="flex flex-wrap gap-2">
             {selectedAgents.map((agentId) => {
@@ -290,7 +290,7 @@ export const LifeCeoGroupedRoleSelector: React.FC<LifeCeoGroupedRoleSelectorProp
             <Badge
               key={agentId}
               variant="secondary"
-              className="bg-white hover:bg-gray-50 cursor-pointer"
+              className="bg-[var(--color-surface)] dark:bg-gray-900 hover:bg-[var(--color-surface-elevated)] cursor-pointer"
               onClick={() => handleAgentToggle(agentId)}>
 
                   {agent.emoji} {agent.label}

@@ -42,7 +42,7 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
       'performer': 'bg-purple-600 text-white',
       'admin': 'bg-gray-800 text-white'
     };
-    return roleColors[role.toLowerCase()] || 'bg-gray-500 text-white';
+    return roleColors[role.toLowerCase()] || 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000 text-white';
   };
 
   const formatJoinDate = (date: Date) => {
@@ -129,22 +129,22 @@ const TTProfileHead: React.FC<TTProfileHeadProps> = ({
             <div className="flex gap-3">
               {isOwnProfile ?
               <button
-                className="tt-btn tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100"
-                onClick={onEditProfile} data-testid="button-tt-btn">
+                className="tt-btn tt-btn-outline bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white border-white hover:bg-[var(--color-neutral-100)]"
+                onClick={onEditProfile} data-testid="button-tt-btn" aria-label="Button">
 
                   Edit Profile
                 </button> :
 
               <>
                   <button
-                  className={`tt-btn ${isFollowing ? 'tt-btn-outline bg-white text-gray-900 border-white hover:bg-gray-100' : 'bg-white text-gray-900 hover:bg-gray-100'}`}
-                  onClick={onFollow} data-testid="button-element">
+                  className={`tt-btn ${isFollowing ? 'tt-btn-outline bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] border-white hover:bg-[var(--color-neutral-100)]' : 'bg-[var(--color-surface)] dark:bg-gray-900 text-[var(--color-text)] dark:text-white hover:bg-[var(--color-neutral-100)]'}`}
+                  onClick={onFollow} data-testid="button-element" aria-label="Button">
 
                     {isFollowing ? 'Following' : 'Follow'}
                   </button>
                   <button
-                  className="tt-btn tt-btn-outline bg-transparent text-white border-white hover:bg-white hover:text-gray-900"
-                  onClick={onMessage} data-testid="button-tt-btn">
+                  className="tt-btn tt-btn-outline bg-transparent text-white border-white hover:bg-[var(--color-surface)] dark:bg-gray-900 hover:text-[var(--color-text)] dark:text-white"
+                  onClick={onMessage} data-testid="button-tt-btn" aria-label="Button">
 
                     <MessageCircle className="w-4 h-4" />
                     Message

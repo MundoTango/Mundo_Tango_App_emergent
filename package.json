@@ -75,7 +75,13 @@
     "migrate:glasscard": "node design-system/scripts/migrate-glasscard.js",
     "migrate:all": "npm run migrate:tokens && npm run migrate:dark-mode && npm run migrate:testids",
     "lint:a11y": "eslint --config .eslintrc.accessibility.json client/src --ext .tsx,.jsx",
-    "validate:wcag": "node design-system/scripts/wcag-validator.js"
+    "validate:wcag": "node design-system/scripts/wcag-validator.js",
+    "week4:orchestrate": "node design-system/scripts/week4-orchestrator.js",
+    "week4:tokens": "node design-system/scripts/week4-token-migration.js",
+    "week4:dark": "node design-system/scripts/week4-dark-mode-injection.js",
+    "week4:i18n": "node design-system/scripts/week4-i18n-injection.js",
+    "week4:wcag": "node design-system/scripts/week4-wcag-validator.js",
+    "week4:visual": "node design-system/scripts/week4-visual-regression.js"
   },
   "dependencies": {
     "@arizeai/openinference-instrumentation-openai": "^3.2.3",

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -17,6 +18,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { useMutation } from '@tanstack/react-query';
 
 const recurringEventSchema = z.object({
+  const { t } = useTranslation();
   title: z.string().min(1, "Title is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   location: z.string().min(1, "Location is required"),
@@ -68,7 +70,7 @@ export default function RecurringEventManager() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message,
         variant: "destructive"
       });
@@ -113,7 +115,7 @@ export default function RecurringEventManager() {
       <Card className="glassmorphic-card">
         <CardHeader>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2">
-            <Repeat className="w-6 h-6 text-turquoise-500" />
+            <Repeat className="w-6 h-6 text-[var(--color-primary)]" />
             Create Recurring Event Series
           </CardTitle>
         </CardHeader>
@@ -184,7 +186,7 @@ export default function RecurringEventManager() {
                     <FormLabel>Location</FormLabel>
                     <FormControl>
                       <div className="relative">
-                        <MapPin className="absolute left-3 top-3 w-4 h-4 text-turquoise-500" />
+                        <MapPin className="absolute left-3 top-3 w-4 h-4 text-[var(--color-primary)]" />
                         <Input {...field} placeholder="Salon Canning, Buenos Aires" className="glassmorphic-input pl-10" data-testid="input-glassmorphic-input" />
                       </div>
                     </FormControl>
@@ -290,7 +292,7 @@ export default function RecurringEventManager() {
               {previewDates.length > 0 &&
               <div className="glassmorphic-card p-4">
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                    <CalendarCheck className="w-5 h-5 text-turquoise-500" />
+                    <CalendarCheck className="w-5 h-5 text-[var(--color-primary)]" />
                     Preview of Event Dates
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -300,7 +302,7 @@ export default function RecurringEventManager() {
                       </Badge>
                   )}
                     {previewDates.length >= 10 &&
-                  <Badge variant="outline" className="border-turquoise-300">
+                  <Badge variant="outline" className="border-[var(--color-ocean-300)]">
                         + more...
                       </Badge>
                   }
@@ -350,7 +352,7 @@ export default function RecurringEventManager() {
                   <FormItem className="flex items-center justify-between">
                       <div className="space-y-0.5">
                         <FormLabel>Create Event Page</FormLabel>
-                        <p className="text-sm text-gray-600">Create a dedicated page for this event series</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">Create a dedicated page for this event series</p>
                       </div>
                       <FormControl>
                         <Switch checked={field.value} onCheckedChange={(checked) => {
@@ -370,7 +372,7 @@ export default function RecurringEventManager() {
                   <FormItem className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <FormLabel>Allow Community Posts</FormLabel>
-                          <p className="text-sm text-gray-600">Let attendees post on the event page</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">Let attendees post on the event page</p>
                         </div>
                         <FormControl>
                           <Switch checked={field.value} onCheckedChange={field.onChange} />

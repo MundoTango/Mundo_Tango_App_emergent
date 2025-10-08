@@ -227,21 +227,21 @@ const MTPopover: React.FC<MTPopoverProps> = ({
   const variants = {
     glass: {
       className: cn(
-        'bg-white/95 dark:bg-gray-900/95',
+        'bg-[var(--color-surface)]/95 dark:bg-gray-900/95',
         'backdrop-blur-2xl backdrop-saturate-150',
-        'border border-gray-200/30 dark:border-gray-700/30',
+        'border border-[var(--color-border)]/30 dark:border-gray-700/30',
         'shadow-2xl'
       ),
-      arrowClassName: 'bg-white/95 dark:bg-gray-900/95 border-gray-200/30 dark:border-gray-700/30',
+      arrowClassName: 'bg-[var(--color-surface)]/95 dark:bg-gray-900/95 border-[var(--color-border)]/30 dark:border-gray-700/30',
       style: applyGlassmorphism()
     },
     solid: {
       className: cn(
-        'bg-white dark:bg-gray-900',
-        'border border-gray-200 dark:border-gray-800',
+        'bg-[var(--color-surface)] dark:bg-gray-900',
+        'border border-[var(--color-border)] dark:border-gray-800',
         'shadow-2xl'
       ),
-      arrowClassName: 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800',
+      arrowClassName: 'bg-[var(--color-surface)] dark:bg-gray-900 border-[var(--color-border)] dark:border-gray-800',
       style: {}
     },
     ocean: {
@@ -334,11 +334,11 @@ const MTPopover: React.FC<MTPopoverProps> = ({
         >
           {showCloseButton && (
             <button
-              onClick={() => setOpen(false)}
+              onClick={() = aria-label="Button"> setOpen(false)}
               className={cn(
                 'absolute top-2 right-2 z-10',
                 'p-1.5 rounded-lg',
-                'hover:bg-gray-100 dark:hover:bg-gray-800',
+                'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
                 'transition-colors duration-200'
               )}
               aria-label="Close popover"
@@ -403,11 +403,11 @@ export const MTPopoverMenu: React.FC<{
           {items.map((item, index) => (
             <button
               key={index}
-              onClick={() => handleItemClick(item.onClick)}
+              onClick={() = aria-label="Button"> handleItemClick(item.onClick)}
               disabled={item.disabled}
               className={cn(
                 'w-full px-3 py-2 text-left flex items-center gap-3',
-                'hover:bg-gray-100 dark:hover:bg-gray-800',
+                'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
                 'transition-colors duration-150',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
                 item.danger && 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20'

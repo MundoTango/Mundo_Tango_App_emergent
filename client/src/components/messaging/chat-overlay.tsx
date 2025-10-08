@@ -52,7 +52,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 right-0 h-full w-80 bg-[var(--color-surface)] dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
       isOpen ? 'translate-x-0' : 'translate-x-full'}`
       }>
 
@@ -64,14 +64,14 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="text-white hover:text-gray-200 hover:bg-white/10" data-testid="button-text-white">
+            className="text-white hover:text-gray-200 hover:bg-[var(--color-surface)] dark:bg-gray-900/10" data-testid="button-text-white">
 
             <X className="h-6 w-6" />
           </Button>
         </div>
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-4 border-b border-[var(--color-border)]">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input
@@ -88,10 +88,10 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
               {[...Array(6)].map((_, i) =>
             <div key={i} className="p-4 animate-pulse">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                    <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
                       </div>
                     </div>
                     {room.lastMessage &&
-                <p className="text-xs text-gray-500 truncate mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-1">
                         {room.lastMessage}
                       </p>
                 }
@@ -147,8 +147,8 @@ export default function ChatOverlay({ isOpen, onClose }: ChatOverlayProps) {
               <div className="text-gray-400 mb-4">
                 <MessageCircle className="h-16 w-16 mx-auto" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-600 mb-2">No messages yet</h3>
-              <p className="text-gray-500 text-sm">
+              <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2">No messages yet</h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
                 Start a conversation with other tango dancers!
               </p>
             </div>

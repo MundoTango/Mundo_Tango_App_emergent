@@ -186,8 +186,8 @@ export default function TangoCommunities() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Tango Communities</h1>
-              <p className="text-gray-600 mt-2">Connect with tango dancers around the world</p>
+              <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">Tango Communities</h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">Connect with tango dancers around the world</p>
             </div>
             <Button
               onClick={() => setShowCreateModal(true)}
@@ -204,8 +204,8 @@ export default function TangoCommunities() {
               <div className="flex items-center gap-3">
                 <Users className="w-8 h-8 text-indigo-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">{mockCommunities.length}</p>
-                  <p className="text-sm text-gray-600">Total Communities</p>
+                  <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">{mockCommunities.length}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Communities</p>
                 </div>
               </div>
             </Card>
@@ -213,10 +213,10 @@ export default function TangoCommunities() {
               <div className="flex items-center gap-3">
                 <Heart className="w-8 h-8 text-rose-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                     {mockCommunities.filter((c) => c.isJoined).length}
                   </p>
-                  <p className="text-sm text-gray-600">Joined Communities</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Joined Communities</p>
                 </div>
               </div>
             </Card>
@@ -224,10 +224,10 @@ export default function TangoCommunities() {
               <div className="flex items-center gap-3">
                 <Calendar className="w-8 h-8 text-emerald-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                     {mockCommunities.reduce((sum, c) => sum + c.eventCount, 0)}
                   </p>
-                  <p className="text-sm text-gray-600">Total Events</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Total Events</p>
                 </div>
               </div>
             </Card>
@@ -235,10 +235,10 @@ export default function TangoCommunities() {
               <div className="flex items-center gap-3">
                 <MapPin className="w-8 h-8 text-violet-600" />
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
                     {new Set(mockCommunities.map((c) => c.location.split(',')[0])).size}
                   </p>
-                  <p className="text-sm text-gray-600">Cities</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Cities</p>
                 </div>
               </div>
             </Card>
@@ -296,22 +296,22 @@ export default function TangoCommunities() {
 
               {/* Content */}
               <div className="p-6">
-                <p className="text-gray-600 mb-4 line-clamp-2">{community.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{community.description}</p>
                 
                 {/* Stats */}
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <div className="flex items-center gap-1">
                     <Users className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-600">{community.memberCount} members</span>
+                    <span className="text-gray-600 dark:text-gray-300">{community.memberCount} members</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-600">{community.eventCount} events</span>
+                    <span className="text-gray-600 dark:text-gray-300">{community.eventCount} events</span>
                   </div>
                   {community.rating &&
                 <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="text-gray-600">{community.rating}</span>
+                      <span className="text-gray-600 dark:text-gray-300">{community.rating}</span>
                     </div>
                 }
                 </div>
@@ -345,8 +345,8 @@ export default function TangoCommunities() {
         {filteredCommunities.length === 0 &&
         <Card className="p-12 text-center">
             <Users className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No communities found</h3>
-            <p className="text-gray-600">Try adjusting your search or filters</p>
+            <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">No communities found</h3>
+            <p className="text-gray-600 dark:text-gray-300">Try adjusting your search or filters</p>
           </Card>
         }
       </div>

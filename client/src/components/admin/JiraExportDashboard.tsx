@@ -398,7 +398,7 @@ const JiraExportDashboard: React.FC = () => {
           <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
             JIRA Export Dashboard - 44x21s Enhanced
           </h2>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
             Export Life CEO 5-Day Learnings to JIRA using Enhanced 44x21s Framework
           </p>
         </div>
@@ -413,7 +413,7 @@ const JiraExportDashboard: React.FC = () => {
         <Card className="glassmorphic-card">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <Package className="w-5 h-5 text-turquoise-500" />
+              <Package className="w-5 h-5 text-[var(--color-primary)]" />
               <Badge className="bg-green-100 text-green-700 text-xs">
                 {stats.completionRate}%
               </Badge>
@@ -421,7 +421,7 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.totalItems}</p>
-            <p className="text-sm text-gray-600">Total Items</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Total Items</p>
             <Progress value={stats.completionRate} className="mt-2 h-2" />
           </CardContent>
         </Card>
@@ -432,8 +432,8 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.epics}</p>
-            <p className="text-sm text-gray-600">Epics</p>
-            <div className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300">Epics</p>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {stats.stories} stories
             </div>
           </CardContent>
@@ -445,8 +445,8 @@ const JiraExportDashboard: React.FC = () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.tasks}</p>
-            <p className="text-sm text-gray-600">Tasks</p>
-            <div className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300">Tasks</p>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {stats.subtasks} sub-tasks
             </div>
           </CardContent>
@@ -454,12 +454,12 @@ const JiraExportDashboard: React.FC = () => {
         
         <Card className="glassmorphic-card">
           <CardHeader className="pb-2">
-            <Layers className="w-5 h-5 text-cyan-500" />
+            <Layers className="w-5 h-5 text-[var(--color-primary)]" />
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{stats.layerCoverage.length}</p>
-            <p className="text-sm text-gray-600">Layers Covered</p>
-            <div className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300">Layers Covered</p>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {stats.phaseCoverage.length} phases
             </div>
           </CardContent>
@@ -504,9 +504,9 @@ const JiraExportDashboard: React.FC = () => {
           </Tabs>
           
           <div className="flex justify-between items-center pt-4">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-300">
               <p>Ready to export {stats.totalItems} items</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 Covering {stats.layerCoverage.length} layers across {stats.phaseCoverage.length} phases
               </p>
             </div>
@@ -560,7 +560,7 @@ const JiraExportDashboard: React.FC = () => {
           <div className="text-center py-8">
               <Key className="w-12 h-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium mb-2">Configure JIRA API Access</h3>
-              <p className="text-sm text-gray-600 mb-6 max-w-md mx-auto">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
                 Connect directly to your JIRA instance to create issues in real-time using the 40x20s framework mapping.
               </p>
               <Button
@@ -579,7 +579,7 @@ const JiraExportDashboard: React.FC = () => {
                     <CheckCircle2 className="w-4 h-4" />
                     JIRA API Connected
                   </p>
-                  <p className="text-xs text-gray-600 mt-1">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                     Ready to create {stats.totalItems} items directly in JIRA
                   </p>
                 </div>
@@ -625,7 +625,7 @@ const JiraExportDashboard: React.FC = () => {
               <Button
               onClick={createIssuesInJira}
               disabled={isCreatingInJira}
-              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600" data-testid="button-w-full">
+              className="w-full bg-gradient-to-r from-purple-500 to-[var(--color-ocean-500)] hover:from-purple-600 hover:to-[var(--color-ocean-600)]" data-testid="button-w-full">
 
                 {isCreatingInJira ?
               <>
@@ -672,7 +672,7 @@ const JiraExportDashboard: React.FC = () => {
                   const isActive = stats.phaseCoverage.includes(phase);
                   return (
                     <div key={phase} className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-full ${isActive ? 'bg-turquoise-500' : 'bg-gray-300'}`} />
+                      <div className={`w-3 h-3 rounded-full ${isActive ? 'bg-[var(--color-primary)]' : 'bg-gray-300'}`} />
                       <span className="text-sm">Phase {phase}: {getPhaseName(phase)}</span>
                     </div>);
 

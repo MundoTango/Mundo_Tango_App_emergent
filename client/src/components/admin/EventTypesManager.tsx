@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Plus, Edit, Trash2, Calendar, Save, X, ChevronUp, ChevronDown } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '@/hooks/use-toast';
@@ -18,6 +19,7 @@ interface EventType {
 }
 
 export const EventTypesManager: React.FC = () => {
+  const { t } = useTranslation();
   const [isCreating, setIsCreating] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [showInactive, setShowInactive] = useState(false);
@@ -52,7 +54,7 @@ export const EventTypesManager: React.FC = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/event-types'] });
       toast({
-        title: 'Success',
+        title: {t('states.success', 'Success')},
         description: 'Event type created successfully'
       });
       setIsCreating(false);
@@ -60,7 +62,7 @@ export const EventTypesManager: React.FC = () => {
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: error.message || 'Failed to create event type',
         variant: 'destructive'
       });
@@ -178,7 +180,7 @@ export const EventTypesManager: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">Loading event types...</div>
+        <div className="text-gray-500 dark:text-gray-400">Loading event types...</div>
       </div>);
 
   }
@@ -188,8 +190,8 @@ export const EventTypesManager: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Event Types Management</h2>
-          <p className="text-gray-600 mt-1">
+          <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">Event Types Management</h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
             Manage event types for your platform. Super admin can create, edit, and deactivate event types.
           </p>
         </div>
@@ -198,14 +200,14 @@ export const EventTypesManager: React.FC = () => {
             <input
               type="checkbox"
               checked={showInactive}
-              onChange={(e) => setShowInactive(e.target.checked)}
-              className="rounded border-gray-300" data-testid="input-checkbox" />
+              onChange={(e) = aria-label="Input field"> setShowInactive(e.target.checked)}
+              className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
 
-            <span className="text-sm text-gray-600">Show inactive</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">Show inactive</span>
           </label>
           {!isCreating &&
           <button
-            onClick={() => setIsCreating(true)}
+            onClick={() = aria-label="Button"> setIsCreating(true)}
             className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2" data-testid="button-px-4">
 
               <Plus className="h-4 w-4" />
@@ -217,29 +219,29 @@ export const EventTypesManager: React.FC = () => {
 
       {/* Create Form */}
       {isCreating &&
-      <div className="bg-white rounded-lg shadow-md p-6 border-2 border-indigo-500">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-md p-6 border-2 border-indigo-500">
           <h3 className="text-lg font-semibold mb-4">Create New Event Type</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">
                 Name *
               </label>
               <input
               type="text"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, name: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500"
               placeholder="e.g., Workshop" data-testid="input-text" />
 
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">
                 Icon
               </label>
               <select
               value={formData.icon}
               onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" data-testid="select-w-full">
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500" data-testid="select-w-full">
 
                 {iconOptions.map((icon) =>
               <option key={icon} value={icon}>{icon}</option>
@@ -247,35 +249,35 @@ export const EventTypesManager: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">
                 Color
               </label>
               <input
               type="color"
               value={formData.color}
-              onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-              className="w-full h-10 px-1 py-1 border border-gray-300 rounded-lg" data-testid="input-color" />
+              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, color: e.target.value })}
+              className="w-full h-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded-lg" data-testid="input-color" />
 
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">
                 Sort Order
               </label>
               <input
               type="number"
               value={formData.sort_order}
-              onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" data-testid="input-number" />
+              onChange={(e) = aria-label="Input field"> setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500" data-testid="input-number" />
 
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1">
                 Description
               </label>
               <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500"
               rows={2}
               placeholder="Brief description of this event type" data-testid="textarea-w-full" />
 
@@ -283,18 +285,18 @@ export const EventTypesManager: React.FC = () => {
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button
-            onClick={() => {
+            onClick={() = aria-label="Button"> {
               setIsCreating(false);
               resetForm();
             }}
-            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200" data-testid="button-px-4">
+            className="px-4 py-2 text-[var(--color-text-secondary)] bg-[var(--color-neutral-100)] rounded-lg hover:bg-gray-200 dark:bg-gray-700" data-testid="button-px-4">
 
               Cancel
             </button>
             <button
             onClick={handleCreate}
             disabled={!formData.name || createMutation.isPending}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" data-testid="button-px-4">
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" data-testid="button-px-4" aria-label="Button">
 
               <Save className="h-4 w-4" />
               Create
@@ -304,45 +306,45 @@ export const EventTypesManager: React.FC = () => {
       }
 
       {/* Event Types List */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg shadow-md overflow-hidden">
         <table className="min-w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-[var(--color-surface-elevated)]">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Order
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Event Type
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Description
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 System
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-[var(--color-surface)] dark:bg-gray-900 divide-y divide-gray-200">
             {eventTypes.map((eventType: EventType) =>
             <tr key={eventType.id} className={!eventType.is_active ? 'opacity-50' : ''}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-1">
                     <button
-                    onClick={() => handleSortOrderChange(eventType.id, 'up')}
-                    className="p-1 text-gray-400 hover:text-gray-600"
+                    onClick={() = aria-label="Button"> handleSortOrderChange(eventType.id, 'up')}
+                    className="p-1 text-gray-400 hover:text-gray-600 dark:text-gray-300"
                     disabled={eventType.id === eventTypes[0]?.id} data-testid="button-p-1">
 
                       <ChevronUp className="h-4 w-4" />
                     </button>
                     <button
-                    onClick={() => handleSortOrderChange(eventType.id, 'down')}
-                    className="p-1 text-gray-400 hover:text-gray-600"
+                    onClick={() = aria-label="Button"> handleSortOrderChange(eventType.id, 'down')}
+                    className="p-1 text-gray-400 hover:text-gray-600 dark:text-gray-300"
                     disabled={eventType.id === eventTypes[eventTypes.length - 1]?.id} data-testid="button-p-1">
 
                       <ChevronDown className="h-4 w-4" />
@@ -354,8 +356,8 @@ export const EventTypesManager: React.FC = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="px-2 py-1 border border-gray-300 rounded" data-testid="input-text" /> :
+                  onChange={(e) = aria-label="Input field"> setFormData({ ...formData, name: e.target.value })}
+                  className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded" data-testid="input-text" /> :
 
 
                 <div className="flex items-center gap-2">
@@ -374,11 +376,11 @@ export const EventTypesManager: React.FC = () => {
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-2 py-1 border border-gray-300 rounded"
+                  className="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded"
                   rows={1} data-testid="textarea-w-full" /> :
 
 
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                       {eventType.description || '-'}
                     </span>
                 }
@@ -387,7 +389,7 @@ export const EventTypesManager: React.FC = () => {
                   <span className={`px-2 py-1 text-xs rounded-full ${
                 eventType.is_active ?
                 'bg-green-100 text-green-800' :
-                'bg-gray-100 text-gray-800'}`
+                'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`
                 }>
                     {eventType.is_active ? 'Active' : 'Inactive'}
                   </span>
@@ -396,7 +398,7 @@ export const EventTypesManager: React.FC = () => {
                   <span className={`px-2 py-1 text-xs rounded-full ${
                 eventType.is_system ?
                 'bg-purple-100 text-purple-800' :
-                'bg-gray-100 text-gray-800'}`
+                'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100'}`
                 }>
                     {eventType.is_system ? 'System' : 'Custom'}
                   </span>
@@ -405,14 +407,14 @@ export const EventTypesManager: React.FC = () => {
                   {editingId === eventType.id ?
                 <div className="flex items-center justify-end gap-2">
                       <button
-                    onClick={() => handleUpdate(eventType.id)}
+                    onClick={() = aria-label="Button"> handleUpdate(eventType.id)}
                     className="text-green-600 hover:text-green-900" data-testid="button-text-green-600">
 
                         <Save className="h-4 w-4" />
                       </button>
                       <button
                     onClick={handleCancelEdit}
-                    className="text-gray-600 hover:text-gray-900" data-testid="button-text-gray-600">
+                    className="text-gray-600 dark:text-gray-300 hover:text-[var(--color-text)]" data-testid="button-text-gray-600 dark:text-gray-300" aria-label="Button">
 
                         <X className="h-4 w-4" />
                       </button>
@@ -420,7 +422,7 @@ export const EventTypesManager: React.FC = () => {
 
                 <div className="flex items-center justify-end gap-2">
                       <button
-                    onClick={() => handleEdit(eventType)}
+                    onClick={() = aria-label="Button"> handleEdit(eventType)}
                     className="text-indigo-600 hover:text-indigo-900"
                     disabled={eventType.is_system} data-testid="button-text-indigo-600">
 
@@ -428,7 +430,7 @@ export const EventTypesManager: React.FC = () => {
                       </button>
                       {!eventType.is_system && eventType.is_active &&
                   <button
-                    onClick={() => deleteMutation.mutate(eventType.id)}
+                    onClick={() = aria-label="Button"> deleteMutation.mutate(eventType.id)}
                     className="text-red-600 hover:text-red-900" data-testid="button-text-red-600">
 
                           <Trash2 className="h-4 w-4" />
@@ -442,7 +444,7 @@ export const EventTypesManager: React.FC = () => {
           </tbody>
         </table>
         {eventTypes.length === 0 &&
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
             No event types found. Create your first event type above.
           </div>
         }

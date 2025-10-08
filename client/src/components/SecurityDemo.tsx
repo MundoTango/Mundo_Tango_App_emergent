@@ -236,7 +236,7 @@ export default function SecurityDemo() {
       case 'passed':return 'bg-green-100 text-green-800 border-green-200';
       case 'failed':return 'bg-red-100 text-red-800 border-red-200';
       case 'testing':return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default:return 'bg-gray-100 text-gray-800 border-gray-200';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]';
     }
   };
 
@@ -245,7 +245,7 @@ export default function SecurityDemo() {
       <div className="text-center">
         <Shield className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h1 className="text-3xl font-bold">Security System Demonstration</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 dark:text-gray-300 mt-2">
           Test the comprehensive security features of Mundo Tango platform
         </p>
       </div>
@@ -274,9 +274,9 @@ export default function SecurityDemo() {
             <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                 <div className="flex-1">
                   <h4 className="font-medium">{test.name}</h4>
-                  <p className="text-sm text-gray-600">{test.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{test.description}</p>
                   {test.result &&
-                <p className="text-xs text-gray-500 mt-1">{test.result}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{test.result}</p>
                 }
                 </div>
                 <Badge className={getStatusColor(test.status)}>
@@ -371,9 +371,9 @@ export default function SecurityDemo() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-gray-50 p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-sm">
+          <div className="bg-[var(--color-surface-elevated)] p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-sm">
             {logs.length === 0 ?
-            <p className="text-gray-500">No security events logged yet...</p> :
+            <p className="text-gray-500 dark:text-gray-400">No security events logged yet...</p> :
 
             logs.map((log, index) =>
             <div key={index} className="mb-1">
@@ -393,7 +393,7 @@ export default function SecurityDemo() {
         </CardContent>
       </Card>
 
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-sm text-gray-500 dark:text-gray-400">
         <p>
           Security features include: Row Level Security policies, user context authentication,
           real-time access controls, email notifications, audit logging, and rate limiting.

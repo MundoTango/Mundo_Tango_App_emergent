@@ -255,7 +255,7 @@ export default function HostBookings() {
       <ScaleIn key={booking.id} delay={0.05}>
         <GlassCard 
           depth={2} 
-          className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-cyan-300/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
+          className="overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:border-[var(--color-ocean-300)]/50 dark:hover:border-cyan-400/50 transition-all duration-300" 
           data-testid={`card-host-booking-${booking.id}`}
         >
           <div className="flex flex-col md:flex-row">
@@ -276,7 +276,7 @@ export default function HostBookings() {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <Link href={`/listing/${booking.hostHomeId}`}>
-                      <h3 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent hover:from-cyan-700 hover:to-teal-700 dark:hover:from-cyan-300 dark:hover:to-teal-300 cursor-pointer transition-all" data-testid={`text-booking-property-${booking.id}`}>
+                      <h3 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-[var(--color-ocean-400)] dark:to-teal-400 bg-clip-text text-transparent hover:from-cyan-700 hover:to-teal-700 dark:hover:from-cyan-300 dark:hover:to-teal-300 cursor-pointer transition-all" data-testid={`text-booking-property-${booking.id}`}>
                         {propertyTitle}
                       </h3>
                     </Link>
@@ -295,7 +295,7 @@ export default function HostBookings() {
                   {booking.guest.profileImage ? (
                     <img src={booking.guest.profileImage} alt={booking.guest.name} className="w-10 h-10 rounded-full ring-2 ring-cyan-200 dark:ring-cyan-700" />
                   ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-teal-500 flex items-center justify-center text-white font-semibold">
                       {booking.guest.name.charAt(0)}
                     </div>
                   )}
@@ -311,7 +311,7 @@ export default function HostBookings() {
               {/* Booking Info Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                  <Calendar className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                  <Calendar className="w-4 h-4 text-[var(--color-primary)] dark:text-cyan-400" />
                   <div className="text-sm">
                     <p className="font-medium">{t('housing.host_bookings.check_in', 'Check-in')}: {format(new Date(booking.checkInDate), 'MMM dd, yyyy')}</p>
                     <p className="font-medium">{t('housing.host_bookings.check_out', 'Check-out')}: {format(new Date(booking.checkOutDate), 'MMM dd, yyyy')}</p>
@@ -325,7 +325,7 @@ export default function HostBookings() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                  <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+                  <Users className="w-4 h-4 text-[var(--color-primary)] dark:text-cyan-400" />
                   <div className="text-sm">
                     <p className="font-medium">
                       {t('housing.host_bookings.guests', {
@@ -338,7 +338,7 @@ export default function HostBookings() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent" data-testid={`text-booking-price-${booking.id}`}>
+                  <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-[var(--color-ocean-400)] dark:to-teal-400 bg-clip-text text-transparent" data-testid={`text-booking-price-${booking.id}`}>
                     ${(booking.totalPrice / 100).toFixed(2)}
                   </p>
                   <p className="text-sm text-slate-500 dark:text-slate-400">{t('housing.host_bookings.total_earnings', 'Total earnings')}</p>
@@ -360,12 +360,12 @@ export default function HostBookings() {
               {booking.hostResponse && (
                 <GlassCard depth={1} className="p-4 mb-4 border-cyan-200/30 dark:border-cyan-500/30 bg-gradient-to-br from-cyan-50/50 to-teal-50/50 dark:from-cyan-950/30 dark:to-teal-950/30">
                   <div className="flex items-start gap-2">
-                    <MessageSquare className="w-4 h-4 text-cyan-600 dark:text-cyan-400 mt-1" />
+                    <MessageSquare className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-cyan-400 mt-1" />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-cyan-900 dark:text-cyan-200 mb-1">{t('housing.host_bookings.your_response', 'Your response')}:</p>
                       <p className="text-sm text-cyan-700 dark:text-cyan-300" data-testid={`text-host-response-${booking.id}`}>{booking.hostResponse}</p>
                       {booking.respondedAt && (
-                        <p className="text-xs text-cyan-600 dark:text-cyan-400 mt-1">
+                        <p className="text-xs text-[var(--color-primary-hover)] dark:text-cyan-400 mt-1">
                           {t('housing.host_bookings.responded_on', { defaultValue: 'Responded on {{date}}', date: format(new Date(booking.respondedAt), 'MMM dd, yyyy') })}
                         </p>
                       )}
@@ -393,7 +393,7 @@ export default function HostBookings() {
                       </MagneticButton>
                       <PulseButton
                         onClick={() => handleOpenResponseDialog(booking.id, 'approve')}
-                        className="px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white flex items-center gap-2 rounded-xl"
+                        className="px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white flex items-center gap-2 rounded-xl"
                         data-testid={`button-approve-${booking.id}`}
                       >
                         <CheckCircle className="w-4 h-4" />
@@ -405,7 +405,7 @@ export default function HostBookings() {
                     <PulseButton
                       onClick={() => setBookingToReview(booking)}
                       pulseColor="rgba(6, 182, 212, 0.6)"
-                      className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl flex items-center gap-2"
+                      className="px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white rounded-xl flex items-center gap-2"
                       data-testid={`button-review-guest-${booking.id}`}
                     >
                       <Star className="w-4 h-4" />
@@ -440,7 +440,7 @@ export default function HostBookings() {
                     </MagneticButton>
                   </Link>
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="heading-host-bookings">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-[var(--color-ocean-600)] bg-clip-text text-transparent" data-testid="heading-host-bookings">
                       {t('housing.host_bookings.title', 'Host Dashboard')}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -449,7 +449,7 @@ export default function HostBookings() {
                   </div>
                   <GlassCard depth={1} className="p-4 text-center border-cyan-200/20 dark:border-cyan-500/20">
                     <p className="text-sm text-slate-500 dark:text-slate-400">{t('housing.host_bookings.total_bookings', 'Total bookings')}</p>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent">{bookings.length}</p>
+                    <p className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-[var(--color-ocean-400)] dark:to-teal-400 bg-clip-text text-transparent">{bookings.length}</p>
                   </GlassCard>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export default function HostBookings() {
                 <TabsList className="grid w-full grid-cols-4 bg-transparent gap-2">
                   <TabsTrigger 
                     value="pending" 
-                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
+                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[var(--color-primary)] data-[state=active]:to-teal-500 data-[state=active]:text-white" 
                     data-testid="tab-pending"
                   >
                     <Clock className="w-4 h-4" />
@@ -471,7 +471,7 @@ export default function HostBookings() {
                   </TabsTrigger>
                   <TabsTrigger 
                     value="approved" 
-                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
+                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[var(--color-primary)] data-[state=active]:to-teal-500 data-[state=active]:text-white" 
                     data-testid="tab-approved"
                   >
                     <CheckCircle className="w-4 h-4" />
@@ -479,7 +479,7 @@ export default function HostBookings() {
                   </TabsTrigger>
                   <TabsTrigger 
                     value="rejected" 
-                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
+                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[var(--color-primary)] data-[state=active]:to-teal-500 data-[state=active]:text-white" 
                     data-testid="tab-rejected"
                   >
                     <XCircle className="w-4 h-4" />
@@ -487,7 +487,7 @@ export default function HostBookings() {
                   </TabsTrigger>
                   <TabsTrigger 
                     value="all" 
-                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-teal-500 data-[state=active]:text-white" 
+                    className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[var(--color-primary)] data-[state=active]:to-teal-500 data-[state=active]:text-white" 
                     data-testid="tab-all"
                   >
                     <Filter className="w-4 h-4" />
@@ -608,7 +608,7 @@ export default function HostBookings() {
                   value={hostResponse}
                   onChange={(e) => setHostResponse(e.target.value)}
                   rows={4}
-                  className="mt-2 bg-white/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
+                  className="mt-2 bg-[var(--color-surface)]/50 dark:bg-slate-800/50 border-cyan-200 dark:border-cyan-800"
                   placeholder={responseAction === 'approve' 
                     ? t('housing.host_bookings.message_placeholder_approve', 'Welcome the guest and provide any additional details...')
                     : t('housing.host_bookings.message_placeholder_reject', 'Explain why you cannot accept this booking...')}
@@ -634,7 +634,7 @@ export default function HostBookings() {
               <PulseButton
                 onClick={handleSubmitResponse}
                 disabled={respondToBookingMutation.isPending}
-                className={`px-4 py-2 text-white rounded-xl ${responseAction === 'approve' ? 'bg-gradient-to-r from-cyan-500 to-teal-500' : 'bg-gradient-to-r from-red-500 to-rose-500'}`}
+                className={`px-4 py-2 text-white rounded-xl ${responseAction === 'approve' ? 'bg-gradient-to-r from-[var(--color-primary)] to-teal-500' : 'bg-gradient-to-r from-red-500 to-rose-500'}`}
                 data-testid="button-submit-response"
               >
                 {respondToBookingMutation.isPending 
@@ -669,7 +669,7 @@ export default function HostBookings() {
                         className="w-12 h-12 rounded-full"
                       />
                     ) : (
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-semibold">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-teal-500 flex items-center justify-center text-white font-semibold">
                         {bookingToReview.guest.name.charAt(0)}
                       </div>
                     )}

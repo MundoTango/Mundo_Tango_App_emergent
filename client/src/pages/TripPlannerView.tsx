@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TripConfigurationWizard from '@/components/trip-planner/TripConfigurationWizard';
@@ -46,6 +47,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
       if (!tripConfig) return null;
       
       const params = new URLSearchParams({
+  const { t } = useTranslation();
         city,
         startDate: tripConfig.startDate,
         endDate: tripConfig.endDate,
@@ -91,7 +93,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
     },
     onError: () => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to save your trip. Please try again.',
         variant: 'destructive'
       });
@@ -179,7 +181,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--color-primary-hover)]" />
         <span className="ml-3 text-lg">Finding the best activities for your trip...</span>
       </div>
     );

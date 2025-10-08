@@ -156,7 +156,7 @@ export function GuestReviewForm({
             id="would-host-again"
             checked={wouldHostAgain}
             onChange={(e) => setWouldHostAgain(e.target.checked)}
-            className="w-4 h-4 rounded border-cyan-300 text-cyan-500 focus:ring-cyan-500"
+            className="w-4 h-4 rounded border-[var(--color-ocean-300)] text-[var(--color-primary)] focus:ring-cyan-500"
             data-testid="checkbox-would-host-again"
           />
           <label htmlFor="would-host-again" className="text-sm text-slate-700 dark:text-slate-300">
@@ -179,7 +179,7 @@ export function GuestReviewForm({
           <Button
             type="submit"
             disabled={submitReviewMutation.isPending}
-            className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
+            className="bg-gradient-to-r from-[var(--color-primary)] to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600"
             data-testid="button-submit-review"
           >
             {submitReviewMutation.isPending 

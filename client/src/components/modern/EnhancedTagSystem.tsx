@@ -103,7 +103,7 @@ export default function EnhancedTagSystem({
   const getTrendColor = (trend: 'up' | 'down' | 'stable') => {
     if (trend === 'up') return 'text-green-500';
     if (trend === 'down') return 'text-red-500';
-    return 'text-gray-500';
+    return 'text-gray-500 dark:text-gray-400';
   };
 
   return (
@@ -136,7 +136,7 @@ export default function EnhancedTagSystem({
               </div>
               <button
               onClick={onClearAll}
-              className="text-sm text-gray-500 hover:text-red-500 transition-colors" data-testid="button-text-sm">
+              className="text-sm text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors" data-testid="button-text-sm" aria-label="Button">
 
                 Clear all
               </button>
@@ -149,12 +149,12 @@ export default function EnhancedTagSystem({
           <div className="flex gap-4">
             <div className="flex-1 relative group">
               <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 
-                              group-focus-within:text-cyan-500 transition-colors duration-300" />
+                              group-focus-within:text-[var(--color-primary)] transition-colors duration-300" />
 
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) => {
+                onChange={(e) = aria-label="Input field"> {
                   setTagInput(e.target.value);
                   setShowSuggestions(e.target.value.length > 0);
                 }}
@@ -163,8 +163,8 @@ export default function EnhancedTagSystem({
                 placeholder="Search or add tags..."
                 className="w-full pl-14 pr-6 py-5 glassmorphic
                          border-2 border-cyan-200/20 rounded-2xl focus:outline-none focus:ring-4 
-                         focus:ring-cyan-200/50 focus:border-cyan-300 text-gray-900 dark:text-white 
-                         placeholder-gray-400 font-medium text-lg hover:border-cyan-300/50 
+                         focus:ring-cyan-200/50 focus:border-[var(--color-ocean-300)] text-[var(--color-text)] dark:text-white 
+                         placeholder-gray-400 font-medium text-lg hover:border-[var(--color-ocean-300)]/50 
                          transition-all duration-300" data-testid="input-text" />
 
 
@@ -173,7 +173,7 @@ export default function EnhancedTagSystem({
 
             </div>
             <button
-              onClick={() => handleAddTag()}
+              onClick={() = aria-label="Button"> handleAddTag()}
               disabled={!tagInput.trim() || activeTags.includes(tagInput.trim())}
               className="mt-ocean-gradient hover:opacity-90 
                        disabled:opacity-50 text-white px-8 py-5 rounded-2xl 
@@ -202,13 +202,13 @@ export default function EnhancedTagSystem({
                 {suggestedTags.map((tag) =>
               <button
                 key={tag}
-                onClick={() => handleAddTag(tag)}
-                className="w-full px-5 py-3 text-left hover:bg-cyan-50 dark:hover:bg-cyan-900/20 
+                onClick={() = aria-label="Button"> handleAddTag(tag)}
+                className="w-full px-5 py-3 text-left hover:bg-[var(--color-ocean-50)] dark:hover:bg-cyan-900/20 
                              transition-colors flex items-center justify-between group" data-testid="button-w-full">
 
 
-                    <span className="text-gray-700 dark:text-gray-300">{tag}</span>
-                    <Plus className="w-4 h-4 text-gray-400 group-hover:text-cyan-500" />
+                    <span className="text-[var(--color-text-secondary)] dark:text-gray-300">{tag}</span>
+                    <Plus className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-primary)]" />
                   </button>
               )}
               </motion.div>
@@ -235,8 +235,8 @@ export default function EnhancedTagSystem({
                   <Tag className="w-4 h-4" />
                   <span className="font-bold text-lg">{tag}</span>
                   <button
-                onClick={() => onRemoveTag(tag)}
-                className="ml-2 p-2 rounded-xl text-cyan-500 hover:text-red-500 
+                onClick={() = aria-label="Button"> onRemoveTag(tag)}
+                className="ml-2 p-2 rounded-xl text-[var(--color-primary)] hover:text-red-500 
                              hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 hover:scale-110" data-testid="button-ml-2">
 
 
@@ -256,7 +256,7 @@ export default function EnhancedTagSystem({
             <div className="p-2 bg-gradient-to-br from-orange-400 to-pink-500 rounded-xl">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h3 className="text-xl font-bold text-[var(--color-text)] dark:text-white">
               Discover Tags
             </h3>
           </div>
@@ -266,11 +266,11 @@ export default function EnhancedTagSystem({
             {(['trending', 'recent', 'popular'] as const).map((category) =>
             <button
               key={category}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() = aria-label="Button"> setSelectedCategory(category)}
               className={`px-4 py-2 rounded-xl font-medium capitalize transition-all ${
               selectedCategory === category ?
               'mt-ocean-gradient text-white shadow-lg' :
-              'glassmorphic text-gray-600 dark:text-gray-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/20'}`
+              'glassmorphic text-gray-600 dark:text-gray-300 hover:bg-[var(--color-ocean-50)] dark:hover:bg-cyan-900/20'}`
               } data-testid="button-element">
 
                 {category}
@@ -297,12 +297,12 @@ export default function EnhancedTagSystem({
               disabled={activeTags.includes(tag.name)}
               className={`p-3 rounded-xl transition-all ${
               activeTags.includes(tag.name) ?
-              'bg-gray-100 dark:bg-gray-800 opacity-50 cursor-not-allowed' :
-              'glassmorphic hover:border-cyan-300 dark:hover:border-cyan-600 cursor-pointer'}`
+              'bg-[var(--color-neutral-100)] dark:bg-gray-800 opacity-50 cursor-not-allowed' :
+              'glassmorphic hover:border-[var(--color-ocean-300)] dark:hover:border-cyan-600 cursor-pointer'}`
               }>
 
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-medium text-sm text-gray-900 dark:text-white">
+                      <span className="font-medium text-sm text-[var(--color-text)] dark:text-white">
                         #{tag.name}
                       </span>
                       <span className={`text-lg ${getTrendColor(tag.trend)}`}>
@@ -322,7 +322,7 @@ export default function EnhancedTagSystem({
                   </motion.button>
             ) :
 
-            <div className="col-span-full text-center py-8 text-gray-500">
+            <div className="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
                   No trending tags at the moment
                 </div>
             }
@@ -341,18 +341,18 @@ export default function EnhancedTagSystem({
               disabled={activeTags.includes(tag)}
               className={`p-3 rounded-xl transition-all flex items-center gap-2 ${
               activeTags.includes(tag) ?
-              'bg-gray-100 dark:bg-gray-800 opacity-50 cursor-not-allowed' :
-              'glassmorphic hover:border-cyan-300 dark:hover:border-cyan-600 cursor-pointer'}`
+              'bg-[var(--color-neutral-100)] dark:bg-gray-800 opacity-50 cursor-not-allowed' :
+              'glassmorphic hover:border-[var(--color-ocean-300)] dark:hover:border-cyan-600 cursor-pointer'}`
               }>
 
                     <Clock className="w-4 h-4 text-gray-400" />
-                    <span className="font-medium text-sm text-gray-900 dark:text-white">
+                    <span className="font-medium text-sm text-[var(--color-text)] dark:text-white">
                       #{tag}
                     </span>
                   </motion.button>
             ) :
 
-            <div className="col-span-full text-center py-8 text-gray-500">
+            <div className="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
                   No recent tags
                 </div>
             }
@@ -371,18 +371,18 @@ export default function EnhancedTagSystem({
               disabled={activeTags.includes(tag)}
               className={`p-3 rounded-xl transition-all flex items-center gap-2 ${
               activeTags.includes(tag) ?
-              'bg-gray-100 dark:bg-gray-800 opacity-50 cursor-not-allowed' :
-              'glassmorphic hover:border-cyan-300 dark:hover:border-cyan-600 cursor-pointer'}`
+              'bg-[var(--color-neutral-100)] dark:bg-gray-800 opacity-50 cursor-not-allowed' :
+              'glassmorphic hover:border-[var(--color-ocean-300)] dark:hover:border-cyan-600 cursor-pointer'}`
               }>
 
                     <Users className="w-4 h-4 text-gray-400" />
-                    <span className="font-medium text-sm text-gray-900 dark:text-white">
+                    <span className="font-medium text-sm text-[var(--color-text)] dark:text-white">
                       #{tag}
                     </span>
                   </motion.button>
             ) :
 
-            <div className="col-span-full text-center py-8 text-gray-500">
+            <div className="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
                   No popular tags yet
                 </div>
             }
@@ -391,7 +391,7 @@ export default function EnhancedTagSystem({
         </div>
 
         {/* Quick Suggestions */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-[var(--color-border)] dark:border-gray-700">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-yellow-500" />
             Quick suggestions for Mundo Tango:
@@ -400,12 +400,12 @@ export default function EnhancedTagSystem({
             {['milonga', 'performance', 'class', 'social', 'vals', 'practica', 'festival', 'workshop'].map((suggestion) =>
             <button
               key={suggestion}
-              onClick={() => handleAddTag(suggestion)}
+              onClick={() = aria-label="Button"> handleAddTag(suggestion)}
               disabled={activeTags.includes(suggestion)}
               className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
               activeTags.includes(suggestion) ?
-              'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed' :
-              'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 cursor-pointer'}`
+              'bg-[var(--color-neutral-100)] dark:bg-gray-800 text-gray-400 cursor-not-allowed' :
+              'bg-[var(--color-ocean-50)] dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 cursor-pointer'}`
               } data-testid="button-element">
 
                 {suggestion}
@@ -429,7 +429,7 @@ export default function EnhancedTagSystem({
                 Live tag activity • {liveUpdates.comments.length} new posts with tags
               </p>
             </div>
-            <button className="text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300" data-testid="button-text-xs">
+            <button className="text-xs text-[var(--color-primary-hover)] hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300" data-testid="button-text-xs" aria-label="Button">
               View all
             </button>
           </div>

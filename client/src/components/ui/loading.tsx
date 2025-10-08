@@ -6,7 +6,7 @@ interface LoadingFallbackProps {
   message?: string;
 }
 
-export function LoadingFallback({ message = "Loading..." }: LoadingFallbackProps) {
+export function LoadingFallback({ message = {t('states.loading', {t('states.loading', 'Loading...')})} }: LoadingFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[200px] p-8">
       <Loader2 className="h-8 w-8 animate-spin text-blue-500 mb-4" />

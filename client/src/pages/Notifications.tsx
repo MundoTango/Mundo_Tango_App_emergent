@@ -41,7 +41,7 @@ const notificationIcons = {
 };
 
 const notificationColors = {
-  mention: 'from-cyan-500/10 to-teal-600/10',
+  mention: 'from-[var(--color-primary)]/10 to-teal-600/10',
   friend_request: 'from-purple-500/10 to-pink-600/10',
   event_invite: 'from-blue-500/10 to-indigo-600/10',
   message: 'from-green-500/10 to-emerald-600/10',
@@ -217,8 +217,8 @@ export default function Notifications() {
             <Button
               onClick={() => markAllAsReadMutation.mutate()}
               variant="outline"
-              className="bg-white/50 backdrop-blur-sm hover:bg-white/70"
-              disabled={markAllAsReadMutation.isPending} data-testid="button-bg-white-50">
+              className="bg-[var(--color-surface)] dark:bg-gray-900/50 backdrop-blur-sm hover:bg-[var(--color-surface)] dark:bg-gray-900/70"
+              disabled={markAllAsReadMutation.isPending} data-testid="button-bg-[var(--color-surface)] dark:bg-gray-900-50">
 
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Mark all as read
@@ -229,7 +229,7 @@ export default function Notifications() {
 
         {/* Filter Tabs */}
         <Tabs value={filter} onValueChange={(v) => setFilter(v as 'all' | 'unread')} className="mb-6">
-          <TabsList className="bg-white/50 backdrop-blur-sm">
+          <TabsList className="bg-[var(--color-surface)] dark:bg-gray-900/50 backdrop-blur-sm">
             <TabsTrigger value="all" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#5EEAD4] data-[state=active]:to-[#155E75] data-[state=active]:text-white">
               All Notifications
             </TabsTrigger>
@@ -251,7 +251,7 @@ export default function Notifications() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#5EEAD4]"></div>
             </div> :
           notifications.length === 0 ?
-          <Card className="p-12 text-center bg-white/50 backdrop-blur-sm border-white/20">
+          <Card className="p-12 text-center bg-[var(--color-surface)] dark:bg-gray-900/50 backdrop-blur-sm border-white/20">
               <Bell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-lg font-semibold mb-2">No notifications</h3>
               <p className="text-muted-foreground">
@@ -278,7 +278,7 @@ export default function Notifications() {
                     <div className="flex items-start gap-3">
                       <div className={cn(
                       "p-2 rounded-full",
-                      !notification.isRead ? "bg-gradient-to-br from-[#5EEAD4] to-[#155E75] text-white" : "bg-gray-100 text-gray-600"
+                      !notification.isRead ? "bg-gradient-to-br from-[#5EEAD4] to-[#155E75] text-white" : "bg-[var(--color-neutral-100)] text-gray-600 dark:text-gray-300"
                     )}>
                         <Icon className="h-4 w-4" />
                       </div>
@@ -312,7 +312,7 @@ export default function Notifications() {
                               e.stopPropagation();
                               markAsReadMutation.mutate(notification.id);
                             }}
-                            className="h-8 w-8 hover:bg-white/50" data-testid="button-h-8">
+                            className="h-8 w-8 hover:bg-[var(--color-surface)] dark:bg-gray-900/50" data-testid="button-h-8">
 
                                 <Check className="h-4 w-4" />
                               </Button>

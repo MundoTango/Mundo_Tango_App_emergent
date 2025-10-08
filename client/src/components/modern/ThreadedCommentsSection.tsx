@@ -195,13 +195,13 @@ export default function ThreadedCommentsSection({
             <div className="glassmorphic rounded-xl px-4 py-3">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm font-medium text-[var(--color-text)] dark:text-white">
                     {comment.user.name}
                   </span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
                     @{comment.user.username}
                   </span>
-                  <span className="text-xs text-gray-400 dark:text-gray-500">
+                  <span className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400">
                     • {formatDistanceToNow(new Date(comment.createdAt))} ago
                   </span>
                   {comment.isEdited && (
@@ -213,28 +213,28 @@ export default function ThreadedCommentsSection({
                 {currentUserId === comment.userId && (
                   <div className="relative">
                     <button
-                      onClick={() => setShowActions(showActions === commentId ? null : commentId)}
-                      className="p-1 hover:bg-white/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                      onClick={() = aria-label="Button"> setShowActions(showActions === commentId ? null : commentId)}
+                      className="p-1 hover:bg-[var(--color-surface)] dark:bg-gray-900/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                       data-testid={`button-comment-actions-${commentId}`}
                     >
-                      <MoreVertical className="w-4 h-4 text-gray-500" />
+                      <MoreVertical className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                     </button>
 
                     {showActions === commentId && (
-                      <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 overflow-hidden">
+                      <div className="absolute right-0 mt-2 w-32 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-lg z-10 overflow-hidden">
                         <button
-                          onClick={() => {
+                          onClick={() = aria-label="Button"> {
                             setEditingCommentId(commentId);
                             setEditingContent(comment.content);
                             setShowActions(null);
                           }}
-                          className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
+                          className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700"
                         >
                           <Edit2 className="w-3 h-3" />
                           Edit
                         </button>
                         <button
-                          onClick={() => {
+                          onClick={() = aria-label="Button"> {
                             onDeleteComment?.(commentId);
                             setShowActions(null);
                           }}
@@ -262,21 +262,21 @@ export default function ThreadedCommentsSection({
                   <textarea
                     value={editingContent}
                     onChange={(e) => setEditingContent(e.target.value)}
-                    className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 rounded-lg resize-none"
+                    className="w-full px-3 py-2 bg-[var(--color-surface)]/50 dark:bg-gray-800/50 rounded-lg resize-none"
                     rows={2}
                     autoFocus
                   />
                   <div className="flex gap-2 mt-2">
-                    <button type="submit" className="px-3 py-1 bg-cyan-500 text-white rounded-lg text-sm">
+                    <button type="submit" className="px-3 py-1 bg-[var(--color-primary)] text-white rounded-lg text-sm" aria-label="Button">
                       Save
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={() = aria-label="Button"> {
                         setEditingCommentId(null);
                         setEditingContent('');
                       }}
-                      className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg text-sm"
+                      className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-[var(--color-text-secondary)] dark:text-gray-200 rounded-lg text-sm"
                     >
                       Cancel
                     </button>
@@ -289,8 +289,8 @@ export default function ThreadedCommentsSection({
               {/* Reply and Thread Actions */}
               <div className="flex items-center gap-4 mt-2">
                 <button
-                  onClick={() => setReplyingTo(replyingTo === commentId ? null : commentId)}
-                  className="flex items-center gap-1 text-xs text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+                  onClick={() = aria-label="Button"> setReplyingTo(replyingTo === commentId ? null : commentId)}
+                  className="flex items-center gap-1 text-xs text-[var(--color-primary-hover)] hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                 >
                   <Reply className="w-3 h-3" />
                   Reply
@@ -298,8 +298,8 @@ export default function ThreadedCommentsSection({
                 
                 {hasReplies && (
                   <button
-                    onClick={() => toggleThread(commentId)}
-                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    onClick={() = aria-label="Button"> toggleThread(commentId)}
+                    className="flex items-center gap-1 text-xs text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200"
                   >
                     {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                     {comment.replies!.length} {comment.replies!.length === 1 ? 'reply' : 'replies'}
@@ -324,7 +324,7 @@ export default function ThreadedCommentsSection({
                     <input
                       type="text"
                       value={replyContent}
-                      onChange={(e) => {
+                      onChange={(e) = aria-label="Input field"> {
                         setReplyContent(e.target.value);
                         handleTyping(e.target.value.length > 0);
                       }}
@@ -336,7 +336,7 @@ export default function ThreadedCommentsSection({
                       type="submit"
                       disabled={!replyContent.trim()}
                       className="px-4 py-2 mt-ocean-gradient text-white rounded-lg disabled:opacity-50"
-                    >
+                     aria-label="Button">
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
@@ -358,7 +358,7 @@ export default function ThreadedCommentsSection({
 
   return (
     <div className="glassmorphic rounded-2xl p-6 border border-cyan-500/20" data-testid="comments-section">
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+      <h3 className="text-lg font-bold text-[var(--color-text)] dark:text-white mb-4">
         Comments ({comments.length})
       </h3>
 
@@ -366,9 +366,9 @@ export default function ThreadedCommentsSection({
       {typingUsers.size > 0 && (
         <div className="mb-4 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
           <div className="flex space-x-1">
-            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full"></span>
-            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full" style={{ animationDelay: '0.1s' }}></span>
-            <span className="animate-bounce inline-block w-2 h-2 bg-cyan-500 rounded-full" style={{ animationDelay: '0.2s' }}></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-[var(--color-primary)] rounded-full"></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-[var(--color-primary)] rounded-full" style={{ animationDelay: '0.1s' }}></span>
+            <span className="animate-bounce inline-block w-2 h-2 bg-[var(--color-primary)] rounded-full" style={{ animationDelay: '0.2s' }}></span>
           </div>
           {Array.from(typingUsers.values()).join(', ')} {typingUsers.size === 1 ? 'is' : 'are'} typing...
         </div>
@@ -401,7 +401,7 @@ export default function ThreadedCommentsSection({
             <input
               type="text"
               value={newComment}
-              onChange={(e) => {
+              onChange={(e) = aria-label="Input field"> {
                 setNewComment(e.target.value);
                 handleTyping(e.target.value.length > 0);
               }}
@@ -414,7 +414,7 @@ export default function ThreadedCommentsSection({
               type="submit"
               disabled={!newComment.trim() || isAddingComment}
               className="px-4 py-2 mt-ocean-gradient text-white rounded-lg disabled:opacity-50 flex items-center gap-2"
-            >
+             aria-label="Button">
               <Send className="w-4 h-4" />
               {isAddingComment && <span className="text-xs">Sending...</span>}
             </button>

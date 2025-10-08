@@ -74,7 +74,7 @@ const LifeCEOPortal: React.FC = () => {
       case 'active':return 'bg-green-100 text-green-800';
       case 'paused':return 'bg-yellow-100 text-yellow-800';
       case 'failed':return 'bg-red-100 text-red-800';
-      default:return 'bg-gray-100 text-gray-800';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
     }
   };
 
@@ -84,7 +84,7 @@ const LifeCEOPortal: React.FC = () => {
       <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-xl p-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="p-3 bg-white/20 rounded-xl">
+            <div className="p-3 bg-[var(--color-surface)] dark:bg-gray-900/20 rounded-xl">
               <Brain className="w-8 h-8" />
             </div>
             <div>
@@ -115,7 +115,7 @@ const LifeCEOPortal: React.FC = () => {
               <Users className="w-5 h-5 text-blue-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.activeAgents}/{systemStats.totalAgents}</div>
-                <div className="text-sm text-gray-600">Active Agents</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Active Agents</div>
               </div>
             </div>
           </CardContent>
@@ -127,7 +127,7 @@ const LifeCEOPortal: React.FC = () => {
               <Database className="w-5 h-5 text-green-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.memoryEntries.toLocaleString()}</div>
-                <div className="text-sm text-gray-600">Memory Entries</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Memory Entries</div>
               </div>
             </div>
           </CardContent>
@@ -139,7 +139,7 @@ const LifeCEOPortal: React.FC = () => {
               <Clock className="w-5 h-5 text-purple-500" />
               <div>
                 <div className="text-2xl font-bold">{systemStats.dailyReviewTime}</div>
-                <div className="text-sm text-gray-600">Daily Review</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Daily Review</div>
               </div>
             </div>
           </CardContent>
@@ -151,7 +151,7 @@ const LifeCEOPortal: React.FC = () => {
               <BarChart3 className="w-5 h-5 text-orange-500" />
               <div>
                 <div className="text-2xl font-bold">47</div>
-                <div className="text-sm text-gray-600">Tasks Today</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">Tasks Today</div>
               </div>
             </div>
           </CardContent>
@@ -171,14 +171,14 @@ const LifeCEOPortal: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {activeAgents.map((agent) =>
-              <div key={agent.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={agent.id} className="flex items-center justify-between p-3 bg-[var(--color-surface-elevated)] rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                       {agent.name.charAt(0)}
                     </div>
                     <div>
                       <div className="font-medium">{agent.name}</div>
-                      <div className="text-sm text-gray-600">{agent.type.replace(/_/g, ' ')}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">{agent.type.replace(/_/g, ' ')}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -206,11 +206,11 @@ const LifeCEOPortal: React.FC = () => {
           <CardContent>
             <div className="space-y-3">
               {recentActivity.map((activity, index) =>
-              <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex items-start space-x-3 p-3 bg-[var(--color-surface-elevated)] rounded-lg">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
                     <div className="text-sm font-medium">{activity.action}</div>
-                    <div className="text-xs text-gray-600">{activity.agent} • {activity.time}</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-300">{activity.agent} • {activity.time}</div>
                   </div>
                   <Badge variant="outline" className="text-xs">
                     {activity.type}

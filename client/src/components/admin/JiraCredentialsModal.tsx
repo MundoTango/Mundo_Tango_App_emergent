@@ -77,7 +77,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               value={credentials.instanceUrl}
               onChange={(e) => setCredentials({ ...credentials, instanceUrl: e.target.value })} data-testid="input-instanceurl" />
 
-            <p className="text-xs text-gray-500">Your Atlassian domain URL</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Your Atlassian domain URL</p>
           </div>
           
           <div className="grid gap-2">
@@ -89,7 +89,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               value={credentials.email}
               onChange={(e) => setCredentials({ ...credentials, email: e.target.value })} data-testid="input-email" />
 
-            <p className="text-xs text-gray-500">Email associated with your JIRA account</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Email associated with your JIRA account</p>
           </div>
           
           <div className="grid gap-2">
@@ -101,8 +101,8 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               value={credentials.apiToken}
               onChange={(e) => setCredentials({ ...credentials, apiToken: e.target.value })} data-testid="input-apitoken" />
 
-            <p className="text-xs text-gray-500">
-              Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-turquoise-600 hover:underline" data-testid="a-text-turquoise-600">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Generate from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary-hover)] hover:underline" data-testid="a-text-[var(--color-primary-hover)]">
                 Atlassian Account Settings
               </a>
             </p>
@@ -116,7 +116,7 @@ export default function JiraCredentialsModal({ isOpen, onClose, onSuccess }: Jir
               value={credentials.projectKey}
               onChange={(e) => setCredentials({ ...credentials, projectKey: e.target.value.toUpperCase() })} data-testid="input-projectkey" />
 
-            <p className="text-xs text-gray-500">The key of your JIRA project (e.g., MT, PROJ)</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">The key of your JIRA project (e.g., MT, PROJ)</p>
           </div>
           
           {testResult &&

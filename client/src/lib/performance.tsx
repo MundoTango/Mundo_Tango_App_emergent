@@ -65,7 +65,7 @@ export function LazyLoad({ children, height = 200 }: { children: React.ReactNode
 
   return (
     <div ref={ref} style={{ minHeight: `${height}px` }}>
-      {isVisible ? children : <div className="animate-pulse bg-gray-200 rounded-lg" style={{ height: `${height}px` }} />}
+      {isVisible ? children : <div className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg" style={{ height: `${height}px` }} />}
     </div>
   );
 }

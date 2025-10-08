@@ -51,8 +51,8 @@ const socialPlatforms: SocialPlatform[] = [
   {
     name: 'X (Twitter)',
     icon: Twitter,
-    color: 'text-gray-900',
-    bgColor: 'bg-gray-100 hover:bg-gray-200',
+    color: 'text-[var(--color-text)] dark:text-white',
+    bgColor: 'bg-[var(--color-neutral-100)] hover:bg-gray-200 dark:bg-gray-700',
     shareUrl: (url, text) => `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
   },
   {
@@ -72,8 +72,8 @@ const socialPlatforms: SocialPlatform[] = [
   {
     name: 'Email',
     icon: Mail,
-    color: 'text-gray-600',
-    bgColor: 'bg-gray-50 hover:bg-gray-100',
+    color: 'text-gray-600 dark:text-gray-300',
+    bgColor: 'bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)]',
     shareUrl: (url, text) => `mailto:?subject=${encodeURIComponent('Check out this memory!')}&body=${encodeURIComponent(`${text}\n\n${url}`)}`
   }
 ];
@@ -209,9 +209,9 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-500" />
+            className="p-2 hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800 rounded-lg transition-colors"
+           aria-label="Button">
+            <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>
         </div>
         
@@ -222,13 +222,13 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               {post.user.name.charAt(0)}
             </div>
             <div className="flex-1">
-              <p className="font-medium text-gray-900 dark:text-white">
+              <p className="font-medium text-[var(--color-text)] dark:text-white">
                 {post.user.name}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 @{post.user.username}
               </p>
-              <p className="text-gray-700 dark:text-gray-300 mt-2 line-clamp-3">
+              <p className="text-[var(--color-text-secondary)] dark:text-gray-300 mt-2 line-clamp-3">
                 {post.content}
               </p>
               {post.imageUrl && (
@@ -244,7 +244,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
 
         {/* Add Comment Section */}
         <div className="mb-6">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+          <label className="text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300 mb-2 block">
             Add your thoughts (optional)
           </label>
           <textarea
@@ -272,10 +272,10 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
+            <div className="w-full border-t border-[var(--color-border)] dark:border-gray-700"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white dark:bg-gray-900 px-4 text-gray-500">
+            <span className="bg-[var(--color-surface)] dark:bg-gray-900 px-4 text-gray-500 dark:text-gray-400">
               Or share via
             </span>
           </div>
@@ -305,7 +305,7 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
                   <platform.icon className={`w-6 h-6 ${platform.color} group-hover:scale-110 transition-transform`} />
                 )}
               </AnimatePresence>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-xs font-medium text-[var(--color-text-secondary)] dark:text-gray-300">
                 {platform.name}
               </span>
             </motion.button>
@@ -313,14 +313,14 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
         </div>
 
         {/* Copy Link Section */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-[var(--color-border)] dark:border-gray-700">
           <div className="flex items-center gap-3">
             <input
               type="text"
               value={postUrl}
               readOnly
-              className="flex-1 px-4 py-3 glassmorphic rounded-xl text-sm text-gray-700 dark:text-gray-300"
-            />
+              className="flex-1 px-4 py-3 glassmorphic rounded-xl text-sm text-[var(--color-text-secondary)] dark:text-gray-300"
+            / aria-label="Input field">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

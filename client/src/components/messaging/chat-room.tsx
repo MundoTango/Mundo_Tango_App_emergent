@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react"
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAuthToken } from "@/lib/authUtils";
 import { useAuth } from "@/contexts/auth-context";
@@ -50,7 +51,8 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   const [newMessage, setNewMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { user } = useAuth();
+  const {
+  const { t } = useTranslation(); user } = useAuth();
   const { sendMessage } = useSocket();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -99,7 +101,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to send message",
         variant: "destructive"
       });
@@ -178,7 +180,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   return (
     <Card className="card-shadow h-full flex flex-col">
       {/* Header */}
-      <CardHeader className="p-4 border-b border-gray-200">
+      <CardHeader className="p-4 border-b border-[var(--color-border)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Button
@@ -203,20 +205,20 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             
             <div>
               <h3 className="font-semibold text-tango-black">{room.title}</h3>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {room.type === 'group' ? 'Group chat' : 'Online'}
               </p>
             </div>
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="text-gray-600" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300" data-testid="button-text-gray-600 dark:text-gray-300">
               <Phone className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300" data-testid="button-text-gray-600 dark:text-gray-300">
               <Video className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-gray-600" data-testid="button-text-gray-600">
+            <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300" data-testid="button-text-gray-600 dark:text-gray-300">
               <MoreVertical className="h-5 w-5" />
             </Button>
           </div>
@@ -235,7 +237,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
           <div key={date}>
                 {/* Date Separator */}
                 <div className="text-center mb-4">
-                  <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-[var(--color-neutral-100)] px-3 py-1 rounded-full">
                     {date}
                   </span>
                 </div>
@@ -262,7 +264,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
                         <div className={`rounded-lg px-3 py-2 ${
                     isOwnMessage ?
                     'bg-tango-red text-white' :
-                    'bg-gray-100 text-gray-900'}`
+                    'bg-[var(--color-neutral-100)] text-[var(--color-text)] dark:text-white'}`
                     }>
                           {!isOwnMessage && room.type === 'group' &&
                       <p className="text-xs font-medium mb-1 text-tango-red">
@@ -270,7 +272,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
                             </p>
                       }
                           <p className="text-sm">{message.message}</p>
-                          <p className={`text-xs mt-1 ${isOwnMessage ? 'text-white/70' : 'text-gray-500'}`}>
+                          <p className={`text-xs mt-1 ${isOwnMessage ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'}`}>
                             {formatMessageTime(message.createdAt)}
                           </p>
                         </div>
@@ -286,9 +288,9 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       </CardContent>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-[var(--color-border)]">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600" data-testid="button-button">
+          <Button variant="ghost" size="sm" type="button" className="text-gray-600 dark:text-gray-300" data-testid="button-button">
             <Paperclip className="h-5 w-5" />
           </Button>
           
@@ -303,7 +305,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               variant="ghost"
               size="sm"
               type="button"
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600" data-testid="button-button">
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-300" data-testid="button-button">
 
               <Smile className="h-4 w-4" />
             </Button>

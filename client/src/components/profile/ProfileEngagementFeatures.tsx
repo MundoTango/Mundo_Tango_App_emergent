@@ -45,17 +45,17 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
         className={`p-3 rounded-lg border-2 text-center transition-all hover:scale-105 ${
         achievement.unlocked ?
         'bg-gradient-to-br from-turquoise-50 to-cyan-50 border-turquoise-200' :
-        'bg-gray-50 border-gray-200'}`
+        'bg-[var(--color-surface-elevated)] border-[var(--color-border)]'}`
         }>
 
               <div className={`text-2xl mb-2 ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
                 {achievement.icon}
               </div>
-              <div className={`text-xs font-medium ${achievement.unlocked ? 'text-turquoise-700' : 'text-gray-500'}`}>
+              <div className={`text-xs font-medium ${achievement.unlocked ? 'text-turquoise-700' : 'text-gray-500 dark:text-gray-400'}`}>
                 {achievement.name}
               </div>
               {/* Progress bar for achievements */}
-              <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
                 <div
             className={`h-1.5 rounded-full transition-all duration-300 ${
             achievement.unlocked ?
@@ -89,14 +89,14 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
         onClick={() => setSelectedChallenge(challenge.name)}>
 
               <div className="flex items-center justify-between mb-2">
-                <h5 className="font-medium text-gray-900">{challenge.name}</h5>
+                <h5 className="font-medium text-[var(--color-text)] dark:text-white">{challenge.name}</h5>
                 <Badge className="bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700">
                   +{challenge.points} pts
                 </Badge>
               </div>
-              <p className="text-sm text-gray-600 mb-3">{challenge.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{challenge.description}</p>
               <div className="flex items-center gap-3">
-                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 h-2 rounded-full transition-all duration-500"
               style={{ width: `${challenge.progress / challenge.total * 100}%` }} />
@@ -146,10 +146,10 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
       { label: 'Memories Shared', value: statsData?.postsCount || 12, icon: Sparkles, color: 'text-purple-500' },
       { label: 'Impact Score', value: '4.8/5', icon: TrendingUp, color: 'text-green-500' }].
       map((metric) =>
-      <div key={metric.label} className="text-center p-4 bg-white/50 rounded-lg border border-gray-200">
+      <div key={metric.label} className="text-center p-4 bg-[var(--color-surface)] dark:bg-gray-900/50 rounded-lg border border-[var(--color-border)]">
               <metric.icon className={`w-6 h-6 mx-auto mb-2 ${metric.color}`} />
-              <div className="text-xl font-bold text-gray-900">{metric.value}</div>
-              <div className="text-xs text-gray-600">{metric.label}</div>
+              <div className="text-xl font-bold text-[var(--color-text)] dark:text-white">{metric.value}</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300">{metric.label}</div>
             </div>
       )}
         </div>
@@ -181,18 +181,18 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
         { name: 'Custom Badge', points: 200, current: 387 },
         { name: 'Priority Support', points: 100, current: 387 }].
         map((reward) =>
-        <div key={reward.name} className="p-3 bg-white/70 rounded-lg border border-gray-200">
+        <div key={reward.name} className="p-3 bg-[var(--color-surface)] dark:bg-gray-900/70 rounded-lg border border-[var(--color-border)]">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-900">{reward.name}</span>
-                  <span className="text-xs text-turquoise-600">{reward.points} pts</span>
+                  <span className="text-sm font-medium text-[var(--color-text)] dark:text-white">{reward.name}</span>
+                  <span className="text-xs text-[var(--color-primary-hover)]">{reward.points} pts</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-1.5">
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                   <div
               className="bg-gradient-to-r from-turquoise-400 to-cyan-500 h-1.5 rounded-full"
               style={{ width: `${Math.min(reward.current / reward.points * 100, 100)}%` }} />
 
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   {reward.current >= reward.points ? 'Available!' : `${reward.points - reward.current} pts needed`}
                 </div>
               </div>
@@ -213,12 +213,12 @@ export const ProfileEngagementFeatures: React.FC<ProfileEngagementFeaturesProps>
                 <h3 className="text-lg font-semibold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600">{feature.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
               </div>
               <Button
               variant="outline"
               size="sm"
-              className="border-turquoise-200 text-turquoise-700 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+              className="border-turquoise-200 text-turquoise-700 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                 View All
               </Button>

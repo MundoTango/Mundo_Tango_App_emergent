@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export const GlassCardDepths: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Glass Card Depths</h2>
     <div className="grid md:grid-cols-3 gap-6">
       {[1, 2, 3].map((depth) => (
@@ -20,7 +20,7 @@ export const GlassCardDepths: Story = () => (
 );
 
 export const GlassCardWithContent: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Glass Card With Content</h2>
     <div className="max-w-md mx-auto">
       <GlassCard depth={2} className="p-8">
@@ -31,7 +31,7 @@ export const GlassCardWithContent: Story = () => (
             <Input 
               type="email" 
               placeholder="Enter your email"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-white/20 text-white placeholder:text-white/60"
               data-testid="input-email"
             />
           </div>
@@ -40,12 +40,12 @@ export const GlassCardWithContent: Story = () => (
             <Input 
               type="password" 
               placeholder="Enter your password"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="bg-[var(--color-surface)] dark:bg-gray-900/10 border-white/20 text-white placeholder:text-white/60"
               data-testid="input-password"
             />
           </div>
           <Button 
-            className="w-full bg-white/20 hover:bg-white/30 border border-white/30"
+            className="w-full bg-[var(--color-surface)] dark:bg-gray-900/20 hover:bg-[var(--color-surface)] dark:bg-gray-900/30 border border-white/30"
             data-testid="button-submit"
           >
             Sign In
@@ -57,7 +57,7 @@ export const GlassCardWithContent: Story = () => (
 );
 
 export const GlassCardLayering: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Layered Glass Cards</h2>
     <div className="max-w-2xl mx-auto">
       <GlassCard depth={1} className="p-6">
@@ -77,7 +77,7 @@ export const GlassCardLayering: Story = () => (
 );
 
 export const GlassCardGrid: Story = () => (
-  <div className="p-8 bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 min-h-screen">
+  <div className="p-8 bg-gradient-to-br from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-600)] min-h-screen">
     <h2 className="text-2xl font-bold text-white mb-6">Glass Card Grid Layout</h2>
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: 6 }).map((_, i) => (

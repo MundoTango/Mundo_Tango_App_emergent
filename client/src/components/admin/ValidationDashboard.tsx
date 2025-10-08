@@ -146,7 +146,7 @@ export function ValidationDashboard() {
         <h2 className="text-2xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
           Life CEO 40x20s Validation Dashboard
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 dark:text-gray-300 mt-2">
           Comprehensive platform validation from Registration through all features
         </p>
         
@@ -193,22 +193,22 @@ export function ValidationDashboard() {
         <Progress value={overallProgress} className="h-3 mb-4" />
         <div className="grid grid-cols-4 gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-turquoise-600">{performanceMetrics.totalTests}</p>
-            <p className="text-sm text-gray-600">Total Tests</p>
+            <p className="text-2xl font-bold text-[var(--color-primary-hover)]">{performanceMetrics.totalTests}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Total Tests</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-green-600">{performanceMetrics.passedTests}</p>
-            <p className="text-sm text-gray-600">Passed</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Passed</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-red-600">{performanceMetrics.failedTests}</p>
-            <p className="text-sm text-gray-600">Failed</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Failed</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-blue-600">
               {performanceMetrics.avgExecutionTime.toFixed(0)}ms
             </p>
-            <p className="text-sm text-gray-600">Avg Time</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Avg Time</p>
           </div>
         </div>
       </Card>
@@ -219,7 +219,7 @@ export function ValidationDashboard() {
           <div className="flex items-center gap-2">
             <Zap className="h-5 w-5 text-yellow-500" />
             <div>
-              <p className="text-sm text-gray-600">Render Performance</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Render Performance</p>
               <p className="text-lg font-semibold">
                 {performanceMetrics.avgExecutionTime < 3000 ? '✅ Under 3s' : '❌ Over 3s'}
               </p>
@@ -230,7 +230,7 @@ export function ValidationDashboard() {
           <div className="flex items-center gap-2">
             <Database className="h-5 w-5 text-blue-500" />
             <div>
-              <p className="text-sm text-gray-600">Memory Usage</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Memory Usage</p>
               <p className="text-lg font-semibold">{performanceMetrics.avgMemoryUsage.toFixed(1)} MB</p>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function ValidationDashboard() {
           <div className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-green-500" />
             <div>
-              <p className="text-sm text-gray-600">Security Status</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Security Status</p>
               <p className="text-lg font-semibold">RLS Active</p>
             </div>
           </div>
@@ -260,7 +260,7 @@ export function ValidationDashboard() {
         <TabsContent key={layer.layer} value={layer.layer.toString()}>
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-2">{layer.name}</h3>
-              <p className="text-gray-600 mb-4">{layer.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{layer.description}</p>
               
               <div className="space-y-3">
                 {layer.tests.map((test) => {
@@ -272,16 +272,16 @@ export function ValidationDashboard() {
                         {result.status === 'failed' && <XCircle className="h-5 w-5 text-red-500" />}
                         {result.status === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-500" />}
                         {result.status === 'running' && <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />}
-                        {result.status === 'pending' && <div className="h-5 w-5 rounded-full border-2 border-gray-300" />}
+                        {result.status === 'pending' && <div className="h-5 w-5 rounded-full border-2 border-gray-300 dark:border-gray-600" />}
                         
                         <div>
                           <p className="font-medium">{test.name}</p>
-                          <p className="text-sm text-gray-600">{test.description}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{test.description}</p>
                           {result.message &&
                         <p className={`text-xs mt-1 ${
                         result.status === 'failed' ? 'text-red-600' :
                         result.status === 'warning' ? 'text-yellow-600' :
-                        'text-gray-600'}`
+                        'text-gray-600 dark:text-gray-300'}`
                         }>
                               {result.message}
                             </p>
@@ -290,7 +290,7 @@ export function ValidationDashboard() {
                       </div>
                       
                       {result.executionTime &&
-                    <div className="text-right text-sm text-gray-600">
+                    <div className="text-right text-sm text-gray-600 dark:text-gray-300">
                           <p>{result.executionTime}ms</p>
                           {result.memoryUsage && <p>{result.memoryUsage.toFixed(1)}MB</p>}
                         </div>

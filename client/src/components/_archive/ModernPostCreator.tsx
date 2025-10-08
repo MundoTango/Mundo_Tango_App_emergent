@@ -310,7 +310,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
 
   if (!isExpanded) {
     return (
-      <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+      <Card className="mb-6 bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
         <div className="p-6">
           <div
             className="flex items-center space-x-4 cursor-pointer"
@@ -319,7 +319,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
               {user?.name?.charAt(0) || 'U'}
             </div>
-            <div className="flex-1 bg-gray-50 hover:bg-gray-100 transition-colors rounded-full px-6 py-3 text-gray-500">
+            <div className="flex-1 bg-[var(--color-surface-elevated)] hover:bg-[var(--color-neutral-100)] transition-colors rounded-full px-6 py-3 text-gray-500 dark:text-gray-400">
               Share your tango moment...
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   }
 
   return (
-    <Card className="mb-6 bg-white/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
+    <Card className="mb-6 bg-[var(--color-surface)] dark:bg-gray-900/95 backdrop-blur-sm border-0 shadow-lg rounded-xl overflow-hidden">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -338,15 +338,15 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
               {user?.name?.charAt(0) || 'U'}
             </div>
             <div>
-              <p className="font-semibold text-gray-900">{user?.name}</p>
-              <p className="text-sm text-gray-500">@{user?.username}</p>
+              <p className="font-semibold text-[var(--color-text)] dark:text-white">{user?.name}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">@{user?.username}</p>
             </div>
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsExpanded(false)}
-            className="text-gray-400 hover:text-gray-600" data-testid="button-text-gray-400">
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-300" data-testid="button-text-gray-400">
 
             <X className="h-5 w-5" />
           </Button>
@@ -387,7 +387,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             value={content}
             onChange={(e) => handleContentChange(e.target.value)}
             placeholder="What's happening in your tango world? Use @mentions and #hashtags..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             rows={4}
             style={{ minHeight: '120px' }} data-testid="textarea-w-full" />
 
@@ -411,7 +411,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {uploadedFiles.map((file, index) =>
             <div key={index} className="relative group">
-                  <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                  <div className="aspect-square bg-[var(--color-neutral-100)] rounded-lg overflow-hidden">
                     {file.type.startsWith('image/') ?
                 <img
                   src={URL.createObjectURL(file)}
@@ -447,8 +447,8 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             type="url"
             placeholder="Paste social media URL (Twitter, Instagram, YouTube, TikTok)..."
             value={embedUrl}
-            onChange={(e) => setEmbedUrl(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" data-testid="input-url" />
+            onChange={(e) = aria-label="Input field"> setEmbedUrl(e.target.value)}
+            className="w-full px-4 py-2 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" data-testid="input-url" />
 
           </div>
         }
@@ -522,7 +522,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
-              className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" data-testid="select-px-3">
+              className="px-3 py-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500" data-testid="select-px-3">
 
               <option value="public">🌍 Public</option>
               <option value="friends">👥 Friends</option>
@@ -556,7 +556,7 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
           type="file"
           multiple
           accept="image/*,video/*"
-          onChange={(e) => handleFileUpload(e.target.files)}
+          onChange={(e) = aria-label="Input field"> handleFileUpload(e.target.files)}
           className="hidden" data-testid="input-file" />
 
       </div>

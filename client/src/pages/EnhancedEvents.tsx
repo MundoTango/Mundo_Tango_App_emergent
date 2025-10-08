@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
 import DashboardLayout from '@/layouts/DashboardLayout';
@@ -91,6 +92,7 @@ import { useEventRSVP } from '@/hooks/useEventRSVP';
 const LeafletMap = lazy(() => import('@/components/LeafletMap'));
 
 interface Event {
+  const { t } = useTranslation();
   id: number;
   title: string;
   description?: string;
@@ -241,14 +243,14 @@ export default function EnhancedEventsPage() {
     },
     onSuccess: () => {
       toast({
-        title: "Success",
+        title: {t('states.success', 'Success')},
         description: "RSVP updated successfully!"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/events'] });
     },
     onError: () => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: "Failed to update RSVP",
         variant: "destructive"
       });
@@ -316,7 +318,7 @@ export default function EnhancedEventsPage() {
       return <span className="text-green-600 font-medium">Happening now!</span>;
     } else {
       return (
-        <span className="text-turquoise-600 font-medium">
+        <span className="text-[var(--color-primary-hover)] font-medium">
           {days}d {hours}h {minutes}m
         </span>);
 
@@ -347,13 +349,13 @@ export default function EnhancedEventsPage() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
               Events
             </h1>
-            <p className="text-gray-600 mt-1">Discover and join tango events worldwide</p>
+            <p className="text-gray-600 dark:text-gray-300 mt-1">Discover and join tango events worldwide</p>
           </div>
           <div className="flex gap-2">
             <Button
               onClick={exportEventsToCSV}
               variant="outline"
-              className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+              className="border-turquoise-200 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
               <Download className="w-4 h-4 mr-2" />
               Export
@@ -372,21 +374,21 @@ export default function EnhancedEventsPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card className="p-4 bg-gradient-to-r from-turquoise-50 to-cyan-50 glassmorphic-card">
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-turquoise-600" />
+              <Calendar className="w-8 h-8 text-[var(--color-primary-hover)]" />
               <div>
                 <p className="text-2xl font-bold">{events.length}</p>
-                <p className="text-sm text-gray-600">Total Events</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Total Events</p>
               </div>
             </div>
           </Card>
           <Card className="p-4 bg-gradient-to-r from-cyan-50 to-blue-50 glassmorphic-card">
             <div className="flex items-center gap-3">
-              <Clock className="w-8 h-8 text-cyan-600" />
+              <Clock className="w-8 h-8 text-[var(--color-primary-hover)]" />
               <div>
                 <p className="text-2xl font-bold">
                   {events.filter((e) => moment(e.startDate).isAfter()).length}
                 </p>
-                <p className="text-sm text-gray-600">Upcoming</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Upcoming</p>
               </div>
             </div>
           </Card>
@@ -397,7 +399,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter((e) => e.userStatus === 'going').length}
                 </p>
-                <p className="text-sm text-gray-600">Attending</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Attending</p>
               </div>
             </div>
           </Card>
@@ -408,7 +410,7 @@ export default function EnhancedEventsPage() {
                 <p className="text-2xl font-bold">
                   {events.filter((e) => moment(e.startDate).isSame(moment(), 'week')).length}
                 </p>
-                <p className="text-sm text-gray-600">This Week</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">This Week</p>
               </div>
             </div>
           </Card>
@@ -419,7 +421,7 @@ export default function EnhancedEventsPage() {
           <div className="flex flex-col gap-4">
             <div className="flex gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-turquoise-500 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-primary)] w-5 h-5" />
                 <Input
                   id="event-search"
                   type="text"
@@ -440,7 +442,7 @@ export default function EnhancedEventsPage() {
                   data-tooltip-content={option.label}
                   className={viewMode === option.value ?
                   'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' :
-                  'border-turquoise-200 hover:bg-turquoise-50'
+                  'border-turquoise-200 hover:bg-[var(--color-ocean-50)]'
                   } data-testid="button-element">
 
                     <option.icon className="w-4 h-4" />
@@ -496,7 +498,7 @@ export default function EnhancedEventsPage() {
                 onClick={() => setShowVirtualOnly(!showVirtualOnly)}
                 className={showVirtualOnly ?
                 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white hover:from-turquoise-500 hover:to-cyan-600' :
-                'border-turquoise-200 hover:bg-turquoise-50'
+                'border-turquoise-200 hover:bg-[var(--color-ocean-50)]'
                 } data-testid="button-element">
 
                 <Video className="w-4 h-4 mr-1" />
@@ -507,7 +509,7 @@ export default function EnhancedEventsPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => refetch()}
-                className="border-turquoise-200 hover:bg-turquoise-50" data-testid="button-border-turquoise-200">
+                className="border-turquoise-200 hover:bg-[var(--color-ocean-50)]" data-testid="button-border-turquoise-200">
 
                 <RefreshCw className="w-4 h-4 mr-1" />
                 Refresh
@@ -543,7 +545,7 @@ export default function EnhancedEventsPage() {
             hasMore={false}
             loader={<Skeleton height={100} count={3} />}
             endMessage={
-            <p className="text-center text-gray-500 mt-8">
+            <p className="text-center text-gray-500 dark:text-gray-400 mt-8">
                   You've seen all events! 🎉
                 </p>
             }>
@@ -641,7 +643,7 @@ export default function EnhancedEventsPage() {
                 event: ({ event }: any) =>
                 <div className="p-1 text-xs">
                       <div className="font-semibold truncate">{event.title}</div>
-                      <div className="text-gray-600">{moment(event.start).format('h:mm A')}</div>
+                      <div className="text-gray-600 dark:text-gray-300">{moment(event.start).format('h:mm A')}</div>
                     </div>
 
               }} />
@@ -657,7 +659,7 @@ export default function EnhancedEventsPage() {
             <div className="h-full bg-gradient-to-br from-turquoise-50/50 to-cyan-50/50 flex items-center justify-center">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading map...</p>
+                    <p className="text-gray-600 dark:text-gray-300">Loading map...</p>
                   </div>
                 </div>
             }>
@@ -668,8 +670,8 @@ export default function EnhancedEventsPage() {
                   popupContent: `
                       <div class="p-2">
                         <h3 class="font-bold text-sm">${event.title}</h3>
-                        <p class="text-xs text-gray-600 mt-1">${moment(event.startDate).format('MMM D, h:mm A')}</p>
-                        ${event.location ? `<p class="text-xs text-gray-500">${event.location}</p>` : ''}
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">${moment(event.startDate).format('MMM D, h:mm A')}</p>
+                        ${event.location ? `<p class="text-xs text-gray-500 dark:text-gray-400">${event.location}</p>` : ''}
                         <div class="mt-2">
                           <span class="inline-block px-2 py-1 text-xs rounded-full" style="background-color: ${categoryColors[event.category || 'social']}20; color: ${categoryColors[event.category || 'social']}">
                             ${event.category || 'Event'}
@@ -690,11 +692,11 @@ export default function EnhancedEventsPage() {
         }
 
         {/* Keyboard Shortcuts */}
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
           <p>
-            <kbd className="px-2 py-1 bg-gray-100 rounded">Cmd+N</kbd> Create Event • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+E</kbd> Export • 
-            <kbd className="px-2 py-1 bg-gray-100 rounded ml-2">Cmd+/</kbd> Search
+            <kbd className="px-2 py-1 bg-[var(--color-neutral-100)] rounded">Cmd+N</kbd> Create Event • 
+            <kbd className="px-2 py-1 bg-[var(--color-neutral-100)] rounded ml-2">Cmd+E</kbd> Export • 
+            <kbd className="px-2 py-1 bg-[var(--color-neutral-100)] rounded ml-2">Cmd+/</kbd> Search
           </p>
         </div>
 

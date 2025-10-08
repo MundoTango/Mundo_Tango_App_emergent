@@ -311,11 +311,11 @@ export default function PrivacyAnalytics() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-ocean-400)] to-cyan-500 rounded-full flex items-center justify-center">
             <Shield className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Privacy & Analytics</h1>
+            <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white">Privacy & Analytics</h1>
             <p className="text-gray-600 dark:text-gray-400">Manage your privacy settings and data collection preferences</p>
           </div>
         </div>
@@ -325,7 +325,7 @@ export default function PrivacyAnalytics() {
           <Button
             onClick={handleAcceptAll}
             disabled={loading}
-            className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
+            className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white"
             data-testid="button-accept-all"
           >
             <CheckCircle2 className="w-4 h-4 mr-2" />
@@ -344,7 +344,7 @@ export default function PrivacyAnalytics() {
       </div>
 
       {/* Status Alert */}
-      <Alert className={`mb-6 ${hasAnyConsent ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : 'border-gray-200'}`}>
+      <Alert className={`mb-6 ${hasAnyConsent ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : 'border-[var(--color-border)]'}`}>
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Current Status</AlertTitle>
         <AlertDescription className="mt-2">
@@ -376,10 +376,10 @@ export default function PrivacyAnalytics() {
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                      service.enabled ? 'bg-teal-100 dark:bg-teal-900/30' : 'bg-gray-100 dark:bg-gray-800'
+                      service.enabled ? 'bg-[var(--color-ocean-100)] dark:bg-teal-900/30' : 'bg-[var(--color-neutral-100)] dark:bg-gray-800'
                     }`}>
                       <service.icon className={`w-5 h-5 ${
-                        service.enabled ? 'text-teal-600 dark:text-teal-400' : 'text-gray-500'
+                        service.enabled ? 'text-[var(--color-primary-hover)] dark:text-teal-400' : 'text-gray-500 dark:text-gray-400'
                       }`} />
                     </div>
                     <div className="space-y-1 flex-1">
@@ -624,7 +624,7 @@ export default function PrivacyAnalytics() {
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 For privacy-related inquiries or to exercise your rights, contact our Data Protection Officer:
               </p>
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="p-4 bg-[var(--color-surface-elevated)] dark:bg-gray-800 rounded-lg">
                 <p className="font-medium">Data Protection Officer</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">privacy@mundotango.app</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Response time: Within 30 days</p>

@@ -100,11 +100,11 @@ export const MembersList = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-gradient-to-r from-cyan-500/20 to-blue-500/20 dark:from-cyan-400/20 dark:to-blue-400/20">
-            <Users className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />
+          <div className="p-2 rounded-lg bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-ocean-500)]/20 dark:from-[var(--color-ocean-400)]/20 dark:to-blue-400/20">
+            <Users className="h-5 w-5 text-[var(--color-primary-hover)] dark:text-cyan-400" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100" data-testid="text-members-title">
+            <h2 className="text-xl font-semibold text-[var(--color-text)] dark:text-gray-100" data-testid="text-members-title">
               {t('members.title', 'Home Community Residents')}
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -130,14 +130,14 @@ export const MembersList = ({
             placeholder={t('members.search.placeholder', 'Search members...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
+            className="pl-10 bg-[var(--color-surface)]/50 dark:bg-gray-800/50 border-[var(--color-border)] dark:border-gray-700 focus:border-cyan-500 dark:focus:border-cyan-400"
             data-testid="input-search-members"
           />
         </div>
         {selectedRoles.length > 0 && (
           <button
-            onClick={() => setSelectedRoles([])}
-            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            onClick={() = aria-label="Button"> setSelectedRoles([])}
+            className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[var(--color-primary-hover)] dark:hover:text-cyan-400 transition-colors"
             data-testid="button-clear-filters"
           >
             {t('members.clearFilters', 'Clear Filters')} ({selectedRoles.length})

@@ -122,7 +122,7 @@ const TrialBanner: React.FC = () => {
         <Card className={`glassmorphic-card border ${
         isLastDay ? 'border-red-500 bg-red-50/80' :
         isUrgent ? 'border-orange-500 bg-orange-50/80' :
-        'border-turquoise-500 bg-turquoise-50/80'} backdrop-blur-xl shadow-lg`
+        'border-turquoise-500 bg-[var(--color-ocean-50)]/80'} backdrop-blur-xl shadow-lg`
         }>
           <div className="p-4">
             <div className="flex items-center justify-between">
@@ -136,7 +136,7 @@ const TrialBanner: React.FC = () => {
                   {isLastDay ?
                   <Zap className="w-6 h-6 text-red-600" /> :
 
-                  <Sparkles className="w-6 h-6 text-turquoise-600" />
+                  <Sparkles className="w-6 h-6 text-[var(--color-primary-hover)]" />
                   }
                 </div>
 
@@ -156,7 +156,7 @@ const TrialBanner: React.FC = () => {
                   <div className="flex items-center gap-6">
                     {/* Countdown */}
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-gray-500" />
+                      <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <Countdown
                         date={new Date(status.trialEndsAt)}
                         renderer={renderer} />
@@ -165,7 +165,7 @@ const TrialBanner: React.FC = () => {
 
                     {/* Progress */}
                     <div className="flex items-center gap-2 min-w-[200px]">
-                      <span className="text-sm text-gray-600">Trial Progress:</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-300">Trial Progress:</span>
                       <Progress value={progress} className="h-2 flex-1" />
                       <span className="text-sm font-medium">{Math.round(progress)}%</span>
                     </div>
@@ -203,7 +203,7 @@ const TrialBanner: React.FC = () => {
                     variant="ghost"
                     size="icon"
                     onClick={handleDismiss}
-                    className="text-gray-500 hover:text-gray-700" data-testid="button-text-gray-500">
+                    className="text-gray-500 dark:text-gray-400 hover:text-[var(--color-text-secondary)]" data-testid="button-text-gray-500 dark:text-gray-400">
 
                     <X className="w-4 h-4" />
                   </Button>
@@ -213,7 +213,7 @@ const TrialBanner: React.FC = () => {
 
             {/* Benefits reminder */}
             {isUrgent &&
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-4 pt-4 border-t border-[var(--color-border)]">
                 <div className="flex items-center justify-center gap-8 text-sm">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-green-600" />

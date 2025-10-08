@@ -107,7 +107,7 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
     return (
       <div className="mb-4">
         <button
-          onClick={() => toggleSection(sectionKey)}
+          onClick={() = aria-label="Button"> toggleSection(sectionKey)}
           style={{ background: 'rgba(209,250,250,0.65)' }}
           className="w-full flex items-center justify-between mb-2 px-2 py-1 rounded-lg transition-colors hover:bg-[rgba(94,234,212,0.28)] text-[#0B3C49]"
           aria-label={`Toggle ${title} section`}
@@ -177,7 +177,7 @@ export default function UpcomingEventsSidebar({}: UpcomingEventsSidebarProps) {
         {/* View All Link */}
         <div className="mt-6 pt-6 border-t border-[rgba(94,234,212,0.35)]">
           <button 
-            onClick={() => setLocation('/events')}
+            onClick={() = aria-label="Button"> setLocation('/events')}
             style={{
               background: 'linear-gradient(135deg, #5EEAD4 0%, #2CB5E8 100%)'
             }}

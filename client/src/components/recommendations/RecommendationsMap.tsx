@@ -93,7 +93,7 @@ export default function RecommendationsMap({
             <div class="flex items-center gap-3 mb-2">
               ${rec.mtRating ? `
                 <div class="flex items-center gap-1">
-                  <svg class="w-4 h-4 text-turquoise-500 fill-current" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 text-[var(--color-primary)] fill-current" viewBox="0 0 24 24">
                     ${MARKER_ICONS.star}
                   </svg>
                   <span class="text-sm font-medium">${rec.mtRating.toFixed(1)}</span>
@@ -124,7 +124,7 @@ export default function RecommendationsMap({
             ` : ''}
 
             ${rec.user ? `
-              <div class="flex items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700 mb-2">
+              <div class="flex items-center gap-2 pt-2 border-t border-[var(--color-border)] dark:border-gray-700 mb-2">
                 <div class="text-xs text-gray-500 dark:text-gray-400">
                   Recommended by ${rec.user.firstName || rec.user.username}
                 </div>
@@ -135,7 +135,7 @@ export default function RecommendationsMap({
               <button 
                 class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-all hover:scale-105 shadow-lg"
                 data-recommendation-id="${rec.id}"
-              >
+               aria-label="Button">
                 View Full Details
               </button>
             ` : ''}

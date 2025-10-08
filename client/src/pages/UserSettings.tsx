@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { apiRequest } from '@/lib/queryClient';
@@ -135,6 +136,7 @@ interface UserSettingsResponse {
 }
 
 const UserSettings: React.FC = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('notifications');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -244,7 +246,7 @@ const UserSettings: React.FC = () => {
     },
     onError: () => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to save settings. Please try again.',
         variant: 'destructive'
       });
@@ -375,7 +377,7 @@ const UserSettings: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <RefreshCw className="w-8 h-8 animate-spin text-turquoise-600" />
+        <RefreshCw className="w-8 h-8 animate-spin text-[var(--color-primary-hover)]" />
       </div>
     );
   }
@@ -388,7 +390,7 @@ const UserSettings: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent mb-2">
             Settings
           </h1>
-          <p className="text-gray-600">Manage your account preferences and privacy settings</p>
+          <p className="text-gray-600 dark:text-gray-300">Manage your account preferences and privacy settings</p>
         </div>
 
       {/* Search and Actions Bar */}
@@ -407,7 +409,7 @@ const UserSettings: React.FC = () => {
           <Button
             variant="outline"
             onClick={handleExportSettings}
-            className="flex items-center gap-2 hover:bg-turquoise-50 hover:border-turquoise-300 transition-colors"
+            className="flex items-center gap-2 hover:bg-[var(--color-ocean-50)] hover:border-[var(--color-ocean-300)] transition-colors"
           >
             <Download className="w-4 h-4" />
             Export
@@ -415,7 +417,7 @@ const UserSettings: React.FC = () => {
           <label>
             <Button
               variant="outline"
-              className="flex items-center gap-2 hover:bg-turquoise-50 hover:border-turquoise-300 transition-colors cursor-pointer"
+              className="flex items-center gap-2 hover:bg-[var(--color-ocean-50)] hover:border-[var(--color-ocean-300)] transition-colors cursor-pointer"
             >
               <Upload className="w-4 h-4" />
               Import
@@ -425,7 +427,7 @@ const UserSettings: React.FC = () => {
               accept=".json"
               onChange={handleImportSettings}
               className="hidden"
-            />
+            / aria-label="Input field">
           </label>
           <Button
             variant="outline"
@@ -466,7 +468,7 @@ const UserSettings: React.FC = () => {
 
       {/* Settings Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-6 w-full mb-6 bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg">
+        <TabsList className="grid grid-cols-6 w-full mb-6 bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-xl border border-white/50 shadow-lg">
           <TabsTrigger value="notifications" className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-turquoise-50 data-[state=active]:to-cyan-50" disabled={!filteredSettings('notifications')}>
             <Bell className="w-4 h-4" />
             <span className="hidden sm:inline">Notifications</span>
@@ -495,12 +497,12 @@ const UserSettings: React.FC = () => {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Notification Preferences
               </CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardDescription className="text-gray-600 dark:text-gray-300">
                 Choose how you want to be notified about activity on Mundo Tango
               </CardDescription>
             </CardHeader>
@@ -508,7 +510,7 @@ const UserSettings: React.FC = () => {
               {/* Email Notifications Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Mail className="w-5 h-5 text-turquoise-600" />
+                  <Mail className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Email Notifications
                 </h3>
                 
@@ -555,7 +557,7 @@ const UserSettings: React.FC = () => {
               {/* Push Notifications Section */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Smartphone className="w-5 h-5 text-turquoise-600" />
+                  <Smartphone className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Push Notifications
                 </h3>
                 
@@ -634,7 +636,7 @@ const UserSettings: React.FC = () => {
               <div className="space-y-4 border-t pt-6">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="sms" className="flex items-center gap-2 cursor-pointer">
-                    <MessageSquare className="w-5 h-5 text-turquoise-600" />
+                    <MessageSquare className="w-5 h-5 text-[var(--color-primary-hover)]" />
                     <span>SMS notifications</span>
                     <Badge variant="secondary" className="text-xs">Premium</Badge>
                   </Label>
@@ -652,7 +654,7 @@ const UserSettings: React.FC = () => {
 
         {/* Privacy Tab */}
         <TabsContent value="privacy">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Privacy Settings</CardTitle>
               <CardDescription>
@@ -663,7 +665,7 @@ const UserSettings: React.FC = () => {
               {/* Profile Visibility */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Eye className="w-5 h-5 text-turquoise-600" />
+                  <Eye className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Profile Visibility
                 </h3>
                 
@@ -745,7 +747,7 @@ const UserSettings: React.FC = () => {
               {/* Communication */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-turquoise-600" />
+                  <MessageSquare className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Communication
                 </h3>
                 
@@ -792,7 +794,7 @@ const UserSettings: React.FC = () => {
               {/* Privacy & Analytics - Platform Monitoring */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <BarChart className="w-5 h-5 text-turquoise-600" />
+                  <BarChart className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Privacy & Analytics
                 </h3>
                 
@@ -805,9 +807,9 @@ const UserSettings: React.FC = () => {
                 </Alert>
 
                 <div className="space-y-3">
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <BarChart className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <BarChart className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="product-analytics" className="text-sm font-medium cursor-pointer">
                           Product Analytics
@@ -826,9 +828,9 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <Eye className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <Eye className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="session-recording" className="text-sm font-medium cursor-pointer">
                           Session Recording
@@ -847,9 +849,9 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex items-start justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-start justify-between p-3 rounded-lg bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 border border-[var(--color-border)] dark:border-gray-700">
                     <div className="flex items-start space-x-3">
-                      <AlertCircle className="w-5 h-5 text-teal-500 flex-shrink-0 mt-1" />
+                      <AlertCircle className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-1" />
                       <div className="space-y-1 flex-1">
                         <Label htmlFor="error-tracking" className="text-sm font-medium cursor-pointer">
                           Error Tracking
@@ -868,7 +870,7 @@ const UserSettings: React.FC = () => {
                     />
                   </div>
 
-                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 p-3 bg-[var(--color-surface-elevated)] dark:bg-gray-800/50 rounded-lg">
                     <Lock className="w-3 h-3 inline mr-1" />
                     Your data is encrypted and never sold. You can change these settings anytime in your privacy preferences.
                   </div>
@@ -880,10 +882,10 @@ const UserSettings: React.FC = () => {
 
         {/* Appearance Tab */}
         <TabsContent value="appearance">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Appearance & Display</CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardDescription className="text-gray-600 dark:text-gray-300">
                 Customize how Mundo Tango looks and feels
               </CardDescription>
             </CardHeader>
@@ -891,17 +893,17 @@ const UserSettings: React.FC = () => {
               {/* Theme */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Palette className="w-5 h-5 text-turquoise-600" />
+                  <Palette className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Theme
                 </h3>
                 
                 <div className="grid grid-cols-3 gap-4">
                   <button
-                    onClick={() => handleAppearanceChange('theme', 'light')}
+                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'light')}
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'light'
-                        ? 'border-turquoise-500 bg-turquoise-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'
+                        : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'
                     }`}
                   >
                     <Sun className="w-8 h-8 mx-auto mb-2 text-yellow-500" />
@@ -909,23 +911,23 @@ const UserSettings: React.FC = () => {
                   </button>
                   
                   <button
-                    onClick={() => handleAppearanceChange('theme', 'dark')}
+                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'dark')}
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'dark'
-                        ? 'border-turquoise-500 bg-turquoise-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'
+                        : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'
                     }`}
                   >
-                    <Moon className="w-8 h-8 mx-auto mb-2 text-gray-700" />
+                    <Moon className="w-8 h-8 mx-auto mb-2 text-[var(--color-text-secondary)]" />
                     <p className="text-sm font-medium">Dark</p>
                   </button>
                   
                   <button
-                    onClick={() => handleAppearanceChange('theme', 'auto')}
+                    onClick={() = aria-label="Button"> handleAppearanceChange('theme', 'auto')}
                     className={`p-4 rounded-lg border-2 transition-all ${
                       appearance.theme === 'auto'
-                        ? 'border-turquoise-500 bg-turquoise-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-turquoise-500 bg-[var(--color-ocean-50)]'
+                        : 'border-[var(--color-border)] hover:border-gray-300 dark:border-gray-600'
                     }`}
                   >
                     <Monitor className="w-8 h-8 mx-auto mb-2 text-blue-500" />
@@ -937,7 +939,7 @@ const UserSettings: React.FC = () => {
               {/* Language & Region */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Languages className="w-5 h-5 text-turquoise-600" />
+                  <Languages className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Language & Region
                 </h3>
                 
@@ -1038,10 +1040,10 @@ const UserSettings: React.FC = () => {
 
         {/* Advanced Tab */}
         <TabsContent value="advanced">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Advanced Settings</CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardDescription className="text-gray-600 dark:text-gray-300">
                 Configure advanced features and performance settings
               </CardDescription>
             </CardHeader>
@@ -1049,7 +1051,7 @@ const UserSettings: React.FC = () => {
               {/* Developer Settings */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Terminal className="w-5 h-5 text-turquoise-600" />
+                  <Terminal className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Developer Options
                 </h3>
                 
@@ -1057,7 +1059,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="developer-mode" className="cursor-pointer">Developer Mode</Label>
-                      <p className="text-sm text-gray-500 mt-1">Enable console logs and debugging tools</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Enable console logs and debugging tools</p>
                     </div>
                     <Switch
                       id="developer-mode"
@@ -1070,7 +1072,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="beta-features" className="cursor-pointer">Beta Features</Label>
-                      <p className="text-sm text-gray-500 mt-1">Try experimental features before release</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Try experimental features before release</p>
                     </div>
                     <Switch
                       id="beta-features"
@@ -1083,7 +1085,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="api-access" className="cursor-pointer">API Access</Label>
-                      <p className="text-sm text-gray-500 mt-1">Enable programmatic access to your data</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Enable programmatic access to your data</p>
                     </div>
                     <Switch
                       id="api-access"
@@ -1098,7 +1100,7 @@ const UserSettings: React.FC = () => {
               {/* Performance Settings */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-turquoise-600" />
+                  <Zap className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Performance
                 </h3>
                 
@@ -1140,7 +1142,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="offline-mode" className="cursor-pointer">Offline Mode</Label>
-                      <p className="text-sm text-gray-500 mt-1">Cache content for offline access</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Cache content for offline access</p>
                     </div>
                     <Switch
                       id="offline-mode"
@@ -1155,7 +1157,7 @@ const UserSettings: React.FC = () => {
               {/* Data & Sync */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Cloud className="w-5 h-5 text-turquoise-600" />
+                  <Cloud className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Data & Sync
                 </h3>
                 
@@ -1198,7 +1200,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="webhooks" className="cursor-pointer">Webhooks</Label>
-                      <p className="text-sm text-gray-500 mt-1">Send events to external services</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Send events to external services</p>
                     </div>
                     <Switch
                       id="webhooks"
@@ -1215,10 +1217,10 @@ const UserSettings: React.FC = () => {
 
         {/* Accessibility Tab */}
         <TabsContent value="accessibility">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">Accessibility Settings</CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardDescription className="text-gray-600 dark:text-gray-300">
                 Make Mundo Tango work better for your needs
               </CardDescription>
             </CardHeader>
@@ -1226,7 +1228,7 @@ const UserSettings: React.FC = () => {
               {/* Vision */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Eye className="w-5 h-5 text-turquoise-600" />
+                  <Eye className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Vision
                 </h3>
                 
@@ -1234,7 +1236,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="screen-reader" className="cursor-pointer">Screen Reader Optimization</Label>
-                      <p className="text-sm text-gray-500 mt-1">Enhance compatibility with screen readers</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Enhance compatibility with screen readers</p>
                     </div>
                     <Switch
                       id="screen-reader"
@@ -1247,7 +1249,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="high-contrast" className="cursor-pointer">High Contrast Mode</Label>
-                      <p className="text-sm text-gray-500 mt-1">Increase contrast for better visibility</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Increase contrast for better visibility</p>
                     </div>
                     <Switch
                       id="high-contrast"
@@ -1260,7 +1262,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="focus-indicators" className="cursor-pointer">Enhanced Focus Indicators</Label>
-                      <p className="text-sm text-gray-500 mt-1">Make focused elements more visible</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Make focused elements more visible</p>
                     </div>
                     <Switch
                       id="focus-indicators"
@@ -1292,7 +1294,7 @@ const UserSettings: React.FC = () => {
               {/* Interaction */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Smartphone className="w-5 h-5 text-turquoise-600" />
+                  <Smartphone className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Interaction
                 </h3>
                 
@@ -1300,7 +1302,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="keyboard-nav" className="cursor-pointer">Keyboard Navigation</Label>
-                      <p className="text-sm text-gray-500 mt-1">Navigate the app using only keyboard</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Navigate the app using only keyboard</p>
                     </div>
                     <Switch
                       id="keyboard-nav"
@@ -1315,7 +1317,7 @@ const UserSettings: React.FC = () => {
               {/* Media */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Volume2 className="w-5 h-5 text-turquoise-600" />
+                  <Volume2 className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Media
                 </h3>
                 
@@ -1323,7 +1325,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="audio-descriptions" className="cursor-pointer">Audio Descriptions</Label>
-                      <p className="text-sm text-gray-500 mt-1">Narrate visual content in videos</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Narrate visual content in videos</p>
                     </div>
                     <Switch
                       id="audio-descriptions"
@@ -1336,7 +1338,7 @@ const UserSettings: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <Label htmlFor="captions" className="cursor-pointer">Auto-Captions</Label>
-                      <p className="text-sm text-gray-500 mt-1">Show captions on all videos</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Show captions on all videos</p>
                     </div>
                     <Switch
                       id="captions"
@@ -1349,9 +1351,9 @@ const UserSettings: React.FC = () => {
               </div>
 
               {/* Help & Resources */}
-              <div className="mt-6 p-4 bg-turquoise-50 rounded-lg">
+              <div className="mt-6 p-4 bg-[var(--color-ocean-50)] rounded-lg">
                 <div className="flex items-start gap-3">
-                  <Info className="w-5 h-5 text-turquoise-600 mt-0.5" />
+                  <Info className="w-5 h-5 text-[var(--color-primary-hover)] mt-0.5" />
                   <div>
                     <h4 className="font-semibold text-turquoise-900 mb-1">Need Help?</h4>
                     <p className="text-sm text-turquoise-700">
@@ -1369,7 +1371,7 @@ const UserSettings: React.FC = () => {
 
         {/* Security Tab */}
         <TabsContent value="security">
-          <Card className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl">
+          <Card className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-xl border border-white/50 shadow-xl">
             <CardHeader className="bg-gradient-to-r from-turquoise-50/50 to-cyan-50/50 rounded-t-lg">
               <CardTitle className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent">
                 Security Settings
@@ -1382,23 +1384,23 @@ const UserSettings: React.FC = () => {
               {/* Password Change Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-turquoise-600" />
+                  <Lock className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Password
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <Label className="text-base font-medium">Password</Label>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                           Last changed: Never
                         </p>
                       </div>
                       <Button
                         variant="outline"
                         onClick={() => setShowPasswordDialog(true)}
-                        className="hover:bg-turquoise-50 hover:border-turquoise-300"
+                        className="hover:bg-[var(--color-ocean-50)] hover:border-[var(--color-ocean-300)]"
                       >
                         Change Password
                       </Button>
@@ -1410,23 +1412,23 @@ const UserSettings: React.FC = () => {
               {/* Two-Factor Authentication */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-turquoise-600" />
+                  <Shield className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Two-Factor Authentication
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <Label className="text-base font-medium">2FA Status</Label>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                           Two-factor authentication is not enabled
                         </p>
                       </div>
                       <Button
                         variant="outline"
                         onClick={() => setShow2FADialog(true)}
-                        className="hover:bg-turquoise-50 hover:border-turquoise-300"
+                        className="hover:bg-[var(--color-ocean-50)] hover:border-[var(--color-ocean-300)]"
                       >
                         Enable 2FA
                       </Button>
@@ -1444,18 +1446,18 @@ const UserSettings: React.FC = () => {
               {/* Active Sessions */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Monitor className="w-5 h-5 text-turquoise-600" />
+                  <Monitor className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Active Sessions
                 </h3>
                 
                 <div className="space-y-3">
-                  <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="p-4 bg-[var(--color-surface-elevated)] rounded-lg">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Monitor className="w-5 h-5 text-gray-600" />
+                        <Monitor className="w-5 h-5 text-gray-600 dark:text-gray-300" />
                         <div>
                           <p className="font-medium">Current Session</p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
                             Browser · Last active: Just now
                           </p>
                         </div>
@@ -1479,18 +1481,18 @@ const UserSettings: React.FC = () => {
               {/* Security Events */}
               <div className="space-y-4 border-t pt-6">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5 text-turquoise-600" />
+                  <AlertCircle className="w-5 h-5 text-[var(--color-primary-hover)]" />
                   Recent Security Events
                 </h3>
                 
                 <div className="space-y-2">
-                  <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="p-3 bg-[var(--color-surface-elevated)] rounded-lg">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="w-4 h-4 text-green-600" />
                         <div>
                           <p className="text-sm font-medium">Successful login</p>
-                          <p className="text-xs text-gray-600">Today at 11:34 AM</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-300">Today at 11:34 AM</p>
                         </div>
                       </div>
                     </div>

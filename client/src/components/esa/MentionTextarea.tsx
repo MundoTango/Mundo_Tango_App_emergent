@@ -182,7 +182,7 @@ export default function MentionTextarea({
                   <div className="font-medium">{user.display}</div>
                   <div className={cn(
                     "text-xs",
-                    theme === 'light' ? "text-gray-500" : "text-slate-400"
+                    theme === 'light' ? "text-gray-500 dark:text-gray-400" : "text-slate-400"
                   )}>
                     @{user.username || ''}
                   </div>

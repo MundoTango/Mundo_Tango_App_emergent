@@ -44,23 +44,23 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
 
   const variants = {
     default: cn(
-      'bg-white dark:bg-gray-900',
+      'bg-[var(--color-surface)] dark:bg-gray-900',
       'border border-gray-300 dark:border-gray-700',
       'hover:border-teal-400 dark:hover:border-teal-600',
-      'focus:border-teal-500 dark:focus:border-teal-500'
+      'focus:border-[var(--color-primary)] dark:focus:border-[var(--color-primary)]'
     ),
     glass: cn(
-      'bg-white/90 dark:bg-gray-900/90',
+      'bg-[var(--color-surface)]/90 dark:bg-gray-900/90',
       'backdrop-blur-md',
       'border border-teal-200/50 dark:border-teal-700/50',
-      'hover:border-teal-300 dark:hover:border-teal-600',
-      'focus:border-teal-400 dark:focus:border-teal-500'
+      'hover:border-[var(--color-ocean-300)] dark:hover:border-teal-600',
+      'focus:border-teal-400 dark:focus:border-[var(--color-primary)]'
     ),
     gradient: cn(
       'bg-gradient-to-r from-teal-50/50 to-blue-50/50 dark:from-teal-900/20 dark:to-blue-900/20',
-      'border border-teal-300/50 dark:border-teal-700/50',
+      'border border-[var(--color-ocean-300)]/50 dark:border-teal-700/50',
       'hover:border-teal-400 dark:hover:border-teal-600',
-      'focus:border-teal-500 dark:focus:border-teal-500'
+      'focus:border-[var(--color-primary)] dark:focus:border-[var(--color-primary)]'
     )
   };
 
@@ -88,7 +88,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
   return (
     <div className="w-full">
       {label &&
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label className="block text-sm font-medium text-[var(--color-text-secondary)] dark:text-gray-300 mb-2">
           {label}
         </label>
       }
@@ -115,7 +115,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
             error && 'border-red-500 dark:border-red-500 focus:ring-red-500/50',
             className
           )}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() = aria-label="Input field"> setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           {...props} data-testid="input-element" />
 
@@ -129,8 +129,8 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
         {type === 'password' && showPasswordToggle &&
         <button
           type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
+          onClick={() = aria-label="Button"> setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
 
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
@@ -140,7 +140,7 @@ const MTInput = React.forwardRef<HTMLInputElement, MTInputProps>(({
         <button
           type="button"
           onClick={onClear}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button">
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[var(--color-text-secondary)] dark:text-gray-400 dark:hover:text-gray-200" data-testid="button-button" aria-label="Button">
 
             <X className="w-5 h-5" />
           </button>

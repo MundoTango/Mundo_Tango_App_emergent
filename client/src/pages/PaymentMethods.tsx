@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import {
   Elements,
   PaymentElement,
@@ -39,6 +40,7 @@ import { useAuth } from '@/hooks/useAuth';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
 interface PaymentMethod {
+  const { t } = useTranslation();
   id: string;
   type: string;
   card?: {
@@ -180,7 +182,7 @@ const PaymentMethods: React.FC = () => {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to update default payment method",
         variant: "destructive"
       });
@@ -237,8 +239,8 @@ const PaymentMethods: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Payment Methods</h1>
-          <p className="text-gray-600">Manage your payment methods for subscriptions and purchases</p>
+          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Payment Methods</h1>
+          <p className="text-gray-600 dark:text-gray-300">Manage your payment methods for subscriptions and purchases</p>
         </div>
 
         <Card className="glassmorphic-card mb-6">
@@ -258,12 +260,12 @@ const PaymentMethods: React.FC = () => {
           <CardContent>
             {isLoading ?
             <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-turquoise-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-[var(--color-primary)]" />
               </div> :
             !paymentMethods || (paymentMethods as PaymentMethod[]).length === 0 ?
             <div className="text-center py-8">
                 <CreditCard className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-500">No payment methods added yet</p>
+                <p className="text-gray-500 dark:text-gray-400">No payment methods added yet</p>
                 <p className="text-sm text-gray-400 mt-2">Add a payment method to subscribe to premium features</p>
               </div> :
 
@@ -271,14 +273,14 @@ const PaymentMethods: React.FC = () => {
                 {(paymentMethods as PaymentMethod[])?.map((method: PaymentMethod) =>
               <div
                 key={method.id}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                className="flex items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors">
 
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">{getCardBrandIcon(method.card?.brand || '')}</div>
                       <div>
                         <div className="flex items-center gap-2">
                           <p className="font-medium capitalize">{method.card?.brand}</p>
-                          <span className="text-gray-500">•••• {method.card?.last4}</span>
+                          <span className="text-gray-500 dark:text-gray-400">•••• {method.card?.last4}</span>
                           {method.is_default &&
                       <Badge variant="secondary" className="bg-turquoise-100 text-turquoise-700">
                               <Star className="w-3 h-3 mr-1" />
@@ -286,7 +288,7 @@ const PaymentMethods: React.FC = () => {
                             </Badge>
                       }
                         </div>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Expires {method.card?.exp_month}/{method.card?.exp_year}
                         </p>
                       </div>
@@ -332,11 +334,11 @@ const PaymentMethods: React.FC = () => {
         </Card>
 
         {/* Security Notice */}
-        <div className="bg-white/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4">
-          <Shield className="h-6 w-6 text-turquoise-500 flex-shrink-0 mt-1" />
+        <div className="bg-[var(--color-surface)] dark:bg-gray-900/70 backdrop-blur-xl rounded-lg p-6 flex items-start gap-4">
+          <Shield className="h-6 w-6 text-[var(--color-primary)] flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-semibold text-gray-900 mb-1">Your payment information is secure</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="font-semibold text-[var(--color-text)] dark:text-white mb-1">Your payment information is secure</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               We use industry-standard encryption to protect your payment details. Your full card number is never stored on our servers.
               All payment processing is handled securely by Stripe.
             </p>

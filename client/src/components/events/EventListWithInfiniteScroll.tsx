@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useInView } from 'react-intersection-observer';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -67,6 +68,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
   });
 
   const loadMoreEvents = useCallback(async () => {
+  const { t } = useTranslation();
     if (loading || !hasMore) return;
 
     setLoading(true);
@@ -100,7 +102,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
     } catch (error) {
       console.error('Error loading events:', error);
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to load more events',
         variant: 'destructive'
       });
@@ -127,7 +129,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
     try {
       await apiRequest('POST', `/api/events/${eventId}/rsvp`, { status: action });
       toast({
-        title: 'Success',
+        title: {t('states.success', 'Success')},
         description: `You're ${action} to this event!`
       });
 
@@ -199,7 +201,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
                     </div>
                   </div>
                   {event.isVirtual &&
-              <Badge className="absolute top-4 right-4 bg-cyan-500/90 text-white">
+              <Badge className="absolute top-4 right-4 bg-[var(--color-primary)]/90 text-white">
                       <Video className="h-3 w-3 mr-1" />
                       Virtual
                     </Badge>
@@ -231,7 +233,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               
               {/* Event Type Badge */}
               <div className="absolute top-3 left-3">
-                <Badge className="bg-white/90 backdrop-blur-sm">
+                <Badge className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm">
                   <span className="mr-1">{getEventTypeIcon(event.eventType)}</span>
                   {event.eventType}
                 </Badge>
@@ -241,7 +243,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               <div className="absolute top-3 right-3">
                 <Badge
                 variant={event.price === '0' || !event.price ? 'secondary' : 'default'}
-                className="bg-white/90 backdrop-blur-sm">
+                className="bg-[var(--color-surface)] dark:bg-gray-900/90 backdrop-blur-sm">
 
                   {getPriceDisplay(event)}
                 </Badge>
@@ -251,11 +253,11 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
             <CardContent className="p-4 space-y-3">
               {/* Title and Host */}
               <div>
-                <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-turquoise-600 transition-colors">
+                <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-[var(--color-primary-hover)] transition-colors">
                   {event.title}
                 </h3>
                 {event.user &&
-              <p className="text-sm text-gray-600 flex items-center gap-2 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2 mt-1">
                     <LazyLoadImage
                   src={event.user.profileImage || '/api/placeholder/32/32'}
                   alt={event.user.name}
@@ -268,7 +270,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
               </div>
 
               {/* Event Details */}
-              <div className="space-y-2 text-sm text-gray-600">
+              <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
                   <span>{format(new Date(event.startDate), 'EEE, MMM d, h:mm a')}</span>
@@ -343,8 +345,8 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
       {loading &&
       <div className="flex justify-center py-8">
           <div className="flex gap-2">
-            <div className="w-3 h-3 bg-turquoise-500 rounded-full animate-bounce" />
-            <div className="w-3 h-3 bg-cyan-500 rounded-full animate-bounce delay-100" />
+            <div className="w-3 h-3 bg-[var(--color-primary)] rounded-full animate-bounce" />
+            <div className="w-3 h-3 bg-[var(--color-primary)] rounded-full animate-bounce delay-100" />
             <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-200" />
           </div>
         </div>
@@ -358,7 +360,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
       {/* No More Events */}
       {!hasMore && events.length > 0 &&
       <div className="text-center py-8">
-          <p className="text-gray-500">No more events to load</p>
+          <p className="text-gray-500 dark:text-gray-400">No more events to load</p>
         </div>
       }
 
@@ -368,7 +370,7 @@ export default function EventListWithInfiniteScroll({ filters, onEventClick }: E
           <CardContent className="py-12 text-center">
             <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">No events found</h3>
-            <p className="text-gray-600">Try adjusting your filters or check back later for new events.</p>
+            <p className="text-gray-600 dark:text-gray-300">Try adjusting your filters or check back later for new events.</p>
           </CardContent>
         </Card>
       }

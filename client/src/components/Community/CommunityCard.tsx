@@ -40,7 +40,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
 
   return (
     <div 
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
+      className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
       onClick={onClick}
     >
       {/* Community Image */}
@@ -64,11 +64,11 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
         <div className="absolute top-3 right-3 flex gap-2">
           <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Users className="h-3.5 w-3.5 text-blue-600" />
-            <span className="text-xs font-semibold text-gray-800">{community.memberCount}</span>
+            <span className="text-xs font-semibold text-gray-800 dark:text-gray-100">{community.memberCount}</span>
           </GlassCard>
           <GlassCard depth={1} className="rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
             <Calendar className="h-3.5 w-3.5 text-green-600" />
-            <span className="text-xs font-semibold text-gray-800">{community.eventCount}</span>
+            <span className="text-xs font-semibold text-gray-800 dark:text-gray-100">{community.eventCount}</span>
           </GlassCard>
         </div>
       </div>
@@ -81,13 +81,13 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
         </h3>
 
         {/* Location with enhanced styling */}
-        <div className="flex items-center gap-2 text-sm text-gray-700 mb-3">
+        <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)] mb-3">
           <MapPin className="h-4 w-4 text-pink-500 flex-shrink-0" />
           <span className="font-medium">{community.location}</span>
         </div>
 
         {/* Community Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 leading-relaxed">
           {community.description}
         </p>
 
@@ -97,15 +97,15 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
             {/* Members stat */}
             <div className="flex items-center gap-1.5">
               <Users className="h-4 w-4 text-blue-500" />
-              <span className="text-sm font-semibold text-gray-700">{community.memberCount}</span>
-              <span className="text-xs text-gray-500">members</span>
+              <span className="text-sm font-semibold text-[var(--color-text-secondary)]">{community.memberCount}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">members</span>
             </div>
 
             {/* Events stat */}
             <div className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4 text-green-500" />
-              <span className="text-sm font-semibold text-gray-700">{community.eventCount}</span>
-              <span className="text-xs text-gray-500">events</span>
+              <span className="text-sm font-semibold text-[var(--color-text-secondary)]">{community.eventCount}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">events</span>
             </div>
           </div>
 
@@ -114,7 +114,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({
             strength={0.3}
             className={`px-4 py-1.5 rounded-full font-medium text-sm transition-all ${
               community.isJoined 
-                ? 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300'
+                ? 'bg-gradient-to-r from-gray-100 to-gray-200 text-[var(--color-text-secondary)] hover:from-gray-200 hover:to-gray-300'
                 : 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white hover:shadow-lg'
             }`}
             onClick={(e) => {

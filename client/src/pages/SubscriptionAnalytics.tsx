@@ -69,8 +69,8 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 mb-1">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-900">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">{title}</p>
+            <h3 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">
               {prefix}{value}
             </h3>
             <div className="flex items-center gap-1 mt-2">
@@ -82,7 +82,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, pre
               <span className={`text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                 {isPositive ? '+' : ''}{change}%
               </span>
-              <span className="text-sm text-gray-500">vs last month</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">vs last month</span>
             </div>
           </div>
           <div className="p-3 bg-gradient-to-br from-turquoise-100 to-cyan-100 rounded-lg">
@@ -156,8 +156,8 @@ const SubscriptionAnalytics: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Subscription Analytics</h1>
-            <p className="text-gray-600">Monitor your subscription performance and growth metrics</p>
+            <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Subscription Analytics</h1>
+            <p className="text-gray-600 dark:text-gray-300">Monitor your subscription performance and growth metrics</p>
           </div>
           <div className="flex items-center gap-4">
             <Select value={timeRange} onValueChange={setTimeRange} data-testid="select-element">
@@ -184,14 +184,14 @@ const SubscriptionAnalytics: React.FC = () => {
             title="Monthly Recurring Revenue"
             value={data.metrics.mrr.value.toLocaleString()}
             change={data.metrics.mrr.change}
-            icon={<DollarSign className="w-6 h-6 text-turquoise-600" />}
+            icon={<DollarSign className="w-6 h-6 text-[var(--color-primary-hover)]" />}
             prefix="$" />
 
           <MetricCard
             title="Total Subscribers"
             value={data.metrics.totalSubscribers.value.toString()}
             change={data.metrics.totalSubscribers.change}
-            icon={<Users className="w-6 h-6 text-cyan-600" />} />
+            icon={<Users className="w-6 h-6 text-[var(--color-primary-hover)]" />} />
 
           <MetricCard
             title="Churn Rate"
@@ -303,7 +303,7 @@ const SubscriptionAnalytics: React.FC = () => {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                      <Target className="w-5 h-5 text-turquoise-600" />
+                      <Target className="w-5 h-5 text-[var(--color-primary-hover)]" />
                       <span>Customer Lifetime Value</span>
                     </div>
                     <span className="font-semibold text-lg">${data.metrics.ltv.value}</span>

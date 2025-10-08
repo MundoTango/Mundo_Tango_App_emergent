@@ -483,12 +483,12 @@ export default function EnhancedGoogleMapsAutocomplete({
         <div className="mt-2 p-3 bg-purple-50 rounded-lg text-sm">
             <p className="font-semibold">{selectedLocation.name}</p>
             {selectedLocation.rating &&
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
                 Rating: {'⭐'.repeat(Math.round(selectedLocation.rating))} ({selectedLocation.rating})
               </p>
           }
             {selectedLocation.phoneNumber &&
-          <p className="text-gray-600">📞 {selectedLocation.phoneNumber}</p>
+          <p className="text-gray-600 dark:text-gray-300">📞 {selectedLocation.phoneNumber}</p>
           }
             {selectedLocation.website &&
           <a href={selectedLocation.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" data-testid="a-text-blue-600">
@@ -500,12 +500,12 @@ export default function EnhancedGoogleMapsAutocomplete({
 
         {/* Nearby places suggestions */}
         {showSuggestions && nearbyPlaces.length > 0 &&
-        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
-            <p className="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Nearby places:</p>
+        <div className="absolute z-10 w-full mt-1 bg-[var(--color-surface)] dark:bg-gray-900 border border-[var(--color-border)] rounded-lg shadow-lg">
+            <p className="px-4 py-2 text-sm font-semibold text-[var(--color-text-secondary)] border-b">Nearby places:</p>
             {nearbyPlaces.map((place, index) =>
           <button
             key={index}
-            onClick={() => {
+            onClick={() = aria-label="Button"> {
               const locationData = extractEnhancedLocationData(place);
               setSelectedLocation(locationData);
               setInputValue(locationData.name || locationData.formattedAddress);
@@ -513,10 +513,10 @@ export default function EnhancedGoogleMapsAutocomplete({
               setShowSuggestions(false);
               if (showMap) updateMap(locationData);
             }}
-            className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm" data-testid="button-w-full">
+            className="w-full px-4 py-2 text-left hover:bg-[var(--color-surface-elevated)] text-sm" data-testid="button-w-full">
 
                 <p className="font-medium">{place.name}</p>
-                <p className="text-gray-500">{place.vicinity}</p>
+                <p className="text-gray-500 dark:text-gray-400">{place.vicinity}</p>
               </button>
           )}
           </div>
@@ -527,7 +527,7 @@ export default function EnhancedGoogleMapsAutocomplete({
       {showMap &&
       <div
         ref={mapRef}
-        className="w-full h-64 rounded-lg border border-gray-200"
+        className="w-full h-64 rounded-lg border border-[var(--color-border)]"
         style={{ minHeight: '250px' }} />
 
       }

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { Users, Shield, Mail, UserCheck, UserX, Settings, Crown } from 'lucide-react';
@@ -60,6 +61,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
 
   // Add admin mutation
   const addAdminMutation = useMutation({
+  const { t } = useTranslation();
     mutationFn: async ({ userId, role }: {userId: number;role: string;}) => {
       const response = await apiRequest('POST', `/api/events/${eventId}/admins`, { userId, role });
       return response.json();
@@ -75,7 +77,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message,
         variant: "destructive"
       });
@@ -135,7 +137,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
       case 'moderator':
         return 'bg-gradient-to-r from-purple-400 to-pink-500 text-white';
       default:
-        return 'bg-gray-200';
+        return 'bg-gray-200 dark:bg-gray-700';
     }
   };
 
@@ -143,7 +145,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
     return (
       <Card className="glassmorphic-card">
         <CardContent className="p-6">
-          <p className="text-gray-600">Only event owners can manage administrators.</p>
+          <p className="text-gray-600 dark:text-gray-300">Only event owners can manage administrators.</p>
         </CardContent>
       </Card>);
 
@@ -154,7 +156,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-turquoise-500" />
+            <Shield className="w-5 h-5 text-[var(--color-primary)]" />
             Event Administrators
           </span>
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
@@ -195,7 +197,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                 {searchResults?.users && searchResults.users.length > 0 &&
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                     {searchResults.users.map((user: any) =>
-                  <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50">
+                  <div key={user.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--color-surface-elevated)]">
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
                             <AvatarImage src={user.profileImage} />
@@ -203,7 +205,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                           </Avatar>
                           <div>
                             <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-gray-600">@{user.username}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">@{user.username}</p>
                           </div>
                         </div>
                         <Button
@@ -240,7 +242,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
                         <p className="font-semibold">{admin.user.name}</p>
                         {admin.role === 'owner' && <Crown className="w-4 h-4 text-amber-500" />}
                       </div>
-                      <p className="text-sm text-gray-600">@{admin.user.username}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">@{admin.user.username}</p>
                       <Badge className={`mt-1 ${getRoleBadgeColor(admin.role)}`}>
                         {admin.role.charAt(0).toUpperCase() + admin.role.slice(1)}
                       </Badge>
@@ -261,7 +263,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
 
                 {admin.role !== 'owner' &&
             <div className="mt-4 space-y-3">
-                    <h4 className="text-sm font-medium text-gray-700">Permissions</h4>
+                    <h4 className="text-sm font-medium text-[var(--color-text-secondary)]">Permissions</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {Object.entries(admin.permissions).map(([key, value]) =>
                 <div key={key} className="flex items-center justify-between">
@@ -288,7 +290,7 @@ export default function EventDelegationPanel({ eventId, isOwner, currentUserId }
           )}
 
             {(!admins || !Array.isArray(admins) || admins.length === 0) &&
-          <p className="text-center text-gray-600 py-8">
+          <p className="text-center text-gray-600 dark:text-gray-300 py-8">
                 No administrators yet. Add someone to help manage this event.
               </p>
           }

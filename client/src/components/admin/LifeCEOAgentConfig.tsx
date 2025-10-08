@@ -210,7 +210,7 @@ const LifeCEOAgentConfig: React.FC = () => {
         <TabsContent key={type.value} value={type.value} className="space-y-4">
             {isLoading ?
           <Card>
-                <CardContent className="py-8 text-center text-gray-500">
+                <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
                   Loading configurations...
                 </CardContent>
               </Card> :
@@ -221,7 +221,7 @@ const LifeCEOAgentConfig: React.FC = () => {
             map((config: AgentConfig) => renderConfigEditor(config))}
                 {(!configs || configs.filter((c: AgentConfig) => c.config_type === type.value).length === 0) &&
             <Card>
-                    <CardContent className="py-8 text-center text-gray-500">
+                    <CardContent className="py-8 text-center text-gray-500 dark:text-gray-400">
                       No {type.label} configurations found. Click "Add Configuration" to create one.
                     </CardContent>
                   </Card>

@@ -91,7 +91,7 @@ export default function PublicProfilePage() {
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg">Loading profile...</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">Loading profile...</p>
           </div>
         </div>
       </DashboardLayout>
@@ -104,8 +104,8 @@ export default function PublicProfilePage() {
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">User Not Found</h2>
-            <p className="text-gray-600">
+            <h2 className="text-xl font-semibold text-[var(--color-text)] dark:text-white mb-2">User Not Found</h2>
+            <p className="text-gray-600 dark:text-gray-300">
               {error?.message === 'User not found' 
                 ? `No user found with username @${username}`
                 : 'This profile is not available or may be private.'

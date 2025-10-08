@@ -116,7 +116,7 @@ export function FeatureDeepDive() {
       case 'Planning':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
@@ -129,9 +129,9 @@ export function FeatureDeepDive() {
       'Security': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
       'Performance': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
       'Mobile': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
-      'Integration': 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200'
+      'Integration': 'bg-[var(--color-ocean-100)] text-teal-800 dark:bg-teal-900 dark:text-teal-200'
     };
-    return colors[team] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    return colors[team] || 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-200';
   };
 
   return (

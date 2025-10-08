@@ -69,10 +69,10 @@ export default function HostDashboard() {
     return (
       <DashboardLayout>
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 rounded w-1/3" />
+          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-64 bg-gray-200 rounded" />
+              <div key={i} className="h-64 bg-gray-200 dark:bg-gray-700 rounded" />
             ))}
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function HostDashboard() {
           <FadeIn>
             <GlassCard depth={3} className="p-12 text-center border-cyan-200/30 dark:border-cyan-500/30">
               <ScaleIn delay={0.1}>
-                <div className="w-24 h-24 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-24 h-24 bg-gradient-to-br from-[var(--color-primary)] to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Home className="w-12 h-12 text-white" />
                 </div>
               </ScaleIn>
@@ -105,7 +105,7 @@ export default function HostDashboard() {
 
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-left">
                 <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
-                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-cyan-600 rounded-lg flex items-center justify-center mb-4">
                     <Users className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
@@ -117,7 +117,7 @@ export default function HostDashboard() {
                 </GlassCard>
 
                 <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-teal-600 rounded-lg flex items-center justify-center mb-4">
                     <MessageCircle className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
@@ -129,7 +129,7 @@ export default function HostDashboard() {
                 </GlassCard>
 
                 <GlassCard depth={1} className="p-6 border-cyan-200/30 dark:border-cyan-500/30">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center mb-4">
                     <Calendar className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2 text-slate-900 dark:text-white">
@@ -144,7 +144,7 @@ export default function HostDashboard() {
               <ScaleIn delay={0.4}>
                 <PulseButton
                   onClick={() => navigate('/host-onboarding')}
-                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold px-6 py-3 text-lg"
+                  className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold px-6 py-3 text-lg"
                   pulseColor="rgba(6, 182, 212, 0.6)"
                   data-testid="button-create-first-listing"
                 >
@@ -176,7 +176,7 @@ export default function HostDashboard() {
             </div>
             <PulseButton
               onClick={() => navigate('/host-onboarding')}
-              className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+              className="bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold"
               pulseColor="rgba(6, 182, 212, 0.6)"
               data-testid="button-add-property"
             >
@@ -191,7 +191,7 @@ export default function HostDashboard() {
           <ScaleIn delay={0.1}>
             <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-primary)] to-cyan-600 rounded-lg flex items-center justify-center">
                   <Home className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -207,7 +207,7 @@ export default function HostDashboard() {
           <ScaleIn delay={0.2}>
             <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-primary)] to-teal-600 rounded-lg flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -223,7 +223,7 @@ export default function HostDashboard() {
           <ScaleIn delay={0.3}>
             <GlassCard depth={2} className="p-4 border-cyan-200/30 dark:border-cyan-500/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-[var(--color-ocean-600)] rounded-lg flex items-center justify-center">
                   <Users className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -259,7 +259,7 @@ export default function HostDashboard() {
             <ScaleIn key={property.id} delay={index * 0.1}>
               <GlassCard depth={2} className="property-card overflow-hidden border-cyan-200/30 dark:border-cyan-500/30 hover:glass-depth-3 transition-all">
                 {/* Property Image */}
-                <div className="relative h-48 bg-gradient-to-br from-cyan-500 to-teal-500">
+                <div className="relative h-48 bg-gradient-to-br from-[var(--color-primary)] to-teal-500">
                   {property.photos && property.photos.length > 0 ? (
                     <img
                       src={property.photos[0].url}
@@ -273,7 +273,7 @@ export default function HostDashboard() {
                   )}
                   
                   <div className="absolute top-3 right-3">
-                    <Badge className={property.isActive ? 'bg-green-500' : 'bg-gray-500'} data-testid={`badge-status-${property.id}`}>
+                    <Badge className={property.isActive ? 'bg-green-500' : 'bg-[var(--color-surface-elevated)] dark:bg-gray-8000'} data-testid={`badge-status-${property.id}`}>
                       {property.isActive ? t('housing.host_dashboard.status_active', 'Active') : t('housing.host_dashboard.status_inactive', 'Inactive')}
                     </Badge>
                   </div>
@@ -286,12 +286,12 @@ export default function HostDashboard() {
                   </h3>
                   
                   <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-3">
-                    <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <MapPin className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-cyan-400" />
                     <span>{property.city}, {property.country}</span>
                   </div>
 
                   <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-4">
-                    <Users className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <Users className="w-4 h-4 text-[var(--color-primary-hover)] dark:text-cyan-400" />
                     <span>{t('housing.host_dashboard.up_to_guests', 'Up to {{count}} guests', { count: property.maxGuests })}</span>
                   </div>
 
@@ -350,7 +350,7 @@ export default function HostDashboard() {
               onClick={() => navigate('/host-bookings')}
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-cyan-600 rounded-lg flex items-center justify-center">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -372,7 +372,7 @@ export default function HostDashboard() {
               onClick={() => navigate('/host/analytics')}
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-primary)] to-teal-600 rounded-lg flex items-center justify-center">
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
                 <div>

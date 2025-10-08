@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import {
   CreditCard,
   Calendar,
@@ -23,6 +24,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 
 const BillingDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { user, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
@@ -51,7 +53,7 @@ const BillingDashboard: React.FC = () => {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to cancel subscription",
         variant: "destructive"
       });
@@ -130,8 +132,8 @@ const BillingDashboard: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Billing & Subscription</h1>
-          <p className="text-gray-600">Manage your subscription and payment methods</p>
+          <h1 className="text-3xl font-bold text-[var(--color-text)] dark:text-white mb-2">Billing & Subscription</h1>
+          <p className="text-gray-600 dark:text-gray-300">Manage your subscription and payment methods</p>
         </div>
 
         {/* Current Subscription */}
@@ -164,10 +166,10 @@ const BillingDashboard: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-semibold text-lg capitalize">{subscription.tier} Plan</p>
-                    <p className="text-gray-600">${subscription.amount / 100}/month</p>
+                    <p className="text-gray-600 dark:text-gray-300">${subscription.amount / 100}/month</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-gray-500">Next billing date</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Next billing date</p>
                     <p className="font-medium">
                       {subscription.currentPeriodEnd ?
                     format(new Date(subscription.currentPeriodEnd), 'MMMM d, yyyy') :
@@ -233,7 +235,7 @@ const BillingDashboard: React.FC = () => {
               </> :
 
             <div className="text-center py-8">
-                <p className="text-gray-600 mb-4">You don't have an active subscription</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">You don't have an active subscription</p>
                 <Link href="/subscribe" data-testid="link-element">
                   <Button className="bg-gradient-to-r from-turquoise-500 to-cyan-500 hover:from-turquoise-600 hover:to-cyan-600" data-testid="button-bg-gradient-to-r">
                     View Plans
@@ -269,12 +271,12 @@ const BillingDashboard: React.FC = () => {
             {paymentMethods.length > 0 ?
             <div className="space-y-3">
                 {paymentMethods.map((method) =>
-              <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+              <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-[var(--color-surface-elevated)]">
                     <div className="flex items-center gap-3">
                       <CreditCard className="w-5 h-5 text-gray-400" />
                       <div>
                         <p className="font-medium">•••• {method.last4}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Expires {method.expMonth}/{method.expYear}
                         </p>
                       </div>
@@ -298,7 +300,7 @@ const BillingDashboard: React.FC = () => {
               )}
               </div> :
 
-            <p className="text-center text-gray-500 py-8">No payment methods saved</p>
+            <p className="text-center text-gray-500 dark:text-gray-400 py-8">No payment methods saved</p>
             }
           </CardContent>
         </Card>
@@ -313,14 +315,14 @@ const BillingDashboard: React.FC = () => {
             {invoices.length > 0 ?
             <div className="space-y-2">
                 {invoices.map((invoice) =>
-              <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+              <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-[var(--color-surface-elevated)]">
                     <div className="flex items-center gap-3">
                       <Calendar className="w-5 h-5 text-gray-400" />
                       <div>
                         <p className="font-medium">
                           ${invoice.amount / 100} - {format(new Date(invoice.created * 1000), 'MMMM d, yyyy')}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           {invoice.description || `${subscription?.tier} Plan`}
                         </p>
                       </div>
@@ -344,18 +346,18 @@ const BillingDashboard: React.FC = () => {
               )}
               </div> :
 
-            <p className="text-center text-gray-500 py-8">No billing history available</p>
+            <p className="text-center text-gray-500 dark:text-gray-400 py-8">No billing history available</p>
             }
           </CardContent>
         </Card>
 
         {/* Help Section */}
         <div className="mt-8 text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Need help with billing?{' '}
             <a
               href="mailto:support@mundotango.life"
-              className="text-turquoise-600 hover:text-turquoise-700 underline" data-testid="a-text-turquoise-600">
+              className="text-[var(--color-primary-hover)] hover:text-turquoise-700 underline" data-testid="a-text-[var(--color-primary-hover)]">
 
               Contact Support
             </a>

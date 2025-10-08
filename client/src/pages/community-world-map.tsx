@@ -117,7 +117,7 @@ const CommunityWorldMap = memo(function CommunityWorldMap() {
                   data-testid="button-search"
                   onClick={handleSearch}
                   strength={0.2}
-                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500 text-white font-semibold"
+                  className="glass-card glass-depth-1 border-cyan-200/30 dark:border-cyan-500/30 px-4 py-2 bg-gradient-to-r from-[var(--color-primary)] via-teal-500 to-[var(--color-ocean-500)] text-white font-semibold"
                 >
                   Search
                 </MagneticButton>

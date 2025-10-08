@@ -63,7 +63,7 @@ export default function MTFormDatePicker<
       render={({ field, fieldState }) => (
         <FormItem className={cn('flex flex-col', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -75,8 +75,8 @@ export default function MTFormDatePicker<
                   variant="outline"
                   className={cn(
                     'h-12 px-4 justify-start text-left font-normal',
-                    'border-gray-200 hover:border-teal-300',
-                    'hover:bg-teal-50/50',
+                    'border-[var(--color-border)] hover:border-[var(--color-ocean-300)]',
+                    'hover:bg-[var(--color-ocean-50)]/50',
                     'rounded-xl',
                     'transition-all duration-200',
                     !field.value && 'text-muted-foreground',
@@ -95,7 +95,7 @@ export default function MTFormDatePicker<
               </FormControl>
             </PopoverTrigger>
             <PopoverContent 
-              className="w-auto p-0 rounded-xl shadow-xl border-gray-200" 
+              className="w-auto p-0 rounded-xl shadow-xl border-[var(--color-border)]" 
               align="start"
             >
               <Calendar
@@ -114,7 +114,7 @@ export default function MTFormDatePicker<
             </PopoverContent>
           </Popover>
           {description && (
-            <FormDescription className="text-xs text-gray-500">
+            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
               {description}
             </FormDescription>
           )}
@@ -168,7 +168,7 @@ export function MTFormDateRangePicker<
       render={({ field, fieldState }) => (
         <FormItem className={cn('flex flex-col', className)}>
           {label && (
-            <FormLabel className="text-sm font-medium text-gray-700 flex items-center gap-1">
+            <FormLabel className="text-sm font-medium text-[var(--color-text-secondary)] flex items-center gap-1">
               {label}
               {required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -180,8 +180,8 @@ export function MTFormDateRangePicker<
                   variant="outline"
                   className={cn(
                     'h-12 px-4 justify-start text-left font-normal',
-                    'border-gray-200 hover:border-teal-300',
-                    'hover:bg-teal-50/50',
+                    'border-[var(--color-border)] hover:border-[var(--color-ocean-300)]',
+                    'hover:bg-[var(--color-ocean-50)]/50',
                     'rounded-xl',
                     'transition-all duration-200',
                     !field.value && 'text-muted-foreground',
@@ -207,7 +207,7 @@ export function MTFormDateRangePicker<
               </FormControl>
             </PopoverTrigger>
             <PopoverContent 
-              className="w-auto p-0 rounded-xl shadow-xl border-gray-200" 
+              className="w-auto p-0 rounded-xl shadow-xl border-[var(--color-border)]" 
               align="start"
             >
               <Calendar
@@ -227,7 +227,7 @@ export function MTFormDateRangePicker<
             </PopoverContent>
           </Popover>
           {description && (
-            <FormDescription className="text-xs text-gray-500">
+            <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
               {description}
             </FormDescription>
           )}

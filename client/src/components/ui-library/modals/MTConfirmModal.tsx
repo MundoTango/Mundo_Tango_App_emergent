@@ -1,7 +1,8 @@
 // MT Ocean Confirmation Modal Component
 // ESA LIFE CEO 61x21 - Confirmation Dialogs
 
-import React from 'react';
+import React from 'react'
+import { useTranslation } from 'react-i18next';;
 import { cn } from '@/lib/utils';
 import { AlertTriangle, CheckCircle, Info, AlertCircle, Trash2, LucideIcon } from 'lucide-react';
 import MTModalBase from './MTModalBase';
@@ -33,7 +34,7 @@ const MTConfirmModal: React.FC<MTConfirmModalProps> = ({
   type = 'info',
   icon,
   confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  cancelText = {t('actions.cancel', 'Cancel')},
   confirmButtonVariant,
   showCancelButton = true,
   loading = false,

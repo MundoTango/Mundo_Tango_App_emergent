@@ -45,8 +45,8 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
       <Card className="shadow-lg">
         <CardContent className="p-6">
           <div className="animate-pulse space-y-3">
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            <div className="h-20 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+            <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
           </div>
         </CardContent>
       </Card>);
@@ -77,7 +77,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
         {visitors.slice(0, 3).map((visitor) =>
         <div
           key={visitor.id}
-          className="p-4 bg-white rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer"
+          className="p-4 bg-[var(--color-surface)] dark:bg-gray-900 rounded-lg border border-orange-100 hover:shadow-md transition-shadow cursor-pointer"
           onClick={() => setLocation(`/profile/${visitor.username}`)}>
 
             <div className="flex items-start justify-between">
@@ -94,12 +94,12 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
                   </div>
               }
                 <div>
-                  <h4 className="font-semibold text-gray-900">{visitor.name}</h4>
-                  <p className="text-sm text-gray-600 flex items-center gap-1">
+                  <h4 className="font-semibold text-[var(--color-text)] dark:text-white">{visitor.name}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
                     From {visitor.city}, {visitor.country}
                   </p>
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1 mt-1">
                     <Calendar className="h-3 w-3" />
                     {formatDateRange(visitor.arrivalDate, visitor.departureDate)}
                   </p>
@@ -119,7 +119,7 @@ export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
               <ChevronRight className="h-5 w-5 text-gray-400" />
             </div>
             {visitor.lookingFor.length > 0 &&
-          <p className="text-sm text-gray-700 mt-2 pl-15">
+          <p className="text-sm text-[var(--color-text-secondary)] mt-2 pl-15">
                 Looking for: {visitor.lookingFor.join(', ')}
               </p>
           }

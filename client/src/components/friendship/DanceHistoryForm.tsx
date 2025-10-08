@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -15,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
 
 const danceHistorySchema = z.object({
+  const { t } = useTranslation();
   partnerId: z.number().min(1, 'Please select a dance partner'),
   danceDate: z.string(),
   location: z.string().min(1, 'Please enter where you danced'),
@@ -79,7 +81,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
     },
     onError: () => {
       toast({
-        title: 'Error',
+        title: {t('states.error', 'Error')},
         description: 'Failed to save dance history',
         variant: 'destructive'
       });
@@ -290,11 +292,11 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                     <button
                       key={star}
                       type="button"
-                      onClick={() => field.onChange(star)}
+                      onClick={() = aria-label="Button"> field.onChange(star)}
                       className={`text-2xl ${
                       star <= field.value ?
                       'text-yellow-500' :
-                      'text-gray-300 dark:text-gray-600'} hover:text-yellow-400 transition-colors`
+                      'text-gray-300 dark:text-gray-600 dark:text-gray-300'} hover:text-yellow-400 transition-colors`
                       } data-testid="button-button">
 
                           ★
@@ -317,7 +319,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                     type="checkbox"
                     checked={field.value}
                     onChange={field.onChange}
-                    className="rounded border-gray-300" data-testid="input-checkbox" />
+                    className="rounded border-gray-300 dark:border-gray-600" data-testid="input-checkbox" />
 
                     <FormLabel className="cursor-pointer">
                       This was a special moment
@@ -373,7 +375,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
                 multiple
                 accept="image/*"
                 onChange={handlePhotoUpload}
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-turquoise-50 file:text-turquoise-700 hover:file:bg-turquoise-100" data-testid="input-file" />
+                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-ocean-50)] file:text-turquoise-700 hover:file:bg-turquoise-100" data-testid="input-file" />
 
               {uploadedPhotos.length > 0 &&
               <div className="flex gap-2 flex-wrap mt-2">

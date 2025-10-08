@@ -101,10 +101,10 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
     switch (status) {
       case 'Completed':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'In Progress':return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'Planned':return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      case 'Planned':return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
       case 'Blocked':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Under Review':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
@@ -113,7 +113,7 @@ const EnhancedHierarchicalTreeView: React.FC = () => {
       case 'High':return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       case 'Medium':return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
       case 'Low':return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      default:return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 

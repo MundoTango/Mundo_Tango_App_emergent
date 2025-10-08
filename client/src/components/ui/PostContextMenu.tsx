@@ -60,7 +60,7 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
       action: () => {
         navigator.clipboard.writeText(`${window.location.origin}/post/${postId}`);
       },
-      className: 'text-gray-600 hover:bg-gray-50'
+      className: 'text-gray-600 dark:text-gray-300 hover:bg-[var(--color-surface-elevated)]'
     }
   ];
 
@@ -69,8 +69,8 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
   return (
     <div className={`relative ${className}`}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 hover:bg-gray-100 rounded-xl transition-colors dark:bg-neutral-800"
+        onClick={() = aria-label="Button"> setIsOpen(!isOpen)}
+        className="p-2 hover:bg-[var(--color-neutral-100)] rounded-xl transition-colors dark:bg-neutral-800"
         aria-label="Post options"
       >
         <MoreVertical className="h-5 w-5 text-gray-400" />
@@ -85,11 +85,11 @@ export const PostContextMenu: React.FC<PostContextMenuProps> = ({
           />
           
           {/* Menu */}
-          <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 dark:bg-neutral-900">
+          <div className="absolute right-0 top-full mt-2 w-48 bg-[var(--color-surface)] rounded-xl shadow-lg border border-[var(--color-border)] py-2 z-50 dark:bg-neutral-900">
             {actions.map((action, index) => (
               <button
                 key={index}
-                onClick={() => action.action && handleMenuClick(action.action)}
+                onClick={() = aria-label="Button"> action.action && handleMenuClick(action.action)}
                 className={`
                   w-full flex items-center gap-3 px-4 py-2 text-left transition-colors
                   ${action.className}

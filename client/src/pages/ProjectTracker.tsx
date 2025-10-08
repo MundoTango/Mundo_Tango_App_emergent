@@ -194,7 +194,7 @@ const ProjectTracker: React.FC = () => {
       case 'passed':return <CheckCircle className="h-5 w-5 text-green-500" />;
       case 'warning':return <AlertCircle className="h-5 w-5 text-yellow-500" />;
       case 'failed':return <AlertCircle className="h-5 w-5 text-red-500" />;
-      default:return <Clock className="h-5 w-5 text-gray-500" />;
+      default:return <Clock className="h-5 w-5 text-gray-500 dark:text-gray-400" />;
     }
   };
 
@@ -204,7 +204,7 @@ const ProjectTracker: React.FC = () => {
       case 'in_progress':return 'bg-blue-100 text-blue-800';
       case 'planning':return 'bg-yellow-100 text-yellow-800';
       case 'on_hold':return 'bg-red-100 text-red-800';
-      default:return 'bg-gray-100 text-gray-800';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
     }
   };
 
@@ -214,7 +214,7 @@ const ProjectTracker: React.FC = () => {
       case 'high':return 'bg-orange-100 text-orange-800';
       case 'medium':return 'bg-yellow-100 text-yellow-800';
       case 'low':return 'bg-green-100 text-green-800';
-      default:return 'bg-gray-100 text-gray-800';
+      default:return 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100';
     }
   };
 
@@ -230,7 +230,7 @@ const ProjectTracker: React.FC = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
             ESA LIFE CEO 61x21 Project Tracker
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Comprehensive platform audit and project management dashboard
           </p>
         </div>
@@ -328,7 +328,7 @@ const ProjectTracker: React.FC = () => {
                       <CardContent className="pt-0">
                         <Progress value={result.score / result.maxScore * 100} className="mb-3" />
                         <ScrollArea className="h-24">
-                          <ul className="text-sm text-gray-600 space-y-1">
+                          <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                             {result.details.map((detail, i) =>
                           <li key={i} className="flex items-start gap-2">
                                 <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
@@ -337,7 +337,7 @@ const ProjectTracker: React.FC = () => {
                           )}
                           </ul>
                         </ScrollArea>
-                        <p className="text-xs text-gray-500 mt-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                           Last updated: {format(new Date(result.lastUpdated), 'MMM d, yyyy HH:mm')}
                         </p>
                       </CardContent>
@@ -379,7 +379,7 @@ const ProjectTracker: React.FC = () => {
                 {projectsLoading ?
                 <div className="text-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="text-gray-500 mt-2">Loading projects...</p>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2">Loading projects...</p>
                   </div> :
                 filteredProjects.length > 0 ?
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -404,7 +404,7 @@ const ProjectTracker: React.FC = () => {
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-gray-600 mb-3 line-clamp-2">{project.description}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">{project.description}</p>
                           <div className="space-y-2">
                             <div className="flex items-center justify-between text-sm">
                               <span>Progress</span>
@@ -413,14 +413,14 @@ const ProjectTracker: React.FC = () => {
                             <Progress value={project.completion} />
                           </div>
                           {project.estimatedHours &&
-                      <div className="flex items-center justify-between text-sm text-gray-500 mt-2">
+                      <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mt-2">
                               <span>Estimated: {project.estimatedHours}h</span>
                               {project.actualHours &&
                         <span>Actual: {project.actualHours}h</span>
                         }
                             </div>
                       }
-                          <p className="text-xs text-gray-500 mt-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                             Updated: {format(new Date(project.updatedAt), 'MMM d, yyyy')}
                           </p>
                         </CardContent>
@@ -430,7 +430,7 @@ const ProjectTracker: React.FC = () => {
 
                 <div className="text-center py-8">
                     <Users className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-500">No projects found for the selected filter</p>
+                    <p className="text-gray-500 dark:text-gray-400">No projects found for the selected filter</p>
                   </div>
                 }
               </CardContent>
@@ -482,7 +482,7 @@ const ProjectTracker: React.FC = () => {
                           <Badge variant="outline">{item.count} projects</Badge>
                         </div>
                     ) ||
-                    <p className="text-gray-500 text-center py-4">No layer data available</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-center py-4">No layer data available</p>
                     }
                     </div>
                   }
@@ -498,19 +498,19 @@ const ProjectTracker: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <p className="text-2xl font-bold text-blue-600">{metrics.totalProjects}</p>
-                    <p className="text-sm text-gray-600">Total Projects</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Total Projects</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-green-600">{metrics.avgCompletion?.toFixed(1) || 0}%</p>
-                    <p className="text-sm text-gray-600">Avg Completion</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Avg Completion</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-purple-600">{metrics.totalEstimatedHours || 0}h</p>
-                    <p className="text-sm text-gray-600">Est. Hours</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Est. Hours</p>
                   </div>
                   <div className="text-center">
                     <p className="text-2xl font-bold text-orange-600">{metrics.totalActualHours || 0}h</p>
-                    <p className="text-sm text-gray-600">Actual Hours</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Actual Hours</p>
                   </div>
                 </div>
               </CardContent>

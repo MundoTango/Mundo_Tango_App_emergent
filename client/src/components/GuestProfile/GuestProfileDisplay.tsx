@@ -37,7 +37,7 @@ export function GuestProfileDisplay({ profile, isOwnProfile }: GuestProfileDispl
     <div className="space-y-6">
       {/* Guest Profile Badge */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Guest Profile</h2>
+        <h2 className="text-2xl font-bold text-[var(--color-text)] dark:text-white">Guest Profile</h2>
         <Badge className="bg-green-100 text-green-800 border-green-300">
           <User className="h-3 w-3 mr-1" />
           Verified Guest
@@ -149,13 +149,13 @@ export function GuestProfileDisplay({ profile, isOwnProfile }: GuestProfileDispl
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500">No dietary restrictions specified</p>
+              <p className="text-gray-500 dark:text-gray-400">No dietary restrictions specified</p>
             )}
           </div>
           {profile.specialNeeds && (
             <div>
               <h4 className="font-semibold mb-2">Special Needs</h4>
-              <p className="text-gray-700">{profile.specialNeeds}</p>
+              <p className="text-[var(--color-text-secondary)]">{profile.specialNeeds}</p>
             </div>
           )}
         </CardContent>

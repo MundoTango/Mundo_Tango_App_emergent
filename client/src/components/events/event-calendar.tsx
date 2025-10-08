@@ -109,7 +109,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
             {/* Day Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) =>
-              <div key={day} className="p-2 text-center text-sm font-medium text-gray-600">
+              <div key={day} className="p-2 text-center text-sm font-medium text-gray-600 dark:text-gray-300">
                   {day}
                 </div>
               )}
@@ -127,19 +127,19 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                 return (
                   <button
                     key={index}
-                    onClick={() => setSelectedDate(date)}
+                    onClick={() = aria-label="Button"> setSelectedDate(date)}
                     className={`
                       p-2 h-16 text-sm border rounded-lg transition-colors relative
-                      ${!isCurrentMonth ? 'text-gray-400 bg-gray-50' : ''}
-                      ${isToday ? 'border-tango-red bg-tango-red/10' : 'border-gray-200'}
-                      ${isSelected ? 'bg-tango-red text-white' : 'hover:bg-gray-50'}
+                      ${!isCurrentMonth ? 'text-gray-400 bg-[var(--color-surface-elevated)]' : ''}
+                      ${isToday ? 'border-tango-red bg-tango-red/10' : 'border-[var(--color-border)]'}
+                      ${isSelected ? 'bg-tango-red text-white' : 'hover:bg-[var(--color-surface-elevated)]'}
                       ${hasEvents && !isSelected ? 'bg-blue-50 border-blue-200' : ''}
                     `} data-testid="button-element">
 
                     <div className="font-medium">{date.getDate()}</div>
                     {hasEvents &&
                     <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                        <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-white' : 'bg-tango-red'}`}></div>
+                        <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-[var(--color-surface)] dark:bg-gray-900' : 'bg-tango-red'}`}></div>
                       </div>
                     }
                   </button>);
@@ -173,10 +173,10 @@ export default function EventCalendar({ events }: EventCalendarProps) {
             selectedDateEvents.length > 0 ?
             <div className="space-y-4">
                   {selectedDateEvents.map((event) =>
-              <div key={event.id} className="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
+              <div key={event.id} className="border rounded-lg p-3 hover:bg-[var(--color-surface-elevated)] transition-colors">
                       <h4 className="font-medium text-tango-black mb-2">{event.title}</h4>
                       
-                      <div className="space-y-1 text-sm text-gray-600">
+                      <div className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
                         <div className="flex items-center space-x-2">
                           <Clock className="h-3 w-3" />
                           <span>
@@ -200,7 +200,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
                   }
                       </div>
 
-                      <p className="text-xs text-gray-600 mt-2 line-clamp-2">
+                      <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
                         {event.description}
                       </p>
 
@@ -218,8 +218,8 @@ export default function EventCalendar({ events }: EventCalendarProps) {
 
             <div className="text-center py-8">
                   <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                  <p className="text-gray-600">No events on this date</p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-gray-600 dark:text-gray-300">No events on this date</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                     Why not create one?
                   </p>
                 </div> :
@@ -227,7 +227,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
 
             <div className="text-center py-8">
                 <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-600">Select a date to view events</p>
+                <p className="text-gray-600 dark:text-gray-300">Select a date to view events</p>
               </div>
             }
           </CardContent>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { X, Calendar, MapPin, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -31,7 +32,8 @@ interface TravelDetailForm {
 }
 
 const eventTypes = [
-{ value: 'festival', label: 'Festival' },
+{
+  const { t } = useTranslation(); value: 'festival', label: 'Festival' },
 { value: 'marathon', label: 'Marathon' },
 { value: 'workshop', label: 'Workshop' },
 { value: 'conference', label: 'Conference' },
@@ -70,7 +72,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: "Success",
+        title: {t('states.success', 'Success')},
         description: "Travel detail added successfully"
       });
       onClose();
@@ -78,7 +80,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to add travel detail",
         variant: "destructive"
       });
@@ -115,7 +117,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-turquoise-500" />
+            <Globe className="w-5 h-5 text-[var(--color-primary)]" />
             Add Travel Detail
           </DialogTitle>
         </DialogHeader>

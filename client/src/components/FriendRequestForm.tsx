@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -15,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { UserPlus, MapPin, Calendar, Music, Image, Send } from 'lucide-react';
 
 const friendRequestSchema = z.object({
+  const { t } = useTranslation();
   receiverId: z.number(),
   didWeDance: z.boolean().default(false),
   danceLocation: z.string().optional(),
@@ -66,7 +68,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to send friend request"
       });
     }
@@ -83,7 +85,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
     <Card className="glassmorphic-card">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <UserPlus className="h-5 w-5 text-turquoise-500" />
+          <UserPlus className="h-5 w-5 text-[var(--color-primary)]" />
           <span className="bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent">
             Send Friend Request
           </span>
@@ -104,7 +106,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                     <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="border-turquoise-300" />
+                    className="border-[var(--color-ocean-300)]" />
 
                   </FormControl>
                   <div className="space-y-1 leading-none">
@@ -127,7 +129,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 render={({ field }) =>
                 <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-turquoise-500" />
+                        <MapPin className="h-4 w-4 text-[var(--color-primary)]" />
                         Where did you dance?
                       </FormLabel>
                       <FormControl>
@@ -147,7 +149,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
                 render={({ field }) =>
                 <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        <Music className="h-4 w-4 text-turquoise-500" />
+                        <Music className="h-4 w-4 text-[var(--color-primary)]" />
                         Share your dance story
                       </FormLabel>
                       <FormControl>

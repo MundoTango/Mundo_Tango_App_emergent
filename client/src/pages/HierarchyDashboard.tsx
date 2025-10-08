@@ -130,7 +130,7 @@ export default function HierarchyDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Project Hierarchy Dashboard</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
             Real-time analysis of your project structure health
           </p>
         </div>
@@ -170,13 +170,13 @@ export default function HierarchyDashboard() {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <span className="text-sm text-gray-600">Module Cohesion</span>
+              <span className="text-sm text-gray-600 dark:text-gray-300">Module Cohesion</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.moduleCohesion * 100).toFixed(1)}%
               </div>
             </div>
             <div>
-              <span className="text-sm text-gray-600">Coupling Score</span>
+              <span className="text-sm text-gray-600 dark:text-gray-300">Coupling Score</span>
               <div className="font-semibold">
                 {(metrics.hierarchy.couplingScore * 100).toFixed(1)}%
               </div>
@@ -333,7 +333,7 @@ export default function HierarchyDashboard() {
         </TabsContent>
       </Tabs>
 
-      <div className="text-sm text-gray-500 text-right">
+      <div className="text-sm text-gray-500 dark:text-gray-400 text-right">
         Last updated: {new Date(metrics.timestamp).toLocaleString()}
       </div>
     </div>);

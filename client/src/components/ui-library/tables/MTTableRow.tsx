@@ -1,7 +1,8 @@
 // MT Ocean Table Row - Interactive Table Row Component
 // ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
 
-import { useState } from 'react';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { MoreHorizontal, Edit, Trash, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MTOceanTheme } from '@/styles/mt-ocean-theme';
@@ -55,6 +56,7 @@ export default function MTTableRow({
   const [showActions, setShowActions] = useState(false);
 
   const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { t } = useTranslation();
     e.stopPropagation();
     if (onSelect) {
       onSelect(e.target.checked);
@@ -67,10 +69,10 @@ export default function MTTableRow({
     <>
       <tr
         className={cn(
-          'border-t border-gray-200/50 dark:border-gray-700/50',
-          striped && index % 2 === 1 && 'bg-gray-50/30 dark:bg-gray-800/30',
-          hoverable && 'hover:bg-teal-50/30 dark:hover:bg-teal-900/20 transition-colors duration-200',
-          selected && 'bg-teal-100/40 dark:bg-teal-800/30',
+          'border-t border-[var(--color-border)]/50 dark:border-gray-700/50',
+          striped && index % 2 === 1 && 'bg-[var(--color-surface-elevated)]/30 dark:bg-gray-800/30',
+          hoverable && 'hover:bg-[var(--color-ocean-50)]/30 dark:hover:bg-teal-900/20 transition-colors duration-200',
+          selected && 'bg-[var(--color-ocean-100)]/40 dark:bg-teal-800/30',
           onClick && 'cursor-pointer',
           className
         )}
@@ -86,8 +88,8 @@ export default function MTTableRow({
               type="checkbox"
               checked={selected}
               onChange={handleSelect}
-              onClick={(e) => e.stopPropagation()}
-              className="rounded border-teal-300 text-teal-600 focus:ring-teal-500"
+              onClick={(e) = aria-label="Input field"> e.stopPropagation()}
+              className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
               data-testid={`${testId}-checkbox`}
             />
           </td>
@@ -97,11 +99,11 @@ export default function MTTableRow({
         {expandable && (
           <td className="px-2 py-3 w-10">
             <button
-              onClick={(e) => {
+              onClick={(e) = aria-label="Button"> {
                 e.stopPropagation();
                 onExpand?.();
               }}
-              className="p-1 rounded hover:bg-teal-100 dark:hover:bg-teal-800/50 transition-colors"
+              className="p-1 rounded hover:bg-[var(--color-ocean-100)] dark:hover:bg-teal-800/50 transition-colors"
               data-testid={`${testId}-expand`}
             >
               <svg
@@ -131,11 +133,11 @@ export default function MTTableRow({
             )}>
               {onView && (
                 <button
-                  onClick={(e) => {
+                  onClick={(e) = aria-label="Button"> {
                     e.stopPropagation();
                     onView();
                   }}
-                  className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
                   title="View"
                   data-testid={`${testId}-view`}
                 >
@@ -144,12 +146,12 @@ export default function MTTableRow({
               )}
               {onEdit && (
                 <button
-                  onClick={(e) => {
+                  onClick={(e) = aria-label="Button"> {
                     e.stopPropagation();
                     onEdit();
                   }}
                   className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
-                  title="Edit"
+                  title={t('actions.edit', 'Edit')}
                   data-testid={`${testId}-edit`}
                 >
                   <Edit className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -157,12 +159,12 @@ export default function MTTableRow({
               )}
               {onDelete && (
                 <button
-                  onClick={(e) => {
+                  onClick={(e) = aria-label="Button"> {
                     e.stopPropagation();
                     onDelete();
                   }}
                   className="p-1.5 rounded hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
-                  title="Delete"
+                  title={t('actions.delete', 'Delete')}
                   data-testid={`${testId}-delete`}
                 >
                   <Trash className="w-4 h-4 text-red-600 dark:text-red-400" />
@@ -171,23 +173,23 @@ export default function MTTableRow({
               {actions && actions.length > 0 && (
                 <div className="relative group">
                   <button
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    onClick={(e) = aria-label="Button"> e.stopPropagation()}
+                    className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
                     data-testid={`${testId}-more`}
                   >
                     <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                   </button>
-                  <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                  <div className="absolute right-0 mt-1 w-48 bg-[var(--color-surface)] dark:bg-gray-800 rounded-lg shadow-xl border border-[var(--color-border)] dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
                     {actions.map((action, idx) => (
                       <button
                         key={idx}
-                        onClick={(e) => {
+                        onClick={(e) = aria-label="Button"> {
                           e.stopPropagation();
                           action.onClick();
                         }}
                         className={cn(
                           'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
-                          'hover:bg-teal-50 dark:hover:bg-teal-900/30',
+                          'hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30',
                           action.variant === 'danger' && 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30'
                         )}
                       >
@@ -205,7 +207,7 @@ export default function MTTableRow({
 
       {/* Expanded Content */}
       {expandable && expanded && expandContent && (
-        <tr className="bg-gray-50/50 dark:bg-gray-800/50">
+        <tr className="bg-[var(--color-surface-elevated)]/50 dark:bg-gray-800/50">
           <td colSpan={100} className="px-8 py-4">
             {expandContent}
           </td>

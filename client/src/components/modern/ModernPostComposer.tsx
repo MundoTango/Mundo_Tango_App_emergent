@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';;
 import { Image, Video, MapPin, Smile, X, Send, Globe, Users, Lock, Camera, FileImage } from 'lucide-react';
 import { GlassCard } from '@/components/glass/GlassComponents';
 
@@ -36,6 +37,7 @@ export default function ModernPostComposer({
   const [isExpanded, setIsExpanded] = useState(true);
 
   const handleSubmit = () => {
+  const { t } = useTranslation();
     if (content.trim()) {
       if (editMode && existingPost && onUpdate) {
         // Edit mode: prepare update data
@@ -77,11 +79,11 @@ export default function ModernPostComposer({
   const visibilityOptions = [
     { value: 'public', icon: Globe, label: 'Public', color: 'text-green-600', bg: 'bg-green-50' },
     { value: 'followers', icon: Users, label: 'Followers', color: 'text-blue-600', bg: 'bg-blue-50' },
-    { value: 'private', icon: Lock, label: 'Private', color: 'text-gray-600', bg: 'bg-gray-50' }
+    { value: 'private', icon: Lock, label: 'Private', color: 'text-gray-600 dark:text-gray-300', bg: 'bg-[var(--color-surface-elevated)]' }
   ];
 
   return (
-    <GlassCard depth={3} className="bg-white rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden">
+    <GlassCard depth={3} className="bg-[var(--color-surface)] dark:bg-gray-900 rounded-3xl shadow-2xl border-2 border-blue-100/50 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-coral-50 via-blue-50 to-teal-50 px-8 py-6 border-b border-blue-100/50">
         <div className="flex items-center justify-between">
@@ -103,7 +105,7 @@ export default function ModernPostComposer({
               onClick={onClose}
               className="p-3 rounded-2xl text-blue-400 hover:text-red-500 hover:bg-red-50 
                        transition-all duration-300 hover:scale-110"
-            >
+             aria-label="Button">
               <X className="w-6 h-6" />
             </button>
           )}
@@ -133,12 +135,12 @@ export default function ModernPostComposer({
                 return (
                   <button
                     key={option.value}
-                    onClick={() => setVisibility(option.value)}
+                    onClick={() = aria-label="Button"> setVisibility(option.value)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-medium text-sm
                               transition-all duration-200 border-2 ${
                                 visibility === option.value
                                   ? `${option.bg} ${option.color} border-current shadow-md`
-                                  : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50'
+                                  : 'bg-[var(--color-surface)] text-gray-500 dark:text-gray-400 border-[var(--color-border)] hover:bg-[var(--color-surface-elevated)]'
                               }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -188,7 +190,7 @@ export default function ModernPostComposer({
                 </div>
               </div>
               <button
-                onClick={() => {
+                onClick={() = aria-label="Button"> {
                   setSelectedMedia(null);
                   setExistingMediaUrl(null);
                 }}
@@ -210,7 +212,7 @@ export default function ModernPostComposer({
                 accept="image/*"
                 onChange={handleMediaSelect}
                 className="hidden"
-              />
+              / aria-label="Input field">
               <div className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-coral-50 text-coral-600 
                             hover:bg-coral-100 hover:text-coral-700 font-bold transition-all duration-300 
                             transform hover:scale-105 shadow-lg hover:shadow-xl">
@@ -219,9 +221,9 @@ export default function ModernPostComposer({
               </div>
             </label>
             
-            <button className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-teal-50 text-teal-600 
-                             hover:bg-teal-100 hover:text-teal-700 font-bold transition-all duration-300 
-                             transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <button className="flex items-center space-x-2 px-5 py-3 rounded-xl bg-[var(--color-ocean-50)] text-[var(--color-primary-hover)] 
+                             hover:bg-[var(--color-ocean-100)] hover:text-[var(--color-primary-hover)] font-bold transition-all duration-300 
+                             transform hover:scale-105 shadow-lg hover:shadow-xl" aria-label="Button">
               <MapPin className="w-5 h-5" />
               <span>Location</span>
             </button>
@@ -235,9 +237,9 @@ export default function ModernPostComposer({
                      font-bold text-lg shadow-2xl hover:shadow-coral-500/30 transform hover:-translate-y-1 
                      disabled:transform-none disabled:shadow-lg transition-all duration-300 
                      flex items-center space-x-3 group"
-          >
+           aria-label="Button">
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            <span>{editMode ? 'Save' : 'Post'}</span>
+            <span>{editMode ? {t('actions.save', 'Save')} : 'Post'}</span>
           </button>
         </div>
       </div>

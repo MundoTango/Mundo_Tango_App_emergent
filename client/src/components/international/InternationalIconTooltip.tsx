@@ -132,7 +132,7 @@ const InternationalIconTooltip = ({
   // Icon color variants
   const getIconColor = () => {
     const colors: Record<IconType, string> = {
-      info: 'text-cyan-600 dark:text-cyan-400',
+      info: 'text-[var(--color-primary-hover)] dark:text-cyan-400',
       help: 'text-blue-600 dark:text-blue-400',
       warning: 'text-amber-600 dark:text-amber-400',
       success: 'text-green-600 dark:text-green-400',
@@ -156,7 +156,7 @@ const InternationalIconTooltip = ({
         ref={iconRef}
         type="button"
         onClick={handleToggle}
-        onMouseEnter={() => !isTouchDevice && setIsVisible(true)}
+        onMouseEnter={() = aria-label="Button"> !isTouchDevice && setIsVisible(true)}
         onMouseLeave={() => !isTouchDevice && setIsVisible(false)}
         onFocus={() => setIsVisible(true)}
         onBlur={() => setIsVisible(false)}
@@ -166,7 +166,7 @@ const InternationalIconTooltip = ({
         className={cn(
           'inline-flex items-center justify-center',
           'rounded-full p-1',
-          'hover:bg-gray-100 dark:hover:bg-gray-800',
+          'hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-800',
           'focus:outline-none focus:ring-2 focus:ring-cyan-500/50',
           'transition-colors duration-150',
           'cursor-help',
@@ -208,7 +208,7 @@ const InternationalIconTooltip = ({
           {/* Arrow indicator */}
           <div
           className={cn(
-            'absolute w-2 h-2 bg-white/70 dark:bg-slate-800/70',
+            'absolute w-2 h-2 bg-[var(--color-surface)]/70 dark:bg-slate-800/70',
             'border border-white/20 dark:border-white/10',
             'rotate-45',
             position === 'top' && 'bottom-[-5px] left-1/2 -translate-x-1/2',

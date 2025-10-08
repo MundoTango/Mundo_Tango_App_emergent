@@ -189,7 +189,7 @@ export function getAdminRoleDisplay(userRole: string): {
 
   return roleDisplayMap[userRole] || { 
     label: userRole, 
-    color: 'bg-gray-100 text-gray-800 border-gray-200',
+    color: 'bg-[var(--color-neutral-100)] text-gray-800 dark:text-gray-100 border-[var(--color-border)]',
     icon: '👤'
   };
 }

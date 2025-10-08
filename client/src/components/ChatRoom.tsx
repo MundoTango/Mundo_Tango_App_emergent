@@ -221,7 +221,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
         {/* Online Users */}
         {getOnlineUsers().length > 0 &&
         <div className="flex items-center gap-2 mt-2">
-            <span className="text-sm text-gray-500">Online:</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">Online:</span>
             <div className="flex -space-x-2">
               {getOnlineUsers().slice(0, 5).map((user) =>
             <Avatar key={user.userId} className="w-6 h-6 border-2 border-white">
@@ -232,7 +232,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                 </Avatar>
             )}
               {getOnlineUsers().length > 5 &&
-            <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs">
+            <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white flex items-center justify-center text-xs">
                   +{getOnlineUsers().length - 5}
                 </div>
             }
@@ -265,7 +265,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                     {!isOwnMessage &&
                     <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-medium">{message.user?.name || message.user?.username}</span>
-                        <span className="text-xs text-gray-500">{formatMessageTime(message.createdAt)}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{formatMessageTime(message.createdAt)}</span>
                       </div>
                     }
                     
@@ -273,7 +273,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                       className={`px-3 py-2 rounded-lg ${
                       isOwnMessage ?
                       'bg-blue-500 text-white rounded-br-sm' :
-                      'bg-gray-100 text-gray-900 rounded-bl-sm'}`
+                      'bg-[var(--color-neutral-100)] text-[var(--color-text)] dark:text-white rounded-bl-sm'}`
                       }>
 
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -299,7 +299,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             
             {/* Typing Indicators */}
             {getTypingUsers().length > 0 &&
-            <div className="flex items-center gap-2 text-sm text-gray-500 px-2">
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 px-2">
                 <div className="flex -space-x-1">
                   {getTypingUsers().slice(0, 3).map((user) =>
                 <Avatar key={user.userId} className="w-5 h-5 border border-white">

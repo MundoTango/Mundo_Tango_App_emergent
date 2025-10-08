@@ -106,7 +106,7 @@ export default function AdminMonitoring() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">System Monitoring</h1>
-          <p className="text-gray-500">ESA LIFE CEO 61x21 - Real-time monitoring dashboard</p>
+          <p className="text-gray-500 dark:text-gray-400">ESA LIFE CEO 61x21 - Real-time monitoring dashboard</p>
         </div>
         <div className="flex gap-4">
           <Button
@@ -301,7 +301,7 @@ export default function AdminMonitoring() {
                         </Badge>
                         <div>
                           <p className="font-medium">{agent.agentId}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
                             {agent.requests} requests • {agent.avgResponseTime.toFixed(0)}ms avg
                           </p>
                         </div>
@@ -309,15 +309,15 @@ export default function AdminMonitoring() {
                       <div className="flex items-center gap-4">
                         <div className="text-right">
                           <p className="text-sm font-medium">{agent.successRate.toFixed(1)}%</p>
-                          <p className="text-xs text-gray-500">Success Rate</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Success Rate</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium">{agent.tokensUsed}</p>
-                          <p className="text-xs text-gray-500">Tokens</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Tokens</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium">${agent.cost.toFixed(2)}</p>
-                          <p className="text-xs text-gray-500">Cost</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Cost</p>
                         </div>
                       </div>
                     </div>
@@ -452,7 +452,7 @@ export default function AdminMonitoring() {
                       </AlertTitle>
                       <AlertDescription>
                         <p>{alert.description}</p>
-                        <p className="text-xs text-gray-500 mt-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                           {alert.category} • {format(new Date(alert.timestamp), 'PPpp')}
                         </p>
                       </AlertDescription>
@@ -574,11 +574,11 @@ export default function AdminMonitoring() {
             <CardContent>
               <ScrollArea className="h-[500px] w-full">
                 <div className="space-y-1 font-mono text-sm">
-                  <p className="text-gray-500">[2025-09-14 11:54:00] INFO: System monitoring initialized</p>
+                  <p className="text-gray-500 dark:text-gray-400">[2025-09-14 11:54:00] INFO: System monitoring initialized</p>
                   <p className="text-green-500">[2025-09-14 11:54:01] SUCCESS: All health checks passed</p>
                   <p className="text-blue-500">[2025-09-14 11:54:02] DEBUG: Agent layer 35 processing request</p>
                   <p className="text-yellow-500">[2025-09-14 11:54:03] WARN: Cache hit rate below threshold</p>
-                  <p className="text-gray-500">[2025-09-14 11:54:04] INFO: WebSocket connection established</p>
+                  <p className="text-gray-500 dark:text-gray-400">[2025-09-14 11:54:04] INFO: WebSocket connection established</p>
                 </div>
               </ScrollArea>
             </CardContent>

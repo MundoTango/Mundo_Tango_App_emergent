@@ -31,7 +31,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-semibold mb-2">Set your price</h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           You can change your price anytime. We'll help you price competitively.
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
         <Label htmlFor="basePrice">Base price per night</Label>
         <div className="relative mt-1">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500">{selectedCurrency?.symbol}</span>
+            <span className="text-gray-500 dark:text-gray-400">{selectedCurrency?.symbol}</span>
           </div>
           <Input
             id="basePrice"
@@ -71,7 +71,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             onChange={(e) => updateData({ basePrice: parseFloat(e.target.value) || 0 })} data-testid="input-baseprice" />
 
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           Guest price before taxes: {selectedCurrency?.symbol}{basePrice || 0}
         </p>
       </div>
@@ -81,7 +81,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
         <Label htmlFor="cleaningFee">Cleaning fee (optional)</Label>
         <div className="relative mt-1">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500">{selectedCurrency?.symbol}</span>
+            <span className="text-gray-500 dark:text-gray-400">{selectedCurrency?.symbol}</span>
           </div>
           <Input
             id="cleaningFee"
@@ -94,7 +94,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
             onChange={(e) => updateData({ cleaningFee: parseFloat(e.target.value) || 0 })} data-testid="input-cleaningfee" />
 
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           One-time fee charged to guests
         </p>
       </div>
@@ -119,16 +119,16 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
       {/* Discounts */}
       <div>
         <h3 className="text-lg font-medium mb-4">Offer discounts for longer stays</h3>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
           Attract more bookings with weekly and monthly discounts
         </p>
         
         <div className="space-y-4">
           {/* Weekly discount */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-[var(--color-surface-elevated)] p-4 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <Label>Weekly discount (7+ nights)</Label>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 Suggested: {selectedCurrency?.symbol}{suggestedWeeklyDiscount}/night
               </span>
             </div>
@@ -144,7 +144,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
 
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 = {selectedCurrency?.symbol}
                 {basePrice ? Math.round(basePrice * (1 - (data.weeklyDiscount || 0) / 100)) : 0}/night
               </span>
@@ -152,10 +152,10 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
           </div>
 
           {/* Monthly discount */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-[var(--color-surface-elevated)] p-4 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <Label>Monthly discount (28+ nights)</Label>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 Suggested: {selectedCurrency?.symbol}{suggestedMonthlyDiscount}/night
               </span>
             </div>
@@ -171,7 +171,7 @@ export default function PricingStep({ data, updateData }: PricingStepProps) {
 
                 <Percent className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 = {selectedCurrency?.symbol}
                 {basePrice ? Math.round(basePrice * (1 - (data.monthlyDiscount || 0) / 100)) : 0}/night
               </span>

@@ -146,20 +146,20 @@ export function NotionHomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-10">
+      <div className="bg-[var(--color-surface)] dark:bg-gray-900/80 backdrop-blur-sm border-b sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl font-bold text-[var(--color-text)] dark:text-white mb-2">
                 Mundo Tango Stories
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 Discover memories, events, and reflections from our global tango community
               </p>
             </div>
             <div className="flex items-center gap-2">
               <Sparkles className="w-6 h-6 text-rose-500" />
-              <span className="text-sm text-gray-500">Powered by Notion</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Powered by Notion</span>
             </div>
           </div>
 
@@ -260,9 +260,9 @@ export function NotionHomePage() {
             {Array.from({ length: 6 }).map((_, i) =>
           <Card key={i} className="animate-pulse">
                 <CardContent className="p-6">
-                  <div className="h-4 bg-gray-200 rounded mb-4" />
-                  <div className="h-3 bg-gray-200 rounded mb-2" />
-                  <div className="h-3 bg-gray-200 rounded w-2/3" />
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3" />
                 </CardContent>
               </Card>
           )}
@@ -274,7 +274,7 @@ export function NotionHomePage() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="flex items-center gap-2">
                     {TYPE_ICONS[type.toLowerCase() as keyof typeof TYPE_ICONS] || <FileText className="w-5 h-5" />}
-                    <h2 className="text-2xl font-semibold text-gray-900">
+                    <h2 className="text-2xl font-semibold text-[var(--color-text)] dark:text-white">
                       {type.charAt(0).toUpperCase() + type.slice(1)}s
                     </h2>
                   </div>
@@ -295,7 +295,7 @@ export function NotionHomePage() {
                             </CardTitle>
                             <Badge
                         variant="outline"
-                        className={`flex items-center gap-1 flex-shrink-0 ${TYPE_COLORS[entry.type.toLowerCase() as keyof typeof TYPE_COLORS] || 'bg-gray-50 text-gray-700'}`}>
+                        className={`flex items-center gap-1 flex-shrink-0 ${TYPE_COLORS[entry.type.toLowerCase() as keyof typeof TYPE_COLORS] || 'bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)]'}`}>
 
                               {TYPE_ICONS[entry.type.toLowerCase() as keyof typeof TYPE_ICONS]}
                               {entry.type}
@@ -305,7 +305,7 @@ export function NotionHomePage() {
                         
                         <CardContent className="pt-0">
                           {entry.summary &&
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                               {entry.summary}
                             </p>
                     }
@@ -314,7 +314,7 @@ export function NotionHomePage() {
                             {entry.emotionalTone &&
                       <Badge
                         variant="secondary"
-                        className={`text-xs ${TONE_COLORS[entry.emotionalTone.toLowerCase() as keyof typeof TONE_COLORS] || 'bg-gray-100 text-gray-700'}`}>
+                        className={`text-xs ${TONE_COLORS[entry.emotionalTone.toLowerCase() as keyof typeof TONE_COLORS] || 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]'}`}>
 
                                 {entry.emotionalTone}
                               </Badge>
@@ -336,7 +336,7 @@ export function NotionHomePage() {
                               </div>
                       }
 
-                            <div className="text-xs text-gray-500 pt-2 border-t">
+                            <div className="text-xs text-gray-500 dark:text-gray-400 pt-2 border-t">
                               {formatDate(entry.createdAt)}
                             </div>
                           </div>
@@ -351,13 +351,13 @@ export function NotionHomePage() {
 
         <div className="text-center py-12">
             <div className="max-w-md mx-auto">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-neutral-100)] flex items-center justify-center">
                 <Search className="w-8 h-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white mb-2">
                 No stories found
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Try adjusting your search terms or filters to find more stories.
               </p>
               <Button onClick={clearFilters} variant="outline" data-testid="button-element">

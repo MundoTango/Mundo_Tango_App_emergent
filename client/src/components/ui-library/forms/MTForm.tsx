@@ -63,9 +63,9 @@ export const MTFormSection = ({
   )}>
     {title && (
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 className="text-lg font-semibold text-[var(--color-text)] dark:text-white">{title}</h3>
         {description && (
-          <p className="text-sm text-gray-600 mt-1">{description}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{description}</p>
         )}
       </div>
     )}
@@ -96,9 +96,9 @@ export const MTFormButton = ({
   const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105";
   
   const variantStyles = {
-    primary: "bg-gradient-to-r from-teal-400 to-cyan-600 text-white hover:from-teal-500 hover:to-cyan-700 shadow-lg hover:shadow-xl",
-    secondary: "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 hover:from-gray-200 hover:to-gray-300",
-    outline: "border-2 border-teal-400 text-teal-600 hover:bg-teal-50"
+    primary: "bg-gradient-to-r from-[var(--color-ocean-400)] to-cyan-600 text-white hover:from-[var(--color-primary)] hover:to-cyan-700 shadow-lg hover:shadow-xl",
+    secondary: "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 dark:text-gray-100 hover:from-gray-200 hover:to-gray-300",
+    outline: "border-2 border-teal-400 text-[var(--color-primary-hover)] hover:bg-[var(--color-ocean-50)]"
   };
 
   return (
@@ -114,7 +114,7 @@ export const MTFormButton = ({
       )}
       onClick={onClick}
       data-testid={testId || `mt-form-button-${type}`}
-    >
+     aria-label="Button">
       {loading ? (
         <span className="flex items-center gap-2">
           <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>

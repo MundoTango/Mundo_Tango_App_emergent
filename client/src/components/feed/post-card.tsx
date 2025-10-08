@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from "react"
+import { useTranslation } from 'react-i18next';;
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAuthToken } from "@/lib/authUtils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -48,6 +49,7 @@ export default function PostCard({ post }: PostCardProps) {
 
   // Like/Unlike mutation
   const likeMutation = useMutation({
+  const { t } = useTranslation();
     mutationFn: async () => {
       const method = isLiked ? 'DELETE' : 'POST';
       const response = await fetch(`/api/posts/${post.id}/like`, {
@@ -65,7 +67,7 @@ export default function PostCard({ post }: PostCardProps) {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
+        title: {t('states.error', 'Error')},
         description: error.message || "Failed to update like",
         variant: "destructive"
       });
@@ -148,13 +150,13 @@ export default function PostCard({ post }: PostCardProps) {
               <AvatarFallback className="bg-gradient-to-br from-turquoise-400 to-cyan-500 text-white">{post.user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <div>
-              <h4 className="font-semibold text-gray-800">{post.user?.name || 'Unknown User'}</h4>
-              <p className="text-sm text-turquoise-600">
+              <h4 className="font-semibold text-gray-800 dark:text-gray-100">{post.user?.name || 'Unknown User'}</h4>
+              <p className="text-sm text-[var(--color-primary-hover)]">
                 {formatTimeAgo(post.createdAt)} • @{post.user?.username}
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-turquoise-600" data-testid="button-text-turquoise-400">
+          <Button variant="ghost" size="sm" className="text-turquoise-400 hover:text-[var(--color-primary-hover)]" data-testid="button-text-turquoise-400">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </div>
@@ -163,7 +165,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Post Content */}
       <CardContent className="p-4">
         {post.content &&
-        <p className="text-gray-700 mb-4 whitespace-pre-wrap">{post.content}</p>
+        <p className="text-[var(--color-text-secondary)] mb-4 whitespace-pre-wrap">{post.content}</p>
         }
         
         {/* ESA LIFE CEO 61x21 - Display media files with proper video detection */}
@@ -247,7 +249,7 @@ export default function PostCard({ post }: PostCardProps) {
             size="sm"
             onClick={handleLike}
             disabled={likeMutation.isPending}
-            className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-turquoise-600'} hover:text-pink-500 transition-colors`} data-testid="button-element">
+            className={`flex items-center space-x-2 ${isLiked ? 'text-pink-500' : 'text-[var(--color-primary-hover)]'} hover:text-pink-500 transition-colors`} data-testid="button-element">
 
             <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
             <span>Like</span>
@@ -257,7 +259,7 @@ export default function PostCard({ post }: PostCardProps) {
             variant="ghost"
             size="sm"
             onClick={() => setShowComments(!showComments)}
-            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors" data-testid="button-flex">
+            className="flex items-center space-x-2 text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] transition-colors" data-testid="button-flex">
 
             <MessageCircle className="h-5 w-5" />
             <span>Comment</span>
@@ -267,7 +269,7 @@ export default function PostCard({ post }: PostCardProps) {
             variant="ghost"
             size="sm"
             onClick={handleShare}
-            className="flex items-center space-x-2 text-turquoise-600 hover:text-cyan-600 transition-colors" data-testid="button-flex">
+            className="flex items-center space-x-2 text-[var(--color-primary-hover)] hover:text-[var(--color-primary-hover)] transition-colors" data-testid="button-flex">
 
             <Share2 className="h-5 w-5" />
             <span>Share</span>
@@ -311,11 +313,11 @@ export default function PostCard({ post }: PostCardProps) {
                       <AvatarFallback>{comment.user?.name?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="bg-gray-100 rounded-lg p-3">
+                      <div className="bg-[var(--color-neutral-100)] rounded-lg p-3">
                         <h5 className="font-medium text-sm text-tango-black">{comment.user?.name}</h5>
-                        <p className="text-sm text-gray-700">{comment.content}</p>
+                        <p className="text-sm text-[var(--color-text-secondary)]">{comment.content}</p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {formatTimeAgo(comment.createdAt)}
                       </p>
                     </div>

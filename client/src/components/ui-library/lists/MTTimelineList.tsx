@@ -79,7 +79,7 @@ export default function MTTimelineList({
       case 'completed':
         return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'current':
-        return <Circle className="w-5 h-5 text-teal-500 fill-current" />;
+        return <Circle className="w-5 h-5 text-[var(--color-primary)] fill-current" />;
       case 'cancelled':
         return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'upcoming':
@@ -134,7 +134,7 @@ export default function MTTimelineList({
             isRightSide ? 'text-left pl-8' : 'text-right pr-8'
           )}>
             {showDate && (
-              <p className="text-sm text-gray-500 dark:text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-gray-500 dark:text-gray-400">
                 {formatDate(item.date)}
               </p>
             )}
@@ -154,9 +154,9 @@ export default function MTTimelineList({
           {/* Icon */}
           <div className={cn(
             'flex items-center justify-center rounded-full',
-            'bg-white dark:bg-gray-800 border-2',
+            'bg-[var(--color-surface)] dark:bg-gray-800 border-2',
             item.status === 'completed' && 'border-green-500',
-            item.status === 'current' && 'border-teal-500',
+            item.status === 'current' && 'border-[var(--color-primary)]',
             item.status === 'cancelled' && 'border-red-500',
             (!item.status || item.status === 'upcoming') && 'border-gray-300 dark:border-gray-600',
             isCondensed ? 'w-8 h-8' : 'w-10 h-10',
@@ -186,11 +186,11 @@ export default function MTTimelineList({
           <div
             className={cn(
               'p-4 rounded-xl',
-              'bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm',
-              'border border-gray-200/50 dark:border-gray-700/50',
+              'bg-[var(--color-surface)]/90 dark:bg-gray-800/90 backdrop-blur-sm',
+              'border border-[var(--color-border)]/50 dark:border-gray-700/50',
               'hover:shadow-lg transition-all duration-300',
               item.onClick && 'cursor-pointer hover:scale-[1.02]',
-              item.status === 'current' && 'ring-2 ring-teal-400 bg-teal-50/20 dark:bg-teal-900/20'
+              item.status === 'current' && 'ring-2 ring-teal-400 bg-[var(--color-ocean-50)]/20 dark:bg-teal-900/20'
             )}
             onClick={() => {
               if (item.onClick) item.onClick();
@@ -199,7 +199,7 @@ export default function MTTimelineList({
           >
             {/* Date/Time for default layout */}
             {!isAlternating && showDate && (
-              <div className="flex items-center gap-2 mb-2 text-xs text-gray-500">
+              <div className="flex items-center gap-2 mb-2 text-xs text-gray-500 dark:text-gray-400">
                 <Calendar className="w-3 h-3" />
                 <span>{formatDate(item.date)}</span>
                 {showTime && item.time && (
@@ -213,7 +213,7 @@ export default function MTTimelineList({
 
             {/* Title */}
             <h3 className={cn(
-              'font-semibold text-gray-900 dark:text-gray-100',
+              'font-semibold text-[var(--color-text)] dark:text-gray-100',
               isCondensed ? 'text-sm' : 'text-base'
             )}>
               {item.title}
@@ -228,9 +228,9 @@ export default function MTTimelineList({
 
             {/* Metadata */}
             {item.metadata && item.metadata.length > 0 && isDetailed && (
-              <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/50">
+              <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-[var(--color-border)]/50 dark:border-gray-700/50">
                 {item.metadata.map((meta, idx) => (
-                  <div key={idx} className="flex items-center gap-1 text-xs text-gray-500">
+                  <div key={idx} className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
                     {meta.icon}
                     <span>{meta.label}:</span>
                     <span className="font-medium">{meta.value}</span>
@@ -278,7 +278,7 @@ export default function MTTimelineList({
       {loading ? (
         renderLoadingState()
       ) : items.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
           {emptyMessage}
         </div>
       ) : groupByDate ? (
@@ -286,7 +286,7 @@ export default function MTTimelineList({
           {Object.entries(groupedItems).map(([date, dateItems]) => (
             <div key={date}>
               {date && (
-                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                <h3 className="text-lg font-semibold text-[var(--color-text-secondary)] dark:text-gray-300 mb-4">
                   {date}
                 </h3>
               )}
