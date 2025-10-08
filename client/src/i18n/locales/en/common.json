@@ -348,6 +348,8 @@
     "noFollowedCitiesEvents": "No events in cities you follow",
     "viewAllEvents": "View All Events",
     "attending": "attending",
+    "attendeeCount": "{{count}} attending",
+    "attendeeCount_plural": "{{count}} attending",
     "dateTBA": "Date TBA",
     "locationTBA": "Location TBA",
     "rsvp": {
@@ -427,9 +429,12 @@
     "noResults": "No results found"
   },
   "community": {
+    "globalStatistics": "Global Statistics",
     "globalDancers": "Global Dancers",
     "activeEvents": "Active Events",
     "totalGroups": "Tango Groups",
+    "communities": "Communities",
+    "yourCity": "Your City",
     "globalCommunity": "Global Tango Community"
   },
   "housing": {
