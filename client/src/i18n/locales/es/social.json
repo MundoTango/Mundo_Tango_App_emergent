@@ -172,5 +172,26 @@
       "birthday": "Es el cumpleaños de {{user}}",
       "reminder": "Recordatorio: {{event}} es pronto"
     }
+  },
+  "memories": {
+    "feed": {
+      "title": "Feed de Memorias",
+      "noMemories": "No hay memorias aún",
+      "loadMore": "Cargar más memorias",
+      "endOfFeed": "Has visto todas las memorias",
+      "searchPlaceholder": "Buscar publicaciones...",
+      "addTag": "Agregar etiqueta...",
+      "filters": {
+        "all": "Todas",
+        "following": "Siguiendo",
+        "nearby": "Cerca"
+      }
+    },
+    "creator": {
+      "placeholder": "¿Qué estás pensando?",
+      "sharePlaceholder": "✨ Comparte tu momento tango y @menciona personas...",
+      "editPlaceholder": "✏️ Edita tu publicación...",
+      "searchPlace": "Buscar un lugar..."
+    }
   }
 }
