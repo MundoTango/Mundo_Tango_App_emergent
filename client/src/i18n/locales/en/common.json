@@ -265,6 +265,56 @@
       "tag": "tag",
       "tags": "tags",
       "all": "All"
+    },
+    "post": {
+      "seeFriendship": "See Friendship",
+      "viewFriendshipWith": "View friendship details with {{name}}",
+      "anonymous": "Anonymous",
+      "recently": "recently",
+      "commentPlaceholder": "Write a thoughtful comment...",
+      "commentButton": "Comment",
+      "commentDefault": "Write a comment..."
+    },
+    "share": {
+      "sharePost": "Share Post",
+      "shareToTimeline": "Share to Timeline",
+      "shareToTimelineDesc": "Share this post on your timeline",
+      "shareWithComment": "Share with Comment",
+      "shareWithCommentDesc": "Add your thoughts when sharing",
+      "copyLink": "Copy Link",
+      "copyLinkDesc": "Copy post link to clipboard",
+      "cancel": "Cancel",
+      "addThoughtsOptional": "Add your thoughts (optional):",
+      "whatDoYouThink": "What do you think about this?",
+      "share": "Share",
+      "linkCopied": "Link copied to clipboard!",
+      "linkCopyFailed": "Failed to copy link",
+      "pleaseTryAgain": "Please try again"
+    },
+    "actions": {
+      "postDeleted": "Post deleted",
+      "postDeletedDesc": "The post has been removed",
+      "error": "Error",
+      "errorDesc": "Something went wrong",
+      "reportSubmitted": "Report submitted",
+      "reportSubmittedDesc": "Thank you for helping keep our community safe",
+      "userBlocked": "User blocked",
+      "userBlockedDesc": "You will no longer see posts from this user",
+      "linkCopied": "Link copied",
+      "linkCopiedDesc": "The link has been copied to your clipboard",
+      "postSaved": "Post saved",
+      "postSavedDesc": "Post has been saved to your collection",
+      "deleting": "Deleting...",
+      "delete": "Delete",
+      "reportReasons": {
+        "spam": "Spam or misleading content",
+        "harassment": "Harassment or bullying",
+        "inappropriate": "Inappropriate content",
+        "copyright": "Copyright infringement",
+        "violence": "Violence or dangerous content",
+        "hate": "Hate speech",
+        "other": "Other"
+      }
     }
   },
   "events": {
