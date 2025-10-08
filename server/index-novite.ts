@@ -230,6 +230,14 @@ app.use('/api', securityRoutes);
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
 app.use(chunkedUploadRoutes);
 
+// ESA LIFE CEO 61x21 - Expert Agent Routes
+import aiExpertRoutes from './routes/ai-expert';
+import uiUxRoutes from './routes/ui-ux';
+import translationRoutes from './routes/translation';
+app.use('/api/ai-expert', aiExpertRoutes);
+app.use('/api/ui-ux', uiUxRoutes);
+app.use('/api/translation', translationRoutes);
+
 // ESA LIFE CEO 56x21 - Serve uploads directory for profile photos and media
 app.use('/uploads', express.static(pathModule.join(process.cwd(), 'uploads')));
 
