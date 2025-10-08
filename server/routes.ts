@@ -83,6 +83,10 @@ import { agentLearningRouter } from "./routes/agent-learning"; // ESA LIFE CEO 6
 import esaToolsRouter from "./routes/esa-tools"; // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry (Layers 14, 15, 26, 32, 36, 44, 45, 48)
 import aiExpertRoutes from "./routes/ai-expert"; // ESA LIFE CEO 61x21 - AI Research Expert Agent (Layers 31,32,35,36,37,38,44,45,58)
 import uiUXRoutes from "./routes/ui-ux"; // ESA LIFE CEO 61x21 - UI/UX Design Expert Agent (Layers 9,10,47,54,55)
+import dataVizRoutes from "./routes/data-viz"; // ESA LIFE CEO 61x21 - Data Visualization Expert Agent (Layers 40,41,42)
+import contentMediaRoutes from "./routes/content-media"; // ESA LIFE CEO 61x21 - Content & Media Expert Agent (Layers 25,26,58)
+import codeQualityRoutes from "./routes/code-quality"; // ESA LIFE CEO 61x21 - Code Quality Expert Agent (Layers 6,7,57)
+import devExperienceRoutes from "./routes/dev-experience"; // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
 
 // ESA LIFE CEO 61x21 EMERGENCY RECOVERY - Domain route imports
 import userRoutes from "./routes/userRoutes";
@@ -188,6 +192,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api', esaToolsRouter); // ESA LIFE CEO 61x21 - Phase 1 Open Source Tools Registry
   app.use('/api/ai-expert', aiExpertRoutes); // ESA LIFE CEO 61x21 - AI Research Expert Agent (Layers 31,32,35,36,37,38,44,45,58)
   app.use('/api/ui-ux', uiUXRoutes); // ESA LIFE CEO 61x21 - UI/UX Design Expert Agent (Layers 9,10,47,54,55)
+  app.use('/api/data-viz', dataVizRoutes); // ESA LIFE CEO 61x21 - Data Visualization Expert Agent (Layers 40,41,42)
+  app.use('/api/content-media', contentMediaRoutes); // ESA LIFE CEO 61x21 - Content & Media Expert Agent (Layers 25,26,58)
+  app.use('/api/code-quality', codeQualityRoutes); // ESA LIFE CEO 61x21 - Code Quality Expert Agent (Layers 6,7,57)
+  app.use('/api/dev-experience', devExperienceRoutes); // ESA LIFE CEO 61x21 - Developer Experience Expert Agent (Layers 1,2,3,57)
   app.use(paymentRoutes); // ESA LIFE CEO 61x21 - Phase 18: Payment & Subscriptions
   app.use('/api/translations', translationRoutes); // ESA Layer 53: Internationalization & Translation System
   // ESA Layer 58: Cloudinary routes removed per user request

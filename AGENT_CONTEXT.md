@@ -21,7 +21,11 @@ server/esa-agents/
 server/routes/
 ├── routes.ts                    # Main route registration
 ├── ai-expert.ts                # AI Research Expert API
-├── ui-ux.ts                    # UI/UX Expert API (NEW)
+├── ui-ux.ts                    # UI/UX Expert API
+├── data-viz.ts                 # Data Visualization Expert API
+├── content-media.ts            # Content & Media Expert API
+├── code-quality.ts             # Code Quality Expert API
+├── dev-experience.ts           # Developer Experience Expert API
 └── [other route files]
 
 server/
@@ -57,7 +61,7 @@ replit.md                       # Project summary & preferences
 
 ---
 
-## 🤖 Agent Domains (11 Total)
+## 🤖 Agent Domains (15 Total)
 
 ### Infrastructure & Core (Agents 1-3)
 | Agent | ID | Layers | Purpose |
@@ -80,11 +84,15 @@ replit.md                       # Project summary & preferences
 | **Platform Enhancement** | `8_platform_enhancement` | 47-56 | Mobile, Security, DevOps, i18n |
 | **Master Control** | `9_master_control` | 57-61 | Automation, Integrations, QA |
 
-### Specialized Experts (Agents 10-11)
-| Agent | ID | Layers | Purpose |
-|-------|----|----|---------|
-| **AI Research Expert** | `10_ai_research_expert` | 31,32,35,36,37,38,44,45,58 | AI ecosystem monitoring, tool discovery |
-| **UI/UX Design Expert** | `11_ui_ux_expert` | 9,10,47,54,55 | Aurora Tide, design system, accessibility |
+### Specialized Expert Agents (10-15)
+| Agent | ID | Layers | Purpose | Tools |
+|-------|----|----|---------|-------|
+| **AI Research Expert** | `10_ai_research_expert` | 31,32,35,36,37,38,44,45,58 | AI ecosystem monitoring, tool discovery | RSS, GitHub API, Tavily |
+| **UI/UX Design Expert** | `11_ui_ux_expert` | 9,10,47,54,55 | Aurora Tide, design system, accessibility | Penpot, Storybook, axe-core |
+| **Data Visualization Expert** | `12_data_viz_expert` | 40,41,42 | Charts, dashboards, visualization optimization | ECharts, Victory, Recharts |
+| **Content & Media Expert** | `13_content_media_expert` | 25,26,58 | Image/video optimization, media management | Sharp, FFmpeg.wasm, Imagemin |
+| **Code Quality Expert** | `14_code_quality_expert` | 6,7,57 | Linting, security scans, code standards | ESLint, SonarQube, Snyk |
+| **Developer Experience Expert** | `15_dev_experience_expert` | 1,2,3,57 | Testing, documentation, dev tooling | Vitest, Storybook, TypeDoc |
 
 ---
 
