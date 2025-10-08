@@ -4,7 +4,9 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
+import traverseModule from '@babel/traverse';
+
+const traverse = traverseModule.default || traverseModule;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -138,8 +140,19 @@ function addTestIds(filePath) {
   return { updated: false, changes: 0 };
 }
 
-function scanComponentFiles(dir) {
+function scanComponentFiles(path) {
   const files = [];
+  const stat = statSync(path);
+  
+  // If it's a file, just return it
+  if (stat.isFile() && (path.endsWith('.tsx') || path.endsWith('.jsx'))) {
+    return [path];
+  }
+  
+  // If it's a directory, scan it
+  if (!stat.isDirectory()) {
+    return [];
+  }
   
   function scan(currentDir) {
     const entries = readdirSync(currentDir);
@@ -156,7 +169,7 @@ function scanComponentFiles(dir) {
     });
   }
   
-  scan(dir);
+  scan(path);
   return files;
 }
 
