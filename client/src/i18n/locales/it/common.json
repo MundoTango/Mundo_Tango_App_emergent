@@ -15,6 +15,7 @@
     "profile": "Profilo",
     "events": "Eventi",
     "community": "Comunità",
+    "tangoCommunity": "Comunità Tango",
     "messages": "Messaggi",
     "friends": "Amici",
     "groups": "Gruppi",
@@ -24,7 +25,9 @@
     "logout": "Esci",
     "search": "Cerca",
     "notifications": "Notifiche",
-    "help": "Aiuto"
+    "help": "Aiuto",
+    "roleInvitations": "Inviti di Ruolo",
+    "recommendations": "Raccomandazioni"
   },
   "actions": {
     "save": "Salva",
@@ -221,5 +224,19 @@
     "to": "a",
     "entries": "voci",
     "rowsPerPage": "Righe per pagina"
+  },
+  "search": {
+    "searching": "Ricerca in corso...",
+    "posts": "Post",
+    "events": "Eventi",
+    "groups": "Gruppi",
+    "users": "Utenti",
+    "noResults": "Nessun risultato trovato"
+  },
+  "community": {
+    "globalDancers": "Ballerini Globali",
+    "activeEvents": "Eventi Attivi",
+    "totalGroups": "Gruppi di Tango",
+    "globalCommunity": "Comunità Globale di Tango"
   }
 }
