@@ -511,10 +511,28 @@ export class MasterControlSystem {
       console.log(`✅ Initialized: ${agent.name}`);
     }
     
+    // Wire expert agents to their route handlers
+    await this.wireExpertAgentsToRoutes();
+    
     // Setup monitoring
     this.setupMonitoring();
     
     console.log(`🎯 All ${this.agents.size} agents initialized successfully!`);
+  }
+  
+  /**
+   * Wire expert agents to their route handlers
+   */
+  private async wireExpertAgentsToRoutes() {
+    // No longer needed - routes will access agents directly via getExpertAgent()
+    console.log('🔌 Expert agents available via getExpertAgent()');
+  }
+  
+  /**
+   * Get an expert agent by ID (for routes)
+   */
+  getExpertAgent(id: string): any {
+    return this.agents.get(id);
   }
   
   /**
@@ -669,6 +687,11 @@ export class MasterControlSystem {
 
 // Export singleton instance
 export const agentSystem = new MasterControlSystem();
+
+// Export helper function for routes to get expert agents
+export function getExpertAgent(id: string): any {
+  return agentSystem.getExpertAgent(id);
+}
 
 // Handle process termination
 process.on('SIGTERM', async () => {
