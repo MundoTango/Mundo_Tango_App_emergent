@@ -1214,8 +1214,8 @@ export default function PostCreator({
                     <div className="flex items-center gap-2">
                       <span className="text-xl">📸</span>
                       <div>
-                        <p className="font-bold text-sm">Upload Media Files</p>
-                        <p className="text-xs text-blue-200">support images and videos - max 30 files - up to 500mb each</p>
+                        <p className="font-bold text-sm">{t('postCreator.uploadMediaTitle')}</p>
+                        <p className="text-xs text-blue-200">{t('postCreator.uploadMediaDesc')}</p>
                       </div>
                     </div>
                   </TooltipContent>
@@ -1248,8 +1248,8 @@ export default function PostCreator({
                     <div className="flex items-center gap-2">
                       <span className="text-xl">✨</span>
                       <div>
-                        <p className="font-bold text-sm">{isEnhancing ? 'Enhancing...' : 'AI Enhance'}</p>
-                        <p className="text-xs text-purple-200">Make your post more engaging</p>
+                        <p className="font-bold text-sm">{isEnhancing ? t('postCreator.aiEnhancing') : t('postCreator.aiEnhance')}</p>
+                        <p className="text-xs text-purple-200">{t('postCreator.aiEnhanceDesc')}</p>
                       </div>
                     </div>
                   </TooltipContent>
@@ -1287,8 +1287,8 @@ export default function PostCreator({
                         {visibility === 'private' && '🔒'}
                       </span>
                       <div>
-                        <p className="font-bold text-sm">Who can see this?</p>
-                        <p className="text-xs text-green-200">Choose visibility level</p>
+                        <p className="font-bold text-sm">{t('postCreator.visibilityTitle')}</p>
+                        <p className="text-xs text-green-200">{t('postCreator.visibilityDesc')}</p>
                       </div>
                     </div>
                   </TooltipContent>
