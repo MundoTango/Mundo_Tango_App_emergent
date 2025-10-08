@@ -103,7 +103,7 @@ interface RequestApiResponse {
 
 const filterOptions = [
 {
-  const { t } = useTranslation(); value: 'all', label: 'All Friends' },
+  value: 'all', label: 'All Friends' },
 { value: 'online', label: 'Online Only' },
 { value: 'dancers', label: 'Dancers' },
 { value: 'teachers', label: 'Teachers' },
@@ -746,7 +746,7 @@ export default function EnhancedFriendsPage() {
                       );
                     } else {
                       toast({
-                        title: {t('states.error', 'Error')},
+                        title: t('states.error', 'Error'),
                         description: "Please enter a username or email to send friend request",
                         variant: "destructive"
                       });

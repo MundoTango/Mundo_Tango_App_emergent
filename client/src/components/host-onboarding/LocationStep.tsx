@@ -138,7 +138,7 @@ export default function LocationStep({ data, updateData }: LocationStepProps) {
     } catch (error) {
       console.error('Geocoding error:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to verify location. Please try again.',
         variant: 'destructive'
       });

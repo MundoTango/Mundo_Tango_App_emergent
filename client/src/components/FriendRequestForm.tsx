@@ -68,7 +68,7 @@ export function FriendRequestForm({ receiverId, receiverName, onSuccess, onCance
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to send friend request"
       });
     }

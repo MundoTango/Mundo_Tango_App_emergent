@@ -320,7 +320,8 @@ export default function EnhancedShareModal({ isOpen, onClose, post }: EnhancedSh
               value={postUrl}
               readOnly
               className="flex-1 px-4 py-3 glassmorphic rounded-xl text-sm text-[var(--color-text-secondary)] dark:text-gray-300"
-            / aria-label="Input field">
+              aria-label="Input field"
+            />
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

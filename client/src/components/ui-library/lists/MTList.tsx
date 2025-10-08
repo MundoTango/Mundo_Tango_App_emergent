@@ -154,7 +154,8 @@ export default function MTList({
                 'transition-all duration-300'
               )}
               data-testid={`${testId}-search`}
-            / aria-label="Input field">
+              aria-label="Input field"
+            />
           </div>
         </div>
       )}
@@ -170,7 +171,8 @@ export default function MTList({
               onChange={handleSelectAll}
               className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
               data-testid={`${testId}-select-all`}
-            / aria-label="Input field">
+              aria-label="Input field"
+            />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Select all ({filteredItems.length})
             </span>
@@ -284,7 +286,7 @@ function ListItemComponent({
         <input
           type="checkbox"
           checked={selected}
-          onChange={(e) = aria-label="Input field"> onSelect?.(item.id, e)}
+          onChange={(e) => onSelect?.(item.id, e)} aria-label="Input field"
           onClick={(e) => e.stopPropagation()}
           disabled={item.disabled}
           className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"

@@ -243,14 +243,14 @@ export default function EnhancedEventsPage() {
     },
     onSuccess: () => {
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "RSVP updated successfully!"
       });
       queryClient.invalidateQueries({ queryKey: ['/api/events'] });
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to update RSVP",
         variant: "destructive"
       });

@@ -64,7 +64,8 @@ export default function ModernMemoriesHeader({ onCreatePost }: ModernMemoriesHea
                        rounded-2xl focus:outline-none focus:ring-4 focus:ring-cyan-200/50 focus:border-[var(--color-ocean-300)]
                        text-blue-900 placeholder-blue-400/70 font-medium text-lg shadow-xl
                        hover:shadow-2xl transition-all duration-300"
-            / aria-label="Input field">
+              aria-label="Input field"
+            />
             <div className="absolute right-5 top-1/2 transform -translate-y-1/2">
               <kbd className="px-3 py-1 bg-blue-100 border border-blue-200 rounded-lg text-xs font-semibold text-blue-600">
                 ⌘K

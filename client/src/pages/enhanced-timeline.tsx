@@ -204,7 +204,7 @@ const EnhancedTimeline = () => {
                 setEditingPost(null);
                 queryClient.invalidateQueries({ queryKey: ["/api/posts/feed"] });
                 toast({
-                  title: {t('states.success', 'Success')},
+                  title: t('states.success', 'Success'),
                   description: "Your post has been created!"
                 });
               }}

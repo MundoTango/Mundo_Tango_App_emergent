@@ -335,7 +335,7 @@ const MTImageModal: React.FC<MTImageModalProps> = ({
                   key={index}
                   onClick={() => {
                     setActiveIndex(index);
-                    setShowThumbnailGrid(false);} aria-label="Button"}
+                    setShowThumbnailGrid(false);}} aria-label="Button"
                   className={cn(
                     "relative aspect-square overflow-hidden rounded-lg",
                     "border-2 transition-all hover:scale-105",

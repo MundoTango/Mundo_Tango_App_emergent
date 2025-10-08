@@ -443,7 +443,7 @@ export default function EnhancedPostCreator({
                     key={emoji}
                     onClick={() => {
                       setContent(prev => prev + emoji);
-                      setShowEmojiPicker(false);} aria-label="Button"}
+                      setShowEmojiPicker(false);}} aria-label="Button"
                     className="p-2 hover:bg-gray-200 dark:bg-gray-700 rounded text-xl"
                   >
                     {emoji}
@@ -460,11 +460,10 @@ export default function EnhancedPostCreator({
                 type="text"
                 placeholder="Type @username or #hashtag"
                 className="w-full p-2 border rounded"
-                onKeyPress={(e) = aria-label="Input field"> {
+                onKeyPress={(e) => {
                   if (e.key === 'Enter') {
                     handleMention(e.currentTarget.value);
-                    e.currentTarget.value = '';
-                  }
+                    e.currentTarget.value = '';} aria-label="Input field"
                 }}
               />
             </div>
@@ -479,7 +478,7 @@ export default function EnhancedPostCreator({
               type="file"
               multiple
               accept="image/*,video/*"
-              onChange={(e) = aria-label="Input field"> e.target.files && handleFileUpload(e.target.files)}
+              onChange={(e) => e.target.files && handleFileUpload(e.target.files)} aria-label="Input field"
               className="hidden"
             />
             <button
@@ -496,7 +495,7 @@ export default function EnhancedPostCreator({
                 if (url) {
                   const embed = detectSocialMedia(url);
                   if (embed) {
-                    setMediaEmbeds(prev => [...prev, embed]);} aria-label="Button" else {
+                    setMediaEmbeds(prev => [...prev, embed]);} else {
                     toast({
                       title: "Invalid URL",
                       description: "Please enter a valid social media URL",
@@ -513,7 +512,7 @@ export default function EnhancedPostCreator({
             <button
               onClick={() => {
                 const loc = prompt('Add location:');
-                if (loc) setLocation(loc);} aria-label="Button"}
+                if (loc) setLocation(loc);}} aria-label="Button"
               className="flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
             >
               <MapPin className="w-4 h-4" />

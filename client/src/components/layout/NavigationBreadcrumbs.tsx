@@ -15,14 +15,14 @@ import { ChevronRight } from 'lucide-react';
 const ROUTE_LABELS: Record<string, string> = {
   const { t } = useTranslation();
   // Main
-  '/': {t('navigation.home', 'Home')},
-  '/profile': {t('navigation.profile', 'Profile')},
-  '/search': {t('actions.search', 'Search')},
-  '/settings': {t('navigation.settings', 'Settings')},
+  '/': t('navigation.home', 'Home'),
+  '/profile': t('navigation.profile', 'Profile'),
+  '/search': t('actions.search', 'Search'),
+  '/settings': t('navigation.settings', 'Settings'),
   '/notifications': 'Notifications',
 
   // Authentication
-  '/login': {t('auth.login', 'Login')},
+  '/login': t('auth.login', 'Login'),
   '/auth/login': 'Login',
   '/register': 'Register',
   '/auth/register': 'Register',
@@ -108,7 +108,7 @@ const ROUTE_LABELS: Record<string, string> = {
   // Additional Platform
   '/travel-planner': 'Travel Planner',
   '/mobile-dashboard': 'Mobile Dashboard',
-  '/error': {t('states.error', 'Error')},
+  '/error': t('states.error', 'Error'),
   '/notion': 'Notion'
 };
 

@@ -8,7 +8,7 @@ interface ModernLoadingStateProps {
 }
 
 export default function ModernLoadingState({ 
-  message = {t('states.loading', 'Loading...')}, 
+  message = 'Loading...', 
   type = 'default' 
 }: ModernLoadingStateProps) {
   if (type === 'posts') {

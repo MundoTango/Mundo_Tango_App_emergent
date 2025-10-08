@@ -116,7 +116,8 @@ export default function Login() {
                   type="checkbox"
                   {...form.register("rememberMe")}
                   className="rounded border-gray-300 dark:border-gray-600 text-[var(--color-primary-hover)] focus:ring-teal-500"
-                / aria-label="Input field">
+              aria-label="Input field"
+            />
                 Remember me
               </label>
               

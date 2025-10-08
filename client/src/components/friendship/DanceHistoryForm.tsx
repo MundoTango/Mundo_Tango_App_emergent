@@ -81,7 +81,7 @@ export function DanceHistoryForm({ partnerId, partnerName, onComplete }: DanceHi
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to save dance history',
         variant: 'destructive'
       });

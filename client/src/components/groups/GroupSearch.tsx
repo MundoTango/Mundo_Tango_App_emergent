@@ -145,7 +145,7 @@ export default function GroupSearch({ onSearchResults, onClearFilters }: GroupSe
                     className="w-full px-4 py-3 hover:bg-[var(--color-surface-elevated)] text-left flex items-center gap-3 border-b last:border-b-0"
                     onClick={() => {
                       updateFilter('query', group.name);
-                      setShowSuggestions(false);} aria-label="Button"}
+                      setShowSuggestions(false);}} aria-label="Button"
                     data-testid={`suggestion-${group.id}`}
                   >
                     <MapPin className="h-4 w-4 text-gray-400" />

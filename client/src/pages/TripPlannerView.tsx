@@ -93,7 +93,7 @@ export default function TripPlannerView({ city, country, cityLat, cityLng, group
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to save your trip. Please try again.',
         variant: 'destructive'
       });

@@ -58,7 +58,7 @@ export default function ModernTagFilter({ activeTags, onAddTag, onRemoveTag }: M
           <input
             type="text"
             value={tagInput}
-            onChange={(e) = aria-label="Input field"> setTagInput(e.target.value)}
+            onChange={(e) => setTagInput(e.target.value)} aria-label="Input field"
             onKeyPress={handleKeyPress}
             placeholder="Enter tag name and press Enter..."
             className="w-full pl-14 pr-6 py-5 bg-gradient-to-br from-blue-50/30 to-teal-50/30 

@@ -174,10 +174,9 @@ export default function MTGridList({
             <input
               type="checkbox"
               checked={isSelected}
-              onChange={(e) = aria-label="Input field"> {
+              onChange={(e) => {
                 e.stopPropagation();
-                handleSelectItem(item.id);
-              }}
+                handleSelectItem(item.id);}} aria-label="Input field"
               className="rounded border-white/50 bg-[var(--color-surface)]/90 text-[var(--color-primary-hover)] focus:ring-teal-500"
               data-testid={`${testId}-select-${item.id}`}
             />

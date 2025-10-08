@@ -52,7 +52,7 @@ import { cn } from '@/lib/utils';
 // Help request categories
 const HELP_CATEGORIES = [
 {
-  const { t } = useTranslation(); value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
+  value: 'housing', label: 'Housing / Accommodation', icon: MapPin },
 { value: 'dance_partner', label: 'Dance Partner', icon: Users },
 { value: 'practice_space', label: 'Practice Space', icon: MapPin },
 { value: 'lessons', label: 'Lessons / Teaching', icon: User },
@@ -205,7 +205,7 @@ export default function TTfilesHelpCenter() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to create help request. Please try again.",
         variant: "destructive"
       });

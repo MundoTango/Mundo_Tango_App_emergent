@@ -31,7 +31,7 @@ import { GlassCard } from '@/components/glass/GlassComponents';
 // ESA 61x21 Framework Definitions - All 61 Layers
 const LAYER_DEFINITIONS = [
   {
-  const { t } = useTranslation(); id: 1, name: 'Database Architecture', color: 'bg-blue-500', icon: '🗄️' },
+  id: 1, name: 'Database Architecture', color: 'bg-blue-500', icon: '🗄️' },
   { id: 2, name: 'API Structure', color: 'bg-green-500', icon: '⚙️' },
   { id: 3, name: 'Server Framework', color: 'bg-purple-500', icon: '🖥️' },
   { id: 4, name: 'Authentication', color: 'bg-red-500', icon: '🔐' },
@@ -52,7 +52,7 @@ const LAYER_DEFINITIONS = [
   { id: 19, name: 'Security', color: 'bg-slate-500', icon: '🔒' },
   { id: 20, name: 'Performance', color: 'bg-zinc-500', icon: '⚡' },
   { id: 21, name: 'Caching', color: 'bg-stone-500', icon: '💨' },
-  { id: 22, name: {t('actions.search', 'Search')}, color: 'bg-neutral-500', icon: '🔍' },
+  { id: 22, name: t('actions.search', 'Search'), color: 'bg-neutral-500', icon: '🔍' },
   { id: 23, name: 'Analytics', color: 'bg-red-600', icon: '📊' },
   { id: 24, name: 'Notifications', color: 'bg-blue-600', icon: '🔔' },
   { id: 25, name: 'Payments', color: 'bg-green-600', icon: '💳' },

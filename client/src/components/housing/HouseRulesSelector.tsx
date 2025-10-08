@@ -129,14 +129,14 @@ export default function HouseRulesSelector({
     },
     onSuccess: () => {
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: 'House rules saved successfully',
       });
       queryClient.invalidateQueries({ queryKey: [`/api/host-homes/${homeId}/rules`] });
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || 'Failed to save house rules',
         variant: 'destructive',
       });

@@ -34,7 +34,7 @@ const MTConfirmModal: React.FC<MTConfirmModalProps> = ({
   type = 'info',
   icon,
   confirmText = 'Confirm',
-  cancelText = {t('actions.cancel', 'Cancel')},
+  cancelText = 'Cancel',
   confirmButtonVariant,
   showCancelButton = true,
   loading = false,

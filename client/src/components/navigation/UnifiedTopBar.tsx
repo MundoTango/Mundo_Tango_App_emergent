@@ -241,7 +241,8 @@ export default function UnifiedTopBar({
                   ? "text-[var(--color-text)] dark:text-white placeholder-gray-500" 
                   : "text-white placeholder-slate-400"
               )}
-            / aria-label="Input field">
+              aria-label="Search cities input field"
+            />
           </div>
 
           {/* Search Results Dropdown */}

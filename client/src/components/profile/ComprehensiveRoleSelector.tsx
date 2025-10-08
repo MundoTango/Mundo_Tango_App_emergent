@@ -381,10 +381,9 @@ export function ComprehensiveRoleSelector({ selectedRoles, onRoleChange }: Compr
                     <button
                       type="button"
                       className="text-sm text-[var(--color-primary-hover)] hover:text-turquoise-700 font-medium"
-                      onClick={(e) = aria-label="Button"> {
+                      onClick={(e) => {
                         e.stopPropagation();
-                        setExpandedRole(expanded ? null : role.id);
-                      }} data-testid="button-button">
+                        setExpandedRole(expanded ? null : role.id);}} aria-label="Button" data-testid="button-button">
 
                       {expanded ? 'Hide details' : 'Show details'} →
                     </button>

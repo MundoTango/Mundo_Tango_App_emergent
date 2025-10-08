@@ -786,7 +786,8 @@ export default function GroupDetailPageMT() {
                   type="text"
                   placeholder="Search events..."
                   value={eventFilters.search}
-                  onChange={(e) = aria-label="Input field"> setEventFilters({...eventFilters, search: e.target.value})}
+                  onChange={(e) => setEventFilters({...eventFilters, search: e.target.value})}
+                  aria-label="Search events input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -815,7 +816,8 @@ export default function GroupDetailPageMT() {
                   type="text"
                   placeholder="Search location..."
                   value={eventFilters.location}
-                  onChange={(e) = aria-label="Input field"> setEventFilters({...eventFilters, location: e.target.value})}
+                  onChange={(e) => setEventFilters({...eventFilters, location: e.target.value})}
+                  aria-label="Location input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -826,7 +828,8 @@ export default function GroupDetailPageMT() {
                 <input
                   type="date"
                   value={eventFilters.dateRange.start}
-                  onChange={(e) = aria-label="Input field"> setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, start: e.target.value}})}
+                  onChange={(e) => setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, start: e.target.value}})}
+                  aria-label="Start date input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -835,7 +838,8 @@ export default function GroupDetailPageMT() {
                 <input
                   type="date"
                   value={eventFilters.dateRange.end}
-                  onChange={(e) = aria-label="Input field"> setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, end: e.target.value}})}
+                  onChange={(e) => setEventFilters({...eventFilters, dateRange: {...eventFilters.dateRange, end: e.target.value}})}
+                  aria-label="End date input field"
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -846,7 +850,8 @@ export default function GroupDetailPageMT() {
                   <input
                     type="checkbox"
                     checked={eventFilters.hasSpace}
-                    onChange={(e) = aria-label="Input field"> setEventFilters({...eventFilters, hasSpace: e.target.checked})}
+                    onChange={(e) => setEventFilters({...eventFilters, hasSpace: e.target.checked})}
+                    aria-label="Events with space checkbox"
                     className="rounded"
                   />
                   <span className="text-sm">Only show events with space</span>
@@ -978,7 +983,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('all');} aria-label="Button"}
+                        setMentionFilter('all');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -996,7 +1001,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('residents');} aria-label="Button"}
+                        setMentionFilter('residents');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'residents'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1014,7 +1019,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('visitors');} aria-label="Button"}
+                        setMentionFilter('visitors');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'visitors'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1032,7 +1037,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('friends');} aria-label="Button"}
+                        setMentionFilter('friends');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'friends'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1052,7 +1057,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('all');} aria-label="Button"}
+                        setMentionFilter('all');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'all'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1070,7 +1075,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('members');} aria-label="Button"}
+                        setMentionFilter('members');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1088,7 +1093,7 @@ export default function GroupDetailPageMT() {
                   <TooltipTrigger asChild>
                     <button
                       onClick={() => { 
-                        setMentionFilter('non-members');} aria-label="Button"}
+                        setMentionFilter('non-members');}} aria-label="Button"
                       className={`px-4 py-2 rounded-full transition-all hover:scale-110 ${
                         mentionFilter === 'non-members'
                           ? 'bg-gradient-to-r from-turquoise-500 to-cyan-500 shadow-lg text-white'
@@ -1831,7 +1836,7 @@ export default function GroupDetailPageMT() {
             <button
               onClick={() => {
                 setCreatePostModal(false);
-                setEditingPost(null);} aria-label="Button"}
+                setEditingPost(null);}} aria-label="Button"
               className="absolute top-4 right-4 p-2 rounded-full bg-[var(--color-neutral-100)] dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               data-testid="button-close-edit-modal"
             >

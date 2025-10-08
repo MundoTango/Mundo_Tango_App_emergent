@@ -519,7 +519,8 @@ export default function Onboarding() {
                         checked={field.value}
                         onChange={field.onChange}
                         className="mt-1 rounded border-gray-300 dark:border-gray-600 text-[var(--color-primary-hover)] focus:ring-cyan-500"
-                      / aria-label="Input field">
+              aria-label="Input field"
+            />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel className="text-sm text-[var(--color-text-secondary)]">
@@ -542,7 +543,8 @@ export default function Onboarding() {
                         checked={field.value}
                         onChange={field.onChange}
                         className="mt-1 rounded border-gray-300 dark:border-gray-600 text-[var(--color-primary-hover)] focus:ring-cyan-500"
-                      / aria-label="Input field">
+              aria-label="Input field"
+            />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel className="text-sm text-[var(--color-text-secondary)]">

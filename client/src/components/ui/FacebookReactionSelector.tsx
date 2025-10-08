@@ -48,7 +48,7 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
     <div className={`relative flex items-center gap-2 ${className}`} data-testid={`reactions-container-${postId}`}>
       {/* Reaction Button */}
       <button
-        onMouseEnter={() = aria-label="Button"> setShowReactions(true)}
+        onMouseEnter={() => setShowReactions(true)} aria-label="Button"
         onMouseLeave={() => setShowReactions(false)}
         onClick={() => {
           if (currentReaction) {
@@ -100,11 +100,10 @@ export const FacebookReactionSelector: React.FC<FacebookReactionSelectorProps> =
             {FACEBOOK_REACTIONS.map((reaction) => (
               <button
                 key={reaction.id}
-                onClick={(e) = aria-label="Button"> {
+                onClick={(e) => {
                   e.stopPropagation();
                   onReact(reaction.id);
-                  setShowReactions(false);
-                }}
+                  setShowReactions(false);}} aria-label="Button"
                 className={`
                   w-14 h-14 flex items-center justify-center rounded-xl hover:bg-[var(--color-neutral-100)] transition-colors duration-150
                   ${currentReaction === reaction.id ? 'bg-[var(--color-neutral-100)] ring-2 ring-blue-500' : ''}

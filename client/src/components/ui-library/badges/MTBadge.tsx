@@ -102,10 +102,9 @@ const MTBadge = React.forwardRef<HTMLSpanElement, MTBadgeProps>(({
       {children}
       {removable &&
       <button
-        onClick={(e) = aria-label="Button"> {
+        onClick={(e) => {
           e.stopPropagation();
-          onRemove?.();
-        }}
+          onRemove?.();}} aria-label="Button"
         className="ml-1 -mr-1 hover:bg-black/10 dark:hover:bg-[var(--color-surface)]/10 rounded-full p-0.5 transition-colors" data-testid="button-ml-1">
 
           <X className={cn(

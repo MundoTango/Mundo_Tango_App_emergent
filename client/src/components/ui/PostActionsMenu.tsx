@@ -103,7 +103,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
     },
     onError: (error) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to delete post. Please try again.",
         variant: "destructive",
       });
@@ -320,7 +320,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? "Deleting..." : {t('actions.delete', 'Delete')}}
+              {deleteMutation.isPending ? "Deleting..." : t('actions.delete', 'Delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -344,7 +344,7 @@ export function PostActionsMenu({ post, onEdit, onShare }: PostActionsMenuProps)
                     name="reportReason"
                     value={reason}
                     checked={reportReason === reason}
-                    onChange={(e) = aria-label="Input field"> setReportReason(e.target.value)}
+                    onChange={(e) => setReportReason(e.target.value)} aria-label="Input field"
                     className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500 dark:border-neutral-600"
                   />
                   <span className="text-sm text-[var(--color-text-secondary)] dark:text-neutral-300">{reason}</span>

@@ -33,7 +33,7 @@ export default function ResumePage() {
   const [exportFormat, setExportFormat] = useState<'PDF' | 'CSV'>('PDF');
 
   const {
-  const { t } = useTranslation(); data: resumeData, isLoading, error } = useQuery({
+  data: resumeData, isLoading, error } = useQuery({
     queryKey: ['/api/resume', user?.id],
     queryFn: async () => {
       console.log('🎯 Fetching resume data for user:', user?.id);
@@ -63,7 +63,7 @@ export default function ResumePage() {
   const handleCopyPublicLink = async () => {
     if (!user?.username) {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Username not available",
         variant: "destructive"
       });
@@ -229,7 +229,7 @@ export default function ResumePage() {
         pdf.save(fileName);
 
         toast({
-          title: {t('states.success', 'Success')},
+          title: t('states.success', 'Success'),
           description: "Resume exported to PDF!"
         });
       }

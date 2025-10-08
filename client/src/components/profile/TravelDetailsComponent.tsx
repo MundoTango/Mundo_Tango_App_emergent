@@ -65,14 +65,14 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Travel detail deleted successfully"
       });
       setDeletingTravelId(null);
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to delete travel detail",
         variant: "destructive"
       });

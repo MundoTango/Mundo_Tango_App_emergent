@@ -48,7 +48,7 @@ interface EventCreationWizardProps {
 const steps = [
 { id: 'basic', title: 'Basic Info', icon: Calendar },
 { id: 'details', title: 'Details', icon: MapPin },
-{ id: 'settings', title: {t('navigation.settings', 'Settings')}, icon: Users },
+{ id: 'settings', title: t('navigation.settings', 'Settings'), icon: Users },
 { id: 'recurring', title: 'Recurring', icon: Clock }];
 
 
@@ -121,7 +121,7 @@ export const EventCreationWizard: React.FC<EventCreationWizardProps> = ({
     } catch (error) {
       console.error('Event creation error:', error);
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error instanceof Error ? error.message : 'Failed to create event',
         variant: 'destructive'
       });

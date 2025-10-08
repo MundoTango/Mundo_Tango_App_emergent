@@ -88,7 +88,7 @@ export default function MTTableRow({
               type="checkbox"
               checked={selected}
               onChange={handleSelect}
-              onClick={(e) = aria-label="Input field"> e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()} aria-label="Input field"
               className="rounded border-[var(--color-ocean-300)] text-[var(--color-primary-hover)] focus:ring-teal-500"
               data-testid={`${testId}-checkbox`}
             />
@@ -99,10 +99,9 @@ export default function MTTableRow({
         {expandable && (
           <td className="px-2 py-3 w-10">
             <button
-              onClick={(e) = aria-label="Button"> {
+              onClick={(e) => {
                 e.stopPropagation();
-                onExpand?.();
-              }}
+                onExpand?.();}} aria-label="Button"
               className="p-1 rounded hover:bg-[var(--color-ocean-100)] dark:hover:bg-teal-800/50 transition-colors"
               data-testid={`${testId}-expand`}
             >
@@ -133,10 +132,9 @@ export default function MTTableRow({
             )}>
               {onView && (
                 <button
-                  onClick={(e) = aria-label="Button"> {
+                  onClick={(e) => {
                     e.stopPropagation();
-                    onView();
-                  }}
+                    onView();}} aria-label="Button"
                   className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
                   title="View"
                   data-testid={`${testId}-view`}
@@ -146,10 +144,9 @@ export default function MTTableRow({
               )}
               {onEdit && (
                 <button
-                  onClick={(e) = aria-label="Button"> {
+                  onClick={(e) => {
                     e.stopPropagation();
-                    onEdit();
-                  }}
+                    onEdit();}} aria-label="Button"
                   className="p-1.5 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                   title={t('actions.edit', 'Edit')}
                   data-testid={`${testId}-edit`}
@@ -159,10 +156,9 @@ export default function MTTableRow({
               )}
               {onDelete && (
                 <button
-                  onClick={(e) = aria-label="Button"> {
+                  onClick={(e) => {
                     e.stopPropagation();
-                    onDelete();
-                  }}
+                    onDelete();}} aria-label="Button"
                   className="p-1.5 rounded hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
                   title={t('actions.delete', 'Delete')}
                   data-testid={`${testId}-delete`}
@@ -173,7 +169,7 @@ export default function MTTableRow({
               {actions && actions.length > 0 && (
                 <div className="relative group">
                   <button
-                    onClick={(e) = aria-label="Button"> e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()} aria-label="Button"
                     className="p-1.5 rounded hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700 transition-colors"
                     data-testid={`${testId}-more`}
                   >
@@ -183,10 +179,9 @@ export default function MTTableRow({
                     {actions.map((action, idx) => (
                       <button
                         key={idx}
-                        onClick={(e) = aria-label="Button"> {
+                        onClick={(e) => {
                           e.stopPropagation();
-                          action.onClick();
-                        }}
+                          action.onClick();}} aria-label="Button"
                         className={cn(
                           'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
                           'hover:bg-[var(--color-ocean-50)] dark:hover:bg-teal-900/30',

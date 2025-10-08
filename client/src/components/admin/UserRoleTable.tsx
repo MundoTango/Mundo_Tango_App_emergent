@@ -328,7 +328,7 @@ export default function UserRoleTable() {
                 <Button
                 onClick={() => {
                   toast({
-                    title: {t('states.success', 'Success')},
+                    title: t('states.success', 'Success'),
                     description: "User roles updated successfully"
                   });
                   setIsEditDialogOpen(false);

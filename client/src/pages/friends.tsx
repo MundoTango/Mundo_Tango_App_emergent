@@ -137,7 +137,7 @@ export default function FriendsPage() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to send friend request. Please try again.',
         variant: 'destructive'
       });

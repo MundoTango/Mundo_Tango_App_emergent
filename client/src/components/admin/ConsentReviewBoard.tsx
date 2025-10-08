@@ -172,7 +172,7 @@ export default function ConsentReviewBoard() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/consent'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Consent request reviewed successfully"
       });
       setIsReviewDialogOpen(false);
@@ -181,7 +181,7 @@ export default function ConsentReviewBoard() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to review consent request",
         variant: "destructive"
       });

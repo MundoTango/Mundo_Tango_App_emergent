@@ -74,7 +74,7 @@ export default function GroupsPage() {
               type="text"
               placeholder="Search groups..."
               value={searchQuery}
-              onChange={(e) = aria-label="Input field"> setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} aria-label="Input field"
               className="input-text pl-10 w-full"
             />
           </div>
@@ -170,9 +170,9 @@ export default function GroupsPage() {
                       {group.isJoined ? (
                         <button 
                           className="w-full rounded-lg bg-green-100 text-green-800 border border-green-200 py-2 text-sm font-medium"
-                          onClick={(e) = aria-label="Button"> {
+                          onClick={(e) => {
                             e.stopPropagation();
-                            setLocation(`/groups/${group.slug}`);
+                            setLocation(`/groups/${group.slug} aria-label="Button"`);
                           }}
                         >
                           ✓ Member - View Group
@@ -184,10 +184,9 @@ export default function GroupsPage() {
                               ? 'border border-btn-color text-btn-color'
                               : 'bg-btn-color text-white'
                           }`}
-                          onClick={(e) = aria-label="Button"> {
+                          onClick={(e) => {
                             e.stopPropagation();
-                            // Handle join/request logic here
-                          }}
+                            // Handle join/request logic here} aria-label="Button"}
                         >
                           {group.isPrivate ? 'Request to Join' : 'Join Group'}
                         </button>
@@ -337,7 +336,7 @@ function CityGroupAutomationDemo() {
                 type="text"
                 placeholder="e.g., Buenos Aires"
                 value={cityInput}
-                onChange={(e) = aria-label="Input field"> setCityInput(e.target.value)}
+                onChange={(e) => setCityInput(e.target.value)} aria-label="Input field"
                 className="input-text w-full"
                 disabled={isLoading}
               />
@@ -351,7 +350,7 @@ function CityGroupAutomationDemo() {
                 type="text"
                 placeholder="e.g., Argentina"
                 value={countryInput}
-                onChange={(e) = aria-label="Input field"> setCountryInput(e.target.value)}
+                onChange={(e) => setCountryInput(e.target.value)} aria-label="Input field"
                 className="input-text w-full"
                 disabled={isLoading}
               />

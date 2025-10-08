@@ -226,7 +226,7 @@ export default function ThreadedCommentsSection({
                           onClick={() => {
                             setEditingCommentId(commentId);
                             setEditingContent(comment.content);
-                            setShowActions(null);} aria-label="Button"}
+                            setShowActions(null);}} aria-label="Button"
                           className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-[var(--color-neutral-100)] dark:hover:bg-gray-700"
                         >
                           <Edit2 className="w-3 h-3" />
@@ -235,7 +235,7 @@ export default function ThreadedCommentsSection({
                         <button
                           onClick={() => {
                             onDeleteComment?.(commentId);
-                            setShowActions(null);} aria-label="Button"}
+                            setShowActions(null);}} aria-label="Button"
                           className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -272,7 +272,7 @@ export default function ThreadedCommentsSection({
                       type="button"
                       onClick={() => {
                         setEditingCommentId(null);
-                        setEditingContent('');} aria-label="Button"}
+                        setEditingContent('');}} aria-label="Button"
                       className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-[var(--color-text-secondary)] dark:text-gray-200 rounded-lg text-sm"
                     >
                       Cancel
@@ -321,10 +321,9 @@ export default function ThreadedCommentsSection({
                     <input
                       type="text"
                       value={replyContent}
-                      onChange={(e) = aria-label="Input field"> {
+                      onChange={(e) => {
                         setReplyContent(e.target.value);
-                        handleTyping(e.target.value.length > 0);
-                      }}
+                        handleTyping(e.target.value.length > 0);}} aria-label="Input field"
                       placeholder={`Reply to @${comment.user.username}...`}
                       className="flex-1 px-4 py-2 glassmorphic rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
                       autoFocus
@@ -398,10 +397,9 @@ export default function ThreadedCommentsSection({
             <input
               type="text"
               value={newComment}
-              onChange={(e) = aria-label="Input field"> {
+              onChange={(e) => {
                 setNewComment(e.target.value);
-                handleTyping(e.target.value.length > 0);
-              }}
+                handleTyping(e.target.value.length > 0);}} aria-label="Input field"
               onBlur={() => handleTyping(false)}
               placeholder="Add a comment..."
               className="flex-1 px-4 py-2 glassmorphic rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50"

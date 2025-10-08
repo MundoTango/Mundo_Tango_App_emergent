@@ -130,7 +130,7 @@ export default function Messages() {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to send message',
         variant: 'destructive'
       });

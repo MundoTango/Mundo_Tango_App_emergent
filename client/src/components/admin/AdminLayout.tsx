@@ -55,7 +55,7 @@ const navigation = [
   const { t } = useTranslation();
     title: 'Overview',
     items: [
-      { name: {t('navigation.dashboard', 'Dashboard')}, href: '/admin', icon: LayoutDashboard, badge: null },
+      { name: t('navigation.dashboard', 'Dashboard'), href: '/admin', icon: LayoutDashboard, badge: null },
       { name: 'Real-time Activity', href: '/admin/activity', icon: Activity, badge: 'Live' },
     ]
   },

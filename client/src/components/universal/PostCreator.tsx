@@ -1085,7 +1085,8 @@ export default function PostCreator({
 
                           if (isInternalUrl) {
                             // Remove from internal URLs
-                            setInternalMediaUrls(prev => prev.filter(url => url !== preview));} aria-label="Button" else {
+                            setInternalMediaUrls(prev => prev.filter(url => url !== preview));
+                          } else {
                             // Remove from local files
                             setMediaFiles(prev => prev.filter((_, i) => i !== index));
                           }
@@ -1198,7 +1199,7 @@ export default function PostCreator({
                     <button
                       onClick={() => {
                         const fileInput = document.querySelector('input[type="file"][accept*="image"]') as HTMLInputElement;
-                        if (fileInput) fileInput.click();} aria-label="Button"}
+                        if (fileInput) fileInput.click();}} aria-label="Button"
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards',
                       }}
@@ -1302,9 +1303,8 @@ export default function PostCreator({
                 <Tooltip delayDuration={200}>
                   <TooltipTrigger asChild>
                     <button
-                      onClick={(e) = aria-label="Button"> {
-                        handleSubmit(e);
-                      }}
+                      onClick={(e) => {
+                        handleSubmit(e);}} aria-label="Button"
                       disabled={createPostMutation.isPending || isUploading || (!content.trim() && internalMediaUrls.length === 0 && mediaFiles.length === 0)}
                       style={{ 
                         animation: 'iconEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards',
@@ -1356,7 +1356,7 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('public');
-                    setShowVisibility(false);} aria-label="Button"}
+                    setShowVisibility(false);}} aria-label="Button"
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'public'
                       ? 'bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl'
@@ -1376,7 +1376,7 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('friends');
-                    setShowVisibility(false);} aria-label="Button"}
+                    setShowVisibility(false);}} aria-label="Button"
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'friends'
                       ? 'bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-xl'
@@ -1396,7 +1396,7 @@ export default function PostCreator({
                 <button
                   onClick={() => {
                     setVisibility('private');
-                    setShowVisibility(false);} aria-label="Button"}
+                    setShowVisibility(false);}} aria-label="Button"
                   className={`group relative p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
                     visibility === 'private'
                       ? 'bg-gradient-to-br from-gray-500 to-gray-700 text-white shadow-xl'
@@ -1577,7 +1577,7 @@ export default function PostCreator({
                         prev.includes(tag.value) 
                           ? prev.filter(t => t !== tag.value)
                           : [...prev, tag.value]
-                      );} aria-label="Button"}
+                      );}} aria-label="Button"
                     className={`group relative px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                       selectedTags.includes(tag.value)
                         ? 'bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-turquoise-600 hover:to-cyan-700'
@@ -1636,7 +1636,8 @@ export default function PostCreator({
             accept="image/*,video/*"
             onChange={handleMediaUpload}
             className="hidden"
-          / aria-label="Input field"> */}
+              aria-label="Input field"
+            /> */}
 
 
           {/* AI Enhancement Preview Modal */}

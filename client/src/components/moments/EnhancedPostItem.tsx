@@ -119,7 +119,7 @@ function EnhancedPostItem({
 
   // Fetch comments when section is opened
   const {
-  const { t } = useTranslation(); data: fetchedComments } = useQuery({
+  data: fetchedComments } = useQuery({
     queryKey: [`${apiBasePath}/${post.id}/comments`],
     queryFn: async () => {
       const response = await fetch(`${apiBasePath}/${post.id}/comments`, {
@@ -362,7 +362,7 @@ function EnhancedPostItem({
       } catch (error) {
         // Delete error occurred
         toast({
-          title: {t('states.error', 'Error')},
+          title: t('states.error', 'Error'),
           description: "Failed to delete post. Please try again.",
           variant: "destructive"
         });
@@ -880,7 +880,9 @@ function EnhancedPostItem({
                 <button
                   onClick={() => {
                     setShowShareOptions(false);
-                    setShowShareWithCommentModal(true);} aria-label="Button"}
+                    setShowShareWithCommentModal(true);
+                  }}
+                  aria-label="Share with comment button"
                   className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--color-surface-elevated)] transition-colors"
                 >
                   <div className="p-2 bg-green-100 rounded-full">
@@ -894,7 +896,7 @@ function EnhancedPostItem({
 
                 {/* Copy Link */}
                 <button
-                  onClick={async () = aria-label="Button"> {
+                  onClick={async () => {
                     try {
                       const shareUrl = `/posts/${post.id}`;
                       const fullUrl = `${window.location.origin}${shareUrl}`;
@@ -988,7 +990,7 @@ function EnhancedPostItem({
                 <button
                   onClick={() => {
                     setShowShareWithCommentModal(false);
-                    setShareComment('');} aria-label="Button"}
+                    setShareComment('');}} aria-label="Button"
                   className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-100 transition-colors"
                 >
                   Cancel
@@ -997,7 +999,7 @@ function EnhancedPostItem({
                   onClick={() => {
                     handleShareToWall(shareComment);
                     setShowShareWithCommentModal(false);
-                    setShareComment('');} aria-label="Button"}
+                    setShareComment('');}} aria-label="Button"
                   className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-xl transition-colors"
                 >
                   Share

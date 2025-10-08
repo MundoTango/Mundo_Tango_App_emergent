@@ -184,7 +184,7 @@ const EnhancedPostFeed = React.memo(({
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: "Failed to like post",
         variant: "destructive"
       });
@@ -311,7 +311,7 @@ const EnhancedPostFeed = React.memo(({
               <input
                 type="text"
                 value={tagInput}
-                onChange={(e) = aria-label="Input field"> setTagInput(e.target.value)}
+                onChange={(e) => setTagInput(e.target.value)} aria-label="Input field"
                 onKeyPress={(e) => e.key === 'Enter' && addTag()}
                 placeholder="Add tag to filter memories..."
                 className="w-full pl-12 pr-4 py-3 bg-[var(--color-surface)] dark:bg-gray-900/80 border border-indigo-200/50 rounded-2xl text-[var(--color-text)] dark:text-white placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition-all" data-testid="input-text" />

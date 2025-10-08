@@ -433,7 +433,7 @@ const AdminCenter = memo(() => {
       name: '💼 Business',
       tabs: [
         { id: 'subscriptions', label: 'Subscriptions', icon: <CreditCard className="w-5 h-5" />, isNew: true },
-        { id: 'settings', label: {t('navigation.settings', 'Settings')}, icon: <Settings className="w-5 h-5" /> },
+        { id: 'settings', label: t('navigation.settings', 'Settings'), icon: <Settings className="w-5 h-5" /> },
       ]
     }
   ];
@@ -971,7 +971,7 @@ const AdminCenter = memo(() => {
               type="text"
               placeholder="Search users..."
               value={userSearchTerm}
-              onChange={(e) = aria-label="Input field"> setUserSearchTerm(e.target.value)}
+              onChange={(e) => setUserSearchTerm(e.target.value)} aria-label="Input field"
               onKeyDown={(e) => e.key === 'Enter' && fetchUsers()}
               className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
@@ -1098,7 +1098,7 @@ const AdminCenter = memo(() => {
                         <button
                           onClick={() => {
                             setSelectedUser(user);
-                            setShowUserModal(true);} aria-label="Button"}
+                            setShowUserModal(true);}} aria-label="Button"
                           className="text-blue-600 hover:text-blue-800"
                         >
                           <Eye className="w-4 h-4" />
@@ -1202,7 +1202,7 @@ const AdminCenter = memo(() => {
               type="text"
               placeholder="Search content..."
               value={contentSearch}
-              onChange={(e) = aria-label="Input field"> setContentSearch(e.target.value)}
+              onChange={(e) => setContentSearch(e.target.value)} aria-label="Input field"
               onKeyDown={(e) => e.key === 'Enter' && fetchFlaggedContent()}
               className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
             />
@@ -1335,7 +1335,7 @@ const AdminCenter = memo(() => {
                     <button
                       onClick={() => {
                         setSelectedContent(content);
-                        setShowContentModal(true);} aria-label="Button"}
+                        setShowContentModal(true);}} aria-label="Button"
                       className="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition-all"
                       title="View Details"
                     >
@@ -1444,7 +1444,7 @@ const AdminCenter = memo(() => {
                 <div className="flex flex-col gap-3">
                   <button
                     onClick={() => {
-                      handleContentAction(selectedContent.id, 'approve', selectedContent.type);} aria-label="Button"}
+                      handleContentAction(selectedContent.id, 'approve', selectedContent.type);}} aria-label="Button"
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1462,7 +1462,7 @@ const AdminCenter = memo(() => {
                   </button>
                   <button
                     onClick={() => {
-                      handleContentAction(selectedContent.id, 'remove', selectedContent.type);} aria-label="Button"}
+                      handleContentAction(selectedContent.id, 'remove', selectedContent.type);}} aria-label="Button"
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1480,7 +1480,7 @@ const AdminCenter = memo(() => {
                   </button>
                   <button
                     onClick={() => {
-                      handleContentAction(selectedContent.id, 'warn', selectedContent.type);} aria-label="Button"}
+                      handleContentAction(selectedContent.id, 'warn', selectedContent.type);}} aria-label="Button"
                     disabled={processingAction !== null}
                     className={`w-full px-4 py-3 bg-gradient-to-r from-yellow-600 to-amber-600 text-white rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium flex items-center justify-center gap-2 ${processingAction !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
@@ -1906,7 +1906,7 @@ const AdminCenter = memo(() => {
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
            aria-label="Button">
             <Eye className="w-4 h-4 inline mr-2" />
-            {reportLoading ? {t('states.loading', 'Loading...')} : 'Refresh'}
+            {reportLoading ? t('states.loading', 'Loading...') : 'Refresh'}
           </button>
         </div>
       </div>
@@ -2583,7 +2583,7 @@ const AdminCenter = memo(() => {
                 <input 
                   type="text" 
                   value={settingsData?.settings?.site_name || ''}
-                  onChange={(e) = aria-label="Input field"> updateSetting('site_name', e.target.value)}
+                  onChange={(e) => updateSetting('site_name', e.target.value)} aria-label="Input field"
                   className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise-500"
                 />
               </div>
@@ -2597,7 +2597,7 @@ const AdminCenter = memo(() => {
                     type="checkbox" 
                     className="sr-only peer" 
                     checked={settingsData?.settings?.maintenance_mode || false}
-                    onChange={(e) = aria-label="Input field"> updateSetting('maintenance_mode', e.target.checked)}
+                    onChange={(e) => updateSetting('maintenance_mode', e.target.checked)} aria-label="Input field"
                   />
                   <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-surface)] dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-purple-500"></div>
                 </label>
@@ -2619,7 +2619,7 @@ const AdminCenter = memo(() => {
                     type="checkbox" 
                     className="sr-only peer"
                     checked={settingsData?.settings?.registration_enabled || false}
-                    onChange={(e) = aria-label="Input field"> updateSetting('registration_enabled', e.target.checked)}
+                    onChange={(e) => updateSetting('registration_enabled', e.target.checked)} aria-label="Input field"
                   />
                   <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-surface)] dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-500"></div>
                 </label>
@@ -2642,7 +2642,7 @@ const AdminCenter = memo(() => {
                       type="checkbox" 
                       className="sr-only peer"
                       checked={flag.enabled}
-                      onChange={() = aria-label="Input field"> toggleFeatureFlag(flag.name, flag.enabled)}
+                      onChange={() => toggleFeatureFlag(flag.name, flag.enabled)} aria-label="Input field"
                     />
                     <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-surface)] dark:bg-gray-900 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-turquoise-500 peer-checked:to-[var(--color-ocean-500)]"></div>
                   </label>
@@ -2742,7 +2742,7 @@ const AdminCenter = memo(() => {
                 <input
                   type="number"
                   value={selectedUserId || ''}
-                  onChange={(e) = aria-label="Input field"> setSelectedUserId(e.target.value ? parseInt(e.target.value) : null)}
+                  onChange={(e) => setSelectedUserId(e.target.value ? parseInt(e.target.value) : null)} aria-label="Input field"
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter user ID"
                 />
@@ -3023,7 +3023,7 @@ const AdminCenter = memo(() => {
                           key={tab.id}
                           onClick={() => {
                             console.log('Tab clicked:', tab.id);
-                            setSelectedTab(tab.id);} aria-label="Button"}
+                            setSelectedTab(tab.id);}} aria-label="Button"
                           className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all transform hover:scale-105 ${
                             selectedTab === tab.id
                               ? 'bg-gradient-to-br from-turquoise-500 to-cyan-500 text-white shadow-lg'

@@ -33,7 +33,7 @@ interface TravelDetailForm {
 
 const eventTypes = [
 {
-  const { t } = useTranslation(); value: 'festival', label: 'Festival' },
+  value: 'festival', label: 'Festival' },
 { value: 'marathon', label: 'Marathon' },
 { value: 'workshop', label: 'Workshop' },
 { value: 'conference', label: 'Conference' },
@@ -72,7 +72,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user/travel-details'] });
       toast({
-        title: {t('states.success', 'Success')},
+        title: t('states.success', 'Success'),
         description: "Travel detail added successfully"
       });
       onClose();
@@ -80,7 +80,7 @@ export const AddTravelDetailModal: React.FC<AddTravelDetailModalProps> = ({ isOp
     },
     onError: (error: any) => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: error.message || "Failed to add travel detail",
         variant: "destructive"
       });

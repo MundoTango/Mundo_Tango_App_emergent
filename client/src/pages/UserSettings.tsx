@@ -246,7 +246,7 @@ const UserSettings: React.FC = () => {
     },
     onError: () => {
       toast({
-        title: {t('states.error', 'Error')},
+        title: t('states.error', 'Error'),
         description: 'Failed to save settings. Please try again.',
         variant: 'destructive'
       });
@@ -427,7 +427,8 @@ const UserSettings: React.FC = () => {
               accept=".json"
               onChange={handleImportSettings}
               className="hidden"
-            / aria-label="Input field">
+              aria-label="Input field"
+            />
           </label>
           <Button
             variant="outline"

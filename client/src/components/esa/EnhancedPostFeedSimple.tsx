@@ -413,7 +413,7 @@ export default function EnhancedPostFeedSimple({
                           key={reaction.type}
                           onClick={() => {
                             onReaction?.(post.id, reaction.type);
-                            setHoveredReaction(null);} aria-label="Button"}
+                            setHoveredReaction(null);}} aria-label="Button"
                           className={cn(
                             "p-2 rounded-full transition-all hover:scale-125",
                             reaction.bgColor

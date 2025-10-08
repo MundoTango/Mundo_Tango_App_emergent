@@ -200,7 +200,7 @@ function ActionButton({ action, onClick, disabled, testId }: ActionButtonProps) 
 export const commonTableActions = {
   delete: (onDelete: (items: any[]) => void): MTTableAction => ({
     id: 'delete',
-    label: {t('actions.delete', 'Delete')},
+    label: t('actions.delete', 'Delete'),
     icon: <Trash className="w-4 h-4" />,
     onClick: onDelete,
     variant: 'danger',
@@ -284,7 +284,7 @@ export function MTQuickActions({ actions, className, testId = 'mt-quick-actions'
                 <button
                   onClick={() => {
                     action.onClick();
-                    setIsOpen(false);} aria-label="Button"}
+                    setIsOpen(false);}} aria-label="Button"
                   className={cn(
                     'flex items-center gap-2 w-full px-4 py-2 text-left text-sm transition-colors',
                     action.variant === 'danger'

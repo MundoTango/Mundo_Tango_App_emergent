@@ -130,10 +130,9 @@ export default function Favorites() {
           <input
             type="checkbox"
             checked={isSelected}
-            onChange={(e) = aria-label="Input field"> {
+            onChange={(e) => {
               e.stopPropagation();
-              toggleItemSelection(item.id.toString());
-            }}
+              toggleItemSelection(item.id.toString());}} aria-label="Input field"
             className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded"
           />
         </div>
