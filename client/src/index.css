@@ -606,7 +606,7 @@
   position: fixed;
   width: 4px;
   height: 4px;
-  background: linear-gradient(45deg, #06b6d4, #3b82f6);
+  background: linear-gradient(45deg, var(--ocean-cyan-400), var(--ocean-cyan-500));
   border-radius: 50%;
   pointer-events: none;
   animation: particle-fade 1s ease-out forwards;
@@ -852,7 +852,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #06b6d4;
+  background: var(--ocean-cyan-400);
   margin: 0 2px;
   animation: typing-indicator 1.4s infinite ease-in-out;
 }
@@ -883,7 +883,7 @@
 .glassmorphic-input:focus {
   background: rgba(255, 255, 255, 0.9);
   border-color: var(--color-turquoise-400);
-  box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
+  box-shadow: 0 0 0 3px hsl(177 72% 56% / 0.1);
 }
 
 .gradient-text {
@@ -1067,7 +1067,7 @@
 }
 
 .quill-editor:focus-within .ql-container {
-  box-shadow: 0 0 0 2px rgba(56, 178, 172, 0.2) !important;
+  box-shadow: 0 0 0 2px hsl(177 72% 56% / 0.2) !important;
 }
 
 /* TrangoTech CSS Variables - Authentic Colors */
@@ -1666,7 +1666,7 @@ body {
 .glassmorphic-input:focus {
   background: rgba(255, 255, 255, 0.9);
   border-color: var(--color-turquoise-400);
-  box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
+  box-shadow: 0 0 0 3px hsl(177 72% 56% / 0.1);
 }
 
 /* Responsive utilities */
@@ -1714,20 +1714,20 @@ body {
 
 /* Ocean gradients for consistent styling */
 .ocean-gradient {
-  background: linear-gradient(135deg, #38b2ac 0%, #06b6d4 50%, #3182ce 100%);
+  background: linear-gradient(135deg, var(--ocean-seafoam-400) 0%, var(--ocean-cyan-400) 50%, var(--ocean-cyan-500) 100%);
 }
 
 .ocean-gradient-soft {
-  background: linear-gradient(135deg, #38b2ac20 0%, #06b6d420 50%, #3182ce20 100%);
+  background: linear-gradient(135deg, hsl(177 72% 56% / 0.13) 0%, hsl(190 94% 43% / 0.13) 50%, hsl(210 100% 56% / 0.13) 100%);
 }
 
 .ocean-gradient-hover {
-  background: linear-gradient(135deg, #38b2ac40 0%, #06b6d440 50%, #3182ce40 100%);
+  background: linear-gradient(135deg, hsl(177 72% 56% / 0.25) 0%, hsl(190 94% 43% / 0.25) 50%, hsl(210 100% 56% / 0.25) 100%);
 }
 
 /* Ocean-themed borders */
 .border-gradient-ocean {
-  border-image: linear-gradient(135deg, #38b2ac, #06b6d4, #3182ce) 1;
+  border-image: linear-gradient(135deg, var(--ocean-seafoam-400), var(--ocean-cyan-400), var(--ocean-cyan-500)) 1;
 }
 
 .border-gradient-to-r {
@@ -1739,7 +1739,7 @@ body {
 
 /* Ocean text gradients */
 .text-gradient-ocean {
-  background: linear-gradient(135deg, #38b2ac 0%, #06b6d4 50%, #3182ce 100%);
+  background: linear-gradient(135deg, var(--ocean-seafoam-400) 0%, var(--ocean-cyan-400) 50%, var(--ocean-cyan-500) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1752,12 +1752,12 @@ body {
 
 .beautiful-hover:hover {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 20px 40px -10px rgba(56, 178, 172, 0.3);
+  box-shadow: 0 20px 40px -10px hsl(177 72% 56% / 0.3);
 }
 
 /* Ocean wave SVG pattern for backgrounds */
 .ocean-wave-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50c20-10 40-10 60 0s40 10 60 0s40-10 60 0s40 10 60 0' stroke='%2338b2ac' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50c20-10 40-10 60 0s40 10 60 0s40-10 60 0s40 10 60 0' stroke='%2340E0D0' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-position: bottom;
 }

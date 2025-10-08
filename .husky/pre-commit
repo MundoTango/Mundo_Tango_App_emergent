@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running token validation..."
+node design-system/scripts/validate-tokens.js
+
+if [ $? -ne 0 ]; then
+  echo "❌ Token validation failed! Please fix hardcoded colors before committing."
+  exit 1
+fi
+
+echo "✅ Token validation passed!"
