@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Send } from 'lucide-react';
 import { SimpleEmojiPicker } from './SimpleEmojiPicker';
+import { useTranslation } from 'react-i18next';
 
 interface SimpleCommentEditorProps {
   postId: number;
@@ -12,9 +13,11 @@ interface SimpleCommentEditorProps {
 export function SimpleCommentEditor({
   postId,
   onSubmit,
-  placeholder = 'Write a comment...',
+  placeholder,
   className = ''
 }: SimpleCommentEditorProps) {
+  const { t } = useTranslation();
+  const defaultPlaceholder = placeholder || t('memories.post.commentDefault');
   const [content, setContent] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -49,7 +52,7 @@ export function SimpleCommentEditor({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={defaultPlaceholder}
           className="w-full min-h-[60px] p-2 outline-none resize-none text-gray-900 placeholder-gray-400"
           rows={2}
         />
@@ -68,7 +71,7 @@ export function SimpleCommentEditor({
             `}
           >
             <Send className="h-4 w-4" />
-            Comment
+            {t('memories.post.commentButton')}
           </button>
         </div>
       </div>
