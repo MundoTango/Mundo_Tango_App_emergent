@@ -1,14 +1,15 @@
-# Language Selector - Cancellation Analysis
+# Language Selector - Testing Phase
 
 **Feature**: Multi-language Support (68 languages via i18next)  
-**Location**: `client/src/components/navigation/UnifiedTopBar.tsx` (lines 463-468)  
-**Status**: ⚠️ Disabled  
+**Location**: `client/src/components/navigation/UnifiedTopBar.tsx`  
+**Status**: ✅ Available for Testing  
 **Original Implementation**: ESA Layer 53 Internationalization  
-**Disabled**: After discovering UI re-rendering issues
+**Disabled**: After discovering UI re-rendering issues  
+**Re-enabled**: October 8, 2025 - Coming Soon overlay removed for user testing
 
 ## Executive Summary
 
-The language switching system has a complete backend infrastructure with OpenAI-powered translation generation for 68 languages, but the frontend UI integration is broken. The `useTranslation()` hook fails to trigger component re-renders when the language changes, causing raw translation keys (e.g., `menu.home`) to be displayed instead of translated text.
+The language switching system is now accessible for testing purposes. It has a complete backend infrastructure with OpenAI-powered translation generation for 68 languages. Users should be aware that the `useTranslation()` hook may fail to trigger component re-renders when the language changes, which could cause raw translation keys (e.g., `menu.home`) to be displayed instead of translated text in some components. This is a testing phase to gather user feedback.
 
 ## What Worked vs. What Failed
 

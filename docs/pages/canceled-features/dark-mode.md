@@ -1,14 +1,15 @@
-# Dark Mode Toggle - Cancellation Analysis
+# Dark Mode Toggle - Testing Phase
 
 **Feature**: Dark Mode Theme Switching  
-**Location**: `client/src/components/navigation/UnifiedTopBar.tsx` (lines 446-451)  
-**Status**: ⚠️ Disabled  
+**Location**: `client/src/components/navigation/UnifiedTopBar.tsx`  
+**Status**: ✅ Available for Testing  
 **Original Implementation**: Early platform development  
-**Disabled**: After discovering propagation issues
+**Disabled**: After discovering propagation issues  
+**Re-enabled**: October 8, 2025 - Coming Soon overlay removed for user testing
 
 ## Executive Summary
 
-The dark mode toggle button is visible in the top navigation bar but covered with a "Coming Soon" overlay. While the basic theme switching logic exists, the implementation suffers from theme context propagation failures, CSS variable conflicts, and inconsistent dark mode styling across components.
+The dark mode toggle is now accessible in the top navigation bar for testing purposes. While the basic theme switching logic exists, users should be aware that the implementation may have theme context propagation issues, CSS variable conflicts, and inconsistent dark mode styling across some components. This is a testing phase to gather user feedback.
 
 ## What Worked vs. What Failed
 
